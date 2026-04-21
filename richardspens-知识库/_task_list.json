@@ -1,0 +1,2888 @@
+{
+  "total_tasks": 309,
+  "skipped_count": 23,
+  "cross_refs": [
+    {
+      "url": "https://www.richardspens.com/ref/design/ink_makers.htm",
+      "title": "Magical Pens That Made Their Own Ink?",
+      "duplicate_folder": "04-上墨系统"
+    }
+  ],
+  "skipped": [
+    {
+      "url": "https://www.richardspens.com/ref/profiles/patrician.htm",
+      "reason": "Section Index 目录页"
+    },
+    {
+      "url": "https://www.richardspens.com/ref/profiles/61.htm",
+      "reason": "Section Index 目录页"
+    },
+    {
+      "url": "https://www.richardspens.com/ref/misc/vintage.htm",
+      "reason": "Section Index 目录页"
+    },
+    {
+      "url": "https://www.richardspens.com/ref/profiles/souvenir_pens.htm",
+      "reason": "Section Index 目录页"
+    },
+    {
+      "url": "https://www.richardspens.com/ref/history/rheims_pens.htm",
+      "reason": "Section Index 目录页"
+    },
+    {
+      "url": "https://www.richardspens.com/ref/00_refp.htm#tools",
+      "reason": "Section Index 目录页"
+    },
+    {
+      "url": "https://www.richardspens.com/ref/00_refp.htm#anatomy",
+      "reason": "Section Index 目录页"
+    },
+    {
+      "url": "https://www.richardspens.com/ref/00_refp.htm#design_features",
+      "reason": "Section Index 目录页"
+    },
+    {
+      "url": "https://www.richardspens.com/ref/00_refp.htm#nibs",
+      "reason": "Section Index 目录页"
+    },
+    {
+      "url": "https://www.richardspens.com/ref/00_refp.htm#fillers",
+      "reason": "Section Index 目录页"
+    },
+    {
+      "url": "https://www.richardspens.com/ref/00_refp.htm#det_gde",
+      "reason": "Section Index 目录页"
+    },
+    {
+      "url": "https://www.richardspens.com/ref/00_refp.htm#crypt",
+      "reason": "Section Index 目录页"
+    },
+    {
+      "url": "https://www.richardspens.com/ref/00_refp.htm#profiles",
+      "reason": "Section Index 目录页"
+    },
+    {
+      "url": "https://www.richardspens.com/ref/00_refp.htm#history",
+      "reason": "Section Index 目录页"
+    },
+    {
+      "url": "https://www.richardspens.com/ref/00_refp.htm#care",
+      "reason": "Section Index 目录页"
+    },
+    {
+      "url": "https://www.richardspens.com/ref/00_refp.htm#shows",
+      "reason": "Section Index 目录页"
+    },
+    {
+      "url": "https://www.richardspens.com/ref/00_refp.htm#pendoctor",
+      "reason": "Section Index 目录页"
+    },
+    {
+      "url": "https://www.richardspens.com/ref/00_refp.htm#adventures",
+      "reason": "Section Index 目录页"
+    },
+    {
+      "url": "https://www.richardspens.com/ref/00_refp.htm#misc",
+      "reason": "Section Index 目录页"
+    },
+    {
+      "url": "https://www.richardspens.com/ref/00_refp.htm#repair",
+      "reason": "Section Index 目录页"
+    },
+    {
+      "url": "https://www.richardspens.com/ref/improve.htm",
+      "reason": "Section Index 目录页"
+    },
+    {
+      "url": "https://www.ftc.gov/policy/reports/ftc-annual-reports",
+      "reason": "外部链接或空"
+    },
+    {
+      "url": "https://www.richardspens.com/ref/design/ink_makers.htm",
+      "reason": "重复（已在其他分类），交叉引用到 04-上墨系统"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Glossopedia of Pen Terms",
+      "full_url": "https://www.richardspens.com/ref/gloss/00_gls.htm",
+      "category_en": "Section Index",
+      "category_zh": "术语表",
+      "folder": "16-术语表",
+      "filename": "00_gls.md",
+      "status": "pending"
+    },
+    {
+      "title": "Glossary of Paper Terms for Fountain Pen Users",
+      "full_url": "https://www.richardspens.com/ref/papergloss/00_gls.htm",
+      "category_en": "Section Index",
+      "category_zh": "术语表",
+      "folder": "16-术语表",
+      "filename": "00_gls.md",
+      "status": "pending"
+    },
+    {
+      "title": "American Stationer & Office Outfitter: a Chronological Index of Digitized Volumes",
+      "full_url": "https://www.richardspens.com/ref/tools/amstat.htm",
+      "category_en": "Research Tools",
+      "category_zh": "研究工具",
+      "folder": "15-研究工具",
+      "filename": "amstat.md",
+      "status": "pending"
+    },
+    {
+      "title": "Bookseller and Stationer: a Chronological Index of Digitized Volumes",
+      "full_url": "https://www.richardspens.com/ref/tools/bseller.htm",
+      "category_en": "Research Tools",
+      "category_zh": "研究工具",
+      "folder": "15-研究工具",
+      "filename": "bseller.md",
+      "status": "pending"
+    },
+    {
+      "title": "Geyer’s Stationer: a Chronological Index of Digitized Volumes",
+      "full_url": "https://www.richardspens.com/ref/tools/geyer.htm",
+      "category_en": "Research Tools",
+      "category_zh": "研究工具",
+      "folder": "15-研究工具",
+      "filename": "geyer.md",
+      "status": "pending"
+    },
+    {
+      "title": "Jewelers’ Circular and Horological Review: a Chronological Index of Digitized Volumes",
+      "full_url": "https://www.richardspens.com/ref/tools/jewelers.htm",
+      "category_en": "Research Tools",
+      "category_zh": "研究工具",
+      "folder": "15-研究工具",
+      "filename": "jewelers.md",
+      "status": "pending"
+    },
+    {
+      "title": "New England/Walden’s Stationer: a Chronological Index of Digitized Volumes",
+      "full_url": "https://www.richardspens.com/ref/tools/walden.htm",
+      "category_en": "Research Tools",
+      "category_zh": "研究工具",
+      "folder": "15-研究工具",
+      "filename": "walden.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Manhattan Pen Makers Project",
+      "full_url": "https://www.richardspens.com/ref/tools/manhattan.htm",
+      "category_en": "Research Tools",
+      "category_zh": "研究工具",
+      "folder": "15-研究工具",
+      "filename": "manhattan.md",
+      "status": "pending"
+    },
+    {
+      "title": "Japanese Date Coding Systems",
+      "full_url": "https://www.richardspens.com/ref/tools/jpn_dates.htm",
+      "category_en": "Research Tools",
+      "category_zh": "研究工具",
+      "folder": "15-研究工具",
+      "filename": "jpn_dates.md",
+      "status": "pending"
+    },
+    {
+      "title": "Japan Industrial Standard (JIS) Nib Manufacturer Numbers",
+      "full_url": "https://www.richardspens.com/ref/tools/jis_numbers.htm",
+      "category_en": "Research Tools",
+      "category_zh": "研究工具",
+      "folder": "15-研究工具",
+      "filename": "jis_numbers.md",
+      "status": "pending"
+    },
+    {
+      "title": "Japanese–Western Calendar Conversion",
+      "full_url": "https://www.richardspens.com/ref/tools/jpn_era_cal.htm",
+      "category_en": "Research Tools",
+      "category_zh": "研究工具",
+      "folder": "15-研究工具",
+      "filename": "jpn_era_cal.md",
+      "status": "pending"
+    },
+    {
+      "title": "Parker’s Date Coding Systems",
+      "full_url": "https://www.richardspens.com/ref/tools/pkr_dates.htm",
+      "category_en": "Research Tools",
+      "category_zh": "研究工具",
+      "folder": "15-研究工具",
+      "filename": "pkr_dates.md",
+      "status": "pending"
+    },
+    {
+      "title": "English/French/Japanese Pen Lexicon",
+      "full_url": "https://www.richardspens.com/ref/tools/lex.htm",
+      "category_en": "Research Tools",
+      "category_zh": "研究工具",
+      "folder": "15-研究工具",
+      "filename": "lex.md",
+      "status": "pending"
+    },
+    {
+      "title": "Waterman’s Standard Numbering System",
+      "full_url": "https://www.richardspens.com/ref/tools/wat_nos.htm",
+      "category_en": "Research Tools",
+      "category_zh": "研究工具",
+      "folder": "15-研究工具",
+      "filename": "wat_nos.md",
+      "status": "pending"
+    },
+    {
+      "title": "I: A Typical Lever Filler",
+      "full_url": "https://www.richardspens.com/ref/anatomy/lever.htm",
+      "category_en": "Anatomy of a Fountain Pen",
+      "category_zh": "钢笔解剖",
+      "folder": "01-钢笔解剖",
+      "filename": "lever.md",
+      "status": "pending"
+    },
+    {
+      "title": "II: The Parker Vacumatic",
+      "full_url": "https://www.richardspens.com/ref/anatomy/vac.htm",
+      "category_en": "Anatomy of a Fountain Pen",
+      "category_zh": "钢笔解剖",
+      "folder": "01-钢笔解剖",
+      "filename": "vac.md",
+      "status": "pending"
+    },
+    {
+      "title": "III: Sheaffer’s Snorkel",
+      "full_url": "https://www.richardspens.com/ref/anatomy/snorkel.htm",
+      "category_en": "Anatomy of a Fountain Pen",
+      "category_zh": "钢笔解剖",
+      "folder": "01-钢笔解剖",
+      "filename": "snorkel.md",
+      "status": "pending"
+    },
+    {
+      "title": "IV: The Parker “51” (Aero-metric Version)",
+      "full_url": "https://www.richardspens.com/ref/anatomy/51.htm",
+      "category_en": "Anatomy of a Fountain Pen",
+      "category_zh": "钢笔解剖",
+      "folder": "01-钢笔解剖",
+      "filename": "51.md",
+      "status": "pending"
+    },
+    {
+      "title": "V: Sheaffer’s Vacuum-Fil",
+      "full_url": "https://www.richardspens.com/ref/anatomy/vacfil.htm",
+      "category_en": "Anatomy of a Fountain Pen",
+      "category_zh": "钢笔解剖",
+      "folder": "01-钢笔解剖",
+      "filename": "vacfil.md",
+      "status": "pending"
+    },
+    {
+      "title": "VI: The Conklin Nozac",
+      "full_url": "https://www.richardspens.com/ref/anatomy/nozac.htm",
+      "category_en": "Anatomy of a Fountain Pen",
+      "category_zh": "钢笔解剖",
+      "folder": "01-钢笔解剖",
+      "filename": "nozac.md",
+      "status": "pending"
+    },
+    {
+      "title": "VII: Retractable Safety Pens",
+      "full_url": "https://www.richardspens.com/ref/anatomy/safeties.htm",
+      "category_en": "Anatomy of a Fountain Pen",
+      "category_zh": "钢笔解剖",
+      "folder": "01-钢笔解剖",
+      "filename": "safeties.md",
+      "status": "pending"
+    },
+    {
+      "title": "Chased Hard Rubber",
+      "full_url": "https://www.richardspens.com/ref/design/chasing.htm",
+      "category_en": "Design Features of Certain Pens",
+      "category_zh": "设计特征",
+      "folder": "02-设计特征",
+      "filename": "chasing.md",
+      "status": "pending"
+    },
+    {
+      "title": "Colored Hard Rubber",
+      "full_url": "https://www.richardspens.com/ref/design/colored_hr.htm",
+      "category_en": "Design Features of Certain Pens",
+      "category_zh": "设计特征",
+      "folder": "02-设计特征",
+      "filename": "colored_hr.md",
+      "status": "pending"
+    },
+    {
+      "title": "Combos",
+      "full_url": "https://www.richardspens.com/ref/design/combos.htm",
+      "category_en": "Design Features of Certain Pens",
+      "category_zh": "设计特征",
+      "folder": "02-设计特征",
+      "filename": "combos.md",
+      "status": "pending"
+    },
+    {
+      "title": "Demonstrator Pens",
+      "full_url": "https://www.richardspens.com/ref/design/demos.htm",
+      "category_en": "Design Features of Certain Pens",
+      "category_zh": "设计特征",
+      "folder": "02-设计特征",
+      "filename": "demos.md",
+      "status": "pending"
+    },
+    {
+      "title": "Double Vision",
+      "full_url": "https://www.richardspens.com/ref/design/double_vision.htm",
+      "category_en": "Design Features of Certain Pens",
+      "category_zh": "设计特征",
+      "folder": "02-设计特征",
+      "filename": "double_vision.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Flighter",
+      "full_url": "https://www.richardspens.com/ref/design/flighters.htm",
+      "category_en": "Design Features of Certain Pens",
+      "category_zh": "设计特征",
+      "folder": "02-设计特征",
+      "filename": "flighters.md",
+      "status": "pending"
+    },
+    {
+      "title": "Flight-Safe Pens",
+      "full_url": "https://www.richardspens.com/ref/design/flight_safe.htm",
+      "category_en": "Design Features of Certain Pens",
+      "category_zh": "设计特征",
+      "folder": "02-设计特征",
+      "filename": "flight_safe.md",
+      "status": "pending"
+    },
+    {
+      "title": "Holy Water Sprinklers — Fountain Pen Style",
+      "full_url": "https://www.richardspens.com/ref/design/aspergillum.htm",
+      "category_en": "Design Features of Certain Pens",
+      "category_zh": "设计特征",
+      "folder": "02-设计特征",
+      "filename": "aspergillum.md",
+      "status": "pending"
+    },
+    {
+      "title": "Hooded Nibs",
+      "full_url": "https://www.richardspens.com/ref/design/hooded_nibs.htm",
+      "category_en": "Design Features of Certain Pens",
+      "category_zh": "设计特征",
+      "folder": "02-设计特征",
+      "filename": "hooded_nibs.md",
+      "status": "pending"
+    },
+    {
+      "title": "Ink Shut-Off Systems",
+      "full_url": "https://www.richardspens.com/ref/design/shutoff.htm",
+      "category_en": "Design Features of Certain Pens",
+      "category_zh": "设计特征",
+      "folder": "02-设计特征",
+      "filename": "shutoff.md",
+      "status": "pending"
+    },
+    {
+      "title": "Integral Nibs",
+      "full_url": "https://www.richardspens.com/ref/design/integral_nibs.htm",
+      "category_en": "Design Features of Certain Pens",
+      "category_zh": "设计特征",
+      "folder": "02-设计特征",
+      "filename": "integral_nibs.md",
+      "status": "pending"
+    },
+    {
+      "title": "Long/Short Pens",
+      "full_url": "https://www.richardspens.com/ref/design/long_short.htm",
+      "category_en": "Design Features of Certain Pens",
+      "category_zh": "设计特征",
+      "folder": "02-设计特征",
+      "filename": "long_short.md",
+      "status": "pending"
+    },
+    {
+      "title": "Magical Pens That Made Their Own Ink?",
+      "full_url": "https://www.richardspens.com/ref/design/ink_makers.htm",
+      "category_en": "Design Features of Certain Pens",
+      "category_zh": "设计特征",
+      "folder": "02-设计特征",
+      "filename": "ink_makers.md",
+      "status": "pending"
+    },
+    {
+      "title": "Military Clips",
+      "full_url": "https://www.richardspens.com/ref/design/milclips.htm",
+      "category_en": "Design Features of Certain Pens",
+      "category_zh": "设计特征",
+      "folder": "02-设计特征",
+      "filename": "milclips.md",
+      "status": "pending"
+    },
+    {
+      "title": "One Size Fits All?",
+      "full_url": "https://www.richardspens.com/ref/design/one_size.htm",
+      "category_en": "Design Features of Certain Pens",
+      "category_zh": "设计特征",
+      "folder": "02-设计特征",
+      "filename": "one_size.md",
+      "status": "pending"
+    },
+    {
+      "title": "Plastic and Resin: Two Names, One Thing",
+      "full_url": "https://www.richardspens.com/ref/design/plastics.htm",
+      "category_en": "Design Features of Certain Pens",
+      "category_zh": "设计特征",
+      "folder": "02-设计特征",
+      "filename": "plastics.md",
+      "status": "pending"
+    },
+    {
+      "title": "Safety Pens",
+      "full_url": "https://www.richardspens.com/ref/design/safeties.htm",
+      "category_en": "Design Features of Certain Pens",
+      "category_zh": "设计特征",
+      "folder": "02-设计特征",
+      "filename": "safeties.md",
+      "status": "pending"
+    },
+    {
+      "title": "Stylographic Pens",
+      "full_url": "https://www.richardspens.com/ref/design/stylos.htm",
+      "category_en": "Design Features of Certain Pens",
+      "category_zh": "设计特征",
+      "folder": "02-设计特征",
+      "filename": "stylos.md",
+      "status": "pending"
+    },
+    {
+      "title": "Tribute Pens and Reboots",
+      "full_url": "https://www.richardspens.com/ref/design/tributes.htm",
+      "category_en": "Design Features of Certain Pens",
+      "category_zh": "设计特征",
+      "folder": "02-设计特征",
+      "filename": "tributes.md",
+      "status": "pending"
+    },
+    {
+      "title": "Visible Ink Supplies",
+      "full_url": "https://www.richardspens.com/ref/design/visible_ink.htm",
+      "category_en": "Design Features of Certain Pens",
+      "category_zh": "设计特征",
+      "folder": "02-设计特征",
+      "filename": "visible_ink.md",
+      "status": "pending"
+    },
+    {
+      "title": "What Were They Thinking?",
+      "full_url": "https://www.richardspens.com/ref/design/what_thinking.htm",
+      "category_en": "Design Features of Certain Pens",
+      "category_zh": "设计特征",
+      "folder": "02-设计特征",
+      "filename": "what_thinking.md",
+      "status": "pending"
+    },
+    {
+      "title": "Nibs I: The Basics",
+      "full_url": "https://www.richardspens.com/ref/nibs/basics.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "basics.md",
+      "status": "pending"
+    },
+    {
+      "title": "Nibs II: Beyond the Basics with Specialty Nibs",
+      "full_url": "https://www.richardspens.com/ref/nibs/beyond.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "beyond.md",
+      "status": "pending"
+    },
+    {
+      "title": "Nibs III: Flex vs. Italic",
+      "full_url": "https://www.richardspens.com/ref/nibs/flex_italic.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "flex_italic.md",
+      "status": "pending"
+    },
+    {
+      "title": "Feeds: Revolution, Evolution, and Devolution",
+      "full_url": "https://www.richardspens.com/ref/feeds/evolution.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "evolution.md",
+      "status": "pending"
+    },
+    {
+      "title": "Feeds: Whatever Happened to the Lucky Curve?",
+      "full_url": "https://www.richardspens.com/ref/feeds/luckycurve.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "luckycurve.md",
+      "status": "pending"
+    },
+    {
+      "title": "Interchangeable Nibs: Get the Point … Personally!",
+      "full_url": "https://www.richardspens.com/ref/nibs/get_point.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "get_point.md",
+      "status": "pending"
+    },
+    {
+      "title": "Nib Tuning for Beginners",
+      "full_url": "https://www.richardspens.com/ref/nibs/beginners.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "beginners.md",
+      "status": "pending"
+    },
+    {
+      "title": "Nibs: Does an Oblique Nib Give Line Variation?",
+      "full_url": "https://www.richardspens.com/ref/nibs/oblique.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "oblique.md",
+      "status": "pending"
+    },
+    {
+      "title": "Nibs: Pelikan Interchangeability Chart",
+      "full_url": "https://www.richardspens.com/ref/nibs/pel_nibs.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "pel_nibs.md",
+      "status": "pending"
+    },
+    {
+      "title": "Nibs: Pelikan Nib Grade Markings",
+      "full_url": "https://www.richardspens.com/ref/nibs/pel_nib_mkg.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "pel_nib_mkg.md",
+      "status": "pending"
+    },
+    {
+      "title": "Nibs: The Renew-Point, by Esterbrook",
+      "full_url": "https://www.richardspens.com/ref/nibs/renew_point.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "renew_point.md",
+      "status": "pending"
+    },
+    {
+      "title": "Nibs: The “TRIUMPH” Point, by W. A. Sheaffer",
+      "full_url": "https://www.richardspens.com/ref/nibs/triumph.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "triumph.md",
+      "status": "pending"
+    },
+    {
+      "title": "Waterman’s Nib Color Code",
+      "full_url": "https://www.richardspens.com/ref/nibs/wat_nib_colors.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "wat_nib_colors.md",
+      "status": "pending"
+    },
+    {
+      "title": "Specialty Nibs, Your Key to Exciting Writing",
+      "full_url": "https://www.richardspens.com/ref/ttp/specialty.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "specialty.md",
+      "status": "pending"
+    },
+    {
+      "title": "Steal the Steel",
+      "full_url": "https://www.richardspens.com/ref/ttp/steel.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "steel.md",
+      "status": "pending"
+    },
+    {
+      "title": "Ick! WhatIsThat Stuff?",
+      "full_url": "https://www.richardspens.com/ref/ttp/ick.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "ick.md",
+      "status": "pending"
+    },
+    {
+      "title": "Flex, a Disaster in the Making",
+      "full_url": "https://www.richardspens.com/ref/ttp/disaster.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "disaster.md",
+      "status": "pending"
+    },
+    {
+      "title": "Singing a New “Tune”",
+      "full_url": "https://www.richardspens.com/ref/ttp/tune.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "tune.md",
+      "status": "pending"
+    },
+    {
+      "title": "Making Music with a Pen",
+      "full_url": "https://www.richardspens.com/ref/ttp/music.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "music.md",
+      "status": "pending"
+    },
+    {
+      "title": "Go with the Flow",
+      "full_url": "https://www.richardspens.com/ref/ttp/flow.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "flow.md",
+      "status": "pending"
+    },
+    {
+      "title": "What’s the Point?",
+      "full_url": "https://www.richardspens.com/ref/ttp/whats_point.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "whats_point.md",
+      "status": "pending"
+    },
+    {
+      "title": "Hitting the Sweet Spot",
+      "full_url": "https://www.richardspens.com/ref/ttp/sweetspot.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "sweetspot.md",
+      "status": "pending"
+    },
+    {
+      "title": "Super-Size Me!",
+      "full_url": "https://www.richardspens.com/ref/ttp/supersize.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "supersize.md",
+      "status": "pending"
+    },
+    {
+      "title": "Special Nibs for Lefties?",
+      "full_url": "https://www.richardspens.com/ref/ttp/left.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "left.md",
+      "status": "pending"
+    },
+    {
+      "title": "Nib Materials",
+      "full_url": "https://www.richardspens.com/ref/ttp/materials.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "materials.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Flexible User",
+      "full_url": "https://www.richardspens.com/ref/ttp/flexible_user.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "flexible_user.md",
+      "status": "pending"
+    },
+    {
+      "title": "Semi-Random Thoughts: Are Modern Pens As Good As Old Ones?",
+      "full_url": "https://www.richardspens.com/ref/ttp/newpens.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "newpens.md",
+      "status": "pending"
+    },
+    {
+      "title": "A Case of the Creeps",
+      "full_url": "https://www.richardspens.com/ref/ttp/creeps.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "creeps.md",
+      "status": "pending"
+    },
+    {
+      "title": "What You See Is What You Get — Or Is It?",
+      "full_url": "https://www.richardspens.com/ref/ttp/wysiwyg.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "wysiwyg.md",
+      "status": "pending"
+    },
+    {
+      "title": "Better in the Days of Old",
+      "full_url": "https://www.richardspens.com/ref/ttp/waverley.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "waverley.md",
+      "status": "pending"
+    },
+    {
+      "title": "Nibz ’n the Hood",
+      "full_url": "https://www.richardspens.com/ref/ttp/hood.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "hood.md",
+      "status": "pending"
+    },
+    {
+      "title": "IPG Nibs",
+      "full_url": "https://www.richardspens.com/ref/ttp/ipg.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "ipg.md",
+      "status": "pending"
+    },
+    {
+      "title": "Lighten Up!",
+      "full_url": "https://www.richardspens.com/ref/ttp/lighten_up.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "lighten_up.md",
+      "status": "pending"
+    },
+    {
+      "title": "Alice in Smoothnessland",
+      "full_url": "https://www.richardspens.com/ref/ttp/alice.htm",
+      "category_en": "Nibs and Feeds",
+      "category_zh": "笔尖与笔舌",
+      "folder": "03-笔尖与笔舌",
+      "filename": "alice.md",
+      "status": "pending"
+    },
+    {
+      "title": "Filling Systems: Overview of How They Work and How to Fill Them",
+      "full_url": "https://www.richardspens.com/ref/fillers/fillers.htm",
+      "category_en": "Filling Systems",
+      "category_zh": "上墨系统",
+      "folder": "04-上墨系统",
+      "filename": "fillers.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Bulb",
+      "full_url": "https://www.richardspens.com/ref/fillers/bulb.htm",
+      "category_en": "Filling Systems",
+      "category_zh": "上墨系统",
+      "folder": "04-上墨系统",
+      "filename": "bulb.md",
+      "status": "pending"
+    },
+    {
+      "title": "Capillary Pens — the Perfect Filler?",
+      "full_url": "https://www.richardspens.com/ref/fillers/capillary.htm",
+      "category_en": "Filling Systems",
+      "category_zh": "上墨系统",
+      "folder": "04-上墨系统",
+      "filename": "capillary.md",
+      "status": "pending"
+    },
+    {
+      "title": "Cartridge Pens",
+      "full_url": "https://www.richardspens.com/ref/fillers/cart.htm",
+      "category_en": "Filling Systems",
+      "category_zh": "上墨系统",
+      "folder": "04-上墨系统",
+      "filename": "cart.md",
+      "status": "pending"
+    },
+    {
+      "title": "Here’s Mud in Your Eye(dropper)",
+      "full_url": "https://www.richardspens.com/ref/fillers/ed.htm",
+      "category_en": "Filling Systems",
+      "category_zh": "上墨系统",
+      "folder": "04-上墨系统",
+      "filename": "ed.md",
+      "status": "pending"
+    },
+    {
+      "title": "Getting Over the Hump",
+      "full_url": "https://www.richardspens.com/ref/fillers/hump.htm",
+      "category_en": "Filling Systems",
+      "category_zh": "上墨系统",
+      "folder": "04-上墨系统",
+      "filename": "hump.md",
+      "status": "pending"
+    },
+    {
+      "title": "Lever Look Back",
+      "full_url": "https://www.richardspens.com/ref/fillers/lever.htm",
+      "category_en": "Filling Systems",
+      "category_zh": "上墨系统",
+      "folder": "04-上墨系统",
+      "filename": "lever.md",
+      "status": "pending"
+    },
+    {
+      "title": "Got a Match?",
+      "full_url": "https://www.richardspens.com/ref/fillers/match.htm",
+      "category_en": "Filling Systems",
+      "category_zh": "上墨系统",
+      "folder": "04-上墨系统",
+      "filename": "match.md",
+      "status": "pending"
+    },
+    {
+      "title": "Take the Plunge",
+      "full_url": "https://www.richardspens.com/ref/fillers/plunger.htm",
+      "category_en": "Filling Systems",
+      "category_zh": "上墨系统",
+      "folder": "04-上墨系统",
+      "filename": "plunger.md",
+      "status": "pending"
+    },
+    {
+      "title": "Piston Pens",
+      "full_url": "https://www.richardspens.com/ref/fillers/piston.htm",
+      "category_en": "Filling Systems",
+      "category_zh": "上墨系统",
+      "folder": "04-上墨系统",
+      "filename": "piston.md",
+      "status": "pending"
+    },
+    {
+      "title": "Pneumatic Pens",
+      "full_url": "https://www.richardspens.com/ref/fillers/pneumatic.htm",
+      "category_en": "Filling Systems",
+      "category_zh": "上墨系统",
+      "folder": "04-上墨系统",
+      "filename": "pneumatic.md",
+      "status": "pending"
+    },
+    {
+      "title": "Syringes, Pulls, and the Reverend Post",
+      "full_url": "https://www.richardspens.com/ref/fillers/syringe.htm",
+      "category_en": "Filling Systems",
+      "category_zh": "上墨系统",
+      "folder": "04-上墨系统",
+      "filename": "syringe.md",
+      "status": "pending"
+    },
+    {
+      "title": "Traveling on Your Thumb",
+      "full_url": "https://www.richardspens.com/ref/fillers/thumb.htm",
+      "category_en": "Filling Systems",
+      "category_zh": "上墨系统",
+      "folder": "04-上墨系统",
+      "filename": "thumb.md",
+      "status": "pending"
+    },
+    {
+      "title": "Wring It Out!",
+      "full_url": "https://www.richardspens.com/ref/fillers/twist.htm",
+      "category_en": "Filling Systems",
+      "category_zh": "上墨系统",
+      "folder": "04-上墨系统",
+      "filename": "twist.md",
+      "status": "pending"
+    },
+    {
+      "title": "1: Who Made This Pen?",
+      "full_url": "https://www.richardspens.com/ref/det_gde/det_gde_1.htm",
+      "category_en": "The Pen Detective’s Guide",
+      "category_zh": "杂谈",
+      "folder": "13-杂谈",
+      "filename": "det_gde_1.md",
+      "status": "pending"
+    },
+    {
+      "title": "2: What’s This Pen Made Of?",
+      "full_url": "https://www.richardspens.com/ref/det_gde/det_gde_2.htm",
+      "category_en": "The Pen Detective’s Guide",
+      "category_zh": "杂谈",
+      "folder": "13-杂谈",
+      "filename": "det_gde_2.md",
+      "status": "pending"
+    },
+    {
+      "title": "3: When Was This Pen Made?",
+      "full_url": "https://www.richardspens.com/ref/det_gde/det_gde_3.htm",
+      "category_en": "The Pen Detective’s Guide",
+      "category_zh": "杂谈",
+      "folder": "13-杂谈",
+      "filename": "det_gde_3.md",
+      "status": "pending"
+    },
+    {
+      "title": "4: Who’s on First?",
+      "full_url": "https://www.richardspens.com/ref/det_gde/det_gde_4.htm",
+      "category_en": "The Pen Detective’s Guide",
+      "category_zh": "杂谈",
+      "folder": "13-杂谈",
+      "filename": "det_gde_4.md",
+      "status": "pending"
+    },
+    {
+      "title": "5: Who’s on Third? I Don’t Know.",
+      "full_url": "https://www.richardspens.com/ref/det_gde/det_gde_5.htm",
+      "category_en": "The Pen Detective’s Guide",
+      "category_zh": "杂谈",
+      "folder": "13-杂谈",
+      "filename": "det_gde_5.md",
+      "status": "pending"
+    },
+    {
+      "title": "6: What’s on Second?",
+      "full_url": "https://www.richardspens.com/ref/det_gde/det_gde_6.htm",
+      "category_en": "The Pen Detective’s Guide",
+      "category_zh": "杂谈",
+      "folder": "13-杂谈",
+      "filename": "det_gde_6.md",
+      "status": "pending"
+    },
+    {
+      "title": "I: Moore & Evans — Who Were They?",
+      "full_url": "https://www.richardspens.com/ref/crypt/1.htm",
+      "category_en": "From the Crypt",
+      "category_zh": "考古发掘",
+      "folder": "06-考古发掘",
+      "filename": "1.md",
+      "status": "pending"
+    },
+    {
+      "title": "II: Camel and…",
+      "full_url": "https://www.richardspens.com/ref/crypt/2.htm",
+      "category_en": "From the Crypt",
+      "category_zh": "考古发掘",
+      "folder": "06-考古发掘",
+      "filename": "2.md",
+      "status": "pending"
+    },
+    {
+      "title": "III: How Smart Was Jay Rider, Really?",
+      "full_url": "https://www.richardspens.com/ref/crypt/3.htm",
+      "category_en": "From the Crypt",
+      "category_zh": "考古发掘",
+      "folder": "06-考古发掘",
+      "filename": "3.md",
+      "status": "pending"
+    },
+    {
+      "title": "IV: How Smart Was Francis Cashel Brown, Really?",
+      "full_url": "https://www.richardspens.com/ref/crypt/4.htm",
+      "category_en": "From the Crypt",
+      "category_zh": "考古发掘",
+      "folder": "06-考古发掘",
+      "filename": "4.md",
+      "status": "pending"
+    },
+    {
+      "title": "V: The Parker Pen Company Didn’t Really Invent the “51”.",
+      "full_url": "https://www.richardspens.com/ref/crypt/5.htm",
+      "category_en": "From the Crypt",
+      "category_zh": "考古发掘",
+      "folder": "06-考古发掘",
+      "filename": "5.md",
+      "status": "pending"
+    },
+    {
+      "title": "VI: Thar She Blows! The Blow Filler and What Followed",
+      "full_url": "https://www.richardspens.com/ref/crypt/6.htm",
+      "category_en": "From the Crypt",
+      "category_zh": "考古发掘",
+      "folder": "06-考古发掘",
+      "filename": "6.md",
+      "status": "pending"
+    },
+    {
+      "title": "VII: How Smart Was Walter Sheaffer, Really?",
+      "full_url": "https://www.richardspens.com/ref/crypt/7.htm",
+      "category_en": "From the Crypt",
+      "category_zh": "考古发掘",
+      "folder": "06-考古发掘",
+      "filename": "7.md",
+      "status": "pending"
+    },
+    {
+      "title": "A. A. Waterman and His Pens",
+      "full_url": "https://www.richardspens.com/ref/profiles/aaw.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "aaw.md",
+      "status": "pending"
+    },
+    {
+      "title": "“Big Box” Brands",
+      "full_url": "https://www.richardspens.com/ref/profiles/bigbox.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "bigbox.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Camel Pen",
+      "full_url": "https://www.richardspens.com/ref/profiles/camel.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "camel.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Chilton Chiltonian",
+      "full_url": "https://www.richardspens.com/ref/profiles/chiltonian.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "chiltonian.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Chilton Golden Quill",
+      "full_url": "https://www.richardspens.com/ref/profiles/golden_quill.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "golden_quill.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Chilton Wing-flow",
+      "full_url": "https://www.richardspens.com/ref/profiles/wing_flow.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "wing_flow.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Conklin Glider",
+      "full_url": "https://www.richardspens.com/ref/profiles/glider.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "glider.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Conklin Nozac",
+      "full_url": "https://www.richardspens.com/ref/profiles/nozac.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "nozac.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Dunn-Pen",
+      "full_url": "https://www.richardspens.com/ref/profiles/dunn.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "dunn.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Esterbrook Dollar Pen",
+      "full_url": "https://www.richardspens.com/ref/profiles/dollar.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "dollar.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Esterbrook Model J Family",
+      "full_url": "https://www.richardspens.com/ref/profiles/j.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "j.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Eversharp Bantam",
+      "full_url": "https://www.richardspens.com/ref/profiles/bantam.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "bantam.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Eversharp Coronet",
+      "full_url": "https://www.richardspens.com/ref/profiles/coronet.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "coronet.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Eversharp Doric",
+      "full_url": "https://www.richardspens.com/ref/profiles/doric.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "doric.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Eversharp Envoy",
+      "full_url": "https://www.richardspens.com/ref/profiles/envoy.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "envoy.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Eversharp Fifth Avenue and Sixty Four",
+      "full_url": "https://www.richardspens.com/ref/profiles/5ave.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "5ave.md",
+      "status": "pending"
+    },
+    {
+      "title": "Kimberly, the Pen That Saved Eversharp",
+      "full_url": "https://www.richardspens.com/ref/profiles/kimberly.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "kimberly.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Eversharp Pacemaker",
+      "full_url": "https://www.richardspens.com/ref/profiles/pacemaker.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "pacemaker.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Eversharp Skyline Family",
+      "full_url": "https://www.richardspens.com/ref/profiles/skyline.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "skyline.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Eversharp Symphony Family",
+      "full_url": "https://www.richardspens.com/ref/profiles/symphony.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "symphony.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Eversharp Ventura Family",
+      "full_url": "https://www.richardspens.com/ref/profiles/ventura.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "ventura.md",
+      "status": "pending"
+    },
+    {
+      "title": "Graphomatic : The Inkmaker & the Colonel",
+      "full_url": "https://www.richardspens.com/ref/profiles/inkmaker.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "inkmaker.md",
+      "status": "pending"
+    },
+    {
+      "title": "Gregg Shorthand Pens",
+      "full_url": "https://www.richardspens.com/ref/profiles/gregg.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "gregg.md",
+      "status": "pending"
+    },
+    {
+      "title": "William Houston, the Snapfil Pen, and What Happened in the Meantime",
+      "full_url": "https://www.richardspens.com/ref/profiles/houston.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "houston.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Ingersoll Dollar Pen",
+      "full_url": "https://www.richardspens.com/ref/profiles/ingersoll.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "ingersoll.md",
+      "status": "pending"
+    },
+    {
+      "title": "Japanese Pocket Pens",
+      "full_url": "https://www.richardspens.com/ref/profiles/pocket_pens.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "pocket_pens.md",
+      "status": "pending"
+    },
+    {
+      "title": "The John Hancock Cartridge Pen",
+      "full_url": "https://www.richardspens.com/ref/profiles/hancock.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "hancock.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Moore Finger tip",
+      "full_url": "https://www.richardspens.com/ref/profiles/finger_tip.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "finger_tip.md",
+      "status": "pending"
+    },
+    {
+      "title": "Moore’s Non-Leakable Fountain Pen",
+      "full_url": "https://www.richardspens.com/ref/profiles/nonleak.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "nonleak.md",
+      "status": "pending"
+    },
+    {
+      "title": "Morrison’s Patriot",
+      "full_url": "https://www.richardspens.com/ref/profiles/patriot.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "patriot.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Parker “21”",
+      "full_url": "https://www.richardspens.com/ref/profiles/21.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "21.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Parker 45",
+      "full_url": "https://www.richardspens.com/ref/profiles/45.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "45.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Parker “51”",
+      "full_url": "https://www.richardspens.com/ref/profiles/51.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "51.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Parker 61",
+      "full_url": "https://www.richardspens.com/ref/profiles/61.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "61.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Parker 75",
+      "full_url": "https://www.richardspens.com/ref/profiles/75.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "75.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Parker 180",
+      "full_url": "https://www.richardspens.com/ref/profiles/180.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "180.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Parker Duofold",
+      "full_url": "https://www.richardspens.com/ref/profiles/duofold.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "duofold.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Parker Duofold Geometric (“Toothbrush”)",
+      "full_url": "https://www.richardspens.com/ref/profiles/tbrush.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "tbrush.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Parker Striped Duofold",
+      "full_url": "https://www.richardspens.com/ref/profiles/strduo.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "strduo.md",
+      "status": "pending"
+    },
+    {
+      "title": "Parker: Ivorine, Pastel, and Moire, Oh My!",
+      "full_url": "https://www.richardspens.com/ref/profiles/pastels.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "pastels.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Parker Parkette and Writefine",
+      "full_url": "https://www.richardspens.com/ref/profiles/parkette.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "parkette.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Parker Vacumatic",
+      "full_url": "https://www.richardspens.com/ref/profiles/vac.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "vac.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Parker VP",
+      "full_url": "https://www.richardspens.com/ref/profiles/vp.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "vp.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Parker VS",
+      "full_url": "https://www.richardspens.com/ref/profiles/vs.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "vs.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Postal Reservoir Pen",
+      "full_url": "https://www.richardspens.com/ref/profiles/postal.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "postal.md",
+      "status": "pending"
+    },
+    {
+      "title": "The J. G. Rider Fountain Pen",
+      "full_url": "https://www.richardspens.com/ref/profiles/rider.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "rider.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Security Pen",
+      "full_url": "https://www.richardspens.com/ref/profiles/security.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "security.md",
+      "status": "pending"
+    },
+    {
+      "title": "Sheaffer’s Balance",
+      "full_url": "https://www.richardspens.com/ref/profiles/balance.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "balance.md",
+      "status": "pending"
+    },
+    {
+      "title": "Sheaffer’s Connaisseur",
+      "full_url": "https://www.richardspens.com/ref/profiles/connaisseur.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "connaisseur.md",
+      "status": "pending"
+    },
+    {
+      "title": "Sheaffer’s Craftsman",
+      "full_url": "https://www.richardspens.com/ref/profiles/craftsman.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "craftsman.md",
+      "status": "pending"
+    },
+    {
+      "title": "Sheaffer’s Flat-Top Pens",
+      "full_url": "https://www.richardspens.com/ref/profiles/flat_tops.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "flat_tops.md",
+      "status": "pending"
+    },
+    {
+      "title": "Sheaffer’s PFM",
+      "full_url": "https://www.richardspens.com/ref/profiles/pfm.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "pfm.md",
+      "status": "pending"
+    },
+    {
+      "title": "Sheaffer’s Snorkel",
+      "full_url": "https://www.richardspens.com/ref/profiles/snorkel.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "snorkel.md",
+      "status": "pending"
+    },
+    {
+      "title": "Targa by Sheaffer",
+      "full_url": "https://www.richardspens.com/ref/profiles/targa.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "targa.md",
+      "status": "pending"
+    },
+    {
+      "title": "Sheaffer’s Touchdown TM",
+      "full_url": "https://www.richardspens.com/ref/profiles/td_tm.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "td_tm.md",
+      "status": "pending"
+    },
+    {
+      "title": "Sheaffer’s Wartime“TRIUMPH”Pens",
+      "full_url": "https://www.richardspens.com/ref/profiles/triumph.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "triumph.md",
+      "status": "pending"
+    },
+    {
+      "title": "Sheaffer’s Tuckaway",
+      "full_url": "https://www.richardspens.com/ref/profiles/tuckaway.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "tuckaway.md",
+      "status": "pending"
+    },
+    {
+      "title": "Souvenir Pens",
+      "full_url": "https://www.richardspens.com/ref/profiles/souvenir_pens.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "souvenir_pens.md",
+      "status": "pending"
+    },
+    {
+      "title": "Soviet Pens",
+      "full_url": "https://www.richardspens.com/ref/profiles/soviet_pens.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "soviet_pens.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Wahl Pen",
+      "full_url": "https://www.richardspens.com/ref/profiles/wahl_pen.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "wahl_pen.md",
+      "status": "pending"
+    },
+    {
+      "title": "The WASP Addipoint",
+      "full_url": "https://www.richardspens.com/ref/profiles/addipoint.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "addipoint.md",
+      "status": "pending"
+    },
+    {
+      "title": "The WASP Clipper",
+      "full_url": "https://www.richardspens.com/ref/profiles/wasp_clipper.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "wasp_clipper.md",
+      "status": "pending"
+    },
+    {
+      "title": "Waterman’s C/F",
+      "full_url": "https://www.richardspens.com/ref/profiles/cf.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "cf.md",
+      "status": "pending"
+    },
+    {
+      "title": "Waterman’s Commando",
+      "full_url": "https://www.richardspens.com/ref/profiles/commando.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "commando.md",
+      "status": "pending"
+    },
+    {
+      "title": "Waterman’s Hundred Year Pen",
+      "full_url": "https://www.richardspens.com/ref/profiles/hyp.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "hyp.md",
+      "status": "pending"
+    },
+    {
+      "title": "Waterman’s Ideal No7",
+      "full_url": "https://www.richardspens.com/ref/profiles/no7.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "no7.md",
+      "status": "pending"
+    },
+    {
+      "title": "Waterman’s Ideal No52",
+      "full_url": "https://www.richardspens.com/ref/profiles/52.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "52.md",
+      "status": "pending"
+    },
+    {
+      "title": "Waterman’s Ink-Vue",
+      "full_url": "https://www.richardspens.com/ref/profiles/ink_vue.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "ink_vue.md",
+      "status": "pending"
+    },
+    {
+      "title": "Waterman’s Patrician",
+      "full_url": "https://www.richardspens.com/ref/profiles/patrician.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "patrician.md",
+      "status": "pending"
+    },
+    {
+      "title": "Waterman’s Taperite",
+      "full_url": "https://www.richardspens.com/ref/profiles/taperite.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "taperite.md",
+      "status": "pending"
+    },
+    {
+      "title": "Waterman’s X-Pen",
+      "full_url": "https://www.richardspens.com/ref/profiles/xpen.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "xpen.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Wearever Zenith",
+      "full_url": "https://www.richardspens.com/ref/profiles/zenith.htm",
+      "category_en": "Pen Model Profiles",
+      "category_zh": "经典型号档案",
+      "folder": "07-经典型号档案",
+      "filename": "zenith.md",
+      "status": "pending"
+    },
+    {
+      "title": "Alan Turing’s Pens",
+      "full_url": "https://www.richardspens.com/ref/history/turings_pens.htm",
+      "category_en": "Pens and History",
+      "category_zh": "钢笔与历史",
+      "folder": "08-钢笔与历史",
+      "filename": "turings_pens.md",
+      "status": "pending"
+    },
+    {
+      "title": "Blotting Out the Truth",
+      "full_url": "https://www.richardspens.com/ref/history/blotting.htm",
+      "category_en": "Pens and History",
+      "category_zh": "钢笔与历史",
+      "folder": "08-钢笔与历史",
+      "filename": "blotting.md",
+      "status": "pending"
+    },
+    {
+      "title": "Forgotten History: One-Dip Desk Sets",
+      "full_url": "https://www.richardspens.com/ref/history/one_dip.htm",
+      "category_en": "Pens and History",
+      "category_zh": "钢笔与历史",
+      "folder": "08-钢笔与历史",
+      "filename": "one_dip.md",
+      "status": "pending"
+    },
+    {
+      "title": "Fountain Pens and Pigtails",
+      "full_url": "https://www.richardspens.com/ref/history/pigtails.htm",
+      "category_en": "Pens and History",
+      "category_zh": "钢笔与历史",
+      "folder": "08-钢笔与历史",
+      "filename": "pigtails.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Great War and the Trench Pen",
+      "full_url": "https://www.richardspens.com/ref/history/trenchpen.htm",
+      "category_en": "Pens and History",
+      "category_zh": "钢笔与历史",
+      "folder": "08-钢笔与历史",
+      "filename": "trenchpen.md",
+      "status": "pending"
+    },
+    {
+      "title": "Hommel’s Meteor Fountain Pen and Its Descendants",
+      "full_url": "https://www.richardspens.com/ref/history/meteor.htm",
+      "category_en": "Pens and History",
+      "category_zh": "钢笔与历史",
+      "folder": "08-钢笔与历史",
+      "filename": "meteor.md",
+      "status": "pending"
+    },
+    {
+      "title": "Personalized Pens: History in Your Hand",
+      "full_url": "https://www.richardspens.com/ref/history/pers_pens.htm",
+      "category_en": "Pens and History",
+      "category_zh": "钢笔与历史",
+      "folder": "08-钢笔与历史",
+      "filename": "pers_pens.md",
+      "status": "pending"
+    },
+    {
+      "title": "Personalized Pens: The Malarkey Pen",
+      "full_url": "https://www.richardspens.com/ref/history/malarkey.htm",
+      "category_en": "Pens and History",
+      "category_zh": "钢笔与历史",
+      "folder": "08-钢笔与历史",
+      "filename": "malarkey.md",
+      "status": "pending"
+    },
+    {
+      "title": "V-MAILisSPEED MAIL",
+      "full_url": "https://www.richardspens.com/ref/history/vmail.htm",
+      "category_en": "Pens and History",
+      "category_zh": "钢笔与历史",
+      "folder": "08-钢笔与历史",
+      "filename": "vmail.md",
+      "status": "pending"
+    },
+    {
+      "title": "War and the Fountain Pen",
+      "full_url": "https://www.richardspens.com/ref/history/war_and_fp.htm",
+      "category_en": "Pens and History",
+      "category_zh": "钢笔与历史",
+      "folder": "08-钢笔与历史",
+      "filename": "war_and_fp.md",
+      "status": "pending"
+    },
+    {
+      "title": "WhoReallyInvented the Fountain Pen?",
+      "full_url": "https://www.richardspens.com/ref/history/who_really.htm",
+      "category_en": "Pens and History",
+      "category_zh": "钢笔与历史",
+      "folder": "08-钢笔与历史",
+      "filename": "who_really.md",
+      "status": "pending"
+    },
+    {
+      "title": "World War II and the Fountain Pen",
+      "full_url": "https://www.richardspens.com/ref/history/wwii_fp.htm",
+      "category_en": "Pens and History",
+      "category_zh": "钢笔与历史",
+      "folder": "08-钢笔与历史",
+      "filename": "wwii_fp.md",
+      "status": "pending"
+    },
+    {
+      "title": "World War II Surrender Pens: Introduction",
+      "full_url": "https://www.richardspens.com/ref/history/surrenders_intro.htm",
+      "category_en": "Pens and History",
+      "category_zh": "钢笔与历史",
+      "folder": "08-钢笔与历史",
+      "filename": "surrenders_intro.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Pens of the Cassibile Armistice",
+      "full_url": "https://www.richardspens.com/ref/history/cassibile_pens.htm",
+      "category_en": "Pens and History",
+      "category_zh": "钢笔与历史",
+      "folder": "08-钢笔与历史",
+      "filename": "cassibile_pens.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Lüneburg Heath Surrender Pen",
+      "full_url": "https://www.richardspens.com/ref/history/luneburg_pen.htm",
+      "category_en": "Pens and History",
+      "category_zh": "钢笔与历史",
+      "folder": "08-钢笔与历史",
+      "filename": "luneburg_pen.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Rheims Surrender Pens",
+      "full_url": "https://www.richardspens.com/ref/history/rheims_pens.htm",
+      "category_en": "Pens and History",
+      "category_zh": "钢笔与历史",
+      "folder": "08-钢笔与历史",
+      "filename": "rheims_pens.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Dodecanese Surrender Pens",
+      "full_url": "https://www.richardspens.com/ref/history/dodecanese_pens.htm",
+      "category_en": "Pens and History",
+      "category_zh": "钢笔与历史",
+      "folder": "08-钢笔与历史",
+      "filename": "dodecanese_pens.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Berlin Surrender Pens",
+      "full_url": "https://www.richardspens.com/ref/history/berlin_pens.htm",
+      "category_en": "Pens and History",
+      "category_zh": "钢笔与历史",
+      "folder": "08-钢笔与历史",
+      "filename": "berlin_pens.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Pens of the Berlin Declaration",
+      "full_url": "https://www.richardspens.com/ref/history/berlin_dec.htm",
+      "category_en": "Pens and History",
+      "category_zh": "钢笔与历史",
+      "folder": "08-钢笔与历史",
+      "filename": "berlin_dec.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Tokyo Surrender Pens",
+      "full_url": "https://www.richardspens.com/ref/history/tokyo_pens.htm",
+      "category_en": "Pens and History",
+      "category_zh": "钢笔与历史",
+      "folder": "08-钢笔与历史",
+      "filename": "tokyo_pens.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Baguio Surrender Pens",
+      "full_url": "https://www.richardspens.com/ref/history/baguio_pens.htm",
+      "category_en": "Pens and History",
+      "category_zh": "钢笔与历史",
+      "folder": "08-钢笔与历史",
+      "filename": "baguio_pens.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Wake Island Surrender Pens",
+      "full_url": "https://www.richardspens.com/ref/history/wake_pens.htm",
+      "category_en": "Pens and History",
+      "category_zh": "钢笔与历史",
+      "folder": "08-钢笔与历史",
+      "filename": "wake_pens.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Ryukyu Islands Surrender Pens",
+      "full_url": "https://www.richardspens.com/ref/history/ryukyu_pens.htm",
+      "category_en": "Pens and History",
+      "category_zh": "钢笔与历史",
+      "folder": "08-钢笔与历史",
+      "filename": "ryukyu_pens.md",
+      "status": "pending"
+    },
+    {
+      "title": "The Korea Surrender Pens",
+      "full_url": "https://www.richardspens.com/ref/history/korea_pens.htm",
+      "category_en": "Pens and History",
+      "category_zh": "钢笔与历史",
+      "folder": "08-钢笔与历史",
+      "filename": "korea_pens.md",
+      "status": "pending"
+    },
+    {
+      "title": "Care and Feeding: How to Pamper Your Pens",
+      "full_url": "https://www.richardspens.com/ref/care/care.htm",
+      "category_en": "Caring for Your Pens",
+      "category_zh": "保养与维护",
+      "folder": "09-保养与维护",
+      "filename": "care.md",
+      "status": "pending"
+    },
+    {
+      "title": "Preserving Your Pens: Dos and Don’ts",
+      "full_url": "https://www.richardspens.com/ref/care/dos_donts.htm",
+      "category_en": "Caring for Your Pens",
+      "category_zh": "保养与维护",
+      "folder": "09-保养与维护",
+      "filename": "dos_donts.md",
+      "status": "pending"
+    },
+    {
+      "title": "Inks: The Good, the Bad, and the Ugly",
+      "full_url": "https://www.richardspens.com/ref/care/inks.htm",
+      "category_en": "Caring for Your Pens",
+      "category_zh": "保养与维护",
+      "folder": "09-保养与维护",
+      "filename": "inks.md",
+      "status": "pending"
+    },
+    {
+      "title": "Inks: Report on the pH of More than 60 Inks",
+      "full_url": "https://www.richardspens.com/ref/care/ink_ph.htm",
+      "category_en": "Caring for Your Pens",
+      "category_zh": "保养与维护",
+      "folder": "09-保养与维护",
+      "filename": "ink_ph.md",
+      "status": "pending"
+    },
+    {
+      "title": "Parker “51” Ink: Hero and Villain",
+      "full_url": "https://www.richardspens.com/ref/care/51_ink.htm",
+      "category_en": "Caring for Your Pens",
+      "category_zh": "保养与维护",
+      "folder": "09-保养与维护",
+      "filename": "51_ink.md",
+      "status": "pending"
+    },
+    {
+      "title": "Removing and Installing Screw-Interchangeable Nibs",
+      "full_url": "https://www.richardspens.com/ref/care/nibswap.htm",
+      "category_en": "Caring for Your Pens",
+      "category_zh": "保养与维护",
+      "folder": "09-保养与维护",
+      "filename": "nibswap.md",
+      "status": "pending"
+    },
+    {
+      "title": "Transportation: How to Ship Pens",
+      "full_url": "https://www.richardspens.com/ref/care/ship.htm",
+      "category_en": "Caring for Your Pens",
+      "category_zh": "保养与维护",
+      "folder": "09-保养与维护",
+      "filename": "ship.md",
+      "status": "pending"
+    },
+    {
+      "title": "Essay: Pen Shows: Why Bother?",
+      "full_url": "https://www.richardspens.com/ref/shows/showswhy.htm",
+      "category_en": "Pen Shows",
+      "category_zh": "钢笔展会",
+      "folder": "10-钢笔展会",
+      "filename": "showswhy.md",
+      "status": "pending"
+    },
+    {
+      "title": "Pen Shows I: Your First Pen Show",
+      "full_url": "https://www.richardspens.com/ref/shows/firstshow.htm",
+      "category_en": "Pen Shows",
+      "category_zh": "钢笔展会",
+      "folder": "10-钢笔展会",
+      "filename": "firstshow.md",
+      "status": "pending"
+    },
+    {
+      "title": "Pen Shows II: Preparing for a Show",
+      "full_url": "https://www.richardspens.com/ref/shows/showprep.htm",
+      "category_en": "Pen Shows",
+      "category_zh": "钢笔展会",
+      "folder": "10-钢笔展会",
+      "filename": "showprep.md",
+      "status": "pending"
+    },
+    {
+      "title": "Pen Shows III: How to Buy a Vintage Pen",
+      "full_url": "https://www.richardspens.com/ref/shows/vintage.htm",
+      "category_en": "Pen Shows",
+      "category_zh": "钢笔展会",
+      "folder": "10-钢笔展会",
+      "filename": "vintage.md",
+      "status": "pending"
+    },
+    {
+      "title": "Pen Shows IV: The Auction",
+      "full_url": "https://www.richardspens.com/ref/shows/auction.htm",
+      "category_en": "Pen Shows",
+      "category_zh": "钢笔展会",
+      "folder": "10-钢笔展会",
+      "filename": "auction.md",
+      "status": "pending"
+    },
+    {
+      "title": "Survival Tips for a Successful Pen Show",
+      "full_url": "https://www.richardspens.com/ref/shows/tips.htm",
+      "category_en": "Pen Shows",
+      "category_zh": "钢笔展会",
+      "folder": "10-钢笔展会",
+      "filename": "tips.md",
+      "status": "pending"
+    },
+    {
+      "title": "Pen Show Rules: Keep an Open Mind,",
+      "full_url": "https://www.richardspens.com/ref/shows/rules_wirth.htm",
+      "category_en": "Pen Shows",
+      "category_zh": "钢笔展会",
+      "folder": "10-钢笔展会",
+      "filename": "rules_wirth.md",
+      "status": "pending"
+    },
+    {
+      "title": "I",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/1.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "1.md",
+      "status": "pending"
+    },
+    {
+      "title": "II",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/2.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "2.md",
+      "status": "pending"
+    },
+    {
+      "title": "III",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/3.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "3.md",
+      "status": "pending"
+    },
+    {
+      "title": "IV",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/4.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "4.md",
+      "status": "pending"
+    },
+    {
+      "title": "V",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/5.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "5.md",
+      "status": "pending"
+    },
+    {
+      "title": "VI",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/6.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "6.md",
+      "status": "pending"
+    },
+    {
+      "title": "VII",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/7.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "7.md",
+      "status": "pending"
+    },
+    {
+      "title": "VIII",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/8.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "8.md",
+      "status": "pending"
+    },
+    {
+      "title": "IX",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/9.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "9.md",
+      "status": "pending"
+    },
+    {
+      "title": "X",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/10.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "10.md",
+      "status": "pending"
+    },
+    {
+      "title": "XI",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/11.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "11.md",
+      "status": "pending"
+    },
+    {
+      "title": "XII",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/12.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "12.md",
+      "status": "pending"
+    },
+    {
+      "title": "XIII",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/13.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "13.md",
+      "status": "pending"
+    },
+    {
+      "title": "XIV",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/14.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "14.md",
+      "status": "pending"
+    },
+    {
+      "title": "XV",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/15.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "15.md",
+      "status": "pending"
+    },
+    {
+      "title": "XVI",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/16.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "16.md",
+      "status": "pending"
+    },
+    {
+      "title": "XVII",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/17.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "17.md",
+      "status": "pending"
+    },
+    {
+      "title": "XVIII",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/18.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "18.md",
+      "status": "pending"
+    },
+    {
+      "title": "XIX",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/19.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "19.md",
+      "status": "pending"
+    },
+    {
+      "title": "XX",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/20.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "20.md",
+      "status": "pending"
+    },
+    {
+      "title": "XXI",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/21.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "21.md",
+      "status": "pending"
+    },
+    {
+      "title": "XXII",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/22.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "22.md",
+      "status": "pending"
+    },
+    {
+      "title": "XXIII",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/23.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "23.md",
+      "status": "pending"
+    },
+    {
+      "title": "XXIV",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/24.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "24.md",
+      "status": "pending"
+    },
+    {
+      "title": "XXV",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/25.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "25.md",
+      "status": "pending"
+    },
+    {
+      "title": "XXVI",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/26.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "26.md",
+      "status": "pending"
+    },
+    {
+      "title": "XXVII",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/27.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "27.md",
+      "status": "pending"
+    },
+    {
+      "title": "XXVIII",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/28.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "28.md",
+      "status": "pending"
+    },
+    {
+      "title": "XXIX",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/29.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "29.md",
+      "status": "pending"
+    },
+    {
+      "title": "XXX",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/30.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "30.md",
+      "status": "pending"
+    },
+    {
+      "title": "XXXI",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/31.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "31.md",
+      "status": "pending"
+    },
+    {
+      "title": "XXXII",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/32.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "32.md",
+      "status": "pending"
+    },
+    {
+      "title": "XXXIII",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/33.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "33.md",
+      "status": "pending"
+    },
+    {
+      "title": "XXXIV",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/34.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "34.md",
+      "status": "pending"
+    },
+    {
+      "title": "XXXV",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/35.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "35.md",
+      "status": "pending"
+    },
+    {
+      "title": "XXXVI",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/36.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "36.md",
+      "status": "pending"
+    },
+    {
+      "title": "XXXVII",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/37.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "37.md",
+      "status": "pending"
+    },
+    {
+      "title": "XXXVIII",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/38.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "38.md",
+      "status": "pending"
+    },
+    {
+      "title": "XXXIX",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/39.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "39.md",
+      "status": "pending"
+    },
+    {
+      "title": "XL",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/40.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "40.md",
+      "status": "pending"
+    },
+    {
+      "title": "XLI",
+      "full_url": "https://www.richardspens.com/ref/pendoctor/41.htm",
+      "category_en": "The Pen Doctor",
+      "category_zh": "钢笔医生",
+      "folder": "11-钢笔医生",
+      "filename": "41.md",
+      "status": "pending"
+    },
+    {
+      "title": "More Than You Bargained For",
+      "full_url": "https://www.richardspens.com/ref/adventures/01.htm",
+      "category_en": "Adventures in Pen Restoration",
+      "category_zh": "修复冒险",
+      "folder": "12-修复冒险",
+      "filename": "01.md",
+      "status": "pending"
+    },
+    {
+      "title": "Rejuvenating a Tired Clip",
+      "full_url": "https://www.richardspens.com/ref/adventures/02.htm",
+      "category_en": "Adventures in Pen Restoration",
+      "category_zh": "修复冒险",
+      "folder": "12-修复冒险",
+      "filename": "02.md",
+      "status": "pending"
+    },
+    {
+      "title": "Saving an Ugly Duckling",
+      "full_url": "https://www.richardspens.com/ref/adventures/03.htm",
+      "category_en": "Adventures in Pen Restoration",
+      "category_zh": "修复冒险",
+      "folder": "12-修复冒险",
+      "filename": "03.md",
+      "status": "pending"
+    },
+    {
+      "title": "A Trip to Dip-Lessland",
+      "full_url": "https://www.richardspens.com/ref/adventures/04.htm",
+      "category_en": "Adventures in Pen Restoration",
+      "category_zh": "修复冒险",
+      "folder": "12-修复冒险",
+      "filename": "04.md",
+      "status": "pending"
+    },
+    {
+      "title": "Birthday Pens: A Timeline",
+      "full_url": "https://www.richardspens.com/ref/misc/bday_pen.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "杂谈",
+      "folder": "13-杂谈",
+      "filename": "bday_pen.md",
+      "status": "pending"
+    },
+    {
+      "title": "Caveat Emptor: In an Auction, You Get What You Pay For",
+      "full_url": "https://www.richardspens.com/ref/misc/caveat.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "杂谈",
+      "folder": "13-杂谈",
+      "filename": "caveat.md",
+      "status": "pending"
+    },
+    {
+      "title": "How Mechanical Pencils Work, and How to Use Them",
+      "full_url": "https://www.richardspens.com/ref/misc/pencils_howto.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "杂谈",
+      "folder": "13-杂谈",
+      "filename": "pencils_howto.md",
+      "status": "pending"
+    },
+    {
+      "title": "How Old Is Vintage?",
+      "full_url": "https://www.richardspens.com/ref/misc/vintage.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "杂谈",
+      "folder": "13-杂谈",
+      "filename": "vintage.md",
+      "status": "pending"
+    },
+    {
+      "title": "Merlin Fountain Pen Colors",
+      "full_url": "https://www.richardspens.com/ref/misc/merlin_colors.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "杂谈",
+      "folder": "13-杂谈",
+      "filename": "merlin_colors.md",
+      "status": "pending"
+    },
+    {
+      "title": "Mint Vintage Pens: Preserve ’Em or Ink ’Em Up?",
+      "full_url": "https://www.richardspens.com/ref/misc/mint_pens.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "杂谈",
+      "folder": "13-杂谈",
+      "filename": "mint_pens.md",
+      "status": "pending"
+    },
+    {
+      "title": "Pens in the Wild: A Hunter’s Guide",
+      "full_url": "https://www.richardspens.com/ref/misc/pensinthewild.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "杂谈",
+      "folder": "13-杂谈",
+      "filename": "pensinthewild.md",
+      "status": "pending"
+    },
+    {
+      "title": "Science Experiment for Ink Lovers: Chromatography",
+      "full_url": "https://www.richardspens.com/ref/misc/chroma.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "杂谈",
+      "folder": "13-杂谈",
+      "filename": "chroma.md",
+      "status": "pending"
+    },
+    {
+      "title": "Significant Pens of the Twentieth Century",
+      "full_url": "https://www.richardspens.com/ref/misc/significant.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "杂谈",
+      "folder": "13-杂谈",
+      "filename": "significant.md",
+      "status": "pending"
+    },
+    {
+      "title": "READ THIS FIRST:The Cardinal Rules for Pen Repairers",
+      "full_url": "https://www.richardspens.com/ref/repair/00_readme1st.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "00_readme1st.md",
+      "status": "pending"
+    },
+    {
+      "title": "Basic Pen Repair: Don’ts and Dos",
+      "full_url": "https://www.richardspens.com/ref/repair/donts_dos.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "donts_dos.md",
+      "status": "pending"
+    },
+    {
+      "title": "Essential Tools and Supplies for Pen Repair",
+      "full_url": "https://www.richardspens.com/ref/repair/essentials.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "essentials.md",
+      "status": "pending"
+    },
+    {
+      "title": "Fountain Pen Sac Size Guide",
+      "full_url": "https://www.richardspens.com/ref/repair/sacs.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "sacs.md",
+      "status": "pending"
+    },
+    {
+      "title": "Drill Size Reference",
+      "full_url": "https://www.richardspens.com/ref/repair/drills.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "drills.md",
+      "status": "pending"
+    },
+    {
+      "title": "MicroMesh Swab Reference",
+      "full_url": "https://www.richardspens.com/ref/repair/swabs.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "swabs.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Replace a Pen Sac",
+      "full_url": "https://www.richardspens.com/ref/repair/resac.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "resac.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Disassemble and Reassemble a Parker “51”",
+      "full_url": "https://www.richardspens.com/ref/repair/51_dissy.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "51_dissy.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Restore the Touchdown Filling System",
+      "full_url": "https://www.richardspens.com/ref/repair/touchdown.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "touchdown.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Restore the Snorkel/PFM Filling System",
+      "full_url": "https://www.richardspens.com/ref/repair/snorkel.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "snorkel.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Replace a Vacumatic Diaphragm",
+      "full_url": "https://www.richardspens.com/ref/repair/vac.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "vac.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Resac a Wringer-Type Twist Filler",
+      "full_url": "https://www.richardspens.com/ref/repair/twisters.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "twisters.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Replace an Ink-Vue Sac (Types 0 and 1)",
+      "full_url": "https://www.richardspens.com/ref/repair/ink_vue_1.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "ink_vue_1.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Replace an Ink-Vue Sac (Type 2)",
+      "full_url": "https://www.richardspens.com/ref/repair/ink_vue_2.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "ink_vue_2.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Replace the Sac in a Camel Fountain Pen",
+      "full_url": "https://www.richardspens.com/ref/repair/camel.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "camel.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Restore the Eversharp Skyline",
+      "full_url": "https://www.richardspens.com/ref/repair/skyline.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "skyline.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Restore the Filler in a Morrison Patriot",
+      "full_url": "https://www.richardspens.com/ref/repair/patriot.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "patriot.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Restore an Onoto Plunger Filler",
+      "full_url": "https://www.richardspens.com/ref/repair/onoto.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "onoto.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Repair a Sheaffer Vacuum-Fil Plunger-Filler",
+      "full_url": "https://www.richardspens.com/ref/repair/plunger.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "plunger.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Restore the Wahl-Oxford Twist Filler",
+      "full_url": "https://www.richardspens.com/ref/repair/ox_twister.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "ox_twister.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Remove a Parker 75 Nib from its Feed",
+      "full_url": "https://www.richardspens.com/ref/repair/75_nib_tool.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "75_nib_tool.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Remove and Install Levers in Lever-Filling Pens",
+      "full_url": "https://www.richardspens.com/ref/repair/levers.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "levers.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Repair a Broken Sac Nipple or Parker “51” Aero-Metric Coupler",
+      "full_url": "https://www.richardspens.com/ref/repair/sac_nipple.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "sac_nipple.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Repair a Cracked Safety-Pen Operating Shaft",
+      "full_url": "https://www.richardspens.com/ref/repair/safety_collar.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "safety_collar.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Sleeve Cracked Barrel Threads",
+      "full_url": "https://www.richardspens.com/ref/repair/sleeve.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "sleeve.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Repair and Replace a Waterman Lever Box Assembly",
+      "full_url": "https://www.richardspens.com/ref/repair/leverbox.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "leverbox.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Repair a Broken Z-Clip",
+      "full_url": "https://www.richardspens.com/ref/repair/z_clip.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "z_clip.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Repair the Seal in a Waterman Glass-Cartridge Pen",
+      "full_url": "https://www.richardspens.com/ref/repair/glasscart.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "glasscart.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Repair the Seal in a Waterman Retractable Safety Fountain Pen",
+      "full_url": "https://www.richardspens.com/ref/repair/retractable_seal.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "retractable_seal.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Repair the Seal in a Moore’s Non-Leakable Fountain Pen",
+      "full_url": "https://www.richardspens.com/ref/repair/nonleak.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "nonleak.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Disassemble and Reassemble Pelikan Nib Units",
+      "full_url": "https://www.richardspens.com/ref/repair/pel_assy.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "pel_assy.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Disassemble and Reassemble Japanese Pocket Pens",
+      "full_url": "https://www.richardspens.com/ref/repair/pocket_pens.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "pocket_pens.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Repair Shaft Seals in Japanese Eyedropper Pens",
+      "full_url": "https://www.richardspens.com/ref/repair/jpn_ed.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "jpn_ed.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Adapt a Platinum Converter for Pocket Pens",
+      "full_url": "https://www.richardspens.com/ref/repair/pocket_conv.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "pocket_conv.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Convert a Fifth Avenue or Skyline Eversharp CA to Use Modern Refills",
+      "full_url": "https://www.richardspens.com/ref/repair/ca_mod.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "ca_mod.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Convert a Cap-Actuated Retractable Eversharp CA to Use Modern Refills",
+      "full_url": "https://www.richardspens.com/ref/repair/ca_retractable.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "ca_retractable.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Repair the Piston in a Tibaldi Modello 60",
+      "full_url": "https://www.richardspens.com/ref/repair/tibaldi_60.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "tibaldi_60.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Remove the Clip from a Pilot Vanishing Point",
+      "full_url": "https://www.richardspens.com/ref/repair/vp_clip.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "vp_clip.md",
+      "status": "pending"
+    },
+    {
+      "title": "How to Build a Nib Grinding Station",
+      "full_url": "https://www.richardspens.com/ref/repair/dremelstand.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "修复指南",
+      "folder": "14-修复指南",
+      "filename": "dremelstand.md",
+      "status": "pending"
+    },
+    {
+      "title": "Contact Us",
+      "full_url": "https://www.richardspens.com/info/contact.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "杂谈",
+      "folder": "13-杂谈",
+      "filename": "contact.md",
+      "status": "pending"
+    },
+    {
+      "title": "About Us",
+      "full_url": "https://www.richardspens.com/info/about.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "杂谈",
+      "folder": "13-杂谈",
+      "filename": "about.md",
+      "status": "pending"
+    },
+    {
+      "title": "Privacy Policy",
+      "full_url": "https://www.richardspens.com/info/privacy.htm",
+      "category_en": "Miscellaneous Articles",
+      "category_zh": "杂谈",
+      "folder": "13-杂谈",
+      "filename": "privacy.md",
+      "status": "pending"
+    }
+  ]
+}
