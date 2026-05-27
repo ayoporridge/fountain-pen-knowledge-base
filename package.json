@@ -9,6 +9,7 @@
     "lint": "biome check .",
     "format": "biome check --write .",
     "seed": "tsx scripts/seed.ts",
+    "seed:tags": "tsx scripts/seed-tags.ts",
     "test:e2e": "playwright test"
   },
   "dependencies": {
