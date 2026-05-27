@@ -21,7 +21,7 @@ export default async function EntityPage({ params }: EntityPageProps) {
 
   const entity = db
     .prepare("SELECT * FROM entities WHERE slug = ? AND type = ?")
-    .get(slug, type) as Record<string, unknown> | undefined;
+    .get(slug, type) as Record<string, string | null> | undefined;
 
   if (!entity) {
     notFound();
@@ -59,13 +59,13 @@ export default async function EntityPage({ params }: EntityPageProps) {
           {TYPE_LABELS[type] || type}
         </span>
         <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100">
-          {String(entity.name)}
+          {entity.name}
         </h1>
       </div>
 
       {entity.summary && (
         <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
-          {String(entity.summary)}
+          {entity.summary}
         </p>
       )}
 
@@ -103,14 +103,14 @@ export default async function EntityPage({ params }: EntityPageProps) {
           </h2>
           <div className="prose dark:prose-invert max-w-none">
             <pre className="whitespace-pre-wrap text-sm text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-              {String(entity.body_md)}
+              {entity.body_md}
             </pre>
           </div>
         </div>
       )}
 
       <div className="text-xs text-gray-400 dark:text-gray-500 mt-8 pt-4 border-t border-gray-200 dark:border-gray-700">
-        创建于 {String(entity.created_at)} · 更新于 {String(entity.updated_at)}
+        创建于 {entity.created_at} · 更新于 {entity.updated_at}
       </div>
     </div>
   );

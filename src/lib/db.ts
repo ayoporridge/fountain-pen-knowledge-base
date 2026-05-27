@@ -39,7 +39,7 @@ function runMigrations(db: Database.Database): void {
     db
       .prepare("SELECT name FROM migrations")
       .all()
-      .map((row: { name: string }) => row.name),
+      .map((row) => (row as { name: string }).name),
   );
 
   // Read migration files
