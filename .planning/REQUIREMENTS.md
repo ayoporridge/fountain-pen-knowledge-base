@@ -96,13 +96,48 @@ Deferred to future milestone. Tracked but not in current roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| (Populated after roadmap creation) | | |
+| FOUND-01 | Phase 1 | `pending` |
+| FOUND-02 | Phase 1 | `pending` |
+| FOUND-03 | Phase 2 | `pending` |
+| FOUND-04 | Phase 1 | `pending` |
+| CONT-01 | Phase 1 | `pending` |
+| CONT-02 | Phase 2 | `pending` |
+| CONT-03 | Phase 3 | `pending` |
+| CONT-04 | Phase 3 | `pending` |
+| CONT-05 | Phase 6 | `pending` |
+| CONT-06 | Phase 2 | `pending` |
+| BROW-01 | Phase 5 | `pending` |
+| BROW-02 | Phase 5 | `pending` |
+| BROW-03 | Phase 3 | `pending` |
+| BROW-04 | Phase 6 | `pending` |
+| BROW-05 | Phase 5 | `pending` |
+| BROW-06 | Phase 6 | `pending` |
+| BROW-07 | Phase 6 | `pending` |
+| BROW-08 | Phase 6 | `pending` |
+| TAG-01 | Phase 7 | `pending` |
+| TAG-02 | Phase 7 | `pending` |
+| TAG-03 | Phase 7 | `pending` |
+| ING-01 | Phase 4 | `pending` |
+| ING-02 | Phase 4 | `pending` |
+| ING-03 | Phase 8 | `pending` |
+| ING-04 | Phase 8 | `pending` |
+| ING-05 | Phase 4 | `pending` |
+| AITAG-01 | Phase 9 | `pending` |
+| AITAG-02 | Phase 9 | `pending` |
+| AITAG-03 | Phase 9 | `pending` |
+| AITAG-04 | Phase 9 | `pending` |
+| AICHAT-01 | Phase 10 | `pending` |
+| AICHAT-02 | Phase 10 | `pending` |
+| AICHAT-03 | Phase 10 | `pending` |
+| UI-01 | Phase 1 | `pending` |
+| UI-02 | Phase 6 | `pending` |
+| UI-03 | Phase 1 | `pending` |
 
 **Coverage:**
-- v1 requirements: 30 total
-- Mapped to phases: 0
-- Unmapped: 30 ⚠️
+- v1 requirements: 36 total
+- Mapped to phases: 36
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-05-27*
-*Last updated: 2026-05-27 after initial definition*
+*Last updated: 2026-05-27 — traceability populated after roadmap creation*
