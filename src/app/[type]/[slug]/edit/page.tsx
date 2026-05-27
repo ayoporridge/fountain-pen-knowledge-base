@@ -3,6 +3,7 @@
 import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { ImageUploader } from "@/components/ImageUploader";
 
 interface EntityData {
   id: string;
@@ -166,6 +167,13 @@ export default function EditEntityPage({
           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             详细内容 (Markdown)
           </label>
+          <div className="mb-2">
+            <ImageUploader
+              onUploaded={(md) => {
+                setBodyMd((prev) => (prev ? `${prev}\n${md}` : md));
+              }}
+            />
+          </div>
           <textarea
             value={bodyMd}
             onChange={(e) => setBodyMd(e.target.value)}
