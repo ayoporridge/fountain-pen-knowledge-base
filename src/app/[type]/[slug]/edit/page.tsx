@@ -4,6 +4,7 @@ import { useEffect, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ImageUploader } from "@/components/ImageUploader";
+import { TagSelector } from "@/components/TagSelector";
 
 interface EntityData {
   id: string;
@@ -161,6 +162,13 @@ export default function EditEntityPage({
             ))}
           </div>
         </div>
+
+        {/* Tags */}
+        {resolvedParams && (
+          <div>
+            <TagSelector entitySlug={resolvedParams.slug} />
+          </div>
+        )}
 
         {/* Body Markdown */}
         <div>
