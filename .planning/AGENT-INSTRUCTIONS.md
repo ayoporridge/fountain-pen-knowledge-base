@@ -69,3 +69,51 @@
 - 更新 Current Phase Detail 为 Phase 2 的 Tasks
 
 然后继续执行 Phase 2，直到所有 Phase 完成。
+
+## 全部 10 Phase 完成后
+
+**不要停。** 继续执行下面的 Phase 11：Cloudflare 部署适配。
+
+---
+
+# Phase 11: Cloudflare 部署适配
+
+## Goal
+
+将本地开发环境的应用适配为 Cloudflare 生产部署（Workers + D1 + R2），实现公网跨设备访问。
+
+## 前置条件
+
+- Phase 1-10 全部完成，本地 Docker 环境功能验证通过
+- 需要以下环境变量（如未提供则跳过实际部署，只完成代码适配）：
+  - `CLOUDFLARE_API_TOKEN`
+  - `CLOUDFLARE_ACCOUNT_ID`
+
+## Tasks
+
+| # | Task | 产出 | 验证方式 |
+|---|------|------|----------|
+| 11.1 | 安装 `wrangler` + `@cloudflare/next-on-pages`，配置 `wrangler.toml` | `wrangler.toml`, `package.json` 更新 | `npx wrangler whoami` 正常（或跳过如无 token） |
+| 11.2 | 将 better-sqlite3 替换为 Drizzle D1 adapter：修改 `src/lib/db.ts`，使用 `drizzle(env.DB)` | `src/lib/db.ts` 改造 | 应用使用 D1 binding 正常读写 |
+| 11.3 | 创建 D1 数据库 + 执行 migrations：`wrangler d1 create fpkg` + `wrangler d1 migrations apply` | D1 数据库创建 | `wrangler d1 execute fpkg --command "SELECT count(*) FROM entities"` 返回结果 |
+| 11.4 | 图片存储从本地文件系统迁移到 R2：创建 R2 bucket + 修改上传/读取逻辑 | `src/lib/storage.ts` 改造, `wrangler.toml` 增加 R2 binding | 上传图片后可通过 R2 URL 访问 |
+| 11.5 | 适配 Next.js 为 edge runtime：检查并修复不兼容 Node.js API 的代码（fs, path 等） | 各 route 文件增加 `export const runtime = 'edge'` | `npx @cloudflare/next-on-pages` build 无报错 |
+| 11.6 | 配置环境变量：AI API keys、D1 binding、R2 binding 写入 `wrangler.toml` 的 `[vars]` 和 secrets | `wrangler.toml` 更新 | `wrangler secret list` 显示已配置的 secrets |
+| 11.7 | 本地验证：`npx @cloudflare/next-on-pages` 构建 + `wrangler pages dev` 本地预览 | 构建产物 | 本地访问预览版，所有核心功能正常 |
+| 11.8 | 部署上线：`wrangler pages deploy` | 公网 URL | 浏览器打开分配的 `.pages.dev` 域名，功能正常 |
+| 11.9 | （可选）绑定自定义域名 | DNS 配置 | 自定义域名可访问 |
+| 11.10 | 数据迁移：将本地 SQLite 数据导出并导入 D1 | `scripts/migrate-to-d1.ts` | D1 中词条数量与本地一致 |
+
+## Success Criteria
+
+1. ✅ 公网 URL 可在任何设备的浏览器中打开并正常浏览词条
+2. ✅ 所有核心功能正常：浏览、搜索、筛选、关系图、AI 对话
+3. ✅ 图片正常加载（R2 存储）
+4. ✅ 响应速度快（Cloudflare edge 就近访问）
+5. ✅ 数据完整（本地所有词条成功迁移到 D1）
+
+## 注意事项
+
+- 如果 `@cloudflare/next-on-pages` 适配困难过大（Next.js 部分 API 不兼容 edge），替代方案是用 **Hono + React SSR on Workers**，但优先尝试 Next.js 方案
+- sqlite-vec 在 D1 上可能不可用——如果不兼容，向量搜索部分用 Workers AI embeddings + D1 存储向量 + 余弦相似度 SQL 计算替代
+- D1 免费额度：5GB 存储 + 5M reads/天 + 100K writes/天——个人项目绑绑有余
