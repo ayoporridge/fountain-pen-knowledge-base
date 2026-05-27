@@ -1,8 +1,8 @@
 # State: Fountain Pen Knowledge Graph
 
-**Current Phase:** 0 (未开始)
-**Next Phase:** 1 — 单词条可浏览
-**Overall Progress:** 0/10 phases complete
+**Current Phase:** 1 ✅ (complete)
+**Next Phase:** 2 — 富内容录入
+**Overall Progress:** 1/10 phases complete
 
 ---
 
@@ -10,7 +10,7 @@
 
 | Phase | 名称 | Status | Started | Completed |
 |-------|------|--------|---------|-----------|
-| 1 | 单词条可浏览 | `pending` | — | — |
+| 1 | 单词条可浏览 | `complete` | 2026-05-27 | 2026-05-27 |
 | 2 | 富内容录入 | `pending` | — | — |
 | 3 | 关联漫游 | `pending` | — | — |
 | 4 | 内容冷启动 | `pending` | — | — |
@@ -25,21 +25,37 @@
 
 ## Current Phase Detail
 
-### Phase 1: 单词条可浏览
+### Phase 2: 富内容录入
 
 **Status:** `pending`
-**Requirements:** FOUND-01, FOUND-02, FOUND-04, CONT-01, UI-01, UI-03
+**Requirements:** FOUND-03, CONT-02, CONT-06
 
 | Task | Description | Status |
 |------|-------------|--------|
-| 1.1 | 初始化 Next.js 15 项目 + Docker | `pending` |
-| 1.2 | 集成 better-sqlite3 + 迁移框架 | `pending` |
-| 1.3 | 定义核心 Schema | `pending` |
-| 1.4 | Entity CRUD API | `pending` |
-| 1.5 | 词条详情页渲染 | `pending` |
-| 1.6 | 基础布局 + dark mode | `pending` |
-| 1.7 | Seed 脚本 | `pending` |
-| 1.8 | E2E 冒烟测试 | `pending` |
+| 2.1 | 定义标签系统 Schema | `pending` |
+| 2.2 | 标签 CRUD API | `pending` |
+| 2.3 | 词条编辑页面 | `pending` |
+| 2.4 | Markdown 渲染引擎 | `pending` |
+| 2.5 | 图片上传 | `pending` |
+| 2.6 | 标签选择器 | `pending` |
+| 2.7 | 新建词条页面 | `pending` |
+| 2.8 | 初始原子标签种子数据 | `pending` |
+
+---
+
+## Phase 1 Completion Summary
+
+All 8 tasks completed and verified:
+- ✅ 1.1: Next.js 15 + Docker + Biome (替代 ESLint)
+- ✅ 1.2: better-sqlite3 + Drizzle ORM + 迁移框架
+- ✅ 1.3: entities + entity_attributes Schema
+- ✅ 1.4: Entity CRUD API (GET/POST/PUT/DELETE)
+- ✅ 1.5: 词条详情页 /[type]/[slug]
+- ✅ 1.6: Header/Footer + dark mode (next-themes)
+- ✅ 1.7: Seed 脚本 (5 entities: 3 笔 + 1 品牌 + 1 概念)
+- ✅ 1.8: E2E 测试 (4/4 passed)
+
+Tech decisions: 使用系统字体替代 Google Fonts (代理环境无法下载)；Biome 替代 ESLint。
 
 ---
 
@@ -54,14 +70,8 @@
 | Date | Decision | Context |
 |------|----------|---------|
 | 2026-05-27 | 创建 10 phase roadmap | Fine granularity, MVP mode |
-
----
-
-## Notes
-
-- 远程 Agent 执行时，按 phase 顺序逐步推进
-- 每个 phase 完成后更新此文件的状态
-- Phase 之间的依赖关系见 ROADMAP.md Dependency Graph
+| 2026-05-27 | Phase 1 完成 | 8/8 tasks, 4/4 E2E tests passed |
+| 2026-05-27 | 系统字体替代 Google Fonts | 代理环境无法下载 fonts.googleapis.com |
 
 ---
 
