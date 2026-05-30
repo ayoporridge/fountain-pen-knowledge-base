@@ -1,8 +1,8 @@
 # State: Fountain Pen Knowledge Graph
 
-**Current Phase:** 3 ✅ (complete)
-**Next Phase:** 4 — 内容冷启动
-**Overall Progress:** 3/10 phases complete
+**Current Phase:** 4 ✅ (complete)
+**Next Phase:** 5 — 多维筛选与搜索
+**Overall Progress:** 4/10 phases complete
 
 ---
 
@@ -13,7 +13,7 @@
 | 1 | 单词条可浏览 | `complete` | 2026-05-27 | 2026-05-27 |
 | 2 | 富内容录入 | `complete` | 2026-05-27 | 2026-05-28 |
 | 3 | 关联漫游 | `complete` | 2026-05-28 | 2026-05-30 |
-| 4 | 内容冷启动 | `pending` | — | — |
+| 4 | 内容冷启动 | `complete` | 2026-05-30 | 2026-05-30 |
 | 5 | 多维筛选与搜索 | `pending` | — | — |
 | 6 | 漫游体验增强 | `pending` | — | — |
 | 7 | 标签概念涌现 | `pending` | — | — |
@@ -24,6 +24,38 @@
 ---
 
 ## Current Phase Detail
+
+### Phase 4: 内容冷启动
+
+**Status:** `complete`
+**Requirements:** ING-01, ING-02, ING-05
+
+| Task | Description | Status |
+|------|-------------|--------|
+| 4.1 | Markdown batch import CLI | `complete` |
+| 4.2 | Auto-extract [[wiki-links]] from imports | `complete` |
+| 4.3 | CSV import CLI with column mapping | `complete` |
+| 4.4 | Default CSV mapping config | `complete` |
+| 4.5 | Source attribution (source_url, source_file, imported_at) | `complete` |
+| 4.6 | Conflict handling (--on-conflict=skip|update|error) | `complete` |
+| 4.7 | Import report output | `complete` |
+| 4.8 | Actual import: 502 entities (187 CSV + 310 richardspens) | `complete` |
+
+---
+
+## Phase 4 Completion Summary
+
+All 8 tasks completed and verified:
+- ✅ 4.1: Markdown batch import CLI (recursive, frontmatter parsing)
+- ✅ 4.2: Auto-extract [[wiki-links]] → entity_links
+- ✅ 4.3: CSV import CLI (proper CSV parsing with quoted fields)
+- ✅ 4.4: Default mapping for 钢笔品牌型号索引库.csv
+- ✅ 4.5: Migration 005 — source_url, source_file, imported_at columns
+- ✅ 4.6: --on-conflict skip|update|error parameter
+- ✅ 4.7: Import report (created/skipped/errors/links/tags)
+- ✅ 4.8: 502 entities imported (269 pens, 184 concepts, 34 nibs, 14 fill systems, 1 brand)
+
+---
 
 ### Phase 3: 关联漫游
 
