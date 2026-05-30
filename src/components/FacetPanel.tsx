@@ -1,0 +1,87 @@
+"use client";
+
+interface FacetOption {
+  slug: string;
+  name: string;
+  count: number;
+}
+
+interface FacetPanelProps {
+  facets: Record<string, FacetOption[]>;
+  activeFilters: Record<string, string>;
+  onFilterChange: (dimension: string, slug: string | null) => void;
+}
+
+const DIM_LABELS: Record<string, string> = {
+  nib_type: "笔尖类型",
+  nib_material: "笔尖材质",
+  fill_system: "上墨方式",
+  origin: "产地",
+  price: "价位",
+  brand_tier: "品牌定位",
+  era: "年代",
+  size: "尺寸",
+  usage: "用途",
+  style: "风格",
+  ink_type: "墨水类型",
+  body_material: "笔身材质",
+};
+
+export function FacetPanel({ facets, activeFilters, onFilterChange }: FacetPanelProps) {
+  return (
+    <div className="space-y-4">
+      <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+        筛选
+      </h2>
+
+      {Object.entries(facets).map(([dim, options]) => {
+        if (options.length === 0) return null;
+        const isActive = !!activeFilters[dim];
+
+        return (
+          <details key={dim} open={isActive || options.length <= 8} className="group">
+            <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 select-none">
+              {DIM_LABELS[dim] || dim}
+              {isActive && (
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onFilterChange(dim, null);
+                  }}
+                  className="ml-2 text-xs text-red-500 hover:text-red-700"
+                >
+                  ✕ 清除
+                </button>
+              )}
+            </summary>
+            <div className="space-y-1 ml-2">
+              {options.map((opt) => (
+                <label
+                  key={opt.slug}
+                  className="flex items-center gap-2 cursor-pointer group/item"
+                >
+                  <input
+                    type="radio"
+                    name={`facet-${dim}`}
+                    checked={activeFilters[dim] === opt.slug}
+                    onChange={() =>
+                      onFilterChange(dim, activeFilters[dim] === opt.slug ? null : opt.slug)
+                    }
+                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  />
+                  <span className="text-sm text-gray-600 dark:text-gray-400 group-hover/item:text-gray-900 dark:group-hover/item:text-gray-200">
+                    {opt.name}
+                  </span>
+                  <span className="text-xs text-gray-400 ml-auto">
+                    {opt.count}
+                  </span>
+                </label>
+              ))}
+            </div>
+          </details>
+        );
+      })}
+    </div>
+  );
+}
