@@ -1,8 +1,8 @@
 # State: Fountain Pen Knowledge Graph
 
-**Current Phase:** 2 ✅ (complete)
-**Next Phase:** 3 — 关联漫游
-**Overall Progress:** 2/10 phases complete
+**Current Phase:** 3 ✅ (complete)
+**Next Phase:** 4 — 内容冷启动
+**Overall Progress:** 3/10 phases complete
 
 ---
 
@@ -12,7 +12,7 @@
 |-------|------|--------|---------|-----------|
 | 1 | 单词条可浏览 | `complete` | 2026-05-27 | 2026-05-27 |
 | 2 | 富内容录入 | `complete` | 2026-05-27 | 2026-05-28 |
-| 3 | 关联漫游 | `pending` | — | — |
+| 3 | 关联漫游 | `complete` | 2026-05-28 | 2026-05-30 |
 | 4 | 内容冷启动 | `pending` | — | — |
 | 5 | 多维筛选与搜索 | `pending` | — | — |
 | 6 | 漫游体验增强 | `pending` | — | — |
@@ -25,7 +25,35 @@
 
 ## Current Phase Detail
 
-### Phase 2: 富内容录入
+### Phase 3: 关联漫游
+
+**Status:** `complete`
+**Requirements:** CONT-03, CONT-04, BROW-03
+
+| Task | Description | Status |
+|------|-------------|--------|
+| 3.1 | entity_links schema + reverse link triggers | `complete` |
+| 3.2 | Links API (create/delete/query forward+backlinks) | `complete` |
+| 3.3 | Wiki-link `[[entity-slug]]` syntax (remark-wiki-link) | `complete` |
+| 3.4 | RelatedEntities component (forward + backlinks) | `complete` |
+| 3.5 | EntityMeta component (tags by dimension, color-coded) | `complete` |
+| 3.6 | LocalGraph component (react-force-graph-2d) | `complete` |
+| 3.7 | Graph node click navigation | `complete` |
+| 3.8 | Seed links script (8 relationships, 5 entities) | `complete` |
+
+---
+
+## Phase 3 Completion Summary
+
+All 8 tasks completed and verified:
+- ✅ 3.1: entity_links schema with trigger-based reverse link maintenance
+- ✅ 3.2: Links CRUD API + bidirectional query
+- ✅ 3.3: remark-wiki-link integration for [[slug]] syntax
+- ✅ 3.4: RelatedEntities — forward links + backlinks grid
+- ✅ 3.5: EntityMeta — tags grouped by dimension with color badges
+- ✅ 3.6: LocalGraph — force-directed graph centered on current entity
+- ✅ 3.7: Click graph nodes → navigate to entity page
+- ✅ 3.8: 8 seed links across 5 entities (brand_of, uses, related, makes, implemented_in)
 
 **Status:** `complete`
 **Requirements:** FOUND-03, CONT-02, CONT-06
@@ -88,7 +116,9 @@ Tech decisions: 使用系统字体替代 Google Fonts (代理环境无法下载)
 | 2026-05-27 | 系统字体替代 Google Fonts | 代理环境无法下载 fonts.googleapis.com |
 | 2026-05-28 | Phase 2 完成 | 8/8 tasks, all builds passing |
 | 2026-05-28 | sharp 用于图片缩略图 | 原生 Node 图片处理库，无需外部依赖 |
+| 2026-05-30 | Phase 3 完成 | 8/8 tasks, react-force-graph-2d for local graph |
+| 2026-05-30 | react-force-graph-2d 替代 D3 原生 | API 更简洁，原生 React 集成，100节点内丝滑 |
 
 ---
 
-*Last updated: 2026-05-28*
+*Last updated: 2026-05-30*
