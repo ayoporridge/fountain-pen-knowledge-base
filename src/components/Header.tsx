@@ -44,6 +44,12 @@ export function Header() {
                 <Link href="/by/material" className="block px-3 py-1.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">笔身材质</Link>
               </div>
             </div>
+            <Link
+              href="/chat"
+              className="text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+            >
+              🤖 问 AI
+            </Link>
           </div>
         </nav>
         <div className="flex items-center gap-3">

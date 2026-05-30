@@ -1,8 +1,8 @@
 # State: Fountain Pen Knowledge Graph
 
-**Current Phase:** 6 ✅ (complete)
-**Next Phase:** 7 — 标签概念涌现
-**Overall Progress:** 6/10 phases complete
+**Current Phase:** 7 ✅ (complete)
+**Next Phase:** 8 — 外部内容导入
+**Overall Progress:** 7/10 phases complete
 
 ---
 
