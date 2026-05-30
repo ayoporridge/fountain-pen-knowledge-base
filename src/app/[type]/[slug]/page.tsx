@@ -2,6 +2,9 @@ import { getDb } from "@/lib/db";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { MarkdownRenderer } from "@/components/MarkdownRenderer";
+import { RelatedEntities } from "@/components/RelatedEntities";
+import { EntityMeta } from "@/components/EntityMeta";
+import { LocalGraph } from "@/components/LocalGraph";
 
 interface EntityPageProps {
   params: Promise<{ type: string; slug: string }>;
@@ -53,6 +56,39 @@ export default async function EntityPage({ params }: EntityPageProps) {
     )
     .all(entity.id) as Array<{ name: string; slug: string; dimension: string }>;
 
+  // Fetch links
+  const forward = db
+    .prepare(
+      `SELECT el.id, el.link_type, e.slug, e.name, e.type
+       FROM entity_links el
+       JOIN entities e ON e.id = el.target_id
+       WHERE el.source_id = ? AND el.link_type != 'reverse'
+       ORDER BY el.created_at`,
+    )
+    .all(entity.id) as Array<{
+    id: string;
+    link_type: string;
+    slug: string;
+    name: string;
+    type: string;
+  }>;
+
+  const backlinks = db
+    .prepare(
+      `SELECT el.id, el.link_type, e.slug, e.name, e.type
+       FROM entity_links el
+       JOIN entities e ON e.id = el.source_id
+       WHERE el.target_id = ? AND el.link_type != 'reverse'
+       ORDER BY el.created_at`,
+    )
+    .all(entity.id) as Array<{
+    id: string;
+    link_type: string;
+    slug: string;
+    name: string;
+    type: string;
+  }>;
+
   return (
     <div className="max-w-4xl mx-auto py-8 px-4">
       <div className="mb-4 flex items-center justify-between">
@@ -85,18 +121,7 @@ export default async function EntityPage({ params }: EntityPageProps) {
         </p>
       )}
 
-      {tags.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-6">
-          {tags.map((tag) => (
-            <span
-              key={tag.slug}
-              className="inline-block px-2 py-0.5 text-xs rounded-full bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300"
-            >
-              {tag.name}
-            </span>
-          ))}
-        </div>
-      )}
+      <EntityMeta tags={tags} />
 
       {attrs.length > 0 && (
         <div className="mb-8">
@@ -135,6 +160,20 @@ export default async function EntityPage({ params }: EntityPageProps) {
           </div>
         </div>
       )}
+
+      {/* Relationship graph */}
+      <div className="mb-8">
+        <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3">
+          关系图
+        </h2>
+        <LocalGraph
+          entityId={entity.id as string}
+          entityType={type}
+          entitySlug={slug}
+        />
+      </div>
+
+      <RelatedEntities forward={forward} backlinks={backlinks} />
 
       <div className="text-xs text-gray-400 dark:text-gray-500 mt-8 pt-4 border-t border-gray-200 dark:border-gray-700">
         创建于 {entity.created_at} · 更新于 {entity.updated_at}
