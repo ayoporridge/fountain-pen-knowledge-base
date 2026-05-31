@@ -44,7 +44,11 @@ export default function BrowsePage() {
 
     try {
       const res = await fetch(`/api/browse?${params.toString()}`);
-      const data = await res.json();
+      const data = await res.json() as {
+        entities: Entity[];
+        facets: Record<string, Array<{ slug: string; name: string; count: number }>>;
+        total: number;
+      };
       setEntities(data.entities);
       setFacets(data.facets);
       setTotal(data.total);

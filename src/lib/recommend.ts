@@ -16,14 +16,14 @@ interface RecommendedEntity {
  * 2. Tag similarity (shared tags)
  * 3. Exclude the entity itself
  */
-export function getRecommendations(
+export async function getRecommendations(
   entityId: string,
   limit = 8,
-): RecommendedEntity[] {
-  const db = getDb();
+): Promise<RecommendedEntity[]> {
+  const db = await getDb();
 
   // Strategy 1: 2-hop graph neighbors (entities connected to my connections)
-  const twoHop = db
+  const twoHop = (await db
     .prepare(
       `SELECT e.id, e.type, e.slug, e.name, e.summary,
               COUNT(DISTINCT e.id) as shared_neighbors,
@@ -43,7 +43,8 @@ export function getRecommendations(
        ORDER BY shared_neighbors DESC
        LIMIT ?`,
     )
-    .all(entityId, entityId, entityId, entityId, entityId, limit * 2) as Array<{
+    .bind(entityId, entityId, entityId, entityId, entityId, limit * 2)
+    .all()).results as Array<{
     id: string;
     type: string;
     slug: string;
@@ -54,7 +55,7 @@ export function getRecommendations(
   }>;
 
   // Strategy 2: Tag similarity
-  const tagSimilar = db
+  const tagSimilar = (await db
     .prepare(
       `SELECT e.id, e.type, e.slug, e.name, e.summary,
               COUNT(DISTINCT et2.tag_id) as shared_tags,
@@ -67,7 +68,8 @@ export function getRecommendations(
        ORDER BY shared_tags DESC
        LIMIT ?`,
     )
-    .all(entityId, entityId, limit * 2) as Array<{
+    .bind(entityId, entityId, limit * 2)
+    .all()).results as Array<{
     id: string;
     type: string;
     slug: string;

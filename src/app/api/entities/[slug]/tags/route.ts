@@ -7,25 +7,27 @@ export async function GET(
   _request: NextRequest,
   { params }: { params: Promise<{ slug: string }> },
 ) {
-  const db = getDb();
+  const db = await getDb();
   const { slug } = await params;
 
-  const entity = db
+  const entity = await db
     .prepare("SELECT id FROM entities WHERE slug = ?")
-    .get(slug) as { id: string } | undefined;
+    .bind(slug)
+    .first() as { id: string } | null;
 
   if (!entity) {
     return NextResponse.json({ error: "Entity not found" }, { status: 404 });
   }
 
-  const tags = db
+  const tags = (await db
     .prepare(
       `SELECT t.* FROM tags t
        JOIN entity_tags et ON et.tag_id = t.id
        WHERE et.entity_id = ?
        ORDER BY t.dimension, t.name`,
     )
-    .all(entity.id);
+    .bind(entity.id)
+    .all()).results;
 
   return NextResponse.json(tags);
 }
@@ -35,13 +37,14 @@ export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ slug: string }> },
 ) {
-  const db = getDb();
+  const db = await getDb();
   const { slug } = await params;
-  const body = await request.json();
+  const body = await request.json() as { tag_ids?: unknown };
 
-  const entity = db
+  const entity = await db
     .prepare("SELECT id FROM entities WHERE slug = ?")
-    .get(slug) as { id: string } | undefined;
+    .bind(slug)
+    .first() as { id: string } | null;
 
   if (!entity) {
     return NextResponse.json({ error: "Entity not found" }, { status: 404 });
@@ -52,13 +55,12 @@ export async function POST(
     return NextResponse.json({ error: "tag_ids array required" }, { status: 400 });
   }
 
-  const stmt = db.prepare(
-    "INSERT OR IGNORE INTO entity_tags (id, entity_id, tag_id) VALUES (?, ?, ?)",
-  );
   const added: string[] = [];
   for (const tagId of tag_ids) {
-    const result = stmt.run(nanoid(12), entity.id, tagId);
-    if (result.changes > 0) added.push(tagId);
+    const result = await db.prepare(
+      "INSERT OR IGNORE INTO entity_tags (id, entity_id, tag_id) VALUES (?, ?, ?)",
+    ).bind(nanoid(12), entity.id, tagId).run();
+    if (result.meta.changes > 0) added.push(tagId);
   }
 
   return NextResponse.json({ added });
@@ -69,13 +71,14 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ slug: string }> },
 ) {
-  const db = getDb();
+  const db = await getDb();
   const { slug } = await params;
-  const body = await request.json();
+  const body = await request.json() as { tag_ids?: unknown };
 
-  const entity = db
+  const entity = await db
     .prepare("SELECT id FROM entities WHERE slug = ?")
-    .get(slug) as { id: string } | undefined;
+    .bind(slug)
+    .first() as { id: string } | null;
 
   if (!entity) {
     return NextResponse.json({ error: "Entity not found" }, { status: 404 });
@@ -86,11 +89,10 @@ export async function DELETE(
     return NextResponse.json({ error: "tag_ids array required" }, { status: 400 });
   }
 
-  const stmt = db.prepare(
-    "DELETE FROM entity_tags WHERE entity_id = ? AND tag_id = ?",
-  );
   for (const tagId of tag_ids) {
-    stmt.run(entity.id, tagId);
+    await db.prepare(
+      "DELETE FROM entity_tags WHERE entity_id = ? AND tag_id = ?",
+    ).bind(entity.id, tagId).run();
   }
 
   return NextResponse.json({ removed: tag_ids });

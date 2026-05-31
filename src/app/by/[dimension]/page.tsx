@@ -2,6 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getDb } from "@/lib/db";
 
+export const dynamic = "force-dynamic";
+
 const VALID_DIMENSIONS: Record<string, { label: string; tagDimension: string }> = {
   brand: { label: "品牌", tagDimension: "brand_tier" },
   price: { label: "价位", tagDimension: "price" },
@@ -26,10 +28,10 @@ export default async function DimensionPage({ params }: DimensionPageProps) {
     notFound();
   }
 
-  const db = getDb();
+  const db = await getDb();
 
   // Get all tags in this dimension with entity counts
-  const tags = db
+  const tags = (await db
     .prepare(
       `SELECT t.id, t.name, t.slug, t.dimension, COUNT(et.entity_id) as entity_count
        FROM tags t
@@ -39,7 +41,8 @@ export default async function DimensionPage({ params }: DimensionPageProps) {
        HAVING entity_count > 0
        ORDER BY entity_count DESC`,
     )
-    .all(dimConfig.tagDimension) as Array<{
+    .bind(dimConfig.tagDimension)
+    .all()).results as Array<{
     id: string;
     name: string;
     slug: string;

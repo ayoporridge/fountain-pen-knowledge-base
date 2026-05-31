@@ -62,7 +62,10 @@ export function LocalGraph({
 
   useEffect(() => {
     fetch(`/api/links?entity_id=${entityId}`)
-      .then((r) => r.json())
+      .then((r) => r.json() as Promise<{
+        forward: Array<{ target_id: string; target_name: string; target_type: string; target_slug: string; link_type: string }>;
+        backlinks: Array<{ source_id: string; source_name: string; source_type: string; source_slug: string; link_type: string }>;
+      }>)
       .then((data) => {
         const nodes: GraphNode[] = [
           {
@@ -78,7 +81,7 @@ export function LocalGraph({
 
         // Fetch center entity name
         fetch(`/api/entities/${entitySlug}`)
-          .then((r) => r.json())
+          .then((r) => r.json() as Promise<{ name: string }>)
           .then((e) => {
             nodes[0].name = e.name;
           });

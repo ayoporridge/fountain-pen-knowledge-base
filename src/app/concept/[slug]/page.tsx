@@ -3,23 +3,26 @@ import { notFound } from "next/navigation";
 import { getDb } from "@/lib/db";
 import { getEntitiesForConcept } from "@/lib/concept-engine";
 
+export const dynamic = "force-dynamic";
+
 interface ConceptPageProps {
   params: Promise<{ slug: string }>;
 }
 
 export default async function ConceptPage({ params }: ConceptPageProps) {
   const { slug } = await params;
-  const db = getDb();
+  const db = await getDb();
 
-  const concept = db
+  const concept = await db
     .prepare("SELECT * FROM concept_rules WHERE slug = ?")
-    .get(slug) as { id: string; name: string; description: string | null; conditions: string } | undefined;
+    .bind(slug)
+    .first() as { id: string; name: string; description: string | null; conditions: string } | null;
 
   if (!concept) {
     notFound();
   }
 
-  const entities = getEntitiesForConcept(slug) as Array<{
+  const entities = await getEntitiesForConcept(slug) as Array<{
     id: string;
     type: string;
     slug: string;
@@ -33,12 +36,14 @@ export default async function ConceptPage({ params }: ConceptPageProps) {
   }>;
 
   // Resolve condition tag names
-  const condWithNames = conditions.map((c) => {
-    const tag = db
+  const condWithNames = [];
+  for (const c of conditions) {
+    const tag = await db
       .prepare("SELECT name FROM tags WHERE slug = ? AND dimension = ?")
-      .get(c.tag_slug, c.dimension) as { name: string } | undefined;
-    return { ...c, name: tag?.name || c.tag_slug };
-  });
+      .bind(c.tag_slug, c.dimension)
+      .first() as { name: string } | null;
+    condWithNames.push({ ...c, name: tag?.name || c.tag_slug });
+  }
 
   return (
     <div className="max-w-4xl mx-auto py-8 px-4">

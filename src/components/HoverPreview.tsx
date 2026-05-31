@@ -30,7 +30,7 @@ export function HoverPreview({ href, children, className }: HoverPreviewProps) {
       try {
         const res = await fetch(`/api/entities/${slug}/preview`);
         if (res.ok) {
-          const data = await res.json();
+          const data = await res.json() as PreviewData;
           setPreview(data);
           setShow(true);
         }

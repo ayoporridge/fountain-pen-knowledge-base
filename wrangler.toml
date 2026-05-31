@@ -1,0 +1,17 @@
+name = "pen-knowledge-graph"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+main = ".open-next/worker.js"
+
+[assets]
+directory = ".open-next/assets"
+binding = "ASSETS"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "fpkg"
+database_id = "02b3fbd0-f2a3-47bb-8da3-b6b42c685343"
+migrations_dir = "migrations"
+
+[vars]
+OPENAI_API_KEY = ""

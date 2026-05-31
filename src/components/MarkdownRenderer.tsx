@@ -6,17 +6,32 @@ interface MarkdownRendererProps {
 }
 
 export async function MarkdownRenderer({ content }: MarkdownRendererProps) {
-  const db = getDb();
+  const db = await getDb();
+
+  // Pre-fetch all entity slugs referenced in wiki-links
+  // Extract [[slug]] patterns from content
+  const wikiLinkRegex = /\[\[([^\]]+)\]\]/g;
+  const slugs: string[] = [];
+  let match: RegExpExecArray | null;
+  while ((match = wikiLinkRegex.exec(content)) !== null) {
+    slugs.push(match[1]);
+  }
+
+  // Build a lookup map for resolved hrefs
+  const hrefMap = new Map<string, string>();
+  for (const slug of slugs) {
+    const entity = await db
+      .prepare("SELECT type, slug FROM entities WHERE slug = ?")
+      .bind(slug)
+      .first() as { type: string; slug: string } | null;
+    if (entity) {
+      hrefMap.set(slug, `/${entity.type}/${entity.slug}`);
+    }
+  }
 
   // Resolve wiki-links: [[slug]] → /{type}/{slug}
   const resolveHref = (slug: string): string | null => {
-    const entity = db
-      .prepare("SELECT type, slug FROM entities WHERE slug = ?")
-      .get(slug) as { type: string; slug: string } | undefined;
-    if (entity) {
-      return `/${entity.type}/${entity.slug}`;
-    }
-    return null;
+    return hrefMap.get(slug) || null;
   };
 
   const html = await renderMarkdown(content, resolveHref);

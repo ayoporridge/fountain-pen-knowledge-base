@@ -4,37 +4,43 @@ import { nanoid } from "nanoid";
 
 // GET /api/entities?type=pen
 export async function GET(request: NextRequest) {
-  const db = getDb();
+  const db = await getDb();
   const type = request.nextUrl.searchParams.get("type");
 
   let rows;
   if (type) {
-    rows = db
+    rows = (await db
       .prepare("SELECT * FROM entities WHERE type = ? ORDER BY name")
-      .all(type);
+      .bind(type)
+      .all()).results;
   } else {
-    rows = db.prepare("SELECT * FROM entities ORDER BY name").all();
+    rows = (await db.prepare("SELECT * FROM entities ORDER BY name").all()).results;
   }
 
   // Fetch attributes for each entity
-  const entities = (rows as Array<Record<string, unknown>>).map((row) => {
-    const attrs = db
+  const entities = [];
+  for (const row of rows as Array<Record<string, unknown>>) {
+    const attrs = (await db
       .prepare("SELECT key, value FROM entity_attributes WHERE entity_id = ?")
-      .all(row.id) as Array<{ key: string; value: string }>;
-    return {
+      .bind(row.id)
+      .all()).results as Array<{ key: string; value: string }>;
+    entities.push({
       ...row,
       attributes: Object.fromEntries(attrs.map((a) => [a.key, a.value])),
-    };
-  });
+    });
+  }
 
   return NextResponse.json(entities);
 }
 
 // POST /api/entities
 export async function POST(request: NextRequest) {
-  const db = getDb();
-  const body = await request.json();
-  const { type, slug, name, summary, body_md, source, attributes } = body;
+  const db = await getDb();
+  const body = await request.json() as Record<string, unknown>;
+  const { type, slug, name, summary, body_md, source, attributes } = body as {
+    type?: string; slug?: string; name?: string; summary?: string;
+    body_md?: string; source?: string; attributes?: Record<string, unknown>;
+  };
 
   if (!type || !slug || !name) {
     return NextResponse.json(
@@ -47,21 +53,20 @@ export async function POST(request: NextRequest) {
   const now = new Date().toISOString();
 
   try {
-    db.prepare(
+    await db.prepare(
       "INSERT INTO entities (id, type, slug, name, summary, body_md, source, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-    ).run(id, type, slug, name, summary || null, body_md || null, source || null, now, now);
+    ).bind(id, type, slug, name, summary || null, body_md || null, source || null, now, now).run();
 
     // Insert attributes
     if (attributes && typeof attributes === "object") {
-      const stmt = db.prepare(
-        "INSERT INTO entity_attributes (id, entity_id, key, value) VALUES (?, ?, ?, ?)",
-      );
       for (const [key, value] of Object.entries(attributes)) {
-        stmt.run(nanoid(12), id, key, String(value));
+        await db.prepare(
+          "INSERT INTO entity_attributes (id, entity_id, key, value) VALUES (?, ?, ?, ?)",
+        ).bind(nanoid(12), id, key, String(value)).run();
       }
     }
 
-    const entity = db.prepare("SELECT * FROM entities WHERE id = ?").get(id);
+    const entity = await db.prepare("SELECT * FROM entities WHERE id = ?").bind(id).first();
     return NextResponse.json(entity, { status: 201 });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);

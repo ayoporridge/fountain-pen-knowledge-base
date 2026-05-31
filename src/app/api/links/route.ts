@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 
 // GET /api/links?entity_id=xxx — get all links for an entity
 export async function GET(request: NextRequest) {
-  const db = getDb();
+  const db = await getDb();
   const entityId = request.nextUrl.searchParams.get("entity_id");
 
   if (!entityId) {
@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
   }
 
   // Forward links: entity is source
-  const forward = db
+  const forward = (await db
     .prepare(
       `SELECT el.*, e.slug as target_slug, e.name as target_name, e.type as target_type
        FROM entity_links el
@@ -23,10 +23,11 @@ export async function GET(request: NextRequest) {
        WHERE el.source_id = ? AND el.link_type != 'reverse'
        ORDER BY el.created_at`,
     )
-    .all(entityId);
+    .bind(entityId)
+    .all()).results;
 
   // Backlinks: entity is target (exclude reverse auto-generated)
-  const backlinks = db
+  const backlinks = (await db
     .prepare(
       `SELECT el.*, e.slug as source_slug, e.name as source_name, e.type as source_type
        FROM entity_links el
@@ -34,16 +35,19 @@ export async function GET(request: NextRequest) {
        WHERE el.target_id = ? AND el.link_type != 'reverse'
        ORDER BY el.created_at`,
     )
-    .all(entityId);
+    .bind(entityId)
+    .all()).results;
 
   return NextResponse.json({ forward, backlinks });
 }
 
 // POST /api/links — create a link
 export async function POST(request: NextRequest) {
-  const db = getDb();
-  const body = await request.json();
-  const { source_id, target_id, link_type } = body;
+  const db = await getDb();
+  const body = await request.json() as Record<string, unknown>;
+  const { source_id, target_id, link_type } = body as {
+    source_id?: string; target_id?: string; link_type?: string;
+  };
 
   if (!source_id || !target_id) {
     return NextResponse.json(
@@ -60,8 +64,8 @@ export async function POST(request: NextRequest) {
   }
 
   // Verify both entities exist
-  const source = db.prepare("SELECT id FROM entities WHERE id = ?").get(source_id);
-  const target = db.prepare("SELECT id FROM entities WHERE id = ?").get(target_id);
+  const source = await db.prepare("SELECT id FROM entities WHERE id = ?").bind(source_id).first();
+  const target = await db.prepare("SELECT id FROM entities WHERE id = ?").bind(target_id).first();
 
   if (!source || !target) {
     return NextResponse.json(
@@ -73,11 +77,11 @@ export async function POST(request: NextRequest) {
   const id = nanoid(12);
 
   try {
-    db.prepare(
+    await db.prepare(
       "INSERT INTO entity_links (id, source_id, target_id, link_type) VALUES (?, ?, ?, ?)",
-    ).run(id, source_id, target_id, link_type || "related");
+    ).bind(id, source_id, target_id, link_type || "related").run();
 
-    const link = db.prepare("SELECT * FROM entity_links WHERE id = ?").get(id);
+    const link = await db.prepare("SELECT * FROM entity_links WHERE id = ?").bind(id).first();
     return NextResponse.json(link, { status: 201 });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
@@ -99,16 +103,16 @@ export async function POST(request: NextRequest) {
 
 // DELETE /api/links?id=xxx — delete a link (and its reverse)
 export async function DELETE(request: NextRequest) {
-  const db = getDb();
+  const db = await getDb();
   const id = request.nextUrl.searchParams.get("id");
 
   if (!id) {
     return NextResponse.json({ error: "id is required" }, { status: 400 });
   }
 
-  const result = db.prepare("DELETE FROM entity_links WHERE id = ?").run(id);
+  const result = await db.prepare("DELETE FROM entity_links WHERE id = ?").bind(id).run();
 
-  if (result.changes === 0) {
+  if (result.meta.changes === 0) {
     return NextResponse.json({ error: "Link not found" }, { status: 404 });
   }
 

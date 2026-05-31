@@ -23,8 +23,8 @@ interface RecommendationsProps {
   entityId: string;
 }
 
-export function Recommendations({ entityId }: RecommendationsProps) {
-  const recommendations = getRecommendations(entityId, 6);
+export async function Recommendations({ entityId }: RecommendationsProps) {
+  const recommendations = await getRecommendations(entityId, 6);
 
   if (recommendations.length === 0) return null;
 

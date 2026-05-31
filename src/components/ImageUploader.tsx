@@ -28,11 +28,11 @@ export function ImageUploader({ onUploaded }: ImageUploaderProps) {
       });
 
       if (!res.ok) {
-        const data = await res.json();
+        const data = await res.json() as { error?: string };
         throw new Error(data.error || "Upload failed");
       }
 
-      const data = await res.json();
+      const data = await res.json() as { url: string };
       const altText = file.name.replace(/\.[^.]+$/, "");
       const markdown = `![${altText}](${data.url})`;
       onUploaded(markdown);

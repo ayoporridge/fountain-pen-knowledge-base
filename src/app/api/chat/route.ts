@@ -2,7 +2,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import { retrieveContext, buildSystemPrompt } from "@/lib/ai/chat-pipeline";
 
 export async function POST(request: NextRequest) {
-  const body = await request.json();
+  const body = await request.json() as { messages?: Array<{ role: string; content: string }> };
   const { messages } = body;
 
   if (!messages || !Array.isArray(messages) || messages.length === 0) {
@@ -24,8 +24,8 @@ export async function POST(request: NextRequest) {
   }
 
   // Retrieve relevant entities from knowledge graph
-  const context = retrieveContext(lastUserMessage.content);
-  const systemPrompt = buildSystemPrompt(context);
+  const context = await retrieveContext(lastUserMessage.content);
+  const systemPrompt = await buildSystemPrompt(context);
 
   // Call OpenAI with streaming
   const res = await fetch("https://api.openai.com/v1/chat/completions", {
