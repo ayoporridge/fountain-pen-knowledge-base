@@ -38,8 +38,8 @@ export default function EditEntityPage({
     params.then((p) => {
       setResolvedParams(p);
       fetch(`/api/entities/${p.slug}`)
-        .then((r) => r.json() as Promise<EntityData>)
-        .then((data) => {
+        .then((r) => r.json())
+        .then((data: EntityData) => {
           setEntity(data);
           setName(data.name);
           setSummary(data.summary || "");

@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { getDb } from "@/lib/db";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -8,8 +9,6 @@ import { LocalGraph } from "@/components/LocalGraph";
 import { Recommendations } from "@/components/Recommendations";
 import { DensityBadge } from "@/components/DensityBadge";
 import { CompareButton } from "@/components/CompareBar";
-
-export const dynamic = "force-dynamic";
 
 interface EntityPageProps {
   params: Promise<{ type: string; slug: string }>;
@@ -38,34 +37,31 @@ const ATTR_LABELS: Record<string, string> = {
 
 export default async function EntityPage({ params }: EntityPageProps) {
   const { type, slug } = await params;
-  const db = await getDb();
+  const db = getDb();
 
-  const entity = await db
+  const entity = db
     .prepare("SELECT * FROM entities WHERE slug = ? AND type = ?")
-    .bind(slug, type)
-    .first() as Record<string, string | null> | null;
+    .get(slug, type) as Record<string, string | null> | undefined;
 
   if (!entity) {
     notFound();
   }
 
-  const attrs = (await db
+  const attrs = db
     .prepare("SELECT key, value FROM entity_attributes WHERE entity_id = ?")
-    .bind(entity.id)
-    .all()).results as Array<{ key: string; value: string }>;
+    .all(entity.id) as Array<{ key: string; value: string }>;
 
-  const tags = (await db
+  const tags = db
     .prepare(
       `SELECT t.name, t.slug, t.dimension FROM tags t
        JOIN entity_tags et ON et.tag_id = t.id
        WHERE et.entity_id = ?
        ORDER BY t.dimension, t.name`,
     )
-    .bind(entity.id)
-    .all()).results as Array<{ name: string; slug: string; dimension: string }>;
+    .all(entity.id) as Array<{ name: string; slug: string; dimension: string }>;
 
   // Fetch links
-  const forward = (await db
+  const forward = db
     .prepare(
       `SELECT el.id, el.link_type, e.slug, e.name, e.type
        FROM entity_links el
@@ -73,8 +69,7 @@ export default async function EntityPage({ params }: EntityPageProps) {
        WHERE el.source_id = ? AND el.link_type != 'reverse'
        ORDER BY el.created_at`,
     )
-    .bind(entity.id)
-    .all()).results as Array<{
+    .all(entity.id) as Array<{
     id: string;
     link_type: string;
     slug: string;
@@ -82,7 +77,7 @@ export default async function EntityPage({ params }: EntityPageProps) {
     type: string;
   }>;
 
-  const backlinks = (await db
+  const backlinks = db
     .prepare(
       `SELECT el.id, el.link_type, e.slug, e.name, e.type
        FROM entity_links el
@@ -90,8 +85,7 @@ export default async function EntityPage({ params }: EntityPageProps) {
        WHERE el.target_id = ? AND el.link_type != 'reverse'
        ORDER BY el.created_at`,
     )
-    .bind(entity.id)
-    .all()).results as Array<{
+    .all(entity.id) as Array<{
     id: string;
     link_type: string;
     slug: string;

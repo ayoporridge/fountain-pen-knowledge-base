@@ -47,8 +47,8 @@ export function TagSelector({ entitySlug }: TagSelectorProps) {
         fetch("/api/tags?level=atom"),
         fetch(`/api/entities/${entitySlug}/tags`),
       ]);
-      const tags = await tagsRes.json() as Tag[];
-      const entityTags = await entityTagsRes.json() as Tag[];
+      const tags: Tag[] = await tagsRes.json();
+      const entityTags: Tag[] = await entityTagsRes.json();
 
       setAllTags(tags);
       setSelectedIds(new Set(entityTags.map((t) => t.id)));
@@ -138,14 +138,14 @@ export function TagSelector({ entitySlug }: TagSelectorProps) {
       });
 
       if (res.ok) {
-        const newTag = await res.json() as Tag;
+        const newTag: Tag = await res.json();
         setAllTags((prev) => [...prev, newTag]);
         // Auto-select the new tag
         await toggleTag(newTag.id);
         setNewTagName("");
         setCreating(false);
       } else {
-        const data = await res.json() as { error?: string };
+        const data = await res.json();
         alert(data.error || "创建失败");
       }
     } catch {

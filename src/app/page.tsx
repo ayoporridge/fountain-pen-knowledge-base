@@ -21,21 +21,21 @@ const TYPE_EMOJI: Record<string, string> = {
   fill_system: "💧",
 };
 
-export default async function Home() {
-  const db = await getDb();
+export default function Home() {
+  const db = getDb();
 
   // Stats
-  const stats = (await db
+  const stats = db
     .prepare("SELECT type, COUNT(*) as cnt FROM entities GROUP BY type ORDER BY cnt DESC")
-    .all()).results as Array<{ type: string; cnt: number }>;
+    .all() as Array<{ type: string; cnt: number }>;
   const totalEntities = stats.reduce((sum, s) => sum + s.cnt, 0);
-  const totalLinks = (await db.prepare("SELECT COUNT(*) as cnt FROM entity_links").first()) as { cnt: number };
-  const totalTags = (await db.prepare("SELECT COUNT(*) as cnt FROM tags").first()) as { cnt: number };
+  const totalLinks = (db.prepare("SELECT COUNT(*) as cnt FROM entity_links").get() as { cnt: number }).cnt;
+  const totalTags = (db.prepare("SELECT COUNT(*) as cnt FROM tags").get() as { cnt: number }).cnt;
 
   // Recent entities (last 10)
-  const recent = (await db
+  const recent = db
     .prepare("SELECT type, slug, name, summary FROM entities ORDER BY created_at DESC LIMIT 10")
-    .all()).results as Array<{ type: string; slug: string; name: string; summary: string | null }>;
+    .all() as Array<{ type: string; slug: string; name: string; summary: string | null }>;
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
@@ -52,11 +52,11 @@ export default async function Home() {
             <div className="text-sm text-gray-500">词条</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-green-600 dark:text-green-400">{totalLinks?.cnt ?? 0}</div>
+            <div className="text-3xl font-bold text-green-600 dark:text-green-400">{totalLinks}</div>
             <div className="text-sm text-gray-500">关联</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">{totalTags?.cnt ?? 0}</div>
+            <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">{totalTags}</div>
             <div className="text-sm text-gray-500">标签</div>
           </div>
         </div>

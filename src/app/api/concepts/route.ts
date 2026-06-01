@@ -5,9 +5,9 @@ import { recomputeAllConceptMatches } from "@/lib/concept-engine";
 
 // GET /api/concepts — list all concept rules with match counts
 export async function GET() {
-  const db = await getDb();
+  const db = getDb();
 
-  const concepts = (await db
+  const concepts = db
     .prepare(
       `SELECT cr.*, COUNT(cm.id) as match_count
        FROM concept_rules cr
@@ -15,18 +15,16 @@ export async function GET() {
        GROUP BY cr.id
        ORDER BY cr.name`,
     )
-    .all()).results;
+    .all();
 
   return NextResponse.json(concepts);
 }
 
 // POST /api/concepts — create a new concept rule
 export async function POST(request: NextRequest) {
-  const db = await getDb();
-  const body = await request.json() as Record<string, unknown>;
-  const { name, slug, description, conditions } = body as {
-    name?: string; slug?: string; description?: string; conditions?: unknown;
-  };
+  const db = getDb();
+  const body = await request.json();
+  const { name, slug, description, conditions } = body;
 
   if (!name || !slug || !conditions) {
     return NextResponse.json(
@@ -38,14 +36,14 @@ export async function POST(request: NextRequest) {
   const id = nanoid(12);
 
   try {
-    await db.prepare(
+    db.prepare(
       "INSERT INTO concept_rules (id, name, slug, description, conditions) VALUES (?, ?, ?, ?, ?)",
-    ).bind(id, name, slug, description || null, JSON.stringify(conditions)).run();
+    ).run(id, name, slug, description || null, JSON.stringify(conditions));
 
     // Recompute matches
-    await recomputeAllConceptMatches();
+    recomputeAllConceptMatches();
 
-    const concept = await db.prepare("SELECT * FROM concept_rules WHERE id = ?").bind(id).first();
+    const concept = db.prepare("SELECT * FROM concept_rules WHERE id = ?").get(id);
     return NextResponse.json(concept, { status: 201 });
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : String(err);
@@ -58,18 +56,18 @@ export async function POST(request: NextRequest) {
 
 // DELETE /api/concepts?id=xxx
 export async function DELETE(request: NextRequest) {
-  const db = await getDb();
+  const db = getDb();
   const id = request.nextUrl.searchParams.get("id");
 
   if (!id) {
     return NextResponse.json({ error: "id is required" }, { status: 400 });
   }
 
-  const result = await db.prepare("DELETE FROM concept_rules WHERE id = ?").bind(id).run();
-  if (result.meta.changes === 0) {
+  const result = db.prepare("DELETE FROM concept_rules WHERE id = ?").run(id);
+  if (result.changes === 0) {
     return NextResponse.json({ error: "Concept not found" }, { status: 404 });
   }
 
-  await recomputeAllConceptMatches();
+  recomputeAllConceptMatches();
   return NextResponse.json({ success: true });
 }

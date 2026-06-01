@@ -69,7 +69,7 @@ export async function extractFromText(text: string, apiKey?: string): Promise<Ex
     throw new Error(`OpenAI API error: ${res.status}`);
   }
 
-  const data = await res.json() as { choices: Array<{ message?: { content?: string } }> };
+  const data = await res.json();
   const content = data.choices[0]?.message?.content;
 
   if (!content) {

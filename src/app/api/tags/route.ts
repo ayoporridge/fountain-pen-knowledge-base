@@ -4,21 +4,21 @@ import { nanoid } from "nanoid";
 
 // GET /api/tags?dimension=nib_type
 export async function GET(request: NextRequest) {
-  const db = await getDb();
+  const db = getDb();
   const dimension = request.nextUrl.searchParams.get("dimension");
   const level = request.nextUrl.searchParams.get("level");
 
   let sql = "SELECT * FROM tags";
   const conditions: string[] = [];
-  const bindParams: string[] = [];
+  const params: string[] = [];
 
   if (dimension) {
     conditions.push("dimension = ?");
-    bindParams.push(dimension);
+    params.push(dimension);
   }
   if (level) {
     conditions.push("level = ?");
-    bindParams.push(level);
+    params.push(level);
   }
 
   if (conditions.length > 0) {
@@ -26,19 +26,15 @@ export async function GET(request: NextRequest) {
   }
   sql += " ORDER BY dimension, name";
 
-  const stmt = db.prepare(sql);
-  const bound = bindParams.length > 0 ? stmt.bind(...bindParams) : stmt;
-  const tags = (await bound.all()).results;
+  const tags = db.prepare(sql).all(...params);
   return NextResponse.json(tags);
 }
 
 // POST /api/tags
 export async function POST(request: NextRequest) {
-  const db = await getDb();
-  const body = await request.json() as Record<string, unknown>;
-  const { name, slug, dimension, level, description } = body as {
-    name?: string; slug?: string; dimension?: string; level?: string; description?: string;
-  };
+  const db = getDb();
+  const body = await request.json();
+  const { name, slug, dimension, level, description } = body;
 
   if (!name || !slug || !dimension || !level) {
     return NextResponse.json(
@@ -50,11 +46,11 @@ export async function POST(request: NextRequest) {
   const id = nanoid(12);
 
   try {
-    await db.prepare(
+    db.prepare(
       "INSERT INTO tags (id, name, slug, dimension, level, description) VALUES (?, ?, ?, ?, ?, ?)",
-    ).bind(id, name, slug, dimension, level, description || null).run();
+    ).run(id, name, slug, dimension, level, description || null);
 
-    const tag = await db.prepare("SELECT * FROM tags WHERE id = ?").bind(id).first();
+    const tag = db.prepare("SELECT * FROM tags WHERE id = ?").get(id);
     return NextResponse.json(tag, { status: 201 });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);

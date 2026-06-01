@@ -35,7 +35,7 @@ export default function ChatPage() {
       });
 
       if (!res.ok) {
-        const err = await res.json() as { error?: string };
+        const err = await res.json();
         setMessages((prev) => [
           ...prev,
           { role: "assistant", content: `❌ 错误: ${err.error || "请求失败"}` },

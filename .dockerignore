@@ -1,7 +1,5 @@
 node_modules
 .next
 .git
-data
 public/uploads
-*.md
 .planning

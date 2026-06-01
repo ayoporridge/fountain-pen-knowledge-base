@@ -105,7 +105,7 @@ export default function NewEntityPage() {
       if (res.ok) {
         router.push(`/${type}/${slug.trim()}`);
       } else {
-        const data = await res.json() as { error?: string };
+        const data = await res.json();
         setError(data.error || "创建失败");
         setSaving(false);
       }

@@ -7,22 +7,20 @@ export async function GET(
   _request: NextRequest,
   { params }: { params: Promise<{ slug: string }> },
 ) {
-  const db = await getDb();
+  const db = getDb();
   const { slug } = await params;
 
-  const entity = await db
+  const entity = db
     .prepare("SELECT * FROM entities WHERE slug = ?")
-    .bind(slug)
-    .first() as Record<string, unknown> | null;
+    .get(slug) as Record<string, unknown> | undefined;
 
   if (!entity) {
     return NextResponse.json({ error: "Entity not found" }, { status: 404 });
   }
 
-  const attrs = (await db
+  const attrs = db
     .prepare("SELECT key, value FROM entity_attributes WHERE entity_id = ?")
-    .bind(entity.id)
-    .all()).results as Array<{ key: string; value: string }>;
+    .all(entity.id) as Array<{ key: string; value: string }>;
 
   return NextResponse.json({
     ...entity,
@@ -35,28 +33,24 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ slug: string }> },
 ) {
-  const db = await getDb();
+  const db = getDb();
   const { slug } = await params;
-  const body = await request.json() as Record<string, unknown>;
+  const body = await request.json();
 
-  const entity = await db
+  const entity = db
     .prepare("SELECT * FROM entities WHERE slug = ?")
-    .bind(slug)
-    .first() as Record<string, unknown> | null;
+    .get(slug) as Record<string, unknown> | undefined;
 
   if (!entity) {
     return NextResponse.json({ error: "Entity not found" }, { status: 404 });
   }
 
-  const { name, summary, body_md, type, source } = body as {
-    name?: string; summary?: string; body_md?: string; type?: string; source?: string;
-    attributes?: Record<string, unknown>;
-  };
+  const { name, summary, body_md, type, source } = body;
   const now = new Date().toISOString();
 
-  await db.prepare(
+  db.prepare(
     "UPDATE entities SET name = ?, summary = ?, body_md = ?, type = ?, source = ?, updated_at = ? WHERE slug = ?",
-  ).bind(
+  ).run(
     name ?? entity.name,
     summary ?? entity.summary,
     body_md ?? entity.body_md,
@@ -64,29 +58,28 @@ export async function PUT(
     source ?? entity.source,
     now,
     slug,
-  ).run();
+  );
 
   // Update attributes if provided
   if (body.attributes && typeof body.attributes === "object") {
     // Delete existing attributes and re-insert
-    await db.prepare("DELETE FROM entity_attributes WHERE entity_id = ?").bind(
+    db.prepare("DELETE FROM entity_attributes WHERE entity_id = ?").run(
       entity.id,
-    ).run();
+    );
+    const stmt = db.prepare(
+      "INSERT INTO entity_attributes (id, entity_id, key, value) VALUES (?, ?, ?, ?)",
+    );
     for (const [key, value] of Object.entries(body.attributes)) {
-      await db.prepare(
-        "INSERT INTO entity_attributes (id, entity_id, key, value) VALUES (?, ?, ?, ?)",
-      ).bind(nanoid(12), entity.id, key, String(value)).run();
+      stmt.run(nanoid(12), entity.id, key, String(value));
     }
   }
 
-  const updated = await db
+  const updated = db
     .prepare("SELECT * FROM entities WHERE slug = ?")
-    .bind(slug)
-    .first() as Record<string, unknown>;
-  const attrs = (await db
+    .get(slug) as Record<string, unknown>;
+  const attrs = db
     .prepare("SELECT key, value FROM entity_attributes WHERE entity_id = ?")
-    .bind(updated.id)
-    .all()).results as Array<{ key: string; value: string }>;
+    .all(updated.id) as Array<{ key: string; value: string }>;
 
   return NextResponse.json({
     ...updated,
@@ -99,15 +92,14 @@ export async function DELETE(
   _request: NextRequest,
   { params }: { params: Promise<{ slug: string }> },
 ) {
-  const db = await getDb();
+  const db = getDb();
   const { slug } = await params;
 
-  const result = await db
+  const result = db
     .prepare("DELETE FROM entities WHERE slug = ?")
-    .bind(slug)
-    .run();
+    .run(slug);
 
-  if (result.meta.changes === 0) {
+  if (result.changes === 0) {
     return NextResponse.json({ error: "Entity not found" }, { status: 404 });
   }
 

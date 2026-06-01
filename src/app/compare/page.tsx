@@ -51,10 +51,10 @@ function ComparePage() {
       slugs.map(async (slug) => {
         const res = await fetch(`/api/entities/${slug}`);
         if (!res.ok) return null;
-        return res.json() as Promise<EntityDetail>;
+        return res.json();
       }),
     ).then((results) => {
-      setEntities(results.filter(Boolean) as EntityDetail[]);
+      setEntities(results.filter(Boolean));
       setLoading(false);
     });
   }, [slugs.join(",")]);

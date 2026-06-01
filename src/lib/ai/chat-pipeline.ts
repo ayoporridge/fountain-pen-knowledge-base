@@ -19,8 +19,8 @@ interface ChatContext {
  * Retrieve relevant entities from the knowledge graph
  * based on a natural language query.
  */
-export async function retrieveContext(query: string): Promise<ChatContext> {
-  const db = await getDb();
+export function retrieveContext(query: string): ChatContext {
+  const db = getDb();
 
   // Simple keyword extraction: split query into terms
   const terms = query
@@ -36,7 +36,7 @@ export async function retrieveContext(query: string): Promise<ChatContext> {
   const ftsQuery = terms.map((t) => `"${t}"`).join(" OR ");
 
   // Search entities
-  const ftsResults = (await db
+  const ftsResults = db
     .prepare(
       `SELECT e.id, e.type, e.slug, e.name, e.summary, e.body_md, rank
        FROM entities_fts fts
@@ -45,8 +45,7 @@ export async function retrieveContext(query: string): Promise<ChatContext> {
        ORDER BY rank
        LIMIT 20`,
     )
-    .bind(ftsQuery)
-    .all()).results as Array<{
+    .all(ftsQuery) as Array<{
     id: string;
     type: string;
     slug: string;
@@ -57,29 +56,26 @@ export async function retrieveContext(query: string): Promise<ChatContext> {
   }>;
 
   // Enrich with attributes and tags
-  const enriched = [];
-  for (const entity of ftsResults) {
-    const attrs = (await db
+  const enriched = ftsResults.map((entity) => {
+    const attrs = db
       .prepare("SELECT key, value FROM entity_attributes WHERE entity_id = ?")
-      .bind(entity.id)
-      .all()).results as Array<{ key: string; value: string }>;
+      .all(entity.id) as Array<{ key: string; value: string }>;
 
-    const tags = (await db
+    const tags = db
       .prepare(
         `SELECT t.name FROM tags t
          JOIN entity_tags et ON et.tag_id = t.id
          WHERE et.entity_id = ?`,
       )
-      .bind(entity.id)
-      .all()).results as Array<{ name: string }>;
+      .all(entity.id) as Array<{ name: string }>;
 
-    enriched.push({
+    return {
       ...entity,
       attributes: Object.fromEntries(attrs.map((a) => [a.key, a.value])),
       tags: tags.map((t) => t.name),
       relevance: Math.abs(entity.rank),
-    });
-  }
+    };
+  });
 
   return {
     entities: enriched,
@@ -90,11 +86,9 @@ export async function retrieveContext(query: string): Promise<ChatContext> {
 /**
  * Build a system prompt for the AI with knowledge graph context.
  */
-export async function buildSystemPrompt(context: ChatContext): Promise<string> {
+export function buildSystemPrompt(context: ChatContext): string {
   if (context.entities.length === 0) {
-    const db = await getDb();
-    const countResult = await db.prepare("SELECT COUNT(*) as cnt FROM entities").first() as { cnt: number };
-    return `你是"钢笔知识图谱"的 AI 助手。用户在浏览一个包含 ${countResult.cnt} 个词条的钢笔知识图谱。
+    return `你是"钢笔知识图谱"的 AI 助手。用户在浏览一个包含 ${getDb().prepare("SELECT COUNT(*) as cnt FROM entities").get() as { cnt: number }} 个词条的钢笔知识图谱。
 
 当前查询没有找到匹配的词条。请基于你的钢笔知识回答用户的问题，并建议用户尝试不同的搜索词。`;
   }

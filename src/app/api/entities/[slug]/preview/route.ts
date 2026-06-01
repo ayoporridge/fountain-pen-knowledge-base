@@ -6,23 +6,22 @@ export async function GET(
   { params }: { params: Promise<{ slug: string }> },
 ) {
   const { slug } = await params;
-  const db = await getDb();
+  const db = getDb();
 
-  const entity = await db
+  const entity = db
     .prepare(
       `SELECT e.id, e.type, e.slug, e.name, e.summary,
               (SELECT COUNT(*) FROM entity_links WHERE source_id = e.id OR target_id = e.id) as link_count
        FROM entities e WHERE e.slug = ?`,
     )
-    .bind(slug)
-    .first() as Record<string, string | number | null> | null;
+    .get(slug) as Record<string, string | number | null> | undefined;
 
   if (!entity) {
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
   // Top tags
-  const tags = (await db
+  const tags = db
     .prepare(
       `SELECT t.name, t.dimension FROM tags t
        JOIN entity_tags et ON et.tag_id = t.id
@@ -30,8 +29,7 @@ export async function GET(
        ORDER BY t.dimension, t.name
        LIMIT 6`,
     )
-    .bind(entity.id)
-    .all()).results as Array<{ name: string; dimension: string }>;
+    .all(entity.id) as Array<{ name: string; dimension: string }>;
 
   return NextResponse.json({
     id: entity.id,

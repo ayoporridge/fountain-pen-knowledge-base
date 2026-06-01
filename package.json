@@ -6,10 +6,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "preview": "opennextjs-cloudflare && wrangler pages dev",
-    "deploy": "opennextjs-cloudflare build && wrangler pages deploy .worker-next",
-    "d1:migrate": "wrangler d1 migrations apply fpkg --local",
-    "d1:migrate:remote": "wrangler d1 migrations apply fpkg --remote",
     "lint": "biome check .",
     "format": "biome check --write .",
     "seed": "tsx scripts/seed.ts",
@@ -21,6 +17,8 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "better-sqlite3": "^12.10.0",
+    "drizzle-orm": "^0.45.2",
     "nanoid": "^5.1.11",
     "next": "15.5.18",
     "next-themes": "^0.4.6",
@@ -36,27 +34,22 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.15",
-    "@cloudflare/workers-types": "^4.20260531.1",
-    "@opennextjs/cloudflare": "^1.19.11",
     "@playwright/test": "^1.50.0",
     "@tailwindcss/postcss": "^4",
+    "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "better-sqlite3": "^12.10.0",
-    "@types/better-sqlite3": "^7.6.13",
     "drizzle-kit": "^0.31.10",
-    "drizzle-orm": "^0.45.2",
     "tailwindcss": "^4",
     "tsx": "^4.22.3",
-    "typescript": "^5",
-    "wrangler": "^4.95.0"
+    "typescript": "^5"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
       "better-sqlite3",
       "esbuild",
-      "workerd"
+      "sharp"
     ]
   }
 }

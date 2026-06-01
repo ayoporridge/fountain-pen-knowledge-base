@@ -53,7 +53,7 @@ export default function SearchPage() {
 
     try {
       const res = await fetch(`/api/search?q=${encodeURIComponent(q)}&limit=30`);
-      const data = await res.json() as { results: SearchResult[]; total: number };
+      const data = await res.json();
       setResults(data.results);
       setTotal(data.total);
     } catch {
