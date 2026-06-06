@@ -38,6 +38,7 @@ const TYPE_COLORS: Record<string, string> = {
   material: "#f97316",
   nib: "#eab308",
   fill_system: "#14b8a6",
+  article: "#6b7280",
 };
 
 export function LocalGraph({

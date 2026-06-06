@@ -10,6 +10,7 @@ const TYPE_LABELS: Record<string, string> = {
   material: "材质",
   nib: "笔尖",
   fill_system: "上墨方式",
+  article: "文章",
 };
 
 const TYPE_EMOJI: Record<string, string> = {
@@ -19,6 +20,7 @@ const TYPE_EMOJI: Record<string, string> = {
   material: "🪨",
   nib: "✒️",
   fill_system: "💧",
+  article: "📖",
 };
 
 export default function Home() {

@@ -22,9 +22,19 @@ export async function GET(
     .prepare("SELECT key, value FROM entity_attributes WHERE entity_id = ?")
     .all(entity.id) as Array<{ key: string; value: string }>;
 
+  const tags = db
+    .prepare(`
+      SELECT t.id, t.name, t.dimension, t.slug
+      FROM tags t
+      JOIN entity_tags et ON et.tag_id = t.id
+      WHERE et.entity_id = ?
+    `)
+    .all(entity.id) as Array<{ id: string; name: string; dimension: string; slug: string }>;
+
   return NextResponse.json({
     ...entity,
     attributes: Object.fromEntries(attrs.map((a) => [a.key, a.value])),
+    tags,
   });
 }
 

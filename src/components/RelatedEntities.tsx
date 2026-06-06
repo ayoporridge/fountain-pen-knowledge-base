@@ -20,6 +20,7 @@ const TYPE_LABELS: Record<string, string> = {
   material: "材质",
   nib: "笔尖",
   fill_system: "上墨方式",
+  article: "文章",
 };
 
 const TYPE_COLORS: Record<string, string> = {
@@ -29,6 +30,7 @@ const TYPE_COLORS: Record<string, string> = {
   material: "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
   nib: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
   fill_system: "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200",
+  article: "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200",
 };
 
 export function RelatedEntities({ forward, backlinks }: RelatedEntitiesProps) {
