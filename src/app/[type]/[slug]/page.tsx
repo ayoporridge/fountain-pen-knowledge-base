@@ -268,7 +268,8 @@ function EntityPageView({
 }
 
 export default async function EntityPage({ params }: EntityPageProps) {
-  const { type, slug } = await params;
+  const { type, slug: rawSlug } = await params;
+  const slug = decodeURIComponent(rawSlug);
 
   // Special handling for concepts: check concept_rules first
   if (type === "concept") {
