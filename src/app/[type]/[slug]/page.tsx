@@ -1,5 +1,5 @@
 export const dynamic = "force-dynamic";
-import { getDb } from "@/lib/db";
+import { queryOne, queryAll } from "@/lib/db";
 import { getEntitiesForConcept } from "@/lib/concept-engine";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -40,26 +40,25 @@ const ATTR_LABELS: Record<string, string> = {
 /**
  * Render concept rule page (synthetic concepts defined by tag conditions)
  */
-function ConceptRulePage({
+async function ConceptRulePage({
   rule,
   entities,
-  db,
 }: {
   rule: { id: string; name: string; description: string | null; conditions: string };
   entities: Array<{ id: string; type: string; slug: string; name: string; summary: string | null }>;
-  db: ReturnType<typeof getDb>;
 }) {
   const conditions = JSON.parse(rule.conditions) as Array<{
     dimension: string;
     tag_slug: string;
   }>;
 
-  const condWithNames = conditions.map((c) => {
-    const tag = db
-      .prepare("SELECT name FROM tags WHERE slug = ? AND dimension = ?")
-      .get(c.tag_slug, c.dimension) as { name: string } | undefined;
+  const condWithNames = await Promise.all(conditions.map(async (c) => {
+    const tag = await queryOne(
+      "SELECT name FROM tags WHERE slug = ? AND dimension = ?",
+      [c.tag_slug, c.dimension]
+    ) as { name: string } | undefined;
     return { ...c, name: tag?.name || c.tag_slug };
-  });
+  }));
 
   return (
     <div className="max-w-4xl mx-auto py-8 px-4">
@@ -200,59 +199,42 @@ function EntityPageView({
         </p>
       )}
 
-      <EntityMeta tags={tags} />
-
       {attrs.length > 0 && (
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3">
-            属性
-          </h2>
-          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
-            <table className="w-full">
-              <tbody>
-                {attrs.map((attr) => (
-                  <tr
-                    key={attr.key}
-                    className="border-b border-gray-100 dark:border-gray-700 last:border-0"
-                  >
-                    <td className="px-4 py-3 text-sm font-medium text-gray-500 dark:text-gray-400 w-1/3">
-                      {ATTR_LABELS[attr.key] || attr.key}
-                    </td>
-                    <td className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
-                      {attr.value}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        <div className="mb-6">
+          <EntityMeta attrs={attrs} labels={ATTR_LABELS} />
+        </div>
+      )}
+
+      {tags.length > 0 && (
+        <div className="mb-6">
+          <h2 className="text-sm font-medium text-gray-500 mb-2">标签</h2>
+          <div className="flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <Link
+                key={`${tag.dimension}-${tag.slug}`}
+                href={`/by/${tag.dimension}/${tag.slug}`}
+                className="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
+              >
+                {tag.name}
+              </Link>
+            ))}
           </div>
         </div>
       )}
 
       {entity.body_md && (
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3">
-            详细内容
-          </h2>
-          <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6">
-            <MarkdownRenderer content={entity.body_md} />
-          </div>
+        <div className="mb-6">
+          <MarkdownRenderer content={entity.body_md} />
         </div>
       )}
 
-      {/* Relationship graph */}
-      {linkCount > 0 && (
-        <div className="mb-8">
-          <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3">
-            关系图
-          </h2>
-          <LocalGraph
-            entityId={entity.id as string}
-            entityType={type}
-            entitySlug={slug}
-          />
-        </div>
-      )}
+      <div className="mb-6">
+        <LocalGraph
+          entityId={entity.id as string}
+          entityType={type}
+          entitySlug={slug}
+        />
+      </div>
 
       <RelatedEntities forward={forward} backlinks={backlinks} />
 
@@ -287,82 +269,67 @@ function EntityPageView({
 
 export default async function EntityPage({ params }: EntityPageProps) {
   const { type, slug } = await params;
-  const db = getDb();
 
   // Special handling for concepts: check concept_rules first
   if (type === "concept") {
-    const conceptRule = db
-      .prepare("SELECT * FROM concept_rules WHERE slug = ?")
-      .get(slug) as
-      | { id: string; name: string; description: string | null; conditions: string }
-      | undefined;
+    const conceptRule = await queryOne(
+      "SELECT * FROM concept_rules WHERE slug = ?",
+      [slug]
+    ) as { id: string; name: string; description: string | null; conditions: string } | undefined;
 
     if (conceptRule) {
-      const entities = getEntitiesForConcept(slug) as Array<{
+      const entities = await getEntitiesForConcept(slug) as Array<{
         id: string;
         type: string;
         slug: string;
         name: string;
         summary: string | null;
       }>;
-      return <ConceptRulePage rule={conceptRule} entities={entities} db={db} />;
+      return <ConceptRulePage rule={conceptRule} entities={entities} />;
     }
   }
 
   // Regular entity lookup
-  const entity = db
-    .prepare("SELECT * FROM entities WHERE slug = ? AND type = ?")
-    .get(slug, type) as Record<string, string | null> | undefined;
+  const entity = await queryOne(
+    "SELECT * FROM entities WHERE slug = ? AND type = ?",
+    [slug, type]
+  ) as Record<string, string | null> | undefined;
 
   if (!entity) {
     notFound();
   }
 
-  const attrs = db
-    .prepare("SELECT key, value FROM entity_attributes WHERE entity_id = ?")
-    .all(entity.id) as Array<{ key: string; value: string }>;
+  const attrs = await queryAll(
+    "SELECT key, value FROM entity_attributes WHERE entity_id = ?",
+    [entity.id]
+  ) as Array<{ key: string; value: string }>;
 
-  const tags = db
-    .prepare(
-      `SELECT t.name, t.slug, t.dimension FROM tags t
-       JOIN entity_tags et ON et.tag_id = t.id
-       WHERE et.entity_id = ?
-       ORDER BY t.dimension, t.name`,
-    )
-    .all(entity.id) as Array<{ name: string; slug: string; dimension: string }>;
+  const tags = await queryAll(
+    `SELECT t.name, t.slug, t.dimension FROM tags t
+     JOIN entity_tags et ON et.tag_id = t.id
+     WHERE et.entity_id = ?
+     ORDER BY t.dimension, t.name`,
+    [entity.id]
+  ) as Array<{ name: string; slug: string; dimension: string }>;
 
   // Fetch links
-  const forward = db
-    .prepare(
-      `SELECT el.id, el.link_type, e.slug, e.name, e.type
-       FROM entity_links el
-       JOIN entities e ON e.id = el.target_id
-       WHERE el.source_id = ? AND el.link_type != 'reverse'
-       ORDER BY el.created_at`,
-    )
-    .all(entity.id) as Array<{
-    id: string;
-    link_type: string;
-    slug: string;
-    name: string;
-    type: string;
-  }>;
+  const forward = await queryAll(
+    `SELECT el.id, el.link_type, e.slug, e.name, e.type
+     FROM entity_links el
+     JOIN entities e ON e.id = el.target_id
+     WHERE el.source_id = ? AND el.link_type != 'reverse'
+     ORDER BY el.created_at`,
+    [entity.id]
+  ) as Array<{ id: string; link_type: string; slug: string; name: string; type: string }>;
 
-  const backlinks = db
-    .prepare(
-      `SELECT el.id, el.link_type, e.slug, e.name, e.type
-       FROM entity_links el
-       JOIN entities e ON e.id = el.source_id
-       WHERE el.target_id = ? AND el.link_type != 'reverse'
-       ORDER BY el.created_at`,
-    )
-    .all(entity.id) as Array<{
-    id: string;
-    link_type: string;
-    slug: string;
-    name: string;
-    type: string;
-  }>;
+  const backlinks = await queryAll(
+    `SELECT el.id, el.link_type, e.slug, e.name, e.type
+     FROM entity_links el
+     JOIN entities e ON e.id = el.source_id
+     WHERE el.target_id = ? AND el.link_type != 'reverse'
+     ORDER BY el.created_at`,
+    [entity.id]
+  ) as Array<{ id: string; link_type: string; slug: string; name: string; type: string }>;
 
   return (
     <EntityPageView

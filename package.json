@@ -17,6 +17,7 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@libsql/client": "^0.17.3",
     "better-sqlite3": "^12.10.0",
     "drizzle-orm": "^0.45.2",
     "nanoid": "^5.1.11",

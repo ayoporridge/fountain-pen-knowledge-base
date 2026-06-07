@@ -1,20 +1,18 @@
 import { NextResponse } from "next/server";
-import { getDb } from "@/lib/db";
+import { queryAll, execute } from "@/lib/db";
 import { randomUUID } from "node:crypto";
 
 export async function POST() {
   try {
-    const db = getDb();
-    
     console.log("=== Auto-tagging entities (keyword-based) ===\n");
 
     // Get all entities with their attributes
-    const entities = db.prepare(`
+    const entities = await queryAll(`
       SELECT e.id, e.slug, e.name, ea.key, ea.value
       FROM entities e
       LEFT JOIN entity_attributes ea ON e.id = ea.entity_id
       WHERE e.type = 'pen'
-    `).all() as Array<{ id: string; slug: string; name: string; key: string | null; value: string | null }>;
+    `) as Array<{ id: string; slug: string; name: string; key: string | null; value: string | null }>;
 
     console.log(`Found ${entities.length} pen entities with attributes\n`);
 
@@ -30,12 +28,6 @@ export async function POST() {
     }
 
     console.log(`Unique pen entities: ${entityMap.size}\n`);
-
-    // Prepare insert statement (with explicit id)
-    const insertTag = db.prepare(`
-      INSERT OR IGNORE INTO entity_tags (id, entity_id, tag_id)
-      SELECT ?, ?, id FROM tags WHERE slug = ?
-    `);
 
     let totalInserted = 0;
     const stats: Record<string, number> = {};
@@ -68,11 +60,13 @@ export async function POST() {
         
         if (tagSlug) {
           const id = randomUUID();
-          const result = insertTag.run(id, entityId, tagSlug);
-          if (result.changes > 0) {
-            stats.body_material = (stats.body_material || 0) + 1;
-            totalInserted++;
-          }
+          await execute(
+            `INSERT OR IGNORE INTO entity_tags (id, entity_id, tag_id)
+             SELECT ?, ?, id FROM tags WHERE slug = ?`,
+            [id, entityId, tagSlug]
+          );
+          stats.body_material = (stats.body_material || 0) + 1;
+          totalInserted++;
         }
       }
       
@@ -81,7 +75,6 @@ export async function POST() {
         const v = attrs.price_range;
         let tagSlug: string | null = null;
         
-        // Parse price range like "50-100", "300-500", etc.
         const match = v.match(/(\d+)-(\d+)/);
         if (match) {
           const low = parseInt(match[1]);
@@ -98,11 +91,13 @@ export async function POST() {
         
         if (tagSlug) {
           const id = randomUUID();
-          const result = insertTag.run(id, entityId, tagSlug);
-          if (result.changes > 0) {
-            stats.price = (stats.price || 0) + 1;
-            totalInserted++;
-          }
+          await execute(
+            `INSERT OR IGNORE INTO entity_tags (id, entity_id, tag_id)
+             SELECT ?, ?, id FROM tags WHERE slug = ?`,
+            [id, entityId, tagSlug]
+          );
+          stats.price = (stats.price || 0) + 1;
+          totalInserted++;
         }
       }
       
@@ -121,11 +116,13 @@ export async function POST() {
         
         if (tagSlug) {
           const id = randomUUID();
-          const result = insertTag.run(id, entityId, tagSlug);
-          if (result.changes > 0) {
-            stats.nib_type = (stats.nib_type || 0) + 1;
-            totalInserted++;
-          }
+          await execute(
+            `INSERT OR IGNORE INTO entity_tags (id, entity_id, tag_id)
+             SELECT ?, ?, id FROM tags WHERE slug = ?`,
+            [id, entityId, tagSlug]
+          );
+          stats.nib_type = (stats.nib_type || 0) + 1;
+          totalInserted++;
         }
       }
       
@@ -141,11 +138,13 @@ export async function POST() {
         
         if (tagSlug) {
           const id = randomUUID();
-          const result = insertTag.run(id, entityId, tagSlug);
-          if (result.changes > 0) {
-            stats.size = (stats.size || 0) + 1;
-            totalInserted++;
-          }
+          await execute(
+            `INSERT OR IGNORE INTO entity_tags (id, entity_id, tag_id)
+             SELECT ?, ?, id FROM tags WHERE slug = ?`,
+            [id, entityId, tagSlug]
+          );
+          stats.size = (stats.size || 0) + 1;
+          totalInserted++;
         }
       }
       
@@ -165,11 +164,13 @@ export async function POST() {
         
         if (tagSlug) {
           const id = randomUUID();
-          const result = insertTag.run(id, entityId, tagSlug);
-          if (result.changes > 0) {
-            stats.origin = (stats.origin || 0) + 1;
-            totalInserted++;
-          }
+          await execute(
+            `INSERT OR IGNORE INTO entity_tags (id, entity_id, tag_id)
+             SELECT ?, ?, id FROM tags WHERE slug = ?`,
+            [id, entityId, tagSlug]
+          );
+          stats.origin = (stats.origin || 0) + 1;
+          totalInserted++;
         }
       }
     }
@@ -183,15 +184,15 @@ export async function POST() {
 
     // Verify final counts
     console.log("\n=== Final entity_tags counts by dimension ===");
-    const finalCounts = db.prepare(`
+    const finalCounts = await queryAll(`
       SELECT t.dimension, COUNT(DISTINCT et.entity_id) as entity_count
       FROM entity_tags et
       JOIN tags t ON et.tag_id = t.id
       GROUP BY t.dimension
       ORDER BY t.dimension
-    `).all();
+    `);
 
-    for (const row of finalCounts) {
+    for (const row of finalCounts as Array<{ dimension: string; entity_count: number }>) {
       console.log(`  ${row.dimension}: ${row.entity_count} entities`);
     }
 
@@ -202,10 +203,11 @@ export async function POST() {
       finalCounts
     });
     
-  } catch (error) {
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
     console.error("Auto-tagging failed:", error);
     return NextResponse.json(
-      { error: "Auto-tagging failed", details: error.message },
+      { error: "Auto-tagging failed", details: message },
       { status: 500 }
     );
   }

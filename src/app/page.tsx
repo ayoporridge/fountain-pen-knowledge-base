@@ -1,4 +1,4 @@
-import { getDb } from "@/lib/db";
+import { queryAll, queryOne } from "@/lib/db";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -23,21 +23,19 @@ const TYPE_EMOJI: Record<string, string> = {
   article: "📖",
 };
 
-export default function Home() {
-  const db = getDb();
-
+export default async function Home() {
   // Stats
-  const stats = db
-    .prepare("SELECT type, COUNT(*) as cnt FROM entities GROUP BY type ORDER BY cnt DESC")
-    .all() as Array<{ type: string; cnt: number }>;
+  const stats = await queryAll(
+    "SELECT type, COUNT(*) as cnt FROM entities GROUP BY type ORDER BY cnt DESC"
+  ) as Array<{ type: string; cnt: number }>;
   const totalEntities = stats.reduce((sum, s) => sum + s.cnt, 0);
-  const totalLinks = (db.prepare("SELECT COUNT(*) as cnt FROM entity_links").get() as { cnt: number }).cnt;
-  const totalTags = (db.prepare("SELECT COUNT(*) as cnt FROM tags").get() as { cnt: number }).cnt;
+  const totalLinks = (await queryOne("SELECT COUNT(*) as cnt FROM entity_links") as { cnt: number }).cnt;
+  const totalTags = (await queryOne("SELECT COUNT(*) as cnt FROM tags") as { cnt: number }).cnt;
 
   // Recent entities (last 10)
-  const recent = db
-    .prepare("SELECT type, slug, name, summary FROM entities ORDER BY created_at DESC LIMIT 10")
-    .all() as Array<{ type: string; slug: string; name: string; summary: string | null }>;
+  const recent = await queryAll(
+    "SELECT type, slug, name, summary FROM entities ORDER BY created_at DESC LIMIT 10"
+  ) as Array<{ type: string; slug: string; name: string; summary: string | null }>;
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
@@ -100,39 +98,13 @@ export default function Home() {
               <div className="font-medium text-gray-900 dark:text-gray-100">
                 {TYPE_LABELS[s.type] || s.type}
               </div>
-              <div className="text-sm text-gray-500">{s.cnt}</div>
+              <div className="text-sm text-gray-500">{s.cnt} 个</div>
             </Link>
           ))}
         </div>
       </section>
 
-      {/* Dimension shortcuts */}
-      <section className="mb-10">
-        <h2 className="text-xl font-semibold mb-4">按维度探索</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-          {[
-            { href: "/by/nib", emoji: "✒️", label: "笔尖类型" },
-            { href: "/by/fill", emoji: "💧", label: "上墨方式" },
-            { href: "/by/origin", emoji: "🌏", label: "产地" },
-            { href: "/by/price", emoji: "💰", label: "价位" },
-            { href: "/by/usage", emoji: "✍️", label: "用途" },
-            { href: "/by/material", emoji: "🪨", label: "笔身材质" },
-          ].map((dim) => (
-            <Link
-              key={dim.href}
-              href={dim.href}
-              className="block p-3 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all text-center"
-            >
-              <div className="text-xl mb-1">{dim.emoji}</div>
-              <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                {dim.label}
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      {/* Recent additions */}
+      {/* Recent entities */}
       <section>
         <h2 className="text-xl font-semibold mb-4">最近添加</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -140,11 +112,12 @@ export default function Home() {
             <Link
               key={entity.slug}
               href={`/${entity.type}/${entity.slug}`}
-              className="block p-4 rounded-lg border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 hover:border-blue-300 dark:hover:border-blue-700 hover:shadow-md transition-all"
+              className="block p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
             >
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-sm">{TYPE_EMOJI[entity.type] || "📄"}</span>
-                <span className="text-xs text-gray-500">{TYPE_LABELS[entity.type] || entity.type}</span>
+                <span className="text-xs px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">
+                  {TYPE_LABELS[entity.type] || entity.type}
+                </span>
               </div>
               <h3 className="font-medium text-gray-900 dark:text-gray-100 mb-1">
                 {entity.name}

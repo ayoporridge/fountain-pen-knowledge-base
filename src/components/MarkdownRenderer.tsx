@@ -1,4 +1,4 @@
-import { getDb } from "@/lib/db";
+import { queryOne } from "@/lib/db";
 import { renderMarkdown } from "@/lib/markdown";
 
 interface MarkdownRendererProps {
@@ -6,13 +6,12 @@ interface MarkdownRendererProps {
 }
 
 export async function MarkdownRenderer({ content }: MarkdownRendererProps) {
-  const db = getDb();
-
   // Resolve wiki-links: [[slug]] → /{type}/{slug}
-  const resolveHref = (slug: string): string | null => {
-    const entity = db
-      .prepare("SELECT type, slug FROM entities WHERE slug = ?")
-      .get(slug) as { type: string; slug: string } | undefined;
+  const resolveHref = async (slug: string): Promise<string | null> => {
+    const entity = await queryOne(
+      "SELECT type, slug FROM entities WHERE slug = ?",
+      [slug]
+    ) as { type: string; slug: string } | undefined;
     if (entity) {
       return `/${entity.type}/${entity.slug}`;
     }

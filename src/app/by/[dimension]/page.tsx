@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getDb } from "@/lib/db";
+import { queryAll } from "@/lib/db";
 
 const VALID_DIMENSIONS: Record<string, { label: string; tagDimension: string }> = {
   brand: { label: "品牌", tagDimension: "brand_tier" },
@@ -27,20 +27,17 @@ export default async function DimensionPage({ params }: DimensionPageProps) {
     notFound();
   }
 
-  const db = getDb();
-
   // Get all tags in this dimension with entity counts
-  const tags = db
-    .prepare(
-      `SELECT t.id, t.name, t.slug, t.dimension, COUNT(et.entity_id) as entity_count
-       FROM tags t
-       LEFT JOIN entity_tags et ON et.tag_id = t.id
-       WHERE t.dimension = ?
-       GROUP BY t.id
-       HAVING entity_count > 0
-       ORDER BY entity_count DESC`,
-    )
-    .all(dimConfig.tagDimension) as Array<{
+  const tags = await queryAll(
+    `SELECT t.id, t.name, t.slug, t.dimension, COUNT(et.entity_id) as entity_count
+     FROM tags t
+     LEFT JOIN entity_tags et ON et.tag_id = t.id
+     WHERE t.dimension = ?
+     GROUP BY t.id
+     HAVING entity_count > 0
+     ORDER BY entity_count DESC`,
+    [dimConfig.tagDimension]
+  ) as Array<{
     id: string;
     name: string;
     slug: string;

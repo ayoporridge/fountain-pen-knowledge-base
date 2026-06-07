@@ -1,5 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { getDb } from "@/lib/db";
+import { queryAll, queryOne } from "@/lib/db";
 
 // Faceted dimensions and their corresponding tag dimensions
 const FACET_DIMENSIONS: Record<string, { label: string; tagDimension: string }> = {
@@ -18,7 +18,6 @@ const FACET_DIMENSIONS: Record<string, { label: string; tagDimension: string }> 
 };
 
 export async function GET(request: NextRequest) {
-  const db = getDb();
   const searchParams = request.nextUrl.searchParams;
 
   // Parse filter params: ?nib_type=弹性尖&origin=日本
@@ -45,15 +44,16 @@ export async function GET(request: NextRequest) {
 
   if (filters.length === 0) {
     // No filters: return all entities
-    total = (db.prepare("SELECT COUNT(*) as cnt FROM entities").get() as { cnt: number }).cnt;
-    entities = db
-      .prepare("SELECT id, type, slug, name, summary FROM entities ORDER BY name LIMIT ? OFFSET ?")
-      .all(limit, offset) as typeof entities;
+    total = (await queryOne("SELECT COUNT(*) as cnt FROM entities") as { cnt: number }).cnt;
+    entities = await queryAll(
+      "SELECT id, type, slug, name, summary FROM entities ORDER BY name LIMIT ? OFFSET ?",
+      [limit, offset]
+    ) as typeof entities;
   } else {
     // Build JOINs for each filter
     const joins: string[] = [];
     const conditions: string[] = [];
-    const params: string[] = [];
+    const params: unknown[] = [];
 
     for (let i = 0; i < filters.length; i++) {
       joins.push(
@@ -68,7 +68,7 @@ export async function GET(request: NextRequest) {
 
     // Count
     const countSql = `SELECT COUNT(DISTINCT e.id) as cnt FROM entities e ${joinClause} ${whereClause}`;
-    total = (db.prepare(countSql).get(...params) as { cnt: number }).cnt;
+    total = (await queryOne(countSql, params) as { cnt: number }).cnt;
 
     // Results
     const resultSql = `
@@ -79,25 +79,23 @@ export async function GET(request: NextRequest) {
       ORDER BY e.name
       LIMIT ? OFFSET ?
     `;
-    entities = db.prepare(resultSql).all(...params, limit, offset) as typeof entities;
+    entities = await queryAll(resultSql, [...params, limit, offset]) as typeof entities;
   }
 
-  // Get facet counts (for each dimension, count entities matching current filters + that dimension)
+  // Get facet counts
   const facets: Record<string, Array<{ slug: string; name: string; count: number }>> = {};
 
   for (const [dimKey, dimInfo] of Object.entries(FACET_DIMENSIONS)) {
-    // Get all tags in this dimension with counts
-    const tagCounts = db
-      .prepare(
-        `SELECT t.slug, t.name, COUNT(DISTINCT et.entity_id) as cnt
-         FROM tags t
-         LEFT JOIN entity_tags et ON et.tag_id = t.id
-         WHERE t.dimension = ?
-         GROUP BY t.id
-         HAVING cnt > 0
-         ORDER BY cnt DESC`,
-      )
-      .all(dimInfo.tagDimension) as Array<{ slug: string; name: string; cnt: number }>;
+    const tagCounts = await queryAll(
+      `SELECT t.slug, t.name, COUNT(DISTINCT et.entity_id) as cnt
+       FROM tags t
+       LEFT JOIN entity_tags et ON et.tag_id = t.id
+       WHERE t.dimension = ?
+       GROUP BY t.id
+       HAVING cnt > 0
+       ORDER BY cnt DESC`,
+      [dimInfo.tagDimension]
+    ) as Array<{ slug: string; name: string; cnt: number }>;
 
     facets[dimKey] = tagCounts.map((tc) => ({
       slug: tc.slug,

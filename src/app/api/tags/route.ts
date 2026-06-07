@@ -1,10 +1,9 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { getDb } from "@/lib/db";
+import { queryAll, queryOne, execute } from "@/lib/db";
 import { nanoid } from "nanoid";
 
 // GET /api/tags?dimension=nib_type
 export async function GET(request: NextRequest) {
-  const db = getDb();
   const dimension = request.nextUrl.searchParams.get("dimension");
   const level = request.nextUrl.searchParams.get("level");
 
@@ -26,13 +25,12 @@ export async function GET(request: NextRequest) {
   }
   sql += " ORDER BY dimension, name";
 
-  const tags = db.prepare(sql).all(...params);
+  const tags = await queryAll(sql, params);
   return NextResponse.json(tags);
 }
 
 // POST /api/tags
 export async function POST(request: NextRequest) {
-  const db = getDb();
   const body = await request.json();
   const { name, slug, dimension, level, description } = body;
 
@@ -46,11 +44,12 @@ export async function POST(request: NextRequest) {
   const id = nanoid(12);
 
   try {
-    db.prepare(
+    await execute(
       "INSERT INTO tags (id, name, slug, dimension, level, description) VALUES (?, ?, ?, ?, ?, ?)",
-    ).run(id, name, slug, dimension, level, description || null);
+      [id, name, slug, dimension, level, description || null]
+    );
 
-    const tag = db.prepare("SELECT * FROM tags WHERE id = ?").get(id);
+    const tag = await queryOne("SELECT * FROM tags WHERE id = ?", [id]);
     return NextResponse.json(tag, { status: 201 });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);

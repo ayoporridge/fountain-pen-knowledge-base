@@ -1,4 +1,4 @@
-import { getDb } from "@/lib/db";
+import { queryAll, execute } from "@/lib/db";
 import { nanoid } from "nanoid";
 
 interface ConceptCondition {
@@ -10,22 +10,19 @@ interface ConceptCondition {
  * Evaluate which concept rules match a given entity.
  * Returns list of matched concept rule IDs.
  */
-export function matchConceptsForEntity(entityId: string): string[] {
-  const db = getDb();
-
+export async function matchConceptsForEntity(entityId: string): Promise<string[]> {
   // Get all concept rules
-  const rules = db
-    .prepare("SELECT id, conditions FROM concept_rules")
-    .all() as Array<{ id: string; conditions: string }>;
+  const rules = await queryAll(
+    "SELECT id, conditions FROM concept_rules"
+  ) as Array<{ id: string; conditions: string }>;
 
   // Get entity's tags
-  const entityTags = db
-    .prepare(
-      `SELECT t.dimension, t.slug FROM tags t
-       JOIN entity_tags et ON et.tag_id = t.id
-       WHERE et.entity_id = ?`,
-    )
-    .all(entityId) as Array<{ dimension: string; slug: string }>;
+  const entityTags = await queryAll(
+    `SELECT t.dimension, t.slug FROM tags t
+     JOIN entity_tags et ON et.tag_id = t.id
+     WHERE et.entity_id = ?`,
+    [entityId]
+  ) as Array<{ dimension: string; slug: string }>;
 
   const tagSet = new Set(entityTags.map((t) => `${t.dimension}:${t.slug}`));
 
@@ -53,23 +50,21 @@ export function matchConceptsForEntity(entityId: string): string[] {
  * Recompute all concept matches for all entities.
  * Call after tag changes or concept rule changes.
  */
-export function recomputeAllConceptMatches(): { total: number; matched: number } {
-  const db = getDb();
-
+export async function recomputeAllConceptMatches(): Promise<{ total: number; matched: number }> {
   // Clear existing matches
-  db.prepare("DELETE FROM concept_matches").run();
+  await execute("DELETE FROM concept_matches");
 
-  const entities = db.prepare("SELECT id FROM entities").all() as Array<{ id: string }>;
-  const insertMatch = db.prepare(
-    "INSERT OR IGNORE INTO concept_matches (id, concept_id, entity_id) VALUES (?, ?, ?)",
-  );
+  const entities = await queryAll("SELECT id FROM entities") as Array<{ id: string }>;
 
   let totalMatches = 0;
 
   for (const entity of entities) {
-    const conceptIds = matchConceptsForEntity(entity.id);
+    const conceptIds = await matchConceptsForEntity(entity.id);
     for (const conceptId of conceptIds) {
-      insertMatch.run(nanoid(12), conceptId, entity.id);
+      await execute(
+        "INSERT OR IGNORE INTO concept_matches (id, concept_id, entity_id) VALUES (?, ?, ?)",
+        [nanoid(12), conceptId, entity.id]
+      );
       totalMatches++;
     }
   }
@@ -80,17 +75,14 @@ export function recomputeAllConceptMatches(): { total: number; matched: number }
 /**
  * Get entities matching a concept by slug.
  */
-export function getEntitiesForConcept(conceptSlug: string) {
-  const db = getDb();
-
-  return db
-    .prepare(
-      `SELECT e.id, e.type, e.slug, e.name, e.summary
-       FROM concept_matches cm
-       JOIN concept_rules cr ON cr.id = cm.concept_id
-       JOIN entities e ON e.id = cm.entity_id
-       WHERE cr.slug = ?
-       ORDER BY e.name`,
-    )
-    .all(conceptSlug);
+export async function getEntitiesForConcept(conceptSlug: string) {
+  return queryAll(
+    `SELECT e.id, e.type, e.slug, e.name, e.summary
+     FROM concept_matches cm
+     JOIN concept_rules cr ON cr.id = cm.concept_id
+     JOIN entities e ON e.id = cm.entity_id
+     WHERE cr.slug = ?
+     ORDER BY e.name`,
+    [conceptSlug]
+  );
 }

@@ -24,8 +24,8 @@ export async function POST(request: NextRequest) {
   }
 
   // Retrieve relevant entities from knowledge graph
-  const context = retrieveContext(lastUserMessage.content);
-  const systemPrompt = buildSystemPrompt(context);
+  const context = await retrieveContext(lastUserMessage.content);
+  const systemPrompt = await buildSystemPrompt(context);
 
   // Call OpenAI with streaming
   const res = await fetch("https://api.openai.com/v1/chat/completions", {
