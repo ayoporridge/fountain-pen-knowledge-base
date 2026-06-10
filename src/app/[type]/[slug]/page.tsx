@@ -246,6 +246,18 @@ export default async function EntityPage({ params }: EntityPageProps) {
         </Link>
       </div>
 
+      {/* ── Hero Image ── */}
+      {entity.image_url && (
+        <div className="mb-8 animate-fade-in-up rounded-xl overflow-hidden" style={{ border: "1px solid var(--color-border-light)" }}>
+          <img
+            src={String(entity.image_url)}
+            alt={String(entity.name)}
+            className="w-full h-64 sm:h-80 object-cover"
+            loading="lazy"
+          />
+        </div>
+      )}
+
       {/* ── Primary Zone: Name + Summary + Key Attributes ── */}
       <div className="mb-10 animate-fade-in-up">
         <div className="flex items-start gap-4 mb-4">

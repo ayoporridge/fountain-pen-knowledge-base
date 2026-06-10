@@ -39,6 +39,7 @@ export async function GET(request: NextRequest) {
     slug: string;
     name: string;
     summary: string | null;
+    image_url: string | null;
   }>;
   let total: number;
 
@@ -46,7 +47,7 @@ export async function GET(request: NextRequest) {
     // No filters: return all entities
     total = (await queryOne("SELECT COUNT(*) as cnt FROM entities") as { cnt: number }).cnt;
     entities = await queryAll(
-      "SELECT id, type, slug, name, summary FROM entities ORDER BY name LIMIT ? OFFSET ?",
+      "SELECT id, type, slug, name, summary, image_url FROM entities ORDER BY name LIMIT ? OFFSET ?",
       [limit, offset]
     ) as typeof entities;
   } else {
@@ -72,7 +73,7 @@ export async function GET(request: NextRequest) {
 
     // Results
     const resultSql = `
-      SELECT DISTINCT e.id, e.type, e.slug, e.name, e.summary
+      SELECT DISTINCT e.id, e.type, e.slug, e.name, e.summary, e.image_url
       FROM entities e
       ${joinClause}
       ${whereClause}

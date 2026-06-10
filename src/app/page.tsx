@@ -68,7 +68,7 @@ export default async function Home() {
 
   // Featured: well-tagged entries (curated, not just newest)
   const featured = (await queryAll(
-    `SELECT e.type, e.name, e.slug, e.summary, COUNT(DISTINCT et.tag_id) as tag_count
+    `SELECT e.type, e.name, e.slug, e.summary, e.image_url, COUNT(DISTINCT et.tag_id) as tag_count
      FROM entities e
      LEFT JOIN entity_tags et ON et.entity_id = e.id
      GROUP BY e.id
@@ -80,6 +80,7 @@ export default async function Home() {
     name: string;
     slug: string;
     summary: string | null;
+    image_url: string | null;
     tag_count: number;
   }>;
 
@@ -273,9 +274,18 @@ export default async function Home() {
                 className="flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-[var(--color-surface-dim)]"
                 style={{ borderColor: "var(--color-border-light)" }}
               >
-                <span style={{ color: "var(--color-accent)", flexShrink: 0 }}>
-                  <Icon size={16} weight="duotone" />
-                </span>
+                {entity.image_url ? (
+                  <img
+                    src={String(entity.image_url)}
+                    alt={String(entity.name)}
+                    className="w-10 h-10 rounded-lg object-cover flex-shrink-0"
+                    loading="lazy"
+                  />
+                ) : (
+                  <span style={{ color: "var(--color-accent)", flexShrink: 0 }}>
+                    <Icon size={16} weight="duotone" />
+                  </span>
+                )}
                 <div className="flex-1 min-w-0">
                   <span
                     className="font-medium truncate block"

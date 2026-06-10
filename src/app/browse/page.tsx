@@ -11,6 +11,7 @@ interface Entity {
   slug: string;
   name: string;
   summary: string | null;
+  image_url: string | null;
 }
 
 const TYPE_LABELS: Record<string, string> = {
@@ -139,38 +140,48 @@ export default function BrowsePage() {
                   <Link
                     key={entity.id}
                     href={`/${entity.type}/${entity.slug}`}
-                    className={`block p-4 rounded-xl border transition-all card-hover animate-fade-in-up stagger-${Math.min(i + 1, 6)}`}
+                    className={`block rounded-xl border overflow-hidden transition-all card-hover animate-fade-in-up stagger-${Math.min(i + 1, 6)}`}
                     style={{
                       borderColor: "var(--color-border)",
                       backgroundColor: "var(--color-surface-raised)",
                     }}
                   >
-                    <div className="flex items-center gap-2 mb-2">
-                      <span style={{ color: "var(--color-accent)" }}>
-                        <Icon size={14} weight="duotone" />
-                      </span>
-                      <span
-                        className="text-xs px-1.5 py-0.5 rounded-full"
-                        style={{
-                          backgroundColor: "var(--color-surface-dim)",
-                          color: "var(--color-ink-muted)",
-                        }}
+                    {entity.image_url && (
+                      <img
+                        src={String(entity.image_url)}
+                        alt={String(entity.name)}
+                        className="w-full h-32 object-cover"
+                        loading="lazy"
+                      />
+                    )}
+                    <div className="p-4">
+                      <div className="flex items-center gap-2 mb-2">
+                        <span style={{ color: "var(--color-accent)" }}>
+                          <Icon size={14} weight="duotone" />
+                        </span>
+                        <span
+                          className="text-xs px-1.5 py-0.5 rounded-full"
+                          style={{
+                            backgroundColor: "var(--color-surface-dim)",
+                            color: "var(--color-ink-muted)",
+                          }}
+                        >
+                          {TYPE_LABELS[entity.type] || entity.type}
+                        </span>
+                      </div>
+                      <h3
+                        className="font-medium mb-1 line-clamp-1"
+                        style={{ color: "var(--color-ink)" }}
                       >
-                        {TYPE_LABELS[entity.type] || entity.type}
-                      </span>
+                        {entity.name}
+                      </h3>
+                      <p
+                        className="text-sm line-clamp-2"
+                        style={{ color: "var(--color-ink-muted)" }}
+                      >
+                        {entity.summary || "暂无简介"}
+                      </p>
                     </div>
-                    <h3
-                      className="font-medium mb-1 line-clamp-1"
-                      style={{ color: "var(--color-ink)" }}
-                    >
-                      {entity.name}
-                    </h3>
-                    <p
-                      className="text-sm line-clamp-2"
-                      style={{ color: "var(--color-ink-muted)" }}
-                    >
-                      {entity.summary || "暂无简介"}
-                    </p>
                   </Link>
                 );
               })}
