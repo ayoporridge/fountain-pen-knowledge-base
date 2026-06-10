@@ -5,12 +5,12 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const ENTITY_TYPES = [
-  { value: "pen", label: "🖊️ 钢笔" },
-  { value: "brand", label: "🏢 品牌" },
-  { value: "concept", label: "💡 概念" },
-  { value: "material", label: "🪨 材质" },
-  { value: "nib", label: "✒️ 笔尖" },
-  { value: "fill_system", label: "💧 上墨方式" },
+  { value: "pen", label: "钢笔" },
+  { value: "brand", label: "品牌" },
+  { value: "concept", label: "概念" },
+  { value: "material", label: "材质" },
+  { value: "nib", label: "笔尖" },
+  { value: "fill_system", label: "上墨方式" },
 ];
 
 const ATTR_KEYS = [

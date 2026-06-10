@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@libsql/client": "^0.17.3",
+    "@phosphor-icons/react": "^2.1.10",
     "better-sqlite3": "^12.10.0",
     "drizzle-orm": "^0.45.2",
     "nanoid": "^5.1.11",

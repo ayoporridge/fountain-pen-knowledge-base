@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "钢笔知识图谱",
@@ -19,15 +20,17 @@ export default function RootLayout({
       className="h-full antialiased"
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-gray-100 font-sans">
+      <body
+        className="min-h-full flex flex-col font-sans"
+        style={{
+          backgroundColor: "var(--color-surface)",
+          color: "var(--color-ink)",
+        }}
+      >
         <Providers>
           <Header />
           <main className="flex-1">{children}</main>
-          <footer className="border-t border-gray-200 dark:border-gray-800 py-4">
-            <div className="max-w-6xl mx-auto px-4 text-center text-xs text-gray-400">
-              钢笔知识图谱 · 漫游探索钢笔世界的一切
-            </div>
-          </footer>
+          <Footer />
         </Providers>
       </body>
     </html>

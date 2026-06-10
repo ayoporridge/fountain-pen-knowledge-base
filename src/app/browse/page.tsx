@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { FacetPanel } from "@/components/FacetPanel";
+import { PenNib, Buildings, Lightbulb, Drop, BookOpen, Circle } from "@phosphor-icons/react/dist/ssr";
 
 interface Entity {
   id: string;
@@ -22,20 +23,24 @@ const TYPE_LABELS: Record<string, string> = {
   article: "文章",
 };
 
-const TYPE_COLORS: Record<string, string> = {
-  pen: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
-  brand: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
-  concept: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
-  material: "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
-  nib: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
-  fill_system: "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200",
-  article: "bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200",
+const TYPE_ICONS: Record<string, React.ComponentType<{ size?: number; weight?: string; className?: string }>> = {
+  pen: PenNib,
+  brand: Buildings,
+  concept: Lightbulb,
+  material: Circle,
+  nib: PenNib,
+  fill_system: Drop,
+  article: BookOpen,
 };
 
 export default function BrowsePage() {
   const [entities, setEntities] = useState<Entity[]>([]);
-  const [facets, setFacets] = useState<Record<string, Array<{ slug: string; name: string; count: number }>>>({});
-  const [activeFilters, setActiveFilters] = useState<Record<string, string>>({});
+  const [facets, setFacets] = useState<
+    Record<string, Array<{ slug: string; name: string; count: number }>>
+  >({});
+  const [activeFilters, setActiveFilters] = useState<Record<string, string>>(
+    {}
+  );
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
 
@@ -58,127 +63,121 @@ export default function BrowsePage() {
   }, []);
 
   useEffect(() => {
-    fetchData(activeFilters);
-  }, [activeFilters, fetchData]);
+    // Read initial filters from URL
+    const params = new URLSearchParams(window.location.search);
+    const initial: Record<string, string> = {};
+    for (const [key, value] of params.entries()) {
+      initial[key] = value;
+    }
+    setActiveFilters(initial);
+    fetchData(initial);
+  }, [fetchData]);
 
-  const handleFilterChange = useCallback((dimension: string, slug: string | null) => {
-    setActiveFilters((prev) => {
-      const next = { ...prev };
-      if (slug) {
-        next[dimension] = slug;
-      } else {
-        delete next[dimension];
-      }
-      return next;
-    });
-  }, []);
+  const handleFilterChange = (dimension: string, slug: string | null) => {
+    const newFilters = { ...activeFilters };
+    if (slug) {
+      newFilters[dimension] = slug;
+    } else {
+      delete newFilters[dimension];
+    }
+    setActiveFilters(newFilters);
 
-  const filterCount = Object.keys(activeFilters).length;
+    // Update URL
+    const params = new URLSearchParams(newFilters);
+    window.history.pushState(null, "", `/browse?${params.toString()}`);
+
+    fetchData(newFilters);
+  };
 
   return (
-    <div className="max-w-6xl mx-auto py-8 px-4">
-      <div className="mb-6 flex items-center justify-between">
-        <Link
-          href="/"
-          className="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+    <div className="max-w-6xl mx-auto px-4 py-8">
+      <div className="mb-6 animate-fade-in-up">
+        <h1
+          className="text-3xl font-bold tracking-tight mb-2"
+          style={{ color: "var(--color-ink)" }}
         >
-          ← 首页
-        </Link>
-        <Link
-          href="/search"
-          className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
-        >
-          🔍 搜索
-        </Link>
+          浏览全部
+        </h1>
+        <p style={{ color: "var(--color-ink-muted)" }}>
+          {loading ? "加载中..." : `共 ${total} 个词条`}
+        </p>
       </div>
 
-      <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-        浏览钢笔知识图谱
-      </h1>
-
       <div className="flex gap-8">
-        {/* Facet sidebar */}
-        <aside className="w-64 shrink-0 hidden md:block">
-          <div className="sticky top-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 max-h-[calc(100vh-2rem)] overflow-y-auto">
-            <FacetPanel
-              facets={facets}
-              activeFilters={activeFilters}
-              onFilterChange={handleFilterChange}
-            />
-          </div>
+        {/* Sidebar facets */}
+        <aside className="w-64 flex-shrink-0 hidden lg:block">
+          <FacetPanel
+            facets={facets}
+            activeFilters={activeFilters}
+            onFilterChange={handleFilterChange}
+          />
         </aside>
 
-        {/* Results */}
-        <main className="flex-1 min-w-0">
-          <div className="mb-4 flex items-center gap-3">
-            <span className="text-sm text-gray-500">
-              {loading ? "加载中..." : `${total} 个词条`}
-            </span>
-            {filterCount > 0 && (
-              <button
-                type="button"
-                onClick={() => setActiveFilters({})}
-                className="text-xs text-red-500 hover:text-red-700"
-              >
-                清除全部筛选 ({filterCount})
-              </button>
-            )}
-          </div>
-
-          {/* Active filter tags */}
-          {filterCount > 0 && (
-            <div className="flex flex-wrap gap-2 mb-4">
-              {Object.entries(activeFilters).map(([dim, slug]) => {
-                const facetOptions = facets[dim] || [];
-                const option = facetOptions.find((o) => o.slug === slug);
+        {/* Entity grid */}
+        <div className="flex-1">
+          {loading ? (
+            <div
+              className="text-center py-12"
+              style={{ color: "var(--color-ink-muted)" }}
+            >
+              加载中...
+            </div>
+          ) : entities.length === 0 ? (
+            <div
+              className="text-center py-12"
+              style={{ color: "var(--color-ink-muted)" }}
+            >
+              <p className="text-4xl mb-4">—</p>
+              <p>没有找到匹配的词条</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {entities.map((entity, i) => {
+                const Icon = TYPE_ICONS[entity.type] || PenNib;
                 return (
-                  <button
-                    key={dim}
-                    type="button"
-                    onClick={() => handleFilterChange(dim, null)}
-                    className="inline-flex items-center gap-1 px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 hover:bg-blue-200 dark:hover:bg-blue-800"
+                  <Link
+                    key={entity.id}
+                    href={`/${entity.type}/${entity.slug}`}
+                    className={`block p-4 rounded-xl border transition-all card-hover animate-fade-in-up stagger-${Math.min(i + 1, 6)}`}
+                    style={{
+                      borderColor: "var(--color-border)",
+                      backgroundColor: "var(--color-surface-raised)",
+                    }}
                   >
-                    {option?.name || slug}
-                    <span className="text-blue-500">✕</span>
-                  </button>
+                    <div className="flex items-center gap-2 mb-2">
+                      <Icon
+                        size={14}
+                        weight="duotone"
+                        style={{ color: "var(--color-accent)" }}
+                      />
+                      <span
+                        className="text-xs px-1.5 py-0.5 rounded-full"
+                        style={{
+                          backgroundColor: "var(--color-surface-dim)",
+                          color: "var(--color-ink-muted)",
+                        }}
+                      >
+                        {TYPE_LABELS[entity.type] || entity.type}
+                      </span>
+                    </div>
+                    <h3
+                      className="font-medium mb-1 line-clamp-1"
+                      style={{ color: "var(--color-ink)" }}
+                    >
+                      {entity.name}
+                    </h3>
+                    <p
+                      className="text-sm line-clamp-2"
+                      style={{ color: "var(--color-ink-muted)" }}
+                    >
+                      {entity.summary || "暂无简介"}
+                    </p>
+                  </Link>
                 );
               })}
             </div>
           )}
-
-          {entities.length === 0 && !loading ? (
-            <div className="text-center py-12 text-gray-500">
-              <p className="text-4xl mb-4">📚</p>
-              <p>没有匹配的词条</p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {entities.map((entity) => (
-                <Link
-                  key={entity.id}
-                  href={`/${entity.type}/${entity.slug}`}
-                  className="block p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
-                >
-                  <div className="flex items-center gap-2 mb-2">
-                    <span
-                      className={`px-1.5 py-0.5 text-xs rounded ${TYPE_COLORS[entity.type] || "bg-gray-100 text-gray-700"}`}
-                    >
-                      {TYPE_LABELS[entity.type] || entity.type}
-                    </span>
-                  </div>
-                  <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1 line-clamp-1">
-                    {entity.name}
-                  </h3>
-                  {entity.summary && (
-                    <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">
-                      {entity.summary}
-                    </p>
-                  )}
-                </Link>
-              ))}
-            </div>
-          )}
-        </main>
+        </div>
       </div>
     </div>
   );

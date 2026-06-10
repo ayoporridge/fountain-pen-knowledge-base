@@ -1,62 +1,114 @@
 import Link from "next/link";
 import { ThemeToggle } from "./ThemeToggle";
+import { PenNib, MagnifyingGlass, List, Plus } from "@phosphor-icons/react/dist/ssr";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur border-b border-gray-200 dark:border-gray-800">
+    <header
+      className="sticky top-0 z-50 backdrop-blur border-b"
+      style={{
+        backgroundColor: "color-mix(in srgb, var(--color-surface) 85%, transparent)",
+        borderColor: "var(--color-border)",
+      }}
+    >
       <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
         <nav className="flex items-center gap-6">
           <Link
             href="/"
-            className="text-lg font-bold text-gray-900 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+            className="flex items-center gap-2 text-lg font-bold tracking-tight btn-press"
+            style={{ color: "var(--color-ink)" }}
           >
-            🖊️ 钢笔知识图谱
+            <PenNib size={20} weight="duotone" style={{ color: "var(--color-accent)" }} />
+            <span>钢笔知识图谱</span>
           </Link>
           <div className="hidden sm:flex items-center gap-4">
             <Link
               href="/"
-              className="text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+              className="text-sm transition-colors hover:underline underline-offset-4"
+              style={{ color: "var(--color-ink-light)" }}
             >
               首页
             </Link>
             <Link
               href="/browse"
-              className="text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+              className="text-sm transition-colors hover:underline underline-offset-4"
+              style={{ color: "var(--color-ink-light)" }}
             >
               浏览
             </Link>
             <Link
               href="/search"
-              className="text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+              className="flex items-center gap-1 text-sm transition-colors hover:underline underline-offset-4"
+              style={{ color: "var(--color-ink-light)" }}
             >
+              <MagnifyingGlass size={14} />
               搜索
             </Link>
             <div className="relative group">
-              <button type="button" className="text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">
-                按维度 ▾
+              <button
+                type="button"
+                className="flex items-center gap-1 text-sm transition-colors hover:underline underline-offset-4"
+                style={{ color: "var(--color-ink-light)" }}
+              >
+                <List size={14} />
+                按维度
               </button>
-              <div className="absolute top-full left-0 mt-1 w-36 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
-                <Link href="/by/nib" className="block px-3 py-1.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">笔尖类型</Link>
-                <Link href="/by/fill" className="block px-3 py-1.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">上墨方式</Link>
-                <Link href="/by/origin" className="block px-3 py-1.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">产地</Link>
-                <Link href="/by/price" className="block px-3 py-1.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">价位</Link>
-                <Link href="/by/usage" className="block px-3 py-1.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">用途</Link>
-                <Link href="/by/material" className="block px-3 py-1.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">笔身材质</Link>
+              <div
+                className="absolute top-full left-0 mt-1 w-36 rounded-lg shadow-lg border py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50"
+                style={{
+                  backgroundColor: "var(--color-surface-raised)",
+                  borderColor: "var(--color-border)",
+                }}
+              >
+                {[
+                  { href: "/by/nib", label: "笔尖类型" },
+                  { href: "/by/fill", label: "上墨方式" },
+                  { href: "/by/origin", label: "产地" },
+                  { href: "/by/price", label: "价位" },
+                  { href: "/by/usage", label: "用途" },
+                  { href: "/by/material", label: "笔身材质" },
+                ].map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="block px-3 py-1.5 text-sm transition-colors"
+                    style={{ color: "var(--color-ink-light)" }}
+                    onMouseEnter={(e) =>
+                      (e.currentTarget.style.backgroundColor =
+                        "var(--color-surface-dim)")
+                    }
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.backgroundColor = "transparent")
+                    }
+                  >
+                    {item.label}
+                  </Link>
+                ))}
               </div>
             </div>
             <Link
               href="/chat"
-              className="text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors"
+              className="text-sm transition-colors hover:underline underline-offset-4"
+              style={{ color: "var(--color-ink-light)" }}
             >
-              🤖 问 AI
+              问 AI
             </Link>
           </div>
         </nav>
         <div className="flex items-center gap-3">
           <Link
             href="/new"
-            className="text-sm px-3 py-1.5 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+            className="flex items-center gap-1 text-sm px-3 py-1.5 rounded-md text-white transition-colors btn-press"
+            style={{ backgroundColor: "var(--color-accent)" }}
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.backgroundColor =
+                "var(--color-accent-hover)")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.backgroundColor = "var(--color-accent)")
+            }
           >
+            <Plus size={14} />
             新建词条
           </Link>
           <ThemeToggle />
