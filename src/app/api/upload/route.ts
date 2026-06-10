@@ -44,10 +44,24 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Validate original filename — reject path traversal attempts
+    if (
+      file.name.includes("..") ||
+      file.name.includes("/") ||
+      file.name.includes("\\") ||
+      path.isAbsolute(file.name)
+    ) {
+      return NextResponse.json(
+        { error: "Invalid filename" },
+        { status: 400 },
+      );
+    }
+
     ensureDirs();
 
-    // Generate unique filename
-    const ext = file.name.split(".").pop() || "jpg";
+    // Generate unique filename — use only a safe alphanumeric extension
+    const rawExt = file.name.split(".").pop() || "jpg";
+    const ext = rawExt.replace(/[^a-zA-Z0-9]/g, "").slice(0, 10) || "jpg";
     const id = nanoid(12);
     const filename = `${id}.${ext}`;
     const thumbFilename = `${id}_thumb.webp`;

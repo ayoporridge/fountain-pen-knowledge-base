@@ -1,13 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import {
-  PenNib,
-  Buildings,
-  Lightbulb,
-  Drop,
-  BookOpen,
-} from "@phosphor-icons/react/dist/ssr";
+import { PenNib } from "@phosphor-icons/react/dist/ssr";
+import { TYPE_ICONS } from "@/lib/constants";
 
 interface StarEntry {
   name: string;
@@ -20,16 +15,6 @@ interface TypeItem {
   stars: StarEntry[];
   cnt: number;
 }
-
-const TYPE_ICONS: Record<string, React.ComponentType<Record<string, unknown>>> = {
-  pen: PenNib,
-  brand: Buildings,
-  concept: Lightbulb,
-  material: PenNib,
-  nib: PenNib,
-  fill_system: Drop,
-  article: BookOpen,
-};
 
 export default function BentoGrid({ items }: { items: TypeItem[] }) {
   return (

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import ForceGraph2D from "react-force-graph-2d";
+import { TYPE_COLORS } from "@/lib/constants";
 
 interface GraphNode {
   id: string;
@@ -31,17 +32,6 @@ interface LocalGraphProps {
   entityType: string;
   entitySlug: string;
 }
-
-// Warm palette matching the site's amber/ink/stone system
-const TYPE_COLORS: Record<string, string> = {
-  pen: "#8b7355",
-  brand: "#6b8f71",
-  concept: "#9b7eb8",
-  material: "#a0845e",
-  nib: "#8b7355",
-  fill_system: "#5a8f9b",
-  article: "#7a756d",
-};
 
 export function LocalGraph({
   entityId,

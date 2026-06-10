@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { queryAll, queryOne, execute } from "@/lib/db";
+import { verifyAdminToken } from "@/lib/admin-auth";
 import { nanoid } from "nanoid";
 
 // GET /api/entities/[slug]
@@ -81,9 +82,12 @@ export async function PUT(
 
 // DELETE /api/entities/[slug]
 export async function DELETE(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ slug: string }> },
 ) {
+  const deny = verifyAdminToken(request);
+  if (deny) return deny;
+
   const { slug } = await params;
 
   // Check if entity exists first

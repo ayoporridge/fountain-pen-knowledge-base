@@ -156,8 +156,8 @@ export function TagSelector({ entitySlug }: TagSelectorProps) {
   if (loading) {
     return (
       <div className="animate-pulse space-y-2">
-        <div className="h-4 w-24 bg-gray-200 dark:bg-gray-700 rounded" />
-        <div className="h-20 bg-gray-200 dark:bg-gray-700 rounded" />
+        <div className="h-4 w-24 bg-surface-dim rounded" />
+        <div className="h-20 bg-surface-dim rounded" />
       </div>
     );
   }
@@ -165,13 +165,13 @@ export function TagSelector({ entitySlug }: TagSelectorProps) {
   return (
     <div>
       <div className="flex items-center justify-between mb-3">
-        <h2 className="text-sm font-medium text-gray-700 dark:text-gray-300">
+        <h2 className="text-sm font-medium text-ink-light">
           原子标签
         </h2>
         <button
           type="button"
           onClick={() => setCreating(!creating)}
-          className="text-xs text-blue-600 dark:text-blue-400 hover:underline"
+          className="text-xs text-accent hover:underline"
         >
           {creating ? "取消" : "+ 新建标签"}
         </button>
@@ -184,18 +184,18 @@ export function TagSelector({ entitySlug }: TagSelectorProps) {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="搜索标签..."
-          className="w-full px-3 py-1.5 text-sm rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full px-3 py-1.5 text-sm rounded-md border border-border bg-surface-raised text-ink focus:ring-2 focus:ring-accent focus:border-transparent"
         />
       </div>
 
       {/* Create new tag */}
       {creating && (
-        <div className="mb-3 p-3 rounded-md border border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20">
+        <div className="mb-3 p-3 rounded-md border border-accent bg-accent-light">
           <div className="flex gap-2 mb-2">
             <select
               value={newTagDimension}
               onChange={(e) => setNewTagDimension(e.target.value)}
-              className="px-2 py-1 text-sm rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800"
+              className="px-2 py-1 text-sm rounded border border-border bg-surface-raised"
             >
               <option value="">选择维度</option>
               {Object.entries(DIMENSION_LABELS).map(([key, label]) => (
@@ -209,7 +209,7 @@ export function TagSelector({ entitySlug }: TagSelectorProps) {
               value={newTagName}
               onChange={(e) => setNewTagName(e.target.value)}
               placeholder="标签名称"
-              className="flex-1 px-2 py-1 text-sm rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800"
+              className="flex-1 px-2 py-1 text-sm rounded border border-border bg-surface-raised"
               onKeyDown={(e) => {
                 if (e.key === "Enter") handleCreateTag();
               }}
@@ -219,7 +219,7 @@ export function TagSelector({ entitySlug }: TagSelectorProps) {
             type="button"
             onClick={handleCreateTag}
             disabled={!newTagName.trim() || !newTagDimension}
-            className="px-3 py-1 text-sm rounded bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 transition-colors"
+            className="px-3 py-1 text-sm rounded bg-accent text-white hover:bg-accent-hover disabled:opacity-50 transition-colors"
           >
             创建
           </button>
@@ -230,9 +230,9 @@ export function TagSelector({ entitySlug }: TagSelectorProps) {
       <div className="space-y-4 max-h-96 overflow-y-auto">
         {Array.from(grouped.entries()).map(([dimension, tags]) => (
           <div key={dimension}>
-            <h3 className="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-1.5">
+            <h3 className="text-xs font-medium text-ink-muted uppercase tracking-wide mb-1.5">
               {DIMENSION_LABELS[dimension] || dimension}
-              <span className="ml-1 text-gray-400 dark:text-gray-500">
+              <span className="ml-1 text-ink-muted">
                 ({tags.filter((t) => selectedIds.has(t.id)).length}/{tags.length})
               </span>
             </h3>
@@ -246,8 +246,8 @@ export function TagSelector({ entitySlug }: TagSelectorProps) {
                     onClick={() => toggleTag(tag.id)}
                     className={`px-2 py-0.5 text-xs rounded-full border transition-colors ${
                       isSelected
-                        ? "bg-blue-600 text-white border-blue-600"
-                        : "bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-blue-400 dark:hover:border-blue-500"
+                        ? "bg-accent text-white border-accent"
+                        : "bg-surface-raised text-ink-light border-border hover:border-accent"
                     }`}
                   >
                     {tag.name}
@@ -259,7 +259,7 @@ export function TagSelector({ entitySlug }: TagSelectorProps) {
         ))}
 
         {grouped.size === 0 && (
-          <p className="text-sm text-gray-400 dark:text-gray-500">
+          <p className="text-sm text-ink-muted">
             {search ? "没有匹配的标签" : "暂无标签，请先运行 seed-tags 脚本"}
           </p>
         )}
@@ -267,7 +267,7 @@ export function TagSelector({ entitySlug }: TagSelectorProps) {
 
       {/* Selected count */}
       {selectedIds.size > 0 && (
-        <div className="mt-3 text-xs text-gray-500 dark:text-gray-400">
+        <div className="mt-3 text-xs text-ink-muted">
           已选择 {selectedIds.size} 个标签
         </div>
       )}

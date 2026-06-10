@@ -76,8 +76,8 @@ export default function EditEntityPage({
   if (loading || !entity || !resolvedParams) {
     return (
       <div className="max-w-4xl mx-auto py-8 px-4 animate-pulse">
-        <div className="h-8 w-48 bg-gray-200 dark:bg-gray-700 rounded mb-4" />
-        <div className="h-64 bg-gray-200 dark:bg-gray-700 rounded" />
+        <div className="h-8 w-48 bg-surface-dim rounded mb-4" />
+        <div className="h-64 bg-surface-dim rounded" />
       </div>
     );
   }
@@ -99,52 +99,52 @@ export default function EditEntityPage({
       <div className="mb-6">
         <Link
           href={`/${resolvedParams.type}/${resolvedParams.slug}`}
-          className="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+          className="text-sm text-ink-muted hover:text-ink-light"
         >
           ← 返回词条
         </Link>
       </div>
 
-      <h1 className="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100">
+      <h1 className="text-2xl font-bold mb-6 text-ink">
         编辑: {entity.name}
       </h1>
 
       <div className="space-y-6">
         {/* Name */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-ink-light mb-1">
             名称
           </label>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-3 py-2 rounded-md border border-border bg-surface-raised text-ink focus:ring-2 focus:ring-accent focus:border-transparent"
           />
         </div>
 
         {/* Summary */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-ink-light mb-1">
             摘要
           </label>
           <input
             type="text"
             value={summary}
             onChange={(e) => setSummary(e.target.value)}
-            className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-3 py-2 rounded-md border border-border bg-surface-raised text-ink focus:ring-2 focus:ring-accent focus:border-transparent"
           />
         </div>
 
         {/* Attributes */}
         <div>
-          <h2 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+          <h2 className="text-sm font-medium text-ink-light mb-3">
             结构化属性
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {ATTR_KEYS.map(({ key, label }) => (
               <div key={key}>
-                <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
+                <label className="block text-xs text-ink-muted mb-1">
                   {label}
                 </label>
                 <input
@@ -156,7 +156,7 @@ export default function EditEntityPage({
                       [key]: e.target.value,
                     }))
                   }
-                  className="w-full px-3 py-1.5 text-sm rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-1.5 text-sm rounded-md border border-border bg-surface-raised text-ink focus:ring-2 focus:ring-accent focus:border-transparent"
                 />
               </div>
             ))}
@@ -172,7 +172,7 @@ export default function EditEntityPage({
 
         {/* Body Markdown */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-ink-light mb-1">
             详细内容 (Markdown)
           </label>
           <div className="mb-2">
@@ -186,7 +186,7 @@ export default function EditEntityPage({
             value={bodyMd}
             onChange={(e) => setBodyMd(e.target.value)}
             rows={16}
-            className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-3 py-2 rounded-md border border-border bg-surface-raised text-ink font-mono text-sm focus:ring-2 focus:ring-accent focus:border-transparent"
           />
         </div>
 
@@ -196,13 +196,13 @@ export default function EditEntityPage({
             type="button"
             onClick={handleSave}
             disabled={saving}
-            className="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 transition-colors"
+            className="px-4 py-2 rounded-md bg-accent text-white hover:bg-accent-hover disabled:opacity-50 transition-colors"
           >
             {saving ? "保存中..." : "保存"}
           </button>
           <Link
             href={`/${resolvedParams.type}/${resolvedParams.slug}`}
-            className="px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            className="px-4 py-2 rounded-md border border-border hover:bg-surface-dim transition-colors"
           >
             取消
           </Link>

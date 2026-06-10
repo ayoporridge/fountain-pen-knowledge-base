@@ -57,12 +57,12 @@ export function HoverPreview({ href, children, className }: HoverPreviewProps) {
       </Link>
 
       {show && preview && (
-        <div className="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-3 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 pointer-events-none">
-          <h4 className="font-semibold text-gray-900 dark:text-gray-100 mb-1 text-sm">
+        <div className="absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-2 w-64 p-3 bg-surface-raised rounded-lg shadow-xl border border-border pointer-events-none">
+          <h4 className="font-semibold text-ink mb-1 text-sm">
             {preview.name}
           </h4>
           {preview.summary && (
-            <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-3 mb-2">
+            <p className="text-xs text-ink-light line-clamp-3 mb-2">
               {preview.summary}
             </p>
           )}
@@ -71,18 +71,18 @@ export function HoverPreview({ href, children, className }: HoverPreviewProps) {
               {preview.tags.slice(0, 4).map((tag) => (
                 <span
                   key={`${tag.dimension}-${tag.name}`}
-                  className="px-1.5 py-0.5 text-[10px] rounded bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400"
+                  className="px-1.5 py-0.5 text-[10px] rounded bg-surface-dim text-ink-light"
                 >
                   {tag.name}
                 </span>
               ))}
             </div>
           )}
-          <div className="text-[10px] text-gray-400 mt-1">
+          <div className="text-[10px] text-ink-muted mt-1">
             {preview.link_count} 个关联
           </div>
           {/* Arrow */}
-          <div className="absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 bg-white dark:bg-gray-800 border-r border-b border-gray-200 dark:border-gray-700 rotate-45 -mt-1" />
+          <div className="absolute top-full left-1/2 -translate-x-1/2 w-2 h-2 bg-surface-raised border-r border-b border-border rotate-45 -mt-1" />
         </div>
       )}
     </span>

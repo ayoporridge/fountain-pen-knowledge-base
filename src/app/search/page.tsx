@@ -6,12 +6,8 @@ import {
   MagnifyingGlass,
   ArrowLeft,
   PenNib,
-  Buildings,
-  Lightbulb,
-  Drop,
-  BookOpen,
-  Circle,
 } from "@phosphor-icons/react";
+import { TYPE_LABELS, TYPE_ICONS } from "@/lib/constants";
 
 interface SearchResult {
   id: string;
@@ -24,27 +20,6 @@ interface SearchResult {
   body_highlight: string;
   rank: number;
 }
-
-const TYPE_LABELS: Record<string, string> = {
-  pen: "钢笔",
-  brand: "品牌",
-  concept: "概念",
-  material: "材质",
-  nib: "笔尖",
-  fill_system: "上墨方式",
-  article: "文章",
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const TYPE_ICONS: Record<string, React.ComponentType<any>> = {
-  pen: PenNib,
-  brand: Buildings,
-  concept: Lightbulb,
-  material: Circle,
-  nib: PenNib,
-  fill_system: Drop,
-  article: BookOpen,
-};
 
 export default function SearchPage() {
   const [query, setQuery] = useState("");

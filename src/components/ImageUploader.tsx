@@ -49,7 +49,7 @@ export function ImageUploader({ onUploaded }: ImageUploaderProps) {
   return (
     <div className="flex items-center gap-3">
       <label
-        className={`inline-flex items-center gap-2 px-3 py-1.5 text-sm rounded-md border border-gray-300 dark:border-gray-600 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors ${
+        className={`inline-flex items-center gap-2 px-3 py-1.5 text-sm rounded-md border border-border cursor-pointer hover:bg-surface-dim transition-colors ${
           uploading ? "opacity-50 pointer-events-none" : ""
         }`}
       >

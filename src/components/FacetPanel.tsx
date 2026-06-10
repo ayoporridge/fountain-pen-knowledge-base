@@ -30,7 +30,7 @@ const DIM_LABELS: Record<string, string> = {
 export function FacetPanel({ facets, activeFilters, onFilterChange }: FacetPanelProps) {
   return (
     <div className="space-y-4">
-      <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+      <h2 className="text-lg font-semibold text-ink">
         筛选
       </h2>
 
@@ -40,7 +40,7 @@ export function FacetPanel({ facets, activeFilters, onFilterChange }: FacetPanel
 
         return (
           <details key={dim} open={isActive || options.length <= 8} className="group">
-            <summary className="cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 select-none">
+            <summary className="cursor-pointer text-sm font-medium text-ink-light mb-2 select-none">
               {DIM_LABELS[dim] || dim}
               {isActive && (
                 <button
@@ -68,12 +68,12 @@ export function FacetPanel({ facets, activeFilters, onFilterChange }: FacetPanel
                     onChange={() =>
                       onFilterChange(dim, activeFilters[dim] === opt.slug ? null : opt.slug)
                     }
-                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    className="rounded border-border text-accent focus:ring-accent"
                   />
-                  <span className="text-sm text-gray-600 dark:text-gray-400 group-hover/item:text-gray-900 dark:group-hover/item:text-gray-200">
+                  <span className="text-sm text-ink-muted group-hover/item:text-ink">
                     {opt.name}
                   </span>
-                  <span className="text-xs text-gray-400 ml-auto">
+                  <span className="text-xs text-ink-muted ml-auto">
                     {opt.count}
                   </span>
                 </label>

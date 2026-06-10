@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowRight, ArrowLeft } from "@phosphor-icons/react/dist/ssr";
+import { TYPE_LABELS } from "@/lib/constants";
 
 interface LinkItem {
   link_type: string;
@@ -11,16 +12,6 @@ interface LinkItem {
 interface RelatedEntitiesProps {
   links: LinkItem[];
 }
-
-const TYPE_LABELS: Record<string, string> = {
-  pen: "钢笔",
-  brand: "品牌",
-  concept: "概念",
-  material: "材质",
-  nib: "笔尖",
-  fill_system: "上墨方式",
-  article: "文章",
-};
 
 export function RelatedEntities({ links }: RelatedEntitiesProps) {
   if (links.length === 0) return null;

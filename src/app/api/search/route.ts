@@ -19,6 +19,14 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ results: [], total: 0, page, limit });
   }
 
+  // Sanitize FTS5 query: strip characters that have special meaning in FTS5
+  // (" * + - AND OR NOT) and replace with space to avoid syntax errors / injection
+  const sanitized = q.replace(/["*+\-()]/g, " ").replace(/\b(AND|OR|NOT)\b/gi, " ").trim();
+
+  if (!sanitized) {
+    return NextResponse.json({ results: [], total: 0, page, limit, query: q });
+  }
+
   // Try FTS5 search first
   let ftsResults: Array<{
     id: string;
@@ -44,7 +52,7 @@ export async function GET(request: NextRequest) {
        WHERE entities_fts MATCH ?
        ORDER BY rank
        LIMIT ? OFFSET ?`,
-      [q, limit, offset]
+      [sanitized, limit, offset]
     ) as typeof ftsResults;
   } catch {
     // FTS query might fail for some patterns
@@ -66,8 +74,8 @@ export async function GET(request: NextRequest) {
 
     ftsResults = likeResults.map((r) => ({
       ...r,
-      name_highlight: highlightText(r.name, q),
-      summary_highlight: r.summary ? highlightText(r.summary, q) : '',
+      name_highlight: highlightText(r.name, sanitized),
+      summary_highlight: r.summary ? highlightText(r.summary, sanitized) : '',
       body_highlight: '',
       rank: 0,
     }));
@@ -78,7 +86,7 @@ export async function GET(request: NextRequest) {
   try {
     const countResult = await queryOne(
       "SELECT COUNT(*) as cnt FROM entities_fts WHERE entities_fts MATCH ?",
-      [q]
+      [sanitized]
     ) as { cnt: number };
     total = countResult.cnt;
   } catch {

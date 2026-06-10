@@ -7,11 +7,14 @@ const DB_PATH = path.join(process.cwd(), "data", "fpkg.db");
 const MIGRATIONS_DIR = path.join(process.cwd(), "migrations");
 
 let _client: Client | null = null;
+let _migrationsDone: Promise<void> | null = null;
 
 /**
  * Get or create a database client.
  * - In production (TURSO_URL set): connects to Turso cloud
  * - In development: uses local SQLite file
+ *
+ * Migrations run exactly once (awaited) on first call.
  */
 export function getDb(): Client {
   if (_client) return _client;
@@ -34,7 +37,10 @@ export function getDb(): Client {
   // Enable foreign keys
   _client.execute("PRAGMA foreign_keys = ON");
 
-  runMigrations(_client);
+  // Run migrations exactly once; subsequent callers await the same promise
+  if (!_migrationsDone) {
+    _migrationsDone = runMigrations(_client);
+  }
 
   return _client;
 }
@@ -66,41 +72,38 @@ export async function execBatch(sqls: string[]): Promise<void> {
   }
 }
 
-function runMigrations(db: Client): void {
+async function runMigrations(db: Client): Promise<void> {
   // Create migrations table
-  db.execute(`
+  await db.execute(`
     CREATE TABLE IF NOT EXISTS migrations (
       name TEXT PRIMARY KEY NOT NULL,
       applied_at TEXT NOT NULL DEFAULT (datetime('now'))
     );
-  `).catch(() => {});
+  `);
 
-  // Get applied migrations and run new ones
-  (async () => {
-    try {
-      const result = await db.execute("SELECT name FROM migrations");
-      const applied = new Set(result.rows.map((row) => row.name as string));
+  try {
+    const result = await db.execute("SELECT name FROM migrations");
+    const applied = new Set(result.rows.map((row) => row.name as string));
 
-      if (!fs.existsSync(MIGRATIONS_DIR)) return;
+    if (!fs.existsSync(MIGRATIONS_DIR)) return;
 
-      const files = fs
-        .readdirSync(MIGRATIONS_DIR)
-        .filter((f) => f.endsWith(".sql"))
-        .sort();
+    const files = fs
+      .readdirSync(MIGRATIONS_DIR)
+      .filter((f) => f.endsWith(".sql"))
+      .sort();
 
-      for (const file of files) {
-        if (applied.has(file)) continue;
+    for (const file of files) {
+      if (applied.has(file)) continue;
 
-        const sql = fs.readFileSync(path.join(MIGRATIONS_DIR, file), "utf-8");
-        await db.executeMultiple(sql);
-        await db.execute({
-          sql: "INSERT INTO migrations (name, applied_at) VALUES (?, datetime('now'))",
-          args: [file],
-        });
-        console.log(`Applied migration: ${file}`);
-      }
-    } catch (err) {
-      console.error("Migration error:", err);
+      const sql = fs.readFileSync(path.join(MIGRATIONS_DIR, file), "utf-8");
+      await db.executeMultiple(sql);
+      await db.execute({
+        sql: "INSERT INTO migrations (name, applied_at) VALUES (?, datetime('now'))",
+        args: [file],
+      });
+      console.log(`Applied migration: ${file}`);
     }
-  })();
+  } catch (err) {
+    console.error("Migration error:", err);
+  }
 }

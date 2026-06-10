@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { FacetPanel } from "@/components/FacetPanel";
-import { PenNib, Buildings, Lightbulb, Drop, BookOpen, Circle } from "@phosphor-icons/react/dist/ssr";
+import { PenNib } from "@phosphor-icons/react/dist/ssr";
+import { TYPE_LABELS, TYPE_ICONS } from "@/lib/constants";
 
 interface Entity {
   id: string;
@@ -13,27 +14,6 @@ interface Entity {
   summary: string | null;
   image_url: string | null;
 }
-
-const TYPE_LABELS: Record<string, string> = {
-  pen: "钢笔",
-  brand: "品牌",
-  concept: "概念",
-  material: "材质",
-  nib: "笔尖",
-  fill_system: "上墨方式",
-  article: "文章",
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const TYPE_ICONS: Record<string, React.ComponentType<any>> = {
-  pen: PenNib,
-  brand: Buildings,
-  concept: Lightbulb,
-  material: Circle,
-  nib: PenNib,
-  fill_system: Drop,
-  article: BookOpen,
-};
 
 export default function BrowsePage() {
   const [entities, setEntities] = useState<Entity[]>([]);

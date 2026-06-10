@@ -120,13 +120,13 @@ export default function NewEntityPage() {
       <div className="mb-6">
         <Link
           href="/"
-          className="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+          className="text-sm text-ink-muted hover:text-ink-light"
         >
           ← 首页
         </Link>
       </div>
 
-      <h1 className="text-2xl font-bold mb-6 text-gray-900 dark:text-gray-100">
+      <h1 className="text-2xl font-bold mb-6 text-ink">
         新建词条
       </h1>
 
@@ -139,7 +139,7 @@ export default function NewEntityPage() {
       <div className="space-y-6">
         {/* Type selection */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-medium text-ink-light mb-2">
             词条类型
           </label>
           <div className="flex flex-wrap gap-2">
@@ -150,8 +150,8 @@ export default function NewEntityPage() {
                 onClick={() => handleTypeChange(t.value)}
                 className={`px-3 py-1.5 text-sm rounded-md border transition-colors ${
                   type === t.value
-                    ? "bg-blue-600 text-white border-blue-600"
-                    : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-blue-400"
+                    ? "bg-accent text-white border-accent"
+                    : "bg-surface-raised text-ink-light border-border hover:border-accent"
                 }`}
               >
                 {t.label}
@@ -162,7 +162,7 @@ export default function NewEntityPage() {
 
         {/* Name */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-ink-light mb-1">
             名称 <span className="text-red-500">*</span>
           </label>
           <input
@@ -170,20 +170,20 @@ export default function NewEntityPage() {
             value={name}
             onChange={(e) => handleNameChange(e.target.value)}
             placeholder="例如：百乐 Custom 823"
-            className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-3 py-2 rounded-md border border-border bg-surface-raised text-ink focus:ring-2 focus:ring-accent focus:border-transparent"
           />
         </div>
 
         {/* Slug (auto-generated, editable) */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-ink-light mb-1">
             URL Slug{" "}
-            <span className="text-xs text-gray-400 dark:text-gray-500 font-normal">
+            <span className="text-xs text-ink-muted font-normal">
               (自动生成，可手动修改)
             </span>
           </label>
           <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-500 dark:text-gray-400">
+            <span className="text-sm text-ink-muted">
               /{type}/
             </span>
             <input
@@ -191,14 +191,14 @@ export default function NewEntityPage() {
               value={slug}
               onChange={(e) => handleSlugChange(e.target.value)}
               placeholder="auto-generated-slug"
-              className="flex-1 px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="flex-1 px-3 py-2 rounded-md border border-border bg-surface-raised text-ink font-mono text-sm focus:ring-2 focus:ring-accent focus:border-transparent"
             />
           </div>
         </div>
 
         {/* Summary */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-ink-light mb-1">
             摘要
           </label>
           <input
@@ -206,19 +206,19 @@ export default function NewEntityPage() {
             value={summary}
             onChange={(e) => setSummary(e.target.value)}
             placeholder="一句话描述这个词条"
-            className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-3 py-2 rounded-md border border-border bg-surface-raised text-ink focus:ring-2 focus:ring-accent focus:border-transparent"
           />
         </div>
 
         {/* Attributes */}
         <div>
-          <h2 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+          <h2 className="text-sm font-medium text-ink-light mb-3">
             结构化属性
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {ATTR_KEYS.map(({ key, label }) => (
               <div key={key}>
-                <label className="block text-xs text-gray-500 dark:text-gray-400 mb-1">
+                <label className="block text-xs text-ink-muted mb-1">
                   {label}
                 </label>
                 <input
@@ -230,7 +230,7 @@ export default function NewEntityPage() {
                       [key]: e.target.value,
                     }))
                   }
-                  className="w-full px-3 py-1.5 text-sm rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-1.5 text-sm rounded-md border border-border bg-surface-raised text-ink focus:ring-2 focus:ring-accent focus:border-transparent"
                 />
               </div>
             ))}
@@ -239,7 +239,7 @@ export default function NewEntityPage() {
 
         {/* Body Markdown */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-ink-light mb-1">
             详细内容 (Markdown)
           </label>
           <textarea
@@ -247,7 +247,7 @@ export default function NewEntityPage() {
             onChange={(e) => setBodyMd(e.target.value)}
             rows={12}
             placeholder="使用 Markdown 格式编写详细内容..."
-            className="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-mono text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full px-3 py-2 rounded-md border border-border bg-surface-raised text-ink font-mono text-sm focus:ring-2 focus:ring-accent focus:border-transparent"
           />
         </div>
 
@@ -257,13 +257,13 @@ export default function NewEntityPage() {
             type="button"
             onClick={handleSave}
             disabled={saving}
-            className="px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 transition-colors"
+            className="px-4 py-2 rounded-md bg-accent text-white hover:bg-accent-hover disabled:opacity-50 transition-colors"
           >
             {saving ? "创建中..." : "创建词条"}
           </button>
           <Link
             href="/"
-            className="px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            className="px-4 py-2 rounded-md border border-border hover:bg-surface-dim transition-colors"
           >
             取消
           </Link>

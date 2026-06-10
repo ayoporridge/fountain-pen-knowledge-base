@@ -4,36 +4,13 @@ import BentoGrid from "@/components/BentoGrid";
 import Image from "next/image";
 import {
   PenNib,
-  Buildings,
-  Lightbulb,
-  Drop,
-  BookOpen,
   ArrowRight,
   MagnifyingGlass,
   Star,
 } from "@phosphor-icons/react/dist/ssr";
+import { TYPE_LABELS, TYPE_ICONS } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
-
-const TYPE_ICONS: Record<string, React.ComponentType<Record<string, unknown>>> = {
-  pen: PenNib,
-  brand: Buildings,
-  concept: Lightbulb,
-  material: PenNib,
-  nib: PenNib,
-  fill_system: Drop,
-  article: BookOpen,
-};
-
-const TYPE_LABELS: Record<string, string> = {
-  pen: "钢笔",
-  brand: "品牌",
-  concept: "概念",
-  material: "材质",
-  nib: "笔尖",
-  fill_system: "上墨方式",
-  article: "文章",
-};
 
 // Star entries per type — queried from DB at build time
 

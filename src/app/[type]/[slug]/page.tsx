@@ -13,53 +13,17 @@ import { DensityBadge } from "@/components/DensityBadge";
 import { CompareButton } from "@/components/CompareBar";
 import {
   PenNib,
-  Buildings,
-  Lightbulb,
-  Drop,
-  BookOpen,
   ArrowLeft,
   PencilSimple,
   Tag,
   Graph,
   Link as LinkIcon,
 } from "@phosphor-icons/react/dist/ssr";
+import { TYPE_LABELS, TYPE_ICONS, ATTR_LABELS } from "@/lib/constants";
 
 interface EntityPageProps {
   params: Promise<{ type: string; slug: string }>;
 }
-
-const TYPE_LABELS: Record<string, string> = {
-  pen: "钢笔",
-  brand: "品牌",
-  concept: "概念",
-  material: "材质",
-  nib: "笔尖",
-  fill_system: "上墨方式",
-  article: "文章",
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const TYPE_ICONS: Record<string, React.ComponentType<any>> = {
-  pen: PenNib,
-  brand: Buildings,
-  concept: Lightbulb,
-  material: PenNib,
-  nib: PenNib,
-  fill_system: Drop,
-  article: BookOpen,
-};
-
-const ATTR_LABELS: Record<string, string> = {
-  nib_size: "笔尖粗细",
-  fill_system: "上墨方式",
-  body_material: "笔身材质",
-  origin_country: "产地",
-  price_range: "价位",
-  writing_style: "书写风格",
-  nib_material: "笔尖材质",
-  founded: "创立年份",
-  description: "描述",
-};
 
 /**
  * Concept rule page — rendered in natural language, not raw schema
@@ -245,22 +209,18 @@ export default async function EntityPage({ params }: EntityPageProps) {
       [entity.id]
     )) as Record<string, string | number | null> | null;
     if (conceptRule) {
-      conceptEntities = (await getEntitiesForConcept(entity.id as string)) as typeof conceptEntities;
+      conceptEntities = (await getEntitiesForConcept(conceptRule.id as string)) as typeof conceptEntities;
     }
   }
 
-  // Parse attributes
-  let attrs: Record<string, string> = {};
-  try {
-    if (entity.attributes) {
-      attrs =
-        typeof entity.attributes === "string"
-          ? JSON.parse(entity.attributes as string)
-          : (entity.attributes as unknown as Record<string, string>);
-    }
-  } catch {
-    attrs = {};
-  }
+  // Parse attributes from entity_attributes table (not from a JSON column)
+  const attrRows = (await queryAll(
+    "SELECT key, value FROM entity_attributes WHERE entity_id = ?",
+    [entity.id],
+  )) as Array<{ key: string; value: string }>;
+  const attrs: Record<string, string> = Object.fromEntries(
+    attrRows.map((a) => [a.key, a.value]),
+  );
 
   const Icon = TYPE_ICONS[type] || PenNib;
 

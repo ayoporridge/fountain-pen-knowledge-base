@@ -73,16 +73,16 @@ export async function recomputeAllConceptMatches(): Promise<{ total: number; mat
 }
 
 /**
- * Get entities matching a concept by slug.
+ * Get entities matching a concept by concept rule ID.
  */
-export async function getEntitiesForConcept(conceptSlug: string) {
+export async function getEntitiesForConcept(conceptId: string) {
   return queryAll(
     `SELECT e.id, e.type, e.slug, e.name, e.summary
      FROM concept_matches cm
      JOIN concept_rules cr ON cr.id = cm.concept_id
      JOIN entities e ON e.id = cm.entity_id
-     WHERE cr.slug = ?
+     WHERE cr.id = ?
      ORDER BY e.name`,
-    [conceptSlug]
+    [conceptId]
   );
 }

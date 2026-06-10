@@ -1,7 +1,10 @@
-import { NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { queryAll, queryOne, execute } from "@/lib/db";
+import { verifyAdminToken } from "@/lib/admin-auth";
 
-export async function POST() {
+export async function POST(request: NextRequest) {
+  const deny = verifyAdminToken(request);
+  if (deny) return deny;
   // Step 1: Reclassify concepts to articles
   const concepts = await queryAll(
     "SELECT id, slug, name, summary, source_file, source_url FROM entities WHERE type = 'concept'"

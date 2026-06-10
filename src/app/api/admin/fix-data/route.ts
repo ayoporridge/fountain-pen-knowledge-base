@@ -1,9 +1,12 @@
-import { NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { queryOne, queryAll, execute } from "@/lib/db";
+import { verifyAdminToken } from "@/lib/admin-auth";
 import fs from "node:fs";
 import path from "node:path";
 
-export async function POST() {
+export async function POST(request: NextRequest) {
+  const deny = verifyAdminToken(request);
+  if (deny) return deny;
   const results: string[] = [];
 
   // Step 1: Fix schema FK references

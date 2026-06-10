@@ -1,8 +1,11 @@
-import { NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { queryAll, execute } from "@/lib/db";
+import { verifyAdminToken } from "@/lib/admin-auth";
 import { randomUUID } from "node:crypto";
 
-export async function POST() {
+export async function POST(request: NextRequest) {
+  const deny = verifyAdminToken(request);
+  if (deny) return deny;
   try {
     console.log("=== Auto-tagging entities (keyword-based) ===\n");
 
