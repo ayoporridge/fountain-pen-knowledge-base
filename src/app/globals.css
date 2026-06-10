@@ -33,10 +33,27 @@
   --color-border-light-dark: #1e1c18;
 }
 
+/* ── Dark mode variable remapping ── */
+.dark {
+  --color-surface: var(--color-surface-dark);
+  --color-surface-raised: var(--color-surface-raised-dark);
+  --color-surface-dim: var(--color-surface-dim-dark);
+  --color-ink: var(--color-ink-dark);
+  --color-ink-light: var(--color-ink-light-dark);
+  --color-ink-muted: var(--color-ink-muted-dark);
+  --color-accent: var(--color-accent-dark);
+  --color-accent-hover: var(--color-accent-hover-dark);
+  --color-accent-light: var(--color-accent-light-dark);
+  --color-border: var(--color-border-dark);
+  --color-border-light: var(--color-border-light-dark);
+}
+
 /* ── Base ── */
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-surface);
+  color: var(--color-ink);
 }
 
 /* ── Typography ── */
@@ -59,6 +76,9 @@ h1, h2, h3, h4, h5, h6 {
 .card-hover:hover {
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+.dark .card-hover:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 /* ── Scroll-reveal animation ── */

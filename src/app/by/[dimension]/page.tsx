@@ -2,8 +2,36 @@ export const dynamic = "force-dynamic";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { queryAll } from "@/lib/db";
+import {
+  ArrowLeft,
+  MagnifyingGlass,
+  Buildings,
+  CurrencyCircleDollar,
+  PenNib,
+  Globe,
+  Drop,
+  BookOpen,
+  Clock,
+  Ruler,
+  Cube,
+} from "@phosphor-icons/react/dist/ssr";
 
-const VALID_DIMENSIONS: Record<string, { label: string; tagDimension: string }> = {
+const DIMENSION_ICONS: Record<string, React.ElementType> = {
+  brand: Buildings,
+  price: CurrencyCircleDollar,
+  nib: PenNib,
+  origin: Globe,
+  fill: Drop,
+  usage: BookOpen,
+  era: Clock,
+  size: Ruler,
+  material: Cube,
+};
+
+const VALID_DIMENSIONS: Record<
+  string,
+  { label: string; tagDimension: string }
+> = {
   brand: { label: "品牌", tagDimension: "brand_tier" },
   price: { label: "价位", tagDimension: "price" },
   nib: { label: "笔尖类型", tagDimension: "nib_type" },
@@ -27,8 +55,9 @@ export default async function DimensionPage({ params }: DimensionPageProps) {
     notFound();
   }
 
-  // Get all tags in this dimension with entity counts
-  const tags = await queryAll(
+  const Icon = DIMENSION_ICONS[dimension] || MagnifyingGlass;
+
+  const tags = (await queryAll(
     `SELECT t.id, t.name, t.slug, t.dimension, COUNT(et.entity_id) as entity_count
      FROM tags t
      LEFT JOIN entity_tags et ON et.tag_id = t.id
@@ -37,7 +66,7 @@ export default async function DimensionPage({ params }: DimensionPageProps) {
      HAVING entity_count > 0
      ORDER BY entity_count DESC`,
     [dimConfig.tagDimension]
-  ) as Array<{
+  )) as Array<{
     id: string;
     name: string;
     slug: string;
@@ -47,41 +76,76 @@ export default async function DimensionPage({ params }: DimensionPageProps) {
 
   const totalEntities = tags.reduce((sum, t) => sum + t.entity_count, 0);
 
+  const getBrowseLink = (tagSlug: string) => {
+    const dimMap: Record<string, string> = {
+      brand: "brand_tier",
+      fill: "fill_system",
+      nib: "nib_type",
+      material: "body_material",
+    };
+    const param = dimMap[dimension] || dimension;
+    return `/browse?${param}=${tagSlug}`;
+  };
+
   return (
-    <div className="max-w-4xl mx-auto py-8 px-4">
+    <div
+      className="max-w-4xl mx-auto py-8 px-4"
+      style={{ color: "var(--color-ink)" }}
+    >
       <div className="mb-6 flex items-center gap-4">
         <Link
           href="/"
-          className="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+          className="text-sm flex items-center gap-1 transition-colors"
+          style={{ color: "var(--color-ink-muted)" }}
         >
-          ← 首页
+          <ArrowLeft size={14} />
+          首页
         </Link>
         <Link
           href="/browse"
-          className="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+          className="text-sm transition-colors"
+          style={{ color: "var(--color-ink-muted)" }}
         >
           浏览
         </Link>
       </div>
 
-      <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
-        按{dimConfig.label}浏览
-      </h1>
-      <p className="text-gray-500 dark:text-gray-400 mb-6">
+      <div className="flex items-center gap-3 mb-2">
+        <Icon
+          size={28}
+          weight="duotone"
+          style={{ color: "var(--color-accent)" }}
+        />
+        <h1 className="text-3xl font-bold tracking-tight">
+          按{dimConfig.label}浏览
+        </h1>
+      </div>
+      <p
+        className="mb-8"
+        style={{ color: "var(--color-ink-muted)" }}
+      >
         共 {tags.length} 个{dimConfig.label}分类，覆盖 {totalEntities} 个词条
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-        {tags.map((tag) => (
+        {tags.map((tag, index) => (
           <Link
             key={tag.id}
-            href={`/browse?${dimension === "brand" ? "brand_tier" : dimension === "fill" ? "fill_system" : dimension === "nib" ? "nib_type" : dimension === "material" ? "body_material" : dimension}=${tag.slug}`}
-            className="block p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all"
+            href={getBrowseLink(tag.slug)}
+            className="block p-4 rounded-xl transition-all card-hover animate-fade-in-up"
+            style={{
+              backgroundColor: "var(--color-surface-raised)",
+              border: "1px solid var(--color-border-light)",
+              animationDelay: `${index * 0.03}s`,
+            }}
           >
-            <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-1">
+            <h3
+              className="font-semibold mb-1"
+              style={{ color: "var(--color-ink)" }}
+            >
               {tag.name}
             </h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
               {tag.entity_count} 个词条
             </p>
           </Link>
@@ -89,9 +153,23 @@ export default async function DimensionPage({ params }: DimensionPageProps) {
       </div>
 
       {tags.length === 0 && (
-        <div className="text-center py-12 text-gray-500">
-          <p className="text-4xl mb-4">📂</p>
-          <p>暂无{dimConfig.label}分类数据</p>
+        <div className="text-center py-16">
+          <MagnifyingGlass
+            size={48}
+            weight="duotone"
+            style={{ color: "var(--color-ink-muted)" }}
+            className="mx-auto mb-4"
+          />
+          <p style={{ color: "var(--color-ink-muted)" }}>
+            暂无{dimConfig.label}分类数据
+          </p>
+          <Link
+            href="/browse"
+            className="inline-block mt-4 text-sm transition-colors"
+            style={{ color: "var(--color-accent)" }}
+          >
+            去浏览所有词条 →
+          </Link>
         </div>
       )}
     </div>

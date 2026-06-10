@@ -1,13 +1,19 @@
 import Link from "next/link";
 import { ThemeToggle } from "./ThemeToggle";
-import { PenNib, MagnifyingGlass, List, Plus } from "@phosphor-icons/react/dist/ssr";
+import {
+  PenNib,
+  MagnifyingGlass,
+  List,
+  ChatCircleDots,
+} from "@phosphor-icons/react/dist/ssr";
 
 export function Header() {
   return (
     <header
       className="sticky top-0 z-50 backdrop-blur border-b"
       style={{
-        backgroundColor: "color-mix(in srgb, var(--color-surface) 85%, transparent)",
+        backgroundColor:
+          "color-mix(in srgb, var(--color-surface) 85%, transparent)",
         borderColor: "var(--color-border)",
       }}
     >
@@ -18,17 +24,14 @@ export function Header() {
             className="flex items-center gap-2 text-lg font-bold tracking-tight btn-press"
             style={{ color: "var(--color-ink)" }}
           >
-            <PenNib size={20} weight="duotone" style={{ color: "var(--color-accent)" }} />
+            <PenNib
+              size={20}
+              weight="duotone"
+              style={{ color: "var(--color-accent)" }}
+            />
             <span>钢笔知识图谱</span>
           </Link>
           <div className="hidden sm:flex items-center gap-4">
-            <Link
-              href="/"
-              className="text-sm transition-colors hover:underline underline-offset-4"
-              style={{ color: "var(--color-ink-light)" }}
-            >
-              首页
-            </Link>
             <Link
               href="/browse"
               className="text-sm transition-colors hover:underline underline-offset-4"
@@ -81,22 +84,15 @@ export function Header() {
             </div>
             <Link
               href="/chat"
-              className="text-sm transition-colors hover:underline underline-offset-4"
+              className="flex items-center gap-1 text-sm transition-colors hover:underline underline-offset-4"
               style={{ color: "var(--color-ink-light)" }}
             >
+              <ChatCircleDots size={14} />
               问 AI
             </Link>
           </div>
         </nav>
         <div className="flex items-center gap-3">
-          <Link
-            href="/new"
-            className="flex items-center gap-1 text-sm px-3 py-1.5 rounded-md text-white transition-colors btn-press hover:opacity-90"
-            style={{ backgroundColor: "var(--color-accent)" }}
-          >
-            <Plus size={14} />
-            新建词条
-          </Link>
           <ThemeToggle />
         </div>
       </div>

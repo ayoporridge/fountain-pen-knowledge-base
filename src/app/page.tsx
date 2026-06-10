@@ -8,13 +8,13 @@ import {
   BookOpen,
   ArrowRight,
   MagnifyingGlass,
-  Clock,
+  Star,
+  Sparkle,
 } from "@phosphor-icons/react/dist/ssr";
 
 export const dynamic = "force-dynamic";
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const TYPE_ICONS: Record<string, React.ComponentType<any>> = {
+const TYPE_ICONS: Record<string, React.ComponentType<Record<string, unknown>>> = {
   pen: PenNib,
   brand: Buildings,
   concept: Lightbulb,
@@ -34,15 +34,30 @@ const TYPE_LABELS: Record<string, string> = {
   article: "文章",
 };
 
-const BENTO_SIZES: Record<string, string> = {
-  pen: "sm:col-span-2 sm:row-span-2",
-  brand: "sm:col-span-2",
-  concept: "sm:col-span-1",
-  material: "sm:col-span-1",
-  nib: "sm:col-span-1",
-  fill_system: "sm:col-span-1",
-  article: "sm:col-span-2",
+// Pre-selected star entries per type for Bento preview
+const TYPE_STARS: Record<string, string[]> = {
+  pen: ["百乐 Heritage 92", "万宝龙 149", "永生 601"],
+  brand: ["百乐 (Pilot)"],
+  concept: ["活塞上墨"],
+  nib: ["笔尖类型"],
+  fill_system: ["上墨方式"],
+  article: ["钢笔历史", "修复指南"],
 };
+
+const HERO_QUESTIONS = [
+  {
+    q: "500 以内，日系金尖有哪些选择？",
+    href: "/search?q=日系+金尖+500",
+  },
+  {
+    q: "活塞上墨和旋转上墨到底有什么区别？",
+    href: "/concept/piston-filler",
+  },
+  {
+    q: "百乐 823 和 743 怎么选？",
+    href: "/search?q=百乐+823+743",
+  },
+];
 
 export default async function Home() {
   // Stats
@@ -51,30 +66,53 @@ export default async function Home() {
   )) as Array<{ type: string; cnt: number }>;
   const totalEntities = stats.reduce((sum, s) => sum + s.cnt, 0);
 
-  // Recent entities
-  const recent = (await queryAll(
-    "SELECT type, slug, name, summary, created_at FROM entities ORDER BY created_at DESC LIMIT 8"
+  // Featured: well-tagged entries (curated, not just newest)
+  const featured = (await queryAll(
+    `SELECT e.type, e.name, e.slug, e.summary, COUNT(DISTINCT et.tag_id) as tag_count
+     FROM entities e
+     LEFT JOIN entity_tags et ON et.entity_id = e.id
+     GROUP BY e.id
+     HAVING tag_count >= 1
+     ORDER BY tag_count DESC, e.created_at DESC
+     LIMIT 8`
   )) as Array<{
     type: string;
-    slug: string;
     name: string;
+    slug: string;
     summary: string | null;
-    created_at: string;
+    tag_count: number;
   }>;
 
-  // Type breakdown
-  const typeBreakdown = stats.map((s) => ({
-    ...s,
-    label: TYPE_LABELS[s.type] || s.type,
-    Icon: TYPE_ICONS[s.type] || PenNib,
-  }));
+  // Type breakdown with star names
+  const typeBreakdown = stats
+    .filter((s) => s.type !== "material") // hide empty material
+    .map((s) => ({
+      ...s,
+      label: TYPE_LABELS[s.type] || s.type,
+      Icon: TYPE_ICONS[s.type] || PenNib,
+      stars: TYPE_STARS[s.type] || [],
+    }));
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
-      {/* ── Hero: left-aligned, search-first ── */}
+      {/* ── Hero: concrete, not abstract ── */}
       <div className="max-w-2xl mb-16 animate-fade-in-up">
+        <div className="flex items-center gap-2 mb-4">
+          <Sparkle
+            size={20}
+            weight="duotone"
+            style={{ color: "var(--color-accent)" }}
+          />
+          <span
+            className="text-sm font-medium"
+            style={{ color: "var(--color-accent)" }}
+          >
+            {totalEntities} 个词条 · {stats.length} 种类型
+          </span>
+        </div>
+
         <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
-          钢笔知识图谱
+          找一支适合你的钢笔
         </h1>
         <p
           className="text-lg mb-8"
@@ -83,7 +121,7 @@ export default async function Home() {
             lineHeight: 1.7,
           }}
         >
-          漫游探索钢笔世界的一切——品牌、型号、工艺、文化。通过自由链接和多维标签，发现你不知道的关联。
+          看懂一支你已经买了的笔，搞清两支笔到底差在哪。品牌、型号、工艺、上墨方式——这里有你想知道的一切。
         </p>
 
         {/* Search as primary CTA */}
@@ -113,19 +151,34 @@ export default async function Home() {
           </kbd>
         </Link>
 
-        <div className="flex items-center gap-4 mt-4">
+        {/* Real question hooks */}
+        <div className="mt-6 space-y-2">
+          {HERO_QUESTIONS.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="flex items-center gap-2 text-sm transition-colors hover:underline underline-offset-4"
+              style={{ color: "var(--color-ink-muted)" }}
+            >
+              <ArrowRight size={12} style={{ color: "var(--color-accent)" }} />
+              {item.q}
+            </Link>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-4 mt-6">
           <Link
             href="/browse"
             className="flex items-center gap-1 text-sm font-medium transition-colors hover:underline underline-offset-4"
             style={{ color: "var(--color-accent)" }}
           >
-            浏览全部 {totalEntities} 个词条
+            浏览全部词条
             <ArrowRight size={14} />
           </Link>
         </div>
       </div>
 
-      {/* ── Type Bento Grid ── */}
+      {/* ── Type Bento: preview star entries, not numbers ── */}
       <section className="mb-16 animate-fade-in-up stagger-1">
         <h2
           className="text-xl font-semibold tracking-tight mb-6"
@@ -134,52 +187,66 @@ export default async function Home() {
           按类型探索
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
-          {typeBreakdown.map(({ type, cnt, label, Icon }) => (
+          {typeBreakdown.map(({ type, label, Icon, stars, cnt }) => (
             <Link
               key={type}
               href={`/browse?type=${type}`}
-              className={`group p-5 rounded-xl border transition-all card-hover ${BENTO_SIZES[type] || ""}`}
+              className="group p-5 rounded-xl border transition-all card-hover"
               style={{
                 borderColor: "var(--color-border)",
                 backgroundColor: "var(--color-surface-raised)",
+                gridColumn: type === "pen" ? "span 2" : undefined,
+                gridRow: type === "pen" ? "span 2" : undefined,
               }}
             >
-              <div className="flex items-start justify-between mb-3">
+              <div className="flex items-center gap-2 mb-3">
                 <span style={{ color: "var(--color-accent)" }}>
                   <Icon size={type === "pen" ? 28 : 22} weight="duotone" />
                 </span>
-                <span
-                  className="text-2xl font-bold tracking-tight"
+                <h3
+                  className="font-semibold tracking-tight"
                   style={{ color: "var(--color-ink)" }}
                 >
-                  {cnt}
-                </span>
+                  {label}
+                </h3>
               </div>
-              <h3
-                className="font-semibold tracking-tight"
-                style={{ color: "var(--color-ink)" }}
-              >
-                {label}
-              </h3>
+              {stars.length > 0 && (
+                <div className="space-y-1.5">
+                  {stars.map((name) => (
+                    <p
+                      key={name}
+                      className="text-sm truncate"
+                      style={{ color: "var(--color-ink-light)" }}
+                    >
+                      {name}
+                    </p>
+                  ))}
+                </div>
+              )}
               <p
-                className="text-sm mt-1"
+                className="text-xs mt-3"
                 style={{ color: "var(--color-ink-muted)" }}
               >
-                个词条
+                {cnt} 个词条 →
               </p>
             </Link>
           ))}
         </div>
       </section>
 
-      {/* ── Recent Entities: timeline-style list ── */}
+      {/* ── Featured: well-tagged, worth reading ── */}
       <section className="animate-fade-in-up stagger-2">
         <div className="flex items-center justify-between mb-6">
           <h2
-            className="text-xl font-semibold tracking-tight"
+            className="text-xl font-semibold tracking-tight flex items-center gap-2"
             style={{ color: "var(--color-ink)" }}
           >
-            最近添加
+            <Star
+              size={20}
+              weight="duotone"
+              style={{ color: "var(--color-accent)" }}
+            />
+            值得一读
           </h2>
           <Link
             href="/browse"
@@ -197,7 +264,7 @@ export default async function Home() {
             backgroundColor: "var(--color-surface-raised)",
           }}
         >
-          {recent.map((entity) => {
+          {featured.map((entity) => {
             const Icon = TYPE_ICONS[entity.type] || PenNib;
             return (
               <Link
