@@ -1,5 +1,6 @@
 import { queryAll, queryOne } from "@/lib/db";
 import Link from "next/link";
+import BentoGrid from "@/components/BentoGrid";
 import Image from "next/image";
 import {
   PenNib,
@@ -176,54 +177,7 @@ export default async function Home() {
         >
           按类型探索
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
-          {typeBreakdown.map(({ type, label, Icon, stars, cnt }) => (
-            <Link
-              key={type}
-              href={`/browse?type=${type}`}
-              className={`group p-5 rounded-xl border transition-all card-hover ${
-                type === "pen" ? "sm:col-span-2 sm:row-span-2" : ""
-              }`}
-              style={{
-                borderColor: "var(--color-border)",
-                backgroundColor: "var(--color-surface-raised)",
-              }}
-            >
-              <div className="flex items-center gap-2 mb-3">
-                <span style={{ color: "var(--color-accent)" }}>
-                  <Icon size={type === "pen" ? 28 : 22} weight="duotone" />
-                </span>
-                <h3
-                  className="font-semibold tracking-tight"
-                  style={{ color: "var(--color-ink)" }}
-                >
-                  {label}
-                </h3>
-              </div>
-              {stars.length > 0 && (
-                <div className="space-y-1.5">
-                  {stars.map((star) => (
-                    <Link
-                      key={star.slug}
-                      href={`/${type}/${star.slug}`}
-                      className="block text-sm truncate transition-colors hover:underline underline-offset-4"
-                      style={{ color: "var(--color-ink-light)" }}
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      {star.name}
-                    </Link>
-                  ))}
-                </div>
-              )}
-              <p
-                className="text-xs mt-3"
-                style={{ color: "var(--color-ink-muted)" }}
-              >
-                {cnt} 个词条 →
-              </p>
-            </Link>
-          ))}
-        </div>
+        <BentoGrid items={typeBreakdown} />
       </section>
 
       {/* ── Featured: well-tagged, worth reading ── */}
