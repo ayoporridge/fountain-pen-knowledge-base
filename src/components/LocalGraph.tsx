@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTheme } from "next-themes";
 import ForceGraph2D from "react-force-graph-2d";
 
 interface GraphNode {
@@ -31,14 +32,15 @@ interface LocalGraphProps {
   entitySlug: string;
 }
 
+// Warm palette matching the site's amber/ink/stone system
 const TYPE_COLORS: Record<string, string> = {
-  pen: "#22c55e",
-  brand: "#3b82f6",
-  concept: "#a855f7",
-  material: "#f97316",
-  nib: "#eab308",
-  fill_system: "#14b8a6",
-  article: "#6b7280",
+  pen: "#8b7355",
+  brand: "#6b8f71",
+  concept: "#9b7eb8",
+  material: "#a0845e",
+  nib: "#8b7355",
+  fill_system: "#5a8f9b",
+  article: "#7a756d",
 };
 
 export function LocalGraph({
@@ -47,10 +49,16 @@ export function LocalGraph({
   entitySlug,
 }: LocalGraphProps) {
   const router = useRouter();
+  const { resolvedTheme } = useTheme();
   const [graphData, setGraphData] = useState<GraphData | null>(null);
   const [loading, setLoading] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 400, height: 300 });
+
+  const isDark = resolvedTheme === "dark";
+  const labelColor = isDark ? "#e8e4dc" : "#1a1814";
+  const linkColor = isDark ? "#2e2b26" : "#ddd8ce";
+  const bgColor = isDark ? "#141210" : "#f7f5f0";
 
   useEffect(() => {
     if (containerRef.current) {
@@ -131,26 +139,24 @@ export function LocalGraph({
 
       ctx.beginPath();
       ctx.arc(node.x || 0, node.y || 0, radius, 0, 2 * Math.PI);
-      ctx.fillStyle = TYPE_COLORS[node.type] || "#888";
+      ctx.fillStyle = TYPE_COLORS[node.type] || "#7a756d";
       ctx.fill();
 
       if (node.isCenter) {
-        ctx.strokeStyle = "#fff";
+        ctx.strokeStyle = isDark ? "#1e1c18" : "#ffffff";
         ctx.lineWidth = 2 / globalScale;
         ctx.stroke();
       }
 
-      ctx.font = `${fontSize}px Sans-Serif`;
+      ctx.font = `500 ${fontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
       ctx.textAlign = "center";
       ctx.textBaseline = "top";
-      ctx.fillStyle = document.documentElement.classList.contains("dark")
-        ? "#e5e7eb"
-        : "#374151";
+      ctx.fillStyle = labelColor;
       ctx.fillText(label, node.x || 0, (node.y || 0) + radius + 2);
 
       return undefined;
     },
-    [],
+    [isDark, labelColor],
   );
 
   const handleNodeClick = useCallback(
@@ -164,8 +170,13 @@ export function LocalGraph({
 
   if (loading) {
     return (
-      <div className="h-[300px] bg-gray-50 dark:bg-gray-800 rounded-lg animate-pulse flex items-center justify-center">
-        <span className="text-sm text-gray-400">加载关系图...</span>
+      <div
+        className="h-[300px] rounded-xl animate-pulse flex items-center justify-center"
+        style={{ backgroundColor: bgColor }}
+      >
+        <span className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
+          加载关系图…
+        </span>
       </div>
     );
   }
@@ -177,12 +188,14 @@ export function LocalGraph({
   return (
     <div
       ref={containerRef}
-      className="rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden bg-gray-50 dark:bg-gray-900"
+      className="rounded-xl overflow-hidden"
+      style={{ backgroundColor: bgColor }}
     >
       <ForceGraph2D
         graphData={graphData}
         width={dimensions.width}
         height={dimensions.height}
+        backgroundColor={bgColor}
         nodeCanvasObject={nodeCanvasObject}
         nodePointerAreaPaint={(node: GraphNode, color: string, ctx: CanvasRenderingContext2D) => {
           const radius = node.isCenter ? 8 : 5;
@@ -192,7 +205,7 @@ export function LocalGraph({
           ctx.fill();
         }}
         onNodeClick={handleNodeClick}
-        linkColor={() => "#94a3b8"}
+        linkColor={() => linkColor}
         linkWidth={1.5}
         linkDirectionalArrowLength={4}
         linkDirectionalArrowRelPos={0.8}
