@@ -92,7 +92,6 @@ export default async function Home() {
         return {
           ...s,
           label: TYPE_LABELS[s.type] || s.type,
-          Icon: TYPE_ICONS[s.type] || PenNib,
           stars,
         };
       })
