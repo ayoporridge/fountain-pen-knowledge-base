@@ -4,6 +4,7 @@ import { getEntitiesForConcept } from "@/lib/concept-engine";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import type { Metadata } from "next";
 import { MarkdownRenderer } from "@/components/MarkdownRenderer";
 import { RelatedEntities } from "@/components/RelatedEntities";
 import { EntityMeta } from "@/components/EntityMeta";
@@ -23,6 +24,31 @@ import { TYPE_LABELS, TYPE_ICONS, ATTR_LABELS } from "@/lib/constants";
 
 interface EntityPageProps {
   params: Promise<{ type: string; slug: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ type: string; slug: string }>;
+}): Promise<Metadata> {
+  const { slug: rawSlug } = await params;
+  const slug = decodeURIComponent(rawSlug);
+  const entity = (await queryOne("SELECT name, summary FROM entities WHERE slug = ?", [slug])) as
+    | { name: string; summary: string | null }
+    | undefined;
+
+  if (!entity) {
+    return { title: "词条未找到 - 钢笔知识图谱" };
+  }
+
+  const desc = entity.summary
+    ? entity.summary.slice(0, 120)
+    : `${entity.name} — 钢笔知识图谱收录词条`;
+
+  return {
+    title: `${entity.name} - 钢笔知识图谱`,
+    description: desc,
+  };
 }
 
 /**
@@ -239,8 +265,8 @@ export default async function EntityPage({ params }: EntityPageProps) {
       </div>
 
       {/* ── Hero Image ── */}
-      {entity.image_url && (
-        <div className="mb-8 rounded-xl overflow-hidden" style={{ border: "1px solid var(--color-border-light)" }}>
+      <div className="mb-8 rounded-xl overflow-hidden" style={{ border: "1px solid var(--color-border-light)" }}>
+        {entity.image_url ? (
           <Image
             src={String(entity.image_url)}
             alt={String(entity.name)}
@@ -249,8 +275,20 @@ export default async function EntityPage({ params }: EntityPageProps) {
             className="w-full h-64 sm:h-80 object-cover"
             priority
           />
-        </div>
-      )}
+        ) : (
+          <div
+            className="w-full h-64 sm:h-80 flex items-center justify-center"
+            style={{ backgroundColor: "var(--color-accent-light)" }}
+          >
+            <span
+              className="text-6xl font-bold"
+              style={{ color: "var(--color-accent)" }}
+            >
+              {String(entity.name).charAt(0)}
+            </span>
+          </div>
+        )}
+      </div>
 
       {/* ── Primary Zone: Name + Summary + Key Attributes ── */}
       <div className="mb-10">
@@ -290,7 +328,7 @@ export default async function EntityPage({ params }: EntityPageProps) {
         {entity.summary && (
           <p
             className="text-lg max-w-3xl"
-            style={{ color: "var(--color-ink-light)", lineHeight: 1.7 }}
+            style={{ color: "var(--color-ink-light)", lineHeight: 1.8 }}
           >
             {String(entity.summary)}
           </p>
@@ -439,7 +477,7 @@ export default async function EntityPage({ params }: EntityPageProps) {
                 type={type}
               />
               <Link
-                href={`/new`}
+                href={`/${type}/${slug}/edit`}
                 className="inline-flex items-center gap-1 text-sm transition-colors hover:underline underline-offset-4"
                 style={{ color: "var(--color-ink-muted)" }}
               >

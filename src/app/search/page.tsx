@@ -40,6 +40,15 @@ export default function SearchPage() {
     setLoading(true);
     setSearched(true);
 
+    // Sync URL so search results are bookmarkable
+    const url = new URL(window.location.href);
+    if (q.trim()) {
+      url.searchParams.set("q", q.trim());
+    } else {
+      url.searchParams.delete("q");
+    }
+    window.history.replaceState(null, "", url.toString());
+
     try {
       const res = await fetch(`/api/search?q=${encodeURIComponent(q)}&limit=30`);
       const data = await res.json();
@@ -62,6 +71,17 @@ export default function SearchPage() {
     },
     [doSearch],
   );
+
+  // Read ?q= from URL on mount (e.g. from hero question links)
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const urlQuery = params.get("q");
+    if (urlQuery) {
+      setQuery(urlQuery);
+      doSearch(urlQuery);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Cleanup
   useEffect(() => {

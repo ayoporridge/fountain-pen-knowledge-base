@@ -6,25 +6,42 @@ import { nanoid } from "nanoid";
 export async function GET(request: NextRequest) {
   const type = request.nextUrl.searchParams.get("type");
 
+  // Single JOIN query instead of N+1
   let rows;
   if (type) {
-    rows = await queryAll("SELECT * FROM entities WHERE type = ? ORDER BY name", [type]);
+    rows = await queryAll(
+      `SELECT e.*, GROUP_CONCAT(ea.key || '::' || ea.value, '||') as attrs_raw
+       FROM entities e
+       LEFT JOIN entity_attributes ea ON ea.entity_id = e.id
+       WHERE e.type = ?
+       GROUP BY e.id
+       ORDER BY e.name`,
+      [type]
+    );
   } else {
-    rows = await queryAll("SELECT * FROM entities ORDER BY name");
+    rows = await queryAll(
+      `SELECT e.*, GROUP_CONCAT(ea.key || '::' || ea.value, '||') as attrs_raw
+       FROM entities e
+       LEFT JOIN entity_attributes ea ON ea.entity_id = e.id
+       GROUP BY e.id
+       ORDER BY e.name`
+    );
   }
 
-  // Fetch attributes for each entity
-  const entities = [];
-  for (const row of rows as Array<Record<string, unknown>>) {
-    const attrs = await queryAll(
-      "SELECT key, value FROM entity_attributes WHERE entity_id = ?",
-      [row.id]
-    ) as Array<{ key: string; value: string }>;
-    entities.push({
-      ...row,
-      attributes: Object.fromEntries(attrs.map((a) => [a.key, a.value])),
-    });
-  }
+  const entities = (rows as Array<Record<string, unknown>>).map((row) => {
+    const raw = row.attrs_raw as string | null;
+    const attributes: Record<string, string> = {};
+    if (raw) {
+      for (const pair of raw.split("||")) {
+        const idx = pair.indexOf("::");
+        if (idx > 0) {
+          attributes[pair.slice(0, idx)] = pair.slice(idx + 2);
+        }
+      }
+    }
+    const { attrs_raw, ...rest } = row;
+    return { ...rest, attributes };
+  });
 
   return NextResponse.json(entities);
 }

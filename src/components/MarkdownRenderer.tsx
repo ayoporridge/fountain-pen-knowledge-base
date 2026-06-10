@@ -22,7 +22,7 @@ export async function MarkdownRenderer({ content }: MarkdownRendererProps) {
 
   return (
     <div
-      className="prose dark:prose-invert max-w-none prose-headings:text-ink prose-a:text-accent prose-a:no-underline hover:prose-a:underline"
+      className="prose dark:prose-invert max-w-none prose-headings:text-ink prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-p:leading-relaxed"
       // biome-ignore lint/security/noDangerouslySetInnerHtml: markdown rendered via remark
       dangerouslySetInnerHTML={{ __html: html }}
     />

@@ -2,8 +2,10 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { useTheme } from "next-themes";
 import ForceGraph2D from "react-force-graph-2d";
+import { Graph } from "@phosphor-icons/react/dist/ssr";
 import { TYPE_COLORS } from "@/lib/constants";
 
 interface GraphNode {
@@ -172,7 +174,24 @@ export function LocalGraph({
   }
 
   if (!graphData || graphData.nodes.length <= 1) {
-    return null;
+    return (
+      <div
+        className="h-[300px] rounded-xl flex flex-col items-center justify-center gap-3"
+        style={{ backgroundColor: bgColor }}
+      >
+        <Graph size={32} weight="duotone" style={{ color: "var(--color-ink-muted)" }} />
+        <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
+          暂无关联数据
+        </p>
+        <Link
+          href={`/${entityType}/${entitySlug}/edit`}
+          className="text-xs hover:underline underline-offset-4"
+          style={{ color: "var(--color-accent)" }}
+        >
+          可通过编辑添加关系
+        </Link>
+      </div>
+    );
   }
 
   return (

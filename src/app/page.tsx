@@ -2,6 +2,7 @@ import { queryAll, queryOne } from "@/lib/db";
 import Link from "next/link";
 import BentoGrid from "@/components/BentoGrid";
 import Image from "next/image";
+import type { Metadata } from "next";
 import {
   PenNib,
   ArrowRight,
@@ -11,6 +12,12 @@ import {
 import { TYPE_LABELS, TYPE_ICONS } from "@/lib/constants";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+  title: "钢笔知识图谱 - 找一支适合你的钢笔",
+  description:
+    "看懂一支你已经买了的笔，搞清两支笔到底差在哪。品牌、型号、工艺、上墨方式——AI 时代的钢笔百科全书，自由链接、多维探索。",
+};
 
 // Star entries per type — queried from DB at build time
 

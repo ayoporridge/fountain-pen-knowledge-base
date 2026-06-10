@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { queryAll } from "@/lib/db";
+import type { Metadata } from "next";
 import {
   ArrowLeft,
   MagnifyingGlass,
@@ -45,6 +46,22 @@ const VALID_DIMENSIONS: Record<
 
 interface DimensionPageProps {
   params: Promise<{ dimension: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ dimension: string }>;
+}): Promise<Metadata> {
+  const { dimension } = await params;
+  const dimConfig = VALID_DIMENSIONS[dimension];
+  if (!dimConfig) {
+    return { title: "维度未找到 - 钢笔知识图谱" };
+  }
+  return {
+    title: `按${dimConfig.label}浏览 - 钢笔知识图谱`,
+    description: `按${dimConfig.label}维度浏览钢笔知识图谱中的所有词条，发现不同${dimConfig.label}分类下的钢笔。`,
+  };
 }
 
 export default async function DimensionPage({ params }: DimensionPageProps) {

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PenNib, GithubLogo } from "@phosphor-icons/react/dist/ssr";
+import { PenNib } from "@phosphor-icons/react/dist/ssr";
 
 export function Footer() {
   return (
@@ -116,16 +116,6 @@ export function Footer() {
             <p style={{ color: "var(--color-ink-muted)", lineHeight: 1.7 }}>
               一个钢笔爱好者的个人项目。收集了 500+ 词条、70+ 标签，覆盖品牌、型号、笔尖、上墨方式。数据来自社区讨论、评测文章和我的个人笔记。
             </p>
-            <a
-              href="https://github.com/ayoporridge/pen"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 mt-2 text-xs hover:underline"
-              style={{ color: "var(--color-ink-muted)" }}
-            >
-              <GithubLogo size={12} />
-              GitHub
-            </a>
           </div>
         </div>
 
