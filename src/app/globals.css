@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* ── Google Fonts: Noto Serif SC for editorial headings ── */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap');
+
 /* ── Color System ──
  * Warm editorial palette inspired by pen/ink/paper materials.
  * Primary: warm off-white backgrounds, ink-dark text
@@ -18,6 +21,8 @@
   --color-accent-light: #f5ecd3;
   --color-border: #ddd8ce;
   --color-border-light: #edeae3;
+
+  --font-serif: 'Noto Serif SC', 'Source Serif 4', 'Georgia', serif;
 
   /* Dark mode overrides */
   --color-surface-dark: #141210;
@@ -103,6 +108,28 @@ h1, h2, h3, h4, h5, h6 {
 .stagger-4 { animation-delay: 0.2s; }
 .stagger-5 { animation-delay: 0.25s; }
 .stagger-6 { animation-delay: 0.3s; }
+
+@keyframes slide-in-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+.animate-slide-in-right {
+  animation: slide-in-right 0.2s ease forwards;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fade-in {
+  animation: fade-in 0.15s ease forwards;
+}
+
+/* ── Focus ring using CSS variables ── */
+.focus-ring-accent:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-accent);
+}
 
 /* ── Markdown body ── */
 .prose-body h2 {

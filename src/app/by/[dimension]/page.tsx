@@ -128,15 +128,14 @@ export default async function DimensionPage({ params }: DimensionPageProps) {
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-        {tags.map((tag, index) => (
+        {tags.map((tag) => (
           <Link
             key={tag.id}
             href={getBrowseLink(tag.slug)}
-            className="block p-4 rounded-xl transition-all card-hover animate-fade-in-up"
+            className="block p-4 rounded-xl transition-all card-hover"
             style={{
               backgroundColor: "var(--color-surface-raised)",
               border: "1px solid var(--color-border-light)",
-              animationDelay: `${index * 0.03}s`,
             }}
           >
             <h3

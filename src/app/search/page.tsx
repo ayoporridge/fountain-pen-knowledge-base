@@ -220,9 +220,42 @@ export default function SearchPage() {
           <div style={{ color: "var(--color-ink-muted)", margin: "0 auto 1rem", width: "fit-content" }}>
             <MagnifyingGlass size={48} weight="duotone" />
           </div>
-          <p style={{ color: "var(--color-ink-muted)" }}>
+          <p className="mb-6" style={{ color: "var(--color-ink-muted)" }}>
             没有找到匹配「{query}」的结果
           </p>
+          <div className="space-y-4">
+            <div>
+              <p className="text-sm mb-2" style={{ color: "var(--color-ink-muted)" }}>
+                试试这些热门搜索：
+              </p>
+              <div className="flex flex-wrap justify-center gap-2">
+                {["百乐", "万宝龙", "活塞上墨", "金尖", "日系"].map((term) => (
+                  <button
+                    key={term}
+                    type="button"
+                    onClick={() => {
+                      setQuery(term);
+                      doSearch(term);
+                    }}
+                    className="text-sm px-3 py-1 rounded-full transition-colors"
+                    style={{
+                      backgroundColor: "var(--color-surface-dim)",
+                      color: "var(--color-ink-light)",
+                    }}
+                  >
+                    {term}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <Link
+              href="/browse"
+              className="inline-block text-sm transition-colors hover:underline underline-offset-4"
+              style={{ color: "var(--color-accent)" }}
+            >
+              随便逛逛 → /browse
+            </Link>
+          </div>
         </div>
       )}
     </div>

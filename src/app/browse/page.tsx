@@ -93,7 +93,7 @@ export default function BrowsePage() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      <div className="mb-6 animate-fade-in-up">
+      <div className="mb-6">
         <h1
           className="text-3xl font-bold tracking-tight mb-2"
           style={{ color: "var(--color-ink)" }}
@@ -130,7 +130,36 @@ export default function BrowsePage() {
               style={{ color: "var(--color-ink-muted)" }}
             >
               <p className="text-4xl mb-4">—</p>
-              <p>没有找到匹配的词条</p>
+              <p className="mb-6">没有找到匹配的词条</p>
+              <div className="space-y-4">
+                <div>
+                  <p className="text-sm mb-2" style={{ color: "var(--color-ink-muted)" }}>
+                    试试这些热门搜索：
+                  </p>
+                  <div className="flex flex-wrap justify-center gap-2">
+                    {["百乐", "万宝龙", "活塞上墨", "金尖", "日系"].map((term) => (
+                      <Link
+                        key={term}
+                        href={`/search?q=${encodeURIComponent(term)}`}
+                        className="text-sm px-3 py-1 rounded-full transition-colors"
+                        style={{
+                          backgroundColor: "var(--color-surface-dim)",
+                          color: "var(--color-ink-light)",
+                        }}
+                      >
+                        {term}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+                <Link
+                  href="/browse"
+                  className="inline-block text-sm transition-colors hover:underline underline-offset-4"
+                  style={{ color: "var(--color-accent)" }}
+                >
+                  查看全部词条 →
+                </Link>
+              </div>
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -140,20 +169,29 @@ export default function BrowsePage() {
                   <Link
                     key={entity.id}
                     href={`/${entity.type}/${entity.slug}`}
-                    className={`block rounded-xl border overflow-hidden transition-all card-hover animate-fade-in-up stagger-${Math.min(i + 1, 6)}`}
+                    className={`block rounded-xl border overflow-hidden transition-all card-hover`}
                     style={{
                       borderColor: "var(--color-border)",
                       backgroundColor: "var(--color-surface-raised)",
                     }}
                   >
-                    {entity.image_url && (
-                      <img
-                        src={String(entity.image_url)}
-                        alt={String(entity.name)}
-                        className="w-full h-32 object-cover"
-                        loading="lazy"
-                      />
-                    )}
+                    <div className="w-full h-32 flex items-center justify-center" style={{ backgroundColor: "var(--color-accent-light)" }}>
+                      {entity.image_url ? (
+                        <img
+                          src={String(entity.image_url)}
+                          alt={String(entity.name)}
+                          className="w-full h-32 object-cover"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <span
+                          className="text-3xl font-bold"
+                          style={{ color: "var(--color-accent)" }}
+                        >
+                          {entity.name.charAt(0)}
+                        </span>
+                      )}
+                    </div>
                     <div className="p-4">
                       <div className="flex items-center gap-2 mb-2">
                         <span style={{ color: "var(--color-accent)" }}>

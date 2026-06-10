@@ -1,5 +1,6 @@
 import { queryAll, queryOne } from "@/lib/db";
 import Link from "next/link";
+import Image from "next/image";
 import {
   PenNib,
   Buildings,
@@ -9,7 +10,6 @@ import {
   ArrowRight,
   MagnifyingGlass,
   Star,
-  Sparkle,
 } from "@phosphor-icons/react/dist/ssr";
 
 export const dynamic = "force-dynamic";
@@ -34,15 +34,7 @@ const TYPE_LABELS: Record<string, string> = {
   article: "文章",
 };
 
-// Pre-selected star entries per type for Bento preview
-const TYPE_STARS: Record<string, string[]> = {
-  pen: ["百乐 Heritage 92", "万宝龙 149", "永生 601"],
-  brand: ["百乐 (Pilot)"],
-  concept: ["活塞上墨"],
-  nib: ["笔尖类型"],
-  fill_system: ["上墨方式"],
-  article: ["钢笔历史", "修复指南"],
-};
+// Star entries per type — queried from DB at build time
 
 const HERO_QUESTIONS = [
   {
@@ -64,7 +56,6 @@ export default async function Home() {
   const stats = (await queryAll(
     "SELECT type, COUNT(*) as cnt FROM entities GROUP BY type ORDER BY cnt DESC"
   )) as Array<{ type: string; cnt: number }>;
-  const totalEntities = stats.reduce((sum, s) => sum + s.cnt, 0);
 
   // Featured: well-tagged entries (curated, not just newest)
   const featured = (await queryAll(
@@ -84,35 +75,33 @@ export default async function Home() {
     tag_count: number;
   }>;
 
-  // Type breakdown with star names
-  const typeBreakdown = stats
-    .filter((s) => s.type !== "material") // hide empty material
-    .map((s) => ({
-      ...s,
-      label: TYPE_LABELS[s.type] || s.type,
-      Icon: TYPE_ICONS[s.type] || PenNib,
-      stars: TYPE_STARS[s.type] || [],
-    }));
+  // Type breakdown with real star entries from DB
+  const typeBreakdown = await Promise.all(
+    stats
+      .filter((s) => s.type !== "material")
+      .map(async (s) => {
+        const stars = (await queryAll(
+          `SELECT name, slug FROM entities
+           WHERE type = ?
+           ORDER BY (SELECT COUNT(*) FROM entity_tags WHERE entity_id = entities.id) DESC,
+                    created_at DESC
+           LIMIT ?`,
+          [s.type, s.type === "pen" ? 3 : 2]
+        )) as Array<{ name: string; slug: string }>;
+        return {
+          ...s,
+          label: TYPE_LABELS[s.type] || s.type,
+          Icon: TYPE_ICONS[s.type] || PenNib,
+          stars,
+        };
+      })
+  );
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
       {/* ── Hero: concrete, not abstract ── */}
-      <div className="max-w-2xl mb-16 animate-fade-in-up">
-        <div className="flex items-center gap-2 mb-4">
-          <Sparkle
-            size={20}
-            weight="duotone"
-            style={{ color: "var(--color-accent)" }}
-          />
-          <span
-            className="text-sm font-medium"
-            style={{ color: "var(--color-accent)" }}
-          >
-            {totalEntities} 个词条 · {stats.length} 种类型
-          </span>
-        </div>
-
-        <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
+      <div className="max-w-2xl mb-16">
+        <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-4 font-serif">
           找一支适合你的钢笔
         </h1>
         <p
@@ -180,7 +169,7 @@ export default async function Home() {
       </div>
 
       {/* ── Type Bento: preview star entries, not numbers ── */}
-      <section className="mb-16 animate-fade-in-up stagger-1">
+      <section className="mb-16">
         <h2
           className="text-xl font-semibold tracking-tight mb-6"
           style={{ color: "var(--color-ink)" }}
@@ -192,12 +181,12 @@ export default async function Home() {
             <Link
               key={type}
               href={`/browse?type=${type}`}
-              className="group p-5 rounded-xl border transition-all card-hover"
+              className={`group p-5 rounded-xl border transition-all card-hover ${
+                type === "pen" ? "sm:col-span-2 sm:row-span-2" : ""
+              }`}
               style={{
                 borderColor: "var(--color-border)",
                 backgroundColor: "var(--color-surface-raised)",
-                gridColumn: type === "pen" ? "span 2" : undefined,
-                gridRow: type === "pen" ? "span 2" : undefined,
               }}
             >
               <div className="flex items-center gap-2 mb-3">
@@ -213,14 +202,16 @@ export default async function Home() {
               </div>
               {stars.length > 0 && (
                 <div className="space-y-1.5">
-                  {stars.map((name) => (
-                    <p
-                      key={name}
-                      className="text-sm truncate"
+                  {stars.map((star) => (
+                    <Link
+                      key={star.slug}
+                      href={`/${type}/${star.slug}`}
+                      className="block text-sm truncate transition-colors hover:underline underline-offset-4"
                       style={{ color: "var(--color-ink-light)" }}
+                      onClick={(e) => e.stopPropagation()}
                     >
-                      {name}
-                    </p>
+                      {star.name}
+                    </Link>
                   ))}
                 </div>
               )}
@@ -236,7 +227,7 @@ export default async function Home() {
       </section>
 
       {/* ── Featured: well-tagged, worth reading ── */}
-      <section className="animate-fade-in-up stagger-2">
+      <section>
         <div className="flex items-center justify-between mb-6">
           <h2
             className="text-xl font-semibold tracking-tight flex items-center gap-2"
@@ -275,11 +266,12 @@ export default async function Home() {
                 style={{ borderColor: "var(--color-border-light)" }}
               >
                 {entity.image_url ? (
-                  <img
+                  <Image
                     src={String(entity.image_url)}
                     alt={String(entity.name)}
+                    width={40}
+                    height={40}
                     className="w-10 h-10 rounded-lg object-cover flex-shrink-0"
-                    loading="lazy"
                   />
                 ) : (
                   <span style={{ color: "var(--color-accent)", flexShrink: 0 }}>

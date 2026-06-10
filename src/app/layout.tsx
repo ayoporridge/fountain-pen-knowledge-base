@@ -3,6 +3,7 @@ import "./globals.css";
 import { Providers } from "@/components/Providers";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { GlobalShortcuts } from "@/components/GlobalShortcuts";
 
 export const metadata: Metadata = {
   title: "钢笔知识图谱",
@@ -28,6 +29,7 @@ export default function RootLayout({
         }}
       >
         <Providers>
+          <GlobalShortcuts />
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />

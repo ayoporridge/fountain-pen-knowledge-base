@@ -238,13 +238,11 @@ export default function ChatPage() {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
           placeholder="问关于钢笔的任何问题..."
-          className="flex-1 px-4 py-3 rounded-xl text-sm focus:outline-none focus:ring-2 transition-colors"
+          className="flex-1 px-4 py-3 rounded-xl text-sm focus:outline-none focus-ring-accent transition-colors"
           style={{
             backgroundColor: "var(--color-surface-raised)",
             border: "1px solid var(--color-border)",
             color: "var(--color-ink)",
-            // @ts-expect-error CSS variable for ring color
-            "--tw-ring-color": "var(--color-accent)",
           }}
           disabled={loading}
         />

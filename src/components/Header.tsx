@@ -1,13 +1,52 @@
+"use client";
+
 import Link from "next/link";
+import { useState, useRef, useEffect } from "react";
 import { ThemeToggle } from "./ThemeToggle";
+import { MobileNav } from "./MobileNav";
 import {
   PenNib,
   MagnifyingGlass,
   List,
   ChatCircleDots,
+  CaretDown,
 } from "@phosphor-icons/react/dist/ssr";
 
+const DIMENSION_ITEMS = [
+  { href: "/by/nib", label: "笔尖类型" },
+  { href: "/by/fill", label: "上墨方式" },
+  { href: "/by/origin", label: "产地" },
+  { href: "/by/price", label: "价位" },
+  { href: "/by/usage", label: "用途" },
+  { href: "/by/material", label: "笔身材质" },
+];
+
 export function Header() {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown on click outside
+  useEffect(() => {
+    if (!dropdownOpen) return;
+    const handleClick = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [dropdownOpen]);
+
+  // Close on Escape
+  useEffect(() => {
+    if (!dropdownOpen) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setDropdownOpen(false);
+    };
+    document.addEventListener("keydown", handleKey);
+    return () => document.removeEventListener("keydown", handleKey);
+  }, [dropdownOpen]);
+
   return (
     <header
       className="sticky top-0 z-50 backdrop-blur border-b"
@@ -47,40 +86,40 @@ export function Header() {
               <MagnifyingGlass size={14} />
               搜索
             </Link>
-            <div className="relative group">
+            <div className="relative" ref={dropdownRef}>
               <button
                 type="button"
+                onClick={() => setDropdownOpen(!dropdownOpen)}
                 className="flex items-center gap-1 text-sm transition-colors hover:underline underline-offset-4"
                 style={{ color: "var(--color-ink-light)" }}
+                aria-expanded={dropdownOpen}
+                aria-haspopup="true"
               >
                 <List size={14} />
                 按维度
+                <CaretDown size={12} className={`transition-transform ${dropdownOpen ? "rotate-180" : ""}`} />
               </button>
-              <div
-                className="absolute top-full left-0 mt-1 w-36 rounded-lg shadow-lg border py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50"
-                style={{
-                  backgroundColor: "var(--color-surface-raised)",
-                  borderColor: "var(--color-border)",
-                }}
-              >
-                {[
-                  { href: "/by/nib", label: "笔尖类型" },
-                  { href: "/by/fill", label: "上墨方式" },
-                  { href: "/by/origin", label: "产地" },
-                  { href: "/by/price", label: "价位" },
-                  { href: "/by/usage", label: "用途" },
-                  { href: "/by/material", label: "笔身材质" },
-                ].map((item) => (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className="block px-3 py-1.5 text-sm transition-colors hover:bg-[var(--color-surface-dim)]"
-                    style={{ color: "var(--color-ink-light)" }}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
+              {dropdownOpen && (
+                <div
+                  className="absolute top-full left-0 mt-1 w-36 rounded-lg shadow-lg border py-1 z-50 animate-fade-in"
+                  style={{
+                    backgroundColor: "var(--color-surface-raised)",
+                    borderColor: "var(--color-border)",
+                  }}
+                >
+                  {DIMENSION_ITEMS.map((item) => (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => setDropdownOpen(false)}
+                      className="block px-3 py-1.5 text-sm transition-colors hover:bg-[var(--color-surface-dim)]"
+                      style={{ color: "var(--color-ink-light)" }}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
             <Link
               href="/chat"
@@ -93,6 +132,7 @@ export function Header() {
           </div>
         </nav>
         <div className="flex items-center gap-3">
+          <MobileNav />
           <ThemeToggle />
         </div>
       </div>
