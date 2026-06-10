@@ -37,7 +37,8 @@ const TYPE_LABELS: Record<string, string> = {
   article: "文章",
 };
 
-const TYPE_ICONS: Record<string, React.ComponentType<{ size?: number; weight?: string; className?: string }>> = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TYPE_ICONS: Record<string, React.ComponentType<any>> = {
   pen: PenNib,
   brand: Buildings,
   concept: Lightbulb,
@@ -169,7 +170,7 @@ export default async function EntityPage({ params }: EntityPageProps) {
 
   const entity = (await queryOne("SELECT * FROM entities WHERE slug = ?", [
     slug,
-  ])) as Record<string, unknown> | undefined;
+  ])) as Record<string, string | number | null> | undefined;
 
   if (!entity) {
     notFound();
@@ -210,9 +211,9 @@ export default async function EntityPage({ params }: EntityPageProps) {
     conceptRule = (await queryOne(
       "SELECT * FROM concept_rules WHERE concept_id = ?",
       [entity.id]
-    )) as Record<string, unknown> | null;
+    )) as Record<string, string | number | null> | null;
     if (conceptRule) {
-      conceptEntities = await getEntitiesForConcept(entity.id as string);
+      conceptEntities = (await getEntitiesForConcept(entity.id as string)) as typeof conceptEntities;
     }
   }
 
@@ -223,7 +224,7 @@ export default async function EntityPage({ params }: EntityPageProps) {
       attrs =
         typeof entity.attributes === "string"
           ? JSON.parse(entity.attributes as string)
-          : (entity.attributes as Record<string, string>);
+          : (entity.attributes as unknown as Record<string, string>);
     }
   } catch {
     attrs = {};
@@ -396,20 +397,10 @@ export default async function EntityPage({ params }: EntityPageProps) {
                   <Link
                     key={tag.slug}
                     href={`/browse?${tag.dimension}=${tag.slug}`}
-                    className="inline-block text-xs px-2.5 py-1 rounded-full transition-colors btn-press"
+                    className="inline-block text-xs px-2.5 py-1 rounded-full transition-colors btn-press hover:bg-[var(--color-accent-light)] hover:text-[var(--color-accent)]"
                     style={{
                       backgroundColor: "var(--color-surface-dim)",
                       color: "var(--color-ink-light)",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor =
-                        "var(--color-accent-light)";
-                      e.currentTarget.style.color = "var(--color-accent)";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor =
-                        "var(--color-surface-dim)";
-                      e.currentTarget.style.color = "var(--color-ink-light)";
                     }}
                   >
                     {tag.name}
@@ -437,8 +428,9 @@ export default async function EntityPage({ params }: EntityPageProps) {
           <section className="animate-fade-in-up stagger-4">
             <div className="flex flex-col gap-2">
               <CompareButton
-                entityId={String(entity.id)}
-                entityName={String(entity.name)}
+                slug={String(entity.slug)}
+                name={String(entity.name)}
+                type={type}
               />
               <Link
                 href={`/new`}

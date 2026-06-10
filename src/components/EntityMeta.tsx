@@ -1,27 +1,67 @@
+import Link from "next/link";
+import { Clock, ArrowSquareOut } from "@phosphor-icons/react/dist/ssr";
+
 interface EntityMetaProps {
-  attrs: Array<{ key: string; value: string }>;
-  labels: Record<string, string>;
+  createdAt: string;
+  updatedAt: string;
+  sourceUrl: string | null;
+  entityId: string;
+  entityType: string;
+  entitySlug: string;
 }
 
-export function EntityMeta({ attrs, labels }: EntityMetaProps) {
-  if (attrs.length === 0) return null;
+export function EntityMeta({
+  createdAt,
+  updatedAt,
+  sourceUrl,
+}: EntityMetaProps) {
+  const formatDate = (d: string) => {
+    try {
+      return new Date(d).toLocaleDateString("zh-CN", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+    } catch {
+      return d;
+    }
+  };
 
   return (
-    <div className="mb-8">
-      <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-3">
-        属性
-      </h2>
-      <div className="grid grid-cols-2 gap-4">
-        {attrs.map((attr) => (
-          <div key={attr.key} className="flex flex-col">
-            <span className="text-xs font-medium text-gray-500 dark:text-gray-400">
-              {labels[attr.key] || attr.key}
-            </span>
-            <span className="text-sm text-gray-900 dark:text-gray-100">
-              {attr.value}
-            </span>
-          </div>
-        ))}
+    <div
+      className="p-4 rounded-xl border"
+      style={{
+        borderColor: "var(--color-border)",
+        backgroundColor: "var(--color-surface-raised)",
+      }}
+    >
+      <h3
+        className="text-sm font-semibold mb-3"
+        style={{ color: "var(--color-ink)" }}
+      >
+        元信息
+      </h3>
+      <div className="space-y-2 text-sm">
+        <div className="flex items-center gap-2" style={{ color: "var(--color-ink-muted)" }}>
+          <Clock size={14} />
+          <span>创建于 {formatDate(createdAt)}</span>
+        </div>
+        <div className="flex items-center gap-2" style={{ color: "var(--color-ink-muted)" }}>
+          <Clock size={14} />
+          <span>更新于 {formatDate(updatedAt)}</span>
+        </div>
+        {sourceUrl && (
+          <Link
+            href={sourceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 transition-colors hover:underline"
+            style={{ color: "var(--color-accent)" }}
+          >
+            <ArrowSquareOut size={14} />
+            <span>来源链接</span>
+          </Link>
+        )}
       </div>
     </div>
   );

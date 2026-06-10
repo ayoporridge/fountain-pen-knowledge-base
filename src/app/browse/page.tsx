@@ -23,7 +23,8 @@ const TYPE_LABELS: Record<string, string> = {
   article: "文章",
 };
 
-const TYPE_ICONS: Record<string, React.ComponentType<{ size?: number; weight?: string; className?: string }>> = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TYPE_ICONS: Record<string, React.ComponentType<any>> = {
   pen: PenNib,
   brand: Buildings,
   concept: Lightbulb,
@@ -145,11 +146,9 @@ export default function BrowsePage() {
                     }}
                   >
                     <div className="flex items-center gap-2 mb-2">
-                      <Icon
-                        size={14}
-                        weight="duotone"
-                        style={{ color: "var(--color-accent)" }}
-                      />
+                      <span style={{ color: "var(--color-accent)" }}>
+                        <Icon size={14} weight="duotone" />
+                      </span>
                       <span
                         className="text-xs px-1.5 py-0.5 rounded-full"
                         style={{

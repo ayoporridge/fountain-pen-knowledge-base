@@ -71,15 +71,8 @@ export function Header() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className="block px-3 py-1.5 text-sm transition-colors"
+                    className="block px-3 py-1.5 text-sm transition-colors hover:bg-[var(--color-surface-dim)]"
                     style={{ color: "var(--color-ink-light)" }}
-                    onMouseEnter={(e) =>
-                      (e.currentTarget.style.backgroundColor =
-                        "var(--color-surface-dim)")
-                    }
-                    onMouseLeave={(e) =>
-                      (e.currentTarget.style.backgroundColor = "transparent")
-                    }
                   >
                     {item.label}
                   </Link>
@@ -98,15 +91,8 @@ export function Header() {
         <div className="flex items-center gap-3">
           <Link
             href="/new"
-            className="flex items-center gap-1 text-sm px-3 py-1.5 rounded-md text-white transition-colors btn-press"
+            className="flex items-center gap-1 text-sm px-3 py-1.5 rounded-md text-white transition-colors btn-press hover:opacity-90"
             style={{ backgroundColor: "var(--color-accent)" }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.backgroundColor =
-                "var(--color-accent-hover)")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.backgroundColor = "var(--color-accent)")
-            }
           >
             <Plus size={14} />
             新建词条

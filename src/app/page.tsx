@@ -13,7 +13,8 @@ import {
 
 export const dynamic = "force-dynamic";
 
-const TYPE_ICONS: Record<string, React.ComponentType<{ size?: number; weight?: string; className?: string }>> = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TYPE_ICONS: Record<string, React.ComponentType<any>> = {
   pen: PenNib,
   brand: Buildings,
   concept: Lightbulb,
@@ -144,11 +145,9 @@ export default async function Home() {
               }}
             >
               <div className="flex items-start justify-between mb-3">
-                <Icon
-                  size={type === "pen" ? 28 : 22}
-                  weight="duotone"
-                  style={{ color: "var(--color-accent)" }}
-                />
+                <span style={{ color: "var(--color-accent)" }}>
+                  <Icon size={type === "pen" ? 28 : 22} weight="duotone" />
+                </span>
                 <span
                   className="text-2xl font-bold tracking-tight"
                   style={{ color: "var(--color-ink)" }}
@@ -204,21 +203,12 @@ export default async function Home() {
               <Link
                 key={entity.slug}
                 href={`/${entity.type}/${entity.slug}`}
-                className="flex items-center gap-4 px-5 py-3.5 transition-colors"
+                className="flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-[var(--color-surface-dim)]"
                 style={{ borderColor: "var(--color-border-light)" }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.backgroundColor =
-                    "var(--color-surface-dim)")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.backgroundColor = "transparent")
-                }
               >
-                <Icon
-                  size={16}
-                  weight="duotone"
-                  style={{ color: "var(--color-accent)", flexShrink: 0 }}
-                />
+                <span style={{ color: "var(--color-accent)", flexShrink: 0 }}>
+                  <Icon size={16} weight="duotone" />
+                </span>
                 <div className="flex-1 min-w-0">
                   <span
                     className="font-medium truncate block"
