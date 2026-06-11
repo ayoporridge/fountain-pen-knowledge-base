@@ -3,12 +3,12 @@ import { getRecommendations } from "@/lib/recommend";
 import { TYPE_LABELS } from "@/lib/constants";
 
 const TYPE_BADGE_COLORS: Record<string, string> = {
-  pen: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
+  pen: "bg-green-100/80 text-green-800 dark:bg-green-900/40 dark:text-green-300",
   brand: "bg-accent-light text-accent",
-  concept: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
-  material: "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200",
-  nib: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
-  fill_system: "bg-teal-100 text-teal-800 dark:bg-teal-900 dark:text-teal-200",
+  concept: "bg-purple-100/80 text-purple-800 dark:bg-purple-900/40 dark:text-purple-300",
+  material: "bg-orange-100/80 text-orange-800 dark:bg-orange-900/40 dark:text-orange-300",
+  nib: "bg-yellow-100/80 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300",
+  fill_system: "bg-teal-100/80 text-teal-800 dark:bg-teal-900/40 dark:text-teal-300",
   article: "bg-surface-dim text-ink-light",
 };
 
