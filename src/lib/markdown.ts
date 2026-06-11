@@ -89,11 +89,15 @@ function rehypeImageRows() {
       const children = node.children;
       const imageContainers: any[] = [];
       let isImageRow = false;
+      let seenBr = false;
+      let afterBrText = "";
 
       for (const child of children) {
         if (child.type === "element" && child.tagName === "img") {
+          if (seenBr) { afterBrText += " "; continue; }
           imageContainers.push({ wrapper: null, img: child });
         } else if (child.type === "element" && child.tagName === "a") {
+          if (seenBr) { afterBrText += " "; continue; }
           const imgs = (child.children || []).filter(
             (c: any) => c.type === "element" && c.tagName === "img"
           );
@@ -104,13 +108,15 @@ function rehypeImageRows() {
           }
         } else if (child.type === "text") {
           const text = child.value.trim();
-          if (text === "|") {
+          if (seenBr) {
+            afterBrText += child.value;
+          } else if (text === "|") {
             isImageRow = true;
           } else if (text !== "") {
             return;
           }
         } else if (child.type === "element" && child.tagName === "br") {
-          // ignore line breaks
+          seenBr = true;
         } else {
           return;
         }
@@ -118,25 +124,38 @@ function rehypeImageRows() {
 
       if (imageContainers.length < 2 || !isImageRow) return;
 
+      // Look for captions: first try in the same <p> (after <br>), then next sibling
       let captionTexts: string[] = [];
-      const nextSibling = parent.children[index + 1];
-      if (nextSibling && nextSibling.type === "element" && nextSibling.tagName === "p") {
-        const captionChildren = nextSibling.children;
-        let allText = true;
-        const texts: string[] = [];
-        for (const child of captionChildren) {
-          if (child.type === "text") {
-            texts.push(...child.value.split("|").map((s: string) => s.trim()).filter(Boolean));
-          } else if (child.type === "element" && child.tagName === "br") {
-            // ok
-          } else {
-            allText = false;
-            break;
-          }
-        }
-        if (allText && texts.length === imageContainers.length) {
+
+      // Case 1: captions in same <p> after <br>
+      if (afterBrText.trim()) {
+        const texts = afterBrText.split("|").map((s: string) => s.trim()).filter(Boolean);
+        if (texts.length === imageContainers.length) {
           captionTexts = texts;
-          nextSibling.__remove = true;
+        }
+      }
+
+      // Case 2: captions in next sibling <p>
+      if (captionTexts.length === 0) {
+        const nextSibling = parent.children[index + 1];
+        if (nextSibling && nextSibling.type === "element" && nextSibling.tagName === "p") {
+          const captionChildren = nextSibling.children;
+          let allText = true;
+          const texts: string[] = [];
+          for (const child of captionChildren) {
+            if (child.type === "text") {
+              texts.push(...child.value.split("|").map((s: string) => s.trim()).filter(Boolean));
+            } else if (child.type === "element" && child.tagName === "br") {
+              // ok
+            } else {
+              allText = false;
+              break;
+            }
+          }
+          if (allText && texts.length === imageContainers.length) {
+            captionTexts = texts;
+            nextSibling.__remove = true;
+          }
         }
       }
 

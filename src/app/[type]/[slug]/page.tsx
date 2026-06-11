@@ -331,14 +331,30 @@ export default async function EntityPage({ params }: EntityPageProps) {
           </div>
         </div>
 
-        {entity.summary && (
-          <p
-            className="text-lg max-w-3xl"
-            style={{ color: "var(--color-ink-light)", lineHeight: 1.8 }}
-          >
-            {String(entity.summary)}
-          </p>
-        )}
+        {entity.summary && (() => {
+          // Strip markdown syntax for plain-text display
+          const plainSummary = String(entity.summary)
+            .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")  // [text](url) → text
+            .replace(/!\[[^\]]*\]\([^)]+\)/g, "")      // ![alt](url) → remove
+            .replace(/\*\*([^*]+)\*\*/g, "$1")          // **bold** → bold
+            .replace(/\*([^*]+)\*/g, "$1")              // *italic* → italic
+            .replace(/_{1,2}([^_]+)_{1,2}/g, "$1")     // _italic_ → italic
+            .replace(/#{1,6}\s*/g, "")                  // ### heading → heading
+            .replace(/^>\s*/gm, "")                     // > quote → quote
+            .replace(/^[-*]\s+/gm, "")                  // - list → list
+            .replace(/`([^`]+)`/g, "$1")                // `code` → code
+            .replace(/\n{2,}/g, " ")                    // newlines → space
+            .replace(/\n/g, " ")
+            .trim();
+          return plainSummary ? (
+            <p
+              className="text-lg max-w-3xl"
+              style={{ color: "var(--color-ink-light)", lineHeight: 1.8 }}
+            >
+              {plainSummary}
+            </p>
+          ) : null;
+        })()}
 
         {/* Key attributes — displayed as prominent data points */}
         {Object.keys(attrs).length > 0 && (
