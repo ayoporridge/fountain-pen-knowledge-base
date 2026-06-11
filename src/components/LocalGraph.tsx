@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import { useTheme } from "next-themes";
 import ForceGraph2D from "react-force-graph-2d";
 import { Graph } from "@phosphor-icons/react/dist/ssr";
@@ -47,7 +46,7 @@ export function LocalGraph({
   const [loading, setLoading] = useState(true);
   const [settled, setSettled] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [dimensions, setDimensions] = useState({ width: 400, height: 300 });
+  const [dimensions, setDimensions] = useState({ width: 400, height: 450 });
 
   const isDark = resolvedTheme === "dark";
   const labelColor = isDark ? "#e8e4dc" : "#1a1814";
@@ -58,7 +57,7 @@ export function LocalGraph({
     if (containerRef.current) {
       setDimensions({
         width: containerRef.current.offsetWidth,
-        height: 300,
+        height: 450,
       });
     }
   }, []);
@@ -213,7 +212,7 @@ export function LocalGraph({
   if (loading) {
     return (
       <div
-        className="h-[300px] rounded-xl animate-pulse flex items-center justify-center"
+        className="h-[450px] rounded-xl animate-pulse flex items-center justify-center"
         style={{ backgroundColor: bgColor }}
       >
         <span className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
@@ -226,20 +225,13 @@ export function LocalGraph({
   if (!graphData || graphData.nodes.length <= 1) {
     return (
       <div
-        className="h-[300px] rounded-xl flex flex-col items-center justify-center gap-3"
+        className="h-[450px] rounded-xl flex flex-col items-center justify-center gap-3"
         style={{ backgroundColor: bgColor }}
       >
         <Graph size={32} weight="duotone" style={{ color: "var(--color-ink-muted)" }} />
         <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
           暂无关联数据
         </p>
-        <Link
-          href={`/${entityType}/${entitySlug}/edit`}
-          className="text-xs hover:underline underline-offset-4"
-          style={{ color: "var(--color-accent)" }}
-        >
-          可通过编辑添加关系
-        </Link>
       </div>
     );
   }
@@ -270,6 +262,7 @@ export function LocalGraph({
         linkDirectionalArrowRelPos={0.8}
         cooldownTicks={50}
         d3AlphaDecay={0.05}
+        d3VelocityDecay={0.3}
         onEngineStop={() => setSettled(true)}
       />
     </div>

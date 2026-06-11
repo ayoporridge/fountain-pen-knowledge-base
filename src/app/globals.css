@@ -322,3 +322,19 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 0.5rem;
   line-height: 1.4;
 }
+
+/* ── Broken image fallback ── */
+.broken-image {
+  display: inline-block;
+  padding: 1rem;
+  background: var(--color-surface-dim);
+  border: 1px dashed var(--color-border);
+  border-radius: 0.5rem;
+  color: var(--color-ink-muted);
+  font-size: 0.875rem;
+  font-style: italic;
+}
+.dark .broken-image {
+  background: var(--color-surface-dim-dark);
+  border-color: var(--color-border-dark);
+}

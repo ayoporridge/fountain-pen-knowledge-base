@@ -15,7 +15,6 @@ import { CompareButton } from "@/components/CompareBar";
 import {
   PenNib,
   ArrowLeft,
-  PencilSimple,
   Tag,
   Graph,
   Link as LinkIcon,
@@ -212,12 +211,13 @@ export default async function EntityPage({ params }: EntityPageProps) {
     [entity.id]
   )) as Array<{ name: string; slug: string; dimension: string }>;
 
-  // Get links
+  // Get links (deduplicated by related entity)
   const links = (await queryAll(
-    `SELECT el.*, e.name as target_name, e.type as target_type, e.slug as target_slug
+    `SELECT el.link_type, e.name as target_name, e.type as target_type, e.slug as target_slug
      FROM entity_links el
      JOIN entities e ON (e.id = el.target_id OR e.id = el.source_id) AND e.id != ?
-     WHERE el.source_id = ? OR el.target_id = ?`,
+     WHERE el.source_id = ? OR el.target_id = ?
+     GROUP BY e.id`,
     [entity.id, entity.id, entity.id]
   )) as Array<{
     link_type: string;
@@ -482,14 +482,6 @@ export default async function EntityPage({ params }: EntityPageProps) {
                 name={String(entity.name)}
                 type={type}
               />
-              <Link
-                href={`/${type}/${slug}/edit`}
-                className="inline-flex items-center gap-1 text-sm transition-colors hover:underline underline-offset-4"
-                style={{ color: "var(--color-ink-muted)" }}
-              >
-                <PencilSimple size={14} />
-                编辑
-              </Link>
             </div>
           </section>
         </div>
