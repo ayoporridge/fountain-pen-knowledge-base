@@ -22,18 +22,35 @@ function rehypeSanitizeUrls() {
           node.properties.href = href.replace(/\.mdx?$/i, "");
         }
       }
-      if (node.properties?.src) {
+
+      // Rewrite richardspens.com image URLs through our proxy
+      if (node.tagName === "img" && node.properties?.src) {
         const src = String(node.properties.src);
         if (/^\s*javascript:/i.test(src)) {
           node.properties.src = "";
           node.properties.alt = node.properties.alt || "(图片已移除)";
+        } else if (/richardspens\.com/i.test(src)) {
+          node.properties.src = `/api/image-proxy?url=${encodeURIComponent(src)}`;
         }
       }
+
       // Add onerror fallback for broken external images
       if (node.tagName === "img") {
         const alt = node.properties?.alt || "图片";
         node.properties.onerror = `this.outerHTML='<span class=\"broken-image\">🖼 ${String(alt).replace(/'/g, "\\'")}</span>'`;
         node.properties.loading = "lazy";
+      }
+
+      // Fix footnote backlinks: <a href="..."><img alt="返回">...</a> → <a href="...">↩</a>
+      // These are the "go_up_lt.png" arrow images from richardspens footnotes
+      if (node.tagName === "a" && node.children) {
+        const hasGoUpImg = node.children.some(
+          (c: any) => c.type === "element" && c.tagName === "img" &&
+            (c.properties?.alt === "返回" || String(c.properties?.src || "").includes("go_up"))
+        );
+        if (hasGoUpImg) {
+          node.children = [{ type: "text", value: "↩" }];
+        }
       }
     });
   };
