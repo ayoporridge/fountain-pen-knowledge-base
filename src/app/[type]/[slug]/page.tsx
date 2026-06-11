@@ -334,17 +334,20 @@ export default async function EntityPage({ params }: EntityPageProps) {
         {entity.summary && (() => {
           // Strip markdown syntax for plain-text display
           const plainSummary = String(entity.summary)
-            .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")  // [text](url) → text
             .replace(/!\[[^\]]*\]\([^)]+\)/g, "")      // ![alt](url) → remove
+            .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")  // [text](url) → text
             .replace(/\*\*([^*]+)\*\*/g, "$1")          // **bold** → bold
             .replace(/\*([^*]+)\*/g, "$1")              // *italic* → italic
             .replace(/_{1,2}([^_]+)_{1,2}/g, "$1")     // _italic_ → italic
             .replace(/#{1,6}\s*/g, "")                  // ### heading → heading
-            .replace(/^>\s*/gm, "")                     // > quote → quote
+            .replace(/^>\s*/gm, "")                     // > quote at line start
+            .replace(/\s*>\s*/g, " ")                  // > inline → space
             .replace(/^[-*]\s+/gm, "")                  // - list → list
             .replace(/`([^`]+)`/g, "$1")                // `code` → code
+            .replace(/\|/g, " ")                       // | pipe → space
             .replace(/\n{2,}/g, " ")                    // newlines → space
             .replace(/\n/g, " ")
+            .replace(/\s{2,}/g, " ")                   // collapse spaces
             .trim();
           return plainSummary ? (
             <p
