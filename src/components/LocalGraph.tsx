@@ -14,6 +14,7 @@ interface GraphNode {
   type: string;
   slug: string;
   isCenter?: boolean;
+  isSecondHop?: boolean;
   x?: number;
   y?: number;
 }
@@ -44,6 +45,7 @@ export function LocalGraph({
   const { resolvedTheme } = useTheme();
   const [graphData, setGraphData] = useState<GraphData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [settled, setSettled] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 400, height: 300 });
 
@@ -62,77 +64,123 @@ export function LocalGraph({
   }, []);
 
   useEffect(() => {
-    fetch(`/api/links?entity_id=${entityId}`)
-      .then((r) => r.json())
-      .then((data) => {
-        const nodes: GraphNode[] = [
-          {
-            id: entityId,
-            name: "",
-            type: entityType,
-            slug: entitySlug,
-            isCenter: true,
-          },
-        ];
-        const links: GraphLink[] = [];
-        const seen = new Set<string>([entityId]);
+    // Fetch center entity name + 2-hop links in parallel
+    Promise.all([
+      fetch(`/api/entities/${entitySlug}`).then((r) => r.json()),
+      fetch(`/api/links?entity_id=${entityId}&depth=2`).then((r) => r.json()),
+    ]).then(([centerEntity, data]) => {
+      const nodes: GraphNode[] = [
+        {
+          id: entityId,
+          name: centerEntity.name || entitySlug,
+          type: entityType,
+          slug: entitySlug,
+          isCenter: true,
+        },
+      ];
+      const links: GraphLink[] = [];
+      const seen = new Set<string>([entityId]);
 
-        // Fetch center entity name
-        fetch(`/api/entities/${entitySlug}`)
-          .then((r) => r.json())
-          .then((e) => {
-            nodes[0].name = e.name;
+      // 1-hop forward links
+      for (const link of data.forward || []) {
+        if (!seen.has(link.target_id)) {
+          seen.add(link.target_id);
+          nodes.push({
+            id: link.target_id,
+            name: link.target_name,
+            type: link.target_type,
+            slug: link.target_slug,
           });
+        }
+        links.push({
+          source: entityId,
+          target: link.target_id,
+          link_type: link.link_type,
+        });
+      }
 
-        for (const link of data.forward || []) {
-          if (!seen.has(link.target_id)) {
-            seen.add(link.target_id);
-            nodes.push({
-              id: link.target_id,
-              name: link.target_name,
-              type: link.target_type,
-              slug: link.target_slug,
-            });
-          }
+      // 1-hop backlinks
+      for (const link of data.backlinks || []) {
+        if (!seen.has(link.source_id)) {
+          seen.add(link.source_id);
+          nodes.push({
+            id: link.source_id,
+            name: link.source_name,
+            type: link.source_type,
+            slug: link.source_slug,
+          });
+        }
+        links.push({
+          source: link.source_id,
+          target: entityId,
+          link_type: link.link_type,
+        });
+      }
+
+      // 2-hop forward (neighbor → neighbor's target)
+      for (const link of data.secondHopForward || []) {
+        if (!seen.has(link.target_id)) {
+          seen.add(link.target_id);
+          nodes.push({
+            id: link.target_id,
+            name: link.target_name,
+            type: link.target_type,
+            slug: link.target_slug,
+            isSecondHop: true,
+          });
+        }
+        // Only add link if both ends are in our graph
+        if (seen.has(link.source_id) && seen.has(link.target_id)) {
           links.push({
-            source: entityId,
+            source: link.source_id,
             target: link.target_id,
             link_type: link.link_type,
           });
         }
+      }
 
-        for (const link of data.backlinks || []) {
-          if (!seen.has(link.source_id)) {
-            seen.add(link.source_id);
-            nodes.push({
-              id: link.source_id,
-              name: link.source_name,
-              type: link.source_type,
-              slug: link.source_slug,
-            });
-          }
+      // 2-hop backlinks (neighbor's source → neighbor)
+      for (const link of data.secondHopBacklinks || []) {
+        if (!seen.has(link.source_id)) {
+          seen.add(link.source_id);
+          nodes.push({
+            id: link.source_id,
+            name: link.source_name,
+            type: link.source_type,
+            slug: link.source_slug,
+            isSecondHop: true,
+          });
+        }
+        if (seen.has(link.source_id) && seen.has(link.target_id)) {
           links.push({
             source: link.source_id,
-            target: entityId,
+            target: link.target_id,
             link_type: link.link_type,
           });
         }
+      }
 
-        setGraphData({ nodes, links });
-        setLoading(false);
-      });
+      setGraphData({ nodes, links });
+      setLoading(false);
+    });
   }, [entityId, entityType, entitySlug]);
 
   const nodeCanvasObject = useCallback(
     (node: GraphNode, ctx: CanvasRenderingContext2D, globalScale: number) => {
+      // Don't draw labels until force simulation has settled
+      if (!settled) return undefined;
+
       const label = node.name || node.id;
-      const fontSize = node.isCenter ? 14 / globalScale : 12 / globalScale;
-      const radius = node.isCenter ? 8 : 5;
+      const rawFontSize = node.isCenter ? 14 : node.isSecondHop ? 10 : 12;
+      const fontSize = Math.min(rawFontSize / globalScale, 20);
+      const radius = node.isCenter ? 8 : node.isSecondHop ? 4 : 5;
 
       ctx.beginPath();
       ctx.arc(node.x || 0, node.y || 0, radius, 0, 2 * Math.PI);
       ctx.fillStyle = TYPE_COLORS[node.type] || "#7a756d";
+      ctx.globalAlpha = node.isSecondHop ? 0.6 : 1;
       ctx.fill();
+      ctx.globalAlpha = 1;
 
       if (node.isCenter) {
         ctx.strokeStyle = isDark ? "#1e1c18" : "#ffffff";
@@ -144,11 +192,13 @@ export function LocalGraph({
       ctx.textAlign = "center";
       ctx.textBaseline = "top";
       ctx.fillStyle = labelColor;
+      ctx.globalAlpha = node.isSecondHop ? 0.6 : 1;
       ctx.fillText(label, node.x || 0, (node.y || 0) + radius + 2);
+      ctx.globalAlpha = 1;
 
       return undefined;
     },
-    [isDark, labelColor],
+    [isDark, labelColor, settled],
   );
 
   const handleNodeClick = useCallback(
@@ -207,7 +257,7 @@ export function LocalGraph({
         backgroundColor={bgColor}
         nodeCanvasObject={nodeCanvasObject}
         nodePointerAreaPaint={(node: GraphNode, color: string, ctx: CanvasRenderingContext2D) => {
-          const radius = node.isCenter ? 8 : 5;
+          const radius = node.isCenter ? 12 : node.isSecondHop ? 8 : 10;
           ctx.fillStyle = color;
           ctx.beginPath();
           ctx.arc(node.x || 0, node.y || 0, radius, 0, 2 * Math.PI);
@@ -220,6 +270,7 @@ export function LocalGraph({
         linkDirectionalArrowRelPos={0.8}
         cooldownTicks={50}
         d3AlphaDecay={0.05}
+        onEngineStop={() => setSettled(true)}
       />
     </div>
   );

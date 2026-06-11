@@ -2,9 +2,11 @@ import { type NextRequest, NextResponse } from "next/server";
 import { queryAll, queryOne, execute } from "@/lib/db";
 import { nanoid } from "nanoid";
 
-// GET /api/links?entity_id=xxx — get all links for an entity
+// GET /api/links?entity_id=xxx&depth=1 — get all links for an entity
+// depth=2 also fetches links for each direct neighbor (2-hop expansion)
 export async function GET(request: NextRequest) {
   const entityId = request.nextUrl.searchParams.get("entity_id");
+  const depth = Math.min(Number(request.nextUrl.searchParams.get("depth")) || 1, 2);
 
   if (!entityId) {
     return NextResponse.json(
@@ -33,7 +35,50 @@ export async function GET(request: NextRequest) {
     [entityId]
   );
 
-  return NextResponse.json({ forward, backlinks });
+  // 2-hop: fetch links for each direct neighbor
+  let secondHopForward: unknown[] = [];
+  let secondHopBacklinks: unknown[] = [];
+
+  if (depth >= 2) {
+    const neighborIds = new Set<string>();
+    for (const link of forward as Array<{ target_id: string }>) {
+      neighborIds.add(link.target_id);
+    }
+    for (const link of backlinks as Array<{ source_id: string }>) {
+      neighborIds.add(link.source_id);
+    }
+    // Remove the center entity itself
+    neighborIds.delete(entityId);
+
+    // Limit to first 10 neighbors to avoid huge queries
+    const neighbors = Array.from(neighborIds).slice(0, 10);
+
+    if (neighbors.length > 0) {
+      const placeholders = neighbors.map(() => "?").join(",");
+      secondHopForward = await queryAll(
+        `SELECT el.*, e.slug as target_slug, e.name as target_name, e.type as target_type
+         FROM entity_links el
+         JOIN entities e ON e.id = el.target_id
+         WHERE el.source_id IN (${placeholders}) AND el.link_type != 'reverse'
+         ORDER BY el.created_at`,
+        neighbors
+      );
+      secondHopBacklinks = await queryAll(
+        `SELECT el.*, e.slug as source_slug, e.name as source_name, e.type as source_type
+         FROM entity_links el
+         JOIN entities e ON e.id = el.source_id
+         WHERE el.target_id IN (${placeholders}) AND el.link_type != 'reverse'
+         ORDER BY el.created_at`,
+        neighbors
+      );
+    }
+  }
+
+  return NextResponse.json({
+    forward,
+    backlinks,
+    ...(depth >= 2 ? { secondHopForward, secondHopBacklinks } : {}),
+  });
 }
 
 // POST /api/links — create a link
