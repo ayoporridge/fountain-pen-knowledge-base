@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { queryAll } from "@/lib/db";
 
-const BASE_URL = "https://fountain-pen-graph.fly.dev";
+const BASE_URL = "https://fountain-pen-graph.vercel.app";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();

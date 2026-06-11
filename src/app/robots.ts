@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/", "/admin/", "/new"],
     },
-    sitemap: "https://fountain-pen-graph.fly.dev/sitemap.xml",
+    sitemap: "https://fountain-pen-graph.vercel.app/sitemap.xml",
   };
 }

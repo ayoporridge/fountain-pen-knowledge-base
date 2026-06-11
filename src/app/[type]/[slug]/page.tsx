@@ -48,6 +48,12 @@ export async function generateMetadata({
   return {
     title: `${entity.name} - 钢笔知识图谱`,
     description: desc,
+    openGraph: {
+      title: entity.name,
+      description: desc,
+      siteName: "钢笔知识图谱",
+      type: "website",
+    },
   };
 }
 
