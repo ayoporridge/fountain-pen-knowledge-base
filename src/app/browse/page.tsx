@@ -25,22 +25,28 @@ export default function BrowsePage() {
   );
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const PAGE_SIZE = 30;
 
-  const fetchData = useCallback(async (filters: Record<string, string>) => {
-    setLoading(true);
+  const fetchData = useCallback(async (filters: Record<string, string>, pageNum: number, append: boolean) => {
+    if (append) setLoadingMore(true); else setLoading(true);
     const params = new URLSearchParams(filters);
-    params.set("limit", "30");
+    params.set("limit", String(PAGE_SIZE));
+    params.set("page", String(pageNum));
 
     try {
       const res = await fetch(`/api/browse?${params.toString()}`);
       const data = await res.json();
-      setEntities(data.entities);
+      setEntities(prev => append ? [...prev, ...data.entities] : data.entities);
       setFacets(data.facets);
       setTotal(data.total);
+      setPage(pageNum);
     } catch {
-      setEntities([]);
+      if (!append) setEntities([]);
     } finally {
       setLoading(false);
+      setLoadingMore(false);
     }
   }, []);
 
@@ -52,7 +58,7 @@ export default function BrowsePage() {
       initial[key] = value;
     }
     setActiveFilters(initial);
-    fetchData(initial);
+    fetchData(initial, 1, false);
   }, [fetchData]);
 
   const handleFilterChange = (dimension: string, slug: string | null) => {
@@ -68,7 +74,7 @@ export default function BrowsePage() {
     const params = new URLSearchParams(newFilters);
     window.history.pushState(null, "", `/browse?${params.toString()}`);
 
-    fetchData(newFilters);
+    fetchData(newFilters, 1, false);
   };
 
   return (
@@ -203,6 +209,25 @@ export default function BrowsePage() {
                   </Link>
                 );
               })}
+            </div>
+          )}
+
+          {/* Load more button */}
+          {!loading && entities.length > 0 && entities.length < total && (
+            <div className="flex justify-center mt-6">
+              <button
+                type="button"
+                onClick={() => fetchData(activeFilters, page + 1, true)}
+                disabled={loadingMore}
+                className="px-6 py-2 rounded-lg border transition-all hover:scale-[0.98] disabled:opacity-50"
+                style={{
+                  borderColor: "var(--color-border)",
+                  backgroundColor: "var(--color-surface-raised)",
+                  color: "var(--color-ink-light)",
+                }}
+              >
+                {loadingMore ? "加载中…" : `加载更多（${entities.length} / ${total}）`}
+              </button>
             </div>
           )}
         </div>
