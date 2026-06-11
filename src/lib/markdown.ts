@@ -6,15 +6,101 @@ import rehypeRaw from "rehype-raw";
 import remarkWikiLink from "remark-wiki-link";
 
 /**
+ * Rehype plugin: transform paragraphs that contain only images separated by
+ * `|` into a horizontal flex row. This handles the pattern:
+ *   ![img1](url1) | ![img2](url2) | ![img3](url3)
+ * which the original Richard's Pens content uses for side-by-side comparisons.
+ */
+function rehypeImageRows() {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  const { visit } = require("unist-util-visit");
+  return (tree: any) => {
+    visit(tree, "element", (node: any, index: number | undefined, parent: any) => {
+      if (!parent || index === undefined || node.tagName !== "p") return;
+
+      const children = node.children;
+      const images: any[] = [];
+      let isImageRow = false;
+
+      for (const child of children) {
+        if (child.type === "element" && child.tagName === "img") {
+          images.push(child);
+        } else if (child.type === "text") {
+          const text = child.value.trim();
+          if (text === "|") {
+            isImageRow = true;
+          } else if (text !== "") {
+            return; // Non-image, non-pipe text → not an image row
+          }
+        } else if (child.type === "element" && child.tagName === "br") {
+          // ignore line breaks
+        } else {
+          return; // Any other element → not a pure image row
+        }
+      }
+
+      // Must have 2+ images and pipe separators to qualify
+      if (images.length < 2 || !isImageRow) return;
+
+      // Check if the next sibling is a caption row (e.g. "垂直握持 | 逆时针旋转 | 顺时针旋转")
+      let captionTexts: string[] = [];
+      const nextSibling = parent.children[index + 1];
+      if (nextSibling && nextSibling.type === "element" && nextSibling.tagName === "p") {
+        const captionChildren = nextSibling.children;
+        let allText = true;
+        const texts: string[] = [];
+        for (const child of captionChildren) {
+          if (child.type === "text") {
+            texts.push(...child.value.split("|").map((s: string) => s.trim()).filter(Boolean));
+          } else if (child.type === "element" && child.tagName === "br") {
+            // ok
+          } else {
+            allText = false;
+            break;
+          }
+        }
+        if (allText && texts.length === images.length) {
+          captionTexts = texts;
+          nextSibling.__remove = true;
+        }
+      }
+
+      // Build a flex container with figures
+      const rowChildren = images.map((img: any, i: number) => ({
+        type: "element",
+        tagName: "figure",
+        properties: { className: ["image-row-item"] },
+        children: [
+          { ...img, properties: { ...img.properties, className: ["image-row-img"] } },
+          ...(captionTexts[i] ? [{
+            type: "element",
+            tagName: "figcaption",
+            properties: {},
+            children: [{ type: "text", value: captionTexts[i] }],
+          }] : []),
+        ],
+      }));
+
+      parent.children[index] = {
+        type: "element",
+        tagName: "div",
+        properties: { className: ["image-row"] },
+        children: rowChildren,
+      };
+    });
+
+    // Remove caption paragraphs that were consumed
+    visit(tree, "element", (node: any) => {
+      if (node.children) {
+        node.children = node.children.filter((child: any) => !child.__remove);
+      }
+    });
+  };
+}
+
+/**
  * Render markdown with wiki-link support.
  * `[[entity-slug]]` becomes a clickable link to `/{type}/{slug}`.
- *
- * Fixes the sync/async mismatch: remark-wiki-link's hrefTemplate is synchronous,
- * but resolveHref (DB lookup) is async. We pre-resolve all [[slug]] matches
- * before invoking remark, then look up the results synchronously.
- *
- * @param md - Markdown string
- * @param resolveHref - optional async resolver for slug → href
  */
 export async function renderMarkdown(
   md: string,
@@ -62,6 +148,7 @@ export async function renderMarkdown(
     })
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
+    .use(rehypeImageRows)
     .use(rehypeStringify)
     .process(md);
 

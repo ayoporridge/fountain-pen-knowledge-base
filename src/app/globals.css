@@ -296,3 +296,29 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-accent);
   text-decoration: none;
 }
+
+/* ── Image rows (side-by-side comparisons) ── */
+.image-row {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+}
+.image-row-item {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  text-align: center;
+}
+.image-row-img {
+  width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+.image-row-item figcaption {
+  font-size: 0.8rem;
+  color: var(--color-ink-muted);
+  margin-top: 0.5rem;
+  line-height: 1.4;
+}
