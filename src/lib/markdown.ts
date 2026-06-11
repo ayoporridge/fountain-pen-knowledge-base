@@ -1,6 +1,8 @@
 import { remark } from "remark";
 import remarkGfm from "remark-gfm";
-import remarkHtml from "remark-html";
+import remarkRehype from "remark-rehype";
+import rehypeStringify from "rehype-stringify";
+import rehypeRaw from "rehype-raw";
 import remarkWikiLink from "remark-wiki-link";
 
 /**
@@ -33,7 +35,7 @@ export async function renderMarkdown(
     if (slugs.size > 0) {
       resolvedMap = new Map();
       const entries = await Promise.all(
-        [...slugs].map(async (slug) => {
+        Array.from(slugs).map(async (slug) => {
           const href = await resolveHref(slug);
           return [slug, href] as const;
         }),
@@ -58,7 +60,9 @@ export async function renderMarkdown(
         return `/${permalink}`;
       },
     })
-    .use(remarkHtml)
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeRaw)
+    .use(rehypeStringify)
     .process(md);
 
   return result.toString();
