@@ -410,7 +410,7 @@ export default async function EntityPage({ params }: EntityPageProps) {
 
           {/* Body */}
           {entity.body_md && (
-            <section className="mb-10">
+            <section className="mb-10 manuscript-border p-6 sm:p-8">
               <MarkdownRenderer content={String(entity.body_md)} />
             </section>
           )}

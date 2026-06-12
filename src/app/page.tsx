@@ -84,7 +84,7 @@ export default async function Home() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
       {/* ── Hero: concrete, not abstract ── */}
-      <div className="max-w-2xl mb-16">
+      <div className="max-w-2xl mb-16 manuscript-border p-8 sm:p-10">
         <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-4 font-serif">
           找一支适合你的钢笔
         </h1>

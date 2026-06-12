@@ -1,41 +1,42 @@
 @import "tailwindcss";
 
-/* ── Google Fonts: Noto Serif SC for editorial headings ── */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap');
+/* ── Google Fonts: Medieval Manuscript Typography ── */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Serif+SC:wght@400;600;700&display=swap');
 
-/* ── Color System ──
- * Warm editorial palette inspired by pen/ink/paper materials.
- * Primary: warm off-white backgrounds, ink-dark text
- * Accent: single amber/copper tone (evokes brass fittings, vintage nibs)
+/* ── Color System: Medieval Manuscript ──
+ * Parchment backgrounds, sepia ink lines, serif typography, decorative borders.
+ * Evokes the feeling of an ancient illuminated manuscript.
  */
 
 @theme {
-  --color-surface: #f7f5f0;
-  --color-surface-raised: #ffffff;
-  --color-surface-dim: #edeae3;
-  --color-ink: #1a1814;
-  --color-ink-light: #4a4640;
-  --color-ink-muted: #8a857d;
-  --color-accent: #b8860b;
-  --color-accent-hover: #9a7209;
-  --color-accent-light: #f5ecd3;
-  --color-border: #ddd8ce;
-  --color-border-light: #edeae3;
+  /* Light mode */
+  --color-surface: #F5F0E8;           /* Parchment warm yellow */
+  --color-surface-raised: #F0E8D8;    /* Card background, slightly deeper */
+  --color-surface-dim: #E8DCC8;       /* Hover state */
+  --color-ink: #3C2415;               /* Deep brown, not pure black */
+  --color-ink-light: #5B4A3A;         /* Medium brown */
+  --color-ink-muted: #7A6B5D;         /* Soft brown */
+  --color-accent: #8B2500;            /* Vermilion red, manuscript accent */
+  --color-accent-hover: #A33000;      /* Darker red on hover */
+  --color-accent-light: #F5E6D8;      /* Light accent background */
+  --color-border: #C4B89A;            /* Old paper edge color */
+  --color-border-light: #D8CEBC;      /* Lighter border */
 
-  --font-serif: 'Noto Serif SC', 'Source Serif 4', 'Georgia', serif;
+  --font-serif: 'EB Garamond', 'Noto Serif SC', 'Source Serif 4', 'Georgia', serif;
+  --font-display: 'Cormorant Garamond', 'Noto Serif SC', serif;
 
   /* Dark mode overrides */
-  --color-surface-dark: #141210;
-  --color-surface-raised-dark: #1e1c18;
-  --color-surface-dim-dark: #0e0d0b;
-  --color-ink-dark: #e8e4dc;
-  --color-ink-light-dark: #b8b2a6;
-  --color-ink-muted-dark: #7a756d;
-  --color-accent-dark: #d4a017;
-  --color-accent-hover-dark: #e8b830;
-  --color-accent-light-dark: #2a2310;
-  --color-border-dark: #2e2b26;
-  --color-border-light-dark: #1e1c18;
+  --color-surface-dark: #2A2218;           /* Dark parchment */
+  --color-surface-raised-dark: #3A3028;    /* Dark card */
+  --color-surface-dim-dark: #4A4038;       /* Dark hover */
+  --color-ink-dark: #E8DCC8;               /* Light brown text */
+  --color-ink-light-dark: #C4B89A;         /* Medium light brown */
+  --color-ink-muted-dark: #8A7D6D;         /* Muted light brown */
+  --color-accent-dark: #C4A35A;            /* Gold accent for dark mode */
+  --color-accent-hover-dark: #D4B36A;      /* Lighter gold */
+  --color-accent-light-dark: #3A3028;      /* Dark accent background */
+  --color-border-dark: #5A4E3E;            /* Dark border */
+  --color-border-light-dark: #4A4038;      /* Dark light border */
 }
 
 /* ── Dark mode variable remapping ── */
@@ -60,13 +61,35 @@ body {
   background-color: var(--color-surface);
   color: var(--color-ink);
   font-family: var(--font-serif);
-  line-height: 1.7;
+  line-height: 1.8;
+  /* Parchment texture (pure CSS, no images) */
+  background-image:
+    radial-gradient(ellipse at 15% 25%, rgba(139, 69, 19, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 75%, rgba(139, 69, 19, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(139, 69, 19, 0.02) 0%, transparent 70%);
+}
+
+.dark body {
+  background-image:
+    radial-gradient(ellipse at 15% 25%, rgba(139, 69, 19, 0.02) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 75%, rgba(139, 69, 19, 0.015) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(139, 69, 19, 0.01) 0%, transparent 70%);
 }
 
 /* ── Typography ── */
 h1, h2, h3, h4, h5, h6 {
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
   line-height: 1.2;
+  font-weight: 600;
+}
+
+h1 {
+  font-weight: 700;
+}
+
+p {
+  margin-bottom: 1.2em;
 }
 
 /* ── Micro-interactions ── */
@@ -82,7 +105,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .card-hover:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 12px rgba(60, 36, 21, 0.1);
 }
 .dark .card-hover:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -133,6 +156,49 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0 0 0 2px var(--color-accent);
 }
 
+/* ── Decorative borders (manuscript style) ── */
+.manuscript-border {
+  border: 2px solid var(--color-border);
+  outline: 1px solid var(--color-border);
+  outline-offset: 4px;
+}
+
+.manuscript-border-single {
+  border: 1px solid var(--color-border);
+  box-shadow: inset 0 1px 3px rgba(139, 69, 19, 0.06);
+}
+
+.dark .manuscript-border-single {
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* ── Decorative dividers ── */
+hr, .divider {
+  border: none;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-border) 20%,
+    var(--color-accent) 50%,
+    var(--color-border) 80%,
+    transparent
+  );
+  margin: 2rem 0;
+}
+
+/* ── Drop Cap (first letter decoration) ── */
+.prose-body > p:first-of-type::first-letter {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3.2em;
+  float: left;
+  line-height: 0.8;
+  padding-right: 0.1em;
+  padding-top: 0.05em;
+  color: var(--color-accent);
+  font-weight: 700;
+}
+
 /* ── Markdown body ── */
 .prose-body h2 {
   font-size: 1.25rem;
@@ -157,12 +223,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .prose-body p {
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   line-height: 1.8;
 }
 
 .prose-body ul, .prose-body ol {
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   padding-left: 1.5rem;
 }
 
@@ -230,11 +296,16 @@ h1, h2, h3, h4, h5, h6 {
 
 .prose-body hr {
   border: none;
-  border-top: 1px solid var(--color-border);
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--color-border) 20%,
+    var(--color-accent) 50%,
+    var(--color-border) 80%,
+    transparent
+  );
   margin: 2rem 0;
-}
-.dark .prose-body hr {
-  border-top-color: var(--color-border-dark);
 }
 
 .prose-body table {
@@ -273,7 +344,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .dark .prose .footnotes {
   border-top-color: var(--color-border-dark);
-  color: var(--color-light-dark);
+  color: var(--color-ink-light-dark);
 }
 .prose .footnotes ol {
   padding-left: 1.25rem;
@@ -338,4 +409,17 @@ h1, h2, h3, h4, h5, h6 {
 .dark .broken-image {
   background: var(--color-surface-dim-dark);
   border-color: var(--color-border-dark);
+}
+
+/* ── Responsive adjustments ── */
+@media (max-width: 768px) {
+  .manuscript-border {
+    border: 1px solid var(--color-border);
+    outline: none;
+    outline-offset: 0;
+  }
+  
+  .prose-body > p:first-of-type::first-letter {
+    font-size: 2.5em;
+  }
 }

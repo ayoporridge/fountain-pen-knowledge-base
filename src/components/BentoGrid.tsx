@@ -25,7 +25,7 @@ export default function BentoGrid({ items }: { items: TypeItem[] }) {
           <Link
             key={type}
             href={`/browse?type=${type}`}
-            className={`group p-5 rounded-xl border transition-all card-hover ${
+            className={`group p-5 rounded-xl border transition-all card-hover manuscript-border-single ${
               type === "pen" ? "sm:col-span-2 sm:row-span-2" : ""
             }`}
             style={{
