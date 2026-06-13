@@ -112,10 +112,10 @@ async function ConceptRulePage({
   return (
     <div className="mb-8">
       <div
-        className="p-5 rounded-xl border"
+        className="p-5 rounded-xl"
         style={{
           backgroundColor: "var(--color-accent-light)",
-          borderColor: "var(--color-border)",
+          boxShadow: "var(--shadow-edge)",
         }}
       >
         <p
@@ -162,10 +162,10 @@ async function ConceptRulePage({
               <Link
                 key={e.id}
                 href={`/${e.type}/${e.slug}`}
-                className="block p-3 rounded-lg border transition-all card-hover"
+                className="block p-3 rounded-lg card-hover"
                 style={{
-                  borderColor: "var(--color-border)",
                   backgroundColor: "var(--color-surface-raised)",
+                  boxShadow: "var(--shadow-raised)",
                 }}
               >
                 <div
@@ -271,7 +271,7 @@ export default async function EntityPage({ params }: EntityPageProps) {
       </div>
 
       {/* ── Hero Image ── */}
-      <div className="mb-8 rounded-xl overflow-hidden" style={{ border: "1px solid var(--color-border-light)" }}>
+      <div className="mb-8 rounded-xl overflow-hidden" style={{ boxShadow: "var(--shadow-raised)" }}>
         {entity.image_url ? (
           <Image
             src={String(entity.image_url)}
@@ -365,10 +365,10 @@ export default async function EntityPage({ params }: EntityPageProps) {
             {Object.entries(attrs).map(([key, value]) => (
               <div
                 key={key}
-                className="px-4 py-2 rounded-lg border"
+                className="px-4 py-2 rounded-lg"
                 style={{
-                  borderColor: "var(--color-border)",
                   backgroundColor: "var(--color-surface-raised)",
+                  boxShadow: "var(--shadow-edge)",
                 }}
               >
                 <div
@@ -425,8 +425,8 @@ export default async function EntityPage({ params }: EntityPageProps) {
               关系图谱
             </h2>
             <div
-              className="rounded-xl border overflow-hidden"
-              style={{ borderColor: "var(--color-border)" }}
+              className="rounded-xl overflow-hidden"
+              style={{ boxShadow: "var(--shadow-raised)" }}
             >
               <LocalGraph
                 entityId={String(entity.id)}

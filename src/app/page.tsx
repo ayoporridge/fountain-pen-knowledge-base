@@ -84,7 +84,7 @@ export default async function Home() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
       {/* ── Hero: concrete, not abstract ── */}
-      <div className="max-w-2xl mb-16 manuscript-border p-8 sm:p-10">
+      <div className="max-w-2xl mb-16 manuscript-border p-8 sm:p-10 animate-fade-in-up">
         <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-4 font-serif">
           找一支适合你的钢笔
         </h1>
@@ -101,10 +101,10 @@ export default async function Home() {
         {/* Search as primary CTA */}
         <Link
           href="/search"
-          className="flex items-center gap-3 w-full max-w-md px-4 py-3 rounded-xl border transition-all card-hover"
+          className="flex items-center gap-3 w-full max-w-md px-4 py-3 rounded-xl card-hover"
           style={{
-            borderColor: "var(--color-border)",
             backgroundColor: "var(--color-surface-raised)",
+            boxShadow: "var(--shadow-recess)",
           }}
         >
           <MagnifyingGlass
@@ -115,10 +115,11 @@ export default async function Home() {
             搜索品牌、型号、概念…
           </span>
           <kbd
-            className="ml-auto text-xs px-1.5 py-0.5 rounded border"
+            className="ml-auto text-xs px-1.5 py-0.5 rounded"
             style={{
               color: "var(--color-ink-muted)",
-              borderColor: "var(--color-border)",
+              backgroundColor: "var(--color-surface-dim)",
+              boxShadow: "var(--shadow-recess)",
             }}
           >
             /
@@ -153,7 +154,7 @@ export default async function Home() {
       </div>
 
       {/* ── Type Bento: preview star entries, not numbers ── */}
-      <section className="mb-16">
+      <section className="mb-16 animate-fade-in-up stagger-2">
         <h2
           className="text-xl font-semibold tracking-tight mb-6"
           style={{ color: "var(--color-ink)" }}
@@ -164,7 +165,7 @@ export default async function Home() {
       </section>
 
       {/* ── Featured: well-tagged, worth reading ── */}
-      <section>
+      <section className="animate-fade-in-up stagger-3">
         <div className="flex items-center justify-between mb-6">
           <h2
             className="text-xl font-semibold tracking-tight flex items-center gap-2"
@@ -187,10 +188,10 @@ export default async function Home() {
         </div>
 
         <div
-          className="divide-y rounded-xl border overflow-hidden"
+          className="divide-y rounded-xl overflow-hidden"
           style={{
-            borderColor: "var(--color-border)",
             backgroundColor: "var(--color-surface-raised)",
+            boxShadow: "var(--shadow-raised)",
           }}
         >
           {featured.map((entity) => {

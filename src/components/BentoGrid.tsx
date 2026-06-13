@@ -25,12 +25,12 @@ export default function BentoGrid({ items }: { items: TypeItem[] }) {
           <Link
             key={type}
             href={`/browse?type=${type}`}
-            className={`group p-5 rounded-xl border transition-all card-hover manuscript-border-single ${
+            className={`group p-5 rounded-xl card-hover ${
               type === "pen" ? "sm:col-span-2 sm:row-span-2" : ""
             }`}
             style={{
-              borderColor: "var(--color-border)",
               backgroundColor: "var(--color-surface-raised)",
+              boxShadow: "var(--shadow-raised)",
             }}
           >
             <div className="flex items-center gap-2 mb-3">

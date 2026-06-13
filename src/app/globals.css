@@ -1,42 +1,53 @@
 @import "tailwindcss";
 
 /* ── Google Fonts: Medieval Manuscript Typography ── */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Noto+Serif+SC:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=ZCOOL+XiaoWei&family=LXGW+WenKai:wght@300;400;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
-/* ── Color System: Medieval Manuscript ──
- * Parchment backgrounds, sepia ink lines, serif typography, decorative borders.
- * Evokes the feeling of an ancient illuminated manuscript.
- */
+/* ── Color System: Medieval Manuscript ── */
 
 @theme {
   /* Light mode */
-  --color-surface: #F5F0E8;           /* Parchment warm yellow */
-  --color-surface-raised: #F0E8D8;    /* Card background, slightly deeper */
-  --color-surface-dim: #E8DCC8;       /* Hover state */
-  --color-ink: #3C2415;               /* Deep brown, not pure black */
-  --color-ink-light: #5B4A3A;         /* Medium brown */
-  --color-ink-muted: #7A6B5D;         /* Soft brown */
-  --color-accent: #8B2500;            /* Vermilion red, manuscript accent */
-  --color-accent-hover: #A33000;      /* Darker red on hover */
-  --color-accent-light: #F5E6D8;      /* Light accent background */
-  --color-border: #C4B89A;            /* Old paper edge color */
-  --color-border-light: #D8CEBC;      /* Lighter border */
+  --color-surface: #F5F0E8;
+  --color-surface-raised: #F0E8D8;
+  --color-surface-dim: #E8DCC8;
+  --color-ink: #3C2415;
+  --color-ink-light: #5B4A3A;
+  --color-ink-muted: #7A6B5D;
+  --color-accent: #8B2500;
+  --color-accent-hover: #A33000;
+  --color-accent-light: #F5E6D8;
+  --color-border: #C4B89A;
+  --color-border-light: #D8CEBC;
 
-  --font-serif: 'EB Garamond', 'Noto Serif SC', 'Source Serif 4', 'Georgia', serif;
-  --font-display: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  /* Fonts */
+  --font-display: 'Playfair Display', 'ZCOOL XiaoWei', serif;
+  --font-serif: 'EB Garamond', 'LXGW WenKai', serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-label: 'JetBrains Mono', monospace;
+
+  /* Shadows — bird.onethreenine.net depth system */
+  --shadow-edge: inset 0 0 0 1px rgba(255,255,255,0.55), 0 0 0 1px rgba(60,36,21,0.04);
+  --shadow-edge-lg: inset 0 0 0 1px rgba(255,255,255,0.6), 0 0 0 1px rgba(60,36,21,0.06), 0 8px 28px rgba(60,36,21,0.06);
+  --shadow-recess: inset 0 1px 2px rgba(60,36,21,0.06), inset 0 0 0 1px rgba(60,36,21,0.04);
+  --shadow-raised: inset 0 0 0 1px rgba(255,255,255,0.8), 0 0 0 1px rgba(60,36,21,0.05), 0 1px 2px rgba(60,36,21,0.07);
+
+  /* Transition curves */
+  --ease-out: cubic-bezier(0.7, 0.05, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* Dark mode overrides */
-  --color-surface-dark: #2A2218;           /* Dark parchment */
-  --color-surface-raised-dark: #3A3028;    /* Dark card */
-  --color-surface-dim-dark: #4A4038;       /* Dark hover */
-  --color-ink-dark: #E8DCC8;               /* Light brown text */
-  --color-ink-light-dark: #C4B89A;         /* Medium light brown */
-  --color-ink-muted-dark: #8A7D6D;         /* Muted light brown */
-  --color-accent-dark: #C4A35A;            /* Gold accent for dark mode */
-  --color-accent-hover-dark: #D4B36A;      /* Lighter gold */
-  --color-accent-light-dark: #3A3028;      /* Dark accent background */
-  --color-border-dark: #5A4E3E;            /* Dark border */
-  --color-border-light-dark: #4A4038;      /* Dark light border */
+  --color-surface-dark: #2A2218;
+  --color-surface-raised-dark: #3A3028;
+  --color-surface-dim-dark: #4A4038;
+  --color-ink-dark: #E8DCC8;
+  --color-ink-light-dark: #C4B89A;
+  --color-ink-muted-dark: #8A7D6D;
+  --color-accent-dark: #C4A35A;
+  --color-accent-hover-dark: #D4B36A;
+  --color-accent-light-dark: #3A3028;
+  --color-border-dark: #5A4E3E;
+  --color-border-light-dark: #4A4038;
 }
 
 /* ── Dark mode variable remapping ── */
@@ -52,6 +63,12 @@
   --color-accent-light: var(--color-accent-light-dark);
   --color-border: var(--color-border-dark);
   --color-border-light: var(--color-border-light-dark);
+
+  /* Dark shadows */
+  --shadow-edge: inset 0 0 0 1px rgba(255,255,255,0.05), 0 0 0 1px rgba(0,0,0,0.4);
+  --shadow-edge-lg: inset 0 0 0 1px rgba(255,255,255,0.06), 0 0 0 1px rgba(0,0,0,0.5), 0 10px 30px rgba(0,0,0,0.5);
+  --shadow-recess: inset 0 1px 2px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.04);
+  --shadow-raised: inset 0 0 0 1px rgba(255,255,255,0.07), 0 0 0 1px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.5);
 }
 
 /* ── Base ── */
@@ -62,7 +79,6 @@ body {
   color: var(--color-ink);
   font-family: var(--font-serif);
   line-height: 1.8;
-  /* Parchment texture (pure CSS, no images) */
   background-image:
     radial-gradient(ellipse at 15% 25%, rgba(139, 69, 19, 0.04) 0%, transparent 50%),
     radial-gradient(ellipse at 85% 75%, rgba(139, 69, 19, 0.03) 0%, transparent 50%),
@@ -76,39 +92,62 @@ body {
     radial-gradient(ellipse at 50% 50%, rgba(139, 69, 19, 0.01) 0%, transparent 70%);
 }
 
-/* ── Typography ── */
+/* ── Typography: letter-spacing system ── */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
-  letter-spacing: 0.02em;
   line-height: 1.2;
   font-weight: 600;
 }
 
 h1 {
   font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+h2 {
+  letter-spacing: 0.03em;
+}
+
+h3 {
+  letter-spacing: 0.02em;
 }
 
 p {
   margin-bottom: 1.2em;
 }
 
+/* ── Labels / tags ── */
+.tag, .label, .mono {
+  font-family: var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 0.7em;
+}
+
+/* ── Link transitions ── */
+a {
+  transition: color 140ms ease;
+}
+
+a:hover {
+  color: var(--color-accent);
+}
+
 /* ── Micro-interactions ── */
 .btn-press {
-  transition: all 0.15s ease;
+  transition: transform 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
 }
 .btn-press:active {
-  transform: scale(0.98);
+  transform: translateY(1px);
+  box-shadow: var(--shadow-recess);
 }
 
 .card-hover {
-  transition: all 0.2s ease;
+  transition: transform 320ms var(--ease-out), box-shadow 320ms var(--ease-out);
 }
 .card-hover:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(60, 36, 21, 0.1);
-}
-.dark .card-hover:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-edge-lg);
 }
 
 /* ── Scroll-reveal animation ── */
@@ -124,7 +163,7 @@ p {
 }
 
 .animate-fade-in-up {
-  animation: fade-in-up 0.5s ease forwards;
+  animation: fade-in-up 0.5s var(--ease-out) forwards;
 }
 
 .stagger-1 { animation-delay: 0.05s; }
@@ -139,7 +178,7 @@ p {
   to { transform: translateX(0); }
 }
 .animate-slide-in-right {
-  animation: slide-in-right 0.2s ease forwards;
+  animation: slide-in-right 0.2s var(--ease-out) forwards;
 }
 
 @keyframes fade-in {
@@ -147,10 +186,10 @@ p {
   to { opacity: 1; }
 }
 .animate-fade-in {
-  animation: fade-in 0.15s ease forwards;
+  animation: fade-in 0.15s var(--ease-out) forwards;
 }
 
-/* ── Focus ring using CSS variables ── */
+/* ── Focus ring ── */
 .focus-ring-accent:focus {
   outline: none;
   box-shadow: 0 0 0 2px var(--color-accent);
@@ -159,17 +198,12 @@ p {
 /* ── Decorative borders (manuscript style) ── */
 .manuscript-border {
   border: 2px solid var(--color-border);
-  outline: 1px solid var(--color-border);
-  outline-offset: 4px;
+  box-shadow: var(--shadow-raised);
 }
 
 .manuscript-border-single {
   border: 1px solid var(--color-border);
-  box-shadow: inset 0 1px 3px rgba(139, 69, 19, 0.06);
-}
-
-.dark .manuscript-border-single {
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-raised);
 }
 
 /* ── Decorative dividers ── */
@@ -188,8 +222,9 @@ hr, .divider {
 }
 
 /* ── Drop Cap (first letter decoration) ── */
-.prose-body > p:first-of-type::first-letter {
-  font-family: 'Cormorant Garamond', serif;
+.prose-body > p:first-of-type::first-letter,
+.prose > p:first-of-type::first-letter {
+  font-family: var(--font-display);
   font-size: 3.2em;
   float: left;
   line-height: 0.8;
@@ -265,6 +300,7 @@ hr, .divider {
 
 .prose-body code {
   font-size: 0.875rem;
+  font-family: var(--font-mono);
   background: var(--color-surface-dim);
   padding: 0.125rem 0.375rem;
   border-radius: 0.25rem;
@@ -368,7 +404,7 @@ hr, .divider {
   text-decoration: none;
 }
 
-/* ── Image rows (side-by-side comparisons) ── */
+/* ── Image rows ── */
 .image-row {
   display: flex;
   flex-wrap: wrap;
@@ -415,11 +451,11 @@ hr, .divider {
 @media (max-width: 768px) {
   .manuscript-border {
     border: 1px solid var(--color-border);
-    outline: none;
-    outline-offset: 0;
+    box-shadow: var(--shadow-edge);
   }
-  
-  .prose-body > p:first-of-type::first-letter {
+
+  .prose-body > p:first-of-type::first-letter,
+  .prose > p:first-of-type::first-letter {
     font-size: 2.5em;
   }
 }

@@ -49,11 +49,11 @@ export function Header() {
 
   return (
     <header
-      className="sticky top-0 z-50 backdrop-blur border-b"
+      className="sticky top-0 z-50 backdrop-blur"
       style={{
         backgroundColor:
           "color-mix(in srgb, var(--color-surface) 85%, transparent)",
-        borderColor: "var(--color-border)",
+        boxShadow: "0 1px 0 var(--color-border)",
       }}
     >
       <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
@@ -73,14 +73,14 @@ export function Header() {
           <div className="hidden sm:flex items-center gap-4">
             <Link
               href="/browse"
-              className="text-sm transition-colors hover:underline underline-offset-4"
+              className="text-sm transition-colors duration-140"
               style={{ color: "var(--color-ink-light)" }}
             >
               浏览
             </Link>
             <Link
               href="/search"
-              className="flex items-center gap-1 text-sm transition-colors hover:underline underline-offset-4"
+              className="flex items-center gap-1 text-sm transition-colors duration-140"
               style={{ color: "var(--color-ink-light)" }}
             >
               <MagnifyingGlass size={14} />
@@ -90,7 +90,7 @@ export function Header() {
               <button
                 type="button"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="flex items-center gap-1 text-sm transition-colors hover:underline underline-offset-4"
+                className="flex items-center gap-1 text-sm transition-colors duration-140"
                 style={{ color: "var(--color-ink-light)" }}
                 aria-expanded={dropdownOpen}
                 aria-haspopup="true"
@@ -112,7 +112,7 @@ export function Header() {
                       key={item.href}
                       href={item.href}
                       onClick={() => setDropdownOpen(false)}
-                      className="block px-3 py-1.5 text-sm transition-colors hover:bg-[var(--color-surface-dim)]"
+                      className="block px-3 py-1.5 text-sm transition-colors duration-140 hover:bg-[var(--color-surface-dim)]"
                       style={{ color: "var(--color-ink-light)" }}
                     >
                       {item.label}
@@ -123,7 +123,7 @@ export function Header() {
             </div>
             <Link
               href="/chat"
-              className="flex items-center gap-1 text-sm transition-colors hover:underline underline-offset-4"
+              className="flex items-center gap-1 text-sm transition-colors duration-140"
               style={{ color: "var(--color-ink-light)" }}
             >
               <ChatCircleDots size={14} />

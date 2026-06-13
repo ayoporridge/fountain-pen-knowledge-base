@@ -5,7 +5,10 @@ export function Footer() {
   return (
     <footer
       className="border-t"
-      style={{ borderColor: "var(--color-border)" }}
+      style={{
+        borderColor: "var(--color-border)",
+        boxShadow: "inset 0 1px 0 var(--color-border)",
+      }}
     >
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm">
@@ -120,9 +123,9 @@ export function Footer() {
         </div>
 
         <div
-          className="mt-8 pt-4 border-t text-xs text-center flex items-center justify-center gap-1.5"
+          className="mt-8 pt-4 text-xs text-center flex items-center justify-center gap-1.5"
           style={{
-            borderColor: "var(--color-border)",
+            borderTop: "1px solid var(--color-border)",
             color: "var(--color-ink-muted)",
           }}
         >
