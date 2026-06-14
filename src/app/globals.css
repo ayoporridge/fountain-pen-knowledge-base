@@ -512,10 +512,9 @@ hr, .divider {
   animation: ink-bleed 0.8s var(--ease-out) forwards;
 }
 
-/* Staggered ink bleed for sequential elements */
+/* Staggered ink bleed — uses animation-fill-mode to ensure visibility */
 .ink-bleed-stagger > * {
-  opacity: 0;
-  animation: ink-bleed 0.6s var(--ease-out) forwards;
+  animation: ink-bleed 0.6s var(--ease-out) both;
 }
 .ink-bleed-stagger > *:nth-child(1) { animation-delay: 0.1s; }
 .ink-bleed-stagger > *:nth-child(2) { animation-delay: 0.2s; }
@@ -652,8 +651,6 @@ hr, .divider {
 }
 
 .scroll-reveal {
-  opacity: 0;
-  transform: translateY(20px);
   transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
 }
 

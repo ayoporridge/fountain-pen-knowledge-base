@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, ReactNode } from "react";
+import { useEffect, useRef, useState, ReactNode } from "react";
 
 interface ScrollRevealProps {
   children: ReactNode;
@@ -10,8 +10,11 @@ interface ScrollRevealProps {
 
 export function ScrollReveal({ children, className = "", stagger = false }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+    
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -26,7 +29,6 @@ export function ScrollReveal({ children, className = "", stagger = false }: Scro
     const el = ref.current;
     if (el) {
       if (stagger) {
-        // Observe each child for staggered animation
         const children = el.querySelectorAll(":scope > *");
         children.forEach((child) => observer.observe(child));
       } else {
@@ -41,6 +43,7 @@ export function ScrollReveal({ children, className = "", stagger = false }: Scro
     <div
       ref={ref}
       className={`scroll-reveal ${stagger ? "scroll-reveal-stagger" : ""} ${className}`}
+      style={mounted ? { opacity: 0, transform: "translateY(20px)" } : undefined}
     >
       {children}
     </div>
