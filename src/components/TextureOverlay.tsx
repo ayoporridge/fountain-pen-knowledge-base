@@ -6,23 +6,17 @@
  * Inspired by hermes-agent.nousresearch.com's multi-layer canvas texture system.
  * Simplified to SVG feTurbulence + CSS blend modes for performance.
  *
- * Layers (light mode):
- *   1. Noise multiply   — subtle dark grain on parchment
- *   2. Noise overlay    — mid-tone contrast
- *   3. Radial gradient  — warm amber corner glow
- *
- * Layers (dark mode):
- *   1. Noise color-dodge — bright grain on dark brown
- *   2. Noise difference  — inverted contrast
- *   3. Radial gradient   — gold corner glow
+ * The SVG filter generates fractalNoise on the div's own background color,
+ * then blend modes composite it with the page beneath.
  */
 export function TextureOverlay() {
   return (
     <>
-      {/* SVG filter definition — hidden */}
+      {/* SVG filter definitions — hidden */}
       <svg className="fixed inset-0 w-0 h-0" aria-hidden="true">
         <defs>
-          <filter id="paper-grain" x="0%" y="0%" width="100%" height="100%">
+          {/* Coarse grain — like aged paper fiber */}
+          <filter id="grain-coarse" x="0%" y="0%" width="100%" height="100%">
             <feTurbulence
               type="fractalNoise"
               baseFrequency="0.65"
@@ -30,73 +24,69 @@ export function TextureOverlay() {
               stitchTiles="stitch"
               result="noise"
             />
-            <feColorMatrix
-              type="saturate"
-              values="0"
-              in="noise"
-              result="mono"
-            />
+            <feColorMatrix type="saturate" values="0" in="noise" result="mono" />
           </filter>
-          <filter id="paper-grain-fine" x="0%" y="0%" width="100%" height="100%">
+          {/* Fine grain — like ink spread micro-texture */}
+          <filter id="grain-fine" x="0%" y="0%" width="100%" height="100%">
             <feTurbulence
               type="fractalNoise"
-              baseFrequency="1.2"
+              baseFrequency="1.5"
               numOctaves="3"
               stitchTiles="stitch"
               result="noise"
             />
-            <feColorMatrix
-              type="saturate"
-              values="0"
-              in="noise"
-              result="mono"
-            />
+            <feColorMatrix type="saturate" values="0" in="noise" result="mono" />
           </filter>
         </defs>
       </svg>
 
-      {/* Layer 1: Coarse grain — multiply (light) / color-dodge (dark) */}
+      {/* Layer 1: Coarse grain — multiply blend darkens parchment */}
       <div
-        className="fixed inset-0 pointer-events-none z-[101]"
+        className="texture-layer fixed inset-0 pointer-events-none"
         style={{
-          filter: "url(#paper-grain)",
+          zIndex: 101,
+          backgroundColor: "var(--color-surface)",
+          filter: "url(#grain-coarse)",
           mixBlendMode: "multiply",
-          opacity: 0.035,
+          opacity: 0.04,
         }}
       />
 
-      {/* Layer 2: Fine grain — overlay (light) / difference (dark) */}
+      {/* Layer 2: Fine grain — overlay blend adds contrast */}
       <div
-        className="fixed inset-0 pointer-events-none z-[102]"
+        className="texture-layer fixed inset-0 pointer-events-none"
         style={{
-          filter: "url(#paper-grain-fine)",
+          zIndex: 102,
+          backgroundColor: "var(--color-surface)",
+          filter: "url(#grain-fine)",
           mixBlendMode: "overlay",
-          opacity: 0.025,
+          opacity: 0.03,
         }}
       />
 
-      {/* Layer 3: Warm corner glow */}
+      {/* Layer 3: Warm corner glow — soft-light for natural warmth */}
       <div
-        className="fixed inset-0 pointer-events-none z-[100]"
+        className="texture-layer fixed inset-0 pointer-events-none"
         style={{
+          zIndex: 100,
           background:
-            "radial-gradient(ellipse at 85% 15%, rgba(196, 163, 90, 0.12) 0%, transparent 55%)",
+            "radial-gradient(ellipse at 80% 10%, rgba(196, 163, 90, 0.15) 0%, transparent 50%)",
           mixBlendMode: "soft-light",
         }}
       />
 
-      {/* Dark mode overrides */}
+      {/* Dark mode: switch blend modes for inverted noise effect */}
       <style>{`
-        .dark [style*="z-index: 101"] {
+        .dark .texture-layer[style*="z-index: 101"] {
           mix-blend-mode: color-dodge !important;
-          opacity: 0.06 !important;
+          opacity: 0.07 !important;
         }
-        .dark [style*="z-index: 102"] {
+        .dark .texture-layer[style*="z-index: 102"] {
           mix-blend-mode: difference !important;
-          opacity: 0.04 !important;
+          opacity: 0.05 !important;
         }
-        .dark [style*="z-index: 100"] {
-          background: radial-gradient(ellipse at 85% 15%, rgba(196, 163, 90, 0.18) 0%, transparent 55%) !important;
+        .dark .texture-layer[style*="z-index: 100"] {
+          background: radial-gradient(ellipse at 80% 10%, rgba(196, 163, 90, 0.2) 0%, transparent 50%) !important;
           mix-blend-mode: lighten !important;
         }
       `}</style>

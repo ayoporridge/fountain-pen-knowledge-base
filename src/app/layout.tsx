@@ -30,6 +30,7 @@ export default function RootLayout({
         }}
       >
         <Providers>
+          <TextureOverlay />
           <GlobalShortcuts />
           <Header />
           <main className="flex-1">{children}</main>
