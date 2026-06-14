@@ -1,11 +1,13 @@
 @import "tailwindcss";
 
 /* ── Google Fonts: Medieval Manuscript Typography ──
- * Display: Cinzel Decorative — bold, dramatic, medieval feel
- * Body: Cormorant Garamond — elegant, thin strokes, high contrast
- * Chinese fallback: Noto Serif SC — reliable serif for CJK
+ * Display: Cinzel Decorative — bold, dramatic, medieval feel (Latin)
+ * Heading: Cinzel — strong, classic (Latin)
+ * Body: Cormorant Garamond — elegant, thin strokes (Latin)
+ * Chinese: LXGW WenKai (霞鹜文楷) — calligraphy style, like handwritten with a fountain pen
+ * CJK fallback: Noto Serif SC
  */
-@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=LXGW+WenKai:wght@300;400;700&family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&display=swap');
 
 /* ── Color System: Medieval Manuscript ── */
 
@@ -23,10 +25,14 @@
   --color-border: #C4B89A;
   --color-border-light: #D8CEBC;
 
-  /* Fonts — dramatic hierarchy */
-  --font-display: 'Cinzel Decorative', 'Noto Serif SC', serif;           /* Hero titles — bold, dramatic */
-  --font-heading: 'Cinzel', 'Noto Serif SC', serif;                      /* Section headings — strong, classic */
-  --font-serif: 'Cormorant Garamond', 'Noto Serif SC', serif;            /* Body text — elegant, thin */
+  /* Fonts — dramatic hierarchy
+   * Latin: Cinzel Decorative / Cinzel / Cormorant Garamond
+   * Chinese: LXGW WenKai (霞鹜文楷) — fountain pen calligraphy style
+   * LXGW WenKai 粗体(700)用于标题，细体(300)用于正文
+   */
+  --font-display: 'Cinzel Decorative', 'LXGW WenKai', serif;
+  --font-heading: 'Cinzel', 'LXGW WenKai', serif;
+  --font-serif: 'Cormorant Garamond', 'LXGW WenKai', serif;
   --font-mono: 'JetBrains Mono', monospace;
   --font-label: 'JetBrains Mono', monospace;
 
@@ -127,6 +133,11 @@ h4, h5, h6 {
 
 p {
   margin-bottom: 1.2em;
+}
+
+/* ── Body text: thin, elegant calligraphy ── */
+body {
+  font-weight: 300;  /* LXGW WenKai Light — thin strokes */
 }
 
 /* ── Labels / tags ── */
