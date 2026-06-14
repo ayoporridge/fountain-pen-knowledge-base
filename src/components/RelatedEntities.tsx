@@ -47,7 +47,7 @@ export function RelatedEntities({ links }: RelatedEntitiesProps) {
             <li key={`${item.target_slug}-${i}`}>
               <Link
                 href={`/${item.target_type}/${item.target_slug}`}
-                className="flex items-center gap-2 p-2 rounded-lg text-sm transition-colors hover:bg-[var(--color-surface-raised)]"
+                className="flex items-center gap-2 p-2 rounded-lg text-sm transition-colors hover:bg-[var(--color-surface-raised)] ink-underline"
                 style={{ color: "var(--color-ink)" }}
               >
                 <span

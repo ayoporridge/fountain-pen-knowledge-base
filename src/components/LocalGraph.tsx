@@ -51,6 +51,7 @@ export function LocalGraph({
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 400, height: 450 });
   const graphRef = useRef<any>(null);
+  const startTimeRef = useRef(Date.now());
 
   const isDark = resolvedTheme === "dark";
   const labelColor = isDark ? "#e8e4dc" : "#1a1814";
@@ -191,7 +192,15 @@ export function LocalGraph({
 
       const rawFontSize = node.isCenter ? 13 : node.isSecondHop ? 9 : 11;
       const fontSize = Math.min(rawFontSize / globalScale, 16);
-      const radius = node.isCenter ? 7 : node.isSecondHop ? 3.5 : 4.5;
+      const baseRadius = node.isCenter ? 7 : node.isSecondHop ? 3.5 : 4.5;
+      
+      // Pulse animation for center node
+      let radius = baseRadius;
+      if (node.isCenter) {
+        const elapsed = (Date.now() - startTimeRef.current) / 1000;
+        const pulse = Math.sin(elapsed * 2 * Math.PI / 2) * 0.15 + 1; // 2s cycle, ±15%
+        radius = baseRadius * pulse;
+      }
 
       // Draw node circle
       ctx.beginPath();
@@ -205,6 +214,20 @@ export function LocalGraph({
         ctx.strokeStyle = isDark ? "#1e1c18" : "#ffffff";
         ctx.lineWidth = 1.5 / globalScale;
         ctx.stroke();
+        
+        // Add glow effect for center node
+        const gradient = ctx.createRadialGradient(
+          node.x || 0, node.y || 0, radius,
+          node.x || 0, node.y || 0, radius * 2.5
+        );
+        gradient.addColorStop(0, TYPE_COLORS[node.type] || "#7a756d");
+        gradient.addColorStop(1, "transparent");
+        ctx.fillStyle = gradient;
+        ctx.globalAlpha = 0.15;
+        ctx.beginPath();
+        ctx.arc(node.x || 0, node.y || 0, radius * 2.5, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.globalAlpha = 1;
       }
 
       // Draw label with background for readability

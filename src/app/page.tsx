@@ -10,6 +10,7 @@ import {
   Star,
 } from "@phosphor-icons/react/dist/ssr";
 import { TYPE_LABELS, TYPE_ICONS } from "@/lib/constants";
+import { ScrollReveal } from "@/components/ScrollReveal";
 
 export const dynamic = "force-dynamic";
 
@@ -84,7 +85,7 @@ export default async function Home() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
       {/* ── Hero: concrete, not abstract ── */}
-      <div className="max-w-2xl mb-16 manuscript-border p-8 sm:p-10 animate-fade-in-up">
+      <div className="max-w-2xl mb-16 manuscript-border p-8 sm:p-10 animate-ink-bleed ink-bleed-stagger">
         <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-4 font-serif">
           找一支适合你的钢笔
         </h1>
@@ -101,7 +102,7 @@ export default async function Home() {
         {/* Search as primary CTA */}
         <Link
           href="/search"
-          className="flex items-center gap-3 w-full max-w-md px-4 py-3 rounded-xl card-hover"
+          className="flex items-center gap-3 w-full max-w-md px-4 py-3 rounded-xl card-hover gold-shimmer-hover"
           style={{
             backgroundColor: "var(--color-surface-raised)",
             boxShadow: "var(--shadow-recess)",
@@ -132,7 +133,7 @@ export default async function Home() {
             <Link
               key={item.href}
               href={item.href}
-              className="flex items-center gap-2 text-sm transition-colors hover:underline underline-offset-4"
+              className="flex items-center gap-2 text-sm transition-colors ink-underline"
               style={{ color: "var(--color-ink-muted)" }}
             >
               <ArrowRight size={12} style={{ color: "var(--color-accent)" }} />
@@ -144,7 +145,7 @@ export default async function Home() {
         <div className="flex items-center gap-4 mt-6">
           <Link
             href="/browse"
-            className="flex items-center gap-1 text-sm font-medium transition-colors hover:underline underline-offset-4"
+            className="flex items-center gap-1 text-sm font-medium transition-colors ink-underline"
             style={{ color: "var(--color-accent)" }}
           >
             浏览全部词条
@@ -154,7 +155,7 @@ export default async function Home() {
       </div>
 
       {/* ── Type Bento: preview star entries, not numbers ── */}
-      <section className="mb-16 animate-fade-in-up stagger-2">
+      <ScrollReveal stagger className="mb-16">
         <h2
           className="text-xl font-semibold tracking-tight mb-6"
           style={{ color: "var(--color-ink)" }}
@@ -162,10 +163,10 @@ export default async function Home() {
           按类型探索
         </h2>
         <BentoGrid items={typeBreakdown} />
-      </section>
+      </ScrollReveal>
 
       {/* ── Featured: well-tagged, worth reading ── */}
-      <section className="animate-fade-in-up stagger-3">
+      <ScrollReveal>
         <div className="flex items-center justify-between mb-6">
           <h2
             className="text-xl font-semibold tracking-tight flex items-center gap-2"
@@ -180,7 +181,7 @@ export default async function Home() {
           </h2>
           <Link
             href="/browse"
-            className="text-sm transition-colors hover:underline underline-offset-4"
+            className="text-sm transition-colors ink-underline"
             style={{ color: "var(--color-ink-muted)" }}
           >
             查看全部 →
@@ -200,7 +201,7 @@ export default async function Home() {
               <Link
                 key={entity.slug}
                 href={`/${entity.type}/${entity.slug}`}
-                className="flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-[var(--color-surface-dim)]"
+                className="flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-[var(--color-surface-dim)] ink-underline"
                 style={{ borderColor: "var(--color-border-light)" }}
               >
                 {entity.image_url ? (
@@ -245,7 +246,7 @@ export default async function Home() {
             );
           })}
         </div>
-      </section>
+      </ScrollReveal>
     </div>
   );
 }
