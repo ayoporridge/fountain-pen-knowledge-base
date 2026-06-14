@@ -29,9 +29,9 @@
    * Chinese: LXGW WenKai (霞鹜文楷) — fountain pen calligraphy style
    * LXGW WenKai 粗体(700)用于标题，细体(300)用于正文
    */
-  --font-display: 'Cinzel Decorative', 'LXGW WenKai', serif;
-  --font-heading: 'Cinzel', 'LXGW WenKai', serif;
-  --font-serif: 'Cormorant Garamond', 'LXGW WenKai', serif;
+  --font-display: 'Cinzel Decorative', 'LXGW WenKai TC', serif;
+  --font-heading: 'Cinzel', 'LXGW WenKai TC', serif;
+  --font-serif: 'Cormorant Garamond', 'LXGW WenKai TC', serif;
   --font-mono: 'JetBrains Mono', monospace;
   --font-label: 'JetBrains Mono', monospace;
 
