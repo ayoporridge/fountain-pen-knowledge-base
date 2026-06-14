@@ -1,7 +1,11 @@
 @import "tailwindcss";
 
-/* ── Google Fonts: Medieval Manuscript Typography ── */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=ZCOOL+XiaoWei&family=LXGW+WenKai:wght@300;400;700&family=JetBrains+Mono:wght@400;500&display=swap');
+/* ── Google Fonts: Medieval Manuscript Typography ──
+ * Display: Cinzel Decorative — bold, dramatic, medieval feel
+ * Body: Cormorant Garamond — elegant, thin strokes, high contrast
+ * Chinese fallback: Noto Serif SC — reliable serif for CJK
+ */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Noto+Serif+SC:wght@200;300;400;500;600;700;900&display=swap');
 
 /* ── Color System: Medieval Manuscript ── */
 
@@ -19,9 +23,10 @@
   --color-border: #C4B89A;
   --color-border-light: #D8CEBC;
 
-  /* Fonts */
-  --font-display: 'Playfair Display', 'ZCOOL XiaoWei', serif;
-  --font-serif: 'EB Garamond', 'LXGW WenKai', serif;
+  /* Fonts — dramatic hierarchy */
+  --font-display: 'Cinzel Decorative', 'Noto Serif SC', serif;           /* Hero titles — bold, dramatic */
+  --font-heading: 'Cinzel', 'Noto Serif SC', serif;                      /* Section headings — strong, classic */
+  --font-serif: 'Cormorant Garamond', 'Noto Serif SC', serif;            /* Body text — elegant, thin */
   --font-mono: 'JetBrains Mono', monospace;
   --font-label: 'JetBrains Mono', monospace;
 
@@ -92,24 +97,32 @@ body {
     radial-gradient(ellipse at 50% 50%, rgba(139, 69, 19, 0.01) 0%, transparent 70%);
 }
 
-/* ── Typography: letter-spacing system ── */
+/* ── Typography: dramatic hierarchy ── */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-display);
   line-height: 1.2;
-  font-weight: 600;
 }
 
 h1 {
+  font-family: var(--font-display);  /* Cinzel Decorative — dramatic, bold */
   font-weight: 700;
   letter-spacing: 0.04em;
 }
 
 h2 {
+  font-family: var(--font-heading);  /* Cinzel — strong, classic */
+  font-weight: 600;
   letter-spacing: 0.03em;
 }
 
 h3 {
+  font-family: var(--font-heading);  /* Cinzel — strong, classic */
+  font-weight: 600;
   letter-spacing: 0.02em;
+}
+
+h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 500;
 }
 
 p {

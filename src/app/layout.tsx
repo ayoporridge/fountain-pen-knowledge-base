@@ -4,6 +4,7 @@ import { Providers } from "@/components/Providers";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { GlobalShortcuts } from "@/components/GlobalShortcuts";
+import { TextureOverlay } from "@/components/TextureOverlay";
 
 export const metadata: Metadata = {
   title: "钢笔知识图谱",
