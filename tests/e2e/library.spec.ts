@@ -1660,6 +1660,77 @@ test.describe("Library smoke flow", () => {
     }
   });
 
+  test("eleventh priority model gap pages render Faber Castell and Jinhao archives", async ({
+    page,
+  }) => {
+    const cases = [
+      {
+        path: `/pen/${encodeURIComponent("辉柏嘉-faber-castell-伯爵翎尚-neo-slim")}`,
+        texts: [
+          "型号档案",
+          "Neo Slim",
+          "把 Neo Slim 翎尚写成细身设计和写感边界页",
+          "钢尖说法待核验",
+          "Research index: Faber-Castell Neo Slim",
+        ],
+      },
+      {
+        path: `/pen/${encodeURIComponent("辉柏嘉-faber-castell-如恩-loom")}`,
+        texts: [
+          "型号档案",
+          "Loom",
+          "把 Loom 如恩的钢尖口碑和限量价分开核验",
+          "260 周年限量版 329 起说法待核验",
+          "Research index: Faber-Castell Loom",
+        ],
+      },
+      {
+        path: `/pen/${encodeURIComponent("金豪-jinhao-10号")}`,
+        texts: [
+          "型号档案",
+          "Jinhao 10",
+          "把 Jinhao 10 先做成 50 元惊喜的待核验页",
+          "50 元价位说法待核验",
+          "Research index: Jinhao 10",
+        ],
+      },
+      {
+        path: `/pen/${encodeURIComponent("金豪-jinhao-619")}`,
+        texts: [
+          "型号档案",
+          "Jinhao 619",
+          "把 Jinhao 619 的团购神器说法放进证据边界",
+          "1688 批发 3 元说法待核验",
+          "Research index: Jinhao 619",
+        ],
+      },
+      {
+        path: `/pen/${encodeURIComponent("金豪-jinhao-82")}`,
+        texts: [
+          "型号档案",
+          "Jinhao 82",
+          "把 Jinhao 82 当作手帐配色和低价玩具笔核验",
+          "30 元左右说法待核验",
+          "Research index: Jinhao 82",
+        ],
+      },
+      {
+        path: `/pen/${encodeURIComponent("金豪-jinhao-9056木杆")}`,
+        texts: [
+          "型号档案",
+          "Jinhao 9056",
+          "把 Jinhao 9056 木杆做成低价材质实验页",
+          "实木笔杆说法待核验",
+          "Research index: Jinhao 9056 wood barrel",
+        ],
+      },
+    ];
+
+    for (const item of cases) {
+      await expectLibraryPage(page, item.path, item.texts);
+    }
+  });
+
   test("official model diagram index includes evidence-aware diagrams", async ({
     page,
   }) => {
