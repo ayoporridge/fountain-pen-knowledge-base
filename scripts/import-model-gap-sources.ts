@@ -1804,6 +1804,18 @@ const SOURCE_ITEMS: SourceItemSeed[] = [
     reviewStatus: "pending",
   },
   {
+    id: "source-aurora-generic-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Aurora generic pen entry",
+    url: "https://www.bing.com/search?q=%22Aurora%22+%22fountain+pen%22+%22Aurora+88%22+%22Optima%22",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for the misclassified Aurora brand-generic pen entry. Use to decide whether this local record should merge into the Aurora brand page or split into concrete Aurora 88, Optima, Talentum, or other model archives.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
     id: "source-visconti-rembrandt-public-search",
     sourceId: "public-web-research-index",
     title: "Research index: Visconti Rembrandt",
@@ -1824,6 +1836,18 @@ const SOURCE_ITEMS: SourceItemSeed[] = [
     author: "Project editorial research",
     summary:
       "Search index for Visconti Van Gogh fountain pen editions, painting-inspired colors, material, nib, cartridge/converter filling, and mid-range positioning.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-visconti-homo-sapiens-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Visconti Homo Sapiens",
+    url: "https://www.bing.com/search?q=%22Visconti+Homo+Sapiens%22+%22fountain+pen%22+official+review",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Visconti Homo Sapiens product evidence, basaltic-lava/resin body claims, filling-system variants, nib generations, trims, and review context.",
     allowedUse: "link_only",
     reviewStatus: "pending",
   },
@@ -8055,6 +8079,714 @@ const MODELS: ModelGapSeed[] = [
       "Duofold Geometric 的难点是昵称和纹样：用户看到“牙刷”会记住外观，但图书馆需要确认这是收藏俗称、目录名称还是后设描述。\n\n当前档案绑定 Richard's Pens profile，先把它作为 vintage Duofold 的纹样/变体研究页。后续可补目录页、颜色表和实物图授权。",
     sourceNotes:
       "Richard's Pens profile is registered as a summary/link-only source. Nickname, catalog, and material-pattern claims require editorial review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-parker-parkette-and-writefine",
+    brandSlug: "parker",
+    aliases: [
+      { alias: "The Parker Parkette and Writefine", language: "en" },
+      { alias: "Parker Parkette", language: "en" },
+      { alias: "Parker Writefine", language: "en" },
+      { alias: "派克 Parkette / Writefine", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-58f5b5e17852bd42",
+    specId: "spec-parker-parkette-writefine-research",
+    seriesName: "Parkette / Writefine",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式/版本差异待核验",
+    material: "笔身材质/经济线版本待核验",
+    priceRange: "历史价位/经济线定位待核验",
+    claimId: "claim-parker-parkette-writefine-source-boundary",
+    modelName: "The Parker Parkette and Writefine",
+    focus:
+      "Parker Parkette and Writefine identity, economy-line positioning, naming boundary, filling system, nib, material, advertising, and collector claims",
+    storyId: "story-model-parker-parkette-writefine-research",
+    storyTitle: "把 Parker Parkette 与 Writefine 拆成经济线档案",
+    storySummary:
+      "Parker Parkette and Writefine 先作为 Richard's Pens 支撑的经济线型号页，名称边界、广告和规格需要复核。",
+    storyBodyMd:
+      "Parkette 和 Writefine 不应该只被当成 Parker 主线之外的旁支。它们更适合放进“经济线/副品牌/市场分层”的展柜里读：哪些名称对应 Parker，哪些是价格和渠道策略，哪些只是收藏叙事。\n\n当前档案绑定 Richard's Pens profile，并把上墨、材料、广告和具体版本都放在待核验层。后续可与 Parker 45、21 这些大众价位型号对照。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Economy-line positioning, naming boundary, and specifications require editorial review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-parker-striped-duofold",
+    brandSlug: "parker",
+    aliases: [
+      { alias: "The Parker Striped Duofold", language: "en" },
+      { alias: "Parker Striped Duofold", language: "en" },
+      { alias: "派克条纹 Duofold", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-19dd8f99ea11761d",
+    specId: "spec-parker-striped-duofold-research",
+    seriesName: "Striped Duofold",
+    originCountry: "美国/英国等产地待核验",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式/版本差异待核验",
+    material: "条纹赛璐珞/颜色版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-parker-striped-duofold-source-boundary",
+    modelName: "The Parker Striped Duofold",
+    focus:
+      "Parker Striped Duofold identity, striped material/design generation, Duofold lineage, filling system, nib, color variants, and collector claims",
+    storyId: "story-model-parker-striped-duofold-research",
+    storyTitle: "把 Parker Striped Duofold 做成条纹时代和版本档案",
+    storySummary:
+      "Parker Striped Duofold 先作为 Richard's Pens 支撑的 Duofold 变体页，条纹材料、年代和版本需要复核。",
+    storyBodyMd:
+      "Striped Duofold 的价值在于把 Duofold 名号从早期硬橡胶/Big Red 叙事带到另一种材料和视觉语言。用户需要看到它属于哪一段 Duofold 演化，而不是只看到一个相似名称。\n\n当前档案绑定 Richard's Pens profile，先把条纹材料、上墨、颜色和产地拆成待核验字段。后续可补 Duofold 家族时间线和材质对照图。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Material, production-period, and variant claims need separate citation review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-parker-vacumatic",
+    brandSlug: "parker",
+    aliases: [
+      { alias: "The Parker Vacumatic", language: "en" },
+      { alias: "Parker Vacumatic", language: "en" },
+      { alias: "派克 Vacumatic", language: "zh" },
+      { alias: "派克真空", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-efcbf8a6431b56ff",
+    specId: "spec-parker-vacumatic-research",
+    seriesName: "Vacumatic",
+    originCountry: "美国/加拿大/英国等产地待核验",
+    nib: "笔尖规格待核验",
+    fillSystem: "Vacumatic/真空上墨机制待核验",
+    material: "层纹透明赛璐珞/颜色版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-parker-vacumatic-source-boundary",
+    modelName: "The Parker Vacumatic",
+    focus:
+      "Parker Vacumatic identity, Vacumatic filling mechanism, laminated celluloid look, size generations, nib, material, advertising, and collector claims",
+    storyId: "story-model-parker-vacumatic-research",
+    storyTitle: "把 Parker Vacumatic 做成真空机制和透明纹理档案",
+    storySummary:
+      "Parker Vacumatic 先作为 Richard's Pens 支撑的机制型经典型号页，Vacumatic 结构、纹理材料和版本需要复核。",
+    storyBodyMd:
+      "Vacumatic 是 Parker 馆里必须单独成档的机制型型号。它不只是一个漂亮的层纹笔身，也关系到 Parker 51 早期上墨代际和用户对“真空/隔膜/透明储墨”的理解。\n\n当前档案绑定 Richard's Pens profile，先把机制、材质、尺寸代际和广告语境分开。后续应补 Vacumatic 机制图，并把 anatomy/repair 来源和 profile 来源分层引用。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Filling-mechanism, repair, material, and generation claims require separate review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-parker-vp",
+    brandSlug: "parker",
+    aliases: [
+      { alias: "The Parker VP", language: "en" },
+      { alias: "Parker VP", language: "en" },
+      { alias: "派克 VP", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-604dba745f3dd8f5",
+    specId: "spec-parker-vp-research",
+    seriesName: "VP",
+    originCountry: "美国（待核验）",
+    nib: "可调/可旋转笔尖概念待核验",
+    fillSystem: "墨囊/上墨器或版本差异待核验",
+    material: "笔身材质/饰面版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-parker-vp-source-boundary",
+    modelName: "The Parker VP",
+    focus:
+      "Parker VP identity, adjustable or orientation-related nib concept, short-lived product-line position, filling system, material, advertising, and collector claims",
+    storyId: "story-model-parker-vp-research",
+    storyTitle: "把 Parker VP 的可调笔尖和短命定位拆开",
+    storySummary:
+      "Parker VP 先作为 Richard's Pens 支撑的研究页，笔尖概念、产品线位置和规格需要复核。",
+    storyBodyMd:
+      "Parker VP 容易被后来的 75、45 或 51 系列叙事遮住，但它适合作为“实验性结构/短命型号”的入口。用户需要先知道它为什么值得单独看：笔尖概念、市场定位和后续型号之间的关系。\n\n当前档案绑定 Richard's Pens profile，并保留具体机制、年份和规格待核验。后续可补与 Parker 75 可调笔尖语境的对照。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Adjustable-nib concept, production span, and specification claims require direct citation review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-parker-vs",
+    brandSlug: "parker",
+    aliases: [
+      { alias: "The Parker VS", language: "en" },
+      { alias: "Parker VS", language: "en" },
+      { alias: "派克 VS", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-d1b54eaab271fe35",
+    specId: "spec-parker-vs-research",
+    seriesName: "VS",
+    originCountry: "美国（待核验）",
+    nib: "露尖/笔尖规格待核验",
+    fillSystem: "Vacumatic 或版本差异待核验",
+    material: "笔身材质/饰面版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-parker-vs-source-boundary",
+    modelName: "The Parker VS",
+    focus:
+      "Parker VS identity, transition-era product position, nib/filling-system relationship to Vacumatic and Parker 51 context, material, advertising, and collector claims",
+    storyId: "story-model-parker-vs-research",
+    storyTitle: "把 Parker VS 放进 Vacumatic 到 51 之间的过渡档案",
+    storySummary:
+      "Parker VS 先作为 Richard's Pens 支撑的过渡型型号页，产品线位置、上墨和版本需要复核。",
+    storyBodyMd:
+      "Parker VS 适合用来解释 Parker 在 Vacumatic、51 和后续大众型号之间如何过渡。它的价值不是单一参数，而是帮助读者看见某个阶段的结构和市场取舍。\n\n当前档案绑定 Richard's Pens profile，先建立过渡型页面。后续可补时间线，把 VS 与 Vacumatic、51、21 放在同一张产品线图上。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Transition positioning, filling system, and version claims require editorial review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-postal-reservoir-pen",
+    brandSlug: "postal",
+    aliases: [
+      { alias: "The Postal Reservoir Pen", language: "en" },
+      { alias: "Postal Reservoir Pen", language: "en" },
+      { alias: "Postal 储墨钢笔", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-0d1efeef48eeb0c4",
+    specId: "spec-postal-reservoir-pen-research",
+    seriesName: "Reservoir Pen",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "Reservoir/储墨结构待核验",
+    material: "笔身材质/早期版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-postal-reservoir-pen-source-boundary",
+    modelName: "The Postal Reservoir Pen",
+    focus:
+      "Postal Reservoir Pen identity, brand or manufacturer attribution, reservoir filling concept, early fountain-pen context, nib, material, and collector claims",
+    storyId: "story-model-postal-reservoir-pen-research",
+    storyTitle: "把 Postal Reservoir Pen 先整理成无品牌归属的储墨线索页",
+    storySummary:
+      "Postal Reservoir Pen 先作为 Richard's Pens 支撑的历史型号页，品牌实体暂缺，储墨结构和规格需要复核。",
+    storyBodyMd:
+      "Postal Reservoir Pen 现在最需要的是边界感：它有清楚的 profile 入口，但站内还没有可靠的 Postal 品牌馆。图书馆先把它作为早期储墨技术线索页处理，而不是擅自补一个品牌故事。\n\n当前档案绑定 Richard's Pens profile，品牌实体暂缺。后续如果能找到目录、广告或专利来源，再决定是否新增 Postal 品牌实体，并补机制示意图。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Brand/manufacturer attribution and reservoir mechanism are explicitly unverified.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-security-pen",
+    brandSlug: "security",
+    aliases: [
+      { alias: "The Security Pen", language: "en" },
+      { alias: "Security Pen", language: "en" },
+      { alias: "Security 安全钢笔", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-46fc1780e17b82d8",
+    specId: "spec-security-pen-research",
+    seriesName: "Security Pen",
+    originCountry: "美国/英国等产地待核验",
+    nib: "笔尖规格待核验",
+    fillSystem: "安全/防漏结构待核验",
+    material: "笔身材质/版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-security-pen-source-boundary",
+    modelName: "The Security Pen",
+    focus:
+      "Security Pen identity, brand or manufacturer attribution, safety/filling mechanism, leak-prevention concept, nib, material, and collector claims",
+    storyId: "story-model-security-pen-research",
+    storyTitle: "把 Security Pen 先整理成安全/防漏概念档案",
+    storySummary:
+      "Security Pen 先作为 Richard's Pens 支撑的历史型号页，品牌实体暂缺，安全/防漏机制和规格需要复核。",
+    storyBodyMd:
+      "Security Pen 的名字会让人立刻联想到 safety pen 或防漏结构，但图书馆不能只凭名称下结论。它需要先被拆成品牌归属、结构概念、广告话术和实物规格。\n\n当前档案绑定 Richard's Pens profile，品牌实体暂缺。后续可把它放入“安全钢笔/早期防漏结构”展览，并用专利或目录来源补强。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Brand attribution and safety/filling mechanism require separate review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-wahl-pen",
+    brandSlug: "wahl",
+    aliases: [
+      { alias: "The Wahl Pen", language: "en" },
+      { alias: "Wahl Pen", language: "en" },
+      { alias: "Wahl 钢笔", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-a5372d5df28f3931",
+    specId: "spec-wahl-pen-research",
+    seriesName: "Wahl Pen",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式/版本差异待核验",
+    material: "笔身材质/金属或硬橡胶版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-wahl-pen-source-boundary",
+    modelName: "The Wahl Pen",
+    focus:
+      "Wahl Pen identity, early Wahl/Eversharp product-line boundary, filling system, nib, material, advertising, and collector claims",
+    storyId: "story-model-wahl-pen-research",
+    storyTitle: "把 Wahl Pen 从品牌档案残片整理成型号页",
+    storySummary:
+      "Wahl Pen 先作为 Richard's Pens 支撑的历史型号页，Wahl/Eversharp 产品线边界、广告和规格需要复核。",
+    storyBodyMd:
+      "Wahl Pen 不能只放在品牌故事里一笔带过。作为型号页，它需要回答用户更实际的问题：这是哪个阶段的 Wahl，和 Eversharp 名号是什么关系，结构和材料有哪些待核验版本。\n\n当前档案绑定 Richard's Pens profile，先把品牌线索和型号字段拆开。后续可与 Doric、Skyline 等 Eversharp/Wahl 页面建立时间线关系。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Wahl/Eversharp boundary and specification claims require editorial review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-wasp-addipoint",
+    brandSlug: "wasp",
+    aliases: [
+      { alias: "The WASP Addipoint", language: "en" },
+      { alias: "WASP Addipoint", language: "en" },
+      { alias: "WASP Addipoint 可换笔尖", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-765c4e651bf3637e",
+    specId: "spec-wasp-addipoint-research",
+    seriesName: "Addipoint",
+    originCountry: "美国（待核验）",
+    nib: "Addipoint/可换笔尖概念待核验",
+    fillSystem: "上墨方式/版本差异待核验",
+    material: "笔身材质/饰面版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-wasp-addipoint-source-boundary",
+    modelName: "The WASP Addipoint",
+    focus:
+      "WASP Addipoint identity, Sheaffer sub-brand context, interchangeable nib concept, filling system, material, advertising, and collector claims",
+    storyId: "story-model-wasp-addipoint-research",
+    storyTitle: "把 WASP Addipoint 做成可换笔尖/子品牌档案",
+    storySummary:
+      "WASP Addipoint 先作为 Richard's Pens 支撑的 WASP 型号页，Sheaffer 子品牌语境、可换笔尖和规格需要复核。",
+    storyBodyMd:
+      "WASP Addipoint 适合成为用户理解 WASP 的入口：它既牵涉 Sheaffer 子品牌语境，也牵涉 Addipoint 这个容易被名称吸引的笔尖概念。\n\n当前档案绑定 Richard's Pens profile，先把品牌归属、笔尖概念、上墨和材料放进研究队列。后续可补 Addipoint 结构说明和广告证据。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Sheaffer/WASP attribution and Addipoint mechanism need direct citation review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-wasp-clipper",
+    brandSlug: "wasp",
+    aliases: [
+      { alias: "The WASP Clipper", language: "en" },
+      { alias: "WASP Clipper", language: "en" },
+      { alias: "WASP Clipper", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-3ed88ee608da3053",
+    specId: "spec-wasp-clipper-research",
+    seriesName: "Clipper",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式/版本差异待核验",
+    material: "笔身材质/饰面版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-wasp-clipper-source-boundary",
+    modelName: "The WASP Clipper",
+    focus:
+      "WASP Clipper identity, Sheaffer sub-brand context, product-line position, filling system, nib, material, advertising, and collector claims",
+    storyId: "story-model-wasp-clipper-research",
+    storyTitle: "把 WASP Clipper 放进 Sheaffer 子品牌和战前广告语境",
+    storySummary:
+      "WASP Clipper 先作为 Richard's Pens 支撑的 WASP 型号页，子品牌语境、广告和规格需要复核。",
+    storyBodyMd:
+      "WASP Clipper 需要从“冷门型号名”变成可浏览的子品牌档案。它应当帮助用户看见 WASP 与 Sheaffer 之间的关系，也看见 Clipper 自己的市场位置。\n\n当前档案绑定 Richard's Pens profile，先保留广告、上墨、材料和版本待核验。后续可与 Addipoint 一起做 WASP 小专题。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Sub-brand context, advertising, and specifications require editorial review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-wearever-zenith",
+    brandSlug: "wearever",
+    aliases: [
+      { alias: "The Wearever Zenith", language: "en" },
+      { alias: "Wearever Zenith", language: "en" },
+      { alias: "Wearever Zenith", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-9f946df0d470f8e5",
+    specId: "spec-wearever-zenith-research",
+    seriesName: "Zenith",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式/版本差异待核验",
+    material: "笔身材质/平价版本待核验",
+    priceRange: "历史平价定位/收藏价格待核验",
+    claimId: "claim-wearever-zenith-source-boundary",
+    modelName: "The Wearever Zenith",
+    focus:
+      "Wearever Zenith identity, budget-market positioning, postwar or value-line context, filling system, nib, material, advertising, and collector claims",
+    storyId: "story-model-wearever-zenith-research",
+    storyTitle: "把 Wearever Zenith 做成平价战后型号档案",
+    storySummary:
+      "Wearever Zenith 先作为 Richard's Pens 支撑的 Wearever 型号页，平价定位、广告和规格需要复核。",
+    storyBodyMd:
+      "Wearever Zenith 的价值不在于稀有光环，而在于它能补上美国平价钢笔市场的一块。图书馆需要让用户知道：平价型号也有品牌策略、材料选择和广告语境。\n\n当前档案绑定 Richard's Pens profile，先把价位、材料、上墨和版本放入待核验字段。后续可与 Esterbrook Dollar Pen、Ingersoll Dollar Pen 对照。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Budget-market positioning and specifications require editorial review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "waterman-s-c-f",
+    brandSlug: "waterman",
+    aliases: [
+      { alias: "Waterman’s C/F", language: "en" },
+      { alias: "Waterman's C/F", language: "en" },
+      { alias: "Waterman C/F", language: "en" },
+      { alias: "威迪文 C/F", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-4879112ebb10f754",
+    specId: "spec-waterman-c-f-research",
+    seriesName: "C/F",
+    originCountry: "法国/美国等产地待核验",
+    nib: "笔尖规格待核验",
+    fillSystem: "早期墨水管/Cartridge-Filler 系统待核验",
+    material: "笔身材质/饰面版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-waterman-c-f-source-boundary",
+    modelName: "Waterman’s C/F",
+    focus:
+      "Waterman C/F identity, cartridge-filler system, modern cartridge history context, nib, material, finish variants, advertising, and collector claims",
+    storyId: "story-model-waterman-c-f-research",
+    storyTitle: "把 Waterman C/F 做成早期墨水管系统档案",
+    storySummary:
+      "Waterman C/F 先作为 Richard's Pens 支撑的机制型型号页，墨水管系统、材料和版本需要复核。",
+    storyBodyMd:
+      "Waterman C/F 值得单独成档，因为它能把用户从“现代墨囊/上墨器很常见”带回到早期 cartridge-filler 语境。它不是简单规格页，而是一条上墨方式演化线索。\n\n当前档案绑定 Richard's Pens profile，先整理 C/F 名称、墨水管系统、材料和版本。后续可补墨水管接口/笔握结构示意图，并与 John Hancock Cartridge Pen 做早期概念对照。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Cartridge-filler history, compatibility, and specification claims require separate review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "waterman-s-commando",
+    brandSlug: "waterman",
+    aliases: [
+      { alias: "Waterman’s Commando", language: "en" },
+      { alias: "Waterman's Commando", language: "en" },
+      { alias: "Waterman Commando", language: "en" },
+      { alias: "威迪文 Commando", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-b8b05020e6674da0",
+    specId: "spec-waterman-commando-research",
+    seriesName: "Commando",
+    originCountry: "美国/加拿大等产地待核验",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式/版本差异待核验",
+    material: "笔身材质/战时或实用版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-waterman-commando-source-boundary",
+    modelName: "Waterman’s Commando",
+    focus:
+      "Waterman Commando identity, wartime or utility-market context, filling system, nib, material, advertising, and collector claims",
+    storyId: "story-model-waterman-commando-research",
+    storyTitle: "把 Waterman Commando 做成战时/实用线索档案",
+    storySummary:
+      "Waterman Commando 先作为 Richard's Pens 支撑的 Waterman 型号页，战时/实用语境、版本和规格需要复核。",
+    storyBodyMd:
+      "Commando 这个名字很容易让用户联想到战时和实用定位，但图书馆不能把名称直接当作结论。它需要被拆成产品线位置、广告语境、上墨方式、材料和实物版本。\n\n当前档案绑定 Richard's Pens profile，先建立可继续核验的 Waterman 型号页。后续可与 Taperite、Hundred Year Pen 一起整理 Waterman 中后期产品线。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Wartime positioning, production span, and specifications require editorial review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "waterman-s-hundred-year-pen",
+    brandSlug: "waterman",
+    aliases: [
+      { alias: "Waterman’s Hundred Year Pen", language: "en" },
+      { alias: "Waterman's Hundred Year Pen", language: "en" },
+      { alias: "Waterman Hundred Year Pen", language: "en" },
+      { alias: "威迪文 Hundred Year Pen", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-1153529e56b85842",
+    specId: "spec-waterman-hundred-year-pen-research",
+    seriesName: "Hundred Year Pen",
+    originCountry: "美国/加拿大等产地待核验",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式/版本差异待核验",
+    material: "透明/彩色材料版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-waterman-hundred-year-pen-source-boundary",
+    modelName: "Waterman’s Hundred Year Pen",
+    focus:
+      "Waterman Hundred Year Pen identity, guarantee/marketing story, material variants, filling system, nib, production changes, and collector claims",
+    storyId: "story-model-waterman-hundred-year-pen-research",
+    storyTitle: "把 Waterman Hundred Year Pen 做成保修叙事和材料档案",
+    storySummary:
+      "Waterman Hundred Year Pen 先作为 Richard's Pens 支撑的经典型号页，百年保修叙事、材料和版本需要复核。",
+    storyBodyMd:
+      "Hundred Year Pen 最适合从营销承诺和材料变化两条线来读。用户看到名字会记住“百年”，但图书馆需要把保修叙事、材料、上墨和版本变化分开核验。\n\n当前档案绑定 Richard's Pens profile，先把它从文章残片整理为 Waterman 型号入口。后续可补广告图、保修说明和材质时间线。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Guarantee wording, material generations, and specifications require direct review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "waterman-s-ideal-no52",
+    brandSlug: "waterman",
+    aliases: [
+      { alias: "Waterman’s Ideal No52", language: "en" },
+      { alias: "Waterman's Ideal No. 52", language: "en" },
+      { alias: "Waterman Ideal No. 52", language: "en" },
+      { alias: "威迪文 Ideal 52", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-deb7c1d7f15e5041",
+    specId: "spec-waterman-ideal-no52-research",
+    seriesName: "Ideal No. 52",
+    originCountry: "美国/加拿大等产地待核验",
+    nib: "Ideal 2 号等笔尖说法待核验",
+    fillSystem: "杠杆上墨/版本差异待核验",
+    material: "硬橡胶/追波纹等材质版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-waterman-ideal-no52-source-boundary",
+    modelName: "Waterman’s Ideal No52",
+    focus:
+      "Waterman Ideal No. 52 identity, early hard-rubber era context, lever filling, nib numbering, material variants, and collector claims",
+    storyId: "story-model-waterman-ideal-no52-research",
+    storyTitle: "把 Waterman Ideal No. 52 做成硬橡胶时代基准档案",
+    storySummary:
+      "Waterman Ideal No. 52 先作为 Richard's Pens 支撑的早期 Waterman 型号页，笔尖编号、材料和版本需要复核。",
+    storyBodyMd:
+      "Ideal No. 52 适合作为 Waterman 早期型号的基准页：它能承接硬橡胶、杠杆上墨、编号体系和收藏版本这些基础问题。\n\n当前档案绑定 Richard's Pens profile，暂不把笔尖编号、材料和年代写成硬事实。后续可补 No. 52 与 No. 7、Patrician 的尺寸和市场定位对照。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Nib numbering, filling system, material, and production-period claims require review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "waterman-s-ideal-no7",
+    brandSlug: "waterman",
+    aliases: [
+      { alias: "Waterman’s Ideal No7", language: "en" },
+      { alias: "Waterman's Ideal No. 7", language: "en" },
+      { alias: "Waterman Ideal No. 7", language: "en" },
+      { alias: "威迪文 Ideal 7", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-2ef89f7952acf078",
+    specId: "spec-waterman-ideal-no7-research",
+    seriesName: "Ideal No. 7",
+    originCountry: "美国/加拿大等产地待核验",
+    nib: "彩色编号笔尖/规格待核验",
+    fillSystem: "杠杆上墨/版本差异待核验",
+    material: "硬橡胶/颜色版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-waterman-ideal-no7-source-boundary",
+    modelName: "Waterman’s Ideal No7",
+    focus:
+      "Waterman Ideal No. 7 identity, colored nib system, large-model positioning, filling system, hard-rubber material, variants, and collector claims",
+    storyId: "story-model-waterman-ideal-no7-research",
+    storyTitle: "把 Waterman Ideal No. 7 做成彩色笔尖/大型号档案",
+    storySummary:
+      "Waterman Ideal No. 7 先作为 Richard's Pens 支撑的早期 Waterman 型号页，彩色笔尖体系、尺寸和版本需要复核。",
+    storyBodyMd:
+      "Ideal No. 7 的阅读重点不只是“更大一号”，还包括彩色笔尖体系、早期高端定位和不同版本的识别。它应当成为 Waterman 馆里的核心早期型号入口。\n\n当前档案绑定 Richard's Pens profile，先把笔尖体系、材料、上墨和版本留出核验位。后续可补彩色笔尖说明图和版本表。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Colored-nib system, dimensions, and material variants require direct review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "waterman-s-ink-vue",
+    brandSlug: "waterman",
+    aliases: [
+      { alias: "Waterman’s Ink-Vue", language: "en" },
+      { alias: "Waterman's Ink-Vue", language: "en" },
+      { alias: "Waterman Ink-Vue", language: "en" },
+      { alias: "威迪文 Ink-Vue", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-6a42e069ff68d5eb",
+    specId: "spec-waterman-ink-vue-research",
+    seriesName: "Ink-Vue",
+    originCountry: "美国/加拿大等产地待核验",
+    nib: "笔尖规格待核验",
+    fillSystem: "Ink-Vue/透明储墨结构待核验",
+    material: "透明墨仓/笔身材料版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-waterman-ink-vue-source-boundary",
+    modelName: "Waterman’s Ink-Vue",
+    focus:
+      "Waterman Ink-Vue identity, visible-ink filling system, repair-boundary context, nib, material, variants, and collector claims",
+    storyId: "story-model-waterman-ink-vue-research",
+    storyTitle: "把 Waterman Ink-Vue 做成透明储墨和修复边界档案",
+    storySummary:
+      "Waterman Ink-Vue 先作为 Richard's Pens 支撑的机制型型号页，透明储墨结构、修复和版本需要复核。",
+    storyBodyMd:
+      "Ink-Vue 这个名字本身就告诉用户：可视墨量和储墨结构是阅读重点。图书馆需要把它和普通杠杆上墨、现代透明示范笔分开，而不是只写成旧型号摘要。\n\n当前档案绑定 Richard's Pens profile，先保留结构、修复、材料和版本待核验。后续可将 repair 来源单独接入机制图和维护提示。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Visible-ink mechanism, repair details, and variant claims require separate review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "waterman-s-patrician",
+    brandSlug: "waterman",
+    aliases: [
+      { alias: "Waterman’s Patrician", language: "en" },
+      { alias: "Waterman's Patrician", language: "en" },
+      { alias: "Waterman Patrician", language: "en" },
+      { alias: "威迪文 Patrician", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-57f5b060eef6a57d",
+    specId: "spec-waterman-patrician-research",
+    seriesName: "Patrician",
+    originCountry: "美国/加拿大等产地待核验",
+    nib: "大型笔尖/规格待核验",
+    fillSystem: "上墨方式/版本差异待核验",
+    material: "装饰性赛璐珞/颜色版本待核验",
+    priceRange: "历史高端定位/收藏价格待核验",
+    claimId: "claim-waterman-patrician-source-boundary",
+    modelName: "Waterman’s Patrician",
+    focus:
+      "Waterman Patrician identity, flagship or luxury positioning, Art Deco material context, filling system, nib, color variants, and collector claims",
+    storyId: "story-model-waterman-patrician-research",
+    storyTitle: "把 Waterman Patrician 做成装饰艺术旗舰档案",
+    storySummary:
+      "Waterman Patrician 先作为 Richard's Pens 支撑的高端型号页，装饰性材料、旗舰定位和规格需要复核。",
+    storyBodyMd:
+      "Patrician 适合从外观和市场定位一起读：它不是只靠参数成立的型号，而是 Waterman 在装饰性材料和高端形象上的重要入口。\n\n当前档案绑定 Richard's Pens profile，暂不确认具体颜色、材质和产期。后续可补颜色/材料图谱，并与 No. 7、Hundred Year Pen 对照。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Flagship positioning, material names, colors, and specifications require editorial review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "waterman-s-taperite",
+    brandSlug: "waterman",
+    aliases: [
+      { alias: "Waterman’s Taperite", language: "en" },
+      { alias: "Waterman's Taperite", language: "en" },
+      { alias: "Waterman Taperite", language: "en" },
+      { alias: "威迪文 Taperite", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-a5b6f1a21e64aa97",
+    specId: "spec-waterman-taperite-research",
+    seriesName: "Taperite",
+    originCountry: "美国/加拿大等产地待核验",
+    nib: "半暗尖/笔尖规格待核验",
+    fillSystem: "上墨方式/版本差异待核验",
+    material: "笔身材质/饰面版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-waterman-taperite-source-boundary",
+    modelName: "Waterman’s Taperite",
+    focus:
+      "Waterman Taperite identity, semi-hooded or tapered-nib concept, postwar product-line context, filling system, material, variants, and collector claims",
+    storyId: "story-model-waterman-taperite-research",
+    storyTitle: "把 Waterman Taperite 做成暗尖过渡档案",
+    storySummary:
+      "Waterman Taperite 先作为 Richard's Pens 支撑的战后型号页，半暗尖/锥形笔尖概念和规格需要复核。",
+    storyBodyMd:
+      "Taperite 值得用来解释 Waterman 如何回应暗尖和流线型审美。它既不是 Parker 51 的简单影子，也不是普通露尖笔，需要单独拆出笔尖外观、上墨和版本。\n\n当前档案绑定 Richard's Pens profile，先保留半暗尖/锥形笔尖说法待核验。后续可与 Parker 51、Parker 21 建立暗尖语境对照。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Semi-hooded/tapered-nib concept, production context, and specifications require review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "waterman-s-x-pen",
+    brandSlug: "waterman",
+    aliases: [
+      { alias: "Waterman’s X-Pen", language: "en" },
+      { alias: "Waterman's X-Pen", language: "en" },
+      { alias: "Waterman X-Pen", language: "en" },
+      { alias: "威迪文 X-Pen", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-a5f7a1079501cb50",
+    specId: "spec-waterman-x-pen-research",
+    seriesName: "X-Pen",
+    originCountry: "美国/加拿大等产地待核验",
+    nib: "笔尖规格待核验",
+    fillSystem: "实验性上墨/结构待核验",
+    material: "笔身材质/版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-waterman-x-pen-source-boundary",
+    modelName: "Waterman’s X-Pen",
+    focus:
+      "Waterman X-Pen identity, experimental product concept, filling or structural design, nib, material, advertising, and collector claims",
+    storyId: "story-model-waterman-x-pen-research",
+    storyTitle: "把 Waterman X-Pen 做成实验结构档案",
+    storySummary:
+      "Waterman X-Pen 先作为 Richard's Pens 支撑的研究页，实验性定位、结构和规格需要复核。",
+    storyBodyMd:
+      "X-Pen 的名字适合当作 Waterman 馆里的实验结构入口，但也最容易被过度解读。图书馆先把它写成研究页：名称来源、结构、广告语境和实物规格都需要后续证据。\n\n当前档案绑定 Richard's Pens profile，先让用户知道它不是普通型号列表里的空白项。后续可补专利、目录或拆解来源。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Experimental-design and specification claims require direct review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "奥罗拉-aurora",
+    brandSlug: "aurora",
+    aliases: [
+      { alias: "Aurora generic pen entry", language: "en" },
+      { alias: "Aurora unspecified model", language: "en" },
+      { alias: "奥罗拉 品牌泛称", language: "zh" },
+    ],
+    sourceItemId: "source-aurora-generic-public-search",
+    specId: "spec-aurora-generic-research",
+    seriesName: "待重分类 / Aurora brand-generic entry",
+    originCountry: "意大利（品牌层面，具体型号待拆分）",
+    nib: "具体型号/笔尖待拆分",
+    fillSystem: "具体型号/上墨待拆分",
+    material: "具体型号/材料待拆分",
+    priceRange: "具体型号/价位待拆分",
+    claimId: "claim-aurora-generic-source-boundary",
+    modelName: "奥罗拉 Aurora（品牌泛称）",
+    focus:
+      "Aurora generic local pen entry cleanup, whether to merge into Aurora brand page or split into Aurora 88, Optima, Talentum, or other concrete model archives",
+    storyId: "story-model-aurora-generic-research",
+    storyTitle: "先把 Aurora 品牌泛称标成待重分类条目",
+    storySummary:
+      "当前 Aurora 条目不是具体型号；页面先记录它需要并入品牌馆或拆成 Aurora 88、Optima 等具体型号。",
+    storyBodyMd:
+      "这个条目目前更像 Aurora 品牌层面的速记，而不是一支具体钢笔。继续写单一笔尖、上墨或价格，会把品牌事实误塞进不存在的型号里。\n\n当前档案先作为数据清洗标记保留：后续应优先判断它并入 Aurora 品牌馆，还是拆成 Aurora 88、Optima、Talentum 等具体型号页。没有拆分前，本页不确认单一规格。",
+    sourceNotes:
+      "Research index only. This page marks a likely brand-generic local record that should be merged or split before factual model specs are asserted.",
+  }),
+  makeSearchOnlyModel({
+    slug: "派克-parker-51-经典-vintage",
+    brandSlug: "parker",
+    aliases: [
+      { alias: "Parker 51 classic vintage", language: "en" },
+      { alias: "Parker 51 vintage Chinese entry", language: "en" },
+      { alias: "派克 51 经典 Vintage", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-44cde4faaf4bb703",
+    specId: "spec-parker-51-vintage-cn-research",
+    seriesName: "Parker 51 vintage / 待合并中文页",
+    originCountry: "美国/英国等产地待核验",
+    nib: "暗尖/笔尖规格待核验",
+    fillSystem: "Vacumatic/Aero-metric 等版本待核验",
+    material: "Lucite/笔身材质版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-parker-51-vintage-cn-source-boundary",
+    modelName: "派克 Parker 51（经典/Vintage）",
+    focus:
+      "Chinese Parker 51 vintage local entry cleanup, relationship to The Parker 51 archive, vintage Parker 51 identity, filling generations, hooded nib, material, and collector claims",
+    storyId: "story-model-parker-51-vintage-cn-research",
+    storyTitle: "把中文 Parker 51 经典页接入 vintage 档案并标记待合并",
+    storySummary:
+      "派克 Parker 51（经典/Vintage）先作为 Richard's Pens 支撑的中文入口，后续应与 The Parker 51 vintage 主档合并或建立别名。",
+    storyBodyMd:
+      "站内已经有 The Parker 51 的 vintage 档案，因此这个中文页不应继续发展成另一个事实版本。它更适合成为中文入口、别名或重定向，承接用户搜索“派克 51 经典”。\n\n当前档案绑定 Richard's Pens profile，先把暗尖、Vacumatic/Aero-metric、材料和版本边界接入同一套来源。后续应做实体合并，避免相关词条出现重复。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. This Chinese entry should be merged or aliased with the main vintage Parker 51 archive after dedupe review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "百利金-pelikan-m800",
+    brandSlug: "pelikan",
+    aliases: [
+      { alias: "Pelikan M800 Chinese entry", language: "en" },
+      { alias: "Pelikan Souveran M800", language: "en" },
+      { alias: "Pelikan Souverän M800", language: "en" },
+      { alias: "百利金 M800", language: "zh" },
+    ],
+    sourceItemId: "source-pelikan-m800-public-search",
+    specId: "spec-pelikan-m800-cn-research",
+    seriesName: "Souveran M800 / 待合并中文页",
+    originCountry: "德国（待核验）",
+    nib: "18K 金尖/规格待核验",
+    fillSystem: "活塞上墨/版本差异待核验",
+    material: "条纹树脂/饰面版本待核验",
+    priceRange: "现代售价/二级市场待核验",
+    claimId: "claim-pelikan-m800-cn-source-boundary",
+    modelName: "百利金 Pelikan M800",
+    focus:
+      "Chinese Pelikan M800 local entry cleanup, relationship to Pelikan Souveran M800 archive, piston filler, nib, material, size positioning, and review claims",
+    storyId: "story-model-pelikan-m800-cn-research",
+    storyTitle: "把中文 Pelikan M800 页接入 Souveran M800 档案并标记待合并",
+    storySummary:
+      "百利金 Pelikan M800 先作为 public-web research index 支撑的中文入口，后续应与 Pelikan Souveran M800 主档合并或建立别名。",
+    storyBodyMd:
+      "站内同时存在 Pelikan Souveran M800 与中文 M800 条目，继续双线扩写会让用户看到重复内容。当前页面先作为中文入口保留，明确标记为待合并/待别名处理。\n\n本页只保留研究队列级信息：M800 的尺寸定位、活塞上墨、笔尖和饰面都需要 direct product 或目录来源复核。后续应优先清理重复实体。",
+    sourceNotes:
+      "Public-web research index only. This Chinese entry should be merged or aliased with the Pelikan Souveran M800 archive after dedupe review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "维斯康蒂-visconti-homo-sapiens智人",
+    brandSlug: "visconti",
+    aliases: [
+      { alias: "Visconti Homo Sapiens", language: "en" },
+      { alias: "Visconti Homo Sapiens Chinese entry", language: "en" },
+      { alias: "维斯康蒂 Homo Sapiens 智人", language: "zh" },
+    ],
+    sourceItemId: "source-visconti-homo-sapiens-public-search",
+    specId: "spec-visconti-homo-sapiens-research",
+    seriesName: "Homo Sapiens",
+    originCountry: "意大利（待核验）",
+    nib: "钯金/金尖等代际待核验",
+    fillSystem: "真空/Power Filler 等版本待核验",
+    material: "玄武岩/树脂等材料说法待核验",
+    priceRange: "现代售价/二级市场待核验",
+    claimId: "claim-visconti-homo-sapiens-source-boundary",
+    modelName: "维斯康蒂 Visconti Homo Sapiens智人",
+    focus:
+      "Visconti Homo Sapiens identity, basaltic lava/resin body claims, filling-system variants, nib generations, trim variants, pricing, and review context",
+    storyId: "story-model-visconti-homo-sapiens-research",
+    storyTitle: "把 Visconti Homo Sapiens 做成材料叙事和版本边界档案",
+    storySummary:
+      "Visconti Homo Sapiens 先作为 public-web research index 支撑的研究页，火山岩材料、上墨系统和笔尖代际需要复核。",
+    storyBodyMd:
+      "Homo Sapiens 的用户记忆点非常强：火山岩材料、厚重手感、Visconti 的高辨识度和不同代际的笔尖/上墨系统。但这些也是最容易被口碑和营销混写的地方。\n\n当前档案先把材料叙事、真空/Power Filler、钯金尖/金尖代际和饰面版本拆成待核验字段。后续应接入官方产品页、授权图片和长期评测来源。",
+    sourceNotes:
+      "Public-web research index only. Material, filling-system, nib-generation, and pricing claims require direct product or review sources.",
   }),
 ];
 

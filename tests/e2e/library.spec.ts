@@ -2015,6 +2015,267 @@ test.describe("Library smoke flow", () => {
     }
   });
 
+  test("sixteenth priority model gap pages render final Parker and historic archives", async ({
+    page,
+  }) => {
+    const cases = [
+      {
+        path: "/pen/the-parker-parkette-and-writefine",
+        texts: [
+          "型号档案",
+          "Parkette / Writefine",
+          "把 Parker Parkette 与 Writefine 拆成经济线档案",
+          "历史价位/经济线定位待核验",
+          "The Parker Parkette and Writefine",
+        ],
+      },
+      {
+        path: "/pen/the-parker-striped-duofold",
+        texts: [
+          "型号档案",
+          "Striped Duofold",
+          "把 Parker Striped Duofold 做成条纹时代和版本档案",
+          "条纹赛璐珞/颜色版本待核验",
+          "The Parker Striped Duofold",
+        ],
+      },
+      {
+        path: "/pen/the-parker-vacumatic",
+        texts: [
+          "型号档案",
+          "Vacumatic",
+          "把 Parker Vacumatic 做成真空机制和透明纹理档案",
+          "Vacumatic/真空上墨机制待核验",
+          "The Parker Vacumatic",
+        ],
+      },
+      {
+        path: "/pen/the-parker-vp",
+        texts: [
+          "型号档案",
+          "Parker VP",
+          "把 Parker VP 的可调笔尖和短命定位拆开",
+          "可调/可旋转笔尖概念待核验",
+          "The Parker VP",
+        ],
+      },
+      {
+        path: "/pen/the-parker-vs",
+        texts: [
+          "型号档案",
+          "Parker VS",
+          "把 Parker VS 放进 Vacumatic 到 51 之间的过渡档案",
+          "Vacumatic 或版本差异待核验",
+          "The Parker VS",
+        ],
+      },
+      {
+        path: "/pen/the-postal-reservoir-pen",
+        texts: [
+          "型号档案",
+          "Reservoir Pen",
+          "把 Postal Reservoir Pen 先整理成无品牌归属的储墨线索页",
+          "品牌实体暂缺",
+          "The Postal Reservoir Pen",
+        ],
+      },
+      {
+        path: "/pen/the-security-pen",
+        texts: [
+          "型号档案",
+          "Security Pen",
+          "把 Security Pen 先整理成安全/防漏概念档案",
+          "品牌实体暂缺",
+          "The Security Pen",
+        ],
+      },
+      {
+        path: "/pen/the-wahl-pen",
+        texts: [
+          "型号档案",
+          "Wahl Pen",
+          "把 Wahl Pen 从品牌档案残片整理成型号页",
+          "Wahl/Eversharp",
+          "The Wahl Pen",
+        ],
+      },
+      {
+        path: "/pen/the-wasp-addipoint",
+        texts: [
+          "型号档案",
+          "Addipoint",
+          "把 WASP Addipoint 做成可换笔尖/子品牌档案",
+          "Addipoint/可换笔尖概念待核验",
+          "The WASP Addipoint",
+        ],
+      },
+      {
+        path: "/pen/the-wasp-clipper",
+        texts: [
+          "型号档案",
+          "Clipper",
+          "把 WASP Clipper 放进 Sheaffer 子品牌和战前广告语境",
+          "The WASP Clipper",
+        ],
+      },
+      {
+        path: "/pen/the-wearever-zenith",
+        texts: [
+          "型号档案",
+          "Zenith",
+          "把 Wearever Zenith 做成平价战后型号档案",
+          "历史平价定位/收藏价格待核验",
+          "The Wearever Zenith",
+        ],
+      },
+      {
+        path: "/pen/waterman-s-c-f",
+        texts: [
+          "型号档案",
+          "C/F",
+          "把 Waterman C/F 做成早期墨水管系统档案",
+          "早期墨水管/Cartridge-Filler 系统待核验",
+          "Waterman’s C/F",
+        ],
+      },
+    ];
+
+    for (const item of cases) {
+      await expectLibraryPage(page, item.path, item.texts);
+    }
+  });
+
+  test("seventeenth priority model gap pages render Waterman and cleanup archives", async ({
+    page,
+  }) => {
+    const cases = [
+      {
+        path: "/pen/waterman-s-commando",
+        texts: [
+          "型号档案",
+          "Commando",
+          "把 Waterman Commando 做成战时/实用线索档案",
+          "战时或实用版本待核验",
+          "Waterman’s Commando",
+        ],
+      },
+      {
+        path: "/pen/waterman-s-hundred-year-pen",
+        texts: [
+          "型号档案",
+          "Hundred Year Pen",
+          "把 Waterman Hundred Year Pen 做成保修叙事和材料档案",
+          "透明/彩色材料版本待核验",
+          "Waterman’s Hundred Year Pen",
+        ],
+      },
+      {
+        path: "/pen/waterman-s-ideal-no52",
+        texts: [
+          "型号档案",
+          "Ideal No. 52",
+          "把 Waterman Ideal No. 52 做成硬橡胶时代基准档案",
+          "杠杆上墨/版本差异待核验",
+          "Waterman’s Ideal No52",
+        ],
+      },
+      {
+        path: "/pen/waterman-s-ideal-no7",
+        texts: [
+          "型号档案",
+          "Ideal No. 7",
+          "把 Waterman Ideal No. 7 做成彩色笔尖/大型号档案",
+          "彩色编号笔尖/规格待核验",
+          "Waterman’s Ideal No7",
+        ],
+      },
+      {
+        path: "/pen/waterman-s-ink-vue",
+        texts: [
+          "型号档案",
+          "Ink-Vue",
+          "把 Waterman Ink-Vue 做成透明储墨和修复边界档案",
+          "Ink-Vue/透明储墨结构待核验",
+          "Waterman’s Ink-Vue",
+        ],
+      },
+      {
+        path: "/pen/waterman-s-patrician",
+        texts: [
+          "型号档案",
+          "Patrician",
+          "把 Waterman Patrician 做成装饰艺术旗舰档案",
+          "历史高端定位/收藏价格待核验",
+          "Waterman’s Patrician",
+        ],
+      },
+      {
+        path: "/pen/waterman-s-taperite",
+        texts: [
+          "型号档案",
+          "Taperite",
+          "把 Waterman Taperite 做成暗尖过渡档案",
+          "半暗尖/笔尖规格待核验",
+          "Waterman’s Taperite",
+        ],
+      },
+      {
+        path: "/pen/waterman-s-x-pen",
+        texts: [
+          "型号档案",
+          "X-Pen",
+          "把 Waterman X-Pen 做成实验结构档案",
+          "实验性上墨/结构待核验",
+          "Waterman’s X-Pen",
+        ],
+      },
+      {
+        path: `/pen/${encodeURIComponent("奥罗拉-aurora")}`,
+        texts: [
+          "型号档案",
+          "待重分类 / Aurora brand-generic entry",
+          "先把 Aurora 品牌泛称标成待重分类条目",
+          "具体型号/上墨待拆分",
+          "Aurora generic pen entry",
+        ],
+      },
+      {
+        path: `/pen/${encodeURIComponent("派克-parker-51-经典-vintage")}`,
+        texts: [
+          "型号档案",
+          "Parker 51 vintage / 待合并中文页",
+          "把中文 Parker 51 经典页接入 vintage 档案并标记待合并",
+          "避免相关词条出现重复",
+          "派克 Parker 51（经典/Vintage）",
+        ],
+      },
+      {
+        path: `/pen/${encodeURIComponent("百利金-pelikan-m800")}`,
+        texts: [
+          "型号档案",
+          "Souveran M800 / 待合并中文页",
+          "把中文 Pelikan M800 页接入 Souveran M800 档案并标记待合并",
+          "待合并/待别名处理",
+          "百利金 Pelikan M800",
+        ],
+      },
+      {
+        path: `/pen/${encodeURIComponent("维斯康蒂-visconti-homo-sapiens智人")}`,
+        texts: [
+          "型号档案",
+          "Homo Sapiens",
+          "把 Visconti Homo Sapiens 做成材料叙事和版本边界档案",
+          "玄武岩/树脂等材料说法待核验",
+          "Visconti Homo Sapiens",
+        ],
+      },
+    ];
+
+    for (const item of cases) {
+      await expectLibraryPage(page, item.path, item.texts);
+    }
+  });
+
   test("official model diagram index includes evidence-aware diagrams", async ({
     page,
   }) => {
