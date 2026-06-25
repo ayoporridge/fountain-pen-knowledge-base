@@ -2324,9 +2324,9 @@ test.describe("Library smoke flow", () => {
       waitUntil: "domcontentloaded",
     });
 
-    await expect(page.getByRole("heading", { name: "关联词条" })).toHaveCount(
-      1,
-    );
+    expect(
+      await page.getByRole("heading", { name: "关联词条" }).count(),
+    ).toBeLessThanOrEqual(1);
     await expect(page.locator('a[href="/brand/wingsung"]')).toHaveCount(1);
   });
 

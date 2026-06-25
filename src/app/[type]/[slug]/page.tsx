@@ -259,9 +259,19 @@ export default async function EntityPage({ params }: EntityPageProps) {
      JOIN entities e ON (e.id = el.target_id OR e.id = el.source_id) AND e.id != ?
      WHERE (el.source_id = ? OR el.target_id = ?)
        AND el.link_type != 'reverse'
+       AND NOT (
+         ? = 'pen'
+         AND e.type = 'brand'
+         AND EXISTS (
+           SELECT 1
+           FROM model_specs ms
+           WHERE ms.entity_id = ?
+             AND ms.brand_entity_id = e.id
+         )
+       )
      GROUP BY e.id, e.name, e.type, e.slug
      ORDER BY e.type, e.name`,
-    [entity.id, entity.id, entity.id],
+    [entity.id, entity.id, entity.id, entityType, entity.id],
   )) as Array<{
     link_type: string;
     target_name: string;
