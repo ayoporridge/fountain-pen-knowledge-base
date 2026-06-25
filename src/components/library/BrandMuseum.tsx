@@ -48,6 +48,7 @@ export async function BrandMuseum({
   return (
     <section className="mb-10 space-y-6">
       <div
+        id="archive"
         className="rounded-xl border p-5"
         style={{
           borderColor: "var(--color-border)",
@@ -92,6 +93,7 @@ export async function BrandMuseum({
       <ClaimCards claims={claims} />
 
       <div
+        id="story"
         className="rounded-xl border p-5"
         style={{
           borderColor: "var(--color-border)",
@@ -119,6 +121,7 @@ export async function BrandMuseum({
       </div>
 
       <div
+        id="sources"
         className="rounded-xl border p-5"
         style={{
           borderColor: "var(--color-border)",

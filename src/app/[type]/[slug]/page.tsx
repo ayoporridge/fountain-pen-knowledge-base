@@ -25,6 +25,7 @@ import { getEntitiesForConcept } from "@/lib/concept-engine";
 import { ATTR_LABELS, TYPE_ICONS, TYPE_LABELS } from "@/lib/constants";
 import { queryAll, queryOne } from "@/lib/db";
 import { getEntityReferences } from "@/lib/library";
+import { toPlainTextSummary } from "@/lib/text";
 
 interface EntityPageProps {
   params: Promise<{ type: string; slug: string }>;
@@ -67,7 +68,7 @@ export async function generateMetadata({
   }
 
   const desc = entity.summary
-    ? entity.summary.slice(0, 120)
+    ? toPlainTextSummary(entity.summary, 120)
     : `${entity.name} — 钢笔知识图谱收录词条`;
 
   return {
@@ -223,6 +224,39 @@ async function ConceptRulePage({
   );
 }
 
+function SectionNav({
+  items,
+}: {
+  items: Array<{ href: string; label: string }>;
+}) {
+  if (items.length === 0) return null;
+
+  return (
+    <nav
+      aria-label="词条章节"
+      className="mb-8 overflow-x-auto rounded-xl border p-2"
+      style={{
+        borderColor: "var(--color-border)",
+        backgroundColor: "var(--color-surface-raised)",
+        boxShadow: "var(--shadow-raised)",
+      }}
+    >
+      <div className="flex min-w-max gap-1">
+        {items.map((item) => (
+          <a
+            key={item.href}
+            href={item.href}
+            className="rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-[var(--color-accent-light)] hover:text-[var(--color-accent)]"
+            style={{ color: "var(--color-ink-light)" }}
+          >
+            {item.label}
+          </a>
+        ))}
+      </div>
+    </nav>
+  );
+}
+
 export default async function EntityPage({ params }: EntityPageProps) {
   const { type, slug: rawSlug } = await params;
   const slug = decodeURIComponent(rawSlug);
@@ -330,6 +364,37 @@ export default async function EntityPage({ params }: EntityPageProps) {
     getHeroFallbackImage(entityType);
 
   const Icon = TYPE_ICONS[entityType] || PenNib;
+  const diagramCount =
+    entityType === "pen"
+      ? Number(
+          (
+            (await queryOne(
+              "SELECT COUNT(*) as cnt FROM diagrams WHERE entity_id = ? OR entity_id IS NULL",
+              [entity.id],
+            )) as { cnt: number } | undefined
+          )?.cnt || 0,
+        )
+      : 0;
+  const sectionNavItems = [
+    ["brand", "pen"].includes(entityType)
+      ? {
+          href: "#archive",
+          label: entityType === "brand" ? "品牌馆" : "档案",
+        }
+      : entity.body_md
+        ? { href: "#body", label: "正文" }
+        : null,
+    ["brand", "pen"].includes(entityType)
+      ? { href: "#story", label: "故事" }
+      : null,
+    entityType === "pen" && diagramCount > 0
+      ? { href: "#diagrams", label: "图示" }
+      : null,
+    { href: "#graph", label: "图谱" },
+    ["brand", "pen"].includes(entityType) || sidebarSources.length > 0
+      ? { href: "#sources", label: "来源" }
+      : null,
+  ].filter(Boolean) as Array<{ href: string; label: string }>;
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
@@ -397,25 +462,10 @@ export default async function EntityPage({ params }: EntityPageProps) {
 
         {entity.summary &&
           (() => {
-            // Strip markdown syntax for plain-text display
-            const plainSummary = String(entity.summary)
-              .replace(/!\[[^\]]*\]\([^)]+\)/g, "") // ![alt](url) → remove
-              .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1") // [text](url) → text
-              .replace(/\*\*([^*]+)\*\*/g, "$1") // **bold** → bold
-              .replace(/\*([^*]+)\*/g, "$1") // *italic* → italic
-              .replace(/_{1,2}([^_]+)_{1,2}/g, "$1") // _italic_ → italic
-              .replace(/#{1,6}\s*/g, "") // ### heading → heading
-              .replace(/^>\s*/gm, "") // > quote at line start
-              .replace(/\s*>\s*/g, " ") // > inline → space
-              .replace(/^[-*]\s+/gm, "") // - list → list
-              .replace(/`([^`]+)`/g, "$1") // `code` → code
-              .replace(/\|/g, " ") // | pipe → space
-              .replace(/\n{2,}/g, " ") // newlines → space
-              .replace(/\n/g, " ")
-              .replace(/\s{2,}/g, " ") // collapse spaces
-              .trim();
+            const plainSummary = toPlainTextSummary(String(entity.summary));
             return plainSummary ? (
               <p
+                data-testid="entity-summary"
                 className="text-lg max-w-3xl"
                 style={{ color: "var(--color-ink-light)", lineHeight: 1.8 }}
               >
@@ -454,6 +504,8 @@ export default async function EntityPage({ params }: EntityPageProps) {
         )}
       </div>
 
+      <SectionNav items={sectionNavItems} />
+
       {/* ── Two-column layout: Content + Sidebar ── */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main content */}
@@ -483,13 +535,13 @@ export default async function EntityPage({ params }: EntityPageProps) {
 
           {/* Body */}
           {entity.body_md && (
-            <section className="mb-10 manuscript-border p-6 sm:p-8">
+            <section id="body" className="mb-10 manuscript-border p-6 sm:p-8">
               <MarkdownRenderer content={String(entity.body_md)} />
             </section>
           )}
 
           {/* Graph */}
-          <section className="mb-10">
+          <section id="graph" className="mb-10">
             <h2
               className="flex items-center gap-2 text-lg font-semibold tracking-tight mb-4"
               style={{ color: "var(--color-ink)" }}
@@ -525,7 +577,7 @@ export default async function EntityPage({ params }: EntityPageProps) {
           </section>
 
           {sidebarSources.length > 0 && (
-            <section className="mb-6">
+            <section id="sources" className="mb-6">
               <h3
                 className="text-sm font-semibold mb-3"
                 style={{ color: "var(--color-ink)" }}

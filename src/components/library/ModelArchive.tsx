@@ -59,6 +59,7 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
   return (
     <section className="mb-10 space-y-6">
       <div
+        id="archive"
         className="rounded-xl border p-5"
         style={{
           borderColor: "var(--color-border)",
@@ -131,6 +132,7 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
       <ClaimCards claims={claims} />
 
       <div
+        id="story"
         className="rounded-xl border p-5"
         style={{
           borderColor: "var(--color-border)",
@@ -209,7 +211,7 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
       </div>
 
       {featuredDiagrams.length > 0 && (
-        <div className="space-y-3">
+        <div id="diagrams" className="space-y-3">
           <div className="flex items-center gap-2">
             <Blueprint size={18} style={{ color: "var(--color-accent)" }} />
             <h2 className="text-lg font-semibold">图示</h2>
@@ -227,6 +229,7 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
       )}
 
       <div
+        id="sources"
         className="rounded-xl border p-5"
         style={{
           borderColor: "var(--color-border)",

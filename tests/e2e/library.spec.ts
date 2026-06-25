@@ -79,6 +79,70 @@ async function getCanvasPixelBounds(page: Page) {
 test.describe("Library smoke flow", () => {
   test.setTimeout(60_000);
 
+  test("homepage presents the library as the primary product entry", async ({
+    page,
+  }) => {
+    await page.goto("/", { waitUntil: "domcontentloaded" });
+
+    await expect(
+      page.getByRole("heading", { name: "钢笔图书馆" }),
+    ).toBeVisible();
+    await expect(page.getByText("一座可追溯的钢笔资料馆")).toBeVisible();
+
+    const primaryTasks = page.getByTestId("home-primary-tasks");
+    await expect(primaryTasks).toBeVisible();
+    for (const task of ["找一支笔", "读品牌与历史", "看结构与图谱"]) {
+      await expect(primaryTasks.getByText(task)).toBeVisible();
+    }
+  });
+
+  test("browse page separates content types and avoids raw placeholder cards", async ({
+    page,
+  }) => {
+    await page.goto("/browse", { waitUntil: "networkidle" });
+
+    const typeTabs = page.getByTestId("browse-type-tabs");
+    await expect(typeTabs).toBeVisible();
+    for (const label of ["全部", "钢笔", "品牌", "文章", "工艺概念"]) {
+      await expect(typeTabs.getByText(label)).toBeVisible();
+    }
+
+    await typeTabs.getByRole("tab", { name: "文章" }).click();
+    await expect(page).toHaveURL(/type=article/);
+    await expect(page.getByRole("heading", { name: "浏览文章" })).toBeVisible();
+    await expect(
+      page.getByTestId("entity-card-fallback-article").first(),
+    ).toContainText("文章档案");
+  });
+
+  test("entity detail pages expose local section navigation", async ({
+    page,
+  }) => {
+    await page.goto("/pen/%E6%B0%B8%E7%94%9F-wingsung-601a", {
+      waitUntil: "domcontentloaded",
+    });
+
+    const sectionNav = page.getByRole("navigation", { name: "词条章节" });
+    await expect(sectionNav).toBeVisible();
+    for (const label of ["档案", "故事", "图示", "图谱", "来源"]) {
+      await expect(sectionNav.getByRole("link", { name: label })).toBeVisible();
+    }
+  });
+
+  test("article summaries strip markdown import fragments", async ({
+    page,
+  }) => {
+    await page.goto("/article/the-baguio-surrender-pens", {
+      waitUntil: "domcontentloaded",
+    });
+
+    const summary = page.getByTestId("entity-summary");
+    await expect(summary).toBeVisible();
+    await expect(summary).not.toContainText("![");
+    await expect(summary).not.toContainText("---");
+    await expect(summary).not.toContainText("](");
+  });
+
   test("public editing pages and content write APIs are disabled", async ({
     request,
   }) => {

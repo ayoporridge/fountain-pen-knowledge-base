@@ -20,8 +20,50 @@ const FACET_DIMENSIONS: Record<
   body_material: { label: "笔身材质", tagDimension: "body_material" },
 };
 
+const TYPE_FILTERS: Record<string, string[]> = {
+  pen: ["pen"],
+  brand: ["brand"],
+  article: ["article"],
+  knowledge: ["concept", "fill_system", "nib"],
+};
+
+const ENTITY_SELECT = `
+  e.id,
+  e.type,
+  e.slug,
+  e.name,
+  e.summary,
+  (
+    SELECT COALESCE(ma.thumbnail_url, ma.image_url)
+    FROM media_assets ma
+    WHERE ma.entity_id = e.id
+      AND ma.asset_type = 'image'
+      AND ma.image_url IS NOT NULL
+      AND ma.review_status = 'approved'
+      AND ma.usage_status IN ('primary', 'gallery')
+    ORDER BY CASE ma.usage_status WHEN 'primary' THEN 0 ELSE 1 END,
+             ma.created_at DESC
+    LIMIT 1
+  ) as image_url
+`;
+
+const ENTITY_ORDER = `
+  CASE e.type
+    WHEN 'pen' THEN 0
+    WHEN 'brand' THEN 1
+    WHEN 'article' THEN 2
+    WHEN 'concept' THEN 3
+    WHEN 'fill_system' THEN 4
+    WHEN 'nib' THEN 5
+    ELSE 6
+  END,
+  e.name
+`;
+
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
+  const typeFilter = searchParams.get("type") || "all";
+  const allowedTypes = TYPE_FILTERS[typeFilter] || [];
 
   // Parse filter params: ?nib_type=弹性尖&origin=日本
   const filters: Array<{ dimension: string; tagSlug: string }> = [];
@@ -50,15 +92,27 @@ export async function GET(request: NextRequest) {
   let total: number;
 
   if (filters.length === 0) {
-    // No filters: return all entities
+    const typeWhere =
+      allowedTypes.length > 0
+        ? `WHERE e.type IN (${allowedTypes.map(() => "?").join(", ")})`
+        : "";
+    const typeParams = allowedTypes;
+
     total = (
-      (await queryOne("SELECT COUNT(*) as cnt FROM entities")) as {
+      (await queryOne(
+        `SELECT COUNT(*) as cnt FROM entities e ${typeWhere}`,
+        typeParams,
+      )) as {
         cnt: number;
       }
     ).cnt;
     entities = (await queryAll(
-      "SELECT id, type, slug, name, summary, image_url FROM entities ORDER BY name LIMIT ? OFFSET ?",
-      [limit, offset],
+      `SELECT ${ENTITY_SELECT}
+       FROM entities e
+       ${typeWhere}
+       ORDER BY ${ENTITY_ORDER}
+       LIMIT ? OFFSET ?`,
+      [...typeParams, limit, offset],
     )) as typeof entities;
   } else {
     // Build JOINs for each filter
@@ -73,6 +127,10 @@ export async function GET(request: NextRequest) {
       );
       params.push(filters[i].dimension, filters[i].tagSlug);
     }
+    if (allowedTypes.length > 0) {
+      conditions.push(`e.type IN (${allowedTypes.map(() => "?").join(", ")})`);
+      params.push(...allowedTypes);
+    }
 
     const whereClause =
       conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
@@ -84,11 +142,11 @@ export async function GET(request: NextRequest) {
 
     // Results
     const resultSql = `
-      SELECT DISTINCT e.id, e.type, e.slug, e.name, e.summary, e.image_url
+      SELECT DISTINCT ${ENTITY_SELECT}
       FROM entities e
       ${joinClause}
       ${whereClause}
-      ORDER BY e.name
+      ORDER BY ${ENTITY_ORDER}
       LIMIT ? OFFSET ?
     `;
     entities = (await queryAll(resultSql, [
@@ -123,12 +181,19 @@ export async function GET(request: NextRequest) {
     }));
   }
 
+  const typeCounts = (await queryAll(
+    `SELECT type, COUNT(*) as cnt
+     FROM entities
+     GROUP BY type`,
+  )) as Array<{ type: string; cnt: number }>;
+
   return NextResponse.json({
     entities,
     total,
     page,
     limit,
     facets,
+    typeCounts,
     activeFilters: Object.fromEntries(searchParams.entries()),
   });
 }
