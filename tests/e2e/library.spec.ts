@@ -1589,6 +1589,77 @@ test.describe("Library smoke flow", () => {
     }
   });
 
+  test("tenth priority model gap pages render Pelikan Visconti Hero and Faber Castell archives", async ({
+    page,
+  }) => {
+    const cases = [
+      {
+        path: `/pen/${encodeURIComponent("百利金-pelikan-m815")}`,
+        texts: [
+          "型号档案",
+          "M815",
+          "把 M815 当作 M800 级别特殊版本核验",
+          "18K 金尖说法待核验",
+          "Research index: Pelikan M815",
+        ],
+      },
+      {
+        path: "/pen/pelikan-souveran-m800",
+        texts: [
+          "型号档案",
+          "Souveran M800",
+          "把 Souveran M800 放进 Pelikan 尺寸主轴",
+          "活塞上墨说法待核验",
+          "Research index: Pelikan Souveran M800",
+        ],
+      },
+      {
+        path: `/pen/${encodeURIComponent("维斯康蒂-visconti-rembrandt伦勃朗")}`,
+        texts: [
+          "型号档案",
+          "Rembrandt",
+          "把 Rembrandt 伦勃朗做成 Visconti 入门艺术线",
+          "墨囊/上墨器说法待核验",
+          "Research index: Visconti Rembrandt",
+        ],
+      },
+      {
+        path: `/pen/${encodeURIComponent("英雄-hero-100")}`,
+        texts: [
+          "型号档案",
+          "Hero 100",
+          "把 Hero 100 的国产金尖地位和气密争议分开",
+          "14K 金尖说法待核验",
+          "Research index: Hero 100",
+        ],
+      },
+      {
+        path: `/pen/${encodeURIComponent("英雄-hero-616")}`,
+        texts: [
+          "型号档案",
+          "Hero 616",
+          "把 Hero 616 的集体记忆和品控风险分开",
+          "调试版",
+          "Research index: Hero 616",
+        ],
+      },
+      {
+        path: `/pen/${encodeURIComponent("辉柏嘉-faber-castell-伯爵经典-gvfc")}`,
+        texts: [
+          "型号档案",
+          "伯爵经典 GVFC",
+          "把伯爵经典 GVFC 放进高端材质和装配路径",
+          "金尖说法待核验",
+          "Research index: Graf von Faber-Castell Classic",
+        ],
+      },
+    ];
+
+    for (const item of cases) {
+      await expectLibraryPage(page, item.path, item.texts);
+    }
+  });
+
   test("official model diagram index includes evidence-aware diagrams", async ({
     page,
   }) => {
