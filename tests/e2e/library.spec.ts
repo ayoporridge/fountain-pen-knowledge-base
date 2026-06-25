@@ -1873,6 +1873,77 @@ test.describe("Library smoke flow", () => {
     }
   });
 
+  test("fourteenth priority model gap pages render Dunn Esterbrook Eversharp archives", async ({
+    page,
+  }) => {
+    const cases = [
+      {
+        path: "/pen/the-dunn-pen",
+        texts: [
+          "型号档案",
+          "Dunn-Pen",
+          "把 Dunn-Pen 从品牌档案残片整理成型号档案",
+          "泵式/无墨囊上墨结构待核验",
+          "The Dunn-Pen",
+        ],
+      },
+      {
+        path: "/pen/the-esterbrook-dollar-pen",
+        texts: [
+          "型号档案",
+          "Dollar Pen",
+          "把 Esterbrook Dollar Pen 做成价位和笔尖系统档案",
+          "Dollar Pen 定价语境待核验",
+          "The Esterbrook Dollar Pen",
+        ],
+      },
+      {
+        path: "/pen/the-esterbrook-model-j-family",
+        texts: [
+          "型号档案",
+          "Model J Family",
+          "把 Esterbrook Model J 家族整理成大众化系统页",
+          "Re-New-Point/可替换笔尖系统待核验",
+          "The Esterbrook Model J Family",
+        ],
+      },
+      {
+        path: "/pen/the-eversharp-doric",
+        texts: [
+          "型号档案",
+          "Doric",
+          "把 Eversharp Doric 做成多面造型和笔尖系统页",
+          "Adjustable/笔尖规格待核验",
+          "The Eversharp Doric",
+        ],
+      },
+      {
+        path: "/pen/the-eversharp-skyline-family",
+        texts: [
+          "型号档案",
+          "Skyline Family",
+          "把 Eversharp Skyline 家族整理成设计和版本入口",
+          "尺寸家族待核验",
+          "The Eversharp Skyline Family",
+        ],
+      },
+      {
+        path: "/pen/the-eversharp-ventura-family",
+        texts: [
+          "型号档案",
+          "Ventura Family",
+          "把 Eversharp Ventura 家族整理成晚期产品线档案",
+          "Pennant/article context",
+          "The Eversharp Ventura Family",
+        ],
+      },
+    ];
+
+    for (const item of cases) {
+      await expectLibraryPage(page, item.path, item.texts);
+    }
+  });
+
   test("official model diagram index includes evidence-aware diagrams", async ({
     page,
   }) => {

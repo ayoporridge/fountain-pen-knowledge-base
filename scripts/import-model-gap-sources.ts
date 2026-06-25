@@ -7357,6 +7357,355 @@ const MODELS: ModelGapSeed[] = [
     sourceNotes:
       "Richard's Pens profile is registered as a summary/link-only source. Anatomy details should be separately cited before mechanism diagrams are finalized.",
   }),
+  makeSearchOnlyModel({
+    slug: "the-dunn-pen",
+    brandSlug: "dunn",
+    aliases: [
+      { alias: "The Dunn-Pen", language: "en" },
+      { alias: "Dunn-Pen", language: "en" },
+      { alias: "邓恩钢笔", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-579b2a500f7d4cb5",
+    specId: "spec-dunn-pen-research",
+    seriesName: "Dunn-Pen",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "泵式/无墨囊上墨结构待核验",
+    material: "笔身材质/广告版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-dunn-pen-source-boundary",
+    modelName: "The Dunn-Pen",
+    focus:
+      "Dunn-Pen identity, filling mechanism, advertising context, nib, material, company timeline, and collector claims",
+    storyId: "story-model-dunn-pen-research",
+    storyTitle: "把 Dunn-Pen 从品牌档案残片整理成型号档案",
+    storySummary:
+      "Dunn-Pen 先作为 Richard's Pens 支撑的历史型号页，泵式结构、广告和公司时间线需要复核。",
+    storyBodyMd:
+      "Dunn-Pen 的现有摘要更像一段品牌长文残片，用户进入详情页很难判断它到底是什么型号、为什么值得收进图书馆。第一步是把品牌、型号、广告和上墨机制拆开。\n\n当前档案绑定 Richard's Pens profile，只把它作为研究入口。后续要补公司时间线、机制来源和实物规格，避免把长文叙事直接当成已审定参数。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Filling-mechanism and company-timeline claims require editorial review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-esterbrook-dollar-pen",
+    brandSlug: "esterbrook",
+    aliases: [
+      { alias: "The Esterbrook Dollar Pen", language: "en" },
+      { alias: "Esterbrook Dollar Pen", language: "en" },
+      { alias: "Esterbrook 美元钢笔", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-49f83988d5735d84",
+    specId: "spec-esterbrook-dollar-pen-research",
+    seriesName: "Dollar Pen",
+    originCountry: "美国（待核验）",
+    nib: "Re-New-Point/笔尖规格待核验",
+    fillSystem: "上墨方式待核验",
+    material: "笔身材质/尺寸版本待核验",
+    priceRange: "Dollar Pen 定价语境待核验",
+    claimId: "claim-esterbrook-dollar-pen-source-boundary",
+    modelName: "The Esterbrook Dollar Pen",
+    focus:
+      "Esterbrook Dollar Pen identity, Depression-era pricing context, nib system, filling system, material, variants, and advertising",
+    storyId: "story-model-esterbrook-dollar-pen-research",
+    storyTitle: "把 Esterbrook Dollar Pen 做成价位和笔尖系统档案",
+    storySummary:
+      "Esterbrook Dollar Pen 先作为 Richard's Pens 支撑的历史型号页，价位语境、笔尖系统和版本需要复核。",
+    storyBodyMd:
+      "Dollar Pen 的名字容易让人只看到价格，但图书馆应该把它放进 Esterbrook 的入门市场、可维护笔尖系统和经济时代语境里。它需要从长文摘要变成可扫描的型号页。\n\n当前档案绑定 Richard's Pens profile，并保留价位、笔尖、上墨和材料待核验。后续可与 Model J Family 一起整理 Esterbrook 的大众化路线。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Pricing and nib-system details need direct citation review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-esterbrook-model-j-family",
+    brandSlug: "esterbrook",
+    aliases: [
+      { alias: "The Esterbrook Model J Family", language: "en" },
+      { alias: "Esterbrook Model J Family", language: "en" },
+      { alias: "Esterbrook J 系列", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-007320e88188bdcb",
+    specId: "spec-esterbrook-model-j-family-research",
+    seriesName: "Model J Family",
+    originCountry: "美国（待核验）",
+    nib: "Re-New-Point/可替换笔尖系统待核验",
+    fillSystem: "压杆或版本差异待核验",
+    material: "笔身材质/尺寸家族待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-esterbrook-model-j-family-source-boundary",
+    modelName: "The Esterbrook Model J Family",
+    focus:
+      "Esterbrook Model J family identity, Re-New-Point nib system, size variants, filling system, material, postwar context, and collector claims",
+    storyId: "story-model-esterbrook-model-j-family-research",
+    storyTitle: "把 Esterbrook Model J 家族整理成大众化系统页",
+    storySummary:
+      "Esterbrook Model J Family 先作为 Richard's Pens 支撑的型号家族页，笔尖系统、尺寸和版本边界需要复核。",
+    storyBodyMd:
+      "Model J Family 很适合做“可维护、可替换、面向大众”的型号家族页。当前摘要仍混着索引链接和 markdown 残片，读起来不像图书馆条目。\n\n当前档案先绑定 Richard's Pens profile，把 Re-New-Point 笔尖、尺寸家族、上墨和材料都放在待核验层。后续可补一个 Esterbrook 笔尖系统图示。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Nib-system and family-boundary claims require separate review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-eversharp-bantam",
+    brandSlug: "eversharp",
+    aliases: [
+      { alias: "The Eversharp Bantam", language: "en" },
+      { alias: "Eversharp Bantam", language: "en" },
+      { alias: "永锋 Bantam", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-b05562d453750f9d",
+    specId: "spec-eversharp-bantam-research",
+    seriesName: "Bantam",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式待核验",
+    material: "小型笔身/材质版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-eversharp-bantam-source-boundary",
+    modelName: "The Eversharp Bantam",
+    focus:
+      "Eversharp Bantam identity, compact size, Peter Pan/Bantam context, filling system, nib, material, advertising, and collector claims",
+    storyId: "story-model-eversharp-bantam-research",
+    storyTitle: "把 Eversharp Bantam 做成小型钢笔线索页",
+    storySummary:
+      "Eversharp Bantam 先作为 Richard's Pens 支撑的小型历史型号页，尺寸、系列关系和规格需要复核。",
+    storyBodyMd:
+      "Bantam 的图书馆价值在于“小型钢笔”语境：它需要和口袋笔、女士笔、儿童/礼品市场等可能线索分开核验。当前页面还只是来源长文入口。\n\n当前档案绑定 Richard's Pens profile，先整理型号身份和待核验规格。后续可和 Kimberly、Tuckaway、Kaweco Sport 做跨时代便携钢笔对照。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Compact-size and product-line claims require editorial review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-eversharp-coronet",
+    brandSlug: "eversharp",
+    aliases: [
+      { alias: "The Eversharp Coronet", language: "en" },
+      { alias: "Eversharp Coronet", language: "en" },
+      { alias: "永锋 Coronet", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-b97f51202141abf3",
+    specId: "spec-eversharp-coronet-research",
+    seriesName: "Coronet",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式待核验",
+    material: "金属/赛璐珞或饰面版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-eversharp-coronet-source-boundary",
+    modelName: "The Eversharp Coronet",
+    focus:
+      "Eversharp Coronet identity, Art Deco design context, trim/material variants, filling system, nib, advertising, and collector claims",
+    storyId: "story-model-eversharp-coronet-research",
+    storyTitle: "把 Eversharp Coronet 整理成装饰艺术型号档案",
+    storySummary:
+      "Eversharp Coronet 先作为 Richard's Pens 支撑的历史型号页，装饰艺术语境、饰面和规格需要复核。",
+    storyBodyMd:
+      "Coronet 的入口不应只是文章摘要，它更像一个设计型档案：外观、饰面、广告和时代审美都需要和实际规格分开呈现。\n\n当前档案绑定 Richard's Pens profile，并把材料、上墨、笔尖和版本全部保留在待核验层。后续可以与 Doric 一起整理 Eversharp 的装饰艺术路线。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Art Deco, trim, and material claims require direct evidence review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-eversharp-doric",
+    brandSlug: "eversharp",
+    aliases: [
+      { alias: "The Eversharp Doric", language: "en" },
+      { alias: "Eversharp Doric", language: "en" },
+      { alias: "永锋 Doric", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-aca7947049d51bbb",
+    specId: "spec-eversharp-doric-research",
+    seriesName: "Doric",
+    originCountry: "美国（待核验）",
+    nib: "Adjustable/笔尖规格待核验",
+    fillSystem: "上墨方式/版本差异待核验",
+    material: "多面笔身/颜色材质版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-eversharp-doric-source-boundary",
+    modelName: "The Eversharp Doric",
+    focus:
+      "Eversharp Doric identity, faceted Art Deco body, adjustable nib context, filling-system variants, material colors, advertising, and collector claims",
+    storyId: "story-model-eversharp-doric-research",
+    storyTitle: "把 Eversharp Doric 做成多面造型和笔尖系统页",
+    storySummary:
+      "Eversharp Doric 先作为 Richard's Pens 支撑的经典型号页，多面造型、笔尖系统和版本差异需要复核。",
+    storyBodyMd:
+      "Doric 是最适合图书馆化的 Eversharp 型号之一：多面造型、颜色、广告和可调笔尖线索都能形成清晰展柜。当前摘要还停留在长文片段。\n\n当前档案绑定 Richard's Pens profile，不把可调笔尖或具体上墨机制直接写死。后续应补一张 Doric 版本/机制边界图。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Adjustable nib and variant claims need separate citation review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-eversharp-envoy",
+    brandSlug: "eversharp",
+    aliases: [
+      { alias: "The Eversharp Envoy", language: "en" },
+      { alias: "Eversharp Envoy", language: "en" },
+      { alias: "永锋 Envoy", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-4553033860336ad8",
+    specId: "spec-eversharp-envoy-research",
+    seriesName: "Envoy",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式待核验",
+    material: "笔身材质/后期版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-eversharp-envoy-source-boundary",
+    modelName: "The Eversharp Envoy",
+    focus:
+      "Eversharp Envoy identity, forgotten/late product-line context, filling system, nib, material, advertising, and collector claims",
+    storyId: "story-model-eversharp-envoy-research",
+    storyTitle: "把 Eversharp Envoy 放进被遗忘型号研究队列",
+    storySummary:
+      "Eversharp Envoy 先作为 Richard's Pens 支撑的待核验历史型号页，后期定位、广告和规格需要复核。",
+    storyBodyMd:
+      "Envoy 当前像一段“被遗忘型号”的文章摘录，适合先整理为研究队列：它属于 Eversharp 哪个阶段、为什么被忽略、与同期产品如何区分，都需要来源支撑。\n\n当前档案绑定 Richard's Pens profile，并保留所有规格字段待核验。后续可与 Symphony、Fifth Avenue 共同梳理战后产品线。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Late-line positioning and specifications require editorial review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-eversharp-fifth-avenue-and-sixty-four",
+    brandSlug: "eversharp",
+    aliases: [
+      { alias: "The Eversharp Fifth Avenue and Sixty Four", language: "en" },
+      { alias: "Eversharp Fifth Avenue", language: "en" },
+      { alias: "Eversharp Sixty Four", language: "en" },
+      { alias: "永锋 Fifth Avenue / Sixty Four", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-2d9d160c087cb1cc",
+    specId: "spec-eversharp-fifth-avenue-sixty-four-research",
+    seriesName: "Fifth Avenue / Sixty Four",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式/版本差异待核验",
+    material: "笔身材质/饰面版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-eversharp-fifth-avenue-sixty-four-source-boundary",
+    modelName: "The Eversharp Fifth Avenue and Sixty Four",
+    focus:
+      "Eversharp Fifth Avenue and Sixty Four identity, postwar design context, variant boundary, filling system, nib, material, advertising, and collector claims",
+    storyId: "story-model-eversharp-fifth-avenue-sixty-four-research",
+    storyTitle: "把 Eversharp Fifth Avenue 与 Sixty Four 拆成战后型号线索",
+    storySummary:
+      "Eversharp Fifth Avenue and Sixty Four 先作为 Richard's Pens 支撑的战后型号页，两个名称的边界和规格需要复核。",
+    storyBodyMd:
+      "Fifth Avenue 与 Sixty Four 放在同一篇 profile 里，容易让用户把两个名称混成一个型号。图书馆需要先拆清楚：哪些是系列、哪些是版本、哪些只是文章叙述。\n\n当前档案绑定 Richard's Pens profile，先建立战后产品线索页。后续再补具体版本表、广告证据和规格来源。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Fifth Avenue / Sixty Four naming boundaries require review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-eversharp-pacemaker",
+    brandSlug: "eversharp",
+    aliases: [
+      { alias: "The Eversharp Pacemaker", language: "en" },
+      { alias: "Eversharp Pacemaker", language: "en" },
+      { alias: "永锋 Pacemaker", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-94fd70b6caab70fc",
+    specId: "spec-eversharp-pacemaker-research",
+    seriesName: "Pacemaker",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式待核验",
+    material: "笔身材质/版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-eversharp-pacemaker-source-boundary",
+    modelName: "The Eversharp Pacemaker",
+    focus:
+      "Eversharp Pacemaker identity, product-line position, advertising context, filling system, nib, material, variants, and collector claims",
+    storyId: "story-model-eversharp-pacemaker-research",
+    storyTitle: "把 Eversharp Pacemaker 做成产品线位置档案",
+    storySummary:
+      "Eversharp Pacemaker 先作为 Richard's Pens 支撑的历史型号页，产品线位置、广告和规格需要复核。",
+    storyBodyMd:
+      "Pacemaker 的现有页面更像一段 profile 摘要，而不是型号档案。图书馆先把它变成一个可继续扩写的框架：名称、时期、广告、规格和与同门型号的关系。\n\n当前档案绑定 Richard's Pens profile，所有具体参数仍待核验。后续可与 Skyline、Symphony 对照 Eversharp 不同阶段的设计语言。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Product-line and specification claims remain review-gated.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-eversharp-skyline-family",
+    brandSlug: "eversharp",
+    aliases: [
+      { alias: "The Eversharp Skyline Family", language: "en" },
+      { alias: "Eversharp Skyline Family", language: "en" },
+      { alias: "永锋 Skyline 系列", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-2c869eda3181b203",
+    specId: "spec-eversharp-skyline-family-research",
+    seriesName: "Skyline Family",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式/版本差异待核验",
+    material: "笔身材质/尺寸家族待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-eversharp-skyline-family-source-boundary",
+    modelName: "The Eversharp Skyline Family",
+    focus:
+      "Eversharp Skyline family identity, design context, size/trim variants, filling system, nib, material, advertising, and collector claims",
+    storyId: "story-model-eversharp-skyline-family-research",
+    storyTitle: "把 Eversharp Skyline 家族整理成设计和版本入口",
+    storySummary:
+      "Eversharp Skyline Family 先作为 Richard's Pens 支撑的型号家族页，设计语境、尺寸和版本需要复核。",
+    storyBodyMd:
+      "Skyline 是 Eversharp 最适合做“设计入口”的家族之一，但当前详情页仍像长文引用。图书馆需要把它拆成设计语境、尺寸/饰面、上墨和笔尖几条线。\n\n当前档案绑定 Richard's Pens profile，不直接确认具体设计师、版本或规格。后续可补 Skyline 家族版本表和时间线。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Designer, variant, and specification claims need separate review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-eversharp-symphony-family",
+    brandSlug: "eversharp",
+    aliases: [
+      { alias: "The Eversharp Symphony Family", language: "en" },
+      { alias: "Eversharp Symphony Family", language: "en" },
+      { alias: "永锋 Symphony 系列", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-37b562a7867add5d",
+    specId: "spec-eversharp-symphony-family-research",
+    seriesName: "Symphony Family",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式/版本差异待核验",
+    material: "笔身材质/尺寸版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-eversharp-symphony-family-source-boundary",
+    modelName: "The Eversharp Symphony Family",
+    focus:
+      "Eversharp Symphony family identity, postwar design context, variants, filling system, nib, material, advertising, and collector claims",
+    storyId: "story-model-eversharp-symphony-family-research",
+    storyTitle: "把 Eversharp Symphony 家族放进战后设计档案",
+    storySummary:
+      "Eversharp Symphony Family 先作为 Richard's Pens 支撑的战后型号家族页，版本、广告和规格需要复核。",
+    storyBodyMd:
+      "Symphony Family 适合和 Skyline、Fifth Avenue 一起读：它们能帮助用户理解 Eversharp 战后设计如何变化。当前页面需要先从文章残片变成结构化型号家族页。\n\n当前档案绑定 Richard's Pens profile，并将版本、材料、笔尖和上墨全部放在待核验层。后续再补具体时间线。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Postwar positioning and variant claims require editorial review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-eversharp-ventura-family",
+    brandSlug: "eversharp",
+    aliases: [
+      { alias: "The Eversharp Ventura Family", language: "en" },
+      { alias: "Eversharp Ventura Family", language: "en" },
+      { alias: "永锋 Ventura 系列", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-3a5de306b61c90ef",
+    specId: "spec-eversharp-ventura-family-research",
+    seriesName: "Ventura Family",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式/版本差异待核验",
+    material: "笔身材质/尺寸版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-eversharp-ventura-family-source-boundary",
+    modelName: "The Eversharp Ventura Family",
+    focus:
+      "Eversharp Ventura family identity, Pennant/article context, late Eversharp product-line position, variants, filling system, nib, material, and collector claims",
+    storyId: "story-model-eversharp-ventura-family-research",
+    storyTitle: "把 Eversharp Ventura 家族整理成晚期产品线档案",
+    storySummary:
+      "Eversharp Ventura Family 先作为 Richard's Pens 支撑的晚期型号家族页，文章来源、版本和规格需要复核。",
+    storyBodyMd:
+      "Ventura Family 的摘要提到文章来源和扩展版本，这说明它不能只当普通型号页处理。图书馆需要明确：profile 是入口，具体历史结论和版本事实要另行核验。\n\n当前档案绑定 Richard's Pens profile，先建立晚期产品线框架。后续可补 Pennant 文章语境、广告证据和型号家族图。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Pennant/article context and late-line claims require separate review.",
+  }),
 ];
 
 function getClient() {
