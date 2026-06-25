@@ -769,6 +769,66 @@ test.describe("Library smoke flow", () => {
     ).toBeVisible();
   });
 
+  test("eighth priority model gap pages render Snowhite and Pilot archives", async ({
+    page,
+  }) => {
+    await page.goto(`/pen/${encodeURIComponent("白雪-fp20")}`, {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(
+      page.getByText("把白雪 FP20 放进中国文具入门钢笔队列"),
+    ).toBeVisible();
+    await expect(
+      page.getByText("Research index: Snowhite FP20 fountain pen").first(),
+    ).toBeVisible();
+
+    await page.goto(`/pen/${encodeURIComponent("百乐-pilot-78g-78g")}`, {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(
+      page.getByText("把 Pilot 78G/78G+ 的入门神话先放进待核验页"),
+    ).toBeVisible();
+    await expect(
+      page.getByText("Research index: Pilot 78G / 78G+").first(),
+    ).toBeVisible();
+
+    await page.goto(`/pen/${encodeURIComponent("百乐-pilot-912")}`, {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(
+      page.getByText("把 Pilot 912 的特殊尖讨论单独立档"),
+    ).toBeVisible();
+    await expect(page.getByText("PO/FA/特殊尖选项待核验")).toBeVisible();
+
+    await page.goto(`/pen/${encodeURIComponent("百乐-pilot-capless-decimo")}`, {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(
+      page.getByText("把 Capless/Decimo 放进按动钢笔主轴"),
+    ).toBeVisible();
+    await expect(
+      page.getByText("Research index: Pilot Capless / Decimo").first(),
+    ).toBeVisible();
+
+    await page.goto(`/pen/${encodeURIComponent("百乐-pilot-custom-823")}`, {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(
+      page.getByText("把 Custom 823 的日用旗舰口碑和真空上墨事实分开"),
+    ).toBeVisible();
+    await expect(page.getByText("真空上墨说法待核验")).toBeVisible();
+
+    await page.goto(`/pen/${encodeURIComponent("百乐-pilot-elite-95s")}`, {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(
+      page.getByText("把 Elite 95S 放进日系短钢笔和随身书写路径"),
+    ).toBeVisible();
+    await expect(
+      page.getByText("Research index: Pilot Elite 95S / E95S").first(),
+    ).toBeVisible();
+  });
+
   test("mismatched entity type routes redirect to canonical page", async ({
     page,
   }) => {
