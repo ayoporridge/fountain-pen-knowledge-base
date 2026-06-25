@@ -613,10 +613,9 @@ test.describe("Library smoke flow", () => {
       page.getByText("Research index: Majohn A1 retractable").first(),
     ).toBeVisible();
 
-    await page.goto(
-      `/pen/${encodeURIComponent("末匠-majohn-v1-负压上墨")}`,
-      { waitUntil: "domcontentloaded" },
-    );
+    await page.goto(`/pen/${encodeURIComponent("末匠-majohn-v1-负压上墨")}`, {
+      waitUntil: "domcontentloaded",
+    });
     await expect(
       page.getByText("把 V1 负压上墨先放进机制核验队列"),
     ).toBeVisible();
@@ -643,6 +642,68 @@ test.describe("Library smoke flow", () => {
     ).toBeVisible();
     await expect(
       page.getByText("Research index: Picasso 916").first(),
+    ).toBeVisible();
+  });
+
+  test("sixth priority model gap pages render Wing Sung and Parker archives", async ({
+    page,
+  }) => {
+    await page.goto(`/pen/${encodeURIComponent("永生-wingsung-3013")}`, {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(
+      page.getByText("把 3013 的低价负压体验拆成机制核验页"),
+    ).toBeVisible();
+    await expect(
+      page.getByText("Research index: Wing Sung 3013 vacuum filler").first(),
+    ).toBeVisible();
+
+    await page.goto(`/pen/${encodeURIComponent("永生-wingsung-601")}`, {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(
+      page.getByText("把 601 放进新永生复兴的核心型号队列"),
+    ).toBeVisible();
+    await expect(
+      page.getByText("Research index: Wing Sung 601").first(),
+    ).toBeVisible();
+
+    await page.goto(`/pen/${encodeURIComponent("永生-wingsung-698")}`, {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(
+      page.getByText("把 698 的金尖活塞说法拆成版本核验"),
+    ).toBeVisible();
+    await expect(page.getByText("金尖/钢尖版本说法待核验")).toBeVisible();
+
+    await page.goto(`/pen/${encodeURIComponent("永生-wingsung-729")}`, {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(
+      page.getByText("先确认 729 是永生型号还是误并条目"),
+    ).toBeVisible();
+    await expect(
+      page.getByText("Research index: Wing Sung 729").first(),
+    ).toBeVisible();
+
+    await page.goto(`/pen/${encodeURIComponent("派克-parker-51复刻")}`, {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(
+      page.getByText("把 Parker 51 复刻和 vintage 51 分开读"),
+    ).toBeVisible();
+    await expect(
+      page.getByText("Research index: Parker 51 modern reissue").first(),
+    ).toBeVisible();
+
+    await page.goto(`/pen/${encodeURIComponent("派克-parker-im丽雅")}`, {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(
+      page.getByText("把 Parker IM 丽雅做成商务日用入口"),
+    ).toBeVisible();
+    await expect(
+      page.getByText("Research index: Parker IM fountain pen").first(),
     ).toBeVisible();
   });
 
