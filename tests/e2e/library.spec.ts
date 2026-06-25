@@ -829,6 +829,65 @@ test.describe("Library smoke flow", () => {
     ).toBeVisible();
   });
 
+  test("ninth priority model gap pages render Pilot and Pelikan archives", async ({
+    page,
+  }) => {
+    await page.goto(`/pen/${encodeURIComponent("百乐-pilot-heritage-91")}`, {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(
+      page.getByText("把 Heritage 91 放进 Custom 74 相邻升级页"),
+    ).toBeVisible();
+    await expect(
+      page.getByText("Research index: Pilot Custom Heritage 91").first(),
+    ).toBeVisible();
+
+    await page.goto(`/pen/${encodeURIComponent("百乐-pilot-heritage-92")}`, {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(
+      page.getByText("把 Heritage 92 的活塞金尖身份先核验"),
+    ).toBeVisible();
+    await expect(page.getByText("活塞上墨说法待核验")).toBeVisible();
+
+    await page.goto(
+      `/pen/${encodeURIComponent("百乐-pilot-iroshizuku色彩雫")}`,
+      { waitUntil: "domcontentloaded" },
+    );
+    await expect(
+      page.getByText("先把 Iroshizuku 色彩雫标成墨水条目"),
+    ).toBeVisible();
+    await expect(page.getByText("不适用：墨水条目")).toBeVisible();
+
+    await page.goto(`/pen/${encodeURIComponent("百乐-pilot-笑脸-kakuno")}`, {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(
+      page.getByText("把 Kakuno 笑脸放进入门练字路径"),
+    ).toBeVisible();
+    await expect(
+      page.getByText("Research index: Pilot Kakuno").first(),
+    ).toBeVisible();
+
+    await page.goto(`/pen/${encodeURIComponent("百利金-pelikan-m1000")}`, {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(
+      page.getByText("把 M1000 的旗舰尺寸和手感争议拆开"),
+    ).toBeVisible();
+    await expect(
+      page.getByText("Research index: Pelikan Souveran M1000").first(),
+    ).toBeVisible();
+
+    await page.goto(`/pen/${encodeURIComponent("百利金-pelikan-m605白乌龟")}`, {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(
+      page.getByText("先确认 M605 白乌龟到底是哪一个配色"),
+    ).toBeVisible();
+    await expect(page.getByText("白条纹/白乌龟配色待核验")).toBeVisible();
+  });
+
   test("mismatched entity type routes redirect to canonical page", async ({
     page,
   }) => {

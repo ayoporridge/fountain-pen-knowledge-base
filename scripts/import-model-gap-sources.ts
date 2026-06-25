@@ -1,6 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
-import { createClient, type Client, type InArgs } from "@libsql/client";
+import {
+  createClient,
+  type Client,
+  type InArgs,
+  type InStatement,
+} from "@libsql/client";
 
 const MIGRATIONS_DIR = path.join(process.cwd(), "migrations");
 const WRITE = process.argv.includes("--write");
@@ -1615,6 +1620,150 @@ const SOURCE_ITEMS: SourceItemSeed[] = [
     author: "Project editorial research",
     summary:
       "Search index for Pilot Elite 95S/E95S pocket-pen identity, inlaid nib, portability, metal/body claims, and current availability evidence.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-pilot-heritage-91-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Pilot Custom Heritage 91",
+    url: "https://www.bing.com/search?q=%22Pilot+Custom+Heritage+91%22+%22fountain+pen%22+official+review",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Pilot Custom Heritage 91 identity, relationship to Custom 74, nib, filling system, body design, and Chinese price anecdotes.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-pilot-heritage-92-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Pilot Custom Heritage 92",
+    url: "https://www.bing.com/search?q=%22Pilot+Custom+Heritage+92%22+%22fountain+pen%22+official+review+piston",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Pilot Custom Heritage 92 product identity, piston-filler evidence, nib, demonstrator body, and price notes.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-pilot-iroshizuku-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Pilot Iroshizuku ink line",
+    url: "https://www.bing.com/search?q=%22Pilot+Iroshizuku%22+%E8%89%B2%E5%BD%A9%E9%9B%AB+ink+official+review",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Pilot Iroshizuku ink-line identity, color names, bottle sizes, shading/review claims, and the local need to reclassify it away from fountain-pen model pages.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-pilot-prera-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Pilot Prera",
+    url: "https://www.bing.com/search?q=%22Pilot+Prera%22+%22fountain+pen%22+official+review",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Pilot Prera product identity, compact body, color/clear variants, nib compatibility, and Japanese-market popularity claims.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-pilot-kakuno-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Pilot Kakuno",
+    url: "https://www.bing.com/search?q=%22Pilot+Kakuno%22+%E7%AC%91%E8%84%B8+%22fountain+pen%22+official+review",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Pilot Kakuno official/product evidence, smiley nib, beginner/student positioning, nib, filling system, and child-friendly claims.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-pilot-cocoon-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Pilot Cocoon / Metropolitan",
+    url: "https://www.bing.com/search?q=%22Pilot+Cocoon%22+Metropolitan+%22fountain+pen%22+official+review",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Pilot Cocoon/Metropolitan naming, light-business positioning, metal body, nib, filling system, and regional model identity.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-pelikan-m1000-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Pelikan Souveran M1000",
+    url: "https://www.bing.com/search?q=%22Pelikan+M1000%22+Souveran+%22fountain+pen%22+official+review",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Pelikan Souveran M1000 official/product evidence, nib size, piston filler, dimensions, hand-size comments, and comparisons with M800.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-pelikan-m1005-stresemann-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Pelikan M1005 Stresemann",
+    url: "https://www.bing.com/search?q=%22Pelikan+M1005+Stresemann%22+%22fountain+pen%22+official+review",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Pelikan M1005 Stresemann colorway/trim identity, nib, piston filler, limited or availability status, and high-price claims.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-pelikan-m200-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Pelikan M200",
+    url: "https://www.bing.com/search?q=%22Pelikan+M200%22+%22fountain+pen%22+official+review",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Pelikan M200 product evidence, steel nib, piston filler, material, dimensions, and entry-level German piston-filler positioning.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-pelikan-m400-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Pelikan Souveran M400",
+    url: "https://www.bing.com/search?q=%22Pelikan+M400%22+Souveran+%22fountain+pen%22+official+review",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Pelikan M400 official/product evidence, nib, piston filler, size, wet-writing reputation, and Custom 823 comparison claims.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-pelikan-m600-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Pelikan Souveran M600",
+    url: "https://www.bing.com/search?q=%22Pelikan+M600%22+Souveran+%22fountain+pen%22+official+review",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Pelikan M600 official/product evidence, size positioning between M400 and M800, nib, piston filler, and pricing.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-pelikan-m605-white-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Pelikan M605 white stripe / white tortoise",
+    url: "https://www.bing.com/search?q=%22Pelikan+M605%22+white+stripe+%E7%99%BD%E4%B9%8C%E9%BE%9F+%22fountain+pen%22",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Pelikan M605 white-stripe/white-tortoise naming, colorway identity, nib, piston filler, availability, and collector popularity claims.",
     allowedUse: "link_only",
     reviewStatus: "pending",
   },
@@ -5183,6 +5332,329 @@ const MODELS: ModelGapSeed[] = [
     storyBodyMd:
       "Elite 95S 的价值不是参数堆叠，而是短钢笔逻辑：收起来短、插帽后能正常书写，适合随身携带。原始摘要提到出门和金属质感，这些都应变成可核验的使用场景。\n\n当前档案先确认 Elite 95S / E95S 命名、笔尖形态、笔身材质、上墨兼容和当前供货。后续可以把它和 Kaweco Sport、Liliput、Sailor pocket pen 等放进“随身短笔”展览。",
   }),
+  makeSearchOnlyModel({
+    slug: "百乐-pilot-heritage-91",
+    brandSlug: "pilot",
+    aliases: [
+      { alias: "Pilot Custom Heritage 91", language: "en" },
+      { alias: "Pilot Heritage 91", language: "en" },
+      { alias: "百乐 Heritage 91", language: "zh" },
+    ],
+    sourceItemId: "source-pilot-heritage-91-public-search",
+    specId: "spec-pilot-heritage-91-research",
+    seriesName: "Custom Heritage 91",
+    originCountry: "日本（待核验）",
+    nib: "金尖/尖号选项待核验",
+    fillSystem: "墨囊/上墨器兼容待核验",
+    material: "树脂笔身说法待核验",
+    priceRange: "407-470 等渠道价待核验",
+    claimId: "claim-pilot-heritage-91-source-boundary",
+    modelName: "百乐 Pilot Heritage 91",
+    focus:
+      "Custom Heritage 91 identity, relation to Custom 74, nib, filling system, body design, and Chinese deal-price claims",
+    storyId: "story-model-pilot-heritage-91-research",
+    storyTitle: "把 Heritage 91 放进 Custom 74 相邻升级页",
+    storySummary:
+      "Pilot Heritage 91 先作为 Custom 74 相邻型号研究页，价格、外观差异和同尖说法都需要来源。",
+    storyBodyMd:
+      "Heritage 91 的原始摘要很购买向：比 74 还便宜、同样笔尖但更好看的笔身。这个判断有用，但需要先确认 91 与 Custom 74 的官方关系、笔尖规格、上墨兼容和地区供应。\n\n当前档案先把它放进 Pilot 金尖入门/升级路径：74、91、92、742、743、823 应当形成一条可比较的系列阅读线。价格只保留为渠道线索，不写成稳定事实。",
+  }),
+  makeSearchOnlyModel({
+    slug: "百乐-pilot-heritage-92",
+    brandSlug: "pilot",
+    aliases: [
+      { alias: "Pilot Custom Heritage 92", language: "en" },
+      { alias: "Pilot Heritage 92", language: "en" },
+      { alias: "百乐 Heritage 92", language: "zh" },
+    ],
+    sourceItemId: "source-pilot-heritage-92-public-search",
+    specId: "spec-pilot-heritage-92-research",
+    seriesName: "Custom Heritage 92",
+    originCountry: "日本（待核验）",
+    nib: "金尖/尖号选项待核验",
+    fillSystem: "活塞上墨说法待核验",
+    material: "透明/树脂笔身说法待核验",
+    priceRange: "669 起等渠道价待核验",
+    claimId: "claim-pilot-heritage-92-source-boundary",
+    modelName: "百乐 Pilot Heritage 92",
+    focus:
+      "Custom Heritage 92 identity, piston-filler evidence, nib, demonstrator body, and price claims",
+    storyId: "story-model-pilot-heritage-92-research",
+    storyTitle: "把 Heritage 92 的活塞金尖身份先核验",
+    storySummary:
+      "Pilot Heritage 92 先作为百乐活塞金尖研究页，活塞结构、透明笔身和渠道价都等待直接来源。",
+    storyBodyMd:
+      "Heritage 92 的用户记忆集中在“百乐金尖 + 活塞”。这条线索很适合进入上墨系统路径，但必须先确认具体产品页、活塞结构、笔尖和版本。\n\n当前档案先把 92 和 74/91/823 分开：它可能是 Pilot 体系里少数以活塞为核心卖点的日用金尖，但这需要官方或目录来源支撑。价格只作为待核验市场线索。",
+  }),
+  makeSearchOnlyModel({
+    slug: "百乐-pilot-iroshizuku色彩雫",
+    brandSlug: "pilot",
+    aliases: [
+      { alias: "Pilot Iroshizuku", language: "en" },
+      { alias: "Iroshizuku ink", language: "en" },
+      { alias: "百乐 色彩雫", language: "zh" },
+    ],
+    sourceItemId: "source-pilot-iroshizuku-public-search",
+    specId: "spec-pilot-iroshizuku-reclassification-research",
+    seriesName: "Iroshizuku ink line / 待重分类墨水条目",
+    originCountry: "日本（待核验）",
+    nib: "不适用：墨水条目",
+    fillSystem: "瓶装墨水/容量待核验",
+    material: "墨水颜色、染料和 shading 表现待核验",
+    priceRange: "墨水价格区间待核验",
+    claimId: "claim-pilot-iroshizuku-source-boundary",
+    modelName: "百乐 Pilot Iroshizuku 色彩雫",
+    focus:
+      "whether this local pen entry should be reclassified as an ink line, color range, bottle sizes, shading claims, and review evidence",
+    storyId: "story-model-pilot-iroshizuku-reclassification-research",
+    storyTitle: "先把 Iroshizuku 色彩雫标成墨水条目",
+    storySummary:
+      "Pilot Iroshizuku 色彩雫不是钢笔型号，当前先作为待重分类墨水条目处理，颜色、容量和 shading 口碑都需要来源。",
+    storyBodyMd:
+      "色彩雫出现在 `pen` 列表里，是一个明显的数据层级问题：它更像墨水系列，而不是钢笔型号。当前 schema 还没有 ink 类型，所以先用研究页把误差公开标出来。\n\n后续更好的做法，是为墨水建立独立类型或把它迁移到 concept/material 一类的消耗品页面。当前页面只保留墨水身份、颜色、容量、价格和 shading 评价的补证任务，不把它继续当作钢笔规格写。",
+  }),
+  makeSearchOnlyModel({
+    slug: "百乐-pilot-prera",
+    brandSlug: "pilot",
+    aliases: [
+      { alias: "Pilot Prera", language: "en" },
+      { alias: "百乐 Prera", language: "zh" },
+    ],
+    sourceItemId: "source-pilot-prera-public-search",
+    specId: "spec-pilot-prera-research",
+    seriesName: "Prera",
+    originCountry: "日本（待核验）",
+    nib: "钢尖/尖号选项待核验",
+    fillSystem: "墨囊/上墨器兼容待核验",
+    material: "树脂/透明版本待核验",
+    priceRange: "日本本土/入门价位待核验",
+    claimId: "claim-pilot-prera-source-boundary",
+    modelName: "百乐 Pilot Prera",
+    focus:
+      "Prera compact-body identity, Japanese-market popularity, clear/color variants, nib, filling system, and price",
+    storyId: "story-model-pilot-prera-research",
+    storyTitle: "把 Prera 做成小型日用和手帐场景页",
+    storySummary:
+      "Pilot Prera 先作为小型日用/手帐钢笔研究页，日本本土人气、透明版本和笔尖兼容都需要来源。",
+    storyBodyMd:
+      "Prera 的原始摘要只说日本本土有人气，但这正好提示它适合按使用场景来读：小型、轻便、颜色/透明版本、手帐和短时间书写。\n\n当前档案先确认型号身份、笔尖、上墨器、尺寸和版本。等有评测来源后，再把“本土人气”和手帐场景写成有出处的用户语境。",
+  }),
+  makeSearchOnlyModel({
+    slug: "百乐-pilot-笑脸-kakuno",
+    brandSlug: "pilot",
+    aliases: [
+      { alias: "Pilot Kakuno", language: "en" },
+      { alias: "百乐 笑脸 Kakuno", language: "zh" },
+      { alias: "百乐 笑脸", language: "zh" },
+    ],
+    sourceItemId: "source-pilot-kakuno-public-search",
+    specId: "spec-pilot-kakuno-research",
+    seriesName: "Kakuno",
+    originCountry: "日本品牌/版本产地待核验",
+    nib: "笑脸钢尖/尖号选项待核验",
+    fillSystem: "墨囊/上墨器兼容待核验",
+    material: "塑料笔身说法待核验",
+    priceRange: "儿童/学生入门价位待核验",
+    claimId: "claim-pilot-kakuno-source-boundary",
+    modelName: "百乐 Pilot 笑脸 Kakuno",
+    focus:
+      "Kakuno beginner positioning, smiley nib, child/student claims, nib, filling system, material, and low-price evidence",
+    storyId: "story-model-pilot-kakuno-research",
+    storyTitle: "把 Kakuno 笑脸放进入门练字路径",
+    storySummary:
+      "Pilot Kakuno 笑脸先作为儿童/学生入门钢笔研究页，笑脸笔尖、握持引导和练字推荐都需要来源。",
+    storyBodyMd:
+      "Kakuno 很适合做“第一支钢笔”的入口，但这类页面不能只写可爱。用户真正关心的是：它为什么适合入门，握持、笔尖、上墨、耐摔和替换成本如何。\n\n当前档案先把笑脸笔尖、学生定位、上墨兼容和版本拆开。后续补证时，可以把它和 Schneider BK402、LAMY safari、Pilot 78G 等放进学生/入门展览。",
+  }),
+  makeSearchOnlyModel({
+    slug: "百乐-pilot-贵妃-cocoon",
+    brandSlug: "pilot",
+    aliases: [
+      { alias: "Pilot Cocoon", language: "en" },
+      { alias: "Pilot Metropolitan", language: "en" },
+      { alias: "百乐 贵妃 Cocoon", language: "zh" },
+    ],
+    sourceItemId: "source-pilot-cocoon-public-search",
+    specId: "spec-pilot-cocoon-research",
+    seriesName: "Cocoon / Metropolitan identity pending",
+    originCountry: "日本品牌/版本产地待核验",
+    nib: "钢尖说法待核验",
+    fillSystem: "墨囊/上墨器兼容待核验",
+    material: "金属笔身说法待核验",
+    priceRange: "轻商务入门价位待核验",
+    claimId: "claim-pilot-cocoon-source-boundary",
+    modelName: "百乐 Pilot 贵妃 Cocoon",
+    focus:
+      "Cocoon versus Metropolitan naming, light-business positioning, metal body, nib, filling system, and gift/office claims",
+    storyId: "story-model-pilot-cocoon-research",
+    storyTitle: "先确认贵妃 Cocoon 和 Metropolitan 的命名边界",
+    storySummary:
+      "Pilot 贵妃 Cocoon 先作为轻商务入门研究页，Cocoon/Metropolitan 命名、金属笔身和办公礼赠定位都需要来源。",
+    storyBodyMd:
+      "贵妃/Cocoon 的原始摘要很像普通用户视角：体面、轻商务、适合办公。写成图书馆页面时，关键是先确认它和 Metropolitan 的地区命名关系，再处理材质、笔尖和上墨。\n\n当前档案先保留命名边界。后续补证应区分官方地区页、中文渠道昵称和实际 SKU，避免把不同市场名字混成一支笔。",
+  }),
+  makeSearchOnlyModel({
+    slug: "百利金-pelikan-m1000",
+    brandSlug: "pelikan",
+    aliases: [
+      { alias: "Pelikan Souveran M1000", language: "en" },
+      { alias: "Pelikan M1000", language: "en" },
+      { alias: "百利金 M1000", language: "zh" },
+    ],
+    sourceItemId: "source-pelikan-m1000-public-search",
+    specId: "spec-pelikan-m1000-research",
+    seriesName: "Souveran M1000",
+    originCountry: "德国（待核验）",
+    nib: "金尖/大型笔尖规格待核验",
+    fillSystem: "活塞上墨说法待核验",
+    material: "树脂/条纹材质待核验",
+    priceRange: "旗舰价位待核验",
+    claimId: "claim-pelikan-m1000-source-boundary",
+    modelName: "百利金 Pelikan M1000",
+    focus:
+      "M1000 flagship identity, size, nib, piston filler, hand-size comments, M800 comparison, and price",
+    storyId: "story-model-pelikan-m1000-research",
+    storyTitle: "把 M1000 的旗舰尺寸和手感争议拆开",
+    storySummary:
+      "Pelikan M1000 先作为 Souveran 最大尺寸研究页，旗舰定位、软弹大尖和“手特别大才合适”都需要来源。",
+    storyBodyMd:
+      "M1000 的原始摘要抓住了一个非常实用的问题：它是不是太大。旗舰并不自动等于适合日用，尤其 Pelikan M 系列的尺寸、重量、笔尖反馈和握持差异都很重要。\n\n当前档案先把 M1000 放进 M200-M1000 尺寸阶梯。后续补证应确认官方规格、笔尖、活塞、重量和长期评测，再把“除非手特别大”这类经验写成有出处的口碑。",
+  }),
+  makeSearchOnlyModel({
+    slug: "百利金-pelikan-m1005-stresemann",
+    brandSlug: "pelikan",
+    aliases: [
+      { alias: "Pelikan M1005 Stresemann", language: "en" },
+      { alias: "Pelikan Souveran M1005 Stresemann", language: "en" },
+      { alias: "百利金 M1005 Stresemann", language: "zh" },
+    ],
+    sourceItemId: "source-pelikan-m1005-stresemann-public-search",
+    specId: "spec-pelikan-m1005-stresemann-research",
+    seriesName: "Souveran M1005 Stresemann",
+    originCountry: "德国（待核验）",
+    nib: "18K 金尖说法待核验",
+    fillSystem: "活塞上墨说法待核验",
+    material: "Stresemann 灰条纹/饰面待核验",
+    priceRange: "5000+ 说法待核验",
+    claimId: "claim-pelikan-m1005-stresemann-source-boundary",
+    modelName: "百利金 Pelikan M1005 Stresemann",
+    focus:
+      "M1005 Stresemann identity, colorway and trim, nib, piston filler, availability, and 5000+ price claims",
+    storyId: "story-model-pelikan-m1005-stresemann-research",
+    storyTitle: "把 M1005 Stresemann 当作配色/规格组合核验",
+    storySummary:
+      "Pelikan M1005 Stresemann 先作为 M1000 级别配色/饰面研究页，18K、活塞和 5000+ 价位都需要来源。",
+    storyBodyMd:
+      "M1005 Stresemann 不能只按 M1000 的通用规格写。它涉及尺寸级别、钯色/银色饰件、Stresemann 灰条纹语境、供货状态和收藏价格，这些都需要单独来源。\n\n当前档案先建立“具体配色/规格组合”的边界：后续要确认它是否对应 M1000 尺寸、是否限量或停产、笔尖和市场价格如何变化。",
+  }),
+  makeSearchOnlyModel({
+    slug: "百利金-pelikan-m200",
+    brandSlug: "pelikan",
+    aliases: [
+      { alias: "Pelikan M200", language: "en" },
+      { alias: "Pelikan Classic M200", language: "en" },
+      { alias: "百利金 M200", language: "zh" },
+    ],
+    sourceItemId: "source-pelikan-m200-public-search",
+    specId: "spec-pelikan-m200-research",
+    seriesName: "Classic M200",
+    originCountry: "德国（待核验）",
+    nib: "钢尖说法待核验",
+    fillSystem: "活塞上墨说法待核验",
+    material: "树脂笔身说法待核验",
+    priceRange: "500-800 说法待核验",
+    claimId: "claim-pelikan-m200-source-boundary",
+    modelName: "百利金 Pelikan M200",
+    focus:
+      "M200 entry Pelikan identity, steel nib, piston filler, material, dimensions, and 500-800 price claims",
+    storyId: "story-model-pelikan-m200-research",
+    storyTitle: "把 M200 放进德系活塞入门路线",
+    storySummary:
+      "Pelikan M200 先作为德系活塞入门研究页，钢尖、活塞、尺寸和 500-800 价位都需要产品来源。",
+    storyBodyMd:
+      "M200 的图书馆价值在于它让 Pelikan 的活塞系统从高端线走向更低门槛。它不是 M400/M600 的替代品，也不是单纯低配，而是 Pelikan 尺寸体系里的入门节点。\n\n当前档案先确认钢尖、活塞、材质、尺寸和配色版本。后续可以把它和 M400/M600/M800/M1000 做成系列树，而不是让用户在孤立页面里猜尺寸。",
+  }),
+  makeSearchOnlyModel({
+    slug: "百利金-pelikan-m400",
+    brandSlug: "pelikan",
+    aliases: [
+      { alias: "Pelikan Souveran M400", language: "en" },
+      { alias: "Pelikan M400", language: "en" },
+      { alias: "百利金 M400", language: "zh" },
+    ],
+    sourceItemId: "source-pelikan-m400-public-search",
+    specId: "spec-pelikan-m400-research",
+    seriesName: "Souveran M400",
+    originCountry: "德国（待核验）",
+    nib: "金尖说法待核验",
+    fillSystem: "活塞上墨说法待核验",
+    material: "条纹树脂/饰面待核验",
+    priceRange: "中高端价位待核验",
+    claimId: "claim-pelikan-m400-source-boundary",
+    modelName: "百利金 Pelikan M400",
+    focus:
+      "M400 identity, gold nib, piston filler, size, wet-writing reputation, Custom 823 comparison, and value claims",
+    storyId: "story-model-pelikan-m400-research",
+    storyTitle: "把 M400 的风格选择和性价比争议分开写",
+    storySummary:
+      "Pelikan M400 先作为 Souveran 小尺寸金尖研究页，德式湿润书写、价格对比和 823 比较都需要归因。",
+    storyBodyMd:
+      "M400 的原始摘要很诚实：同价位可能能买到别的强型号，选它更像风格选择。这种判断很适合图书馆，但不能脱离来源。\n\n当前档案先把 M400 放入 Pelikan 尺寸阶梯和风格路线：确认笔尖、活塞、尺寸、重量和配色，再用评测来源承载“湿漉漉书写感”、性价比争议和与 Pilot 823 的比较。",
+  }),
+  makeSearchOnlyModel({
+    slug: "百利金-pelikan-m600",
+    brandSlug: "pelikan",
+    aliases: [
+      { alias: "Pelikan Souveran M600", language: "en" },
+      { alias: "Pelikan M600", language: "en" },
+      { alias: "百利金 M600", language: "zh" },
+    ],
+    sourceItemId: "source-pelikan-m600-public-search",
+    specId: "spec-pelikan-m600-research",
+    seriesName: "Souveran M600",
+    originCountry: "德国（待核验）",
+    nib: "金尖说法待核验",
+    fillSystem: "活塞上墨说法待核验",
+    material: "条纹树脂/饰面待核验",
+    priceRange: "M400 与 M800 之间价位待核验",
+    claimId: "claim-pelikan-m600-source-boundary",
+    modelName: "百利金 Pelikan M600",
+    focus:
+      "M600 identity, size between M400 and M800, nib, piston filler, material, and price-step comments",
+    storyId: "story-model-pelikan-m600-research",
+    storyTitle: "把 M600 放在 M400 到 M800 的尺寸台阶里",
+    storySummary:
+      "Pelikan M600 先作为中间尺寸研究页，尺寸升级、价格跳档和与 M400/M800 的关系都需要来源。",
+    storyBodyMd:
+      "M600 的核心不是某个孤立参数，而是位置：M400 嫌小，但 M800 又太大或太贵时，它成为中间台阶。原始摘要里的价格焦虑正说明这页应该做成比较入口。\n\n当前档案先确认官方规格、笔尖、活塞、尺寸和价格区间。后续 Pelikan 展览可以用 M200/M400/M600/M800/M1000 做一张尺寸树，让用户更容易理解每一级的意义。",
+  }),
+  makeSearchOnlyModel({
+    slug: "百利金-pelikan-m605白乌龟",
+    brandSlug: "pelikan",
+    aliases: [
+      { alias: "Pelikan M605 White Tortoise", language: "en" },
+      { alias: "Pelikan M605 white stripe", language: "en" },
+      { alias: "百利金 M605 白乌龟", language: "zh" },
+    ],
+    sourceItemId: "source-pelikan-m605-white-public-search",
+    specId: "spec-pelikan-m605-white-research",
+    seriesName: "Souveran M605 white-stripe identity pending",
+    originCountry: "德国（待核验）",
+    nib: "金尖/钯色饰件版本待核验",
+    fillSystem: "活塞上墨说法待核验",
+    material: "白条纹/白乌龟配色待核验",
+    priceRange: "收藏/二级市场价待核验",
+    claimId: "claim-pelikan-m605-white-source-boundary",
+    modelName: "百利金 Pelikan M605 白乌龟",
+    focus:
+      "M605 white-stripe or white-tortoise identity, colorway naming, nib, piston filler, availability, and collector popularity",
+    storyId: "story-model-pelikan-m605-white-research",
+    storyTitle: "先确认 M605 白乌龟到底是哪一个配色",
+    storySummary:
+      "Pelikan M605 白乌龟先作为高人气配色待核验页，中文昵称、官方色名、饰件和供货状态都需要来源。",
+    storyBodyMd:
+      "“白乌龟”是典型的中文玩家昵称，图书馆不能直接把它当作官方型号名。它可能指向 white tortoise、white stripe 或某个地区/年份配色，需要先确认英文名、尺寸级别和饰件。\n\n当前档案先标记为配色研究页。后续要用官方产品页、目录、可靠零售页或收藏资料确认命名，再写收藏热度和二级市场价格。",
+  }),
 ];
 
 function getClient() {
@@ -5197,6 +5669,15 @@ function getClient() {
 
 async function execute(db: Client, sql: string, args: unknown[] = []) {
   await db.execute({ sql, args: args as InArgs });
+}
+
+function statement(sql: string, args: unknown[] = []): InStatement {
+  return { sql, args: args as InArgs };
+}
+
+async function runBatch(db: Client, statements: InStatement[]) {
+  if (statements.length === 0) return;
+  await db.batch(statements, "write");
 }
 
 async function runMigrations(db: Client) {
@@ -5568,6 +6049,338 @@ async function writeBrandModelLink(
   );
 }
 
+function sourceRegistryStatement(source: SourceRegistrySeed) {
+  return statement(
+    `INSERT INTO source_registry
+      (id, name, source_type, allowed_use, reliability, license, attribution, homepage_url, fetch_method, notes, last_checked_at, updated_at)
+     VALUES (?, ?, ?, ?, ?, 'copyrighted; summary/link only', ?, ?, ?, ?, date('now'), datetime('now'))
+     ON CONFLICT(id) DO UPDATE SET
+      name = excluded.name,
+      source_type = excluded.source_type,
+      allowed_use = excluded.allowed_use,
+      reliability = excluded.reliability,
+      attribution = excluded.attribution,
+      homepage_url = excluded.homepage_url,
+      fetch_method = excluded.fetch_method,
+      notes = excluded.notes,
+      last_checked_at = excluded.last_checked_at,
+      updated_at = datetime('now')`,
+    [
+      source.id,
+      source.name,
+      source.sourceType,
+      source.allowedUse,
+      source.reliability,
+      source.attribution,
+      source.homepageUrl,
+      source.fetchMethod,
+      source.notes,
+    ],
+  );
+}
+
+function sourceItemStatement(item: SourceItemSeed) {
+  return statement(
+    `INSERT INTO source_items
+      (id, source_id, title, url, item_type, license, author, retrieved_at, summary, allowed_use, review_status, updated_at)
+     VALUES (?, ?, ?, ?, ?, 'copyrighted; summary/link only', ?, date('now'), ?, ?, ?, datetime('now'))
+     ON CONFLICT(id) DO UPDATE SET
+      source_id = excluded.source_id,
+      title = excluded.title,
+      url = excluded.url,
+      item_type = excluded.item_type,
+      author = excluded.author,
+      retrieved_at = excluded.retrieved_at,
+      summary = excluded.summary,
+      allowed_use = excluded.allowed_use,
+      review_status = excluded.review_status,
+      updated_at = datetime('now')`,
+    [
+      item.id,
+      item.sourceId,
+      item.title,
+      item.url,
+      item.itemType,
+      item.author,
+      item.summary,
+      item.allowedUse,
+      item.reviewStatus,
+    ],
+  );
+}
+
+function referenceStatement(
+  entity: EntityRow,
+  sourceItemId: string,
+  reviewStatus: "pending" | "approved",
+) {
+  return statement(
+    `INSERT INTO entity_references
+      (id, entity_id, source_item_id, relation_type, note, review_status)
+     VALUES (?, ?, ?, 'reference', ?, ?)
+     ON CONFLICT(entity_id, source_item_id, relation_type) DO UPDATE SET
+      note = excluded.note,
+      review_status = excluded.review_status`,
+    [
+      `reference-model-gap-${entity.id}-${sourceItemId}`.slice(0, 160),
+      entity.id,
+      sourceItemId,
+      reviewStatus === "approved"
+        ? "Approved model-context source registered for archive expansion. Summary/link only."
+        : "Research index registered for under-documented model expansion; direct fact claims remain review-gated.",
+      reviewStatus,
+    ],
+  );
+}
+
+function aliasStatement(entity: EntityRow, alias: AliasSeed) {
+  return statement(
+    `INSERT INTO entity_aliases
+      (id, entity_id, alias, language, source_id)
+     VALUES (?, ?, ?, ?, ?)
+     ON CONFLICT(entity_id, alias, language) DO UPDATE SET
+      source_id = excluded.source_id`,
+    [
+      `alias-${entity.id}-${alias.language}-${alias.alias}`.slice(0, 160),
+      entity.id,
+      alias.alias,
+      alias.language,
+      alias.sourceId || null,
+    ],
+  );
+}
+
+function claimStatements(entity: EntityRow, claim: ClaimSeed) {
+  return [
+    statement(
+      `INSERT INTO claims
+        (id, subject_entity_id, predicate, object_text, source_item_id, evidence_locator, confidence, review_status, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+       ON CONFLICT(id) DO UPDATE SET
+        predicate = excluded.predicate,
+        object_text = excluded.object_text,
+        source_item_id = excluded.source_item_id,
+        evidence_locator = excluded.evidence_locator,
+        confidence = excluded.confidence,
+        review_status = excluded.review_status,
+        updated_at = datetime('now')`,
+      [
+        claim.id,
+        entity.id,
+        claim.predicate,
+        claim.text,
+        claim.sourceItemId,
+        claim.evidenceLocator || null,
+        claim.confidence,
+        claim.reviewStatus,
+      ],
+    ),
+    statement(
+      `INSERT INTO citations
+        (id, target_type, target_id, source_item_id, claim_id, note)
+       VALUES (?, 'claim', ?, ?, ?, ?)
+       ON CONFLICT(id) DO UPDATE SET
+        source_item_id = excluded.source_item_id,
+        claim_id = excluded.claim_id,
+        note = excluded.note`,
+      [
+        `cite-${claim.id}-${claim.sourceItemId}`.slice(0, 160),
+        claim.id,
+        claim.sourceItemId,
+        claim.id,
+        "Research-boundary claim cites this source item. Review status indicates it is not a verified product fact.",
+      ],
+    ),
+  ];
+}
+
+function modelSpecStatements(
+  model: EntityRow,
+  brand: EntityRow | null,
+  spec: ModelSpecSeed,
+  sourceItemId: string,
+) {
+  return [
+    statement(
+      `INSERT INTO model_specs
+        (id, entity_id, brand_entity_id, series_name, release_year, origin_country, nib, fill_system, material, dimensions, weight, price_range, status, review_status, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))
+       ON CONFLICT(entity_id) DO UPDATE SET
+        brand_entity_id = excluded.brand_entity_id,
+        series_name = excluded.series_name,
+        release_year = excluded.release_year,
+        origin_country = excluded.origin_country,
+        nib = excluded.nib,
+        fill_system = excluded.fill_system,
+        material = excluded.material,
+        dimensions = excluded.dimensions,
+        weight = excluded.weight,
+        price_range = excluded.price_range,
+        status = excluded.status,
+        review_status = excluded.review_status,
+        updated_at = datetime('now')`,
+      [
+        spec.id,
+        model.id,
+        brand?.id || null,
+        spec.seriesName,
+        spec.releaseYear,
+        spec.originCountry,
+        spec.nib,
+        spec.fillSystem,
+        spec.material,
+        spec.dimensions,
+        spec.weight,
+        spec.priceRange,
+        spec.status,
+        spec.reviewStatus,
+      ],
+    ),
+    statement(
+      `INSERT INTO citations
+        (id, target_type, target_id, source_item_id, note)
+       VALUES (?, 'model_spec', ?, ?, ?)
+       ON CONFLICT(id) DO UPDATE SET
+        source_item_id = excluded.source_item_id,
+        note = excluded.note`,
+      [
+        `cite-${spec.id}-${sourceItemId}`.slice(0, 160),
+        spec.id,
+        sourceItemId,
+        "Research model spec uses this source as a queue anchor; review status controls factual confidence.",
+      ],
+    ),
+  ];
+}
+
+function storyStatements(entity: EntityRow, story: StorySeed) {
+  const statements = [
+    statement(
+      `INSERT INTO stories
+        (id, entity_id, title, story_type, summary, body_md, status, source_notes, updated_at)
+       VALUES (?, ?, ?, 'model_story', ?, ?, ?, ?, datetime('now'))
+       ON CONFLICT(id) DO UPDATE SET
+        title = excluded.title,
+        summary = excluded.summary,
+        body_md = excluded.body_md,
+        status = excluded.status,
+        source_notes = excluded.source_notes,
+        updated_at = datetime('now')`,
+      [
+        story.id,
+        entity.id,
+        story.title,
+        story.summary,
+        story.bodyMd,
+        story.status,
+        story.sourceNotes,
+      ],
+    ),
+  ];
+
+  for (const sourceItemId of story.sourceItemIds) {
+    statements.push(
+      statement(
+        `INSERT INTO citations
+          (id, target_type, target_id, source_item_id, note)
+         VALUES (?, 'story', ?, ?, ?)
+         ON CONFLICT(id) DO UPDATE SET
+          source_item_id = excluded.source_item_id,
+          note = excluded.note`,
+        [
+          `cite-${story.id}-${sourceItemId}`.slice(0, 160),
+          story.id,
+          sourceItemId,
+          "Research model story uses this source as a summary/link-only anchor.",
+        ],
+      ),
+    );
+  }
+
+  for (const claimId of story.claimIds) {
+    statements.push(
+      statement(
+        `INSERT INTO citations
+          (id, target_type, target_id, claim_id, note)
+         VALUES (?, 'story', ?, ?, ?)
+         ON CONFLICT(id) DO UPDATE SET
+          claim_id = excluded.claim_id,
+          note = excluded.note`,
+        [
+          `cite-${story.id}-${claimId}`.slice(0, 160),
+          story.id,
+          claimId,
+          "Research model story cites this evidence-boundary claim.",
+        ],
+      ),
+    );
+  }
+
+  return statements;
+}
+
+function variantStatement(model: EntityRow, variant: VariantSeed) {
+  return statement(
+    `INSERT INTO model_variants
+      (id, model_entity_id, variant_name, release_year, notes, source_item_id, review_status)
+     VALUES (?, ?, ?, ?, ?, ?, ?)
+     ON CONFLICT(model_entity_id, variant_name) DO UPDATE SET
+      release_year = excluded.release_year,
+      notes = excluded.notes,
+      source_item_id = excluded.source_item_id,
+      review_status = excluded.review_status`,
+    [
+      variant.id,
+      model.id,
+      variant.name,
+      variant.releaseYear || null,
+      variant.notes,
+      variant.sourceItemId || null,
+      variant.reviewStatus,
+    ],
+  );
+}
+
+function brandModelLinkStatement(brand: EntityRow | null, model: EntityRow) {
+  if (!brand) return null;
+  return statement(
+    `INSERT INTO entity_links
+      (id, source_id, target_id, link_type)
+     VALUES (?, ?, ?, 'brand_model')
+     ON CONFLICT(source_id, target_id, link_type) DO NOTHING`,
+    [`link-brand-model-${brand.id}-${model.id}`.slice(0, 160), brand.id, model.id],
+  );
+}
+
+function modelStatements(
+  model: EntityRow,
+  brand: EntityRow | null,
+  seed: ModelGapSeed,
+) {
+  const statements: InStatement[] = [];
+  for (const sourceItemId of seed.sourceItemIds) {
+    statements.push(
+      referenceStatement(
+        model,
+        sourceItemId,
+        sourceItemId.includes("official") ? "approved" : "pending",
+      ),
+    );
+  }
+  for (const alias of seed.aliases) statements.push(aliasStatement(model, alias));
+  statements.push(
+    ...modelSpecStatements(model, brand, seed.spec, seed.sourceItemIds[0]),
+  );
+  for (const claim of seed.claims) statements.push(...claimStatements(model, claim));
+  statements.push(...storyStatements(model, seed.story));
+  for (const variant of seed.variants || []) {
+    statements.push(variantStatement(model, variant));
+  }
+  const brandLinkStatement = brandModelLinkStatement(brand, model);
+  if (brandLinkStatement) statements.push(brandLinkStatement);
+  return statements;
+}
+
 function getReferencedSourceItemIds(models: ModelGapSeed[]) {
   const ids = new Set<string>();
   for (const seed of models) {
@@ -5589,20 +6402,7 @@ async function writeModel(db: Client, seed: ModelGapSeed) {
   }
 
   const brand = await findEntity(db, "brand", seed.brandSlug);
-  for (const sourceItemId of seed.sourceItemIds) {
-    await writeReference(
-      db,
-      model,
-      sourceItemId,
-      sourceItemId.includes("official") ? "approved" : "pending",
-    );
-  }
-  for (const alias of seed.aliases) await writeAlias(db, model, alias);
-  await writeModelSpec(db, model, brand, seed.spec, seed.sourceItemIds[0]);
-  for (const claim of seed.claims) await writeClaim(db, model, claim);
-  await writeStory(db, model, seed.story);
-  for (const variant of seed.variants || []) await writeVariant(db, model, variant);
-  await writeBrandModelLink(db, brand, model);
+  await runBatch(db, modelStatements(model, brand, seed));
 }
 
 async function main() {
@@ -5651,8 +6451,10 @@ async function main() {
     console.log(
       `Write scope: ${sourcesToWrite.length} source registries, ${sourceItemsToWrite.length} source items`,
     );
-    for (const source of sourcesToWrite) await writeSourceRegistry(db, source);
-    for (const item of sourceItemsToWrite) await writeSourceItem(db, item);
+    await runBatch(db, [
+      ...sourcesToWrite.map(sourceRegistryStatement),
+      ...sourceItemsToWrite.map(sourceItemStatement),
+    ]);
   }
 
   for (const seed of models) {

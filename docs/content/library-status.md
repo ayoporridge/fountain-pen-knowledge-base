@@ -12,7 +12,7 @@
 | library-01 | 图书馆 schema | `migrations/011_library_schema.sql` | 已落地 | 后续迁移保持向前兼容 |
 | library-02 | Wikidata 品牌引导 | `scripts/import-wikidata-brands.ts`，16 个品牌的 `external_ids`/`entity_aliases`/`entity_references`，详情页外部标识面板 | 已落地 | 对没有稳定 Wikidata 条目的中国/社区品牌改走官网、目录、论坛和中文资料来源 |
 | library-03 | 品牌馆 | `BrandMuseum`，品牌页展示身份卡、别名、claims、故事、时间线、代表型号、来源；已补 69 个品牌故事/研究草稿，69 个品牌全部达到 ready，品牌 gap 为 0 | 已落地 | 继续补时间线与更深型号来源 |
-| library-04 | 型号档案 | `ModelArchive`，型号页展示参数、claims、版本、图示、来源；`scripts/import-official-model-sources.ts` 已补 25 个结构化型号档案，`scripts/import-research-gap-sources.ts` 为 20 个低资料型号建立待核验档案，`scripts/import-model-gap-sources.ts` 为 96 个 0 分优先型号建立研究队列档案，`scripts/import-official-model-diagrams.ts` 已补 4 张型号图示 | 已落地 | 扩写型号规格、版本来源和更多证据型图示 |
+| library-04 | 型号档案 | `ModelArchive`，型号页展示参数、claims、版本、图示、来源；`scripts/import-official-model-sources.ts` 已补 25 个结构化型号档案，`scripts/import-research-gap-sources.ts` 为 20 个低资料型号建立待核验档案，`scripts/import-model-gap-sources.ts` 为 108 个 0 分优先型号建立研究队列档案，`scripts/import-official-model-diagrams.ts` 已补 4 张型号图示 | 已落地 | 扩写型号规格、版本来源和更多证据型图示 |
 | library-05 | 时间线 | `timeline_events`，`Timeline`，`/timeline` | 已落地 | 增加品牌/型号历史节点 |
 | library-06 | 图示体系 | `diagrams`，`DiagramRenderer`，`/library/diagrams`，`diagram-plan.md`；当前 9 张 SVG 图示，其中 4 张为重点型号站内原创 SVG；75 张 Warm Pen Atlas bitmap 插画已生成并入媒体资产 | 已落地 | 证据型机制图继续优先用 SVG；按用户反馈，暂停继续生成 bitmap 插画 |
 | library-07 | 媒体授权 | `media_assets`，`/library/media`，`scripts/import-commons-media.ts`，`scripts/import-warm-pen-atlas-media.ts`，来源政策；已扩展 10 个 Commons 搜索 profile 并收紧标题/关键词过滤，另有 75 张 `site-original` Warm Pen Atlas 插画和 5 个复用占位媒体绑定 | 已落地 | Commons 候选仍需人工复核；按用户反馈暂停继续生成 bitmap 图 |
@@ -34,15 +34,15 @@
 
 `npm run seed:library` 应至少写入：
 
-- stories: 212（seed 基线为 4，含后续品牌/型号故事草稿和研究队列草稿）
-- claims: 282（seed 基线为 12，含后续来源、故事、型号档案、图示引用和研究队列 claims）
-- citations: 842（seed 基线为 26，含后续来源、故事、型号档案、图示引用和研究队列引用）
+- stories: 224（seed 基线为 4，含后续品牌/型号故事草稿和研究队列草稿）
+- claims: 294（seed 基线为 12，含后续来源、故事、型号档案、图示引用和研究队列 claims）
+- citations: 890（seed 基线为 26，含后续来源、故事、型号档案、图示引用和研究队列引用）
 - timeline_events: 73（seed 基线为 5，含后续品牌/型号历史节点和研究队列节点）
 - diagrams: 9（seed 基线为 5，含后续 4 张重点型号站内原创 SVG）
 - media_assets: 110（seed 基线为 2，含后续 Commons 文件候选、75 张 Warm Pen Atlas 站内原创插画和 5 个复用占位媒体绑定）
 - community_summaries: 2
 - exhibits: 6
-- source_items: 639（seed 基线为 15，含后续导入来源索引、官方/二级型号档案、二级品牌资料、研究缺口入口和 Warm Pen Atlas 图像来源项）
+- source_items: 651（seed 基线为 15，含后续导入来源索引、官方/二级型号档案、二级品牌资料、研究缺口入口和 Warm Pen Atlas 图像来源项）
 
 `npm run check:library` 应至少验证：
 
@@ -86,15 +86,15 @@
 最近一次本地/远端导入已把已有 Richard's Pens、Wikidata、重点品牌官方来源、品牌补全来源、新增二级品牌资料和优先型号研究队列整理进来源索引：
 
 - source_registry: 67
-- source_items: 639
-- entity_references: 573
-- stories: 212
-- citations: 842
-- claims: 282
+- source_items: 651
+- entity_references: 585
+- stories: 224
+- citations: 890
+- claims: 294
 - timeline_events: 73
 - media_assets: 110
 - external_ids: 61
-- entity_aliases: 523
+- entity_aliases: 558
 - commonsMedia: 28
 - richardspens source_items: 309
 - richardspens entity_references: 316
@@ -105,9 +105,9 @@
 - Warm Pen Atlas generated source registry: 1
 - new secondary brand source registries: 7（Alibaba Qiangu、Sketchy Wolf、The Poor Penman、FrankUnderwater、Rupert Arzeian、dapprman、Everyday Scrawl）
 - research-gap source registries: 3（DareWorks official、Fountain Pen Network、Public web research index），其中 Public web research index 继续承载低资料条目和优先型号中的搜索型研究入口；Sailor/LAMY 第二批优先型号优先使用官方产品/系列页作为锚点。早前研究缺口批次对应 21 个 source_items、40 个故事/型号研究草稿、40 个研究队列/待核验 claims、5 个复用占位媒体绑定
-- referenced entities: 520
+- referenced entities: 532
 
-最近一次 `npm run audit:library-coverage` 显示品牌覆盖均分为 96/100，品牌 ready 为 69/69，gap 为 0，品牌故事覆盖为 69/69（100%），品牌来源覆盖为 69/69（100%），品牌 claim 覆盖为 69/69（100%），品牌媒体覆盖为 69/69（100%），品牌时间线覆盖为 62/69（90%）；型号覆盖均分为 43/100，型号 ready 为 15，starter 为 128，gap 为 108，型号故事覆盖为 143/251（57%），型号 claim 覆盖为 143/251（57%），型号来源覆盖为 204/251（81%），型号媒体候选覆盖为 16/251（6%），型号规格覆盖为 143/251，型号图示覆盖为 6/251（2%），型号时间线覆盖为 7/251（3%）。`scripts/import-brand-completion-sources.ts` 已把 Montblanc、Waterman、M&G、Parker、Sheaffer、Pelikan、Faber-Castell 的品牌故事、官方来源、claims 与时间线补齐，并为剩余品牌补充别名与外部入口；对无现代官网的历史品牌，外部入口使用已登记资料站 profile，不冒充官方来源。`scripts/import-model-gap-sources.ts` 已把 KACO Master大师14K、KACO SKY百锋、Noodler鲶鱼 简易钢笔、SKB派顿 F10/F21、Montblanc 22、万特佳无型号页、Nakaya Housoge、Nakaya Portable/Portable Cigar、Nakaya Portable Writer 黑溜涂、公爵无型号页、Sailor 0501、Sailor 1029、Sailor 1219、Sailor 1911/Profit、Sailor 21K Pro Gear/大鱼雷、Sailor Classic Ko、Sailor King of Pen、Sailor Promenade、Sailor 四季织1224、Sailor 转运石、Sailor 长刀研、LAMY AL-star、LAMY dialog 3、LAMY logo、LAMY studio、PenBBS 268/456/469/494/金尖大明尖、Waterman Expert、Waterman Charleston/Hemisphere、Waterman Carène、Namiki 飞升龙、HongDian 1866/516/517/517s/6013/620/M2/N6/T1/秦/苏木/远航者/黑森林、Delike 元素系列、KACO Edge 刀锋、晨光按动钢笔、Majohn 80mini-E/A1/F9/M2/P140/P141/Q1/V1/V60/丸彩、Picasso 916、Wing Sung 236/3013/322/601/601A/618/698/699/729/840、Parker 51 复刻、Parker IM 丽雅、Parker Duofold/乔特/Sonnet/Vector、Sheaffer 品牌泛称/帝国元首、Platinum Curidas/Izumo/富士旬景 PNB-13000/小流星 PQ200/President/莳绘系列、Snowhite FP20、Pilot 78G/78G+、Pilot 845 Urushi、Pilot 88G、Pilot 912、Pilot Capless/Decimo、Pilot Cavalier、Pilot Custom 74/742/743/823、Pilot Elite 95S 从 0 分空档案推进为研究队列型型号档案；这些页面保留 `needs_source` 和“待核验”边界，对 Sailor/LAMY 官方页面只写入来源可支撑的产品身份、系列位置或机制语境，不把 search index 当成事实来源。Richard's Pens 来源卡仍默认 `pending`，但 Wahl、Chilton、Dunn、Wearever、Graphomatic、Ingersoll、Morrison、WASP 八个品牌绑定的具体 profile 已作为人工核准来源进入品牌故事；Wikidata 品牌引导来源为 `approved`，但只用于基础身份、别名和外部 ID，不直接替代品牌故事审核。官方品牌/型号来源用于后续故事、时间线、规格和型号语境扩写；DareWorks/逗万目前使用官网 HTTP 页面作为官方营销来源；Fountain Pen Network 和 `public-web-research-index` 只用于待核验研究队列，特别是 Admok、Tramol、上海、东吴、书乐、英雄派迪、金星、铃兰、长江、依人、半句、唐月、塞尔、大公、意斯华、欧领、永续、派利、烂笔头这类低资料条目，不冒充官方事实。Paper Mouse、PenHero、Truly American Made、Huashan 1914、The Gentleman Stationer、Narratess、Fountain Pen Chronicles、The Well-Appointed Desk、GoldSupplier、Duke Pens Australia、Alibaba Qiangu、Sketchy Wolf、The Poor Penman、FrankUnderwater、Rupert Arzeian、dapprman、Everyday Scrawl、JUSPIRIT、LOXPO、Comfortable Shoes Studio、Pastor and Pen、Left Hook Pens、Scribble Jot、SBREBrown 这类二级来源只用于待核验或来源等级明确的草稿。Commons 图片仍是 `candidate`，需要逐张复核 license、作者、署名和画面相关性后才能进入正式图库；Warm Pen Atlas bitmap 插画是 `site-original`，用于封面/入口图，不替代机制事实图。按用户反馈，当前生图数量已足够，暂停继续生成新图；剩余缺图位置继续复用现有图片作为占位媒体，后续再逐张细调。
+最近一次 `npm run audit:library-coverage` 显示品牌覆盖均分为 96/100，品牌 ready 为 69/69，gap 为 0，品牌故事覆盖为 69/69（100%），品牌来源覆盖为 69/69（100%），品牌 claim 覆盖为 69/69（100%），品牌媒体覆盖为 69/69（100%），品牌时间线覆盖为 62/69（90%）；型号覆盖均分为 47/100，型号 ready 为 15，starter 为 140，gap 为 96，型号故事覆盖为 155/251（62%），型号 claim 覆盖为 155/251（62%），型号来源覆盖为 216/251（86%），型号媒体候选覆盖为 16/251（6%），型号规格覆盖为 155/251，型号图示覆盖为 6/251（2%），型号时间线覆盖为 7/251（3%）。`scripts/import-brand-completion-sources.ts` 已把 Montblanc、Waterman、M&G、Parker、Sheaffer、Pelikan、Faber-Castell 的品牌故事、官方来源、claims 与时间线补齐，并为剩余品牌补充别名与外部入口；对无现代官网的历史品牌，外部入口使用已登记资料站 profile，不冒充官方来源。`scripts/import-model-gap-sources.ts` 已把 KACO Master大师14K、KACO SKY百锋、Noodler鲶鱼 简易钢笔、SKB派顿 F10/F21、Montblanc 22、万特佳无型号页、Nakaya Housoge、Nakaya Portable/Portable Cigar、Nakaya Portable Writer 黑溜涂、公爵无型号页、Sailor 0501、Sailor 1029、Sailor 1219、Sailor 1911/Profit、Sailor 21K Pro Gear/大鱼雷、Sailor Classic Ko、Sailor King of Pen、Sailor Promenade、Sailor 四季织1224、Sailor 转运石、Sailor 长刀研、LAMY AL-star、LAMY dialog 3、LAMY logo、LAMY studio、PenBBS 268/456/469/494/金尖大明尖、Waterman Expert、Waterman Charleston/Hemisphere、Waterman Carène、Namiki 飞升龙、HongDian 1866/516/517/517s/6013/620/M2/N6/T1/秦/苏木/远航者/黑森林、Delike 元素系列、KACO Edge 刀锋、晨光按动钢笔、Majohn 80mini-E/A1/F9/M2/P140/P141/Q1/V1/V60/丸彩、Picasso 916、Wing Sung 236/3013/322/601/601A/618/698/699/729/840、Parker 51 复刻、Parker IM 丽雅、Parker Duofold/乔特/Sonnet/Vector、Sheaffer 品牌泛称/帝国元首、Platinum Curidas/Izumo/富士旬景 PNB-13000/小流星 PQ200/President/莳绘系列、Snowhite FP20、Pilot 78G/78G+、Pilot 845 Urushi、Pilot 88G、Pilot 912、Pilot Capless/Decimo、Pilot Cavalier、Pilot Custom 74/742/743/823、Pilot Elite 95S、Pilot Heritage 91/92、Pilot Iroshizuku 色彩雫（待重分类墨水条目）、Pilot Prera/Kakuno/Cocoon、Pelikan M1000/M1005 Stresemann/M200/M400/M600/M605 白乌龟从 0 分空档案推进为研究队列型型号档案；这些页面保留 `needs_source` 和“待核验”边界，对 Sailor/LAMY 官方页面只写入来源可支撑的产品身份、系列位置或机制语境，不把 search index 当成事实来源。Richard's Pens 来源卡仍默认 `pending`，但 Wahl、Chilton、Dunn、Wearever、Graphomatic、Ingersoll、Morrison、WASP 八个品牌绑定的具体 profile 已作为人工核准来源进入品牌故事；Wikidata 品牌引导来源为 `approved`，但只用于基础身份、别名和外部 ID，不直接替代品牌故事审核。官方品牌/型号来源用于后续故事、时间线、规格和型号语境扩写；DareWorks/逗万目前使用官网 HTTP 页面作为官方营销来源；Fountain Pen Network 和 `public-web-research-index` 只用于待核验研究队列，特别是 Admok、Tramol、上海、东吴、书乐、英雄派迪、金星、铃兰、长江、依人、半句、唐月、塞尔、大公、意斯华、欧领、永续、派利、烂笔头这类低资料条目，不冒充官方事实。Paper Mouse、PenHero、Truly American Made、Huashan 1914、The Gentleman Stationer、Narratess、Fountain Pen Chronicles、The Well-Appointed Desk、GoldSupplier、Duke Pens Australia、Alibaba Qiangu、Sketchy Wolf、The Poor Penman、FrankUnderwater、Rupert Arzeian、dapprman、Everyday Scrawl、JUSPIRIT、LOXPO、Comfortable Shoes Studio、Pastor and Pen、Left Hook Pens、Scribble Jot、SBREBrown 这类二级来源只用于待核验或来源等级明确的草稿。Commons 图片仍是 `candidate`，需要逐张复核 license、作者、署名和画面相关性后才能进入正式图库；Warm Pen Atlas bitmap 插画是 `site-original`，用于封面/入口图，不替代机制事实图。按用户反馈，当前生图数量已足够，暂停继续生成新图；剩余缺图位置继续复用现有图片作为占位媒体，后续再逐张细调。
 
 新增品牌故事草稿：
 
@@ -290,6 +290,18 @@
 - Pilot Custom 743：`story-model-pilot-custom-743-research`
 - Pilot Custom 823：`story-model-pilot-custom-823-research`，明确提示真空上墨、日用旗舰口碑、清洗难度和颜色版本需要分层证据。
 - Pilot Elite 95S：`story-model-pilot-elite-95s-research`，明确提示 Elite 95S/E95S 命名、嵌入式笔尖和短钢笔便携性需要来源。
+- Pilot Heritage 91：`story-model-pilot-heritage-91-research`，明确提示它与 Custom 74 的关系、同尖说法和渠道价需要来源。
+- Pilot Heritage 92：`story-model-pilot-heritage-92-research`，明确提示活塞金尖身份、透明笔身和 669 起等价格需要来源。
+- Pilot Iroshizuku 色彩雫：`story-model-pilot-iroshizuku-reclassification-research`，明确提示这是待重分类墨水条目，不应当作钢笔型号写规格。
+- Pilot Prera：`story-model-pilot-prera-research`
+- Pilot Kakuno 笑脸：`story-model-pilot-kakuno-research`，明确提示笑脸笔尖、儿童/学生定位和练字推荐需要来源。
+- Pilot Cocoon 贵妃：`story-model-pilot-cocoon-research`，明确提示 Cocoon/Metropolitan 命名边界和轻商务定位需要来源。
+- Pelikan M1000：`story-model-pelikan-m1000-research`，明确提示旗舰尺寸、手感争议和 M800 对比需要来源。
+- Pelikan M1005 Stresemann：`story-model-pelikan-m1005-stresemann-research`
+- Pelikan M200：`story-model-pelikan-m200-research`
+- Pelikan M400：`story-model-pelikan-m400-research`，明确提示德式湿润书写、性价比争议和 Custom 823 比较需要归因。
+- Pelikan M600：`story-model-pelikan-m600-research`
+- Pelikan M605 白乌龟：`story-model-pelikan-m605-white-research`，明确提示白乌龟是中文玩家昵称，官方色名和供货状态待核验。
 
 `/library/sources` 支持：
 
@@ -333,6 +345,7 @@
 - `/pen/永生-wingsung-3013`、`/pen/永生-wingsung-601`、`/pen/永生-wingsung-698`、`/pen/永生-wingsung-729`、`/pen/派克-parker-51复刻`、`/pen/派克-parker-im丽雅` 展示第六批优先型号研究队列档案、来源入口和机制/版本/身份边界。
 - `/pen/派克-parker-世纪-duofold`、`/pen/派克-parker-卓尔-sonnet`、`/pen/犀飞利-sheaffer-品牌泛称`、`/pen/白金-platinum-curidas`、`/pen/白金-platinum-小流星pq200`、`/pen/白金-platinum-莳绘系列` 展示第七批优先型号研究队列档案、来源入口和历史/命名/重分类/系列边界。
 - `/pen/白雪-fp20`、`/pen/百乐-pilot-78g-78g`、`/pen/百乐-pilot-912`、`/pen/百乐-pilot-capless-decimo`、`/pen/百乐-pilot-custom-823`、`/pen/百乐-pilot-elite-95s` 展示第八批优先型号研究队列档案、来源入口和入门/特殊尖/按动机制/真空上墨/短钢笔边界。
+- `/pen/百乐-pilot-heritage-91`、`/pen/百乐-pilot-heritage-92`、`/pen/百乐-pilot-iroshizuku色彩雫`、`/pen/百乐-pilot-笑脸-kakuno`、`/pen/百利金-pelikan-m1000`、`/pen/百利金-pelikan-m605白乌龟` 展示第九批优先型号研究队列档案、来源入口和 Pilot/Pelikan 系列定位、待重分类墨水条目、尺寸/配色边界。
 - `/pen/永生-wingsung-601a` 的关系图谱横向拖拽后不会被推到右侧裁切区。
 - `/pen/永生-wingsung-601a` 的关联词条不会重复显示内外层标题，也不会重复显示永生品牌链接。
 - 上述页面没有 console error 或 page error。
