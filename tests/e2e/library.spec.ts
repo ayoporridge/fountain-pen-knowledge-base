@@ -1802,6 +1802,77 @@ test.describe("Library smoke flow", () => {
     }
   });
 
+  test("thirteenth priority model gap pages render Sheaffer Chilton Conklin history archives", async ({
+    page,
+  }) => {
+    const cases = [
+      {
+        path: "/pen/sheaffer-s-pfm",
+        texts: [
+          "型号档案",
+          "PFM",
+          "把 Sheaffer PFM 做成大尺寸机制旗舰档案",
+          "Snorkel/PFM 上墨系统待核验",
+          "Sheaffer’s PFM",
+        ],
+      },
+      {
+        path: "/pen/sheaffer-s-snorkel",
+        texts: [
+          "型号档案",
+          "Snorkel",
+          "把 Sheaffer Snorkel 从潜艇长文变成机制档案",
+          "Snorkel 伸缩吸墨管机制待核验",
+          "Sheaffer’s Snorkel",
+        ],
+      },
+      {
+        path: "/pen/the-camel-pen",
+        texts: [
+          "型号档案",
+          "Camel Pen",
+          "把 Camel Pen 先整理成无品牌归属的历史型号页",
+          "Richard's Pens",
+          "The Camel Pen",
+        ],
+      },
+      {
+        path: "/pen/the-chilton-chiltonian",
+        texts: [
+          "型号档案",
+          "Chiltonian",
+          "把 Chiltonian 放进 Chilton 晚期公司迁移语境",
+          "Richard's Pens",
+          "The Chilton Chiltonian",
+        ],
+      },
+      {
+        path: "/pen/the-conklin-glider",
+        texts: [
+          "型号档案",
+          "Glider",
+          "把 Conklin Glider 从 markdown 残片整理成型号页",
+          "Richard's Pens",
+          "The Conklin Glider",
+        ],
+      },
+      {
+        path: "/pen/the-conklin-nozac",
+        texts: [
+          "型号档案",
+          "Nozac",
+          "把 Conklin Nozac 的机制和 profile 来源分开",
+          "Nozac/活塞或容量机制待核验",
+          "The Conklin Nozac",
+        ],
+      },
+    ];
+
+    for (const item of cases) {
+      await expectLibraryPage(page, item.path, item.texts);
+    }
+  });
+
   test("official model diagram index includes evidence-aware diagrams", async ({
     page,
   }) => {

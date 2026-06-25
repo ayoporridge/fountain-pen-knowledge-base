@@ -7009,6 +7009,354 @@ const MODELS: ModelGapSeed[] = [
     sourceNotes:
       "Richard's Pens profile is registered as a summary/link-only source. Exact variants and specifications require editorial review.",
   }),
+  makeSearchOnlyModel({
+    slug: "sheaffer-s-craftsman",
+    brandSlug: "sheaffer",
+    aliases: [
+      { alias: "Sheaffer's Craftsman", language: "en" },
+      { alias: "Sheaffer Craftsman", language: "en" },
+      { alias: "犀飞利 Craftsman", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-1e786f87b763c11c",
+    specId: "spec-sheaffer-craftsman-research",
+    seriesName: "Craftsman",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式待核验",
+    material: "笔身材质/尺寸版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-sheaffer-craftsman-source-boundary",
+    modelName: "Sheaffer's Craftsman",
+    focus:
+      "Sheaffer Craftsman identity, market position, advertising context, nib, filling system, material, size variants, and collector claims",
+    storyId: "story-model-sheaffer-craftsman-research",
+    storyTitle: "把 Sheaffer Craftsman 从广告长文整理成型号档案",
+    storySummary:
+      "Sheaffer Craftsman 先作为 Richard's Pens 支撑的历史型号页，广告语境、规格和版本仍需复核。",
+    storyBodyMd:
+      "Craftsman 当前像一段长文摘录，用户很难快速看出它是什么型号、在 Sheaffer 产品线里处于什么位置。图书馆先把它整理成型号页：身份、年代、广告、上墨、笔尖和材料各自留出位置。\n\n当前档案绑定 Richard's Pens profile，规格仍保持待核验。后续可和 Balance、Tuckaway、Touchdown TM 一起整理 Sheaffer 中低端和便携线索。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Advertising images and exact specifications require editorial review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "sheaffer-s-pfm",
+    brandSlug: "sheaffer",
+    aliases: [
+      { alias: "Sheaffer's PFM", language: "en" },
+      { alias: "Sheaffer PFM", language: "en" },
+      { alias: "犀飞利 PFM", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-e7ab7c545f24715b",
+    specId: "spec-sheaffer-pfm-research",
+    seriesName: "PFM",
+    originCountry: "美国（待核验）",
+    nib: "嵌入式笔尖/规格待核验",
+    fillSystem: "Snorkel/PFM 上墨系统待核验",
+    material: "笔身材质/尺寸版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-sheaffer-pfm-source-boundary",
+    modelName: "Sheaffer's PFM",
+    focus:
+      "Sheaffer PFM identity, Snorkel/PFM filling system, inlaid nib, model variants, advertising context, material, and collector reputation",
+    storyId: "story-model-sheaffer-pfm-research",
+    storyTitle: "把 Sheaffer PFM 做成大尺寸机制旗舰档案",
+    storySummary:
+      "Sheaffer PFM 先作为 Richard's Pens 支撑的机制型历史档案，Snorkel/PFM 系统、嵌入式笔尖和版本需要复核。",
+    storyBodyMd:
+      "PFM 适合从机制和身份两条线来读：它不是普通外观型号，而是把 Sheaffer 的复杂上墨系统、嵌入式笔尖和大尺寸市场定位放在一起。当前摘要还停留在长文片段状态。\n\n当前档案绑定 Richard's Pens profile，暂不把维修页内容混入产品事实。后续应补一张 Snorkel/PFM 机制示意图，让用户不用读完整维修文章也能理解它为什么特殊。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Repair/anatomy pages should stay separate unless explicitly cited.",
+  }),
+  makeSearchOnlyModel({
+    slug: "sheaffer-s-snorkel",
+    brandSlug: "sheaffer",
+    aliases: [
+      { alias: "Sheaffer's Snorkel", language: "en" },
+      { alias: "Sheaffer Snorkel", language: "en" },
+      { alias: "犀飞利 Snorkel 潜艇", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-a17645fa0ce2db51",
+    specId: "spec-sheaffer-snorkel-research",
+    seriesName: "Snorkel",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "Snorkel 伸缩吸墨管机制待核验",
+    material: "笔身材质/型号层级待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-sheaffer-snorkel-source-boundary",
+    modelName: "Sheaffer's Snorkel",
+    focus:
+      "Sheaffer Snorkel identity, extending snorkel filling tube, model hierarchy, nib, material, advertising, and repair/anatomy distinctions",
+    storyId: "story-model-sheaffer-snorkel-research",
+    storyTitle: "把 Sheaffer Snorkel 从潜艇长文变成机制档案",
+    storySummary:
+      "Sheaffer Snorkel 先作为 Richard's Pens 支撑的机制型号页，伸缩吸墨管、型号层级和广告语境需要复核。",
+    storyBodyMd:
+      "Snorkel 是图书馆里最应该图示化的机制之一：用户需要理解的不是一句“潜艇钢笔”，而是伸缩吸墨管如何把吸墨过程和笔尖分开。当前站内内容混有广告图和长文正文。\n\n当前档案先建立型号页结构，绑定 Richard's Pens profile。后续可把 anatomy 与 repair 页面作为机制图来源，而不是把它们混进普通故事段落。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Anatomy and repair details require separate citations.",
+  }),
+  makeSearchOnlyModel({
+    slug: "sheaffer-s-touchdown-tm",
+    brandSlug: "sheaffer",
+    aliases: [
+      { alias: "Sheaffer's Touchdown TM", language: "en" },
+      { alias: "Sheaffer Touchdown TM", language: "en" },
+      { alias: "犀飞利 Touchdown TM", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-0e8fee44221226f1",
+    specId: "spec-sheaffer-touchdown-tm-research",
+    seriesName: "Touchdown TM",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "Touchdown 气压式上墨机制待核验",
+    material: "笔身材质/尺寸版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-sheaffer-touchdown-tm-source-boundary",
+    modelName: "Sheaffer's Touchdown TM",
+    focus:
+      "Sheaffer Touchdown TM identity, Touchdown filling mechanism, TM size/version boundary, nib, material, advertising, and collector claims",
+    storyId: "story-model-sheaffer-touchdown-tm-research",
+    storyTitle: "把 Sheaffer Touchdown TM 的尺寸和机制边界拆开",
+    storySummary:
+      "Sheaffer Touchdown TM 先作为 Richard's Pens 支撑的机制型号页，TM 命名、Touchdown 上墨和版本差异需要复核。",
+    storyBodyMd:
+      "Touchdown TM 的难点在于名字：它既涉及 Touchdown 上墨机制，也涉及 TM 尺寸/版本边界。图书馆应避免把机制名、尺寸名和具体型号混成一团。\n\n当前档案先绑定 Richard's Pens profile，把机制、尺寸、材料、笔尖和广告证据分开留位。后续可与 Snorkel、PFM 组成 Sheaffer 机制演化路径。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Exact TM boundary and mechanism details require editorial review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "sheaffer-s-tuckaway",
+    brandSlug: "sheaffer",
+    aliases: [
+      { alias: "Sheaffer's Tuckaway", language: "en" },
+      { alias: "Sheaffer Tuckaway", language: "en" },
+      { alias: "犀飞利 Tuckaway", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-3ff2917e3e7f3486",
+    specId: "spec-sheaffer-tuckaway-research",
+    seriesName: "Tuckaway",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式/版本差异待核验",
+    material: "短笔身/材质版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-sheaffer-tuckaway-source-boundary",
+    modelName: "Sheaffer's Tuckaway",
+    focus:
+      "Sheaffer Tuckaway identity, compact size, wartime/postwar positioning, nib, filling system variants, material, advertising, and collector claims",
+    storyId: "story-model-sheaffer-tuckaway-research",
+    storyTitle: "把 Sheaffer Tuckaway 做成短钢笔和便携线索页",
+    storySummary:
+      "Sheaffer Tuckaway 先作为 Richard's Pens 支撑的短钢笔档案，便携尺寸、版本和上墨差异仍需复核。",
+    storyBodyMd:
+      "Tuckaway 的核心是便携性：它不是普通 Sheaffer 型号缩小，而是把短笔身、口袋携带和时代审美放在一起。当前长文残片很难让用户看到这条线。\n\n当前档案先建立短钢笔型号页，绑定 Richard's Pens profile。后续可以和 Pilot Elite 95S、Kaweco Sport 等便携钢笔做跨时代对照。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Variant and filling-system details require review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "targa-by-sheaffer",
+    brandSlug: "sheaffer",
+    aliases: [
+      { alias: "Sheaffer Targa", language: "en" },
+      { alias: "Targa by Sheaffer", language: "en" },
+      { alias: "犀飞利 Targa", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-de92366daaed09b2",
+    specId: "spec-sheaffer-targa-research",
+    seriesName: "Targa",
+    originCountry: "美国（待核验）",
+    nib: "嵌入式笔尖/规格待核验",
+    fillSystem: "墨囊/上墨器或版本差异待核验",
+    material: "饰面/尺寸版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-sheaffer-targa-source-boundary",
+    modelName: "Sheaffer Targa",
+    focus:
+      "Sheaffer Targa identity, inlaid nib, cartridge/converter or variant filling, finish catalog, 1970s design context, and collector claims",
+    storyId: "story-model-sheaffer-targa-research",
+    storyTitle: "把 Sheaffer Targa 写成饰面目录和嵌入尖档案",
+    storySummary:
+      "Sheaffer Targa 先作为 Richard's Pens 支撑的现代经典页，嵌入式笔尖、饰面目录和上墨差异需要复核。",
+    storyBodyMd:
+      "Targa 的馆藏价值在于 1970s 设计、嵌入式笔尖和丰富饰面。它适合做版本目录，而不只是保留一段广告图长文。\n\n当前档案先把 Targa 从文章残片整理成型号档案。后续可补饰面表和时间线，把它放进 Sheaffer 从 Balance 到现代设计的路径里。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Finish catalog and exact specifications need separate review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-camel-pen",
+    brandSlug: "camel",
+    aliases: [
+      { alias: "The Camel Pen", language: "en" },
+      { alias: "Camel fountain pen", language: "en" },
+      { alias: "骆驼钢笔", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-f226dc214a9ff573",
+    specId: "spec-camel-pen-research",
+    seriesName: "Camel Pen",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式待核验",
+    material: "笔身材质/广告版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-camel-pen-source-boundary",
+    modelName: "The Camel Pen",
+    focus:
+      "Camel Pen identity, brand/manufacturer attribution, advertising context, filling system, nib, material, and collector claims",
+    storyId: "story-model-camel-pen-research",
+    storyTitle: "把 Camel Pen 先整理成无品牌归属的历史型号页",
+    storySummary:
+      "Camel Pen 先作为 Richard's Pens 支撑的历史型号页，品牌实体暂缺，制造商归属和规格需要复核。",
+    storyBodyMd:
+      "Camel Pen 当前没有对应品牌实体，只有 profile、repair 和 crypt 文章线索。图书馆先不冒充品牌归属，而是把它整理成无品牌归属的历史型号页。\n\n当前档案绑定 Richard's Pens profile，重点是确认制造商、广告、上墨方式和材料。后续来源足够时，再决定是否新增 Camel 品牌实体或并入某个历史厂牌。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Brand/manufacturer attribution is explicitly unverified.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-chilton-chiltonian",
+    brandSlug: "chilton",
+    aliases: [
+      { alias: "The Chilton Chiltonian", language: "en" },
+      { alias: "Chilton Chiltonian", language: "en" },
+      { alias: "奇尔顿 Chiltonian", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-d5b75a1cd3d6ce43",
+    specId: "spec-chilton-chiltonian-research",
+    seriesName: "Chiltonian",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "气压/泵式结构待核验",
+    material: "笔身材质/后期版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-chilton-chiltonian-source-boundary",
+    modelName: "The Chilton Chiltonian",
+    focus:
+      "Chiltonian identity, late Chilton company context, filling system, nib, material, timeline, and collector claims",
+    storyId: "story-model-chilton-chiltonian-research",
+    storyTitle: "把 Chiltonian 放进 Chilton 晚期公司迁移语境",
+    storySummary:
+      "Chiltonian 先作为 Richard's Pens 支撑的历史型号页，公司迁移、晚期定位和规格需要复核。",
+    storyBodyMd:
+      "Chiltonian 的摘要已经透露了公司迁移和晚期处境，这比单纯参数更重要。图书馆要把它放在 Chilton 从早期创新到后期变化的时间线里。\n\n当前档案绑定 Richard's Pens profile，并保留上墨、笔尖和材料待核验。后续可和 Golden Quill、Wing-flow 组成 Chilton 小型展柜。",
+    sourceNotes:
+      "Richard's Pens profile is registered and approved locally for Chiltonian context; exact specifications remain review-gated.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-chilton-golden-quill",
+    brandSlug: "chilton",
+    aliases: [
+      { alias: "The Chilton Golden Quill", language: "en" },
+      { alias: "Chilton Golden Quill", language: "en" },
+      { alias: "奇尔顿 Golden Quill 金羽", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-6455ad4904b18125",
+    specId: "spec-chilton-golden-quill-research",
+    seriesName: "Golden Quill",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式待核验",
+    material: "笔身材质/广告版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-chilton-golden-quill-source-boundary",
+    modelName: "The Chilton Golden Quill",
+    focus:
+      "Chilton Golden Quill identity, 1930s advertising context, filling system, nib, material, model position, and collector claims",
+    storyId: "story-model-chilton-golden-quill-research",
+    storyTitle: "把 Chilton Golden Quill 的广告和型号身份拆开",
+    storySummary:
+      "Chilton Golden Quill 先作为 Richard's Pens 支撑的历史型号页，广告图、规格和系列位置需要复核。",
+    storyBodyMd:
+      "Golden Quill 很容易被广告图带着走，但图书馆需要把广告叙事和型号事实分开。它应先说明属于 Chilton 哪个阶段，再说上墨、笔尖、材料和市场定位。\n\n当前档案绑定 Richard's Pens profile。后续可把 Golden Quill 与 Wing-flow、Chiltonian 做成 Chilton 1930s 展柜。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Advertising and exact specifications need editorial review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-chilton-wing-flow",
+    brandSlug: "chilton",
+    aliases: [
+      { alias: "The Chilton Wing-flow", language: "en" },
+      { alias: "Chilton Wing-flow", language: "en" },
+      { alias: "奇尔顿 Wing-flow 翼流", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-c1ed0f2f13bc8b1c",
+    specId: "spec-chilton-wing-flow-research",
+    seriesName: "Wing-flow",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式待核验",
+    material: "笔身材质/广告版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-chilton-wing-flow-source-boundary",
+    modelName: "The Chilton Wing-flow",
+    focus:
+      "Chilton Wing-flow identity, advertising context, filling system, nib, material, product-line position, and collector claims",
+    storyId: "story-model-chilton-wing-flow-research",
+    storyTitle: "把 Chilton Wing-flow 做成 1930s 设计和广告档案",
+    storySummary:
+      "Chilton Wing-flow 先作为 Richard's Pens 支撑的历史型号页，广告、设计名和规格需要复核。",
+    storyBodyMd:
+      "Wing-flow 的名字本身就有设计意味，适合图书馆化：它可以连接广告语言、笔身造型和 Chilton 的技术路线。当前页面还只是长文残片。\n\n当前档案先建立型号页结构，绑定 Richard's Pens profile。后续再补广告来源、规格和可能的机制图。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Design and specification claims remain review-gated.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-conklin-glider",
+    brandSlug: "conklin",
+    aliases: [
+      { alias: "The Conklin Glider", language: "en" },
+      { alias: "Conklin Glider", language: "en" },
+      { alias: "康克令 Glider 滑翔机", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-25175231ff08f4fe",
+    specId: "spec-conklin-glider-research",
+    seriesName: "Glider",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式待核验",
+    material: "笔身材质/广告版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-conklin-glider-source-boundary",
+    modelName: "The Conklin Glider",
+    focus:
+      "Conklin Glider identity, postwar advertising context, filling system, nib, material, product-line position, and collector claims",
+    storyId: "story-model-conklin-glider-research",
+    storyTitle: "把 Conklin Glider 从 markdown 残片整理成型号页",
+    storySummary:
+      "Conklin Glider 先作为 Richard's Pens 支撑的历史型号页，当前 markdown 残留、广告和规格都需要复核。",
+    storyBodyMd:
+      "Glider 当前摘要甚至残留 markdown fence，说明它最需要先整理成干净的型号档案。第一步不是写更多故事，而是把来源、型号、广告、规格和品牌关系拆清楚。\n\n当前档案绑定 Richard's Pens profile。后续可和 Nozac、Crescent 相关条目一起整理 Conklin 从技术创新到战后产品线的变化。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Existing markdown residue in source summary should be cleaned separately.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-conklin-nozac",
+    brandSlug: "conklin",
+    aliases: [
+      { alias: "The Conklin Nozac", language: "en" },
+      { alias: "Conklin Nozac", language: "en" },
+      { alias: "康克令 Nozac", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-e7c47ce6acc32399",
+    specId: "spec-conklin-nozac-research",
+    seriesName: "Nozac",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "Nozac/活塞或容量机制待核验",
+    material: "笔身材质/尺寸版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-conklin-nozac-source-boundary",
+    modelName: "The Conklin Nozac",
+    focus:
+      "Conklin Nozac identity, filling/capacity mechanism, anatomy/profile distinction, nib, material, variants, and collector claims",
+    storyId: "story-model-conklin-nozac-research",
+    storyTitle: "把 Conklin Nozac 的机制和 profile 来源分开",
+    storySummary:
+      "Conklin Nozac 先作为 Richard's Pens 支撑的机制型历史档案，profile、anatomy 和规格需要分层复核。",
+    storyBodyMd:
+      "Nozac 不是只靠名字成立的历史型号，它需要机制解释：为什么叫 Nozac、容量/上墨结构如何工作、和 Conklin 其他技术路线有什么关系。Richard's Pens 既有 profile 也有 anatomy 线索。\n\n当前档案先绑定 profile 来源，并保留机制细节待核验。后续可引用 anatomy 页面制作结构图。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Anatomy details should be separately cited before mechanism diagrams are finalized.",
+  }),
 ];
 
 function getClient() {
