@@ -1330,6 +1330,150 @@ const SOURCE_ITEMS: SourceItemSeed[] = [
     allowedUse: "link_only",
     reviewStatus: "pending",
   },
+  {
+    id: "source-parker-duofold-modern-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Parker Duofold modern / Centennial",
+    url: "https://www.bing.com/search?q=%22Parker+Duofold%22+%22fountain+pen%22+%22Centennial%22+official+review",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Parker Duofold modern/Centennial official pages, reviews, and historical context. Use direct sources before asserting 1921 lineage, current specs, or local price claims.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-parker-jotter-fp-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Parker Jotter fountain pen",
+    url: "https://www.bing.com/search?q=%22Parker+Jotter%22+%22fountain+pen%22+official+review",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Parker Jotter fountain-pen product pages, retailer specs, and reviews. Use direct evidence before mapping ballpoint-family context to fountain-pen specs.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-parker-sonnet-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Parker Sonnet fountain pen",
+    url: "https://www.bing.com/search?q=%22Parker+Sonnet%22+%22fountain+pen%22+official+review",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Parker Sonnet official/product pages and long-term reviews. Nib options, finish variants, price, and comparison claims require direct sources.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-parker-vector-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Parker Vector fountain pen",
+    url: "https://www.bing.com/search?q=%22Parker+Vector%22+%22fountain+pen%22+official+review",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Parker Vector product, student/entry positioning, and review evidence. Use direct product or archive sources before asserting current availability or specs.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-sheaffer-generic-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Sheaffer generic pen entry",
+    url: "https://www.bing.com/search?q=%22Sheaffer%22+%22fountain+pen%22+brand+history+official",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for the misclassified Sheaffer brand-generic pen entry. Use to decide whether this local record should be merged into the Sheaffer brand page or split into concrete model archives.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-sheaffer-imperial-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Sheaffer Imperial / Legacy Chinese naming",
+    url: "https://www.bing.com/search?q=%22Sheaffer+Imperial%22+%22fountain+pen%22+%22%E7%8A%80%E9%A3%9E%E5%88%A9%22+%22%E5%B8%9D%E5%9B%BD%22",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Sheaffer Imperial/Legacy naming and the local Chinese 帝国元首 entry. Use direct catalog/review evidence before deciding whether the page maps to Imperial, Legacy, or another Sheaffer model.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-platinum-curidas-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Platinum Curidas",
+    url: "https://www.bing.com/search?q=%22Platinum+Curidas%22+%22fountain+pen%22+official+review",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Platinum Curidas official pages, reviews, retractable mechanism, sealing, and price evidence. Use direct sources before asserting dryness or mechanism performance.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-platinum-izumo-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Platinum Izumo",
+    url: "https://www.bing.com/search?q=%22Platinum+Izumo%22+%22fountain+pen%22+official+review",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Platinum Izumo official pages, urushi/wood/body variants, reviews, and Japanese-craft positioning. Use direct sources before asserting material or model-family details.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-platinum-fuji-shunkei-pnb13000-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Platinum 富士旬景 PNB-13000",
+    url: "https://www.bing.com/search?q=%22Platinum%22+%22PNB-13000%22+%22%E5%AF%8C%E5%A3%AB%E6%97%AC%E6%99%AF%22+%22fountain+pen%22",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Platinum 富士旬景 / PNB-13000 product identity, seasonal color mapping, and #3776 relationship evidence. Use direct sources before writing upgrade-positioning claims.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-platinum-preppy-pq200-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Platinum 小流星 / Preppy PQ200",
+    url: "https://www.bing.com/search?q=%22Platinum%22+%22PQ200%22+%22Preppy%22+%22%E5%B0%8F%E6%B5%81%E6%98%9F%22+%22fountain+pen%22",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Platinum 小流星 / Preppy PQ200 naming, cartridge compatibility, nib, and entry-level pricing evidence. Use direct sources before merging Chinese nickname with official SKU.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-platinum-president-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Platinum President",
+    url: "https://www.bing.com/search?q=%22Platinum+President%22+%22fountain+pen%22+official+review",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Platinum President official/archive pages, nib, filling system, status, and high-end positioning. Use direct sources before asserting current availability or flagship claims.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-platinum-makie-series-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Platinum Maki-e series",
+    url: "https://www.bing.com/search?q=%22Platinum%22+%22Maki-e%22+%22fountain+pen%22+official+%22%E8%8E%B3%E7%BB%98%22",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Platinum Maki-e fountain-pen series, decorative technique, model-family boundaries, and price evidence. Use official/catalog sources before making artwork or material claims.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
 ];
 
 const RESEARCH_SPEC = {
@@ -4165,6 +4309,359 @@ const MODELS: ModelGapSeed[] = [
     storyBodyMd:
       "IM 丽雅的原始摘要很像普通用户的真实需求：不是为了“玩”，而是需要稳定、好用、拿得出手的日常笔。这个方向很适合图书馆，但不能只靠一句购买判断。\n\n当前档案先把问题拆开：官方/零售来源确认 IM 的产品线、笔尖、上墨和涂层版本；评测来源再承载握感、稳定性、商务感和同价位比较。这样用户点进来能看到它为什么是日用入口，而不是只看到空洞推荐。",
   }),
+  makeSearchOnlyModel({
+    slug: "派克-parker-世纪-duofold",
+    brandSlug: "parker",
+    aliases: [
+      { alias: "Parker Duofold", language: "en" },
+      { alias: "Parker Duofold Centennial", language: "en" },
+      { alias: "派克 世纪 Duofold", language: "zh" },
+      { alias: "派克 大豆腐", language: "zh" },
+    ],
+    sourceItemId: "source-parker-duofold-modern-public-search",
+    specId: "spec-parker-duofold-modern-research",
+    seriesName: "Duofold / Centennial",
+    originCountry: "产地/版本待核验",
+    nib: "金尖/笔尖规格待核验",
+    fillSystem: "墨囊/上墨器说法待核验",
+    material: "树脂/贵金属装饰/版本材质待核验",
+    priceRange: "中文渠道价和跨境价待核验",
+    claimId: "claim-parker-duofold-modern-source-boundary",
+    modelName: "派克 Parker 世纪 Duofold",
+    focus:
+      "modern Duofold identity, Centennial/International versions, 1921 lineage claims, nib/material specs, and local price anecdotes",
+    storyId: "story-model-parker-duofold-modern-research",
+    storyTitle: "把 Parker Duofold 的百年名号和现代产品拆开",
+    storySummary:
+      "Parker Duofold / 世纪先作为历史名号加现代产品线研究页，1921 传统、现代规格、中文“大豆腐”昵称和跨境价格都等待直接来源。",
+    storyBodyMd:
+      "Duofold 是 Parker 最容易被历史光环笼罩的系列之一。原始摘要把它和 1921 年、万宝龙 149 之前的历史、中文“大豆腐”昵称和亚马逊好价放在一起，这些都值得保留为阅读线索，但不能混成单一事实。\n\n当前档案先把它拆成三层：历史层确认 Duofold 名号和早期 Parker 叙事；现代产品层确认 Centennial、International、笔尖、材质和产地；购买层再记录跨境价格和玩家昵称。没有直接来源前，价格与历史比较只作为待核验线索。",
+    variants: [
+      {
+        id: "variant-parker-duofold-centennial-candidate",
+        name: "Duofold Centennial candidate",
+        notes: "Likely modern large-size path; verify exact product page, material, nib, and dimensions before using as factual specs.",
+        sourceItemId: "source-parker-duofold-modern-public-search",
+        reviewStatus: "needs_source",
+      },
+      {
+        id: "variant-parker-duofold-international-candidate",
+        name: "Duofold International candidate",
+        notes: "Keep separate from Centennial and vintage Duofold references until direct catalog evidence is attached.",
+        sourceItemId: "source-parker-duofold-modern-public-search",
+        reviewStatus: "needs_source",
+      },
+    ],
+  }),
+  makeSearchOnlyModel({
+    slug: "派克-parker-乔特-jotter",
+    brandSlug: "parker",
+    aliases: [
+      { alias: "Parker Jotter fountain pen", language: "en" },
+      { alias: "Parker Jotter", language: "en" },
+      { alias: "派克 乔特 Jotter", language: "zh" },
+    ],
+    sourceItemId: "source-parker-jotter-fp-public-search",
+    specId: "spec-parker-jotter-fp-research",
+    seriesName: "Jotter fountain pen",
+    originCountry: "产地/版本待核验",
+    nib: "钢尖说法待核验",
+    fillSystem: "墨囊/上墨器说法待核验",
+    material: "塑料/金属部件/版本材质待核验",
+    priceRange: "入门价位待核验",
+    claimId: "claim-parker-jotter-fp-source-boundary",
+    modelName: "派克 Parker 乔特 Jotter",
+    focus:
+      "Jotter fountain-pen identity, ballpoint-family naming, nib, filling system, material, and entry-level positioning",
+    storyId: "story-model-parker-jotter-fp-research",
+    storyTitle: "把 Jotter 钢笔从圆珠笔名号里拆出来",
+    storySummary:
+      "Parker Jotter 钢笔先按入门研究页处理，重点确认它与 Jotter 圆珠笔家族的关系、钢笔规格和真实入门价位。",
+    storyBodyMd:
+      "Jotter 的麻烦在于：很多用户先认识的是圆珠笔，而不是钢笔。原始摘要说它是“派克最便宜的入门”，这个判断对用户有用，但必须确认对应的是哪一代 Jotter fountain pen、什么笔尖、什么上墨方式和哪个市场价格。\n\n当前档案先作为入门页研究队列。后续补证应把圆珠笔家族名号、钢笔产品页、零售规格和长期书写体验分开。",
+  }),
+  makeSearchOnlyModel({
+    slug: "派克-parker-卓尔-sonnet",
+    brandSlug: "parker",
+    aliases: [
+      { alias: "Parker Sonnet", language: "en" },
+      { alias: "Parker Sonnet fountain pen", language: "en" },
+      { alias: "派克 卓尔 Sonnet", language: "zh" },
+    ],
+    sourceItemId: "source-parker-sonnet-public-search",
+    specId: "spec-parker-sonnet-research",
+    seriesName: "Sonnet",
+    originCountry: "产地/版本待核验",
+    nib: "钢尖/金尖版本说法待核验",
+    fillSystem: "墨囊/上墨器说法待核验",
+    material: "金属笔身/涂层/饰面待核验",
+    priceRange: "中文渠道价和版本价差待核验",
+    claimId: "claim-parker-sonnet-source-boundary",
+    modelName: "派克 Parker 卓尔 Sonnet",
+    focus:
+      "Sonnet model identity, finish variants, nib experience, comparison claims, filling system, and business-gift positioning",
+    storyId: "story-model-parker-sonnet-research",
+    storyTitle: "把 Sonnet 卓尔的商务外观和书写争议分开写",
+    storySummary:
+      "Parker Sonnet 卓尔先作为中端商务型号研究页，外观优势、笔尖争议和同价位比较都需要归因评测。",
+    storyBodyMd:
+      "Sonnet 的原始摘要很像玩家给购买者的提醒：外观和商务感是优势，但笔尖体验未必压过日系或百利金同价位。这个判断很有价值，但它属于对比性评论，必须有具体评测来源和价格区间。\n\n当前档案先把 Sonnet 拆成产品事实和评价事实：产品事实包括版本、饰面、笔尖、上墨方式和产地；评价事实包括商务感、笔尖体验和同价位对比。没有来源前，不把“优势/劣势”写成稳定结论。",
+  }),
+  makeSearchOnlyModel({
+    slug: "派克-parker-威雅-vector",
+    brandSlug: "parker",
+    aliases: [
+      { alias: "Parker Vector", language: "en" },
+      { alias: "Parker Vector fountain pen", language: "en" },
+      { alias: "派克 威雅 Vector", language: "zh" },
+    ],
+    sourceItemId: "source-parker-vector-public-search",
+    specId: "spec-parker-vector-research",
+    seriesName: "Vector",
+    originCountry: "产地/版本待核验",
+    nib: "钢尖说法待核验",
+    fillSystem: "墨囊/上墨器说法待核验",
+    material: "塑料/金属部件待核验",
+    priceRange: "150 以下说法待核验",
+    claimId: "claim-parker-vector-source-boundary",
+    modelName: "派克 Parker 威雅 Vector",
+    focus:
+      "Vector entry positioning, current availability, nib, filling system, material, and sub-150 import-brand claims",
+    storyId: "story-model-parker-vector-research",
+    storyTitle: "把 Parker Vector 威雅放进入门进口品牌补证页",
+    storySummary:
+      "Parker Vector 威雅先作为低价进口品牌研究页，150 以下、定位低和规格都需要按市场与版本核验。",
+    storyBodyMd:
+      "Vector / 威雅的用户入口非常现实：预算有限，但想买到 Parker 这个进口品牌。原始摘要提到“150 以下唯一够得着的进口但定位低”，这既是价格判断，也是定位判断。\n\n当前档案先保留研究边界。后续需要确认当前是否仍稳定在售、不同市场的 Vector 钢笔规格、笔尖和上墨方式，以及低价渠道是否只对应某些库存或套装。",
+  }),
+  makeSearchOnlyModel({
+    slug: "犀飞利-sheaffer-品牌泛称",
+    brandSlug: "sheaffer",
+    aliases: [
+      { alias: "Sheaffer generic pen entry", language: "en" },
+      { alias: "犀飞利 品牌泛称", language: "zh" },
+    ],
+    sourceItemId: "source-sheaffer-generic-public-search",
+    specId: "spec-sheaffer-generic-research",
+    seriesName: "待重分类 / brand-generic entry",
+    originCountry: "美国品牌语境（待核验）",
+    nib: "不适合按单一型号填写",
+    fillSystem: "不适合按单一型号填写",
+    material: "不适合按单一型号填写",
+    priceRange: "不适合按单一型号填写",
+    claimId: "claim-sheaffer-generic-source-boundary",
+    modelName: "犀飞利 Sheaffer（品牌泛称）",
+    focus:
+      "whether this pen entry should be reclassified or merged into the Sheaffer brand page instead of treated as a model",
+    storyId: "story-model-sheaffer-generic-research",
+    storyTitle: "先把 Sheaffer 品牌泛称标成待重分类条目",
+    storySummary:
+      "当前 Sheaffer 品牌泛称不应被当作单支型号扩写；页面先记录它需要合并到品牌馆或拆成具体型号。",
+    storyBodyMd:
+      "这个条目的名字已经说明问题：它是“品牌泛称”，不是具体型号。继续写笔尖、上墨或材质，只会把 Sheaffer 品牌层面的历史误塞进一支不存在的笔里。\n\n当前档案先作为数据清洗标记保留：应优先判断它是否能并入 Sheaffer 品牌馆，或拆分为 Balance、Snorkel、Targa、Imperial 等具体型号。没有拆分前，本页不填写单一规格。",
+    variants: [
+      {
+        id: "variant-sheaffer-generic-merge-brand",
+        name: "Merge into Sheaffer brand candidate",
+        notes: "Preferred if no concrete model evidence is attached to the local record.",
+        sourceItemId: "source-sheaffer-generic-public-search",
+        reviewStatus: "needs_source",
+      },
+      {
+        id: "variant-sheaffer-generic-split-models",
+        name: "Split into concrete Sheaffer models candidate",
+        notes: "Use only after source evidence identifies a specific model family.",
+        sourceItemId: "source-sheaffer-generic-public-search",
+        reviewStatus: "needs_source",
+      },
+    ],
+  }),
+  makeSearchOnlyModel({
+    slug: "犀飞利-sheaffer-帝国元首",
+    brandSlug: "sheaffer",
+    aliases: [
+      { alias: "Sheaffer Imperial candidate", language: "en" },
+      { alias: "Sheaffer Legacy candidate", language: "en" },
+      { alias: "犀飞利 帝国元首", language: "zh" },
+    ],
+    sourceItemId: "source-sheaffer-imperial-public-search",
+    specId: "spec-sheaffer-imperial-legacy-research",
+    seriesName: "Imperial / Legacy identity pending",
+    originCountry: "美国品牌语境（待核验）",
+    nib: "金尖/嵌入式笔尖说法待核验",
+    fillSystem: "Touchdown/墨囊/上墨器等版本待核验",
+    material: "金属/树脂/饰面版本待核验",
+    priceRange: "高端价位说法待核验",
+    claimId: "claim-sheaffer-imperial-legacy-source-boundary",
+    modelName: "犀飞利 Sheaffer 帝国元首",
+    focus:
+      "whether the Chinese 帝国元首 entry maps to Imperial, Legacy, or another Sheaffer model; nib, filling system, material, and high-end claims",
+    storyId: "story-model-sheaffer-imperial-legacy-research",
+    storyTitle: "先确认“帝国元首”对应 Imperial 还是 Legacy",
+    storySummary:
+      "Sheaffer 帝国元首先作为中文命名待核验页，避免把 Imperial、Legacy 和高端美系印象混成一个型号。",
+    storyBodyMd:
+      "“帝国元首”这个中文名需要先核验。它可能指向 Imperial，也可能混入 Legacy、Triumph/嵌入式笔尖或中文渠道的营销命名。若不先确认身份，后续规格会很容易错位。\n\n当前档案先记录候选路径：确定英文型号、版本年代、笔尖结构、上墨系统和饰面，再判断它应进入 Sheaffer 高端美系型号路线，还是拆成更具体的档案。",
+  }),
+  makeSearchOnlyModel({
+    slug: "白金-platinum-curidas",
+    brandSlug: "platinum",
+    aliases: [
+      { alias: "Platinum Curidas", language: "en" },
+      { alias: "白金 Curidas", language: "zh" },
+    ],
+    sourceItemId: "source-platinum-curidas-public-search",
+    specId: "spec-platinum-curidas-research",
+    seriesName: "Curidas",
+    originCountry: "日本（待核验）",
+    nib: "钢尖说法待核验",
+    fillSystem: "墨囊/上墨器说法待核验",
+    material: "透明/树脂笔身说法待核验",
+    priceRange: "入门按动价位待核验",
+    claimId: "claim-platinum-curidas-source-boundary",
+    modelName: "白金 Platinum Curidas",
+    focus:
+      "retractable mechanism, sealing/dry-out claims, nib, cartridge/converter compatibility, and lower-entry pricing",
+    storyId: "story-model-platinum-curidas-research",
+    storyTitle: "把 Curidas 放进按动钢笔机制核验队列",
+    storySummary:
+      "Platinum Curidas 先作为低门槛按动钢笔研究页，密封性、几天不干和机制体验都需要评测来源支撑。",
+    storyBodyMd:
+      "Curidas 的价值在于机制：它给用户一个比高价按动钢笔更低门槛的选择。原始摘要提到“密封性强几天不写不干”，这类体验判断必须有长期评测或实测条件。\n\n当前档案先把机制、密封、笔尖、上墨和价格拆开。后续可以和 Pilot Capless、LAMY dialog、Majohn A1、晨光按动钢笔放在同一个按动机制路径里比较。",
+  }),
+  makeSearchOnlyModel({
+    slug: "白金-platinum-出云-izumo",
+    brandSlug: "platinum",
+    aliases: [
+      { alias: "Platinum Izumo", language: "en" },
+      { alias: "白金 出云 Izumo", language: "zh" },
+    ],
+    sourceItemId: "source-platinum-izumo-public-search",
+    specId: "spec-platinum-izumo-research",
+    seriesName: "Izumo",
+    originCountry: "日本（待核验）",
+    nib: "金尖说法待核验",
+    fillSystem: "墨囊/上墨器说法待核验",
+    material: "漆/木材/版本材质待核验",
+    priceRange: "高端价位待核验",
+    claimId: "claim-platinum-izumo-source-boundary",
+    modelName: "白金 Platinum 出云 Izumo",
+    focus:
+      "Izumo model-family identity, Japanese craft positioning, material variants, nib, filling system, and understated reputation claims",
+    storyId: "story-model-platinum-izumo-research",
+    storyTitle: "把 Izumo 出云放进白金和风工艺路线",
+    storySummary:
+      "Platinum Izumo 出云先作为和风工艺研究页，材质、漆面、版本和“知道的人觉得好”这类口碑都需要来源。",
+    storyBodyMd:
+      "Izumo 的原始摘要很准确地抓住了一个问题：它可能不是最出圈的型号，但很能代表白金的和风气质。要把这种感觉写成图书馆内容，需要具体到材质、漆面、笔形、版本和用户评价。\n\n当前档案先保留研究入口。后续补证时，应把官方产品线、工艺说明、版本图片和长期评测分开，避免只用“和风”两个字概括整支笔。",
+  }),
+  makeSearchOnlyModel({
+    slug: "白金-platinum-富士旬景pnb-13000",
+    brandSlug: "platinum",
+    aliases: [
+      { alias: "Platinum PNB-13000", language: "en" },
+      { alias: "Platinum Fuji Shunkei", language: "en" },
+      { alias: "白金 富士旬景 PNB-13000", language: "zh" },
+    ],
+    sourceItemId: "source-platinum-fuji-shunkei-pnb13000-public-search",
+    specId: "spec-platinum-fuji-shunkei-pnb13000-research",
+    seriesName: "富士旬景 / PNB-13000",
+    originCountry: "日本（待核验）",
+    nib: "金尖/笔尖规格待核验",
+    fillSystem: "墨囊/上墨器说法待核验",
+    material: "树脂/颜色主题/饰面待核验",
+    priceRange: "升级价位待核验",
+    claimId: "claim-platinum-fuji-shunkei-pnb13000-source-boundary",
+    modelName: "白金 Platinum 富士旬景PNB-13000",
+    focus:
+      "PNB-13000 product identity, Fuji seasonal color mapping, #3776 relationship, material feel, nib, and upgrade-positioning claims",
+    storyId: "story-model-platinum-fuji-shunkei-pnb13000-research",
+    storyTitle: "把富士旬景 PNB-13000 从 3776 升级说法里拆出来",
+    storySummary:
+      "富士旬景 PNB-13000 先作为 #3776 相邻/升级感研究页，颜色主题、材质和升级定位都需要直接来源。",
+    storyBodyMd:
+      "富士旬景 PNB-13000 的原始摘要抓住了购买语境：喜欢 3776，但嫌塑料感重，就可能考虑它。这个判断有用户价值，但需要确认 PNB-13000 与 #3776 的实际关系、笔尖和材质是否一致或不同、颜色主题是否对应季节/富士意象。\n\n当前档案先把它作为白金中高端日用/主题色路线的待核验节点。补证后，它可以和 #3776 Century、Izumo、莳绘系列形成清晰的价格和工艺阶梯。",
+  }),
+  makeSearchOnlyModel({
+    slug: "白金-platinum-小流星pq200",
+    brandSlug: "platinum",
+    aliases: [
+      { alias: "Platinum PQ200", language: "en" },
+      { alias: "Platinum Preppy", language: "en" },
+      { alias: "白金 小流星 PQ200", language: "zh" },
+    ],
+    sourceItemId: "source-platinum-preppy-pq200-public-search",
+    specId: "spec-platinum-preppy-pq200-research",
+    seriesName: "小流星 / PQ200 / Preppy identity pending",
+    originCountry: "日本（待核验）",
+    nib: "钢尖说法待核验",
+    fillSystem: "墨囊说法待核验",
+    material: "透明/塑料笔身待核验",
+    priceRange: "30-60 说法待核验",
+    claimId: "claim-platinum-preppy-pq200-source-boundary",
+    modelName: "白金 Platinum 小流星PQ200",
+    focus:
+      "Chinese 小流星 nickname, PQ200 versus Preppy mapping, nib, cartridge compatibility, material, and 30-60 price claims",
+    storyId: "story-model-platinum-preppy-pq200-research",
+    storyTitle: "先确认小流星 PQ200 和 Preppy 的对应关系",
+    storySummary:
+      "白金小流星 PQ200 先作为入门日系型号待核验页，中文昵称、官方 SKU、钢尖和墨囊规格都需要来源。",
+    storyBodyMd:
+      "小流星 PQ200 是用户很可能拿来入门的白金低价钢笔，但它的中文昵称和官方型号之间需要先对齐。继续写之前，要确认 PQ200、Preppy、小流星是否完全对应，还是只对应某个渠道或版本。\n\n当前档案先保留 30-60、钢尖、墨囊这些字段为待核验。补证优先级是官方/零售产品页、墨囊兼容性、尖号和不同颜色/笔尖版本。",
+  }),
+  makeSearchOnlyModel({
+    slug: "白金-platinum-总统-president",
+    brandSlug: "platinum",
+    aliases: [
+      { alias: "Platinum President", language: "en" },
+      { alias: "白金 总统 President", language: "zh" },
+    ],
+    sourceItemId: "source-platinum-president-public-search",
+    specId: "spec-platinum-president-research",
+    seriesName: "President",
+    originCountry: "日本（待核验）",
+    nib: "大金尖说法待核验",
+    fillSystem: "墨囊/上墨器说法待核验",
+    material: "树脂/饰面版本待核验",
+    priceRange: "3000+ 说法待核验",
+    claimId: "claim-platinum-president-source-boundary",
+    modelName: "白金 Platinum 总统 President",
+    focus:
+      "President model identity, high-end status, nib, filling system, material, availability, and 3000+ price claims",
+    storyId: "story-model-platinum-president-research",
+    storyTitle: "把 President 总统先做成白金高端旧线索核验页",
+    storySummary:
+      "Platinum President 总统先作为高端型号研究页，旗舰/在售状态、大金尖和 3000+ 价位都等待直接来源。",
+    storyBodyMd:
+      "President / 总统这类高端型号很容易被一句“白金旗舰”概括，但图书馆需要更具体：它的生产状态、与 #3776 和 Izumo 的关系、笔尖尺寸、上墨方式和价格区间都要有来源。\n\n当前档案先保留为研究队列。后续如果发现它已经停产或地区供货不稳定，页面也应该如实标注，避免把旧市场印象写成当前推荐。",
+  }),
+  makeSearchOnlyModel({
+    slug: "白金-platinum-莳绘系列",
+    brandSlug: "platinum",
+    aliases: [
+      { alias: "Platinum Maki-e series", language: "en" },
+      { alias: "Platinum Maki-e fountain pen", language: "en" },
+      { alias: "白金 莳绘系列", language: "zh" },
+    ],
+    sourceItemId: "source-platinum-makie-series-public-search",
+    specId: "spec-platinum-makie-series-research",
+    seriesName: "Maki-e / 莳绘系列",
+    originCountry: "日本（待核验）",
+    nib: "14K/18K/金尖版本待核验",
+    fillSystem: "墨囊/上墨器说法待核验",
+    material: "莳绘/漆面/基底材质待核验",
+    priceRange: "2000+ 说法待核验",
+    claimId: "claim-platinum-makie-series-source-boundary",
+    modelName: "白金 Platinum 莳绘系列",
+    focus:
+      "whether this is a series rather than one model, artwork boundaries, nib variants, filling system, material, and high-end pricing",
+    storyId: "story-model-platinum-makie-series-research",
+    storyTitle: "把白金莳绘系列先标成系列页而非单支型号",
+    storySummary:
+      "Platinum 莳绘系列更像装饰工艺/系列入口，不应直接写成单一规格；当前先保留工艺、型号和价格边界。",
+    storyBodyMd:
+      "莳绘系列最大的问题是层级：它可能不是一支笔，而是一组图案、工艺、基底型号和价格层级。若把它写成单支型号，会让笔尖、尺寸、材质和价格全部失真。\n\n当前档案先作为系列研究页：后续需要确认每个具体作品、基底笔款、笔尖、上墨和工艺说明，再拆成可引用的型号或展览条目。莳绘工艺本身也适合进入图书馆的工艺专题，而不是只挂在型号列表里。",
+  }),
 ];
 
 function getClient() {
@@ -4550,6 +5047,19 @@ async function writeBrandModelLink(
   );
 }
 
+function getReferencedSourceItemIds(models: ModelGapSeed[]) {
+  const ids = new Set<string>();
+  for (const seed of models) {
+    for (const sourceItemId of seed.sourceItemIds) ids.add(sourceItemId);
+    for (const claim of seed.claims) ids.add(claim.sourceItemId);
+    for (const sourceItemId of seed.story.sourceItemIds) ids.add(sourceItemId);
+    for (const variant of seed.variants || []) {
+      if (variant.sourceItemId) ids.add(variant.sourceItemId);
+    }
+  }
+  return ids;
+}
+
 async function writeModel(db: Client, seed: ModelGapSeed) {
   const model = await findEntity(db, "pen", seed.slug);
   if (!model) {
@@ -4606,8 +5116,22 @@ async function main() {
   }
 
   if (WRITE) {
-    for (const source of SOURCE_REGISTRY) await writeSourceRegistry(db, source);
-    for (const item of SOURCE_ITEMS) await writeSourceItem(db, item);
+    const shouldWriteOnlyReferencedSources = Boolean(SLUG_FILTER || LIMIT);
+    const referencedSourceItemIds = getReferencedSourceItemIds(models);
+    const sourceItemsToWrite = shouldWriteOnlyReferencedSources
+      ? SOURCE_ITEMS.filter((item) => referencedSourceItemIds.has(item.id))
+      : SOURCE_ITEMS;
+    const sourceRegistryIdsToWrite = new Set(
+      sourceItemsToWrite.map((item) => item.sourceId),
+    );
+    const sourcesToWrite = shouldWriteOnlyReferencedSources
+      ? SOURCE_REGISTRY.filter((source) => sourceRegistryIdsToWrite.has(source.id))
+      : SOURCE_REGISTRY;
+    console.log(
+      `Write scope: ${sourcesToWrite.length} source registries, ${sourceItemsToWrite.length} source items`,
+    );
+    for (const source of sourcesToWrite) await writeSourceRegistry(db, source);
+    for (const item of sourceItemsToWrite) await writeSourceItem(db, item);
   }
 
   for (const seed of models) {

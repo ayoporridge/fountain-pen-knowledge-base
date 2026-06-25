@@ -707,6 +707,68 @@ test.describe("Library smoke flow", () => {
     ).toBeVisible();
   });
 
+  test("seventh priority model gap pages render Parker Sheaffer and Platinum archives", async ({
+    page,
+  }) => {
+    await page.goto(`/pen/${encodeURIComponent("派克-parker-世纪-duofold")}`, {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(
+      page.getByText("把 Parker Duofold 的百年名号和现代产品拆开"),
+    ).toBeVisible();
+    await expect(
+      page.getByText("Research index: Parker Duofold modern").first(),
+    ).toBeVisible();
+
+    await page.goto(`/pen/${encodeURIComponent("派克-parker-卓尔-sonnet")}`, {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(
+      page.getByText("把 Sonnet 卓尔的商务外观和书写争议分开写"),
+    ).toBeVisible();
+    await expect(
+      page.getByText("Research index: Parker Sonnet fountain pen").first(),
+    ).toBeVisible();
+
+    await page.goto(`/pen/${encodeURIComponent("犀飞利-sheaffer-品牌泛称")}`, {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(
+      page.getByText("先把 Sheaffer 品牌泛称标成待重分类条目"),
+    ).toBeVisible();
+    await expect(
+      page.getByText("待重分类 / brand-generic entry"),
+    ).toBeVisible();
+
+    await page.goto(`/pen/${encodeURIComponent("白金-platinum-curidas")}`, {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(
+      page.getByText("把 Curidas 放进按动钢笔机制核验队列"),
+    ).toBeVisible();
+    await expect(
+      page.getByText("Research index: Platinum Curidas").first(),
+    ).toBeVisible();
+
+    await page.goto(`/pen/${encodeURIComponent("白金-platinum-小流星pq200")}`, {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(
+      page.getByText("先确认小流星 PQ200 和 Preppy 的对应关系"),
+    ).toBeVisible();
+    await expect(page.getByText("30-60 说法待核验")).toBeVisible();
+
+    await page.goto(`/pen/${encodeURIComponent("白金-platinum-莳绘系列")}`, {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(
+      page.getByText("把白金莳绘系列先标成系列页而非单支型号"),
+    ).toBeVisible();
+    await expect(
+      page.getByText("Research index: Platinum Maki-e series").first(),
+    ).toBeVisible();
+  });
+
   test("mismatched entity type routes redirect to canonical page", async ({
     page,
   }) => {
