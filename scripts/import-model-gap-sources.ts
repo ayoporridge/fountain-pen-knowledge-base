@@ -7706,6 +7706,356 @@ const MODELS: ModelGapSeed[] = [
     sourceNotes:
       "Richard's Pens profile is registered as a summary/link-only source. Pennant/article context and late-line claims require separate review.",
   }),
+  makeSearchOnlyModel({
+    slug: "the-ingersoll-dollar-pen",
+    brandSlug: "ingersoll",
+    aliases: [
+      { alias: "The Ingersoll Dollar Pen", language: "en" },
+      { alias: "Ingersoll Dollar Pen", language: "en" },
+      { alias: "英格索尔一美元钢笔", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-19715bd140d8de5e",
+    specId: "spec-ingersoll-dollar-pen-research",
+    seriesName: "Dollar Pen",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式待核验",
+    material: "笔身材质/广告版本待核验",
+    priceRange: "一美元定位/历史价格待核验",
+    claimId: "claim-ingersoll-dollar-pen-source-boundary",
+    modelName: "The Ingersoll Dollar Pen",
+    focus:
+      "Ingersoll Dollar Pen identity, one-dollar market positioning, advertising context, filling system, nib, material, company attribution, and collector claims",
+    storyId: "story-model-ingersoll-dollar-pen-research",
+    storyTitle: "把 Ingersoll Dollar Pen 做成一美元市场档案",
+    storySummary:
+      "Ingersoll Dollar Pen 先作为 Richard's Pens 支撑的历史型号页，一美元定位、广告和规格需要复核。",
+    storyBodyMd:
+      "Ingersoll Dollar Pen 的名字自带市场定位，但图书馆不能只把“一美元”当成趣味标签。它需要拆成价格叙事、品牌归属、广告证据、上墨方式和实物规格。\n\n当前档案绑定 Richard's Pens profile，并保留参数待核验。后续可和 Esterbrook Dollar Pen 对照，整理美国大众价位钢笔的市场路线。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. One-dollar positioning and exact specifications require editorial review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-j-g-rider-fountain-pen",
+    brandSlug: "rider",
+    aliases: [
+      { alias: "The J. G. Rider Fountain Pen", language: "en" },
+      { alias: "J. G. Rider Fountain Pen", language: "en" },
+      { alias: "J. G. Rider 钢笔", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-51c9805c33d97784",
+    specId: "spec-jg-rider-fountain-pen-research",
+    seriesName: "J. G. Rider Fountain Pen",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨结构待核验",
+    material: "笔身材质/广告版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-jg-rider-fountain-pen-source-boundary",
+    modelName: "The J. G. Rider Fountain Pen",
+    focus:
+      "J. G. Rider Fountain Pen identity, manufacturer attribution, early filling mechanism, advertising context, nib, material, and collector claims",
+    storyId: "story-model-jg-rider-fountain-pen-research",
+    storyTitle: "把 J. G. Rider 先整理成归属待核验的早期型号页",
+    storySummary:
+      "J. G. Rider Fountain Pen 先作为 Richard's Pens 支撑的历史型号页，品牌实体暂缺，制造商归属和机制需要复核。",
+    storyBodyMd:
+      "J. G. Rider 当前没有独立品牌馆，站内还存在与 Rider 相关的文章页。图书馆先不冒充品牌归属，而是把它作为早期历史型号整理出来：是谁制造、如何上墨、广告如何描述、实物规格是什么。\n\n当前档案绑定 Richard's Pens profile，后续来源足够时再决定是否新增 Rider 品牌实体或并入更明确的历史厂牌。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Brand/manufacturer attribution is explicitly unverified.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-john-hancock-cartridge-pen",
+    brandSlug: "john-hancock",
+    aliases: [
+      { alias: "The John Hancock Cartridge Pen", language: "en" },
+      { alias: "John Hancock Cartridge Pen", language: "en" },
+      { alias: "约翰·汉考克墨水管钢笔", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-c2584ed9f8c9e8bd",
+    specId: "spec-john-hancock-cartridge-pen-research",
+    seriesName: "Cartridge Pen",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "早期墨水管/墨囊结构待核验",
+    material: "笔身材质/广告版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-john-hancock-cartridge-pen-source-boundary",
+    modelName: "The John Hancock Cartridge Pen",
+    focus:
+      "John Hancock Cartridge Pen identity, cartridge concept, manufacturer attribution, advertising context, nib, material, and collector claims",
+    storyId: "story-model-john-hancock-cartridge-pen-research",
+    storyTitle: "把 John Hancock Cartridge Pen 做成早期墨水管线索页",
+    storySummary:
+      "John Hancock Cartridge Pen 先作为 Richard's Pens 支撑的历史型号页，品牌实体暂缺，墨水管概念和规格需要复核。",
+    storyBodyMd:
+      "John Hancock Cartridge Pen 的价值在于“cartridge”这条技术线索，但它不能直接套用现代墨囊/墨水管概念。图书馆需要先建立一个谨慎的研究页，把名称、制造商、广告、上墨结构和实物规格分开。\n\n当前档案绑定 Richard's Pens profile。后续如果来源足够，再决定是否新增 John Hancock 品牌实体，或把它作为早期上墨技术展柜的一部分。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Cartridge concept and manufacturer attribution need separate review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-moore-finger-tip",
+    brandSlug: "moore",
+    aliases: [
+      { alias: "The Moore Finger tip", language: "en" },
+      { alias: "Moore Finger Tip", language: "en" },
+      { alias: "摩尔 Finger Tip 指触式", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-9c539b2e78b0ac8c",
+    specId: "spec-moore-finger-tip-research",
+    seriesName: "Finger Tip",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "指触/按钮式结构待核验",
+    material: "笔身材质/战后版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-moore-finger-tip-source-boundary",
+    modelName: "The Moore Finger tip",
+    focus:
+      "Moore Finger Tip identity, finger-tip filling/control concept, postwar advertising context, filling system, nib, material, and collector claims",
+    storyId: "story-model-moore-finger-tip-research",
+    storyTitle: "把 Moore Finger Tip 的指触概念和规格拆开",
+    storySummary:
+      "Moore Finger Tip 先作为 Richard's Pens 支撑的历史型号页，指触机制、广告和规格需要复核。",
+    storyBodyMd:
+      "Moore Finger Tip 的名字容易让用户以为机制已经清楚，但当前站内页面仍是长文残片。图书馆需要把“Finger Tip”作为待解释的机制概念，而不是直接写成已确认结构。\n\n当前档案绑定 Richard's Pens profile，先拆出机制、广告、材料和笔尖字段。后续可和 Moore Non-Leakable 一起整理 Moore 的结构创新路线。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Mechanism details and specifications require editorial review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-parker-21",
+    brandSlug: "parker",
+    aliases: [
+      { alias: "The Parker 21", language: "en" },
+      { alias: "Parker 21", language: "en" },
+      { alias: "派克 21", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-c69f1968ad3cd551",
+    specId: "spec-parker-21-vintage-research",
+    seriesName: "Parker 21",
+    originCountry: "美国（待核验）",
+    nib: "暗尖/笔尖规格待核验",
+    fillSystem: "Aero-metric 或版本差异待核验",
+    material: "笔身材质/版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-parker-21-vintage-source-boundary",
+    modelName: "The Parker “21”",
+    focus:
+      "vintage Parker 21 identity, relationship to Parker 51 family, hooded nib, filling system variants, material, advertising, and collector claims",
+    storyId: "story-model-parker-21-vintage-research",
+    storyTitle: "把 vintage Parker 21 和 Parker 51 光环分开",
+    storySummary:
+      "Parker 21 先作为 Richard's Pens 支撑的 vintage 型号页，51 家族关系、暗尖和上墨版本需要复核。",
+    storyBodyMd:
+      "Parker 21 很容易被 Parker 51 的光环吞掉，但用户需要知道它自己的定位：它与 51 有哪些相似、哪些只是外观语境、哪些是成本和市场差异。\n\n当前档案绑定 Richard's Pens profile，并保留暗尖、上墨、材质和版本待核验。后续可与 Hero 616、Wing Sung 601 等暗尖语境页建立对照。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Keep vintage Parker 21 separate from modern reissue and Parker 51 claims.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-parker-51",
+    brandSlug: "parker",
+    aliases: [
+      { alias: "The Parker 51", language: "en" },
+      { alias: "Parker 51", language: "en" },
+      { alias: "派克 51", language: "zh" },
+      { alias: "派克51老款", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-44cde4faaf4bb703",
+    specId: "spec-parker-51-vintage-research",
+    seriesName: "Parker 51 vintage",
+    originCountry: "美国（待核验）",
+    nib: "暗尖/笔尖规格待核验",
+    fillSystem: "Vacumatic/Aero-metric 等版本待核验",
+    material: "Lucite/笔身材质版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-parker-51-vintage-source-boundary",
+    modelName: "The Parker “51”",
+    focus:
+      "vintage Parker 51 identity, Vacumatic/Aero-metric generations, hooded nib, material, wartime/postwar context, advertising, and collector claims",
+    storyId: "story-model-parker-51-vintage-research",
+    storyTitle: "把 vintage Parker 51 从翻译残片恢复成经典型号档案",
+    storySummary:
+      "Parker 51 vintage 先作为 Richard's Pens 支撑的经典型号页，旧款历史、上墨代际和现代复刻需要分开。",
+    storyBodyMd:
+      "Parker 51 的当前摘要还残留翻译指令，这对用户体验非常刺眼。图书馆先把它恢复成清晰的 vintage 型号档案：经典身份、暗尖、不同上墨代际、材料和广告语境分开留位。\n\n当前档案绑定 Richard's Pens profile，并明确不和现代 Parker 51 复刻混写。后续要补版本表和机制图，尤其是 Vacumatic 与 Aero-metric 的边界。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. This entry is for vintage Parker 51, not the modern reissue.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-parker-180",
+    brandSlug: "parker",
+    aliases: [
+      { alias: "The Parker 180", language: "en" },
+      { alias: "Parker 180", language: "en" },
+      { alias: "派克 180", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-7ec1813eea4c48b8",
+    specId: "spec-parker-180-research",
+    seriesName: "Parker 180",
+    originCountry: "美国/法国等产地待核验",
+    nib: "双面书写笔尖/规格待核验",
+    fillSystem: "墨囊/上墨器或版本差异待核验",
+    material: "笔身材质/饰面版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-parker-180-source-boundary",
+    modelName: "The Parker 180",
+    focus:
+      "Parker 180 identity, reversible nib concept, cartridge/converter context, material and finish variants, advertising, and collector claims",
+    storyId: "story-model-parker-180-research",
+    storyTitle: "把 Parker 180 的双面笔尖概念单独成档",
+    storySummary:
+      "Parker 180 先作为 Richard's Pens 支撑的设计型型号页，双面书写笔尖、饰面和规格需要复核。",
+    storyBodyMd:
+      "Parker 180 的重点不是普通参数，而是双面书写笔尖这个设计概念。当前长文摘要过于散，用户难以快速理解它为什么叫 180。\n\n当前档案绑定 Richard's Pens profile，先把笔尖概念、上墨、材料和饰面分开。后续可补一张笔尖角度/线宽示意图。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Reversible-nib details and production variants require review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-parker-45",
+    brandSlug: "parker",
+    aliases: [
+      { alias: "The Parker 45", language: "en" },
+      { alias: "Parker 45", language: "en" },
+      { alias: "派克 45", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-a441f7fafb46df23",
+    specId: "spec-parker-45-research",
+    seriesName: "Parker 45",
+    originCountry: "美国/英国等产地待核验",
+    nib: "可拆换笔尖/规格待核验",
+    fillSystem: "墨囊/上墨器系统待核验",
+    material: "笔身材质/饰面版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-parker-45-source-boundary",
+    modelName: "The Parker 45",
+    focus:
+      "Parker 45 identity, cartridge/converter adoption, replaceable nib system, material variants, production context, advertising, and collector claims",
+    storyId: "story-model-parker-45-research",
+    storyTitle: "把 Parker 45 写成墨囊时代和可维护笔尖档案",
+    storySummary:
+      "Parker 45 先作为 Richard's Pens 支撑的历史型号页，墨囊/上墨器系统、可拆换笔尖和版本需要复核。",
+    storyBodyMd:
+      "Parker 45 适合从使用方式变化来读：墨囊/上墨器、可拆换笔尖和更现代的维护逻辑，都让它和 51、61 形成不同位置。\n\n当前档案绑定 Richard's Pens profile，先整理结构线索和待核验规格。后续可补与 Parker 61、75 的年代和市场对照。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Cartridge/converter and nib-unit claims require direct citation review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-parker-61",
+    brandSlug: "parker",
+    aliases: [
+      { alias: "The Parker 61", language: "en" },
+      { alias: "Parker 61", language: "en" },
+      { alias: "派克 61", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-43d4b5b864cd318b",
+    specId: "spec-parker-61-research",
+    seriesName: "Parker 61",
+    originCountry: "美国/英国等产地待核验",
+    nib: "暗尖/规格待核验",
+    fillSystem: "毛细上墨或版本差异待核验",
+    material: "笔身材质/版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-parker-61-source-boundary",
+    modelName: "The Parker 61",
+    focus:
+      "Parker 61 identity, capillary filling concept, hooded nib, later variants, material, advertising, and collector claims",
+    storyId: "story-model-parker-61-research",
+    storyTitle: "把 Parker 61 的毛细上墨概念和版本边界拆开",
+    storySummary:
+      "Parker 61 先作为 Richard's Pens 支撑的机制型型号页，毛细上墨、暗尖和版本差异需要复核。",
+    storyBodyMd:
+      "Parker 61 最该被用户看懂的是毛细上墨概念，而不是只看到一串旧广告和图片。图书馆先把它整理成机制型档案：是什么、怎么上墨、后来版本是否变化、和 Parker 51 有何区别。\n\n当前档案绑定 Richard's Pens profile，机制细节保持待核验。后续可补毛细上墨的 SVG 示意图。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Capillary-filling details require separate mechanism citation.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-parker-75",
+    brandSlug: "parker",
+    aliases: [
+      { alias: "The Parker 75", language: "en" },
+      { alias: "Parker 75", language: "en" },
+      { alias: "派克 75", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-e4c94394b6e09653",
+    specId: "spec-parker-75-research",
+    seriesName: "Parker 75",
+    originCountry: "美国/法国等产地待核验",
+    nib: "可调角度/笔尖规格待核验",
+    fillSystem: "墨囊/上墨器或版本差异待核验",
+    material: "Sterling silver/饰面版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-parker-75-source-boundary",
+    modelName: "The Parker 75",
+    focus:
+      "Parker 75 identity, adjustable nib orientation, sterling silver/ciselé context, cartridge/converter, material variants, advertising, and collector claims",
+    storyId: "story-model-parker-75-research",
+    storyTitle: "把 Parker 75 做成可调笔尖和饰面档案",
+    storySummary:
+      "Parker 75 先作为 Richard's Pens 支撑的经典型号页，可调笔尖、银格纹饰面和版本需要复核。",
+    storyBodyMd:
+      "Parker 75 的图书馆入口应同时看结构和审美：可调笔尖角度、银格纹饰面、礼品市场和收藏版本，都需要被拆成可核验线索。\n\n当前档案绑定 Richard's Pens profile，暂不把银含量、产地和具体饰面写成事实。后续可补饰面对照表。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Nib-orientation and material/finish claims require direct review.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-parker-duofold",
+    brandSlug: "parker",
+    aliases: [
+      { alias: "The Parker Duofold", language: "en" },
+      { alias: "Parker Duofold vintage", language: "en" },
+      { alias: "派克 Duofold 老款", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-c480e201cb57fbb9",
+    specId: "spec-parker-duofold-vintage-research",
+    seriesName: "Duofold vintage",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "按钮上墨或版本差异待核验",
+    material: "硬橡胶/赛璐珞版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-parker-duofold-vintage-source-boundary",
+    modelName: "The Parker Duofold",
+    focus:
+      "vintage Parker Duofold identity, Big Red/historical lineage, filling system, nib, material generations, advertising, and collector claims",
+    storyId: "story-model-parker-duofold-vintage-research",
+    storyTitle: "把 vintage Parker Duofold 和现代世纪分开",
+    storySummary:
+      "Parker Duofold vintage 先作为 Richard's Pens 支撑的历史名号页，早期 Duofold 与现代世纪产品线需要分开。",
+    storyBodyMd:
+      "站内已经有现代 Parker Duofold / 世纪研究页，但 vintage Duofold 需要独立处理。否则百年名号、Big Red 叙事和现代 Centennial 规格会混在一起。\n\n当前档案绑定 Richard's Pens profile，专门承载早期 Duofold 的历史线索。后续再补年代、材料、上墨和版本表。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. This entry is for vintage Duofold and must stay separate from modern Centennial/International pages.",
+  }),
+  makeSearchOnlyModel({
+    slug: "the-parker-duofold-geometric-toothbrush",
+    brandSlug: "parker",
+    aliases: [
+      { alias: "The Parker Duofold Geometric Toothbrush", language: "en" },
+      { alias: "Parker Duofold Geometric", language: "en" },
+      { alias: "Parker Toothbrush", language: "en" },
+      { alias: "派克 Duofold Geometric 牙刷款", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-e23a4be9ae7aa11b",
+    specId: "spec-parker-duofold-geometric-toothbrush-research",
+    seriesName: "Duofold Geometric / Toothbrush",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式/版本差异待核验",
+    material: "几何纹材质/颜色版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-parker-duofold-geometric-toothbrush-source-boundary",
+    modelName: "The Parker Duofold Geometric (“Toothbrush”)",
+    focus:
+      "Parker Duofold Geometric Toothbrush identity, geometric celluloid pattern, nickname boundary, filling system, nib, material, catalog context, and collector claims",
+    storyId: "story-model-parker-duofold-geometric-toothbrush-research",
+    storyTitle: "把 Duofold Geometric 牙刷款做成纹样和昵称档案",
+    storySummary:
+      "Parker Duofold Geometric Toothbrush 先作为 Richard's Pens 支撑的变体页，几何纹、牙刷昵称和规格需要复核。",
+    storyBodyMd:
+      "Duofold Geometric 的难点是昵称和纹样：用户看到“牙刷”会记住外观，但图书馆需要确认这是收藏俗称、目录名称还是后设描述。\n\n当前档案绑定 Richard's Pens profile，先把它作为 vintage Duofold 的纹样/变体研究页。后续可补目录页、颜色表和实物图授权。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Nickname, catalog, and material-pattern claims require editorial review.",
+  }),
 ];
 
 function getClient() {

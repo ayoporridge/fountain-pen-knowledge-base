@@ -1944,6 +1944,77 @@ test.describe("Library smoke flow", () => {
     }
   });
 
+  test("fifteenth priority model gap pages render Ingersoll Moore Parker archives", async ({
+    page,
+  }) => {
+    const cases = [
+      {
+        path: "/pen/the-ingersoll-dollar-pen",
+        texts: [
+          "型号档案",
+          "Dollar Pen",
+          "把 Ingersoll Dollar Pen 做成一美元市场档案",
+          "一美元定位/历史价格待核验",
+          "The Ingersoll Dollar Pen",
+        ],
+      },
+      {
+        path: "/pen/the-john-hancock-cartridge-pen",
+        texts: [
+          "型号档案",
+          "John Hancock",
+          "把 John Hancock Cartridge Pen 做成早期墨水管线索页",
+          "早期墨水管/墨囊结构待核验",
+          "The John Hancock Cartridge Pen",
+        ],
+      },
+      {
+        path: "/pen/the-moore-finger-tip",
+        texts: [
+          "型号档案",
+          "Finger",
+          "把 Moore Finger Tip 的指触概念和规格拆开",
+          "指触/按钮式结构待核验",
+          "The Moore Finger tip",
+        ],
+      },
+      {
+        path: "/pen/the-parker-51",
+        texts: [
+          "型号档案",
+          "Parker",
+          "把 vintage Parker 51 从翻译残片恢复成经典型号档案",
+          "Vacumatic/Aero-metric 等版本待核验",
+          "The Parker “51”",
+        ],
+      },
+      {
+        path: "/pen/the-parker-61",
+        texts: [
+          "型号档案",
+          "Parker 61",
+          "把 Parker 61 的毛细上墨概念和版本边界拆开",
+          "毛细上墨或版本差异待核验",
+          "The Parker 61",
+        ],
+      },
+      {
+        path: "/pen/the-parker-duofold-geometric-toothbrush",
+        texts: [
+          "型号档案",
+          "Toothbrush",
+          "把 Duofold Geometric 牙刷款做成纹样和昵称档案",
+          "几何纹材质/颜色版本待核验",
+          "The Parker Duofold Geometric",
+        ],
+      },
+    ];
+
+    for (const item of cases) {
+      await expectLibraryPage(page, item.path, item.texts);
+    }
+  });
+
   test("official model diagram index includes evidence-aware diagrams", async ({
     page,
   }) => {
