@@ -1,5 +1,5 @@
-import { defineConfig } from "@playwright/test";
 import path from "node:path";
+import { defineConfig } from "@playwright/test";
 
 const CHROMIUM_PATH = path.join(
   process.env.HOME || "",
@@ -24,7 +24,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: "pnpm dev",
+    command: "TURSO_DATABASE_URL= TURSO_AUTH_TOKEN= pnpm dev",
     port: 3000,
     reuseExistingServer: true,
     timeout: 60000,

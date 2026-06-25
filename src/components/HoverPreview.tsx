@@ -46,13 +46,15 @@ export function HoverPreview({ href, children, className }: HoverPreviewProps) {
   }, []);
 
   return (
-    <span
-      ref={containerRef}
-      className="relative inline"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <Link href={href} className={className}>
+    <span ref={containerRef} className="relative inline">
+      <Link
+        href={href}
+        className={className}
+        onBlur={handleMouseLeave}
+        onFocus={handleMouseEnter}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         {children}
       </Link>
 

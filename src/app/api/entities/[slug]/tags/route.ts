@@ -1,6 +1,7 @@
-import { type NextRequest, NextResponse } from "next/server";
-import { queryOne, queryAll, execute } from "@/lib/db";
 import { nanoid } from "nanoid";
+import { type NextRequest, NextResponse } from "next/server";
+import { verifyWriteAccess } from "@/lib/admin-auth";
+import { execute, queryAll, queryOne } from "@/lib/db";
 
 // GET /api/entities/[slug]/tags
 export async function GET(
@@ -9,10 +10,9 @@ export async function GET(
 ) {
   const { slug } = await params;
 
-  const entity = await queryOne(
-    "SELECT id FROM entities WHERE slug = ?",
-    [slug]
-  ) as { id: string } | undefined;
+  const entity = (await queryOne("SELECT id FROM entities WHERE slug = ?", [
+    slug,
+  ])) as { id: string } | undefined;
 
   if (!entity) {
     return NextResponse.json({ error: "Entity not found" }, { status: 404 });
@@ -23,7 +23,7 @@ export async function GET(
      JOIN entity_tags et ON et.tag_id = t.id
      WHERE et.entity_id = ?
      ORDER BY t.dimension, t.name`,
-    [entity.id]
+    [entity.id],
   );
 
   return NextResponse.json(tags);
@@ -34,13 +34,15 @@ export async function POST(
   request: NextRequest,
   { params }: { params: Promise<{ slug: string }> },
 ) {
+  const deny = verifyWriteAccess(request);
+  if (deny) return deny;
+
   const { slug } = await params;
   const body = await request.json();
 
-  const entity = await queryOne(
-    "SELECT id FROM entities WHERE slug = ?",
-    [slug]
-  ) as { id: string } | undefined;
+  const entity = (await queryOne("SELECT id FROM entities WHERE slug = ?", [
+    slug,
+  ])) as { id: string } | undefined;
 
   if (!entity) {
     return NextResponse.json({ error: "Entity not found" }, { status: 404 });
@@ -48,7 +50,10 @@ export async function POST(
 
   const { tag_ids } = body;
   if (!Array.isArray(tag_ids)) {
-    return NextResponse.json({ error: "tag_ids array required" }, { status: 400 });
+    return NextResponse.json(
+      { error: "tag_ids array required" },
+      { status: 400 },
+    );
   }
 
   const added: string[] = [];
@@ -56,7 +61,7 @@ export async function POST(
     try {
       await execute(
         "INSERT OR IGNORE INTO entity_tags (id, entity_id, tag_id) VALUES (?, ?, ?)",
-        [nanoid(12), entity.id, tagId]
+        [nanoid(12), entity.id, tagId],
       );
       added.push(tagId);
     } catch {
@@ -72,13 +77,15 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ slug: string }> },
 ) {
+  const deny = verifyWriteAccess(request);
+  if (deny) return deny;
+
   const { slug } = await params;
   const body = await request.json();
 
-  const entity = await queryOne(
-    "SELECT id FROM entities WHERE slug = ?",
-    [slug]
-  ) as { id: string } | undefined;
+  const entity = (await queryOne("SELECT id FROM entities WHERE slug = ?", [
+    slug,
+  ])) as { id: string } | undefined;
 
   if (!entity) {
     return NextResponse.json({ error: "Entity not found" }, { status: 404 });
@@ -86,13 +93,16 @@ export async function DELETE(
 
   const { tag_ids } = body;
   if (!Array.isArray(tag_ids)) {
-    return NextResponse.json({ error: "tag_ids array required" }, { status: 400 });
+    return NextResponse.json(
+      { error: "tag_ids array required" },
+      { status: 400 },
+    );
   }
 
   for (const tagId of tag_ids) {
     await execute(
       "DELETE FROM entity_tags WHERE entity_id = ? AND tag_id = ?",
-      [entity.id, tagId]
+      [entity.id, tagId],
     );
   }
 

@@ -1,7 +1,23 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
-  "organizeImports": {
-    "enabled": true
+  "$schema": "https://biomejs.dev/schemas/2.4.15/schema.json",
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
+  "files": {
+    "includes": [
+      "src/**",
+      "tests/**",
+      "scripts/check-data-contract.ts",
+      "docs/**",
+      "package.json",
+      "tsconfig.json",
+      "next.config.ts",
+      "playwright.config.ts",
+      "biome.json"
+    ]
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
   },
   "linter": {
     "enabled": true,

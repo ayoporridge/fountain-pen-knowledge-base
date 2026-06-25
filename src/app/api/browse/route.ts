@@ -2,7 +2,10 @@ import { type NextRequest, NextResponse } from "next/server";
 import { queryAll, queryOne } from "@/lib/db";
 
 // Faceted dimensions and their corresponding tag dimensions
-const FACET_DIMENSIONS: Record<string, { label: string; tagDimension: string }> = {
+const FACET_DIMENSIONS: Record<
+  string,
+  { label: string; tagDimension: string }
+> = {
   nib_type: { label: "笔尖类型", tagDimension: "nib_type" },
   nib_material: { label: "笔尖材质", tagDimension: "nib_material" },
   fill_system: { label: "上墨方式", tagDimension: "fill_system" },
@@ -29,7 +32,10 @@ export async function GET(request: NextRequest) {
   }
 
   const page = Number.parseInt(searchParams.get("page") || "1", 10);
-  const limit = Math.min(Number.parseInt(searchParams.get("limit") || "20", 10), 50);
+  const limit = Math.min(
+    Number.parseInt(searchParams.get("limit") || "20", 10),
+    50,
+  );
   const offset = (page - 1) * limit;
 
   // Build query based on filters
@@ -45,11 +51,15 @@ export async function GET(request: NextRequest) {
 
   if (filters.length === 0) {
     // No filters: return all entities
-    total = (await queryOne("SELECT COUNT(*) as cnt FROM entities") as { cnt: number }).cnt;
-    entities = await queryAll(
+    total = (
+      (await queryOne("SELECT COUNT(*) as cnt FROM entities")) as {
+        cnt: number;
+      }
+    ).cnt;
+    entities = (await queryAll(
       "SELECT id, type, slug, name, summary, image_url FROM entities ORDER BY name LIMIT ? OFFSET ?",
-      [limit, offset]
-    ) as typeof entities;
+      [limit, offset],
+    )) as typeof entities;
   } else {
     // Build JOINs for each filter
     const joins: string[] = [];
@@ -64,12 +74,13 @@ export async function GET(request: NextRequest) {
       params.push(filters[i].dimension, filters[i].tagSlug);
     }
 
-    const whereClause = conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
+    const whereClause =
+      conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
     const joinClause = joins.join("\n");
 
     // Count
     const countSql = `SELECT COUNT(DISTINCT e.id) as cnt FROM entities e ${joinClause} ${whereClause}`;
-    total = (await queryOne(countSql, params) as { cnt: number }).cnt;
+    total = ((await queryOne(countSql, params)) as { cnt: number }).cnt;
 
     // Results
     const resultSql = `
@@ -80,14 +91,21 @@ export async function GET(request: NextRequest) {
       ORDER BY e.name
       LIMIT ? OFFSET ?
     `;
-    entities = await queryAll(resultSql, [...params, limit, offset]) as typeof entities;
+    entities = (await queryAll(resultSql, [
+      ...params,
+      limit,
+      offset,
+    ])) as typeof entities;
   }
 
   // Get facet counts
-  const facets: Record<string, Array<{ slug: string; name: string; count: number }>> = {};
+  const facets: Record<
+    string,
+    Array<{ slug: string; name: string; count: number }>
+  > = {};
 
   for (const [dimKey, dimInfo] of Object.entries(FACET_DIMENSIONS)) {
-    const tagCounts = await queryAll(
+    const tagCounts = (await queryAll(
       `SELECT t.slug, t.name, COUNT(DISTINCT et.entity_id) as cnt
        FROM tags t
        LEFT JOIN entity_tags et ON et.tag_id = t.id
@@ -95,8 +113,8 @@ export async function GET(request: NextRequest) {
        GROUP BY t.id
        HAVING cnt > 0
        ORDER BY cnt DESC`,
-      [dimInfo.tagDimension]
-    ) as Array<{ slug: string; name: string; cnt: number }>;
+      [dimInfo.tagDimension],
+    )) as Array<{ slug: string; name: string; cnt: number }>;
 
     facets[dimKey] = tagCounts.map((tc) => ({
       slug: tc.slug,

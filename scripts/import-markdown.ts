@@ -2,6 +2,7 @@ import Database from "better-sqlite3";
 import fs from "node:fs";
 import path from "node:path";
 import { nanoid } from "nanoid";
+import { shouldReclassifyPenArticle } from "../src/lib/entity-quality";
 
 const DB_PATH = path.join(process.cwd(), "data", "fpkg.db");
 
@@ -168,10 +169,19 @@ export function importMarkdownDir(
         meta.title ||
         path.basename(filePath, ".md").replace(/^\d+_/, "").replace(/_/g, " ");
       const slug = meta.slug || slugify(title);
-      const type = meta.type || inferTypeFromCategory(meta.category_zh);
       const summary = meta.summary || body.slice(0, 200).replace(/[#*\n]/g, " ").trim();
       const sourceUrl = meta.source || "";
       const relPath = path.relative(dirPath, filePath);
+      const inferredType = meta.type || inferTypeFromCategory(meta.category_zh);
+      const type = shouldReclassifyPenArticle({
+        type: inferredType,
+        slug,
+        name: title,
+        source_file: relPath,
+        source_url: sourceUrl,
+      })
+        ? "article"
+        : inferredType;
 
       const existing = checkSlug.get(slug, type) as
         | { id: string }

@@ -2,7 +2,7 @@
 
 CREATE TABLE entities (
   id TEXT PRIMARY KEY NOT NULL,
-  type TEXT NOT NULL CHECK (type IN ('pen', 'brand', 'concept', 'material', 'nib', 'fill_system')),
+  type TEXT NOT NULL CHECK (type IN ('pen', 'brand', 'concept', 'material', 'nib', 'fill_system', 'article')),
   slug TEXT UNIQUE NOT NULL,
   name TEXT NOT NULL,
   summary TEXT,

@@ -1,6 +1,7 @@
+import { ArrowLeft, ArrowRight } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
-import { ArrowRight, ArrowLeft } from "@phosphor-icons/react/dist/ssr";
 import { TYPE_LABELS } from "@/lib/constants";
+import { entityIdentityKey } from "@/lib/entity-identity";
 
 interface LinkItem {
   link_type: string;
@@ -16,11 +17,29 @@ interface RelatedEntitiesProps {
 export function RelatedEntities({ links }: RelatedEntitiesProps) {
   if (links.length === 0) return null;
 
-  const forward = links.filter(
-    (l) => l.link_type === "related_to" || l.link_type === "instance_of"
+  const dedupeLinks = (items: LinkItem[]) =>
+    Array.from(
+      new Map(
+        items.map((item) => [
+          entityIdentityKey({
+            type: item.target_type,
+            slug: item.target_slug,
+            name: item.target_name,
+          }),
+          item,
+        ]),
+      ).values(),
+    );
+
+  const forward = dedupeLinks(
+    links.filter(
+      (l) => l.link_type === "related_to" || l.link_type === "instance_of",
+    ),
   );
-  const backlinks = links.filter(
-    (l) => l.link_type !== "related_to" && l.link_type !== "instance_of"
+  const backlinks = dedupeLinks(
+    links.filter(
+      (l) => l.link_type !== "related_to" && l.link_type !== "instance_of",
+    ),
   );
 
   const LinkList = ({
@@ -43,8 +62,8 @@ export function RelatedEntities({ links }: RelatedEntitiesProps) {
           {label} ({items.length})
         </h3>
         <ul className="space-y-1.5">
-          {items.map((item, i) => (
-            <li key={`${item.target_slug}-${i}`}>
+          {items.map((item) => (
+            <li key={`${item.target_type}:${item.target_slug}`}>
               <Link
                 href={`/${item.target_type}/${item.target_slug}`}
                 className="flex items-center gap-2 p-2 rounded-lg text-sm transition-colors hover:bg-[var(--color-surface-raised)] ink-underline"
@@ -76,12 +95,6 @@ export function RelatedEntities({ links }: RelatedEntitiesProps) {
         backgroundColor: "var(--color-surface-raised)",
       }}
     >
-      <h3
-        className="text-sm font-semibold mb-3"
-        style={{ color: "var(--color-ink)" }}
-      >
-        关联词条
-      </h3>
       <div className="space-y-4">
         <LinkList
           items={forward}

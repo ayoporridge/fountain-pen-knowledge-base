@@ -1,8 +1,8 @@
-import { type NextRequest, NextResponse } from "next/server";
-import { queryOne, queryAll, execute } from "@/lib/db";
-import { verifyAdminToken } from "@/lib/admin-auth";
 import fs from "node:fs";
 import path from "node:path";
+import { type NextRequest, NextResponse } from "next/server";
+import { verifyAdminToken } from "@/lib/admin-auth";
+import { execute, queryOne } from "@/lib/db";
 
 export async function POST(request: NextRequest) {
   const deny = verifyAdminToken(request);
@@ -23,8 +23,8 @@ export async function POST(request: NextRequest) {
         UNIQUE(entity_id, key)
       )`,
       indexes: [
-        "CREATE INDEX IF NOT EXISTS idx_entity_attributes_entity ON entity_attributes(entity_id)"
-      ]
+        "CREATE INDEX IF NOT EXISTS idx_entity_attributes_entity ON entity_attributes(entity_id)",
+      ],
     },
     {
       name: "entity_tags",
@@ -37,8 +37,8 @@ export async function POST(request: NextRequest) {
       )`,
       indexes: [
         "CREATE INDEX IF NOT EXISTS idx_entity_tags_entity ON entity_tags(entity_id)",
-        "CREATE INDEX IF NOT EXISTS idx_entity_tags_tag ON entity_tags(tag_id)"
-      ]
+        "CREATE INDEX IF NOT EXISTS idx_entity_tags_tag ON entity_tags(tag_id)",
+      ],
     },
     {
       name: "entity_links",
@@ -52,8 +52,8 @@ export async function POST(request: NextRequest) {
       )`,
       indexes: [
         "CREATE INDEX IF NOT EXISTS idx_entity_links_source ON entity_links(source_id)",
-        "CREATE INDEX IF NOT EXISTS idx_entity_links_target ON entity_links(target_id)"
-      ]
+        "CREATE INDEX IF NOT EXISTS idx_entity_links_target ON entity_links(target_id)",
+      ],
     },
     {
       name: "concept_matches",
@@ -64,15 +64,15 @@ export async function POST(request: NextRequest) {
         matched_at TEXT DEFAULT (datetime('now')),
         UNIQUE(concept_id, entity_id)
       )`,
-      indexes: []
-    }
+      indexes: [],
+    },
   ];
 
   for (const table of tables) {
-    const exists = await queryOne(
+    const exists = (await queryOne(
       "SELECT name FROM sqlite_master WHERE name = ? AND type = 'table'",
-      [table.name]
-    ) as { name: string } | undefined;
+      [table.name],
+    )) as { name: string } | undefined;
 
     if (exists) {
       // For Turso, we'll skip complex schema migrations
@@ -101,7 +101,7 @@ export async function POST(request: NextRequest) {
       try {
         await execute(
           "INSERT OR IGNORE INTO entity_attributes (id, entity_id, key, value) VALUES (?, ?, ?, ?)",
-          [attr.id, attr.entity_id, attr.key, attr.value]
+          [attr.id, attr.entity_id, attr.key, attr.value],
         );
         imported++;
       } catch {
@@ -128,7 +128,7 @@ export async function POST(request: NextRequest) {
       try {
         await execute(
           "INSERT OR IGNORE INTO entity_tags (id, entity_id, tag_id, created_at) VALUES (?, ?, ?, ?)",
-          [tag.id, tag.entity_id, tag.tag_id, tag.created_at]
+          [tag.id, tag.entity_id, tag.tag_id, tag.created_at],
         );
         imported++;
       } catch {
@@ -142,11 +142,27 @@ export async function POST(request: NextRequest) {
 
   // Step 3: Verify
   results.push("\n=== Step 3: Verification ===");
-  const entityCount = (await queryOne("SELECT COUNT(*) as cnt FROM entities") as { cnt: number }).cnt;
-  const attrCount = (await queryOne("SELECT COUNT(*) as cnt FROM entity_attributes") as { cnt: number }).cnt;
-  const tagCount = (await queryOne("SELECT COUNT(*) as cnt FROM tags") as { cnt: number }).cnt;
-  const entityTagCount = (await queryOne("SELECT COUNT(*) as cnt FROM entity_tags") as { cnt: number }).cnt;
-  const linkCount = (await queryOne("SELECT COUNT(*) as cnt FROM entity_links") as { cnt: number }).cnt;
+  const entityCount = (
+    (await queryOne("SELECT COUNT(*) as cnt FROM entities")) as { cnt: number }
+  ).cnt;
+  const attrCount = (
+    (await queryOne("SELECT COUNT(*) as cnt FROM entity_attributes")) as {
+      cnt: number;
+    }
+  ).cnt;
+  const tagCount = (
+    (await queryOne("SELECT COUNT(*) as cnt FROM tags")) as { cnt: number }
+  ).cnt;
+  const entityTagCount = (
+    (await queryOne("SELECT COUNT(*) as cnt FROM entity_tags")) as {
+      cnt: number;
+    }
+  ).cnt;
+  const linkCount = (
+    (await queryOne("SELECT COUNT(*) as cnt FROM entity_links")) as {
+      cnt: number;
+    }
+  ).cnt;
 
   results.push(`  Entities: ${entityCount}`);
   results.push(`  Attributes: ${attrCount}`);
@@ -156,6 +172,6 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json({
     success: true,
-    results
+    results,
   });
 }

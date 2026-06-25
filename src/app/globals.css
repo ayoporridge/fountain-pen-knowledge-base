@@ -1,45 +1,45 @@
 @import "tailwindcss";
 
-/* ── Google Fonts loaded via <link> in layout.tsx (Tailwind CSS 4 strips @import url()) ──
- * Display: Cinzel Decorative — bold, dramatic, medieval feel (Latin)
- * Heading: Cinzel — strong, classic (Latin)
- * Body: Cormorant Garamond — elegant, thin strokes (Latin)
- * Chinese: LXGW WenKai (霞鹜文楷) — calligraphy style, like handwritten with a fountain pen
- * CJK fallback: Noto Serif SC
- */
-
-/* ── Color System: Medieval Manuscript ── */
+/* ── Color System: Warm Pen Atlas ── */
 
 @theme {
   /* Light mode */
-  --color-surface: #F5F0E8;
-  --color-surface-raised: #F0E8D8;
-  --color-surface-dim: #E8DCC8;
-  --color-ink: #3C2415;
-  --color-ink-light: #5B4A3A;
-  --color-ink-muted: #7A6B5D;
-  --color-accent: #8B2500;
-  --color-accent-hover: #A33000;
-  --color-accent-light: #F5E6D8;
-  --color-border: #C4B89A;
-  --color-border-light: #D8CEBC;
+  --color-surface: #f7f5f0;
+  --color-surface-raised: #ffffff;
+  --color-surface-dim: #edeae3;
+  --color-ink: #1a1814;
+  --color-ink-light: #4a4640;
+  --color-ink-muted: #716b62;
+  --color-accent: #9a5b22;
+  --color-accent-hover: #7c4518;
+  --color-accent-light: #f3e6d2;
+  --color-border: #d9d2c6;
+  --color-border-light: #e9e3d8;
 
-  /* Fonts — dramatic hierarchy
-   * Latin: Cinzel Decorative / Cinzel / Cormorant Garamond
-   * Chinese: LXGW WenKai (霞鹜文楷) — fountain pen calligraphy style
-   * LXGW WenKai 粗体(700)用于标题，细体(300)用于正文
-   */
-  --font-display: 'Cinzel Decorative', 'LXGW WenKai TC', serif;
-  --font-heading: 'Cinzel', 'LXGW WenKai TC', serif;
-  --font-serif: 'Cormorant Garamond', 'LXGW WenKai TC', serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  --font-label: 'JetBrains Mono', monospace;
+  /* System-first font stack: stable, fast, and readable for Chinese long-form text. */
+  --font-display:
+    ui-serif, "Songti SC", "Noto Serif CJK SC", "Noto Serif SC", serif;
+  --font-heading:
+    ui-serif, "Songti SC", "Noto Serif CJK SC", "Noto Serif SC", serif;
+  --font-serif:
+    ui-serif, "Songti SC", "Noto Serif CJK SC", "Noto Serif SC", serif;
+  --font-mono: "JetBrains Mono", monospace;
+  --font-label:
+    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC",
+    "Microsoft YaHei", sans-serif;
 
   /* Shadows — bird.onethreenine.net depth system */
-  --shadow-edge: inset 0 0 0 1px rgba(255,255,255,0.55), 0 0 0 1px rgba(60,36,21,0.04);
-  --shadow-edge-lg: inset 0 0 0 1px rgba(255,255,255,0.6), 0 0 0 1px rgba(60,36,21,0.06), 0 8px 28px rgba(60,36,21,0.06);
-  --shadow-recess: inset 0 1px 2px rgba(60,36,21,0.06), inset 0 0 0 1px rgba(60,36,21,0.04);
-  --shadow-raised: inset 0 0 0 1px rgba(255,255,255,0.8), 0 0 0 1px rgba(60,36,21,0.05), 0 1px 2px rgba(60,36,21,0.07);
+  --shadow-edge:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.55), 0 0 0 1px rgba(60, 36, 21, 0.04);
+  --shadow-edge-lg:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6), 0 0 0 1px rgba(60, 36, 21, 0.06),
+    0 8px 28px rgba(60, 36, 21, 0.06);
+  --shadow-recess:
+    inset 0 1px 2px rgba(60, 36, 21, 0.06),
+    inset 0 0 0 1px rgba(60, 36, 21, 0.04);
+  --shadow-raised:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.8), 0 0 0 1px rgba(60, 36, 21, 0.05),
+    0 1px 2px rgba(60, 36, 21, 0.07);
 
   /* Transition curves */
   --ease-out: cubic-bezier(0.7, 0.05, 0.2, 1);
@@ -47,17 +47,17 @@
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* Dark mode overrides */
-  --color-surface-dark: #2A2218;
-  --color-surface-raised-dark: #3A3028;
-  --color-surface-dim-dark: #4A4038;
-  --color-ink-dark: #E8DCC8;
-  --color-ink-light-dark: #C4B89A;
-  --color-ink-muted-dark: #8A7D6D;
-  --color-accent-dark: #C4A35A;
-  --color-accent-hover-dark: #D4B36A;
-  --color-accent-light-dark: #3A3028;
-  --color-border-dark: #5A4E3E;
-  --color-border-light-dark: #4A4038;
+  --color-surface-dark: #141210;
+  --color-surface-raised-dark: #1e1c18;
+  --color-surface-dim-dark: #2a2721;
+  --color-ink-dark: #e8e4dc;
+  --color-ink-light-dark: #c9c1b3;
+  --color-ink-muted-dark: #9b9284;
+  --color-accent-dark: #d6a461;
+  --color-accent-hover-dark: #e1b678;
+  --color-accent-light-dark: #2b2117;
+  --color-border-dark: #38332b;
+  --color-border-light-dark: #2a2721;
 }
 
 /* ── Dark mode variable remapping ── */
@@ -75,10 +75,17 @@
   --color-border-light: var(--color-border-light-dark);
 
   /* Dark shadows */
-  --shadow-edge: inset 0 0 0 1px rgba(255,255,255,0.05), 0 0 0 1px rgba(0,0,0,0.4);
-  --shadow-edge-lg: inset 0 0 0 1px rgba(255,255,255,0.06), 0 0 0 1px rgba(0,0,0,0.5), 0 10px 30px rgba(0,0,0,0.5);
-  --shadow-recess: inset 0 1px 2px rgba(0,0,0,0.5), inset 0 0 0 1px rgba(255,255,255,0.04);
-  --shadow-raised: inset 0 0 0 1px rgba(255,255,255,0.07), 0 0 0 1px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.5);
+  --shadow-edge:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.4);
+  --shadow-edge-lg:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.5),
+    0 10px 30px rgba(0, 0, 0, 0.5);
+  --shadow-recess:
+    inset 0 1px 2px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+  --shadow-raised:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.07), 0 0 0 1px rgba(0, 0, 0, 0.4),
+    0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 /* ── Base ── */
@@ -89,43 +96,64 @@ body {
   color: var(--color-ink);
   font-family: var(--font-serif);
   line-height: 1.8;
+  font-weight: 400;
   background-image:
-    radial-gradient(ellipse at 15% 25%, rgba(139, 69, 19, 0.04) 0%, transparent 50%),
-    radial-gradient(ellipse at 85% 75%, rgba(139, 69, 19, 0.03) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 50%, rgba(139, 69, 19, 0.02) 0%, transparent 70%);
+    linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.12)),
+    radial-gradient(
+      ellipse at 20% 15%,
+      rgba(154, 91, 34, 0.035) 0%,
+      transparent 45%
+    );
 }
 
 .dark body {
   background-image:
-    radial-gradient(ellipse at 15% 25%, rgba(139, 69, 19, 0.02) 0%, transparent 50%),
-    radial-gradient(ellipse at 85% 75%, rgba(139, 69, 19, 0.015) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 50%, rgba(139, 69, 19, 0.01) 0%, transparent 70%);
+    radial-gradient(
+      ellipse at 15% 25%,
+      rgba(139, 69, 19, 0.02) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 85% 75%,
+      rgba(139, 69, 19, 0.015) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 50% 50%,
+      rgba(139, 69, 19, 0.01) 0%,
+      transparent 70%
+    );
 }
 
-/* ── Typography: dramatic hierarchy ── */
-h1, h2, h3, h4, h5, h6 {
+/* ── Typography: editorial knowledge atlas ── */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   line-height: 1.2;
+  letter-spacing: 0;
 }
 
 h1 {
-  font-family: var(--font-display);  /* Cinzel Decorative — dramatic, bold */
+  font-family: var(--font-display);
   font-weight: 700;
-  letter-spacing: 0.04em;
 }
 
 h2 {
-  font-family: var(--font-heading);  /* Cinzel — strong, classic */
+  font-family: var(--font-heading);
   font-weight: 600;
-  letter-spacing: 0.03em;
 }
 
 h3 {
-  font-family: var(--font-heading);  /* Cinzel — strong, classic */
+  font-family: var(--font-heading);
   font-weight: 600;
-  letter-spacing: 0.02em;
 }
 
-h4, h5, h6 {
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   font-weight: 500;
 }
@@ -134,17 +162,14 @@ p {
   margin-bottom: 1.2em;
 }
 
-/* ── Body text: thin, elegant calligraphy ── */
-body {
-  font-weight: 300;  /* LXGW WenKai Light — thin strokes */
-}
-
 /* ── Labels / tags ── */
-.tag, .label, .mono {
-  font-family: var(--font-mono);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  font-size: 0.7em;
+.tag,
+.label,
+.mono {
+  font-family: var(--font-label);
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 0.78em;
 }
 
 /* ── Link transitions ── */
@@ -158,7 +183,9 @@ a:hover {
 
 /* ── Micro-interactions ── */
 .btn-press {
-  transition: transform 160ms var(--ease-out), box-shadow 160ms var(--ease-out);
+  transition:
+    transform 160ms var(--ease-out),
+    box-shadow 160ms var(--ease-out);
 }
 .btn-press:active {
   transform: translateY(1px);
@@ -166,10 +193,13 @@ a:hover {
 }
 
 .card-hover {
-  transition: transform 320ms var(--ease-out), box-shadow 320ms var(--ease-out);
+  transition:
+    transform 180ms var(--ease-out),
+    box-shadow 180ms var(--ease-out),
+    background-color 180ms var(--ease-out);
 }
 .card-hover:hover {
-  transform: translateY(-2px);
+  transform: translateY(-1px);
   box-shadow: var(--shadow-edge-lg);
 }
 
@@ -189,24 +219,44 @@ a:hover {
   animation: fade-in-up 0.5s var(--ease-out) forwards;
 }
 
-.stagger-1 { animation-delay: 0.05s; }
-.stagger-2 { animation-delay: 0.1s; }
-.stagger-3 { animation-delay: 0.15s; }
-.stagger-4 { animation-delay: 0.2s; }
-.stagger-5 { animation-delay: 0.25s; }
-.stagger-6 { animation-delay: 0.3s; }
+.stagger-1 {
+  animation-delay: 0.05s;
+}
+.stagger-2 {
+  animation-delay: 0.1s;
+}
+.stagger-3 {
+  animation-delay: 0.15s;
+}
+.stagger-4 {
+  animation-delay: 0.2s;
+}
+.stagger-5 {
+  animation-delay: 0.25s;
+}
+.stagger-6 {
+  animation-delay: 0.3s;
+}
 
 @keyframes slide-in-right {
-  from { transform: translateX(100%); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 .animate-slide-in-right {
   animation: slide-in-right 0.2s var(--ease-out) forwards;
 }
 
 @keyframes fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 .animate-fade-in {
   animation: fade-in 0.15s var(--ease-out) forwards;
@@ -230,7 +280,8 @@ a:hover {
 }
 
 /* ── Decorative dividers ── */
-hr, .divider {
+hr,
+.divider {
   border: none;
   height: 1px;
   background: linear-gradient(
@@ -247,14 +298,10 @@ hr, .divider {
 /* ── Drop Cap (first letter decoration) ── */
 .prose-body > p:first-of-type::first-letter,
 .prose > p:first-of-type::first-letter {
-  font-family: var(--font-display);
-  font-size: 3.2em;
-  float: left;
-  line-height: 0.8;
-  padding-right: 0.1em;
-  padding-top: 0.05em;
-  color: var(--color-accent);
-  font-weight: 700;
+  font: inherit;
+  float: none;
+  padding: 0;
+  color: inherit;
 }
 
 /* ── Markdown body ── */
@@ -285,7 +332,12 @@ hr, .divider {
   line-height: 1.8;
 }
 
-.prose-body ul, .prose-body ol {
+.prose-body > h1:first-child {
+  display: none;
+}
+
+.prose-body ul,
+.prose-body ol {
   margin-bottom: 1.2rem;
   padding-left: 1.5rem;
 }
@@ -349,6 +401,9 @@ hr, .divider {
 }
 
 .prose-body img {
+  display: block;
+  max-width: 100%;
+  height: auto;
   border-radius: 0.5rem;
   margin: 1.5rem 0;
 }
@@ -454,6 +509,51 @@ hr, .divider {
   line-height: 1.4;
 }
 
+.image-figure {
+  margin: 1.75rem 0;
+}
+
+.image-figure img {
+  width: 100%;
+  max-height: 560px;
+  object-fit: contain;
+  background: var(--color-surface-dim);
+  border: 1px solid var(--color-border-light);
+}
+
+.image-figure figcaption {
+  margin-top: 0.65rem;
+  color: var(--color-ink-muted);
+  font-size: 0.86rem;
+  line-height: 1.55;
+  text-align: center;
+}
+
+.legacy-pipe-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+  align-items: start;
+  margin: 1rem 0;
+}
+
+.legacy-pipe-cell {
+  min-width: 0;
+  padding: 0.65rem;
+  border: 1px solid var(--color-border-light);
+  border-radius: 0.5rem;
+  background: var(--color-surface-dim);
+  color: var(--color-ink-light);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.legacy-pipe-cell img {
+  margin: 0.25rem auto;
+  max-height: 420px;
+  object-fit: contain;
+}
+
 /* ── Broken image fallback ── */
 .broken-image {
   display: inline-block;
@@ -479,7 +579,7 @@ hr, .divider {
 
   .prose-body > p:first-of-type::first-letter,
   .prose > p:first-of-type::first-letter {
-    font-size: 2.5em;
+    font: inherit;
   }
 }
 
@@ -509,19 +609,31 @@ hr, .divider {
 }
 
 .animate-ink-bleed {
-  animation: ink-bleed 0.8s var(--ease-out) forwards;
+  animation: fade-in 0.18s var(--ease-out) forwards;
 }
 
 /* Staggered ink bleed — uses animation-fill-mode to ensure visibility */
 .ink-bleed-stagger > * {
-  animation: ink-bleed 0.6s var(--ease-out) both;
+  animation: fade-in 0.18s var(--ease-out) both;
 }
-.ink-bleed-stagger > *:nth-child(1) { animation-delay: 0.1s; }
-.ink-bleed-stagger > *:nth-child(2) { animation-delay: 0.2s; }
-.ink-bleed-stagger > *:nth-child(3) { animation-delay: 0.3s; }
-.ink-bleed-stagger > *:nth-child(4) { animation-delay: 0.4s; }
-.ink-bleed-stagger > *:nth-child(5) { animation-delay: 0.5s; }
-.ink-bleed-stagger > *:nth-child(6) { animation-delay: 0.6s; }
+.ink-bleed-stagger > *:nth-child(1) {
+  animation-delay: 0.02s;
+}
+.ink-bleed-stagger > *:nth-child(2) {
+  animation-delay: 0.04s;
+}
+.ink-bleed-stagger > *:nth-child(3) {
+  animation-delay: 0.06s;
+}
+.ink-bleed-stagger > *:nth-child(4) {
+  animation-delay: 0.08s;
+}
+.ink-bleed-stagger > *:nth-child(5) {
+  animation-delay: 0.1s;
+}
+.ink-bleed-stagger > *:nth-child(6) {
+  animation-delay: 0.12s;
+}
 
 /* ── 2. Parchment Unfold (羊皮纸展开) ──
  * Content unfolds from center like opening a scroll
@@ -566,7 +678,7 @@ hr, .divider {
 }
 
 .gold-shimmer-hover::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -587,8 +699,8 @@ hr, .divider {
 }
 
 .gold-shimmer-hover:hover::after {
-  opacity: 1;
-  animation: gold-shimmer 1.5s ease-in-out infinite;
+  opacity: 0;
+  animation: none;
 }
 
 /* ── 4. Ink Underline (墨迹下划线) ──
@@ -600,7 +712,7 @@ hr, .divider {
 }
 
 .ink-underline::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -2px;
   left: 0;
@@ -624,7 +736,8 @@ hr, .divider {
  * Current entity node breathes with subtle scale animation
  */
 @keyframes node-pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
     filter: brightness(1);
   }
@@ -651,7 +764,9 @@ hr, .divider {
 }
 
 .scroll-reveal {
-  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+  transition:
+    opacity 0.6s var(--ease-out),
+    transform 0.6s var(--ease-out);
 }
 
 .scroll-reveal.visible {
@@ -660,14 +775,30 @@ hr, .divider {
 }
 
 /* Staggered scroll reveal */
-.scroll-reveal-stagger > .scroll-reveal:nth-child(1) { transition-delay: 0.05s; }
-.scroll-reveal-stagger > .scroll-reveal:nth-child(2) { transition-delay: 0.1s; }
-.scroll-reveal-stagger > .scroll-reveal:nth-child(3) { transition-delay: 0.15s; }
-.scroll-reveal-stagger > .scroll-reveal:nth-child(4) { transition-delay: 0.2s; }
-.scroll-reveal-stagger > .scroll-reveal:nth-child(5) { transition-delay: 0.25s; }
-.scroll-reveal-stagger > .scroll-reveal:nth-child(6) { transition-delay: 0.3s; }
-.scroll-reveal-stagger > .scroll-reveal:nth-child(7) { transition-delay: 0.35s; }
-.scroll-reveal-stagger > .scroll-reveal:nth-child(8) { transition-delay: 0.4s; }
+.scroll-reveal-stagger > .scroll-reveal:nth-child(1) {
+  transition-delay: 0.05s;
+}
+.scroll-reveal-stagger > .scroll-reveal:nth-child(2) {
+  transition-delay: 0.1s;
+}
+.scroll-reveal-stagger > .scroll-reveal:nth-child(3) {
+  transition-delay: 0.15s;
+}
+.scroll-reveal-stagger > .scroll-reveal:nth-child(4) {
+  transition-delay: 0.2s;
+}
+.scroll-reveal-stagger > .scroll-reveal:nth-child(5) {
+  transition-delay: 0.25s;
+}
+.scroll-reveal-stagger > .scroll-reveal:nth-child(6) {
+  transition-delay: 0.3s;
+}
+.scroll-reveal-stagger > .scroll-reveal:nth-child(7) {
+  transition-delay: 0.35s;
+}
+.scroll-reveal-stagger > .scroll-reveal:nth-child(8) {
+  transition-delay: 0.4s;
+}
 
 /* ── Reduced motion preference ── */
 @media (prefers-reduced-motion: reduce) {
@@ -682,12 +813,12 @@ hr, .divider {
     transform: none !important;
     filter: none !important;
   }
-  
+
   .ink-underline::after {
     transition: none;
     width: 100%;
   }
-  
+
   .gold-shimmer-hover::after {
     animation: none;
   }

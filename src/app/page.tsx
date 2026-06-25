@@ -1,16 +1,19 @@
-import { queryAll, queryOne } from "@/lib/db";
-import Link from "next/link";
-import BentoGrid from "@/components/BentoGrid";
-import Image from "next/image";
-import type { Metadata } from "next";
 import {
-  PenNib,
   ArrowRight,
-  MagnifyingGlass,
+  BookOpen,
+  Graph,
+  PenNib,
+  Scales,
   Star,
 } from "@phosphor-icons/react/dist/ssr";
-import { TYPE_LABELS, TYPE_ICONS } from "@/lib/constants";
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import BentoGrid from "@/components/BentoGrid";
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { SearchBox } from "@/components/SearchBox";
+import { TYPE_ICONS, TYPE_LABELS } from "@/lib/constants";
+import { queryAll } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
@@ -37,10 +40,37 @@ const HERO_QUESTIONS = [
   },
 ];
 
+const TASK_ENTRIES = [
+  {
+    title: "新手选笔",
+    desc: "从预算、用途、笔尖和产地开始缩小范围。",
+    href: "/browse",
+    Icon: PenNib,
+  },
+  {
+    title: "看懂术语",
+    desc: "先弄清笔尖、上墨、材质和维护概念。",
+    href: "/by/nib",
+    Icon: BookOpen,
+  },
+  {
+    title: "型号对比",
+    desc: "把候选型号放到一起看差异和取舍。",
+    href: "/compare",
+    Icon: Scales,
+  },
+  {
+    title: "漫游图谱",
+    desc: "从品牌、经典型号或结构进入关系网络。",
+    href: "/browse",
+    Icon: Graph,
+  },
+];
+
 export default async function Home() {
   // Stats
   const stats = (await queryAll(
-    "SELECT type, COUNT(*) as cnt FROM entities GROUP BY type ORDER BY cnt DESC"
+    "SELECT type, COUNT(*) as cnt FROM entities GROUP BY type ORDER BY cnt DESC",
   )) as Array<{ type: string; cnt: number }>;
 
   // Featured: well-tagged entries (curated, not just newest)
@@ -51,7 +81,7 @@ export default async function Home() {
      GROUP BY e.id
      HAVING tag_count >= 1
      ORDER BY tag_count DESC, e.created_at DESC
-     LIMIT 8`
+     LIMIT 8`,
   )) as Array<{
     type: string;
     name: string;
@@ -66,26 +96,39 @@ export default async function Home() {
     stats
       .filter((s) => s.type !== "material")
       .map(async (s) => {
+        const type = String(s.type);
         const stars = (await queryAll(
           `SELECT name, slug FROM entities
            WHERE type = ?
            ORDER BY (SELECT COUNT(*) FROM entity_tags WHERE entity_id = entities.id) DESC,
                     created_at DESC
            LIMIT ?`,
-          [s.type, s.type === "pen" ? 3 : 2]
+          [type, type === "pen" ? 3 : 2],
         )) as Array<{ name: string; slug: string }>;
         return {
-          ...s,
-          label: TYPE_LABELS[s.type] || s.type,
-          stars,
+          type,
+          cnt: Number(s.cnt),
+          label: TYPE_LABELS[type] || type,
+          stars: stars.map((star) => ({
+            name: String(star.name),
+            slug: String(star.slug),
+          })),
         };
-      })
+      }),
   );
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
       {/* ── Hero: concrete, not abstract ── */}
-      <div className="max-w-2xl mb-16 manuscript-border p-8 sm:p-10 animate-ink-bleed ink-bleed-stagger">
+      <div
+        className="max-w-3xl mb-10 rounded-2xl border p-6 sm:p-8 animate-ink-bleed ink-bleed-stagger"
+        style={{
+          borderColor: "var(--color-border)",
+          backgroundColor:
+            "color-mix(in srgb, var(--color-surface-raised) 82%, transparent)",
+          boxShadow: "var(--shadow-edge-lg)",
+        }}
+      >
         <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-4 font-serif">
           找一支适合你的钢笔
         </h1>
@@ -99,33 +142,7 @@ export default async function Home() {
           看懂一支你已经买了的笔，搞清两支笔到底差在哪。品牌、型号、工艺、上墨方式——这里有你想知道的一切。
         </p>
 
-        {/* Search as primary CTA */}
-        <Link
-          href="/search"
-          className="flex items-center gap-3 w-full max-w-md px-4 py-3 rounded-xl card-hover gold-shimmer-hover"
-          style={{
-            backgroundColor: "var(--color-surface-raised)",
-            boxShadow: "var(--shadow-recess)",
-          }}
-        >
-          <MagnifyingGlass
-            size={18}
-            style={{ color: "var(--color-ink-muted)" }}
-          />
-          <span style={{ color: "var(--color-ink-muted)" }}>
-            搜索品牌、型号、概念…
-          </span>
-          <kbd
-            className="ml-auto text-xs px-1.5 py-0.5 rounded"
-            style={{
-              color: "var(--color-ink-muted)",
-              backgroundColor: "var(--color-surface-dim)",
-              boxShadow: "var(--shadow-recess)",
-            }}
-          >
-            /
-          </kbd>
-        </Link>
+        <SearchBox />
 
         {/* Real question hooks */}
         <div className="mt-6 space-y-2">
@@ -153,6 +170,39 @@ export default async function Home() {
           </Link>
         </div>
       </div>
+
+      <ScrollReveal stagger className="mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {TASK_ENTRIES.map(({ title, desc, href, Icon }) => (
+            <Link
+              key={title}
+              href={href}
+              className="rounded-xl border p-4 card-hover"
+              style={{
+                borderColor: "var(--color-border)",
+                backgroundColor: "var(--color-surface-raised)",
+              }}
+            >
+              <span
+                className="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-lg"
+                style={{
+                  backgroundColor: "var(--color-accent-light)",
+                  color: "var(--color-accent)",
+                }}
+              >
+                <Icon size={18} weight="duotone" />
+              </span>
+              <h2 className="mb-1 text-base font-semibold">{title}</h2>
+              <p
+                className="m-0 text-sm leading-relaxed"
+                style={{ color: "var(--color-ink-muted)" }}
+              >
+                {desc}
+              </p>
+            </Link>
+          ))}
+        </div>
+      </ScrollReveal>
 
       {/* ── Type Bento: preview star entries, not numbers ── */}
       <ScrollReveal stagger className="mb-16">

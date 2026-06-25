@@ -1,12 +1,16 @@
-import { type NextRequest, NextResponse } from "next/server";
-import { queryAll, queryOne, execute } from "@/lib/db";
 import { nanoid } from "nanoid";
+import { type NextRequest, NextResponse } from "next/server";
+import { verifyWriteAccess } from "@/lib/admin-auth";
+import { execute, queryAll, queryOne } from "@/lib/db";
 
 // GET /api/links?entity_id=xxx&depth=1 — get all links for an entity
 // depth=2 also fetches links for each direct neighbor (2-hop expansion)
 export async function GET(request: NextRequest) {
   const entityId = request.nextUrl.searchParams.get("entity_id");
-  const depth = Math.min(Number(request.nextUrl.searchParams.get("depth")) || 1, 2);
+  const depth = Math.min(
+    Number(request.nextUrl.searchParams.get("depth")) || 1,
+    2,
+  );
 
   if (!entityId) {
     return NextResponse.json(
@@ -22,7 +26,7 @@ export async function GET(request: NextRequest) {
      JOIN entities e ON e.id = el.target_id
      WHERE el.source_id = ? AND el.link_type != 'reverse'
      ORDER BY el.created_at`,
-    [entityId]
+    [entityId],
   );
 
   // Backlinks: entity is target
@@ -32,7 +36,7 @@ export async function GET(request: NextRequest) {
      JOIN entities e ON e.id = el.source_id
      WHERE el.target_id = ? AND el.link_type != 'reverse'
      ORDER BY el.created_at`,
-    [entityId]
+    [entityId],
   );
 
   // 2-hop: fetch links for each direct neighbor
@@ -61,7 +65,7 @@ export async function GET(request: NextRequest) {
          JOIN entities e ON e.id = el.target_id
          WHERE el.source_id IN (${placeholders}) AND el.link_type != 'reverse'
          ORDER BY el.created_at`,
-        neighbors
+        neighbors,
       );
       secondHopBacklinks = await queryAll(
         `SELECT el.*, e.slug as source_slug, e.name as source_name, e.type as source_type
@@ -69,7 +73,7 @@ export async function GET(request: NextRequest) {
          JOIN entities e ON e.id = el.source_id
          WHERE el.target_id IN (${placeholders}) AND el.link_type != 'reverse'
          ORDER BY el.created_at`,
-        neighbors
+        neighbors,
       );
     }
   }
@@ -83,6 +87,9 @@ export async function GET(request: NextRequest) {
 
 // POST /api/links — create a link
 export async function POST(request: NextRequest) {
+  const deny = verifyWriteAccess(request);
+  if (deny) return deny;
+
   const body = await request.json();
   const { source_id, target_id, link_type } = body;
 
@@ -101,8 +108,12 @@ export async function POST(request: NextRequest) {
   }
 
   // Verify both entities exist
-  const source = await queryOne("SELECT id FROM entities WHERE id = ?", [source_id]);
-  const target = await queryOne("SELECT id FROM entities WHERE id = ?", [target_id]);
+  const source = await queryOne("SELECT id FROM entities WHERE id = ?", [
+    source_id,
+  ]);
+  const target = await queryOne("SELECT id FROM entities WHERE id = ?", [
+    target_id,
+  ]);
 
   if (!source || !target) {
     return NextResponse.json(
@@ -116,10 +127,12 @@ export async function POST(request: NextRequest) {
   try {
     await execute(
       "INSERT INTO entity_links (id, source_id, target_id, link_type) VALUES (?, ?, ?, ?)",
-      [id, source_id, target_id, link_type || "related"]
+      [id, source_id, target_id, link_type || "related"],
     );
 
-    const link = await queryOne("SELECT * FROM entity_links WHERE id = ?", [id]);
+    const link = await queryOne("SELECT * FROM entity_links WHERE id = ?", [
+      id,
+    ]);
     return NextResponse.json(link, { status: 201 });
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
@@ -141,6 +154,9 @@ export async function POST(request: NextRequest) {
 
 // DELETE /api/links?id=xxx — delete a link
 export async function DELETE(request: NextRequest) {
+  const deny = verifyWriteAccess(request);
+  if (deny) return deny;
+
   const id = request.nextUrl.searchParams.get("id");
 
   if (!id) {

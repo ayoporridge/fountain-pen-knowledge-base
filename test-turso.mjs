@@ -1,9 +1,13 @@
 import { createClient } from "@libsql/client";
 
-const TURSO_URL = "libsql://fpkg-arjoxu.aws-us-west-2.turso.io";
-const TURSO_TOKEN = "eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3ODA4MDg2NzcsImlkIjoiMDE5ZWEwNWQtZGMwMS03ZDZmLTgzMTQtNjhkNzllNTE1ZTcwIiwicmlkIjoiZDE3Mjk1YWItN2JlNi00ZTYwLTg3M2QtODU4ODMyY2VhMGI2In0.vGKA-x1oyP-DMwLwTJK6aXICOVoy6vQpc22_jJzmjuysugNaJJnqTJ22sWmomhrWgNUXqn68UY8OWmj9nFiBCw";
+const TURSO_URL = process.env.TURSO_DATABASE_URL;
+const TURSO_TOKEN = process.env.TURSO_AUTH_TOKEN;
 
 async function main() {
+  if (!TURSO_URL || !TURSO_TOKEN) {
+    throw new Error("Set TURSO_DATABASE_URL and TURSO_AUTH_TOKEN first.");
+  }
+
   console.log("Testing connection to:", TURSO_URL);
 
   const client = createClient({

@@ -1,5 +1,5 @@
+import { ArrowSquareOut, Clock } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
-import { Clock, ArrowSquareOut } from "@phosphor-icons/react/dist/ssr";
 
 interface EntityMetaProps {
   createdAt: string;
@@ -42,11 +42,17 @@ export function EntityMeta({
         元信息
       </h3>
       <div className="space-y-2 text-sm">
-        <div className="flex items-center gap-2" style={{ color: "var(--color-ink-muted)" }}>
+        <div
+          className="flex items-center gap-2"
+          style={{ color: "var(--color-ink-muted)" }}
+        >
           <Clock size={14} />
           <span>创建于 {formatDate(createdAt)}</span>
         </div>
-        <div className="flex items-center gap-2" style={{ color: "var(--color-ink-muted)" }}>
+        <div
+          className="flex items-center gap-2"
+          style={{ color: "var(--color-ink-muted)" }}
+        >
           <Clock size={14} />
           <span>更新于 {formatDate(updatedAt)}</span>
         </div>

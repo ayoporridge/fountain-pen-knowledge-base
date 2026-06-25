@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { PenNib } from "@phosphor-icons/react/dist/ssr";
+import Link from "next/link";
 
 export function Footer() {
   return (
@@ -117,7 +117,8 @@ export function Footer() {
               关于
             </h3>
             <p style={{ color: "var(--color-ink-muted)", lineHeight: 1.7 }}>
-              一个钢笔爱好者的个人项目。收集了 500+ 词条、70+ 标签，覆盖品牌、型号、笔尖、上墨方式。数据来自社区讨论、评测文章和我的个人笔记。
+              一个钢笔爱好者的个人项目。收集了 500+ 词条、70+
+              标签，覆盖品牌、型号、笔尖、上墨方式。数据来自社区讨论、评测文章和我的个人笔记。
             </p>
           </div>
         </div>

@@ -34,15 +34,15 @@ export async function retrieveContext(query: string): Promise<ChatContext> {
   const ftsQuery = terms.map((t) => `"${t}"`).join(" OR ");
 
   // Search entities
-  const ftsResults = await queryAll(
+  const ftsResults = (await queryAll(
     `SELECT e.id, e.type, e.slug, e.name, e.summary, e.body_md, rank
      FROM entities_fts fts
      JOIN entities e ON e.rowid = fts.rowid
      WHERE entities_fts MATCH ?
      ORDER BY rank
      LIMIT 20`,
-    [ftsQuery]
-  ) as Array<{
+    [ftsQuery],
+  )) as Array<{
     id: string;
     type: string;
     slug: string;
@@ -53,26 +53,28 @@ export async function retrieveContext(query: string): Promise<ChatContext> {
   }>;
 
   // Enrich with attributes and tags
-  const enriched = await Promise.all(ftsResults.map(async (entity) => {
-    const attrs = await queryAll(
-      "SELECT key, value FROM entity_attributes WHERE entity_id = ?",
-      [entity.id]
-    ) as Array<{ key: string; value: string }>;
+  const enriched = await Promise.all(
+    ftsResults.map(async (entity) => {
+      const attrs = (await queryAll(
+        "SELECT key, value FROM entity_attributes WHERE entity_id = ?",
+        [entity.id],
+      )) as Array<{ key: string; value: string }>;
 
-    const tags = await queryAll(
-      `SELECT t.name FROM tags t
+      const tags = (await queryAll(
+        `SELECT t.name FROM tags t
        JOIN entity_tags et ON et.tag_id = t.id
        WHERE et.entity_id = ?`,
-      [entity.id]
-    ) as Array<{ name: string }>;
+        [entity.id],
+      )) as Array<{ name: string }>;
 
-    return {
-      ...entity,
-      attributes: Object.fromEntries(attrs.map((a) => [a.key, a.value])),
-      tags: tags.map((t) => t.name),
-      relevance: Math.abs(entity.rank),
-    };
-  }));
+      return {
+        ...entity,
+        attributes: Object.fromEntries(attrs.map((a) => [a.key, a.value])),
+        tags: tags.map((t) => t.name),
+        relevance: Math.abs(entity.rank),
+      };
+    }),
+  );
 
   return {
     entities: enriched,
@@ -85,7 +87,11 @@ export async function retrieveContext(query: string): Promise<ChatContext> {
  */
 export async function buildSystemPrompt(context: ChatContext): Promise<string> {
   if (context.entities.length === 0) {
-    const entityCount = (await queryOne("SELECT COUNT(*) as cnt FROM entities") as { cnt: number }).cnt;
+    const entityCount = (
+      (await queryOne("SELECT COUNT(*) as cnt FROM entities")) as {
+        cnt: number;
+      }
+    ).cnt;
     return `你是"钢笔知识图谱"的 AI 助手。用户在浏览一个包含 ${entityCount} 个词条的钢笔知识图谱。
 
 当前查询没有找到匹配的词条。请基于你的钢笔知识回答用户的问题，并建议用户尝试不同的搜索词。`;

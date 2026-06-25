@@ -1,7 +1,7 @@
-import { type NextRequest, NextResponse } from "next/server";
-import { queryAll, queryOne, execute } from "@/lib/db";
-import { verifyAdminToken } from "@/lib/admin-auth";
 import { nanoid } from "nanoid";
+import { type NextRequest, NextResponse } from "next/server";
+import { verifyAdminToken, verifyWriteAccess } from "@/lib/admin-auth";
+import { execute, queryAll, queryOne } from "@/lib/db";
 
 // GET /api/entities/[slug]
 export async function GET(
@@ -10,23 +10,28 @@ export async function GET(
 ) {
   const { slug } = await params;
 
-  const entity = await queryOne("SELECT * FROM entities WHERE slug = ?", [slug]) as Record<string, unknown> | undefined;
+  const entity = (await queryOne("SELECT * FROM entities WHERE slug = ?", [
+    slug,
+  ])) as Record<string, unknown> | undefined;
 
   if (!entity) {
     return NextResponse.json({ error: "Entity not found" }, { status: 404 });
   }
 
-  const attrs = await queryAll(
+  const attrs = (await queryAll(
     "SELECT key, value FROM entity_attributes WHERE entity_id = ?",
-    [entity.id]
-  ) as Array<{ key: string; value: string }>;
+    [entity.id],
+  )) as Array<{ key: string; value: string }>;
 
-  const tags = await queryAll(`
+  const tags = (await queryAll(
+    `
     SELECT t.id, t.name, t.dimension, t.slug
     FROM tags t
     JOIN entity_tags et ON et.tag_id = t.id
     WHERE et.entity_id = ?
-  `, [entity.id]) as Array<{ id: string; name: string; dimension: string; slug: string }>;
+  `,
+    [entity.id],
+  )) as Array<{ id: string; name: string; dimension: string; slug: string }>;
 
   return NextResponse.json({
     ...entity,
@@ -40,10 +45,15 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ slug: string }> },
 ) {
+  const deny = verifyWriteAccess(request);
+  if (deny) return deny;
+
   const { slug } = await params;
   const body = await request.json();
 
-  const entity = await queryOne("SELECT * FROM entities WHERE slug = ?", [slug]) as Record<string, unknown> | undefined;
+  const entity = (await queryOne("SELECT * FROM entities WHERE slug = ?", [
+    slug,
+  ])) as Record<string, unknown> | undefined;
 
   if (!entity) {
     return NextResponse.json({ error: "Entity not found" }, { status: 404 });
@@ -54,25 +64,37 @@ export async function PUT(
 
   await execute(
     "UPDATE entities SET name = ?, summary = ?, body_md = ?, type = ?, source = ?, updated_at = ? WHERE slug = ?",
-    [name ?? entity.name, summary ?? entity.summary, body_md ?? entity.body_md, type ?? entity.type, source ?? entity.source, now, slug]
+    [
+      name ?? entity.name,
+      summary ?? entity.summary,
+      body_md ?? entity.body_md,
+      type ?? entity.type,
+      source ?? entity.source,
+      now,
+      slug,
+    ],
   );
 
   // Update attributes if provided
   if (body.attributes && typeof body.attributes === "object") {
-    await execute("DELETE FROM entity_attributes WHERE entity_id = ?", [entity.id]);
+    await execute("DELETE FROM entity_attributes WHERE entity_id = ?", [
+      entity.id,
+    ]);
     for (const [key, value] of Object.entries(body.attributes)) {
       await execute(
         "INSERT INTO entity_attributes (id, entity_id, key, value) VALUES (?, ?, ?, ?)",
-        [nanoid(12), entity.id, key, String(value)]
+        [nanoid(12), entity.id, key, String(value)],
       );
     }
   }
 
-  const updated = await queryOne("SELECT * FROM entities WHERE slug = ?", [slug]) as Record<string, unknown>;
-  const attrs = await queryAll(
+  const updated = (await queryOne("SELECT * FROM entities WHERE slug = ?", [
+    slug,
+  ])) as Record<string, unknown>;
+  const attrs = (await queryAll(
     "SELECT key, value FROM entity_attributes WHERE entity_id = ?",
-    [updated.id]
-  ) as Array<{ key: string; value: string }>;
+    [updated.id],
+  )) as Array<{ key: string; value: string }>;
 
   return NextResponse.json({
     ...updated,
@@ -91,7 +113,9 @@ export async function DELETE(
   const { slug } = await params;
 
   // Check if entity exists first
-  const entity = await queryOne("SELECT id FROM entities WHERE slug = ?", [slug]);
+  const entity = await queryOne("SELECT id FROM entities WHERE slug = ?", [
+    slug,
+  ]);
   if (!entity) {
     return NextResponse.json({ error: "Entity not found" }, { status: 404 });
   }

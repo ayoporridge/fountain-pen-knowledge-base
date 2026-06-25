@@ -1,7 +1,7 @@
 "use client";
 
-import Link from "next/link";
 import { PenNib } from "@phosphor-icons/react/dist/ssr";
+import Link from "next/link";
 import { TYPE_ICONS } from "@/lib/constants";
 
 interface StarEntry {
@@ -22,9 +22,8 @@ export default function BentoGrid({ items }: { items: TypeItem[] }) {
       {items.map(({ type, label, stars, cnt }) => {
         const Icon = TYPE_ICONS[type] || PenNib;
         return (
-          <Link
+          <article
             key={type}
-            href={`/browse?type=${type}`}
             className={`group p-5 rounded-xl card-hover ${
               type === "pen" ? "sm:col-span-2 sm:row-span-2" : ""
             }`}
@@ -33,7 +32,10 @@ export default function BentoGrid({ items }: { items: TypeItem[] }) {
               boxShadow: "var(--shadow-raised)",
             }}
           >
-            <div className="flex items-center gap-2 mb-3">
+            <Link
+              href={`/browse?type=${type}`}
+              className="mb-3 flex items-center gap-2 transition-colors"
+            >
               <span style={{ color: "var(--color-accent)" }}>
                 <Icon size={type === "pen" ? 28 : 22} weight="duotone" />
               </span>
@@ -43,7 +45,7 @@ export default function BentoGrid({ items }: { items: TypeItem[] }) {
               >
                 {label}
               </h3>
-            </div>
+            </Link>
             {stars.length > 0 && (
               <div className="space-y-1.5">
                 {stars.map((star) => (
@@ -52,20 +54,20 @@ export default function BentoGrid({ items }: { items: TypeItem[] }) {
                     href={`/${type}/${star.slug}`}
                     className="block text-sm truncate transition-colors hover:underline underline-offset-4"
                     style={{ color: "var(--color-ink-light)" }}
-                    onClick={(e) => e.stopPropagation()}
                   >
                     {star.name}
                   </Link>
                 ))}
               </div>
             )}
-            <p
-              className="text-xs mt-3"
+            <Link
+              href={`/browse?type=${type}`}
+              className="mt-3 block text-xs transition-colors hover:underline underline-offset-4"
               style={{ color: "var(--color-ink-muted)" }}
             >
               {cnt} 个词条 →
-            </p>
-          </Link>
+            </Link>
+          </article>
         );
       })}
     </div>

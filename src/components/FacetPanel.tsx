@@ -27,19 +27,25 @@ const DIM_LABELS: Record<string, string> = {
   body_material: "笔身材质",
 };
 
-export function FacetPanel({ facets, activeFilters, onFilterChange }: FacetPanelProps) {
+export function FacetPanel({
+  facets,
+  activeFilters,
+  onFilterChange,
+}: FacetPanelProps) {
   return (
     <div className="space-y-4">
-      <h2 className="text-lg font-semibold text-ink">
-        筛选
-      </h2>
+      <h2 className="text-lg font-semibold text-ink">筛选</h2>
 
       {Object.entries(facets).map(([dim, options]) => {
         if (options.length === 0) return null;
         const isActive = !!activeFilters[dim];
 
         return (
-          <details key={dim} open={isActive || options.length <= 8} className="group">
+          <details
+            key={dim}
+            open={isActive || options.length <= 8}
+            className="group"
+          >
             <summary className="cursor-pointer text-sm font-medium text-ink-light mb-2 select-none">
               {DIM_LABELS[dim] || dim}
               {isActive && (
@@ -66,7 +72,10 @@ export function FacetPanel({ facets, activeFilters, onFilterChange }: FacetPanel
                     name={`facet-${dim}`}
                     checked={activeFilters[dim] === opt.slug}
                     onChange={() =>
-                      onFilterChange(dim, activeFilters[dim] === opt.slug ? null : opt.slug)
+                      onFilterChange(
+                        dim,
+                        activeFilters[dim] === opt.slug ? null : opt.slug,
+                      )
                     }
                     className="rounded border-border text-accent focus:ring-accent"
                   />

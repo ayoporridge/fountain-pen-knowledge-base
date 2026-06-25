@@ -1,13 +1,19 @@
-import { createClient } from '@libsql/client';
-import Database from 'better-sqlite3';
-import { join } from 'path';
+import { createClient } from "@libsql/client";
+import Database from "better-sqlite3";
+import { join } from "node:path";
 
-const dbPath = join(import.meta.dirname, 'data', 'fpkg.db');
+const dbPath = join(import.meta.dirname, "data", "fpkg.db");
 const localDb = new Database(dbPath, { readonly: true });
+const tursoUrl = process.env.TURSO_DATABASE_URL;
+const tursoToken = process.env.TURSO_AUTH_TOKEN;
+
+if (!tursoUrl || !tursoToken) {
+  throw new Error("Set TURSO_DATABASE_URL and TURSO_AUTH_TOKEN first.");
+}
 
 const turso = createClient({
-  url: 'libsql://fpkg-arjoxu.aws-us-west-2.turso.io',
-  authToken: 'eyJhbGciOiJFZERTQSIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3ODA4MjE1NTQsImlkIjoiMDE5ZWEwODYtYWEwMS03MWZiLTk2NjMtMGUzMTA2MGI2OTg1IiwicmlkIjoiNzg0YjIyNzEtYTExYy00ZThhLWEyYjYtMzNiMTBjMWM2YTk2In0.nulsmSgn7kpDZXSHDuVXTf-OeR8Ad5uCOcSAwUCmJqx4A3Q8uiqoUWpCWxZ8a656oZSgUn81dyNjxGhXQdwLCQ',
+  url: tursoUrl,
+  authToken: tursoToken,
 });
 
 // 1. Drop all tables

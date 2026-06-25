@@ -11,7 +11,10 @@ export async function GET(request: NextRequest) {
   const url = request.nextUrl.searchParams.get("url");
 
   if (!url) {
-    return NextResponse.json({ error: "url parameter required" }, { status: 400 });
+    return NextResponse.json(
+      { error: "url parameter required" },
+      { status: 400 },
+    );
   }
 
   // Only allow specific domains for security
@@ -47,7 +50,8 @@ export async function GET(request: NextRequest) {
       status: 200,
       headers: {
         "Content-Type": contentType,
-        "Cache-Control": "public, max-age=2592000, stale-while-revalidate=86400", // 30 days
+        "Cache-Control":
+          "public, max-age=2592000, stale-while-revalidate=86400", // 30 days
       },
     });
   } catch {

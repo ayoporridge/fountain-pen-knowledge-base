@@ -1,28 +1,47 @@
 export const dynamic = "force-dynamic";
-import { queryOne, queryAll } from "@/lib/db";
-import { getEntitiesForConcept } from "@/lib/concept-engine";
-import { notFound } from "next/navigation";
-import Link from "next/link";
-import Image from "next/image";
-import type { Metadata } from "next";
-import { MarkdownRenderer } from "@/components/MarkdownRenderer";
-import { RelatedEntities } from "@/components/RelatedEntities";
-import { EntityMeta } from "@/components/EntityMeta";
-import { LocalGraph } from "@/components/LocalGraph";
-import { Recommendations } from "@/components/Recommendations";
-import { DensityBadge } from "@/components/DensityBadge";
-import { CompareButton } from "@/components/CompareBar";
+
 import {
-  PenNib,
   ArrowLeft,
-  Tag,
   Graph,
   Link as LinkIcon,
+  PenNib,
+  Tag,
 } from "@phosphor-icons/react/dist/ssr";
-import { TYPE_LABELS, TYPE_ICONS, ATTR_LABELS } from "@/lib/constants";
+import type { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { notFound, permanentRedirect } from "next/navigation";
+import { CompareButton } from "@/components/CompareBar";
+import { DensityBadge } from "@/components/DensityBadge";
+import { EntityMeta } from "@/components/EntityMeta";
+import { LocalGraph } from "@/components/LocalGraph";
+import { BrandMuseum } from "@/components/library/BrandMuseum";
+import { ModelArchive } from "@/components/library/ModelArchive";
+import { SourceCards } from "@/components/library/SourceCards";
+import { MarkdownRenderer } from "@/components/MarkdownRenderer";
+import { Recommendations } from "@/components/Recommendations";
+import { RelatedEntities } from "@/components/RelatedEntities";
+import { getEntitiesForConcept } from "@/lib/concept-engine";
+import { ATTR_LABELS, TYPE_ICONS, TYPE_LABELS } from "@/lib/constants";
+import { queryAll, queryOne } from "@/lib/db";
+import { getEntityReferences } from "@/lib/library";
 
 interface EntityPageProps {
   params: Promise<{ type: string; slug: string }>;
+}
+
+function getHeroFallbackImage(entityType: string) {
+  const fallbackByType: Record<string, string> = {
+    article: "/images/library/warm-pen-atlas/library-hero.jpg",
+    brand: "/images/library/warm-pen-atlas/brand-museum-cover.jpg",
+    concept: "/images/library/warm-pen-atlas/mechanism-lab-cover.jpg",
+    fill_system: "/images/library/warm-pen-atlas/mechanism-lab-cover.jpg",
+    material: "/images/library/warm-pen-atlas/brand-museum-cover.jpg",
+    nib: "/images/library/warm-pen-atlas/mechanism-lab-cover.jpg",
+    pen: "/images/library/warm-pen-atlas/piston-demonstrator-model-cover.jpg",
+  };
+
+  return fallbackByType[entityType] || fallbackByType.article;
 }
 
 export async function generateMetadata({
@@ -30,14 +49,21 @@ export async function generateMetadata({
 }: {
   params: Promise<{ type: string; slug: string }>;
 }): Promise<Metadata> {
-  const { slug: rawSlug } = await params;
+  const { type, slug: rawSlug } = await params;
   const slug = decodeURIComponent(rawSlug);
-  const entity = (await queryOne("SELECT name, summary FROM entities WHERE slug = ?", [slug])) as
-    | { name: string; summary: string | null }
+  const entity = (await queryOne(
+    "SELECT type, slug, name, summary FROM entities WHERE slug = ?",
+    [slug],
+  )) as
+    | { type: string; slug: string; name: string; summary: string | null }
     | undefined;
 
   if (!entity) {
     return { title: "词条未找到 - 钢笔知识图谱" };
+  }
+
+  if (entity.type !== type || entity.slug !== slug) {
+    permanentRedirect(`/${entity.type}/${entity.slug}`);
   }
 
   const desc = entity.summary
@@ -99,14 +125,14 @@ async function ConceptRulePage({
     conditions.map(async (c) => {
       const tag = (await queryOne(
         "SELECT name FROM tags WHERE slug = ? AND dimension = ?",
-        [c.tag_slug, c.dimension]
+        [c.tag_slug, c.dimension],
       )) as { name: string } | undefined;
       return {
         ...c,
         name: tag?.name || c.tag_slug,
         dimLabel: DIMENSION_LABELS[c.dimension] || c.dimension,
       };
-    })
+    }),
   );
 
   return (
@@ -126,7 +152,10 @@ async function ConceptRulePage({
           {condWithNames.map((c, i) => (
             <span key={c.tag_slug}>
               {i > 0 && " × "}
-              <span className="font-semibold" style={{ color: "var(--color-accent)" }}>
+              <span
+                className="font-semibold"
+                style={{ color: "var(--color-accent)" }}
+              >
                 {c.name}
               </span>
               <span style={{ color: "var(--color-ink-muted)" }}>
@@ -135,7 +164,10 @@ async function ConceptRulePage({
             </span>
           ))}
           {" 的所有钢笔，共 "}
-          <span className="font-semibold" style={{ color: "var(--color-accent)" }}>
+          <span
+            className="font-semibold"
+            style={{ color: "var(--color-accent)" }}
+          >
             {entities.length}
           </span>
           {" 支。"}
@@ -203,22 +235,33 @@ export default async function EntityPage({ params }: EntityPageProps) {
     notFound();
   }
 
+  const entityType = String(entity.type);
+  const entitySlug = String(entity.slug);
+  if (entityType !== type || entitySlug !== slug) {
+    permanentRedirect(`/${entityType}/${entitySlug}`);
+  }
+
   // Get tags
   const tags = (await queryAll(
     `SELECT t.name, t.slug, t.dimension FROM tags t
      JOIN entity_tags et ON et.tag_id = t.id
      WHERE et.entity_id = ?`,
-    [entity.id]
+    [entity.id],
   )) as Array<{ name: string; slug: string; dimension: string }>;
 
   // Get links (deduplicated by related entity)
   const links = (await queryAll(
-    `SELECT el.link_type, e.name as target_name, e.type as target_type, e.slug as target_slug
+    `SELECT MIN(el.link_type) as link_type,
+            e.name as target_name,
+            e.type as target_type,
+            e.slug as target_slug
      FROM entity_links el
      JOIN entities e ON (e.id = el.target_id OR e.id = el.source_id) AND e.id != ?
-     WHERE el.source_id = ? OR el.target_id = ?
-     GROUP BY e.id`,
-    [entity.id, entity.id, entity.id]
+     WHERE (el.source_id = ? OR el.target_id = ?)
+       AND el.link_type != 'reverse'
+     GROUP BY e.id, e.name, e.type, e.slug
+     ORDER BY e.type, e.name`,
+    [entity.id, entity.id, entity.id],
   )) as Array<{
     link_type: string;
     target_name: string;
@@ -235,13 +278,15 @@ export default async function EntityPage({ params }: EntityPageProps) {
     name: string;
     summary: string | null;
   }> = [];
-  if (type === "concept") {
+  if (entityType === "concept") {
     conceptRule = (await queryOne(
       "SELECT * FROM concept_rules WHERE concept_id = ?",
-      [entity.id]
+      [entity.id],
     )) as Record<string, string | number | null> | null;
     if (conceptRule) {
-      conceptEntities = (await getEntitiesForConcept(conceptRule.id as string)) as typeof conceptEntities;
+      conceptEntities = (await getEntitiesForConcept(
+        conceptRule.id as string,
+      )) as typeof conceptEntities;
     }
   }
 
@@ -253,8 +298,28 @@ export default async function EntityPage({ params }: EntityPageProps) {
   const attrs: Record<string, string> = Object.fromEntries(
     attrRows.map((a) => [a.key, a.value]),
   );
+  const sidebarSources = ["brand", "pen"].includes(entityType)
+    ? []
+    : await getEntityReferences(String(entity.id), 6);
+  const approvedMedia = (await queryOne(
+    `SELECT image_url, thumbnail_url
+     FROM media_assets
+     WHERE entity_id = ?
+       AND asset_type = 'image'
+       AND image_url IS NOT NULL
+       AND review_status = 'approved'
+       AND usage_status IN ('primary', 'gallery')
+     ORDER BY CASE usage_status WHEN 'primary' THEN 0 ELSE 1 END, created_at DESC
+     LIMIT 1`,
+    [entity.id],
+  )) as { image_url: string | null; thumbnail_url: string | null } | undefined;
+  const heroImageUrl =
+    entity.image_url ||
+    approvedMedia?.thumbnail_url ||
+    approvedMedia?.image_url ||
+    getHeroFallbackImage(entityType);
 
-  const Icon = TYPE_ICONS[type] || PenNib;
+  const Icon = TYPE_ICONS[entityType] || PenNib;
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
@@ -271,29 +336,18 @@ export default async function EntityPage({ params }: EntityPageProps) {
       </div>
 
       {/* ── Hero Image ── */}
-      <div className="mb-8 rounded-xl overflow-hidden" style={{ boxShadow: "var(--shadow-raised)" }}>
-        {entity.image_url ? (
-          <Image
-            src={String(entity.image_url)}
-            alt={String(entity.name)}
-            width={1200}
-            height={500}
-            className="w-full h-64 sm:h-80 object-cover"
-            priority
-          />
-        ) : (
-          <div
-            className="w-full h-64 sm:h-80 flex items-center justify-center"
-            style={{ backgroundColor: "var(--color-accent-light)" }}
-          >
-            <span
-              className="text-6xl font-bold"
-              style={{ color: "var(--color-accent)" }}
-            >
-              {String(entity.name).charAt(0)}
-            </span>
-          </div>
-        )}
+      <div
+        className="mb-8 rounded-xl overflow-hidden"
+        style={{ boxShadow: "var(--shadow-raised)" }}
+      >
+        <Image
+          src={String(heroImageUrl)}
+          alt={String(entity.name)}
+          width={1200}
+          height={500}
+          className="w-full h-64 sm:h-80 object-cover"
+          priority
+        />
       </div>
 
       {/* ── Primary Zone: Name + Summary + Key Attributes ── */}
@@ -318,7 +372,7 @@ export default async function EntityPage({ params }: EntityPageProps) {
                   color: "var(--color-ink-muted)",
                 }}
               >
-                {TYPE_LABELS[type] || type}
+                {TYPE_LABELS[entityType] || entityType}
               </span>
               <DensityBadge linkCount={links.length} />
             </div>
@@ -331,33 +385,34 @@ export default async function EntityPage({ params }: EntityPageProps) {
           </div>
         </div>
 
-        {entity.summary && (() => {
-          // Strip markdown syntax for plain-text display
-          const plainSummary = String(entity.summary)
-            .replace(/!\[[^\]]*\]\([^)]+\)/g, "")      // ![alt](url) → remove
-            .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")  // [text](url) → text
-            .replace(/\*\*([^*]+)\*\*/g, "$1")          // **bold** → bold
-            .replace(/\*([^*]+)\*/g, "$1")              // *italic* → italic
-            .replace(/_{1,2}([^_]+)_{1,2}/g, "$1")     // _italic_ → italic
-            .replace(/#{1,6}\s*/g, "")                  // ### heading → heading
-            .replace(/^>\s*/gm, "")                     // > quote at line start
-            .replace(/\s*>\s*/g, " ")                  // > inline → space
-            .replace(/^[-*]\s+/gm, "")                  // - list → list
-            .replace(/`([^`]+)`/g, "$1")                // `code` → code
-            .replace(/\|/g, " ")                       // | pipe → space
-            .replace(/\n{2,}/g, " ")                    // newlines → space
-            .replace(/\n/g, " ")
-            .replace(/\s{2,}/g, " ")                   // collapse spaces
-            .trim();
-          return plainSummary ? (
-            <p
-              className="text-lg max-w-3xl"
-              style={{ color: "var(--color-ink-light)", lineHeight: 1.8 }}
-            >
-              {plainSummary}
-            </p>
-          ) : null;
-        })()}
+        {entity.summary &&
+          (() => {
+            // Strip markdown syntax for plain-text display
+            const plainSummary = String(entity.summary)
+              .replace(/!\[[^\]]*\]\([^)]+\)/g, "") // ![alt](url) → remove
+              .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1") // [text](url) → text
+              .replace(/\*\*([^*]+)\*\*/g, "$1") // **bold** → bold
+              .replace(/\*([^*]+)\*/g, "$1") // *italic* → italic
+              .replace(/_{1,2}([^_]+)_{1,2}/g, "$1") // _italic_ → italic
+              .replace(/#{1,6}\s*/g, "") // ### heading → heading
+              .replace(/^>\s*/gm, "") // > quote at line start
+              .replace(/\s*>\s*/g, " ") // > inline → space
+              .replace(/^[-*]\s+/gm, "") // - list → list
+              .replace(/`([^`]+)`/g, "$1") // `code` → code
+              .replace(/\|/g, " ") // | pipe → space
+              .replace(/\n{2,}/g, " ") // newlines → space
+              .replace(/\n/g, " ")
+              .replace(/\s{2,}/g, " ") // collapse spaces
+              .trim();
+            return plainSummary ? (
+              <p
+                className="text-lg max-w-3xl"
+                style={{ color: "var(--color-ink-light)", lineHeight: 1.8 }}
+              >
+                {plainSummary}
+              </p>
+            ) : null;
+          })()}
 
         {/* Key attributes — displayed as prominent data points */}
         {Object.keys(attrs).length > 0 && (
@@ -408,6 +463,14 @@ export default async function EntityPage({ params }: EntityPageProps) {
             />
           )}
 
+          {entityType === "brand" && (
+            <BrandMuseum entityId={String(entity.id)} attrs={attrs} />
+          )}
+
+          {entityType === "pen" && (
+            <ModelArchive entityId={String(entity.id)} />
+          )}
+
           {/* Body */}
           {entity.body_md && (
             <section className="mb-10 manuscript-border p-6 sm:p-8">
@@ -430,8 +493,8 @@ export default async function EntityPage({ params }: EntityPageProps) {
             >
               <LocalGraph
                 entityId={String(entity.id)}
-                entityType={type}
-                entitySlug={slug}
+                entityType={entityType}
+                entitySlug={entitySlug}
               />
             </div>
           </section>
@@ -446,10 +509,22 @@ export default async function EntityPage({ params }: EntityPageProps) {
               updatedAt={String(entity.updated_at)}
               sourceUrl={entity.source_url ? String(entity.source_url) : null}
               entityId={String(entity.id)}
-              entityType={type}
-              entitySlug={slug}
+              entityType={entityType}
+              entitySlug={entitySlug}
             />
           </section>
+
+          {sidebarSources.length > 0 && (
+            <section className="mb-6">
+              <h3
+                className="text-sm font-semibold mb-3"
+                style={{ color: "var(--color-ink)" }}
+              >
+                来源卡片
+              </h3>
+              <SourceCards sources={sidebarSources} />
+            </section>
+          )}
 
           {/* Tags */}
           {tags.length > 0 && (
@@ -499,7 +574,7 @@ export default async function EntityPage({ params }: EntityPageProps) {
               <CompareButton
                 slug={String(entity.slug)}
                 name={String(entity.name)}
-                type={type}
+                type={entityType}
               />
             </div>
           </section>

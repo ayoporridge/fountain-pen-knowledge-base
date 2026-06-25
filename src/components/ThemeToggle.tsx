@@ -1,8 +1,8 @@
 "use client";
 
+import { Moon, Sun } from "@phosphor-icons/react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-import { Sun, Moon } from "@phosphor-icons/react";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();

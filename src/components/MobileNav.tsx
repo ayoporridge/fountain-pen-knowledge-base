@@ -1,16 +1,18 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import Link from "next/link";
 import {
-  List,
-  X,
-  MagnifyingGlass,
+  BookOpen,
   ChatCircleDots,
+  List,
+  MagnifyingGlass,
   PenNib,
+  X,
 } from "@phosphor-icons/react/dist/ssr";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 
 const NAV_ITEMS = [
+  { href: "/library", label: "图书馆", Icon: BookOpen },
   { href: "/browse", label: "浏览", Icon: PenNib },
   { href: "/search", label: "搜索", Icon: MagnifyingGlass },
   { href: "/by/nib", label: "按维度", Icon: List },
@@ -50,7 +52,9 @@ export function MobileNav() {
     } else {
       document.body.style.overflow = "";
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [open]);
 
   return (
@@ -66,7 +70,10 @@ export function MobileNav() {
       </button>
 
       {open && (
-        <div className="fixed inset-0 z-40" style={{ backgroundColor: "rgba(0,0,0,0.3)" }}>
+        <div
+          className="fixed inset-0 z-40"
+          style={{ backgroundColor: "rgba(0,0,0,0.3)" }}
+        >
           <div
             ref={drawerRef}
             className="absolute right-0 top-0 h-full w-64 shadow-xl animate-slide-in-right"
@@ -75,8 +82,14 @@ export function MobileNav() {
               borderLeft: "1px solid var(--color-border)",
             }}
           >
-            <div className="flex items-center justify-between p-4 border-b" style={{ borderColor: "var(--color-border)" }}>
-              <span className="font-semibold" style={{ color: "var(--color-ink)" }}>
+            <div
+              className="flex items-center justify-between p-4 border-b"
+              style={{ borderColor: "var(--color-border)" }}
+            >
+              <span
+                className="font-semibold"
+                style={{ color: "var(--color-ink)" }}
+              >
                 导航
               </span>
               <button
@@ -98,7 +111,11 @@ export function MobileNav() {
                   className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors"
                   style={{ color: "var(--color-ink-light)" }}
                 >
-                  <Icon size={18} weight="duotone" style={{ color: "var(--color-accent)" }} />
+                  <Icon
+                    size={18}
+                    weight="duotone"
+                    style={{ color: "var(--color-accent)" }}
+                  />
                   {label}
                 </Link>
               ))}

@@ -1,6 +1,6 @@
-import { createClient, type Client } from "@libsql/client";
 import fs from "node:fs";
 import path from "node:path";
+import { type Client, createClient, type InArgs } from "@libsql/client";
 
 // Local SQLite file path (for local dev)
 const DB_PATH = path.join(process.cwd(), "data", "fpkg.db");
@@ -49,20 +49,29 @@ export function getDb(): Client {
  * Compatibility wrapper: mimics better-sqlite3's db.prepare().all() / .run() API
  * Usage: const rows = queryAll("SELECT * FROM entities WHERE type = ?", [type])
  */
-export async function queryAll(sql: string, args: unknown[] = []): Promise<unknown[]> {
+export async function queryAll(
+  sql: string,
+  args: unknown[] = [],
+): Promise<unknown[]> {
   const db = getDb();
-  const result = await db.execute({ sql, args: args as any[] });
+  const result = await db.execute({ sql, args: args as InArgs });
   return result.rows;
 }
 
-export async function queryOne(sql: string, args: unknown[] = []): Promise<unknown | undefined> {
+export async function queryOne(
+  sql: string,
+  args: unknown[] = [],
+): Promise<unknown | undefined> {
   const rows = await queryAll(sql, args);
   return rows[0];
 }
 
-export async function execute(sql: string, args: unknown[] = []): Promise<void> {
+export async function execute(
+  sql: string,
+  args: unknown[] = [],
+): Promise<void> {
   const db = getDb();
-  await db.execute({ sql, args: args as any[] });
+  await db.execute({ sql, args: args as InArgs });
 }
 
 export async function execBatch(sqls: string[]): Promise<void> {

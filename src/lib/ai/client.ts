@@ -42,10 +42,15 @@ const SYSTEM_PROMPT = `你是一个钢笔知识图谱的标注助手。从给定
 
 只输出 JSON，不要其他内容。`;
 
-export async function extractFromText(text: string, apiKey?: string): Promise<ExtractionResult> {
+export async function extractFromText(
+  text: string,
+  apiKey?: string,
+): Promise<ExtractionResult> {
   const key = apiKey || process.env.OPENAI_API_KEY;
   if (!key) {
-    throw new Error("No API key configured. Set OPENAI_API_KEY environment variable.");
+    throw new Error(
+      "No API key configured. Set OPENAI_API_KEY environment variable.",
+    );
   }
 
   const res = await fetch("https://api.openai.com/v1/chat/completions", {

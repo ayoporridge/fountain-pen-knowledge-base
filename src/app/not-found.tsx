@@ -9,16 +9,10 @@ export default function NotFound() {
       >
         404
       </h1>
-      <p
-        className="text-lg mb-2"
-        style={{ color: "var(--color-ink-light)" }}
-      >
+      <p className="text-lg mb-2" style={{ color: "var(--color-ink-light)" }}>
         这个页面不存在
       </p>
-      <p
-        className="text-sm mb-8"
-        style={{ color: "var(--color-ink-muted)" }}
-      >
+      <p className="text-sm mb-8" style={{ color: "var(--color-ink-muted)" }}>
         可能是链接有误，或者页面已经被移除了
       </p>
       <div className="flex gap-4">

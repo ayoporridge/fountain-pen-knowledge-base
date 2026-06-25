@@ -63,12 +63,6 @@ export function TagSelector({ entitySlug }: TagSelectorProps) {
     fetchData();
   }, [fetchData]);
 
-  // Get unique dimensions
-  const dimensions = useMemo(() => {
-    const dims = new Set(allTags.map((t) => t.dimension));
-    return Array.from(dims).sort();
-  }, [allTags]);
-
   // Filter tags by search
   const filteredTags = useMemo(() => {
     if (!search.trim()) return allTags;
@@ -77,7 +71,9 @@ export function TagSelector({ entitySlug }: TagSelectorProps) {
       (t) =>
         t.name.toLowerCase().includes(q) ||
         t.slug.toLowerCase().includes(q) ||
-        (DIMENSION_LABELS[t.dimension] || t.dimension).toLowerCase().includes(q),
+        (DIMENSION_LABELS[t.dimension] || t.dimension)
+          .toLowerCase()
+          .includes(q),
     );
   }, [allTags, search]);
 
@@ -165,9 +161,7 @@ export function TagSelector({ entitySlug }: TagSelectorProps) {
   return (
     <div>
       <div className="flex items-center justify-between mb-3">
-        <h2 className="text-sm font-medium text-ink-light">
-          原子标签
-        </h2>
+        <h2 className="text-sm font-medium text-ink-light">原子标签</h2>
         <button
           type="button"
           onClick={() => setCreating(!creating)}
@@ -233,7 +227,8 @@ export function TagSelector({ entitySlug }: TagSelectorProps) {
             <h3 className="text-xs font-medium text-ink-muted uppercase tracking-wide mb-1.5">
               {DIMENSION_LABELS[dimension] || dimension}
               <span className="ml-1 text-ink-muted">
-                ({tags.filter((t) => selectedIds.has(t.id)).length}/{tags.length})
+                ({tags.filter((t) => selectedIds.has(t.id)).length}/
+                {tags.length})
               </span>
             </h3>
             <div className="flex flex-wrap gap-1.5">

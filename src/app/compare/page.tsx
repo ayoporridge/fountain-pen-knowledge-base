@@ -1,9 +1,8 @@
 "use client";
 
-import { Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { ATTR_LABELS } from "@/lib/constants";
 
 interface EntityDetail {
@@ -18,7 +17,13 @@ interface EntityDetail {
 
 export default function ComparePageWrapper() {
   return (
-    <Suspense fallback={<div className="max-w-6xl mx-auto py-8 px-4 text-center text-ink-muted">加载中...</div>}>
+    <Suspense
+      fallback={
+        <div className="max-w-6xl mx-auto py-8 px-4 text-center text-ink-muted">
+          加载中...
+        </div>
+      }
+    >
       <ComparePage />
     </Suspense>
   );
@@ -26,18 +31,21 @@ export default function ComparePageWrapper() {
 
 function ComparePage() {
   const searchParams = useSearchParams();
-  const slugs = (searchParams.get("items") || "").split(",").filter(Boolean);
+  const itemsParam = searchParams.get("items") || "";
+  const slugs = itemsParam.split(",").filter(Boolean);
   const [entities, setEntities] = useState<EntityDetail[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (slugs.length === 0) {
+    const currentSlugs = itemsParam.split(",").filter(Boolean);
+    if (currentSlugs.length === 0) {
       setLoading(false);
       return;
     }
 
+    setLoading(true);
     Promise.all(
-      slugs.map(async (slug) => {
+      currentSlugs.map(async (slug) => {
         const res = await fetch(`/api/entities/${slug}`);
         if (!res.ok) return null;
         return res.json();
@@ -46,14 +54,17 @@ function ComparePage() {
       setEntities(results.filter(Boolean));
       setLoading(false);
     });
-  }, [slugs.join(",")]);
+  }, [itemsParam]);
 
   if (slugs.length === 0) {
     return (
       <div className="max-w-4xl mx-auto py-8 px-4 text-center">
         <h1 className="text-2xl font-bold mb-4">对比词条</h1>
         <p className="text-ink-muted">请从词条页面添加对比项</p>
-        <Link href="/browse" className="text-accent hover:underline mt-4 inline-block">
+        <Link
+          href="/browse"
+          className="text-accent hover:underline mt-4 inline-block"
+        >
           去浏览 →
         </Link>
       </div>
@@ -69,10 +80,14 @@ function ComparePage() {
   }
 
   // Collect all attribute keys
-  const allAttrKeys = [...new Set(entities.flatMap((e) => Object.keys(e.attributes)))];
+  const allAttrKeys = [
+    ...new Set(entities.flatMap((e) => Object.keys(e.attributes))),
+  ];
 
   // Collect all tag dimensions
-  const allDimensions = [...new Set(entities.flatMap((e) => e.tags.map((t) => t.dimension)))];
+  const allDimensions = [
+    ...new Set(entities.flatMap((e) => e.tags.map((t) => t.dimension))),
+  ];
 
   return (
     <div className="max-w-6xl mx-auto py-8 px-4">
@@ -137,20 +152,26 @@ function ComparePage() {
             {/* Tags by dimension */}
             {allDimensions.map((dim) => (
               <tr key={dim} className="border-b border-border-light">
-                <td className="p-3 text-sm font-medium text-ink-muted">{dim}</td>
+                <td className="p-3 text-sm font-medium text-ink-muted">
+                  {dim}
+                </td>
                 {entities.map((e) => {
                   const dimTags = e.tags.filter((t) => t.dimension === dim);
                   return (
                     <td key={e.slug} className="p-3">
                       <div className="flex flex-wrap gap-1">
-                        {dimTags.length > 0 ? dimTags.map((t) => (
-                          <span
-                            key={t.name}
-                            className="px-1.5 py-0.5 text-xs rounded bg-surface-dim text-ink-light"
-                          >
-                            {t.name}
-                          </span>
-                        )) : <span className="text-sm text-ink-muted">—</span>}
+                        {dimTags.length > 0 ? (
+                          dimTags.map((t) => (
+                            <span
+                              key={t.name}
+                              className="px-1.5 py-0.5 text-xs rounded bg-surface-dim text-ink-light"
+                            >
+                              {t.name}
+                            </span>
+                          ))
+                        ) : (
+                          <span className="text-sm text-ink-muted">—</span>
+                        )}
                       </div>
                     </td>
                   );

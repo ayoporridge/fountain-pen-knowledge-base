@@ -8,10 +8,10 @@ interface MarkdownRendererProps {
 export async function MarkdownRenderer({ content }: MarkdownRendererProps) {
   // Resolve wiki-links: [[slug]] → /{type}/{slug}
   const resolveHref = async (slug: string): Promise<string | null> => {
-    const entity = await queryOne(
+    const entity = (await queryOne(
       "SELECT type, slug FROM entities WHERE slug = ?",
-      [slug]
-    ) as { type: string; slug: string } | undefined;
+      [slug],
+    )) as { type: string; slug: string } | undefined;
     if (entity) {
       return `/${entity.type}/${entity.slug}`;
     }
@@ -22,7 +22,7 @@ export async function MarkdownRenderer({ content }: MarkdownRendererProps) {
 
   return (
     <div
-      className="prose dark:prose-invert max-w-none prose-headings:text-ink prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-p:leading-relaxed"
+      className="prose prose-body dark:prose-invert max-w-none prose-headings:text-ink prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-p:leading-relaxed"
       // biome-ignore lint/security/noDangerouslySetInnerHtml: markdown rendered via remark
       dangerouslySetInnerHTML={{ __html: html }}
     />

@@ -12,16 +12,19 @@
 /coverage
 /test-results
 /playwright-report
+/.playwright-cli/
 
 # next.js
 /.next/
 /out/
+/output/
 
 # production
 /build
 
 # database
 /data
+/local.db
 
 # misc
 .DS_Store
@@ -38,6 +41,9 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# generated audit screenshots
+/docs/audit/assets/
 
 # typescript
 *.tsbuildinfo

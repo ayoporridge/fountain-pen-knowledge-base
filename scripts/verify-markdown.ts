@@ -118,7 +118,17 @@ async function main() {
           issues.push({ slug, type, name, issue: "empty heading tags", detail: "" });
         }
 
-        // Check 6: Heading level skips (check if our normalizer fixed them)
+        // Check 6: Inline event handlers should never be emitted from markdown
+        const eventAttrMatch = html.match(/\son[a-z]+\s*=/i);
+        if (eventAttrMatch) {
+          issues.push({
+            slug, type, name,
+            issue: "inline event handler",
+            detail: eventAttrMatch[0],
+          });
+        }
+
+        // Check 7: Heading level skips (check if our normalizer fixed them)
         const headingMatch = html.match(/<h([1-6])[^>]*>/g);
         if (headingMatch) {
           const levels = headingMatch.map((h) => parseInt(h.charAt(2)));

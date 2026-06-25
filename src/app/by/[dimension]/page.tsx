@@ -1,21 +1,22 @@
 export const dynamic = "force-dynamic";
+
+import {
+  ArrowLeft,
+  BookOpen,
+  Buildings,
+  Clock,
+  Cube,
+  CurrencyCircleDollar,
+  Drop,
+  Globe,
+  MagnifyingGlass,
+  PenNib,
+  Ruler,
+} from "@phosphor-icons/react/dist/ssr";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { queryAll } from "@/lib/db";
-import type { Metadata } from "next";
-import {
-  ArrowLeft,
-  MagnifyingGlass,
-  Buildings,
-  CurrencyCircleDollar,
-  PenNib,
-  Globe,
-  Drop,
-  BookOpen,
-  Clock,
-  Ruler,
-  Cube,
-} from "@phosphor-icons/react/dist/ssr";
 
 const DIMENSION_ICONS: Record<string, React.ElementType> = {
   brand: Buildings,
@@ -82,7 +83,7 @@ export default async function DimensionPage({ params }: DimensionPageProps) {
      GROUP BY t.id
      HAVING entity_count > 0
      ORDER BY entity_count DESC`,
-    [dimConfig.tagDimension]
+    [dimConfig.tagDimension],
   )) as Array<{
     id: string;
     name: string;
@@ -137,10 +138,7 @@ export default async function DimensionPage({ params }: DimensionPageProps) {
           按{dimConfig.label}浏览
         </h1>
       </div>
-      <p
-        className="mb-8"
-        style={{ color: "var(--color-ink-muted)" }}
-      >
+      <p className="mb-8" style={{ color: "var(--color-ink-muted)" }}>
         共 {tags.length} 个{dimConfig.label}分类，覆盖 {totalEntities} 个词条
       </p>
 

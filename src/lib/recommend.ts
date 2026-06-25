@@ -21,7 +21,7 @@ export async function getRecommendations(
   limit = 8,
 ): Promise<RecommendedEntity[]> {
   // Strategy 1: 2-hop graph neighbors (entities connected to my connections)
-  const twoHop = await queryAll(
+  const twoHop = (await queryAll(
     `SELECT e.id, e.type, e.slug, e.name, e.summary,
             COUNT(DISTINCT e.id) as shared_neighbors,
             'graph' as reason
@@ -39,8 +39,8 @@ export async function getRecommendations(
      GROUP BY e.id
      ORDER BY shared_neighbors DESC
      LIMIT ?`,
-    [entityId, entityId, entityId, entityId, entityId, limit * 2]
-  ) as Array<{
+    [entityId, entityId, entityId, entityId, entityId, limit * 2],
+  )) as Array<{
     id: string;
     type: string;
     slug: string;
@@ -51,7 +51,7 @@ export async function getRecommendations(
   }>;
 
   // Strategy 2: Tag similarity
-  const tagSimilar = await queryAll(
+  const tagSimilar = (await queryAll(
     `SELECT e.id, e.type, e.slug, e.name, e.summary,
             COUNT(DISTINCT et2.tag_id) as shared_tags,
             'tag' as reason
@@ -62,8 +62,8 @@ export async function getRecommendations(
      GROUP BY e.id
      ORDER BY shared_tags DESC
      LIMIT ?`,
-    [entityId, entityId, limit * 2]
-  ) as Array<{
+    [entityId, entityId, limit * 2],
+  )) as Array<{
     id: string;
     type: string;
     slug: string;

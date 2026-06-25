@@ -1,13 +1,14 @@
-import { type NextRequest, NextResponse } from "next/server";
-import { queryAll, queryOne, execute } from "@/lib/db";
 import { nanoid } from "nanoid";
+import { type NextRequest, NextResponse } from "next/server";
+import { verifyWriteAccess } from "@/lib/admin-auth";
+import { execute, queryAll, queryOne } from "@/lib/db";
 
 // GET /api/entities?type=pen
 export async function GET(request: NextRequest) {
   const type = request.nextUrl.searchParams.get("type");
 
   // Single JOIN query instead of N+1
-  let rows;
+  let rows: unknown[];
   if (type) {
     rows = await queryAll(
       `SELECT e.*, GROUP_CONCAT(ea.key || '::' || ea.value, '||') as attrs_raw
@@ -16,7 +17,7 @@ export async function GET(request: NextRequest) {
        WHERE e.type = ?
        GROUP BY e.id
        ORDER BY e.name`,
-      [type]
+      [type],
     );
   } else {
     rows = await queryAll(
@@ -24,7 +25,7 @@ export async function GET(request: NextRequest) {
        FROM entities e
        LEFT JOIN entity_attributes ea ON ea.entity_id = e.id
        GROUP BY e.id
-       ORDER BY e.name`
+       ORDER BY e.name`,
     );
   }
 
@@ -48,6 +49,9 @@ export async function GET(request: NextRequest) {
 
 // POST /api/entities
 export async function POST(request: NextRequest) {
+  const deny = verifyWriteAccess(request);
+  if (deny) return deny;
+
   const body = await request.json();
   const { type, slug, name, summary, body_md, source, attributes } = body;
 
@@ -64,7 +68,17 @@ export async function POST(request: NextRequest) {
   try {
     await execute(
       "INSERT INTO entities (id, type, slug, name, summary, body_md, source, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-      [id, type, slug, name, summary || null, body_md || null, source || null, now, now]
+      [
+        id,
+        type,
+        slug,
+        name,
+        summary || null,
+        body_md || null,
+        source || null,
+        now,
+        now,
+      ],
     );
 
     // Insert attributes
@@ -72,7 +86,7 @@ export async function POST(request: NextRequest) {
       for (const [key, value] of Object.entries(attributes)) {
         await execute(
           "INSERT INTO entity_attributes (id, entity_id, key, value) VALUES (?, ?, ?, ?)",
-          [nanoid(12), id, key, String(value)]
+          [nanoid(12), id, key, String(value)],
         );
       }
     }

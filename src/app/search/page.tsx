@@ -1,13 +1,15 @@
 "use client";
 
+import { ArrowLeft, MagnifyingGlass, PenNib } from "@phosphor-icons/react";
 import Link from "next/link";
-import { useCallback, useEffect, useRef, useState } from "react";
 import {
-  MagnifyingGlass,
-  ArrowLeft,
-  PenNib,
-} from "@phosphor-icons/react";
-import { TYPE_LABELS, TYPE_ICONS } from "@/lib/constants";
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { TYPE_ICONS, TYPE_LABELS } from "@/lib/constants";
 
 interface SearchResult {
   id: string;
@@ -19,6 +21,50 @@ interface SearchResult {
   summary_highlight: string;
   body_highlight: string;
   rank: number;
+}
+
+function decodeHtml(value: string): string {
+  return value
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'");
+}
+
+function renderHighlighted(value: string): ReactNode[] {
+  const parts = value.split(/(<mark>|<\/mark>)/g);
+  const rendered: ReactNode[] = [];
+  let isMarked = false;
+  let offset = 0;
+
+  for (const part of parts) {
+    if (part === "<mark>") {
+      isMarked = true;
+      continue;
+    }
+    if (part === "</mark>") {
+      isMarked = false;
+      continue;
+    }
+    if (!part) continue;
+
+    const key = `${offset}-${part.slice(0, 24)}`;
+    offset += part.length;
+    const text = decodeHtml(part);
+
+    rendered.push(
+      isMarked ? (
+        <mark key={key} className="rounded px-0.5">
+          {text}
+        </mark>
+      ) : (
+        <span key={key}>{text}</span>
+      ),
+    );
+  }
+
+  return rendered;
 }
 
 export default function SearchPage() {
@@ -50,7 +96,9 @@ export default function SearchPage() {
     window.history.replaceState(null, "", url.toString());
 
     try {
-      const res = await fetch(`/api/search?q=${encodeURIComponent(q)}&limit=30`);
+      const res = await fetch(
+        `/api/search?q=${encodeURIComponent(q)}&limit=30`,
+      );
       const data = await res.json();
       setResults(data.results);
       setTotal(data.total);
@@ -80,8 +128,7 @@ export default function SearchPage() {
       setQuery(urlQuery);
       doSearch(urlQuery);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [doSearch]);
 
   // Cleanup
   useEffect(() => {
@@ -116,7 +163,10 @@ export default function SearchPage() {
             backgroundColor: "var(--color-surface-raised)",
           }}
         >
-          <MagnifyingGlass size={18} style={{ color: "var(--color-ink-muted)", flexShrink: 0 }} />
+          <MagnifyingGlass
+            size={18}
+            style={{ color: "var(--color-ink-muted)", flexShrink: 0 }}
+          />
           <input
             type="text"
             value={query}
@@ -125,7 +175,6 @@ export default function SearchPage() {
             placeholder="搜索钢笔、品牌、概念..."
             className="flex-1 bg-transparent outline-none text-lg"
             style={{ color: "var(--color-ink)" }}
-            autoFocus
           />
           {query && (
             <button
@@ -146,13 +195,19 @@ export default function SearchPage() {
       </div>
 
       {loading && (
-        <div className="text-center py-8" style={{ color: "var(--color-ink-muted)" }}>
+        <div
+          className="text-center py-8"
+          style={{ color: "var(--color-ink-muted)" }}
+        >
           搜索中…
         </div>
       )}
 
       {searched && !loading && (
-        <div className="mb-4 text-sm" style={{ color: "var(--color-ink-muted)" }}>
+        <div
+          className="mb-4 text-sm"
+          style={{ color: "var(--color-ink-muted)" }}
+        >
           找到 {total} 个结果
         </div>
       )}
@@ -186,24 +241,25 @@ export default function SearchPage() {
                 <span
                   className="font-semibold"
                   style={{ color: "var(--color-ink)" }}
-                  dangerouslySetInnerHTML={{ __html: r.name_highlight || r.name }}
-                />
+                >
+                  {renderHighlighted(r.name_highlight || r.name)}
+                </span>
               </div>
               {(r.summary_highlight || r.summary) && (
                 <p
                   className="text-sm line-clamp-2"
                   style={{ color: "var(--color-ink-light)" }}
-                  dangerouslySetInnerHTML={{
-                    __html: r.summary_highlight || r.summary || "",
-                  }}
-                />
+                >
+                  {renderHighlighted(r.summary_highlight || r.summary || "")}
+                </p>
               )}
               {r.body_highlight && !r.summary_highlight && (
                 <p
                   className="text-sm line-clamp-2 mt-1"
                   style={{ color: "var(--color-ink-muted)" }}
-                  dangerouslySetInnerHTML={{ __html: r.body_highlight }}
-                />
+                >
+                  {renderHighlighted(r.body_highlight)}
+                </p>
               )}
             </Link>
           );
@@ -212,7 +268,13 @@ export default function SearchPage() {
 
       {searched && !loading && results.length === 0 && (
         <div className="text-center py-12">
-          <div style={{ color: "var(--color-ink-muted)", margin: "0 auto 1rem", width: "fit-content" }}>
+          <div
+            style={{
+              color: "var(--color-ink-muted)",
+              margin: "0 auto 1rem",
+              width: "fit-content",
+            }}
+          >
             <MagnifyingGlass size={48} weight="duotone" />
           </div>
           <p className="mb-6" style={{ color: "var(--color-ink-muted)" }}>
@@ -220,7 +282,10 @@ export default function SearchPage() {
           </p>
           <div className="space-y-4">
             <div>
-              <p className="text-sm mb-2" style={{ color: "var(--color-ink-muted)" }}>
+              <p
+                className="text-sm mb-2"
+                style={{ color: "var(--color-ink-muted)" }}
+              >
                 试试这些热门搜索：
               </p>
               <div className="flex flex-wrap justify-center gap-2">

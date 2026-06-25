@@ -1,16 +1,17 @@
 "use client";
 
-import Link from "next/link";
-import { useState, useRef, useEffect } from "react";
-import { ThemeToggle } from "./ThemeToggle";
-import { MobileNav } from "./MobileNav";
 import {
-  PenNib,
-  MagnifyingGlass,
-  List,
-  ChatCircleDots,
+  BookOpen,
   CaretDown,
+  ChatCircleDots,
+  List,
+  MagnifyingGlass,
+  PenNib,
 } from "@phosphor-icons/react/dist/ssr";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import { MobileNav } from "./MobileNav";
+import { ThemeToggle } from "./ThemeToggle";
 
 const DIMENSION_ITEMS = [
   { href: "/by/nib", label: "笔尖类型" },
@@ -29,7 +30,10 @@ export function Header() {
   useEffect(() => {
     if (!dropdownOpen) return;
     const handleClick = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
         setDropdownOpen(false);
       }
     };
@@ -72,6 +76,14 @@ export function Header() {
           </Link>
           <div className="hidden sm:flex items-center gap-4">
             <Link
+              href="/library"
+              className="flex items-center gap-1 text-sm transition-colors duration-140"
+              style={{ color: "var(--color-ink-light)" }}
+            >
+              <BookOpen size={14} />
+              图书馆
+            </Link>
+            <Link
               href="/browse"
               className="text-sm transition-colors duration-140"
               style={{ color: "var(--color-ink-light)" }}
@@ -97,7 +109,10 @@ export function Header() {
               >
                 <List size={14} />
                 按维度
-                <CaretDown size={12} className={`transition-transform ${dropdownOpen ? "rotate-180" : ""}`} />
+                <CaretDown
+                  size={12}
+                  className={`transition-transform ${dropdownOpen ? "rotate-180" : ""}`}
+                />
               </button>
               {dropdownOpen && (
                 <div
@@ -126,8 +141,7 @@ export function Header() {
               className="flex items-center gap-1 text-sm transition-colors duration-140"
               style={{ color: "var(--color-ink-light)" }}
             >
-              <ChatCircleDots size={14} />
-              问 AI
+              <ChatCircleDots size={14} />问 AI
             </Link>
           </div>
         </nav>

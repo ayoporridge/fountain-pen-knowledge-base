@@ -1,10 +1,16 @@
 "use client";
 
+import {
+  ArrowLeft,
+  ChatCircleDots,
+  PaperPlaneRight,
+  Sparkle,
+} from "@phosphor-icons/react";
 import Link from "next/link";
-import { useCallback, useRef, useState } from "react";
-import { ArrowLeft, PaperPlaneRight, ChatCircleDots, Sparkle, ArrowSquareOut } from "@phosphor-icons/react";
+import { type ReactNode, useCallback, useRef, useState } from "react";
 
 interface Message {
+  id: string;
   role: "user" | "assistant";
   content: string;
 }
@@ -14,6 +20,10 @@ const EXAMPLE_QUESTIONS = [
   "活塞上墨和旋转上墨有什么区别？",
   "百乐 Custom 823 和 743 怎么选？",
 ];
+
+function createMessage(role: Message["role"], content: string): Message {
+  return { id: crypto.randomUUID(), role, content };
+}
 
 export default function ChatPage() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -28,7 +38,7 @@ export default function ChatPage() {
   const handleSend = useCallback(async () => {
     if (!input.trim() || loading) return;
 
-    const userMessage: Message = { role: "user", content: input.trim() };
+    const userMessage = createMessage("user", input.trim());
     const newMessages = [...messages, userMessage];
     setMessages(newMessages);
     setInput("");
@@ -45,7 +55,7 @@ export default function ChatPage() {
         const err = await res.json();
         setMessages((prev) => [
           ...prev,
-          { role: "assistant", content: `错误: ${err.error || "请求失败"}` },
+          createMessage("assistant", `错误: ${err.error || "请求失败"}`),
         ]);
         setLoading(false);
         return;
@@ -55,7 +65,7 @@ export default function ChatPage() {
       const decoder = new TextDecoder();
       let assistantContent = "";
 
-      setMessages((prev) => [...prev, { role: "assistant", content: "" }]);
+      setMessages((prev) => [...prev, createMessage("assistant", "")]);
 
       while (reader) {
         const { done, value } = await reader.read();
@@ -77,6 +87,7 @@ export default function ChatPage() {
                 setMessages((prev) => {
                   const next = [...prev];
                   next[next.length - 1] = {
+                    ...next[next.length - 1],
                     role: "assistant",
                     content: assistantContent,
                   };
@@ -92,7 +103,7 @@ export default function ChatPage() {
     } catch {
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: "网络错误，请重试" },
+        createMessage("assistant", "网络错误，请重试"),
       ]);
     } finally {
       setLoading(false);
@@ -102,22 +113,31 @@ export default function ChatPage() {
 
   const renderContent = (content: string) => {
     const parts = content.split(/(\[[^\]]+\]\([^)]+\))/g);
-    return parts.map((part, i) => {
+    const rendered: ReactNode[] = [];
+    let offset = 0;
+
+    for (const part of parts) {
+      if (!part) continue;
+      const key = `${offset}-${part.slice(0, 24)}`;
+      offset += part.length;
       const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
       if (linkMatch) {
-        return (
+        rendered.push(
           <Link
-            key={i}
+            key={key}
             href={linkMatch[2]}
             style={{ color: "var(--color-accent)" }}
             className="hover:underline"
           >
             {linkMatch[1]}
-          </Link>
+          </Link>,
         );
+      } else {
+        rendered.push(<span key={key}>{part}</span>);
       }
-      return <span key={i}>{part}</span>;
-    });
+    }
+
+    return rendered;
   };
 
   return (
@@ -135,8 +155,7 @@ export default function ChatPage() {
           className="text-lg font-semibold flex items-center gap-2"
           style={{ color: "var(--color-ink)" }}
         >
-          <ChatCircleDots size={20} weight="duotone" />
-          问 AI
+          <ChatCircleDots size={20} weight="duotone" />问 AI
         </h1>
       </div>
 
@@ -150,10 +169,7 @@ export default function ChatPage() {
               style={{ color: "var(--color-accent)" }}
               className="mx-auto mb-4"
             />
-            <p
-              className="text-lg mb-2"
-              style={{ color: "var(--color-ink)" }}
-            >
+            <p className="text-lg mb-2" style={{ color: "var(--color-ink)" }}>
               你好！我是钢笔知识图谱的 AI 助手
             </p>
             <p
@@ -181,9 +197,9 @@ export default function ChatPage() {
           </div>
         )}
 
-        {messages.map((msg, i) => (
+        {messages.map((msg) => (
           <div
-            key={i}
+            key={msg.id}
             className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
           >
             <div
@@ -203,7 +219,9 @@ export default function ChatPage() {
                     }
               }
             >
-              {msg.role === "assistant" ? renderContent(msg.content) : msg.content}
+              {msg.role === "assistant"
+                ? renderContent(msg.content)
+                : msg.content}
             </div>
           </div>
         ))}

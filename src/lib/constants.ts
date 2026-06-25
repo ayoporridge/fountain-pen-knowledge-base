@@ -3,12 +3,12 @@
  * Single source of truth — import from @/lib/constants.
  */
 import {
-  PenNib,
-  Buildings,
-  Lightbulb,
-  Drop,
   Article,
+  Buildings,
   Circle,
+  Drop,
+  Lightbulb,
+  PenNib,
 } from "@phosphor-icons/react/dist/ssr";
 
 export const TYPE_LABELS: Record<string, string> = {
@@ -21,7 +21,10 @@ export const TYPE_LABELS: Record<string, string> = {
   article: "文章",
 };
 
-export const TYPE_ICONS: Record<string, React.ComponentType<Record<string, unknown>>> = {
+export const TYPE_ICONS: Record<
+  string,
+  React.ComponentType<Record<string, unknown>>
+> = {
   pen: PenNib,
   brand: Buildings,
   concept: Lightbulb,

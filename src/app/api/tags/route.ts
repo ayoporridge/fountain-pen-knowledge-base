@@ -1,6 +1,7 @@
-import { type NextRequest, NextResponse } from "next/server";
-import { queryAll, queryOne, execute } from "@/lib/db";
 import { nanoid } from "nanoid";
+import { type NextRequest, NextResponse } from "next/server";
+import { verifyWriteAccess } from "@/lib/admin-auth";
+import { execute, queryAll, queryOne } from "@/lib/db";
 
 // GET /api/tags?dimension=nib_type
 export async function GET(request: NextRequest) {
@@ -21,7 +22,7 @@ export async function GET(request: NextRequest) {
   }
 
   if (conditions.length > 0) {
-    sql += " WHERE " + conditions.join(" AND ");
+    sql += ` WHERE ${conditions.join(" AND ")}`;
   }
   sql += " ORDER BY dimension, name";
 
@@ -31,6 +32,9 @@ export async function GET(request: NextRequest) {
 
 // POST /api/tags
 export async function POST(request: NextRequest) {
+  const deny = verifyWriteAccess(request);
+  if (deny) return deny;
+
   const body = await request.json();
   const { name, slug, dimension, level, description } = body;
 
@@ -46,7 +50,7 @@ export async function POST(request: NextRequest) {
   try {
     await execute(
       "INSERT INTO tags (id, name, slug, dimension, level, description) VALUES (?, ?, ?, ?, ?, ?)",
-      [id, name, slug, dimension, level, description || null]
+      [id, name, slug, dimension, level, description || null],
     );
 
     const tag = await queryOne("SELECT * FROM tags WHERE id = ?", [id]);

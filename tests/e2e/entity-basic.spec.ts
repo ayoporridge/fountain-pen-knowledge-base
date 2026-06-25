@@ -1,14 +1,18 @@
-import { test, expect } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 test.describe("Entity basic flow", () => {
   test("seed entity page renders correctly", async ({ page }) => {
     await page.goto("/pen/pilot-custom-823");
 
     // Verify entity name
-    await expect(page.getByRole("heading", { level: 1 })).toContainText("Custom 823");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText(
+      "Custom 823",
+    );
 
     // Verify type badge
-    await expect(page.locator(".bg-blue-100, .dark\\:bg-blue-900")).toContainText("钢笔");
+    await expect(
+      page.locator(".bg-blue-100, .dark\\:bg-blue-900"),
+    ).toContainText("钢笔");
 
     // Verify attributes table contains pen details
     await expect(page.getByText("笔尖粗细")).toBeVisible();

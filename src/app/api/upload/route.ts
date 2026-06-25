@@ -1,8 +1,9 @@
-import { type NextRequest, NextResponse } from "next/server";
-import { nanoid } from "nanoid";
 import fs from "node:fs";
 import path from "node:path";
+import { nanoid } from "nanoid";
+import { type NextRequest, NextResponse } from "next/server";
 import sharp from "sharp";
+import { verifyWriteAccess } from "@/lib/admin-auth";
 
 const UPLOADS_DIR = path.join(process.cwd(), "public", "uploads");
 const THUMBS_DIR = path.join(UPLOADS_DIR, "thumbs");
@@ -16,12 +17,16 @@ const ALLOWED_TYPES = new Set([
 ]);
 
 function ensureDirs() {
-  if (!fs.existsSync(UPLOADS_DIR)) fs.mkdirSync(UPLOADS_DIR, { recursive: true });
+  if (!fs.existsSync(UPLOADS_DIR))
+    fs.mkdirSync(UPLOADS_DIR, { recursive: true });
   if (!fs.existsSync(THUMBS_DIR)) fs.mkdirSync(THUMBS_DIR, { recursive: true });
 }
 
 // POST /api/upload
 export async function POST(request: NextRequest) {
+  const deny = verifyWriteAccess(request);
+  if (deny) return deny;
+
   try {
     const formData = await request.formData();
     const file = formData.get("file") as File | null;
@@ -32,7 +37,9 @@ export async function POST(request: NextRequest) {
 
     if (!ALLOWED_TYPES.has(file.type)) {
       return NextResponse.json(
-        { error: `Unsupported file type: ${file.type}. Allowed: JPEG, PNG, WebP, GIF` },
+        {
+          error: `Unsupported file type: ${file.type}. Allowed: JPEG, PNG, WebP, GIF`,
+        },
         { status: 400 },
       );
     }
@@ -51,10 +58,7 @@ export async function POST(request: NextRequest) {
       file.name.includes("\\") ||
       path.isAbsolute(file.name)
     ) {
-      return NextResponse.json(
-        { error: "Invalid filename" },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: "Invalid filename" }, { status: 400 });
     }
 
     ensureDirs();

@@ -24,7 +24,12 @@ export function TextureOverlay() {
               stitchTiles="stitch"
               result="noise"
             />
-            <feColorMatrix type="saturate" values="0" in="noise" result="mono" />
+            <feColorMatrix
+              type="saturate"
+              values="0"
+              in="noise"
+              result="mono"
+            />
           </filter>
           {/* Fine grain — like ink spread micro-texture */}
           <filter id="grain-fine" x="0%" y="0%" width="100%" height="100%">
@@ -35,7 +40,12 @@ export function TextureOverlay() {
               stitchTiles="stitch"
               result="noise"
             />
-            <feColorMatrix type="saturate" values="0" in="noise" result="mono" />
+            <feColorMatrix
+              type="saturate"
+              values="0"
+              in="noise"
+              result="mono"
+            />
           </filter>
         </defs>
       </svg>

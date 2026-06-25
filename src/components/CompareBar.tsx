@@ -35,7 +35,8 @@ export function useCompareItems() {
 
   const add = useCallback((item: CompareItem) => {
     setItems((prev) => {
-      if (prev.length >= 4 || prev.some((i) => i.slug === item.slug)) return prev;
+      if (prev.length >= 4 || prev.some((i) => i.slug === item.slug))
+        return prev;
       const next = [...prev, item];
       saveCompare(next);
       return next;

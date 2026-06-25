@@ -1,10 +1,10 @@
 "use client";
 
+import { FunnelSimple, PenNib, X } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { FacetPanel } from "@/components/FacetPanel";
-import { PenNib } from "@phosphor-icons/react/dist/ssr";
-import { TYPE_LABELS, TYPE_ICONS } from "@/lib/constants";
+import { TYPE_ICONS, TYPE_LABELS } from "@/lib/constants";
 
 interface Entity {
   id: string;
@@ -21,34 +21,45 @@ export default function BrowsePage() {
     Record<string, Array<{ slug: string; name: string; count: number }>>
   >({});
   const [activeFilters, setActiveFilters] = useState<Record<string, string>>(
-    {}
+    {},
   );
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [loadingMore, setLoadingMore] = useState(false);
+  const [filterOpen, setFilterOpen] = useState(false);
   const PAGE_SIZE = 30;
 
-  const fetchData = useCallback(async (filters: Record<string, string>, pageNum: number, append: boolean) => {
-    if (append) setLoadingMore(true); else setLoading(true);
-    const params = new URLSearchParams(filters);
-    params.set("limit", String(PAGE_SIZE));
-    params.set("page", String(pageNum));
+  const fetchData = useCallback(
+    async (
+      filters: Record<string, string>,
+      pageNum: number,
+      append: boolean,
+    ) => {
+      if (append) setLoadingMore(true);
+      else setLoading(true);
+      const params = new URLSearchParams(filters);
+      params.set("limit", String(PAGE_SIZE));
+      params.set("page", String(pageNum));
 
-    try {
-      const res = await fetch(`/api/browse?${params.toString()}`);
-      const data = await res.json();
-      setEntities(prev => append ? [...prev, ...data.entities] : data.entities);
-      setFacets(data.facets);
-      setTotal(data.total);
-      setPage(pageNum);
-    } catch {
-      if (!append) setEntities([]);
-    } finally {
-      setLoading(false);
-      setLoadingMore(false);
-    }
-  }, []);
+      try {
+        const res = await fetch(`/api/browse?${params.toString()}`);
+        const data = await res.json();
+        setEntities((prev) =>
+          append ? [...prev, ...data.entities] : data.entities,
+        );
+        setFacets(data.facets);
+        setTotal(data.total);
+        setPage(pageNum);
+      } catch {
+        if (!append) setEntities([]);
+      } finally {
+        setLoading(false);
+        setLoadingMore(false);
+      }
+    },
+    [],
+  );
 
   useEffect(() => {
     // Read initial filters from URL
@@ -72,9 +83,19 @@ export default function BrowsePage() {
 
     // Update URL
     const params = new URLSearchParams(newFilters);
-    window.history.pushState(null, "", `/browse?${params.toString()}`);
+    window.history.pushState(
+      null,
+      "",
+      params.size > 0 ? `/browse?${params.toString()}` : "/browse",
+    );
 
     fetchData(newFilters, 1, false);
+  };
+
+  const clearFilters = () => {
+    setActiveFilters({});
+    window.history.pushState(null, "", "/browse");
+    fetchData({}, 1, false);
   };
 
   return (
@@ -86,10 +107,100 @@ export default function BrowsePage() {
         >
           浏览全部
         </h1>
-        <p style={{ color: "var(--color-ink-muted)" }}>
-          {loading ? "加载中..." : `共 ${total} 个词条`}
-        </p>
+        <div className="flex flex-wrap items-center gap-3">
+          <p className="m-0" style={{ color: "var(--color-ink-muted)" }}>
+            {loading ? "加载中..." : `共 ${total} 个词条`}
+          </p>
+          <button
+            type="button"
+            onClick={() => setFilterOpen(true)}
+            className="inline-flex items-center gap-1 rounded-lg border px-3 py-1.5 text-sm lg:hidden"
+            style={{
+              borderColor: "var(--color-border)",
+              backgroundColor: "var(--color-surface-raised)",
+              color: "var(--color-ink-light)",
+            }}
+          >
+            <FunnelSimple size={14} />
+            筛选
+          </button>
+        </div>
+        {Object.keys(activeFilters).length > 0 && (
+          <div className="mt-4 flex flex-wrap items-center gap-2">
+            {Object.entries(activeFilters).map(([dimension, slug]) => (
+              <button
+                key={`${dimension}-${slug}`}
+                type="button"
+                onClick={() => handleFilterChange(dimension, null)}
+                className="rounded-full px-3 py-1 text-xs"
+                style={{
+                  backgroundColor: "var(--color-accent-light)",
+                  color: "var(--color-accent)",
+                }}
+              >
+                {slug} ×
+              </button>
+            ))}
+            <button
+              type="button"
+              onClick={clearFilters}
+              className="text-xs underline underline-offset-4"
+              style={{ color: "var(--color-ink-muted)" }}
+            >
+              清空全部
+            </button>
+          </div>
+        )}
       </div>
+
+      {filterOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          <button
+            type="button"
+            aria-label="关闭筛选"
+            className="absolute inset-0 bg-black/30"
+            onClick={() => setFilterOpen(false)}
+          />
+          <div
+            className="absolute right-0 top-0 h-full w-[86vw] max-w-sm overflow-y-auto border-l p-5 shadow-xl"
+            style={{
+              borderColor: "var(--color-border)",
+              backgroundColor: "var(--color-surface)",
+            }}
+          >
+            <div className="mb-4 flex items-center justify-between">
+              <h2 className="text-lg font-semibold">筛选</h2>
+              <button
+                type="button"
+                aria-label="关闭筛选"
+                onClick={() => setFilterOpen(false)}
+                className="rounded-lg p-2"
+                style={{ color: "var(--color-ink-muted)" }}
+              >
+                <X size={18} />
+              </button>
+            </div>
+            <FacetPanel
+              facets={facets}
+              activeFilters={activeFilters}
+              onFilterChange={handleFilterChange}
+            />
+            {Object.keys(activeFilters).length > 0 && (
+              <button
+                type="button"
+                onClick={clearFilters}
+                className="mt-5 w-full rounded-lg border px-4 py-2 text-sm"
+                style={{
+                  borderColor: "var(--color-border)",
+                  color: "var(--color-ink-light)",
+                }}
+              >
+                清空全部
+              </button>
+            )}
+          </div>
+        </div>
+      )}
 
       <div className="flex gap-8">
         {/* Sidebar facets */}
@@ -119,23 +230,28 @@ export default function BrowsePage() {
               <p className="mb-6">没有找到匹配的词条</p>
               <div className="space-y-4">
                 <div>
-                  <p className="text-sm mb-2" style={{ color: "var(--color-ink-muted)" }}>
+                  <p
+                    className="text-sm mb-2"
+                    style={{ color: "var(--color-ink-muted)" }}
+                  >
                     试试这些热门搜索：
                   </p>
                   <div className="flex flex-wrap justify-center gap-2">
-                    {["百乐", "万宝龙", "活塞上墨", "金尖", "日系"].map((term) => (
-                      <Link
-                        key={term}
-                        href={`/search?q=${encodeURIComponent(term)}`}
-                        className="text-sm px-3 py-1 rounded-full transition-colors"
-                        style={{
-                          backgroundColor: "var(--color-surface-dim)",
-                          color: "var(--color-ink-light)",
-                        }}
-                      >
-                        {term}
-                      </Link>
-                    ))}
+                    {["百乐", "万宝龙", "活塞上墨", "金尖", "日系"].map(
+                      (term) => (
+                        <Link
+                          key={term}
+                          href={`/search?q=${encodeURIComponent(term)}`}
+                          className="text-sm px-3 py-1 rounded-full transition-colors"
+                          style={{
+                            backgroundColor: "var(--color-surface-dim)",
+                            color: "var(--color-ink-light)",
+                          }}
+                        >
+                          {term}
+                        </Link>
+                      ),
+                    )}
                   </div>
                 </div>
                 <Link
@@ -149,7 +265,7 @@ export default function BrowsePage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {entities.map((entity, i) => {
+              {entities.map((entity) => {
                 const Icon = TYPE_ICONS[entity.type] || PenNib;
                 return (
                   <Link
@@ -161,7 +277,10 @@ export default function BrowsePage() {
                       backgroundColor: "var(--color-surface-raised)",
                     }}
                   >
-                    <div className="w-full h-32 flex items-center justify-center" style={{ backgroundColor: "var(--color-accent-light)" }}>
+                    <div
+                      className="w-full h-32 flex items-center justify-center"
+                      style={{ backgroundColor: "var(--color-accent-light)" }}
+                    >
                       {entity.image_url ? (
                         <img
                           src={String(entity.image_url)}
@@ -226,7 +345,9 @@ export default function BrowsePage() {
                   color: "var(--color-ink-light)",
                 }}
               >
-                {loadingMore ? "加载中…" : `加载更多（${entities.length} / ${total}）`}
+                {loadingMore
+                  ? "加载中…"
+                  : `加载更多（${entities.length} / ${total}）`}
               </button>
             </div>
           )}
