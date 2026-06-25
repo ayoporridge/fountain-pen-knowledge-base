@@ -1731,6 +1731,77 @@ test.describe("Library smoke flow", () => {
     }
   });
 
+  test("twelfth priority model gap pages render Jinhao Cross and Richardspens archives", async ({
+    page,
+  }) => {
+    const cases = [
+      {
+        path: `/pen/${encodeURIComponent("金豪-jinhao-992")}`,
+        texts: [
+          "型号档案",
+          "Jinhao 992",
+          "把 Jinhao 992 的三块钱可用神话放进来源边界",
+          "3 元可用钢笔说法待核验",
+          "Research index: Jinhao 992",
+        ],
+      },
+      {
+        path: `/pen/${encodeURIComponent("金豪-jinhao-x159-159")}`,
+        texts: [
+          "型号档案",
+          "X159 / 159",
+          "把 Jinhao X159/159 的海外爆款和大笔身对比分开写",
+          "海外低价爆款说法待核验",
+          "Research index: Jinhao X159 / 159",
+        ],
+      },
+      {
+        path: `/pen/${encodeURIComponent("高仕-cross-佰利轻盈")}`,
+        texts: [
+          "型号档案",
+          "Bailey Light",
+          "把 Cross Bailey Light 的品牌溢价和做工评价分开核验",
+          "91 元说法待核验",
+          "Research index: Cross Bailey Light",
+        ],
+      },
+      {
+        path: "/pen/kimberly-the-pen-that-saved-eversharp",
+        texts: [
+          "型号档案",
+          "Kimberly",
+          "把 Kimberly 从长文标题整理成 Eversharp 型号档案",
+          "Richard's Pens",
+          "Kimberly, the Pen That Saved Eversharp",
+        ],
+      },
+      {
+        path: "/pen/morrison-s-patriot",
+        texts: [
+          "型号档案",
+          "Patriot",
+          "把 Morrison Patriot 做成战时爱国营销型号档案",
+          "Richard's Pens",
+          "Morrison's Patriot",
+        ],
+      },
+      {
+        path: "/pen/sheaffer-s-balance",
+        texts: [
+          "型号档案",
+          "Balance",
+          "把 Sheaffer Balance 的流线型地位整理成型号档案",
+          "Richard's Pens",
+          "Sheaffer’s Balance",
+        ],
+      },
+    ];
+
+    for (const item of cases) {
+      await expectLibraryPage(page, item.path, item.texts);
+    }
+  });
+
   test("official model diagram index includes evidence-aware diagrams", async ({
     page,
   }) => {

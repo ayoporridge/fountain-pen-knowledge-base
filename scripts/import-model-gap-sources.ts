@@ -2055,6 +2055,90 @@ const SOURCE_ITEMS: SourceItemSeed[] = [
     allowedUse: "link_only",
     reviewStatus: "pending",
   },
+  {
+    id: "source-jinhao-911-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Jinhao 911",
+    url: "https://www.bing.com/search?q=%22Jinhao+911%22+%22fountain+pen%22+%E9%87%91%E8%B1%AA911",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Jinhao 911 product identity, steel nib, cartridge/converter claims, 10-30 price range, daily-writing positioning, and quality-control comments.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-jinhao-992-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Jinhao 992",
+    url: "https://www.bing.com/search?q=%22Jinhao+992%22+%22fountain+pen%22+%E9%87%91%E8%B1%AA992",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Jinhao 992 product identity, low-price usable-pen claims, plastic cracking discussion, nib, cartridge/converter filling, and beginner-use comments.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-jinhao-x159-159-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Jinhao X159 / 159",
+    url: "https://www.bing.com/search?q=%22Jinhao+X159%22+159+%22fountain+pen%22+review",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Jinhao X159/159 product identity, large-body positioning, overseas popularity, nib sizes, cartridge/converter filling, and Montblanc 149 comparison claims.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-jinhao-century-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Jinhao Century / 100",
+    url: "https://www.bing.com/search?q=%22Jinhao+Century%22+%22Jinhao+100%22+%22fountain+pen%22+%E9%87%91%E8%B1%AA%E4%B8%96%E7%BA%AA",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Jinhao Century/Jinhao 100 identity, large nib claims, demonstrator or hollow variants, price, filling system, and flagship reputation.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-jinhao-silver-hollow-century-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Jinhao silver hollow Century",
+    url: "https://www.bing.com/search?q=%22Jinhao+Century%22+silver+hollow+%22fountain+pen%22+%E9%87%91%E8%B1%AA%E7%BA%AF%E9%93%B6%E9%95%82%E7%A9%BA%E4%B8%96%E7%BA%AA",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Jinhao silver hollow Century identity, silver-decoration claims, demonstrator body, nib, filling system, sub-100 price claims, and material-value comments.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-cross-bailey-light-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Cross Bailey Light",
+    url: "https://www.bing.com/search?q=%22Cross+Bailey+Light%22+%22fountain+pen%22+official+review+%E4%BD%B0%E5%88%A9%E8%BD%BB%E7%9B%88",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Cross Bailey Light product identity, brand-positioning, steel nib, cartridge/converter filling, light body, price, and build-quality comments.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
+  {
+    id: "source-cross-shakespeare-public-search",
+    sourceId: "public-web-research-index",
+    title: "Research index: Cross Shakespeare",
+    url: "https://www.bing.com/search?q=%22Cross+Shakespeare%22+%22fountain+pen%22+%E9%AB%98%E4%BB%95+%E8%8E%8E%E5%A3%AB%E6%AF%94%E4%BA%9A",
+    itemType: "research_index",
+    author: "Project editorial research",
+    summary:
+      "Search index for Cross Shakespeare product identity, whether it is a stable Cross fountain-pen model or local naming, price, nib, filling system, and entry-international-brand claims.",
+    allowedUse: "link_only",
+    reviewStatus: "pending",
+  },
 ];
 
 const RESEARCH_SPEC = {
@@ -6590,6 +6674,340 @@ const MODELS: ModelGapSeed[] = [
       "Jinhao 9056 木杆先作为低价实木笔杆研究页，木材、价格、规格和材质价值判断都需要来源。",
     storyBodyMd:
       "9056 木杆的原始摘要抓住了一个有意思的点：在很低价格里提供实木笔杆。图书馆可以把它作为“平价材质实验”来写，但必须先确认木材、结构、笔尖和实际价格。\n\n当前档案先建立待核验边界。后续如果来源充足，可以与 Faber-Castell Ondoro、Ambition 和 Jinhao 9035 做一条从低价到中高端的材质路线。",
+  }),
+  makeSearchOnlyModel({
+    slug: "金豪-jinhao-911",
+    brandSlug: "jinhao",
+    aliases: [
+      { alias: "Jinhao 911", language: "en" },
+      { alias: "Jinhao 911 fountain pen", language: "en" },
+      { alias: "金豪 911", language: "zh" },
+    ],
+    sourceItemId: "source-jinhao-911-public-search",
+    specId: "spec-jinhao-911-research",
+    seriesName: "Jinhao 911",
+    originCountry: "中国（待核验）",
+    nib: "钢尖说法待核验",
+    fillSystem: "墨囊/上墨器说法待核验",
+    material: "笔身材质待核验",
+    priceRange: "10-30 元说法待核验",
+    claimId: "claim-jinhao-911-source-boundary",
+    modelName: "金豪 Jinhao 911",
+    focus:
+      "Jinhao 911 identity, steel nib, cartridge/converter claims, 10-30 price range, daily-writing positioning, and quality-control comments",
+    storyId: "story-model-jinhao-911-research",
+    storyTitle: "把 Jinhao 911 放进低价日用钢笔矩阵",
+    storySummary:
+      "Jinhao 911 先作为 10-30 元日用研究页，钢尖、上墨方式和品控评价都需要来源。",
+    storyBodyMd:
+      "Jinhao 911 的当前摘要只有基本规格和价格带。图书馆先把它作为金豪低价日写矩阵的一员，而不是硬写成推荐结论。\n\n后续要用产品页、渠道页或评测来源确认笔尖、上墨方式、材质和常见问题，再决定它和 75、80、85、86 的差异在哪里。",
+  }),
+  makeSearchOnlyModel({
+    slug: "金豪-jinhao-992",
+    brandSlug: "jinhao",
+    aliases: [
+      { alias: "Jinhao 992", language: "en" },
+      { alias: "Jinhao 992 fountain pen", language: "en" },
+      { alias: "金豪 992", language: "zh" },
+    ],
+    sourceItemId: "source-jinhao-992-public-search",
+    specId: "spec-jinhao-992-research",
+    seriesName: "Jinhao 992",
+    originCountry: "中国（待核验）",
+    nib: "钢尖说法待核验",
+    fillSystem: "墨囊/上墨器说法待核验",
+    material: "透明/彩色塑料说法待核验",
+    priceRange: "3 元可用钢笔说法待核验",
+    claimId: "claim-jinhao-992-source-boundary",
+    modelName: "金豪 Jinhao 992",
+    focus:
+      "Jinhao 992 identity, extremely low-price usable-pen claims, plastic cracking discussion, nib, cartridge/converter filling, and beginner-use comments",
+    storyId: "story-model-jinhao-992-research",
+    storyTitle: "把 Jinhao 992 的三块钱可用神话放进来源边界",
+    storySummary:
+      "Jinhao 992 先作为极低价可用钢笔研究页，价格、透明塑料、耐用性和品控说法都需要来源。",
+    storyBodyMd:
+      "“三块钱能买什么？一支能用的钢笔”是强烈的玩家叙事，适合作为图书馆入口，但不能直接当事实。它需要价格来源，也需要样本证明“能用”的边界。\n\n当前档案先确认型号、材质、笔尖和上墨方式。后续要特别注意透明塑料、开裂、品控等长期使用反馈。",
+  }),
+  makeSearchOnlyModel({
+    slug: "金豪-jinhao-x159-159",
+    brandSlug: "jinhao",
+    aliases: [
+      { alias: "Jinhao X159", language: "en" },
+      { alias: "Jinhao 159", language: "en" },
+      { alias: "金豪 X159 / 159", language: "zh" },
+    ],
+    sourceItemId: "source-jinhao-x159-159-public-search",
+    specId: "spec-jinhao-x159-159-research",
+    seriesName: "X159 / 159",
+    originCountry: "中国（待核验）",
+    nib: "大尺寸钢尖说法待核验",
+    fillSystem: "墨囊/上墨器说法待核验",
+    material: "树脂/金属版本差异待核验",
+    priceRange: "海外低价爆款说法待核验",
+    claimId: "claim-jinhao-x159-159-source-boundary",
+    modelName: "金豪 Jinhao X159 / 159",
+    focus:
+      "Jinhao X159/159 identity, large-body positioning, overseas popularity, nib sizes, cartridge/converter filling, and Montblanc 149 comparison claims",
+    storyId: "story-model-jinhao-x159-159-research",
+    storyTitle: "把 Jinhao X159/159 的海外爆款和大笔身对比分开写",
+    storySummary:
+      "Jinhao X159/159 先作为海外热门大尺寸研究页，型号差异、大明尖和 149 对比都需要来源。",
+    storyBodyMd:
+      "X159/159 很容易被写成“低价大笔身替代品”，但图书馆需要先分清 X159 和 159 的材质、重量、笔尖和版本。海外热度也要靠评测与社区证据支撑。\n\n当前档案先建立大尺寸低价笔的研究入口。后续如果来源充分，可和 Montblanc 149、Jinhao Century、Moonman/Majohn 大笔身型号做一张对照路径。",
+  }),
+  makeSearchOnlyModel({
+    slug: "金豪-jinhao-世纪-century",
+    brandSlug: "jinhao",
+    aliases: [
+      { alias: "Jinhao Century", language: "en" },
+      { alias: "Jinhao 100", language: "en" },
+      { alias: "金豪 世纪 / Century", language: "zh" },
+    ],
+    sourceItemId: "source-jinhao-century-public-search",
+    specId: "spec-jinhao-century-research",
+    seriesName: "Century / 100",
+    originCountry: "中国（待核验）",
+    nib: "大明尖说法待核验",
+    fillSystem: "墨囊/上墨器说法待核验",
+    material: "树脂/透明镂空版本待核验",
+    priceRange: "79 元/78 元版本说法待核验",
+    claimId: "claim-jinhao-century-source-boundary",
+    modelName: "金豪 Jinhao 世纪 / Century",
+    focus:
+      "Jinhao Century/Jinhao 100 identity, flagship reputation, large nib claims, demonstrator or hollow variants, price, and filling system",
+    storyId: "story-model-jinhao-century-research",
+    storyTitle: "把 Jinhao 世纪当作金豪王牌和版本树来核验",
+    storySummary:
+      "Jinhao 世纪/Century 先作为金豪王牌研究页，大明尖、79 元价格和透明镂空版本都需要来源。",
+    storyBodyMd:
+      "世纪/Century 是金豪页里最像“主轴型号”的一条：它关联大明尖、透明镂空、低价和王牌口碑。图书馆不能把这些全写成一个结论，而要做成版本树。\n\n当前档案先确认 Jinhao 100/Century 命名、笔尖、上墨方式、常见版本和价格区间。后续可以扩成金豪代表型号展柜。",
+  }),
+  makeSearchOnlyModel({
+    slug: "金豪-jinhao-纯银镂空世纪",
+    brandSlug: "jinhao",
+    aliases: [
+      { alias: "Jinhao silver hollow Century", language: "en" },
+      { alias: "Jinhao Century silver hollow", language: "en" },
+      { alias: "金豪 纯银镂空世纪", language: "zh" },
+    ],
+    sourceItemId: "source-jinhao-silver-hollow-century-public-search",
+    specId: "spec-jinhao-silver-hollow-century-research",
+    seriesName: "Century silver hollow variant",
+    originCountry: "中国（待核验）",
+    nib: "钢尖/大明尖说法待核验",
+    fillSystem: "墨囊/上墨器说法待核验",
+    material: "银饰元素/镂空结构说法待核验",
+    priceRange: "不到 100 元说法待核验",
+    claimId: "claim-jinhao-silver-hollow-century-source-boundary",
+    modelName: "金豪 Jinhao 纯银镂空世纪",
+    focus:
+      "Jinhao silver hollow Century identity, silver-decoration claims, demonstrator body, nib, filling system, sub-100 price claims, and material-value comments",
+    storyId: "story-model-jinhao-silver-hollow-century-research",
+    storyTitle: "把纯银镂空世纪先作为世纪变体核验",
+    storySummary:
+      "金豪纯银镂空世纪先作为 Century 变体研究页，银饰元素、镂空结构和不到 100 元的说法都要来源。",
+    storyBodyMd:
+      "“纯银镂空世纪”听起来很有卖点，也很容易在材质上产生误读。图书馆需要谨慎确认所谓银饰元素、镂空结构、透明可视墨量和实际价格。\n\n当前档案先把它作为 Century 变体，而不是独立历史主线。后续拿到来源后，再决定是否进入材质/版本展柜。",
+  }),
+  makeSearchOnlyModel({
+    slug: "高仕-cross-佰利轻盈",
+    brandSlug: "cross",
+    aliases: [
+      { alias: "Cross Bailey Light", language: "en" },
+      { alias: "Cross Bailey Light fountain pen", language: "en" },
+      { alias: "高仕 佰利轻盈", language: "zh" },
+    ],
+    sourceItemId: "source-cross-bailey-light-public-search",
+    specId: "spec-cross-bailey-light-research",
+    seriesName: "Bailey Light",
+    originCountry: "待核验",
+    nib: "钢尖说法待核验",
+    fillSystem: "墨囊/上墨器说法待核验",
+    material: "轻量笔身材质待核验",
+    priceRange: "91 元说法待核验",
+    claimId: "claim-cross-bailey-light-source-boundary",
+    modelName: "高仕 Cross Bailey Light",
+    focus:
+      "Cross Bailey Light identity, brand-positioning, steel nib, cartridge/converter filling, light body, price, and build-quality comments",
+    storyId: "story-model-cross-bailey-light-research",
+    storyTitle: "把 Cross Bailey Light 的品牌溢价和做工评价分开核验",
+    storySummary:
+      "Cross Bailey Light 先作为国际品牌入门研究页，91 元价格、轻量笔身和做工对比需要来源。",
+    storyBodyMd:
+      "Bailey Light 的原始摘要把品牌溢价和做工对比放在一起，这正是图书馆需要拆开的地方：Cross 作为品牌的价值、具体型号的材料和写感、以及和国产低价笔的做工比较，都需要不同来源。\n\n当前档案先确认型号、笔尖、上墨方式和轻量材料。后续再补渠道价格与用户评测。",
+  }),
+  makeSearchOnlyModel({
+    slug: "高仕-cross-莎士比亚",
+    brandSlug: "cross",
+    aliases: [
+      { alias: "Cross Shakespeare", language: "en" },
+      { alias: "Cross Shakespeare fountain pen", language: "en" },
+      { alias: "高仕 莎士比亚", language: "zh" },
+    ],
+    sourceItemId: "source-cross-shakespeare-public-search",
+    specId: "spec-cross-shakespeare-research",
+    seriesName: "Shakespeare identity pending",
+    originCountry: "待核验",
+    nib: "钢尖说法待核验",
+    fillSystem: "墨囊/上墨器说法待核验",
+    material: "笔身材质待核验",
+    priceRange: "130-180 元说法待核验",
+    claimId: "claim-cross-shakespeare-source-boundary",
+    modelName: "高仕 Cross 莎士比亚",
+    focus:
+      "Cross Shakespeare identity, whether it is a stable Cross fountain-pen model or local naming, price, nib, filling system, and entry-international-brand claims",
+    storyId: "story-model-cross-shakespeare-research",
+    storyTitle: "先确认 Cross 莎士比亚是不是稳定型号名",
+    storySummary:
+      "Cross 莎士比亚先作为命名待核验页，国际品牌最低门槛、价格和型号身份需要来源。",
+    storyBodyMd:
+      "“莎士比亚”可能是系列名、礼盒名、地区销售名或用户俗称。图书馆不能直接把它当作稳定官方型号，需要先确认英文名和产品身份。\n\n当前档案保留待核验边界。后续找到官方页、零售页或可靠评测后，再写它是否真的代表 Cross 国际品牌的低门槛入口。",
+  }),
+  makeSearchOnlyModel({
+    slug: "kimberly-the-pen-that-saved-eversharp",
+    brandSlug: "eversharp",
+    aliases: [
+      { alias: "Eversharp Kimberly", language: "en" },
+      { alias: "Kimberly Pockette", language: "en" },
+      { alias: "Eversharp Kimberly 拯救 Eversharp 的钢笔", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-83d8fe9b3679726e",
+    specId: "spec-eversharp-kimberly-research",
+    seriesName: "Kimberly",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式待核验",
+    material: "笔身材质/尺寸版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-eversharp-kimberly-source-boundary",
+    modelName: "Eversharp Kimberly",
+    focus:
+      "Kimberly identity, Eversharp business context, Pockette advertising, filling system, nib, material, timeline, and collector claims",
+    storyId: "story-model-eversharp-kimberly-research",
+    storyTitle: "把 Kimberly 从长文标题整理成 Eversharp 型号档案",
+    storySummary:
+      "Eversharp Kimberly 先作为 Richard's Pens 支撑的历史型号页，商业背景、广告图和具体规格仍需逐项复核。",
+    storyBodyMd:
+      "Kimberly 不是普通的空白型号，它已经有 Richard's Pens profile 作为入口。图书馆应该把长文标题里的“拯救 Eversharp”拆成型号身份、商业背景、广告证据和实际规格。\n\n当前档案先绑定 Richard's Pens 来源，并保留规格待核验。后续可把它放进 Eversharp 战后商业转向或口袋笔展柜。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Product facts and images still require editorial review before publication.",
+  }),
+  makeSearchOnlyModel({
+    slug: "moore-s-non-leakable-fountain-pen",
+    brandSlug: "moore",
+    aliases: [
+      { alias: "Moore's Non-Leakable Fountain Pen", language: "en" },
+      { alias: "Moore Non-Leakable", language: "en" },
+      { alias: "Moore 防漏钢笔", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-b19172d68db6cc4d",
+    specId: "spec-moore-non-leakable-research",
+    seriesName: "Non-Leakable",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "防漏/上墨结构待核验",
+    material: "硬橡胶/材质版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-moore-non-leakable-source-boundary",
+    modelName: "Moore's Non-Leakable Fountain Pen",
+    focus:
+      "Moore Non-Leakable identity, anti-leak design, repair/profile distinction, filling system, nib, material, advertising, and historical timeline",
+    storyId: "story-model-moore-non-leakable-research",
+    storyTitle: "把 Moore Non-Leakable 的防漏结构和文章来源拆清楚",
+    storySummary:
+      "Moore Non-Leakable 先作为早期防漏历史型号页，Richard's Pens profile 是入口，结构细节和维修资料需要分层引用。",
+    storyBodyMd:
+      "Moore Non-Leakable 的页面已经有 Richard's Pens 长文资料，但当前站内摘要混着正文、图片和链接。图书馆需要把它变成可扫描的型号档案：先说明它为何叫 Non-Leakable，再分开列结构、年代、广告和维修资料。\n\n当前档案绑定 profile 来源，暂不把维修页内容并入产品事实。后续可以补一张防漏结构 SVG，而不是继续依赖长文截图。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source; repair-page details should remain separate unless explicitly cited.",
+  }),
+  makeSearchOnlyModel({
+    slug: "morrison-s-patriot",
+    brandSlug: "morrison",
+    aliases: [
+      { alias: "Morrison's Patriot", language: "en" },
+      { alias: "Morrison Patriot", language: "en" },
+      { alias: "Morrison Patriot 爱国者", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-0fa236b38a59782d",
+    specId: "spec-morrison-patriot-research",
+    seriesName: "Patriot",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式待核验",
+    material: "战时材料/饰件待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-morrison-patriot-source-boundary",
+    modelName: "Morrison's Patriot",
+    focus:
+      "Morrison Patriot identity, World War II patriotic marketing, wartime material constraints, filling system, nib, advertising, and collector claims",
+    storyId: "story-model-morrison-patriot-research",
+    storyTitle: "把 Morrison Patriot 做成战时爱国营销型号档案",
+    storySummary:
+      "Morrison Patriot 先作为 Richard's Pens 支撑的战时型号页，爱国营销、材料和规格需要继续复核。",
+    storyBodyMd:
+      "Patriot 的价值不只是型号参数，而是战时语境：爱国营销、材料约束、广告图像和实物规格共同构成这支笔的意义。Richard's Pens 已经提供了一个强入口。\n\n当前档案先把长文压缩成型号馆可读结构。后续可补时间线节点和展览段落，把它放进“战时美国钢笔”展柜。",
+    sourceNotes:
+      "Richard's Pens profile is registered and approved locally for Morrison context; keep summary/link-only boundaries and review images separately.",
+  }),
+  makeSearchOnlyModel({
+    slug: "sheaffer-s-balance",
+    brandSlug: "sheaffer",
+    aliases: [
+      { alias: "Sheaffer's Balance", language: "en" },
+      { alias: "Sheaffer Balance", language: "en" },
+      { alias: "犀飞利 Balance 平衡", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-38e4e4f83ba9b417",
+    specId: "spec-sheaffer-balance-research",
+    seriesName: "Balance",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "lever/vacuum 等版本待核验",
+    material: "赛璐珞/尺寸版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-sheaffer-balance-source-boundary",
+    modelName: "Sheaffer's Balance",
+    focus:
+      "Sheaffer Balance identity, streamlined shape, 1929 advertising context, filling-system variants, nib, material, sizes, and collector claims",
+    storyId: "story-model-sheaffer-balance-research",
+    storyTitle: "把 Sheaffer Balance 的流线型地位整理成型号档案",
+    storySummary:
+      "Sheaffer Balance 先作为 Richard's Pens 支撑的经典型号页，流线型外观、版本和上墨差异需要逐项复核。",
+    storyBodyMd:
+      "Balance 是 Sheaffer 历史里很适合做“设计转向”展柜的型号。当前站内摘要已经含 Richard's Pens 和广告图线索，但需要从长文形态转成型号档案。\n\n当前档案先绑定 profile 来源，保留尺寸、材料、上墨和笔尖待核验。后续可以把 Balance 放进美国工业设计和流线型钢笔路径。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Treat images and exact specifications as review-gated.",
+  }),
+  makeSearchOnlyModel({
+    slug: "sheaffer-s-connaisseur",
+    brandSlug: "sheaffer",
+    aliases: [
+      { alias: "Sheaffer's Connaisseur", language: "en" },
+      { alias: "Sheaffer Connaisseur", language: "en" },
+      { alias: "犀飞利 Connaisseur", language: "zh" },
+    ],
+    sourceItemId: "source-richardspens-72c187875d5cf754",
+    specId: "spec-sheaffer-connaisseur-research",
+    seriesName: "Connaisseur",
+    originCountry: "美国（待核验）",
+    nib: "笔尖规格待核验",
+    fillSystem: "上墨方式待核验",
+    material: "笔身材质/版本待核验",
+    priceRange: "历史/收藏价格待核验",
+    claimId: "claim-sheaffer-connaisseur-source-boundary",
+    modelName: "Sheaffer's Connaisseur",
+    focus:
+      "Sheaffer Connaisseur identity, modern/classic revival context, nib, filling system, material, variants, and collector reputation",
+    storyId: "story-model-sheaffer-connaisseur-research",
+    storyTitle: "把 Sheaffer Connaisseur 从长文索引变成型号馆页",
+    storySummary:
+      "Sheaffer Connaisseur 先作为 Richard's Pens 支撑的型号研究页，版本、材料、笔尖和收藏评价都需要继续复核。",
+    storyBodyMd:
+      "Connaisseur 的当前摘要混入了长文链接和参考资料索引，用户进入详情页会觉得像文章残片。图书馆应该先把它恢复成型号页：是什么、属于 Sheaffer 哪个阶段、有哪些版本、为什么值得收藏。\n\n当前档案先绑定 Richard's Pens profile，并把规格全部放在待核验层。后续再补版本表和时间线。",
+    sourceNotes:
+      "Richard's Pens profile is registered as a summary/link-only source. Exact variants and specifications require editorial review.",
   }),
 ];
 
