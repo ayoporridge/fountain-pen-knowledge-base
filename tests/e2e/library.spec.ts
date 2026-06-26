@@ -24,6 +24,30 @@ async function expectLibraryPage(
   expect(errors).toEqual([]);
 }
 
+const FORBIDDEN_EXHIBIT_COPY_PATTERNS: Array<[RegExp, string]> = [
+  [/应该|应当|应把|应先|不应/, "editorial should/should-not wording"],
+  [
+    /展览里|展览要|展览的目标|对图书馆|图书馆里|图书馆可以|资料馆/,
+    "internal exhibit/library planning wording",
+  ],
+  [/后续|待补完|研究队列|预留展览/, "placeholder or backlog wording"],
+  [
+    /可以作为|不能写成|要先|建议|推荐读法|最终目标/,
+    "agent-facing instruction wording",
+  ],
+  [/适合放在.*展览/, "exhibit placement instruction wording"],
+];
+
+async function expectNoExhibitPlanningCopy(page: Page) {
+  const bodyText = await page.locator("body").innerText();
+  const violations = FORBIDDEN_EXHIBIT_COPY_PATTERNS.flatMap(
+    ([pattern, label]) =>
+      pattern.test(bodyText) ? [`${label}: ${pattern.toString()}`] : [],
+  );
+
+  expect(violations).toEqual([]);
+}
+
 async function getCanvasPixelBounds(page: Page) {
   return page.evaluate(() => {
     const root = document.querySelector('[data-testid="local-graph-canvas"]');
@@ -997,6 +1021,7 @@ test.describe("Library smoke flow", () => {
     await expect(page.getByText("预留展览")).toHaveCount(0);
     await expect(page.getByText("后续补充")).toHaveCount(0);
     await expect(page.getByText("待补完")).toHaveCount(0);
+    await expectNoExhibitPlanningCopy(page);
   });
 
   const exhibitDetailPages: Array<[string, string[]]> = [
@@ -1058,6 +1083,7 @@ test.describe("Library smoke flow", () => {
       await expect(page.getByText("预留展览")).toHaveCount(0);
       await expect(page.getByText("后续补充")).toHaveCount(0);
       await expect(page.getByText("待补完")).toHaveCount(0);
+      await expectNoExhibitPlanningCopy(page);
     });
   }
 
