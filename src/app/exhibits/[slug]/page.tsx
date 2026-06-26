@@ -2,8 +2,15 @@ import { ArrowLeft, Compass } from "@phosphor-icons/react/dist/ssr";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { SourceCards } from "@/components/library/SourceCards";
 import { MarkdownRenderer } from "@/components/MarkdownRenderer";
-import { getExhibit, getExhibitSections } from "@/lib/library";
+import { TYPE_LABELS } from "@/lib/constants";
+import {
+  getExhibit,
+  getExhibitSections,
+  getRelatedEntitiesByPaths,
+  getSourceItemsByIds,
+} from "@/lib/library";
 
 export const dynamic = "force-dynamic";
 
@@ -35,6 +42,11 @@ function parseJsonList(value: string | null): string[] {
   }
 }
 
+const EXHIBIT_STATUS_LABELS: Record<string, string> = {
+  published: "已发布展览",
+  reviewed: "已审核展览",
+};
+
 export default async function ExhibitDetailPage({
   params,
 }: ExhibitDetailPageProps) {
@@ -61,7 +73,7 @@ export default async function ExhibitDetailPage({
           style={{ color: "var(--color-accent)" }}
         >
           <Compass size={16} />
-          {exhibit.status}
+          {EXHIBIT_STATUS_LABELS[exhibit.status] || "策展专题"}
         </p>
         <h1 className="mb-3 text-3xl font-bold tracking-tight">
           {exhibit.title}
@@ -80,55 +92,97 @@ export default async function ExhibitDetailPage({
         {sections.map((section) => {
           const relatedSlugs = parseJsonList(section.related_entity_slugs_json);
           const diagramSlugs = parseJsonList(section.diagram_slugs_json);
+          const sourceIds = parseJsonList(section.source_item_ids_json);
           return (
-            <section
+            <ExhibitSectionCard
               key={section.id}
-              className="rounded-xl border p-5"
-              style={{
-                borderColor: "var(--color-border)",
-                backgroundColor: "var(--color-surface-raised)",
-              }}
-            >
-              <div
-                className="mb-2 text-xs"
-                style={{ color: "var(--color-ink-muted)" }}
-              >
-                Section {section.position + 1}
-              </div>
-              <h2 className="mb-4 text-xl font-semibold">{section.title}</h2>
-              <MarkdownRenderer content={section.body_md} />
-              {(relatedSlugs.length > 0 || diagramSlugs.length > 0) && (
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {relatedSlugs.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full px-2.5 py-1 text-xs"
-                      style={{
-                        backgroundColor: "var(--color-surface-dim)",
-                        color: "var(--color-ink-muted)",
-                      }}
-                    >
-                      实体：{item}
-                    </span>
-                  ))}
-                  {diagramSlugs.map((item) => (
-                    <span
-                      key={item}
-                      className="rounded-full px-2.5 py-1 text-xs"
-                      style={{
-                        backgroundColor: "var(--color-accent-light)",
-                        color: "var(--color-accent)",
-                      }}
-                    >
-                      图示：{item}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </section>
+              position={section.position}
+              title={section.title}
+              bodyMd={section.body_md}
+              relatedSlugs={relatedSlugs}
+              diagramSlugs={diagramSlugs}
+              sourceIds={sourceIds}
+            />
           );
         })}
       </div>
     </div>
+  );
+}
+
+async function ExhibitSectionCard({
+  position,
+  title,
+  bodyMd,
+  relatedSlugs,
+  diagramSlugs,
+  sourceIds,
+}: {
+  position: number;
+  title: string;
+  bodyMd: string;
+  relatedSlugs: string[];
+  diagramSlugs: string[];
+  sourceIds: string[];
+}) {
+  const [relatedEntities, sources] = await Promise.all([
+    getRelatedEntitiesByPaths(relatedSlugs),
+    getSourceItemsByIds(sourceIds),
+  ]);
+
+  return (
+    <section
+      className="rounded-xl border p-5"
+      style={{
+        borderColor: "var(--color-border)",
+        backgroundColor: "var(--color-surface-raised)",
+      }}
+    >
+      <div className="mb-2 text-xs" style={{ color: "var(--color-ink-muted)" }}>
+        Section {position + 1}
+      </div>
+      <h2 className="mb-4 text-xl font-semibold">{title}</h2>
+      <MarkdownRenderer content={bodyMd} />
+
+      {(relatedEntities.length > 0 || diagramSlugs.length > 0) && (
+        <div className="mt-5 border-t pt-4 border-[var(--color-border-light)]">
+          <h3 className="mb-2 text-sm font-semibold">继续阅读</h3>
+          <div className="flex flex-wrap gap-2">
+            {relatedEntities.map((entity) => (
+              <Link
+                key={`${entity.type}/${entity.slug}`}
+                href={`/${entity.type}/${entity.slug}`}
+                className="rounded-full px-3 py-1.5 text-xs transition-colors hover:bg-[var(--color-accent-light)] hover:text-[var(--color-accent)]"
+                style={{
+                  backgroundColor: "var(--color-surface-dim)",
+                  color: "var(--color-ink-muted)",
+                }}
+              >
+                {TYPE_LABELS[entity.type] || entity.type}：{entity.name}
+              </Link>
+            ))}
+            {diagramSlugs.map((item) => (
+              <span
+                key={item}
+                className="rounded-full px-3 py-1.5 text-xs"
+                style={{
+                  backgroundColor: "var(--color-accent-light)",
+                  color: "var(--color-accent)",
+                }}
+              >
+                图示：{item}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {sources.length > 0 && (
+        <div className="mt-5 border-t pt-4 border-[var(--color-border-light)]">
+          <h3 className="mb-3 text-sm font-semibold">来源</h3>
+          <SourceCards sources={sources} />
+        </div>
+      )}
+    </section>
   );
 }

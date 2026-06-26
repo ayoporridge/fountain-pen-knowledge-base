@@ -813,6 +813,7 @@ export async function getPublishedExhibits() {
   return (await queryAll(
     `SELECT id, slug, title, summary, status
      FROM exhibits
+     WHERE status IN ('published', 'reviewed')
      ORDER BY CASE status WHEN 'published' THEN 0 WHEN 'reviewed' THEN 1 ELSE 2 END, title`,
   )) as ExhibitRecord[];
 }
@@ -821,7 +822,7 @@ export async function getExhibit(slug: string) {
   return (await queryOne(
     `SELECT id, slug, title, summary, status
      FROM exhibits
-     WHERE slug = ?`,
+     WHERE slug = ? AND status IN ('published', 'reviewed')`,
     [slug],
   )) as ExhibitRecord | undefined;
 }
@@ -835,4 +836,52 @@ export async function getExhibitSections(exhibitId: string) {
      ORDER BY position ASC`,
     [exhibitId],
   )) as ExhibitSectionRecord[];
+}
+
+export async function getRelatedEntitiesByPaths(paths: string[]) {
+  if (paths.length === 0) return [];
+
+  const clauses = paths.map(() => "(e.type = ? AND e.slug = ?)").join(" OR ");
+  const args = paths.flatMap((pathValue) => {
+    const [type, ...slugParts] = pathValue.split("/");
+    return [type, slugParts.join("/")];
+  });
+
+  const rows = (await queryAll(
+    `SELECT e.type, e.slug, e.name, e.summary
+     FROM entities e
+     WHERE ${clauses}
+     ORDER BY e.type, e.name`,
+    args,
+  )) as RelatedEntityRecord[];
+
+  const byPath = new Map(rows.map((row) => [`${row.type}/${row.slug}`, row]));
+  return paths
+    .map((pathValue) => byPath.get(pathValue))
+    .filter((row): row is RelatedEntityRecord => Boolean(row));
+}
+
+export async function getSourceItemsByIds(ids: string[]) {
+  if (ids.length === 0) return [];
+
+  const placeholders = ids.map(() => "?").join(", ");
+  const rows = (await queryAll(
+    `SELECT si.id, si.source_id, sr.name as source_name, sr.source_type,
+            si.title, si.url, si.item_type, si.license, si.allowed_use,
+            si.review_status,
+            COUNT(DISTINCT er.id) + COUNT(DISTINCT c.id) as reference_count
+     FROM source_items si
+     JOIN source_registry sr ON sr.id = si.source_id
+     LEFT JOIN entity_references er ON er.source_item_id = si.id
+     LEFT JOIN citations c ON c.source_item_id = si.id
+     WHERE si.id IN (${placeholders})
+     GROUP BY si.id
+     ORDER BY si.title`,
+    ids,
+  )) as SourceItemRecord[];
+
+  const byId = new Map(rows.map((row) => [row.id, row]));
+  return ids
+    .map((id) => byId.get(id))
+    .filter((row): row is SourceItemRecord => Boolean(row));
 }

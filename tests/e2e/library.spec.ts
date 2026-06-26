@@ -987,6 +987,80 @@ test.describe("Library smoke flow", () => {
     });
   }
 
+  test("exhibits list only exposes reader-facing published content", async ({
+    page,
+  }) => {
+    await page.goto("/exhibits", { waitUntil: "domcontentloaded" });
+
+    await expect(page.getByText("已发布展览").first()).toBeVisible();
+    await expect(page.getByText("draft")).toHaveCount(0);
+    await expect(page.getByText("预留展览")).toHaveCount(0);
+    await expect(page.getByText("后续补充")).toHaveCount(0);
+    await expect(page.getByText("待补完")).toHaveCount(0);
+  });
+
+  const exhibitDetailPages: Array<[string, string[]]> = [
+    [
+      "/exhibits/lamy-2000-modernism",
+      [
+        "LAMY 2000：现代主义如何落到手里",
+        "1966 年不是复古标签",
+        "LAMY 2000 fountain pen",
+      ],
+    ],
+    [
+      "/exhibits/parker-51-myth",
+      [
+        "Parker 51：经典、复刻与神话",
+        "先把“Parker 51”拆成几个对象",
+        "The Parker Penography: Parker 51",
+      ],
+    ],
+    [
+      "/exhibits/pelikan-piston-filler",
+      [
+        "Pelikan 与活塞上墨传统",
+        "1929：活塞不是卖点词",
+        "Pelikan Collectibles: History of Pelikan",
+      ],
+    ],
+    [
+      "/exhibits/filling-system-history",
+      [
+        "上墨系统小史：从墨囊到活塞与真空",
+        "先问三个问题：墨水在哪里",
+        "Filling Systems: Overview of How They Work and How to Fill Them",
+      ],
+    ],
+    [
+      "/exhibits/chinese-fountain-pen-memory",
+      [
+        "中国钢笔记忆：英雄、永生与日常书写",
+        "国产钢笔不能只写成怀旧口号",
+        "The New Wing Sung(s), Explained",
+      ],
+    ],
+    [
+      "/exhibits/japanese-big-three",
+      [
+        "日系三金：日用旗舰与笔尖性格",
+        "“三金”不是排行榜",
+        "Sailor: Professional Gear Series",
+      ],
+    ],
+  ];
+
+  for (const [path, texts] of exhibitDetailPages) {
+    test(`exhibit detail renders sourced reading path: ${path}`, async ({
+      page,
+    }) => {
+      await expectLibraryPage(page, path, [...texts, "继续阅读", "来源"]);
+      await expect(page.getByText("预留展览")).toHaveCount(0);
+      await expect(page.getByText("后续补充")).toHaveCount(0);
+      await expect(page.getByText("待补完")).toHaveCount(0);
+    });
+  }
+
   test("source index filters by source and source type", async ({ page }) => {
     await expectLibraryPage(page, "/library/sources?source=richardspens", [
       "当前筛选：Richard's Pens",

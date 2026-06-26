@@ -20,7 +20,7 @@ function formatConfidence(value: number) {
 
 function claimText(claim: ClaimRecord) {
   if (claim.object_entity_name) return claim.object_entity_name;
-  return claim.object_text || "待补完";
+  return claim.object_text || "暂无可展示文本";
 }
 
 export function ClaimCards({ claims }: { claims: ClaimRecord[] }) {

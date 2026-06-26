@@ -26,6 +26,7 @@
     "import:model-gap-sources": "tsx scripts/import-model-gap-sources.ts",
     "import:research-gap-sources": "tsx scripts/import-research-gap-sources.ts",
     "import:richardspens-references": "tsx scripts/import-richardspens-references.ts",
+    "import:exhibit-content": "tsx scripts/import-exhibit-content.ts",
     "fix:pen-articles": "tsx scripts/reclassify-pen-articles.ts",
     "audit:library-coverage": "tsx scripts/audit-library-coverage.ts",
     "audit:entity-quality": "tsx scripts/audit-entity-quality.ts",

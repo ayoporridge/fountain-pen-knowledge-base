@@ -36,7 +36,7 @@ export function Timeline({
           backgroundColor: "var(--color-surface-raised)",
         }}
       >
-        时间线待补完。后续会从品牌官网、Wikidata、目录、专利和社区资料中补充。
+        暂无已整理时间线。资料馆会优先从品牌官网、Wikidata、目录、专利和社区资料中核验。
       </div>
     );
   }

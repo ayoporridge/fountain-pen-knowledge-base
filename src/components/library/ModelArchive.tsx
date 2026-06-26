@@ -114,7 +114,7 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
                       {spec.brand_name}
                     </Link>
                   ) : (
-                    value || "待补完"
+                    value || "暂无资料"
                   )}
                 </div>
               </div>
@@ -122,7 +122,7 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
           </div>
         ) : (
           <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
-            这个型号还没有结构化档案。后续会按品牌、系列、年份、笔尖、上墨、材质和版本补全。
+            这个型号还没有结构化档案。资料馆会按品牌、系列、年份、笔尖、上墨、材质和版本核验。
           </p>
         )}
       </div>
@@ -142,7 +142,7 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <Books size={18} style={{ color: "var(--color-accent)" }} />
           <h2 className="text-lg font-semibold">
-            {story?.title || "型号故事待补完"}
+            {story?.title || "型号故事整理中"}
           </h2>
           {story && <StatusBadge status={story.status} />}
         </div>
@@ -205,7 +205,7 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
           </div>
         ) : (
           <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
-            版本与变体待补完。
+            暂无已整理版本与变体。
           </p>
         )}
       </div>

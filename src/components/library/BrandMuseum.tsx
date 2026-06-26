@@ -81,7 +81,7 @@ export async function BrandMuseum({
                 className="text-sm font-medium"
                 style={{ color: "var(--color-ink)" }}
               >
-                {value || "待补完"}
+                {value || "暂无资料"}
               </div>
             </div>
           ))}
@@ -103,7 +103,7 @@ export async function BrandMuseum({
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <Quotes size={18} style={{ color: "var(--color-accent)" }} />
           <h2 className="text-lg font-semibold">
-            {story?.title || "品牌故事待补完"}
+            {story?.title || "品牌故事整理中"}
           </h2>
           {story && <StatusBadge status={story.status} />}
         </div>
@@ -114,8 +114,8 @@ export async function BrandMuseum({
           </>
         ) : (
           <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
-            这个品牌还没有通过来源审核的品牌故事。后续会先抽取
-            claims，再生成草稿。
+            这个品牌还没有通过来源审核的品牌故事。资料馆会先抽取
+            claims，再生成可核验草稿。
           </p>
         )}
       </div>
@@ -172,7 +172,7 @@ export async function BrandMuseum({
           </div>
         ) : (
           <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
-            代表型号关系待补完。
+            暂无已整理代表型号关系。
           </p>
         )}
       </div>
