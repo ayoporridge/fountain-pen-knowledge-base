@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { TimelineEventRecord } from "@/lib/library";
+import { cleanPublicText } from "@/lib/publicText";
 import { StatusBadge } from "./StatusBadge";
 
 const EVENT_LABELS: Record<string, string> = {
@@ -36,7 +37,7 @@ export function Timeline({
           backgroundColor: "var(--color-surface-raised)",
         }}
       >
-        暂无已整理时间线。资料馆会优先从品牌官网、Wikidata、目录、专利和社区资料中核验。
+        暂无可展示时间线。
       </div>
     );
   }
@@ -46,70 +47,74 @@ export function Timeline({
       className="relative space-y-4 border-l pl-5"
       style={{ borderColor: "var(--color-border)" }}
     >
-      {events.map((event) => (
-        <li key={event.id} className="relative">
-          <span
-            className="absolute -left-[27px] top-1 h-3 w-3 rounded-full border"
-            style={{
-              backgroundColor: "var(--color-accent)",
-              borderColor: "var(--color-surface-raised)",
-            }}
-          />
-          <div className="flex flex-wrap items-center gap-2">
-            <time
-              className="text-sm font-semibold"
-              style={{ color: "var(--color-accent)" }}
-            >
-              {event.circa ? `约 ${event.start_date}` : event.start_date}
-            </time>
+      {events.map((event) => {
+        const description = cleanPublicText(event.description);
+
+        return (
+          <li key={event.id} className="relative">
             <span
-              className="rounded-full px-2 py-0.5 text-xs"
+              className="absolute -left-[27px] top-1 h-3 w-3 rounded-full border"
               style={{
-                backgroundColor: "var(--color-accent-light)",
-                color: "var(--color-accent)",
+                backgroundColor: "var(--color-accent)",
+                borderColor: "var(--color-surface-raised)",
               }}
+            />
+            <div className="flex flex-wrap items-center gap-2">
+              <time
+                className="text-sm font-semibold"
+                style={{ color: "var(--color-accent)" }}
+              >
+                {event.circa ? `约 ${event.start_date}` : event.start_date}
+              </time>
+              <span
+                className="rounded-full px-2 py-0.5 text-xs"
+                style={{
+                  backgroundColor: "var(--color-accent-light)",
+                  color: "var(--color-accent)",
+                }}
+              >
+                {EVENT_LABELS[event.event_type] || event.event_type}
+              </span>
+              <StatusBadge status={event.review_status} />
+            </div>
+            <h3
+              className={`${compact ? "text-sm" : "text-base"} mt-1 font-semibold`}
+              style={{ color: "var(--color-ink)" }}
             >
-              {EVENT_LABELS[event.event_type] || event.event_type}
-            </span>
-            <StatusBadge status={event.review_status} />
-          </div>
-          <h3
-            className={`${compact ? "text-sm" : "text-base"} mt-1 font-semibold`}
-            style={{ color: "var(--color-ink)" }}
-          >
-            {event.entity_slug && event.entity_type && event.entity_name ? (
-              <>
-                <Link
-                  href={`/${event.entity_type}/${event.entity_slug}`}
-                  className="ink-underline"
-                >
-                  {event.entity_name}
-                </Link>
-                <span> · {event.title}</span>
-              </>
-            ) : (
-              event.title
+              {event.entity_slug && event.entity_type && event.entity_name ? (
+                <>
+                  <Link
+                    href={`/${event.entity_type}/${event.entity_slug}`}
+                    className="ink-underline"
+                  >
+                    {event.entity_name}
+                  </Link>
+                  <span> · {event.title}</span>
+                </>
+              ) : (
+                event.title
+              )}
+            </h3>
+            {description && (
+              <p
+                className="mt-1 text-sm leading-relaxed"
+                style={{ color: "var(--color-ink-muted)" }}
+              >
+                {description}
+              </p>
             )}
-          </h3>
-          {event.description && (
-            <p
-              className="mt-1 text-sm leading-relaxed"
-              style={{ color: "var(--color-ink-muted)" }}
-            >
-              {event.description}
-            </p>
-          )}
-          {event.source_url && event.source_title && (
-            <Link
-              href={event.source_url}
-              className="mt-1 inline-flex text-xs ink-underline"
-              style={{ color: "var(--color-ink-muted)" }}
-            >
-              来源：{event.source_title}
-            </Link>
-          )}
-        </li>
-      ))}
+            {event.source_url && event.source_title && (
+              <Link
+                href={event.source_url}
+                className="mt-1 inline-flex text-xs ink-underline"
+                style={{ color: "var(--color-ink-muted)" }}
+              >
+                来源：{event.source_title}
+              </Link>
+            )}
+          </li>
+        );
+      })}
     </ol>
   );
 }

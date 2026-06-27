@@ -1001,6 +1001,56 @@ async function countInternalClaimEvidence(db: Client) {
   return Number(result.rows[0]?.count || 0);
 }
 
+async function cleanAllTimelineEvents(db: Client) {
+  const result = await execute(
+    db,
+    `SELECT id FROM timeline_events
+     WHERE coalesce(description, '') LIKE '%后续%'
+        OR coalesce(description, '') LIKE '%当前%'
+        OR coalesce(description, '') LIKE '%研究队列%'
+        OR coalesce(description, '') LIKE '%补证%'
+        OR coalesce(description, '') LIKE '%待核验%'
+        OR coalesce(description, '') LIKE '%需核验%'
+        OR coalesce(description, '') LIKE '%待拆分%'
+        OR coalesce(description, '') LIKE '%待重分类%'
+        OR coalesce(description, '') LIKE '%待合并%'
+        OR coalesce(description, '') LIKE '%待别名%'
+        OR coalesce(description, '') LIKE '%应把%'
+        OR coalesce(description, '') LIKE '%可以作为用户%'`,
+  );
+
+  for (const row of result.rows) {
+    await execute(
+      db,
+      "UPDATE timeline_events SET description = NULL, updated_at = datetime('now') WHERE id = ?",
+      [String(row.id)],
+    );
+  }
+
+  console.log(`Cleaned timeline events: ${result.rows.length}`);
+}
+
+async function countInternalTimelineEvents(db: Client) {
+  const result = await execute(
+    db,
+    `SELECT COUNT(*) AS count FROM timeline_events
+     WHERE coalesce(description, '') LIKE '%后续%'
+        OR coalesce(description, '') LIKE '%当前%'
+        OR coalesce(description, '') LIKE '%研究队列%'
+        OR coalesce(description, '') LIKE '%补证%'
+        OR coalesce(description, '') LIKE '%待核验%'
+        OR coalesce(description, '') LIKE '%需核验%'
+        OR coalesce(description, '') LIKE '%待拆分%'
+        OR coalesce(description, '') LIKE '%待重分类%'
+        OR coalesce(description, '') LIKE '%待合并%'
+        OR coalesce(description, '') LIKE '%待别名%'
+        OR coalesce(description, '') LIKE '%应把%'
+        OR coalesce(description, '') LIKE '%可以作为用户%'`,
+  );
+
+  return Number(result.rows[0]?.count || 0);
+}
+
 async function main() {
   const db = getClient();
   await execute(db, "PRAGMA foreign_keys = ON");
@@ -1026,6 +1076,7 @@ async function main() {
   await writeSpecUpdates(db);
   await cleanAllSpecs(db);
   await cleanAllClaimEvidence(db);
+  await cleanAllTimelineEvents(db);
 
   const storyInternal = await execute(
     db,
@@ -1105,6 +1156,9 @@ async function main() {
   console.log(`Remaining pending spec values: ${specInternal.rows[0]?.count}`);
   console.log(
     `Remaining internal claim evidence: ${await countInternalClaimEvidence(db)}`,
+  );
+  console.log(
+    `Remaining internal timeline events: ${await countInternalTimelineEvents(db)}`,
   );
 }
 
