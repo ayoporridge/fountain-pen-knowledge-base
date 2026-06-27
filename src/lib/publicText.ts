@@ -14,6 +14,8 @@ const INTERNAL_COPY_PATTERNS = [
   /verified facts/i,
   /research-queue/i,
   /brand[- ]?generic/i,
+  /Story draft/i,
+  /Editorial disambiguation/i,
   /后续补/,
   /后续扩写/,
   /当前草稿/,
@@ -74,9 +76,10 @@ export function hasPublicText(value: unknown) {
 }
 
 export function displayPublicSourceName(value: unknown) {
-  const text = cleanPublicText(value);
+  const raw = String(value || "");
+  if (/public web research index/i.test(raw)) return "公开资料检索";
+  const text = cleanPublicText(raw);
   if (!text) return "来源";
-  if (/public web research index/i.test(text)) return "公开资料检索";
   return text;
 }
 

@@ -1,6 +1,7 @@
 import { LinkSimple } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 import type { EntityAliasRecord, ExternalIdRecord } from "@/lib/library";
+import { displayPublicSourceName } from "@/lib/publicText";
 
 function ExternalIdCard({ externalId }: { externalId: ExternalIdRecord }) {
   return (
@@ -70,7 +71,9 @@ export function IdentifierPanel({
                 backgroundColor: "var(--color-surface-dim)",
                 color: "var(--color-ink-muted)",
               }}
-              title={alias.source_name || alias.language}
+              title={displayPublicSourceName(
+                alias.source_name || alias.language,
+              )}
             >
               {alias.alias}
             </span>

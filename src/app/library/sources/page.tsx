@@ -4,6 +4,7 @@ import Link from "next/link";
 import { SourceCards } from "@/components/library/SourceCards";
 import { StatusBadge } from "@/components/library/StatusBadge";
 import { getSourceItemIndex, getSourceRegistryIndex } from "@/lib/library";
+import { displayPublicSourceName } from "@/lib/publicText";
 
 export const dynamic = "force-dynamic";
 
@@ -88,7 +89,7 @@ export default async function LibrarySourcesPage({
       .reduce((sum, source) => sum + Number(source.reference_count || 0), 0),
   })).filter((item) => item.itemCount > 0 || item.referenceCount > 0);
   const activeLabel =
-    selectedSource?.name ||
+    (selectedSource ? displayPublicSourceName(selectedSource.name) : "") ||
     (selectedType
       ? SOURCE_TYPE_LABELS[selectedType] || selectedType
       : "全部来源");
@@ -146,7 +147,9 @@ export default async function LibrarySourcesPage({
                   {source.allowed_use}
                 </span>
               </div>
-              <h3 className="font-semibold">{source.name}</h3>
+              <h3 className="font-semibold">
+                {displayPublicSourceName(source.name)}
+              </h3>
               {source.notes && (
                 <p
                   className="mt-2 line-clamp-3 text-sm leading-relaxed"
@@ -240,7 +243,7 @@ export default async function LibrarySourcesPage({
                       : "var(--color-ink-muted)",
                 }}
               >
-                {source.name} · {source.item_count}
+                {displayPublicSourceName(source.name)} · {source.item_count}
               </Link>
             ))}
         </div>
