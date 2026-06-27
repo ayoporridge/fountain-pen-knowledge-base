@@ -18,6 +18,7 @@ import {
   getModelVariants,
   getStoriesForEntity,
 } from "@/lib/library";
+import { cleanPublicText } from "@/lib/publicText";
 import { CitationList } from "./CitationList";
 import { ClaimCards } from "./ClaimCards";
 import { DiagramRenderer } from "./DiagramRenderer";
@@ -71,10 +72,9 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
         ["重量", spec.weight],
         ["价位", spec.price_range],
         ["状态", spec.status],
-      ].filter(([, value]) => {
-        if (value === null || value === undefined) return false;
-        return String(value).trim().length > 0;
-      })
+      ]
+        .map(([label, value]) => [label, cleanPublicText(value)] as const)
+        .filter(([, value]) => value !== null)
     : [];
 
   return (
@@ -104,7 +104,7 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
           </div>
         ) : (
           <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
-            型号故事会基于已核验事实生成，尚未确认的年份、材质和价格会保留核验边界。
+            这个型号暂时只有来源卡片和关系信息；正文会在有稳定来源时展示。
           </p>
         )}
       </div>
@@ -170,7 +170,7 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
           </div>
         ) : (
           <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
-            这个型号还没有结构化档案。资料馆会按品牌、系列、年份、笔尖、上墨、材质和版本核验。
+            这个型号暂时没有可公开展示的结构化规格。页面只显示已有来源能支撑的字段。
           </p>
         )}
       </div>
@@ -212,12 +212,12 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
                   )}
                   <StatusBadge status={variant.review_status} />
                 </div>
-                {variant.notes && (
+                {cleanPublicText(variant.notes) && (
                   <p
                     className="mt-1 text-sm"
                     style={{ color: "var(--color-ink-muted)" }}
                   >
-                    {variant.notes}
+                    {cleanPublicText(variant.notes)}
                   </p>
                 )}
               </div>
@@ -225,7 +225,7 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
           </div>
         ) : (
           <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
-            资料馆暂未整理出可公开对照的版本与变体。
+            暂无可公开对照的版本与变体。
           </p>
         )}
       </div>

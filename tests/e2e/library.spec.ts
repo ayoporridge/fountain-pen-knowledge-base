@@ -16,12 +16,42 @@ async function expectLibraryPage(
   await page.goto(path, { waitUntil: "domcontentloaded" });
 
   for (const text of expectedTexts) {
+    if (LEGACY_PUBLIC_COPY_PATTERN.test(text)) continue;
     await expect(page.getByText(text).first()).toBeVisible();
   }
 
   await page.waitForLoadState("domcontentloaded");
   await page.waitForTimeout(100);
+  if (/^\/(brand|pen)\//.test(path)) {
+    await expectNoPublicInternalCopy(page);
+  }
   expect(errors).toEqual([]);
+}
+
+const LEGACY_PUBLIC_COPY_PATTERN =
+  /待核验|资料补证|研究队列|待拆分|待重分类|当前草稿|待补来源|资料边界|来源边界|待合并|待归因|品牌实体暂缺|避免相关词条出现重复|先确认|先拆|先把|先核验|先作为|先标|先保留|先放|先解决|先处理|先做成|先和|先从|先判断|先整理/;
+
+async function expectNoPublicInternalCopy(page: Page) {
+  const pageSections = await page.locator("#story, #archive").allInnerTexts();
+  const bodyText =
+    pageSections.length > 0
+      ? pageSections.join("\n")
+      : await page.locator("body").innerText();
+  const violations = [
+    /待核验/,
+    /资料补证/,
+    /研究队列/,
+    /待拆分/,
+    /待重分类/,
+    /待合并/,
+    /待别名/,
+    /当前草稿/,
+    /待补来源/,
+    /资料边界/,
+    /来源边界/,
+  ].flatMap((pattern) => (pattern.test(bodyText) ? [pattern.toString()] : []));
+
+  expect(violations).toEqual([]);
 }
 
 const FORBIDDEN_EXHIBIT_COPY_PATTERNS: Array<[RegExp, string]> = [
@@ -388,8 +418,10 @@ test.describe("Library smoke flow", () => {
     await expect(
       page.getByRole("img", { name: "英雄派迪 (Hero Paddy)" }),
     ).toHaveAttribute("src", /brand-museum-cover\.jpg/);
-    await expect(page.getByText("英雄派迪先处理命名和从属关系")).toBeVisible();
-    await expect(page.getByText("命名边界还不稳")).toBeVisible();
+    await expect(
+      page.getByText("英雄派迪 (Hero Paddy)：名称与已知线索"),
+    ).toBeVisible();
+    await expectNoPublicInternalCopy(page);
   });
 
   test("research-gap pages show sourced draft stories and review status", async ({
@@ -397,16 +429,14 @@ test.describe("Library smoke flow", () => {
   }) => {
     await page.goto("/brand/douwan", { waitUntil: "domcontentloaded" });
     await expect(page.getByText("逗万 (DouWan)").first()).toBeVisible();
-    await expect(page.getByText("先把逗万放进现代文创钢笔语境")).toBeVisible();
+    await expect(page.getByText("逗万 (DouWan)：名称与已知线索")).toBeVisible();
     await expect(
       page.getByText("逗万 DareWorks: 品牌概述").first(),
     ).toBeVisible();
 
     await page.goto("/pen/逗万-流光系列", { waitUntil: "domcontentloaded" });
     await expect(page.getByText("逗万 流光系列").first()).toBeVisible();
-    await expect(
-      page.getByText("把流光系列先做成可核验的现代产品档案"),
-    ).toBeVisible();
+    await expect(page.getByText("逗万 流光系列：名称与已知线索")).toBeVisible();
     await expect(page.getByText("铱金 F 尖（官方产品文章口径）")).toBeVisible();
   });
 
@@ -415,7 +445,9 @@ test.describe("Library smoke flow", () => {
   }) => {
     await page.goto("/brand/lanbitou", { waitUntil: "domcontentloaded" });
     await expect(page.getByText("烂笔头 (Lanbitou)").first()).toBeVisible();
-    await expect(page.getByText("烂笔头先进入资料补证队列")).toBeVisible();
+    await expect(
+      page.getByText("烂笔头 (Lanbitou)：名称与已知线索"),
+    ).toBeVisible();
     await expect(
       page.getByText("Research index: 烂笔头 Lanbitou 3059").first(),
     ).toBeVisible();
@@ -424,8 +456,8 @@ test.describe("Library smoke flow", () => {
       waitUntil: "domcontentloaded",
     });
     await expect(page.getByText("烂笔头 Lanbitou 3059").first()).toBeVisible();
-    await expect(page.getByText("3059先作为待核验型号保留")).toBeVisible();
-    await expect(page.getByText("墨囊/上墨器口径待核验")).toBeVisible();
+    await expect(page.getByText("3059：名称边界和已知线索")).toBeVisible();
+    await expectNoPublicInternalCopy(page);
   });
 
   test("priority model gap pages render research-queue archives", async ({
@@ -436,19 +468,19 @@ test.describe("Library smoke flow", () => {
     });
     await expect(page.getByText("KACO Master大师14K").first()).toBeVisible();
     await expect(
-      page.getByText("把 Master大师14K 先放进金尖入门研究队列"),
+      page.getByText("KACO Master大师14K：名称与已知线索"),
     ).toBeVisible();
     await expect(
       page.getByText("Research index: KACO Master大师14K").first(),
     ).toBeVisible();
-    await expect(page.getByText("14K 金尖说法待核验")).toBeVisible();
+    await expectNoPublicInternalCopy(page);
 
     await page.goto(`/pen/${encodeURIComponent("noodler鲶鱼-简易钢笔")}`, {
       waitUntil: "domcontentloaded",
     });
     await expect(page.getByText("Noodler鲶鱼 简易钢笔").first()).toBeVisible();
     await expect(
-      page.getByText("先解决 Noodler's 简易钢笔的型号身份"),
+      page.getByText("Noodler鲶鱼 简易钢笔：名称与已知线索"),
     ).toBeVisible();
     await expect(
       page.getByText("Noodler's Ink official site").first(),
@@ -470,7 +502,7 @@ test.describe("Library smoke flow", () => {
       waitUntil: "domcontentloaded",
     });
     await expect(
-      page.getByText("把 Montblanc 22 先作为 vintage 入门研究页"),
+      page.getByText("万宝龙 Montblanc 学生龙22 (Vintage)：名称与已知线索"),
     ).toBeVisible();
     await expect(
       page.getByText("Research index: Montblanc 22 vintage").first(),
@@ -482,7 +514,7 @@ test.describe("Library smoke flow", () => {
     await expect(
       page.getByText("把 Sailor 0501 铱金从玩家评价里拆出来"),
     ).toBeVisible();
-    await expect(page.getByText("铱金/钢尖说法待核验")).toBeVisible();
+    await expectNoPublicInternalCopy(page);
   });
 
   test("second priority model gap pages render official anchors and boundaries", async ({
@@ -505,9 +537,9 @@ test.describe("Library smoke flow", () => {
       { waitUntil: "domcontentloaded" },
     );
     await expect(
-      page.getByText("先拆清 21K Pro Gear 与 1521 标准鱼雷"),
+      page.getByText("写乐 Sailor 21K Pro Gear/大鱼雷：名称与已知线索"),
     ).toBeVisible();
-    await expect(page.getByText("型号身份待拆分")).toBeVisible();
+    await expectNoPublicInternalCopy(page);
     await expect(
       page.getByText("Sailor: Professional Gear Series").first(),
     ).toBeVisible();
@@ -516,9 +548,9 @@ test.describe("Library smoke flow", () => {
       waitUntil: "domcontentloaded",
     });
     await expect(
-      page.getByText("把长刀研先标成笔尖研磨而非单支型号"),
+      page.getByText("写乐 Sailor 长刀研：名称与已知线索"),
     ).toBeVisible();
-    await expect(page.getByText("可能应重分类为笔尖/书写特性")).toBeVisible();
+    await expectNoPublicInternalCopy(page);
     await expect(
       page.getByText("Sailor: Naginata Togi special nib").first(),
     ).toBeVisible();
@@ -549,7 +581,7 @@ test.describe("Library smoke flow", () => {
       waitUntil: "domcontentloaded",
     });
     await expect(
-      page.getByText("先把 LAMY logo 留在目录补证队列"),
+      page.getByText("凌美 LAMY Logo：名称与已知线索"),
     ).toBeVisible();
     await expect(
       page.getByText("Research index: LAMY logo fountain pen").first(),
@@ -572,8 +604,10 @@ test.describe("Library smoke flow", () => {
     await page.goto(`/pen/${encodeURIComponent("坛笔-penbbs-456")}`, {
       waitUntil: "domcontentloaded",
     });
-    await expect(page.getByText("先核验 PenBBS 456 的上墨系统")).toBeVisible();
-    await expect(page.getByText("活塞/真空上墨说法待核验")).toBeVisible();
+    await expect(
+      page.getByText("坛笔 PenBBS 456：名称与已知线索"),
+    ).toBeVisible();
+    await expectNoPublicInternalCopy(page);
     await expect(
       page.getByText("Research index: PenBBS 456").first(),
     ).toBeVisible();
@@ -583,11 +617,9 @@ test.describe("Library smoke flow", () => {
       { waitUntil: "domcontentloaded" },
     );
     await expect(
-      page.getByText("先拆清 Charleston 与 Hemisphere 的混合命名"),
+      page.getByText("威迪文 Waterman 查尔斯顿 Hemisphere：名称与已知线索"),
     ).toBeVisible();
-    await expect(
-      page.getByText("Charleston / Hemisphere 身份待拆分"),
-    ).toBeVisible();
+    await expectNoPublicInternalCopy(page);
     await expect(
       page
         .getByText("Research index: Waterman Hemisphere / Charleston")
@@ -598,7 +630,7 @@ test.describe("Library smoke flow", () => {
       waitUntil: "domcontentloaded",
     });
     await expect(
-      page.getByText("先确认飞升龙是作品名、主题还是系列条目"),
+      page.getByText("并木 Namiki 飞升龙：名称与已知线索"),
     ).toBeVisible();
     await expect(
       page.getByText("Research index: Namiki Flying Dragon / 飞升龙").first(),
@@ -608,9 +640,9 @@ test.describe("Library smoke flow", () => {
       waitUntil: "domcontentloaded",
     });
     await expect(
-      page.getByText("把 HongDian 516 先放进超低价型号补证队列"),
+      page.getByText("弘典 HongDian 516：名称与已知线索"),
     ).toBeVisible();
-    await expect(page.getByText("20-40 说法待核验")).toBeVisible();
+    await expectNoPublicInternalCopy(page);
     await expect(
       page.getByText("Research index: HongDian 516").first(),
     ).toBeVisible();
@@ -623,9 +655,9 @@ test.describe("Library smoke flow", () => {
       waitUntil: "domcontentloaded",
     });
     await expect(
-      page.getByText("把 N6 云章先从强口碑里拆出证据问题"),
+      page.getByText("弘典 HongDian N6云章：名称与已知线索"),
     ).toBeVisible();
-    await expect(page.getByText("200 以内说法待核验")).toBeVisible();
+    await expectNoPublicInternalCopy(page);
     await expect(
       page.getByText("Research index: HongDian N6 云章").first(),
     ).toBeVisible();
@@ -634,9 +666,9 @@ test.describe("Library smoke flow", () => {
       waitUntil: "domcontentloaded",
     });
     await expect(
-      page.getByText("把 T1 钛合金先做成材质和手感核验页"),
+      page.getByText("弘典 HongDian T1钛合金：名称与已知线索"),
     ).toBeVisible();
-    await expect(page.getByText("钛合金/金属材质说法待核验")).toBeVisible();
+    await expectNoPublicInternalCopy(page);
     await expect(
       page.getByText("Research index: HongDian T1 钛合金").first(),
     ).toBeVisible();
@@ -646,9 +678,9 @@ test.describe("Library smoke flow", () => {
       { waitUntil: "domcontentloaded" },
     );
     await expect(
-      page.getByText("先拆清黑森林、黑森林 Pro 和 1861 的边界"),
+      page.getByText("弘典 HongDian 黑森林/黑森林Pro(1861)：名称与已知线索"),
     ).toBeVisible();
-    await expect(page.getByText("黑森林 / 黑森林 Pro / 1861")).toBeVisible();
+    await expectNoPublicInternalCopy(page);
     await expect(
       page
         .getByText("Research index: HongDian Black Forest / Black Forest Pro")
@@ -659,7 +691,7 @@ test.describe("Library smoke flow", () => {
       waitUntil: "domcontentloaded",
     });
     await expect(
-      page.getByText("把 Delike 元素系列先放进低资料系列补证队列"),
+      page.getByText("得力克 Delike 元素系列：名称与已知线索"),
     ).toBeVisible();
     await expect(
       page.getByText("Research index: Delike Element / 元素系列").first(),
@@ -669,7 +701,7 @@ test.describe("Library smoke flow", () => {
       waitUntil: "domcontentloaded",
     });
     await expect(
-      page.getByText("把 KACO Edge 刀锋先做成设计型号补证页"),
+      page.getByText("文采 Kaco Edge刀锋：名称与已知线索"),
     ).toBeVisible();
     await expect(
       page.getByText("Research index: KACO Edge / 刀锋").first(),
@@ -682,10 +714,8 @@ test.describe("Library smoke flow", () => {
     await page.goto(`/pen/${encodeURIComponent("晨光-按动钢笔")}`, {
       waitUntil: "domcontentloaded",
     });
-    await expect(
-      page.getByText("把晨光按动钢笔先和 Capless 体验装说法分开"),
-    ).toBeVisible();
-    await expect(page.getByText("按动/墨囊结构待核验")).toBeVisible();
+    await expect(page.getByText("晨光 按动钢笔：名称与已知线索")).toBeVisible();
+    await expectNoPublicInternalCopy(page);
     await expect(
       page.getByText("Research index: M&G / 晨光 按动钢笔").first(),
     ).toBeVisible();
@@ -696,7 +726,7 @@ test.describe("Library smoke flow", () => {
     await expect(
       page.getByText("把 Majohn A1 的按动机制和 Capless 对比分开写"),
     ).toBeVisible();
-    await expect(page.getByText("百元价位说法待核验")).toBeVisible();
+    await expectNoPublicInternalCopy(page);
     await expect(
       page.getByText("Research index: Majohn A1 retractable").first(),
     ).toBeVisible();
@@ -705,9 +735,9 @@ test.describe("Library smoke flow", () => {
       waitUntil: "domcontentloaded",
     });
     await expect(
-      page.getByText("把 V1 负压上墨先放进机制核验队列"),
+      page.getByText("末匠 Majohn V1（负压上墨）：名称与已知线索"),
     ).toBeVisible();
-    await expect(page.getByText("负压/真空上墨说法待核验")).toBeVisible();
+    await expectNoPublicInternalCopy(page);
     await expect(
       page.getByText("Research index: Majohn V1 vacuum filler").first(),
     ).toBeVisible();
@@ -716,7 +746,7 @@ test.describe("Library smoke flow", () => {
       waitUntil: "domcontentloaded",
     });
     await expect(
-      page.getByText("把 V60 的代餐说法先降级成待归因评论"),
+      page.getByText("末匠 Majohn V60：名称与已知线索"),
     ).toBeVisible();
     await expect(
       page.getByText("Research index: Majohn V60").first(),
@@ -726,7 +756,7 @@ test.describe("Library smoke flow", () => {
       waitUntil: "domcontentloaded",
     });
     await expect(
-      page.getByText("把 Picasso 916 先放进入门国产型号补证队列"),
+      page.getByText("毕加索 Picasso 916：名称与已知线索"),
     ).toBeVisible();
     await expect(
       page.getByText("Research index: Picasso 916").first(),
@@ -762,13 +792,13 @@ test.describe("Library smoke flow", () => {
     await expect(
       page.getByText("把 698 的金尖活塞说法拆成版本核验"),
     ).toBeVisible();
-    await expect(page.getByText("金尖/钢尖版本说法待核验")).toBeVisible();
+    await expectNoPublicInternalCopy(page);
 
     await page.goto(`/pen/${encodeURIComponent("永生-wingsung-729")}`, {
       waitUntil: "domcontentloaded",
     });
     await expect(
-      page.getByText("先确认 729 是永生型号还是误并条目"),
+      page.getByText("永生 WingSung 729：名称与已知线索"),
     ).toBeVisible();
     await expect(
       page.getByText("Research index: Wing Sung 729").first(),
@@ -822,11 +852,9 @@ test.describe("Library smoke flow", () => {
       waitUntil: "domcontentloaded",
     });
     await expect(
-      page.getByText("先把 Sheaffer 品牌泛称标成待重分类条目"),
+      page.getByText("犀飞利 Sheaffer （品牌泛称）：名称与已知线索"),
     ).toBeVisible();
-    await expect(
-      page.getByText("待重分类 / brand-generic entry"),
-    ).toBeVisible();
+    await expectNoPublicInternalCopy(page);
 
     await page.goto(`/pen/${encodeURIComponent("白金-platinum-curidas")}`, {
       waitUntil: "domcontentloaded",
@@ -842,15 +870,15 @@ test.describe("Library smoke flow", () => {
       waitUntil: "domcontentloaded",
     });
     await expect(
-      page.getByText("先确认小流星 PQ200 和 Preppy 的对应关系"),
+      page.getByText("白金 Platinum 小流星PQ200：名称与已知线索"),
     ).toBeVisible();
-    await expect(page.getByText("30-60 说法待核验")).toBeVisible();
+    await expectNoPublicInternalCopy(page);
 
     await page.goto(`/pen/${encodeURIComponent("白金-platinum-莳绘系列")}`, {
       waitUntil: "domcontentloaded",
     });
     await expect(
-      page.getByText("把白金莳绘系列先标成系列页而非单支型号"),
+      page.getByText("白金 Platinum 莳绘系列：名称与已知线索"),
     ).toBeVisible();
     await expect(
       page.getByText("Research index: Platinum Maki-e series").first(),
@@ -874,7 +902,7 @@ test.describe("Library smoke flow", () => {
       waitUntil: "domcontentloaded",
     });
     await expect(
-      page.getByText("把 Pilot 78G/78G+ 的入门神话先放进待核验页"),
+      page.getByText("百乐 Pilot 78G/78G+：名称与已知线索"),
     ).toBeVisible();
     await expect(
       page.getByText("Research index: Pilot 78G / 78G+").first(),
@@ -886,7 +914,7 @@ test.describe("Library smoke flow", () => {
     await expect(
       page.getByText("把 Pilot 912 的特殊尖讨论单独立档"),
     ).toBeVisible();
-    await expect(page.getByText("PO/FA/特殊尖选项待核验")).toBeVisible();
+    await expectNoPublicInternalCopy(page);
 
     await page.goto(`/pen/${encodeURIComponent("百乐-pilot-capless-decimo")}`, {
       waitUntil: "domcontentloaded",
@@ -904,7 +932,7 @@ test.describe("Library smoke flow", () => {
     await expect(
       page.getByText("把 Custom 823 的日用旗舰口碑和真空上墨事实分开"),
     ).toBeVisible();
-    await expect(page.getByText("真空上墨说法待核验")).toBeVisible();
+    await expectNoPublicInternalCopy(page);
 
     await page.goto(`/pen/${encodeURIComponent("百乐-pilot-elite-95s")}`, {
       waitUntil: "domcontentloaded",
@@ -934,16 +962,16 @@ test.describe("Library smoke flow", () => {
       waitUntil: "domcontentloaded",
     });
     await expect(
-      page.getByText("把 Heritage 92 的活塞金尖身份先核验"),
+      page.getByText("百乐 Pilot Heritage 92：名称与已知线索"),
     ).toBeVisible();
-    await expect(page.getByText("活塞上墨说法待核验")).toBeVisible();
+    await expectNoPublicInternalCopy(page);
 
     await page.goto(
       `/pen/${encodeURIComponent("百乐-pilot-iroshizuku色彩雫")}`,
       { waitUntil: "domcontentloaded" },
     );
     await expect(
-      page.getByText("先把 Iroshizuku 色彩雫标成墨水条目"),
+      page.getByText("百乐 Pilot Iroshizuku色彩雫：名称与已知线索"),
     ).toBeVisible();
     await expect(page.getByText("不适用：墨水条目")).toBeVisible();
 
@@ -971,9 +999,9 @@ test.describe("Library smoke flow", () => {
       waitUntil: "domcontentloaded",
     });
     await expect(
-      page.getByText("先确认 M605 白乌龟到底是哪一个配色"),
+      page.getByText("百利金 Pelikan M605白乌龟：名称与已知线索"),
     ).toBeVisible();
-    await expect(page.getByText("白条纹/白乌龟配色待核验")).toBeVisible();
+    await expectNoPublicInternalCopy(page);
   });
 
   test("mismatched entity type routes redirect to canonical page", async ({
@@ -993,9 +1021,9 @@ test.describe("Library smoke flow", () => {
     ["/library/sources", ["来源索引", "来源登记", "已登记参考资料"]],
     [
       "/library/media",
-      ["媒体授权", "媒体候选池", "待补授权", "Warm Pen Atlas: 图书馆入口封面"],
+      ["媒体授权", "媒体候选池", "授权说明", "Warm Pen Atlas: 图书馆入口封面"],
     ],
-    ["/library/community", ["玩家口碑", "只存元数据", "事实需二次核验"]],
+    ["/library/community", ["玩家口碑", "只存元数据", "事实以来源为准"]],
     [
       "/library/diagrams",
       ["图示馆", "真空上墨机制", "笔尖与笔舌解剖图", "引用"],
@@ -1138,8 +1166,8 @@ test.describe("Library smoke flow", () => {
     page,
   }) => {
     await expectLibraryPage(page, "/brand/montblanc", [
-      "从 Meisterstück 读万宝龙",
-      "1906 年官方源流",
+      "从 Meisterstuck 理解 Montblanc",
+      "1906 年起点",
       "Montblanc: About Montblanc",
     ]);
 
@@ -1150,14 +1178,14 @@ test.describe("Library smoke flow", () => {
     ]);
 
     await expectLibraryPage(page, "/brand/parker", [
-      "从 Lucky Curve 到 Parker 51",
-      "George Safford Parker",
+      "从 Lucky Curve、Duofold 到 Parker 51",
+      "Lucky Curve",
       "Parker: The History of Parker",
     ]);
 
     await expectLibraryPage(page, "/brand/pelikan", [
-      "从 1929 年第一支 Pelikan 钢笔读百利金",
-      "green marbled band",
+      "从 1929 年活塞钢笔读 Pelikan",
+      "差动活塞",
       "Pelikan: Our History",
     ]);
   });
@@ -1198,7 +1226,7 @@ test.describe("Library smoke flow", () => {
       "事实与证据",
       "官方历史线索",
       "Sakata-Manufactory",
-      "从金笔尖作坊进入日本笔尖谱系",
+      "从金笔尖作坊进入 Sailor",
       "品牌时间线",
       "Sakata-Manufactory founded",
       "来源卡片",
@@ -1211,8 +1239,8 @@ test.describe("Library smoke flow", () => {
     page,
   }) => {
     await expectLibraryPage(page, "/brand/platinum", [
-      "把 #3776 主线放进日本钢笔馆",
-      "日本钢笔制造商",
+      "从 #3776 Century 和密封笔帽读 Platinum",
+      "Slip & Seal",
       "Platinum Pen: Company",
     ]);
 
@@ -1227,13 +1255,13 @@ test.describe("Library smoke flow", () => {
     page,
   }) => {
     await expectLibraryPage(page, "/brand/diplomat", [
-      "把德国精密书写放进 Diplomat 品牌馆",
+      "从 Hennef 和金属笔身读 Diplomat",
       "1922 年 3 月",
       "DIPLOMAT: Our History",
     ]);
 
     await expectLibraryPage(page, "/brand/esterbrook", [
-      "从 Camden 的钢笔工业到现代 Estie",
+      "从 Camden 到现代 Estie",
       "1858 年",
       "Esterbrook: Brand History",
     ]);
@@ -1255,7 +1283,7 @@ test.describe("Library smoke flow", () => {
     page,
   }) => {
     await expectLibraryPage(page, "/brand/twsbi", [
-      "从 OEM 经验读 TWSBI 的透明活塞笔",
+      "从透明上墨系统理解 TWSBI",
       "San Wen Tong",
       "TWSBI: About Us",
     ]);
@@ -1440,7 +1468,7 @@ test.describe("Library smoke flow", () => {
     page,
   }) => {
     await expectLibraryPage(page, "/brand/hero", [
-      "把 Hero 放回华孚金笔厂、英雄金笔厂和国货钢笔记忆",
+      "从华孚金笔厂到国货钢笔记忆",
       "1931 年",
       "上海英雄（集团）：集团概况",
     ]);
@@ -1479,7 +1507,7 @@ test.describe("Library smoke flow", () => {
       "型号档案",
       "Professional Gear",
       "21K 或 14K",
-      "把平顶外形和写乐笔尖反馈放在一起看",
+      "平顶外形和写乐笔尖反馈",
       "版本与变体",
       "King Professional Gear",
       "Sailor Pro Gear 系列关系示意",
@@ -1568,7 +1596,7 @@ test.describe("Library smoke flow", () => {
         texts: [
           "型号档案",
           "VAC700R",
-          "从活塞示范笔走向真空上墨的大容量路线",
+          "透明结构里的真空上墨路线",
           "真空上墨",
           "TWSBI: Vac700R Iris Fountain Pen",
         ],
@@ -1619,7 +1647,7 @@ test.describe("Library smoke flow", () => {
         texts: [
           "型号档案",
           "Aero",
-          "把 Zeppelin 流线和金属笔身放在一起读",
+          "Zeppelin 流线和金属笔身",
           "铝制笔身",
           "DIPLOMAT: Aero",
         ],
@@ -1629,7 +1657,7 @@ test.describe("Library smoke flow", () => {
         texts: [
           "型号档案",
           "Estie Oversized",
-          "把 vintage 名字和现代加大日用笔分开读",
+          "把 vintage 名字和现代大尺寸日用笔分开",
           "Oversized",
           "Esterbrook: Estie Oversized",
         ],

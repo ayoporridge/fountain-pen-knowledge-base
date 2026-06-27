@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "媒体授权 - 钢笔图书馆",
-  description: "钢笔图书馆的图片、扫描件、外部媒体候选和授权审核状态。",
+  description: "钢笔图书馆的图片、扫描件、外部媒体和授权说明。",
 };
 
 export default async function LibraryMediaPage() {
@@ -29,14 +29,14 @@ export default async function LibraryMediaPage() {
           className="text-base leading-relaxed"
           style={{ color: "var(--color-ink-light)" }}
         >
-          图片、扫描件、产品图和外部媒体不直接进入页面。它们先作为候选资产登记，逐项确认作者、license、署名和用途后再展示。
+          图片、扫描件、产品图和外部媒体会登记来源、作者、license、署名和用途；只有授权信息清楚的资料才进入页面图库。
         </p>
       </div>
 
       <div className="mb-8 grid gap-3 sm:grid-cols-3">
         {[
-          ["候选", "candidate", "等待审核，可作为后续配图来源池。"],
-          ["待补授权", "needs_license", "缺少 license、作者或署名细节。"],
+          ["已登记", "candidate", "已登记但尚未进入页面图库。"],
+          ["授权说明", "needs_license", "缺少 license、作者或署名细节。"],
           ["可展示", "approved", "授权信息完整，可进入页面图库。"],
         ].map(([label, status, desc]) => (
           <div
@@ -127,7 +127,7 @@ export default async function LibraryMediaPage() {
                     style={{ color: "var(--color-ink-muted)" }}
                   >
                     <div>Source: {asset.source_name || "未绑定来源"}</div>
-                    <div>License: {asset.license || "待确认"}</div>
+                    <div>License: {asset.license || "未标明"}</div>
                     {asset.attribution_text && (
                       <div>Attribution: {asset.attribution_text}</div>
                     )}
@@ -145,8 +145,8 @@ export default async function LibraryMediaPage() {
               color: "var(--color-ink-muted)",
             }}
           >
-            暂无媒体候选。后续从 Wikimedia
-            Commons、品牌手册、专利图和用户投稿导入时，会先进入这里审核。
+            暂无媒体资料。Wikimedia
+            Commons、品牌手册、专利图和用户投稿导入后，会在这里显示授权说明。
           </div>
         )}
       </section>

@@ -9,7 +9,7 @@ export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "来源索引 - 钢笔图书馆",
-  description: "钢笔图书馆的来源、授权边界、抓取方式和参考资料索引。",
+  description: "钢笔图书馆的来源、授权说明、抓取方式和参考资料索引。",
 };
 
 const SOURCE_TYPE_LABELS: Record<string, string> = {
@@ -108,7 +108,7 @@ export default async function LibrarySourcesPage({
           className="text-base leading-relaxed"
           style={{ color: "var(--color-ink-light)" }}
         >
-          这里集中展示资料库允许使用哪些来源、如何使用、授权边界是什么，以及已经登记到馆藏里的具体参考资料。
+          这里集中展示资料库使用哪些来源、如何使用、授权说明是什么，以及已经登记到馆藏里的具体参考资料。
         </p>
       </div>
 

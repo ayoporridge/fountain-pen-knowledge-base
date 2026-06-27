@@ -60,13 +60,13 @@ const MODULES = [
   },
   {
     title: "来源索引",
-    desc: "查看来源类型、授权边界、抓取方式和已登记参考资料。",
+    desc: "查看来源类型、授权说明、抓取方式和已登记参考资料。",
     href: "/library/sources",
     Icon: LinkSimple,
   },
   {
     title: "媒体授权",
-    desc: "图片、扫描件、外部媒体先进入候选池，审核授权后再展示。",
+    desc: "图片、扫描件和外部媒体会标明来源与授权说明。",
     href: "/library/media",
     Icon: ShieldCheck,
   },

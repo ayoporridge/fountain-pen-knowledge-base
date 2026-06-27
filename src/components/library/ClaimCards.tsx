@@ -1,6 +1,7 @@
 import { CheckCircle } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 import type { ClaimRecord } from "@/lib/library";
+import { cleanPublicText } from "@/lib/publicText";
 import { StatusBadge } from "./StatusBadge";
 
 const PREDICATE_LABELS: Record<string, string> = {
@@ -24,7 +25,11 @@ function claimText(claim: ClaimRecord) {
 }
 
 export function ClaimCards({ claims }: { claims: ClaimRecord[] }) {
-  if (claims.length === 0) return null;
+  const visibleClaims = claims.filter((claim) =>
+    cleanPublicText(claimText(claim)),
+  );
+
+  if (visibleClaims.length === 0) return null;
 
   return (
     <div
@@ -40,7 +45,7 @@ export function ClaimCards({ claims }: { claims: ClaimRecord[] }) {
       </div>
 
       <div className="grid gap-3">
-        {claims.map((claim) => (
+        {visibleClaims.map((claim) => (
           <div
             key={claim.id}
             className="rounded-lg border p-3"

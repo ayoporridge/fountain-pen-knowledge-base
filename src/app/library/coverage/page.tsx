@@ -230,8 +230,8 @@ export default async function LibraryCoveragePage() {
           className="grid gap-2 text-sm md:grid-cols-2"
           style={{ color: "var(--color-ink-muted)" }}
         >
-          <p>品牌：故事、事实、来源、时间线、媒体候选、外部标识、别名。</p>
-          <p>型号：故事、规格、事实、来源、媒体候选、图示、时间线。</p>
+          <p>品牌：故事、事实、来源、时间线、媒体资料、外部标识、别名。</p>
+          <p>型号：故事、规格、事实、来源、媒体资料、图示、时间线。</p>
         </div>
       </section>
     </div>

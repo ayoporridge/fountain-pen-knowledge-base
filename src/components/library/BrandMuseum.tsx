@@ -16,6 +16,7 @@ import {
   getStoriesForEntity,
   getTimelineForEntity,
 } from "@/lib/library";
+import { cleanPublicText } from "@/lib/publicText";
 import { CitationList } from "./CitationList";
 import { ClaimCards } from "./ClaimCards";
 import { IdentifierPanel } from "./IdentifierPanel";
@@ -49,10 +50,9 @@ export async function BrandMuseum({
     ["创立时间", attrs.founded],
     ["设计关键词", attrs.design_keywords],
     ["代表技术", attrs.signature_technology],
-  ].filter(([, value]) => {
-    if (!value) return false;
-    return String(value).trim().length > 0;
-  });
+  ]
+    .map(([label, value]) => [label, cleanPublicText(value)] as const)
+    .filter(([, value]) => value !== null);
 
   return (
     <section className="mb-10 space-y-6">
@@ -81,7 +81,7 @@ export async function BrandMuseum({
           </div>
         ) : (
           <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
-            这个品牌还没有形成可公开阅读的品牌故事。资料馆会先抽取事实，再整理成带来源的叙事。
+            这个品牌暂时只有来源卡片和关系信息；正文会在有稳定来源时展示。
           </p>
         )}
       </div>
@@ -126,7 +126,7 @@ export async function BrandMuseum({
           </div>
         ) : (
           <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
-            可公开展示的品牌基础字段还在整理中，优先阅读上方品牌故事和时间线。
+            暂无可公开展示的品牌基础字段，优先阅读上方品牌故事和时间线。
           </p>
         )}
       </div>

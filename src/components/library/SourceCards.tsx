@@ -69,7 +69,7 @@ export function SourceCards({ sources }: { sources: SourceItemRecord[] }) {
   if (sources.length === 0) {
     return (
       <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
-        暂无可展示来源卡片。正式故事会优先展示已审核来源。
+        暂无可展示来源卡片。
       </p>
     );
   }
