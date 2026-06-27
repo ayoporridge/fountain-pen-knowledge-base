@@ -163,14 +163,19 @@ export async function GET(request: NextRequest) {
   > = {};
 
   for (const [dimKey, dimInfo] of Object.entries(FACET_DIMENSIONS)) {
+    const showEmptyTaxonomy =
+      dimKey === "nib_type" || dimKey === "nib_material";
     const tagCounts = (await queryAll(
       `SELECT t.slug, t.name, COUNT(DISTINCT et.entity_id) as cnt
        FROM tags t
        LEFT JOIN entity_tags et ON et.tag_id = t.id
        WHERE t.dimension = ?
        GROUP BY t.id
-       HAVING cnt > 0
-       ORDER BY cnt DESC`,
+       ${showEmptyTaxonomy ? "" : "HAVING cnt > 0"}
+       ORDER BY
+         CASE WHEN cnt > 0 THEN 0 ELSE 1 END,
+         cnt DESC,
+         t.name`,
       [dimInfo.tagDimension],
     )) as Array<{ slug: string; name: string; cnt: number }>;
 

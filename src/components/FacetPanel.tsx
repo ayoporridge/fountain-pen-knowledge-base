@@ -62,31 +62,41 @@ export function FacetPanel({
               )}
             </summary>
             <div className="space-y-1 ml-2">
-              {options.map((opt) => (
-                <label
-                  key={opt.slug}
-                  className="flex items-center gap-2 cursor-pointer group/item"
-                >
-                  <input
-                    type="radio"
-                    name={`facet-${dim}`}
-                    checked={activeFilters[dim] === opt.slug}
-                    onChange={() =>
-                      onFilterChange(
-                        dim,
-                        activeFilters[dim] === opt.slug ? null : opt.slug,
-                      )
-                    }
-                    className="rounded border-border text-accent focus:ring-accent"
-                  />
-                  <span className="text-sm text-ink-muted group-hover/item:text-ink">
-                    {opt.name}
-                  </span>
-                  <span className="text-xs text-ink-muted ml-auto">
-                    {opt.count}
-                  </span>
-                </label>
-              ))}
+              {options.map((opt) => {
+                const disabled = opt.count === 0;
+
+                return (
+                  <label
+                    key={opt.slug}
+                    className={`flex items-center gap-2 group/item ${
+                      disabled
+                        ? "cursor-not-allowed opacity-45"
+                        : "cursor-pointer"
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name={`facet-${dim}`}
+                      checked={activeFilters[dim] === opt.slug}
+                      disabled={disabled}
+                      onChange={() => {
+                        if (disabled) return;
+                        onFilterChange(
+                          dim,
+                          activeFilters[dim] === opt.slug ? null : opt.slug,
+                        );
+                      }}
+                      className="rounded border-border text-accent focus:ring-accent"
+                    />
+                    <span className="text-sm text-ink-muted group-hover/item:text-ink">
+                      {opt.name}
+                    </span>
+                    <span className="text-xs text-ink-muted ml-auto">
+                      {opt.count}
+                    </span>
+                  </label>
+                );
+              })}
             </div>
           </details>
         );
