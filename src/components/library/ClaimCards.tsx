@@ -45,69 +45,71 @@ export function ClaimCards({ claims }: { claims: ClaimRecord[] }) {
       </div>
 
       <div className="grid gap-3">
-        {visibleClaims.map((claim) => (
-          <div
-            key={claim.id}
-            className="rounded-lg border p-3"
-            style={{ borderColor: "var(--color-border-light)" }}
-          >
-            <div className="mb-2 flex flex-wrap items-center gap-2">
-              <span
-                className="text-xs font-medium"
-                style={{ color: "var(--color-accent)" }}
-              >
-                {PREDICATE_LABELS[claim.predicate] || claim.predicate}
-              </span>
-              <StatusBadge status={claim.review_status} />
-              <span
-                className="text-xs"
-                style={{ color: "var(--color-ink-muted)" }}
-              >
-                {formatConfidence(claim.confidence)}
-              </span>
-            </div>
+        {visibleClaims.map((claim) => {
+          const evidenceLocator = cleanPublicText(claim.evidence_locator);
 
-            <p
-              className="text-sm leading-relaxed"
-              style={{ color: "var(--color-ink)" }}
+          return (
+            <div
+              key={claim.id}
+              className="rounded-lg border p-3"
+              style={{ borderColor: "var(--color-border-light)" }}
             >
-              {claim.object_entity_type &&
-              claim.object_entity_slug &&
-              claim.object_entity_name ? (
-                <Link
-                  href={`/${claim.object_entity_type}/${claim.object_entity_slug}`}
-                  className="ink-underline"
+              <div className="mb-2 flex flex-wrap items-center gap-2">
+                <span
+                  className="text-xs font-medium"
+                  style={{ color: "var(--color-accent)" }}
                 >
-                  {claimText(claim)}
-                </Link>
-              ) : (
-                claimText(claim)
-              )}
-            </p>
+                  {PREDICATE_LABELS[claim.predicate] || claim.predicate}
+                </span>
+                <StatusBadge status={claim.review_status} />
+                <span
+                  className="text-xs"
+                  style={{ color: "var(--color-ink-muted)" }}
+                >
+                  {formatConfidence(claim.confidence)}
+                </span>
+              </div>
 
-            {(claim.source_title || claim.source_name) && (
-              <div
-                className="mt-2 flex flex-wrap items-center gap-2 text-xs"
-                style={{ color: "var(--color-ink-muted)" }}
+              <p
+                className="text-sm leading-relaxed"
+                style={{ color: "var(--color-ink)" }}
               >
-                <span>{claim.source_name || "来源"}</span>
-                {claim.source_url ? (
-                  <Link href={claim.source_url} className="ink-underline">
-                    {claim.source_title || claim.source_url}
+                {claim.object_entity_type &&
+                claim.object_entity_slug &&
+                claim.object_entity_name ? (
+                  <Link
+                    href={`/${claim.object_entity_type}/${claim.object_entity_slug}`}
+                    className="ink-underline"
+                  >
+                    {claimText(claim)}
                   </Link>
                 ) : (
-                  <span>{claim.source_title}</span>
+                  claimText(claim)
                 )}
-                {claim.allowed_use && (
-                  <StatusBadge status={claim.allowed_use} />
-                )}
-                {claim.evidence_locator && (
-                  <span>{claim.evidence_locator}</span>
-                )}
-              </div>
-            )}
-          </div>
-        ))}
+              </p>
+
+              {(claim.source_title || claim.source_name) && (
+                <div
+                  className="mt-2 flex flex-wrap items-center gap-2 text-xs"
+                  style={{ color: "var(--color-ink-muted)" }}
+                >
+                  <span>{claim.source_name || "来源"}</span>
+                  {claim.source_url ? (
+                    <Link href={claim.source_url} className="ink-underline">
+                      {claim.source_title || claim.source_url}
+                    </Link>
+                  ) : (
+                    <span>{claim.source_title}</span>
+                  )}
+                  {claim.allowed_use && (
+                    <StatusBadge status={claim.allowed_use} />
+                  )}
+                  {evidenceLocator && <span>{evidenceLocator}</span>}
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

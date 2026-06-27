@@ -951,6 +951,56 @@ async function cleanAllSpecs(db: Client) {
   console.log(`Cleaned model specs: ${changed}`);
 }
 
+async function cleanAllClaimEvidence(db: Client) {
+  const result = await execute(
+    db,
+    `SELECT id, evidence_locator FROM claims
+     WHERE coalesce(evidence_locator, '') LIKE '%后续%'
+        OR coalesce(evidence_locator, '') LIKE '%当前%'
+        OR coalesce(evidence_locator, '') LIKE '%研究队列%'
+        OR coalesce(evidence_locator, '') LIKE '%补证%'
+        OR coalesce(evidence_locator, '') LIKE '%待核验%'
+        OR coalesce(evidence_locator, '') LIKE '%需核验%'
+        OR coalesce(evidence_locator, '') LIKE '%待拆分%'
+        OR coalesce(evidence_locator, '') LIKE '%待重分类%'
+        OR coalesce(evidence_locator, '') LIKE '%待合并%'
+        OR coalesce(evidence_locator, '') LIKE '%待别名%'
+        OR coalesce(evidence_locator, '') LIKE '%应把%'
+        OR coalesce(evidence_locator, '') LIKE '%可以作为用户%'`,
+  );
+
+  for (const row of result.rows) {
+    await execute(
+      db,
+      "UPDATE claims SET evidence_locator = NULL, updated_at = datetime('now') WHERE id = ?",
+      [String(row.id)],
+    );
+  }
+
+  console.log(`Cleaned claim evidence: ${result.rows.length}`);
+}
+
+async function countInternalClaimEvidence(db: Client) {
+  const result = await execute(
+    db,
+    `SELECT COUNT(*) AS count FROM claims
+     WHERE coalesce(evidence_locator, '') LIKE '%后续%'
+        OR coalesce(evidence_locator, '') LIKE '%当前%'
+        OR coalesce(evidence_locator, '') LIKE '%研究队列%'
+        OR coalesce(evidence_locator, '') LIKE '%补证%'
+        OR coalesce(evidence_locator, '') LIKE '%待核验%'
+        OR coalesce(evidence_locator, '') LIKE '%需核验%'
+        OR coalesce(evidence_locator, '') LIKE '%待拆分%'
+        OR coalesce(evidence_locator, '') LIKE '%待重分类%'
+        OR coalesce(evidence_locator, '') LIKE '%待合并%'
+        OR coalesce(evidence_locator, '') LIKE '%待别名%'
+        OR coalesce(evidence_locator, '') LIKE '%应把%'
+        OR coalesce(evidence_locator, '') LIKE '%可以作为用户%'`,
+  );
+
+  return Number(result.rows[0]?.count || 0);
+}
+
 async function main() {
   const db = getClient();
   await execute(db, "PRAGMA foreign_keys = ON");
@@ -975,6 +1025,7 @@ async function main() {
   await repairRemainingStories(db);
   await writeSpecUpdates(db);
   await cleanAllSpecs(db);
+  await cleanAllClaimEvidence(db);
 
   const storyInternal = await execute(
     db,
@@ -1052,6 +1103,9 @@ async function main() {
 
   console.log(`Remaining internal stories: ${storyInternal.rows[0]?.count}`);
   console.log(`Remaining pending spec values: ${specInternal.rows[0]?.count}`);
+  console.log(
+    `Remaining internal claim evidence: ${await countInternalClaimEvidence(db)}`,
+  );
 }
 
 main().catch((error) => {
