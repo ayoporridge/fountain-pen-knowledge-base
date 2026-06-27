@@ -1,6 +1,10 @@
 import { Quotes } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 import type { CitationRecord } from "@/lib/library";
+import {
+  displayPublicSourceName,
+  displayPublicSourceTitle,
+} from "@/lib/publicText";
 import { StatusBadge } from "./StatusBadge";
 
 export function CitationList({ citations }: { citations: CitationRecord[] }) {
@@ -30,13 +34,19 @@ export function CitationList({ citations }: { citations: CitationRecord[] }) {
             }}
             title={citation.note || citation.claim_text || undefined}
           >
-            <span>{citation.source_name || "来源"}</span>
+            <span>{displayPublicSourceName(citation.source_name)}</span>
             {citation.source_url ? (
               <Link href={citation.source_url} className="ink-underline">
-                {citation.source_title || citation.source_url}
+                {displayPublicSourceTitle(
+                  citation.source_title || citation.source_url,
+                )}
               </Link>
             ) : (
-              <span>{citation.source_title || citation.claim_predicate}</span>
+              <span>
+                {displayPublicSourceTitle(
+                  citation.source_title || citation.claim_predicate,
+                )}
+              </span>
             )}
             {citation.allowed_use && (
               <StatusBadge status={citation.allowed_use} />

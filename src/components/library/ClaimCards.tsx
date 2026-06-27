@@ -1,7 +1,11 @@
 import { CheckCircle } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 import type { ClaimRecord } from "@/lib/library";
-import { cleanPublicText } from "@/lib/publicText";
+import {
+  cleanPublicText,
+  displayPublicSourceName,
+  displayPublicSourceTitle,
+} from "@/lib/publicText";
 import { StatusBadge } from "./StatusBadge";
 
 const PREDICATE_LABELS: Record<string, string> = {
@@ -93,13 +97,15 @@ export function ClaimCards({ claims }: { claims: ClaimRecord[] }) {
                   className="mt-2 flex flex-wrap items-center gap-2 text-xs"
                   style={{ color: "var(--color-ink-muted)" }}
                 >
-                  <span>{claim.source_name || "来源"}</span>
+                  <span>{displayPublicSourceName(claim.source_name)}</span>
                   {claim.source_url ? (
                     <Link href={claim.source_url} className="ink-underline">
-                      {claim.source_title || claim.source_url}
+                      {displayPublicSourceTitle(
+                        claim.source_title || claim.source_url,
+                      )}
                     </Link>
                   ) : (
-                    <span>{claim.source_title}</span>
+                    <span>{displayPublicSourceTitle(claim.source_title)}</span>
                   )}
                   {claim.allowed_use && (
                     <StatusBadge status={claim.allowed_use} />

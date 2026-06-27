@@ -1,5 +1,9 @@
 import Link from "next/link";
 import type { SourceItemRecord } from "@/lib/library";
+import {
+  displayPublicSourceName,
+  displayPublicSourceTitle,
+} from "@/lib/publicText";
 import { StatusBadge } from "./StatusBadge";
 
 const ITEM_TYPE_LABELS: Record<string, string> = {
@@ -53,7 +57,7 @@ const ITEM_TYPE_LABELS: Record<string, string> = {
   reference_article: "参考文章",
   repair_article: "维修文章",
   repair_reference: "维修资料",
-  research_index: "研究索引",
+  research_index: "资料索引",
   retailer_catalog: "零售目录",
   review: "评测",
   review_article: "评测文章",
@@ -91,7 +95,7 @@ export function SourceCards({ sources }: { sources: SourceItemRecord[] }) {
               className="text-xs font-medium"
               style={{ color: "var(--color-accent)" }}
             >
-              {source.source_name}
+              {displayPublicSourceName(source.source_name)}
             </span>
             <span
               className="text-xs"
@@ -102,7 +106,9 @@ export function SourceCards({ sources }: { sources: SourceItemRecord[] }) {
             {source.allowed_use && <StatusBadge status={source.allowed_use} />}
             <StatusBadge status={source.review_status} />
           </div>
-          <div className="text-sm font-medium">{source.title}</div>
+          <div className="text-sm font-medium">
+            {displayPublicSourceTitle(source.title)}
+          </div>
           <div
             className="mt-1 flex flex-wrap gap-2 text-xs"
             style={{ color: "var(--color-ink-muted)" }}
