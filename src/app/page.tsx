@@ -151,67 +151,113 @@ export default async function Home() {
         };
       }),
   );
+  const totalEntries = stats.reduce((sum, item) => sum + Number(item.cnt), 0);
+  const quickStats = [
+    { label: "词条", value: totalEntries },
+    {
+      label: "品牌",
+      value: stats.find((item) => item.type === "brand")?.cnt || 0,
+    },
+    {
+      label: "型号",
+      value: stats.find((item) => item.type === "pen")?.cnt || 0,
+    },
+    {
+      label: "专题",
+      value: stats.find((item) => item.type === "article")?.cnt || 0,
+    },
+  ];
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12">
+    <div className="max-w-6xl mx-auto px-4 py-10">
       {/* ── Hero: library-first entry ── */}
-      <div
-        className="mb-10 rounded-2xl border p-6 sm:p-8 animate-ink-bleed ink-bleed-stagger"
+      <section
+        className="relative mb-10 min-h-[470px] overflow-hidden rounded-lg border animate-ink-bleed ink-bleed-stagger"
         style={{
           borderColor: "var(--color-border)",
-          backgroundColor:
-            "color-mix(in srgb, var(--color-surface-raised) 82%, transparent)",
           boxShadow: "var(--shadow-edge-lg)",
         }}
       >
-        <div className="max-w-3xl">
-          <p
-            className="mb-2 text-sm font-medium"
-            style={{ color: "var(--color-accent)" }}
-          >
+        <Image
+          src="/images/library/warm-pen-atlas/library-hero.jpg"
+          alt="钢笔图书馆"
+          fill
+          className="object-cover"
+          priority
+          sizes="(max-width: 768px) 100vw, 1152px"
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(39,31,25,0.78) 0%, rgba(39,31,25,0.58) 44%, rgba(39,31,25,0.18) 100%)",
+          }}
+        />
+        <div className="relative z-10 flex min-h-[470px] flex-col justify-end p-5 sm:p-10">
+          <p className="archive-kicker mb-3" style={{ color: "#f3c37b" }}>
             Fountain Pen Library
           </p>
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-4 font-serif">
+          <h1 className="mb-4 max-w-3xl text-4xl font-bold tracking-tight text-[#fff7e8] sm:text-6xl">
             钢笔图书馆
           </h1>
           <p
-            className="text-lg mb-8"
+            className="mb-7 max-w-2xl text-base sm:text-lg"
             style={{
-              color: "var(--color-ink-light)",
+              color: "rgba(255,247,232,0.88)",
               lineHeight: 1.7,
             }}
           >
             一座可追溯的钢笔资料馆。你可以从品牌、型号、工艺、历史展览和关系图谱进入，沿着来源看懂一支笔。
           </p>
 
-          <SearchBox placeholder="搜索品牌、型号、工艺、历史专题…" />
-        </div>
+          <div className="max-w-2xl">
+            <SearchBox placeholder="搜索品牌、型号、工艺、历史专题…" />
+          </div>
 
-        {/* Real question hooks */}
-        <div className="mt-6 space-y-2">
-          {HERO_QUESTIONS.map((item) => (
+          <div className="mt-6 grid gap-3 sm:grid-cols-[1fr_auto] sm:items-end">
+            <div className="space-y-2">
+              {HERO_QUESTIONS.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="flex items-center gap-2 text-sm transition-colors ink-underline"
+                  style={{ color: "rgba(255,247,232,0.82)" }}
+                >
+                  <ArrowRight size={12} style={{ color: "#f3c37b" }} />
+                  {item.q}
+                </Link>
+              ))}
+            </div>
             <Link
-              key={item.href}
-              href={item.href}
-              className="flex items-center gap-2 text-sm transition-colors ink-underline"
+              href="/library"
+              className="inline-flex w-fit items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition-colors hover:bg-white/10"
+              style={{
+                borderColor: "rgba(255,247,232,0.42)",
+                color: "#fff7e8",
+                fontFamily: "var(--font-label)",
+              }}
+            >
+              进入图书馆
+              <ArrowRight size={14} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <div className="mb-10 grid grid-cols-2 gap-2 sm:grid-cols-4">
+        {quickStats.map((item) => (
+          <div key={item.label} className="library-panel-muted px-4 py-3">
+            <div className="numeric text-2xl font-semibold">
+              {Number(item.value).toLocaleString("zh-CN")}
+            </div>
+            <div
+              className="text-xs"
               style={{ color: "var(--color-ink-muted)" }}
             >
-              <ArrowRight size={12} style={{ color: "var(--color-accent)" }} />
-              {item.q}
-            </Link>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-4 mt-6">
-          <Link
-            href="/library"
-            className="flex items-center gap-1 text-sm font-medium transition-colors ink-underline"
-            style={{ color: "var(--color-accent)" }}
-          >
-            进入图书馆
-            <ArrowRight size={14} />
-          </Link>
-        </div>
+              {item.label}
+            </div>
+          </div>
+        ))}
       </div>
 
       <ScrollReveal stagger className="mb-16">
@@ -223,7 +269,7 @@ export default async function Home() {
             <Link
               key={title}
               href={href}
-              className="rounded-xl border p-4 card-hover"
+              className="library-panel group flex min-h-32 items-start gap-4 p-4 card-hover"
               style={{
                 borderColor: "var(--color-border)",
                 backgroundColor: "var(--color-surface-raised)",
@@ -238,13 +284,15 @@ export default async function Home() {
               >
                 <Icon size={18} weight="duotone" />
               </span>
-              <h2 className="mb-1 text-base font-semibold">{title}</h2>
-              <p
-                className="m-0 text-sm leading-relaxed"
-                style={{ color: "var(--color-ink-muted)" }}
-              >
-                {desc}
-              </p>
+              <div>
+                <h2 className="mb-1 text-base font-semibold">{title}</h2>
+                <p
+                  className="m-0 text-sm leading-relaxed"
+                  style={{ color: "var(--color-ink-muted)" }}
+                >
+                  {desc}
+                </p>
+              </div>
             </Link>
           ))}
         </div>

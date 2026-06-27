@@ -55,42 +55,90 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
       featuredDiagrams.map((diagram) => diagram.id),
     ),
   ]);
+  const specFields = spec
+    ? [
+        [
+          "品牌",
+          spec.brand_slug && spec.brand_name ? `${spec.brand_name}` : null,
+        ],
+        ["系列", spec.series_name],
+        ["发布年份", spec.release_year],
+        ["产地", spec.origin_country],
+        ["笔尖", spec.nib],
+        ["上墨", spec.fill_system],
+        ["材质", spec.material],
+        ["尺寸", spec.dimensions],
+        ["重量", spec.weight],
+        ["价位", spec.price_range],
+        ["状态", spec.status],
+      ].filter(([, value]) => {
+        if (value === null || value === undefined) return false;
+        return String(value).trim().length > 0;
+      })
+    : [];
 
   return (
     <section className="mb-10 space-y-6">
       <div
-        id="archive"
-        className="rounded-xl border p-5"
+        id="story"
+        className="library-panel p-5"
         style={{
           borderColor: "var(--color-border)",
           backgroundColor: "var(--color-surface-raised)",
         }}
       >
-        <div className="mb-4 flex items-center gap-2">
-          <PenNib size={18} style={{ color: "var(--color-accent)" }} />
-          <h2 className="text-lg font-semibold">型号档案</h2>
-          {spec && <StatusBadge status={spec.review_status} />}
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          <Books size={18} style={{ color: "var(--color-accent)" }} />
+          <div>
+            <p className="archive-kicker">Read first</p>
+            <h2 className="text-lg font-semibold">
+              {story?.title || "型号故事整理中"}
+            </h2>
+          </div>
+          {story && <StatusBadge status={story.status} />}
         </div>
-        {spec ? (
+        {story ? (
+          <div className="reading-measure">
+            <MarkdownRenderer content={story.body_md} />
+            <CitationList citations={storyCitations} />
+          </div>
+        ) : (
+          <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
+            型号故事会基于已核验事实生成，尚未确认的年份、材质和价格会保留核验边界。
+          </p>
+        )}
+      </div>
+
+      <div
+        id="archive"
+        className="library-panel p-5"
+        style={{
+          borderColor: "var(--color-border)",
+          backgroundColor: "var(--color-surface-raised)",
+        }}
+      >
+        <div className="mb-4 flex flex-wrap items-center gap-2">
+          <PenNib size={18} style={{ color: "var(--color-accent)" }} />
+          <div>
+            <p className="archive-kicker">Model archive</p>
+            <h2 className="text-lg font-semibold">型号档案</h2>
+          </div>
+          {spec && (
+            <span
+              className="rounded-full border px-2 py-0.5 text-xs font-medium"
+              style={{
+                borderColor: "var(--color-border)",
+                color: "var(--color-ink-muted)",
+                fontFamily: "var(--font-label)",
+              }}
+            >
+              {spec.review_status === "approved" ? "资料已核准" : "资料核验中"}
+            </span>
+          )}
+        </div>
+        {spec && specFields.length > 0 ? (
           <div className="grid gap-3 sm:grid-cols-2">
-            {[
-              [
-                "品牌",
-                spec.brand_slug && spec.brand_name
-                  ? `${spec.brand_name}`
-                  : null,
-              ],
-              ["系列", spec.series_name],
-              ["发布年份", spec.release_year],
-              ["产地", spec.origin_country],
-              ["笔尖", spec.nib],
-              ["上墨", spec.fill_system],
-              ["材质", spec.material],
-              ["尺寸", spec.dimensions],
-              ["重量", spec.weight],
-              ["价位", spec.price_range],
-              ["状态", spec.status],
-            ].map(([label, value]) => (
+            {specFields.map(([label, value]) => (
               <div
                 key={label}
                 className="rounded-lg px-3 py-2"
@@ -114,7 +162,7 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
                       {spec.brand_name}
                     </Link>
                   ) : (
-                    value || "暂无资料"
+                    value
                   )}
                 </div>
               </div>
@@ -130,34 +178,6 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
       <IdentifierPanel aliases={aliases} externalIds={externalIds} />
 
       <ClaimCards claims={claims} />
-
-      <div
-        id="story"
-        className="rounded-xl border p-5"
-        style={{
-          borderColor: "var(--color-border)",
-          backgroundColor: "var(--color-surface-raised)",
-        }}
-      >
-        <div className="mb-3 flex flex-wrap items-center gap-2">
-          <Books size={18} style={{ color: "var(--color-accent)" }} />
-          <h2 className="text-lg font-semibold">
-            {story?.title || "型号故事整理中"}
-          </h2>
-          {story && <StatusBadge status={story.status} />}
-        </div>
-        {story ? (
-          <>
-            <MarkdownRenderer content={story.body_md} />
-            <CitationList citations={storyCitations} />
-          </>
-        ) : (
-          <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
-            型号故事会基于已审核 claims
-            生成，未确认的年份、材质、价格会显式标记。
-          </p>
-        )}
-      </div>
 
       <div
         className="rounded-xl border p-5"
@@ -205,7 +225,7 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
           </div>
         ) : (
           <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
-            暂无已整理版本与变体。
+            资料馆暂未整理出可公开对照的版本与变体。
           </p>
         )}
       </div>
@@ -230,7 +250,7 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
 
       <div
         id="sources"
-        className="rounded-xl border p-5"
+        className="library-panel p-5"
         style={{
           borderColor: "var(--color-border)",
           backgroundColor: "var(--color-surface-raised)",

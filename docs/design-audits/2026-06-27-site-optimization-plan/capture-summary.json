@@ -1,0 +1,131 @@
+[
+  {
+    "name": "01-home",
+    "url": "https://fountain-pen-graph.vercel.app/",
+    "title": "钢笔图书馆 - 钢笔知识图谱",
+    "chars": 1304,
+    "hasPendingSource": false,
+    "hasNoData": false,
+    "headings": [
+      "钢笔图书馆",
+      "找一支笔",
+      "读品牌与历史",
+      "看结构与图谱",
+      "馆区入口",
+      "品牌馆",
+      "型号档案",
+      "工艺实验室",
+      "历史展览",
+      "按类型探索",
+      "值得一读"
+    ]
+  },
+  {
+    "name": "02-browse",
+    "url": "https://fountain-pen-graph.vercel.app/browse",
+    "title": "浏览全部词条 - 钢笔知识图谱",
+    "chars": 5474,
+    "hasPendingSource": false,
+    "hasNoData": false,
+    "headings": [
+      "浏览全部",
+      "筛选"
+    ]
+  },
+  {
+    "name": "03-pen-detail",
+    "url": "https://fountain-pen-graph.vercel.app/pen/%E5%87%8C%E7%BE%8E-lamy-lamy-2000",
+    "title": "凌美 LAMY LAMY 2000 - 钢笔知识图谱",
+    "chars": 2603,
+    "hasPendingSource": true,
+    "hasNoData": false,
+    "headings": [
+      "凌美 LAMY LAMY 2000",
+      "型号档案",
+      "事实与证据",
+      "一支钢笔如何变成设计语言",
+      "版本与变体",
+      "图示",
+      "来源卡片",
+      "凌美 LAMY LAMY 2000",
+      "关系图谱",
+      "你可能想看"
+    ]
+  },
+  {
+    "name": "04-brand-detail",
+    "url": "https://fountain-pen-graph.vercel.app/brand/lamy",
+    "title": "凌美 (LAMY) - 钢笔知识图谱",
+    "chars": 2287,
+    "hasPendingSource": true,
+    "hasNoData": false,
+    "headings": [
+      "凌美 (LAMY)",
+      "品牌馆",
+      "外部标识与别名",
+      "事实与证据",
+      "以设计语言建立品牌识别",
+      "品牌时间线",
+      "代表型号",
+      "来源卡片",
+      "关系图谱"
+    ]
+  },
+  {
+    "name": "05-exhibit-detail",
+    "url": "https://fountain-pen-graph.vercel.app/exhibits/lamy-2000-modernism",
+    "title": "LAMY 2000：现代主义如何落到手里 - 钢笔图书馆",
+    "chars": 2963,
+    "hasPendingSource": false,
+    "hasNoData": false,
+    "headings": [
+      "LAMY 2000：现代主义如何落到手里",
+      "1966 年不是复古标签，而是设计约束的起点",
+      "材料：Makrolon、拉丝金属和几乎消失的接缝",
+      "半包尖和活塞：一支日用工具的隐藏工程",
+      "为什么它常被描述成“无聊”，却很难替代",
+      "从 2000 回到 LAMY 的产品谱系"
+    ]
+  },
+  {
+    "name": "06-article-detail",
+    "url": "https://fountain-pen-graph.vercel.app/article/the-baguio-surrender-pens",
+    "title": "The Baguio Surrender Pens - 钢笔知识图谱",
+    "chars": 1246,
+    "hasPendingSource": false,
+    "hasNoData": true,
+    "headings": [
+      "The Baguio Surrender Pens",
+      "碧瑶投降签字用笔",
+      "关系图谱"
+    ]
+  },
+  {
+    "name": "07-sources",
+    "url": "https://fountain-pen-graph.vercel.app/library/sources",
+    "title": "来源索引 - 钢笔图书馆",
+    "chars": 30865,
+    "hasPendingSource": false,
+    "hasNoData": false,
+    "headings": [
+      "来源索引",
+      "来源登记",
+      "已登记参考资料"
+    ]
+  },
+  {
+    "name": "08-coverage",
+    "url": "https://fountain-pen-graph.vercel.app/library/coverage",
+    "title": "馆藏覆盖 - 钢笔图书馆",
+    "chars": 5210,
+    "hasPendingSource": false,
+    "hasNoData": false,
+    "headings": [
+      "馆藏覆盖",
+      "品牌覆盖",
+      "型号覆盖",
+      "优先补全",
+      "覆盖指标"
+    ]
+  }
+]

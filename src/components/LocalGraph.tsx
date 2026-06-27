@@ -92,7 +92,7 @@ function truncateLabel(name: string, maxLen: number) {
 }
 
 function getGraphHeight(width: number) {
-  return Math.min(440, Math.max(320, Math.round(width * 0.58)));
+  return Math.min(340, Math.max(240, Math.round(width * 0.42)));
 }
 
 export function LocalGraph({
@@ -104,7 +104,6 @@ export function LocalGraph({
   const { resolvedTheme } = useTheme();
   const [graphData, setGraphData] = useState<GraphData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [settled, setSettled] = useState(false);
   const [overflow, setOverflow] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({ width: 400, height: 360 });
@@ -162,10 +161,21 @@ export function LocalGraph({
   }, []);
 
   useEffect(() => {
-    if (settled && graphRef.current && graphWidth > 0 && graphHeight > 0) {
-      graphRef.current?.zoomToFit(250, 18);
+    if (
+      !graphData ||
+      !graphRef.current ||
+      graphWidth <= 0 ||
+      graphHeight <= 0
+    ) {
+      return;
     }
-  }, [settled, graphWidth, graphHeight]);
+
+    const timer = window.setTimeout(() => {
+      graphRef.current?.zoomToFit(350, 28);
+    }, 350);
+
+    return () => window.clearTimeout(timer);
+  }, [graphData, graphWidth, graphHeight]);
 
   useEffect(() => {
     Promise.all([
@@ -337,8 +347,6 @@ export function LocalGraph({
 
   const nodeCanvasObject = useCallback(
     (node: GraphNode, ctx: CanvasRenderingContext2D, globalScale: number) => {
-      if (!settled) return undefined;
-
       const rawFontSize = node.isCenter ? 13 : node.isSecondHop ? 9 : 11;
       const fontSize = Math.min(rawFontSize / globalScale, 16);
       const baseRadius = node.isCenter ? 7 : node.isSecondHop ? 3.5 : 4.5;
@@ -412,7 +420,7 @@ export function LocalGraph({
 
       return undefined;
     },
-    [isDark, labelColor, settled],
+    [isDark, labelColor],
   );
 
   const handleNodeClick = useCallback(
@@ -428,7 +436,7 @@ export function LocalGraph({
     return (
       <div
         ref={containerRef}
-        className="h-[360px] rounded-xl animate-pulse flex items-center justify-center"
+        className="h-[240px] rounded-xl animate-pulse flex items-center justify-center"
         style={{ backgroundColor: bgColor }}
       >
         <span className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
@@ -442,7 +450,7 @@ export function LocalGraph({
     return (
       <div
         ref={containerRef}
-        className="h-[360px] rounded-xl flex flex-col items-center justify-center gap-3"
+        className="h-[240px] rounded-xl flex flex-col items-center justify-center gap-3"
         style={{ backgroundColor: bgColor }}
       >
         <Graph
@@ -519,7 +527,7 @@ export function LocalGraph({
           d3VelocityDecay={0.15}
           enablePanInteraction={false}
           enableNodeDrag={false}
-          onEngineStop={() => setSettled(true)}
+          onEngineStop={() => graphRef.current?.zoomToFit(250, 28)}
         />
         {overflow > 0 && (
           <div

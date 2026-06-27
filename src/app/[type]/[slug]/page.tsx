@@ -364,6 +364,7 @@ export default async function EntityPage({ params }: EntityPageProps) {
     getHeroFallbackImage(entityType);
 
   const Icon = TYPE_ICONS[entityType] || PenNib;
+  const hasGraph = ["brand", "pen"].includes(entityType) || links.length > 0;
   const diagramCount =
     entityType === "pen"
       ? Number(
@@ -387,10 +388,11 @@ export default async function EntityPage({ params }: EntityPageProps) {
     ["brand", "pen"].includes(entityType)
       ? { href: "#story", label: "故事" }
       : null,
+    entityType === "brand" ? { href: "#timeline", label: "时间线" } : null,
     entityType === "pen" && diagramCount > 0
       ? { href: "#diagrams", label: "图示" }
       : null,
-    { href: "#graph", label: "图谱" },
+    hasGraph ? { href: "#graph", label: "图谱" } : null,
     ["brand", "pen"].includes(entityType) || sidebarSources.length > 0
       ? { href: "#sources", label: "来源" }
       : null,
@@ -541,25 +543,27 @@ export default async function EntityPage({ params }: EntityPageProps) {
           )}
 
           {/* Graph */}
-          <section id="graph" className="mb-10">
-            <h2
-              className="flex items-center gap-2 text-lg font-semibold tracking-tight mb-4"
-              style={{ color: "var(--color-ink)" }}
-            >
-              <Graph size={18} style={{ color: "var(--color-accent)" }} />
-              关系图谱
-            </h2>
-            <div
-              className="rounded-xl overflow-hidden"
-              style={{ boxShadow: "var(--shadow-raised)" }}
-            >
-              <LocalGraph
-                entityId={String(entity.id)}
-                entityType={entityType}
-                entitySlug={entitySlug}
-              />
-            </div>
-          </section>
+          {hasGraph && (
+            <section id="graph" className="mb-10">
+              <h2
+                className="flex items-center gap-2 text-lg font-semibold tracking-tight mb-4"
+                style={{ color: "var(--color-ink)" }}
+              >
+                <Graph size={18} style={{ color: "var(--color-accent)" }} />
+                关系图谱
+              </h2>
+              <div
+                className="rounded-xl overflow-hidden"
+                style={{ boxShadow: "var(--shadow-raised)" }}
+              >
+                <LocalGraph
+                  entityId={String(entity.id)}
+                  entityType={entityType}
+                  entitySlug={entitySlug}
+                />
+              </div>
+            </section>
+          )}
         </div>
 
         {/* Sidebar */}

@@ -44,57 +44,21 @@ export async function BrandMuseum({
   const storyCitations = story
     ? await getCitationsForTarget("story", story.id)
     : [];
+  const brandFields = [
+    ["国家/地区", attrs.origin_country],
+    ["创立时间", attrs.founded],
+    ["设计关键词", attrs.design_keywords],
+    ["代表技术", attrs.signature_technology],
+  ].filter(([, value]) => {
+    if (!value) return false;
+    return String(value).trim().length > 0;
+  });
 
   return (
     <section className="mb-10 space-y-6">
       <div
-        id="archive"
-        className="rounded-xl border p-5"
-        style={{
-          borderColor: "var(--color-border)",
-          backgroundColor: "var(--color-surface-raised)",
-        }}
-      >
-        <div className="mb-4 flex items-center gap-2">
-          <BookOpen size={18} style={{ color: "var(--color-accent)" }} />
-          <h2 className="text-lg font-semibold">品牌馆</h2>
-        </div>
-        <div className="grid gap-3 sm:grid-cols-2">
-          {[
-            ["国家/地区", attrs.origin_country],
-            ["创立时间", attrs.founded],
-            ["设计关键词", attrs.design_keywords],
-            ["代表技术", attrs.signature_technology],
-          ].map(([label, value]) => (
-            <div
-              key={label}
-              className="rounded-lg px-3 py-2"
-              style={{ backgroundColor: "var(--color-surface-dim)" }}
-            >
-              <div
-                className="text-xs"
-                style={{ color: "var(--color-ink-muted)" }}
-              >
-                {label}
-              </div>
-              <div
-                className="text-sm font-medium"
-                style={{ color: "var(--color-ink)" }}
-              >
-                {value || "暂无资料"}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <IdentifierPanel aliases={aliases} externalIds={externalIds} />
-
-      <ClaimCards claims={claims} />
-
-      <div
         id="story"
-        className="rounded-xl border p-5"
+        className="library-panel p-5"
         style={{
           borderColor: "var(--color-border)",
           backgroundColor: "var(--color-surface-raised)",
@@ -102,27 +66,78 @@ export async function BrandMuseum({
       >
         <div className="mb-3 flex flex-wrap items-center gap-2">
           <Quotes size={18} style={{ color: "var(--color-accent)" }} />
-          <h2 className="text-lg font-semibold">
-            {story?.title || "品牌故事整理中"}
-          </h2>
+          <div>
+            <p className="archive-kicker">Brand story</p>
+            <h2 className="text-lg font-semibold">
+              {story?.title || "品牌故事整理中"}
+            </h2>
+          </div>
           {story && <StatusBadge status={story.status} />}
         </div>
         {story ? (
-          <>
+          <div className="reading-measure">
             <MarkdownRenderer content={story.body_md} />
             <CitationList citations={storyCitations} />
-          </>
+          </div>
         ) : (
           <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
-            这个品牌还没有通过来源审核的品牌故事。资料馆会先抽取
-            claims，再生成可核验草稿。
+            这个品牌还没有形成可公开阅读的品牌故事。资料馆会先抽取事实，再整理成带来源的叙事。
           </p>
         )}
       </div>
 
       <div
-        id="sources"
-        className="rounded-xl border p-5"
+        id="archive"
+        className="library-panel p-5"
+        style={{
+          borderColor: "var(--color-border)",
+          backgroundColor: "var(--color-surface-raised)",
+        }}
+      >
+        <div className="mb-4 flex items-center gap-2">
+          <BookOpen size={18} style={{ color: "var(--color-accent)" }} />
+          <div>
+            <p className="archive-kicker">Brand room</p>
+            <h2 className="text-lg font-semibold">品牌馆</h2>
+          </div>
+        </div>
+        {brandFields.length > 0 ? (
+          <div className="grid gap-3 sm:grid-cols-2">
+            {brandFields.map(([label, value]) => (
+              <div
+                key={label}
+                className="rounded-lg px-3 py-2"
+                style={{ backgroundColor: "var(--color-surface-dim)" }}
+              >
+                <div
+                  className="text-xs"
+                  style={{ color: "var(--color-ink-muted)" }}
+                >
+                  {label}
+                </div>
+                <div
+                  className="text-sm font-medium"
+                  style={{ color: "var(--color-ink)" }}
+                >
+                  {value}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
+            可公开展示的品牌基础字段还在整理中，优先阅读上方品牌故事和时间线。
+          </p>
+        )}
+      </div>
+
+      <IdentifierPanel aliases={aliases} externalIds={externalIds} />
+
+      <ClaimCards claims={claims} />
+
+      <div
+        id="timeline"
+        className="library-panel p-5"
         style={{
           borderColor: "var(--color-border)",
           backgroundColor: "var(--color-surface-raised)",
@@ -136,7 +151,8 @@ export async function BrandMuseum({
       </div>
 
       <div
-        className="rounded-xl border p-5"
+        id="sources"
+        className="library-panel p-5"
         style={{
           borderColor: "var(--color-border)",
           backgroundColor: "var(--color-surface-raised)",
@@ -178,7 +194,7 @@ export async function BrandMuseum({
       </div>
 
       <div
-        className="rounded-xl border p-5"
+        className="library-panel p-5"
         style={{
           borderColor: "var(--color-border)",
           backgroundColor: "var(--color-surface-raised)",

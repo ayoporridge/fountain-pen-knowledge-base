@@ -1091,7 +1091,7 @@ test.describe("Library smoke flow", () => {
     await expectLibraryPage(page, "/library/sources?source=richardspens", [
       "当前筛选：Richard's Pens",
       "Richard's Pens · 309",
-      "profile_article",
+      "资料文章",
       "copyrighted; summary/link only",
     ]);
 
@@ -1129,7 +1129,7 @@ test.describe("Library smoke flow", () => {
       "Wikidata 描述",
       "来源卡片",
       "Wikidata",
-      "wikidata_item",
+      "Wikidata 条目",
       "CC0",
     ]);
   });
@@ -2503,7 +2503,7 @@ test.describe("Library smoke flow", () => {
       "卡西比尔停战协定用笔",
       "来源卡片",
       "Richard's Pens",
-      "summary_only",
+      "只存摘要",
     ]);
 
     const heroImage = page.locator(".image-figure img").first();

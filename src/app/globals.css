@@ -16,17 +16,23 @@
   --color-border: #d9d2c6;
   --color-border-light: #e9e3d8;
 
-  /* System-first font stack: stable, fast, and readable for Chinese long-form text. */
+  /* Library typography: sans body + handwritten display accents, no Songti stack. */
   --font-display:
-    ui-serif, "Songti SC", "Noto Serif CJK SC", "Noto Serif SC", serif;
+    "LXGW WenKai Screen", "LXGW WenKai", "Kaiti SC", "STKaiti", "Avenir Next",
+    "PingFang SC", "Noto Sans CJK SC", sans-serif;
   --font-heading:
-    ui-serif, "Songti SC", "Noto Serif CJK SC", "Noto Serif SC", serif;
+    "Avenir Next", "LXGW WenKai Screen", "PingFang SC", "Noto Sans CJK SC",
+    system-ui, sans-serif;
   --font-serif:
-    ui-serif, "Songti SC", "Noto Serif CJK SC", "Noto Serif SC", serif;
-  --font-mono: "JetBrains Mono", monospace;
+    "Avenir Next", "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC",
+    "Microsoft YaHei", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "IBM Plex Mono", "SFMono-Regular", monospace;
   --font-label:
-    ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC",
-    "Microsoft YaHei", sans-serif;
+    "Avenir Next", Inter, ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-numeric:
+    "Avenir Next", Inter, ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, sans-serif;
 
   /* Shadows — bird.onethreenine.net depth system */
   --shadow-edge:
@@ -97,6 +103,7 @@ body {
   font-family: var(--font-serif);
   line-height: 1.8;
   font-weight: 400;
+  font-variant-numeric: lining-nums;
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0.12)),
     radial-gradient(
@@ -138,7 +145,7 @@ h6 {
 
 h1 {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 650;
 }
 
 h2 {
@@ -170,6 +177,41 @@ p {
   letter-spacing: 0;
   text-transform: none;
   font-size: 0.78em;
+}
+
+.numeric {
+  font-family: var(--font-numeric);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.library-panel {
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background-color: color-mix(
+    in srgb,
+    var(--color-surface-raised) 88%,
+    transparent
+  );
+  box-shadow: var(--shadow-raised);
+}
+
+.library-panel-muted {
+  border: 1px solid var(--color-border-light);
+  border-radius: 8px;
+  background-color: color-mix(in srgb, var(--color-surface-dim) 70%, white 30%);
+}
+
+.reading-measure {
+  max-width: 72ch;
+}
+
+.archive-kicker {
+  font-family: var(--font-label);
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
 }
 
 /* ── Link transitions ── */
