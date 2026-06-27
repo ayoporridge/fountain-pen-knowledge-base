@@ -24,25 +24,12 @@ import { RelatedEntities } from "@/components/RelatedEntities";
 import { getEntitiesForConcept } from "@/lib/concept-engine";
 import { ATTR_LABELS, TYPE_ICONS, TYPE_LABELS } from "@/lib/constants";
 import { queryAll, queryOne } from "@/lib/db";
+import { getDetailHeroImageByIndex } from "@/lib/detail-hero-images";
 import { getEntityReferences } from "@/lib/library";
 import { toPlainTextSummary } from "@/lib/text";
 
 interface EntityPageProps {
   params: Promise<{ type: string; slug: string }>;
-}
-
-function getHeroFallbackImage(entityType: string) {
-  const fallbackByType: Record<string, string> = {
-    article: "/images/library/warm-pen-atlas/library-hero.jpg",
-    brand: "/images/library/warm-pen-atlas/brand-museum-cover.jpg",
-    concept: "/images/library/warm-pen-atlas/mechanism-lab-cover.jpg",
-    fill_system: "/images/library/warm-pen-atlas/mechanism-lab-cover.jpg",
-    material: "/images/library/warm-pen-atlas/brand-museum-cover.jpg",
-    nib: "/images/library/warm-pen-atlas/mechanism-lab-cover.jpg",
-    pen: "/images/library/warm-pen-atlas/piston-demonstrator-model-cover.jpg",
-  };
-
-  return fallbackByType[entityType] || fallbackByType.article;
 }
 
 export async function generateMetadata({
@@ -345,23 +332,15 @@ export default async function EntityPage({ params }: EntityPageProps) {
   const sidebarSources = ["brand", "pen"].includes(entityType)
     ? []
     : await getEntityReferences(String(entity.id), 6);
-  const approvedMedia = (await queryOne(
-    `SELECT image_url, thumbnail_url
-     FROM media_assets
-     WHERE entity_id = ?
-       AND asset_type = 'image'
-       AND image_url IS NOT NULL
-       AND review_status = 'approved'
-       AND usage_status IN ('primary', 'gallery')
-     ORDER BY CASE usage_status WHEN 'primary' THEN 0 ELSE 1 END, created_at DESC
-     LIMIT 1`,
-    [entity.id],
-  )) as { image_url: string | null; thumbnail_url: string | null } | undefined;
-  const heroImageUrl =
-    entity.image_url ||
-    approvedMedia?.thumbnail_url ||
-    approvedMedia?.image_url ||
-    getHeroFallbackImage(entityType);
+  const heroIndexRow = (await queryOne(
+    `SELECT COUNT(*) as detail_index
+     FROM entities
+     WHERE type < ? OR (type = ? AND slug <= ?)`,
+    [entityType, entityType, entitySlug],
+  )) as { detail_index: number } | undefined;
+  const heroImageUrl = getDetailHeroImageByIndex(
+    Number(heroIndexRow?.detail_index || 1) - 1,
+  );
 
   const Icon = TYPE_ICONS[entityType] || PenNib;
   const hasGraph = ["brand", "pen"].includes(entityType) || links.length > 0;
@@ -476,8 +455,8 @@ export default async function EntityPage({ params }: EntityPageProps) {
             ) : null;
           })()}
 
-        {/* Key attributes — displayed as prominent data points */}
-        {Object.keys(attrs).length > 0 && (
+        {/* Key attributes — pen specs live in the model archive below. */}
+        {entityType !== "pen" && Object.keys(attrs).length > 0 && (
           <div className="flex flex-wrap gap-4 mt-6">
             {Object.entries(attrs).map(([key, value]) => (
               <div
@@ -536,7 +515,7 @@ export default async function EntityPage({ params }: EntityPageProps) {
           )}
 
           {/* Body */}
-          {entity.body_md && (
+          {entity.body_md && !["brand", "pen"].includes(entityType) && (
             <section id="body" className="mb-10 manuscript-border p-6 sm:p-8">
               <MarkdownRenderer content={String(entity.body_md)} />
             </section>

@@ -4,6 +4,7 @@ import {
   GitBranch,
   PenNib,
 } from "@phosphor-icons/react/dist/ssr";
+import Image from "next/image";
 import Link from "next/link";
 import { MarkdownRenderer } from "@/components/MarkdownRenderer";
 import {
@@ -16,9 +17,10 @@ import {
   getEntityReferences,
   getModelSpec,
   getModelVariants,
+  getPrimaryProductImage,
   getStoriesForEntity,
 } from "@/lib/library";
-import { cleanPublicText } from "@/lib/publicText";
+import { cleanPublicText, displayPublicSourceName } from "@/lib/publicText";
 import { CitationList } from "./CitationList";
 import { ClaimCards } from "./ClaimCards";
 import { DiagramRenderer } from "./DiagramRenderer";
@@ -36,6 +38,7 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
     aliases,
     externalIds,
     claims,
+    productImage,
   ] = await Promise.all([
     getModelSpec(entityId),
     getModelVariants(entityId),
@@ -45,6 +48,7 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
     getEntityAliases(entityId),
     getEntityExternalIds(entityId),
     getClaimsForEntity(entityId, 8),
+    getPrimaryProductImage(entityId),
   ]);
   const story =
     stories.find((item) => item.story_type === "model_story") || stories[0];
@@ -80,36 +84,6 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
   return (
     <section className="mb-10 space-y-6">
       <div
-        id="story"
-        className="library-panel p-5"
-        style={{
-          borderColor: "var(--color-border)",
-          backgroundColor: "var(--color-surface-raised)",
-        }}
-      >
-        <div className="mb-3 flex flex-wrap items-center gap-2">
-          <Books size={18} style={{ color: "var(--color-accent)" }} />
-          <div>
-            <p className="archive-kicker">Read first</p>
-            <h2 className="text-lg font-semibold">
-              {story?.title || "型号故事整理中"}
-            </h2>
-          </div>
-          {story && <StatusBadge status={story.status} />}
-        </div>
-        {story ? (
-          <div className="reading-measure">
-            <MarkdownRenderer content={story.body_md} />
-            <CitationList citations={storyCitations} />
-          </div>
-        ) : (
-          <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
-            这个型号暂时只有来源卡片和关系信息；正文会在有稳定来源时展示。
-          </p>
-        )}
-      </div>
-
-      <div
         id="archive"
         className="library-panel p-5"
         style={{
@@ -136,6 +110,48 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
             </span>
           )}
         </div>
+
+        {productImage && (
+          <figure
+            className="mb-5 overflow-hidden rounded-lg border"
+            style={{
+              borderColor: "var(--color-border-light)",
+              backgroundColor: "var(--color-surface-dim)",
+            }}
+          >
+            <div className="flex min-h-[220px] items-center justify-center p-4 sm:min-h-[280px]">
+              <Image
+                src={productImage.thumbnail_url || productImage.image_url}
+                alt={`${spec?.series_name || "钢笔型号"} 实物图`}
+                width={900}
+                height={360}
+                className="max-h-[320px] w-full object-contain"
+                unoptimized
+              />
+            </div>
+            <figcaption
+              className="border-t px-3 py-2 text-xs leading-relaxed"
+              style={{
+                borderColor: "var(--color-border-light)",
+                color: "var(--color-ink-muted)",
+              }}
+            >
+              <span>实物图：{cleanPublicText(productImage.title)}</span>
+              {productImage.source_url && (
+                <Link
+                  href={productImage.source_url}
+                  className="ml-2 ink-underline"
+                >
+                  {displayPublicSourceName(productImage.source_name) || "来源"}
+                </Link>
+              )}
+              {productImage.license && (
+                <span className="ml-2">{productImage.license}</span>
+              )}
+            </figcaption>
+          </figure>
+        )}
+
         {spec && specFields.length > 0 ? (
           <div className="grid gap-3 sm:grid-cols-2">
             {specFields.map(([label, value]) => (
@@ -171,6 +187,36 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
         ) : (
           <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
             这个型号暂时没有可公开展示的结构化规格。页面只显示已有来源能支撑的字段。
+          </p>
+        )}
+      </div>
+
+      <div
+        id="story"
+        className="library-panel p-5"
+        style={{
+          borderColor: "var(--color-border)",
+          backgroundColor: "var(--color-surface-raised)",
+        }}
+      >
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          <Books size={18} style={{ color: "var(--color-accent)" }} />
+          <div>
+            <p className="archive-kicker">Read first</p>
+            <h2 className="text-lg font-semibold">
+              {story?.title || "型号故事整理中"}
+            </h2>
+          </div>
+          {story && <StatusBadge status={story.status} />}
+        </div>
+        {story ? (
+          <div className="reading-measure">
+            <MarkdownRenderer content={story.body_md} />
+            <CitationList citations={storyCitations} />
+          </div>
+        ) : (
+          <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
+            这个型号暂时只有来源卡片和关系信息；正文会在有稳定来源时展示。
           </p>
         )}
       </div>

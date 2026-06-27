@@ -22,6 +22,7 @@
     "import:official-model-sources": "tsx scripts/import-official-model-sources.ts",
     "import:official-model-diagrams": "tsx scripts/import-official-model-diagrams.ts",
     "import:warm-pen-atlas-media": "tsx scripts/import-warm-pen-atlas-media.ts",
+    "promote:product-media": "tsx scripts/promote-product-media.ts",
     "import:brand-completions": "tsx scripts/import-brand-completion-sources.ts",
     "import:model-gap-sources": "tsx scripts/import-model-gap-sources.ts",
     "import:research-gap-sources": "tsx scripts/import-research-gap-sources.ts",

@@ -465,7 +465,7 @@ test.describe("Library smoke flow", () => {
       if (item.fallbackImage) {
         await expect(
           page.getByRole("img", { name: item.fallbackImage }),
-        ).toHaveAttribute("src", /brand-museum-cover\.jpg/);
+        ).toHaveAttribute("src", /warm-pen-atlas\/.+\.jpg/);
       }
       await expectNoPublicInternalCopy(page);
     }
@@ -478,7 +478,7 @@ test.describe("Library smoke flow", () => {
     await expect(page.getByText("英雄派迪 (Hero Paddy)").first()).toBeVisible();
     await expect(
       page.getByRole("img", { name: "英雄派迪 (Hero Paddy)" }),
-    ).toHaveAttribute("src", /brand-museum-cover\.jpg/);
+    ).toHaveAttribute("src", /warm-pen-atlas\/.+\.jpg/);
     await expect(
       page.getByText("英雄派迪 (Hero Paddy)：名称与已知线索"),
     ).toBeVisible();
@@ -1574,6 +1574,40 @@ test.describe("Library smoke flow", () => {
       "来源",
       "Sailor official site",
     ]);
+  });
+
+  test("pen detail prioritizes the model archive and product photo", async ({
+    page,
+  }) => {
+    await page.goto(`/pen/${encodeURIComponent("凌美-lamy-lamy-2000")}`, {
+      waitUntil: "domcontentloaded",
+    });
+
+    await expect(page.getByRole("heading", { name: "型号档案" })).toBeVisible();
+    await expect(page.locator("#archive figure img").first()).toHaveAttribute(
+      "src",
+      /upload\.wikimedia\.org\/wikipedia\/commons\/thumb\/d\/d6\/Lamy_2000/,
+    );
+    await expect(page.locator("#archive figcaption")).toContainText(
+      "实物图：Lamy 2000",
+    );
+
+    const sectionOrder = await page.evaluate(() => {
+      const archiveTop =
+        document.querySelector("#archive")?.getBoundingClientRect().top ?? 0;
+      const storyTop =
+        document.querySelector("#story")?.getBoundingClientRect().top ?? 0;
+      return { archiveTop, storyTop };
+    });
+    expect(sectionOrder.archiveTop).toBeLessThan(sectionOrder.storyTop);
+
+    const heroSrc = await page
+      .locator('img[alt="凌美 LAMY LAMY 2000"]')
+      .first()
+      .getAttribute("src");
+    expect(heroSrc).toContain("/images/library/warm-pen-atlas/");
+    await expect(page.locator("section#body")).toHaveCount(0);
+    await expect(page.getByText("价位段(元): 800-1200")).toHaveCount(0);
   });
 
   test("expanded official model archives render for pocket, school, and entry pens", async ({

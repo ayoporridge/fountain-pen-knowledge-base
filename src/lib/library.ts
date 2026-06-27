@@ -146,6 +146,19 @@ export interface MediaAssetRecord {
   entity_name: string | null;
 }
 
+export interface ProductImageRecord {
+  id: string;
+  title: string;
+  image_url: string;
+  thumbnail_url: string | null;
+  source_url: string | null;
+  author: string | null;
+  license: string | null;
+  attribution_text: string | null;
+  source_title: string | null;
+  source_name: string | null;
+}
+
 export interface ModelSpecRecord {
   id: string;
   series_name: string | null;
@@ -582,6 +595,30 @@ export async function getMediaAssetIndex(limit = 80) {
      LIMIT ?`,
     [limit],
   )) as MediaAssetRecord[];
+}
+
+export async function getPrimaryProductImage(entityId: string) {
+  return (await queryOne(
+    `SELECT ma.id, ma.title, ma.image_url, ma.thumbnail_url,
+            ma.source_url, ma.author, ma.license, ma.attribution_text,
+            si.title as source_title,
+            sr.name as source_name
+     FROM media_assets ma
+     LEFT JOIN source_items si ON si.id = ma.source_item_id
+     LEFT JOIN source_registry sr ON sr.id = si.source_id
+     WHERE ma.entity_id = ?
+       AND ma.asset_type = 'image'
+       AND ma.image_url IS NOT NULL
+       AND ma.review_status = 'approved'
+       AND ma.usage_status IN ('primary', 'gallery')
+       AND ma.image_url NOT LIKE '/images/library/warm-pen-atlas/%'
+       AND COALESCE(ma.source_url, '') NOT LIKE '/images/library/warm-pen-atlas/%'
+     ORDER BY
+       CASE ma.usage_status WHEN 'primary' THEN 0 ELSE 1 END,
+       ma.created_at DESC
+     LIMIT 1`,
+    [entityId],
+  )) as ProductImageRecord | undefined;
 }
 
 export async function getCommunitySummaryIndex(limit = 80) {
