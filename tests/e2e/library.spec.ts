@@ -1203,7 +1203,7 @@ test.describe("Library smoke flow", () => {
       "引用",
       "品牌时间线",
       "代表型号",
-      "来源卡片",
+      "来源",
     ]);
   });
 
@@ -1216,10 +1216,9 @@ test.describe("Library smoke flow", () => {
       "Q142691",
       "事实与证据",
       "Wikidata 描述",
-      "来源卡片",
+      "来源",
       "Wikidata",
       "Wikidata 条目",
-      "CC0",
     ]);
   });
 
@@ -1290,7 +1289,7 @@ test.describe("Library smoke flow", () => {
       "从金笔尖作坊进入 Sailor",
       "品牌时间线",
       "Sakata-Manufactory founded",
-      "来源卡片",
+      "来源",
       "Sailor official site",
       "Sailor: Our History",
     ]);
@@ -1557,7 +1556,7 @@ test.describe("Library smoke flow", () => {
       "引用",
       "版本与变体",
       "真空上墨机制",
-      "来源卡片",
+      "来源",
     ]);
   });
 
@@ -1572,7 +1571,7 @@ test.describe("Library smoke flow", () => {
       "版本与变体",
       "King Professional Gear",
       "Sailor Pro Gear 系列关系示意",
-      "来源卡片",
+      "来源",
       "Sailor official site",
     ]);
   });
@@ -2590,9 +2589,8 @@ test.describe("Library smoke flow", () => {
       "碧瑶投降签字用笔",
       "1970年代圣母明信片",
       "卡西比尔停战协定用笔",
-      "来源卡片",
+      "来源",
       "Richard's Pens",
-      "只存摘要",
     ]);
 
     const heroImage = page.locator(".image-figure img").first();

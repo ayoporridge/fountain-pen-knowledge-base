@@ -69,12 +69,47 @@ const ITEM_TYPE_LABELS: Record<string, string> = {
   wikidata_item: "Wikidata 条目",
 };
 
-export function SourceCards({ sources }: { sources: SourceItemRecord[] }) {
+type SourceCardsProps = {
+  sources: SourceItemRecord[];
+  variant?: "cards" | "compact";
+};
+
+export function SourceCards({ sources, variant = "cards" }: SourceCardsProps) {
   if (sources.length === 0) {
     return (
       <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
-        暂无可展示来源卡片。
+        暂无可展示来源。
       </p>
+    );
+  }
+
+  if (variant === "compact") {
+    return (
+      <ul
+        className="space-y-1.5 text-xs leading-relaxed"
+        style={{ color: "var(--color-ink-muted)" }}
+      >
+        {sources.map((source) => (
+          <li key={source.id} className="flex flex-wrap items-baseline gap-x-2">
+            <Link
+              href={source.url}
+              className="ink-underline font-medium"
+              style={{ color: "var(--color-ink-muted)" }}
+            >
+              {displayPublicSourceTitle(source.title)}
+            </Link>
+            <span>
+              {displayPublicSourceName(source.source_name)}
+              {ITEM_TYPE_LABELS[source.item_type]
+                ? ` · ${ITEM_TYPE_LABELS[source.item_type]}`
+                : ""}
+            </span>
+            {source.reference_count > 0 && (
+              <span>引用 {source.reference_count}</span>
+            )}
+          </li>
+        ))}
+      </ul>
     );
   }
 

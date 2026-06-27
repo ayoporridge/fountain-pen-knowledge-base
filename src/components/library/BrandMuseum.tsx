@@ -200,8 +200,13 @@ export async function BrandMuseum({
           backgroundColor: "var(--color-surface-raised)",
         }}
       >
-        <h2 className="mb-4 text-lg font-semibold">来源卡片</h2>
-        <SourceCards sources={sources} />
+        <h2
+          className="mb-3 text-sm font-medium"
+          style={{ color: "var(--color-ink-muted)" }}
+        >
+          来源
+        </h2>
+        <SourceCards sources={sources} variant="compact" />
       </div>
     </section>
   );

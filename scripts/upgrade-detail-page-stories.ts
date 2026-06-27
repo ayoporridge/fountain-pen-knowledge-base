@@ -50,6 +50,12 @@ type RelatedEntity = {
   linkType: string | null;
 };
 
+type TagInfo = {
+  name: string;
+  slug: string;
+  dimension: string;
+};
+
 const BAD_COPY_PATTERN =
   /^把|这一页是一个|索引入口|方便读者确认|公开来源没有直接支撑|未由来源支撑|名称与已知线索|名称边界和已知线索|来源缺口|研究入口|资料缺口|缺口|待核验|需核验|核验|待补|待拆分|待重分类|待合并|待别名|当前档案|当前页面|当前草稿|后续应|后续补|下一步应|不把.+写成|写成确定事实|只建立|先建立|可以先放在|规格暂用|等待官网|等待产品页|等待独立|证据边界|来源边界|队列|做成|放进|拆成|整理成|反推|适合从名称、关系|名称、关系和公开资料|不适合按单一型号|作为型号入口|作为.*研究页|研究页|需要.*来源|需要.*确认|需要.*复核|来源支撑|来源归因|复核|归因|档案|围绕.*组织|currently needs|verified facts|direct product|review sources|library treats|value claims|research-queue|public-web research index|merge into|split into|candidate|identity pending|brand[- ]?generic|retractable entry|artwork|分开阅读|按类型区分|型号 的定位|系列：型号|笔身材质|等 理解|、等|；。|：\/|产品线 里|产品线 中|线索|二级来源|\bentry\b/;
 
@@ -88,6 +94,8 @@ const GENERIC_SPEC_VALUES = new Set([
   "价位",
   "尺寸",
   "重量",
+  "取决于搭载笔款",
+  "不适合按单一笔款填写",
 ]);
 
 function getClient() {
@@ -156,10 +164,16 @@ function cleanText(value: string | null | undefined) {
     .replace(/retractable entry/gi, "按动钢笔")
     .replace(/\bentry\b/gi, "")
     .replace(/public-web research index/gi, "公开资料")
+    .replace(/（官方[^）]*具体型号搭配）/g, "（搭配具体型号）")
+    .replace(/（官方[^）]*具体尖号）/g, "（具体尖号随版本变化）")
+    .replace(/（官方[^）]*配件兼容）/g, "（配件兼容随版本变化）")
+    .replace(/官方[^，。；）]*口径，?/g, "")
+    .replace(/具体型号搭配/g, "搭配具体型号")
     .replace(/Merge into[^。；;]*/gi, "")
     .replace(/Split into[^。；;]*/gi, "")
     .replace(/candidate/gi, "")
     .replace(/不适合按单一型号填写/g, "")
+    .replace(/不适合按单一笔款填写/g, "")
     .replace(/身份分开阅读/g, "版本关系")
     .replace(/按类型区分/g, "")
     .replace(/分开阅读/g, "")
@@ -346,11 +360,55 @@ function specHighlights(spec: ModelSpec | null) {
     .map(([label, value]) => {
       const cleaned = cleanText(value);
       if (label === "价位" && /^\d+$/.test(cleaned)) return "";
+      if (
+        label === "状态" &&
+        /可能|复核|核验|重分类|拆为|供应.*不明/.test(cleaned)
+      ) {
+        return "";
+      }
       if (GENERIC_SPEC_VALUES.has(cleaned)) return "";
       if (!cleaned || BAD_COPY_PATTERN.test(cleaned)) return "";
       return `${label}：${cleaned}`;
     })
     .filter(Boolean);
+}
+
+function nibTaxonomySentence(tags: TagInfo[]) {
+  const materials = joinChinese(
+    tags
+      .filter((tag) => tag.dimension === "nib_material")
+      .map((tag) => tag.name),
+    4,
+  );
+  const types = joinChinese(
+    tags.filter((tag) => tag.dimension === "nib_type").map((tag) => tag.name),
+    5,
+  );
+
+  if (!materials && !types) return "";
+
+  const parts = [];
+  if (materials) {
+    parts.push(`材质上可以先看 ${materials}`);
+  }
+  if (types) {
+    parts.push(`形态或研磨上可以先看 ${types}`);
+  }
+
+  return `笔尖信息建议分两层读：${parts.join("；")}。材质更多影响反馈、耐用和维护成本，形态与研磨则会直接改变线宽、顺滑度、入纸角度和适合的书写场景。`;
+}
+
+function specNibReading(spec: ModelSpec | null) {
+  const nib = cleanText(spec?.nib || "");
+  if (!nib || GENERIC_SPEC_VALUES.has(nib) || BAD_COPY_PATTERN.test(nib)) {
+    return "";
+  }
+
+  if (/笔尖规格|尖号|规格/.test(nib)) {
+    return "这页目前适合把笔尖当作版本识别信息：先确认明尖、暗尖、嵌入式或可换尖系统，再到来源页核对具体尖号。";
+  }
+
+  return `规格里的笔尖描述是“${nib}”。阅读时不要只看一个尖号：同一型号在不同年份、地区或版本里，可能会同时出现不同材质、宽度和调校。`;
 }
 
 function modelSummary(row: StoryRow, spec: ModelSpec | null, brand: RelatedEntity | null) {
@@ -393,7 +451,7 @@ function brandBody(
     );
   } else {
     paragraphs.push(
-      `如果你只是想快速判断这个品牌，先看它的名称、所属地区、常见产品类型和下方来源卡片；再顺着关联条目去比较具体型号。冷门品牌的资料往往分散在目录、论坛、评测和收藏页面里，单看一个搜索结果很容易误判。`,
+      `如果你只是想快速判断这个品牌，先看它的名称、所属地区、常见产品类型和下方来源；再顺着关联条目去比较具体型号。冷门品牌的资料往往分散在目录、论坛、评测和收藏页面里，单看一个搜索结果很容易误判。`,
     );
   }
 
@@ -417,6 +475,7 @@ function modelBody(
   siblings: RelatedEntity[],
   variants: string[],
   sources: SourceInfo[],
+  nibTags: TagInfo[],
 ) {
   const name = displayName(row.name);
   const summary = modelSummary(row, spec, brand);
@@ -424,6 +483,8 @@ function modelBody(
   const siblingNames = joinChinese(siblings.map((entity) => entity.name), 5);
   const variantNames = joinChinese(variants, 4);
   const sourcesLabel = sourcePhrase(sources);
+  const nibTaxonomy = nibTaxonomySentence(nibTags);
+  const nibReading = specNibReading(spec);
 
   const route = [
     cleanText(spec?.seriesName || ""),
@@ -445,6 +506,10 @@ function modelBody(
     paragraphs.push(
       `从使用角度看，可以先观察四件事：笔尖形态、上墨方式、笔身材料和尺寸重量。它们比单纯的型号名更能说明这支笔适合长写、随身携带、练字，还是作为收藏和机制样本。`,
     );
+  }
+
+  if (nibTaxonomy || nibReading) {
+    paragraphs.push([nibTaxonomy, nibReading].filter(Boolean).join(" "));
   }
 
   if (variantNames || siblingNames) {
@@ -616,6 +681,21 @@ async function getVariants(db: Client, entityId: string) {
   return rows.map((row) => row.variantName);
 }
 
+async function getNibTags(db: Client, entityId: string) {
+  return execute<TagInfo>(
+    db,
+    `SELECT t.name, t.slug, t.dimension
+     FROM entity_tags et
+     JOIN tags t ON t.id = et.tag_id
+     WHERE et.entity_id = ?
+       AND t.dimension IN ('nib_type', 'nib_material')
+     ORDER BY
+       CASE t.dimension WHEN 'nib_material' THEN 0 ELSE 1 END,
+       t.name`,
+    [entityId],
+  );
+}
+
 async function getClaimTexts(db: Client, entityId: string) {
   const rows = await execute<{ text: string }>(
     db,
@@ -641,6 +721,23 @@ function needsUpgrade(row: StoryRow) {
   );
 }
 
+function badCopyMatches(update: {
+  title: string;
+  summary: string;
+  bodyMd: string;
+}) {
+  return [
+    ["title", update.title],
+    ["summary", update.summary],
+    ["body", update.bodyMd],
+  ]
+    .map(([field, value]) => {
+      const match = String(value).match(BAD_COPY_PATTERN);
+      return match ? `${field}:${match[0].slice(0, 30)}` : "";
+    })
+    .filter(Boolean);
+}
+
 async function upgradeStory(db: Client, row: StoryRow) {
   const spec = row.entityType === "pen" ? await getSpec(db, row.entityId) : null;
   const brand =
@@ -658,10 +755,11 @@ async function upgradeStory(db: Client, row: StoryRow) {
 
   const siblings = await getSiblingModels(db, row, brand);
   const variants = await getVariants(db, row.entityId);
+  const nibTags = await getNibTags(db, row.entityId);
   return {
     title: titleFor(row, spec),
     summary: modelSummary(row, spec, brand),
-    bodyMd: modelBody(row, spec, brand, siblings, variants, sources),
+    bodyMd: modelBody(row, spec, brand, siblings, variants, sources, nibTags),
   };
 }
 
@@ -688,7 +786,9 @@ async function main() {
       BAD_COPY_PATTERN.test(update.bodyMd);
 
     if (badOutput) {
-      console.warn(`Skip ${row.slug}: generated text still contains bad copy`);
+      console.warn(
+        `Skip ${row.slug}: generated text still contains bad copy (${badCopyMatches(update).join(", ")})`,
+      );
       continue;
     }
 

@@ -179,8 +179,13 @@ async function ExhibitSectionCard({
 
       {sources.length > 0 && (
         <div className="mt-5 border-t pt-4 border-[var(--color-border-light)]">
-          <h3 className="mb-3 text-sm font-semibold">来源</h3>
-          <SourceCards sources={sources} />
+          <h3
+            className="mb-2 text-xs font-medium"
+            style={{ color: "var(--color-ink-muted)" }}
+          >
+            来源
+          </h3>
+          <SourceCards sources={sources} variant="compact" />
         </div>
       )}
     </section>

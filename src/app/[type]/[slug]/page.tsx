@@ -583,12 +583,12 @@ export default async function EntityPage({ params }: EntityPageProps) {
           {sidebarSources.length > 0 && (
             <section id="sources" className="mb-6">
               <h3
-                className="text-sm font-semibold mb-3"
-                style={{ color: "var(--color-ink)" }}
+                className="text-xs font-medium mb-2"
+                style={{ color: "var(--color-ink-muted)" }}
               >
-                来源卡片
+                来源
               </h3>
-              <SourceCards sources={sidebarSources} />
+              <SourceCards sources={sidebarSources} variant="compact" />
             </section>
           )}
 
