@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { TimelineEventRecord } from "@/lib/library";
-import { cleanPublicText } from "@/lib/publicText";
+import { cleanPublicText, displayPublicSourceTitle } from "@/lib/publicText";
 import { StatusBadge } from "./StatusBadge";
 
 const EVENT_LABELS: Record<string, string> = {
@@ -27,7 +27,16 @@ export function Timeline({
   >;
   compact?: boolean;
 }) {
-  if (events.length === 0) {
+  const visibleEvents = events
+    .map((event) => ({
+      event,
+      title: cleanPublicText(event.title),
+      description: cleanPublicText(event.description),
+      sourceTitle: displayPublicSourceTitle(event.source_title),
+    }))
+    .filter(({ title }) => title);
+
+  if (visibleEvents.length === 0) {
     return (
       <div
         className="rounded-xl border p-4 text-sm"
@@ -47,9 +56,7 @@ export function Timeline({
       className="relative space-y-4 border-l pl-5"
       style={{ borderColor: "var(--color-border)" }}
     >
-      {events.map((event) => {
-        const description = cleanPublicText(event.description);
-
+      {visibleEvents.map(({ event, title, description, sourceTitle }) => {
         return (
           <li key={event.id} className="relative">
             <span
@@ -89,10 +96,10 @@ export function Timeline({
                   >
                     {event.entity_name}
                   </Link>
-                  <span> · {event.title}</span>
+                  <span> · {title}</span>
                 </>
               ) : (
-                event.title
+                title
               )}
             </h3>
             {description && (
@@ -109,7 +116,7 @@ export function Timeline({
                 className="mt-1 inline-flex text-xs ink-underline"
                 style={{ color: "var(--color-ink-muted)" }}
               >
-                来源：{event.source_title}
+                来源：{sourceTitle}
               </Link>
             )}
           </li>

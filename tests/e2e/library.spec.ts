@@ -41,7 +41,9 @@ const REPLACED_DETAIL_COPY_PATTERN =
   /^把|放进|拆成|做成|核验|说法待|来源边界|资料边界|档案残片|整理成|当作|写成|换成|分开|放在一起读|线索|经验|luxury|context|Wahl\/Eversharp|^\d{4}\s*年/;
 
 async function expectNoPublicInternalCopy(page: Page) {
-  const pageSections = await page.locator("#story, #archive").allInnerTexts();
+  const pageSections = await page
+    .locator("#story, #archive, #timeline, #sources")
+    .allInnerTexts();
   const bodyText =
     pageSections.length > 0
       ? pageSections.join("\n")
