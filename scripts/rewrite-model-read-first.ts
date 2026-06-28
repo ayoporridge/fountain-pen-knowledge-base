@@ -32,7 +32,7 @@ type SourceRow = {
 };
 
 const INTERNAL_COPY =
-  /待核验|资料补证|研究队列|待拆分|待重分类|当前草稿|待补来源|资料边界|来源边界|待合并|待归因|方便读者确认|公开来源没有直接支撑|未由来源支撑|写成确定事实|可以先放在|currently needs|verified facts|research-queue|brand[- ]?generic|Research index/i;
+  /待核验|资料补证|研究队列|待拆分|待重分类|当前草稿|待补来源|资料边界|来源边界|待合并|待归因|方便读者确认|公开来源没有直接支撑|未由来源支撑|写成确定事实|可以先放在|currently needs|verified facts|research-queue|brand[- ]?generic|Research index|identity pending|分开阅读|重命名|可能应拆|制造或品牌语境|页面只/i;
 
 const GENERIC_VALUES = new Set([
   "",
@@ -47,6 +47,12 @@ const GENERIC_VALUES = new Set([
   "重量",
   "取决于搭载笔款",
   "不适合按单一笔款填写",
+  "产地/版本",
+  "笔尖规格",
+  "笔尖类型",
+  "上墨方式",
+  "笔身材质",
+  "现代铝合金支线年份",
 ]);
 
 const CURATED_NOTES: Record<string, string[]> = {
@@ -60,7 +66,7 @@ const CURATED_NOTES: Record<string, string[]> = {
   ],
   "万宝龙-montblanc-大班149-meisterst-ck": [
     "Meisterstuck 149 是万宝龙最有代表性的“大班”钢笔之一。它的辨识度来自雪峰标识、雪茄形笔身、大尺寸金尖和活塞上墨，也来自它长期被放在商务礼品、签字笔和收藏体系中讨论。读这支笔时，不宜只把它看成一支昂贵钢笔；它同时是一种品牌符号。",
-    "149 的使用体验通常和“大尺寸”“重心”“大笔尖”联系在一起：握持空间充足，视觉仪式感强，长时间书写是否舒服则取决于手型和对笔身粗细的接受程度。它的故事性很强，既有 Meisterstuck 系列的品牌历史，也有大量版本、年代和笔尖差异形成的收藏语境。",
+    "149 的使用体验通常和“大尺寸”“重心”“大笔尖”联系在一起：握持空间充足，视觉仪式感强，长时间书写是否舒服则取决于手型和对笔身粗细的接受程度。它的故事性很强，既有 Meisterstuck 系列的品牌历史，也有大量版本、年代和笔尖差异形成的收藏体系。",
   ],
   "派克-parker-51-经典-vintage": [
     "Parker 51 是二十世纪钢笔史里绕不开的经典型号。它的标志不是外露大金尖，而是暗尖、流线型笔帽和接近现代书写工具的克制外形。正因为这种设计，它在老派钢笔和现代日用笔之间搭了一座桥：外观低调，结构却很有时代特征。",
@@ -119,6 +125,11 @@ function clean(value: unknown) {
     .replace(/Research index:\s*/gi, "")
     .replace(/public[- ]web research index/gi, "公开资料")
     .replace(/^Research index$/gi, "公开资料")
+    .replace(/\bidentity pending\b/gi, "")
+    .replace(/；?\s*需[^，。；]*[核复][^，。；]*/g, "")
+    .replace(/；?\s*需[^，。；]*$/g, "")
+    .replace(/线索/g, "")
+    .replace(/语境/g, "")
     .replace(/（）|\(\)|（\）/g, "")
     .replace(/([\u4e00-\u9fff])\s+([\u4e00-\u9fff])/g, "$1$2")
     .replace(/\s+/g, " ")
@@ -140,10 +151,41 @@ function join(items: string[], limit = 4) {
   return [...new Set(items.map(usable).filter(Boolean))].slice(0, limit).join("、");
 }
 
+function phraseOrigin(value: string) {
+  return value
+    .replace(/（）|\(\)/g, "")
+    .replace(/\s*制造或品牌背景\s*/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function originContext(value: string) {
+  if (!value) return "";
+  if (/品牌|产品线|版本|产地|等|\/|、/.test(value)) {
+    return `与${value}相关`;
+  }
+  return `与${value}市场或生产背景相关`;
+}
+
+function publicField(label: string, value: unknown) {
+  const text = usable(value);
+  if (!text) return "";
+  if (label === "年份" && !/\d{3,4}/.test(text)) return "";
+  if (/需|核验|复核|pending|待/.test(text)) return "";
+  return text;
+}
+
 function sourceLabel(sources: SourceRow[]) {
   const official = sources.filter(
     (source) =>
       source.sourceType === "official" || source.itemType.startsWith("official"),
+  );
+  const retailer = sources.filter(
+    (source) =>
+      source.sourceType === "retailer" ||
+      /retailer|product_page|commerce|store|shop/i.test(
+        `${source.sourceName} ${source.sourceType} ${source.itemType}`,
+      ),
   );
   const community = sources.filter((source) =>
     /reddit|forum|review|blog|community/i.test(
@@ -151,11 +193,18 @@ function sourceLabel(sources: SourceRow[]) {
     ),
   );
   const reference = sources.filter(
-    (source) => !official.includes(source) && !community.includes(source),
+    (source) =>
+      !official.includes(source) &&
+      !retailer.includes(source) &&
+      !community.includes(source),
   );
 
   const officialNames = join(
     official.map((source) => source.sourceName || source.title),
+    2,
+  );
+  const retailerNames = join(
+    retailer.map((source) => source.sourceName || source.title),
     2,
   );
   const communityNames = join(
@@ -169,6 +218,7 @@ function sourceLabel(sources: SourceRow[]) {
 
   const parts = [
     officialNames ? `官方资料（${officialNames}）` : "",
+    retailerNames ? `零售或图库页面（${retailerNames}）` : "",
     communityNames ? `社区讨论或评测（${communityNames}）` : "",
     referenceNames ? `资料索引（${referenceNames}）` : "",
   ].filter(Boolean);
@@ -189,7 +239,7 @@ function fieldList(row: PenRow) {
     ["价位", row.priceRange],
   ]
     .map(([label, value]) => {
-      const text = usable(value);
+      const text = publicField(label, value);
       return text ? `${label}：${text}` : "";
     })
     .filter(Boolean);
@@ -237,47 +287,56 @@ function reputationParagraph(row: PenRow, sources: SourceRow[]) {
   const name = displayName(row.name);
 
   if (labels) {
-    return `从已收录资料看，${name} 的公开信息主要来自${labels}。阅读评价时可以把“规格表”和“长期使用反馈”分开看：前者帮助确认版本、材料和上墨方式，后者才更接近真实手感、品控差异和维护成本。`;
+    return `${name} 的公开信息主要来自${labels}。这些资料的价值不一样：官方页面适合确认名称、版本和结构，零售页面适合看实物图、尺寸和在售状态，评测或论坛更能反映长期书写、供墨、握持和维护中的细节。把这些来源合在一起读，比只看一张商品图或一段二手评价更可靠。`;
   }
 
-  return `${name} 的可核对资料还不算集中，因此阅读时更适合把它当作一个产品入口：先确认品牌、外观、笔尖和上墨方式，再把电商图、目录图、评测和用户实拍放在一起比较。`;
+  return `${name} 的公开资料较分散，最值得留意的是实物图、笔帽刻字、笔尖形态、上墨结构和包装说明。对这种信息密度不高的笔，这些细节通常比转述性的“好写”或“稀有”更能判断版本，也更能避免把相近型号混在一起。`;
 }
 
 function buildStory(row: PenRow, sources: SourceRow[]) {
   const name = displayName(row.name);
   const brand = row.brandName ? displayName(row.brandName) : "";
   const series = usable(row.seriesName);
-  const year = usable(row.releaseYear);
-  const origin = usable(row.originCountry);
+  const year = publicField("年份", row.releaseYear);
+  const origin = phraseOrigin(usable(row.originCountry));
   const fields = fieldList(row);
   const curated = CURATED_NOTES[row.slug] || [];
+  const brandMention =
+    brand && !name.toLocaleLowerCase().includes(brand.toLocaleLowerCase())
+      ? `来自 ${brand}`
+      : brand
+        ? `属于 ${brand} 体系`
+        : "";
+  const sparseEntry = fields.length <= 2 && !series && brand;
 
   const contextParts = [
-    brand ? `${brand} 的产品线` : "钢笔谱系",
-    series && !name.includes(series) ? `${series} 系列` : "",
-    year ? `${year} 年前后` : "",
-    origin ? `${origin} 制造或品牌语境` : "",
+    brandMention,
+    series && !name.includes(series) ? `归入 ${series} 系列` : "",
+    year ? `在 ${year} 年前后出现` : "",
+    originContext(origin),
   ].filter(Boolean);
-  const contextText = contextParts.join("、") || "钢笔用途和外观设计";
+  const contextText = contextParts.join("，");
 
   const intro =
     curated[0] ||
-    `${name} 可以从${contextText}这个角度进入。它不是只看价格或外观就能判断的型号；更有用的读法，是把品牌背景、笔尖、上墨方式、材料和实际使用场景放在一起看。`;
+    (sparseEntry
+      ? `${name} 更适合作为 ${brand} 的品牌或系列总览来读，而不是只按单一在售型号理解。它的重点在于品牌、笔尖、外观细节和实际使用场景如何组合：如果只是日常书写，可靠性和维护便利性更重要；如果是收藏或辨认旧款，刻字、笔帽、笔尖形态和包装信息会更有价值。`
+      : `${name}${contextText ? ` ${contextText}` : ""}，是钢笔谱系中值得单独辨认的一支。读它时，不必只盯着某个参数，而要看外观、笔尖、上墨方式、材料和日常使用场景如何配合。对普通用户来说，这些信息决定了它更像随身工具、学生用笔、长写笔，还是偏收藏和展示的型号。`);
 
   const specs =
     fields.length > 0
-      ? `这支笔最值得先看的硬信息是 ${join(fields, 7)}。这些信息能帮助读者快速判断它偏向随身日用、长时间书写、收藏展示，还是作为某种上墨机制或笔尖体系的代表。`
-      : `这支笔目前更适合从外观、品牌、笔尖和上墨方式进入。没有稳定规格时，读者应优先观察产品实拍、笔帽刻字、笔尖形态和包装目录，因为这些细节比二手转述更能区分版本。`;
+      ? `型号档案里最有用的几项是：${join(fields, 7)}。这些信息放在一起看，能说明它的基本性格：笔尖影响线条和纸面反馈，上墨方式决定储墨量和清洗难度，材料与尺寸则影响握持、重量和长期使用痕迹。`
+      : `这个条目的稳定规格有限，因此更适合从外观、品牌、笔尖和上墨方式来认识。遇到资料稀少的型号，实物照片、笔帽刻字、笔尖造型和包装目录往往比转述更有用，也更能区分相近版本。`;
 
   const design =
     curated[1] ||
-    `设计上，${name} 的看点不只在单个参数，而在这些参数组合出来的使用性格。${writingFeel(row)}如果你正在考虑购买或收藏，最需要对照的是自己的握笔姿势、常用纸张、写字大小和是否愿意维护复杂上墨结构。`;
+    `${name} 的使用体验要放到具体场景里判断。${writingFeel(row)}如果你正在考虑购买或收藏，建议把自己的握笔姿势、常用纸张、写字大小和维护意愿放在前面：同一支笔在短签名、课堂笔记、手账和长文书写里的表现可能完全不同。`;
 
   const reputation = reputationParagraph(row, sources);
 
   const story =
     curated[2] ||
-    `如果你关心销量、名人使用或特殊故事，最可靠的做法是把广告、目录、访谈和长期评测对应起来；在缺少材料时，不把传闻当成核心判断。对普通读者来说，更实用的判断方式是看它在同品牌相邻型号中的位置：如果它强调大容量、金尖或特殊材料，就适合和同价位的日用旗舰比较；如果它强调便携或入门价格，就应重点看维护成本和长期可靠性。`;
+    `关于销量、名人使用或特殊故事，可靠资料越多，越能判断它是否只是普通商品，还是在某个品牌阶段、材料实验或书写潮流中有特殊位置。缺少可靠来源时，传闻不宜当成卖点。更实用的比较方式，是看它在同品牌相邻型号中的位置：强调大容量、金尖或特殊材料的型号，适合和同价位日用旗舰比较；强调便携或入门价格的型号，则更应该看长期可靠性、耗材便利性和维修成本。`;
 
   return [intro, specs, design, reputation, story].join("\n\n");
 }
