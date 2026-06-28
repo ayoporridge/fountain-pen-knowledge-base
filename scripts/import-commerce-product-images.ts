@@ -7,6 +7,12 @@ const LIMIT_ARG = process.argv.find((arg) => arg.startsWith("--limit="));
 const LIMIT = LIMIT_ARG ? Number(LIMIT_ARG.split("=")[1]) : Number.POSITIVE_INFINITY;
 const SLUG_ARG = process.argv.find((arg) => arg.startsWith("--slug="));
 const ONLY_SLUG = SLUG_ARG ? SLUG_ARG.slice("--slug=".length) : "";
+const SLUGS_ARG = process.argv.find((arg) => arg.startsWith("--slugs="));
+const ONLY_SLUGS = new Set(
+  (SLUGS_ARG ? SLUGS_ARG.slice("--slugs=".length).split(",") : [])
+    .map((slug) => slug.trim())
+    .filter(Boolean),
+);
 const USER_AGENT =
   "Mozilla/5.0 fountain-pen-graph-library/0.1 commerce-product-image-metadata";
 
@@ -73,6 +79,36 @@ const SITES: CommerceSite[] = [
     name: "TSAMSA",
     searchUrl: (query) => `https://tsamsa.com.bd/search?q=${encodeURIComponent(query)}`,
   },
+  {
+    id: "penboutique",
+    name: "Pen Boutique",
+    searchUrl: (query) => `https://www.penboutique.com/search?q=${encodeURIComponent(query)}`,
+  },
+  {
+    id: "endlesspens",
+    name: "EndlessPens",
+    searchUrl: (query) => `https://endlesspens.com/search?q=${encodeURIComponent(query)}`,
+  },
+  {
+    id: "vanness",
+    name: "Vanness Pens",
+    searchUrl: (query) => `https://vanness1938.com/search?q=${encodeURIComponent(query)}`,
+  },
+  {
+    id: "atlas",
+    name: "Atlas Stationers",
+    searchUrl: (query) => `https://www.atlasstationers.com/search?q=${encodeURIComponent(query)}`,
+  },
+  {
+    id: "truphae",
+    name: "Truphae",
+    searchUrl: (query) => `https://www.truphaeinc.com/search?q=${encodeURIComponent(query)}`,
+  },
+  {
+    id: "pensachi",
+    name: "Pensachi",
+    searchUrl: (query) => `https://www.pensachi.com/search?q=${encodeURIComponent(query)}`,
+  },
 ];
 
 const STOPWORDS = new Set([
@@ -116,6 +152,12 @@ const STOPWORDS = new Set([
 
 const BAD_IMAGE_PATTERN =
   /logo|wordmark|ogp|ogimage|icon|favicon|sprite|placeholder|avatar|payment|banner|menu|navi_|header|search|footer|sns|pinterest|facebook|instagram|button|arrow|spacer|pixel|loading|calendar|cart|badge|swatch|newsletter|converter|refill|accessory|apps\.js|core\.js|hover-intent|shopifycloud/i;
+
+const COMMERCE_SKIP_SLUGS = new Set([
+  // PNB-13000 is also used on regular #3776 listings; require a source that
+  // explicitly identifies the Fuji Shunkei edition before importing.
+  "白金-platinum-富士旬景pnb-13000",
+]);
 
 function getClient() {
   if (process.env.TURSO_DATABASE_URL) {
@@ -213,9 +255,20 @@ function modelTokens(row: PenRow) {
     .slice(0, 10);
 }
 
+function hasAliasModelName(row: PenRow) {
+  const raw = `${row.name} ${row.seriesName || ""}`;
+  return /\/|identity pending|身份|分开|待定/i.test(raw);
+}
+
 function latinQuery(row: PenRow) {
   const required = requiredModelHits(row);
-  const parts = [...brandTokens(row), ...(required.length > 0 ? required : modelTokens(row))]
+  const modelParts =
+    required.length > 0
+      ? hasAliasModelName(row)
+        ? required.slice(0, 1)
+        : required
+      : modelTokens(row);
+  const parts = [...brandTokens(row), ...modelParts]
     .filter((word) => /^[a-z0-9]+$/i.test(word) || /^\d+$/.test(word))
     .filter((word) => !["fp", "ef", "f", "m", "b", "14k", "18k", "21k"].includes(word));
   if (parts.length < 2) return "";
@@ -235,7 +288,8 @@ function requiredModelHits(row: PenRow) {
 function tokenMatches(value: string, token: string) {
   const normalized = normalizeText(value);
   if (/^(?:[a-z]\d{2,}[a-z]?|\d{2,}[a-z]?|[a-z]{1,2})$/.test(token)) {
-    return normalized.split(/\s+/).includes(token);
+    const words = normalized.split(/\s+/);
+    return words.includes(token) || words.includes(`e${token}`);
   }
   return normalized.includes(token);
 }
@@ -246,7 +300,10 @@ function matchesProduct(row: PenRow, value: string) {
   const required = requiredModelHits(row);
   const brandHit = brands.length === 0 || brands.some((token) => tokenMatches(text, token));
   const modelHit =
-    required.length > 0 && required.every((token) => tokenMatches(text, token));
+    required.length > 0 &&
+    (hasAliasModelName(row)
+      ? tokenMatches(text, required[0])
+      : required.every((token) => tokenMatches(text, token)));
   return brandHit && modelHit;
 }
 
@@ -541,6 +598,7 @@ async function main() {
   }
   let pens = await getMissingPens(db);
   if (ONLY_SLUG) pens = pens.filter((pen) => pen.slug === ONLY_SLUG);
+  if (ONLY_SLUGS.size > 0) pens = pens.filter((pen) => ONLY_SLUGS.has(pen.slug));
   let imported = 0;
   let skipped = 0;
   let failed = 0;
@@ -551,6 +609,11 @@ async function main() {
 
   for (const pen of pens) {
     if (imported >= LIMIT) break;
+    if (COMMERCE_SKIP_SLUGS.has(pen.slug)) {
+      skipped += 1;
+      console.log(`- skip ${pen.slug}: manual source required`);
+      continue;
+    }
     const query = latinQuery(pen);
     if (!query) {
       skipped += 1;
