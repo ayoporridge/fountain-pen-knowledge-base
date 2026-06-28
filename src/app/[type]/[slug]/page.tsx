@@ -344,17 +344,6 @@ export default async function EntityPage({ params }: EntityPageProps) {
 
   const Icon = TYPE_ICONS[entityType] || PenNib;
   const hasGraph = ["brand", "pen"].includes(entityType) || links.length > 0;
-  const diagramCount =
-    entityType === "pen"
-      ? Number(
-          (
-            (await queryOne(
-              "SELECT COUNT(*) as cnt FROM diagrams WHERE entity_id = ? OR entity_id IS NULL",
-              [entity.id],
-            )) as { cnt: number } | undefined
-          )?.cnt || 0,
-        )
-      : 0;
   const sectionNavItems = [
     ["brand", "pen"].includes(entityType)
       ? {
@@ -368,9 +357,6 @@ export default async function EntityPage({ params }: EntityPageProps) {
       ? { href: "#story", label: "故事" }
       : null,
     entityType === "brand" ? { href: "#timeline", label: "时间线" } : null,
-    entityType === "pen" && diagramCount > 0
-      ? { href: "#diagrams", label: "图示" }
-      : null,
     hasGraph ? { href: "#graph", label: "图谱" } : null,
     ["brand", "pen"].includes(entityType) || sidebarSources.length > 0
       ? { href: "#sources", label: "来源" }

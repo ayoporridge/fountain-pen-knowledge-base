@@ -66,6 +66,7 @@ const ITEM_TYPE_LABELS: Record<string, string> = {
   site_original_image: "站内原创图",
   specialist_article: "专题文章",
   technical_reference: "技术资料",
+  video_review: "视频评测",
   wikidata_item: "Wikidata 条目",
 };
 

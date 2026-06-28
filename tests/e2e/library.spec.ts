@@ -203,9 +203,10 @@ test.describe("Library smoke flow", () => {
 
     const sectionNav = page.getByRole("navigation", { name: "词条章节" });
     await expect(sectionNav).toBeVisible();
-    for (const label of ["档案", "故事", "图示", "图谱", "来源"]) {
+    for (const label of ["档案", "故事", "图谱", "来源"]) {
       await expect(sectionNav.getByRole("link", { name: label })).toBeVisible();
     }
+    await expect(sectionNav.getByRole("link", { name: "图示" })).toHaveCount(0);
   });
 
   test("article summaries strip markdown import fragments", async ({
@@ -1536,14 +1537,16 @@ test.describe("Library smoke flow", () => {
     ]);
   });
 
-  test("model archive shows diagrams and sources without evidence cards", async ({
+  test("model archive shows specs and sources without duplicate diagram or evidence cards", async ({
     page,
   }) => {
     await expectLibraryPage(page, "/pen/pilot-custom-823", [
       "型号档案",
-      "真空上墨机制",
+      "实物图",
       "来源",
     ]);
+    await expect(page.getByRole("heading", { name: "图示" })).toHaveCount(0);
+    await expect(page.getByText("真空上墨机制")).toHaveCount(0);
     await expect(page.getByText("事实与证据")).toHaveCount(0);
     await expect(page.getByText("版本与变体")).toHaveCount(0);
   });
@@ -1556,10 +1559,11 @@ test.describe("Library smoke flow", () => {
       "Professional Gear",
       "21K 或 14K",
       "平顶外形和写乐笔尖反馈",
-      "Sailor Pro Gear 系列关系示意",
+      "实物图",
       "来源",
       "Sailor official site",
     ]);
+    await expect(page.getByRole("heading", { name: "图示" })).toHaveCount(0);
   });
 
   test("pen detail prioritizes the model archive and product photo", async ({

@@ -1,10 +1,8 @@
-import { Blueprint, Books, PenNib } from "@phosphor-icons/react/dist/ssr";
+import { Books, PenNib } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import Link from "next/link";
 import { MarkdownRenderer } from "@/components/MarkdownRenderer";
 import {
-  getCitationsForTargets,
-  getDiagramsForEntity,
   getEntityAliases,
   getEntityExternalIds,
   getEntityReferences,
@@ -13,17 +11,15 @@ import {
   getStoriesForEntity,
 } from "@/lib/library";
 import { cleanPublicText, displayPublicSourceName } from "@/lib/publicText";
-import { DiagramRenderer } from "./DiagramRenderer";
 import { IdentifierPanel } from "./IdentifierPanel";
 import { SourceCards } from "./SourceCards";
 import { StatusBadge } from "./StatusBadge";
 
 export async function ModelArchive({ entityId }: { entityId: string }) {
-  const [spec, stories, diagrams, sources, aliases, externalIds, productImage] =
+  const [spec, stories, sources, aliases, externalIds, productImage] =
     await Promise.all([
       getModelSpec(entityId),
       getStoriesForEntity(entityId),
-      getDiagramsForEntity(entityId),
       getEntityReferences(entityId, 6),
       getEntityAliases(entityId),
       getEntityExternalIds(entityId),
@@ -31,13 +27,6 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
     ]);
   const story =
     stories.find((item) => item.story_type === "model_story") || stories[0];
-  const featuredDiagrams = diagrams.slice(0, 2);
-  const [diagramCitations] = await Promise.all([
-    getCitationsForTargets(
-      "diagram",
-      featuredDiagrams.map((diagram) => diagram.id),
-    ),
-  ]);
   const specFields = spec
     ? [
         [
@@ -199,24 +188,6 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
       </div>
 
       <IdentifierPanel aliases={aliases} externalIds={externalIds} />
-
-      {featuredDiagrams.length > 0 && (
-        <div id="diagrams" className="space-y-3">
-          <div className="flex items-center gap-2">
-            <Blueprint size={18} style={{ color: "var(--color-accent)" }} />
-            <h2 className="text-lg font-semibold">图示</h2>
-          </div>
-          {featuredDiagrams.map((diagram) => (
-            <DiagramRenderer
-              key={diagram.id}
-              diagram={diagram}
-              citations={diagramCitations.filter(
-                (citation) => citation.target_id === diagram.id,
-              )}
-            />
-          ))}
-        </div>
-      )}
 
       <div
         id="sources"
