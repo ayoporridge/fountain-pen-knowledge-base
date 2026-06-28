@@ -138,8 +138,8 @@ function normalizeText(value: string) {
   }
   return decoded
     .toLowerCase()
+    .replace(/[’']s\b/g, "")
     .replace(/[’']/g, "")
-    .replace(/s\b/g, "")
     .replace(/[^\p{L}\p{N}]+/gu, " ")
     .replace(/\s+/g, " ")
     .trim();
