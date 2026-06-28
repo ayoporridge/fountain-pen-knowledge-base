@@ -9,7 +9,6 @@ import { MarkdownRenderer } from "@/components/MarkdownRenderer";
 import {
   getBrandRepresentativeModels,
   getCitationsForTarget,
-  getClaimsForEntity,
   getEntityAliases,
   getEntityExternalIds,
   getEntityReferences,
@@ -18,7 +17,6 @@ import {
 } from "@/lib/library";
 import { cleanPublicText } from "@/lib/publicText";
 import { CitationList } from "./CitationList";
-import { ClaimCards } from "./ClaimCards";
 import { IdentifierPanel } from "./IdentifierPanel";
 import { SourceCards } from "./SourceCards";
 import { StatusBadge } from "./StatusBadge";
@@ -31,7 +29,7 @@ export async function BrandMuseum({
   entityId: string;
   attrs: Record<string, string>;
 }) {
-  const [stories, timeline, models, sources, aliases, externalIds, claims] =
+  const [stories, timeline, models, sources, aliases, externalIds] =
     await Promise.all([
       getStoriesForEntity(entityId),
       getTimelineForEntity(entityId, 10),
@@ -39,7 +37,6 @@ export async function BrandMuseum({
       getEntityReferences(entityId, 6),
       getEntityAliases(entityId),
       getEntityExternalIds(entityId),
-      getClaimsForEntity(entityId, 8),
     ]);
   const story = stories[0];
   const storyCitations = story
@@ -132,8 +129,6 @@ export async function BrandMuseum({
       </div>
 
       <IdentifierPanel aliases={aliases} externalIds={externalIds} />
-
-      <ClaimCards claims={claims} />
 
       <div
         id="timeline"

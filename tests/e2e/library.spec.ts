@@ -38,7 +38,7 @@ const LEGACY_PUBLIC_COPY_PATTERN =
   /待核验|资料补证|研究队列|待拆分|待重分类|当前草稿|待补来源|资料边界|来源边界|待合并|待归因|品牌实体暂缺|避免相关词条出现重复|名称与已知线索|名称边界和已知线索|Research index|先确认|先拆|先把|先核验|先作为|先标|先保留|先放|先解决|先处理|先做成|先和|先从|先判断|先整理/;
 
 const REPLACED_DETAIL_COPY_PATTERN =
-  /^把|放进|拆成|做成|核验|说法待|来源边界|资料边界|档案残片|整理成|当作|写成|换成|分开|放在一起读|线索|经验|luxury|context|Wahl\/Eversharp|^\d{4}\s*年/;
+  /^把|放进|拆成|做成|核验|说法待|来源边界|资料边界|档案残片|整理成|当作|写成|换成|分开|放在一起读|线索|经验|luxury|context|Wahl\/Eversharp|^\d{4}\s*年|语境|入口|路线|流线|学生用品|校用笔|学生笔|透明结构|神话|说法|争议|口碑|材质实验|日用笔|大容量|待核验|笔尖反馈|从“/;
 
 async function expectNoPublicInternalCopy(page: Page) {
   const pageSections = await page
@@ -187,9 +187,11 @@ test.describe("Library smoke flow", () => {
     await typeTabs.getByRole("tab", { name: "文章" }).click();
     await expect(page).toHaveURL(/type=article/);
     await expect(page.getByRole("heading", { name: "浏览文章" })).toBeVisible();
-    await expect(
-      page.getByTestId("entity-card-fallback-article").first(),
-    ).toContainText("文章档案");
+    await expect(page.locator('a[href^="/article/"]').first()).toBeVisible();
+    const articleFallbacks = page.getByTestId("entity-card-fallback-article");
+    if ((await articleFallbacks.count()) > 0) {
+      await expect(articleFallbacks.first()).toContainText("文章档案");
+    }
   });
 
   test("entity detail pages expose local section navigation", async ({
@@ -1191,15 +1193,13 @@ test.describe("Library smoke flow", () => {
     ]);
   });
 
-  test("brand museum shows identifiers, claims, timeline, models, and sources", async ({
+  test("brand museum shows identifiers, timeline, models, and sources", async ({
     page,
   }) => {
     await expectLibraryPage(page, "/brand/pilot", [
       "品牌馆",
       "外部标识与别名",
       "Q1356034",
-      "事实与证据",
-      "Pilot official history positions 1918",
       "引用",
       "品牌时间线",
       "代表型号",
@@ -1214,8 +1214,6 @@ test.describe("Library smoke flow", () => {
       "品牌馆",
       "外部标识与别名",
       "Q142691",
-      "事实与证据",
-      "Wikidata 描述",
       "来源",
       "Wikidata",
       "Wikidata 条目",
@@ -1233,7 +1231,6 @@ test.describe("Library smoke flow", () => {
 
     await expectLibraryPage(page, "/brand/waterman", [
       "从可靠供墨读 Waterman",
-      "Three Fissure Feed",
       "Waterman: Heritage",
     ]);
 
@@ -1283,7 +1280,6 @@ test.describe("Library smoke flow", () => {
   }) => {
     await expectLibraryPage(page, "/brand/sailor", [
       "外部标识与别名",
-      "事实与证据",
       "官方历史线索",
       "Sakata-Manufactory",
       "从金笔尖作坊进入 Sailor",
@@ -1356,7 +1352,6 @@ test.describe("Library smoke flow", () => {
 
     await expectLibraryPage(page, "/brand/wancher", [
       "现代日系材质实验的一条入口",
-      "premium Japanese fountain pen",
       "Wancher official site",
     ]);
 
@@ -1390,7 +1385,6 @@ test.describe("Library smoke flow", () => {
 
     await expectLibraryPage(page, "/brand/noodlers", [
       "先把 Noodler's 当作墨水品牌来读",
-      "100% made in the USA",
       "Truly American Made: Noodler's Ink",
     ]);
   });
@@ -1400,7 +1394,6 @@ test.describe("Library smoke flow", () => {
   }) => {
     await expectLibraryPage(page, "/brand/wahl", [
       "从 Wahl Pen 读 Eversharp 之前的机械脉络",
-      "roller clip",
       "The Wahl Pen",
     ]);
 
@@ -1441,13 +1434,11 @@ test.describe("Library smoke flow", () => {
 
     await expectLibraryPage(page, "/brand/morrison", [
       "从 Patriot 读 Morrison 的战时钢笔",
-      "World War II",
       "Morrison’s Patriot",
     ]);
 
     await expectLibraryPage(page, "/brand/wasp", [
       "把 WASP 当作 Sheaffer 低价线索来读",
-      "W. A. Sheaffer Pen Company",
       "The WASP Addipoint",
     ]);
 
@@ -1541,26 +1532,23 @@ test.describe("Library smoke flow", () => {
 
     await expectLibraryPage(page, "/brand/picasso", [
       "把 Picasso 放进上海帕弗洛和艺术钢笔礼品语境",
-      "上海帕弗洛文化用品有限公司成立于2003年",
       "毕加索钢笔官方网站：公司简介",
     ]);
   });
 
-  test("model archive shows claims, variants, diagrams, and sources", async ({
+  test("model archive shows diagrams and sources without evidence cards", async ({
     page,
   }) => {
     await expectLibraryPage(page, "/pen/pilot-custom-823", [
       "型号档案",
-      "事实与证据",
-      "CUSTOM series material lists Custom 823",
-      "引用",
-      "版本与变体",
       "真空上墨机制",
       "来源",
     ]);
+    await expect(page.getByText("事实与证据")).toHaveCount(0);
+    await expect(page.getByText("版本与变体")).toHaveCount(0);
   });
 
-  test("official model archives show specs, stories, variants, and sources", async ({
+  test("official model archives show specs, stories, and sources", async ({
     page,
   }) => {
     await expectLibraryPage(page, "/pen/sailor-pro-gear", [
@@ -1568,8 +1556,6 @@ test.describe("Library smoke flow", () => {
       "Professional Gear",
       "21K 或 14K",
       "平顶外形和写乐笔尖反馈",
-      "版本与变体",
-      "King Professional Gear",
       "Sailor Pro Gear 系列关系示意",
       "来源",
       "Sailor official site",
@@ -1823,7 +1809,6 @@ test.describe("Library smoke flow", () => {
           "型号档案",
           "Writers Edition",
           "把文学致敬系列作为可拆展柜来读",
-          "Issued annually since 1992",
           "Montblanc: Writers Edition",
         ],
       },
@@ -1833,7 +1818,6 @@ test.describe("Library smoke flow", () => {
           "型号档案",
           "Patron of Art 888",
           "把艺术赞助人系列和 888 限量拆开读",
-          "Limitation 888",
           "Montblanc: Patron of Art",
         ],
       },

@@ -1,60 +1,38 @@
-import {
-  Blueprint,
-  Books,
-  GitBranch,
-  PenNib,
-} from "@phosphor-icons/react/dist/ssr";
+import { Blueprint, Books, PenNib } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import Link from "next/link";
 import { MarkdownRenderer } from "@/components/MarkdownRenderer";
 import {
-  getCitationsForTarget,
   getCitationsForTargets,
-  getClaimsForEntity,
   getDiagramsForEntity,
   getEntityAliases,
   getEntityExternalIds,
   getEntityReferences,
   getModelSpec,
-  getModelVariants,
   getPrimaryProductImage,
   getStoriesForEntity,
 } from "@/lib/library";
 import { cleanPublicText, displayPublicSourceName } from "@/lib/publicText";
-import { CitationList } from "./CitationList";
-import { ClaimCards } from "./ClaimCards";
 import { DiagramRenderer } from "./DiagramRenderer";
 import { IdentifierPanel } from "./IdentifierPanel";
 import { SourceCards } from "./SourceCards";
 import { StatusBadge } from "./StatusBadge";
 
 export async function ModelArchive({ entityId }: { entityId: string }) {
-  const [
-    spec,
-    variants,
-    stories,
-    diagrams,
-    sources,
-    aliases,
-    externalIds,
-    claims,
-    productImage,
-  ] = await Promise.all([
-    getModelSpec(entityId),
-    getModelVariants(entityId),
-    getStoriesForEntity(entityId),
-    getDiagramsForEntity(entityId),
-    getEntityReferences(entityId, 6),
-    getEntityAliases(entityId),
-    getEntityExternalIds(entityId),
-    getClaimsForEntity(entityId, 8),
-    getPrimaryProductImage(entityId),
-  ]);
+  const [spec, stories, diagrams, sources, aliases, externalIds, productImage] =
+    await Promise.all([
+      getModelSpec(entityId),
+      getStoriesForEntity(entityId),
+      getDiagramsForEntity(entityId),
+      getEntityReferences(entityId, 6),
+      getEntityAliases(entityId),
+      getEntityExternalIds(entityId),
+      getPrimaryProductImage(entityId),
+    ]);
   const story =
     stories.find((item) => item.story_type === "model_story") || stories[0];
   const featuredDiagrams = diagrams.slice(0, 2);
-  const [storyCitations, diagramCitations] = await Promise.all([
-    story ? getCitationsForTarget("story", story.id) : [],
+  const [diagramCitations] = await Promise.all([
     getCitationsForTargets(
       "diagram",
       featuredDiagrams.map((diagram) => diagram.id),
@@ -212,7 +190,6 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
         {story ? (
           <div className="reading-measure">
             <MarkdownRenderer content={story.body_md} />
-            <CitationList citations={storyCitations} />
           </div>
         ) : (
           <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
@@ -222,59 +199,6 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
       </div>
 
       <IdentifierPanel aliases={aliases} externalIds={externalIds} />
-
-      <ClaimCards claims={claims} />
-
-      <div
-        className="rounded-xl border p-5"
-        style={{
-          borderColor: "var(--color-border)",
-          backgroundColor: "var(--color-surface-raised)",
-        }}
-      >
-        <div className="mb-4 flex items-center gap-2">
-          <GitBranch size={18} style={{ color: "var(--color-accent)" }} />
-          <h2 className="text-lg font-semibold">版本与变体</h2>
-        </div>
-        {variants.length > 0 ? (
-          <div className="grid gap-2">
-            {variants.map((variant) => (
-              <div
-                key={variant.id}
-                className="rounded-lg border p-3"
-                style={{ borderColor: "var(--color-border-light)" }}
-              >
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-sm font-medium">
-                    {variant.variant_name}
-                  </span>
-                  {variant.release_year && (
-                    <span
-                      className="text-xs"
-                      style={{ color: "var(--color-ink-muted)" }}
-                    >
-                      {variant.release_year}
-                    </span>
-                  )}
-                  <StatusBadge status={variant.review_status} />
-                </div>
-                {cleanPublicText(variant.notes) && (
-                  <p
-                    className="mt-1 text-sm"
-                    style={{ color: "var(--color-ink-muted)" }}
-                  >
-                    {cleanPublicText(variant.notes)}
-                  </p>
-                )}
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
-            暂无可公开对照的版本与变体。
-          </p>
-        )}
-      </div>
 
       {featuredDiagrams.length > 0 && (
         <div id="diagrams" className="space-y-3">
