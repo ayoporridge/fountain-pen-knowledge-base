@@ -252,6 +252,9 @@ function absoluteUrl(raw: string, baseUrl: string) {
   const first = cleanHtml(raw).split(",")[0]?.trim().split(/\s+/)[0] || raw;
   try {
     const url = new URL(first.startsWith("//") ? `https:${first}` : first, baseUrl);
+    if (url.protocol === "http:" && url.hostname === "cdn.shopify.com") {
+      url.protocol = "https:";
+    }
     return url.toString();
   } catch {
     return "";
