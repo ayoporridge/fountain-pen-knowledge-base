@@ -23,6 +23,7 @@
     "import:official-model-diagrams": "tsx scripts/import-official-model-diagrams.ts",
     "import:warm-pen-atlas-media": "tsx scripts/import-warm-pen-atlas-media.ts",
     "import:official-product-images": "tsx scripts/import-official-product-images.ts",
+    "import:source-product-images": "tsx scripts/import-source-product-images.ts",
     "promote:product-media": "tsx scripts/promote-product-media.ts",
     "rewrite:model-read-first": "tsx scripts/rewrite-model-read-first.ts",
     "import:brand-completions": "tsx scripts/import-brand-completion-sources.ts",
