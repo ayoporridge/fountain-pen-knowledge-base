@@ -34,6 +34,9 @@ type SourceRow = {
 const INTERNAL_COPY =
   /待核验|资料补证|研究队列|待拆分|待重分类|当前草稿|待补来源|资料边界|来源边界|待合并|待归因|方便读者确认|公开来源没有直接支撑|未由来源支撑|写成确定事实|可以先放在|currently needs|verified facts|research-queue|brand[- ]?generic|Research index|identity pending|分开阅读|重命名|可能应拆|制造或品牌语境|页面只/i;
 
+const BANNED_TEMPLATE_COPY =
+  /使用体验要放到具体场景|公开信息主要来自|这些资料的价值不一样|关于销量、名人使用|更实用的比较方式|传闻不宜当成卖点|如果你正在考虑购买或收藏|不必只盯着某个参数|钢笔谱系中值得单独辨认的一支/;
+
 const GENERIC_VALUES = new Set([
   "",
   "型号",
@@ -164,71 +167,12 @@ function phraseOrigin(value: string) {
     .trim();
 }
 
-function originContext(value: string) {
-  if (!value) return "";
-  if (/品牌|产品线|版本|产地|等|\/|、/.test(value)) {
-    return `与${value}相关`;
-  }
-  return `与${value}市场或生产背景相关`;
-}
-
 function publicField(label: string, value: unknown) {
   const text = usable(value);
   if (!text) return "";
   if (label === "年份" && !/\d{3,4}/.test(text)) return "";
   if (/需|核验|复核|pending|待/.test(text)) return "";
   return text;
-}
-
-function sourceLabel(sources: SourceRow[]) {
-  const official = sources.filter(
-    (source) =>
-      source.sourceType === "official" || source.itemType.startsWith("official"),
-  );
-  const retailer = sources.filter(
-    (source) =>
-      source.sourceType === "retailer" ||
-      /retailer|product_page|commerce|store|shop/i.test(
-        `${source.sourceName} ${source.sourceType} ${source.itemType}`,
-      ),
-  );
-  const community = sources.filter((source) =>
-    /reddit|forum|review|blog|community/i.test(
-      `${source.sourceName} ${source.sourceType} ${source.itemType}`,
-    ),
-  );
-  const reference = sources.filter(
-    (source) =>
-      !official.includes(source) &&
-      !retailer.includes(source) &&
-      !community.includes(source),
-  );
-
-  const officialNames = join(
-    official.map((source) => source.sourceName || source.title),
-    2,
-  );
-  const retailerNames = join(
-    retailer.map((source) => source.sourceName || source.title),
-    2,
-  );
-  const communityNames = join(
-    community.map((source) => source.sourceName || source.title),
-    2,
-  );
-  const referenceNames = join(
-    reference.map((source) => source.sourceName || source.title),
-    2,
-  );
-
-  const parts = [
-    officialNames ? `官方资料（${officialNames}）` : "",
-    retailerNames ? `零售或图库页面（${retailerNames}）` : "",
-    communityNames ? `社区讨论或评测（${communityNames}）` : "",
-    referenceNames ? `资料索引（${referenceNames}）` : "",
-  ].filter(Boolean);
-
-  return parts.join("、");
 }
 
 function fieldList(row: PenRow) {
@@ -250,100 +194,152 @@ function fieldList(row: PenRow) {
     .filter(Boolean);
 }
 
-function writingFeel(row: PenRow) {
+function sentence(value: string) {
+  const text = clean(value).replace(/[。；，、\s]+$/g, "");
+  return text ? `${text}。` : "";
+}
+
+function featureList(row: PenRow) {
+  return [
+    usable(row.seriesName) ? `${usable(row.seriesName)} 系列` : "",
+    publicField("年份", row.releaseYear)
+      ? `${publicField("年份", row.releaseYear)} 年前后`
+      : "",
+    phraseOrigin(usable(row.originCountry)),
+    usable(row.nib) ? `${usable(row.nib)}笔尖` : "",
+    usable(row.fillSystem) ? `${usable(row.fillSystem)}上墨` : "",
+    usable(row.material),
+  ].filter(Boolean);
+}
+
+function identityParagraph(row: PenRow) {
+  const name = displayName(row.name);
+  const brand = row.brandName ? displayName(row.brandName) : "";
+  const features = featureList(row);
+  const relation =
+    brand && !name.toLocaleLowerCase().includes(brand.toLocaleLowerCase())
+      ? `${name} 是 ${brand} 体系下的钢笔型号`
+      : `${name} 是一个钢笔型号`;
+  const featureText =
+    features.length > 0
+      ? `目前可以确认的线索集中在${join(features, 5)}。`
+      : "公开字段较少时，品牌关系、外观照片和来源卡片是辨认它的主要入口。";
+
+  return `${relation}。${featureText}`;
+}
+
+function specParagraph(row: PenRow) {
+  const name = displayName(row.name);
+  const fields = fieldList(row);
+
+  if (fields.length === 0) {
+    return `${name} 的结构化规格还不完整，因此这页不把年份、材料、重量或价格写成确定结论。辨认这类条目时，最有用的信息通常是笔帽刻字、笔尖标识、上墨结构和包装目录。`;
+  }
+
+  const visibleFields = join(fields, 8);
+  return `${name} 的型号档案记录了${visibleFields}。这些字段能帮助读者先建立基本印象：笔尖决定线条和纸面反馈，上墨方式影响储墨量与清洗难度，材料、尺寸和重量则会改变握持与携带感。`;
+}
+
+function usageParagraph(row: PenRow) {
   const nib = usable(row.nib);
   const fill = usable(row.fillSystem);
   const material = usable(row.material);
+  const price = usable(row.priceRange);
   const parts: string[] = [];
 
   if (/14K|18K|21K|金尖|gold/i.test(nib)) {
     parts.push(
-      "金尖让它在纸面反馈和弹性上有更高期待，但真实软硬仍取决于尖号、年代和单支调校",
+      "金尖配置通常让读者更关注弹性、回馈和长期书写的稳定性",
     );
   } else if (/钢尖|steel/i.test(nib)) {
-    parts.push("钢尖通常更强调耐用、成本和日常维护，适合把重点放在稳定性和易用性上");
+    parts.push("钢尖配置把重点放在耐用、维护成本和日常可靠性");
   } else if (nib) {
-    parts.push(`笔尖信息可以从“${nib}”入手，重点看尖号、打磨和是否容易更换`);
+    parts.push(`笔尖栏写作“${nib}”，说明阅读时应重点看尖号、打磨和是否容易替换`);
   }
 
   if (/活塞|piston/i.test(fill)) {
-    parts.push("活塞上墨带来较好的储墨量，也让清洗和换墨比普通上墨器更需要耐心");
+    parts.push("活塞上墨通常带来更高储墨量，适合长写，但清洗换墨需要更多耐心");
   } else if (/真空|vacuum/i.test(fill)) {
-    parts.push("真空上墨的吸墨动作和大容量是主要卖点，长写时优势明显");
+    parts.push("真空上墨的优势在大容量和长时间连续书写");
   } else if (/墨囊|上墨器|converter|cartridge/i.test(fill)) {
-    parts.push("墨囊/上墨器结构更容易维护，适合频繁换墨或通勤携带");
+    parts.push("墨囊/上墨器结构方便清洗和换墨，也便于日常携带");
   } else if (fill) {
-    parts.push(`上墨方式是“${fill}”，会直接影响储墨量、清洗难度和外出使用习惯`);
+    parts.push(`上墨方式为“${fill}”，会影响储墨量、清洗难度和外出使用`);
   }
 
   if (/Makrolon|聚碳酸酯|树脂|赛璐璐|金属|不锈钢|黄铜|铝|木|漆/i.test(material)) {
-    parts.push(`笔身材料“${material}”决定了它的触感、重量和长期使用痕迹`);
+    parts.push(`笔身材料“${material}”会改变触感、重量和长期磨损痕迹`);
+  }
+
+  if (price) {
+    parts.push(`价位信息为“${price}”，适合和同品牌相近价格的型号放在一起比较`);
   }
 
   if (parts.length === 0) {
-    return "实际书写体验可以从握持粗细、笔尖反馈、供墨稳定性和清洗维护四件事判断；这些因素往往比型号名本身更影响日常使用。";
+    return "实际书写表现主要取决于握持粗细、笔尖反馈、供墨稳定性和维护便利性；在缺少完整规格时，这四项比型号名本身更能说明日常体验。";
   }
 
-  return `${parts.join("；")}。`;
+  return `${displayName(row.name)} 的日用性可以从这些结构入手：${parts.join("；")}。`;
 }
 
-function reputationParagraph(row: PenRow, sources: SourceRow[]) {
-  const labels = sourceLabel(sources);
+function comparisonParagraph(row: PenRow, sources: SourceRow[]) {
   const name = displayName(row.name);
+  const brand = row.brandName ? displayName(row.brandName) : "";
+  const names = join(
+    sources
+      .map((source) => source.sourceName || source.title)
+      .filter((source) => !/Public web research index|Research index/i.test(source)),
+    3,
+  );
+  const reference = names
+    ? `现有来源包括 ${names} 等资料，可用来核对名称、实物图和规格。`
+    : "现有来源有限时，这个条目更适合作为基础索引阅读。";
+  const scope = brand
+    ? `把它和 ${brand} 的相邻型号比较，最容易看清它在尺寸、笔尖、上墨和材料上的定位。`
+    : "把它和相同上墨方式、相近价位或相似外形的条目比较，最容易看清定位。";
 
-  if (labels) {
-    return `${name} 的公开信息主要来自${labels}。这些资料的价值不一样：官方页面适合确认名称、版本和结构，零售页面适合看实物图、尺寸和在售状态，评测或论坛更能反映长期书写、供墨、握持和维护中的细节。把这些来源合在一起读，比只看一张商品图或一段二手评价更可靠。`;
+  return `${reference}${scope}${name} 如果有多个版本，优先按实物图、笔尖刻字、包装和卖家标注区分。`;
+}
+
+function assertReaderReady(slug: string, body: string) {
+  const banned = body.match(BANNED_TEMPLATE_COPY);
+  if (banned) {
+    throw new Error(`Generated template copy for ${slug}: ${banned[0]}`);
   }
-
-  return `${name} 的公开资料较分散，最值得留意的是实物图、笔帽刻字、笔尖形态、上墨结构和包装说明。对这种信息密度不高的笔，这些细节通常比转述性的“好写”或“稀有”更能判断版本，也更能避免把相近型号混在一起。`;
 }
 
 function buildStory(row: PenRow, sources: SourceRow[]) {
   const name = displayName(row.name);
-  const brand = row.brandName ? displayName(row.brandName) : "";
   const series = usable(row.seriesName);
   const year = publicField("年份", row.releaseYear);
   const origin = phraseOrigin(usable(row.originCountry));
-  const fields = fieldList(row);
   const curated = CURATED_NOTES[row.slug] || [];
-  const brandMention =
-    brand && !name.toLocaleLowerCase().includes(brand.toLocaleLowerCase())
-      ? `来自 ${brand}`
-      : brand
-        ? `属于 ${brand} 体系`
-        : "";
-  const sparseEntry = fields.length <= 2 && !series && brand;
-
-  const contextParts = [
-    brandMention,
-    series && !name.includes(series) ? `归入 ${series} 系列` : "",
-    year ? `在 ${year} 年前后出现` : "",
-    originContext(origin),
-  ].filter(Boolean);
-  const contextText = contextParts.join("，");
 
   const intro =
     curated[0] ||
-    (sparseEntry
-      ? `${name} 更适合作为 ${brand} 的品牌或系列总览来读，而不是只按单一在售型号理解。它的重点在于品牌、笔尖、外观细节和实际使用场景如何组合：如果只是日常书写，可靠性和维护便利性更重要；如果是收藏或辨认旧款，刻字、笔帽、笔尖形态和包装信息会更有价值。`
-      : `${name}${contextText ? ` ${contextText}` : ""}，是钢笔谱系中值得单独辨认的一支。读它时，不必只盯着某个参数，而要看外观、笔尖、上墨方式、材料和日常使用场景如何配合。对普通用户来说，这些信息决定了它更像随身工具、学生用笔、长写笔，还是偏收藏和展示的型号。`);
+    sentence(
+      [
+        identityParagraph(row),
+        series && !name.includes(series) ? `它被归入 ${series} 系列` : "",
+        year ? `年代信息记录为 ${year}` : "",
+        origin ? `产地或品牌背景指向${origin}` : "",
+      ]
+        .filter(Boolean)
+        .join(" "),
+    );
 
   const specs =
-    fields.length > 0
-      ? `型号档案里最有用的几项是：${join(fields, 7)}。这些信息放在一起看，能说明它的基本性格：笔尖影响线条和纸面反馈，上墨方式决定储墨量和清洗难度，材料与尺寸则影响握持、重量和长期使用痕迹。`
-      : `这个条目的稳定规格有限，因此更适合从外观、品牌、笔尖和上墨方式来认识。遇到资料稀少的型号，实物照片、笔帽刻字、笔尖造型和包装目录往往比转述更有用，也更能区分相近版本。`;
+    curated[1] || specParagraph(row);
 
   const design =
-    curated[1] ||
-    `${name} 的使用体验要放到具体场景里判断。${writingFeel(row)}如果你正在考虑购买或收藏，建议把自己的握笔姿势、常用纸张、写字大小和维护意愿放在前面：同一支笔在短签名、课堂笔记、手账和长文书写里的表现可能完全不同。`;
-
-  const reputation = reputationParagraph(row, sources);
+    curated[2] || usageParagraph(row);
 
   const story =
-    curated[2] ||
-    `关于销量、名人使用或特殊故事，可靠资料越多，越能判断它是否只是普通商品，还是在某个品牌阶段、材料实验或书写潮流中有特殊位置。缺少可靠来源时，传闻不宜当成卖点。更实用的比较方式，是看它在同品牌相邻型号中的位置：强调大容量、金尖或特殊材料的型号，适合和同价位日用旗舰比较；强调便携或入门价格的型号，则更应该看长期可靠性、耗材便利性和维修成本。`;
+    curated[3] || comparisonParagraph(row, sources);
 
-  return [intro, specs, design, reputation, story].join("\n\n");
+  const body = [intro, specs, design, story].join("\n\n");
+  assertReaderReady(row.slug, body);
+  return body;
 }
 
 async function getPens(db: Client) {
@@ -413,7 +409,10 @@ async function main() {
     const title = `${displayName(pen.name)}：历史、设计与书写性格`;
     const summary = body.split(/\n\n/)[0].replace(/\*\*/g, "").slice(0, 180);
     minLength = Math.min(minLength, body.length);
-    const internalMatch = body.match(INTERNAL_COPY) || title.match(INTERNAL_COPY);
+    const internalMatch =
+      body.match(INTERNAL_COPY) ||
+      body.match(BANNED_TEMPLATE_COPY) ||
+      title.match(INTERNAL_COPY);
     if (internalMatch) {
       internalCopyCount += 1;
       console.log(`internal-copy? ${pen.slug}: ${internalMatch[0]}`);

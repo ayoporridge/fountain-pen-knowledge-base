@@ -27,6 +27,7 @@
     "import:source-product-images": "tsx scripts/import-source-product-images.ts",
     "promote:product-media": "tsx scripts/promote-product-media.ts",
     "rewrite:model-read-first": "tsx scripts/rewrite-model-read-first.ts",
+    "repair:detail-copy": "tsx scripts/repair-template-polluted-detail-content.ts",
     "import:brand-completions": "tsx scripts/import-brand-completion-sources.ts",
     "import:model-gap-sources": "tsx scripts/import-model-gap-sources.ts",
     "import:research-gap-sources": "tsx scripts/import-research-gap-sources.ts",
