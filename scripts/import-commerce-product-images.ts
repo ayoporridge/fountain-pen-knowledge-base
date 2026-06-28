@@ -63,6 +63,16 @@ const SITES: CommerceSite[] = [
     name: "Cult Pens",
     searchUrl: (query) => `https://cultpens.com/search?q=${encodeURIComponent(query)}`,
   },
+  {
+    id: "ttpen",
+    name: "TTpen",
+    searchUrl: (query) => `https://www.ttpen.com/search?q=${encodeURIComponent(query)}`,
+  },
+  {
+    id: "tsamsa",
+    name: "TSAMSA",
+    searchUrl: (query) => `https://tsamsa.com.bd/search?q=${encodeURIComponent(query)}`,
+  },
 ];
 
 const STOPWORDS = new Set([
@@ -189,7 +199,9 @@ function tokenize(value: string) {
 
 function brandTokens(row: PenRow) {
   const raw = row.brandName || row.name;
-  return [...new Set(tokenize(raw))].slice(0, 4);
+  return [...new Set(tokenize(raw))]
+    .map((word) => (word === "wingsung" ? "wing" : word))
+    .slice(0, 4);
 }
 
 function modelTokens(row: PenRow) {
@@ -311,14 +323,20 @@ function extractImages(html: string, pageUrl: string, row: PenRow) {
   const add = (raw: string, reason: string, score = 0) => {
     const url = absoluteUrl(raw, pageUrl);
     if (!url || BAD_IMAGE_PATTERN.test(url)) return;
+    if (normalizeText(url).includes("tsamsa pens")) return;
     if (!/\.(webp|jpe?g|png)(\?|$)/i.test(url)) return;
-    if (!matchesProduct(row, url)) return;
+    if (reason === "image-tag" && !matchesProduct(row, url)) return;
+    if (!matchesProduct(row, `${url} ${pageUrl}`)) return;
     const hitCount = requiredModelHits(row).filter((token) =>
-      tokenMatches(url, token),
+      tokenMatches(`${url} ${pageUrl}`, token),
     ).length;
     const candidate = {
       url,
-      score: score + hitCount * 4 + (url.includes("cdn.shopify.com") ? 2 : 0),
+      score:
+        score +
+        hitCount * 4 +
+        (url.includes("cdn.shopify.com") ? 2 : 0) +
+        (/\/product/i.test(url) ? 2 : 0),
       reason,
     };
     const existing = images.get(url);
