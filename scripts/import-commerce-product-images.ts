@@ -53,6 +53,19 @@ type BrokenCommerceMedia = {
   sourceUrl: string;
 };
 
+type ManualProductPage = {
+  slug: string;
+  siteId: string;
+  siteName: string;
+  homepageUrl: string;
+  sourceType: "retailer" | "blog" | "official";
+  itemType: string;
+  license: string;
+  title: string;
+  url: string;
+  imageUrl?: string;
+};
+
 const SITES: CommerceSite[] = [
   {
     id: "goldspot",
@@ -159,6 +172,264 @@ const COMMERCE_SKIP_SLUGS = new Set([
   "白金-platinum-富士旬景pnb-13000",
 ]);
 
+const MANUAL_PRODUCT_PAGES: ManualProductPage[] = [
+  {
+    slug: "百利金-pelikan-m1005-stresemann",
+    siteId: "makoba",
+    siteName: "Makoba",
+    homepageUrl: "https://makoba.com/",
+    sourceType: "retailer",
+    itemType: "retailer_product_page",
+    license: "copyrighted retailer product page",
+    title: "Pelikan M1005 Fountain Pen - Stresemann Special Edition",
+    url: "https://makoba.com/products/pelikan-m1005-fountain-pen-stresemann-special-edition",
+  },
+  {
+    slug: "白金-platinum-小流星pq200",
+    siteId: "awesomepens",
+    siteName: "AwesomePens",
+    homepageUrl: "https://awesomepens.co.uk/",
+    sourceType: "retailer",
+    itemType: "retailer_product_page",
+    license: "copyrighted retailer product page",
+    title: "Platinum Small Meteor PQ-200 Fountain Pen",
+    url: "https://awesomepens.co.uk/product/platinum-small-meteor-pq-200-fountain-pen/",
+  },
+  {
+    slug: "辉柏嘉-faber-castell-如恩-loom",
+    siteId: "penaddict",
+    siteName: "The Pen Addict",
+    homepageUrl: "https://www.penaddict.com/",
+    sourceType: "blog",
+    itemType: "review_article",
+    license: "copyrighted review article",
+    title: "Faber-Castell Loom Fountain Pen Review",
+    url: "https://www.penaddict.com/blog/faber-castell-loom-fountain-pen-review",
+  },
+  {
+    slug: "英雄-hero-100",
+    siteId: "frankunderwater",
+    siteName: "FrankUnderwater",
+    homepageUrl: "https://frankunderwater.com/",
+    sourceType: "blog",
+    itemType: "review_article",
+    license: "copyrighted review article",
+    title: "My Three Type 100 Fountain Pens from Hero",
+    url: "https://frankunderwater.com/2017/06/01/my-three-type-100-fountain-pens-from-hero/",
+  },
+  {
+    slug: "金豪-jinhao-80",
+    siteId: "rupertarzeian",
+    siteName: "Rupert Arzeian",
+    homepageUrl: "https://rupertarzeian.com/",
+    sourceType: "blog",
+    itemType: "review_article",
+    license: "copyrighted review article",
+    title: "Early thoughts on the Jinhao 80 fountain pen",
+    url: "https://rupertarzeian.com/2022/09/24/early-thoughts-on-the-jinhao-80-fountain-pen/",
+  },
+  {
+    slug: "永生-wingsung-601a",
+    siteId: "moonmanpen",
+    siteName: "MoonmanPen",
+    homepageUrl: "https://moonmanpen.com/",
+    sourceType: "retailer",
+    itemType: "retailer_product_page",
+    license: "copyrighted retailer product page",
+    title: "Wing Sung 601A Grey Vacumatic Fountain Pen",
+    url: "https://moonmanpen.com/products/wing-sung-601a-grey-vacumatic-fountain-pen-fine-0-5mm-nib-golden-cap-resin-body-ink-window-push-cap-with-converter-box-no-ink",
+  },
+  {
+    slug: "永生-wingsung-618",
+    siteId: "wellappointeddesk",
+    siteName: "The Well-Appointed Desk",
+    homepageUrl: "https://www.wellappointeddesk.com/",
+    sourceType: "blog",
+    itemType: "review_article",
+    license: "copyrighted review article",
+    title: "Wing Sung 618 Demonstrator review",
+    url: "https://www.wellappointeddesk.com/2018/01/fountain-pen-review-wing-sung-618-demonstrator/",
+  },
+  {
+    slug: "永生-wingsung-698",
+    siteId: "scribblejot",
+    siteName: "Scribble Jot",
+    homepageUrl: "https://scribblejot.com/",
+    sourceType: "blog",
+    itemType: "review_article",
+    license: "copyrighted review article",
+    title: "Wing Sung 698 piston filler fountain pen review",
+    url: "https://scribblejot.com/wing-sung-698-piston-filler-fountain-pen-review/",
+  },
+  {
+    slug: "永生-wingsung-699",
+    siteId: "moonmanpen",
+    siteName: "MoonmanPen",
+    homepageUrl: "https://moonmanpen.com/",
+    sourceType: "retailer",
+    itemType: "retailer_product_page",
+    license: "copyrighted retailer product page",
+    title: "Wing Sung 699 Transparent Brown Vacuum Filler Fountain Pen",
+    url: "https://moonmanpen.com/products/wing-sung-699-transparent-brown-vacuum-filler-fountain-pen-smooth-m-nib-large-ink-capacity-demonstrator-body-gold-trim",
+  },
+  {
+    slug: "the-camel-pen",
+    siteId: "richardspens",
+    siteName: "Richard's Pens",
+    homepageUrl: "https://www.richardspens.com/",
+    sourceType: "blog",
+    itemType: "profile_article",
+    license: "copyrighted reference article",
+    title: "The Camel Pen profile",
+    url: "https://www.richardspens.com/ref/profiles/camel.htm",
+    imageUrl: "https://www.richardspens.com/images/coll/camel_capped.jpg",
+  },
+  {
+    slug: "the-dunn-pen",
+    siteId: "richardspens",
+    siteName: "Richard's Pens",
+    homepageUrl: "https://www.richardspens.com/",
+    sourceType: "blog",
+    itemType: "profile_article",
+    license: "copyrighted reference article",
+    title: "The Dunn-Pen profile",
+    url: "https://www.richardspens.com/ref/profiles/dunn.htm",
+    imageUrl: "https://www.richardspens.com/images/coll/dunn_no_2_capped.jpg",
+  },
+  {
+    slug: "the-j-g-rider-fountain-pen",
+    siteId: "richardspens",
+    siteName: "Richard's Pens",
+    homepageUrl: "https://www.richardspens.com/",
+    sourceType: "blog",
+    itemType: "profile_article",
+    license: "copyrighted reference article",
+    title: "The J. G. Rider Fountain Pen profile",
+    url: "https://www.richardspens.com/ref/profiles/rider.htm",
+    imageUrl: "https://www.richardspens.com/images/coll/rider_5_capped.jpg",
+  },
+  {
+    slug: "the-john-hancock-cartridge-pen",
+    siteId: "richardspens",
+    siteName: "Richard's Pens",
+    homepageUrl: "https://www.richardspens.com/",
+    sourceType: "blog",
+    itemType: "profile_article",
+    license: "copyrighted reference article",
+    title: "The John Hancock Cartridge Pen profile",
+    url: "https://www.richardspens.com/ref/profiles/hancock.htm",
+    imageUrl: "https://www.richardspens.com/images/coll/john_hancock_capped.jpg",
+  },
+  {
+    slug: "the-parker-striped-duofold",
+    siteId: "richardspens",
+    siteName: "Richard's Pens",
+    homepageUrl: "https://www.richardspens.com/",
+    sourceType: "blog",
+    itemType: "profile_article",
+    license: "copyrighted reference article",
+    title: "The Parker Striped Duofold profile",
+    url: "https://www.richardspens.com/ref/profiles/strduo.htm",
+    imageUrl: "https://www.richardspens.com/images/coll/duo_vac.jpg",
+  },
+  {
+    slug: "the-parker-vacumatic",
+    siteId: "richardspens",
+    siteName: "Richard's Pens",
+    homepageUrl: "https://www.richardspens.com/",
+    sourceType: "blog",
+    itemType: "profile_article",
+    license: "copyrighted reference article",
+    title: "The Parker Vacumatic profile",
+    url: "https://www.richardspens.com/ref/profiles/vac.htm",
+    imageUrl: "https://www.richardspens.com/images/ref/profiles/vac/vac34.jpg",
+  },
+  {
+    slug: "the-postal-reservoir-pen",
+    siteId: "richardspens",
+    siteName: "Richard's Pens",
+    homepageUrl: "https://www.richardspens.com/",
+    sourceType: "blog",
+    itemType: "profile_article",
+    license: "copyrighted reference article",
+    title: "The Postal Reservoir Pen profile",
+    url: "https://www.richardspens.com/ref/profiles/postal.htm",
+    imageUrl: "https://www.richardspens.com/images/coll/postal_rfb.jpg",
+  },
+  {
+    slug: "the-security-pen",
+    siteId: "richardspens",
+    siteName: "Richard's Pens",
+    homepageUrl: "https://www.richardspens.com/",
+    sourceType: "blog",
+    itemType: "profile_article",
+    license: "copyrighted reference article",
+    title: "The Security Pen profile",
+    url: "https://www.richardspens.com/ref/profiles/security.htm",
+    imageUrl: "https://www.richardspens.com/images/coll/security_300_l_capped.jpg",
+  },
+  {
+    slug: "sheaffer-s-tuckaway",
+    siteId: "richardspens",
+    siteName: "Richard's Pens",
+    homepageUrl: "https://www.richardspens.com/",
+    sourceType: "blog",
+    itemType: "profile_article",
+    license: "copyrighted reference article",
+    title: "Sheaffer's Tuckaway profile",
+    url: "https://www.richardspens.com/ref/profiles/tuckaway.htm",
+    imageUrl: "https://www.richardspens.com/images/coll/mastertucky_capped.jpg",
+  },
+  {
+    slug: "waterman-s-c-f",
+    siteId: "richardspens",
+    siteName: "Richard's Pens",
+    homepageUrl: "https://www.richardspens.com/",
+    sourceType: "blog",
+    itemType: "profile_article",
+    license: "copyrighted reference article",
+    title: "Waterman's C/F profile",
+    url: "https://www.richardspens.com/ref/profiles/cf.htm",
+    imageUrl: "https://www.richardspens.com/images/ref/profiles/cf/cf_gpt_capped.jpg",
+  },
+  {
+    slug: "waterman-s-x-pen",
+    siteId: "richardspens",
+    siteName: "Richard's Pens",
+    homepageUrl: "https://www.richardspens.com/",
+    sourceType: "blog",
+    itemType: "profile_article",
+    license: "copyrighted reference article",
+    title: "Waterman's X-Pen profile",
+    url: "https://www.richardspens.com/ref/profiles/xpen.htm",
+    imageUrl: "https://www.richardspens.com/images/coll/xpen_gf.jpg",
+  },
+  {
+    slug: "the-esterbrook-model-j-family",
+    siteId: "richardspens",
+    siteName: "Richard's Pens",
+    homepageUrl: "https://www.richardspens.com/",
+    sourceType: "blog",
+    itemType: "profile_article",
+    license: "copyrighted reference article",
+    title: "The Esterbrook Model J Family profile",
+    url: "https://www.richardspens.com/ref/profiles/j.htm",
+    imageUrl: "https://www.richardspens.com/images/coll/j_blue_capped.jpg",
+  },
+  {
+    slug: "the-wahl-pen",
+    siteId: "richardspens",
+    siteName: "Richard's Pens",
+    homepageUrl: "https://www.richardspens.com/",
+    sourceType: "blog",
+    itemType: "profile_article",
+    license: "copyrighted reference article",
+    title: "The Wahl Pen profile",
+    url: "https://www.richardspens.com/ref/profiles/wahl_pen.htm",
+    imageUrl: "https://www.richardspens.com/images/coll/wahl_73.jpg",
+  },
+];
+
 function getClient() {
   if (process.env.TURSO_DATABASE_URL) {
     return createClient({
@@ -242,7 +513,7 @@ function tokenize(value: string) {
 function brandTokens(row: PenRow) {
   const raw = row.brandName || row.name;
   return [...new Set(tokenize(raw))]
-    .map((word) => (word === "wingsung" ? "wing" : word))
+    .flatMap((word) => (word === "wingsung" ? ["wing", "sung"] : [word]))
     .slice(0, 4);
 }
 
@@ -291,6 +562,10 @@ function tokenMatches(value: string, token: string) {
     const words = normalized.split(/\s+/);
     return words.includes(token) || words.includes(`e${token}`);
   }
+  if (/^[a-z]+\d+[a-z]*$/i.test(token)) {
+    const compact = normalized.replace(/\s+/g, "");
+    return compact.includes(token);
+  }
   return normalized.includes(token);
 }
 
@@ -321,7 +596,12 @@ function absoluteUrl(raw: string, baseUrl: string) {
   const first = cleanHtml(raw).split(",")[0]?.trim().split(/\s+/)[0] || raw;
   try {
     const url = new URL(first.startsWith("//") ? `https:${first}` : first, baseUrl);
-    if (url.protocol === "http:" && url.hostname === "cdn.shopify.com") {
+    if (
+      url.protocol === "http:" &&
+      /^(cdn\.shopify\.com|static1\.squarespace\.com|images\.squarespace-cdn\.com)$/.test(
+        url.hostname,
+      )
+    ) {
       url.protocol = "https:";
     }
     return url.toString();
@@ -503,6 +783,93 @@ async function ensureCommerceSourceItem(
   return itemId;
 }
 
+async function ensureManualProductSourceItem(
+  db: Client,
+  page: ManualProductPage,
+  pen: PenRow,
+) {
+  const sourceId = `product-source-${page.siteId}`;
+  const itemId = `source-product-${page.siteId}-${createHash("sha1")
+    .update(page.url)
+    .digest("hex")
+    .slice(0, 14)}`;
+  await db.execute({
+    sql: `INSERT INTO source_registry
+            (id, name, source_type, allowed_use, reliability, license, attribution,
+             homepage_url, fetch_method, notes, last_checked_at, updated_at)
+          VALUES (?, ?, ?, 'metadata_only', 'medium',
+                  ?, ?, ?, 'html scrape',
+                  'Used only for source link, metadata, and externally hosted product image URL.',
+                  datetime('now'), datetime('now'))
+          ON CONFLICT(id) DO UPDATE SET
+            name = excluded.name,
+            source_type = excluded.source_type,
+            allowed_use = excluded.allowed_use,
+            reliability = excluded.reliability,
+            license = excluded.license,
+            attribution = excluded.attribution,
+            homepage_url = excluded.homepage_url,
+            fetch_method = excluded.fetch_method,
+            notes = excluded.notes,
+            last_checked_at = excluded.last_checked_at,
+            updated_at = datetime('now')`,
+    args: [
+      sourceId,
+      page.siteName,
+      page.sourceType,
+      page.license,
+      page.siteName,
+      page.homepageUrl,
+    ] as InArgs,
+  });
+  await db.execute({
+    sql: `INSERT INTO source_items
+            (id, source_id, title, url, item_type, license, author, retrieved_at,
+             summary, raw_metadata_json, allowed_use, review_status, updated_at)
+          VALUES (?, ?, ?, ?, ?, ?, ?, datetime('now'), ?, ?, 'metadata_only',
+                  'approved', datetime('now'))
+          ON CONFLICT(id) DO UPDATE SET
+            source_id = excluded.source_id,
+            title = excluded.title,
+            url = excluded.url,
+            item_type = excluded.item_type,
+            license = excluded.license,
+            author = excluded.author,
+            retrieved_at = excluded.retrieved_at,
+            summary = excluded.summary,
+            raw_metadata_json = excluded.raw_metadata_json,
+            allowed_use = excluded.allowed_use,
+            review_status = excluded.review_status,
+            updated_at = datetime('now')`,
+    args: [
+      itemId,
+      sourceId,
+      page.title,
+      page.url,
+      page.itemType,
+      page.license,
+      page.siteName,
+      `Manually reviewed source page matched to ${pen.name}.`,
+      JSON.stringify({ site: page.siteName, manualProductPage: true }),
+    ] as InArgs,
+  });
+  await db.execute({
+    sql: `INSERT INTO entity_references
+            (id, entity_id, source_item_id, relation_type, note, review_status)
+          VALUES (?, ?, ?, 'reference', ?, 'approved')
+          ON CONFLICT(entity_id, source_item_id, relation_type) DO UPDATE SET
+            note = excluded.note,
+            review_status = excluded.review_status`,
+    args: [
+      entityReferenceId(pen.entityId, itemId),
+      pen.entityId,
+      itemId,
+      `Manually reviewed product image source for ${pen.name}.`,
+    ] as InArgs,
+  });
+  return itemId;
+}
+
 function siteForProductUrl(url: string) {
   const host = new URL(url).hostname.replace(/^www\./, "");
   return SITES.find((site) => {
@@ -609,6 +976,80 @@ async function main() {
 
   for (const pen of pens) {
     if (imported >= LIMIT) break;
+    let matched = false;
+    const manualPages = MANUAL_PRODUCT_PAGES.filter((page) => page.slug === pen.slug);
+    for (const page of manualPages) {
+      const productHtml = await fetchText(page.url);
+      if (!productHtml) {
+        failed += 1;
+        continue;
+      }
+      const image = page.imageUrl
+        ? {
+            url: absoluteUrl(page.imageUrl, page.url),
+            score: 99,
+            reason: "manual-image",
+          }
+        : extractImages(productHtml, page.url, pen);
+      if (!image || !image.url) continue;
+
+      const id = mediaId(pen.entityId, page.url, image.url);
+      const sourceItem = WRITE
+        ? await ensureManualProductSourceItem(db, page, pen)
+        : `source-product-${page.siteId}-${createHash("sha1")
+            .update(page.url)
+            .digest("hex")
+            .slice(0, 14)}`;
+      if (WRITE) {
+        await db.execute({
+          sql: `UPDATE media_assets
+                SET usage_status = 'gallery', updated_at = datetime('now')
+                WHERE entity_id = ?
+                  AND usage_status = 'primary'
+                  AND image_url NOT LIKE '/images/library/warm-pen-atlas/%'`,
+          args: [pen.entityId] as InArgs,
+        });
+        await db.execute({
+          sql: `INSERT INTO media_assets
+                  (id, entity_id, title, asset_type, image_url, thumbnail_url,
+                   author, license, attribution_text, source_url, source_item_id,
+                   review_status, usage_status, updated_at)
+                VALUES (?, ?, ?, 'image', ?, ?, ?, ?, ?, ?, ?, 'approved', 'primary', datetime('now'))
+                ON CONFLICT(id) DO UPDATE SET
+                  entity_id = excluded.entity_id,
+                  title = excluded.title,
+                  image_url = excluded.image_url,
+                  thumbnail_url = excluded.thumbnail_url,
+                  author = excluded.author,
+                  license = excluded.license,
+                  attribution_text = excluded.attribution_text,
+                  source_url = excluded.source_url,
+                  source_item_id = excluded.source_item_id,
+                  review_status = excluded.review_status,
+                  usage_status = excluded.usage_status,
+                  updated_at = datetime('now')`,
+          args: [
+            id,
+            pen.entityId,
+            `核准来源实物图：${page.title}`,
+            image.url,
+            image.url,
+            page.siteName,
+            page.license,
+            `${page.siteName}: ${page.title}`,
+            page.url,
+            sourceItem,
+          ] as InArgs,
+        });
+      }
+      imported += 1;
+      matched = true;
+      console.log(
+        `- ${WRITE ? "imported" : "would import"} ${pen.slug}: ${image.url} via ${page.siteName} (${image.reason}; ${page.url})`,
+      );
+      break;
+    }
+    if (matched) continue;
     if (COMMERCE_SKIP_SLUGS.has(pen.slug)) {
       skipped += 1;
       console.log(`- skip ${pen.slug}: manual source required`);
@@ -620,7 +1061,6 @@ async function main() {
       continue;
     }
 
-    let matched = false;
     for (const site of SITES) {
       const searchUrl = site.searchUrl(query);
       const searchHtml = await fetchText(searchUrl);
