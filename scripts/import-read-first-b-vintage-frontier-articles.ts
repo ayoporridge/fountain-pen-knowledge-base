@@ -278,6 +278,246 @@ Glider 大概是 Chicago Conklin 里最有名的型号。1946 年的广告把它
 
 购买 Glider 时，先看它有没有 Cushon Point 14K nib。如果是钢尖或被换尖，吸引力会下降。再看 section 是否裂、透明部分是否健康、lever 和 J-bar 是否工作、cap band 和 clip 镀层是否严重磨损。它适合想要“能写得不错的 postwar third-tier Conklin”的人。若你想买 Toledo Conklin 的精致感，Glider 会让你失望；若你接受便宜身体，Cushon Point 可能给你惊喜。`,
   },
+  {
+    slug: "the-chilton-chiltonian",
+    title: "The Chilton Chiltonian：Chilton 最后的低价路线",
+    summary: "The Chilton Chiltonian 是 Chilton 走向尾声时推出的 down-market pen，保留 pneumatic filler，但用钢尖、黑色 blind cap 和简化 cap 结构降低成本。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 Richard's Pens 写 Summit New Jersey 后期、second-generation pneumatic filler 与 Ink-tel。",
+    },
+    body: `The Chilton Chiltonian 要放在 Chilton 的尾声里读。到 1940 年前后，Chilton 已经从 Long Island City 搬到 Summit, New Jersey，昔日的 Wing-flow 和 Golden Quill 都没有把公司带回稳定状态。Chiltonian 就是在这种压力下推出的最后一支笔：它仍然保留 Chilton 的技术血统，却明显走向更低成本的市场。
+
+Richard's Pens 写到，Chiltonian 使用 Chilton 约 1927 年引入的 second-generation pneumatic filling system，这套结构来自 Julius Abegg 1915 年的专利。也就是说，它没有放弃 Chilton 最核心的气压上墨传统。对收藏者来说，这一点很重要。Chiltonian 不是随便贴牌的便宜笔，它仍然是一支真正的 Chilton。
+
+低价痕迹也很明显。它使用 two-tone steel nib，饰件从早期 Chilton 的 gold filled 降到 gold plated，做工也没有前辈那么讲究。所有颜色都配黑色 blind cap，这是省成本的直接结果。若你习惯把 Chilton 和高阶工艺、漂亮 inlay 绑定在一起，Chiltonian 会显得朴素很多。
+
+它仍有有趣的设计。用户可以选择 Chilton 的 Ink-tel feature，也就是透明 section 的墨量观察方案。section 前端染黑，避免 nib 尾部露出显得杂乱；透明部分里能看到一条很长的 feed tail，可能用于帮助墨水回流或控制供墨。这些细节说明 Chilton 即使处境困难，也没有完全停止工程尝试。
+
+cap 结构也值得看。传统 Chilton 的 spring-loaded Rocker clip 被取消，换成更经济的 unitized cap-and-clip assembly。这个结构通过热压变形把 washer clip 固定在 cap 上，还能满足军用短口袋对 clip 的要求。它没有老 Chilton 那种优雅，但很实用。
+
+购买 Chiltonian 时，先看 pneumatic filler 是否完整，blind cap 是否匹配，steel nib 是否原配，Ink-tel section 是否裂或染色异常。还要留意欧洲市场上曾出现与 Chilton 公司无关的 Chilton-branded pen，外观有相似处，不能只看名字。Chiltonian 的价值在于它诚实地记录了一个品牌的晚期：技术还在，预算已经很紧。`,
+  },
+  {
+    slug: "the-chilton-golden-quill",
+    title: "The Chilton Golden Quill：世界博览会上的最后现代感",
+    summary: "The Chilton Golden Quill 在 1939 年纽约世界博览会语境中出现，用极简流线外观、羽毛形 inlay 和 Chilton pneumatic filler 延续品牌野心。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 Richard's Pens 写 1939 World's Fair、Golden Quill styling、Rocker clip 与 suction filler。",
+    },
+    body: `The Chilton Golden Quill 看起来像 Chilton 想在最后阶段重新显得现代。1939 年纽约世界博览会以“The World of Tomorrow”为主题，Chilton 也带着新型号亮相。公司已经从 Long Island City 搬到 Summit, New Jersey，Wing-flow 的全国广告热度过去了，经营压力很大。Golden Quill 就是在这种背景下出现的。
+
+它和 Wing-flow 的关系很直接。Chilton 继续使用把金属装饰嵌入 celluloid 的专利技术，但不再大面积铺开 Art Deco 图案。Golden Quill 把装饰收窄成 feather-like incisions：Rocker clip 边缘有羽毛感切线，cap 背部还有 oval feather-shaped indicia。cap crown 上细细的 crest 像一道 Mohawk，整支笔没有 cap band，也没有显眼文字。
+
+这种设计很克制，也有风险。Richard's Pens 提到，当时有人批评它 dull design。读者今天看 Golden Quill，可能会觉得它比 Wing-flow 更成熟；放到 1939 年的展会现场，它或许又显得太安静。它的美感不靠艳丽材料，而靠线条、金属嵌件和留白。
+
+结构上，Golden Quill 保留 Chilton 的 suction-type filling system。blind cap 连着一根在 barrel 内滑动的 tube，拉出、按住气孔、压下，让空气压缩 sac，再释放吸墨。这套上墨比普通 lever filler 更有 Chilton 性格，也意味着维修时不能按最常见的老笔处理。
+
+Golden Quill 有不同尺寸和 section 变化。有些带 partially transparent section 和 elongated cutaway feed，有些没有。标准型号还出现长 cap 和短 cap 差异，可能对应男款和女款。购买时不能只看“Golden Quill”四个字，必须看 cap 长度、section、feed、clip、inlay 和 filler 是否都对。
+
+这支笔适合喜欢 1930 年代末美国现代主义钢笔的人。它没有让 Chilton 走出困境，存货后来被低价处理，但它并不平庸。Golden Quill 像一次最后的整理：把 Wing-flow 的装饰野心收进更安静的外形里，把 Chilton 的 pneumatic filler 留在内部。若状态好，它是一支很有味道的晚期 Chilton。`,
+  },
+  {
+    slug: "the-chilton-wing-flow",
+    title: "The Chilton Wing-flow：把金属线条嵌进笔身",
+    summary: "The Chilton Wing-flow 是 Chilton 1935 年全国广告推动的 Art Deco 代表，重点在 metal inlay、pneumatic filler、Rocker clip 和特殊 nib 设计。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 Richard's Pens 写 1935、inlaid precious metal patterns、Rocker clip 和 Wing-flow nib。",
+    },
+    body: `The Chilton Wing-flow 是 Chilton 最容易被记住的设计之一。1935 年，Chilton 已经从 Boston 转到 Long Island City，正和其他美国钢笔厂一样寻找下一种外观语言。它没有选择让 section 和笔身同色，而是把金属 inlay 嵌进原本比较素的 solid-color pen 上，让笔身自己出现速度感和装饰节奏。
+
+Richard's Pens 记录，Wing-flow 结合了 Chilton 的 second-generation pneumatic filler、金属 inlay 技术、特殊 nib 和 Rocker clip。Chilton 为它做了第一次全国广告。对一个原本区域性更强的品牌来说，这不是小动作。Wing-flow 是公司想冲进更大市场的一次集中发力。
+
+它的外观核心是 inlaid pattern。没有这些金属线条，Wing-flow 只是漂亮但不突出的 solid-color pen。加上 inlay 后，它一下进入 Art Deco 的语境。现存记录里有 11 种 pattern，其中 10 种申请过设计专利。广告里提到 14K yellow gold-filled inlays 和 sterling silver，实际银色 inlay 多为 14K white gold filled，以避免 tarnish。
+
+Wing-flow 的 nib 也值得看。Richard Binder 提到它有一种革命性的 nib design，既改善性能，也减少 gold 用量。再加上 spring-loaded Rocker clip 和 pneumatic filler，Wing-flow 不是单靠表面装饰卖相。它把当时 Chilton 的技术和审美放在同一个型号里。
+
+购买 Wing-flow 时，第一眼看 inlay，第二眼要看 filler。金属 inlay 是否松动、缺失、磨损，Rocker clip 是否还能正常弹动，pneumatic filler 是否密封，blind cap 是否匹配，都会影响价值。还要核对 pattern，不同 pattern 稀有度和收藏兴趣不同。若卖家只说“Chilton old pen”，信息明显不够。
+
+这支笔适合喜欢 1930 年代美式 Art Deco 的用户。它比 Golden Quill 更张扬，比 Chiltonian 更有野心，也比许多同时期素色笔更容易在展示柜里被认出来。用它写字，当然要看具体 nib 和维修状态；理解它，则要看 Chilton 如何把气压上墨、金属嵌饰和全国广告压进一支笔里。`,
+  },
+  {
+    slug: "the-conklin-nozac",
+    title: "The Conklin Nozac：美国“no sack”活塞上墨",
+    summary: "The Conklin Nozac 是 Toledo Conklin 1931 年推出的 piston filler，重点在 Bienenstein 结构、Word Gauge、clear demonstrator 和 faceted/herringbone 版本。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 Richard's Pens 写 1931、piston filler、Nozac naming、Word Gauge 与 celluloid 风险。",
+    },
+    body: `The Conklin Nozac 的名字很直白：no sack。1931 年，Toledo 的 Conklin 推出这支 piston filler，距离 Pelikan 1929 年带动活塞上墨热潮只过了两年。美国市场那时仍以 sac-based self-filler 为主，Conklin 用 Nozac 告诉用户，这支笔不靠橡胶墨囊。
+
+Richard's Pens 把 Nozac 放在 Andreas Bienenstein 的设计里。它的活塞结构有专利支撑，广告说它“winds like a watch”。早期名字还包括 Endura Nozac、Nozac Symetrik，后来简化成 Conklin Nozac。它被放在 Conklin 产品线顶部，说明公司把它当成认真押注的高端结构，而非边缘实验。
+
+Nozac 的透明版本很有意思。普通 demonstrator 是给店员展示结构的工具，Conklin 进一步把 clear pens 卖给消费者。透明 celluloid 让人能看到内部，也带来染色和老化风险。Richard Binder 展示的早期 clear Nozac 有严重 ambering，这提醒今天的买家：透明漂亮，保存难度也高。
+
+1932 年的 Word Gauge 让 Nozac 更有广告感。barrel 上热压出 1-M、2-M 之类刻度，宣称可以估算剩余可写字数。它不一定像仪表那样精确，但很会把大容量和可视化卖点讲给用户听。后来 12-faceted body、交替透明和有色区域、Herringbone / V-Line 等设计，又把它推向 1930 年代彩色 celluloid 的审美中心。
+
+购买 Nozac 时，先看 piston。活塞是否顺畅、是否漏墨、barrel 是否有裂、透明区是否严重染色，比单纯颜色更重要。两段式 barrel 的 Nozac 较少见，状态好更受重视，但连接处和透明前段也更要细看。Cushon Point nib、clip、inner cap 和 feed 状态同样影响使用。
+
+Nozac 适合喜欢美国厂商挑战欧洲活塞传统的人。它是一支结构野心很强的 Conklin，漂亮外壳只是入口。状态好的 Nozac 可以很好写，也很有展示性；状态差的 Nozac 会把维修成本和材料风险全部暴露出来。读这支笔，要同时看工程、广告和 celluloid 年代的美感。`,
+  },
+  {
+    slug: "the-eversharp-bantam",
+    title: "The Eversharp Bantam：真正能写的小型 Eversharp",
+    summary: "The Eversharp Bantam 是 1930 年代早期的小型 Wahl-Eversharp，虽然尺寸很小，却有 bulb filler、14K nib 版本和丰富 celluloid 花色。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 Richard's Pens 写 small pen market、Big Little Pen、bulb filler 与 plating 风险。",
+    },
+    body: `The Eversharp Bantam 的第一印象就是小。现代收藏者常偏爱 oversize pens，但 20 世纪上半叶真正卖出去的大量钢笔并不都很大。vest-pocket pens、ringtop ladies' models 和 novelty small pens 都有真实市场。Bantam 就在这个位置上，也确实是一支 Wahl-Eversharp 做出来的高质量小笔。
+
+Richard's Pens 推测 Bantam 大约 1933 年出现，持续到 1940 年。它 capped 约 3 英寸多，posted 约 4 英寸多，尺寸很小，却被 Wahl 文案称为“The Big Little Pen”。它有 clip pocket model、desk model、matching mechanical pencil，甚至还有 faceted version，几乎像一支 miniature Doric。
+
+Bantam 的笔尖很关键。高配版本使用 iridium-tipped 14K Eversharp No. 0 nib，不少带一定 flex，写起来可以很出色。受大萧条影响，也有 gold-plated untipped steel nib 版本，这些钢尖通常没有 Eversharp imprint。买 Bantam 时，金尖和钢尖的差异会直接影响价值和体验。
+
+上墨上，Wahl 没有硬塞 lever filler。Bantam 太小，lever 结构并不理想，所以采用 bulb filler。这个系统简单、可靠、制造成本低，对小尺寸笔还能提供不错容量。许多修复后的 Bantam 会用剪短的普通 sac 取代原本带 aluminum ferrule 的 bulb，购买时要看修复方式是否干净。
+
+Bantam 的弱点在镀层，尤其是 steel clip。薄金色 plating 容易磨掉，露出底材后还会腐蚀。漂亮的 Bantam 可能值得重新电镀，但这个成本要和笔本身价值一起考虑。它的花色和 cap band 变化很多，还有 Century of Progress 世界博览会纪念 cap band 版本，收藏分支很丰富。
+
+Bantam 适合喜欢小笔、桌笔和 Eversharp celluloid 的人。若你手大、喜欢长时间不 posted 书写，它可能太小；若你接受小尺寸，它会比普通 novelty pen 更认真。挑它时先看 nib、bulb filler、clip plating、barrel 透明区和 cap band。它的可爱不只是尺寸，更在于 Wahl 真的把一支小笔当成可用的钢笔来做。`,
+  },
+  {
+    slug: "the-eversharp-coronet",
+    title: "The Eversharp Coronet：金属 Art Deco 的口袋珠宝",
+    summary: "The Eversharp Coronet 是 Wahl-Eversharp 1936 年圣诞季推出的高端 Art Deco line，重点在 Iannelli 设计、gold-filled body、Self-Fitting Point 和维修风险。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 Richard's Pens 写 Gold Is Back、Coronet/Half Coronet、repair hazard 与 trim crystallization。",
+    },
+    body: `The Eversharp Coronet 像一件钢笔形状的口袋珠宝。1936 年圣诞季，Wahl-Eversharp 用“GOLD IS BACK!”这样的广告语言推出这条线。美国刚从大萧条最沉重的阶段往外走，厂家开始重新试探豪华消费。Coronet 就是在这种情绪里出现的金属 Art Deco pen。
+
+Richard's Pens 说明，Coronet 这个名字大约到 1939 年才在 jewelry-shop line 的广告和包装里明确出现，今天收藏者用它称呼整个系列。它的设计基于 Alfonso Iannelli 为 Eversharp 做的 pencil design，body 和 clip 都有设计专利。直线、切角、几何镂空、Pyralin trim，让它很容易让人想到 Chrysler Building 一类 Art Deco 城市景观。
+
+Coronet 有 all-metal gold-filled pen，也有 gold-filled 或 rhodium-plated cap 加 celluloid barrel 的版本，现代收藏者常把后者称为 Half Coronet。普通零售和 jewelry shop 版本还有细节差异，价格也不同。gold-filled 全金属笔普通市场 10 美元，jewelry shop 版本 12.50 美元，1936 年这不是随手买的小东西。
+
+功能上，Coronet 有 Wahl 的 Safety Ink Shut-Off，jewelers' line 还配 Self-Fitting Point，可在很 firm 到很 flexible 之间分档调整。它仍然是 lever filler，Wahl 也把它说成 lever-vac filling mechanism。对使用者来说，Coronet 不只是壳子漂亮，笔尖和上墨同样有 Wahl 的高阶配置。
+
+风险也大。all-metal Coronet 的 section 和 clear barrel front 是一体，维修时需要整体从 barrel 中取出。若误把 section 从 threaded part 分离，很容易毁掉笔。Dubonnet Red trim 比 black trim 更受欢迎，也更脆，更容易 crystallize。posting ring、trim 裂化、金属磨损，都是购买时必须看的地方。
+
+Coronet 适合喜欢 Art Deco 和高端 Wahl-Eversharp 的收藏者。它不适合作为随便试水的第一支老笔，维修门槛、价格和材料风险都高。若状态好、trim 健康、结构未被误拆，它会很耀眼。它的美不靠大尺寸，而靠金属、几何和 1930 年代对豪华回归的想象。`,
+  },
+  {
+    slug: "the-eversharp-envoy",
+    title: "The Eversharp Envoy：短命的金属旗舰试探",
+    summary: "The Eversharp Envoy 是 1948 年左右的高价 Eversharp fountain pen，视觉上冲着 Parker 51 去，内部却继承 Symphony / Skyline 系统。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 Richard's Pens 写 1948、$15 Envoy、slip cap、Magic Feed 与短命销售。",
+    },
+    body: `The Eversharp Envoy 出现在 Eversharp 很尴尬的阶段。1948 年，公司正在摆脱 CA ballpoint 带来的麻烦，同时需要重新证明自己还能做有竞争力的 fountain pen。同一年，Raymond Loewy 设计的 Symphony 取代老化的 Skyline；产品线从 3.50 美元 Reporter 到 5 美元 Symphony，再到 15 美元 Envoy。
+
+15 美元的 Envoy 已经压到 Parker 51 的低端价格上方。Richard's Pens 说它用 all-gold-filled body 和更修长的线条，在视觉上比 51 更显眼。这是一支冲着高端注意力去的笔，不是普通中价补位。
+
+Envoy 的外形和 1940 年代 Eversharp 之前的线条差别很大。它是 torpedo shaped slender cylinder，长长的两端平滑收束。slip cap 没有 clutch，靠 cap 和 barrel 上三条微微凸起的 ridges 之间的摩擦固定；没有 barrel threads，整体更顺。cap 和 barrel 都有密集纵向 grooves，让金属表面更有节奏。
+
+它也吸收了 Skyline 的教训。Skyline cap 有时会 posted 得太深，磨到 lever。Envoy 的 lever 上有一道微凸 ridge，用来限定 posting depth，让 cap 停在合适位置。这个细节很实用，也说明 Eversharp 并不是只在做漂亮外壳。
+
+内部则没有那么激进。Envoy 和 Symphony、第三代 Skyline 共享 Magic Feed、长 breather tube，以及后来被称为 Flip Fill 的 unitized pressure bar/lever assembly。它没有跟风做 hooded nib，而是使用较小的外露 nib，早期 section 还有不同形态。写感要看具体 nib，不能只按外观判断。
+
+Envoy 的寿命很短，可能只生产了一年左右。1950 年前后，Envoy sets 已经被低价 remaindered。今天买 Envoy，要看金属 body 是否磨损、slip cap 是否牢靠、lever ridge 是否完好、Magic Feed 是否清洁、nib 是否原配。它适合喜欢 Eversharp 晚期高端试探的人：短命、漂亮、野心很大，也带着品牌转型失败的气味。`,
+  },
+  {
+    slug: "the-eversharp-pacemaker",
+    title: "The Eversharp Pacemaker：Coronet 影子下的学生价位",
+    summary: "The Eversharp Pacemaker 是 1938 年 $3.50 的中低价 Wahl-Eversharp，借用 Coronet 设计语言，但用 celluloid cap/barrel 和较简单配置降低价格。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 Richard's Pens 写 1938 back-to-school、$3.50、Coronet clip 与 Pacemaker features。",
+    },
+    body: `The Eversharp Pacemaker 可以看成 Coronet 光环下面的现实选择。1936 年 Coronet 很漂亮，也很贵；10 美元的高端 Art Deco pen 不可能进入所有学生和普通用户口袋。到 1938 年秋季返校季，Wahl 推出 3.50 美元的 Pacemaker，把它放在 2.75 美元 Air-Lite 和 5 美元 Popular Doric 之间。
+
+Richard's Pens 明确说，Pacemaker 不是 shoddy construction 的廉价笔。它比不上 Doric 和 Coronet 的高阶配置，但做得认真。尺寸和形状接近 Coronet，有 partially transparent section 可以看墨量，还使用 Alfonso Iannelli 为 Coronet 设计的 clip。生产版 clip 做了简化，降低制造难度，也减少 brassing 倾向。
+
+Pacemaker 的 cap 和 barrel 都是 celluloid，不像 Coronet 那样使用金属 cap 或金属 body。和 Coronet 放在一起，它会显得更安静，但颜色并不乏味。早期广告提供 black、green、blue、gold-satin，后来又加入 red。它有 standard girth 和 slender 两种粗细，细款和标准款 capped length 相同，只是 cap 比例不同。
+
+配置上，Pacemaker 可以配 flexible 或 firm 14K nib，但没有 Wahl 的 adjustable nib，也没有 Safety Ink Shut-Off。这些取舍正好说明它的定位：保留可靠书写和漂亮外观，放弃高价旗舰功能。对今天用户来说，具体 nib 比宣传档位更重要，firm 和 flexible 的使用感会差很多。
+
+购买 Pacemaker 时，先看 celluloid。cap/barrel tube stock 是否有裂，端部融合处是否稳定，透明 section 是否清楚，clip 和 cap band 镀层是否磨损，都要细看。barrel imprint 可能是 Wahl，也可能只写 Eversharp。黑色 barrel thread 区域的变体也存在，不能简单判断为后配。
+
+Pacemaker 适合想要 1930 年代 Wahl-Eversharp 味道，但不想上 Coronet 价格和维修风险的人。它有学生价位背景，却不是粗糙学生笔。状态好的 Pacemaker 很适合日用老笔：有颜色，有 14K nib，有一点 Coronet 的设计影子，也有更轻松的使用心态。`,
+  },
+  {
+    slug: "the-ingersoll-dollar-pen",
+    title: "The Ingersoll Dollar Pen：把一美元手表思路搬进钢笔",
+    summary: "The Ingersoll Dollar Pen 来自 Charles H. Ingersoll 的一美元钢笔尝试，重点在 14K nib、金属笔身、bayonet cap、cheap twist filler 和材料裂纹。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 Richard's Pens 写 1922 Newark、$1 value、metal body 和 twist filler 风险。",
+    },
+    body: `The Ingersoll Dollar Pen 的名字来自一个很美国的价格想象。Robert H. Ingersoll Watch Company 曾靠 dollar watches 打开市场，1921 年失败后，Charles H. Ingersoll 很快把“一美元”概念搬到钢笔上。到 1922 年，他在新泽西 Newark 建立 Charles H. Ingersoll Dollar Pen Company，想卖一支价格低、配置却不寒酸的钢笔。
+
+Richard's Pens 记录，早期 Ingersoll Dollar Pen 是 metal-bodied fountain pen，最重要的配置是一枚质量不错的 14K gold nib。Charles Ingersoll 坚持这个点，所以它并不是单纯靠便宜金属壳糊弄用户。问题在于，为了压到一美元，其他结构必须非常省。
+
+cap closure 是一个例子。部分早期笔有 screw cap，更常见的是便宜但不太可靠的 bayonet-type cap。用户必须把 cap lip 上的 L-shaped channel 对准 barrel 上的小凸点，再推入并旋转。若没对准就硬推，很快会磨掉凸点，cap 固定就出问题。今天买这种笔，cap 是否还能稳固，是第一批要检查的地方。
+
+金属 gripping section 也有风险。Ingersoll 把金属 section 做成 tube，再把 hard rubber section 强行嵌入其中，组装张力很大。多年以后，很多笔在 section 或 barrel 位置出现裂纹。少数使用传统 hard rubber section 的版本反而避开了这个问题。
+
+上墨结构同样体现省成本。它使用一种便宜的 sac-wringing twist filler，尾部旋钮甚至来自 decorative upholstery tack 的思路。不同批次会看到不同 knob design，有些还有小 conical washer，后来也用 barrel end 形状取代这个零件。它聪明，但不精致。
+
+Ingersoll 也短暂尝试过 celluloid，但为了一美元价格点，材料厚度和强度很难平衡。购买 Dollar Pen 时，要看 14K nib 是否还在、cap closure 是否可用、金属 section 是否裂、twist filler 是否能工作。它不是豪华笔，却很适合理解低价市场如何在“金尖”和“便宜结构”之间做取舍。`,
+  },
+  {
+    slug: "the-wasp-clipper",
+    title: "The WASP Clipper：Sheaffer 副牌里的航空时代",
+    summary: "The WASP Clipper 是 Sheaffer 相关副牌 WASP 的重要型号，借 China Clipper 航空想象命名，覆盖从低价 Junior 到 De Luxe set 的多层级产品。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 Richard's Pens 写 WASP/Sheaffer 关系、1937 ad、China Clipper naming 与价格层级。",
+    },
+    body: `The WASP Clipper 要先理解 WASP 这个名字。WASP 来自 W. A. Sheaffer Pen Company 的首字母，是 Sheaffer 相关的副牌或分支。Richard's Pens 提醒，WASP 在不同时间可能是 model、separate company 或 Sheaffer division，和母公司的关系并不总是同一种。Clipper 就在这个复杂副牌体系里出现。
+
+1937 年的 Wasp Clipper 广告使用 “Speed Line Design” 这样的词，明显想借当时对速度和现代交通的兴趣。Clipper 名字也指向 Pan American Airways 的 China Clipper service，广告里的飞机画得像 Martin M-130 Ocean Transport。钢笔在这里借用了航空时代的想象：快、远、现代、漂亮。
+
+Clipper 的产品层级很宽。早期广告给人的价格范围从 1.95 到 3.95 美元不等，pen/pencil set 也有不同组合。低端甚至可能低到 1.25 美元左右，柜台 card 一次展示十几支；到 1939 年左右，Large Clipper De Luxe set 已经是 5 美元钢笔加 2.50 美元铅笔的组合，接近 Sheaffer 非 Lifetime 自有品牌产品的价位。
+
+外观上，Clipper 的设计没有直接复制 Sheaffer Balance。它保留 flattened ends，用明亮金属的 faceted shallow conical crowns 收尾。crown 可以旋出，用来固定 washer clip，clip washer 隐藏在 cap body 的 machined depression 里。这个细节让它看起来比普通低价副牌更认真。
+
+不同层级要分开看。Clipper Junior 会在 nib imprint 上直接显示 Junior 地位；Large De Luxe 则是另一种观感。1938 年 WASP 还推出 Addipoint，与 Esterbrook Re-New-Point 竞争，虽然它和 Clipper 不是同一件事，但说明 WASP 当时在低价和可换 nib 市场里动作很积极。
+
+购买 WASP Clipper 时，先看 barrel imprint、trim level、nib imprint、cap crown 和 clip 结构。不要只按“WASP = 低端 Sheaffer”草率判断。Clipper 的有趣之处在于它把副牌、航空广告、低价市场和 Sheaffer 背后的制造能力放到一起。状态好、层级清楚的 Clipper，很适合收藏 Sheaffer 旁支谱系。`,
+  },
 ];
 
 function getClient() {

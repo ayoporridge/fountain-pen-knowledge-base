@@ -1,12 +1,12 @@
 # Read first 重写基线
 
-生成时间：2026-06-29T09:42:50.574Z
+生成时间：2026-06-29T09:55:16.108Z
 
 ## 总览
 
 - 钢笔详情页：244
-- 仍像资料卡或短说明：158（65%）
-- 字数：最短 332，中位数 579，平均 761，最长 2101
+- 仍像资料卡或短说明：148（61%）
+- 字数：最短 332，中位数 588，平均 788，最长 2101
 - A 档：20
 - B 档：103
 - C 档：121
@@ -62,24 +62,24 @@
 | C | skb派顿-f10-f21 | SKB派顿 F10 / F21 | 400 | 0 | 1 | 0 | 1 | 是 |
 | B | targa-by-sheaffer | Targa by Sheaffer | 1009 | 0 | 2 | 0 | 0 | 否 |
 | B | the-camel-pen | The Camel Pen | 1073 | 0 | 3 | 0 | 0 | 否 |
-| B | the-chilton-chiltonian | The Chilton Chiltonian | 487 | 0 | 2 | 0 | 0 | 是 |
-| B | the-chilton-golden-quill | The Chilton Golden Quill | 446 | 0 | 2 | 0 | 0 | 是 |
-| B | the-chilton-wing-flow | The Chilton Wing-flow | 428 | 0 | 2 | 0 | 0 | 是 |
+| B | the-chilton-chiltonian | The Chilton Chiltonian | 1133 | 0 | 2 | 0 | 0 | 否 |
+| B | the-chilton-golden-quill | The Chilton Golden Quill | 1135 | 0 | 2 | 0 | 0 | 否 |
+| B | the-chilton-wing-flow | The Chilton Wing-flow | 1130 | 0 | 2 | 0 | 0 | 否 |
 | B | the-conklin-glider | The Conklin Glider | 1250 | 0 | 2 | 0 | 0 | 否 |
-| B | the-conklin-nozac | The Conklin Nozac | 468 | 0 | 2 | 0 | 0 | 是 |
+| B | the-conklin-nozac | The Conklin Nozac | 1028 | 0 | 2 | 0 | 0 | 否 |
 | B | the-dunn-pen | The Dunn-Pen | 1125 | 0 | 3 | 0 | 0 | 否 |
 | B | the-esterbrook-dollar-pen | The Esterbrook Dollar Pen | 1009 | 0 | 2 | 0 | 0 | 否 |
 | B | the-esterbrook-model-j-family | The Esterbrook Model J Family | 1001 | 0 | 3 | 0 | 0 | 否 |
-| B | the-eversharp-bantam | The Eversharp Bantam | 420 | 0 | 2 | 0 | 0 | 是 |
-| B | the-eversharp-coronet | The Eversharp Coronet | 463 | 0 | 2 | 0 | 0 | 是 |
+| B | the-eversharp-bantam | The Eversharp Bantam | 1127 | 0 | 2 | 0 | 0 | 否 |
+| B | the-eversharp-coronet | The Eversharp Coronet | 1169 | 0 | 2 | 0 | 0 | 否 |
 | B | the-eversharp-doric | The Eversharp Doric | 1002 | 0 | 2 | 0 | 0 | 否 |
-| B | the-eversharp-envoy | The Eversharp Envoy | 414 | 0 | 2 | 0 | 0 | 是 |
+| B | the-eversharp-envoy | The Eversharp Envoy | 1071 | 0 | 2 | 0 | 0 | 否 |
 | B | the-eversharp-fifth-avenue-and-sixty-four | The Eversharp Fifth Avenue and Sixty Four | 634 | 0 | 2 | 0 | 0 | 是 |
-| B | the-eversharp-pacemaker | The Eversharp Pacemaker | 434 | 0 | 2 | 0 | 0 | 是 |
+| B | the-eversharp-pacemaker | The Eversharp Pacemaker | 1149 | 0 | 2 | 0 | 0 | 否 |
 | B | the-eversharp-skyline-family | The Eversharp Skyline Family | 1008 | 0 | 2 | 0 | 0 | 否 |
 | B | the-eversharp-symphony-family | The Eversharp Symphony Family | 533 | 0 | 2 | 0 | 0 | 是 |
 | B | the-eversharp-ventura-family | The Eversharp Ventura Family | 527 | 0 | 2 | 0 | 0 | 是 |
-| B | the-ingersoll-dollar-pen | The Ingersoll Dollar Pen | 450 | 0 | 2 | 0 | 0 | 是 |
+| B | the-ingersoll-dollar-pen | The Ingersoll Dollar Pen | 1080 | 0 | 2 | 0 | 0 | 否 |
 | B | the-j-g-rider-fountain-pen | The J. G. Rider Fountain Pen | 1116 | 0 | 3 | 0 | 0 | 否 |
 | B | the-john-hancock-cartridge-pen | The John Hancock Cartridge Pen | 1227 | 0 | 3 | 0 | 0 | 否 |
 | B | the-moore-finger-tip | The Moore Finger tip | 498 | 0 | 2 | 0 | 0 | 是 |
@@ -99,7 +99,7 @@
 | B | the-security-pen | The Security Pen | 1105 | 0 | 3 | 0 | 0 | 否 |
 | B | the-wahl-pen | The Wahl Pen | 1188 | 0 | 3 | 0 | 0 | 否 |
 | B | the-wasp-addipoint | The WASP Addipoint | 557 | 0 | 2 | 0 | 0 | 是 |
-| B | the-wasp-clipper | The WASP Clipper | 460 | 0 | 2 | 0 | 0 | 是 |
+| B | the-wasp-clipper | The WASP Clipper | 1182 | 0 | 2 | 0 | 0 | 否 |
 | B | the-wearever-zenith | The Wearever Zenith | 482 | 0 | 2 | 0 | 0 | 是 |
 | C | tramol-梵高系列 | Tramol 梵高系列 | 381 | 0 | 0 | 1 | 1 | 是 |
 | B | wancher万佳-dream-pen | Wancher万佳 Dream Pen | 1031 | 1 | 0 | 0 | 0 | 否 |
