@@ -1,6 +1,6 @@
 # Read first B 档 vintage frontier humanizer-zh 审查
 
-生成时间：2026-06-29T09:57:56.651Z
+生成时间：2026-06-29T12:24:45.926Z
 
 ## 评分
 
@@ -26,6 +26,15 @@
 | the-eversharp-pacemaker | 45/50 | 9 | 9 | 9 | 9 | 9 | 依据 Richard's Pens 写 1938 back-to-school、$3.50、Coronet clip 与 Pacemaker features。 |
 | the-ingersoll-dollar-pen | 45/50 | 9 | 9 | 9 | 9 | 9 | 依据 Richard's Pens 写 1922 Newark、$1 value、metal body 和 twist filler 风险。 |
 | the-wasp-clipper | 45/50 | 9 | 9 | 9 | 9 | 9 | 依据 Richard's Pens 写 WASP/Sheaffer 关系、1937 ad、China Clipper naming 与价格层级。 |
+| the-wearever-zenith | 45/50 | 9 | 9 | 9 | 9 | 9 | 依据 Richard's Pens 写 1943 Zenith、polystyrene、David Kahn 与 wartime marketing。 |
+| kimberly-the-pen-that-saved-eversharp | 45/50 | 9 | 9 | 9 | 9 | 9 | 明确 Kimberly 是 ballpoint，依据 Richard's Pens 写 1947、Pockette 和 Eversharp crisis。 |
+| the-moore-finger-tip | 45/50 | 9 | 9 | 9 | 9 | 9 | 依据 Richard's Pens 写 1946、$8.75、Finger tip section/nib 和早期供墨问题。 |
+| the-eversharp-ventura-family | 45/50 | 9 | 9 | 9 | 9 | 9 | 依据 Richard's Pens 写 1953、Burp Pen、Ventura/Slim Ventura 和 Flip Fill/Magic Feed。 |
+| waterman-s-commando | 45/50 | 9 | 9 | 9 | 9 | 9 | 依据 Richard's Pens 写 515/Commando、Lucite/celluloid、military clip 和 clear end 风险。 |
+| moore-s-non-leakable-fountain-pen | 45/50 | 9 | 9 | 9 | 9 | 9 | 依据 Richard's Pens 写 Morris Moore patents、American Fountain Pen Company 和 retractable nib。 |
+| the-eversharp-symphony-family | 45/50 | 9 | 9 | 9 | 9 | 9 | 依据 Richard's Pens 写 1948 Symphony、Loewy、Magic Feed、Sphere Point 和 generations。 |
+| the-wasp-addipoint | 45/50 | 9 | 9 | 9 | 9 | 9 | 依据 Richard's Pens 写 1938 dealer brochure、Addipoint units 和 nib price。 |
+| the-eversharp-fifth-avenue-and-sixty-four | 45/50 | 9 | 9 | 9 | 9 | 9 | 依据 Richard's Pens 写 1943、Loewy/Cloutier、hooded nib problem 和 $64 set。 |
 
 ## Source pack
 
@@ -51,3 +60,12 @@
 | the-eversharp-pacemaker | [RichardsPens.com: The Eversharp Pacemaker](https://www.richardspens.com/ref/profiles/pacemaker.htm)<br>[RichardsPens.com: The Eversharp Pacemaker](https://www.richardspens.com/ref/profiles/pacemaker.htm) |
 | the-ingersoll-dollar-pen | [RichardsPens.com: The Ingersoll Dollar Pen](https://www.richardspens.com/ref/profiles/ingersoll.htm)<br>[RichardsPens.com: The Ingersoll Dollar Pen](https://www.richardspens.com/ref/profiles/ingersoll.htm) |
 | the-wasp-clipper | [RichardsPens.com: The WASP Clipper](https://www.richardspens.com/ref/profiles/wasp_clipper.htm)<br>[RichardsPens.com: The WASP Clipper](https://www.richardspens.com/ref/profiles/wasp_clipper.htm) |
+| the-wearever-zenith | [RichardsPens.com: The Wearever Zenith](https://www.richardspens.com/ref/profiles/zenith.htm)<br>[RichardsPens.com: The Wearever Zenith](https://www.richardspens.com/ref/profiles/zenith.htm) |
+| kimberly-the-pen-that-saved-eversharp | [RichardsPens.com: Kimberly, the Pen That Saved Eversharp](https://www.richardspens.com/ref/profiles/kimberly.htm)<br>[RichardsPens.com: Kimberly, the Pen That Saved Eversharp](https://www.richardspens.com/ref/profiles/kimberly.htm) |
+| the-moore-finger-tip | [RichardsPens.com: The Moore Finger tip](https://www.richardspens.com/ref/profiles/finger_tip.htm)<br>[RichardsPens.com: The Moore Finger tip](https://www.richardspens.com/ref/profiles/finger_tip.htm) |
+| the-eversharp-ventura-family | [RichardsPens.com: The Eversharp Ventura Family](https://www.richardspens.com/ref/profiles/ventura.htm)<br>[RichardsPens.com: The Eversharp Ventura Family](https://www.richardspens.com/ref/profiles/ventura.htm) |
+| waterman-s-commando | [RichardsPens.com: Waterman’s Commando](https://www.richardspens.com/ref/profiles/commando.htm)<br>[RichardsPens.com: Waterman’s Commando](https://www.richardspens.com/ref/profiles/commando.htm) |
+| moore-s-non-leakable-fountain-pen | [RichardsPens.com: Moore’s Non-Leakable Fountain Pen](https://www.richardspens.com/ref/profiles/nonleak.htm)<br>[RichardsPens.com: Moore’s Non-Leakable Fountain Pen](https://www.richardspens.com/ref/profiles/nonleak.htm) |
+| the-eversharp-symphony-family | [RichardsPens.com: The Eversharp Symphony Family](https://www.richardspens.com/ref/profiles/symphony.htm)<br>[RichardsPens.com: The Eversharp Symphony Family](https://www.richardspens.com/ref/profiles/symphony.htm) |
+| the-wasp-addipoint | [RichardsPens.com: The WASP Addipoint](https://www.richardspens.com/ref/profiles/addipoint.htm)<br>[RichardsPens.com: The WASP Addipoint](https://www.richardspens.com/ref/profiles/addipoint.htm) |
+| the-eversharp-fifth-avenue-and-sixty-four | [RichardsPens.com: The Eversharp Fifth Avenue and Sixty Four](https://www.richardspens.com/ref/profiles/5ave.htm)<br>[RichardsPens.com: The Eversharp Fifth Avenue and Sixty Four](https://www.richardspens.com/ref/profiles/5ave.htm) |

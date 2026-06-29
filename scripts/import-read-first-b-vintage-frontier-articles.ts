@@ -518,6 +518,222 @@ Clipper 的产品层级很宽。早期广告给人的价格范围从 1.95 到 3.
 
 购买 WASP Clipper 时，先看 barrel imprint、trim level、nib imprint、cap crown 和 clip 结构。不要只按“WASP = 低端 Sheaffer”草率判断。Clipper 的有趣之处在于它把副牌、航空广告、低价市场和 Sheaffer 背后的制造能力放到一起。状态好、层级清楚的 Clipper，很适合收藏 Sheaffer 旁支谱系。`,
   },
+  {
+    slug: "the-wearever-zenith",
+    title: "The Wearever Zenith：注塑塑料时代的平价尝试",
+    summary: "The Wearever Zenith 是 David Kahn 在 1943 年推出的 polystyrene lever filler，重点在 injection molding、ruby top、战时广告和纯色外观。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 Richard's Pens 写 1943 Zenith、polystyrene、David Kahn 与 wartime marketing。",
+    },
+    body: `The Wearever Zenith 最该先看材料。第二次世界大战前后，钢笔行业开始认真看待现代塑料。celluloid 漂亮，却易燃、需要长时间固化，也不能直接注塑成复杂形状。David Kahn, Inc. 很早就关注 injection molding，Kahn 在 1920 年代末去德国考察，把设备带回美国，逐步发展注塑钢笔生产。
+
+Richard's Pens 记录，David Kahn 公司大概是最早在美国钢笔业实践 polystyrene 注塑的厂家之一。真正推向市场的成果，是 1943 年的 Wearever Zenith。它是一支全新的 lever filler，不靠昂贵花纹或复杂饰件吸引人，而是靠更高效的材料和制造方式，把平价笔做得更整洁。
+
+polystyrene 当时也有限制。它比 celluloid 便宜耐用，适合高速注塑，但只能做 solid colors，无法像 celluloid 那样出现丰富混色。Zenith 因此必须接受单色外观。它的视觉重点转到 ruby top：透明红色 cap-crown jewel 固定 clip，barrel 后端也有匹配的红色 jewel。这个小红点让单色笔多了一点记忆。
+
+Zenith 的成功还要放在战争时期看。Parker 51 和 Eversharp Skyline 也使用单色外观，市场已经能接受没有花纹的现代笔。Kahn 的广告则借用战时情绪，把书写、服役、家书和礼物放在一起。Zenith 不是高端笔，却踩中了材料转型和战时消费的交叉点。
+
+购买 Zenith 时，先看 polystyrene body 是否有裂、变形或明显收缩，再看 lever filler 是否工作，ruby top 是否完整，clip 是否松动。Wearever 一直是平价品牌，不能按一线大厂的精加工期待它；但状态好的 Zenith 能显示注塑时代早期的干净感。
+
+这支笔适合用来理解平价钢笔怎样从 celluloid 时代走向现代塑料。它没有 Vacumatic 的层纹，也没有 Skyline 的设计师光环。它的意义更实际：让制造更快，让成本下降，让纯色塑料笔成为普通市场可以接受的选择。低价并不等于没有技术史价值；有些变化先在大批量商品里发生，后来才变成行业常态。若你想收一支漂亮花纹老笔，Zenith 可能太朴素；若你关心材料工业化，它很值得留一个位置。`,
+  },
+  {
+    slug: "kimberly-the-pen-that-saved-eversharp",
+    title: "Kimberly Pockette：真正救过 Eversharp 的圆珠笔",
+    summary: "Kimberly Pockette 是 Eversharp 在 CA ballpoint 失败后依靠的 long/short ballpoint，阅读重点在 1947、Kimberly 收购和 refill 结构。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "明确 Kimberly 是 ballpoint，依据 Richard's Pens 写 1947、Pockette 和 Eversharp crisis。",
+    },
+    body: `Kimberly 这一页要先把类型说清楚：它讲的是 Eversharp 危机中的 ballpoint，不是 fountain pen。1940 年代中后期，Eversharp 状态很糟。Skyline 已显老，Fifth Avenue 没有打赢 Parker 51，CA ballpoint 又带来大量保修麻烦，几乎把公司拖到破产边缘。Kimberly 就是在这个时候变得重要。
+
+Richard's Pens 记录，Leo Mizis 1945 年创立 Kimberly Corporation，Hartley M. Sears 为 Kimberly 做出了能工作的 ballpoint，并和 Clarence O. Schrader 开发了制造 ballpoint tips 的工艺和机器。随后 Kimberly、Hartley 和 Eversharp 之间出现一连串专利和商业纠纷。最后，Eversharp 获得 Kimberly 的权益，让 Kimberly 成为 Eversharp 独家品牌。1955 年，Eversharp 进一步买下 Kimberly。
+
+Eversharp 接手后的第一款 Kimberly 是 Pockette。它是一支 long/short pen，合上只有约 3 英寸，post 以后约 5 英寸。第一批 Eversharp Kimberly 有两种 trim：chrome-plated cap band 版本 4.95 美元，12K gold-filled band 版本 7.50 美元。这个价格说明它并非廉价小玩具，Eversharp 想把可靠 ballpoint 做成有设计感的随身笔。
+
+Kimberly 的 refill 也很关键。金属 refill 直径较大、薄壁，容量很可观；后来塑料 refill 出现，虽然能看到墨量，但容量只剩原来的 55% 左右。1953 年前后，Eversharp 推出 Inca Ink Kimberly refills，用更强的颜色和可见墨量继续卖点。
+
+购买 Kimberly 时，先别用 fountain pen 的标准判断。要看 refill 还能不能使用或替代，barrel、spring、cap band、mold seam 和 trim level 是否清楚。低价版本和高阶版本完成度不同，便宜型号可能保留明显 mold separation lines。若只看外壳，很容易错过 refill 才是它真正的生命线。
+
+Kimberly 的价值在历史位置。它不是钢笔书写系统的创新，却是 Eversharp 在 ballpoint 灾难后抓住的一根绳子。读这条目，能看到一个传统钢笔公司如何被圆珠笔技术逼到转向，也能看到“能用”这件事在早期 ballpoint 市场里有多珍贵。`,
+  },
+  {
+    slug: "the-moore-finger-tip",
+    title: "The Moore Finger tip：想追上 Parker 51 的不稳定未来感",
+    summary: "The Moore Finger tip 是 1946 年 Moore 的末期高质量尝试，最醒目的是 stainless steel shell 和 inset nib，早期流量问题影响了它的命运。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 Richard's Pens 写 1946、$8.75、Finger tip section/nib 和早期供墨问题。",
+    },
+    body: `The Moore Finger tip 是 Moore 最后一次认真冲高端的尝试。1946 年，战争结束，消费者重新开始购买，Parker 51 成为所有人都要面对的目标。Moore 推出 8.75 美元的 Finger tip Pen，Model 96-B，希望用更现代的外观重新进入竞争。
+
+Richard's Pens 对它的评价很有层次：Finger tip 是一支 decent, smooth-writing pen，但最初并不顺利。早期产品有 flow uneven 和 stop cold 的问题，这些毛病本不该出现在 Moore 这样有经验的公司身上。后来的 Finger tip 改善不少，却已经错过第一印象。它在目录中维持了五年，1951 年已经不在 Moore 产品线里。
+
+外观上，Finger tip 最醒目的是 section 和 nib。barrel threads 之后，它仍是普通 lever filler；cap 也相对常规。真正特别的是明亮 brushed stainless steel 的 bullet-shaped shell，以及嵌入表面、几乎与 shell 齐平的 nib。Fischler 和 Schneider 曾把它形容成 Buck Rogers-like spaceship-shaped pen，这种未来感放在 1946 年很容易理解。
+
+内部结构很复杂。stainless shell 里填着 hard rubber core，feed arrangement 不走常规路。feed 有一条深槽，真正的 ink channel 是一条 14K gold U-channel，嵌在槽里并向 nib 下方弯折。feed 本身可以调整，通过 wax 固定。这个结构新颖，也给维修和调校带来门槛。
+
+购买 Finger tip 时，早期或后期状态很重要。要看供墨是否稳定，shell 是否变形，nib 是否对齐，feed 是否被错误移动，lever filler 是否正常。漂亮的 stainless shell 很吸引人，但它的价值最终还是落在能不能稳定写字上。
+
+Finger tip 适合喜欢战后“追 51”实验的人。它没有 Parker 51 的成熟，也没有 Moore 早期 Non-Leakable 那种经典地位。它像一个老品牌最后用力做出的现代答案：外观大胆，结构聪明，上市初期却没把基础供墨处理好。这个缺憾，正是它故事里最真实的部分。`,
+  },
+  {
+    slug: "the-eversharp-ventura-family",
+    title: "The Eversharp Ventura Family：被“Burp Pen”广告拖累的晚期线",
+    summary: "The Eversharp Ventura Family 包括 Ventura 和 Slim Ventura，两者都在 1953 年后承担 Eversharp 晚期 fountain pen 位置，结构和定位差异很大。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 Richard's Pens 写 1953、Burp Pen、Ventura/Slim Ventura 和 Flip Fill/Magic Feed。",
+    },
+    body: `The Eversharp Ventura Family 常被一个糟糕广告词盖住：“This pen burps before it drinks”。这个说法让 Ventura 在很多人脑子里变成 Burp Pen。Richard's Pens 也承认这句广告可能是最糟糕的钢笔口号之一。可 Ventura 并不只是笑话，它从 1953 年一直做到 Parker 1957 年收购 Eversharp，说明市场并没有立刻拒绝它。
+
+Ventura Family 其实有两个成员：Ventura 和 Slim Ventura。普通 Ventura 取代 Symphony 成为 mid-line model；Slim Ventura 则填补 Envoy 短暂离场后的 upper-line 位置。两者都叫 Ventura，实际差异很大，不能混成一个型号。
+
+普通 Ventura 内部并不新。它更像 Symphony 的轻微改型：仍然使用 unitized lever and pressure bar assembly，也就是后来的 Flip Fill；feed 是 Eversharp 的 Magic Feed，带长 breather tube。barrel 和 cap 结构也与 Symphony 有明显连续性，只是在 cap crown、posting length 和外观细节上做了调整。
+
+普通 Ventura 的问题主要在 cap。Richard Binder 提到，类似 Symphony 的 loose inner cap 问题仍会出现，金色或镀铬 cap finish 的耐久也不如同期 Parker 的 gold-filled 或 stainless steel cap。好处是它仍有 14K Eversharp nib，写感并不差。和同价位钢尖 Sheaffer Craftsman 比，它并不寒酸。
+
+Slim Ventura 才是更大的变化。它保留 Eversharp nib 和 Magic Feed 的经验，但整体更细，笔和铅笔在 girth 和 capped length 上匹配。为配合细身，nib 和 feed 也做了形态变化。若你买的是 Ventura，需要先确认到底是普通 Ventura，还是 Slim Ventura。
+
+购买 Ventura Family 时，看 cap 内衬、finish、nib、Magic Feed、Flip Fill 是否正常。广告词很怪，但不要因为“burp”就轻视它。它代表的是 Eversharp 晚期还在认真做 fountain pen 的阶段，只是品牌已经没有 Skyline 时代那种市场统治力。`,
+  },
+  {
+    slug: "waterman-s-commando",
+    title: "Waterman’s Commando：战争语境里的 5 美元 Waterman",
+    summary: "Waterman’s Commando 来自 1942 年前后的战时营销，早期有 Lucite 版本，后来大多转为 celluloid，优势在 No.5 nib 和轻量平衡。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 Richard's Pens 写 515/Commando、Lucite/celluloid、military clip 和 clear end 风险。",
+    },
+    body: `Waterman’s Commando 是一支很有战时气味的 Waterman。1940 年左右，Waterman 开始重整产品线，放下老旧 Art Deco 形象，改用更结实、现代的 silhouette。新的 military-style clip 便宜、强壮，也容易安装。美国进入二战后，Waterman 很快把原本的 5 美元 Model 515 推到 Commando 名字下。
+
+Richard's Pens 记录，早期 Commando 使用 Waterman 在 Hundred Year Pen 上推出的 Lucite。广告直接把它和 military clip、Inquaduct feed、instant writing 放在一起，说它 built to take it and never fail。这个语境非常明确：它想借军人、军装口袋和战时礼物进入市场。
+
+后来 Commando 很快转回 celluloid，今天多数存世 Commando 都是 celluloid。Lucite 版本更少见，也更有早期意义。颜色范围并不宽，Jet、Maroon、Amber、Blue 都偏暗，适合战时审美。它有 men’s 和 ladies’ sizes，也有 solid body color 或 clear/translucent barrel end 版本。
+
+这支笔的实际优点在 nib。Waterman 即使在较低产品线也没有随便对待笔尖，Commando 配 large No.5 nib，可按 point style 选择。Richard Binder 对它的可用性评价很好：轻、平衡好、写起来愉快。若 barrel end 有损伤，它仍可能是一支 excellent user。
+
+风险也很具体。clear-ended celluloid barrel 常常 crystallized，有时几乎只剩 plug。部分 Commando section 也是 celluloid，可能在压入 nib/feed 的应力下变形。购买时要看 barrel end、section、nib、feed、clip 和 cap 是否健康。若想收藏，Lucite 和 clear-end 状态会影响价格；若想使用，nib 和密封更重要。
+
+Commando 适合想要一支战时 Waterman 的用户。它没有 Hundred Year Pen 的高端位置，却有更清楚的 home-front 气息。它把战时广告、5 美元价位、优秀 Waterman nib 和材料风险放在一起。买它时别被名字吓住，也别被名字迷住，状态才是关键。`,
+  },
+  {
+    slug: "moore-s-non-leakable-fountain-pen",
+    title: "Moore’s Non-Leakable：安全笔时代的伸缩 nib",
+    summary: "Moore’s Non-Leakable Fountain Pen 是 1890 年代 retractable safety pen 的经典，美国 Fountain Pen Company 量产后成为早期防漏结构代表。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 Richard's Pens 写 Morris Moore patents、American Fountain Pen Company 和 retractable nib。",
+    },
+    body: `Moore’s Non-Leakable Fountain Pen 属于 safety pen 的早期经典。名字里的 Non-Leakable 今天听起来有点别扭，但放到 1890 年代很自然。Morris Woodbury Moore 是小提琴家和音乐教师，也长期琢磨钢笔结构。他在 1894 年申请 retractable pen 设计，1896 年获得两项专利。
+
+Moore 的核心想法是让 nib 可以缩回笔身，减少漏墨。专利里有一圈 hard rubber ring，通过横向 pin 和 barrel slot 连接 nib carrier rod。滑动这圈 ring，就能伸出或收回 nib。它解决的是 eyedropper 时代非常现实的问题：携带时如何让装满墨水的笔别弄脏口袋。
+
+Moore 还指定 cork 作为后端密封材料。早期 retractable pens 使用 rubber seal，动作可能发涩，时间久了也会老化。Moore 选择 cork，说明他已经意识到 safety pen 的难点不只是 nib 能动，还要在反复操作时保持可靠密封。
+
+Moore 本人不是制造商。Richard's Pens 记录，William F. Cushman 和 Walter F. Cushing 购买了设计权后，1898 年在 Boston 创立 American Fountain Pen Company 来生产这些笔。笔身 imprint 使用 Moore’s Non-Leakable，nib imprint 则是 American Fountain Pen Co.。这个品牌关系在购买时要分清。
+
+量产版和专利图并不完全一样。工程师对结构做了有益简化：取消外部滑环，把后半段 barrel 做成 slide，仍能在不取下 blind cap 的情况下操作 nib。早期版本保留了一些专利图里的痕迹，比如 slide 上看似无用的 slots。这些细节让早期 Moore 很值得研究。
+
+购买 Non-Leakable 时，先看 retractable mechanism 是否顺畅，nib 是否能完全伸缩，cork packing 是否可靠，hard rubber 是否裂或褪色，nib imprint 是否匹配。它不是随手可修的普通 lever filler。状态好的 Moore’s Non-Leakable 能带你回到钢笔还在解决“怎么安全带出门”的年代；状态差的，则会把密封和修复难度全部交给你。`,
+  },
+  {
+    slug: "the-eversharp-symphony-family",
+    title: "The Eversharp Symphony Family：Loewy 设计的战后重启",
+    summary: "The Eversharp Symphony Family 是 1948 年 Raymond Loewy 参与设计的 Eversharp 战后新线，内部继承 Skyline/Magic Feed，外观从锐利到柔化经历多代变化。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 Richard's Pens 写 1948 Symphony、Loewy、Magic Feed、Sphere Point 和 generations。",
+    },
+    body: `The Eversharp Symphony Family 是 Eversharp 试图从战后困境里重新站起来的产品线。Skyline 曾经大卖，但战后已经显老；Fifth Avenue 没能接住 Parker 51 的挑战；CA ballpoint 又带来保修噩梦。Eversharp 需要另一个 Skyline，于是找到了 Raymond Loewy。
+
+Richard's Pens 记录，Symphony 在 1948 年末出现，catalogue model 500，价格 5 美元。Loewy 的设计很现代，线条简洁，比 Skyline 更容易制造。内部却没有冒险：它沿用 Eversharp 可靠的 breather-tube Magic Feed 和优秀 nib。这种组合很合理，外观换新，书写基础保留。
+
+第一版 Symphony 最特别的是 asymmetrical metal slipper cap。它像两只不同长度的 cap 拼到一起，clip 位于短边 apex，曲线延伸后正好和长边 apex 呼应。cap 没有 cap band，只有一枚位置很讲究的 gold-filled clip。侧面看，它像流线火车或飞机，有强烈速度感。
+
+这种锐利现代感可能也太超前。第一版 Loewy Symphony 只维持约一年，1949 年圣诞季被第二版取代。第二代把 barrel threads 到 body 的过渡柔化，cap lip 变圆，clip 位置下移，原本很快的速度感也减弱。后续出现多种 trim levels，包括窄 gold cap band、Deluxe 宽 band 和 Golden Symphony。
+
+Symphony 还衍生出 Sphere Point，价格 3.75 美元，使用较小 nib 和更长的凸形 section。它复用了 Eversharp 早先 ballpoint 的名字，说明公司在 fountain pen 和 ballpoint 之间不断调整定位。读 Symphony Family，必须看清具体 generation、trim 和 section。
+
+购买 Symphony 时，看 cap 内衬、clip、Magic Feed、nib、lever/pressure bar 和 cap posting 状态。它不像 Skyline 那样有广泛知名度，却保留了 Eversharp 很好的书写基因。若你喜欢 Raymond Loewy 的工业设计，第一版尤其值得看；若你更想要稳妥日用，后期柔化版本可能更容易接受。`,
+  },
+  {
+    slug: "the-wasp-addipoint",
+    title: "The WASP Addipoint：Sheaffer 副牌回应 Esterbrook",
+    summary: "The WASP Addipoint 是 1938 年 WASP 对 Esterbrook interchangeable nib 的回应，用整套可换 section/sac/nib assembly 解决换尖和维修问题。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 Richard's Pens 写 1938 dealer brochure、Addipoint units 和 nib price。",
+    },
+    body: `The WASP Addipoint 要放在 Esterbrook Dollar Pen 的压力下读。1930 年代中期，Sheaffer 通过 WASP 这个副牌进入低价市场，1 美元到 3.95 美元都有产品。真正难打的是 Esterbrook：它不只便宜，还靠 interchangeable nib 让用户和经销商都觉得灵活。
+
+WASP 最初的 1 美元笔并没有打赢 Esterbrook。Richard's Pens 写到，工程师很快看清问题在可换 nib 上，于是 1938 年 2 月推出 Addipoint。Addipoint 的名字就说明卖点：用户可以换 point。但它没有直接复制 Esterbrook 或 Wahl 的 threaded nib collar，因为那些方案有专利保护。
+
+WASP 的办法更大：直接把整个 gripping section assembly 做成可换单元，里面带自己的 sac。换 point 时，用户实际上换掉了 section、nib 和墨水 reservoir。经销商不用处理脏乱维修，用户也减少漏墨失败的机会。WASP 的 dealer brochure 很会讲这点，强调每次换 point 都像给笔换一套新内部。
+
+Addipoint nib units 有钢尖和金尖。钢尖 untipped，rolled-under，价格 25 美分；广告说 double tipped，但这个说法有点营销味。WASP 还提供 75 美分的 iridium-tipped gold Addipoint nibs。钢尖包括 flexible extra fine、flexible fine、flexible medium、flexible stub、Gregg shorthand、manifold medium 等编号；所谓 flexible 多半只是低价钢尖常见的一点弹性，不应按真正 flex nib 期待。
+
+结构上，Addipoint 仍是 lever filler，使用 commodity J-bar，而非 Sheaffer 自家的 sprung pressure bar。可换 section 通过螺纹进入 barrel，也保证 nib 和 lever 对齐，视觉上更整洁。技术本身没有新发明，却是很聪明的产品组合。
+
+购买 Addipoint 时，先确认是否仍有正确 Addipoint section assembly，nib 编号是否清楚，sac 是否健康，barrel threads 是否损坏。缺少原配可换单元，它就失去大半特色。它适合喜欢 Sheaffer 旁支和低价市场竞争的人：一支为了回应 Esterbrook 而生的 WASP。`,
+  },
+  {
+    slug: "the-eversharp-fifth-avenue-and-sixty-four",
+    title: "The Eversharp Fifth Avenue / Sixty Four：追赶 Parker 51 的错位答案",
+    summary: "The Eversharp Fifth Avenue 和 Sixty Four 是 Eversharp 1943 年追赶 hooded nib 潮流的产品，外观 Art Deco，早期写感和 cap 设计都遇到问题。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 Richard's Pens 写 1943、Loewy/Cloutier、hooded nib problem 和 $64 set。",
+    },
+    body: `The Eversharp Fifth Avenue 要放在 Parker 51 之后读。1941 年 Parker 51 出现后，hooded nib 和流线外观成了许多厂商追赶的对象。Eversharp 当时刚推出 Henry Dreyfuss 设计的 Skyline，仍是 open nib。面对 51 的新潮外观，公司很快开始把已有内部结构塞进一副更现代的外壳里。
+
+1943 年，Fifth Avenue 上市，价格 12.50 美元，正好对上 Parker 51 入门价。它的 business end 由 George D. Cloutier 设计，body 则来自 Raymond Loewy。Richard's Pens 指出，基础款 cap 使用 vermeil，也就是 gold over sterling silver，从材料上看并不寒酸。
+
+问题在方向错位。Fifth Avenue 试图显得现代，外观却仍很 Art Deco。对今天喜欢 Art Deco 的人来说，它可能优雅、平衡；对 1940 年代想追新潮的消费者来说，它不够向前。更糟的是，早期 hooded nib 结构把 nib 几乎整段夹在 feed 和 shell bore 之间，写感硬而不饶人，远不如 Eversharp 用户熟悉的 Skyline。
+
+Eversharp 很快修改设计，换用更小的 nib 和 revised feed，并用 hard rubber sleeve 组合 nib/feed。cap seating 也有问题，Cloutier 随后提交了改进 cap 的专利。改良后的 Fifth Avenue 可以调得不错，但调校成本会推高生产成本。商业上，它仍然没有成功，市场寿命不到两年。
+
+Sixty Four 是这条线里最显眼的变化。名字来自 64 美元的 pen-and-pencil set；单支 pen 也要 40 美元。它把这套设计推到更昂贵、更礼品化的位置，已经超出普通 Fifth Avenue 的小修小补。今天看 Sixty Four，要同时考虑稀有度、材料、cap、nib unit 和是否完整成套。
+
+购买 Fifth Avenue / Sixty Four 时，先看是哪一版 nib/feed/cap，写感是否被调好，cap 是否可靠，vermeil 或贵金属表面是否磨损。它适合喜欢 Eversharp 转型失败细节的人。它没有 Parker 51 的成熟，却很好地展示了一家大厂在追赶潮流时可能踩错的那一步。`,
+  },
 ];
 
 function getClient() {

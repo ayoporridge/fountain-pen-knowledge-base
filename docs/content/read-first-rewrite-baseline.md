@@ -1,12 +1,12 @@
 # Read first 重写基线
 
-生成时间：2026-06-29T09:55:16.108Z
+生成时间：2026-06-29T12:21:45.516Z
 
 ## 总览
 
 - 钢笔详情页：244
-- 仍像资料卡或短说明：148（61%）
-- 字数：最短 332，中位数 588，平均 788，最长 2101
+- 仍像资料卡或短说明：139（57%）
+- 字数：最短 332，中位数 606，平均 809，最长 2101
 - A 档：20
 - B 档：103
 - C 档：121
@@ -47,9 +47,9 @@
 | B | kaweco-al-sport | Kaweco AL Sport | 1041 | 1 | 0 | 0 | 0 | 否 |
 | B | kaweco-liliput | Kaweco Liliput | 1001 | 1 | 0 | 0 | 0 | 否 |
 | B | kaweco-student | Kaweco Student | 1029 | 1 | 0 | 0 | 0 | 否 |
-| B | kimberly-the-pen-that-saved-eversharp | Kimberly, the Pen That Saved Eversharp | 496 | 0 | 2 | 0 | 0 | 是 |
+| B | kimberly-the-pen-that-saved-eversharp | Kimberly, the Pen That Saved Eversharp | 1188 | 0 | 2 | 0 | 0 | 否 |
 | B | leonardo-furore-momento-magico | Leonardo Furore / Momento Magico | 1028 | 1 | 0 | 0 | 0 | 否 |
-| B | moore-s-non-leakable-fountain-pen | Moore’s Non-Leakable Fountain Pen | 531 | 0 | 2 | 0 | 0 | 是 |
+| B | moore-s-non-leakable-fountain-pen | Moore’s Non-Leakable Fountain Pen | 1070 | 0 | 2 | 0 | 0 | 否 |
 | B | morrison-s-patriot | Morrison’s Patriot | 1203 | 0 | 2 | 0 | 0 | 否 |
 | A | noodler鲶鱼-简易钢笔 | Noodler鲶鱼 简易钢笔 | 2008 | 2 | 1 | 2 | 1 | 否 |
 | C | opus-88-demo-kolora | Opus 88 Demo/Kolora | 657 | 0 | 0 | 1 | 0 | 是 |
@@ -74,15 +74,15 @@
 | B | the-eversharp-coronet | The Eversharp Coronet | 1169 | 0 | 2 | 0 | 0 | 否 |
 | B | the-eversharp-doric | The Eversharp Doric | 1002 | 0 | 2 | 0 | 0 | 否 |
 | B | the-eversharp-envoy | The Eversharp Envoy | 1071 | 0 | 2 | 0 | 0 | 否 |
-| B | the-eversharp-fifth-avenue-and-sixty-four | The Eversharp Fifth Avenue and Sixty Four | 634 | 0 | 2 | 0 | 0 | 是 |
+| B | the-eversharp-fifth-avenue-and-sixty-four | The Eversharp Fifth Avenue and Sixty Four | 1076 | 0 | 2 | 0 | 0 | 否 |
 | B | the-eversharp-pacemaker | The Eversharp Pacemaker | 1149 | 0 | 2 | 0 | 0 | 否 |
 | B | the-eversharp-skyline-family | The Eversharp Skyline Family | 1008 | 0 | 2 | 0 | 0 | 否 |
-| B | the-eversharp-symphony-family | The Eversharp Symphony Family | 533 | 0 | 2 | 0 | 0 | 是 |
-| B | the-eversharp-ventura-family | The Eversharp Ventura Family | 527 | 0 | 2 | 0 | 0 | 是 |
+| B | the-eversharp-symphony-family | The Eversharp Symphony Family | 1093 | 0 | 2 | 0 | 0 | 否 |
+| B | the-eversharp-ventura-family | The Eversharp Ventura Family | 1139 | 0 | 2 | 0 | 0 | 否 |
 | B | the-ingersoll-dollar-pen | The Ingersoll Dollar Pen | 1080 | 0 | 2 | 0 | 0 | 否 |
 | B | the-j-g-rider-fountain-pen | The J. G. Rider Fountain Pen | 1116 | 0 | 3 | 0 | 0 | 否 |
 | B | the-john-hancock-cartridge-pen | The John Hancock Cartridge Pen | 1227 | 0 | 3 | 0 | 0 | 否 |
-| B | the-moore-finger-tip | The Moore Finger tip | 498 | 0 | 2 | 0 | 0 | 是 |
+| B | the-moore-finger-tip | The Moore Finger tip | 1053 | 0 | 2 | 0 | 0 | 否 |
 | B | the-parker-180 | The Parker 180 | 1007 | 0 | 2 | 0 | 0 | 否 |
 | B | the-parker-21 | The Parker “21” | 1014 | 0 | 2 | 0 | 0 | 否 |
 | B | the-parker-45 | The Parker 45 | 1002 | 0 | 2 | 0 | 0 | 否 |
@@ -98,13 +98,13 @@
 | B | the-postal-reservoir-pen | The Postal Reservoir Pen | 1049 | 0 | 3 | 0 | 0 | 否 |
 | B | the-security-pen | The Security Pen | 1105 | 0 | 3 | 0 | 0 | 否 |
 | B | the-wahl-pen | The Wahl Pen | 1188 | 0 | 3 | 0 | 0 | 否 |
-| B | the-wasp-addipoint | The WASP Addipoint | 557 | 0 | 2 | 0 | 0 | 是 |
+| B | the-wasp-addipoint | The WASP Addipoint | 1159 | 0 | 2 | 0 | 0 | 否 |
 | B | the-wasp-clipper | The WASP Clipper | 1182 | 0 | 2 | 0 | 0 | 否 |
-| B | the-wearever-zenith | The Wearever Zenith | 482 | 0 | 2 | 0 | 0 | 是 |
+| B | the-wearever-zenith | The Wearever Zenith | 1017 | 0 | 2 | 0 | 0 | 否 |
 | C | tramol-梵高系列 | Tramol 梵高系列 | 381 | 0 | 0 | 1 | 1 | 是 |
 | B | wancher万佳-dream-pen | Wancher万佳 Dream Pen | 1031 | 1 | 0 | 0 | 0 | 否 |
 | B | waterman-s-c-f | Waterman’s C/F | 1007 | 0 | 3 | 0 | 0 | 否 |
-| B | waterman-s-commando | Waterman’s Commando | 528 | 0 | 2 | 0 | 0 | 是 |
+| B | waterman-s-commando | Waterman’s Commando | 1120 | 0 | 2 | 0 | 0 | 否 |
 | B | waterman-s-hundred-year-pen | Waterman’s Hundred Year Pen | 1026 | 0 | 2 | 0 | 0 | 否 |
 | B | waterman-s-ideal-no52 | Waterman’s Ideal No52 | 1058 | 0 | 2 | 0 | 0 | 否 |
 | B | waterman-s-ideal-no7 | Waterman’s Ideal No7 | 1040 | 0 | 2 | 0 | 0 | 否 |
