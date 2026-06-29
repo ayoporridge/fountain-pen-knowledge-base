@@ -1,12 +1,12 @@
 # Read first 重写基线
 
-生成时间：2026-06-29T07:34:07.227Z
+生成时间：2026-06-29T08:31:36.814Z
 
 ## 总览
 
 - 钢笔详情页：244
-- 仍像资料卡或短说明：208（85%）
-- 字数：最短 332，中位数 538，平均 661，最长 2101
+- 仍像资料卡或短说明：198（81%）
+- 字数：最短 332，中位数 549，平均 680，最长 2101
 - A 档：20
 - B 档：103
 - C 档：121
@@ -53,14 +53,14 @@
 | B | morrison-s-patriot | Morrison’s Patriot | 409 | 0 | 2 | 0 | 0 | 是 |
 | A | noodler鲶鱼-简易钢笔 | Noodler鲶鱼 简易钢笔 | 2008 | 2 | 1 | 2 | 1 | 否 |
 | C | opus-88-demo-kolora | Opus 88 Demo/Kolora | 657 | 0 | 0 | 1 | 0 | 是 |
-| B | sheaffer-s-balance | Sheaffer’s Balance | 493 | 0 | 2 | 0 | 0 | 是 |
+| B | sheaffer-s-balance | Sheaffer’s Balance | 1037 | 0 | 2 | 0 | 0 | 否 |
 | B | sheaffer-s-connaisseur | Sheaffer’s Connaisseur | 456 | 0 | 2 | 0 | 0 | 是 |
 | B | sheaffer-s-craftsman | Sheaffer’s Craftsman | 448 | 0 | 2 | 0 | 0 | 是 |
-| B | sheaffer-s-pfm | Sheaffer’s PFM | 553 | 0 | 2 | 0 | 0 | 是 |
+| B | sheaffer-s-pfm | Sheaffer’s PFM | 1004 | 0 | 2 | 0 | 0 | 否 |
 | B | sheaffer-s-touchdown-tm | Sheaffer’s Touchdown TM | 549 | 0 | 2 | 0 | 0 | 是 |
 | B | sheaffer-s-tuckaway | Sheaffer’s Tuckaway | 499 | 0 | 3 | 0 | 0 | 是 |
 | C | skb派顿-f10-f21 | SKB派顿 F10 / F21 | 400 | 0 | 1 | 0 | 1 | 是 |
-| B | targa-by-sheaffer | Targa by Sheaffer | 538 | 0 | 2 | 0 | 0 | 是 |
+| B | targa-by-sheaffer | Targa by Sheaffer | 1009 | 0 | 2 | 0 | 0 | 否 |
 | B | the-camel-pen | The Camel Pen | 386 | 0 | 3 | 0 | 0 | 是 |
 | B | the-chilton-chiltonian | The Chilton Chiltonian | 487 | 0 | 2 | 0 | 0 | 是 |
 | B | the-chilton-golden-quill | The Chilton Golden Quill | 446 | 0 | 2 | 0 | 0 | 是 |
@@ -84,15 +84,15 @@
 | B | the-john-hancock-cartridge-pen | The John Hancock Cartridge Pen | 513 | 0 | 3 | 0 | 0 | 是 |
 | B | the-moore-finger-tip | The Moore Finger tip | 498 | 0 | 2 | 0 | 0 | 是 |
 | B | the-parker-180 | The Parker 180 | 555 | 0 | 2 | 0 | 0 | 是 |
-| B | the-parker-21 | The Parker “21” | 576 | 0 | 2 | 0 | 0 | 是 |
-| B | the-parker-45 | The Parker 45 | 540 | 0 | 2 | 0 | 0 | 是 |
-| B | the-parker-61 | The Parker 61 | 539 | 0 | 2 | 0 | 0 | 是 |
-| B | the-parker-75 | The Parker 75 | 571 | 0 | 2 | 0 | 0 | 是 |
-| B | the-parker-duofold | The Parker Duofold | 528 | 0 | 2 | 0 | 0 | 是 |
+| B | the-parker-21 | The Parker “21” | 1014 | 0 | 2 | 0 | 0 | 否 |
+| B | the-parker-45 | The Parker 45 | 1002 | 0 | 2 | 0 | 0 | 否 |
+| B | the-parker-61 | The Parker 61 | 1004 | 0 | 2 | 0 | 0 | 否 |
+| B | the-parker-75 | The Parker 75 | 1002 | 0 | 2 | 0 | 0 | 否 |
+| B | the-parker-duofold | The Parker Duofold | 1006 | 0 | 2 | 0 | 0 | 否 |
 | B | the-parker-duofold-geometric-toothbrush | The Parker Duofold Geometric (“Toothbrush”) | 675 | 0 | 2 | 0 | 0 | 是 |
 | B | the-parker-parkette-and-writefine | The Parker Parkette and Writefine | 611 | 0 | 2 | 0 | 0 | 是 |
 | B | the-parker-striped-duofold | The Parker Striped Duofold | 557 | 0 | 3 | 0 | 0 | 是 |
-| B | the-parker-vacumatic | The Parker Vacumatic | 537 | 0 | 3 | 0 | 0 | 是 |
+| B | the-parker-vacumatic | The Parker Vacumatic | 1001 | 0 | 3 | 0 | 0 | 否 |
 | B | the-parker-vp | The Parker VP | 520 | 0 | 2 | 0 | 0 | 是 |
 | B | the-parker-vs | The Parker VS | 535 | 0 | 2 | 0 | 0 | 是 |
 | B | the-postal-reservoir-pen | The Postal Reservoir Pen | 512 | 0 | 3 | 0 | 0 | 是 |
@@ -103,7 +103,7 @@
 | B | the-wearever-zenith | The Wearever Zenith | 482 | 0 | 2 | 0 | 0 | 是 |
 | C | tramol-梵高系列 | Tramol 梵高系列 | 381 | 0 | 0 | 1 | 1 | 是 |
 | B | wancher万佳-dream-pen | Wancher万佳 Dream Pen | 642 | 1 | 0 | 0 | 0 | 是 |
-| B | waterman-s-c-f | Waterman’s C/F | 511 | 0 | 3 | 0 | 0 | 是 |
+| B | waterman-s-c-f | Waterman’s C/F | 1007 | 0 | 3 | 0 | 0 | 否 |
 | B | waterman-s-commando | Waterman’s Commando | 528 | 0 | 2 | 0 | 0 | 是 |
 | B | waterman-s-hundred-year-pen | Waterman’s Hundred Year Pen | 570 | 0 | 2 | 0 | 0 | 是 |
 | B | waterman-s-ideal-no52 | Waterman’s Ideal No52 | 637 | 0 | 2 | 0 | 0 | 是 |
