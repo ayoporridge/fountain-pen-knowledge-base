@@ -1,12 +1,12 @@
 # Read first 重写基线
 
-生成时间：2026-06-29T05:43:53.137Z
+生成时间：2026-06-29T06:01:56.615Z
 
 ## 总览
 
 - 钢笔详情页：244
 - 仍像资料卡或短说明：234（96%）
-- 字数：最短 332，中位数 537，平均 559，最长 1570
+- 字数：最短 332，中位数 537，平均 593，最长 2101
 - A 档：20
 - B 档：103
 - C 档：121
@@ -25,20 +25,20 @@
 
 | 档位 | slug | 名称 | 当前字数 | 官方 | 评测/社区 | 零售 | 搜索索引 | 需重写 |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | --- |
-| A | kaweco-sport | Kaweco Sport | 1097 | 3 | 0 | 0 | 0 | 否 |
+| A | kaweco-sport | Kaweco Sport | 2047 | 3 | 0 | 0 | 0 | 否 |
 | A | pelikan-souveran-m800 | 百利金 Souverän M800 | 573 | 0 | 0 | 1 | 1 | 是 |
 | A | pilot-custom-823 | 百乐 Custom 823 | 522 | 1 | 1 | 0 | 0 | 是 |
-| A | sailor-pro-gear | 写乐 Pro Gear | 1292 | 3 | 0 | 0 | 0 | 否 |
-| A | sheaffer-s-snorkel | Sheaffer’s Snorkel | 1237 | 0 | 3 | 0 | 0 | 否 |
+| A | sailor-pro-gear | 写乐 Pro Gear | 2043 | 3 | 0 | 0 | 0 | 否 |
+| A | sheaffer-s-snorkel | Sheaffer’s Snorkel | 2074 | 0 | 3 | 0 | 0 | 否 |
 | A | the-parker-51 | The Parker “51” | 636 | 0 | 2 | 0 | 0 | 是 |
-| A | 万宝龙-montblanc-大班149-meisterst-ck | 万宝龙 Montblanc 大班149 Meisterstück | 1065 | 2 | 1 | 0 | 0 | 否 |
+| A | 万宝龙-montblanc-大班149-meisterst-ck | 万宝龙 Montblanc 大班149 Meisterstück | 2020 | 2 | 1 | 0 | 0 | 否 |
 | A | 写乐-sailor-1911-profit系列 | 写乐 Sailor 1911/Profit系列 | 677 | 3 | 0 | 0 | 0 | 是 |
-| A | 凌美-lamy-lamy-2000 | 凌美 LAMY LAMY 2000 | 1365 | 4 | 2 | 0 | 0 | 否 |
-| A | 派克-parker-51-经典-vintage | 派克 Parker 51（经典/Vintage） | 1570 | 0 | 4 | 0 | 0 | 否 |
-| A | 白金-platinum-3776-century | 白金 Platinum 3776 Century | 1081 | 2 | 0 | 1 | 0 | 否 |
-| A | 白金-platinum-出云-izumo | 白金 Platinum Izumo 出云 | 1163 | 2 | 0 | 2 | 1 | 否 |
-| A | 百乐-pilot-custom-823 | 百乐 Pilot Custom 823 | 1287 | 1 | 0 | 2 | 1 | 否 |
-| A | 百利金-pelikan-m800 | 百利金 Pelikan M800 | 1167 | 1 | 1 | 1 | 1 | 否 |
+| A | 凌美-lamy-lamy-2000 | 凌美 LAMY LAMY 2000 | 2045 | 4 | 2 | 0 | 0 | 否 |
+| A | 派克-parker-51-经典-vintage | 派克 Parker 51（经典/Vintage） | 2101 | 0 | 4 | 0 | 0 | 否 |
+| A | 白金-platinum-3776-century | 白金 Platinum 3776 Century | 2017 | 2 | 0 | 1 | 0 | 否 |
+| A | 白金-platinum-出云-izumo | 白金 Platinum Izumo 出云 | 2099 | 2 | 0 | 2 | 1 | 否 |
+| A | 百乐-pilot-custom-823 | 百乐 Pilot Custom 823 | 2048 | 1 | 0 | 2 | 1 | 否 |
+| A | 百利金-pelikan-m800 | 百利金 Pelikan M800 | 2070 | 1 | 1 | 1 | 1 | 否 |
 | C | admok-简800 | Admok 简800 | 345 | 0 | 0 | 1 | 1 | 是 |
 | B | diplomat迪波曼-aero太空梭 | Diplomat迪波曼 Aero太空梭 | 574 | 1 | 0 | 0 | 0 | 是 |
 | B | esterbrook-estie-oversized | Esterbrook Estie Oversized | 692 | 1 | 0 | 0 | 0 | 是 |
