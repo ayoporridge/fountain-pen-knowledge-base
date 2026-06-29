@@ -1,12 +1,12 @@
 # Read first 重写基线
 
-生成时间：2026-06-29T12:21:45.516Z
+生成时间：2026-06-29T12:47:43.438Z
 
 ## 总览
 
 - 钢笔详情页：244
-- 仍像资料卡或短说明：139（57%）
-- 字数：最短 332，中位数 606，平均 809，最长 2101
+- 仍像资料卡或短说明：130（53%）
+- 字数：最短 332，中位数 610，平均 826，最长 2101
 - A 档：20
 - B 档：103
 - C 档：121
@@ -124,20 +124,20 @@
 | B | 三文堂-twsbi-vac700r | 三文堂 TWSBI VAC700R | 1002 | 1 | 0 | 0 | 0 | 否 |
 | B | 上海-shanghai-97回归 | 英雄 Hero 1997型18K金笔 | 588 | 1 | 0 | 0 | 1 | 是 |
 | C | 东吴-dongwu-948 | 东吴 DongWu 948 | 373 | 0 | 0 | 0 | 2 | 是 |
-| B | 中屋-nakaya-housoge高级定制 | 中屋 Nakaya Housoge高级定制 | 614 | 2 | 0 | 0 | 1 | 是 |
-| B | 中屋-nakaya-portable-portable-cigar | 中屋 Nakaya Portable / Portable Cigar | 654 | 2 | 0 | 0 | 1 | 是 |
-| B | 中屋-nakaya-portable-writer-黑溜涂 | 中屋 Nakaya Portable Writer 黑溜涂 | 631 | 2 | 0 | 0 | 1 | 是 |
+| B | 中屋-nakaya-housoge高级定制 | 中屋 Nakaya Housoge高级定制 | 1043 | 2 | 0 | 0 | 1 | 否 |
+| B | 中屋-nakaya-portable-portable-cigar | 中屋 Nakaya Portable / Portable Cigar | 1000 | 2 | 0 | 0 | 1 | 否 |
+| B | 中屋-nakaya-portable-writer-黑溜涂 | 中屋 Nakaya Portable Writer 黑溜涂 | 1024 | 2 | 0 | 0 | 1 | 否 |
 | C | 书乐-shule-2398 | 书乐 ShuLe 2398 | 373 | 0 | 0 | 0 | 2 | 是 |
 | C | 依人-yiren-878 | 依人 YiRen 878 | 355 | 0 | 0 | 1 | 1 | 是 |
-| B | 写乐-sailor-0501铱金 | 写乐 Sailor Young Profit 0501 | 521 | 0 | 2 | 1 | 1 | 是 |
+| B | 写乐-sailor-0501铱金 | 写乐 Sailor Young Profit 0501 | 1018 | 0 | 2 | 1 | 1 | 否 |
 | C | 写乐-sailor-1029银夹鱼雷 | 写乐 Sailor 1029银夹鱼雷 | 401 | 0 | 0 | 1 | 1 | 是 |
 | B | 写乐-sailor-1219标准鱼雷 | 写乐 Sailor 1219标准鱼雷 | 1065 | 2 | 0 | 0 | 0 | 否 |
 | B | 写乐-sailor-21k-pro-gear-大鱼雷 | 写乐 Sailor 21K Pro Gear/大鱼雷 | 1060 | 2 | 0 | 0 | 0 | 否 |
-| B | 写乐-sailor-classic-ko | 写乐 Sailor Classic Ko | 580 | 1 | 0 | 0 | 0 | 是 |
+| B | 写乐-sailor-classic-ko | 写乐 Sailor Classic Ko | 1004 | 1 | 0 | 0 | 0 | 否 |
 | B | 写乐-sailor-king-of-pen笔王 | 写乐 Sailor King of Pen笔王 | 1058 | 1 | 0 | 0 | 0 | 否 |
-| C | 写乐-sailor-promenade漫步1031 | 写乐 Sailor Promenade漫步1031 | 600 | 0 | 0 | 1 | 1 | 是 |
+| C | 写乐-sailor-promenade漫步1031 | 写乐 Sailor Promenade漫步1031 | 1006 | 0 | 0 | 1 | 1 | 否 |
 | B | 写乐-sailor-四季织1224 | 写乐 Sailor 四季织1224 | 1014 | 1 | 0 | 0 | 0 | 否 |
-| C | 写乐-sailor-转运石 | 写乐 Sailor 转运石 | 490 | 0 | 0 | 1 | 1 | 是 |
+| C | 写乐-sailor-转运石 | 写乐 Sailor 转运石 | 1040 | 0 | 0 | 1 | 1 | 否 |
 | B | 写乐-sailor-长刀研 | 写乐 Sailor 长刀研 | 1025 | 1 | 0 | 0 | 0 | 否 |
 | B | 凌美-lamy-al-star-恒星 | 凌美 LAMY Al-Star 恒星 | 1022 | 1 | 0 | 0 | 0 | 否 |
 | B | 凌美-lamy-dialog-3-焦点3 | 凌美 LAMY Dialog 3 焦点3 | 1013 | 1 | 0 | 0 | 0 | 否 |

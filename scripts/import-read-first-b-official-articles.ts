@@ -300,6 +300,240 @@ Yukari Royale 的吸引力也在这个中间位置。它足够高阶，能让漆
 
 若你想要 Namiki 漆艺，又担心 Emperor 太大，Yukari Royale 是更容易认真使用的一条线。它的好处在于把高阶漆艺放进相对可写的尺寸里，但它仍然需要谨慎保存和明确预算。把它当成一支可以书写的工艺品，而非普通升级笔，期待会更稳。适合它的用户，通常已经知道自己想要的不是单纯更顺滑的笔尖。`,
   },
+  {
+    slug: "中屋-nakaya-housoge高级定制",
+    title: "Nakaya Housoge：把吉祥花纹刻进整支笔",
+    summary: "Nakaya Housoge 是以宝相华纹样和 Chinkin 技法为核心的 Cigar Piccolo 定制款，重点在黑底金线、整笔装饰和工艺保存。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 Nakaya 官方 Housoge 页面写 Chinkin、黑底金线、整笔身装饰和宝相华纹样。",
+    },
+    body: `Nakaya Housoge 先要看纹样，不能把它当成普通黑色漆笔。Nakaya 官方页面写得很清楚：这支 Cigar Piccolo HOUSOGE 以黑底和金线为主，使用 Chinkin 技法表现 Housoge 图案，装饰覆盖整支笔身，连握位也包括在内。也就是说，它的重点不止在笔帽上那一段画面，手握住的地方也进入图案之中。
+
+Housoge 通常译作宝相华，是一种想象中的花。Nakaya 官方说明把它放在天界之花、阿拉伯草纹和正仓院乐器装饰的脉络里，含义偏吉祥。读者如果只看照片，可能会先被金色线条吸引；真正理解这支笔时，要看到它为什么选择这种纹样。它处理的是一种传统装饰秩序，把花、藤蔓和吉祥含义压缩到一支小尺寸 Cigar Piccolo 上。
+
+Chinkin 的观感和普通描金不同。线条像刻进漆面里，再以金色形成反差。黑底越深，金线越明显。Housoge 的图案密度又高，整支笔会比常见的纯色 Nakaya 更华丽。它适合喜欢细节的人，也会筛掉想要低调日用笔的人。若你希望一支笔在桌面上安静存在，Kuro-tamenuri 或 Aka-tamenuri 更容易相处；Housoge 会主动把注意力拉到花纹上。
+
+这支笔的尺寸和命名也重要。Cigar Piccolo 比 Portable 更短，Cigar 又意味着没有常规笔夹。它更像一件手里把玩的漆艺小笔，而不是随便别在口袋里的工具。短尺寸有便携感，真正书写时要看手掌大小、是否习惯不带夹的笔帽，以及是否愿意用较贵重的漆艺笔写日常内容。
+
+购买 Housoge 时，第一件事是确认具体版本和实拍。黑底、金线、纹样密度、握位装饰都会影响观感。第二件事是看漆面和线条状态，尤其是握位附近。因为图案延伸到手会接触的位置，长期使用会让保存问题更现实。第三件事才是笔尖。Nakaya 的价值当然包括书写调校，但 Housoge 这种款式的判断，工艺和保存权重要更高。
+
+实际书写时，也要接受它的存在感。握位有图案，手指会直接碰到装饰区域；这会让每次使用都更有仪式感，也会让人自然放慢动作。若你想要一支随手会议笔，它会显得过于讲究；若你写信、题签或做少量长文，它的节奏更合适。
+
+它适合已经知道自己喜欢 Nakaya 的人。第一次买漆笔，纯色 Portable 或 Writer 更容易判断手感；已经熟悉 Nakaya 的尺寸和握位，再去选择 Housoge 这种高装饰款，会少一些误判。把它看作一支可写的漆艺作品，期待会更稳。`,
+  },
+  {
+    slug: "中屋-nakaya-portable-portable-cigar",
+    title: "Nakaya Portable Cigar：没有笔夹的黑溜涂日用尺寸",
+    summary: "Nakaya Portable Cigar Kuro-tame 把黑溜涂漆面、便携长度和无笔夹 Cigar 外形放在一起，适合重视握持和漆面变化的用户。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 Nakaya 官方 Cigar Portable Kuro-tame 页面写日用长度、便携/舒适平衡和黑溜涂。",
+    },
+    body: `Nakaya Portable Cigar Kuro-tame 的入口很安静。官方页面说它是适合日常使用的长度，在便携和书写舒适之间取得平衡；漆面是黑色调的 shuai urushi 覆在朱色底上，形成黑溜涂的深色外观。这个描述很短，却足以说明它和高装饰款的区别：它靠比例、漆色和手感说话。
+
+Portable 是 Nakaya 最容易进入日用的尺寸之一。它不像 Piccolo 那样短，也不像超大尺寸那样要求手掌和场景。Cigar 则去掉常规笔夹，让笔帽线条更完整。这个选择会让外观更干净，也会带来携带问题：没有笔夹，放在笔袋或桌面上很美，别在衬衫口袋里就不现实。
+
+黑溜涂的魅力在时间。它第一眼近似黑色，细看会有底色透出的温度。和亮色树脂不同，Kuro-tame 不靠鲜艳取胜。适合它的人，通常喜欢克制、暗色、漆面层次，也愿意接受手工漆物在长期使用中慢慢变化。若你想要照片里一眼惊艳的笔，Housoge 或莳绘款更明显；若你想要一支越看越耐的 Nakaya，Portable Cigar 很有代表性。
+
+书写上，Portable Cigar 的判断要回到握持。没有笔夹后，笔帽重量和视觉都更纯粹；笔身是否合手，要看是否习惯 Nakaya 的直径和重心。它不是大容量活塞笔，也不是强调机械结构的现代工具。它更像一支让使用者把注意力放回手、纸、墨和笔尖调校的漆笔。
+
+购买时不要只看“黑溜涂”三个字。不同照片光线会让漆面差异很大，二手笔还要看漆面划痕、笔帽口、尾端和握位附近。Cigar 没有夹，携带习惯也要先想清楚。若你每天把笔随手丢进包里，它不适合；若你有笔套、固定书桌或愿意小心携带，它的简洁外形才会成立。
+
+它也适合用来理解 Nakaya 的基础美学。很多品牌会把高级感放在金属环、复杂笔夹或大号 nib 上，Portable Cigar 更依赖漆面和比例。拿在手里时，少了笔夹带来的视觉中断，笔帽和笔身会连成一条更完整的暗色曲线。这种安静感，是它和普通黑杆钢笔最明显的区别。
+
+Portable Cigar Kuro-tame 的好处，是它不会把 Nakaya 的工艺感推得太满。它保留手工漆笔的触感和层次，又尽量接近日常书写尺寸。读者如果想从 Nakaya 找一支长期相处的笔，而不是一支只在照片里成立的展示物，这条线值得先看。买前最好同时看手持照和笔帽闭合照，比例会比单独产品图更真实。`,
+  },
+  {
+    slug: "中屋-nakaya-portable-writer-黑溜涂",
+    title: "Nakaya Portable Writer 黑溜涂：更现实的 Nakaya 入口",
+    summary: "Nakaya Portable Writer 黑溜涂保留 Portable 尺寸和 Kuro-tamenuri 漆面，同时用 Writer 笔夹结构提高日常携带性。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 Nakaya 官方模型页和 Portable Writer/Kuro-tamenuri 来源写尺寸、笔夹和漆面判断。",
+    },
+    body: `Nakaya Portable Writer 黑溜涂比 Cigar 更容易进入日常。Portable 尺寸仍然在，Kuro-tamenuri 的深色漆面仍然是主角，差别在 Writer 结构带有笔夹。这个小变化很实际：有夹之后，它更像一支能放进口袋、笔套和办公室场景的钢笔，而不只是线条完整的漆艺物件。
+
+Nakaya 的官方介绍一直强调手工制作和与 Platinum 制笔经验的关系。读 Portable Writer 时，不必把这些背景写成光环，更重要的是看它解决了什么问题。很多人喜欢 Nakaya 的漆面，却担心 Cigar 没有夹、不方便带出门。Writer 让这件事简单一些，也让黑溜涂从收藏柜走向桌面和包里。
+
+黑溜涂的气质很克制。它不像红色或图案款那样先抢视线，更多是用暗色漆面和底色透出的变化留住人。喜欢它的人，往往会在不同光线下看同一支笔。它也要求用户接受漆笔的使用痕迹：手会摸到握位，笔帽会开合，桌面和笔套都会留下微小风险。把它当成完全不能碰的艺术品，就少了 Nakaya 的书写意义；把它当成粗用工具，又会辜负漆面。
+
+Portable Writer 的实用性来自平衡。尺寸不夸张，笔夹让携带更自然，外观比 Cigar 稍微正式。它适合写信、日记、桌面批注，也适合想把 Nakaya 放进真实工作日的人。若你追求大容量或透明结构，它不合适；若你关心笔尖调校、漆面触感和长期相处，它的逻辑很清楚。
+
+购买时先确认自己要 Writer 还是 Cigar。两者可能颜色相近，使用方式却不同。有无笔夹会影响握持视觉、携带和保存。再看漆面状态、笔尖配置、盒证和来源。二手页面如果只写“黑溜涂”，没有清楚照片，不够判断。握位、帽口、尾端和笔夹周围都应该看。
+
+如果你从普通量产笔转向 Nakaya，Portable Writer 也比较容易适应。它保留了钢笔熟悉的笔夹和常规长度，减少了“工艺笔只能摆着看”的距离感。真正需要适应的，主要是漆面保护、笔尖调校和更慢的购买节奏。这个过程本身，也会让人重新思考一支笔该怎样被使用。
+
+Portable Writer 黑溜涂适合第一支 Nakaya，也适合已有亮色或图案款后补一支安静日用笔。它的重点不在稀奇，而在可长期使用。读者打开这个页面，应该能明白：这是一支把 Nakaya 漆面、手工调校和现实携带放在一起的笔。若只想买一支最省心的通勤笔，它仍然太贵重；若想把漆笔真正写起来，它很合理。`,
+  },
+  {
+    slug: "写乐-sailor-0501铱金",
+    title: "Sailor Young Profit 0501：便宜写乐也有自己的脾气",
+    summary: "Sailor Young Profit 0501 是写乐入门价位的轻量塑料笔，重点在钢尖、偏细线宽、专用墨囊和不稳定的出厂体验评价。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 The Clicky Post 与 The Pen Addict 两篇评测写轻量塑料、钢尖、日系线宽和 QC 分歧。",
+    },
+    body: `Sailor Young Profit 0501 的有趣之处，是它把写乐的名字放进了更便宜、更轻的塑料笔里。它不是 Pro Gear 或 1911 那种金尖主线，也不承担写乐高端笔的期待。评测资料里能看到很具体的使用印象：塑料或树脂笔身，偏细的笔杆和握位，钢尖带写乐常见装饰，使用写乐专用墨囊。
+
+这支笔适合从“便宜写乐能给什么”这个问题进入。The Clicky Post 的体验偏正面，提到它轻、外观简洁、钢尖流量好，M 尖写起来有写乐式反馈。The Pen Addict 的体验则更谨慎，重点放在出厂笔尖和质控问题上，也提到握位偏细，长时间使用会不舒服。两种评价放在一起，反而让 Young Profit 更清楚：它有写乐味道，也有入门量产笔的不确定。
+
+钢尖是关键。它不会给 14K 或 21K 写乐金尖那种弹性和细腻层次，线宽却仍然偏日系。评测里 M 尖被拿来和较细的德国 F 比较，说明中文用户不能按欧美线宽直觉选。写小字可以看 F 或 MF，想要明显墨迹再考虑 M。若你已经习惯欧美 M，Young Profit 可能会显得细。
+
+它的优点在门槛低。你可以用较少预算体验写乐的笔尖反馈和品牌系统，也能用写乐墨囊快速上手。缺点也直接：笔身质感不算高级，握位偏细，买到需要调校的笔尖时，性价比会被拉低。它更适合愿意接受一点折腾的用户，不适合把“写乐”两个字直接等同于稳定高级体验的人。
+
+和 HighAce Neo 比，Young Profit 更像一支完整日用笔；和 Pro Gear Slim 或 1911 Standard 比，它少了金尖和正式感；和 LAMY Safari、Pilot Metropolitan 这类入门笔比，它的优势在日系细线和写乐反馈，劣势在价格和质控预期。买它时要把这些放在同一张桌上比较。
+
+这也是它适合试口味的原因。你可以用它判断自己是否喜欢写乐那种带触感的线条，是否能接受偏细、偏轻的笔身，以及是否愿意使用写乐专用耗材。若这些答案都合适，再往 1911 或 Pro Gear 走会更有把握。
+
+购买 Young Profit 0501，最好看清楚尖号、是否附墨囊或上墨器，以及卖家是否允许检测笔尖。若你想低成本试写乐，可以考虑；若你已经确定要写乐金尖，就不必在这一步停太久。它不是通往所有写乐体验的捷径，更像一支让你判断自己喜不喜欢写乐反馈的入门样本。用它写几页中文，比看参数更能说明问题。`,
+  },
+  {
+    slug: "写乐-sailor-classic-ko",
+    title: "Sailor Classic Ko：把莳绘做得像首饰",
+    summary: "Sailor Classic Ko 是写乐与 Oshita Kosen Atelier 合作的现代 Maki-e 系列，重点在首饰化设计、天然材料和当代审美。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 Sailor 官方访谈写 Classic Ko、Oshita Kosen Atelier、2008 年首饰品牌和现代 Maki-e。",
+    },
+    body: `Sailor Classic Ko 不能按传统黑底莳绘笔的印象去读。写乐官方访谈把它讲得很清楚：Classic Ko 原本是 Oshita Kosen Atelier 在 2008 年创立的 Maki-e 首饰品牌，后来和写乐合作，把这种更现代、更接近首饰的审美放到钢笔和圆珠笔上。
+
+Oshita Kosen Atelier 和写乐的关系并不浅。官方访谈提到双方长期合作，关系可以追溯到 1981 年的 Maki-e Fountain Pen Bird and Flower。Classic Ko 系列的差别在方向。它没有停留在传统自然山水或黑底金粉的高贵感里，莳绘、螺钿、天然材料和现代图案被放进更轻盈的语境。
+
+这支笔的入口是“首饰感”。Classic Ko 的官方材料里反复谈到佩戴舒适、天然材料、石材和贝壳的质地、现代生活方式。移到钢笔上，这种思路会改变读者的判断：它关注的不只是严肃书写，还包括手部动作、光泽和装饰放在一起时的效果。
+
+莳绘本身也需要一点背景。官方访谈解释，Maki-e 是用漆绘制图案，再撒上金银等金属粉形成装饰的日本漆艺。Classic Ko 的现代味道，来自它不满足于传统题材。比如 Deco Lotus Line Raden 这种款式，会让贝壳光泽和几何/花纹秩序成为重点。读者需要看具体款式，不能把 Classic Ko 当成单一外观。
+
+购买 Classic Ko 时，先确认具体版本名称。Dot's、Mist、Floret Dot、Deco Lotus Line Raden 或 Ala SV 这样的名字，指向不同画面、材料和稀有程度。再看笔尖、笔身材质、盒证、来源和漆面状态。带 Raden 的款式尤其要看贝片是否平整、光泽是否均匀、边缘有没有损伤。
+
+它也提醒读者，写乐的日本工艺笔并非只有一种表情。传统高莳绘、KOP 大型漆笔和 Classic Ko 这类首饰化合作款，面对的是不同审美。Classic Ko 更适合喜欢现代图案和材料细节的人，也更适合搭配日常服饰、桌面和随身物件一起看。
+
+它适合喜欢写乐，又想离开普通 1911/Pro Gear 外观的人。若你只关心笔尖反馈，同价位可能有更直接的选择；若你想要一支带现代莳绘和首饰气质的写乐，Classic Ko 才有意义。它的价值不在规格表，而在它把写乐制笔和当代工艺品牌合作放到了一支可以书写的物件上。`,
+  },
+  {
+    slug: "写乐-sailor-promenade漫步1031",
+    title: "Sailor Promenade 1031：被 Pro Gear 声量遮住的日用写乐",
+    summary: "Sailor Promenade 1031 是写乐较低调的日用线，现有零售资料可确认 Sparkling Red Gold、F/MF/M/B 等尖号和墨囊系统。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 PenSachi Promenade 页面写 1031 型号、尖号、售价和日用定位，不扩写无来源年代。",
+    },
+    body: `Sailor Promenade 1031 是那种容易被 Pro Gear、1911 和 King of Pen 盖住的写乐。它没有强烈的扁顶识别，也没有大尺寸金尖旗舰的气势。现有零售资料显示，这个 Sparkling Red Gold 页面对应 11-1031-230，提供 F、MF、M、B 等尖号，属于更接近日用和入门金尖之间的位置。
+
+Promenade 的读法要轻一点。它不是写乐的招牌收藏线，更像一支想让用户每天拿起来写的笔。红色和金色组合让它比普通黑杆更有存在感，但整体仍然是常规 cigar-shaped 日用笔气质。若你喜欢写乐线条，又不想让笔太张扬，它会比很多限定配色更稳。
+
+这类页面最容易出现的问题，是把 Promenade 写成“低配 1911”。这样说太粗。对读者真正有用的，是看它在使用上可能提供什么：写乐体系里的细线宽、常规墨囊/上墨器使用习惯、较轻的树脂笔身，以及比高阶系列更低的心理门槛。你买它，不一定是为了收藏故事，更可能是为了有一支安静的写乐日用笔。
+
+尖号仍然是第一判断。F 和 MF 更适合中文小字，M 会更容易显示墨水，B 则更偏签名或较大字幅。PenSachi 页面列出的多尖号也提醒读者：不要只按颜色买。写乐的线宽和反馈本来就有自己的性格，选错尖号会比外观小差异更影响日用。
+
+购买 Promenade 1031 时，要留意在售状态和地区版本。零售页面显示该款售罄，二手或库存来源就更需要看清盒证、笔尖、上墨配件和实际成色。若价格接近 Pro Gear Slim 或 1911 Standard，比较就要更仔细；若价格明显低一些，它的日用价值会更突出。
+
+上墨配件也要按具体卖家确认。PenSachi 页面列出了尖号和价格，但许多库存页面对 converter 是否随附写得不清。写乐专用墨囊很好买，converter 则会影响频繁换墨的便利度。想把 Promenade 当日用笔，最好下单前确认这些小配件，避免收到后才发现还要另配。
+
+Promenade 适合已经知道自己喜欢写乐细线，但不想直接买昂贵旗舰的人。它不会给你 King of Pen 的大尺寸，也不会给 Pro Gear 那种强烈外形标签。它的好处在低调和清楚：一支常规形态的写乐，拿来写字比拿来展示更自然。对通勤和办公来说，这种低调反而是优点，尤其适合不想让钢笔成为话题中心的人。日用定位很稳。`,
+  },
+  {
+    slug: "写乐-sailor-转运石",
+    title: "Sailor Lucky Charm 2：北美限定里的钢尖 Pro Gear",
+    summary: "Sailor Lucky Charm 2 是 Goulet 页面登记的北美限定 Pro Gear，重点在湖绿色树脂、古金色饰件、钢尖和随附上墨器/墨囊。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 Goulet Lucky Charm 2 页面写 North American exclusive、teal green resin、antique gold accents 和 stainless steel nib。",
+    },
+    body: `Sailor Lucky Charm 2 先要修正一个预期：它是 Pro Gear 外形，却配钢尖。Goulet 页面把它写成 North American exclusive，湖绿色 resin 笔身和笔帽，搭配 antique gold accents，扁顶上有写乐 anchor logo。它看起来进入了 Pro Gear 的视觉世界，书写和价格逻辑却和常见 21K Pro Gear 不同。
+
+这个差别很重要。很多人看到 Pro Gear，就会自动想到 21K 金尖、写乐标志性反馈和较高价格。Lucky Charm 2 的页面明确写了 hand-finished stainless steel nib，并列出 Steel EF、F、MF、M、B 等尖号。它更像一支把 Pro Gear 外观下放到钢尖路线的限定款，适合喜欢外形和配色，但不想直接买金尖的人。
+
+配色是它的主角。湖绿色和古金色让它不像普通黑金 Pro Gear 那么正式，也不像透明示范款那么技术感。中文名“转运石”会让读者先想到寓意，英文 Lucky Charm 2 也带一点护身符式的轻松感。这个系列适合按配色和地区限定来理解，别把它写成长期常规型号。
+
+使用上，它保留了 Pro Gear 的扁顶、旋盖和可 post 笔帽。Goulet 页面还写到随笔附写乐专用 converter 和两支黑色墨囊，这对实际购买很有用。钢尖不会给你写乐金尖的弹性期待，但维护和预算压力更小。对第一次接触 Pro Gear 外形的人，它可能比金尖版更轻松。
+
+购买时要先确认自己接受钢尖。若你想体验经典写乐 21K，Lucky Charm 2 不是最直接的答案；若你要的是 Pro Gear 轮廓、限定配色和更低门槛，它就很清楚。也要核对地区限定、库存和尖号，因为这类零售限定的后续补货不一定稳定。
+
+它还适合已经有金尖写乐、想要一支轻松配色笔的人。钢尖让心理负担低一些，随附 converter 和两支黑色墨囊也让开笔更简单。真正需要注意的，是别把限定配色的冲动放在尖号前面；EF、F、MF、M、B 的选择仍然会决定它是不是能进入日常。
+
+Lucky Charm 2 的价值在“外形”和“可负担”之间。它没有必要假装成传统 Pro Gear 金尖，也不该被钢尖身份直接否定。读者打开页面时，只要明白它是一支北美限定、湖绿色、钢尖 Pro Gear，就能迅速判断自己是在买写乐核心写感，还是在买一个更轻松的限定外观。`,
+  },
+  {
+    slug: "并木-namiki-飞升龙",
+    title: "Namiki Rising Dragon：95 周年限量里的升龙题材",
+    summary: "Namiki Rising Dragon 是 Pilot 95th Anniversary Nobori Ryu 限量款，重点在 Namiki Maki-e 背景、升龙主题和限量收藏属性。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 Namiki 官方背景和 Elephant-Coral Rising Dragon 页面写 95th Anniversary、Nobori Ryu、Maki-e 与限量。",
+    },
+    body: `Namiki Rising Dragon 适合从“升龙”这个题材进入。现有零售资料把它登记为 Pilot 95th Anniversary Rising Dragon Limited Edition Nobori Ryu，并写到只有 95 支。Namiki 官方站则给出更大的背景：20 世纪初，Pilot/Namiki 把日本传统 Maki-e 工艺和钢笔结合，漆、工匠图案和自家笔尖共同构成 Namiki 的高端形象。
+
+这支笔的主题并不含糊。Nobori Ryu 就是上升的龙。Elephant-Coral 页面描述龙爪中有“pearl of wisdom”，画面通过金银 raised lacquer 等方法强调。龙在东亚题材里本来就有力量、上升和吉祥的意味，放在 95 周年限量里，会比普通生肖或装饰图案更接近纪念款。
+
+读 Namiki 限量笔时，先不要只看“稀有”。稀有只是结果，真正决定价值的是题材、工艺、保存和来源。Rising Dragon 的题材很强，限量数也明确，但读者还要看实物漆面、盒证、编号、出处和维修可能。漆艺笔的状态不能靠文字判断，必须看高清照片，最好能确认笔帽、笔身、尾端和握位都没有损伤。
+
+它也不适合按普通日用笔来买。Namiki 官方资料强调漆的耐用和随使用贴合手感，也强调自家笔尖和书写品质。即便如此，Rising Dragon 的纪念属性会让很多人不敢粗放使用。真正的问题是：你想让它成为能写的收藏，还是偶尔拿出来写几页的主力？答案不同，预算和保存方式都不同。
+
+和 Namiki Emperor、Yukari Royale 比，Rising Dragon 的重点在周年限量和具体题材；和普通 Pilot 金尖笔比，它的价格和判断逻辑已经不在同一层。购买重点已经从单纯笔尖顺滑，转向工艺、主题和纪念背景的完整性。
+
+如果把它放进收藏体系，还要看同题材龙笔之间的差别。Namiki/Pilot 做过不止一种 Dragon 主题，Rising Dragon 的 95 周年、Nobori Ryu 和 95 支限量，才是它区别于其他龙题材的线索。页面标题、证书和编号必须能互相对上。
+
+购买时先核对英文名、Nobori Ryu、95th Anniversary 和限量信息，再看编号与盒证。若页面只说“飞升龙”却没有清楚来源，风险很高。它适合熟悉 Namiki 漆艺、愿意为题材和保存付费的人。对只想体验 Pilot 书写的人，Custom 或 Capless 路线更现实。`,
+  },
+  {
+    slug: "白金-platinum-富士旬景pnb-13000",
+    title: "Platinum Fuji Shunkei Kinshu：把秋天的富士山切进笔身",
+    summary: "Platinum Fuji Shunkei Kinshu 是富士旬景系列最终款，官方资料确认 PNB-36000SK、14K 金尖、枫叶切面、金色饰件和富士山形尾冠。",
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "依据 Platinum 官方 Kinshu 新闻页写 Fuji Shunkei final model、PNB-36000SK、14K nib 和切面设计。",
+    },
+    body: `Platinum Fuji Shunkei Kinshu 要从颜色和切面读。Platinum 官方新闻页说，Fuji Shunkei 系列以富士山四季景色为灵感，Kinshu 是这个系列的最终款。Kinshu 指秋天被红叶覆盖、像锦缎一样的景象。放到笔上，它用 scarlet body、细密 facet cutting 和金色环饰去表现秋叶与光线，比普通红色笔杆更有结构。
+
+官方资料还给了几个硬信息：产品号 PNB-36000SK，14K 金尖，尖号包括 EF、F、M、B；握位环、金环、上环和尾环为黄铜镀金，clip 是铍铜镀金。随笔还有金色 converter、蓝黑墨囊、说明书、保卡、吸墨纸卡和纪念书签。页面里写得比普通零售页更完整，说明这款本来就按纪念和收藏来包装。
+
+Kinshu 的设计细节集中在两个地方。第一是笔身切面，官方说用细密切割表现红叶，并通过曲面折射光线。第二是顶部的富士山形螺母，用小小的山形回应 #3776 的名字。对读者来说，这些细节比“红色限定”更重要。它的看点在于 Platinum 把富士山、秋叶和 #3776 系列符号放在一起。
+
+使用上，它仍然要回到 #3776 Century 的基础。14K 金尖、Slip & Seal 相关的现代白金日用逻辑，会让它比纯展示漆艺笔更容易书写。只是 Kinshu 的收藏包装和系列收官身份，会让用户更在意保存。你可以把它当日用笔写，也要接受镀金件、切面笔身和限定配件的维护成本。
+
+购买时要先核对型号。当前页面标题里写的是 PNB-13000，但官方新闻对应 PNB-36000SK，后续应以具体实物和官方资料校正页面数据。再看是否附金色 converter、吸墨纸卡、纪念书签和盒证。缺少这些配件时，收藏完整性会打折。
+
+如果按使用来判断，Kinshu 也不是只靠盒子和配件成立。#3776 Century 的基础结构让它仍然能写中文小字，EF 和 F 会更实用，M、B 更适合展示墨色和较大字幅。真正要权衡的是：你愿不愿意让一支系列收官款承担日常磨损。
+
+Kinshu 适合喜欢 #3776 Century 写感，又想要更强季节主题的人。若你只想买一支便宜金尖日用，普通 #3776 更直接；若你在意富士旬景系列完整性，Kinshu 的最终款身份和金色饰件就很重要。它最好的读法，是一支仍能日常书写的系列纪念款。买前把配件和型号核对清楚，比单看红色笔身更重要。`,
+  },
 ];
 
 function getClient() {
