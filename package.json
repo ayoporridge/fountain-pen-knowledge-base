@@ -38,6 +38,7 @@
     "import:read-first-b-pilot": "tsx scripts/import-read-first-b-pilot-articles.ts",
     "import:read-first-b-mainstream": "tsx scripts/import-read-first-b-mainstream-articles.ts",
     "import:read-first-c-entry-cn": "tsx scripts/import-read-first-c-entry-cn-articles.ts",
+    "import:read-first-batch": "tsx scripts/import-read-first-batch.ts",
     "import:brand-completions": "tsx scripts/import-brand-completion-sources.ts",
     "import:model-gap-sources": "tsx scripts/import-model-gap-sources.ts",
     "import:research-gap-sources": "tsx scripts/import-research-gap-sources.ts",

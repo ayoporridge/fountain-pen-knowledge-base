@@ -1,12 +1,12 @@
 # Read first 重写基线
 
-生成时间：2026-06-29T14:35:09.798Z
+生成时间：2026-06-29T14:52:06.271Z
 
 ## 总览
 
 - 钢笔详情页：244
-- 仍像资料卡或短说明：90（37%）
-- 字数：最短 368，中位数 1003，平均 905，最长 2101
+- 仍像资料卡或短说明：80（33%）
+- 字数：最短 368，中位数 1003，平均 926，最长 2101
 - A 档：30
 - B 档：103
 - C 档：111
@@ -43,7 +43,7 @@
 | B | diplomat迪波曼-aero太空梭 | Diplomat迪波曼 Aero太空梭 | 1000 | 1 | 0 | 0 | 0 | 否 |
 | B | esterbrook-estie-oversized | Esterbrook Estie Oversized | 1052 | 1 | 0 | 0 | 0 | 否 |
 | C | kaco-master大师14k | KACO Master大师14K | 459 | 0 | 0 | 1 | 1 | 是 |
-| C | kaco-sky百锋 | KACO SKY百锋 | 408 | 0 | 0 | 1 | 1 | 是 |
+| C | kaco-sky百锋 | KACO SKY百锋 | 904 | 0 | 0 | 1 | 1 | 否 |
 | B | kaweco-al-sport | Kaweco AL Sport | 1041 | 1 | 0 | 0 | 0 | 否 |
 | B | kaweco-liliput | Kaweco Liliput | 1001 | 1 | 0 | 0 | 0 | 否 |
 | B | kaweco-student | Kaweco Student | 1029 | 1 | 0 | 0 | 0 | 否 |
@@ -59,7 +59,7 @@
 | B | sheaffer-s-pfm | Sheaffer’s PFM | 1004 | 0 | 2 | 0 | 0 | 否 |
 | B | sheaffer-s-touchdown-tm | Sheaffer’s Touchdown TM | 1007 | 0 | 2 | 0 | 0 | 否 |
 | B | sheaffer-s-tuckaway | Sheaffer’s Tuckaway | 1006 | 0 | 3 | 0 | 0 | 否 |
-| C | skb派顿-f10-f21 | SKB派顿 F10 / F21 | 400 | 0 | 1 | 0 | 1 | 是 |
+| C | skb派顿-f10-f21 | SKB派顿 F10 / F21 | 921 | 0 | 1 | 0 | 1 | 否 |
 | B | targa-by-sheaffer | Targa by Sheaffer | 1009 | 0 | 2 | 0 | 0 | 否 |
 | B | the-camel-pen | The Camel Pen | 1073 | 0 | 3 | 0 | 0 | 否 |
 | B | the-chilton-chiltonian | The Chilton Chiltonian | 1133 | 0 | 2 | 0 | 0 | 否 |
@@ -101,7 +101,7 @@
 | B | the-wasp-addipoint | The WASP Addipoint | 1159 | 0 | 2 | 0 | 0 | 否 |
 | B | the-wasp-clipper | The WASP Clipper | 1182 | 0 | 2 | 0 | 0 | 否 |
 | B | the-wearever-zenith | The Wearever Zenith | 1017 | 0 | 2 | 0 | 0 | 否 |
-| C | tramol-梵高系列 | Tramol 梵高系列 | 381 | 0 | 0 | 1 | 1 | 是 |
+| C | tramol-梵高系列 | Tramol 梵高系列 | 901 | 0 | 0 | 1 | 1 | 否 |
 | B | wancher万佳-dream-pen | Wancher万佳 Dream Pen | 1031 | 1 | 0 | 0 | 0 | 否 |
 | B | waterman-s-c-f | Waterman’s C/F | 1007 | 0 | 3 | 0 | 0 | 否 |
 | B | waterman-s-commando | Waterman’s Commando | 1120 | 0 | 2 | 0 | 0 | 否 |
@@ -130,7 +130,7 @@
 | C | 书乐-shule-2398 | 书乐 ShuLe 2398 | 373 | 0 | 0 | 0 | 2 | 是 |
 | C | 依人-yiren-878 | 依人 YiRen 878 | 900 | 0 | 0 | 1 | 1 | 否 |
 | B | 写乐-sailor-0501铱金 | 写乐 Sailor Young Profit 0501 | 1018 | 0 | 2 | 1 | 1 | 否 |
-| C | 写乐-sailor-1029银夹鱼雷 | 写乐 Sailor 1029银夹鱼雷 | 401 | 0 | 0 | 1 | 1 | 是 |
+| C | 写乐-sailor-1029银夹鱼雷 | 写乐 Sailor 1029银夹鱼雷 | 913 | 0 | 0 | 1 | 1 | 否 |
 | B | 写乐-sailor-1219标准鱼雷 | 写乐 Sailor 1219标准鱼雷 | 1065 | 2 | 0 | 0 | 0 | 否 |
 | B | 写乐-sailor-21k-pro-gear-大鱼雷 | 写乐 Sailor 21K Pro Gear/大鱼雷 | 1060 | 2 | 0 | 0 | 0 | 否 |
 | B | 写乐-sailor-classic-ko | 写乐 Sailor Classic Ko | 1004 | 1 | 0 | 0 | 0 | 否 |
