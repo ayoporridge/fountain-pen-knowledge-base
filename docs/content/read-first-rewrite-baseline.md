@@ -1,12 +1,12 @@
 # Read first 重写基线
 
-生成时间：2026-06-29T06:55:28.368Z
+生成时间：2026-06-29T07:34:07.227Z
 
 ## 总览
 
 - 钢笔详情页：244
-- 仍像资料卡或短说明：218（89%）
-- 字数：最短 332，中位数 538，平均 645，最长 2101
+- 仍像资料卡或短说明：208（85%）
+- 字数：最短 332，中位数 538，平均 661，最长 2101
 - A 档：20
 - B 档：103
 - C 档：121
@@ -46,7 +46,7 @@
 | C | kaco-sky百锋 | KACO SKY百锋 | 408 | 0 | 0 | 1 | 1 | 是 |
 | B | kaweco-al-sport | Kaweco AL Sport | 1041 | 1 | 0 | 0 | 0 | 否 |
 | B | kaweco-liliput | Kaweco Liliput | 1001 | 1 | 0 | 0 | 0 | 否 |
-| B | kaweco-student | Kaweco Student | 652 | 1 | 0 | 0 | 0 | 是 |
+| B | kaweco-student | Kaweco Student | 1029 | 1 | 0 | 0 | 0 | 否 |
 | B | kimberly-the-pen-that-saved-eversharp | Kimberly, the Pen That Saved Eversharp | 496 | 0 | 2 | 0 | 0 | 是 |
 | B | leonardo-furore-momento-magico | Leonardo Furore / Momento Magico | 759 | 1 | 0 | 0 | 0 | 是 |
 | B | moore-s-non-leakable-fountain-pen | Moore’s Non-Leakable Fountain Pen | 531 | 0 | 2 | 0 | 0 | 是 |
@@ -113,12 +113,12 @@
 | B | waterman-s-taperite | Waterman’s Taperite | 583 | 0 | 2 | 0 | 0 | 是 |
 | B | waterman-s-x-pen | Waterman’s X-Pen | 497 | 0 | 3 | 0 | 0 | 是 |
 | B | 万宝龙-montblanc-144 | 万宝龙 Montblanc 144 (Vintage) | 880 | 1 | 0 | 0 | 0 | 是 |
-| B | 万宝龙-montblanc-patron-of-art-888 | 万宝龙 Montblanc Patron of Art 888 | 710 | 1 | 0 | 0 | 0 | 是 |
-| B | 万宝龙-montblanc-大文豪系列-writers-edition | 万宝龙 Montblanc 大文豪系列 Writers Edition | 688 | 1 | 0 | 0 | 0 | 是 |
-| B | 万宝龙-montblanc-大班146 | 万宝龙 Montblanc 大班146 | 760 | 1 | 0 | 0 | 0 | 是 |
+| B | 万宝龙-montblanc-patron-of-art-888 | 万宝龙 Montblanc Patron of Art 888 | 1057 | 1 | 0 | 0 | 0 | 否 |
+| B | 万宝龙-montblanc-大文豪系列-writers-edition | 万宝龙 Montblanc 大文豪系列 Writers Edition | 1003 | 1 | 0 | 0 | 0 | 否 |
+| B | 万宝龙-montblanc-大班146 | 万宝龙 Montblanc 大班146 | 1004 | 1 | 0 | 0 | 0 | 否 |
 | C | 万宝龙-montblanc-学生龙22 | 万宝龙 Montblanc 学生龙22 (Vintage) | 598 | 0 | 0 | 1 | 1 | 是 |
 | B | 三文堂-twsbi-580-580al | 三文堂 TWSBI 580/580AL | 1012 | 1 | 0 | 0 | 0 | 否 |
-| B | 三文堂-twsbi-diamond-mini-al | 三文堂 TWSBI Diamond Mini AL | 683 | 1 | 0 | 0 | 0 | 是 |
+| B | 三文堂-twsbi-diamond-mini-al | 三文堂 TWSBI Diamond Mini AL | 1034 | 1 | 0 | 0 | 0 | 否 |
 | B | 三文堂-twsbi-eco | 三文堂 TWSBI ECO | 1003 | 1 | 0 | 0 | 0 | 否 |
 | B | 三文堂-twsbi-go | 三文堂 TWSBI GO | 1001 | 1 | 0 | 0 | 0 | 否 |
 | B | 三文堂-twsbi-vac700r | 三文堂 TWSBI VAC700R | 1002 | 1 | 0 | 0 | 0 | 否 |
@@ -131,14 +131,14 @@
 | C | 依人-yiren-878 | 依人 YiRen 878 | 355 | 0 | 0 | 1 | 1 | 是 |
 | B | 写乐-sailor-0501铱金 | 写乐 Sailor Young Profit 0501 | 521 | 0 | 2 | 1 | 1 | 是 |
 | C | 写乐-sailor-1029银夹鱼雷 | 写乐 Sailor 1029银夹鱼雷 | 401 | 0 | 0 | 1 | 1 | 是 |
-| B | 写乐-sailor-1219标准鱼雷 | 写乐 Sailor 1219标准鱼雷 | 655 | 2 | 0 | 0 | 0 | 是 |
-| B | 写乐-sailor-21k-pro-gear-大鱼雷 | 写乐 Sailor 21K Pro Gear/大鱼雷 | 562 | 2 | 0 | 0 | 0 | 是 |
+| B | 写乐-sailor-1219标准鱼雷 | 写乐 Sailor 1219标准鱼雷 | 1065 | 2 | 0 | 0 | 0 | 否 |
+| B | 写乐-sailor-21k-pro-gear-大鱼雷 | 写乐 Sailor 21K Pro Gear/大鱼雷 | 1060 | 2 | 0 | 0 | 0 | 否 |
 | B | 写乐-sailor-classic-ko | 写乐 Sailor Classic Ko | 580 | 1 | 0 | 0 | 0 | 是 |
-| B | 写乐-sailor-king-of-pen笔王 | 写乐 Sailor King of Pen笔王 | 596 | 1 | 0 | 0 | 0 | 是 |
+| B | 写乐-sailor-king-of-pen笔王 | 写乐 Sailor King of Pen笔王 | 1058 | 1 | 0 | 0 | 0 | 否 |
 | C | 写乐-sailor-promenade漫步1031 | 写乐 Sailor Promenade漫步1031 | 600 | 0 | 0 | 1 | 1 | 是 |
-| B | 写乐-sailor-四季织1224 | 写乐 Sailor 四季织1224 | 720 | 1 | 0 | 0 | 0 | 是 |
+| B | 写乐-sailor-四季织1224 | 写乐 Sailor 四季织1224 | 1014 | 1 | 0 | 0 | 0 | 否 |
 | C | 写乐-sailor-转运石 | 写乐 Sailor 转运石 | 490 | 0 | 0 | 1 | 1 | 是 |
-| B | 写乐-sailor-长刀研 | 写乐 Sailor 长刀研 | 550 | 1 | 0 | 0 | 0 | 是 |
+| B | 写乐-sailor-长刀研 | 写乐 Sailor 长刀研 | 1025 | 1 | 0 | 0 | 0 | 否 |
 | B | 凌美-lamy-al-star-恒星 | 凌美 LAMY Al-Star 恒星 | 1022 | 1 | 0 | 0 | 0 | 否 |
 | B | 凌美-lamy-dialog-3-焦点3 | 凌美 LAMY Dialog 3 焦点3 | 1013 | 1 | 0 | 0 | 0 | 否 |
 | A | 凌美-lamy-logo | 凌美 LAMY Logo | 2003 | 2 | 2 | 1 | 1 | 否 |

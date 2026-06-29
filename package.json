@@ -31,6 +31,7 @@
     "audit:read-first-rewrite": "tsx scripts/audit-read-first-rewrite.ts",
     "import:read-first-samples": "tsx scripts/import-read-first-sample-articles.ts",
     "import:read-first-b-modern": "tsx scripts/import-read-first-b-modern-articles.ts",
+    "import:read-first-b-core": "tsx scripts/import-read-first-b-core-articles.ts",
     "import:brand-completions": "tsx scripts/import-brand-completion-sources.ts",
     "import:model-gap-sources": "tsx scripts/import-model-gap-sources.ts",
     "import:research-gap-sources": "tsx scripts/import-research-gap-sources.ts",
