@@ -1,12 +1,12 @@
 # Read first 重写基线
 
-生成时间：2026-06-29T12:56:26.949Z
+生成时间：2026-06-29T13:17:24.361Z
 
 ## 总览
 
 - 钢笔详情页：244
-- 仍像资料卡或短说明：130（53%）
-- 字数：最短 332，中位数 610，平均 826，最长 2101
+- 仍像资料卡或短说明：120（49%）
+- 字数：最短 332，中位数 1000，平均 844，最长 2101
 - A 档：20
 - B 档：103
 - C 档：121
@@ -52,7 +52,7 @@
 | B | moore-s-non-leakable-fountain-pen | Moore’s Non-Leakable Fountain Pen | 1070 | 0 | 2 | 0 | 0 | 否 |
 | B | morrison-s-patriot | Morrison’s Patriot | 1203 | 0 | 2 | 0 | 0 | 否 |
 | A | noodler鲶鱼-简易钢笔 | Noodler鲶鱼 简易钢笔 | 2008 | 2 | 1 | 2 | 1 | 否 |
-| C | opus-88-demo-kolora | Opus 88 Demo/Kolora | 657 | 0 | 0 | 1 | 0 | 是 |
+| C | opus-88-demo-kolora | Opus 88 Demo/Kolora | 1026 | 0 | 0 | 1 | 0 | 否 |
 | B | sheaffer-s-balance | Sheaffer’s Balance | 1037 | 0 | 2 | 0 | 0 | 否 |
 | B | sheaffer-s-connaisseur | Sheaffer’s Connaisseur | 1004 | 0 | 2 | 0 | 0 | 否 |
 | B | sheaffer-s-craftsman | Sheaffer’s Craftsman | 1015 | 0 | 2 | 0 | 0 | 否 |
