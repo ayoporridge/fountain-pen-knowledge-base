@@ -1,12 +1,12 @@
 # Read first 重写基线
 
-生成时间：2026-06-29T15:53:55.781Z
+生成时间：2026-06-29T16:06:14.542Z
 
 ## 总览
 
 - 钢笔详情页：244
-- 仍像资料卡或短说明：40（16%）
-- 字数：最短 368，中位数 1003，平均 996，最长 2101
+- 仍像资料卡或短说明：30（12%）
+- 字数：最短 372，中位数 1003，平均 1013，最长 2101
 - A 档：30
 - B 档：103
 - C 档：111
@@ -116,18 +116,18 @@
 | B | 万宝龙-montblanc-patron-of-art-888 | 万宝龙 Montblanc Patron of Art 888 | 1057 | 1 | 0 | 0 | 0 | 否 |
 | B | 万宝龙-montblanc-大文豪系列-writers-edition | 万宝龙 Montblanc 大文豪系列 Writers Edition | 1003 | 1 | 0 | 0 | 0 | 否 |
 | B | 万宝龙-montblanc-大班146 | 万宝龙 Montblanc 大班146 | 1004 | 1 | 0 | 0 | 0 | 否 |
-| C | 万宝龙-montblanc-学生龙22 | 万宝龙 Montblanc 学生龙22 (Vintage) | 598 | 0 | 0 | 1 | 1 | 是 |
+| C | 万宝龙-montblanc-学生龙22 | 万宝龙 Montblanc 学生龙22 (Vintage) | 957 | 0 | 0 | 1 | 1 | 否 |
 | B | 三文堂-twsbi-580-580al | 三文堂 TWSBI 580/580AL | 1012 | 1 | 0 | 0 | 0 | 否 |
 | B | 三文堂-twsbi-diamond-mini-al | 三文堂 TWSBI Diamond Mini AL | 1034 | 1 | 0 | 0 | 0 | 否 |
 | B | 三文堂-twsbi-eco | 三文堂 TWSBI ECO | 1003 | 1 | 0 | 0 | 0 | 否 |
 | B | 三文堂-twsbi-go | 三文堂 TWSBI GO | 1001 | 1 | 0 | 0 | 0 | 否 |
 | B | 三文堂-twsbi-vac700r | 三文堂 TWSBI VAC700R | 1002 | 1 | 0 | 0 | 0 | 否 |
 | B | 上海-shanghai-97回归 | 英雄 Hero 1997型18K金笔 | 906 | 1 | 0 | 0 | 1 | 否 |
-| C | 东吴-dongwu-948 | 东吴 DongWu 948 | 373 | 0 | 0 | 0 | 2 | 是 |
+| C | 东吴-dongwu-948 | 东吴 DongWu 948 | 901 | 0 | 0 | 0 | 2 | 否 |
 | B | 中屋-nakaya-housoge高级定制 | 中屋 Nakaya Housoge高级定制 | 1043 | 2 | 0 | 0 | 1 | 否 |
 | B | 中屋-nakaya-portable-portable-cigar | 中屋 Nakaya Portable / Portable Cigar | 1000 | 2 | 0 | 0 | 1 | 否 |
 | B | 中屋-nakaya-portable-writer-黑溜涂 | 中屋 Nakaya Portable Writer 黑溜涂 | 1024 | 2 | 0 | 0 | 1 | 否 |
-| C | 书乐-shule-2398 | 书乐 ShuLe 2398 | 373 | 0 | 0 | 0 | 2 | 是 |
+| C | 书乐-shule-2398 | 书乐 ShuLe 2398 | 909 | 0 | 0 | 0 | 2 | 否 |
 | C | 依人-yiren-878 | 依人 YiRen 878 | 900 | 0 | 0 | 1 | 1 | 否 |
 | B | 写乐-sailor-0501铱金 | 写乐 Sailor Young Profit 0501 | 1018 | 0 | 2 | 1 | 1 | 否 |
 | C | 写乐-sailor-1029银夹鱼雷 | 写乐 Sailor 1029银夹鱼雷 | 913 | 0 | 0 | 1 | 1 | 否 |
