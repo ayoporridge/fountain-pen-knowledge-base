@@ -1,12 +1,12 @@
 # Read first 重写基线
 
-生成时间：2026-06-29T15:05:06.831Z
+生成时间：2026-06-29T15:16:49.105Z
 
 ## 总览
 
 - 钢笔详情页：244
-- 仍像资料卡或短说明：70（29%）
-- 字数：最短 368，中位数 1003，平均 942，最长 2101
+- 仍像资料卡或短说明：60（25%）
+- 字数：最短 368，中位数 1003，平均 961，最长 2101
 - A 档：30
 - B 档：103
 - C 档：111
@@ -42,7 +42,7 @@
 | C | admok-简800 | Admok 简800 | 908 | 0 | 0 | 1 | 1 | 否 |
 | B | diplomat迪波曼-aero太空梭 | Diplomat迪波曼 Aero太空梭 | 1000 | 1 | 0 | 0 | 0 | 否 |
 | B | esterbrook-estie-oversized | Esterbrook Estie Oversized | 1052 | 1 | 0 | 0 | 0 | 否 |
-| C | kaco-master大师14k | KACO Master大师14K | 459 | 0 | 0 | 1 | 1 | 是 |
+| C | kaco-master大师14k | KACO Master大师14K | 906 | 0 | 0 | 1 | 1 | 否 |
 | C | kaco-sky百锋 | KACO SKY百锋 | 904 | 0 | 0 | 1 | 1 | 否 |
 | B | kaweco-al-sport | Kaweco AL Sport | 1041 | 1 | 0 | 0 | 0 | 否 |
 | B | kaweco-liliput | Kaweco Liliput | 1001 | 1 | 0 | 0 | 0 | 否 |
