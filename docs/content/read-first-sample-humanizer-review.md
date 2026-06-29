@@ -1,6 +1,6 @@
-# Read first 10 篇样板 humanizer-zh 审查
+# Read first A 档文章 humanizer-zh 审查
 
-生成时间：2026-06-29T06:05:09.280Z
+生成时间：2026-06-29T06:21:12.292Z
 
 ## 评分
 
@@ -16,6 +16,12 @@
 | kaweco-sport | 47/50 | 10 | 9 | 9 | 9 | 10 | 文章用便携体验展开，句式较短，符合轻量型号的内容节奏。 |
 | 白金-platinum-出云-izumo | 45/50 | 9 | 9 | 9 | 9 | 9 | 保留材料和使用判断，删掉“和风气质”一类空泛词。 |
 | sheaffer-s-snorkel | 46/50 | 9 | 10 | 9 | 9 | 9 | 以吸墨动作开头，技术解释具体，没有把 Snorkel 神化。 |
+| 写乐-sailor-1911-profit系列 | 45/50 | 9 | 9 | 9 | 9 | 9 | 把 1911/Profit 放回写乐产品线解释，避开空泛的日系三金套话。 |
+| 凌美-lamy-logo | 45/50 | 9 | 9 | 9 | 9 | 9 | 把官方系列文案和评测边界分开，避免把 Logo 写成 Safari 或 2000 的附属品。 |
+| noodler鲶鱼-简易钢笔 | 45/50 | 9 | 9 | 9 | 9 | 9 | 明确说明中文条目指向 Nib Creaper/Standard Flex 这一路线，不把低价弹性尖写成复古软尖。 |
+| the-parker-51 | 46/50 | 10 | 9 | 9 | 9 | 9 | 去掉了资料卡语气，保留版本和使用判断；没有否定式排比或三段式观点列举。 |
+| pilot-custom-823 | 45/50 | 9 | 9 | 9 | 9 | 9 | 减少日用旗舰一类口号，改成真空上墨和长写场景解释。 |
+| pelikan-souveran-m800 | 45/50 | 9 | 9 | 9 | 9 | 9 | 以尺寸和活塞结构为主线，没有写成高端德系空话。 |
 
 ## Source pack
 
@@ -31,3 +37,9 @@
 | kaweco-sport | [Kaweco official site: Kaweco: Classic Sport](https://www.kaweco-pen.com/en/Series/CLASSIC-SPORT/)；[Kaweco official site: Kaweco History](https://www.kaweco-pen.com/en/service/history/) |
 | 白金-platinum-出云-izumo | [Platinum Pen USA: Platinum Pen USA: Izumo Collection](https://platinumpenusa.com/luxury-writing/izumo-collection/)；[EndlessPens: EndlessPens: Platinum Izumo 18K](https://endlesspens.com/products/platinum-fountain-pen-izumo-18k-nib) |
 | sheaffer-s-snorkel | [RichardsPens.com: RichardsPens.com: Sheaffer's Snorkel](https://www.richardspens.com/ref/profiles/snorkel.htm)；[PenHero: PenHero: Sheaffer Snorkel](https://www.penhero.com/PenGallery/Sheaffer/SheafferSnorkel.htm) |
+| 写乐-sailor-1911-profit系列 | [Sailor official site: Sailor: 1911 Series](https://en.sailor.co.jp/topics/1911-series/)；[Sailor official site: Sailor: 1911 S Fountain Pen 14K](https://en.sailor.co.jp/product/11-1219/)；[Sailor official site: Sailor: 1911 S Fountain Pen 21K](https://en.sailor.co.jp/product/11-1521/) |
+| 凌美-lamy-logo | [LAMY official site: LAMY logo series page](https://www.lamy.com/en-us/p/lamy-logo-ballpoint-pen)；[Goulet Pens: LAMY logo Fountain Pen: Quick Look](https://www.gouletpens.com/blogs/fountain-pen-blog/lamy-logo-quick-look)；[The Well-Appointed Desk: Review: Lamy Logo F Fountain Pen in Brushed Aluminum](https://www.wellappointeddesk.com/2014/06/review-lamy-logo-f-fountain-pen-in-brushed-aluminum/) |
+| noodler鲶鱼-简易钢笔 | [Noodler's Ink official site: Noodler's Standard Flex Nibs](https://noodlersink.com/product-category/pens/standard-flex-nibs-pens/)；[Goulet Pens: Noodler's Nib Creaper Flex Fountain Pens](https://www.gouletpens.com/collections/noodlers-nib-creaper-fountain-pens)；[Wonder Pens: Noodler's Nib Creaper Flex Fountain Pen Review](https://wonderpens.wordpress.com/2013/05/25/noodlers-nib-creaper-flex-fountain-pen-review/) |
+| the-parker-51 | [RichardsPens.com: RichardsPens.com: The Parker 51](https://www.richardspens.com/ref/profiles/51.htm)；[Parker51.com: Parker51.com: 51 History](https://parker51.com/index.php/education/51-history/)；[The Pen Addict: The Pen Addict: The Parker 51](https://www.penaddict.com/blog/2016/7/7/the-parker-51) |
+| pilot-custom-823 | [Pilot Pen USA: Pilot Custom 823 fountain pen](https://pilotpen.us/Product?0=41&1=72&cid=100154)；[Goulet Pens: Goulet Pens: Pilot Custom 823](https://www.gouletpens.com/products/pilot-custom-823-fountain-pen-amber) |
+| pelikan-souveran-m800 | [Pelikan official site: Pelikan Souverän M800 fountain pen](https://www.pelikan.com/int/products/writing/fine-writing-instruments/souveraen/301017-souveraen-m800-fountain-pen.html)；[Pelikan Collectibles: Pelikan Collectibles: Souverän M800](https://www.pelikan-collectibles.com/en/Pelikan/Models/Souveraen-Series/M800-Basis/index.html) |

@@ -150,6 +150,45 @@ const SOURCES: SourceDef[] = [
     relationType: "review",
   },
   {
+    id: "source-rfp-lamy-logo-official-family",
+    sourceId: "lamy",
+    sourceName: "LAMY official site",
+    sourceType: "official",
+    reliability: "official_marketing",
+    homepageUrl: "https://www.lamy.com/",
+    title: "LAMY logo series page",
+    url: "https://www.lamy.com/en-us/p/lamy-logo-ballpoint-pen",
+    itemType: "official_product_family",
+    summary: "Official Logo-family page used for series design language only; fountain-pen specifics are checked against review and retail sources.",
+    relationType: "official",
+  },
+  {
+    id: "source-rfp-goulet-lamy-logo",
+    sourceId: "goulet",
+    sourceName: "Goulet Pens",
+    sourceType: "blog",
+    reliability: "community_opinion",
+    homepageUrl: "https://www.gouletpens.com/",
+    title: "LAMY logo Fountain Pen: Quick Look",
+    url: "https://www.gouletpens.com/blogs/fountain-pen-blog/lamy-logo-quick-look",
+    itemType: "review_article",
+    summary: "Quick-look review source for LAMY Logo fountain-pen materials, grip, nib, and daily-use positioning.",
+    relationType: "review",
+  },
+  {
+    id: "source-rfp-wellappointed-lamy-logo",
+    sourceId: "well-appointed-desk",
+    sourceName: "The Well-Appointed Desk",
+    sourceType: "blog",
+    reliability: "community_opinion",
+    homepageUrl: "https://www.wellappointeddesk.com/",
+    title: "Review: Lamy Logo F Fountain Pen in Brushed Aluminum",
+    url: "https://www.wellappointeddesk.com/2014/06/review-lamy-logo-f-fountain-pen-in-brushed-aluminum/",
+    itemType: "review_article",
+    summary: "Hands-on review for LAMY Logo brushed aluminum body, ridged grip area, LAMY nib compatibility, and user fit.",
+    relationType: "review",
+  },
+  {
     id: "source-rfp-pilot-custom-823-official",
     sourceId: "pilot-usa",
     sourceName: "Pilot Pen USA",
@@ -228,6 +267,32 @@ const SOURCES: SourceDef[] = [
     relationType: "official",
   },
   {
+    id: "source-rfp-sailor-1911s-14k",
+    sourceId: "sailor",
+    sourceName: "Sailor official site",
+    sourceType: "official",
+    reliability: "official_marketing",
+    homepageUrl: "https://en.sailor.co.jp/",
+    title: "Sailor: 1911 S Fountain Pen 14K",
+    url: "https://en.sailor.co.jp/product/11-1219/",
+    itemType: "official_product_page",
+    summary: "Official 1911 S 14K page used for Profit/1911 small-size, cartridge-converter structure, and nib-family context.",
+    relationType: "official",
+  },
+  {
+    id: "source-rfp-sailor-1911s-21k",
+    sourceId: "sailor",
+    sourceName: "Sailor official site",
+    sourceType: "official",
+    reliability: "official_marketing",
+    homepageUrl: "https://en.sailor.co.jp/",
+    title: "Sailor: 1911 S Fountain Pen 21K",
+    url: "https://en.sailor.co.jp/product/11-1521/",
+    itemType: "official_product_page",
+    summary: "Official 1911 S 21K page used to separate 21K Profit evidence from Pro Gear naming and limited-color assumptions.",
+    relationType: "official",
+  },
+  {
     id: "source-rfp-montblanc-149-official",
     sourceId: "montblanc",
     sourceName: "Montblanc official site",
@@ -278,6 +343,45 @@ const SOURCES: SourceDef[] = [
     itemType: "model_history",
     summary: "Specialist reference for Pelikan M800 model history, variants, and collector distinctions.",
     relationType: "history",
+  },
+  {
+    id: "source-rfp-noodlers-standard-flex-official",
+    sourceId: "noodlers-ink",
+    sourceName: "Noodler's Ink official site",
+    sourceType: "official",
+    reliability: "official_marketing",
+    homepageUrl: "https://noodlersink.com/",
+    title: "Noodler's Standard Flex Nibs",
+    url: "https://noodlersink.com/product-category/pens/standard-flex-nibs-pens/",
+    itemType: "official_product_family",
+    summary: "Official Noodler's product-category page for Standard Creaper flex pens, ebonite-feed language, piston filling, and bottled-ink positioning.",
+    relationType: "official",
+  },
+  {
+    id: "source-rfp-goulet-noodlers-nib-creaper",
+    sourceId: "goulet",
+    sourceName: "Goulet Pens",
+    sourceType: "retailer",
+    reliability: "medium",
+    homepageUrl: "https://www.gouletpens.com/",
+    title: "Noodler's Nib Creaper Flex Fountain Pens",
+    url: "https://www.gouletpens.com/collections/noodlers-nib-creaper-fountain-pens",
+    itemType: "retailer_collection",
+    summary: "Retail collection page for Noodler's Nib Creaper as a slender piston-filling resin fountain pen with a smaller flexible steel nib.",
+    relationType: "reference",
+  },
+  {
+    id: "source-rfp-wonderpens-noodlers-nib-creaper",
+    sourceId: "wonder-pens",
+    sourceName: "Wonder Pens",
+    sourceType: "blog",
+    reliability: "community_opinion",
+    homepageUrl: "https://wonderpens.wordpress.com/",
+    title: "Noodler's Nib Creaper Flex Fountain Pen Review",
+    url: "https://wonderpens.wordpress.com/2013/05/25/noodlers-nib-creaper-flex-fountain-pen-review/",
+    itemType: "review_article",
+    summary: "Hands-on review for Nib Creaper flex nib expectations, piston mechanism, ink window, posted use, and beginner caveats.",
+    relationType: "review",
   },
   {
     id: "source-rfp-kaweco-sport-official",
@@ -788,6 +892,161 @@ Snorkel 也能提醒今天的读者，钢笔历史里有一段很爱解决“小
 
 如果你想买 Snorkel，先把预算分成两部分：买笔的钱和维修的钱。已经专业修复的笔通常更贵，但省很多麻烦。未修复的便宜笔看起来诱人，真正能稳定使用还要换密封、清理管路、检查笔尖。Snorkel 的魅力就在这里。它把一件简单的事做得很复杂，却复杂得有理由。你看着那根细管伸出来，会明白 1950 年代的钢笔公司曾经多么认真地琢磨“怎样吸一管墨”。`,
   },
+  {
+    slug: "写乐-sailor-1911-profit系列",
+    title: "Sailor 1911 / Profit：雪茄形外壳里的写乐笔尖",
+    summary: "Sailor 1911 / Profit 系列把写乐的 14K、21K 金尖放进传统雪茄形笔身，和 Pro Gear 的平顶路线形成了清楚分工。",
+    sourceIds: [
+      "source-rfp-sailor-1911-official",
+      "source-rfp-sailor-1911s-14k",
+      "source-rfp-sailor-1911s-21k",
+    ],
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "把 1911/Profit 放回写乐产品线解释，避开空泛的日系三金套话。",
+    },
+    body: `Sailor 1911 / Profit 最容易被 Pro Gear 抢走注意力。Pro Gear 有平顶，有大量特别色，照片里更像近年的文具潮流。1911 / Profit 安静得多，雪茄形笔帽和尾端让它看起来像一支传统钢笔。可真正落到纸上，两者共享的是写乐最重要的东西：那套带着细小阻尼的金尖语言。
+
+Sailor 官方把 1911 系列单独列出，和 Professional Gear 分开讲。这个区分很有用。1911 的重点在经典外形，Pro Gear 的重点在平顶和更现代的视觉比例。Profit 是日本市场里常见的命名，1911 是海外读者更熟悉的叫法。中文页面把 1911、Profit、鱼雷、大鱼雷、标准鱼雷混在一起时，读者最该先确认尺寸、笔尖材质和具体 SKU，颜色要放在这些信息之后。
+
+1911 的雪茄形有一种低调的好处。笔身线条从中段向两端收，握在手里很自然，也不太挑场合。它没有 Pro Gear 那种利落的平顶，也没有 Montblanc 149 的强社交符号。它更像把写乐笔尖装进一个保守、稳定、容易接受的外壳。喜欢传统钢笔比例的人，往往会比喜欢特别色的人更快理解 1911。
+
+写乐官方产品页能看到 14K 和 21K 的不同口径。初次购买时，不要简单把 21K 看成“更高级所以一定更适合”。14K 通常更紧实，价格也更容易进入；21K 会给人更高端的预期，但具体软硬、出水和反馈仍由尖号、尺寸和单支调校共同决定。写乐的魅力并不在夸张弹性，而在触纸时那种细密的控制感。
+
+这种反馈对中文书写很有价值。写中文小字时，过分顺滑的笔容易让笔画漂，写乐的轻微阻尼会帮手指停住。F、MF、M 这些尖号差别很大，MF 往往是很多人进入写乐的安全选择：线条不至于太细，墨色也能出来一点。若你喜欢玻璃一样滑的纸面感，Pilot Custom 系列会更直接；若你喜欢防干和硬朗控制，Platinum #3776 会更稳。1911 的位置更偏向“有反馈，但仍能长期写”。
+
+和 Pro Gear 比，1911 的审美更成熟，也更少被配色牵着走。Pro Gear 很适合玩限定色，1911 更适合选择一支黑杆、酒红、透明或稳重色，长期放在桌上。这个差别会影响购买后的满意度。若你买钢笔主要是为了收集颜色，Pro Gear 更容易给你新鲜感；若你希望外形不过时，1911 / Profit 反而更省心。
+
+尺寸也要认真看。1911 S、1911 Large、King of Pen 不是同一支笔的简单放大。小号更轻、更适合短写和手小用户；Large 更接近成人主力笔；King of Pen 已经进入大尺寸和高价区间，笔尖存在感完全不同。中文语境里的“鱼雷”也容易混用，买之前最好对照官方型号和笔尖刻字，不要只看卖家标题。
+
+上墨方式同样会影响使用。常规 1911 / Profit 多见墨囊/上墨器结构，清洗方便，换墨轻松，储墨量普通。1911 Realo 则把活塞系统带进这个外形里，使用节奏又不同。若你每天写很多页，普通上墨器会更频繁补墨；若你经常换颜色，它又比活塞更轻松。选择时先想自己的真实书写量，比追一个更响亮的型号名有用。
+
+1911 / Profit 的日用气质也比 Pro Gear 更稳。黑色、酒红、透明这些常见外观不会过分抢眼，放在办公桌上比许多限定色更耐看。它适合那种想长期使用写乐笔尖，却不想让钢笔外观太跳的人。写会议记录、批注、读书笔记、手账都可以，只要尖号选对，它不会强迫你用某种特殊方式书写。
+
+这支笔的弱点也清楚。墨囊/上墨器储墨量普通，连续长写时不如 Pilot Custom 823 省心。写乐反馈对纸张和墨水比较敏感，纸太粗会放大阻尼，墨水太干会让笔尖显得更紧。若你平常用廉价复印纸写很小的字，F 或 MF 更稳；若你用好纸写英文或大字，M、B 才更容易表现墨色。买之前最好带自己的纸试写。
+
+1911 / Profit 还容易被“日系三金”这个标签盖过去。标签有帮助，但也会偷懒。真正判断时，要看它在 Sailor 自己产品线中的位置：它比 Pro Gear 更传统，比 King of Pen 更克制，比入门钢尖更能体现写乐金尖的触感。理解了这个位置，再去看价格和版本，就不容易被各种限定色或二手描述带偏。
+
+如果页面读者只想快速判断，1911 / Profit 适合喜欢传统外形和清晰反馈的人。它不负责惊艳第一眼，负责在每天反复书写时保持稳定的写乐味道。
+
+买 1911 / Profit 时，先定尺寸，再定尖号，最后再看颜色和限定属性。二手笔要看笔尖是否被打磨、笔帽螺纹是否顺、笔身是否有裂纹。新笔最好试写，尤其是写乐反馈是否合口味。1911 / Profit 的好处不在惊喜，而在它把写乐笔尖放进一个最传统、最稳的身体里。你若喜欢这套触纸感，它会比许多更花哨的钢笔更耐用。`,
+  },
+  {
+    slug: "凌美-lamy-logo",
+    title: "LAMY Logo：一支被低估的金属日用笔",
+    summary: "LAMY Logo 是凌美产品线里更细、更克制的金属日用钢笔，重点在圆柱笔身、钢尖体系和低存在感的办公属性。",
+    sourceIds: [
+      "source-rfp-lamy-logo-official-family",
+      "source-rfp-goulet-lamy-logo",
+      "source-rfp-wellappointed-lamy-logo",
+    ],
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "把官方系列文案和评测边界分开，避免把 Logo 写成 Safari 或 2000 的附属品。",
+    },
+    body: `LAMY Logo 常被夹在 Safari 和 LAMY 2000 中间。Safari 有鲜明的三角握位和彩色塑料外壳，LAMY 2000 有 Makrolon、活塞和设计经典的光环。Logo 安静得多，一根细长的金属圆柱，笔夹简单，握位也不夸张。它没有强烈表情，这正是它容易被忽略的原因。
+
+LAMY 官方现在更容易看到 Logo 家族的其他书写工具页面，钢笔规格需要结合 Goulet 和 The Well-Appointed Desk 这类评测来读。这个来源边界要讲清楚：官方页面能说明 Logo 系列的简洁取向，具体到钢笔手感、握位和笔尖，长期评测更有帮助。把这两类资料合在一起，Logo 的位置会清楚很多。它是一支偏办公、偏低调、偏细杆的日用钢笔。
+
+Logo 的外形几乎没有装饰。金属笔身拉得很直，视觉上比 Safari 成年，也比 Studio 更瘦。它不靠大笔尖、透明储墨或复杂材料吸引人。你把它放进会议本、电脑包或笔筒里，它不会像一支收藏笔那样提醒周围的人注意。这个低存在感对某些读者很有价值：想用钢笔，但不想让钢笔成为桌面主角。
+
+它和 Safari 的差别，先从握位开始。Safari 的三角握位会主动纠正手指位置，喜欢的人觉得省心，不喜欢的人会觉得被限制。Logo 的握位更传统，也更窄，手指自由度高一些。The Well-Appointed Desk 的评测会提到金属表面和握持感，这一点对中文读者尤其重要。若你握笔低、手容易出汗，细金属握位可能会滑；若你喜欢轻薄直杆，Logo 会很顺手。
+
+LAMY 的钢尖体系让 Logo 很容易维护。它通常使用 LAMY 常见的可换钢尖，EF、F、M 等尖号能覆盖日常书写。这个系统没有金尖的仪式感，却很实用：笔尖便宜，替换方便，出问题时不用把整支笔送修。对一支日用金属笔来说，这比高调配置更符合它的性格。
+
+Logo 的上墨也很普通，墨囊或上墨器就能解决。它不像 LAMY 2000 那样有活塞储墨量，也不像 TWSBI 那样把墨水展示出来。普通结构带来普通好处：清洗简单，换墨方便，旅行时可以带墨囊。若你希望一支钢笔每天写很多页，它的储墨量不会特别突出；若你只是会议记录、批注、手账和短文，它足够安静。
+
+和 LAMY Studio 比，Logo 更轻、更细，也更少“设计物件”的姿态。Studio 的笔夹和圆润金属笔身更有存在感，Logo 则像一支严肃一点的办公笔。和 Safari 比，它少了学生感，也少了颜色带来的活力。和 LAMY 2000 比，它的书写和材料层级都低很多，却没有 2000 的甜区门槛和活塞维护成本。这个位置不耀眼，实际很清楚。
+
+Logo 的一个好处，是它不会把 LAMY 的入门体系割裂开。若你已经有 Safari、Al-Star 或 Vista，Logo 的笔尖体验不会完全陌生。你可以把熟悉的 LAMY 钢尖带到一个更细、更金属、更办公的身体里。这个连续性对普通用户很实用：换笔不等于重新适应所有东西。你只需要判断细杆和金属握位是否适合自己。
+
+它的外观也适合不想显得“玩笔”的人。很多钢笔一拿出来就带着爱好者气息，Logo 更像一支认真一点的日常书写工具。它可以放进公司会议室、客户签字场景，也可以在家里写清单。别人未必会注意它，使用者自己却能感到它比普通中性笔更有重量和触感。对某些场景，这种分寸比炫耀更好。
+
+当然，Logo 也不是所有人的答案。细杆会让手大的人觉得支撑不够，金属表面在潮湿手指下可能变滑。它的笔帽和笔夹也应实物检查，旧笔尤其要看卡合是否松。若你追求宽大的握持、饱满墨迹和强烈设计感，Studio、2000 或其他品牌会更合适。Logo 最适合的，是喜欢低调金属直杆，又希望维护成本保持在 LAMY 入门体系内的人。
+
+Logo 还有一个适合网页读者的判断方法：把它想成 LAMY 钢尖体系里的“办公金属杆”。如果这个定位正好击中你的使用场景，它会显得很聪明；如果你期待它拥有 LAMY 2000 的材料故事或 Safari 的鲜明个性，它就会显得太淡。淡不是问题，买错期待才是问题。
+
+买 Logo 要先确认自己是否喜欢细杆。很多钢笔爱好者习惯较粗笔身，拿到 Logo 会觉得太瘦；习惯圆珠笔或中性笔的人，反而更容易过渡。再看握位材质、笔帽松紧、笔夹弹性和笔尖顺滑度。二手或旧库存还要确认上墨器是否匹配。Logo 的价值不在“经典型号”这个标签里，它更像一支把钢笔使用门槛降到办公日常里的工具。
+
+若你已经有 Safari，Logo 不一定是升级，更像换一种气质。Safari 适合轻松、彩色、明确握姿；Logo 适合低调、金属、直杆。若你已经有 LAMY 2000，Logo 也不会替代它。它适合放在包里承担不太隆重的任务。正因为它不隆重，才可能成为一支真正经常被拿起来的笔。`,
+  },
+  {
+    slug: "noodler鲶鱼-简易钢笔",
+    title: "Noodler’s 简易钢笔：便宜、可调，也需要耐心",
+    summary: "Noodler’s 简易钢笔更接近 Nib Creaper / Standard Flex 这类入门可调钢笔，重点在活塞上墨、钢弹性尖和可折腾的供墨结构。",
+    sourceIds: [
+      "source-rfp-noodlers-standard-flex-official",
+      "source-rfp-goulet-noodlers-nib-creaper",
+      "source-rfp-wonderpens-noodlers-nib-creaper",
+    ],
+    humanizer: {
+      directness: 9,
+      rhythm: 9,
+      trust: 9,
+      authenticity: 9,
+      concision: 9,
+      notes: "明确说明中文条目指向 Nib Creaper/Standard Flex 这一路线，不把低价弹性尖写成复古软尖。",
+    },
+    body: `Noodler’s 的钢笔最容易让新手困惑。中文里一句“鲶鱼简易钢笔”，可能指 Charlie，也可能指 Nib Creaper、Ahab、Konrad 这类便宜、可拆、可折腾的笔。现有来源更接近 Nib Creaper / Standard Flex 这一路线：小号钢弹性尖、活塞上墨、树脂笔身，价格不高，玩法却不少。读这个页面时，先把“简易”理解成入门可调，而不是省心无脑。
+
+Noodler’s 本来更以墨水出名，钢笔则带着很强的实验气质。官方 Standard Flex 页面把 Standard Creaper、ebonite feed、piston fill 和 bottled ink 放在一起，这几个词足够说明它的方向。它不是一支追求精致外观的笔，也不是一支开盒就保证完美顺滑的笔。它更像给愿意动手的人准备的低价平台：你可以试弹性尖，可以调供墨，也可以理解墨水和笔舌怎样互相影响。
+
+Nib Creaper 的尺寸偏小，笔身也不厚。和 Ahab、Konrad 这些更大的 Noodler’s 笔相比，它更轻、更细，也更像一支真正的入门笔。Goulet 这类零售页面会把它列为 slender piston-filling resin fountain pen，并强调较小的 flexible steel nib。这个描述很朴素，却能帮读者判断预期：它不是大型签字笔，也不是豪华材料笔。它的重点在结构和价格。
+
+“flex” 是最需要降温的词。Noodler’s 的钢弹性尖能压出线条变化，但它不等于老式湿面条软尖。要出变化，需要压力、角度、速度和合适墨水配合。压得太狠，笔尖会刮纸、断墨，甚至损伤笔尖。Wonder Pens 这类评测能给出更接近日用的提醒：它有趣，也需要调整；它能玩线宽，却不是给完全不想折腾的人准备的。
+
+这类笔的 ebonite feed 也是双刃剑。供墨可以调，清洗和拆装也更开放，问题是新手更容易把笔弄乱。出水太小，你会想把笔舌往前调；出水太大，墨水又可能糊成一片。某些墨水太干会让 flex 体验变差，太湿又会让纸张承受不住。买 Noodler’s 简易钢笔，最好同时准备一点学习耐心。它的便宜并不意味着它会自动省心。
+
+和 Pilot Kakuno、LAMY Safari 这类入门钢笔比，Noodler’s 的路线完全不同。Kakuno 和 Safari 追求稳定、可预期、少维护；Noodler’s 让你看到钢笔内部怎样工作。它适合想理解笔尖、笔舌、墨水和压力关系的人。若你只是需要一支每天写作业或会议记录的笔，Kakuno、Safari、Preppy 会更轻松。若你想用低成本摸一摸 flex 的边界，Noodler’s 才有意义。
+
+它也适合拿来解释“便宜笔为什么还会有玩家”。有些便宜笔只是便宜，写坏了就丢；Noodler’s 的便宜带着可调整空间。你可以拆洗，可以试墨，可以观察活塞上墨，也可以学习什么叫供墨跟不上。这个过程不一定优雅，却很有教育意义。很多高价钢笔把这些细节藏起来，Noodler’s 则把它们摊到你手里。
+
+购买时要先确认具体型号。若页面或卖家只写“简易钢笔”，一定要看照片、长度、上墨结构和笔尖刻字，分清 Charlie、Nib Creaper、Ahab、Konrad。再看是否全新、是否已经被前任调过、笔尖和笔舌是否对齐、活塞是否顺。若你怕异味、怕塑料感、怕调尖，提前避开会更好。若你愿意把它当作一支能学习、能试错的工具，它会比价格看上去更有内容。
+
+还有一个现实问题：Noodler’s 的体验很依赖使用者处理小问题的能力。出水忽大忽小、笔尖刮纸、笔舌位置不对、墨水搭配不合适，都可能出现在同一支笔上。喜欢稳定的人会觉得烦，喜欢调校的人会觉得这正是乐趣。买它之前，最好把期待放在“学习和实验”，不要放在“便宜买到高级软尖”。
+
+它也不适合被当成唯一入门笔推荐给所有人。第一次买钢笔的人若只是想顺利写字，Preppy、Kakuno、Safari 这类更稳。Noodler’s 更适合第二阶段：你已经知道钢笔基本怎么用，开始好奇笔尖为什么会开叉、供墨为什么会断、墨水为什么会影响线条。到了这个阶段，它的粗糙感反而有价值，因为每个问题都能让你学到一点结构。
+
+所以，这支笔的购买理由不该是“便宜”。便宜只是门票，真正的理由是你愿意把它当作练习台。愿意动手，它会很好玩；只想省心，它会显得脾气太多。最好同时准备一瓶稳定墨水和一张不太洇的纸，先把变量减少。
+
+Noodler’s 简易钢笔最适合的读者，是已经接受钢笔可能需要一点维护的人。它不会给你 Montblanc 的精致，也不会给你 Pilot 的稳定调校。它给的是便宜、开放和一点不安分。把这点想清楚，评价会公平很多：它不是完美入门笔，却是一支很适合理解“钢笔为什么能被调整”的入门笔。`,
+  },
+];
+
+function aliasArticle(sourceSlug: string, slug: string, title: string, summary: string): SampleArticle {
+  const source = ARTICLES.find((article) => article.slug === sourceSlug);
+  if (!source) throw new Error(`Missing source article for alias: ${sourceSlug}`);
+  return { ...source, slug, title, summary };
+}
+
+const ALL_ARTICLES: SampleArticle[] = [
+  ...ARTICLES,
+  aliasArticle(
+    "派克-parker-51-经典-vintage",
+    "the-parker-51",
+    "Parker 51：把钢笔变成随手可用的工具",
+    "Parker 51 的重点在暗尖、Lucite 笔身和 Vacumatic/Aerometric 上墨，它把老式钢笔从需要照看的物件推向了更省心的日用工具。",
+  ),
+  aliasArticle(
+    "百乐-pilot-custom-823",
+    "pilot-custom-823",
+    "Pilot Custom 823：一支为长写准备的透明大水箱",
+    "Pilot Custom 823 的吸引力来自真空上墨、透明笔身和 14K 金尖组合，它更像一支可靠的长写工具。",
+  ),
+  aliasArticle(
+    "百利金-pelikan-m800",
+    "pelikan-souveran-m800",
+    "Pelikan Souverän M800：德系活塞笔的分量感",
+    "Pelikan Souverän M800 是 Souverän 系列里很有代表性的大尺寸活塞钢笔，条纹笔身、18K 金尖和可拆笔尖组件构成了它的玩家属性。",
+  ),
 ];
 
 function getClient() {
@@ -939,12 +1198,12 @@ async function linkSource(db: Client, entityId: string, storyId: string, source:
 }
 
 function buildReviewReport() {
-  const rows = ARTICLES.map((article) => {
+  const rows = ALL_ARTICLES.map((article) => {
     const score = article.humanizer;
     return `| ${article.slug} | ${humanizerTotal(article)}/50 | ${score.directness} | ${score.rhythm} | ${score.trust} | ${score.authenticity} | ${score.concision} | ${article.humanizer.notes} |`;
   }).join("\n");
 
-  const sourceRows = ARTICLES.map((article) => {
+  const sourceRows = ALL_ARTICLES.map((article) => {
     const sourceLabels = article.sourceIds
       .map((id) => SOURCES.find((source) => source.id === id))
       .filter(Boolean)
@@ -953,7 +1212,7 @@ function buildReviewReport() {
     return `| ${article.slug} | ${sourceLabels} |`;
   }).join("\n");
 
-  return `# Read first 10 篇样板 humanizer-zh 审查
+  return `# Read first A 档文章 humanizer-zh 审查
 
 生成时间：${new Date().toISOString()}
 
@@ -972,7 +1231,7 @@ ${sourceRows}
 }
 
 async function main() {
-  const failures = ARTICLES.flatMap((article) =>
+  const failures = ALL_ARTICLES.flatMap((article) =>
     validateArticle(article).map((failure) => `${article.slug}: ${failure}`),
   );
   if (failures.length > 0) {
@@ -980,7 +1239,7 @@ async function main() {
   }
 
   const missingSources = new Set<string>();
-  for (const article of ARTICLES) {
+  for (const article of ALL_ARTICLES) {
     for (const sourceId of article.sourceIds) {
       if (!SOURCES.some((source) => source.id === sourceId)) {
         missingSources.add(`${article.slug}: ${sourceId}`);
@@ -995,8 +1254,8 @@ async function main() {
   await execute(db, "PRAGMA foreign_keys = ON");
 
   if (!WRITE) {
-    console.log(`Validated ${ARTICLES.length} sample article(s).`);
-    for (const article of ARTICLES) {
+    console.log(`Validated ${ALL_ARTICLES.length} A-tier article(s).`);
+    for (const article of ALL_ARTICLES) {
       console.log(`- ${article.slug}: ${article.body.length} chars, humanizer ${humanizerTotal(article)}/50`);
     }
     console.log("Dry run only. Re-run with --write to update the database and review report.");
@@ -1007,7 +1266,7 @@ async function main() {
     await upsertSource(db, source);
   }
 
-  for (const article of ARTICLES) {
+  for (const article of ALL_ARTICLES) {
     const entity = await findEntity(db, article.slug);
     if (!entity) throw new Error(`Missing pen entity: ${article.slug}`);
 
