@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-cd /Users/xz/CodeBuddy/fountain-pen-graph
+cd /Users/xz/Documents/fountain-pen-graph
 
 echo "=== 清空表 ==="
 for t in concept_matches entity_links entity_tags entity_attributes entities concept_rules tag_hierarchy tag_compositions tags migrations; do

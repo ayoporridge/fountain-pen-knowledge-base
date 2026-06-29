@@ -3,14 +3,14 @@
 > 执行顺序：Goal 1→2→3→4→5→6→**7**
 > 依赖：Goal 3（暗色模式统一）完成后才执行本 Goal
 > 预计：12-15 轮，30-40 分钟
-> 参考：`/Users/xz/CodeBuddy/fountain-pen-graph/MEDIEVAL-DESIGN-ANALYSIS.md`
+> 参考：`/Users/xz/Documents/fountain-pen-graph/MEDIEVAL-DESIGN-ANALYSIS.md`
 
 ---
 
 ## Goal Prompt（可直接粘贴到 `/goal`）
 
 ```text
-/goal 对 /Users/xz/CodeBuddy/fountain-pen-graph 执行中世纪手抄本风格的 CSS 重写。
+/goal 对 /Users/xz/Documents/fountain-pen-graph 执行中世纪手抄本风格的 CSS 重写。
 
 背景：
 当前网站使用现代极简风格（白底 + Inter 字体 + 灰色系）。

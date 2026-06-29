@@ -3,7 +3,7 @@
 > 依赖：Goal 3（暗色模式统一）完成后执行
 > 预计：15-20 轮，40-50 分钟
 > 参考网站：https://bird.onethreenine.net/
-> 参考分析：`/Users/xz/CodeBuddy/fountain-pen-graph/MEDIEVAL-DESIGN-ANALYSIS.md`
+> 参考分析：`/Users/xz/Documents/fountain-pen-graph/MEDIEVAL-DESIGN-ANALYSIS.md`
 
 ---
 
@@ -40,7 +40,7 @@
 ## Goal Prompt（可直接粘贴到 `/goal`）
 
 ```text
-/goal 对 /Users/xz/CodeBuddy/fountain-pen-graph 执行中世纪手抄本风格的全面重写，包含字体升级、动效系统、视觉层次三个维度。
+/goal 对 /Users/xz/Documents/fountain-pen-graph 执行中世纪手抄本风格的全面重写，包含字体升级、动效系统、视觉层次三个维度。
 
 背景：
 之前的 CSS 改版（commit 85969d4）已经提交，但用户反馈"看不出区别"。
