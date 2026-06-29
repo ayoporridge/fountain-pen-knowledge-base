@@ -1,12 +1,12 @@
 # Read first 重写基线
 
-生成时间：2026-06-29T14:12:06.633Z
+生成时间：2026-06-29T14:35:09.798Z
 
 ## 总览
 
 - 钢笔详情页：244
-- 仍像资料卡或短说明：100（41%）
-- 字数：最短 332，中位数 1003，平均 883，最长 2101
+- 仍像资料卡或短说明：90（37%）
+- 字数：最短 368，中位数 1003，平均 905，最长 2101
 - A 档：30
 - B 档：103
 - C 档：111
@@ -39,7 +39,7 @@
 | A | 白金-platinum-出云-izumo | 白金 Platinum Izumo 出云 | 2099 | 2 | 0 | 2 | 1 | 否 |
 | A | 百乐-pilot-custom-823 | 百乐 Pilot Custom 823 | 2048 | 1 | 0 | 2 | 1 | 否 |
 | A | 百利金-pelikan-m800 | 百利金 Pelikan M800 | 2070 | 1 | 1 | 1 | 1 | 否 |
-| C | admok-简800 | Admok 简800 | 345 | 0 | 0 | 1 | 1 | 是 |
+| C | admok-简800 | Admok 简800 | 908 | 0 | 0 | 1 | 1 | 否 |
 | B | diplomat迪波曼-aero太空梭 | Diplomat迪波曼 Aero太空梭 | 1000 | 1 | 0 | 0 | 0 | 否 |
 | B | esterbrook-estie-oversized | Esterbrook Estie Oversized | 1052 | 1 | 0 | 0 | 0 | 否 |
 | C | kaco-master大师14k | KACO Master大师14K | 459 | 0 | 0 | 1 | 1 | 是 |
@@ -128,7 +128,7 @@
 | B | 中屋-nakaya-portable-portable-cigar | 中屋 Nakaya Portable / Portable Cigar | 1000 | 2 | 0 | 0 | 1 | 否 |
 | B | 中屋-nakaya-portable-writer-黑溜涂 | 中屋 Nakaya Portable Writer 黑溜涂 | 1024 | 2 | 0 | 0 | 1 | 否 |
 | C | 书乐-shule-2398 | 书乐 ShuLe 2398 | 373 | 0 | 0 | 0 | 2 | 是 |
-| C | 依人-yiren-878 | 依人 YiRen 878 | 355 | 0 | 0 | 1 | 1 | 是 |
+| C | 依人-yiren-878 | 依人 YiRen 878 | 900 | 0 | 0 | 1 | 1 | 否 |
 | B | 写乐-sailor-0501铱金 | 写乐 Sailor Young Profit 0501 | 1018 | 0 | 2 | 1 | 1 | 否 |
 | C | 写乐-sailor-1029银夹鱼雷 | 写乐 Sailor 1029银夹鱼雷 | 401 | 0 | 0 | 1 | 1 | 是 |
 | B | 写乐-sailor-1219标准鱼雷 | 写乐 Sailor 1219标准鱼雷 | 1065 | 2 | 0 | 0 | 0 | 否 |
@@ -144,4 +144,4 @@
 | A | 凌美-lamy-logo | 凌美 LAMY Logo | 2003 | 2 | 2 | 1 | 1 | 否 |
 | B | 凌美-lamy-safari-狩猎者 | 凌美 LAMY Safari 狩猎者 | 1048 | 1 | 0 | 0 | 0 | 否 |
 | B | 凌美-lamy-studio-演艺 | 凌美 LAMY Studio 演艺 | 1053 | 1 | 0 | 0 | 0 | 否 |
-| C | 唐月-e5 | 唐月 E5 | 332 | 0 | 1 | 0 | 1 | 是 |
+| C | 唐月-e5 | 唐月 E5 | 902 | 0 | 1 | 0 | 1 | 否 |
