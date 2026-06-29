@@ -34,6 +34,7 @@
     "import:read-first-b-core": "tsx scripts/import-read-first-b-core-articles.ts",
     "import:read-first-b-vintage": "tsx scripts/import-read-first-b-vintage-articles.ts",
     "import:read-first-b-official": "tsx scripts/import-read-first-b-official-articles.ts",
+    "import:read-first-b-vintage-frontier": "tsx scripts/import-read-first-b-vintage-frontier-articles.ts",
     "import:brand-completions": "tsx scripts/import-brand-completion-sources.ts",
     "import:model-gap-sources": "tsx scripts/import-model-gap-sources.ts",
     "import:research-gap-sources": "tsx scripts/import-research-gap-sources.ts",

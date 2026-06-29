@@ -1,12 +1,12 @@
 # Read first 重写基线
 
-生成时间：2026-06-29T09:28:24.726Z
+生成时间：2026-06-29T09:42:50.574Z
 
 ## 总览
 
 - 钢笔详情页：244
-- 仍像资料卡或短说明：168（69%）
-- 字数：最短 332，中位数 560，平均 733，最长 2101
+- 仍像资料卡或短说明：158（65%）
+- 字数：最短 332，中位数 579，平均 761，最长 2101
 - A 档：20
 - B 档：103
 - C 档：121
@@ -50,7 +50,7 @@
 | B | kimberly-the-pen-that-saved-eversharp | Kimberly, the Pen That Saved Eversharp | 496 | 0 | 2 | 0 | 0 | 是 |
 | B | leonardo-furore-momento-magico | Leonardo Furore / Momento Magico | 1028 | 1 | 0 | 0 | 0 | 否 |
 | B | moore-s-non-leakable-fountain-pen | Moore’s Non-Leakable Fountain Pen | 531 | 0 | 2 | 0 | 0 | 是 |
-| B | morrison-s-patriot | Morrison’s Patriot | 409 | 0 | 2 | 0 | 0 | 是 |
+| B | morrison-s-patriot | Morrison’s Patriot | 1203 | 0 | 2 | 0 | 0 | 否 |
 | A | noodler鲶鱼-简易钢笔 | Noodler鲶鱼 简易钢笔 | 2008 | 2 | 1 | 2 | 1 | 否 |
 | C | opus-88-demo-kolora | Opus 88 Demo/Kolora | 657 | 0 | 0 | 1 | 0 | 是 |
 | B | sheaffer-s-balance | Sheaffer’s Balance | 1037 | 0 | 2 | 0 | 0 | 否 |
@@ -61,13 +61,13 @@
 | B | sheaffer-s-tuckaway | Sheaffer’s Tuckaway | 1006 | 0 | 3 | 0 | 0 | 否 |
 | C | skb派顿-f10-f21 | SKB派顿 F10 / F21 | 400 | 0 | 1 | 0 | 1 | 是 |
 | B | targa-by-sheaffer | Targa by Sheaffer | 1009 | 0 | 2 | 0 | 0 | 否 |
-| B | the-camel-pen | The Camel Pen | 386 | 0 | 3 | 0 | 0 | 是 |
+| B | the-camel-pen | The Camel Pen | 1073 | 0 | 3 | 0 | 0 | 否 |
 | B | the-chilton-chiltonian | The Chilton Chiltonian | 487 | 0 | 2 | 0 | 0 | 是 |
 | B | the-chilton-golden-quill | The Chilton Golden Quill | 446 | 0 | 2 | 0 | 0 | 是 |
 | B | the-chilton-wing-flow | The Chilton Wing-flow | 428 | 0 | 2 | 0 | 0 | 是 |
-| B | the-conklin-glider | The Conklin Glider | 410 | 0 | 2 | 0 | 0 | 是 |
+| B | the-conklin-glider | The Conklin Glider | 1250 | 0 | 2 | 0 | 0 | 否 |
 | B | the-conklin-nozac | The Conklin Nozac | 468 | 0 | 2 | 0 | 0 | 是 |
-| B | the-dunn-pen | The Dunn-Pen | 438 | 0 | 3 | 0 | 0 | 是 |
+| B | the-dunn-pen | The Dunn-Pen | 1125 | 0 | 3 | 0 | 0 | 否 |
 | B | the-esterbrook-dollar-pen | The Esterbrook Dollar Pen | 1009 | 0 | 2 | 0 | 0 | 否 |
 | B | the-esterbrook-model-j-family | The Esterbrook Model J Family | 1001 | 0 | 3 | 0 | 0 | 否 |
 | B | the-eversharp-bantam | The Eversharp Bantam | 420 | 0 | 2 | 0 | 0 | 是 |
@@ -80,8 +80,8 @@
 | B | the-eversharp-symphony-family | The Eversharp Symphony Family | 533 | 0 | 2 | 0 | 0 | 是 |
 | B | the-eversharp-ventura-family | The Eversharp Ventura Family | 527 | 0 | 2 | 0 | 0 | 是 |
 | B | the-ingersoll-dollar-pen | The Ingersoll Dollar Pen | 450 | 0 | 2 | 0 | 0 | 是 |
-| B | the-j-g-rider-fountain-pen | The J. G. Rider Fountain Pen | 520 | 0 | 3 | 0 | 0 | 是 |
-| B | the-john-hancock-cartridge-pen | The John Hancock Cartridge Pen | 513 | 0 | 3 | 0 | 0 | 是 |
+| B | the-j-g-rider-fountain-pen | The J. G. Rider Fountain Pen | 1116 | 0 | 3 | 0 | 0 | 否 |
+| B | the-john-hancock-cartridge-pen | The John Hancock Cartridge Pen | 1227 | 0 | 3 | 0 | 0 | 否 |
 | B | the-moore-finger-tip | The Moore Finger tip | 498 | 0 | 2 | 0 | 0 | 是 |
 | B | the-parker-180 | The Parker 180 | 1007 | 0 | 2 | 0 | 0 | 否 |
 | B | the-parker-21 | The Parker “21” | 1014 | 0 | 2 | 0 | 0 | 否 |
@@ -95,9 +95,9 @@
 | B | the-parker-vacumatic | The Parker Vacumatic | 1001 | 0 | 3 | 0 | 0 | 否 |
 | B | the-parker-vp | The Parker VP | 1005 | 0 | 2 | 0 | 0 | 否 |
 | B | the-parker-vs | The Parker VS | 1055 | 0 | 2 | 0 | 0 | 否 |
-| B | the-postal-reservoir-pen | The Postal Reservoir Pen | 512 | 0 | 3 | 0 | 0 | 是 |
-| B | the-security-pen | The Security Pen | 471 | 0 | 3 | 0 | 0 | 是 |
-| B | the-wahl-pen | The Wahl Pen | 489 | 0 | 3 | 0 | 0 | 是 |
+| B | the-postal-reservoir-pen | The Postal Reservoir Pen | 1049 | 0 | 3 | 0 | 0 | 否 |
+| B | the-security-pen | The Security Pen | 1105 | 0 | 3 | 0 | 0 | 否 |
+| B | the-wahl-pen | The Wahl Pen | 1188 | 0 | 3 | 0 | 0 | 否 |
 | B | the-wasp-addipoint | The WASP Addipoint | 557 | 0 | 2 | 0 | 0 | 是 |
 | B | the-wasp-clipper | The WASP Clipper | 460 | 0 | 2 | 0 | 0 | 是 |
 | B | the-wearever-zenith | The Wearever Zenith | 482 | 0 | 2 | 0 | 0 | 是 |
@@ -111,7 +111,7 @@
 | B | waterman-s-ink-vue | Waterman’s Ink-Vue | 1033 | 0 | 2 | 0 | 0 | 否 |
 | B | waterman-s-patrician | Waterman’s Patrician | 1102 | 0 | 2 | 0 | 0 | 否 |
 | B | waterman-s-taperite | Waterman’s Taperite | 1087 | 0 | 2 | 0 | 0 | 否 |
-| B | waterman-s-x-pen | Waterman’s X-Pen | 497 | 0 | 3 | 0 | 0 | 是 |
+| B | waterman-s-x-pen | Waterman’s X-Pen | 1060 | 0 | 3 | 0 | 0 | 否 |
 | B | 万宝龙-montblanc-144 | 万宝龙 Montblanc 144 (Vintage) | 1010 | 1 | 0 | 0 | 0 | 否 |
 | B | 万宝龙-montblanc-patron-of-art-888 | 万宝龙 Montblanc Patron of Art 888 | 1057 | 1 | 0 | 0 | 0 | 否 |
 | B | 万宝龙-montblanc-大文豪系列-writers-edition | 万宝龙 Montblanc 大文豪系列 Writers Edition | 1003 | 1 | 0 | 0 | 0 | 否 |
