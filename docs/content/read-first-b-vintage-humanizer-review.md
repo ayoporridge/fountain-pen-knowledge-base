@@ -1,6 +1,6 @@
 # Read first B 档 vintage 型号 humanizer-zh 审查
 
-生成时间：2026-06-29T08:55:24.673Z
+生成时间：2026-06-29T09:11:10.517Z
 
 ## 评分
 
@@ -26,6 +26,16 @@
 | the-eversharp-skyline-family | 45/50 | 9 | 9 | 9 | 9 | 9 | 写 Skyline 的 Dreyfuss 设计线索和使用判断，不堆 Art Deco 形容词。 |
 | the-parker-180 | 45/50 | 9 | 9 | 9 | 9 | 9 | 围绕 reversible nib 写 Parker 180，不把它泛化成普通 slim pen。 |
 | the-parker-vp | 45/50 | 9 | 9 | 9 | 9 | 9 | 把 VP 和 Parker 75 的关系讲清，同时提醒专用 converter 和维修风险。 |
+| the-parker-vs | 45/50 | 9 | 9 | 9 | 9 | 9 | 把 Parker VS 写成过渡型号，避免把它硬塞进 51 或 Vacumatic 的光环里。 |
+| the-parker-striped-duofold | 45/50 | 9 | 9 | 9 | 9 | 9 | 区分 Striped Duofold 与早期 Big Red，重点写材料、年代和版本判断。 |
+| the-parker-duofold-geometric-toothbrush | 45/50 | 9 | 9 | 9 | 9 | 9 | 围绕 Geometric/Toothbrush 的纹样和辨认写，不把昵称当成全部内容。 |
+| the-parker-parkette-and-writefine | 45/50 | 9 | 9 | 9 | 9 | 9 | 把 Parkette/Writefine 写成低价位市场策略，不套用高端派克标准。 |
+| waterman-s-ideal-no52 | 45/50 | 9 | 9 | 9 | 9 | 9 | 写 No. 52 的硬橡胶、杠杆上墨和 No. 2 笔尖，不泛写 flex 传说。 |
+| waterman-s-ideal-no7 | 45/50 | 9 | 9 | 9 | 9 | 9 | 围绕 No. 7 的 color-coded nib 写辨认价值，提醒不要只追颜色名。 |
+| waterman-s-patrician | 45/50 | 9 | 9 | 9 | 9 | 9 | 写 Patrician 的高端定位和材料判断，不把它只写成漂亮老笔。 |
+| waterman-s-hundred-year-pen | 45/50 | 9 | 9 | 9 | 9 | 9 | 把 Hundred Year Pen 的承诺和材料风险并置，不写成单纯传奇。 |
+| waterman-s-ink-vue | 45/50 | 9 | 9 | 9 | 9 | 9 | 围绕 Ink-Vue 的可视墨量和维修判断写，不夸大为单一技术突破。 |
+| waterman-s-taperite | 45/50 | 9 | 9 | 9 | 9 | 9 | 写 Taperite 与半隐藏笔尖潮流的关系，不把它写成 Parker 51 复制品。 |
 
 ## Source pack
 
@@ -51,3 +61,13 @@
 | the-eversharp-skyline-family | [RichardsPens.com: The Eversharp Skyline Family](https://www.richardspens.com/ref/profiles/skyline.htm)<br>[RichardsPens.com: The Eversharp Skyline Family](https://www.richardspens.com/ref/profiles/skyline.htm) |
 | the-parker-180 | [RichardsPens.com: The Parker 180](https://www.richardspens.com/ref/profiles/180.htm)<br>[RichardsPens.com: The Parker 180](https://www.richardspens.com/ref/profiles/180.htm) |
 | the-parker-vp | [RichardsPens.com: The Parker VP](https://www.richardspens.com/ref/profiles/vp.htm)<br>[RichardsPens.com: The Parker VP](https://www.richardspens.com/ref/profiles/vp.htm) |
+| the-parker-vs | [RichardsPens.com: The Parker VS](https://www.richardspens.com/ref/profiles/vs.htm)<br>[RichardsPens.com: The Parker VS](https://www.richardspens.com/ref/profiles/vs.htm) |
+| the-parker-striped-duofold | [Richard's Pens: The Parker Striped Duofold profile](https://www.richardspens.com/ref/profiles/strduo.htm)<br>[RichardsPens.com: The Parker Striped Duofold](https://www.richardspens.com/ref/profiles/strduo.htm)<br>[RichardsPens.com: The Parker Striped Duofold](https://www.richardspens.com/ref/profiles/strduo.htm) |
+| the-parker-duofold-geometric-toothbrush | [RichardsPens.com: The Parker Duofold Geometric (“Toothbrush”)](https://www.richardspens.com/ref/profiles/tbrush.htm)<br>[RichardsPens.com: The Parker Duofold Geometric (“Toothbrush”)](https://www.richardspens.com/ref/profiles/tbrush.htm) |
+| the-parker-parkette-and-writefine | [RichardsPens.com: The Parker Parkette and Writefine](https://www.richardspens.com/ref/profiles/parkette.htm)<br>[RichardsPens.com: The Parker Parkette and Writefine](https://www.richardspens.com/ref/profiles/parkette.htm) |
+| waterman-s-ideal-no52 | [RichardsPens.com: Waterman’s Ideal No52](https://www.richardspens.com/ref/profiles/52.htm)<br>[RichardsPens.com: Waterman’s Ideal No52](https://www.richardspens.com/ref/profiles/52.htm) |
+| waterman-s-ideal-no7 | [RichardsPens.com: Waterman’s Ideal No7](https://www.richardspens.com/ref/profiles/no7.htm)<br>[RichardsPens.com: Waterman’s Ideal No7](https://www.richardspens.com/ref/profiles/no7.htm) |
+| waterman-s-patrician | [RichardsPens.com: Waterman’s Patrician](https://www.richardspens.com/ref/profiles/patrician.htm)<br>[RichardsPens.com: Waterman’s Patrician](https://www.richardspens.com/ref/profiles/patrician.htm) |
+| waterman-s-hundred-year-pen | [RichardsPens.com: Waterman’s Hundred Year Pen](https://www.richardspens.com/ref/profiles/hyp.htm)<br>[RichardsPens.com: Waterman’s Hundred Year Pen](https://www.richardspens.com/ref/profiles/hyp.htm) |
+| waterman-s-ink-vue | [RichardsPens.com: Waterman’s Ink-Vue](https://www.richardspens.com/ref/profiles/ink_vue.htm)<br>[RichardsPens.com: Waterman’s Ink-Vue](https://www.richardspens.com/ref/profiles/ink_vue.htm) |
+| waterman-s-taperite | [RichardsPens.com: Waterman’s Taperite](https://www.richardspens.com/ref/profiles/taperite.htm)<br>[RichardsPens.com: Waterman’s Taperite](https://www.richardspens.com/ref/profiles/taperite.htm) |

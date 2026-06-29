@@ -1,12 +1,12 @@
 # Read first 重写基线
 
-生成时间：2026-06-29T08:52:52.721Z
+生成时间：2026-06-29T09:06:38.442Z
 
 ## 总览
 
 - 钢笔详情页：244
-- 仍像资料卡或短说明：188（77%）
-- 字数：最短 332，中位数 557，平均 699，最长 2101
+- 仍像资料卡或短说明：178（73%）
+- 字数：最短 332，中位数 558，平均 718，最长 2101
 - A 档：20
 - B 档：103
 - C 档：121
@@ -89,12 +89,12 @@
 | B | the-parker-61 | The Parker 61 | 1004 | 0 | 2 | 0 | 0 | 否 |
 | B | the-parker-75 | The Parker 75 | 1002 | 0 | 2 | 0 | 0 | 否 |
 | B | the-parker-duofold | The Parker Duofold | 1006 | 0 | 2 | 0 | 0 | 否 |
-| B | the-parker-duofold-geometric-toothbrush | The Parker Duofold Geometric (“Toothbrush”) | 675 | 0 | 2 | 0 | 0 | 是 |
-| B | the-parker-parkette-and-writefine | The Parker Parkette and Writefine | 611 | 0 | 2 | 0 | 0 | 是 |
-| B | the-parker-striped-duofold | The Parker Striped Duofold | 557 | 0 | 3 | 0 | 0 | 是 |
+| B | the-parker-duofold-geometric-toothbrush | The Parker Duofold Geometric (“Toothbrush”) | 1018 | 0 | 2 | 0 | 0 | 否 |
+| B | the-parker-parkette-and-writefine | The Parker Parkette and Writefine | 1075 | 0 | 2 | 0 | 0 | 否 |
+| B | the-parker-striped-duofold | The Parker Striped Duofold | 1004 | 0 | 3 | 0 | 0 | 否 |
 | B | the-parker-vacumatic | The Parker Vacumatic | 1001 | 0 | 3 | 0 | 0 | 否 |
 | B | the-parker-vp | The Parker VP | 1005 | 0 | 2 | 0 | 0 | 否 |
-| B | the-parker-vs | The Parker VS | 535 | 0 | 2 | 0 | 0 | 是 |
+| B | the-parker-vs | The Parker VS | 1055 | 0 | 2 | 0 | 0 | 否 |
 | B | the-postal-reservoir-pen | The Postal Reservoir Pen | 512 | 0 | 3 | 0 | 0 | 是 |
 | B | the-security-pen | The Security Pen | 471 | 0 | 3 | 0 | 0 | 是 |
 | B | the-wahl-pen | The Wahl Pen | 489 | 0 | 3 | 0 | 0 | 是 |
@@ -105,12 +105,12 @@
 | B | wancher万佳-dream-pen | Wancher万佳 Dream Pen | 642 | 1 | 0 | 0 | 0 | 是 |
 | B | waterman-s-c-f | Waterman’s C/F | 1007 | 0 | 3 | 0 | 0 | 否 |
 | B | waterman-s-commando | Waterman’s Commando | 528 | 0 | 2 | 0 | 0 | 是 |
-| B | waterman-s-hundred-year-pen | Waterman’s Hundred Year Pen | 570 | 0 | 2 | 0 | 0 | 是 |
-| B | waterman-s-ideal-no52 | Waterman’s Ideal No52 | 637 | 0 | 2 | 0 | 0 | 是 |
-| B | waterman-s-ideal-no7 | Waterman’s Ideal No7 | 613 | 0 | 2 | 0 | 0 | 是 |
-| B | waterman-s-ink-vue | Waterman’s Ink-Vue | 535 | 0 | 2 | 0 | 0 | 是 |
-| B | waterman-s-patrician | Waterman’s Patrician | 598 | 0 | 2 | 0 | 0 | 是 |
-| B | waterman-s-taperite | Waterman’s Taperite | 583 | 0 | 2 | 0 | 0 | 是 |
+| B | waterman-s-hundred-year-pen | Waterman’s Hundred Year Pen | 1026 | 0 | 2 | 0 | 0 | 否 |
+| B | waterman-s-ideal-no52 | Waterman’s Ideal No52 | 1058 | 0 | 2 | 0 | 0 | 否 |
+| B | waterman-s-ideal-no7 | Waterman’s Ideal No7 | 1040 | 0 | 2 | 0 | 0 | 否 |
+| B | waterman-s-ink-vue | Waterman’s Ink-Vue | 1033 | 0 | 2 | 0 | 0 | 否 |
+| B | waterman-s-patrician | Waterman’s Patrician | 1102 | 0 | 2 | 0 | 0 | 否 |
+| B | waterman-s-taperite | Waterman’s Taperite | 1087 | 0 | 2 | 0 | 0 | 否 |
 | B | waterman-s-x-pen | Waterman’s X-Pen | 497 | 0 | 3 | 0 | 0 | 是 |
 | B | 万宝龙-montblanc-144 | 万宝龙 Montblanc 144 (Vintage) | 880 | 1 | 0 | 0 | 0 | 是 |
 | B | 万宝龙-montblanc-patron-of-art-888 | 万宝龙 Montblanc Patron of Art 888 | 1057 | 1 | 0 | 0 | 0 | 否 |
