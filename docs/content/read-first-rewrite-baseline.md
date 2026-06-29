@@ -1,12 +1,12 @@
 # Read first 重写基线
 
-生成时间：2026-06-29T09:06:38.442Z
+生成时间：2026-06-29T09:28:24.726Z
 
 ## 总览
 
 - 钢笔详情页：244
-- 仍像资料卡或短说明：178（73%）
-- 字数：最短 332，中位数 558，平均 718，最长 2101
+- 仍像资料卡或短说明：168（69%）
+- 字数：最短 332，中位数 560，平均 733，最长 2101
 - A 档：20
 - B 档：103
 - C 档：121
@@ -40,15 +40,15 @@
 | A | 百乐-pilot-custom-823 | 百乐 Pilot Custom 823 | 2048 | 1 | 0 | 2 | 1 | 否 |
 | A | 百利金-pelikan-m800 | 百利金 Pelikan M800 | 2070 | 1 | 1 | 1 | 1 | 否 |
 | C | admok-简800 | Admok 简800 | 345 | 0 | 0 | 1 | 1 | 是 |
-| B | diplomat迪波曼-aero太空梭 | Diplomat迪波曼 Aero太空梭 | 574 | 1 | 0 | 0 | 0 | 是 |
-| B | esterbrook-estie-oversized | Esterbrook Estie Oversized | 692 | 1 | 0 | 0 | 0 | 是 |
+| B | diplomat迪波曼-aero太空梭 | Diplomat迪波曼 Aero太空梭 | 1000 | 1 | 0 | 0 | 0 | 否 |
+| B | esterbrook-estie-oversized | Esterbrook Estie Oversized | 1052 | 1 | 0 | 0 | 0 | 否 |
 | C | kaco-master大师14k | KACO Master大师14K | 459 | 0 | 0 | 1 | 1 | 是 |
 | C | kaco-sky百锋 | KACO SKY百锋 | 408 | 0 | 0 | 1 | 1 | 是 |
 | B | kaweco-al-sport | Kaweco AL Sport | 1041 | 1 | 0 | 0 | 0 | 否 |
 | B | kaweco-liliput | Kaweco Liliput | 1001 | 1 | 0 | 0 | 0 | 否 |
 | B | kaweco-student | Kaweco Student | 1029 | 1 | 0 | 0 | 0 | 否 |
 | B | kimberly-the-pen-that-saved-eversharp | Kimberly, the Pen That Saved Eversharp | 496 | 0 | 2 | 0 | 0 | 是 |
-| B | leonardo-furore-momento-magico | Leonardo Furore / Momento Magico | 759 | 1 | 0 | 0 | 0 | 是 |
+| B | leonardo-furore-momento-magico | Leonardo Furore / Momento Magico | 1028 | 1 | 0 | 0 | 0 | 否 |
 | B | moore-s-non-leakable-fountain-pen | Moore’s Non-Leakable Fountain Pen | 531 | 0 | 2 | 0 | 0 | 是 |
 | B | morrison-s-patriot | Morrison’s Patriot | 409 | 0 | 2 | 0 | 0 | 是 |
 | A | noodler鲶鱼-简易钢笔 | Noodler鲶鱼 简易钢笔 | 2008 | 2 | 1 | 2 | 1 | 否 |
@@ -102,7 +102,7 @@
 | B | the-wasp-clipper | The WASP Clipper | 460 | 0 | 2 | 0 | 0 | 是 |
 | B | the-wearever-zenith | The Wearever Zenith | 482 | 0 | 2 | 0 | 0 | 是 |
 | C | tramol-梵高系列 | Tramol 梵高系列 | 381 | 0 | 0 | 1 | 1 | 是 |
-| B | wancher万佳-dream-pen | Wancher万佳 Dream Pen | 642 | 1 | 0 | 0 | 0 | 是 |
+| B | wancher万佳-dream-pen | Wancher万佳 Dream Pen | 1031 | 1 | 0 | 0 | 0 | 否 |
 | B | waterman-s-c-f | Waterman’s C/F | 1007 | 0 | 3 | 0 | 0 | 否 |
 | B | waterman-s-commando | Waterman’s Commando | 528 | 0 | 2 | 0 | 0 | 是 |
 | B | waterman-s-hundred-year-pen | Waterman’s Hundred Year Pen | 1026 | 0 | 2 | 0 | 0 | 否 |
@@ -112,7 +112,7 @@
 | B | waterman-s-patrician | Waterman’s Patrician | 1102 | 0 | 2 | 0 | 0 | 否 |
 | B | waterman-s-taperite | Waterman’s Taperite | 1087 | 0 | 2 | 0 | 0 | 否 |
 | B | waterman-s-x-pen | Waterman’s X-Pen | 497 | 0 | 3 | 0 | 0 | 是 |
-| B | 万宝龙-montblanc-144 | 万宝龙 Montblanc 144 (Vintage) | 880 | 1 | 0 | 0 | 0 | 是 |
+| B | 万宝龙-montblanc-144 | 万宝龙 Montblanc 144 (Vintage) | 1010 | 1 | 0 | 0 | 0 | 否 |
 | B | 万宝龙-montblanc-patron-of-art-888 | 万宝龙 Montblanc Patron of Art 888 | 1057 | 1 | 0 | 0 | 0 | 否 |
 | B | 万宝龙-montblanc-大文豪系列-writers-edition | 万宝龙 Montblanc 大文豪系列 Writers Edition | 1003 | 1 | 0 | 0 | 0 | 否 |
 | B | 万宝龙-montblanc-大班146 | 万宝龙 Montblanc 大班146 | 1004 | 1 | 0 | 0 | 0 | 否 |
