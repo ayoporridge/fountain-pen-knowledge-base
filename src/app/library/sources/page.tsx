@@ -2,7 +2,6 @@ import { Books, LinkSimple } from "@phosphor-icons/react/dist/ssr";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { SourceCards } from "@/components/library/SourceCards";
-import { StatusBadge } from "@/components/library/StatusBadge";
 import { getSourceItemIndex, getSourceRegistryIndex } from "@/lib/library";
 import { displayPublicSourceName } from "@/lib/publicText";
 
@@ -140,12 +139,6 @@ export default async function LibrarySourcesPage({
                 >
                   {SOURCE_TYPE_LABELS[source.source_type] || source.source_type}
                 </span>
-                <span
-                  className="text-xs"
-                  style={{ color: "var(--color-ink-muted)" }}
-                >
-                  {source.allowed_use}
-                </span>
               </div>
               <h3 className="font-semibold">
                 {displayPublicSourceName(source.name)}
@@ -163,7 +156,7 @@ export default async function LibrarySourcesPage({
                 style={{ color: "var(--color-ink-muted)" }}
               >
                 参考 {source.item_count || 0} · 引用{" "}
-                {source.reference_count || 0} · {source.fetch_method}
+                {source.reference_count || 0}
               </div>
             </Link>
           ))}
@@ -248,13 +241,6 @@ export default async function LibrarySourcesPage({
             ))}
         </div>
 
-        <div className="mb-5 flex flex-wrap gap-2">
-          {["summary_only", "metadata_only", "store_full", "link_only"].map(
-            (status) => (
-              <StatusBadge key={status} status={status} />
-            ),
-          )}
-        </div>
         <SourceCards sources={sourceItems} />
       </section>
     </div>

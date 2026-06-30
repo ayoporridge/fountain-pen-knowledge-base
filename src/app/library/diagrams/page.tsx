@@ -2,7 +2,6 @@ import { Blueprint, ImagesSquare } from "@phosphor-icons/react/dist/ssr";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { DiagramRenderer } from "@/components/library/DiagramRenderer";
-import { StatusBadge } from "@/components/library/StatusBadge";
 import { getCitationsForTargets, getDiagramIndex } from "@/lib/library";
 
 export const dynamic = "force-dynamic";
@@ -82,7 +81,6 @@ export default async function LibraryDiagramsPage() {
                 {DIAGRAM_TYPE_LABELS[diagram.diagram_type] ||
                   diagram.diagram_type}
               </span>
-              <StatusBadge status={diagram.review_status} />
               {diagram.entity_type &&
                 diagram.entity_slug &&
                 diagram.entity_name && (

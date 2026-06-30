@@ -42,11 +42,6 @@ function parseJsonList(value: string | null): string[] {
   }
 }
 
-const EXHIBIT_STATUS_LABELS: Record<string, string> = {
-  published: "已发布展览",
-  reviewed: "已审核展览",
-};
-
 export default async function ExhibitDetailPage({
   params,
 }: ExhibitDetailPageProps) {
@@ -73,7 +68,7 @@ export default async function ExhibitDetailPage({
           style={{ color: "var(--color-accent)" }}
         >
           <Compass size={16} />
-          {EXHIBIT_STATUS_LABELS[exhibit.status] || "策展专题"}
+          Exhibit
         </p>
         <h1 className="mb-3 text-3xl font-bold tracking-tight">
           {exhibit.title}

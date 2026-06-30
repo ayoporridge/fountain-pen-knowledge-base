@@ -6,7 +6,6 @@ import {
   displayPublicSourceName,
   displayPublicSourceTitle,
 } from "@/lib/publicText";
-import { StatusBadge } from "./StatusBadge";
 
 const PREDICATE_LABELS: Record<string, string> = {
   history_milestone: "历史节点",
@@ -58,14 +57,13 @@ export function ClaimCards({ claims }: { claims: ClaimRecord[] }) {
               className="rounded-lg border p-3"
               style={{ borderColor: "var(--color-border-light)" }}
             >
-              <div className="mb-2 flex flex-wrap items-center gap-2">
+              <div className="mb-2 flex flex-wrap items-baseline gap-x-2 gap-y-1">
                 <span
                   className="text-xs font-medium"
                   style={{ color: "var(--color-accent)" }}
                 >
                   {PREDICATE_LABELS[claim.predicate] || claim.predicate}
                 </span>
-                <StatusBadge status={claim.review_status} />
                 <span
                   className="text-xs"
                   style={{ color: "var(--color-ink-muted)" }}
@@ -106,9 +104,6 @@ export function ClaimCards({ claims }: { claims: ClaimRecord[] }) {
                     </Link>
                   ) : (
                     <span>{displayPublicSourceTitle(claim.source_title)}</span>
-                  )}
-                  {claim.allowed_use && (
-                    <StatusBadge status={claim.allowed_use} />
                   )}
                   {evidenceLocator && <span>{evidenceLocator}</span>}
                 </div>

@@ -26,6 +26,7 @@ import { ATTR_LABELS, TYPE_ICONS, TYPE_LABELS } from "@/lib/constants";
 import { queryAll, queryOne } from "@/lib/db";
 import { getDetailHeroImageByIndex } from "@/lib/detail-hero-images";
 import { getEntityReferences } from "@/lib/library";
+import { cleanPublicText } from "@/lib/publicText";
 import { toPlainTextSummary } from "@/lib/text";
 
 interface EntityPageProps {
@@ -394,9 +395,9 @@ export default async function EntityPage({ params }: EntityPageProps) {
 
       {/* ── Primary Zone: Name + Summary + Key Attributes ── */}
       <div className="mb-10">
-        <div className="flex items-start gap-4 mb-4">
+        <div className="detail-title-lockup mb-4">
           <div
-            className="p-3 rounded-xl"
+            className="detail-title-icon"
             style={{ backgroundColor: "var(--color-accent-light)" }}
           >
             <Icon
@@ -405,8 +406,8 @@ export default async function EntityPage({ params }: EntityPageProps) {
               style={{ color: "var(--color-accent)" }}
             />
           </div>
-          <div>
-            <div className="flex items-center gap-2 mb-1">
+          <div className="min-w-0">
+            <div className="mb-2 flex flex-wrap items-center gap-2">
               <span
                 className="text-xs font-medium px-2 py-0.5 rounded-full"
                 style={{
@@ -429,7 +430,9 @@ export default async function EntityPage({ params }: EntityPageProps) {
 
         {entity.summary &&
           (() => {
-            const plainSummary = toPlainTextSummary(String(entity.summary));
+            const plainSummary = cleanPublicText(
+              toPlainTextSummary(String(entity.summary)),
+            );
             return plainSummary ? (
               <p
                 data-testid="entity-summary"
@@ -442,33 +445,37 @@ export default async function EntityPage({ params }: EntityPageProps) {
           })()}
 
         {/* Key attributes — pen specs live in the model archive below. */}
-        {entityType !== "pen" && Object.keys(attrs).length > 0 && (
-          <div className="flex flex-wrap gap-4 mt-6">
-            {Object.entries(attrs).map(([key, value]) => (
-              <div
-                key={key}
-                className="px-4 py-2 rounded-lg"
-                style={{
-                  backgroundColor: "var(--color-surface-raised)",
-                  boxShadow: "var(--shadow-edge)",
-                }}
-              >
-                <div
-                  className="text-xs font-medium mb-0.5"
-                  style={{ color: "var(--color-ink-muted)" }}
-                >
-                  {ATTR_LABELS[key] || key}
-                </div>
-                <div
-                  className="text-sm font-semibold"
-                  style={{ color: "var(--color-ink)" }}
-                >
-                  {value}
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+        {entityType !== "pen" &&
+          Object.entries(attrs).some(([, value]) => cleanPublicText(value)) && (
+            <div className="flex flex-wrap gap-4 mt-6">
+              {Object.entries(attrs)
+                .map(([key, value]) => [key, cleanPublicText(value)] as const)
+                .filter(([, value]) => value)
+                .map(([key, value]) => (
+                  <div
+                    key={key}
+                    className="px-4 py-2 rounded-lg"
+                    style={{
+                      backgroundColor: "var(--color-surface-raised)",
+                      boxShadow: "var(--shadow-edge)",
+                    }}
+                  >
+                    <div
+                      className="text-xs font-medium mb-0.5"
+                      style={{ color: "var(--color-ink-muted)" }}
+                    >
+                      {ATTR_LABELS[key] || key}
+                    </div>
+                    <div
+                      className="text-sm font-semibold"
+                      style={{ color: "var(--color-ink)" }}
+                    >
+                      {value}
+                    </div>
+                  </div>
+                ))}
+            </div>
+          )}
       </div>
 
       <SectionNav items={sectionNavItems} />

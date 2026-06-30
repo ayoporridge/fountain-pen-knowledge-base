@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { TimelineEventRecord } from "@/lib/library";
 import { cleanPublicText, displayPublicSourceTitle } from "@/lib/publicText";
-import { StatusBadge } from "./StatusBadge";
 
 const EVENT_LABELS: Record<string, string> = {
   brand_founded: "创立",
@@ -82,7 +81,6 @@ export function Timeline({
               >
                 {EVENT_LABELS[event.event_type] || event.event_type}
               </span>
-              <StatusBadge status={event.review_status} />
             </div>
             <h3
               className={`${compact ? "text-sm" : "text-base"} mt-1 font-semibold`}

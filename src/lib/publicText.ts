@@ -1,6 +1,10 @@
 const INTERNAL_COPY_PATTERNS = [
   /待核验/,
   /需核验/,
+  /待审核/,
+  /未审核/,
+  /已审核/,
+  /资料核验中/,
   /补证/,
   /研究队列/,
   /名称与已知线索/,
@@ -30,6 +34,8 @@ const INTERNAL_COPY_PATTERNS = [
   /供应需/,
   /版本需/,
   /地区供货待/,
+  /可按[^。；\n]{0,80}页面理解/,
+  /页面理解/,
 ];
 
 const REMOVABLE_PHRASES = [
@@ -44,6 +50,21 @@ const REMOVABLE_PHRASES = [
   /\/?需另页核验/g,
   /\/?需按版本核验/g,
   /\/?需复核/g,
+  /[（(]\s*[）)]/g,
+];
+
+const VAGUE_PRICE_PATTERNS = [
+  /价位$/,
+  /高端/,
+  /中端/,
+  /入门/,
+  /二级市场/,
+  /渠道价/,
+  /说法/,
+  /历史价/,
+  /收藏价格/,
+  /按地区/,
+  /墨水价格/,
 ];
 
 export function cleanPublicText(value: unknown) {
@@ -73,6 +94,33 @@ export function cleanPublicText(value: unknown) {
 
 export function hasPublicText(value: unknown) {
   return cleanPublicText(value) !== null;
+}
+
+export function displayPublicPrice(value: unknown, sourceName?: string | null) {
+  const text = cleanPublicText(value);
+  if (!text) return null;
+  if (!/[0-9¥￥$€£₹]/.test(text)) return null;
+  if (VAGUE_PRICE_PATTERNS.some((pattern) => pattern.test(text))) return null;
+  if (text.includes("查询于")) return text.replace(/￥/g, "¥");
+
+  let price = text
+    .replace(/^约\s*/, "")
+    .replace(/\s*元\s*/g, "")
+    .replace(/\s*人民币\s*/g, "")
+    .trim();
+
+  if (/^\d+(?:\.\d+)?(?:\s*[-–]\s*\d+(?:\.\d+)?)?$/.test(price)) {
+    price = `约 ¥${price.replace(/\s+/g, "")}`;
+  } else if (/^\d+(?:\.\d+)?\s*(?:以内|以下)$/.test(price)) {
+    price = `约 ¥${price.replace(/\s+/g, "")}`;
+  } else if (/^\d+(?:\.\d+)?\+$/.test(price)) {
+    price = `约 ¥${price}`;
+  } else if (/^[¥￥]\s*\d/.test(price)) {
+    price = price.replace(/^￥/, "¥");
+  }
+
+  const source = displayPublicSourceName(sourceName);
+  return source && source !== "来源" ? `${price}｜来源：${source}` : price;
 }
 
 export function displayPublicSourceName(value: unknown) {

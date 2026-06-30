@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { CitationRecord, DiagramRecord } from "@/lib/library";
 import { CitationList } from "./CitationList";
-import { StatusBadge } from "./StatusBadge";
 
 interface DiagramHotspot {
   label: string;
@@ -46,7 +45,7 @@ export function DiagramRenderer({
         backgroundColor: "var(--color-surface-raised)",
       }}
     >
-      <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+      <div className="mb-3">
         <figcaption>
           <h3
             className={`${compact ? "text-sm" : "text-base"} font-semibold`}
@@ -58,7 +57,6 @@ export function DiagramRenderer({
             {diagram.diagram_type} · {diagram.license}
           </p>
         </figcaption>
-        <StatusBadge status={diagram.review_status} />
       </div>
 
       <div className="relative overflow-x-auto rounded-lg">
@@ -129,12 +127,6 @@ export function DiagramRenderer({
             </div>
           ))}
         </div>
-      )}
-
-      {diagram.source_note && (
-        <p className="mt-3 text-xs" style={{ color: "var(--color-ink-muted)" }}>
-          绘制说明：{diagram.source_note}
-        </p>
       )}
 
       <CitationList citations={citations} />

@@ -6,7 +6,6 @@ import {
   displayPublicSourceName,
   displayPublicSourceTitle,
 } from "@/lib/publicText";
-import { StatusBadge } from "./StatusBadge";
 
 export function CitationList({ citations }: { citations: CitationRecord[] }) {
   if (citations.length === 0) return null;
@@ -54,9 +53,6 @@ export function CitationList({ citations }: { citations: CitationRecord[] }) {
                     citation.source_title || citation.claim_predicate,
                   )}
                 </span>
-              )}
-              {citation.allowed_use && (
-                <StatusBadge status={citation.allowed_use} />
               )}
             </span>
           );

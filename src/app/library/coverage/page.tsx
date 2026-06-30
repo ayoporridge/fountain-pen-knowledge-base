@@ -7,7 +7,6 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { StatusBadge } from "@/components/library/StatusBadge";
 import {
   getLibraryCoverageReport,
   type LibraryCoverageEntityRecord,
@@ -46,7 +45,6 @@ function CoverageEntityCard({
       }}
     >
       <div className="mb-2 flex flex-wrap items-center gap-2">
-        <StatusBadge status={entity.coverage_status} />
         <span className="text-xs" style={{ color: "var(--color-ink-muted)" }}>
           {TYPE_LABELS[entity.type] || entity.type} · {entity.coverage_score}
         </span>

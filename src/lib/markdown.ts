@@ -96,13 +96,11 @@ function normalizeRichardsPensUrl(value: string): string {
 function normalizeLegacyImageCaptions(md: string): string {
   return md.replace(
     /!\[([^\]]*)\]\(([^)\s]+)\)\s{0,2}\n---\s{0,2}\n[\u00a0\s]*\|\s*([^\n]+)/g,
-    (_, alt: string, src: string, caption: string) => {
+    (_, alt: string, src: string) => {
       const normalizedSrc = normalizeRichardsPensUrl(src);
       return `<figure class="image-figure"><img src="${escapeHtmlAttr(
         normalizedSrc,
-      )}" alt="${escapeHtmlAttr(alt)}" /><figcaption>${escapeHtmlText(
-        caption.trim(),
-      )}</figcaption></figure>`;
+      )}" alt="${escapeHtmlAttr(alt)}" /></figure>`;
     },
   );
 }
@@ -178,14 +176,11 @@ function normalizeMarkdownImageRows(md: string): string {
     if (captions.length > 0) i += 1;
 
     const figures = images
-      .map((image, index) => {
+      .map((image) => {
         const src = normalizeRichardsPensUrl(image.src);
-        const caption = captions[index];
         return `<figure class="image-row-item"><img class="image-row-img" src="${escapeHtmlAttr(
           src,
-        )}" alt="${escapeHtmlAttr(image.alt)}" />${
-          caption ? `<figcaption>${escapeHtmlText(caption)}</figcaption>` : ""
-        }</figure>`;
+        )}" alt="${escapeHtmlAttr(image.alt)}" /></figure>`;
       })
       .join("");
 
@@ -286,15 +281,6 @@ function normalizeResidualBoldHtml(html: string): string {
       if (!value || value.length > 500) return match;
       return `<strong>${inner}</strong>`;
     });
-}
-
-function cleanImageRowCaption(value: string): string | null {
-  const caption = value
-    .split("|")
-    .map((part) => part.replace(/\u00a0/g, " ").trim())
-    .filter(Boolean)
-    .at(-1);
-  return caption || null;
 }
 
 /**
@@ -425,16 +411,12 @@ function rehypeImageRows() {
 
       const children = node.children ?? [];
       const imageContainers: ImageContainer[] = [];
-      const leadingCaptions: Array<string | null> = [];
       let isImageRow = false;
       let seenBr = false;
       let afterBrText = "";
       let imageAfterBr = false;
-      let pendingText = "";
 
       const pushImage = (container: ImageContainer) => {
-        leadingCaptions.push(cleanImageRowCaption(pendingText));
-        pendingText = "";
         imageContainers.push(container);
       };
 
@@ -459,12 +441,8 @@ function rehypeImageRows() {
             afterBrText += value;
           } else if (text === "|") {
             isImageRow = true;
-            pendingText += value;
           } else if (text.includes("|")) {
             isImageRow = true;
-            pendingText += value;
-          } else if (text !== "") {
-            pendingText += value;
           }
         } else if (isElementNode(child, "br")) {
           seenBr = true;
@@ -519,14 +497,7 @@ function rehypeImageRows() {
         }
       }
 
-      if (
-        captionTexts.length === 0 &&
-        leadingCaptions.some((caption) => caption)
-      ) {
-        captionTexts = leadingCaptions.map((caption) => caption || "");
-      }
-
-      const rowChildren = imageContainers.map(({ wrapper, img }, i) => {
+      const rowChildren = imageContainers.map(({ wrapper, img }) => {
         const imgWithClass: HastNode = {
           ...img,
           properties: { ...img.properties, className: ["image-row-img"] },
@@ -539,19 +510,7 @@ function rehypeImageRows() {
           type: "element",
           tagName: "figure",
           properties: { className: ["image-row-item"] },
-          children: [
-            content,
-            ...(captionTexts[i]
-              ? [
-                  {
-                    type: "element",
-                    tagName: "figcaption",
-                    properties: {},
-                    children: [{ type: "text", value: captionTexts[i] }],
-                  },
-                ]
-              : []),
-          ],
+          children: [content],
         };
       });
 

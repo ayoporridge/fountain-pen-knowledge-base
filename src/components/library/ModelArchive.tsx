@@ -1,6 +1,7 @@
 import { Books, PenNib } from "@phosphor-icons/react/dist/ssr";
 import Image from "next/image";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { MarkdownRenderer } from "@/components/MarkdownRenderer";
 import {
   getEntityAliases,
@@ -10,10 +11,17 @@ import {
   getPrimaryProductImage,
   getStoriesForEntity,
 } from "@/lib/library";
-import { cleanPublicText, displayPublicSourceName } from "@/lib/publicText";
+import { cleanPublicText, displayPublicPrice } from "@/lib/publicText";
 import { IdentifierPanel } from "./IdentifierPanel";
 import { SourceCards } from "./SourceCards";
-import { StatusBadge } from "./StatusBadge";
+
+function sectionIcon(icon: ReactNode) {
+  return (
+    <div className="library-section-icon" aria-hidden="true">
+      {icon}
+    </div>
+  );
+}
 
 export async function ModelArchive({ entityId }: { entityId: string }) {
   const [spec, stories, sources, aliases, externalIds, productImage] =
@@ -27,6 +35,9 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
     ]);
   const story =
     stories.find((item) => item.story_type === "model_story") || stories[0];
+  const priceSource = sources.find(
+    (source) => source.source_type === "retailer",
+  );
   const specFields = spec
     ? [
         [
@@ -41,10 +52,16 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
         ["材质", spec.material],
         ["尺寸", spec.dimensions],
         ["重量", spec.weight],
-        ["价位", spec.price_range],
+        [
+          "价位",
+          displayPublicPrice(spec.price_range, priceSource?.source_name),
+        ],
         ["状态", spec.status],
       ]
-        .map(([label, value]) => [label, cleanPublicText(value)] as const)
+        .map(
+          ([label, value]) =>
+            [label, label === "价位" ? value : cleanPublicText(value)] as const,
+        )
         .filter(([, value]) => value !== null)
     : [];
 
@@ -58,24 +75,14 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
           backgroundColor: "var(--color-surface-raised)",
         }}
       >
-        <div className="mb-4 flex flex-wrap items-center gap-2">
-          <PenNib size={18} style={{ color: "var(--color-accent)" }} />
+        <div className="library-section-heading mb-4">
+          {sectionIcon(
+            <PenNib size={18} style={{ color: "var(--color-accent)" }} />,
+          )}
           <div>
             <p className="archive-kicker">Model archive</p>
             <h2 className="text-lg font-semibold">型号档案</h2>
           </div>
-          {spec && (
-            <span
-              className="rounded-full border px-2 py-0.5 text-xs font-medium"
-              style={{
-                borderColor: "var(--color-border)",
-                color: "var(--color-ink-muted)",
-                fontFamily: "var(--font-label)",
-              }}
-            >
-              {spec.review_status === "approved" ? "资料已核准" : "资料核验中"}
-            </span>
-          )}
         </div>
 
         {productImage && (
@@ -96,26 +103,6 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
                 unoptimized
               />
             </div>
-            <figcaption
-              className="border-t px-3 py-2 text-xs leading-relaxed"
-              style={{
-                borderColor: "var(--color-border-light)",
-                color: "var(--color-ink-muted)",
-              }}
-            >
-              <span>实物图：{cleanPublicText(productImage.title)}</span>
-              {productImage.source_url && (
-                <Link
-                  href={productImage.source_url}
-                  className="ml-2 ink-underline"
-                >
-                  {displayPublicSourceName(productImage.source_name) || "来源"}
-                </Link>
-              )}
-              {productImage.license && (
-                <span className="ml-2">{productImage.license}</span>
-              )}
-            </figcaption>
           </figure>
         )}
 
@@ -166,15 +153,16 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
           backgroundColor: "var(--color-surface-raised)",
         }}
       >
-        <div className="mb-3 flex flex-wrap items-center gap-2">
-          <Books size={18} style={{ color: "var(--color-accent)" }} />
+        <div className="library-section-heading mb-3">
+          {sectionIcon(
+            <Books size={18} style={{ color: "var(--color-accent)" }} />,
+          )}
           <div>
             <p className="archive-kicker">Read first</p>
             <h2 className="text-lg font-semibold">
               {story?.title || "型号故事整理中"}
             </h2>
           </div>
-          {story && <StatusBadge status={story.status} />}
         </div>
         {story ? (
           <div className="reading-measure">

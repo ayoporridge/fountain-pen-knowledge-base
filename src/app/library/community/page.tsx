@@ -1,7 +1,6 @@
 import { ChatsCircle, ShieldCheck } from "@phosphor-icons/react/dist/ssr";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { StatusBadge } from "@/components/library/StatusBadge";
 import { MarkdownRenderer } from "@/components/MarkdownRenderer";
 import { getCommunitySummaryIndex } from "@/lib/library";
 
@@ -90,7 +89,6 @@ export default async function LibraryCommunityPage() {
               }}
             >
               <div className="mb-3 flex flex-wrap items-center gap-2">
-                <StatusBadge status={summary.status} />
                 <span
                   className="text-xs"
                   style={{ color: "var(--color-ink-muted)" }}

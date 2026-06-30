@@ -1,7 +1,6 @@
 import { ImageSquare, ShieldCheck } from "@phosphor-icons/react/dist/ssr";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { StatusBadge } from "@/components/library/StatusBadge";
 import { getMediaAssetIndex } from "@/lib/library";
 
 export const dynamic = "force-dynamic";
@@ -35,12 +34,12 @@ export default async function LibraryMediaPage() {
 
       <div className="mb-8 grid gap-3 sm:grid-cols-3">
         {[
-          ["已登记", "candidate", "已登记但尚未进入页面图库。"],
-          ["授权说明", "needs_license", "缺少 license、作者或署名细节。"],
-          ["可展示", "approved", "授权信息完整，可进入页面图库。"],
-        ].map(([label, status, desc]) => (
+          ["来源", "每张图片都保留来源链接，方便回到原始页面查看。"],
+          ["授权", "作者、license 和署名信息会随图片一起登记。"],
+          ["使用", "页面图库优先使用来源清楚、适合公开展示的图片。"],
+        ].map(([label, desc]) => (
           <div
-            key={status}
+            key={label}
             className="rounded-xl border p-4"
             style={{
               borderColor: "var(--color-border)",
@@ -48,7 +47,6 @@ export default async function LibraryMediaPage() {
             }}
           >
             <div className="mb-2 flex items-center gap-2">
-              <StatusBadge status={status} />
               <span className="font-medium">{label}</span>
             </div>
             <p
@@ -103,7 +101,6 @@ export default async function LibraryMediaPage() {
                     )}
                   </div>
                   <div className="mb-2 flex flex-wrap items-center gap-2">
-                    <StatusBadge status={asset.review_status} />
                     <span
                       className="text-xs"
                       style={{ color: "var(--color-ink-muted)" }}

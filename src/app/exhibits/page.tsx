@@ -10,11 +10,6 @@ export const metadata: Metadata = {
   description: "策展式钢笔阅读路径，串联品牌、型号、工艺和历史。",
 };
 
-const EXHIBIT_STATUS_LABELS: Record<string, string> = {
-  published: "已发布展览",
-  reviewed: "已审核展览",
-};
-
 export default async function ExhibitsPage() {
   const exhibits = await getPublishedExhibits();
 
@@ -50,12 +45,7 @@ export default async function ExhibitsPage() {
               backgroundColor: "var(--color-surface-raised)",
             }}
           >
-            <div
-              className="mb-2 text-xs"
-              style={{ color: "var(--color-ink-muted)" }}
-            >
-              {EXHIBIT_STATUS_LABELS[exhibit.status] || "策展专题"}
-            </div>
+            <div className="archive-kicker mb-2">Exhibit</div>
             <h2 className="mb-2 text-lg font-semibold">{exhibit.title}</h2>
             {exhibit.summary && (
               <p

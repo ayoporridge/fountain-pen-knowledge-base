@@ -4,7 +4,6 @@ import {
   displayPublicSourceName,
   displayPublicSourceTitle,
 } from "@/lib/publicText";
-import { StatusBadge } from "./StatusBadge";
 
 const ITEM_TYPE_LABELS: Record<string, string> = {
   article: "文章",
@@ -126,7 +125,7 @@ export function SourceCards({ sources, variant = "cards" }: SourceCardsProps) {
             color: "var(--color-ink)",
           }}
         >
-          <div className="mb-1 flex flex-wrap items-center gap-2">
+          <div className="mb-1 flex flex-wrap items-baseline gap-x-2 gap-y-1">
             <span
               className="text-xs font-medium"
               style={{ color: "var(--color-accent)" }}
@@ -139,8 +138,6 @@ export function SourceCards({ sources, variant = "cards" }: SourceCardsProps) {
             >
               {ITEM_TYPE_LABELS[source.item_type] || "资料"}
             </span>
-            {source.allowed_use && <StatusBadge status={source.allowed_use} />}
-            <StatusBadge status={source.review_status} />
           </div>
           <div className="text-sm font-medium">
             {displayPublicSourceTitle(source.title)}
@@ -153,14 +150,6 @@ export function SourceCards({ sources, variant = "cards" }: SourceCardsProps) {
               <span>引用 {source.reference_count}</span>
             )}
           </div>
-          {source.license && (
-            <div
-              className="mt-1 text-xs"
-              style={{ color: "var(--color-ink-muted)" }}
-            >
-              License: {source.license}
-            </div>
-          )}
         </Link>
       ))}
     </div>

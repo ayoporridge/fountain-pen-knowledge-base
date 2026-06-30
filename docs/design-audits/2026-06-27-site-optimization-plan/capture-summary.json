@@ -27,10 +27,7 @@
     "chars": 5474,
     "hasPendingSource": false,
     "hasNoData": false,
-    "headings": [
-      "浏览全部",
-      "筛选"
-    ]
+    "headings": ["浏览全部", "筛选"]
   },
   {
     "name": "03-pen-detail",
@@ -94,11 +91,7 @@
     "chars": 1246,
     "hasPendingSource": false,
     "hasNoData": true,
-    "headings": [
-      "The Baguio Surrender Pens",
-      "碧瑶投降签字用笔",
-      "关系图谱"
-    ]
+    "headings": ["The Baguio Surrender Pens", "碧瑶投降签字用笔", "关系图谱"]
   },
   {
     "name": "07-sources",
@@ -107,11 +100,7 @@
     "chars": 30865,
     "hasPendingSource": false,
     "hasNoData": false,
-    "headings": [
-      "来源索引",
-      "来源登记",
-      "已登记参考资料"
-    ]
+    "headings": ["来源索引", "来源登记", "已登记参考资料"]
   },
   {
     "name": "08-coverage",
@@ -120,12 +109,6 @@
     "chars": 5210,
     "hasPendingSource": false,
     "hasNoData": false,
-    "headings": [
-      "馆藏覆盖",
-      "品牌覆盖",
-      "型号覆盖",
-      "优先补全",
-      "覆盖指标"
-    ]
+    "headings": ["馆藏覆盖", "品牌覆盖", "型号覆盖", "优先补全", "覆盖指标"]
   }
 ]

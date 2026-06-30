@@ -19,7 +19,6 @@ import { cleanPublicText } from "@/lib/publicText";
 import { CitationList } from "./CitationList";
 import { IdentifierPanel } from "./IdentifierPanel";
 import { SourceCards } from "./SourceCards";
-import { StatusBadge } from "./StatusBadge";
 import { Timeline } from "./Timeline";
 
 export async function BrandMuseum({
@@ -61,15 +60,16 @@ export async function BrandMuseum({
           backgroundColor: "var(--color-surface-raised)",
         }}
       >
-        <div className="mb-3 flex flex-wrap items-center gap-2">
-          <Quotes size={18} style={{ color: "var(--color-accent)" }} />
+        <div className="library-section-heading mb-3">
+          <div className="library-section-icon" aria-hidden="true">
+            <Quotes size={18} style={{ color: "var(--color-accent)" }} />
+          </div>
           <div>
             <p className="archive-kicker">Brand story</p>
             <h2 className="text-lg font-semibold">
               {story?.title || "品牌故事整理中"}
             </h2>
           </div>
-          {story && <StatusBadge status={story.status} />}
         </div>
         {story ? (
           <div className="reading-measure">
@@ -91,8 +91,10 @@ export async function BrandMuseum({
           backgroundColor: "var(--color-surface-raised)",
         }}
       >
-        <div className="mb-4 flex items-center gap-2">
-          <BookOpen size={18} style={{ color: "var(--color-accent)" }} />
+        <div className="library-section-heading mb-4">
+          <div className="library-section-icon" aria-hidden="true">
+            <BookOpen size={18} style={{ color: "var(--color-accent)" }} />
+          </div>
           <div>
             <p className="archive-kicker">Brand room</p>
             <h2 className="text-lg font-semibold">品牌馆</h2>
@@ -138,8 +140,10 @@ export async function BrandMuseum({
           backgroundColor: "var(--color-surface-raised)",
         }}
       >
-        <div className="mb-4 flex items-center gap-2">
-          <Clock size={18} style={{ color: "var(--color-accent)" }} />
+        <div className="library-section-heading mb-4">
+          <div className="library-section-icon" aria-hidden="true">
+            <Clock size={18} style={{ color: "var(--color-accent)" }} />
+          </div>
           <h2 className="text-lg font-semibold">品牌时间线</h2>
         </div>
         <Timeline events={timeline} />
@@ -153,8 +157,10 @@ export async function BrandMuseum({
           backgroundColor: "var(--color-surface-raised)",
         }}
       >
-        <div className="mb-4 flex items-center gap-2">
-          <PenNib size={18} style={{ color: "var(--color-accent)" }} />
+        <div className="library-section-heading mb-4">
+          <div className="library-section-icon" aria-hidden="true">
+            <PenNib size={18} style={{ color: "var(--color-accent)" }} />
+          </div>
           <h2 className="text-lg font-semibold">代表型号</h2>
         </div>
         {models.length > 0 ? (
