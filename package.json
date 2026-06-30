@@ -30,6 +30,7 @@
     "repair:detail-copy": "tsx scripts/repair-template-polluted-detail-content.ts",
     "clean:public-detail-copy": "tsx scripts/clean-public-detail-copy.ts",
     "snapshot:prices": "tsx scripts/snapshot-model-prices.ts",
+    "search:missing-prices": "tsx scripts/search-missing-prices.ts",
     "audit:read-first-rewrite": "tsx scripts/audit-read-first-rewrite.ts",
     "import:read-first-samples": "tsx scripts/import-read-first-sample-articles.ts",
     "import:read-first-b-modern": "tsx scripts/import-read-first-b-modern-articles.ts",
