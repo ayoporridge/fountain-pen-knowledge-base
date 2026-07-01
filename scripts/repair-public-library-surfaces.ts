@@ -11,6 +11,9 @@ import path from "node:path";
 const WRITE = process.argv.includes("--write");
 const USE_TURSO = process.argv.includes("--turso");
 const FORCE_BRAND_STORIES = process.argv.includes("--force-brand-stories");
+const REWRITE_LEGACY_BRAND_STORIES = process.argv.includes(
+  "--rewrite-legacy-brand-stories",
+);
 const SKIP_BRAND_STORIES = process.argv.includes("--skip-brand-stories");
 const TODAY = new Intl.DateTimeFormat("en-CA", {
   timeZone: "Asia/Shanghai",
@@ -37,7 +40,7 @@ const HIDDEN_ARTICLE_MARKERS = [
   "索引条目",
 ];
 
-const HIDDEN_BRAND_SLUGS = new Set(["banju", "yongxu"]);
+const HIDDEN_BRAND_SLUGS = new Set(["banju", "saier", "shanghai", "yongxu"]);
 
 const POLLUTED_BRAND_RE =
   /适合从品牌背景|页面下方列出的资料|型号页会把|索引入口|来源缺口|后续补|先以|页面先以|公开检索资料|代表型号进入|先看品牌背景|用户口碑/;
@@ -626,7 +629,9 @@ async function main() {
       [
         findHiddenArticles(db),
         assignCardImages(db),
-        SKIP_BRAND_STORIES ? Promise.resolve([]) : rewriteBrandStories(db),
+        SKIP_BRAND_STORIES || !REWRITE_LEGACY_BRAND_STORIES
+          ? Promise.resolve([])
+          : rewriteBrandStories(db),
       ],
     );
     const repairedMediaLinks = await repairGeneratedMediaSourceLinks(db);
@@ -640,6 +645,7 @@ async function main() {
       `- generated card images assigned: ${cardImageCount}`,
       `- generated media source links repaired: ${repairedMediaLinks}`,
       `- brand stories rewritten: ${rewrittenBrands.length}`,
+      `- legacy brand story rewrite enabled: ${REWRITE_LEGACY_BRAND_STORIES ? "yes" : "no"}`,
       "",
       "## Hidden article URLs",
       "",

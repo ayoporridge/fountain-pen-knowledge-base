@@ -49,6 +49,7 @@
     "import:richardspens-references": "tsx scripts/import-richardspens-references.ts",
     "import:exhibit-content": "tsx scripts/import-exhibit-content.ts",
     "repair:public-library-surfaces": "tsx scripts/repair-public-library-surfaces.ts",
+    "rewrite:brand-reader-stories-web": "tsx scripts/rewrite-brand-reader-stories-web.ts",
     "fix:pen-articles": "tsx scripts/reclassify-pen-articles.ts",
     "audit:library-coverage": "tsx scripts/audit-library-coverage.ts",
     "audit:entity-quality": "tsx scripts/audit-entity-quality.ts",

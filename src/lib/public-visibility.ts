@@ -6,7 +6,7 @@ type EntityVisibilityInput = {
   body_md?: string | null;
 };
 
-const HIDDEN_BRAND_SLUGS = ["banju", "yongxu"] as const;
+const HIDDEN_BRAND_SLUGS = ["banju", "saier", "shanghai", "yongxu"] as const;
 
 const INDEX_ARTICLE_MARKERS = [
   "品牌资料索引",

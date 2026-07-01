@@ -2,6 +2,8 @@ import { type NextRequest, NextResponse } from "next/server";
 
 const HIDDEN_PUBLIC_PATHS = new Set([
   "/brand/banju",
+  "/brand/saier",
+  "/brand/shanghai",
   "/brand/yongxu",
   "/article/万特佳",
   "/article/公爵-duke",
