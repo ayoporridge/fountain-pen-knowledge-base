@@ -26,6 +26,7 @@ import { ATTR_LABELS, TYPE_ICONS, TYPE_LABELS } from "@/lib/constants";
 import { queryAll, queryOne } from "@/lib/db";
 import { getDetailHeroImageByIndex } from "@/lib/detail-hero-images";
 import { getEntityReferences } from "@/lib/library";
+import { isPublicEntity } from "@/lib/public-visibility";
 import { cleanPublicText } from "@/lib/publicText";
 import { toPlainTextSummary } from "@/lib/text";
 
@@ -41,13 +42,19 @@ export async function generateMetadata({
   const { type, slug: rawSlug } = await params;
   const slug = decodeURIComponent(rawSlug);
   const entity = (await queryOne(
-    "SELECT type, slug, name, summary FROM entities WHERE slug = ?",
+    "SELECT type, slug, name, summary, body_md FROM entities WHERE slug = ?",
     [slug],
   )) as
-    | { type: string; slug: string; name: string; summary: string | null }
+    | {
+        type: string;
+        slug: string;
+        name: string;
+        summary: string | null;
+        body_md: string | null;
+      }
     | undefined;
 
-  if (!entity) {
+  if (!entity || !isPublicEntity(entity)) {
     return { title: "词条未找到 - 钢笔知识图谱" };
   }
 
@@ -254,6 +261,10 @@ export default async function EntityPage({ params }: EntityPageProps) {
   ])) as Record<string, string | number | null> | undefined;
 
   if (!entity) {
+    notFound();
+  }
+
+  if (!isPublicEntity(entity)) {
     notFound();
   }
 

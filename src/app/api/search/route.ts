@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { queryAll, queryOne } from "@/lib/db";
+import { PUBLIC_ENTITY_FILTER_SQL } from "@/lib/public-visibility";
 
 function escapeHtml(value: string): string {
   return value
@@ -96,6 +97,7 @@ export async function GET(request: NextRequest) {
        FROM entities_fts fts
        JOIN entities e ON e.rowid = fts.rowid
        WHERE entities_fts MATCH ?
+         AND ${PUBLIC_ENTITY_FILTER_SQL}
        ORDER BY rank
        LIMIT ? OFFSET ?`,
       [sanitized, limit, offset],
@@ -109,8 +111,9 @@ export async function GET(request: NextRequest) {
     const likePattern = `%${q}%`;
     const likeResults = (await queryAll(
       `SELECT id, type, slug, name, summary
-       FROM entities
-       WHERE name LIKE ? OR summary LIKE ? OR body_md LIKE ?
+       FROM entities e
+       WHERE ${PUBLIC_ENTITY_FILTER_SQL}
+         AND (name LIKE ? OR summary LIKE ? OR body_md LIKE ?)
        ORDER BY
          CASE WHEN name LIKE ? THEN 0 ELSE 1 END,
          name
@@ -148,7 +151,11 @@ export async function GET(request: NextRequest) {
   let total = 0;
   try {
     const countResult = (await queryOne(
-      "SELECT COUNT(*) as cnt FROM entities_fts WHERE entities_fts MATCH ?",
+      `SELECT COUNT(*) as cnt
+       FROM entities_fts fts
+       JOIN entities e ON e.rowid = fts.rowid
+       WHERE entities_fts MATCH ?
+         AND ${PUBLIC_ENTITY_FILTER_SQL}`,
       [sanitized],
     )) as { cnt: number };
     total = countResult.cnt;
@@ -160,7 +167,10 @@ export async function GET(request: NextRequest) {
   if (total === 0) {
     const likePattern = `%${q}%`;
     const likeCount = (await queryOne(
-      "SELECT COUNT(*) as cnt FROM entities WHERE name LIKE ? OR summary LIKE ? OR body_md LIKE ?",
+      `SELECT COUNT(*) as cnt
+       FROM entities e
+       WHERE ${PUBLIC_ENTITY_FILTER_SQL}
+         AND (name LIKE ? OR summary LIKE ? OR body_md LIKE ?)`,
       [likePattern, likePattern, likePattern],
     )) as { cnt: number };
     total = likeCount.cnt;

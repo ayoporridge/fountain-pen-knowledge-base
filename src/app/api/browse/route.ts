@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { queryAll, queryOne } from "@/lib/db";
+import { PUBLIC_ENTITY_FILTER_SQL } from "@/lib/public-visibility";
 
 // Faceted dimensions and their corresponding tag dimensions
 const FACET_DIMENSIONS: Record<
@@ -92,10 +93,11 @@ export async function GET(request: NextRequest) {
   let total: number;
 
   if (filters.length === 0) {
-    const typeWhere =
-      allowedTypes.length > 0
-        ? `WHERE e.type IN (${allowedTypes.map(() => "?").join(", ")})`
-        : "";
+    const conditions = [PUBLIC_ENTITY_FILTER_SQL];
+    if (allowedTypes.length > 0) {
+      conditions.push(`e.type IN (${allowedTypes.map(() => "?").join(", ")})`);
+    }
+    const typeWhere = `WHERE ${conditions.join(" AND ")}`;
     const typeParams = allowedTypes;
 
     total = (
@@ -131,9 +133,9 @@ export async function GET(request: NextRequest) {
       conditions.push(`e.type IN (${allowedTypes.map(() => "?").join(", ")})`);
       params.push(...allowedTypes);
     }
+    conditions.push(PUBLIC_ENTITY_FILTER_SQL);
 
-    const whereClause =
-      conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
+    const whereClause = `WHERE ${conditions.join(" AND ")}`;
     const joinClause = joins.join("\n");
 
     // Count
@@ -166,9 +168,10 @@ export async function GET(request: NextRequest) {
     const showEmptyTaxonomy =
       dimKey === "nib_type" || dimKey === "nib_material";
     const tagCounts = (await queryAll(
-      `SELECT t.slug, t.name, COUNT(DISTINCT et.entity_id) as cnt
+      `SELECT t.slug, t.name, COUNT(DISTINCT e.id) as cnt
        FROM tags t
        LEFT JOIN entity_tags et ON et.tag_id = t.id
+       LEFT JOIN entities e ON e.id = et.entity_id AND ${PUBLIC_ENTITY_FILTER_SQL}
        WHERE t.dimension = ?
        GROUP BY t.id
        ${showEmptyTaxonomy ? "" : "HAVING cnt > 0"}
@@ -188,7 +191,8 @@ export async function GET(request: NextRequest) {
 
   const typeCounts = (await queryAll(
     `SELECT type, COUNT(*) as cnt
-     FROM entities
+     FROM entities e
+     WHERE ${PUBLIC_ENTITY_FILTER_SQL}
      GROUP BY type`,
   )) as Array<{ type: string; cnt: number }>;
 

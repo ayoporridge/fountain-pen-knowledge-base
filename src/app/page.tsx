@@ -15,6 +15,7 @@ import { ScrollReveal } from "@/components/ScrollReveal";
 import { SearchBox } from "@/components/SearchBox";
 import { TYPE_ICONS, TYPE_LABELS } from "@/lib/constants";
 import { queryAll } from "@/lib/db";
+import { PUBLIC_ENTITY_FILTER_SQL } from "@/lib/public-visibility";
 
 export const dynamic = "force-dynamic";
 
@@ -92,7 +93,11 @@ const TASK_ENTRIES = [
 export default async function Home() {
   // Stats
   const stats = (await queryAll(
-    "SELECT type, COUNT(*) as cnt FROM entities GROUP BY type ORDER BY cnt DESC",
+    `SELECT type, COUNT(*) as cnt
+     FROM entities e
+     WHERE ${PUBLIC_ENTITY_FILTER_SQL}
+     GROUP BY type
+     ORDER BY cnt DESC`,
   )) as Array<{ type: string; cnt: number }>;
 
   // Featured: well-tagged entries (curated, not just newest)
@@ -113,6 +118,7 @@ export default async function Home() {
             COUNT(DISTINCT et.tag_id) as tag_count
      FROM entities e
      LEFT JOIN entity_tags et ON et.entity_id = e.id
+     WHERE ${PUBLIC_ENTITY_FILTER_SQL}
      GROUP BY e.id
      HAVING tag_count >= 1
      ORDER BY tag_count DESC, e.created_at DESC
@@ -133,9 +139,10 @@ export default async function Home() {
       .map(async (s) => {
         const type = String(s.type);
         const stars = (await queryAll(
-          `SELECT name, slug FROM entities
-           WHERE type = ?
-           ORDER BY (SELECT COUNT(*) FROM entity_tags WHERE entity_id = entities.id) DESC,
+          `SELECT name, slug FROM entities e
+           WHERE e.type = ?
+             AND ${PUBLIC_ENTITY_FILTER_SQL}
+           ORDER BY (SELECT COUNT(*) FROM entity_tags WHERE entity_id = e.id) DESC,
                     created_at DESC
            LIMIT ?`,
           [type, type === "pen" ? 3 : 2],

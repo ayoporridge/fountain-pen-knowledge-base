@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { queryAll } from "@/lib/db";
+import { PUBLIC_ENTITY_FILTER_SQL } from "@/lib/public-visibility";
 
 const BASE_URL = "https://fountain-pen-graph.vercel.app";
 
@@ -68,7 +69,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Dynamic entity pages
   try {
     const entities = (await queryAll(
-      "SELECT type, slug, updated_at FROM entities ORDER BY updated_at DESC",
+      `SELECT type, slug, updated_at
+       FROM entities e
+       WHERE ${PUBLIC_ENTITY_FILTER_SQL}
+       ORDER BY updated_at DESC`,
     )) as Array<{ type: string; slug: string; updated_at: string }>;
 
     const entityPages: MetadataRoute.Sitemap = entities.map((e) => ({
