@@ -337,8 +337,14 @@ a:hover {
 }
 
 /* ── Focus ring ── */
+.focus-ring-accent:focus,
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 0.35rem;
+}
+
 .focus-ring-accent:focus {
-  outline: none;
   box-shadow: 0 0 0 2px var(--color-accent);
 }
 
@@ -887,16 +893,23 @@ hr,
 
 /* ── Reduced motion preference ── */
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-fade-in,
+  .animate-fade-in-up,
+  .animate-slide-in-right,
   .animate-ink-bleed,
   .animate-parchment-unfold,
   .animate-node-pulse,
   .ink-bleed-stagger > *,
   .scroll-reveal {
-    animation: none !important;
-    transition: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-    filter: none !important;
+    animation: none;
+    transition: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
   }
 
   .ink-underline::after {

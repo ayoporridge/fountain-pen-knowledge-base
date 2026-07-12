@@ -3,11 +3,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getMediaAssetIndex } from "@/lib/library";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 600;
 
 export const metadata: Metadata = {
-  title: "媒体授权 - 钢笔图书馆",
+  title: "媒体授权",
   description: "钢笔图书馆的图片、扫描件、外部媒体和授权说明。",
+  alternates: { canonical: "/library/media" },
 };
 
 export default async function LibraryMediaPage() {

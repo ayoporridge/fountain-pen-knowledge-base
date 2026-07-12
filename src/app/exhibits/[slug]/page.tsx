@@ -12,7 +12,7 @@ import {
   getSourceItemsByIds,
 } from "@/lib/library";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 600;
 
 interface ExhibitDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -25,8 +25,9 @@ export async function generateMetadata({
   const exhibit = await getExhibit(decodeURIComponent(slug));
   if (!exhibit) return { title: "展览未找到 - 钢笔图书馆" };
   return {
-    title: `${exhibit.title} - 钢笔图书馆`,
+    title: exhibit.title,
     description: exhibit.summary || "钢笔图书馆策展专题",
+    alternates: { canonical: `/exhibits/${exhibit.slug}` },
   };
 }
 

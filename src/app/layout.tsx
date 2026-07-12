@@ -7,8 +7,32 @@ import { Providers } from "@/components/Providers";
 import { TextureOverlay } from "@/components/TextureOverlay";
 
 export const metadata: Metadata = {
-  title: "钢笔知识图谱",
+  metadataBase: new URL("https://fountain-pen-graph.vercel.app"),
+  title: {
+    default: "钢笔知识图谱",
+    template: "%s | 钢笔知识图谱",
+  },
   description: "AI 时代的钢笔百科全书——自由链接、多维探索的钢笔知识网络",
+  openGraph: {
+    title: "钢笔知识图谱",
+    description: "一座可追溯、可漫游的钢笔资料馆。",
+    siteName: "钢笔知识图谱",
+    type: "website",
+    images: [
+      {
+        url: "/images/library/warm-pen-atlas/library-hero.jpg",
+        width: 1200,
+        height: 630,
+        alt: "钢笔知识图谱资料馆",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "钢笔知识图谱",
+    description: "一座可追溯、可漫游的钢笔资料馆。",
+    images: ["/images/library/warm-pen-atlas/library-hero.jpg"],
+  },
 };
 
 export default function RootLayout({

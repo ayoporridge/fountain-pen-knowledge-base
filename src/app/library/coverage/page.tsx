@@ -12,11 +12,12 @@ import {
   type LibraryCoverageEntityRecord,
 } from "@/lib/library";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 600;
 
 export const metadata: Metadata = {
-  title: "馆藏覆盖 - 钢笔图书馆",
+  title: "馆藏覆盖",
   description: "钢笔图书馆的品牌与型号内容覆盖审计。",
+  alternates: { canonical: "/library/coverage" },
 };
 
 const TYPE_LABELS: Record<string, string> = {

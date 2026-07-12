@@ -2,6 +2,7 @@
 
 import { Graph } from "@phosphor-icons/react/dist/ssr";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import {
@@ -10,6 +11,7 @@ import {
   useCallback,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -29,9 +31,24 @@ interface GraphNode {
 }
 
 interface GraphLink {
-  source: string;
-  target: string;
+  source: string | GraphNode;
+  target: string | GraphNode;
+  linkType: string;
+  reason?: string | null;
+  isSecondHop?: boolean;
+}
+
+interface ApiLink {
+  source_id: string;
+  target_id: string;
   link_type: string;
+  reason?: string | null;
+  source_name?: string;
+  source_type?: string;
+  source_slug?: string;
+  target_name?: string;
+  target_type?: string;
+  target_slug?: string;
 }
 
 interface GraphData {
@@ -62,11 +79,11 @@ interface LocalForceGraph2DProps {
     node: GraphNode,
     color: string,
     ctx: CanvasRenderingContext2D,
-    globalScale: number,
   ) => void;
   onNodeClick: (node: GraphNode) => void;
-  linkColor: () => string;
-  linkWidth: number;
+  linkColor: (link: GraphLink) => string;
+  linkWidth: (link: GraphLink) => number;
+  linkLineDash: (link: GraphLink) => number[] | null;
   linkDirectionalArrowLength: number;
   linkDirectionalArrowRelPos: number;
   cooldownTicks: number;
@@ -79,20 +96,66 @@ interface LocalForceGraph2DProps {
 
 const ForceGraph2D = dynamic(
   () => import("react-force-graph-2d").then((mod) => mod.default),
-  {
-    ssr: false,
-  },
+  { ssr: false },
 ) as unknown as ComponentType<LocalForceGraph2DProps>;
 
 const MAX_DIRECT_NODES = 12;
+const MAX_SECOND_HOP_NODES = 8;
 
-function truncateLabel(name: string, maxLen: number) {
-  if (name.length <= maxLen) return name;
-  return `${name.slice(0, maxLen - 1)}…`;
+const RELATION_LABELS: Record<string, string> = {
+  brand_model: "品牌型号",
+  made_by: "品牌制造",
+  same_brand: "同品牌",
+  same_series: "同系列",
+  uses: "使用 / 采用",
+  implements: "实现 / 应用",
+  predecessor: "前代型号",
+  successor: "后继型号",
+  related_to: "相关",
+  related: "相关",
+  instance_of: "属于",
+};
+
+export function getRelationLabel(linkType: string) {
+  return RELATION_LABELS[linkType] || "相关";
+}
+
+function relationExplanation(
+  link: GraphLink,
+  source: GraphNode,
+  target: GraphNode,
+) {
+  if (link.reason && /[\u3400-\u9fff]/u.test(link.reason)) {
+    return link.reason.trim();
+  }
+  if (link.linkType === "brand_model") {
+    return `${target.name} 是 ${source.name} 的品牌型号`;
+  }
+  if (link.linkType === "made_by") {
+    return `${source.name} 由 ${target.name} 制造`;
+  }
+  if (link.linkType === "same_series") {
+    return `${source.name} 与 ${target.name} 属于同一系列`;
+  }
+  if (link.linkType === "same_brand") {
+    return `${source.name} 与 ${target.name} 属于同一品牌`;
+  }
+  if (link.linkType === "predecessor" || link.linkType === "successor") {
+    return `${source.name} 与 ${target.name} 是前后代型号`;
+  }
+  return `${source.name} 与 ${target.name} 存在${getRelationLabel(link.linkType)}关系`;
+}
+
+function linkId(value: string | GraphNode) {
+  return typeof value === "string" ? value : value.id;
+}
+
+function truncateLabel(name: string, maxLength: number) {
+  return name.length <= maxLength ? name : `${name.slice(0, maxLength - 1)}…`;
 }
 
 function getGraphHeight(width: number) {
-  return Math.min(340, Math.max(240, Math.round(width * 0.42)));
+  return Math.min(430, Math.max(280, Math.round(width * 0.48)));
 }
 
 export function LocalGraph({
@@ -102,332 +165,259 @@ export function LocalGraph({
 }: LocalGraphProps) {
   const router = useRouter();
   const { resolvedTheme } = useTheme();
-  const [graphData, setGraphData] = useState<GraphData | null>(null);
+  const [allData, setAllData] = useState<GraphData | null>(null);
+  const [depth, setDepth] = useState<1 | 2>(1);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
   const [overflow, setOverflow] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [dimensions, setDimensions] = useState({ width: 400, height: 360 });
   const graphRef = useRef<ForceGraphInstance | undefined>(undefined);
-  const startTimeRef = useRef(Date.now());
+  const [dimensions, setDimensions] = useState({ width: 400, height: 300 });
 
   const isDark = resolvedTheme === "dark";
   const labelColor = isDark ? "#e8e4dc" : "#1a1814";
-  const linkColor = isDark ? "#2e2b26" : "#ddd8ce";
-  const bgColor = isDark ? "#141210" : "#f7f5f0";
-  const graphWidth = dimensions.width;
-  const graphHeight = dimensions.height;
+  const backgroundColor = isDark ? "#141210" : "#f7f5f0";
 
   useLayoutEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const updateDimensions = (width: number) => {
-      const safeWidth = Math.max(320, Math.round(width));
-      const nextHeight = getGraphHeight(safeWidth);
-      setDimensions((prev) => {
-        if (prev.width === safeWidth && prev.height === nextHeight) {
-          return prev;
-        }
-        return {
-          width: safeWidth,
-          height: nextHeight,
-        };
-      });
-    };
+    const element = containerRef.current;
+    if (!element) return;
 
     const measure = () => {
-      updateDimensions(
-        el.getBoundingClientRect().width ||
-          el.offsetWidth ||
-          el.parentElement?.getBoundingClientRect().width ||
-          400,
+      const width = Math.max(
+        300,
+        Math.round(element.getBoundingClientRect().width),
       );
+      setDimensions({ width, height: getGraphHeight(width) });
     };
-
     measure();
-    const frame = requestAnimationFrame(measure);
-
-    const observer = new ResizeObserver(() => {
-      measure();
-    });
-    observer.observe(el);
-    window.addEventListener("resize", measure);
-
-    return () => {
-      cancelAnimationFrame(frame);
-      observer.disconnect();
-      window.removeEventListener("resize", measure);
-    };
+    const observer = new ResizeObserver(measure);
+    observer.observe(element);
+    return () => observer.disconnect();
   }, []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    setLoading(true);
+    setError(false);
+
+    Promise.all([
+      fetch(`/api/entities/${encodeURIComponent(entitySlug)}`, {
+        signal: controller.signal,
+      }),
+      fetch(`/api/links?entity_id=${encodeURIComponent(entityId)}&depth=2`, {
+        signal: controller.signal,
+      }),
+    ])
+      .then(async ([entityResponse, linksResponse]) => {
+        if (!entityResponse.ok || !linksResponse.ok) {
+          throw new Error("Graph data unavailable");
+        }
+        return Promise.all([entityResponse.json(), linksResponse.json()]);
+      })
+      .then(([centerEntity, response]) => {
+        const nodes: GraphNode[] = [];
+        const links: GraphLink[] = [];
+        const nodesById = new Map<string, GraphNode>();
+        const identityKeys = new Set<string>();
+        const linkKeys = new Set<string>();
+
+        const addNode = (node: GraphNode) => {
+          const identity = entityIdentityKey(node);
+          if (nodesById.has(node.id) || identityKeys.has(identity))
+            return false;
+          nodes.push(node);
+          nodesById.set(node.id, node);
+          identityKeys.add(identity);
+          return true;
+        };
+        addNode({
+          id: entityId,
+          name: centerEntity.name || entitySlug,
+          type: entityType,
+          slug: entitySlug,
+          isCenter: true,
+        });
+
+        const directCandidates = new Map<string, GraphNode>();
+        for (const link of (response.forward || []) as ApiLink[]) {
+          if (
+            !link.target_id ||
+            !link.target_name ||
+            !link.target_type ||
+            !link.target_slug
+          )
+            continue;
+          directCandidates.set(link.target_id, {
+            id: link.target_id,
+            name: link.target_name,
+            type: link.target_type,
+            slug: link.target_slug,
+          });
+        }
+        for (const link of (response.backlinks || []) as ApiLink[]) {
+          if (
+            !link.source_id ||
+            !link.source_name ||
+            !link.source_type ||
+            !link.source_slug
+          )
+            continue;
+          directCandidates.set(link.source_id, {
+            id: link.source_id,
+            name: link.source_name,
+            type: link.source_type,
+            slug: link.source_slug,
+          });
+        }
+
+        const directNodes = Array.from(directCandidates.values()).slice(
+          0,
+          MAX_DIRECT_NODES,
+        );
+        for (const node of directNodes) addNode(node);
+        setOverflow(Math.max(0, directCandidates.size - directNodes.length));
+
+        const addLink = (apiLink: ApiLink, isSecondHop = false) => {
+          if (
+            !nodesById.has(apiLink.source_id) ||
+            !nodesById.has(apiLink.target_id)
+          )
+            return;
+          const key = `${apiLink.source_id}:${apiLink.target_id}:${apiLink.link_type}`;
+          if (linkKeys.has(key)) return;
+          linkKeys.add(key);
+          links.push({
+            source: apiLink.source_id,
+            target: apiLink.target_id,
+            linkType: apiLink.link_type,
+            reason: apiLink.reason,
+            isSecondHop,
+          });
+        };
+
+        for (const link of (response.forward || []) as ApiLink[]) addLink(link);
+        for (const link of (response.backlinks || []) as ApiLink[])
+          addLink(link);
+
+        let remainingSecondHop = MAX_SECOND_HOP_NODES;
+        const addSecondHop = (link: ApiLink, side: "source" | "target") => {
+          const nextId = side === "source" ? link.source_id : link.target_id;
+          const attachedId =
+            side === "source" ? link.target_id : link.source_id;
+          if (!nodesById.has(attachedId)) return;
+          if (!nodesById.has(nextId)) {
+            if (remainingSecondHop <= 0) return;
+            const name =
+              side === "source" ? link.source_name : link.target_name;
+            const type =
+              side === "source" ? link.source_type : link.target_type;
+            const slug =
+              side === "source" ? link.source_slug : link.target_slug;
+            if (!name || !type || !slug) return;
+            if (addNode({ id: nextId, name, type, slug, isSecondHop: true })) {
+              remainingSecondHop -= 1;
+            }
+          }
+          addLink(link, true);
+        };
+
+        for (const link of (response.secondHopForward || []) as ApiLink[]) {
+          addSecondHop(link, "target");
+        }
+        for (const link of (response.secondHopBacklinks || []) as ApiLink[]) {
+          addSecondHop(link, "source");
+        }
+
+        setAllData({ nodes, links });
+        setLoading(false);
+      })
+      .catch((reason) => {
+        if (reason instanceof DOMException && reason.name === "AbortError")
+          return;
+        setError(true);
+        setLoading(false);
+      });
+
+    return () => controller.abort();
+  }, [entityId, entitySlug, entityType]);
+
+  const graphData = useMemo<GraphData | null>(() => {
+    if (!allData) return null;
+    if (depth === 2) return allData;
+    const nodes = allData.nodes.filter((node) => !node.isSecondHop);
+    const nodeIds = new Set(nodes.map((node) => node.id));
+    return {
+      nodes,
+      links: allData.links.filter(
+        (link) =>
+          !link.isSecondHop &&
+          nodeIds.has(linkId(link.source)) &&
+          nodeIds.has(linkId(link.target)),
+      ),
+    };
+  }, [allData, depth]);
 
   useEffect(() => {
     if (
       !graphData ||
       !graphRef.current ||
-      graphWidth <= 0 ||
-      graphHeight <= 0
-    ) {
+      dimensions.width <= 0 ||
+      dimensions.height <= 0
+    )
       return;
-    }
-
-    const timer = window.setTimeout(() => {
-      graphRef.current?.zoomToFit(350, 28);
-    }, 350);
-
+    const timer = window.setTimeout(
+      () => graphRef.current?.zoomToFit(300, 34),
+      320,
+    );
     return () => window.clearTimeout(timer);
-  }, [graphData, graphWidth, graphHeight]);
-
-  useEffect(() => {
-    Promise.all([
-      fetch(`/api/entities/${entitySlug}`).then((r) => r.json()),
-      fetch(`/api/links?entity_id=${entityId}&depth=2`).then((r) => r.json()),
-    ]).then(([centerEntity, data]) => {
-      const allNodes: GraphNode[] = [];
-      const links: GraphLink[] = [];
-      const seen = new Set<string>([entityId]);
-      const seenNeighborKeys = new Set<string>();
-
-      // Collect all 1-hop neighbors first
-      const neighbors: Array<{
-        id: string;
-        name: string;
-        type: string;
-        slug: string;
-        direction: "fwd" | "back";
-      }> = [];
-
-      const addNeighbor = (
-        id: string,
-        name: string,
-        type: string,
-        slug: string,
-        direction: "fwd" | "back",
-      ) => {
-        const key = entityIdentityKey({ type, slug, name });
-        if (seen.has(id) || seenNeighborKeys.has(key)) return;
-
-        seen.add(id);
-        seenNeighborKeys.add(key);
-        neighbors.push({ id, name, type, slug, direction });
-      };
-
-      for (const link of data.forward || []) {
-        addNeighbor(
-          link.target_id,
-          link.target_name,
-          link.target_type,
-          link.target_slug,
-          "fwd",
-        );
-      }
-
-      for (const link of data.backlinks || []) {
-        addNeighbor(
-          link.source_id,
-          link.source_name,
-          link.source_type,
-          link.source_slug,
-          "back",
-        );
-      }
-
-      // Limit displayed 1-hop nodes
-      const displayedNeighbors = neighbors.slice(0, MAX_DIRECT_NODES);
-      const hiddenCount = neighbors.length - displayedNeighbors.length;
-      setOverflow(hiddenCount);
-
-      const displayedIds = new Set<string>();
-      const displayedIdentityKeys = new Set<string>();
-      const addDisplayedNode = (node: GraphNode) => {
-        const key = entityIdentityKey(node);
-        if (displayedIds.has(node.id) || displayedIdentityKeys.has(key)) {
-          return false;
-        }
-
-        allNodes.push(node);
-        displayedIds.add(node.id);
-        displayedIdentityKeys.add(key);
-        return true;
-      };
-
-      addDisplayedNode({
-        id: entityId,
-        name: centerEntity.name || entitySlug,
-        type: entityType,
-        slug: entitySlug,
-        isCenter: true,
-      });
-
-      for (const n of displayedNeighbors) {
-        addDisplayedNode({
-          id: n.id,
-          name: n.name,
-          type: n.type,
-          slug: n.slug,
-        });
-      }
-
-      const linkKeys = new Set<string>();
-      const addVisibleLink = (
-        source: string,
-        target: string,
-        linkType: string,
-      ) => {
-        if (source === target) return;
-        if (!displayedIds.has(source) || !displayedIds.has(target)) return;
-
-        const key = `${source}:${target}:${linkType}`;
-        if (linkKeys.has(key)) return;
-
-        linkKeys.add(key);
-        links.push({ source, target, link_type: linkType });
-      };
-
-      for (const link of data.forward || []) {
-        addVisibleLink(entityId, link.target_id, link.link_type);
-      }
-
-      for (const link of data.backlinks || []) {
-        addVisibleLink(link.source_id, entityId, link.link_type);
-      }
-
-      // 2-hop: only add if both endpoints are displayed
-      for (const link of data.secondHopForward || []) {
-        if (!seen.has(link.target_id)) {
-          seen.add(link.target_id);
-        }
-        if (
-          displayedIds.has(link.source_id) &&
-          !displayedIds.has(link.target_id)
-        ) {
-          addDisplayedNode({
-            id: link.target_id,
-            name: link.target_name,
-            type: link.target_type,
-            slug: link.target_slug,
-            isSecondHop: true,
-          });
-        }
-        if (
-          displayedIds.has(link.source_id) &&
-          displayedIds.has(link.target_id)
-        ) {
-          addVisibleLink(link.source_id, link.target_id, link.link_type);
-        }
-      }
-
-      for (const link of data.secondHopBacklinks || []) {
-        if (!seen.has(link.source_id)) {
-          seen.add(link.source_id);
-        }
-        if (
-          displayedIds.has(link.target_id) &&
-          !displayedIds.has(link.source_id)
-        ) {
-          addDisplayedNode({
-            id: link.source_id,
-            name: link.source_name,
-            type: link.source_type,
-            slug: link.source_slug,
-            isSecondHop: true,
-          });
-        }
-        if (
-          displayedIds.has(link.source_id) &&
-          displayedIds.has(link.target_id)
-        ) {
-          addVisibleLink(link.source_id, link.target_id, link.link_type);
-        }
-      }
-
-      setGraphData({ nodes: allNodes, links });
-      setLoading(false);
-    });
-  }, [entityId, entityType, entitySlug]);
+  }, [graphData, dimensions]);
 
   const nodeCanvasObject = useCallback(
-    (node: GraphNode, ctx: CanvasRenderingContext2D, globalScale: number) => {
-      const rawFontSize = node.isCenter ? 13 : node.isSecondHop ? 9 : 11;
-      const fontSize = Math.min(rawFontSize / globalScale, 16);
-      const baseRadius = node.isCenter ? 7 : node.isSecondHop ? 3.5 : 4.5;
-
-      // Pulse animation for center node
-      let radius = baseRadius;
-      if (node.isCenter) {
-        const elapsed = (Date.now() - startTimeRef.current) / 1000;
-        const pulse = Math.sin((elapsed * 2 * Math.PI) / 2) * 0.15 + 1; // 2s cycle, ±15%
-        radius = baseRadius * pulse;
-      }
-
-      // Draw node circle
-      ctx.beginPath();
-      ctx.arc(node.x || 0, node.y || 0, radius, 0, 2 * Math.PI);
-      ctx.fillStyle = TYPE_COLORS[node.type] || "#7a756d";
-      ctx.globalAlpha = node.isSecondHop ? 0.5 : 1;
-      ctx.fill();
-      ctx.globalAlpha = 1;
+    (
+      node: GraphNode,
+      context: CanvasRenderingContext2D,
+      globalScale: number,
+    ) => {
+      const radius = node.isCenter ? 7 : node.isSecondHop ? 3.5 : 4.8;
+      context.beginPath();
+      context.arc(node.x || 0, node.y || 0, radius, 0, Math.PI * 2);
+      context.fillStyle = TYPE_COLORS[node.type] || "#7a756d";
+      context.globalAlpha = node.isSecondHop ? 0.55 : 1;
+      context.fill();
+      context.globalAlpha = 1;
 
       if (node.isCenter) {
-        ctx.strokeStyle = isDark ? "#1e1c18" : "#ffffff";
-        ctx.lineWidth = 1.5 / globalScale;
-        ctx.stroke();
-
-        // Add glow effect for center node
-        const gradient = ctx.createRadialGradient(
-          node.x || 0,
-          node.y || 0,
-          radius,
-          node.x || 0,
-          node.y || 0,
-          radius * 2.5,
-        );
-        gradient.addColorStop(0, TYPE_COLORS[node.type] || "#7a756d");
-        gradient.addColorStop(1, "transparent");
-        ctx.fillStyle = gradient;
-        ctx.globalAlpha = 0.15;
-        ctx.beginPath();
-        ctx.arc(node.x || 0, node.y || 0, radius * 2.5, 0, 2 * Math.PI);
-        ctx.fill();
-        ctx.globalAlpha = 1;
+        context.strokeStyle = isDark ? "#141210" : "#ffffff";
+        context.lineWidth = 2 / globalScale;
+        context.stroke();
       }
 
-      // Draw label with background for readability
-      const maxLabelLen = node.isCenter ? 20 : 14;
-      const label = truncateLabel(node.name || node.id, maxLabelLen);
-      ctx.font = `${node.isCenter ? 600 : 400} ${fontSize}px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
-      ctx.textAlign = "center";
-      ctx.textBaseline = "top";
-
-      const textX = node.x || 0;
-      const textY = (node.y || 0) + radius + 2;
-
-      // Semi-transparent background behind text
-      const metrics = ctx.measureText(label);
-      const textWidth = metrics.width;
-      const textHeight = fontSize * 1.2;
-      ctx.fillStyle = isDark ? "rgba(20,18,16,0.75)" : "rgba(247,245,240,0.85)";
-      ctx.fillRect(
-        textX - textWidth / 2 - 2,
-        textY - 1,
-        textWidth + 4,
-        textHeight + 1,
+      const fontSize = Math.min((node.isCenter ? 13 : 11) / globalScale, 16);
+      const label = truncateLabel(
+        node.name || node.id,
+        node.isCenter ? 20 : 14,
       );
-
-      ctx.fillStyle = labelColor;
-      ctx.globalAlpha = node.isSecondHop ? 0.6 : 1;
-      ctx.fillText(label, textX, textY);
-      ctx.globalAlpha = 1;
-
-      return undefined;
+      context.font = `${node.isCenter ? 650 : 450} ${fontSize}px system-ui, sans-serif`;
+      context.textAlign = "center";
+      context.textBaseline = "top";
+      const x = node.x || 0;
+      const y = (node.y || 0) + radius + 2;
+      const width = context.measureText(label).width;
+      context.fillStyle = isDark
+        ? "rgba(20,18,16,.86)"
+        : "rgba(247,245,240,.9)";
+      context.fillRect(x - width / 2 - 2, y - 1, width + 4, fontSize * 1.25);
+      context.fillStyle = labelColor;
+      context.globalAlpha = node.isSecondHop ? 0.68 : 1;
+      context.fillText(label, x, y);
+      context.globalAlpha = 1;
     },
     [isDark, labelColor],
   );
 
   const handleNodeClick = useCallback(
     (node: GraphNode) => {
-      if (!node.isCenter) {
-        router.push(`/${node.type}/${node.slug}`);
-      }
+      if (!node.isCenter) router.push(`/${node.type}/${node.slug}`);
     },
     [router],
   );
@@ -436,54 +426,94 @@ export function LocalGraph({
     return (
       <div
         ref={containerRef}
-        className="h-[240px] rounded-xl animate-pulse flex items-center justify-center"
-        style={{ backgroundColor: bgColor }}
+        className="flex h-[280px] items-center justify-center rounded-xl animate-pulse"
+        style={{ backgroundColor }}
+        aria-busy="true"
+        aria-label="正在加载关系图谱"
+        role="status"
       >
-        <span className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
-          加载关系图…
-        </span>
+        <span className="text-sm text-ink-muted">正在整理关系…</span>
       </div>
     );
   }
 
-  if (!graphData || graphData.nodes.length <= 1) {
+  if (error || !graphData || graphData.nodes.length <= 1) {
     return (
       <div
         ref={containerRef}
-        className="h-[240px] rounded-xl flex flex-col items-center justify-center gap-3"
-        style={{ backgroundColor: bgColor }}
+        className="flex h-[280px] flex-col items-center justify-center gap-3 rounded-xl"
+        style={{ backgroundColor }}
       >
-        <Graph
-          size={32}
-          weight="duotone"
-          style={{ color: "var(--color-ink-muted)" }}
-        />
-        <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
-          暂无关联数据
+        <Graph size={32} weight="duotone" className="text-ink-muted" />
+        <p className="m-0 text-sm text-ink-muted">
+          {error ? "关系数据暂时无法载入" : "暂无可展示的公开关系"}
         </p>
       </div>
     );
   }
 
-  const listedNodes = graphData.nodes.filter((node) => !node.isCenter);
+  const nodesById = new Map(graphData.nodes.map((node) => [node.id, node]));
+  const relationships = graphData.links.flatMap((link) => {
+    const source = nodesById.get(linkId(link.source));
+    const target = nodesById.get(linkId(link.target));
+    if (!source || !target) return [];
+    const destination = source.isCenter
+      ? target
+      : target.isCenter
+        ? source
+        : source.isSecondHop
+          ? source
+          : target;
+    return [{ link, source, target, destination }];
+  });
   const legendTypes = Array.from(
     new Set(graphData.nodes.map((node) => node.type)),
   );
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-3" data-testid="local-graph">
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div
+          className="inline-flex rounded-lg border p-1"
+          style={{ borderColor: "var(--color-border)" }}
+        >
+          {([1, 2] as const).map((value) => (
+            <button
+              key={value}
+              type="button"
+              onClick={() => setDepth(value)}
+              aria-pressed={depth === value}
+              className="min-h-11 rounded-md px-3 py-2 text-sm font-medium"
+              style={{
+                backgroundColor:
+                  depth === value ? "var(--color-accent-light)" : "transparent",
+                color:
+                  depth === value
+                    ? "var(--color-accent)"
+                    : "var(--color-ink-muted)",
+              }}
+            >
+              {value === 1 ? "一跳关系" : "含二跳"}
+            </button>
+          ))}
+        </div>
+        <p className="m-0 text-xs text-ink-muted">
+          实线为直接关系，虚线为二跳关系
+        </p>
+      </div>
+
       <div
         ref={containerRef}
         data-testid="local-graph-canvas"
-        className="rounded-xl overflow-hidden relative"
-        style={{ backgroundColor: bgColor }}
+        className="relative min-w-0 overflow-hidden rounded-xl"
+        style={{ backgroundColor }}
       >
         <div
-          className="absolute left-3 top-3 z-10 flex flex-wrap gap-2 rounded-lg border px-3 py-2 text-xs"
+          className="absolute left-3 top-3 z-10 flex max-w-[calc(100%-1.5rem)] flex-wrap gap-2 rounded-lg border px-3 py-2 text-xs"
           style={{
             backgroundColor: isDark
-              ? "rgba(20,18,16,0.82)"
-              : "rgba(255,255,255,0.88)",
+              ? "rgba(20,18,16,.86)"
+              : "rgba(255,255,255,.9)",
             borderColor: "var(--color-border)",
             color: "var(--color-ink-muted)",
           }}
@@ -499,86 +529,101 @@ export function LocalGraph({
           ))}
         </div>
         <ForceGraph2D
-          key={`${graphWidth}x${graphHeight}`}
+          key={`${dimensions.width}x${dimensions.height}:${depth}`}
           ref={graphRef}
           graphData={graphData}
-          width={graphWidth}
-          height={graphHeight}
-          backgroundColor={bgColor}
+          width={dimensions.width}
+          height={dimensions.height}
+          backgroundColor={backgroundColor}
           nodeCanvasObject={nodeCanvasObject}
-          nodePointerAreaPaint={(
-            node: GraphNode,
-            color: string,
-            ctx: CanvasRenderingContext2D,
-          ) => {
-            const radius = node.isCenter ? 12 : node.isSecondHop ? 8 : 10;
-            ctx.fillStyle = color;
-            ctx.beginPath();
-            ctx.arc(node.x || 0, node.y || 0, radius, 0, 2 * Math.PI);
-            ctx.fill();
+          nodePointerAreaPaint={(node, color, context) => {
+            context.fillStyle = color;
+            context.beginPath();
+            context.arc(
+              node.x || 0,
+              node.y || 0,
+              node.isCenter ? 13 : 10,
+              0,
+              Math.PI * 2,
+            );
+            context.fill();
           }}
           onNodeClick={handleNodeClick}
-          linkColor={() => linkColor}
-          linkWidth={1}
+          linkColor={(link) =>
+            link.isSecondHop
+              ? isDark
+                ? "rgba(201,193,179,.28)"
+                : "rgba(113,107,98,.3)"
+              : isDark
+                ? "rgba(214,164,97,.56)"
+                : "rgba(154,91,34,.5)"
+          }
+          linkWidth={(link) => (link.isSecondHop ? 0.75 : 1.35)}
+          linkLineDash={(link) => (link.isSecondHop ? [3, 3] : null)}
           linkDirectionalArrowLength={3}
-          linkDirectionalArrowRelPos={0.8}
+          linkDirectionalArrowRelPos={0.82}
           cooldownTicks={100}
-          d3AlphaDecay={0.02}
-          d3VelocityDecay={0.15}
+          d3AlphaDecay={0.022}
+          d3VelocityDecay={0.18}
           enablePanInteraction={false}
           enableNodeDrag={false}
-          onEngineStop={() => graphRef.current?.zoomToFit(250, 28)}
+          onEngineStop={() => graphRef.current?.zoomToFit(250, 34)}
         />
-        {overflow > 0 && (
+        {overflow > 0 && depth === 1 && (
           <div
-            className="absolute bottom-2 right-2 text-xs px-2 py-1 rounded-full"
-            style={{
-              backgroundColor: isDark
-                ? "rgba(20,18,16,0.8)"
-                : "rgba(247,245,240,0.9)",
-              color: "var(--color-ink-muted)",
-              border: "1px solid var(--color-border)",
-            }}
+            className="absolute bottom-2 right-2 rounded-full border px-2 py-1 text-xs text-ink-muted"
+            style={{ backgroundColor, borderColor: "var(--color-border)" }}
           >
-            还有 {overflow} 个关联未显示
+            另有 {overflow} 个直接关联未显示
           </div>
         )}
       </div>
+
       <div
-        className="rounded-xl border p-3"
+        className="rounded-xl border p-4"
         style={{
           borderColor: "var(--color-border)",
           backgroundColor: "var(--color-surface-raised)",
         }}
       >
-        <p
-          className="mb-2 text-sm font-medium"
-          style={{ color: "var(--color-ink)" }}
-        >
-          关系列表
+        <h3 className="mb-1 text-sm font-semibold text-ink">关系列表</h3>
+        <p className="mb-3 text-xs text-ink-muted">
+          画布与列表使用同一组关系；键盘和触屏也可在这里继续探索。
         </p>
-        <div className="grid gap-2 sm:grid-cols-2">
-          {listedNodes.slice(0, 12).map((node) => (
-            <button
-              key={node.id}
-              type="button"
-              onClick={() => handleNodeClick(node)}
-              className="flex items-center justify-between rounded-lg border px-3 py-2 text-left text-sm"
-              style={{
-                borderColor: "var(--color-border-light)",
-                color: "var(--color-ink-light)",
-              }}
-            >
-              <span className="truncate">{node.name}</span>
-              <span
-                className="ml-3 shrink-0 text-xs"
-                style={{ color: "var(--color-ink-muted)" }}
-              >
-                {TYPE_LABELS[node.type] || node.type}
-              </span>
-            </button>
-          ))}
-        </div>
+        <ul className="grid gap-2 sm:grid-cols-2">
+          {relationships
+            .slice(0, 20)
+            .map(({ link, source, target, destination }) => (
+              <li key={`${source.id}:${target.id}:${link.linkType}`}>
+                <Link
+                  href={`/${destination.type}/${destination.slug}`}
+                  className="flex min-h-11 items-start justify-between gap-3 rounded-lg border px-3 py-2 text-left text-sm"
+                  style={{
+                    borderColor: "var(--color-border-light)",
+                    color: "var(--color-ink-light)",
+                  }}
+                >
+                  <span className="min-w-0">
+                    <span className="block truncate font-medium text-ink">
+                      {destination.name}
+                    </span>
+                    <span className="mt-0.5 block text-xs leading-relaxed text-ink-muted">
+                      {relationExplanation(link, source, target)}
+                    </span>
+                  </span>
+                  <span
+                    className="shrink-0 rounded-full px-2 py-0.5 text-xs"
+                    style={{
+                      backgroundColor: "var(--color-accent-light)",
+                      color: "var(--color-accent)",
+                    }}
+                  >
+                    {getRelationLabel(link.linkType)}
+                  </span>
+                </Link>
+              </li>
+            ))}
+        </ul>
       </div>
     </div>
   );

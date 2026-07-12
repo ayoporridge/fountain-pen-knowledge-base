@@ -4,11 +4,12 @@ import Link from "next/link";
 import { DiagramRenderer } from "@/components/library/DiagramRenderer";
 import { getCitationsForTargets, getDiagramIndex } from "@/lib/library";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 600;
 
 export const metadata: Metadata = {
-  title: "图示馆 - 钢笔图书馆",
+  title: "图示馆",
   description: "钢笔图书馆的站内原创结构图、机制图和专题图示。",
+  alternates: { canonical: "/library/diagrams" },
 };
 
 const DIAGRAM_TYPE_LABELS: Record<string, string> = {

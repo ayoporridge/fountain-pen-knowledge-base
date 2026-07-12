@@ -4,11 +4,13 @@ import {
   BookOpen,
   CaretDown,
   ChatCircleDots,
+  Graph,
   List,
   MagnifyingGlass,
   PenNib,
 } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { MobileNav } from "./MobileNav";
 import { ThemeToggle } from "./ThemeToggle";
@@ -23,8 +25,17 @@ const DIMENSION_ITEMS = [
 ];
 
 export function Header() {
+  const pathname = usePathname();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const isActive = (href: string) =>
+    href === "/"
+      ? pathname === "/"
+      : pathname === href || pathname.startsWith(`${href}/`);
+  const navStyle = (href: string) => ({
+    color: isActive(href) ? "var(--color-accent)" : "var(--color-ink-light)",
+    fontWeight: isActive(href) ? 650 : 400,
+  });
 
   // Close dropdown on click outside
   useEffect(() => {
@@ -66,6 +77,7 @@ export function Header() {
             href="/"
             className="flex items-center gap-2 text-lg font-bold tracking-tight btn-press"
             style={{ color: "var(--color-ink)" }}
+            aria-current={isActive("/") ? "page" : undefined}
           >
             <PenNib
               size={20}
@@ -74,38 +86,71 @@ export function Header() {
             />
             <span>钢笔知识图谱</span>
           </Link>
-          <div className="hidden sm:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-4">
             <Link
               href="/library"
-              className="flex items-center gap-1 text-sm transition-colors duration-140"
-              style={{ color: "var(--color-ink-light)" }}
+              className="flex min-h-11 items-center gap-1 border-b-2 text-sm transition-colors duration-140"
+              style={{
+                ...navStyle("/library"),
+                borderColor: isActive("/library")
+                  ? "var(--color-accent)"
+                  : "transparent",
+              }}
+              aria-current={isActive("/library") ? "page" : undefined}
             >
               <BookOpen size={14} />
               图书馆
             </Link>
             <Link
               href="/browse"
-              className="text-sm transition-colors duration-140"
-              style={{ color: "var(--color-ink-light)" }}
+              className="flex min-h-11 items-center border-b-2 text-sm transition-colors duration-140"
+              style={{
+                ...navStyle("/browse"),
+                borderColor: isActive("/browse")
+                  ? "var(--color-accent)"
+                  : "transparent",
+              }}
+              aria-current={isActive("/browse") ? "page" : undefined}
             >
               浏览
             </Link>
             <Link
               href="/search"
-              className="flex items-center gap-1 text-sm transition-colors duration-140"
-              style={{ color: "var(--color-ink-light)" }}
+              className="flex min-h-11 items-center gap-1 border-b-2 text-sm transition-colors duration-140"
+              style={{
+                ...navStyle("/search"),
+                borderColor: isActive("/search")
+                  ? "var(--color-accent)"
+                  : "transparent",
+              }}
+              aria-current={isActive("/search") ? "page" : undefined}
             >
               <MagnifyingGlass size={14} />
               搜索
+            </Link>
+            <Link
+              href="/graph"
+              className="flex min-h-11 items-center gap-1 border-b-2 text-sm transition-colors duration-140"
+              style={{
+                ...navStyle("/graph"),
+                borderColor: isActive("/graph")
+                  ? "var(--color-accent)"
+                  : "transparent",
+              }}
+              aria-current={isActive("/graph") ? "page" : undefined}
+            >
+              <Graph size={14} />
+              关系图谱
             </Link>
             <div className="relative" ref={dropdownRef}>
               <button
                 type="button"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
                 className="flex items-center gap-1 text-sm transition-colors duration-140"
-                style={{ color: "var(--color-ink-light)" }}
+                style={navStyle("/by")}
                 aria-expanded={dropdownOpen}
                 aria-haspopup="true"
+                aria-current={isActive("/by") ? "page" : undefined}
               >
                 <List size={14} />
                 按维度
@@ -129,6 +174,7 @@ export function Header() {
                       onClick={() => setDropdownOpen(false)}
                       className="block px-3 py-1.5 text-sm transition-colors duration-140 hover:bg-[var(--color-surface-dim)]"
                       style={{ color: "var(--color-ink-light)" }}
+                      aria-current={isActive(item.href) ? "page" : undefined}
                     >
                       {item.label}
                     </Link>
@@ -138,8 +184,14 @@ export function Header() {
             </div>
             <Link
               href="/chat"
-              className="flex items-center gap-1 text-sm transition-colors duration-140"
-              style={{ color: "var(--color-ink-light)" }}
+              className="flex min-h-11 items-center gap-1 border-b-2 text-sm transition-colors duration-140"
+              style={{
+                ...navStyle("/chat"),
+                borderColor: isActive("/chat")
+                  ? "var(--color-accent)"
+                  : "transparent",
+              }}
+              aria-current={isActive("/chat") ? "page" : undefined}
             >
               <ChatCircleDots size={14} />问 AI
             </Link>

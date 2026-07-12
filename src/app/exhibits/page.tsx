@@ -3,11 +3,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getPublishedExhibits } from "@/lib/library";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 600;
 
 export const metadata: Metadata = {
-  title: "历史展览 - 钢笔图书馆",
+  title: "历史展览",
   description: "策展式钢笔阅读路径，串联品牌、型号、工艺和历史。",
+  alternates: { canonical: "/exhibits" },
 };
 
 export default async function ExhibitsPage() {

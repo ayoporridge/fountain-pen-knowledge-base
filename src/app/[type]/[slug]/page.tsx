@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+export const revalidate = 600;
 
 import {
   ArrowLeft,
@@ -25,9 +25,9 @@ import { getEntitiesForConcept } from "@/lib/concept-engine";
 import { ATTR_LABELS, TYPE_ICONS, TYPE_LABELS } from "@/lib/constants";
 import { queryAll, queryOne } from "@/lib/db";
 import { getDetailHeroImageByIndex } from "@/lib/detail-hero-images";
-import { getEntityReferences } from "@/lib/library";
-import { isPublicEntity } from "@/lib/public-visibility";
-import { cleanPublicText } from "@/lib/publicText";
+import { getEntityReferences, getPrimaryProductImage } from "@/lib/library";
+import { isPublicEntity, publicEntityFilter } from "@/lib/public-visibility";
+import { cleanPublicText, isPlaceholderSourceUrl } from "@/lib/publicText";
 import { toPlainTextSummary } from "@/lib/text";
 
 interface EntityPageProps {
@@ -42,10 +42,11 @@ export async function generateMetadata({
   const { type, slug: rawSlug } = await params;
   const slug = decodeURIComponent(rawSlug);
   const entity = (await queryOne(
-    "SELECT type, slug, name, summary, body_md FROM entities WHERE slug = ?",
+    "SELECT id, type, slug, name, summary, body_md FROM entities WHERE slug = ?",
     [slug],
   )) as
     | {
+        id: string;
         type: string;
         slug: string;
         name: string;
@@ -66,14 +67,38 @@ export async function generateMetadata({
     ? toPlainTextSummary(entity.summary, 120)
     : `${entity.name} — 钢笔知识图谱收录词条`;
 
+  const productImage = await getPrimaryProductImage(entity.id);
+  const socialImage = productImage?.thumbnail_url || productImage?.image_url;
+  const canonical = `/${entity.type}/${entity.slug}`;
+
   return {
-    title: `${entity.name} - 钢笔知识图谱`,
+    title: entity.name,
     description: desc,
+    alternates: { canonical },
     openGraph: {
       title: entity.name,
       description: desc,
       siteName: "钢笔知识图谱",
       type: "website",
+      url: canonical,
+      images: socialImage
+        ? [{ url: socialImage, alt: entity.name }]
+        : [
+            {
+              url: "/images/library/warm-pen-atlas/library-hero.jpg",
+              width: 1200,
+              height: 630,
+              alt: "钢笔知识图谱资料馆",
+            },
+          ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: entity.name,
+      description: desc,
+      images: socialImage
+        ? [socialImage]
+        : ["/images/library/warm-pen-atlas/library-hero.jpg"],
     },
   };
 }
@@ -292,6 +317,7 @@ export default async function EntityPage({ params }: EntityPageProps) {
      JOIN entities e ON (e.id = el.target_id OR e.id = el.source_id) AND e.id != ?
      WHERE (el.source_id = ? OR el.target_id = ?)
        AND el.link_type != 'reverse'
+       AND ${publicEntityFilter("e")}
        AND NOT (
          ? = 'pen'
          AND e.type = 'brand'
@@ -323,8 +349,8 @@ export default async function EntityPage({ params }: EntityPageProps) {
   }> = [];
   if (entityType === "concept") {
     conceptRule = (await queryOne(
-      "SELECT * FROM concept_rules WHERE concept_id = ?",
-      [entity.id],
+      "SELECT * FROM concept_rules WHERE slug = ?",
+      [entitySlug],
     )) as Record<string, string | number | null> | null;
     if (conceptRule) {
       conceptEntities = (await getEntitiesForConcept(
@@ -341,18 +367,126 @@ export default async function EntityPage({ params }: EntityPageProps) {
   const attrs: Record<string, string> = Object.fromEntries(
     attrRows.map((a) => [a.key, a.value]),
   );
-  const sidebarSources = ["brand", "pen"].includes(entityType)
-    ? []
-    : await getEntityReferences(String(entity.id), 6);
+  const [
+    sidebarSources,
+    productImage,
+    evidenceCounts,
+    approvedSpec,
+    brandParent,
+  ] = await Promise.all([
+    getEntityReferences(String(entity.id), 12),
+    getPrimaryProductImage(String(entity.id)),
+    queryOne(
+      `SELECT
+         (SELECT COUNT(*) FROM entity_references er WHERE er.entity_id = ?) as source_count,
+         (SELECT COUNT(*) FROM claims c WHERE c.subject_entity_id = ? AND c.review_status = 'approved') as approved_claims,
+         (SELECT COUNT(*) FROM claims c WHERE c.subject_entity_id = ? AND c.review_status = 'needs_source') as needs_source_claims,
+         (SELECT COUNT(*) FROM model_specs ms WHERE ms.entity_id = ? AND ms.review_status = 'approved') as approved_specs,
+         (SELECT COUNT(*) FROM model_specs ms WHERE ms.entity_id = ? AND ms.review_status = 'needs_source') as needs_source_specs`,
+      [entity.id, entity.id, entity.id, entity.id, entity.id],
+    ) as Promise<{
+      source_count: number;
+      approved_claims: number;
+      needs_source_claims: number;
+      approved_specs: number;
+      needs_source_specs: number;
+    } | null>,
+    entityType === "pen"
+      ? (queryOne(
+          `SELECT series_name, release_year, origin_country, nib, fill_system,
+                  material, dimensions, weight
+           FROM model_specs
+           WHERE entity_id = ? AND review_status = 'approved'`,
+          [entity.id],
+        ) as Promise<Record<string, string | null> | undefined>)
+      : Promise.resolve(undefined),
+    entityType === "pen"
+      ? (queryOne(
+          `SELECT b.id, b.type, b.slug, b.name
+           FROM model_specs ms
+           JOIN entities b ON b.id = ms.brand_entity_id
+           WHERE ms.entity_id = ? AND ${publicEntityFilter("b")}
+           LIMIT 1`,
+          [entity.id],
+        ) as Promise<
+          { id: string; type: string; slug: string; name: string } | undefined
+        >)
+      : Promise.resolve(undefined),
+  ]);
   const heroIndexRow = (await queryOne(
     `SELECT COUNT(*) as detail_index
      FROM entities
      WHERE type < ? OR (type = ? AND slug <= ?)`,
     [entityType, entityType, entitySlug],
   )) as { detail_index: number } | undefined;
-  const heroImageUrl = getDetailHeroImageByIndex(
+  const fallbackHeroImageUrl = getDetailHeroImageByIndex(
     Number(heroIndexRow?.detail_index || 1) - 1,
   );
+  const heroImageUrl =
+    productImage?.thumbnail_url ||
+    productImage?.image_url ||
+    fallbackHeroImageUrl;
+  const hasEntityHeroImage = Boolean(productImage);
+  const evidenceBadges = [
+    {
+      label: "来源",
+      value: Number(evidenceCounts?.source_count || 0),
+      tone: Number(evidenceCounts?.source_count || 0) > 0 ? "solid" : "muted",
+    },
+    {
+      label: "已核事实",
+      value: Number(evidenceCounts?.approved_claims || 0),
+      tone:
+        Number(evidenceCounts?.approved_claims || 0) > 0 ? "solid" : "muted",
+    },
+    {
+      label: "已核规格",
+      value: Number(evidenceCounts?.approved_specs || 0),
+      tone: Number(evidenceCounts?.approved_specs || 0) > 0 ? "solid" : "muted",
+    },
+    {
+      label: "待补证",
+      value:
+        Number(evidenceCounts?.needs_source_claims || 0) +
+        Number(evidenceCounts?.needs_source_specs || 0),
+      tone:
+        Number(evidenceCounts?.needs_source_claims || 0) +
+          Number(evidenceCounts?.needs_source_specs || 0) >
+        0
+          ? "warn"
+          : "muted",
+    },
+  ];
+  const bodyTextLength = entity.body_md ? String(entity.body_md).length : 0;
+  const approvedSpecLabels: Record<string, string> = {
+    series_name: "系列",
+    release_year: "发布年份",
+    origin_country: "产地",
+    nib: "笔尖",
+    fill_system: "上墨方式",
+    material: "材质",
+    dimensions: "尺寸",
+    weight: "重量",
+  };
+  const approvedSpecEntries = Object.entries(approvedSpec || {}).filter(
+    ([, value]) => cleanPublicText(value),
+  );
+  const sourceGroups = sidebarSources.reduce<
+    Record<string, typeof sidebarSources>
+  >((groups, source) => {
+    const label = isPlaceholderSourceUrl(source.url)
+      ? "待补证"
+      : source.source_type === "official"
+        ? "官方"
+        : source.source_type === "retailer"
+          ? "经销商"
+          : ["forum", "reddit", "user_submission"].includes(source.source_type)
+            ? "社区"
+            : "媒体与资料";
+    if (!groups[label]) groups[label] = [];
+    groups[label].push(source);
+    return groups;
+  }, {});
 
   const Icon = TYPE_ICONS[entityType] || PenNib;
   const hasGraph = ["brand", "pen"].includes(entityType) || links.length > 0;
@@ -374,35 +508,114 @@ export default async function EntityPage({ params }: EntityPageProps) {
       ? { href: "#sources", label: "来源" }
       : null,
   ].filter(Boolean) as Array<{ href: string; label: string }>;
+  const canonicalUrl = `https://fountain-pen-graph.vercel.app/${entityType}/${entitySlug}`;
+  const typeCrumb = brandParent
+    ? {
+        name: brandParent.name,
+        href: `/${brandParent.type}/${brandParent.slug}`,
+      }
+    : {
+        name: TYPE_LABELS[entityType] || entityType,
+        href: `/browse?type=${entityType}`,
+      };
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "首页",
+        item: "https://fountain-pen-graph.vercel.app/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: typeCrumb.name,
+        item: `https://fountain-pen-graph.vercel.app${typeCrumb.href}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: String(entity.name),
+        item: canonicalUrl,
+      },
+    ],
+  };
+  const entityJsonLd = {
+    "@context": "https://schema.org",
+    "@type":
+      entityType === "pen"
+        ? "Product"
+        : entityType === "brand"
+          ? "Organization"
+          : entityType === "article"
+            ? "Article"
+            : "DefinedTerm",
+    name: String(entity.name),
+    url: canonicalUrl,
+    description: entity.summary
+      ? cleanPublicText(toPlainTextSummary(String(entity.summary), 180))
+      : undefined,
+    image: hasEntityHeroImage
+      ? new URL(
+          String(heroImageUrl),
+          "https://fountain-pen-graph.vercel.app",
+        ).toString()
+      : undefined,
+    ...(entityType === "pen" && brandParent
+      ? { brand: { "@type": "Brand", name: brandParent.name } }
+      : {}),
+    ...(approvedSpecEntries.length > 0
+      ? {
+          additionalProperty: approvedSpecEntries.map(([key, value]) => ({
+            "@type": "PropertyValue",
+            name: approvedSpecLabels[key] || key,
+            value: cleanPublicText(value),
+          })),
+        }
+      : {}),
+  };
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
-      {/* Back link */}
-      <div className="mb-6">
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: serialized JSON-LD is angle-bracket escaped
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd).replaceAll("<", "\\u003c"),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: serialized JSON-LD is angle-bracket escaped
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(entityJsonLd).replaceAll("<", "\\u003c"),
+        }}
+      />
+      <nav
+        aria-label="面包屑"
+        className="mb-6 flex min-w-0 items-center gap-2 text-sm text-ink-muted"
+      >
         <Link
           href="/"
-          className="inline-flex items-center gap-1 text-sm transition-colors hover:underline underline-offset-4"
-          style={{ color: "var(--color-ink-muted)" }}
+          className="inline-flex min-h-11 shrink-0 items-center gap-1 transition-colors hover:underline underline-offset-4"
         >
           <ArrowLeft size={14} />
           首页
         </Link>
-      </div>
-
-      {/* ── Hero Image ── */}
-      <div
-        className="mb-8 rounded-xl overflow-hidden"
-        style={{ boxShadow: "var(--shadow-raised)" }}
-      >
-        <Image
-          src={String(heroImageUrl)}
-          alt={String(entity.name)}
-          width={1200}
-          height={500}
-          className="w-full h-64 sm:h-80 object-cover"
-          priority
-        />
-      </div>
+        <span aria-hidden="true">›</span>
+        <Link
+          href={typeCrumb.href}
+          className="min-w-0 truncate hover:underline underline-offset-4"
+        >
+          {typeCrumb.name}
+        </Link>
+        <span aria-hidden="true">›</span>
+        <span aria-current="page" className="min-w-0 truncate text-ink">
+          {String(entity.name)}
+        </span>
+      </nav>
 
       {/* ── Primary Zone: Name + Summary + Key Attributes ── */}
       <div className="mb-10">
@@ -445,15 +658,73 @@ export default async function EntityPage({ params }: EntityPageProps) {
               toPlainTextSummary(String(entity.summary)),
             );
             return plainSummary ? (
-              <p
-                data-testid="entity-summary"
-                className="text-lg max-w-3xl"
-                style={{ color: "var(--color-ink-light)", lineHeight: 1.8 }}
-              >
-                {plainSummary}
-              </p>
+              <div className="max-w-3xl">
+                <p className="archive-kicker mb-1">一句话结论</p>
+                <p
+                  data-testid="entity-summary"
+                  className="m-0 text-lg"
+                  style={{ color: "var(--color-ink-light)", lineHeight: 1.8 }}
+                >
+                  {plainSummary}
+                </p>
+              </div>
             ) : null;
           })()}
+
+        <div className="mt-5 flex flex-wrap gap-2">
+          {evidenceBadges.map((badge) => (
+            <span
+              key={badge.label}
+              className="rounded-full border px-3 py-1 text-xs font-medium"
+              style={{
+                borderColor:
+                  badge.tone === "warn"
+                    ? "var(--color-accent)"
+                    : "var(--color-border)",
+                backgroundColor:
+                  badge.tone === "solid"
+                    ? "var(--color-accent-light)"
+                    : "var(--color-surface-raised)",
+                color:
+                  badge.tone === "warn" || badge.tone === "solid"
+                    ? "var(--color-accent)"
+                    : "var(--color-ink-muted)",
+              }}
+            >
+              {badge.label} {badge.value}
+            </span>
+          ))}
+        </div>
+
+        {entityType === "pen" && approvedSpecEntries.length > 0 && (
+          <section className="mt-6" aria-labelledby="approved-specs-title">
+            <h2
+              id="approved-specs-title"
+              className="mb-3 text-sm font-semibold text-ink"
+            >
+              已核规格
+            </h2>
+            <dl className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+              {approvedSpecEntries.map(([key, value]) => (
+                <div
+                  key={key}
+                  className="rounded-lg border px-3 py-2"
+                  style={{
+                    borderColor: "var(--color-border-light)",
+                    backgroundColor: "var(--color-surface-raised)",
+                  }}
+                >
+                  <dt className="text-xs text-ink-muted">
+                    {approvedSpecLabels[key] || key}
+                  </dt>
+                  <dd className="mt-1 text-sm font-semibold text-ink">
+                    {cleanPublicText(value)}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        )}
 
         {/* Key attributes — pen specs live in the model archive below. */}
         {entityType !== "pen" &&
@@ -489,6 +760,41 @@ export default async function EntityPage({ params }: EntityPageProps) {
           )}
       </div>
 
+      {/* ── Hero Image ── */}
+      <figure
+        className="mb-8 overflow-hidden rounded-lg border"
+        style={{
+          borderColor: "var(--color-border)",
+          backgroundColor: hasEntityHeroImage
+            ? "var(--color-surface-raised)"
+            : "var(--color-surface-dim)",
+          boxShadow: "var(--shadow-raised)",
+        }}
+      >
+        <Image
+          src={String(heroImageUrl)}
+          alt={String(entity.name)}
+          width={1200}
+          height={500}
+          className={`h-56 w-full sm:h-72 ${
+            hasEntityHeroImage ? "object-contain p-4" : "object-cover"
+          }`}
+          priority
+          unoptimized={hasEntityHeroImage}
+        />
+        <figcaption
+          className="border-t px-4 py-2 text-xs"
+          style={{
+            borderColor: "var(--color-border-light)",
+            color: "var(--color-ink-muted)",
+          }}
+        >
+          {hasEntityHeroImage
+            ? `实体图片：${productImage?.source_name || productImage?.source_title || "已登记媒体"}`
+            : "暂无实体主图，暂用资料馆氛围图。"}
+        </figcaption>
+      </figure>
+
       <SectionNav items={sectionNavItems} />
 
       {/* ── Two-column layout: Content + Sidebar ── */}
@@ -521,30 +827,43 @@ export default async function EntityPage({ params }: EntityPageProps) {
           {/* Body */}
           {entity.body_md && !["brand", "pen"].includes(entityType) && (
             <section id="body" className="mb-10 manuscript-border p-6 sm:p-8">
+              {(entityType === "article" || bodyTextLength > 4000) && (
+                <div
+                  className="mb-6 rounded-lg border p-4 text-sm"
+                  style={{
+                    borderColor: "var(--color-border-light)",
+                    backgroundColor: "var(--color-surface-raised)",
+                    color: "var(--color-ink-muted)",
+                  }}
+                >
+                  <div
+                    className="mb-1 font-medium"
+                    style={{ color: "var(--color-ink)" }}
+                  >
+                    阅读提示
+                  </div>
+                  <p className="m-0">
+                    {bodyTextLength > 4000
+                      ? `这是一篇较长资料整理，约 ${Math.round(
+                          bodyTextLength / 500,
+                        )} 屏阅读量。建议先扫小标题、图片和引用来源，再进入正文。`
+                      : "这是一篇资料整理页，正文会保留来源文章的主要结构。"}
+                  </p>
+                  {entity.source_url &&
+                    !isPlaceholderSourceUrl(String(entity.source_url)) && (
+                      <Link
+                        href={String(entity.source_url)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-2 inline-flex text-xs ink-underline"
+                        style={{ color: "var(--color-accent)" }}
+                      >
+                        查看原始来源
+                      </Link>
+                    )}
+                </div>
+              )}
               <MarkdownRenderer content={String(entity.body_md)} />
-            </section>
-          )}
-
-          {/* Graph */}
-          {hasGraph && (
-            <section id="graph" className="mb-10">
-              <h2
-                className="flex items-center gap-2 text-lg font-semibold tracking-tight mb-4"
-                style={{ color: "var(--color-ink)" }}
-              >
-                <Graph size={18} style={{ color: "var(--color-accent)" }} />
-                关系图谱
-              </h2>
-              <div
-                className="rounded-xl overflow-hidden"
-                style={{ boxShadow: "var(--shadow-raised)" }}
-              >
-                <LocalGraph
-                  entityId={String(entity.id)}
-                  entityType={entityType}
-                  entitySlug={entitySlug}
-                />
-              </div>
             </section>
           )}
         </div>
@@ -556,7 +875,12 @@ export default async function EntityPage({ params }: EntityPageProps) {
             <EntityMeta
               createdAt={String(entity.created_at)}
               updatedAt={String(entity.updated_at)}
-              sourceUrl={entity.source_url ? String(entity.source_url) : null}
+              sourceUrl={
+                entity.source_url &&
+                !isPlaceholderSourceUrl(String(entity.source_url))
+                  ? String(entity.source_url)
+                  : null
+              }
               entityId={String(entity.id)}
               entityType={entityType}
               entitySlug={entitySlug}
@@ -566,12 +890,27 @@ export default async function EntityPage({ params }: EntityPageProps) {
           {sidebarSources.length > 0 && (
             <section id="sources" className="mb-6">
               <h3
-                className="text-xs font-medium mb-2"
-                style={{ color: "var(--color-ink-muted)" }}
+                className="mb-3 text-sm font-semibold"
+                style={{ color: "var(--color-ink)" }}
               >
-                来源
+                来源分级
               </h3>
-              <SourceCards sources={sidebarSources} variant="compact" />
+              <div className="space-y-4">
+                {["官方", "经销商", "媒体与资料", "社区", "待补证"].map(
+                  (label) => {
+                    const sources = sourceGroups[label];
+                    if (!sources?.length) return null;
+                    return (
+                      <div key={label}>
+                        <h4 className="mb-1 text-xs font-medium text-ink-muted">
+                          {label} · {sources.length}
+                        </h4>
+                        <SourceCards sources={sources} variant="compact" />
+                      </div>
+                    );
+                  },
+                )}
+              </div>
             </section>
           )}
 
@@ -629,6 +968,43 @@ export default async function EntityPage({ params }: EntityPageProps) {
           </section>
         </div>
       </div>
+
+      {hasGraph && (
+        <section
+          id="graph"
+          className="mt-12 min-w-0"
+          data-testid="entity-graph-section"
+        >
+          <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <h2 className="mb-1 flex items-center gap-2 text-xl font-semibold tracking-tight text-ink">
+                <Graph size={20} style={{ color: "var(--color-accent)" }} />
+                关系图谱
+              </h2>
+              <p className="m-0 text-sm text-ink-muted">
+                查看有限的一跳与二跳关系；每条关系都可从列表继续进入词条。
+              </p>
+            </div>
+            <Link
+              href={`/graph?entity=${encodeURIComponent(entitySlug)}`}
+              className="inline-flex min-h-11 items-center rounded-lg border px-4 py-2 text-sm font-medium"
+              style={{ borderColor: "var(--color-border)" }}
+            >
+              在图谱页继续探索
+            </Link>
+          </div>
+          <div
+            className="min-w-0 rounded-xl"
+            style={{ boxShadow: "var(--shadow-raised)" }}
+          >
+            <LocalGraph
+              entityId={String(entity.id)}
+              entityType={entityType}
+              entitySlug={entitySlug}
+            />
+          </div>
+        </section>
+      )}
 
       {/* ── Tertiary Zone: Recommendations ── */}
       <section className="mt-12">

@@ -41,6 +41,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.6,
     },
     {
+      url: `${BASE_URL}/library/coverage`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.6,
+    },
+    {
       url: `${BASE_URL}/browse`,
       lastModified: now,
       changeFrequency: "daily",
@@ -59,21 +65,48 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     },
     {
-      url: `${BASE_URL}/search`,
+      url: `${BASE_URL}/graph`,
       lastModified: now,
       changeFrequency: "weekly",
-      priority: 0.6,
+      priority: 0.8,
     },
+    ...[
+      "brand",
+      "price",
+      "nib",
+      "origin",
+      "fill",
+      "usage",
+      "era",
+      "size",
+      "material",
+    ].map((dimension) => ({
+      url: `${BASE_URL}/by/${dimension}`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.6,
+    })),
   ];
 
   // Dynamic entity pages
   try {
-    const entities = (await queryAll(
-      `SELECT type, slug, updated_at
-       FROM entities e
-       WHERE ${PUBLIC_ENTITY_FILTER_SQL}
-       ORDER BY updated_at DESC`,
-    )) as Array<{ type: string; slug: string; updated_at: string }>;
+    const [entities, exhibits] = (await Promise.all([
+      queryAll(
+        `SELECT type, slug, updated_at
+         FROM entities e
+         WHERE ${PUBLIC_ENTITY_FILTER_SQL}
+         ORDER BY updated_at DESC`,
+      ),
+      queryAll(
+        `SELECT slug, updated_at
+         FROM exhibits
+         WHERE status IN ('published', 'reviewed')
+         ORDER BY updated_at DESC`,
+      ),
+    ])) as [
+      Array<{ type: string; slug: string; updated_at: string }>,
+      Array<{ slug: string; updated_at: string }>,
+    ];
 
     const entityPages: MetadataRoute.Sitemap = entities.map((e) => ({
       url: `${BASE_URL}/${e.type}/${e.slug}`,
@@ -82,7 +115,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: e.type === "pen" ? 0.9 : e.type === "brand" ? 0.7 : 0.5,
     }));
 
-    return [...staticPages, ...entityPages];
+    const exhibitPages: MetadataRoute.Sitemap = exhibits.map((exhibit) => ({
+      url: `${BASE_URL}/exhibits/${exhibit.slug}`,
+      lastModified: new Date(exhibit.updated_at),
+      changeFrequency: "monthly" as const,
+      priority: 0.65,
+    }));
+
+    return [...staticPages, ...exhibitPages, ...entityPages];
   } catch {
     return staticPages;
   }

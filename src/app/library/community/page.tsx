@@ -4,11 +4,12 @@ import Link from "next/link";
 import { MarkdownRenderer } from "@/components/MarkdownRenderer";
 import { getCommunitySummaryIndex } from "@/lib/library";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 600;
 
 export const metadata: Metadata = {
-  title: "玩家口碑 - 钢笔图书馆",
+  title: "玩家口碑",
   description: "钢笔图书馆的社区口碑聚合摘要与 Reddit/论坛使用边界。",
+  alternates: { canonical: "/library/community" },
 };
 
 function parseMetadata(value: string | null) {

@@ -5,11 +5,12 @@ import { SourceCards } from "@/components/library/SourceCards";
 import { getSourceItemIndex, getSourceRegistryIndex } from "@/lib/library";
 import { displayPublicSourceName } from "@/lib/publicText";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 600;
 
 export const metadata: Metadata = {
-  title: "来源索引 - 钢笔图书馆",
+  title: "来源索引",
   description: "钢笔图书馆的来源、授权说明、抓取方式和参考资料索引。",
+  alternates: { canonical: "/library/sources" },
 };
 
 const SOURCE_TYPE_LABELS: Record<string, string> = {

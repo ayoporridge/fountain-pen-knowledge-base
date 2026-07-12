@@ -25,14 +25,17 @@ export async function Recommendations({ entityId }: RecommendationsProps) {
   if (recommendations.length === 0) return null;
 
   return (
-    <div className="mb-8">
-      <h2 className="text-xl font-semibold text-ink mb-4">你可能想看</h2>
+    <div className="mb-8" data-testid="recommendations">
+      <h2 className="text-xl font-semibold text-ink mb-2">继续沿关系阅读</h2>
+      <p className="mb-4 text-sm text-ink-muted">
+        每个推荐都标明具体关联依据，方便判断是否值得点开。
+      </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {recommendations.map((rec) => (
           <Link
             key={rec.id}
             href={`/${rec.type}/${rec.slug}`}
-            className="block p-4 rounded-lg border border-border hover:border-accent hover:bg-surface transition-all"
+            className="block min-w-0 rounded-lg border border-border p-4 transition-all hover:border-accent hover:bg-surface"
           >
             <div className="flex items-center gap-2 mb-1">
               <span
@@ -44,7 +47,9 @@ export async function Recommendations({ entityId }: RecommendationsProps) {
             <h3 className="font-medium text-ink mb-1 line-clamp-1">
               {rec.name}
             </h3>
-            <p className="text-xs text-ink-muted">{rec.reason}</p>
+            <p className="m-0 text-xs leading-relaxed text-ink-muted">
+              {rec.reason}
+            </p>
           </Link>
         ))}
       </div>

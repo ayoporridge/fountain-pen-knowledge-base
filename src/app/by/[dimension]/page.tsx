@@ -1,4 +1,4 @@
-export const dynamic = "force-dynamic";
+export const revalidate = 600;
 
 import {
   ArrowLeft,
@@ -17,6 +17,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { queryAll } from "@/lib/db";
+import { PUBLIC_ENTITY_FILTER_SQL } from "@/lib/public-visibility";
 
 const DIMENSION_ICONS: Record<string, React.ElementType> = {
   brand: Buildings,
@@ -34,7 +35,7 @@ const VALID_DIMENSIONS: Record<
   string,
   { label: string; tagDimension: string }
 > = {
-  brand: { label: "品牌", tagDimension: "brand_tier" },
+  brand: { label: "品牌", tagDimension: "brand" },
   price: { label: "价位", tagDimension: "price" },
   nib: { label: "笔尖类型", tagDimension: "nib_type" },
   origin: { label: "产地", tagDimension: "origin" },
@@ -60,8 +61,9 @@ export async function generateMetadata({
     return { title: "维度未找到 - 钢笔知识图谱" };
   }
   return {
-    title: `按${dimConfig.label}浏览 - 钢笔知识图谱`,
+    title: `按${dimConfig.label}浏览`,
     description: `按${dimConfig.label}维度浏览钢笔知识图谱中的所有词条，发现不同${dimConfig.label}分类下的钢笔。`,
+    alternates: { canonical: `/by/${dimension}` },
   };
 }
 
@@ -75,26 +77,48 @@ export default async function DimensionPage({ params }: DimensionPageProps) {
 
   const Icon = DIMENSION_ICONS[dimension] || MagnifyingGlass;
 
-  const tags = (await queryAll(
-    `SELECT t.id, t.name, t.slug, t.dimension, COUNT(et.entity_id) as entity_count
-     FROM tags t
-     LEFT JOIN entity_tags et ON et.tag_id = t.id
-     WHERE t.dimension = ?
-     GROUP BY t.id
-     HAVING entity_count > 0
-     ORDER BY entity_count DESC`,
-    [dimConfig.tagDimension],
-  )) as Array<{
-    id: string;
-    name: string;
-    slug: string;
-    dimension: string;
-    entity_count: number;
-  }>;
+  const tags =
+    dimension === "brand"
+      ? ((await queryAll(
+          `SELECT e.id, e.name, e.slug, 'brand' as dimension,
+                  COUNT(DISTINCT p.id) as entity_count
+           FROM entities e
+           LEFT JOIN model_specs ms ON ms.brand_entity_id = e.id
+           LEFT JOIN entities p ON p.id = ms.entity_id AND p.type = 'pen'
+           WHERE e.type = 'brand'
+             AND ${PUBLIC_ENTITY_FILTER_SQL}
+           GROUP BY e.id
+           ORDER BY e.name`,
+        )) as Array<{
+          id: string;
+          name: string;
+          slug: string;
+          dimension: string;
+          entity_count: number;
+        }>)
+      : ((await queryAll(
+          `SELECT t.id, t.name, t.slug, t.dimension, COUNT(DISTINCT e.id) as entity_count
+           FROM tags t
+           JOIN entity_tags et ON et.tag_id = t.id
+           JOIN entities e ON e.id = et.entity_id AND ${PUBLIC_ENTITY_FILTER_SQL}
+           WHERE t.dimension = ?
+           GROUP BY t.id
+           HAVING entity_count > 0
+           ORDER BY entity_count DESC`,
+          [dimConfig.tagDimension],
+        )) as Array<{
+          id: string;
+          name: string;
+          slug: string;
+          dimension: string;
+          entity_count: number;
+        }>);
 
   const totalEntities = tags.reduce((sum, t) => sum + t.entity_count, 0);
 
   const getBrowseLink = (tagSlug: string) => {
+    if (dimension === "brand") return `/brand/${tagSlug}`;
+
     const dimMap: Record<string, string> = {
       brand: "brand_tier",
       fill: "fill_system",
@@ -139,8 +163,36 @@ export default async function DimensionPage({ params }: DimensionPageProps) {
         </h1>
       </div>
       <p className="mb-8" style={{ color: "var(--color-ink-muted)" }}>
-        共 {tags.length} 个{dimConfig.label}分类，覆盖 {totalEntities} 个词条
+        {dimension === "brand"
+          ? `共 ${tags.length} 个品牌，已关联 ${totalEntities} 个型号档案`
+          : `共 ${tags.length} 个${dimConfig.label}分类，覆盖 ${totalEntities} 个词条`}
       </p>
+
+      <div className="mb-8 flex flex-wrap gap-2">
+        {Object.entries(VALID_DIMENSIONS).map(([key, config]) => (
+          <Link
+            key={key}
+            href={`/by/${key}`}
+            className="rounded-full border px-3 py-1 text-xs"
+            style={{
+              borderColor:
+                key === dimension
+                  ? "var(--color-accent)"
+                  : "var(--color-border)",
+              backgroundColor:
+                key === dimension
+                  ? "var(--color-accent-light)"
+                  : "var(--color-surface-raised)",
+              color:
+                key === dimension
+                  ? "var(--color-accent)"
+                  : "var(--color-ink-muted)",
+            }}
+          >
+            {config.label}
+          </Link>
+        ))}
+      </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {tags.map((tag) => (
@@ -160,7 +212,9 @@ export default async function DimensionPage({ params }: DimensionPageProps) {
               {tag.name}
             </h3>
             <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
-              {tag.entity_count} 个词条
+              {dimension === "brand"
+                ? `${tag.entity_count} 个关联型号`
+                : `${tag.entity_count} 个词条`}
             </p>
           </Link>
         ))}

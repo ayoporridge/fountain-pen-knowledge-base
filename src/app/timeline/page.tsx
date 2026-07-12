@@ -3,11 +3,12 @@ import type { Metadata } from "next";
 import { Timeline } from "@/components/library/Timeline";
 import { getRecentTimeline } from "@/lib/library";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 600;
 
 export const metadata: Metadata = {
-  title: "历史时间线 - 钢笔图书馆",
+  title: "历史时间线",
   description: "按时间浏览品牌、型号、工艺与社区事件。",
+  alternates: { canonical: "/timeline" },
 };
 
 export default async function TimelinePage() {
