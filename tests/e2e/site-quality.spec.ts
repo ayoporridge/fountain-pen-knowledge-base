@@ -449,6 +449,10 @@ test.describe("site quality contract", () => {
     const unusedFetcher: MediaFetcher = async () => {
       throw new Error("fetch must not run");
     };
+    const publicTransport = (response: Response) => ({
+      response,
+      connectedAddress: "8.8.8.8",
+    });
     await expect(
       fetchExternalImage("https://media.example/image.jpg", {
         resolver: privateResolver,
@@ -456,11 +460,31 @@ test.describe("site quality contract", () => {
       }),
     ).rejects.toMatchObject({ status: 403 });
 
+    const reboundAtConnection: MediaFetcher = async (target) => {
+      expect(target.hostname).toBe("media.example");
+      expect(target.address).toBe("8.8.8.8");
+      return {
+        response: new Response(new Uint8Array([1]), {
+          status: 200,
+          headers: { "content-type": "image/png" },
+        }),
+        connectedAddress: "127.0.0.1",
+      };
+    };
+    await expect(
+      fetchExternalImage("https://media.example/image.jpg", {
+        resolver: publicResolver,
+        fetcher: reboundAtConnection,
+      }),
+    ).rejects.toMatchObject({ status: 403 });
+
     const redirectPrivate: MediaFetcher = async () =>
-      new Response(null, {
-        status: 302,
-        headers: { location: "https://127.0.0.1/private.jpg" },
-      });
+      publicTransport(
+        new Response(null, {
+          status: 302,
+          headers: { location: "https://127.0.0.1/private.jpg" },
+        }),
+      );
     await expect(
       fetchExternalImage("https://media.example/image.jpg", {
         resolver: publicResolver,
@@ -468,13 +492,17 @@ test.describe("site quality contract", () => {
       }),
     ).rejects.toMatchObject({ status: 403 });
 
-    const redirectLoop: MediaFetcher = async (input) => {
-      const current = new URL(String(input));
+    const redirectLoop: MediaFetcher = async (target) => {
+      const current = target.url;
       const count = Number(current.searchParams.get("hop") || "0") + 1;
-      return new Response(null, {
-        status: 302,
-        headers: { location: `https://media.example/image.jpg?hop=${count}` },
-      });
+      return publicTransport(
+        new Response(null, {
+          status: 302,
+          headers: {
+            location: `https://media.example/image.jpg?hop=${count}`,
+          },
+        }),
+      );
     };
     await expect(
       fetchExternalImage("https://media.example/image.jpg", {
@@ -484,13 +512,15 @@ test.describe("site quality contract", () => {
     ).rejects.toMatchObject({ status: 508 });
 
     const declaredOversize: MediaFetcher = async () =>
-      new Response(new Uint8Array([1]), {
-        status: 200,
-        headers: {
-          "content-type": "image/png",
-          "content-length": String(MAX_MEDIA_BYTES + 1),
-        },
-      });
+      publicTransport(
+        new Response(new Uint8Array([1]), {
+          status: 200,
+          headers: {
+            "content-type": "image/png",
+            "content-length": String(MAX_MEDIA_BYTES + 1),
+          },
+        }),
+      );
     await expect(
       fetchExternalImage("https://media.example/image.jpg", {
         resolver: publicResolver,
@@ -499,10 +529,12 @@ test.describe("site quality contract", () => {
     ).rejects.toMatchObject({ status: 413 });
 
     const streamedOversize: MediaFetcher = async () =>
-      new Response(new Uint8Array(MAX_MEDIA_BYTES + 1), {
-        status: 200,
-        headers: { "content-type": "image/png" },
-      });
+      publicTransport(
+        new Response(new Uint8Array(MAX_MEDIA_BYTES + 1), {
+          status: 200,
+          headers: { "content-type": "image/png" },
+        }),
+      );
     await expect(
       fetchExternalImage("https://media.example/image.jpg", {
         resolver: publicResolver,
@@ -511,10 +543,12 @@ test.describe("site quality contract", () => {
     ).rejects.toMatchObject({ status: 413 });
 
     const wrongMime: MediaFetcher = async () =>
-      new Response("not an image", {
-        status: 200,
-        headers: { "content-type": "text/plain" },
-      });
+      publicTransport(
+        new Response("not an image", {
+          status: 200,
+          headers: { "content-type": "text/plain" },
+        }),
+      );
     await expect(
       fetchExternalImage("https://media.example/image.jpg", {
         resolver: publicResolver,
@@ -711,6 +745,56 @@ test.describe("site quality contract", () => {
     await openHydratedDialog(menuTrigger, menu);
     await expect(menu.getByRole("heading", { name: "导航" })).toHaveCount(1);
     await expect(menu.getByRole("button", { name: "关闭导航" })).toHaveCount(1);
+    const navigationIsolation = await page.evaluate(() => {
+      const dialog = document.querySelector<HTMLElement>(
+        '#mobile-navigation-dialog[role="dialog"]',
+      );
+      const trigger = document.querySelector<HTMLElement>(
+        'button[aria-label="打开导航"]',
+      );
+      const focusable = Array.from(
+        document.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [contenteditable="true"], [tabindex]',
+        ),
+      );
+      const outsideFocusable = focusable
+        .filter((element) => !dialog?.contains(element))
+        .filter((element) => {
+          const style = getComputedStyle(element);
+          const visible =
+            style.display !== "none" &&
+            style.visibility !== "hidden" &&
+            element.getClientRects().length > 0;
+          return (
+            visible &&
+            element.tabIndex >= 0 &&
+            !element.closest("[inert]") &&
+            !element.closest('[aria-hidden="true"]')
+          );
+        })
+        .map(
+          (element) =>
+            element.getAttribute("aria-label") ||
+            element.textContent?.trim() ||
+            element.tagName,
+        );
+      return {
+        outsideFocusable,
+        trigger: trigger
+          ? {
+              inert: trigger.inert,
+              ariaHidden: trigger.getAttribute("aria-hidden"),
+              tabIndex: trigger.tabIndex,
+            }
+          : null,
+      };
+    });
+    expect(navigationIsolation.outsideFocusable).toEqual([]);
+    expect(navigationIsolation.trigger).toEqual({
+      inert: true,
+      ariaHidden: "true",
+      tabIndex: -1,
+    });
     for (let index = 0; index < 12; index += 1)
       await page.keyboard.press("Tab");
     expect(
@@ -721,6 +805,9 @@ test.describe("site quality contract", () => {
     await page.keyboard.press("Escape");
     await expect(menu).toBeHidden();
     await expect(menuTrigger).toBeFocused();
+    await expect(menuTrigger).not.toHaveAttribute("aria-hidden", "true");
+    await expect(menuTrigger).not.toHaveAttribute("inert", "");
+    await expect(menuTrigger).not.toHaveAttribute("tabindex", "-1");
 
     await page.goto("/browse", { waitUntil: "domcontentloaded" });
     const filterTrigger = page.getByRole("button", { name: "筛选" });

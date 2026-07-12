@@ -1,5 +1,8 @@
 import { lookup } from "node:dns/promises";
+import { request as httpsRequest } from "node:https";
 import { isIP } from "node:net";
+import { Readable } from "node:stream";
+import { checkServerIdentity } from "node:tls";
 
 export const MAX_MEDIA_BYTES = 8 * 1024 * 1024;
 export const MEDIA_FETCH_TIMEOUT_MS = 8_000;
@@ -140,18 +143,31 @@ export type MediaHostResolver = (
   hostname: string,
 ) => Promise<Array<{ address: string; family: number }>>;
 
+export type MediaFetchTarget = {
+  url: URL;
+  hostname: string;
+  address: string;
+  family: number;
+  headers: Record<string, string>;
+  signal: AbortSignal;
+};
+
+export type MediaTransportResult = {
+  response: Response;
+  connectedAddress: string;
+};
+
 export type MediaFetcher = (
-  input: string | URL | Request,
-  init?: RequestInit,
-) => Promise<Response>;
+  target: MediaFetchTarget,
+) => Promise<MediaTransportResult>;
 
 const defaultResolver: MediaHostResolver = (hostname) =>
   lookup(hostname, { all: true, verbatim: true });
 
-async function assertPublicHostname(
+async function resolvePublicHostname(
   hostname: string,
   resolver: MediaHostResolver,
-): Promise<void> {
+): Promise<Array<{ address: string; family: number }>> {
   if (isIP(hostname)) {
     if (isBlockedIp(hostname)) {
       throw new MediaFetchError(
@@ -159,7 +175,7 @@ async function assertPublicHostname(
         403,
       );
     }
-    return;
+    return [{ address: hostname, family: isIP(hostname) }];
   }
 
   let addresses: Array<{ address: string; family: number }>;
@@ -177,7 +193,98 @@ async function assertPublicHostname(
       403,
     );
   }
+  return addresses;
 }
+
+function comparableIp(address: string): string {
+  const normalized = address.toLowerCase().split("%")[0];
+  return normalized.match(/::ffff:(\d+\.\d+\.\d+\.\d+)$/)?.[1] || normalized;
+}
+
+function sameIp(left: string, right: string): boolean {
+  return comparableIp(left) === comparableIp(right);
+}
+
+const defaultFetcher: MediaFetcher = (target) =>
+  new Promise((resolve, reject) => {
+    let connectedAddress = "";
+    const request = httpsRequest(
+      target.url,
+      {
+        method: "GET",
+        agent: false,
+        family: target.family,
+        servername: isIP(target.hostname) ? undefined : target.hostname,
+        checkServerIdentity: (_hostname, certificate) =>
+          checkServerIdentity(target.hostname, certificate),
+        headers: {
+          ...target.headers,
+          Host: target.url.host,
+        },
+        lookup: (_hostname, _options, callback) =>
+          callback(null, target.address, target.family === 6 ? 6 : 4),
+        signal: target.signal,
+      },
+      (incoming) => {
+        if (
+          !connectedAddress ||
+          isBlockedIp(connectedAddress) ||
+          !sameIp(connectedAddress, target.address)
+        ) {
+          incoming.destroy();
+          reject(
+            new MediaFetchError(
+              "Pinned media connection address could not be verified",
+              403,
+              target.url.toString(),
+            ),
+          );
+          return;
+        }
+
+        const responseHeaders = new Headers();
+        for (const [name, value] of Object.entries(incoming.headers)) {
+          if (Array.isArray(value)) {
+            for (const item of value) responseHeaders.append(name, item);
+          } else if (value !== undefined) {
+            responseHeaders.set(name, value);
+          }
+        }
+        resolve({
+          response: new Response(
+            Readable.toWeb(incoming) as ReadableStream<Uint8Array>,
+            {
+              status: incoming.statusCode || 502,
+              statusText: incoming.statusMessage,
+              headers: responseHeaders,
+            },
+          ),
+          connectedAddress,
+        });
+      },
+    );
+
+    request.once("socket", (socket) => {
+      socket.once("secureConnect", () => {
+        connectedAddress = socket.remoteAddress || "";
+        if (
+          !connectedAddress ||
+          isBlockedIp(connectedAddress) ||
+          !sameIp(connectedAddress, target.address)
+        ) {
+          request.destroy(
+            new MediaFetchError(
+              "Pinned media connection address did not match DNS validation",
+              403,
+              target.url.toString(),
+            ),
+          );
+        }
+      });
+    });
+    request.once("error", reject);
+    request.end();
+  });
 
 function validateExternalUrl(
   value: string,
@@ -227,22 +334,38 @@ export async function fetchExternalImage(
     : undefined;
   let current = validateExternalUrl(initialUrl, allowedHostnames);
   const resolver = options.resolver || defaultResolver;
-  const fetcher = options.fetcher || fetch;
+  const fetcher = options.fetcher || defaultFetcher;
 
   for (let redirects = 0; redirects <= MAX_MEDIA_REDIRECTS; redirects += 1) {
-    await assertPublicHostname(current.hostname, resolver);
+    const addresses = await resolvePublicHostname(current.hostname, resolver);
+    const pinned = addresses.find(({ family }) => family === 4) || addresses[0];
 
     let response: Response;
     try {
-      response = await fetcher(current, {
-        redirect: "manual",
+      const transport = await fetcher({
+        url: new URL(current),
+        hostname: current.hostname,
+        address: pinned.address,
+        family: pinned.family,
         headers: {
           "User-Agent": "Mozilla/5.0 (compatible; FountainPenGraph/1.0)",
           Accept: "image/avif,image/webp,image/*,*/*;q=0.5",
         },
         signal: AbortSignal.timeout(MEDIA_FETCH_TIMEOUT_MS),
       });
+      if (
+        isBlockedIp(transport.connectedAddress) ||
+        !sameIp(transport.connectedAddress, pinned.address)
+      ) {
+        throw new MediaFetchError(
+          "Media connection did not use the validated public address",
+          403,
+          current.toString(),
+        );
+      }
+      response = transport.response;
     } catch (error) {
+      if (error instanceof MediaFetchError) throw error;
       const message =
         error instanceof Error ? error.message : "Media fetch failed";
       throw new MediaFetchError(message, 502, current.toString());
@@ -264,6 +387,7 @@ export async function fetchExternalImage(
           current.toString(),
         );
       }
+      await response.body?.cancel();
       current = validateExternalUrl(
         new URL(location, current).toString(),
         allowedHostnames,

@@ -11,6 +11,7 @@
 .planning/quick/260713-7u5-fountain-pen-graph-seo-vercel/BASELINE-MANIFEST.md
 .planning/quick/260713-7u5-fountain-pen-graph-seo-vercel/RELEASE-ALLOWLIST.txt
 .planning/quick/260713-7u5-fountain-pen-graph-seo-vercel/SUMMARY.md
+.planning/quick/260713-7u5-fountain-pen-graph-seo-vercel/VERIFICATION.md
 migrations/009_brands_and_concepts.sql
 package.json
 playwright.config.ts

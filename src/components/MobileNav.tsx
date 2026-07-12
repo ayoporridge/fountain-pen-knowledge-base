@@ -41,12 +41,13 @@ export function MobileNav() {
   const drawerRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const shouldRestoreFocusRef = useRef(false);
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(`${href}/`);
 
   const close = useCallback(() => {
+    shouldRestoreFocusRef.current = true;
     setOpen(false);
-    window.setTimeout(() => triggerRef.current?.focus(), 0);
   }, []);
 
   useEffect(() => {
@@ -86,21 +87,29 @@ export function MobileNav() {
     document.body.style.overflow = "hidden";
 
     const background = [
-      document.querySelector<HTMLElement>("main"),
-      document.querySelector<HTMLElement>("footer"),
-      rootRef.current?.closest("header")?.querySelector<HTMLElement>("nav"),
-      rootRef.current?.parentElement?.querySelector<HTMLElement>(
-        ":scope > button:last-child",
+      ...new Set(
+        [
+          document.querySelector<HTMLElement>("main"),
+          document.querySelector<HTMLElement>("footer"),
+          rootRef.current?.closest("header")?.querySelector<HTMLElement>("nav"),
+          rootRef.current?.parentElement?.querySelector<HTMLElement>(
+            ":scope > button:last-child",
+          ),
+          triggerRef.current,
+        ].filter((element): element is HTMLElement => Boolean(element)),
       ),
-    ].filter((element): element is HTMLElement => Boolean(element));
+    ];
     const previous = background.map((element) => ({
       element,
       inert: element.inert,
       ariaHidden: element.getAttribute("aria-hidden"),
+      tabIndex: element.getAttribute("tabindex"),
     }));
     for (const element of background) {
       element.inert = true;
       element.setAttribute("aria-hidden", "true");
+      if (element === triggerRef.current)
+        element.setAttribute("tabindex", "-1");
     }
 
     return () => {
@@ -110,8 +119,16 @@ export function MobileNav() {
         if (item.ariaHidden === null)
           item.element.removeAttribute("aria-hidden");
         else item.element.setAttribute("aria-hidden", item.ariaHidden);
+        if (item.tabIndex === null) item.element.removeAttribute("tabindex");
+        else item.element.setAttribute("tabindex", item.tabIndex);
       }
     };
+  }, [open]);
+
+  useEffect(() => {
+    if (open || !shouldRestoreFocusRef.current) return;
+    shouldRestoreFocusRef.current = false;
+    triggerRef.current?.focus();
   }, [open]);
 
   useEffect(() => {
