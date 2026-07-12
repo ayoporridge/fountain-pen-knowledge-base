@@ -146,6 +146,7 @@ Tech decisions: 使用系统字体替代 Google Fonts (代理环境无法下载)
 | 20260702-reader-facing-content-cleanup | Full reader-facing cleanup for brand, pen, and nib text | 2026-07-03 | complete | [20260702-reader-facing-content-cleanup](./quick/20260702-reader-facing-content-cleanup/) |
 | 260703-9p5 | Fix truncated Japanese Pocket Pens article | 2026-07-03 | complete | [260703-9p5-fix-truncated-japanese-pocket-pens-artic](./quick/260703-9p5-fix-truncated-japanese-pocket-pens-artic/) |
 | 260703-9u2 | Scan and repair all truncated articles | 2026-07-03 | complete | [260703-9u2-scan-and-repair-all-truncated-articles](./quick/260703-9u2-scan-and-repair-all-truncated-articles/) |
+| 260713-7u5 | Full-site UX, search, graph, accessibility, SEO, and Vercel production quality | 2026-07-13 | complete | [260713-7u5-fountain-pen-graph-seo-vercel](./quick/260713-7u5-fountain-pen-graph-seo-vercel/) |
 
 ---
 
@@ -163,4 +164,4 @@ Tech decisions: 使用系统字体替代 Google Fonts (代理环境无法下载)
 
 ---
 
-*Last updated: 2026-07-03 - Completed quick task 260703-9u2: scan and repair all truncated articles*
+*Last updated: 2026-07-13 - Completed quick task 260713-7u5: full-site UX, SEO, and Vercel production quality*

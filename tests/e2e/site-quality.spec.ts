@@ -100,6 +100,17 @@ async function getCanonical(page: Page) {
   return page.locator('link[rel="canonical"]').getAttribute("href");
 }
 
+async function openHydratedDialog(
+  trigger: ReturnType<Page["getByRole"]>,
+  dialog: ReturnType<Page["getByRole"]>,
+) {
+  await expect(trigger).toBeVisible();
+  await expect(async () => {
+    await trigger.click();
+    await expect(dialog).toBeVisible({ timeout: 1_500 });
+  }).toPass({ timeout: 15_000 });
+}
+
 test.describe("site quality contract", () => {
   test.setTimeout(90_000);
 
@@ -696,9 +707,8 @@ test.describe("site quality contract", () => {
 
     await page.goto("/", { waitUntil: "domcontentloaded" });
     const menuTrigger = page.getByRole("button", { name: "打开导航" });
-    await menuTrigger.click();
     const menu = page.getByRole("dialog", { name: "导航" });
-    await expect(menu).toBeVisible();
+    await openHydratedDialog(menuTrigger, menu);
     await expect(menu.getByRole("heading", { name: "导航" })).toHaveCount(1);
     await expect(menu.getByRole("button", { name: "关闭导航" })).toHaveCount(1);
     for (let index = 0; index < 12; index += 1)
@@ -714,9 +724,8 @@ test.describe("site quality contract", () => {
 
     await page.goto("/browse", { waitUntil: "domcontentloaded" });
     const filterTrigger = page.getByRole("button", { name: "筛选" });
-    await filterTrigger.click();
     const filter = page.getByRole("dialog", { name: "筛选" });
-    await expect(filter).toBeVisible();
+    await openHydratedDialog(filterTrigger, filter);
     await expect(filter.getByRole("heading", { name: "筛选" })).toHaveCount(1);
     await expect(filter.getByRole("button", { name: "关闭筛选" })).toHaveCount(
       1,
