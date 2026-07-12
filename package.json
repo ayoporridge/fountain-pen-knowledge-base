@@ -53,11 +53,14 @@
     "fix:pen-articles": "tsx scripts/reclassify-pen-articles.ts",
     "audit:library-coverage": "tsx scripts/audit-library-coverage.ts",
     "audit:entity-quality": "tsx scripts/audit-entity-quality.ts",
+    "audit:public-media": "tsx scripts/audit-public-media.ts",
     "verify:markdown": "tsx scripts/verify-markdown.ts",
     "check:data-contract": "tsx scripts/check-data-contract.ts",
     "check:library": "tsx scripts/check-library-contract.ts",
     "test:library": "playwright test tests/e2e/library.spec.ts",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:e2e:desktop": "playwright test --project=desktop",
+    "test:e2e:mobile": "playwright test tests/e2e/site-quality.spec.ts --project=mobile"
   },
   "dependencies": {
     "@libsql/client": "^0.17.3",

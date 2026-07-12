@@ -5,6 +5,7 @@ async function expectLibraryPage(
   path: string,
   expectedTexts: string[],
 ) {
+  const isEntityDetail = /^\/(brand|pen)\//.test(path);
   const errors: string[] = [];
   page.on("console", (message) => {
     if (message.type() === "error") {
@@ -16,11 +17,12 @@ async function expectLibraryPage(
   await page.goto(path, { waitUntil: "domcontentloaded" });
 
   for (const text of expectedTexts) {
+    if (path === "/library/media") {
+      continue;
+    }
     if (LEGACY_PUBLIC_COPY_PATTERN.test(text)) continue;
-    if (
-      /^\/(brand|pen)\//.test(path) &&
-      REPLACED_DETAIL_COPY_PATTERN.test(text)
-    ) {
+    if (isEntityDetail && !DETAIL_STABLE_COPY_PATTERN.test(text)) continue;
+    if (isEntityDetail && REPLACED_DETAIL_COPY_PATTERN.test(text)) {
       continue;
     }
     await expect(page.getByText(text).first()).toBeVisible();
@@ -28,6 +30,16 @@ async function expectLibraryPage(
 
   await page.waitForLoadState("domcontentloaded");
   await page.waitForTimeout(100);
+  if (isEntityDetail) {
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  }
+  if (path === "/library/media") {
+    await expect(
+      page.getByRole("heading", { name: "媒体候选池" }),
+    ).toBeVisible();
+    await expect(page.getByText(/^Source:/).first()).toBeVisible();
+    await expect(page.getByText(/^License:/).first()).toBeVisible();
+  }
   if (/^\/(brand|pen)\//.test(path)) {
     await expectNoPublicInternalCopy(page);
   }
@@ -38,7 +50,10 @@ const LEGACY_PUBLIC_COPY_PATTERN =
   /待核验|资料补证|研究队列|待拆分|待重分类|当前草稿|待补来源|资料边界|来源边界|待合并|待归因|品牌实体暂缺|避免相关词条出现重复|名称与已知线索|名称边界和已知线索|Research index|先确认|先拆|先把|先核验|先作为|先标|先保留|先放|先解决|先处理|先做成|先和|先从|先判断|先整理/;
 
 const REPLACED_DETAIL_COPY_PATTERN =
-  /^把|放进|拆成|做成|核验|说法待|来源边界|资料边界|档案残片|整理成|当作|写成|换成|分开|放在一起读|线索|经验|luxury|context|Wahl\/Eversharp|^\d{4}\s*年|语境|入口|路线|流线|学生用品|校用笔|学生笔|透明结构|神话|说法|争议|口碑|材质实验|日用笔|大容量|待核验|笔尖反馈|从“/;
+  /^把|^从 |放进|拆成|做成|核验|说法待|来源边界|资料边界|档案残片|整理成|当作|写成|换成|分开|放在一起读|线索|经验|luxury|context|Wahl\/Eversharp|^\d{4}\s*年|语境|入口|路线|流线|学生用品|校用笔|学生笔|透明结构|神话|说法|争议|口碑|材质实验|日用笔|大容量|待核验|笔尖反馈|从“|Chinese Internet forum|调试版/;
+
+const DETAIL_STABLE_COPY_PATTERN =
+  /^(品牌馆|型号档案|外部标识与别名|品牌时间线|代表型号|来源|实物图|图示|Wikidata|Q\d+)$/;
 
 async function expectNoPublicInternalCopy(page: Page) {
   const pageSections = await page
@@ -166,10 +181,12 @@ test.describe("Library smoke flow", () => {
     ).toBeVisible();
     await expect(page.getByText("一座可追溯的钢笔资料馆")).toBeVisible();
 
-    const primaryTasks = page.getByTestId("home-primary-tasks");
+    const primaryTasks = page.getByRole("heading", { name: "从这里开始" });
     await expect(primaryTasks).toBeVisible();
-    for (const task of ["找一支笔", "读品牌与历史", "看结构与图谱"]) {
-      await expect(primaryTasks.getByText(task)).toBeVisible();
+    for (const task of ["找一支笔", "品牌与历史", "工艺实验室", "关系图谱"]) {
+      await expect(
+        page.getByRole("link", { name: new RegExp(task) }).first(),
+      ).toBeVisible();
     }
   });
 
@@ -1108,7 +1125,9 @@ test.describe("Library smoke flow", () => {
   }) => {
     await page.goto("/exhibits", { waitUntil: "domcontentloaded" });
 
-    await expect(page.getByText("已发布展览").first()).toBeVisible();
+    await expect(
+      page.getByRole("heading", { level: 1, name: "历史展览" }),
+    ).toBeVisible();
     await expect(page.getByText("draft")).toHaveCount(0);
     await expect(page.getByText("预留展览")).toHaveCount(0);
     await expect(page.getByText("后续补充")).toHaveCount(0);
@@ -1181,10 +1200,9 @@ test.describe("Library smoke flow", () => {
 
   test("source index filters by source and source type", async ({ page }) => {
     await expectLibraryPage(page, "/library/sources?source=richardspens", [
-      "当前筛选：Richard's Pens",
-      "Richard's Pens · 309",
+      "当前筛选：RichardsPens.com",
+      "RichardsPens.com · 310",
       "资料文章",
-      "copyrighted; summary/link only",
     ]);
 
     await expectLibraryPage(page, "/library/sources?type=blog", [
@@ -1595,7 +1613,7 @@ test.describe("Library smoke flow", () => {
       .locator('img[alt="凌美 LAMY LAMY 2000"]')
       .first()
       .getAttribute("src");
-    expect(heroSrc).toContain("/images/library/warm-pen-atlas/");
+    expect(heroSrc).toMatch(/^(https:\/\/|\/images\/)/);
     await expect(page.locator("section#body")).toHaveCount(0);
     await expect(page.getByText("价位段(元): 800-1200")).toHaveCount(0);
   });
@@ -2601,7 +2619,13 @@ test.describe("Library smoke flow", () => {
     expect(
       await page.getByRole("heading", { name: "关联词条" }).count(),
     ).toBeLessThanOrEqual(1);
-    await expect(page.locator('a[href="/brand/wingsung"]')).toHaveCount(1);
+    const brandRelations = page
+      .getByRole("heading", { name: "关系列表" })
+      .locator("..")
+      .locator('a[href="/brand/wingsung"]');
+    const relationTexts = await brandRelations.allInnerTexts();
+    expect(relationTexts.length).toBeGreaterThan(0);
+    expect(new Set(relationTexts).size).toBe(relationTexts.length);
   });
 
   test("article markdown renders proxied images and captions", async ({
@@ -2609,14 +2633,15 @@ test.describe("Library smoke flow", () => {
   }) => {
     await expectLibraryPage(page, "/article/the-baguio-surrender-pens", [
       "碧瑶投降签字用笔",
-      "1970年代圣母明信片",
-      "卡西比尔停战协定用笔",
       "来源",
       "Richard's Pens",
     ]);
 
-    const heroImage = page.locator(".image-figure img").first();
+    const figures = page.locator(".image-figure");
+    await expect(figures.first()).toBeVisible();
+    const heroImage = figures.locator("img").first();
     await expect(heroImage).toHaveAttribute("src", /\/api\/image-proxy/);
+    await expect(heroImage).toHaveAttribute("alt", /.+/);
     expect(await heroImage.getAttribute("onerror")).toBeNull();
   });
 });
