@@ -1,6 +1,12 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { buildSystemPrompt, retrieveContext } from "@/lib/ai/chat-pipeline";
 
+export async function GET() {
+  return NextResponse.json({
+    configured: Boolean(process.env.OPENAI_API_KEY),
+  });
+}
+
 export async function POST(request: NextRequest) {
   const body = await request.json();
   const { messages } = body;

@@ -103,6 +103,16 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
                 unoptimized
               />
             </div>
+            <figcaption
+              className="border-t px-3 py-2 text-xs"
+              style={{
+                borderColor: "var(--color-border-light)",
+                color: "var(--color-ink-muted)",
+              }}
+            >
+              实物图：{productImage.title}
+              {productImage.source_name ? `｜${productImage.source_name}` : ""}
+            </figcaption>
           </figure>
         )}
 

@@ -10,6 +10,7 @@ interface FacetPanelProps {
   facets: Record<string, FacetOption[]>;
   activeFilters: Record<string, string>;
   onFilterChange: (dimension: string, slug: string | null) => void;
+  showTitle?: boolean;
 }
 
 const DIM_LABELS: Record<string, string> = {
@@ -25,16 +26,73 @@ const DIM_LABELS: Record<string, string> = {
   style: "风格",
   ink_type: "墨水类型",
   body_material: "笔身材质",
+  max_price: "预算",
 };
+
+const SEMANTIC_VALUE_LABELS: Record<string, string> = {
+  "nib_material:gold": "所有金尖",
+  "max_price:500": "¥500 以内",
+};
+
+export function getActiveFilterLabel(
+  dimension: string,
+  value: string,
+  facets?: Record<string, FacetOption[]>,
+): string {
+  const optionName = facets?.[dimension]?.find(
+    (option) => option.slug === value,
+  )?.name;
+  return (
+    SEMANTIC_VALUE_LABELS[`${dimension}:${value}`] ||
+    `${DIM_LABELS[dimension] || dimension}：${optionName || value}`
+  );
+}
 
 export function FacetPanel({
   facets,
   activeFilters,
   onFilterChange,
+  showTitle = true,
 }: FacetPanelProps) {
   return (
     <div className="space-y-4">
-      <h2 className="text-lg font-semibold text-ink">筛选</h2>
+      {showTitle && <h2 className="text-lg font-semibold text-ink">筛选</h2>}
+
+      {Object.entries(activeFilters).some(
+        ([dimension, value]) =>
+          !!SEMANTIC_VALUE_LABELS[`${dimension}:${value}`],
+      ) && (
+        <div
+          className="rounded-lg border p-3"
+          style={{
+            borderColor: "var(--color-border)",
+            backgroundColor: "var(--color-accent-light)",
+          }}
+        >
+          <p className="mb-2 text-xs font-medium">当前语义条件</p>
+          <div className="flex flex-wrap gap-2">
+            {Object.entries(activeFilters).map(([dimension, value]) => {
+              const label = SEMANTIC_VALUE_LABELS[`${dimension}:${value}`];
+              if (!label) return null;
+              return (
+                <button
+                  key={`${dimension}-${value}`}
+                  type="button"
+                  onClick={() => onFilterChange(dimension, null)}
+                  className="rounded-full px-2.5 py-1 text-xs"
+                  style={{
+                    backgroundColor: "var(--color-surface-raised)",
+                    color: "var(--color-accent)",
+                  }}
+                  aria-label={`清除${label}筛选`}
+                >
+                  {label} ×
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       {Object.entries(facets).map(([dim, options]) => {
         if (options.length === 0) return null;
@@ -46,21 +104,19 @@ export function FacetPanel({
             open={isActive || options.length <= 8}
             className="group"
           >
-            <summary className="cursor-pointer text-sm font-medium text-ink-light mb-2 select-none">
+            <summary className="min-h-11 cursor-pointer select-none py-2 text-sm font-medium text-ink-light">
               {DIM_LABELS[dim] || dim}
-              {isActive && (
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    onFilterChange(dim, null);
-                  }}
-                  className="ml-2 text-xs text-red-500 hover:text-red-700"
-                >
-                  ✕ 清除
-                </button>
-              )}
             </summary>
+            {isActive && (
+              <button
+                type="button"
+                onClick={() => onFilterChange(dim, null)}
+                className="mb-2 min-h-11 rounded-lg px-2 text-xs text-red-600 hover:text-red-800"
+                aria-label={`清除${DIM_LABELS[dim] || dim}筛选`}
+              >
+                ✕ 清除当前条件
+              </button>
+            )}
             <div className="space-y-1 ml-2">
               {options.map((opt) => {
                 const disabled = opt.count === 0;
@@ -68,7 +124,7 @@ export function FacetPanel({
                 return (
                   <label
                     key={opt.slug}
-                    className={`flex items-center gap-2 group/item ${
+                    className={`flex min-h-11 items-center gap-2 group/item ${
                       disabled
                         ? "cursor-not-allowed opacity-45"
                         : "cursor-pointer"

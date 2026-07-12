@@ -3,11 +3,18 @@
 import {
   ArrowLeft,
   ChatCircleDots,
+  MagnifyingGlass,
   PaperPlaneRight,
   Sparkle,
 } from "@phosphor-icons/react";
 import Link from "next/link";
-import { type ReactNode, useCallback, useRef, useState } from "react";
+import {
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 interface Message {
   id: string;
@@ -29,14 +36,30 @@ export default function ChatPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [configured, setConfigured] = useState<boolean | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let mounted = true;
+    fetch("/api/chat")
+      .then((res) => res.json())
+      .then((data) => {
+        if (mounted) setConfigured(Boolean(data.configured));
+      })
+      .catch(() => {
+        if (mounted) setConfigured(false);
+      });
+    return () => {
+      mounted = false;
+    };
+  }, []);
 
   const scrollToBottom = useCallback(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, []);
 
   const handleSend = useCallback(async () => {
-    if (!input.trim() || loading) return;
+    if (!input.trim() || loading || configured !== true) return;
 
     const userMessage = createMessage("user", input.trim());
     const newMessages = [...messages, userMessage];
@@ -109,7 +132,7 @@ export default function ChatPage() {
       setLoading(false);
       setTimeout(scrollToBottom, 100);
     }
-  }, [input, loading, messages, scrollToBottom]);
+  }, [configured, input, loading, messages, scrollToBottom]);
 
   const renderContent = (content: string) => {
     const parts = content.split(/(\[[^\]]+\]\([^)]+\))/g);
@@ -172,28 +195,56 @@ export default function ChatPage() {
             <p className="text-lg mb-2" style={{ color: "var(--color-ink)" }}>
               你好！我是钢笔知识图谱的 AI 助手
             </p>
-            <p
-              className="text-sm mb-6"
-              style={{ color: "var(--color-ink-muted)" }}
-            >
-              试试问我：
-            </p>
-            <div className="space-y-2">
-              {EXAMPLE_QUESTIONS.map((q) => (
-                <button
-                  key={q}
-                  type="button"
-                  onClick={() => setInput(q)}
-                  className="block mx-auto px-4 py-2 text-sm rounded-full transition-colors btn-press"
+            {configured === false ? (
+              <div className="mx-auto max-w-md">
+                <p
+                  className="text-sm"
+                  style={{ color: "var(--color-ink-muted)" }}
+                >
+                  当前部署没有配置 AI
+                  服务。为了避免给出无来源回答，这里暂时关闭提问入口。
+                </p>
+                <Link
+                  href="/search"
+                  className="mt-5 inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-medium"
                   style={{
-                    backgroundColor: "var(--color-surface-dim)",
-                    color: "var(--color-ink-light)",
+                    borderColor: "var(--color-border)",
+                    backgroundColor: "var(--color-surface-raised)",
+                    color: "var(--color-accent)",
                   }}
                 >
-                  {q}
-                </button>
-              ))}
-            </div>
+                  <MagnifyingGlass size={16} />
+                  改用资料馆搜索
+                </Link>
+              </div>
+            ) : (
+              <>
+                <p
+                  className="text-sm mb-6"
+                  style={{ color: "var(--color-ink-muted)" }}
+                >
+                  {configured === null ? "正在检查 AI 服务..." : "试试问我："}
+                </p>
+                <div className="space-y-2">
+                  {EXAMPLE_QUESTIONS.map((q) => (
+                    <button
+                      key={q}
+                      type="button"
+                      onClick={() => setInput(q)}
+                      disabled={configured !== true}
+                      className="block mx-auto px-4 py-2 text-sm rounded-full transition-colors btn-press disabled:cursor-not-allowed"
+                      style={{
+                        backgroundColor: "var(--color-surface-dim)",
+                        color: "var(--color-ink-light)",
+                        opacity: configured === true ? 1 : 0.55,
+                      }}
+                    >
+                      {q}
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         )}
 
@@ -262,16 +313,16 @@ export default function ChatPage() {
             border: "1px solid var(--color-border)",
             color: "var(--color-ink)",
           }}
-          disabled={loading}
+          disabled={loading || configured !== true}
         />
         <button
           type="button"
           onClick={handleSend}
-          disabled={loading || !input.trim()}
+          disabled={loading || configured !== true || !input.trim()}
           className="px-5 py-3 rounded-xl text-white transition-colors btn-press flex items-center gap-2"
           style={{
             backgroundColor: "var(--color-accent)",
-            opacity: loading || !input.trim() ? 0.5 : 1,
+            opacity: loading || configured !== true || !input.trim() ? 0.5 : 1,
           }}
         >
           <PaperPlaneRight size={16} />

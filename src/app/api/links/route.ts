@@ -2,6 +2,7 @@ import { nanoid } from "nanoid";
 import { type NextRequest, NextResponse } from "next/server";
 import { verifyWriteAccess } from "@/lib/admin-auth";
 import { execute, queryAll, queryOne } from "@/lib/db";
+import { publicEntityFilter } from "@/lib/public-visibility";
 
 // GET /api/links?entity_id=xxx&depth=1 — get all links for an entity
 // depth=2 also fetches links for each direct neighbor (2-hop expansion)
@@ -19,12 +20,23 @@ export async function GET(request: NextRequest) {
     );
   }
 
+  const center = await queryOne(
+    `SELECT e.id FROM entities e
+     WHERE e.id = ? AND ${publicEntityFilter("e")}`,
+    [entityId],
+  );
+  if (!center) {
+    return NextResponse.json({ error: "Entity not found" }, { status: 404 });
+  }
+
   // Forward links: entity is source
   const forward = await queryAll(
     `SELECT el.*, e.slug as target_slug, e.name as target_name, e.type as target_type
      FROM entity_links el
      JOIN entities e ON e.id = el.target_id
-     WHERE el.source_id = ? AND el.link_type != 'reverse'
+     WHERE el.source_id = ?
+       AND el.link_type != 'reverse'
+       AND ${publicEntityFilter("e")}
      ORDER BY el.created_at`,
     [entityId],
   );
@@ -34,7 +46,9 @@ export async function GET(request: NextRequest) {
     `SELECT el.*, e.slug as source_slug, e.name as source_name, e.type as source_type
      FROM entity_links el
      JOIN entities e ON e.id = el.source_id
-     WHERE el.target_id = ? AND el.link_type != 'reverse'
+     WHERE el.target_id = ?
+       AND el.link_type != 'reverse'
+       AND ${publicEntityFilter("e")}
      ORDER BY el.created_at`,
     [entityId],
   );
@@ -63,7 +77,9 @@ export async function GET(request: NextRequest) {
         `SELECT el.*, e.slug as target_slug, e.name as target_name, e.type as target_type
          FROM entity_links el
          JOIN entities e ON e.id = el.target_id
-         WHERE el.source_id IN (${placeholders}) AND el.link_type != 'reverse'
+         WHERE el.source_id IN (${placeholders})
+           AND el.link_type != 'reverse'
+           AND ${publicEntityFilter("e")}
          ORDER BY el.created_at`,
         neighbors,
       );
@@ -71,7 +87,9 @@ export async function GET(request: NextRequest) {
         `SELECT el.*, e.slug as source_slug, e.name as source_name, e.type as source_type
          FROM entity_links el
          JOIN entities e ON e.id = el.source_id
-         WHERE el.target_id IN (${placeholders}) AND el.link_type != 'reverse'
+         WHERE el.target_id IN (${placeholders})
+           AND el.link_type != 'reverse'
+           AND ${publicEntityFilter("e")}
          ORDER BY el.created_at`,
         neighbors,
       );

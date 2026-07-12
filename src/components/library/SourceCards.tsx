@@ -3,6 +3,7 @@ import type { SourceItemRecord } from "@/lib/library";
 import {
   displayPublicSourceName,
   displayPublicSourceTitle,
+  isPlaceholderSourceUrl,
 } from "@/lib/publicText";
 
 const ITEM_TYPE_LABELS: Record<string, string> = {
@@ -89,69 +90,109 @@ export function SourceCards({ sources, variant = "cards" }: SourceCardsProps) {
         className="space-y-1.5 text-xs leading-relaxed"
         style={{ color: "var(--color-ink-muted)" }}
       >
-        {sources.map((source) => (
-          <li key={source.id} className="flex flex-wrap items-baseline gap-x-2">
-            <Link
-              href={source.url}
-              className="ink-underline font-medium"
-              style={{ color: "var(--color-ink-muted)" }}
+        {sources.map((source) => {
+          const placeholder = isPlaceholderSourceUrl(source.url);
+          return (
+            <li
+              key={source.id}
+              className="flex flex-wrap items-baseline gap-x-2"
             >
-              {displayPublicSourceTitle(source.title)}
-            </Link>
-            <span>
-              {displayPublicSourceName(source.source_name)}
-              {ITEM_TYPE_LABELS[source.item_type]
-                ? ` · ${ITEM_TYPE_LABELS[source.item_type]}`
-                : ""}
-            </span>
-            {source.reference_count > 0 && (
-              <span>引用 {source.reference_count}</span>
-            )}
-          </li>
-        ))}
+              {placeholder ? (
+                <span className="font-medium">
+                  {displayPublicSourceTitle(source.title)}
+                </span>
+              ) : (
+                <Link
+                  href={source.url}
+                  className="ink-underline font-medium"
+                  style={{ color: "var(--color-ink-muted)" }}
+                >
+                  {displayPublicSourceTitle(source.title)}
+                </Link>
+              )}
+              <span>
+                {placeholder
+                  ? "待补证线索"
+                  : displayPublicSourceName(source.source_name)}
+                {ITEM_TYPE_LABELS[source.item_type]
+                  ? ` · ${ITEM_TYPE_LABELS[source.item_type]}`
+                  : ""}
+              </span>
+              {source.reference_count > 0 && (
+                <span>引用 {source.reference_count}</span>
+              )}
+            </li>
+          );
+        })}
       </ul>
     );
   }
 
   return (
     <div className="grid gap-2">
-      {sources.map((source) => (
-        <Link
-          key={source.id}
-          href={source.url}
-          className="rounded-lg border p-3 transition-colors hover:bg-[var(--color-surface-dim)]"
-          style={{
-            borderColor: "var(--color-border-light)",
-            color: "var(--color-ink)",
-          }}
-        >
-          <div className="mb-1 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-            <span
-              className="text-xs font-medium"
-              style={{ color: "var(--color-accent)" }}
-            >
-              {displayPublicSourceName(source.source_name)}
-            </span>
-            <span
-              className="text-xs"
+      {sources.map((source) => {
+        const placeholder = isPlaceholderSourceUrl(source.url);
+        const content = (
+          <>
+            <div className="mb-1 flex flex-wrap items-baseline gap-x-2 gap-y-1">
+              <span
+                className="text-xs font-medium"
+                style={{ color: "var(--color-accent)" }}
+              >
+                {placeholder
+                  ? "待补证线索"
+                  : displayPublicSourceName(source.source_name)}
+              </span>
+              <span
+                className="text-xs"
+                style={{ color: "var(--color-ink-muted)" }}
+              >
+                {ITEM_TYPE_LABELS[source.item_type] || "资料"}
+              </span>
+            </div>
+            <div className="text-sm font-medium">
+              {displayPublicSourceTitle(source.title)}
+            </div>
+            <div
+              className="mt-1 flex flex-wrap gap-2 text-xs"
               style={{ color: "var(--color-ink-muted)" }}
             >
-              {ITEM_TYPE_LABELS[source.item_type] || "资料"}
-            </span>
-          </div>
-          <div className="text-sm font-medium">
-            {displayPublicSourceTitle(source.title)}
-          </div>
-          <div
-            className="mt-1 flex flex-wrap gap-2 text-xs"
-            style={{ color: "var(--color-ink-muted)" }}
+              {source.reference_count > 0 && (
+                <span>引用 {source.reference_count}</span>
+              )}
+            </div>
+          </>
+        );
+
+        if (placeholder) {
+          return (
+            <div
+              key={source.id}
+              className="rounded-lg border p-3"
+              style={{
+                borderColor: "var(--color-border-light)",
+                color: "var(--color-ink)",
+              }}
+            >
+              {content}
+            </div>
+          );
+        }
+
+        return (
+          <Link
+            key={source.id}
+            href={source.url}
+            className="rounded-lg border p-3 transition-colors hover:bg-[var(--color-surface-dim)]"
+            style={{
+              borderColor: "var(--color-border-light)",
+              color: "var(--color-ink)",
+            }}
           >
-            {source.reference_count > 0 && (
-              <span>引用 {source.reference_count}</span>
-            )}
-          </div>
-        </Link>
-      ))}
+            {content}
+          </Link>
+        );
+      })}
     </div>
   );
 }

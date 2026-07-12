@@ -20,30 +20,31 @@ import {
   getPublishedExhibits,
 } from "@/lib/library";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 600;
 
 export const metadata: Metadata = {
-  title: "钢笔图书馆 - 钢笔知识图谱",
+  title: "钢笔图书馆",
   description: "从品牌、型号、工艺、历史、图示和玩家口碑进入钢笔资料馆。",
+  alternates: { canonical: "/library" },
 };
 
 const MODULES = [
   {
     title: "品牌馆",
     desc: "按品牌进入展厅：身份卡、故事、时间线、代表型号和来源。",
-    href: "/browse",
+    href: "/browse?type=brand",
     Icon: Books,
   },
   {
     title: "型号档案",
     desc: "把每支笔拆成参数、历史背景、版本、图示和常见对比。",
-    href: "/browse",
+    href: "/browse?type=pen",
     Icon: PenNib,
   },
   {
     title: "工艺实验室",
     desc: "用机制图看懂笔尖、笔舌、上墨、材质和维护。",
-    href: "/timeline",
+    href: "/library/diagrams",
     Icon: Flask,
   },
   {
@@ -129,7 +130,7 @@ export default async function LibraryPage() {
       <div className="mb-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
         {[
           ["来源", stats.sources || 0],
-          ["Claims", stats.claims || 0],
+          ["事实与证据", stats.claims || 0],
           ["故事", stats.stories || 0],
           ["图示", stats.diagrams || 0],
           ["时间线", stats.events || 0],

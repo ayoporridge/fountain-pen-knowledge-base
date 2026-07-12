@@ -58,15 +58,52 @@ function ComparePage() {
 
   if (slugs.length === 0) {
     return (
-      <div className="max-w-4xl mx-auto py-8 px-4 text-center">
-        <h1 className="text-2xl font-bold mb-4">对比词条</h1>
-        <p className="text-ink-muted">请从词条页面添加对比项</p>
+      <div className="mx-auto max-w-4xl px-4 py-10">
         <Link
-          href="/browse"
-          className="text-accent hover:underline mt-4 inline-block"
+          href="/"
+          className="mb-6 inline-block text-sm"
+          style={{ color: "var(--color-ink-muted)" }}
         >
-          去浏览 →
+          ← 首页
         </Link>
+        <div
+          className="rounded-lg border p-6"
+          style={{
+            borderColor: "var(--color-border)",
+            backgroundColor: "var(--color-surface-raised)",
+          }}
+        >
+          <h1 className="mb-3 text-2xl font-bold">对比词条</h1>
+          <p className="mb-5" style={{ color: "var(--color-ink-muted)" }}>
+            从型号页加入 2 到 4
+            支笔后，这里会按摘要、规格、标签和来源线索并排比较。
+          </p>
+          <div className="grid gap-3 sm:grid-cols-3">
+            {[
+              ["浏览型号", "/browse?type=pen", "从型号档案加入对比项"],
+              ["按品牌找", "/by/brand", "先选品牌再进代表型号"],
+              ["看笔尖", "/by/nib", "按笔尖类型缩小范围"],
+            ].map(([label, href, desc]) => (
+              <Link
+                key={href}
+                href={href}
+                className="rounded-lg border p-4 transition-colors hover:bg-[var(--color-surface-dim)]"
+                style={{
+                  borderColor: "var(--color-border-light)",
+                  color: "var(--color-ink)",
+                }}
+              >
+                <div className="font-semibold">{label}</div>
+                <div
+                  className="mt-1 text-sm"
+                  style={{ color: "var(--color-ink-muted)" }}
+                >
+                  {desc}
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
     );
   }

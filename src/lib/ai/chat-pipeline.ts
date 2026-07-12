@@ -1,4 +1,5 @@
 import { queryAll, queryOne } from "@/lib/db";
+import { PUBLIC_ENTITY_FILTER_SQL } from "@/lib/public-visibility";
 
 interface ChatContext {
   entities: Array<{
@@ -39,6 +40,7 @@ export async function retrieveContext(query: string): Promise<ChatContext> {
      FROM entities_fts fts
      JOIN entities e ON e.rowid = fts.rowid
      WHERE entities_fts MATCH ?
+       AND ${PUBLIC_ENTITY_FILTER_SQL}
      ORDER BY rank
      LIMIT 20`,
     [ftsQuery],
@@ -88,13 +90,15 @@ export async function retrieveContext(query: string): Promise<ChatContext> {
 export async function buildSystemPrompt(context: ChatContext): Promise<string> {
   if (context.entities.length === 0) {
     const entityCount = (
-      (await queryOne("SELECT COUNT(*) as cnt FROM entities")) as {
+      (await queryOne(
+        `SELECT COUNT(*) as cnt FROM entities e WHERE ${PUBLIC_ENTITY_FILTER_SQL}`,
+      )) as {
         cnt: number;
       }
     ).cnt;
     return `你是"钢笔知识图谱"的 AI 助手。用户在浏览一个包含 ${entityCount} 个词条的钢笔知识图谱。
 
-当前查询没有找到匹配的词条。请基于你的钢笔知识回答用户的问题，并建议用户尝试不同的搜索词。`;
+当前查询没有找到匹配的词条。请坦诚说明资料馆暂时没有足够上下文，不要编造来源或确定事实，并建议用户尝试不同的搜索词。`;
   }
 
   const entitySummaries = context.entities
@@ -116,6 +120,6 @@ ${entitySummaries}
 - 推荐具体的词条和型号，引用词条名称
 - 如果数据中有属性（价位、材质、笔尖等），结合这些信息给出具体建议
 - 回答中提到词条时，用方括号标注：[词条名](/type/slug)
-- 如果数据不足以回答，坦诚说明并基于你的钢笔知识补充
+- 如果数据不足以回答，坦诚说明资料馆证据不足，不要把外部常识写成站内已核事实
 - 回答要简洁、实用，像一个懂笔的朋友在聊天`;
 }

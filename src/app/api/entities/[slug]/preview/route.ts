@@ -1,5 +1,6 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { queryAll, queryOne } from "@/lib/db";
+import { publicEntityFilter } from "@/lib/public-visibility";
 
 export async function GET(
   _request: NextRequest,
@@ -9,8 +10,19 @@ export async function GET(
 
   const entity = (await queryOne(
     `SELECT e.id, e.type, e.slug, e.name, e.summary,
-            (SELECT COUNT(*) FROM entity_links WHERE source_id = e.id OR target_id = e.id) as link_count
-     FROM entities e WHERE e.slug = ?`,
+            (
+              SELECT COUNT(*)
+              FROM entity_links preview_link
+              JOIN entities preview_neighbor ON preview_neighbor.id =
+                CASE
+                  WHEN preview_link.source_id = e.id THEN preview_link.target_id
+                  ELSE preview_link.source_id
+                END
+              WHERE (preview_link.source_id = e.id OR preview_link.target_id = e.id)
+                AND ${publicEntityFilter("preview_neighbor")}
+            ) as link_count
+     FROM entities e
+     WHERE e.slug = ? AND ${publicEntityFilter("e")}`,
     [slug],
   )) as Record<string, string | number | null> | undefined;
 

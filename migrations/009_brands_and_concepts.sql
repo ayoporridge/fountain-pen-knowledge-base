@@ -12,14 +12,14 @@
 -- ============================================================
 
 INSERT OR IGNORE INTO entities (id, type, slug, name, summary)
-  VALUES ('ce2dcqixqSCx', 'brand', 'sailor', '写乐 (Sailor)', '日本三大钢笔品牌之一，以笔尖调教闻名，长刀研是旗舰系列');
+  VALUES ('ce2dcqixqSCx', 'brand', 'sailor', '写乐 (Sailor)', '常与 Pilot、Platinum 并称日系三大钢笔品牌，以笔尖调校和特殊笔尖讨论闻名');
 INSERT OR IGNORE INTO entity_attributes (id, entity_id, key, value)
   VALUES ('N6jNTHgOjT1B', 'ce2dcqixqSCx', 'founded', '1911');
 INSERT OR IGNORE INTO entity_attributes (id, entity_id, key, value)
   VALUES ('rrcBLvtvfMhT', 'ce2dcqixqSCx', 'origin_country', '日本');
 
 INSERT OR IGNORE INTO entities (id, type, slug, name, summary)
-  VALUES ('e51tJpejEkXY', 'brand', 'platinum', '白金 (Platinum)', '日本三大钢笔品牌之一，3776系列性价比突出');
+  VALUES ('e51tJpejEkXY', 'brand', 'platinum', '白金 (Platinum)', '常与 Pilot、Sailor 并称日系三大钢笔品牌，3776 Century 因密封结构和入门金尖定位常被讨论');
 INSERT OR IGNORE INTO entity_attributes (id, entity_id, key, value)
   VALUES ('PQkPdp9eAy6j', 'e51tJpejEkXY', 'founded', '1919');
 INSERT OR IGNORE INTO entity_attributes (id, entity_id, key, value)
@@ -52,7 +52,7 @@ INSERT OR IGNORE INTO entity_attributes (id, entity_id, key, value)
   VALUES ('eJBk0RpMy5W9', 'VXUULuCOLOB1', 'origin_country', '德国');
 
 INSERT OR IGNORE INTO entities (id, type, slug, name, summary)
-  VALUES ('CJM8uLY0LmIX', 'brand', 'montblanc', '万宝龙 (Montblanc)', '德国奢侈品牌，大班 Meisterstück 是行业标杆');
+  VALUES ('CJM8uLY0LmIX', 'brand', 'montblanc', '万宝龙 (Montblanc)', '德国奢侈书写工具品牌，大班 Meisterstück 是正装钢笔讨论中的核心参照');
 INSERT OR IGNORE INTO entity_attributes (id, entity_id, key, value)
   VALUES ('82eyhaJSfcaf', 'CJM8uLY0LmIX', 'founded', '1906');
 INSERT OR IGNORE INTO entity_attributes (id, entity_id, key, value)
@@ -94,7 +94,7 @@ INSERT OR IGNORE INTO entity_attributes (id, entity_id, key, value)
   VALUES ('lnGQrYRLpZ3B', '4RLQzNpb6WbN', 'origin_country', '德国');
 
 INSERT OR IGNORE INTO entities (id, type, slug, name, summary)
-  VALUES ('vhqNYqDChhiN', 'brand', 'parker', '派克 (Parker)', '美国经典品牌，51 是史上最成功的钢笔');
+  VALUES ('vhqNYqDChhiN', 'brand', 'parker', '派克 (Parker)', '美国经典品牌，Parker 51 常被视为 20 世纪最重要、最成功的钢笔之一');
 INSERT OR IGNORE INTO entity_attributes (id, entity_id, key, value)
   VALUES ('Huz4oPNkdu2s', 'vhqNYqDChhiN', 'founded', '1888');
 INSERT OR IGNORE INTO entity_attributes (id, entity_id, key, value)
@@ -233,7 +233,7 @@ INSERT OR IGNORE INTO entity_attributes (id, entity_id, key, value)
   VALUES ('fu3qAieE0KtG', 'Yulxwu7PuQAU', 'origin_country', '中国');
 
 INSERT OR IGNORE INTO entities (id, type, slug, name, summary)
-  VALUES ('TfXerdAZ5iWg', 'brand', 'majohn', '末匠 (Majohn)', '中国品牌（原名 Moonman），A1 按动笔开创国产先河');
+  VALUES ('TfXerdAZ5iWg', 'brand', 'majohn', '末匠 (Majohn)', '中国品牌（原名 Moonman），A1 是现代低价国产按动钢笔的代表入口');
 INSERT OR IGNORE INTO entity_attributes (id, entity_id, key, value)
   VALUES ('joQFpSrKwrjn', 'TfXerdAZ5iWg', 'origin_country', '中国');
 
@@ -277,7 +277,7 @@ INSERT OR IGNORE INTO entity_attributes (id, entity_id, key, value)
   VALUES ('jRHBVV1Qn4gB', 'sBV7J5ZK4msi', 'origin_country', '中国');
 
 INSERT OR IGNORE INTO entities (id, type, slug, name, summary)
-  VALUES ('70VSUqdIrGVc', 'brand', 'mg', '晨光 (M&G)', '中国最大文具品牌，按动钢笔是入门产品');
+  VALUES ('70VSUqdIrGVc', 'brand', 'mg', '晨光 (M&G)', '中国大型文具品牌，按动钢笔更接近学生和入门文具线');
 INSERT OR IGNORE INTO entity_attributes (id, entity_id, key, value)
   VALUES ('sJ70a92c5iRZ', '70VSUqdIrGVc', 'founded', '1996');
 INSERT OR IGNORE INTO entity_attributes (id, entity_id, key, value)

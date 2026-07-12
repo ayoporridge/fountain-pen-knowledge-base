@@ -2,6 +2,7 @@ import { nanoid } from "nanoid";
 import { type NextRequest, NextResponse } from "next/server";
 import { verifyWriteAccess } from "@/lib/admin-auth";
 import { execute, queryAll, queryOne } from "@/lib/db";
+import { publicEntityFilter } from "@/lib/public-visibility";
 
 // GET /api/entities/[slug]/tags
 export async function GET(
@@ -10,9 +11,11 @@ export async function GET(
 ) {
   const { slug } = await params;
 
-  const entity = (await queryOne("SELECT id FROM entities WHERE slug = ?", [
-    slug,
-  ])) as { id: string } | undefined;
+  const entity = (await queryOne(
+    `SELECT e.id FROM entities e
+     WHERE e.slug = ? AND ${publicEntityFilter("e")}`,
+    [slug],
+  )) as { id: string } | undefined;
 
   if (!entity) {
     return NextResponse.json({ error: "Entity not found" }, { status: 404 });

@@ -131,6 +131,17 @@ export function displayPublicSourceName(value: unknown) {
   return text;
 }
 
+export function isPlaceholderSourceUrl(value: unknown) {
+  const raw = String(value || "");
+  if (!raw) return false;
+  try {
+    const url = new URL(raw);
+    return /(^|\.)bing\.com$/i.test(url.hostname);
+  } catch {
+    return /bing\.com\/search/i.test(raw);
+  }
+}
+
 export function displayPublicSourceTitle(value: unknown) {
   const text = String(value || "")
     .replace(/^Research index:\s*/i, "公开资料检索：")

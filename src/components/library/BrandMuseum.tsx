@@ -150,7 +150,7 @@ export async function BrandMuseum({
       </div>
 
       <div
-        id="sources"
+        id="models"
         className="library-panel p-5"
         style={{
           borderColor: "var(--color-border)",
@@ -195,6 +195,7 @@ export async function BrandMuseum({
       </div>
 
       <div
+        id="sources"
         className="library-panel p-5"
         style={{
           borderColor: "var(--color-border)",

@@ -6,9 +6,14 @@ type EntityVisibilityInput = {
   body_md?: string | null;
 };
 
-const HIDDEN_BRAND_SLUGS = ["banju", "saier", "shanghai", "yongxu"] as const;
+export const HIDDEN_BRAND_SLUGS = [
+  "banju",
+  "saier",
+  "shanghai",
+  "yongxu",
+] as const;
 
-const INDEX_ARTICLE_MARKERS = [
+export const INDEX_ARTICLE_MARKERS = [
   "品牌资料索引",
   "品牌索引",
   "品牌泛称",
@@ -18,28 +23,43 @@ const INDEX_ARTICLE_MARKERS = [
   "索引条目",
 ];
 
-const quotedHiddenBrandSlugs = HIDDEN_BRAND_SLUGS.map(
-  (slug) => `'${slug}'`,
-).join(", ");
+function quoteSqlLiteral(value: string): string {
+  return `'${value.replaceAll("'", "''")}'`;
+}
 
-const articleMarkerSql = INDEX_ARTICLE_MARKERS.map(
-  (marker) => `
-        COALESCE(e.name, '') LIKE '%${marker}%'
-        OR COALESCE(e.summary, '') LIKE '%${marker}%'
-        OR COALESCE(e.body_md, '') LIKE '%${marker}%'`,
-).join("\n        OR ");
+/**
+ * SQL fragment for the site's public-entity policy.
+ *
+ * The alias is restricted to a plain SQL identifier so callers can safely use
+ * the same policy in joins without copying (and eventually drifting from) the
+ * hidden-content rules.
+ */
+export function publicEntityFilter(alias = "e"): string {
+  if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(alias)) {
+    throw new Error(`Invalid entity SQL alias: ${alias}`);
+  }
 
-export const PUBLIC_ENTITY_FILTER_SQL = `
-  NOT (
-    (e.type = 'brand' AND e.slug IN (${quotedHiddenBrandSlugs}))
+  const hiddenBrandSlugs = HIDDEN_BRAND_SLUGS.map(quoteSqlLiteral).join(", ");
+  const articleMarkerSql = INDEX_ARTICLE_MARKERS.map((marker) => {
+    const pattern = quoteSqlLiteral(`%${marker}%`);
+    return `COALESCE(${alias}.name, '') LIKE ${pattern}
+        OR COALESCE(${alias}.summary, '') LIKE ${pattern}
+        OR COALESCE(${alias}.body_md, '') LIKE ${pattern}`;
+  }).join("\n        OR ");
+
+  return `NOT (
+    (${alias}.type = 'brand' AND ${alias}.slug IN (${hiddenBrandSlugs}))
     OR (
-      e.type = 'article'
+      ${alias}.type = 'article'
       AND (
         ${articleMarkerSql}
       )
     )
-  )
-`;
+  )`;
+}
+
+/** @deprecated Prefer publicEntityFilter(alias) in new queries. */
+export const PUBLIC_ENTITY_FILTER_SQL = publicEntityFilter("e");
 
 export function isPublicEntity(entity: EntityVisibilityInput): boolean {
   const type = String(entity.type || "");

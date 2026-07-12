@@ -1,7 +1,6 @@
 import {
   ArrowRight,
   Books,
-  Compass,
   Flask,
   Graph,
   PenNib,
@@ -11,18 +10,21 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import BentoGrid from "@/components/BentoGrid";
+import { EntityCardImage } from "@/components/EntityCardImage";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { SearchBox } from "@/components/SearchBox";
-import { TYPE_ICONS, TYPE_LABELS } from "@/lib/constants";
+import { TYPE_LABELS } from "@/lib/constants";
 import { queryAll } from "@/lib/db";
+import { getPublicMediaUrl } from "@/lib/media-url";
 import { PUBLIC_ENTITY_FILTER_SQL } from "@/lib/public-visibility";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 600;
 
 export const metadata: Metadata = {
-  title: "钢笔图书馆 - 钢笔知识图谱",
+  title: "钢笔图书馆",
   description:
     "一座可追溯的钢笔资料馆：从品牌、型号、工艺、历史展览和关系图谱进入钢笔世界。",
+  alternates: { canonical: "/" },
 };
 
 // Star entries per type — queried from DB at build time
@@ -30,7 +32,7 @@ export const metadata: Metadata = {
 const HERO_QUESTIONS = [
   {
     q: "500 以内，日系金尖有哪些选择？",
-    href: "/search?q=日系+金尖+500",
+    href: "/browse?type=pen&origin=origin-japan&nib_material=gold&max_price=500",
   },
   {
     q: "活塞上墨和旋转上墨到底有什么区别？",
@@ -38,43 +40,22 @@ const HERO_QUESTIONS = [
   },
   {
     q: "百乐 823 和 743 怎么选？",
-    href: "/search?q=百乐+823+743",
-  },
-];
-
-const PRIMARY_TASKS = [
-  {
-    title: "找一支笔",
-    desc: "从预算、用途、笔尖和产地开始缩小范围。",
-    href: "/browse?type=pen",
-    Icon: PenNib,
-  },
-  {
-    title: "读品牌与历史",
-    desc: "进入品牌馆和历史展览，沿着时间线理解一支笔的来处。",
-    href: "/library",
-    Icon: Books,
-  },
-  {
-    title: "看结构与图谱",
-    desc: "用机制图、来源卡和关系图谱拆开型号之间的联系。",
-    href: "/library/diagrams",
-    Icon: Graph,
+    href: "/compare?items=pilot-custom-823,%E7%99%BE%E4%B9%90-pilot-custom-743",
   },
 ];
 
 const TASK_ENTRIES = [
   {
-    title: "品牌馆",
-    desc: "按品牌进入身份卡、故事、代表型号和来源。",
-    href: "/browse?type=brand",
-    Icon: Books,
-  },
-  {
-    title: "型号档案",
-    desc: "把每支笔拆成参数、历史背景、版本和常见对比。",
+    title: "找一支笔",
+    desc: "从预算、产地、笔尖和用途开始缩小范围。",
     href: "/browse?type=pen",
     Icon: PenNib,
+  },
+  {
+    title: "品牌与历史",
+    desc: "沿品牌馆和策展路径理解一支笔的来处。",
+    href: "/library",
+    Icon: Books,
   },
   {
     title: "工艺实验室",
@@ -83,14 +64,27 @@ const TASK_ENTRIES = [
     Icon: Flask,
   },
   {
-    title: "历史展览",
-    desc: "策展式阅读路径，串联品牌、型号、工艺与时代。",
-    href: "/exhibits",
-    Icon: Compass,
+    title: "关系图谱",
+    desc: "从一个型号出发，查看品牌、系列和工艺联系。",
+    href: "/graph",
+    Icon: Graph,
   },
 ];
 
 export default async function Home() {
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "钢笔知识图谱",
+    url: "https://fountain-pen-graph.vercel.app/",
+    description: "一座可追溯、可漫游的钢笔资料馆。",
+    potentialAction: {
+      "@type": "SearchAction",
+      target:
+        "https://fountain-pen-graph.vercel.app/search?q={search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
+  };
   // Stats
   const stats = (await queryAll(
     `SELECT type, COUNT(*) as cnt
@@ -104,17 +98,29 @@ export default async function Home() {
   const featured = (await queryAll(
     `SELECT e.type, e.name, e.slug, e.summary,
             (
-              SELECT COALESCE(ma.thumbnail_url, ma.image_url)
+              SELECT ma.id
               FROM media_assets ma
               WHERE ma.entity_id = e.id
                 AND ma.asset_type = 'image'
-                AND ma.image_url IS NOT NULL
+                AND (ma.local_path IS NOT NULL OR ma.image_url IS NOT NULL)
                 AND ma.review_status = 'approved'
                 AND ma.usage_status IN ('primary', 'gallery')
               ORDER BY CASE ma.usage_status WHEN 'primary' THEN 0 ELSE 1 END,
                        ma.created_at DESC
               LIMIT 1
-            ) as image_url,
+            ) as media_id,
+            (
+              SELECT COALESCE(ma.local_path, ma.thumbnail_url, ma.image_url)
+              FROM media_assets ma
+              WHERE ma.entity_id = e.id
+                AND ma.asset_type = 'image'
+                AND (ma.local_path IS NOT NULL OR ma.image_url IS NOT NULL)
+                AND ma.review_status = 'approved'
+                AND ma.usage_status IN ('primary', 'gallery')
+              ORDER BY CASE ma.usage_status WHEN 'primary' THEN 0 ELSE 1 END,
+                       ma.created_at DESC
+              LIMIT 1
+            ) as media_url,
             COUNT(DISTINCT et.tag_id) as tag_count
      FROM entities e
      LEFT JOIN entity_tags et ON et.entity_id = e.id
@@ -128,7 +134,8 @@ export default async function Home() {
     name: string;
     slug: string;
     summary: string | null;
-    image_url: string | null;
+    media_id: string | null;
+    media_url: string | null;
     tag_count: number;
   }>;
 
@@ -177,6 +184,11 @@ export default async function Home() {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: fixed site JSON-LD contains no user input
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
       {/* ── Hero: library-first entry ── */}
       <section
         className="relative mb-10 min-h-[470px] overflow-hidden rounded-lg border animate-ink-bleed ink-bleed-stagger"
@@ -268,49 +280,11 @@ export default async function Home() {
       </div>
 
       <ScrollReveal stagger className="mb-16">
-        <div
-          data-testid="home-primary-tasks"
-          className="grid grid-cols-1 gap-3 sm:grid-cols-3"
-        >
-          {PRIMARY_TASKS.map(({ title, desc, href, Icon }) => (
-            <Link
-              key={title}
-              href={href}
-              className="library-panel group flex min-h-32 items-start gap-4 p-4 card-hover"
-              style={{
-                borderColor: "var(--color-border)",
-                backgroundColor: "var(--color-surface-raised)",
-              }}
-            >
-              <span
-                className="mb-3 inline-flex h-9 w-9 items-center justify-center rounded-lg"
-                style={{
-                  backgroundColor: "var(--color-accent-light)",
-                  color: "var(--color-accent)",
-                }}
-              >
-                <Icon size={18} weight="duotone" />
-              </span>
-              <div>
-                <h2 className="mb-1 text-base font-semibold">{title}</h2>
-                <p
-                  className="m-0 text-sm leading-relaxed"
-                  style={{ color: "var(--color-ink-muted)" }}
-                >
-                  {desc}
-                </p>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </ScrollReveal>
-
-      <ScrollReveal stagger className="mb-16">
         <h2
           className="text-xl font-semibold tracking-tight mb-6"
           style={{ color: "var(--color-ink)" }}
         >
-          馆区入口
+          从这里开始
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
           {TASK_ENTRIES.map(({ title, desc, href, Icon }) => (
@@ -386,7 +360,6 @@ export default async function Home() {
           }}
         >
           {featured.map((entity) => {
-            const Icon = TYPE_ICONS[entity.type] || PenNib;
             return (
               <Link
                 key={entity.slug}
@@ -394,19 +367,17 @@ export default async function Home() {
                 className="flex items-center gap-4 px-5 py-3.5 transition-colors hover:bg-[var(--color-surface-dim)] ink-underline"
                 style={{ borderColor: "var(--color-border-light)" }}
               >
-                {entity.image_url ? (
-                  <Image
-                    src={String(entity.image_url)}
-                    alt={String(entity.name)}
-                    width={40}
-                    height={40}
-                    className="w-10 h-10 rounded-lg object-cover flex-shrink-0"
+                <span className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-lg">
+                  <EntityCardImage
+                    compact
+                    src={getPublicMediaUrl({
+                      id: entity.media_id,
+                      imageUrl: entity.media_url,
+                    })}
+                    name={entity.name}
+                    type={entity.type}
                   />
-                ) : (
-                  <span style={{ color: "var(--color-accent)", flexShrink: 0 }}>
-                    <Icon size={16} weight="duotone" />
-                  </span>
-                )}
+                </span>
                 <div className="flex-1 min-w-0">
                   <span
                     className="font-medium truncate block"

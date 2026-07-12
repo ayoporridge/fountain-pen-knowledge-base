@@ -2,6 +2,7 @@ import { nanoid } from "nanoid";
 import { type NextRequest, NextResponse } from "next/server";
 import { verifyWriteAccess } from "@/lib/admin-auth";
 import { execute, queryAll, queryOne } from "@/lib/db";
+import { publicEntityFilter } from "@/lib/public-visibility";
 
 // GET /api/entities?type=pen
 export async function GET(request: NextRequest) {
@@ -14,7 +15,7 @@ export async function GET(request: NextRequest) {
       `SELECT e.*, GROUP_CONCAT(ea.key || '::' || ea.value, '||') as attrs_raw
        FROM entities e
        LEFT JOIN entity_attributes ea ON ea.entity_id = e.id
-       WHERE e.type = ?
+       WHERE e.type = ? AND ${publicEntityFilter("e")}
        GROUP BY e.id
        ORDER BY e.name`,
       [type],
@@ -24,6 +25,7 @@ export async function GET(request: NextRequest) {
       `SELECT e.*, GROUP_CONCAT(ea.key || '::' || ea.value, '||') as attrs_raw
        FROM entities e
        LEFT JOIN entity_attributes ea ON ea.entity_id = e.id
+       WHERE ${publicEntityFilter("e")}
        GROUP BY e.id
        ORDER BY e.name`,
     );
