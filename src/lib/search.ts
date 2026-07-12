@@ -160,14 +160,54 @@ function ftsQuery(terms: string[]): string {
   return terms.map((term) => `"${term.replaceAll('"', '""')}"`).join(" OR ");
 }
 
+function errorChainContainsMissingFtsTable(error: unknown): boolean {
+  let current: unknown = error;
+  const visited = new Set<unknown>();
+
+  while (current && !visited.has(current)) {
+    visited.add(current);
+    if (
+      current instanceof Error &&
+      /(?:SQLite error:\s*)?no such table:\s*entities_fts\b/i.test(
+        current.message,
+      )
+    ) {
+      return true;
+    }
+    if (typeof current !== "object") return false;
+    current = "cause" in current ? current.cause : undefined;
+  }
+
+  return false;
+}
+
+/**
+ * Older Turso databases may not have the optional local FTS table. Only that
+ * exact schema gap may use the parameterized LIKE fallback; all other database
+ * failures remain visible to callers and production monitoring.
+ */
+export async function withEntitiesFtsFallback<T>(
+  primary: () => Promise<T>,
+  fallback: () => Promise<T>,
+): Promise<T> {
+  try {
+    return await primary();
+  } catch (error) {
+    if (!errorChainContainsMissingFtsTable(error)) throw error;
+    return fallback();
+  }
+}
+
 export async function searchPublicEntities({
   query,
   page = 1,
   limit = 20,
+  queryRunner = queryAll,
 }: {
   query: string;
   page?: number;
   limit?: number;
+  queryRunner?: typeof queryAll;
 }): Promise<PublicSearchResponse> {
   const safeQuery = query.trim().slice(0, 100);
   const safePage = Math.max(page || 1, 1);
@@ -186,39 +226,46 @@ export async function searchPublicEntities({
     };
   }
 
-  const conditions = [publicEntityFilter("e")];
-  const params: unknown[] = [];
+  const baseConditions = [publicEntityFilter("e")];
+  const baseParams: unknown[] = [];
   if (intent.filters.type) {
-    conditions.push("e.type = ?");
-    params.push(intent.filters.type);
+    baseConditions.push("e.type = ?");
+    baseParams.push(intent.filters.type);
   }
   const tagFilters = buildTagFilterSql(getTagFilterGroups(intent.filters), "e");
-  conditions.push(...tagFilters.sql);
-  params.push(...tagFilters.params);
+  baseConditions.push(...tagFilters.sql);
+  baseParams.push(...tagFilters.params);
 
-  if (intent.terms.length > 0) {
-    const termClauses: string[] = [];
-    for (const term of intent.terms) {
-      const like = `%${term}%`;
-      termClauses.push(`(
-        lower(e.name) LIKE ?
-        OR lower(e.slug) LIKE ?
-        OR EXISTS (
-          SELECT 1 FROM entity_aliases search_ea
-          WHERE search_ea.entity_id = e.id AND lower(search_ea.alias) LIKE ?
-        )
-      )`);
-      params.push(like, like, like);
+  const queryRows = async (includeFts: boolean) => {
+    const conditions = [...baseConditions];
+    const params = [...baseParams];
+    if (intent.terms.length > 0) {
+      const termClauses: string[] = [];
+      for (const term of intent.terms) {
+        const like = `%${term}%`;
+        termClauses.push(`(
+          lower(e.name) LIKE ?
+          OR lower(e.slug) LIKE ?
+          OR lower(COALESCE(e.summary, '')) LIKE ?
+          OR lower(COALESCE(e.body_md, '')) LIKE ?
+          OR EXISTS (
+            SELECT 1 FROM entity_aliases search_ea
+            WHERE search_ea.entity_id = e.id AND lower(search_ea.alias) LIKE ?
+          )
+        )`);
+        params.push(like, like, like, like, like);
+      }
+      if (includeFts) {
+        termClauses.push(
+          "e.rowid IN (SELECT rowid FROM entities_fts WHERE entities_fts MATCH ?)",
+        );
+        params.push(ftsQuery(intent.terms));
+      }
+      conditions.push(`(${termClauses.join(" OR ")})`);
     }
-    termClauses.push(
-      "e.rowid IN (SELECT rowid FROM entities_fts WHERE entities_fts MATCH ?)",
-    );
-    params.push(ftsQuery(intent.terms));
-    conditions.push(`(${termClauses.join(" OR ")})`);
-  }
 
-  const rows = (await queryAll(
-    `SELECT e.id, e.type, e.slug, e.name, e.summary, e.body_md, e.source,
+    return (await queryRunner(
+      `SELECT e.id, e.type, e.slug, e.name, e.summary, e.body_md, e.source,
             COUNT(*) OVER() as total_count,
             (SELECT GROUP_CONCAT(search_alias.alias, '||')
              FROM entity_aliases search_alias
@@ -227,19 +274,25 @@ export async function searchPublicEntities({
      FROM entities e
      WHERE ${conditions.join(" AND ")}
      LIMIT 500`,
-    params,
-  )) as Array<{
-    id: string;
-    type: string;
-    slug: string;
-    name: string;
-    summary: string | null;
-    body_md: string | null;
-    source: string | null;
-    aliases: string | null;
-    tag_count: number;
-    total_count: number;
-  }>;
+      params,
+    )) as Array<{
+      id: string;
+      type: string;
+      slug: string;
+      name: string;
+      summary: string | null;
+      body_md: string | null;
+      source: string | null;
+      aliases: string | null;
+      tag_count: number;
+      total_count: number;
+    }>;
+  };
+
+  const rows = await withEntitiesFtsFallback(
+    () => queryRows(true),
+    () => queryRows(false),
+  );
 
   const fullQuery = normalize(safeQuery);
   const scored = rows

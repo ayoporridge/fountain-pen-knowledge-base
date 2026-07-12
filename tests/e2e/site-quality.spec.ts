@@ -7,6 +7,10 @@ import {
   type MediaFetcher,
   type MediaHostResolver,
 } from "../../src/lib/media-url";
+import {
+  searchPublicEntities,
+  withEntitiesFtsFallback,
+} from "../../src/lib/search";
 
 const HIDDEN_BRAND_SLUGS = ["banju", "saier", "shanghai", "yongxu"];
 const GOLD_SLUGS = new Set([
@@ -206,6 +210,65 @@ test.describe("site quality contract", () => {
       `/api/search?q=${encodeURIComponent('" OR * NEAR (')}`,
     );
     expect(hostile.status()).toBeLessThan(500);
+  });
+
+  test("search only falls back for a missing entities FTS table", async ({
+    request: _request,
+  }, testInfo) => {
+    if (!desktopOnly(testInfo.project.name)) return;
+
+    const missingFts = Object.assign(
+      new Error("SQLite error: no such table: entities_fts"),
+      { code: "SQLITE_UNKNOWN" },
+    );
+    const attemptedSql: string[] = [];
+    const response = await searchPublicEntities({
+      query: "823",
+      queryRunner: async (sql) => {
+        attemptedSql.push(sql);
+        if (attemptedSql.length === 1) throw missingFts;
+        return [
+          {
+            id: "test-823",
+            type: "pen",
+            slug: "pilot-custom-823",
+            name: "百乐 Custom 823",
+            summary: "test",
+            body_md: "",
+            source: "test",
+            aliases: null,
+            tag_count: 1,
+            total_count: 1,
+          },
+        ];
+      },
+    });
+    expect(attemptedSql).toHaveLength(2);
+    expect(attemptedSql[0]).toContain("entities_fts MATCH");
+    expect(attemptedSql[1]).not.toContain("entities_fts MATCH");
+    expect(response.results.map((result) => result.slug)).toEqual([
+      "pilot-custom-823",
+    ]);
+
+    const fallbackResult = await withEntitiesFtsFallback(
+      async () => {
+        throw missingFts;
+      },
+      async () => ["parameterized-like-result"],
+    );
+    expect(fallbackResult).toEqual(["parameterized-like-result"]);
+
+    const unrelatedError = new Error(
+      "SQLite error: no such table: entity_tags",
+    );
+    await expect(
+      withEntitiesFtsFallback(
+        async () => {
+          throw unrelatedError;
+        },
+        async () => ["must-not-run"],
+      ),
+    ).rejects.toBe(unrelatedError);
   });
 
   test("browse uses OR inside semantic facets and ships server results", async ({
@@ -560,7 +623,16 @@ test.describe("site quality contract", () => {
       const second = await request.get(route);
       expect(first.ok()).toBeTruthy();
       expect(second.ok()).toBeTruthy();
-      expect(second.headers()["cache-control"]).toMatch(/s-maxage/);
+      const headers = second.headers();
+      if (headers["cache-control"]?.includes("s-maxage")) continue;
+
+      // Vercel consumes s-maxage at the edge and exposes the browser-safe
+      // remainder. In production, age or an edge HIT/STALE proves reuse.
+      expect(headers["cache-control"]).toContain("public");
+      expect(
+        Number.parseInt(headers.age || "", 10) >= 0 ||
+          /^(HIT|STALE)$/.test(headers["x-vercel-cache"] || ""),
+      ).toBeTruthy();
     }
   });
 
