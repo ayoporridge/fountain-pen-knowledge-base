@@ -4,8 +4,8 @@ plan: 260713-7u5
 slug: fountain-pen-graph-seo-vercel
 status: complete
 completed_at: 2026-07-13
-release_sha: be1cfa9005b19a85a9ca744a309f34c350287024
-deployment_id: dpl_Cpu8qUjGvvaEnvo19PpHKFvxjbh7
+release_sha: 264c1c2fb8e126fba07d8c541f0818385fe316c5
+deployment_id: dpl_68z7JdSwSu9nbjoQ8JQvaKnmR1ZY
 production_url: https://fountain-pen-graph.vercel.app
 ---
 
@@ -17,9 +17,9 @@ production_url: https://fountain-pen-graph.vercel.app
 
 最终生产别名：<https://fountain-pen-graph.vercel.app>
 
-- 最终产品 release SHA：`be1cfa9005b19a85a9ca744a309f34c350287024`
-- 最终 production deployment：`dpl_Cpu8qUjGvvaEnvo19PpHKFvxjbh7`
-- immutable URL：<https://fountain-pen-graph-bdn5qh967-aljo233.vercel.app>
+- 最终产品 release SHA：`264c1c2fb8e126fba07d8c541f0818385fe316c5`
+- 最终 production deployment：`dpl_68z7JdSwSu9nbjoQ8JQvaKnmR1ZY`
+- immutable URL：<https://fountain-pen-graph-93dr3o9ic-aljo233.vercel.app>
 - Vercel project：`prj_i046gsxTEqsWGYQzVq35D71QtaHU` / `aljo233/fountain-pen-graph`
 - 最终 production E2E：`26 passed / 0 failed`
 
@@ -30,7 +30,7 @@ production_url: https://fountain-pen-graph.vercel.app
 - 基线独立 production server E2E：`43 passed / 31 failed / 12 skipped`；12 个唯一 skip 的文件、标题和行号已写入 manifest。
 - `RELEASE-ALLOWLIST.txt` 使用逐文件路径，无目录通配。每次提交均只显式 stage 目标文件，没有使用 `git add .`。
 - 未执行 reset、checkout 覆盖、删除未跟踪文件、force push，也没有写入凭据或生产数据库。
-- 最终产品发布前工作树为空，`git status --porcelain=v1 -uall` 无输出；CLI 从该干净状态的 `be1cfa9` 执行。
+- 最终产品发布前工作树为空，`git status --porcelain=v1 -uall` 无输出；CLI 从该干净状态的 `264c1c2` 执行。
 
 本轮产品提交：
 
@@ -38,6 +38,7 @@ production_url: https://fountain-pen-graph.vercel.app
 2. `c8ca54c` — strengthen graph navigation and SEO
 3. `da75e32` — enforce production quality gates
 4. `be1cfa9` — production FTS unavailable 时受控降级
+5. `264c1c2` — 固定媒体真实连接 IP，并完整隔离移动导航背景
 
 ## 主要交付
 
@@ -53,8 +54,8 @@ production_url: https://fountain-pen-graph.vercel.app
 ### 媒体与公开可见性
 
 - 主图片代理只接受 approved primary/gallery media id；legacy URL 只接受 Richard's Pens 固定 HTTPS 域名。
-- DNS A/AAAA、私网/保留地址、每次 redirect、最多 3 跳、8 秒超时、image MIME 和 8 MiB 上限均有保护。
-- 媒体全量 dry-run 扫描数量为 592，与 SQL 目标数一致；最近一次网络检查为 231 healthy、361 fallback，零数据库写入。失败记录保留，由 UI 统一资料卡降级。
+- DNS A/AAAA 预检结果会固定到 Node `https.request` 的自定义 lookup；Host、TLS SNI 与证书校验继续使用原 hostname，socket remote address 必须等于已验证公网 IP。每次 redirect 都重新解析、校验并固定；私网/保留地址、最多 3 跳、8 秒超时、image MIME 和 8 MiB 上限均有保护。
+- 媒体全量 dry-run 扫描数量为 592，与 SQL 目标数一致；最终网络检查为 239 healthy、353 fallback，零数据库写入。失败记录保留，由 UI 统一资料卡降级。
 - page、entities detail/preview/tags、search、browse、links、recommendation 和 sitemap 共用 public visibility 规则。
 - 四个隐藏品牌及动态 marker article 不通过 HTML、JSON、links、推荐或 sitemap 泄露。
 
@@ -63,7 +64,7 @@ production_url: https://fountain-pen-graph.vercel.app
 - 详情页增加正确面包屑、首屏结论/规格/证据、来源层级和完整 canonical/JSON-LD；Bing 仅作为不可点击线索。
 - 局部图谱移到全宽 section，支持一跳/二跳、中文关系名和“为什么关联”的列表兜底；新增 `/graph` 主导航入口。
 - 推荐使用公开过滤，并显示同品牌、同系列、同价位、同笔尖或直接关系等具体理由。
-- MobileNav 与 FacetPanel dialog 支持焦点进入/循环/返回、Escape、背景 inert、滚动锁定和单一标题/关闭按钮。
+- MobileNav 与 FacetPanel dialog 支持焦点进入/循环/返回、Escape、背景 inert、滚动锁定和单一标题/关闭按钮。MobileNav 打开时，外部触发器也临时变为 `inert + aria-hidden + tabIndex=-1`，关闭后完整恢复并获得焦点。
 - 全局 `focus-visible`、reduced motion 和 390×844 无横向溢出已覆盖。
 - root 只提供 metadataBase 和共享模板；首页独占 WebSite/SearchAction JSON-LD。可索引页面各自 canonical；search/chat/compare noindex 且不进 sitemap。
 
@@ -106,7 +107,18 @@ production_url: https://fountain-pen-graph.vercel.app
 - alias：`fountain-pen-graph.vercel.app`
 - immutable URL：<https://fountain-pen-graph-bdn5qh967-aljo233.vercel.app>
 
-纠正后没有继续部署。最终测试 hydration 稳定化只影响 E2E 驱动，不改变线上产品文件。
+随后独立 verifier 在 `VERIFICATION.md` 留下 `gaps_found 11/14` 证据：媒体代理仍有 DNS preflight/fetch TOCTOU，MobileNav trigger 没有纳入背景隔离。该报告原样保留，没有改写成通过。
+
+Verifier gap closure deployment：
+
+- release SHA：`264c1c2fb8e126fba07d8c541f0818385fe316c5`
+- deployment：`dpl_68z7JdSwSu9nbjoQ8JQvaKnmR1ZY`
+- readyState：`READY`
+- alias：`fountain-pen-graph.vercel.app`
+- immutable URL：<https://fountain-pen-graph-93dr3o9ic-aljo233.vercel.app>
+- production desktop+mobile：`26 passed / 0 failed`
+
+本次只执行一次 gap closure CLI production deployment。原 verifier 报告仍保持 `gaps_found`，等待独立 verifier 基于新 release 复验并生成新的 14/14 结论。
 
 ## Production live truth
 
@@ -140,7 +152,7 @@ production_url: https://fountain-pen-graph.vercel.app
 - 非白名单 `example.com`：403
 - 直接 `127.0.0.1`：403
 - Richard's Pens legacy 样例：200 `image/jpeg`
-- DNS rebinding、redirect 到私网、redirect loop、伪造 Content-Length、实际流超限和非图片 MIME 只用本地可注入测试验证，没有向 production 写恶意 fixture。
+- DNS rebinding 回归明确模拟“预检解析到 `8.8.8.8`、连接阶段报告 `127.0.0.1`”，结果为 403；redirect 到私网、redirect loop、伪造 Content-Length、实际流超限和非图片 MIME 也只用本地可注入测试验证，没有向 production 写恶意 fixture。
 
 ### 隐藏内容
 
@@ -181,6 +193,7 @@ Vercel 会消费响应中的 `s-maxage` 并向浏览器暴露安全的 `cache-co
   - `test-results/site-quality-site-quality--6ed40-ser-errors-or-broken-images-mobile/mobile-home.png`
   - `test-results/site-quality-site-quality--6ed40-ser-errors-or-broken-images-mobile/mobile-graph.png`
 - 最终关键 journey：0 console error、0 page error、0 broken image、0 horizontal overflow；移动导航/筛选 dialog 的 focus trap、Escape 和焦点返回通过。
+- 最终 390×844 production DOM 合约还枚举全部可见 focusable：导航 dialog 打开时 dialog 外可访问控件为 0；trigger 状态为 `inert=true`、`aria-hidden=true`、`tabIndex=-1`，关闭后属性恢复且焦点返回。
 
 ## 未做的写操作与已知非阻塞项
 

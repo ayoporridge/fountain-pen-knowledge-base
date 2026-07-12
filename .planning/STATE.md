@@ -164,4 +164,4 @@ Tech decisions: 使用系统字体替代 Google Fonts (代理环境无法下载)
 
 ---
 
-*Last updated: 2026-07-13 - Completed quick task 260713-7u5: full-site UX, SEO, and Vercel production quality*
+*Last updated: 2026-07-13 - Completed quick task 260713-7u5 and closed verifier gaps for pinned media transport and MobileNav isolation*
