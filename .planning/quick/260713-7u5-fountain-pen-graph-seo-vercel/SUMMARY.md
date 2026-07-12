@@ -118,7 +118,7 @@ Verifier gap closure deployment：
 - immutable URL：<https://fountain-pen-graph-93dr3o9ic-aljo233.vercel.app>
 - production desktop+mobile：`26 passed / 0 failed`
 
-本次只执行一次 gap closure CLI production deployment。原 verifier 报告仍保持 `gaps_found`，等待独立 verifier 基于新 release 复验并生成新的 14/14 结论。
+本次只执行一次 gap closure CLI production deployment。原 `VERIFICATION.md` 保留 `gaps_found 11/14` 作为审计证据；独立 verifier 随后基于新 release 完成复验，`VERIFICATION-2.md` 结论为 `passed`，`14/14 must-haves verified`，无剩余 gap。
 
 ## Production live truth
 
