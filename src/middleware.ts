@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
+import { getReclassifiedArticlePath } from "@/lib/entity-redirects";
 import { HIDDEN_ARTICLE_SLUGS } from "@/lib/public-visibility";
 
 const HIDDEN_PUBLIC_PATHS = new Set([
@@ -44,8 +45,19 @@ export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const normalizedPathname = normalizePathname(pathname);
   const segments = normalizedPathname.split("/").filter(Boolean);
+  const reclassifiedArticlePath =
+    segments.length === 2
+      ? getReclassifiedArticlePath(segments[0], segments[1])
+      : null;
   const hasInvalidTwoSegmentNamespace =
     segments.length === 2 && !ALLOWED_TWO_SEGMENT_NAMESPACES.has(segments[0]);
+
+  if (reclassifiedArticlePath) {
+    return NextResponse.redirect(
+      new URL(reclassifiedArticlePath, request.url),
+      308,
+    );
+  }
 
   if (
     normalizedPathname === "/new" ||

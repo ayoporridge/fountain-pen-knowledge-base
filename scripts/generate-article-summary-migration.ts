@@ -11,7 +11,7 @@ const DATABASE_PATH = path.join(process.cwd(), "data", "fpkg.db");
 const OUTPUT_PATH = path.join(
   process.cwd(),
   "migrations",
-  "018_article_summaries.sql",
+  "020_article_summaries_after_reclass.sql",
 );
 
 type ArticleRow = {
@@ -36,8 +36,14 @@ const articles = db
   .all() as ArticleRow[];
 db.close();
 
-if (articles.length !== 208) {
-  throw new Error(`Expected 208 articles, found ${articles.length}.`);
+if (articles.length === 0) {
+  throw new Error("No articles found; refusing to generate an empty migration.");
+}
+
+const articleIds = new Set(articles.map((article) => article.id));
+const articleSlugs = new Set(articles.map((article) => article.slug));
+if (articleIds.size !== articles.length || articleSlugs.size !== articles.length) {
+  throw new Error("Article ids and slugs must be unique before generating summaries.");
 }
 
 const updates = articles.map((article) => {
