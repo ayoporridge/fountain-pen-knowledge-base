@@ -144,12 +144,12 @@ export async function getBrowseData(
   params.push(...tagFilters.params);
   const where = `WHERE ${conditions.join(" AND ")}`;
 
-  const count = (await queryOne(
+  const countPromise = queryOne(
     `SELECT COUNT(*) as cnt FROM entities e ${where}`,
     params,
-  )) as { cnt: number };
+  ) as Promise<{ cnt: number }>;
 
-  const rows = (await queryAll(
+  const rowsPromise = queryAll(
     `SELECT e.id, e.type, e.slug, e.name, e.summary,
             (
               SELECT GROUP_CONCAT(public_tag.name, ' · ')
@@ -217,39 +217,23 @@ export async function getBrowseData(
        e.id
      LIMIT ? OFFSET ?`,
     [...params, limit, offset],
-  )) as Array<{
-    id: string;
-    type: string;
-    slug: string;
-    name: string;
-    summary: string | null;
-    classification: string | null;
-    source_count: number;
-    media_id: string | null;
-    media_local_path: string | null;
-    media_thumbnail_url: string | null;
-    media_image_url: string | null;
-  }>;
+  ) as Promise<
+    Array<{
+      id: string;
+      type: string;
+      slug: string;
+      name: string;
+      summary: string | null;
+      classification: string | null;
+      source_count: number;
+      media_id: string | null;
+      media_local_path: string | null;
+      media_thumbnail_url: string | null;
+      media_image_url: string | null;
+    }>
+  >;
 
-  const entities: BrowseEntity[] = rows.map((row) => ({
-    type: String(row.type),
-    slug: String(row.slug),
-    name: String(row.name),
-    summary:
-      !["pen", "brand"].includes(String(row.type)) && row.summary
-        ? String(row.summary)
-        : null,
-    classification: row.classification ? String(row.classification) : null,
-    source_count: Number(row.source_count || 0),
-    image_url: getPublicMediaUrl({
-      id: row.media_id,
-      localPath: row.media_local_path,
-      thumbnailUrl: row.media_thumbnail_url,
-      imageUrl: row.media_image_url,
-    }),
-  }));
-
-  const facetGroups = await Promise.all(
+  const facetGroupsPromise = Promise.all(
     Object.entries(FACET_DIMENSIONS).map(async ([facetKey, info]) => {
       const facetConditions = [publicEntityFilter("facet_e")];
       const facetParams: unknown[] = [];
@@ -269,7 +253,7 @@ export async function getBrowseData(
       facetConditions.push(...otherTagFilters.sql);
       facetParams.push(...otherTagFilters.params);
 
-      const rows = (await queryAll(
+      const facetRowsPromise = queryAll(
         `SELECT t.slug, t.name, COUNT(DISTINCT facet_e.id) as cnt
          FROM tags t
          JOIN entity_tags facet_et ON facet_et.tag_id = t.id
@@ -280,7 +264,23 @@ export async function getBrowseData(
          HAVING cnt > 0
          ORDER BY cnt DESC, t.name`,
         [info.tagDimension, ...facetParams],
-      )) as Array<{ slug: string; name: string; cnt: number }>;
+      ) as Promise<Array<{ slug: string; name: string; cnt: number }>>;
+
+      const goldPromise =
+        facetKey === "nib_material"
+          ? (queryOne(
+              `SELECT COUNT(DISTINCT facet_e.id) as cnt
+               FROM entities facet_e
+               JOIN entity_tags gold_et ON gold_et.entity_id = facet_e.id
+               JOIN tags gold_t ON gold_t.id = gold_et.tag_id
+               WHERE gold_t.dimension = 'nib_material'
+                 AND gold_t.slug IN (${GOLD_NIB_TAG_SLUGS.map(() => "?").join(", ")})
+                 AND ${facetConditions.join(" AND ")}`,
+              [...GOLD_NIB_TAG_SLUGS, ...facetParams],
+            ) as Promise<{ cnt: number }>)
+          : Promise.resolve(undefined);
+
+      const [rows, gold] = await Promise.all([facetRowsPromise, goldPromise]);
 
       const options = rows.map((row) => ({
         slug: String(row.slug),
@@ -288,17 +288,7 @@ export async function getBrowseData(
         count: Number(row.cnt),
       }));
 
-      if (facetKey === "nib_material") {
-        const gold = (await queryOne(
-          `SELECT COUNT(DISTINCT facet_e.id) as cnt
-           FROM entities facet_e
-           JOIN entity_tags gold_et ON gold_et.entity_id = facet_e.id
-           JOIN tags gold_t ON gold_t.id = gold_et.tag_id
-           WHERE gold_t.dimension = 'nib_material'
-             AND gold_t.slug IN (${GOLD_NIB_TAG_SLUGS.map(() => "?").join(", ")})
-             AND ${facetConditions.join(" AND ")}`,
-          [...GOLD_NIB_TAG_SLUGS, ...facetParams],
-        )) as { cnt: number };
+      if (gold) {
         if (Number(gold.cnt || 0) > 0) {
           options.unshift({
             slug: "gold",
@@ -311,14 +301,38 @@ export async function getBrowseData(
       return [facetKey, options] as const;
     }),
   );
-  const facets: BrowseData["facets"] = Object.fromEntries(facetGroups);
 
-  const typeCounts = (await queryAll(
+  const typeCountsPromise = queryAll(
     `SELECT e.type, COUNT(*) as cnt
      FROM entities e
      WHERE ${publicEntityFilter("e")}
      GROUP BY e.type`,
-  )) as Array<{ type: string; cnt: number }>;
+  ) as Promise<Array<{ type: string; cnt: number }>>;
+
+  const [count, rows, facetGroups, typeCounts] = await Promise.all([
+    countPromise,
+    rowsPromise,
+    facetGroupsPromise,
+    typeCountsPromise,
+  ]);
+  const entities: BrowseEntity[] = rows.map((row) => ({
+    type: String(row.type),
+    slug: String(row.slug),
+    name: String(row.name),
+    summary:
+      !["pen", "brand"].includes(String(row.type)) && row.summary
+        ? String(row.summary)
+        : null,
+    classification: row.classification ? String(row.classification) : null,
+    source_count: Number(row.source_count || 0),
+    image_url: getPublicMediaUrl({
+      id: row.media_id,
+      localPath: row.media_local_path,
+      thumbnailUrl: row.media_thumbnail_url,
+      imageUrl: row.media_image_url,
+    }),
+  }));
+  const facets: BrowseData["facets"] = Object.fromEntries(facetGroups);
 
   return {
     entities,

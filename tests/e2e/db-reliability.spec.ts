@@ -3,6 +3,7 @@ import { expect, test } from "@playwright/test";
 import {
   createReadinessGuard,
   isTransientDatabaseError,
+  queryAll,
   retryTransientDatabaseRead,
 } from "../../src/lib/db";
 
@@ -95,4 +96,11 @@ test("remote read recovery is bounded and never retries permanent failures", asy
   await Promise.all([firstReadiness, secondReadiness]);
   await concurrentGuard();
   expect(concurrentChecks).toBe(1);
+
+  const [firstRows, secondRows] = (await Promise.all([
+    queryAll("SELECT 1 AS value"),
+    queryAll("SELECT 2 AS value"),
+  ])) as Array<Array<{ value: number }>>;
+  expect(firstRows[0]?.value).toBe(1);
+  expect(secondRows[0]?.value).toBe(2);
 });

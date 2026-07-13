@@ -5,6 +5,7 @@ import {
   type Client,
   createClient,
   type InArgs,
+  type InStatement,
   type ResultSet,
   type Transaction,
 } from "@libsql/client";
@@ -280,6 +281,58 @@ const databaseReady = createReadinessGuard(() =>
   retryTransientDatabaseRead(() => assertDatabaseReady(getDb())),
 );
 
+interface QueuedRead {
+  statement: InStatement;
+  resolve: (rows: unknown[]) => void;
+  reject: (error: unknown) => void;
+}
+
+let queuedReads: QueuedRead[] = [];
+let readFlushScheduled = false;
+
+async function flushQueuedReads(): Promise<void> {
+  readFlushScheduled = false;
+  const pending = queuedReads;
+  queuedReads = [];
+  if (pending.length === 0) return;
+
+  try {
+    const db = getDb();
+    if (pending.length === 1) {
+      const result = await retryTransientDatabaseRead(() =>
+        db.execute(pending[0].statement),
+      );
+      pending[0].resolve(result.rows as unknown[]);
+      return;
+    }
+
+    const results = await retryTransientDatabaseRead(() =>
+      db.batch(
+        pending.map((item) => item.statement),
+        "read",
+      ),
+    );
+    pending.forEach((item, index) => {
+      item.resolve((results[index]?.rows || []) as unknown[]);
+    });
+  } catch (error) {
+    for (const item of pending) item.reject(error);
+  }
+}
+
+function enqueueRead(sql: string, args: unknown[]): Promise<unknown[]> {
+  return new Promise((resolve, reject) => {
+    queuedReads.push({
+      statement: { sql, args: args as InArgs },
+      resolve,
+      reject,
+    });
+    if (readFlushScheduled) return;
+    readFlushScheduled = true;
+    queueMicrotask(() => void flushQueuedReads());
+  });
+}
+
 /**
  * Compatibility wrapper: mimics better-sqlite3's db.prepare().all() / .run() API
  * Usage: const rows = queryAll("SELECT * FROM entities WHERE type = ?", [type])
@@ -289,11 +342,7 @@ export async function queryAll(
   args: unknown[] = [],
 ): Promise<unknown[]> {
   await databaseReady();
-  const db = getDb();
-  const result = await retryTransientDatabaseRead(() =>
-    db.execute({ sql, args: args as InArgs }),
-  );
-  return result.rows;
+  return enqueueRead(sql, args);
 }
 
 export async function queryOne(
