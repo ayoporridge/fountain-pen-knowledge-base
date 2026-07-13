@@ -40,7 +40,7 @@ export function DiagramRenderer({
 
   return (
     <figure
-      className="rounded-xl border p-4"
+      className="min-w-0 max-w-full rounded-xl border p-4"
       style={{
         borderColor: "var(--color-border)",
         backgroundColor: "var(--color-surface-raised)",
@@ -61,7 +61,7 @@ export function DiagramRenderer({
         </figcaption>
       </div>
 
-      <div className="relative overflow-x-auto rounded-lg">
+      <div className="relative w-full max-w-full overflow-x-auto rounded-lg">
         <div
           className="min-w-[520px]"
           // biome-ignore lint/security/noDangerouslySetInnerHtml: library diagrams are site-authored SVG records, not user-submitted HTML.

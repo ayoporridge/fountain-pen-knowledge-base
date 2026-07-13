@@ -1,5 +1,6 @@
 import { nanoid } from "nanoid";
 import { execute, queryAll } from "@/lib/db";
+import { publicEntityFilter } from "@/lib/public-visibility";
 
 interface ConceptCondition {
   dimension: string;
@@ -13,9 +14,23 @@ interface ConceptCondition {
 export async function matchConceptsForEntity(
   entityId: string,
 ): Promise<string[]> {
-  // Get all concept rules
+  const publicPen = await queryAll(
+    `SELECT e.id
+     FROM entities e
+     WHERE e.id = ?
+       AND e.type = 'pen'
+       AND ${publicEntityFilter("e")}`,
+    [entityId],
+  );
+  if (publicPen.length === 0) return [];
+
+  // Only rules backed by a public concept page may enter the public cache.
   const rules = (await queryAll(
-    "SELECT id, conditions FROM concept_rules",
+    `SELECT cr.id, cr.conditions
+     FROM concept_rules cr
+     JOIN entities concept
+       ON concept.type = 'concept' AND concept.slug = cr.slug
+     WHERE ${publicEntityFilter("concept")}`,
   )) as Array<{ id: string; conditions: string }>;
 
   // Get entity's tags
@@ -61,9 +76,12 @@ export async function recomputeAllConceptMatches(): Promise<{
   // Clear existing matches
   await execute("DELETE FROM concept_matches");
 
-  const entities = (await queryAll("SELECT id FROM entities")) as Array<{
-    id: string;
-  }>;
+  const entities = (await queryAll(
+    `SELECT e.id
+     FROM entities e
+     WHERE e.type = 'pen'
+       AND ${publicEntityFilter("e")}`,
+  )) as Array<{ id: string }>;
 
   let totalMatches = 0;
 
@@ -89,8 +107,13 @@ export async function getEntitiesForConcept(conceptId: string) {
     `SELECT e.id, e.type, e.slug, e.name, e.summary
      FROM concept_matches cm
      JOIN concept_rules cr ON cr.id = cm.concept_id
+     JOIN entities concept
+       ON concept.type = 'concept' AND concept.slug = cr.slug
      JOIN entities e ON e.id = cm.entity_id
      WHERE cr.id = ?
+       AND ${publicEntityFilter("concept")}
+       AND e.type = 'pen'
+       AND ${publicEntityFilter("e")}
      ORDER BY e.name`,
     [conceptId],
   );

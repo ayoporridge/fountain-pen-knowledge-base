@@ -1,7 +1,6 @@
 import { nanoid } from "nanoid";
 import { type NextRequest, NextResponse } from "next/server";
 import { verifyAdminToken, verifyWriteAccess } from "@/lib/admin-auth";
-import { ATTR_LABELS, DIMENSION_LABELS } from "@/lib/constants";
 import { execute, queryAll, queryOne } from "@/lib/db";
 import { publicEntityFilter } from "@/lib/public-visibility";
 import { cleanPublicText } from "@/lib/publicText";
@@ -23,35 +22,13 @@ export async function GET(
     return NextResponse.json({ error: "Entity not found" }, { status: 404 });
   }
 
-  const attrs = (await queryAll(
-    "SELECT key, value FROM entity_attributes WHERE entity_id = ?",
-    [entity.id],
-  )) as Array<{ key: string; value: string }>;
-
-  const tags = (await queryAll(
-    `
-    SELECT t.name, t.dimension
-    FROM tags t
-    JOIN entity_tags et ON et.tag_id = t.id
-    WHERE et.entity_id = ?
-      AND t.name IS NOT NULL
-  `,
-    [entity.id],
-  )) as Array<{ name: string; dimension: string }>;
-
-  const attributes = Object.fromEntries(
-    attrs
-      .map(({ key, value }) => [key, cleanPublicText(value)] as const)
-      .filter(([key, value]) => ATTR_LABELS[key] && value),
-  );
-
   return NextResponse.json({
     type: entity.type,
     slug: entity.slug,
     name: entity.name,
-    summary: cleanPublicText(entity.summary),
-    attributes,
-    tags: tags.filter((tag) => DIMENSION_LABELS[tag.dimension]),
+    summary: ["pen", "brand"].includes(String(entity.type))
+      ? null
+      : cleanPublicText(entity.summary),
   });
 }
 

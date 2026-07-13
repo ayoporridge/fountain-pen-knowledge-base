@@ -2,11 +2,11 @@ import { expect, test } from "@playwright/test";
 
 test.describe("Entity basic flow", () => {
   test("seed entity page renders correctly", async ({ page }) => {
-    await page.goto("/pen/pilot-custom-823");
+    await page.goto("/pen/%E5%87%8C%E7%BE%8E-lamy-lamy-2000");
 
     // Verify entity name
     await expect(page.getByRole("heading", { level: 1 })).toContainText(
-      "Custom 823",
+      "LAMY 2000",
     );
 
     // Verify the page identifies the entry as a pen archive.

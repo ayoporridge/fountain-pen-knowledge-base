@@ -418,6 +418,17 @@ INSERT OR IGNORE INTO entity_attributes (id, entity_id, key, value)
 -- PART 2: Create pen -> brand links (made_by)
 -- ============================================================
 
+-- A fresh schema has no imported pens yet. Skip only this migration's
+-- historical seed links when either endpoint is absent; do not leave a
+-- permanent trigger that could hide later relationship errors.
+CREATE TRIGGER IF NOT EXISTS trg_009_skip_missing_link_endpoint
+BEFORE INSERT ON entity_links
+WHEN NOT EXISTS (SELECT 1 FROM entities WHERE id = NEW.source_id)
+  OR NOT EXISTS (SELECT 1 FROM entities WHERE id = NEW.target_id)
+BEGIN
+  SELECT RAISE(IGNORE);
+END;
+
 -- waterman (13 pens)
 INSERT OR IGNORE INTO entity_links (id, source_id, target_id, link_type)
   VALUES ('Br1vFusjuoHY', 'W1DGMmj-Qk3H', 'zkAu9PePDdqJ', 'made_by');
@@ -1063,6 +1074,8 @@ INSERT OR IGNORE INTO entity_links (id, source_id, target_id, link_type)
   VALUES ('6LdTJFSXoYMb', 'NjUsoC-HoMM_', 'AcglIcVOba3Y', 'made_by');
 
 -- Total made_by links: 254
+
+DROP TRIGGER IF EXISTS trg_009_skip_missing_link_endpoint;
 
 -- ============================================================
 -- PART 3: Create concept entities

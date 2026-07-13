@@ -7,9 +7,8 @@ import {
   getEntityExternalIds,
   getEntityReferences,
   getModelSpec,
-  getStoriesForEntity,
 } from "@/lib/library";
-import { cleanPublicText, displayPublicPrice } from "@/lib/publicText";
+import { cleanPublicText } from "@/lib/publicText";
 import { IdentifierPanel } from "./IdentifierPanel";
 import { SourceCards } from "./SourceCards";
 
@@ -21,19 +20,32 @@ function sectionIcon(icon: ReactNode) {
   );
 }
 
-export async function ModelArchive({ entityId }: { entityId: string }) {
-  const [spec, stories, sources, aliases, externalIds] = await Promise.all([
+function prepareSourceMaterial(body: string) {
+  const lines = body.trim().split("\n");
+  while (lines[0]?.trim() === "") lines.shift();
+  if (/^#\s+/.test(lines[0] || "")) lines.shift();
+  while (lines[0]?.trim() === "") lines.shift();
+  if (/^>\s*来源[：:]/.test(lines[0] || "")) lines.shift();
+  return lines.join("\n").trim();
+}
+
+export async function ModelArchive({
+  entityId,
+  sourceBody,
+  sourceUrl,
+}: {
+  entityId: string;
+  sourceBody?: string | null;
+  sourceUrl?: string | null;
+}) {
+  const [spec, sources, aliases, externalIds] = await Promise.all([
     getModelSpec(entityId),
-    getStoriesForEntity(entityId),
     getEntityReferences(entityId, 6),
     getEntityAliases(entityId),
     getEntityExternalIds(entityId),
   ]);
-  const story =
-    stories.find((item) => item.story_type === "model_story") || stories[0];
-  const priceSource = sources.find(
-    (source) => source.source_type === "retailer",
-  );
+  const sourceMaterial = sourceBody ? prepareSourceMaterial(sourceBody) : "";
+  const hasSourceMaterial = Boolean(sourceMaterial && sourceUrl);
   const specFields = spec
     ? [
         [
@@ -48,16 +60,8 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
         ["材质", spec.material],
         ["尺寸", spec.dimensions],
         ["重量", spec.weight],
-        [
-          "价位",
-          displayPublicPrice(spec.price_range, priceSource?.source_name),
-        ],
-        ["状态", spec.status],
       ]
-        .map(
-          ([label, value]) =>
-            [label, label === "价位" ? value : cleanPublicText(value)] as const,
-        )
+        .map(([label, value]) => [label, cleanPublicText(value)] as const)
         .filter(([, value]) => value !== null)
     : [];
 
@@ -75,10 +79,7 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
           {sectionIcon(
             <PenNib size={18} style={{ color: "var(--color-accent)" }} />,
           )}
-          <div>
-            <p className="archive-kicker">Model archive</p>
-            <h2 className="text-lg font-semibold">型号档案</h2>
-          </div>
+          <h2 className="text-lg font-semibold">型号档案</h2>
         </div>
 
         {spec && specFields.length > 0 ? (
@@ -120,35 +121,47 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
         )}
       </div>
 
-      <div
-        id="story"
-        className="library-panel p-5"
-        style={{
-          borderColor: "var(--color-border)",
-          backgroundColor: "var(--color-surface-raised)",
-        }}
-      >
-        <div className="library-section-heading mb-3">
-          {sectionIcon(
-            <Books size={18} style={{ color: "var(--color-accent)" }} />,
-          )}
-          <div>
-            <p className="archive-kicker">Read first</p>
-            <h2 className="text-lg font-semibold">
-              {story?.title || "型号故事整理中"}
-            </h2>
+      {hasSourceMaterial && (
+        <div
+          id="source-material"
+          className="library-panel p-5 sm:p-6"
+          style={{
+            borderColor: "var(--color-border)",
+            backgroundColor: "var(--color-surface-raised)",
+          }}
+        >
+          <div className="library-section-heading mb-4">
+            {sectionIcon(
+              <Books size={18} style={{ color: "var(--color-accent)" }} />,
+            )}
+            <h2 className="text-lg font-semibold">来源资料译文/整理</h2>
+          </div>
+          <div
+            className="mb-6 rounded-lg border p-4 text-sm leading-relaxed"
+            style={{
+              borderColor: "var(--color-border-light)",
+              backgroundColor: "var(--color-surface-dim)",
+              color: "var(--color-ink-muted)",
+            }}
+          >
+            <p className="m-0">
+              以下内容整理自第三方原文。文中的第一人称、使用经历和判断属于原作者，不代表本站实测。
+            </p>
+            <Link
+              href={String(sourceUrl)}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-2 inline-flex ink-underline"
+              style={{ color: "var(--color-accent)" }}
+            >
+              查看原始来源
+            </Link>
+          </div>
+          <div className="reading-measure">
+            <MarkdownRenderer content={sourceMaterial} />
           </div>
         </div>
-        {story ? (
-          <div className="reading-measure">
-            <MarkdownRenderer content={story.body_md} />
-          </div>
-        ) : (
-          <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
-            这个型号暂时只有来源卡片和关系信息；正文会在有稳定来源时展示。
-          </p>
-        )}
-      </div>
+      )}
 
       <IdentifierPanel aliases={aliases} externalIds={externalIds} />
 
@@ -166,7 +179,15 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
         >
           来源
         </h2>
-        <SourceCards sources={sources} variant="compact" />
+        {sources.length > 0 ? (
+          <SourceCards sources={sources} variant="compact" />
+        ) : (
+          <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
+            {hasSourceMaterial
+              ? "本页译文所据原文见上方链接，暂无其他可展示来源。"
+              : "暂无可公开展示的来源资料。"}
+          </p>
+        )}
       </div>
     </section>
   );

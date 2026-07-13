@@ -102,14 +102,14 @@ export default async function LibrarySourcesPage({
           style={{ color: "var(--color-accent)" }}
         >
           <LinkSimple size={16} />
-          Library Sources
+          参考来源
         </p>
         <h1 className="mb-3 text-3xl font-bold tracking-tight">来源索引</h1>
         <p
           className="text-base leading-relaxed"
           style={{ color: "var(--color-ink-light)" }}
         >
-          这里集中展示资料库使用哪些来源、如何使用、授权说明是什么，以及已经登记到馆藏里的具体参考资料。
+          这里列出资料馆实际引用的网页、书籍、专利和社区资料。进入具体词条时，可以继续核对它支撑了哪些内容。
         </p>
       </div>
 

@@ -246,7 +246,7 @@ function normalizeLegacyImageCaptions(md: string): string {
         normalizedSrc,
       )}" alt="${escapeHtmlAttr(publicAlt)}" /><figcaption>${escapeHtmlText(
         caption.trim(),
-      )}</figcaption></figure>`;
+      )}</figcaption></figure>\n`;
     },
   );
 }
@@ -261,6 +261,16 @@ function normalizeBoldMarkdownLinks(md: string): string {
       return `<strong><a href="${escapeHtmlAttr(normalizedHref)}"${
         title ? ` title="${escapeHtmlAttr(title)}"` : ""
       }>${escapeHtmlText(text)}</a></strong>`;
+    },
+  );
+}
+
+function normalizeLegacyMarkdownLinkDestinations(md: string): string {
+  return md.replace(
+    /\]\(<((?:books|pdf|ref|images|xf)\/[^>]+)>\s*(?:"([^"]*)")?\)/gi,
+    (_, legacyPath: string, title: string | undefined) => {
+      const href = normalizeRichardsPensUrl(legacyPath);
+      return `](${href}${title ? ` "${title}"` : ""})`;
     },
   );
 }
@@ -330,7 +340,9 @@ function removeLegacyInteractionNotes(md: string): string {
       /^(?:#{1,6}\s*)?(?:本文|本内容)(?:亦|也)?收录于|^(?:#{1,6}\s*)?(?:本文|本内容)节选自/.test(
         line.trim(),
       ) &&
-      /电子书|RichardsPens钢笔指南/.test(line)
+      /电子书|电子版|e-?book|RichardsPens(?:钢笔指南| Guide)|购买Richard/i.test(
+        line,
+      )
     ) {
       continue;
     }
@@ -404,7 +416,7 @@ function normalizeMarkdownImageRows(md: string): string {
       })
       .join("");
 
-    output.push(`<div class="image-row">${figures}</div>`);
+    output.push(`<div class="image-row">${figures}</div>`, "");
   }
 
   return output.join("\n");
@@ -493,6 +505,7 @@ function normalizeMarkdownPipeImageRows(md: string): string {
             `<div class="legacy-pipe-cell">${renderLegacyPipeCell(cell)}</div>`,
         )
         .join("")}</div>`,
+      "",
     );
   }
 
@@ -500,20 +513,21 @@ function normalizeMarkdownPipeImageRows(md: string): string {
 }
 
 function normalizeResidualBoldHtml(html: string): string {
-  return html
-    .replace(
-      /\*\*([^*<>\n]{1,120})<strong>/g,
-      (_, text: string) => `<strong>${text}</strong>`,
-    )
-    .replace(
-      /<\/strong>([^*<>\n]{1,120})\*\*/g,
-      (_, text: string) => `</strong><strong>${text}</strong>`,
-    )
-    .replace(/\*\*((?:(?!\*\*)[\s\S])*?)\*\*/g, (match, inner) => {
-      const value = String(inner).trim();
-      if (!value || value.length > 500) return match;
-      return `<strong>${inner}</strong>`;
-    });
+  const withInlineHtml = html.replace(
+    /\*\*((?:(?!\*\*)[^\n])*?<((?:strong|em|a|span|code))\b[^>\n]*>.*?<\/\2>(?:(?!\*\*)[^\n])*?)\*\*/gi,
+    (_, inner: string) => `<strong>${inner}</strong>`,
+  );
+
+  return withInlineHtml
+    .split(/(<[^>]+>)/g)
+    .map((part) => {
+      if (part.startsWith("<")) return part;
+      return part.replace(
+        /\*\*([^*\n]{1,500})\*\*/g,
+        (_, inner: string) => `<strong>${inner}</strong>`,
+      );
+    })
+    .join("");
 }
 
 /**
@@ -928,7 +942,9 @@ export async function renderMarkdown(
       normalizeMarkdownImageRows(
         normalizeLegacyTableSeparators(
           normalizeBoldMarkdownLinks(
-            removeLegacyInteractionNotes(normalizeLegacyJavascriptLinks(md)),
+            normalizeLegacyMarkdownLinkDestinations(
+              removeLegacyInteractionNotes(normalizeLegacyJavascriptLinks(md)),
+            ),
           ),
         ),
       ),
@@ -941,23 +957,17 @@ export async function renderMarkdown(
         resolvedMap?.has(rawSlug.trim()) ? original : rawSlug.trim(),
     );
   }
-  // Bold wrapping any inline HTML element: **<tag...>...</tag>**
+  // Bold wrapping a same-line inline HTML element. Restricting the tag set is
+  // important: a closing ** from one paragraph must never consume block HTML
+  // until the next bold marker.
   processed = processed.replace(
-    /\*\*(<[a-z][a-z0-9]*\b[^>]*>.*?<\/[a-z][a-z0-9]*\s*>)\*\*/gi,
+    /\*\*(<((?:a|em|span|code|small|mark|kbd|sup|sub))\b[^>]*>.*?<\/\2\s*>)\*\*/gi,
     (_, html) => `<strong>${html}</strong>`,
   );
-  // Bold wrapping self-closing elements: **<br />**, **<img.../>**, **<hr>**
+  // Bold wrapping same-line phrasing elements such as **<img...>**.
   processed = processed.replace(
-    /\*\*(<(?:br|img|hr|input|meta|link|area|col|embed|source|track|wbr)[^>]*\/?\s*>)\*\*/gi,
+    /\*\*(<(?:br|img|wbr)[^>]*\/?\s*>)\*\*/gi,
     (_, html) => `<strong>${html}</strong>`,
-  );
-  // Bold wrapping mixed text + inline HTML: **text <em>more</em> tail**
-  processed = processed.replace(
-    /\*\*((?:(?!\*\*)[\s\S])*?<[a-z][a-z0-9]*\b[^>]*>.*?<\/[a-z][a-z0-9]*\s*>(?:(?!\*\*)[\s\S])*?)\*\*/gi,
-    (m, inner) => {
-      const innerStars = (inner.match(/\*\*/g) || []).length;
-      return innerStars === 0 ? `<strong>${inner}</strong>` : m;
-    },
   );
 
   const result = await remark()

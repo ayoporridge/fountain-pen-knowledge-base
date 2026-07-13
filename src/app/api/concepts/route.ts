@@ -2,19 +2,14 @@ import { nanoid } from "nanoid";
 import { type NextRequest, NextResponse } from "next/server";
 import { verifyWriteAccess } from "@/lib/admin-auth";
 import { recomputeAllConceptMatches } from "@/lib/concept-engine";
-import { execute, queryAll, queryOne } from "@/lib/db";
+import { execute, queryOne } from "@/lib/db";
 
-// GET /api/concepts — list all concept rules with match counts
+// Concept rules are an editorial implementation detail in this release.
 export async function GET() {
-  const concepts = await queryAll(
-    `SELECT cr.*, COUNT(cm.id) as match_count
-     FROM concept_rules cr
-     LEFT JOIN concept_matches cm ON cm.concept_id = cr.id
-     GROUP BY cr.id
-     ORDER BY cr.name`,
+  return NextResponse.json(
+    { error: "This endpoint is not available in the public archive." },
+    { status: 410 },
   );
-
-  return NextResponse.json(concepts);
 }
 
 // POST /api/concepts — create a new concept rule

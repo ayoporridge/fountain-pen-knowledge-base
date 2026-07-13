@@ -69,7 +69,7 @@ export default async function ExhibitDetailPage({
           style={{ color: "var(--color-accent)" }}
         >
           <Compass size={16} />
-          Exhibit
+          专题展览
         </p>
         <h1 className="mb-3 text-3xl font-bold tracking-tight">
           {exhibit.title}

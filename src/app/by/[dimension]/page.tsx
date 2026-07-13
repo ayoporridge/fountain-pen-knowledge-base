@@ -2,32 +2,24 @@ export const revalidate = 600;
 
 import {
   ArrowLeft,
-  BookOpen,
   Buildings,
-  Clock,
   Cube,
-  CurrencyCircleDollar,
   Drop,
   Globe,
   MagnifyingGlass,
   PenNib,
-  Ruler,
 } from "@phosphor-icons/react/dist/ssr";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { queryAll } from "@/lib/db";
-import { PUBLIC_ENTITY_FILTER_SQL } from "@/lib/public-visibility";
+import { queryAll, queryOne } from "@/lib/db";
+import { publicEntityFilter } from "@/lib/public-visibility";
 
 const DIMENSION_ICONS: Record<string, React.ElementType> = {
   brand: Buildings,
-  price: CurrencyCircleDollar,
   nib: PenNib,
   origin: Globe,
   fill: Drop,
-  usage: BookOpen,
-  era: Clock,
-  size: Ruler,
   material: Cube,
 };
 
@@ -36,13 +28,9 @@ const VALID_DIMENSIONS: Record<
   { label: string; tagDimension: string }
 > = {
   brand: { label: "品牌", tagDimension: "brand" },
-  price: { label: "价位", tagDimension: "price" },
   nib: { label: "笔尖类型", tagDimension: "nib_type" },
   origin: { label: "产地", tagDimension: "origin" },
   fill: { label: "上墨方式", tagDimension: "fill_system" },
-  usage: { label: "用途", tagDimension: "usage" },
-  era: { label: "年代", tagDimension: "era" },
-  size: { label: "尺寸", tagDimension: "size" },
   material: { label: "笔身材质", tagDimension: "body_material" },
 };
 
@@ -83,10 +71,14 @@ export default async function DimensionPage({ params }: DimensionPageProps) {
           `SELECT e.id, e.name, e.slug, 'brand' as dimension,
                   COUNT(DISTINCT p.id) as entity_count
            FROM entities e
-           LEFT JOIN model_specs ms ON ms.brand_entity_id = e.id
-           LEFT JOIN entities p ON p.id = ms.entity_id AND p.type = 'pen'
+           LEFT JOIN entity_links relation
+             ON relation.target_id = e.id AND relation.link_type = 'made_by'
+           LEFT JOIN entities p
+             ON p.id = relation.source_id
+            AND p.type = 'pen'
+            AND ${publicEntityFilter("p")}
            WHERE e.type = 'brand'
-             AND ${PUBLIC_ENTITY_FILTER_SQL}
+             AND ${publicEntityFilter("e")}
            GROUP BY e.id
            ORDER BY e.name`,
         )) as Array<{
@@ -100,7 +92,7 @@ export default async function DimensionPage({ params }: DimensionPageProps) {
           `SELECT t.id, t.name, t.slug, t.dimension, COUNT(DISTINCT e.id) as entity_count
            FROM tags t
            JOIN entity_tags et ON et.tag_id = t.id
-           JOIN entities e ON e.id = et.entity_id AND ${PUBLIC_ENTITY_FILTER_SQL}
+           JOIN entities e ON e.id = et.entity_id AND ${publicEntityFilter("e")}
            WHERE t.dimension = ?
            GROUP BY t.id
            HAVING entity_count > 0
@@ -114,7 +106,27 @@ export default async function DimensionPage({ params }: DimensionPageProps) {
           entity_count: number;
         }>);
 
-  const totalEntities = tags.reduce((sum, t) => sum + t.entity_count, 0);
+  const totalRow =
+    dimension === "brand"
+      ? ((await queryOne(
+          `SELECT COUNT(DISTINCT p.id) as total
+           FROM entities brand
+           JOIN entity_links relation
+             ON relation.target_id = brand.id AND relation.link_type = 'made_by'
+           JOIN entities p ON p.id = relation.source_id AND p.type = 'pen'
+           WHERE ${publicEntityFilter("brand")}
+             AND ${publicEntityFilter("p")}`,
+        )) as { total: number })
+      : ((await queryOne(
+          `SELECT COUNT(DISTINCT e.id) as total
+           FROM entity_tags et
+           JOIN tags t ON t.id = et.tag_id
+           JOIN entities e ON e.id = et.entity_id
+           WHERE t.dimension = ?
+             AND ${publicEntityFilter("e")}`,
+          [dimConfig.tagDimension],
+        )) as { total: number });
+  const totalEntities = Number(totalRow.total || 0);
 
   const getBrowseLink = (tagSlug: string) => {
     if (dimension === "brand") return `/brand/${tagSlug}`;

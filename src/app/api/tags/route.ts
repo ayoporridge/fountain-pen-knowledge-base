@@ -1,33 +1,14 @@
 import { nanoid } from "nanoid";
 import { type NextRequest, NextResponse } from "next/server";
 import { verifyWriteAccess } from "@/lib/admin-auth";
-import { execute, queryAll, queryOne } from "@/lib/db";
+import { execute, queryOne } from "@/lib/db";
 
-// GET /api/tags?dimension=nib_type
-export async function GET(request: NextRequest) {
-  const dimension = request.nextUrl.searchParams.get("dimension");
-  const level = request.nextUrl.searchParams.get("level");
-
-  let sql = "SELECT * FROM tags";
-  const conditions: string[] = [];
-  const params: string[] = [];
-
-  if (dimension) {
-    conditions.push("dimension = ?");
-    params.push(dimension);
-  }
-  if (level) {
-    conditions.push("level = ?");
-    params.push(level);
-  }
-
-  if (conditions.length > 0) {
-    sql += ` WHERE ${conditions.join(" AND ")}`;
-  }
-  sql += " ORDER BY dimension, name";
-
-  const tags = await queryAll(sql, params);
-  return NextResponse.json(tags);
+// Tag IDs, slugs and dimensions are editorial implementation details.
+export async function GET() {
+  return NextResponse.json(
+    { error: "This endpoint is not available in the public archive." },
+    { status: 410 },
+  );
 }
 
 // POST /api/tags

@@ -1,10 +1,16 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { getReclassifiedArticlePath } from "@/lib/entity-redirects";
-import { HIDDEN_ARTICLE_SLUGS } from "@/lib/public-visibility";
+import {
+  HIDDEN_ARTICLE_SLUGS,
+  HIDDEN_CONCEPT_SLUGS,
+} from "@/lib/public-visibility";
 
 const HIDDEN_PUBLIC_PATHS = new Set([
   "/api/chat",
   "/api/search",
+  "/by/price",
+  "/by/size",
+  "/by/usage",
   "/brand/banju",
   "/brand/saier",
   "/brand/shanghai",
@@ -15,6 +21,7 @@ const HIDDEN_PUBLIC_PATHS = new Set([
   "/article/永续",
   "/article/犀飞利-sheaffer-品牌泛称",
   ...HIDDEN_ARTICLE_SLUGS.map((slug) => `/article/${slug}`),
+  ...HIDDEN_CONCEPT_SLUGS.map((slug) => `/concept/${slug}`),
 ]);
 
 const ALLOWED_TWO_SEGMENT_NAMESPACES = new Set([
@@ -29,6 +36,14 @@ const ALLOWED_TWO_SEGMENT_NAMESPACES = new Set([
   "material",
   "nib",
   "pen",
+]);
+
+const PUBLIC_BY_DIMENSIONS = new Set([
+  "brand",
+  "fill",
+  "material",
+  "nib",
+  "origin",
 ]);
 
 function normalizePathname(pathname: string) {
@@ -51,6 +66,10 @@ export function middleware(request: NextRequest) {
       : null;
   const hasInvalidTwoSegmentNamespace =
     segments.length === 2 && !ALLOWED_TWO_SEGMENT_NAMESPACES.has(segments[0]);
+  const hasInvalidDimension =
+    segments.length === 2 &&
+    segments[0] === "by" &&
+    !PUBLIC_BY_DIMENSIONS.has(segments[1]);
 
   if (reclassifiedArticlePath) {
     return NextResponse.redirect(
@@ -63,6 +82,7 @@ export function middleware(request: NextRequest) {
     normalizedPathname === "/new" ||
     HIDDEN_PUBLIC_PATHS.has(normalizedPathname) ||
     hasInvalidTwoSegmentNamespace ||
+    hasInvalidDimension ||
     /^\/[^/]+\/[^/]+\/edit\/?$/.test(normalizedPathname)
   ) {
     return new NextResponse("Not Found", {

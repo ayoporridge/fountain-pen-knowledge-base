@@ -471,12 +471,18 @@ export function BrowseExplorer({ initialData }: { initialData: BrowseData }) {
                       <h3 className="mb-1 line-clamp-1 font-medium">
                         {entity.name}
                       </h3>
-                      <p
-                        className="line-clamp-2 text-sm"
-                        style={{ color: "var(--color-ink-muted)" }}
-                      >
-                        {entity.summary || "暂无简介"}
-                      </p>
+                      {(entity.summary ||
+                        entity.classification ||
+                        entity.source_count > 0) && (
+                        <p
+                          className="line-clamp-2 text-sm"
+                          style={{ color: "var(--color-ink-muted)" }}
+                        >
+                          {entity.summary ||
+                            entity.classification ||
+                            `已登记 ${entity.source_count} 条参考来源`}
+                        </p>
+                      )}
                     </div>
                   </Link>
                 );

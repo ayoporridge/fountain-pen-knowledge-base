@@ -1,35 +1,14 @@
 import { nanoid } from "nanoid";
 import { type NextRequest, NextResponse } from "next/server";
 import { verifyWriteAccess } from "@/lib/admin-auth";
-import { execute, queryAll, queryOne } from "@/lib/db";
-import { publicEntityFilter } from "@/lib/public-visibility";
+import { execute, queryOne } from "@/lib/db";
 
-// GET /api/entities/[slug]/tags
-export async function GET(
-  _request: NextRequest,
-  { params }: { params: Promise<{ slug: string }> },
-) {
-  const { slug } = await params;
-
-  const entity = (await queryOne(
-    `SELECT e.id FROM entities e
-     WHERE e.slug = ? AND ${publicEntityFilter("e")}`,
-    [slug],
-  )) as { id: string } | undefined;
-
-  if (!entity) {
-    return NextResponse.json({ error: "Entity not found" }, { status: 404 });
-  }
-
-  const tags = await queryAll(
-    `SELECT t.* FROM tags t
-     JOIN entity_tags et ON et.tag_id = t.id
-     WHERE et.entity_id = ?
-     ORDER BY t.dimension, t.name`,
-    [entity.id],
+// Entity-tag assignments are editorial data in the public archive release.
+export async function GET() {
+  return NextResponse.json(
+    { error: "This endpoint is not available in the public archive." },
+    { status: 410 },
   );
-
-  return NextResponse.json(tags);
 }
 
 // POST /api/entities/[slug]/tags  — add tags (body: { tag_ids: [...] })

@@ -18,20 +18,12 @@ const DIM_LABELS: Record<string, string> = {
   nib_material: "笔尖材质",
   fill_system: "上墨方式",
   origin: "产地",
-  price: "价位",
-  brand_tier: "品牌定位",
   era: "年代",
-  size: "尺寸",
-  usage: "用途",
-  style: "风格",
-  ink_type: "墨水类型",
   body_material: "笔身材质",
-  max_price: "预算",
 };
 
 const SEMANTIC_VALUE_LABELS: Record<string, string> = {
   "nib_material:gold": "所有金尖",
-  "max_price:500": "¥500 以内",
 };
 
 export function getActiveFilterLabel(

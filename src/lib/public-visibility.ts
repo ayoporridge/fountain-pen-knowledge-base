@@ -22,6 +22,17 @@ export const HIDDEN_DUPLICATE_ENTITY_SLUGS = [
 ] as const;
 
 /**
+ * Concept drafts with no reliable examples or a definition that still mixes
+ * distinct mechanisms. Keep the records for editorial recovery, but do not
+ * publish them as finished reference pages.
+ */
+export const HIDDEN_CONCEPT_SLUGS = [
+  "italic-nib",
+  "music-nib",
+  "rotary-filler",
+] as const;
+
+/**
  * Imported pages that are incomplete, administrative, or still working notes.
  * They remain in the database for source recovery, but must not appear on any
  * public surface until an editor has restored and reviewed the full article.
@@ -73,6 +84,8 @@ export function publicEntityFilter(alias = "e"): string {
   const hiddenBrandSlugs = HIDDEN_BRAND_SLUGS.map(quoteSqlLiteral).join(", ");
   const hiddenDuplicateSlugs =
     HIDDEN_DUPLICATE_ENTITY_SLUGS.map(quoteSqlLiteral).join(", ");
+  const hiddenConceptSlugs =
+    HIDDEN_CONCEPT_SLUGS.map(quoteSqlLiteral).join(", ");
   const hiddenArticleSlugs =
     HIDDEN_ARTICLE_SLUGS.map(quoteSqlLiteral).join(", ");
   const articleMarkerSql = INDEX_ARTICLE_MARKERS.map((marker) => {
@@ -85,6 +98,7 @@ export function publicEntityFilter(alias = "e"): string {
   return `NOT (
     ${alias}.slug IN (${hiddenDuplicateSlugs})
     OR (${alias}.type = 'brand' AND ${alias}.slug IN (${hiddenBrandSlugs}))
+    OR (${alias}.type = 'concept' AND ${alias}.slug IN (${hiddenConceptSlugs}))
     OR (${alias}.type = 'article' AND ${alias}.slug IN (${hiddenArticleSlugs}))
     OR (
       ${alias}.type = 'article'
@@ -103,6 +117,13 @@ export function isPublicEntity(entity: EntityVisibilityInput): boolean {
   const slug = String(entity.slug || "");
 
   if ((HIDDEN_DUPLICATE_ENTITY_SLUGS as readonly string[]).includes(slug)) {
+    return false;
+  }
+
+  if (
+    type === "concept" &&
+    (HIDDEN_CONCEPT_SLUGS as readonly string[]).includes(slug)
+  ) {
     return false;
   }
 

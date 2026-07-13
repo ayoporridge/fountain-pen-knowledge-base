@@ -1,7 +1,6 @@
 import { nanoid } from "nanoid";
 import { type NextRequest, NextResponse } from "next/server";
 import { verifyWriteAccess } from "@/lib/admin-auth";
-import { ATTR_LABELS } from "@/lib/constants";
 import { execute, queryAll, queryOne } from "@/lib/db";
 import { publicEntityFilter } from "@/lib/public-visibility";
 import { cleanPublicText } from "@/lib/publicText";
@@ -10,52 +9,32 @@ import { cleanPublicText } from "@/lib/publicText";
 export async function GET(request: NextRequest) {
   const type = request.nextUrl.searchParams.get("type");
 
-  // Single JOIN query instead of N+1
   let rows: unknown[];
   if (type) {
     rows = await queryAll(
-      `SELECT e.id, e.type, e.slug, e.name, e.summary,
-              GROUP_CONCAT(ea.key || '::' || ea.value, '||') as attrs_raw
+      `SELECT e.type, e.slug, e.name, e.summary
        FROM entities e
-       LEFT JOIN entity_attributes ea ON ea.entity_id = e.id
        WHERE e.type = ? AND ${publicEntityFilter("e")}
-       GROUP BY e.id
        ORDER BY e.name`,
       [type],
     );
   } else {
     rows = await queryAll(
-      `SELECT e.id, e.type, e.slug, e.name, e.summary,
-              GROUP_CONCAT(ea.key || '::' || ea.value, '||') as attrs_raw
+      `SELECT e.type, e.slug, e.name, e.summary
        FROM entities e
-       LEFT JOIN entity_attributes ea ON ea.entity_id = e.id
        WHERE ${publicEntityFilter("e")}
-       GROUP BY e.id
        ORDER BY e.name`,
     );
   }
 
-  const entities = (rows as Array<Record<string, unknown>>).map((row) => {
-    const raw = row.attrs_raw as string | null;
-    const attributes: Record<string, string> = {};
-    if (raw) {
-      for (const pair of raw.split("||")) {
-        const idx = pair.indexOf("::");
-        if (idx > 0) {
-          const key = pair.slice(0, idx);
-          const value = cleanPublicText(pair.slice(idx + 2));
-          if (ATTR_LABELS[key] && value) attributes[key] = value;
-        }
-      }
-    }
-    return {
-      type: row.type,
-      slug: row.slug,
-      name: row.name,
-      summary: cleanPublicText(row.summary),
-      attributes,
-    };
-  });
+  const entities = (rows as Array<Record<string, unknown>>).map((row) => ({
+    type: row.type,
+    slug: row.slug,
+    name: row.name,
+    summary: ["pen", "brand"].includes(String(row.type))
+      ? null
+      : cleanPublicText(row.summary),
+  }));
 
   return NextResponse.json(entities);
 }

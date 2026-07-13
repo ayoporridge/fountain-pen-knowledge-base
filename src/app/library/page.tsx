@@ -19,26 +19,26 @@ export const revalidate = 600;
 
 export const metadata: Metadata = {
   title: "专题与资料",
-  description: "从品牌、型号、工艺、历史、图示和玩家口碑进入钢笔资料馆。",
+  description: "从品牌、型号、工艺、历史专题和来源进入钢笔资料馆。",
   alternates: { canonical: "/library" },
 };
 
 const MODULES = [
   {
     title: "品牌馆",
-    desc: "按品牌进入展厅：身份卡、故事、时间线、代表型号和来源。",
+    desc: "按品牌查看代表型号、已核对时间线和参考来源。",
     href: "/browse?type=brand",
     Icon: Books,
   },
   {
     title: "型号档案",
-    desc: "把每支笔拆成参数、历史背景、版本、图示和常见对比。",
+    desc: "查看已有证据支持的规格、品牌关系与来源资料。",
     href: "/browse?type=pen",
     Icon: PenNib,
   },
   {
     title: "工艺实验室",
-    desc: "用机制图看懂笔尖、笔舌、上墨、材质和维护。",
+    desc: "用图示和术语页理解笔尖、笔舌、上墨与材质。",
     href: "/library/diagrams",
     Icon: Flask,
   },
@@ -64,7 +64,7 @@ const CATEGORY_SHORTCUTS = [
   { label: "按笔尖", href: "/by/nib" },
   { label: "按上墨", href: "/by/fill" },
   { label: "按产地", href: "/by/origin" },
-  { label: "按价位", href: "/by/price" },
+  { label: "按材质", href: "/by/material" },
 ];
 
 export default async function LibraryPage() {
@@ -89,7 +89,7 @@ export default async function LibraryPage() {
             className="mb-2 text-sm font-medium"
             style={{ color: "var(--color-accent)" }}
           >
-            Fountain Pen Library
+            钢笔资料馆
           </p>
           <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl">
             专题与资料
@@ -98,7 +98,7 @@ export default async function LibraryPage() {
             className="text-base leading-relaxed sm:text-lg"
             style={{ color: "var(--color-ink-light)" }}
           >
-            从品牌、型号、机制、历史展览和玩家口碑进入一个可追溯的钢笔资料馆。
+            从品牌、型号、机制、历史专题和参考来源进入这座钢笔资料馆。
           </p>
         </div>
       </section>
@@ -124,10 +124,10 @@ export default async function LibraryPage() {
         {[
           ["来源", stats.sources || 0],
           ["事实与证据", stats.claims || 0],
-          ["故事", stats.stories || 0],
           ["图示", stats.diagrams || 0],
           ["时间线", stats.events || 0],
           ["媒体", stats.media || 0],
+          ["历史专题", stats.exhibits || 0],
         ].map(([label, value]) => (
           <div
             key={label}
@@ -213,21 +213,14 @@ export default async function LibraryPage() {
                 }}
               >
                 <div className="font-medium">{brand.name}</div>
-                {brand.summary && (
-                  <p
-                    className="mt-1 line-clamp-2 text-sm"
+                {Number(brand.event_count || 0) > 0 && (
+                  <div
+                    className="mt-2 text-xs"
                     style={{ color: "var(--color-ink-muted)" }}
                   >
-                    {brand.summary}
-                  </p>
+                    已核对时间线 {brand.event_count}
+                  </div>
                 )}
-                <div
-                  className="mt-2 text-xs"
-                  style={{ color: "var(--color-ink-muted)" }}
-                >
-                  故事 {brand.story_count || 0} · 时间线{" "}
-                  {brand.event_count || 0}
-                </div>
               </Link>
             ))}
           </div>

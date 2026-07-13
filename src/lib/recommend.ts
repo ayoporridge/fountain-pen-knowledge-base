@@ -25,13 +25,11 @@ const LINK_REASON_LABELS: Record<string, string> = {
 };
 
 const TAG_REASON_PRIORITY: Record<string, number> = {
-  price: 90,
   nib_material: 85,
   nib_type: 80,
   fill_system: 75,
   origin: 70,
   body_material: 65,
-  usage: 60,
 };
 
 function tagReason(value: string): { label: string; priority: number } | null {
@@ -42,14 +40,14 @@ function tagReason(value: string): { label: string; priority: number } | null {
   if (!name) return null;
 
   const labels: Record<string, string> = {
-    price: `同属「${name}」价位`,
     nib_material: `同为「${name}」笔尖材质`,
     nib_type: `同为「${name}」笔尖类型`,
     fill_system: `同用「${name}」上墨方式`,
     origin: `同为「${name}」产地`,
     body_material: `同用「${name}」笔身材质`,
-    usage: `同适合「${name}」用途`,
   };
+
+  if (!TAG_REASON_PRIORITY[dimension]) return null;
 
   return {
     label: labels[dimension] || `同属「${name}」分类`,
@@ -74,7 +72,7 @@ export async function getRecommendations(
 
   const direct = (await queryAll(
     `SELECT e.id, e.type, e.slug, e.name, e.summary,
-            el.link_type, el.reason
+            el.link_type
      FROM entity_links el
      JOIN entities e ON (
        (el.source_id = ? AND e.id = el.target_id)
@@ -99,26 +97,36 @@ export async function getRecommendations(
     name: string;
     summary: string | null;
     link_type: string;
-    reason: string | null;
   }>;
 
   const modelPeers = (await queryAll(
-    `SELECT e.id, e.type, e.slug, e.name, e.summary,
+    `WITH approved_specs AS (
+       SELECT ms.*
+       FROM model_specs ms
+       WHERE ms.review_status = 'approved'
+         AND EXISTS (
+           SELECT 1
+           FROM citations citation
+           LEFT JOIN claims claim ON claim.id = citation.claim_id
+           JOIN source_items source_item
+             ON source_item.id = COALESCE(citation.source_item_id, claim.source_item_id)
+           WHERE citation.target_type = 'model_spec'
+             AND citation.target_id = ms.id
+             AND source_item.review_status = 'approved'
+             AND (citation.claim_id IS NULL OR claim.review_status = 'approved')
+         )
+     )
+     SELECT e.id, e.type, e.slug, e.name, e.summary,
             candidate.series_name, brand.name as brand_name,
             CASE
               WHEN COALESCE(candidate.series_name, '') != ''
                AND candidate.series_name = current.series_name THEN 'series'
               ELSE 'brand'
             END as match_kind
-     FROM model_specs current
-     JOIN model_specs candidate ON candidate.entity_id != current.entity_id
-       AND (
-         (current.brand_entity_id IS NOT NULL AND candidate.brand_entity_id = current.brand_entity_id)
-         OR (
-           COALESCE(current.series_name, '') != ''
-           AND candidate.series_name = current.series_name
-         )
-       )
+     FROM approved_specs current
+     JOIN approved_specs candidate ON candidate.entity_id != current.entity_id
+       AND current.brand_entity_id IS NOT NULL
+       AND candidate.brand_entity_id = current.brand_entity_id
      JOIN entities e ON e.id = candidate.entity_id
      LEFT JOIN entities brand ON brand.id = candidate.brand_entity_id
      WHERE current.entity_id = ?
@@ -147,6 +155,9 @@ export async function getRecommendations(
        AND theirs.entity_id != mine.entity_id
      JOIN entities e ON e.id = theirs.entity_id
      WHERE mine.entity_id = ?
+       AND t.dimension IN (
+         'nib_material', 'nib_type', 'fill_system', 'origin', 'body_material'
+       )
        AND ${publicEntityFilter("e")}
      GROUP BY e.id, e.type, e.slug, e.name, e.summary
      ORDER BY shared_tags DESC, e.name
@@ -176,9 +187,6 @@ export async function getRecommendations(
       summary: item.summary,
       score: 300,
       reason:
-        (item.reason && /[\u3400-\u9fff]/u.test(item.reason)
-          ? item.reason.trim()
-          : "") ||
         LINK_REASON_LABELS[item.link_type] ||
         `与「${current.name}」有直接资料关联`,
     });

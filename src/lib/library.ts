@@ -263,6 +263,7 @@ export async function getStoriesForEntity(entityId: string) {
      FROM stories
      WHERE entity_id = ?
        AND status IN ('published', 'reviewed')
+       AND story_type NOT IN ('brand_story', 'model_story')
      ORDER BY
        CASE status
          WHEN 'published' THEN 0
@@ -281,9 +282,10 @@ export async function getTimelineForEntity(entityId: string, limit = 12) {
             te.description, te.review_status,
             si.title as source_title, si.url as source_url
      FROM timeline_events te
-     LEFT JOIN source_items si ON si.id = te.source_item_id
+     JOIN source_items si ON si.id = te.source_item_id
      WHERE te.entity_id = ?
        AND te.review_status = 'approved'
+       AND si.review_status = 'approved'
      ORDER BY te.start_date ASC, te.created_at ASC
      LIMIT ?`,
     [entityId, limit],
@@ -355,7 +357,19 @@ export async function getModelSpec(entityId: string) {
      FROM model_specs ms
      LEFT JOIN entities b ON b.id = ms.brand_entity_id
      WHERE ms.entity_id = ?
-       AND ms.review_status = 'approved'`,
+       AND ms.review_status = 'approved'
+       AND (b.id IS NULL OR ${publicEntityFilter("b")})
+       AND EXISTS (
+         SELECT 1
+         FROM citations c
+         LEFT JOIN claims cl ON cl.id = c.claim_id
+         JOIN source_items si
+           ON si.id = COALESCE(c.source_item_id, cl.source_item_id)
+         WHERE c.target_type = 'model_spec'
+           AND c.target_id = ms.id
+           AND si.review_status = 'approved'
+           AND (c.claim_id IS NULL OR cl.review_status = 'approved')
+       )`,
     [entityId],
   )) as ModelSpecRecord | undefined;
 }
@@ -372,13 +386,14 @@ export async function getModelVariants(entityId: string) {
 
 export async function getBrandRepresentativeModels(entityId: string) {
   const models = (await queryAll(
-    `SELECT DISTINCT e.type, e.slug, e.name, e.summary
+    `SELECT DISTINCT e.type, e.slug, e.name, NULL as summary
      FROM entity_links el
      JOIN entities e ON (
        (el.source_id = ? AND e.id = el.target_id)
        OR (el.target_id = ? AND e.id = el.source_id)
      )
      WHERE e.type = 'pen'
+       AND el.link_type IN ('brand_model', 'made_by')
        AND ${publicEntityFilter("e")}
      ORDER BY e.name
      LIMIT 24`,
@@ -389,21 +404,29 @@ export async function getBrandRepresentativeModels(entityId: string) {
 
 export async function getEntityReferences(entityId: string, limit = 8) {
   return (await queryAll(
-    `SELECT er.id, sr.id as source_id, sr.name as source_name, sr.source_type,
-            si.title, si.url, si.item_type,
-            COALESCE(si.allowed_use, sr.allowed_use) as allowed_use,
-            COALESCE(si.license, sr.license) as license,
-            er.review_status,
-            0 as reference_count
-     FROM entity_references er
-     JOIN source_items si ON si.id = er.source_item_id
-     JOIN source_registry sr ON sr.id = si.source_id
-     WHERE er.entity_id = ?
-       AND er.review_status = 'approved'
-       AND si.review_status = 'approved'
-     ORDER BY
-       CASE er.review_status WHEN 'approved' THEN 0 ELSE 1 END,
-       si.title
+    `WITH ranked_references AS (
+       SELECT er.id, sr.id as source_id, sr.name as source_name, sr.source_type,
+              si.title, si.url, si.item_type,
+              COALESCE(si.allowed_use, sr.allowed_use) as allowed_use,
+              COALESCE(si.license, sr.license) as license,
+              er.review_status,
+              0 as reference_count,
+              ROW_NUMBER() OVER (
+                PARTITION BY LOWER(TRIM(COALESCE(NULLIF(si.url, ''), si.id)))
+                ORDER BY er.id
+              ) as public_rank
+       FROM entity_references er
+       JOIN source_items si ON si.id = er.source_item_id
+       JOIN source_registry sr ON sr.id = si.source_id
+       WHERE er.entity_id = ?
+         AND er.review_status = 'approved'
+         AND si.review_status = 'approved'
+     )
+     SELECT id, source_id, source_name, source_type, title, url, item_type,
+            allowed_use, license, review_status, reference_count
+     FROM ranked_references
+     WHERE public_rank = 1
+     ORDER BY title
      LIMIT ?`,
     [entityId, limit],
   )) as SourceItemRecord[];
@@ -531,14 +554,36 @@ export async function getEntityAliases(entityId: string, limit = 24) {
 
 export async function getSourceRegistryIndex() {
   return (await queryAll(
-    `SELECT sr.id, sr.name, sr.source_type, sr.allowed_use, sr.reliability,
+    `WITH source_usage AS (
+       SELECT er.source_item_id,
+              'entity:' || er.entity_id || ':' || LOWER(TRIM(si.url)) as usage_key
+       FROM entity_references er
+       JOIN source_items si ON si.id = er.source_item_id
+       JOIN entities used_entity ON used_entity.id = er.entity_id
+       WHERE er.review_status = 'approved'
+         AND si.review_status = 'approved'
+         AND ${publicEntityFilter("used_entity")}
+       UNION ALL
+       SELECT COALESCE(c.source_item_id, claim.source_item_id) as source_item_id,
+              'citation:' || c.id as usage_key
+       FROM citations c
+       LEFT JOIN claims claim ON claim.id = c.claim_id
+       JOIN source_items cited_item
+         ON cited_item.id = COALESCE(c.source_item_id, claim.source_item_id)
+       WHERE cited_item.review_status = 'approved'
+         AND (c.claim_id IS NULL OR claim.review_status = 'approved')
+     )
+     SELECT sr.id, sr.name, sr.source_type, sr.allowed_use, sr.reliability,
             sr.license, sr.attribution, sr.homepage_url, sr.fetch_method, sr.notes,
-            COUNT(DISTINCT CASE WHEN si.review_status = 'approved' THEN si.id END) as item_count,
-            COUNT(DISTINCT CASE WHEN er.review_status = 'approved' THEN er.id END) as reference_count
+            COUNT(DISTINCT CASE
+              WHEN si.review_status = 'approved' AND source_usage.usage_key IS NOT NULL
+              THEN si.id END) as item_count,
+            COUNT(DISTINCT source_usage.usage_key) as reference_count
      FROM source_registry sr
      LEFT JOIN source_items si ON si.source_id = sr.id
-     LEFT JOIN entity_references er ON er.source_item_id = si.id
+     LEFT JOIN source_usage ON source_usage.source_item_id = si.id
      GROUP BY sr.id
+     HAVING COUNT(DISTINCT source_usage.usage_key) > 0
      ORDER BY
        CASE sr.source_type
          WHEN 'official' THEN 0
@@ -575,17 +620,37 @@ export async function getSourceItemIndex(
   args.push(limit);
 
   return (await queryAll(
-    `SELECT si.id, sr.id as source_id, sr.name as source_name, sr.source_type,
+    `WITH source_usage AS (
+       SELECT er.source_item_id,
+              'entity:' || er.entity_id || ':' || LOWER(TRIM(used_item.url)) as usage_key
+       FROM entity_references er
+       JOIN source_items used_item ON used_item.id = er.source_item_id
+       JOIN entities used_entity ON used_entity.id = er.entity_id
+       WHERE er.review_status = 'approved'
+         AND used_item.review_status = 'approved'
+         AND ${publicEntityFilter("used_entity")}
+       UNION ALL
+       SELECT COALESCE(c.source_item_id, claim.source_item_id) as source_item_id,
+              'citation:' || c.id as usage_key
+       FROM citations c
+       LEFT JOIN claims claim ON claim.id = c.claim_id
+       JOIN source_items cited_item
+         ON cited_item.id = COALESCE(c.source_item_id, claim.source_item_id)
+       WHERE cited_item.review_status = 'approved'
+         AND (c.claim_id IS NULL OR claim.review_status = 'approved')
+     )
+     SELECT si.id, sr.id as source_id, sr.name as source_name, sr.source_type,
             si.title, si.url, si.item_type,
             COALESCE(si.allowed_use, sr.allowed_use) as allowed_use,
             COALESCE(si.license, sr.license) as license,
             si.review_status,
-            COUNT(DISTINCT er.id) as reference_count
+            COUNT(DISTINCT source_usage.usage_key) as reference_count
      FROM source_items si
      JOIN source_registry sr ON sr.id = si.source_id
-     LEFT JOIN entity_references er ON er.source_item_id = si.id
+     JOIN source_usage ON source_usage.source_item_id = si.id
      ${filters.length > 0 ? `WHERE ${filters.join(" AND ")}` : ""}
      GROUP BY si.id
+     HAVING COUNT(DISTINCT source_usage.usage_key) > 0
      ORDER BY
        CASE si.review_status WHEN 'approved' THEN 0 WHEN 'pending' THEN 1 ELSE 2 END,
        sr.name,

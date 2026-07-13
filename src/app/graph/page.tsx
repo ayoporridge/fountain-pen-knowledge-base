@@ -63,7 +63,7 @@ export default async function GraphPage({ searchParams }: GraphPageProps) {
       <header className="mb-8 max-w-3xl">
         <p className="mb-2 flex items-center gap-2 text-sm font-medium text-accent">
           <Graph size={18} weight="duotone" />
-          Local Knowledge Graph
+          局部关系网络
         </p>
         <h1 className="mb-3 text-3xl font-bold tracking-tight">关系图谱</h1>
         <p className="m-0 text-base leading-relaxed text-ink-light">
@@ -145,11 +145,7 @@ export default async function GraphPage({ searchParams }: GraphPageProps) {
                 {current.name}
               </h2>
             </div>
-            <LocalGraph
-              entityId={current.id}
-              entityType={current.type}
-              entitySlug={current.slug}
-            />
+            <LocalGraph entityType={current.type} entitySlug={current.slug} />
           </section>
         </>
       ) : (

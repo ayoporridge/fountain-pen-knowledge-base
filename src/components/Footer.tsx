@@ -107,11 +107,11 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/by/price"
+                  href="/by/material"
                   className="hover:underline"
                   style={{ color: "var(--color-ink-muted)" }}
                 >
-                  价位
+                  笔身材质
                 </Link>
               </li>
             </ul>
@@ -126,7 +126,7 @@ export function Footer() {
               关于
             </h3>
             <p style={{ color: "var(--color-ink-muted)", lineHeight: 1.7 }}>
-              一个钢笔爱好者的个人资料馆。按品牌、型号、笔尖、上墨方式和专题整理，资料来自社区讨论、评测文章和个人笔记。
+              一座按品牌、型号、笔尖、上墨方式和专题整理的钢笔资料馆。词条会列出实际采用的官方、资料站和社区来源。
             </p>
           </div>
         </div>

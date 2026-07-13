@@ -4,93 +4,109 @@ import { verifyWriteAccess } from "@/lib/admin-auth";
 import { execute, queryAll, queryOne } from "@/lib/db";
 import { publicEntityFilter } from "@/lib/public-visibility";
 
-// GET /api/links?entity_id=xxx&depth=1 — get all links for an entity
-// depth=2 also fetches links for each direct neighbor (2-hop expansion)
+const PUBLIC_LINK_SELECT = `
+  source_entity.type || ':' || source_entity.slug as source_key,
+  source_entity.slug as source_slug,
+  source_entity.name as source_name,
+  source_entity.type as source_type,
+  target_entity.type || ':' || target_entity.slug as target_key,
+  target_entity.slug as target_slug,
+  target_entity.name as target_name,
+  target_entity.type as target_type,
+  el.link_type,
+  el.reason`;
+
+// Public graph reads use stable type/slug keys. Database ids and audit
+// timestamps stay server-side.
 export async function GET(request: NextRequest) {
-  const entityId = request.nextUrl.searchParams.get("entity_id");
+  const slug = request.nextUrl.searchParams.get("slug");
   const depth = Math.min(
     Number(request.nextUrl.searchParams.get("depth")) || 1,
     2,
   );
 
-  if (!entityId) {
-    return NextResponse.json(
-      { error: "entity_id is required" },
-      { status: 400 },
-    );
+  if (!slug) {
+    return NextResponse.json({ error: "slug is required" }, { status: 400 });
   }
 
-  const center = await queryOne(
+  const center = (await queryOne(
     `SELECT e.id FROM entities e
-     WHERE e.id = ? AND ${publicEntityFilter("e")}`,
-    [entityId],
-  );
+     WHERE e.slug = ? AND ${publicEntityFilter("e")}`,
+    [slug],
+  )) as { id: string } | undefined;
   if (!center) {
     return NextResponse.json({ error: "Entity not found" }, { status: 404 });
   }
 
-  // Forward links: entity is source
   const forward = await queryAll(
-    `SELECT el.*, e.slug as target_slug, e.name as target_name, e.type as target_type
+    `SELECT ${PUBLIC_LINK_SELECT}
      FROM entity_links el
-     JOIN entities e ON e.id = el.target_id
+     JOIN entities source_entity ON source_entity.id = el.source_id
+     JOIN entities target_entity ON target_entity.id = el.target_id
      WHERE el.source_id = ?
        AND el.link_type != 'reverse'
-       AND ${publicEntityFilter("e")}
-     ORDER BY el.created_at`,
-    [entityId],
+       AND ${publicEntityFilter("source_entity")}
+       AND ${publicEntityFilter("target_entity")}
+     ORDER BY target_entity.name, el.link_type`,
+    [center.id],
   );
 
-  // Backlinks: entity is target
   const backlinks = await queryAll(
-    `SELECT el.*, e.slug as source_slug, e.name as source_name, e.type as source_type
+    `SELECT ${PUBLIC_LINK_SELECT}
      FROM entity_links el
-     JOIN entities e ON e.id = el.source_id
+     JOIN entities source_entity ON source_entity.id = el.source_id
+     JOIN entities target_entity ON target_entity.id = el.target_id
      WHERE el.target_id = ?
        AND el.link_type != 'reverse'
-       AND ${publicEntityFilter("e")}
-     ORDER BY el.created_at`,
-    [entityId],
+       AND ${publicEntityFilter("source_entity")}
+       AND ${publicEntityFilter("target_entity")}
+     ORDER BY source_entity.name, el.link_type`,
+    [center.id],
   );
 
-  // 2-hop: fetch links for each direct neighbor
   let secondHopForward: unknown[] = [];
   let secondHopBacklinks: unknown[] = [];
 
   if (depth >= 2) {
-    const neighborIds = new Set<string>();
-    for (const link of forward as Array<{ target_id: string }>) {
-      neighborIds.add(link.target_id);
-    }
-    for (const link of backlinks as Array<{ source_id: string }>) {
-      neighborIds.add(link.source_id);
-    }
-    // Remove the center entity itself
-    neighborIds.delete(entityId);
-
-    // Limit to first 10 neighbors to avoid huge queries
-    const neighbors = Array.from(neighborIds).slice(0, 10);
+    const neighborRows = (await queryAll(
+      `SELECT DISTINCT
+         CASE WHEN el.source_id = ? THEN el.target_id ELSE el.source_id END as neighbor_id
+       FROM entity_links el
+       JOIN entities neighbor ON neighbor.id =
+         CASE WHEN el.source_id = ? THEN el.target_id ELSE el.source_id END
+       WHERE (el.source_id = ? OR el.target_id = ?)
+         AND el.link_type != 'reverse'
+         AND ${publicEntityFilter("neighbor")}
+       ORDER BY neighbor.name
+       LIMIT 10`,
+      [center.id, center.id, center.id, center.id],
+    )) as Array<{ neighbor_id: string }>;
+    const neighbors = neighborRows.map((row) => row.neighbor_id);
 
     if (neighbors.length > 0) {
       const placeholders = neighbors.map(() => "?").join(",");
       secondHopForward = await queryAll(
-        `SELECT el.*, e.slug as target_slug, e.name as target_name, e.type as target_type
+        `SELECT ${PUBLIC_LINK_SELECT}
          FROM entity_links el
-         JOIN entities e ON e.id = el.target_id
+         JOIN entities source_entity ON source_entity.id = el.source_id
+         JOIN entities target_entity ON target_entity.id = el.target_id
          WHERE el.source_id IN (${placeholders})
            AND el.link_type != 'reverse'
-           AND ${publicEntityFilter("e")}
-         ORDER BY el.created_at`,
+           AND ${publicEntityFilter("source_entity")}
+           AND ${publicEntityFilter("target_entity")}
+         ORDER BY source_entity.name, target_entity.name, el.link_type`,
         neighbors,
       );
       secondHopBacklinks = await queryAll(
-        `SELECT el.*, e.slug as source_slug, e.name as source_name, e.type as source_type
+        `SELECT ${PUBLIC_LINK_SELECT}
          FROM entity_links el
-         JOIN entities e ON e.id = el.source_id
+         JOIN entities source_entity ON source_entity.id = el.source_id
+         JOIN entities target_entity ON target_entity.id = el.target_id
          WHERE el.target_id IN (${placeholders})
            AND el.link_type != 'reverse'
-           AND ${publicEntityFilter("e")}
-         ORDER BY el.created_at`,
+           AND ${publicEntityFilter("source_entity")}
+           AND ${publicEntityFilter("target_entity")}
+         ORDER BY target_entity.name, source_entity.name, el.link_type`,
         neighbors,
       );
     }

@@ -1,20 +1,29 @@
+import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
-import { type Client, createClient, type InArgs } from "@libsql/client";
+import {
+  type Client,
+  createClient,
+  type InArgs,
+  type ResultSet,
+  type Transaction,
+} from "@libsql/client";
 
 // Local SQLite file path (for local dev)
 const DB_PATH = path.join(process.cwd(), "data", "fpkg.db");
 const MIGRATIONS_DIR = path.join(process.cwd(), "migrations");
 
 let _client: Client | null = null;
-let _migrationsDone: Promise<void> | null = null;
+let _databaseReady: Promise<void> | null = null;
 
 /**
  * Get or create a database client.
  * - In production (TURSO_URL set): connects to Turso cloud
  * - In development: uses local SQLite file
  *
- * Migrations run exactly once (awaited) on first call.
+ * Schema migrations are intentionally not run here. Build workers and serverless
+ * functions may initialize this module concurrently, so database writes belong
+ * in the explicit `pnpm migrate` / `pnpm migrate:remote` deployment step.
  */
 export function getDb(): Client {
   if (_client) return _client;
@@ -34,15 +43,179 @@ export function getDb(): Client {
     _client = createClient({ url: `file:${DB_PATH}` });
   }
 
-  // Enable foreign keys
-  _client.execute("PRAGMA foreign_keys = ON");
+  return _client;
+}
 
-  // Run migrations exactly once; subsequent callers await the same promise
-  if (!_migrationsDone) {
-    _migrationsDone = runMigrations(_client);
+export interface MigrationResult {
+  applied: string[];
+  skipped: string[];
+}
+
+interface MigrationOptions {
+  migrationsDir?: string;
+}
+
+function migrationFiles(migrationsDir = MIGRATIONS_DIR): string[] {
+  if (!fs.existsSync(migrationsDir)) {
+    throw new Error(`Migrations directory not found: ${migrationsDir}`);
   }
 
-  return _client;
+  return fs
+    .readdirSync(migrationsDir)
+    .filter((file) => file.endsWith(".sql"))
+    .sort();
+}
+
+/**
+ * Some historical migration files contain their own outer transaction. Each
+ * file is now executed inside a libSQL write transaction so its SQL and its
+ * migration marker commit atomically. Trigger-body `BEGIN` / `END` statements
+ * are not affected because they do not use the standalone `BEGIN;` form.
+ */
+function removeOuterTransaction(sql: string): string {
+  return sql.replace(/^\s*BEGIN;\s*$/gim, "").replace(/^\s*COMMIT;\s*$/gim, "");
+}
+
+function migrationChecksum(sql: string): string {
+  return createHash("sha256").update(sql).digest("hex");
+}
+
+async function rollbackQuietly(transaction: Transaction): Promise<void> {
+  if (transaction.closed) return;
+  try {
+    await transaction.rollback();
+  } catch {
+    // Preserve the migration error that caused the rollback.
+  }
+}
+
+/**
+ * Apply all pending migrations, in filename order.
+ *
+ * The pending check is performed after acquiring the write transaction. This
+ * makes concurrent invocations safe: a second process observes the marker
+ * written by the first instead of executing the same migration again.
+ */
+export async function migrateDatabase(
+  db: Client,
+  options: MigrationOptions = {},
+): Promise<MigrationResult> {
+  const migrationsDir = options.migrationsDir ?? MIGRATIONS_DIR;
+  const files = migrationFiles(migrationsDir);
+  const result: MigrationResult = { applied: [], skipped: [] };
+
+  await db.execute("PRAGMA foreign_keys = ON");
+  await db.execute(`
+    CREATE TABLE IF NOT EXISTS migrations (
+      name TEXT PRIMARY KEY NOT NULL,
+      applied_at TEXT NOT NULL DEFAULT (datetime('now')),
+      checksum TEXT
+    );
+  `);
+  const migrationColumns = await db.execute("PRAGMA table_info(migrations)");
+  if (!migrationColumns.rows.some((row) => String(row.name) === "checksum")) {
+    await db.execute("ALTER TABLE migrations ADD COLUMN checksum TEXT");
+  }
+
+  for (const file of files) {
+    const sql = fs.readFileSync(path.join(migrationsDir, file), "utf8");
+    const checksum = migrationChecksum(sql);
+    const transaction = await db.transaction("write");
+
+    try {
+      const existing = await transaction.execute({
+        sql: "SELECT checksum FROM migrations WHERE name = ? LIMIT 1",
+        args: [file],
+      });
+
+      if (existing.rows.length > 0) {
+        const recordedChecksum = existing.rows[0]?.checksum;
+        if (recordedChecksum && String(recordedChecksum) !== checksum) {
+          throw new Error(
+            `Applied migration checksum mismatch: ${file}. Restore the applied SQL instead of rewriting history.`,
+          );
+        }
+        if (!recordedChecksum) {
+          await transaction.execute({
+            sql: "UPDATE migrations SET checksum = ? WHERE name = ?",
+            args: [checksum, file],
+          });
+        }
+        await transaction.commit();
+        result.skipped.push(file);
+        continue;
+      }
+
+      await transaction.executeMultiple(removeOuterTransaction(sql));
+      await transaction.execute({
+        sql: "INSERT INTO migrations (name, applied_at, checksum) VALUES (?, datetime('now'), ?)",
+        args: [file, checksum],
+      });
+      await transaction.commit();
+      result.applied.push(file);
+    } catch (error) {
+      await rollbackQuietly(transaction);
+      throw new Error(`Migration failed: ${file}`, { cause: error });
+    }
+  }
+
+  return result;
+}
+
+/**
+ * Read-only startup guard. It never repairs the database: a missing or pending
+ * migration fails the request/build with an actionable error instead.
+ */
+export async function assertDatabaseReady(
+  db: Client,
+  options: MigrationOptions = {},
+): Promise<void> {
+  const files = migrationFiles(options.migrationsDir ?? MIGRATIONS_DIR);
+
+  await db.execute("PRAGMA foreign_keys = ON");
+
+  let appliedRows: ResultSet;
+  try {
+    appliedRows = await db.execute("SELECT name, checksum FROM migrations");
+  } catch (error) {
+    throw new Error(
+      "Database schema is not initialized. Run `pnpm migrate` locally or `pnpm migrate:remote` before building/starting the app.",
+      { cause: error },
+    );
+  }
+
+  const applied = new Map(
+    appliedRows.rows.map((row) => [String(row.name), row.checksum]),
+  );
+  const pending = files.filter((file) => !applied.has(file));
+
+  if (pending.length > 0) {
+    throw new Error(
+      `Database schema is out of date (${pending.length} pending: ${pending.join(", ")}). Run \`pnpm migrate\` locally or \`pnpm migrate:remote\` before building/starting the app.`,
+    );
+  }
+
+  const changed = files.filter((file) => {
+    const recordedChecksum = applied.get(file);
+    if (!recordedChecksum) return false;
+    const sql = fs.readFileSync(
+      path.join(options.migrationsDir ?? MIGRATIONS_DIR, file),
+      "utf8",
+    );
+    return String(recordedChecksum) !== migrationChecksum(sql);
+  });
+  if (changed.length > 0) {
+    throw new Error(
+      `Applied migration files changed (${changed.join(", ")}). Restore the applied SQL instead of rewriting history.`,
+    );
+  }
+}
+
+async function databaseReady(): Promise<void> {
+  if (!_databaseReady) {
+    _databaseReady = assertDatabaseReady(getDb());
+  }
+  return _databaseReady;
 }
 
 /**
@@ -53,6 +226,7 @@ export async function queryAll(
   sql: string,
   args: unknown[] = [],
 ): Promise<unknown[]> {
+  await databaseReady();
   const db = getDb();
   const result = await db.execute({ sql, args: args as InArgs });
   return result.rows;
@@ -70,49 +244,15 @@ export async function execute(
   sql: string,
   args: unknown[] = [],
 ): Promise<void> {
+  await databaseReady();
   const db = getDb();
   await db.execute({ sql, args: args as InArgs });
 }
 
 export async function execBatch(sqls: string[]): Promise<void> {
+  await databaseReady();
   const db = getDb();
   for (const sql of sqls) {
     await db.execute(sql);
-  }
-}
-
-async function runMigrations(db: Client): Promise<void> {
-  // Create migrations table
-  await db.execute(`
-    CREATE TABLE IF NOT EXISTS migrations (
-      name TEXT PRIMARY KEY NOT NULL,
-      applied_at TEXT NOT NULL DEFAULT (datetime('now'))
-    );
-  `);
-
-  try {
-    const result = await db.execute("SELECT name FROM migrations");
-    const applied = new Set(result.rows.map((row) => row.name as string));
-
-    if (!fs.existsSync(MIGRATIONS_DIR)) return;
-
-    const files = fs
-      .readdirSync(MIGRATIONS_DIR)
-      .filter((f) => f.endsWith(".sql"))
-      .sort();
-
-    for (const file of files) {
-      if (applied.has(file)) continue;
-
-      const sql = fs.readFileSync(path.join(MIGRATIONS_DIR, file), "utf-8");
-      await db.executeMultiple(sql);
-      await db.execute({
-        sql: "INSERT INTO migrations (name, applied_at) VALUES (?, datetime('now'))",
-        args: [file],
-      });
-      console.log(`Applied migration: ${file}`);
-    }
-  } catch (err) {
-    console.error("Migration error:", err);
   }
 }

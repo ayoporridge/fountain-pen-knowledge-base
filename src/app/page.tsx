@@ -41,7 +41,7 @@ const HERO_CATEGORIES = [
 const TASK_ENTRIES = [
   {
     title: "找一支笔",
-    desc: "从预算、产地、笔尖和用途开始缩小范围。",
+    desc: "从产地、笔尖、上墨方式和笔身材质开始浏览。",
     href: "/browse?type=pen",
     Icon: PenNib,
   },
@@ -105,9 +105,14 @@ export default async function Home() {
                        ma.id
               LIMIT 1
             ) as media_url,
-            COUNT(DISTINCT et.tag_id) as tag_count
+            COUNT(DISTINCT featured_tag.id) as tag_count
      FROM entities e
      LEFT JOIN entity_tags et ON et.entity_id = e.id
+     LEFT JOIN tags featured_tag ON featured_tag.id = et.tag_id
+       AND featured_tag.dimension IN (
+         'nib_type', 'nib_material', 'fill_system', 'origin',
+         'body_material'
+       )
      WHERE ${PUBLIC_ENTITY_FILTER_SQL}
      GROUP BY e.id
      HAVING tag_count >= 1
@@ -133,7 +138,16 @@ export default async function Home() {
           `SELECT name, slug FROM entities e
            WHERE e.type = ?
              AND ${PUBLIC_ENTITY_FILTER_SQL}
-           ORDER BY (SELECT COUNT(*) FROM entity_tags WHERE entity_id = e.id) DESC,
+           ORDER BY (
+                      SELECT COUNT(*)
+                      FROM entity_tags star_et
+                      JOIN tags star_tag ON star_tag.id = star_et.tag_id
+                      WHERE star_et.entity_id = e.id
+                        AND star_tag.dimension IN (
+                          'nib_type', 'nib_material', 'fill_system', 'origin',
+                          'body_material'
+                        )
+                    ) DESC,
                     created_at DESC
            LIMIT ?`,
           [type, type === "pen" ? 3 : 2],
@@ -198,7 +212,7 @@ export default async function Home() {
         />
         <div className="relative z-10 flex min-h-[470px] flex-col justify-end p-5 sm:p-10">
           <p className="archive-kicker mb-3" style={{ color: "#f3c37b" }}>
-            Fountain Pen Library
+            钢笔资料馆
           </p>
           <h1 className="mb-4 max-w-3xl text-4xl font-bold tracking-tight text-[#fff7e8] sm:text-6xl">
             钢笔知识图谱
@@ -377,14 +391,21 @@ export default async function Home() {
                   >
                     {entity.name}
                   </span>
-                  {entity.summary && (
+                  {!["pen", "brand"].includes(entity.type) && entity.summary ? (
                     <span
                       className="text-sm truncate block"
                       style={{ color: "var(--color-ink-muted)" }}
                     >
                       {entity.summary}
                     </span>
-                  )}
+                  ) : entity.tag_count > 0 ? (
+                    <span
+                      className="text-sm truncate block"
+                      style={{ color: "var(--color-ink-muted)" }}
+                    >
+                      {entity.tag_count} 个分类标签
+                    </span>
+                  ) : null}
                 </div>
                 <span
                   className="text-xs px-2 py-0.5 rounded-full flex-shrink-0"

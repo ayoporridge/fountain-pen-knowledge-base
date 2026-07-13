@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight } from "@phosphor-icons/react/dist/ssr";
+import { LinkSimple } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 import { TYPE_LABELS } from "@/lib/constants";
 import { entityIdentityKey } from "@/lib/entity-identity";
@@ -31,26 +31,9 @@ export function RelatedEntities({ links }: RelatedEntitiesProps) {
       ).values(),
     );
 
-  const forward = dedupeLinks(
-    links.filter(
-      (l) => l.link_type === "related_to" || l.link_type === "instance_of",
-    ),
-  );
-  const backlinks = dedupeLinks(
-    links.filter(
-      (l) => l.link_type !== "related_to" && l.link_type !== "instance_of",
-    ),
-  );
+  const related = dedupeLinks(links);
 
-  const LinkList = ({
-    items,
-    label,
-    icon,
-  }: {
-    items: LinkItem[];
-    label: string;
-    icon: React.ReactNode;
-  }) => {
+  const LinkList = ({ items }: { items: LinkItem[] }) => {
     if (items.length === 0) return null;
     return (
       <div>
@@ -58,8 +41,8 @@ export function RelatedEntities({ links }: RelatedEntitiesProps) {
           className="text-sm font-medium flex items-center gap-1.5 mb-2"
           style={{ color: "var(--color-ink-muted)" }}
         >
-          {icon}
-          {label} ({items.length})
+          <LinkSimple size={14} />
+          相关条目 ({items.length})
         </h3>
         <ul className="space-y-1.5">
           {items.map((item) => (
@@ -95,18 +78,7 @@ export function RelatedEntities({ links }: RelatedEntitiesProps) {
         backgroundColor: "var(--color-surface-raised)",
       }}
     >
-      <div className="space-y-4">
-        <LinkList
-          items={forward}
-          label="链接到"
-          icon={<ArrowRight size={14} />}
-        />
-        <LinkList
-          items={backlinks}
-          label="被引用"
-          icon={<ArrowLeft size={14} />}
-        />
-      </div>
+      <LinkList items={related} />
     </div>
   );
 }

@@ -7,6 +7,7 @@ import {
   type MediaFetcher,
   type MediaHostResolver,
 } from "../../src/lib/media-url";
+import { publicEntityFilter } from "../../src/lib/public-visibility";
 
 const HIDDEN_BRAND_SLUGS = ["banju", "saier", "shanghai", "yongxu"];
 const RETIRED_DUPLICATE_SLUGS = [
@@ -189,6 +190,8 @@ test.describe("site quality contract", () => {
       await expect(page.locator('input[type="search"]')).toHaveCount(0);
       await expect(page.locator('a[href^="/search"]')).toHaveCount(0);
       await expect(page.locator('a[href^="/chat"]')).toHaveCount(0);
+      await expect(page.locator('a[href^="/compare"]')).toHaveCount(0);
+      await expect(page.locator('a[href^="/by/price"]')).toHaveCount(0);
     }
 
     await page.goto("/");
@@ -199,9 +202,12 @@ test.describe("site quality contract", () => {
     await expect(page).toHaveURL(/\/browse$/);
     await page.goto("/chat");
     await expect(page).toHaveURL(/\/library$/);
+    await page.goto("/compare?items=pilot-custom-823");
+    await expect(page).toHaveURL(/\/browse\?type=pen$/);
 
     expect((await request.get("/api/search?q=823")).status()).toBe(404);
     expect((await request.get("/api/chat")).status()).toBe(404);
+    expect((await request.get("/by/price")).status()).toBe(404);
     expect(
       (
         await request.post("/api/chat", {
@@ -276,8 +282,7 @@ test.describe("site quality contract", () => {
     request,
   }, testInfo) => {
     if (!desktopOnly(testInfo.project.name)) return;
-    const path =
-      "/browse?type=pen&origin=origin-japan&nib_material=gold&max_price=500";
+    const path = "/browse?type=pen&origin=origin-japan&nib_material=gold";
     const api = await request.get(`/api${path}`);
     expect(api.ok()).toBeTruthy();
     const payload = (await api.json()) as {
@@ -290,7 +295,6 @@ test.describe("site quality contract", () => {
     expect(payload.activeFilters).toMatchObject({
       origin: "origin-japan",
       nib_material: "gold",
-      max_price: "500",
     });
 
     const response = await page.goto(path, { waitUntil: "domcontentloaded" });
@@ -322,6 +326,49 @@ test.describe("site quality contract", () => {
     }
   });
 
+  test("dimension totals are distinct and facet counts respect the active type", async ({
+    page,
+    request,
+  }, testInfo) => {
+    if (!desktopOnly(testInfo.project.name)) return;
+
+    const database = new Database(path.join(process.cwd(), "data/fpkg.db"), {
+      readonly: true,
+    });
+    try {
+      for (const [route, dimension] of [
+        ["nib", "nib_type"],
+        ["material", "body_material"],
+      ] as const) {
+        const row = database
+          .prepare(
+            `SELECT COUNT(DISTINCT e.id) as total
+             FROM entity_tags et
+             JOIN tags t ON t.id = et.tag_id
+             JOIN entities e ON e.id = et.entity_id
+             WHERE t.dimension = ? AND ${publicEntityFilter("e")}`,
+          )
+          .get(dimension) as { total: number };
+        await page.goto(`/by/${route}`, { waitUntil: "domcontentloaded" });
+        await expect(page.getByText(`覆盖 ${row.total} 个词条`)).toBeVisible();
+      }
+    } finally {
+      database.close();
+    }
+
+    const knowledgeResponse = await request.get("/api/browse?type=knowledge");
+    expect(knowledgeResponse.ok()).toBeTruthy();
+    const payload = (await knowledgeResponse.json()) as {
+      total: number;
+      facets: Record<string, Array<{ count: number }>>;
+    };
+    for (const options of Object.values(payload.facets)) {
+      for (const option of options) {
+        expect(option.count).toBeLessThanOrEqual(payload.total);
+      }
+    }
+  });
+
   test("public entity and graph APIs do not expose hidden records", async ({
     request,
   }, testInfo) => {
@@ -343,14 +390,21 @@ test.describe("site quality contract", () => {
     ];
     expect(hiddenEntities.length).toBeGreaterThanOrEqual(5);
     for (const entity of hiddenEntities) {
-      for (const suffix of ["", "/preview", "/tags"]) {
+      for (const suffix of ["", "/preview"]) {
         const response = await request.get(
           `/api/entities/${encodeURIComponent(entity.slug)}${suffix}`,
         );
         expect(response.status()).toBe(404);
       }
+      expect(
+        (
+          await request.get(
+            `/api/entities/${encodeURIComponent(entity.slug)}/tags`,
+          )
+        ).status(),
+      ).toBe(410);
       const links = await request.get(
-        `/api/links?entity_id=${encodeURIComponent(entity.id)}&depth=2`,
+        `/api/links?slug=${encodeURIComponent(entity.slug)}&depth=2`,
       );
       expect(links.status()).toBe(404);
     }
@@ -362,7 +416,7 @@ test.describe("site quality contract", () => {
       unknown
     >;
     expect(Object.keys(publicPayload).sort()).toEqual(
-      ["attributes", "name", "slug", "summary", "tags", "type"].sort(),
+      ["name", "slug", "summary", "type"].sort(),
     );
     for (const internalField of [
       "id",
@@ -375,13 +429,26 @@ test.describe("site quality contract", () => {
     ]) {
       expect(publicPayload).not.toHaveProperty(internalField);
     }
-    const known823 = localContract.compare.find(
-      (entity) => entity.slug === "pilot-custom-823",
+    const publicPreview = await request.get(
+      "/api/entities/pilot-custom-823/preview",
     );
-    expect(known823?.id).toBeTruthy();
-    const links = await request.get(
-      `/api/links?entity_id=${encodeURIComponent(known823?.id || "")}&depth=2`,
-    );
+    expect(publicPreview.ok()).toBeTruthy();
+    const previewPayload = (await publicPreview.json()) as {
+      summary: string | null;
+      tags: Array<{ name: string; dimension: string }>;
+    };
+    expect(previewPayload.summary).toBeNull();
+    const publicDimensions = new Set([
+      "nib_type",
+      "nib_material",
+      "fill_system",
+      "origin",
+      "body_material",
+    ]);
+    for (const tag of previewPayload.tags) {
+      expect(publicDimensions.has(tag.dimension)).toBeTruthy();
+    }
+    const links = await request.get("/api/links?slug=pilot-custom-823&depth=2");
     expect(links.ok()).toBeTruthy();
     const linkPayload = (await links.json()) as Record<
       string,
@@ -395,12 +462,29 @@ test.describe("site quality contract", () => {
       "secondHopBacklinks",
     ]) {
       for (const link of linkPayload[collection] || []) {
+        expect(Object.keys(link).sort()).toEqual(
+          [
+            "source_key",
+            "source_slug",
+            "source_name",
+            "source_type",
+            "target_key",
+            "target_slug",
+            "target_name",
+            "target_type",
+            "link_type",
+            "reason",
+          ].sort(),
+        );
         for (const value of Object.values(link)) {
           expect(HIDDEN_BRAND_SLUGS.includes(value)).toBeFalsy();
           expect(hiddenIds.has(value)).toBeFalsy();
         }
       }
     }
+    expect(
+      (await request.get("/api/links?entity_id=legacy-internal-id")).status(),
+    ).toBe(400);
   });
 
   test("media proxy enforces approved id and legacy host contracts", async ({
@@ -727,10 +811,7 @@ test.describe("site quality contract", () => {
     ).toHaveCount(0);
 
     await page.goto("/compare", { waitUntil: "domcontentloaded" });
-    await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
-      "content",
-      /noindex/,
-    );
+    await expect(page).toHaveURL(/\/browse\?type=pen$/);
 
     const sitemap = await (await request.get("/sitemap.xml")).text();
     expect(sitemap).toContain("/graph");
@@ -916,10 +997,10 @@ test.describe("site quality contract", () => {
     });
     const routes = [
       "/",
-      "/browse?type=pen&origin=origin-japan&nib_material=gold&max_price=500",
+      "/browse?type=pen&origin=origin-japan&nib_material=gold",
       "/pen/pilot-custom-823",
+      "/concept/gold-nib",
       "/graph",
-      "/compare?items=pilot-custom-823,%E7%99%BE%E4%B9%90-pilot-custom-743",
     ];
     for (const [index, route] of routes.entries()) {
       const response = await page.goto(route, {
@@ -1086,5 +1167,63 @@ test.describe("site quality contract", () => {
       .first()
       .evaluate((element) => getComputedStyle(element).animationDuration);
     expect(["0s", "0.001s", "0.01ms"]).toContain(animationDuration);
+  });
+
+  test("every sitemap page fits the mobile viewport", async ({
+    context,
+    request,
+  }, testInfo) => {
+    if (!mobileOnly(testInfo.project.name)) return;
+    testInfo.setTimeout(300_000);
+
+    const sitemap = await (await request.get("/sitemap.xml")).text();
+    const paths = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => {
+      const url = new URL(match[1]);
+      return `${url.pathname}${url.search}`;
+    });
+    const pages = await Promise.all(
+      Array.from({ length: 6 }, () => context.newPage()),
+    );
+    const failures: string[] = [];
+
+    try {
+      for (let offset = 0; offset < paths.length; offset += pages.length) {
+        const batch = paths.slice(offset, offset + pages.length);
+        await Promise.all(
+          batch.map(async (path, index) => {
+            const auditPage = pages[index];
+            const response = await auditPage.goto(path, {
+              waitUntil: "domcontentloaded",
+            });
+            if (!response?.ok()) {
+              failures.push(`${response?.status() || "ERR"} ${path}`);
+              return;
+            }
+            await auditPage.evaluate(
+              () =>
+                new Promise<void>((resolve) =>
+                  requestAnimationFrame(() =>
+                    requestAnimationFrame(() => resolve()),
+                  ),
+                ),
+            );
+            const dimensions = await auditPage.evaluate(() => ({
+              viewport: document.documentElement.clientWidth,
+              page: document.documentElement.scrollWidth,
+            }));
+            if (dimensions.page > dimensions.viewport + 1) {
+              failures.push(
+                `${path}: ${dimensions.page}px > ${dimensions.viewport}px`,
+              );
+            }
+          }),
+        );
+      }
+    } finally {
+      await Promise.all(pages.map((auditPage) => auditPage.close()));
+    }
+
+    expect(paths.length).toBeGreaterThanOrEqual(550);
+    expect(failures).toEqual([]);
   });
 });

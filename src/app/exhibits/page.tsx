@@ -21,7 +21,7 @@ export default async function ExhibitsPage() {
           className="mb-2 text-sm font-medium"
           style={{ color: "var(--color-accent)" }}
         >
-          Exhibits
+          策展阅读
         </p>
         <h1 className="mb-3 flex items-center gap-2 text-3xl font-bold">
           <Compass size={28} style={{ color: "var(--color-accent)" }} />
@@ -46,7 +46,7 @@ export default async function ExhibitsPage() {
               backgroundColor: "var(--color-surface-raised)",
             }}
           >
-            <div className="archive-kicker mb-2">Exhibit</div>
+            <div className="archive-kicker mb-2">专题展览</div>
             <h2 className="mb-2 text-lg font-semibold">{exhibit.title}</h2>
             {exhibit.summary && (
               <p

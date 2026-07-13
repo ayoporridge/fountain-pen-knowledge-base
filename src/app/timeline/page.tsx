@@ -22,7 +22,7 @@ export default async function TimelinePage() {
           style={{ color: "var(--color-accent)" }}
         >
           <ClockCounterClockwise size={16} />
-          Library Timeline
+          资料馆时间线
         </p>
         <h1 className="mb-3 text-3xl font-bold tracking-tight">历史时间线</h1>
         <p

@@ -11,13 +11,6 @@ export const FACET_DIMENSIONS: Record<
   nib_material: { label: "笔尖材质", tagDimension: "nib_material" },
   fill_system: { label: "上墨方式", tagDimension: "fill_system" },
   origin: { label: "产地", tagDimension: "origin" },
-  price: { label: "价位", tagDimension: "price" },
-  brand_tier: { label: "品牌定位", tagDimension: "brand_tier" },
-  era: { label: "年代", tagDimension: "era" },
-  size: { label: "尺寸", tagDimension: "size" },
-  usage: { label: "用途", tagDimension: "usage" },
-  style: { label: "风格", tagDimension: "style" },
-  ink_type: { label: "墨水类型", tagDimension: "ink_type" },
   body_material: { label: "笔身材质", tagDimension: "body_material" },
 };
 
@@ -28,8 +21,6 @@ export const GOLD_NIB_TAG_SLUGS = [
   "nibmat-21k",
   "nibmat-bicolor",
 ] as const;
-
-export const PRICE_UP_TO_500_TAG_SLUGS = ["price-entry", "price-mid"] as const;
 
 const TYPE_FILTERS: Record<string, string[]> = {
   pen: ["pen"],
@@ -44,6 +35,8 @@ export interface BrowseEntity {
   slug: string;
   name: string;
   summary: string | null;
+  classification: string | null;
+  source_count: number;
   image_url: string | null;
   media_id: string | null;
 }
@@ -70,19 +63,6 @@ export function getTagFilterGroups(
   const groups: TagFilterGroup[] = [];
   for (const [key, value] of Object.entries(filters)) {
     if (!value) continue;
-    if (key === "max_price") {
-      const maxPrice = Number.parseInt(value, 10);
-      if (maxPrice <= 200) {
-        groups.push({ dimension: "price", slugs: ["price-entry"] });
-      } else if (maxPrice <= 500) {
-        groups.push({
-          dimension: "price",
-          slugs: PRICE_UP_TO_500_TAG_SLUGS,
-        });
-      }
-      continue;
-    }
-
     const facet = FACET_DIMENSIONS[key];
     if (!facet) continue;
     groups.push({
@@ -151,8 +131,7 @@ export async function getBrowseData(
   const offset = (page - 1) * limit;
   const activeFilters = Object.fromEntries(
     Object.entries(values).filter(
-      ([key, value]) =>
-        !!value && (key === "max_price" || key in FACET_DIMENSIONS),
+      ([key, value]) => !!value && key in FACET_DIMENSIONS,
     ),
   );
 
@@ -174,6 +153,29 @@ export async function getBrowseData(
 
   const rows = (await queryAll(
     `SELECT e.id, e.type, e.slug, e.name, e.summary,
+            (
+              SELECT GROUP_CONCAT(public_tag.name, ' · ')
+              FROM (
+                SELECT t.name
+                FROM entity_tags card_et
+                JOIN tags t ON t.id = card_et.tag_id
+                WHERE card_et.entity_id = e.id
+                  AND t.dimension IN (
+                    'nib_type', 'nib_material', 'fill_system', 'origin',
+                    'body_material'
+                  )
+                ORDER BY t.dimension, t.name
+                LIMIT 3
+              ) public_tag
+            ) as classification,
+            (
+              SELECT COUNT(*)
+              FROM entity_references card_er
+              JOIN source_items card_si ON card_si.id = card_er.source_item_id
+              WHERE card_er.entity_id = e.id
+                AND card_er.review_status = 'approved'
+                AND card_si.review_status = 'approved'
+            ) as source_count,
             (
               SELECT ma.id FROM media_assets ma
               WHERE ma.entity_id = e.id
@@ -223,6 +225,8 @@ export async function getBrowseData(
     slug: string;
     name: string;
     summary: string | null;
+    classification: string | null;
+    source_count: number;
     media_id: string | null;
     media_local_path: string | null;
     media_thumbnail_url: string | null;
@@ -234,7 +238,12 @@ export async function getBrowseData(
     type: String(row.type),
     slug: String(row.slug),
     name: String(row.name),
-    summary: row.summary ? String(row.summary) : null,
+    summary:
+      !["pen", "brand"].includes(String(row.type)) && row.summary
+        ? String(row.summary)
+        : null,
+    classification: row.classification ? String(row.classification) : null,
+    source_count: Number(row.source_count || 0),
     media_id: row.media_id ? String(row.media_id) : null,
     image_url: getPublicMediaUrl({
       id: row.media_id,
@@ -244,48 +253,69 @@ export async function getBrowseData(
     }),
   }));
 
-  const dimensions = Object.values(FACET_DIMENSIONS).map(
-    (info) => info.tagDimension,
+  const facetGroups = await Promise.all(
+    Object.entries(FACET_DIMENSIONS).map(async ([facetKey, info]) => {
+      const facetConditions = [publicEntityFilter("facet_e")];
+      const facetParams: unknown[] = [];
+      if (allowedTypes.length > 0) {
+        facetConditions.push(
+          `facet_e.type IN (${allowedTypes.map(() => "?").join(", ")})`,
+        );
+        facetParams.push(...allowedTypes);
+      }
+      const otherFilters = Object.fromEntries(
+        Object.entries(activeFilters).filter(([key]) => key !== facetKey),
+      );
+      const otherTagFilters = buildTagFilterSql(
+        getTagFilterGroups(otherFilters),
+        "facet_e",
+      );
+      facetConditions.push(...otherTagFilters.sql);
+      facetParams.push(...otherTagFilters.params);
+
+      const rows = (await queryAll(
+        `SELECT t.slug, t.name, COUNT(DISTINCT facet_e.id) as cnt
+         FROM tags t
+         JOIN entity_tags facet_et ON facet_et.tag_id = t.id
+         JOIN entities facet_e ON facet_e.id = facet_et.entity_id
+         WHERE t.dimension = ?
+           AND ${facetConditions.join(" AND ")}
+         GROUP BY t.id
+         HAVING cnt > 0
+         ORDER BY cnt DESC, t.name`,
+        [info.tagDimension, ...facetParams],
+      )) as Array<{ slug: string; name: string; cnt: number }>;
+
+      const options = rows.map((row) => ({
+        slug: String(row.slug),
+        name: String(row.name),
+        count: Number(row.cnt),
+      }));
+
+      if (facetKey === "nib_material") {
+        const gold = (await queryOne(
+          `SELECT COUNT(DISTINCT facet_e.id) as cnt
+           FROM entities facet_e
+           JOIN entity_tags gold_et ON gold_et.entity_id = facet_e.id
+           JOIN tags gold_t ON gold_t.id = gold_et.tag_id
+           WHERE gold_t.dimension = 'nib_material'
+             AND gold_t.slug IN (${GOLD_NIB_TAG_SLUGS.map(() => "?").join(", ")})
+             AND ${facetConditions.join(" AND ")}`,
+          [...GOLD_NIB_TAG_SLUGS, ...facetParams],
+        )) as { cnt: number };
+        if (Number(gold.cnt || 0) > 0) {
+          options.unshift({
+            slug: "gold",
+            name: "所有金尖",
+            count: Number(gold.cnt),
+          });
+        }
+      }
+
+      return [facetKey, options] as const;
+    }),
   );
-  const facetRows = (await queryAll(
-    `SELECT t.dimension, t.slug, t.name, COUNT(DISTINCT e.id) as cnt
-     FROM tags t
-     LEFT JOIN entity_tags et ON et.tag_id = t.id
-     LEFT JOIN entities e ON e.id = et.entity_id AND ${publicEntityFilter("e")}
-     WHERE t.dimension IN (${dimensions.map(() => "?").join(", ")})
-     GROUP BY t.id
-     HAVING cnt > 0
-     UNION ALL
-     SELECT 'nib_material' as dimension, 'gold' as slug,
-            '所有金尖' as name, COUNT(DISTINCT e.id) as cnt
-     FROM entities e
-     JOIN entity_tags gold_et ON gold_et.entity_id = e.id
-     JOIN tags gold_t ON gold_t.id = gold_et.tag_id
-     WHERE ${publicEntityFilter("e")}
-       AND gold_t.dimension = 'nib_material'
-       AND gold_t.slug IN (${GOLD_NIB_TAG_SLUGS.map(() => "?").join(", ")})
-     ORDER BY dimension, cnt DESC, name`,
-    [...dimensions, ...GOLD_NIB_TAG_SLUGS],
-  )) as Array<{
-    dimension: string;
-    slug: string;
-    name: string;
-    cnt: number;
-  }>;
-  const facets: BrowseData["facets"] = Object.fromEntries(
-    Object.keys(FACET_DIMENSIONS).map((key) => [key, []]),
-  );
-  for (const row of facetRows) {
-    const dimensionKey = Object.entries(FACET_DIMENSIONS).find(
-      ([, info]) => info.tagDimension === row.dimension,
-    )?.[0];
-    if (!dimensionKey) continue;
-    facets[dimensionKey].push({
-      slug: String(row.slug),
-      name: String(row.name),
-      count: Number(row.cnt),
-    });
-  }
+  const facets: BrowseData["facets"] = Object.fromEntries(facetGroups);
 
   const typeCounts = (await queryAll(
     `SELECT e.type, COUNT(*) as cnt

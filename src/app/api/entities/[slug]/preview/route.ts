@@ -9,7 +9,8 @@ export async function GET(
   const { slug } = await params;
 
   const entity = (await queryOne(
-    `SELECT e.id, e.type, e.slug, e.name, e.summary,
+    `SELECT e.id, e.type, e.slug, e.name,
+            CASE WHEN e.type IN ('pen', 'brand') THEN NULL ELSE e.summary END as summary,
             (
               SELECT COUNT(*)
               FROM entity_links preview_link
@@ -35,6 +36,10 @@ export async function GET(
     `SELECT t.name, t.dimension FROM tags t
      JOIN entity_tags et ON et.tag_id = t.id
      WHERE et.entity_id = ?
+       AND t.dimension IN (
+         'nib_type', 'nib_material', 'fill_system', 'origin',
+         'body_material'
+       )
      ORDER BY t.dimension, t.name
      LIMIT 6`,
     [entity.id],

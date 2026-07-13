@@ -39,8 +39,8 @@ interface GraphLink {
 }
 
 interface ApiLink {
-  source_id: string;
-  target_id: string;
+  source_key: string;
+  target_key: string;
   link_type: string;
   reason?: string | null;
   source_name?: string;
@@ -57,7 +57,6 @@ interface GraphData {
 }
 
 interface LocalGraphProps {
-  entityId: string;
   entityType: string;
   entitySlug: string;
 }
@@ -158,11 +157,7 @@ function getGraphHeight(width: number) {
   return Math.min(430, Math.max(280, Math.round(width * 0.48)));
 }
 
-export function LocalGraph({
-  entityId,
-  entityType,
-  entitySlug,
-}: LocalGraphProps) {
+export function LocalGraph({ entityType, entitySlug }: LocalGraphProps) {
   const router = useRouter();
   const { resolvedTheme } = useTheme();
   const [allData, setAllData] = useState<GraphData | null>(null);
@@ -172,7 +167,7 @@ export function LocalGraph({
   const [overflow, setOverflow] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const graphRef = useRef<ForceGraphInstance | undefined>(undefined);
-  const [dimensions, setDimensions] = useState({ width: 400, height: 300 });
+  const [dimensions, setDimensions] = useState({ width: 300, height: 280 });
 
   const isDark = resolvedTheme === "dark";
   const labelColor = isDark ? "#e8e4dc" : "#1a1814";
@@ -204,7 +199,7 @@ export function LocalGraph({
       fetch(`/api/entities/${encodeURIComponent(entitySlug)}`, {
         signal: controller.signal,
       }),
-      fetch(`/api/links?entity_id=${encodeURIComponent(entityId)}&depth=2`, {
+      fetch(`/api/links?slug=${encodeURIComponent(entitySlug)}&depth=2`, {
         signal: controller.signal,
       }),
     ])
@@ -220,6 +215,7 @@ export function LocalGraph({
         const nodesById = new Map<string, GraphNode>();
         const identityKeys = new Set<string>();
         const linkKeys = new Set<string>();
+        const centerKey = `${entityType}:${entitySlug}`;
 
         const addNode = (node: GraphNode) => {
           const identity = entityIdentityKey(node);
@@ -231,7 +227,7 @@ export function LocalGraph({
           return true;
         };
         addNode({
-          id: entityId,
+          id: centerKey,
           name: centerEntity.name || entitySlug,
           type: entityType,
           slug: entitySlug,
@@ -241,14 +237,14 @@ export function LocalGraph({
         const directCandidates = new Map<string, GraphNode>();
         for (const link of (response.forward || []) as ApiLink[]) {
           if (
-            !link.target_id ||
+            !link.target_key ||
             !link.target_name ||
             !link.target_type ||
             !link.target_slug
           )
             continue;
-          directCandidates.set(link.target_id, {
-            id: link.target_id,
+          directCandidates.set(link.target_key, {
+            id: link.target_key,
             name: link.target_name,
             type: link.target_type,
             slug: link.target_slug,
@@ -256,14 +252,14 @@ export function LocalGraph({
         }
         for (const link of (response.backlinks || []) as ApiLink[]) {
           if (
-            !link.source_id ||
+            !link.source_key ||
             !link.source_name ||
             !link.source_type ||
             !link.source_slug
           )
             continue;
-          directCandidates.set(link.source_id, {
-            id: link.source_id,
+          directCandidates.set(link.source_key, {
+            id: link.source_key,
             name: link.source_name,
             type: link.source_type,
             slug: link.source_slug,
@@ -279,16 +275,16 @@ export function LocalGraph({
 
         const addLink = (apiLink: ApiLink, isSecondHop = false) => {
           if (
-            !nodesById.has(apiLink.source_id) ||
-            !nodesById.has(apiLink.target_id)
+            !nodesById.has(apiLink.source_key) ||
+            !nodesById.has(apiLink.target_key)
           )
             return;
-          const key = `${apiLink.source_id}:${apiLink.target_id}:${apiLink.link_type}`;
+          const key = `${apiLink.source_key}:${apiLink.target_key}:${apiLink.link_type}`;
           if (linkKeys.has(key)) return;
           linkKeys.add(key);
           links.push({
-            source: apiLink.source_id,
-            target: apiLink.target_id,
+            source: apiLink.source_key,
+            target: apiLink.target_key,
             linkType: apiLink.link_type,
             reason: apiLink.reason,
             isSecondHop,
@@ -301,9 +297,9 @@ export function LocalGraph({
 
         let remainingSecondHop = MAX_SECOND_HOP_NODES;
         const addSecondHop = (link: ApiLink, side: "source" | "target") => {
-          const nextId = side === "source" ? link.source_id : link.target_id;
+          const nextId = side === "source" ? link.source_key : link.target_key;
           const attachedId =
-            side === "source" ? link.target_id : link.source_id;
+            side === "source" ? link.target_key : link.source_key;
           if (!nodesById.has(attachedId)) return;
           if (!nodesById.has(nextId)) {
             if (remainingSecondHop <= 0) return;
@@ -339,7 +335,7 @@ export function LocalGraph({
       });
 
     return () => controller.abort();
-  }, [entityId, entitySlug, entityType]);
+  }, [entitySlug, entityType]);
 
   const graphData = useMemo<GraphData | null>(() => {
     if (!allData) return null;
@@ -471,7 +467,7 @@ export function LocalGraph({
   );
 
   return (
-    <div className="space-y-3" data-testid="local-graph">
+    <div className="min-w-0 max-w-full space-y-3" data-testid="local-graph">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div
           className="inline-flex rounded-lg border p-1"
@@ -594,10 +590,13 @@ export function LocalGraph({
           {relationships
             .slice(0, 20)
             .map(({ link, source, target, destination }) => (
-              <li key={`${source.id}:${target.id}:${link.linkType}`}>
+              <li
+                key={`${source.id}:${target.id}:${link.linkType}`}
+                className="min-w-0"
+              >
                 <Link
                   href={`/${destination.type}/${destination.slug}`}
-                  className="flex min-h-11 items-start justify-between gap-3 rounded-lg border px-3 py-2 text-left text-sm"
+                  className="flex min-h-11 min-w-0 max-w-full items-start justify-between gap-3 overflow-hidden rounded-lg border px-3 py-2 text-left text-sm"
                   style={{
                     borderColor: "var(--color-border-light)",
                     color: "var(--color-ink-light)",
@@ -607,7 +606,7 @@ export function LocalGraph({
                     <span className="block truncate font-medium text-ink">
                       {destination.name}
                     </span>
-                    <span className="mt-0.5 block text-xs leading-relaxed text-ink-muted">
+                    <span className="mt-0.5 block break-words text-xs leading-relaxed text-ink-muted [overflow-wrap:anywhere]">
                       {relationExplanation(link, source, target)}
                     </span>
                   </span>

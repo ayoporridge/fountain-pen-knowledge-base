@@ -6,7 +6,7 @@ export const revalidate = 600;
 
 export const metadata: Metadata = {
   title: "浏览馆藏 - 钢笔知识图谱",
-  description: "按型号、品牌、产地、笔尖、价位和工艺浏览钢笔资料馆。",
+  description: "按型号、品牌、产地、笔尖、上墨方式和材质浏览钢笔资料馆。",
 };
 
 export default async function BrowsePage({
