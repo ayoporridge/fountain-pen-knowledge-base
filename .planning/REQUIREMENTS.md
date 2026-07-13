@@ -1,143 +1,94 @@
-# Requirements: Fountain Pen Knowledge Graph
+# Requirements: Fountain Pen Knowledge Graph v1.1
 
-**Defined:** 2026-05-27
-**Core Value:** 漫游体验——点进去就不想出来的知识网络
+**Defined:** 2026-07-13
+**Core Value:** 通过可信内容、分类入口与关系链接，让用户持续漫游钢笔知识网络。
 
-## v1 Requirements
+## v1.1 Requirements
 
-Requirements for initial release. Each maps to roadmap phases.
+### 产品范围
 
-### 数据模型与基础设施 (Foundation)
+- [ ] **SCOPE-01**: 用户在任何公开页面都不会看到搜索入口、搜索页面或搜索建议
+- [ ] **SCOPE-02**: 用户在任何公开页面都不会看到问 AI、聊天或 LLM 处理入口
+- [ ] **SCOPE-03**: 用户可以从首页、图书馆、类型、品牌、维度、专题与关系链接发现全部公开内容
 
-- [ ] **FOUND-01**: 系统使用 SQLite 作为主数据库，支持 FTS5 全文搜索和递归 CTE 图遍历
-- [ ] **FOUND-02**: 定义钢笔领域专属 Schema（笔尖规格、上墨方式、笔身材质、产国、价格区间、书写风格等属性）
-- [ ] **FOUND-03**: 实现乐高式三层标签体系——原子标签 → 组块 → 可辨识实体
-- [ ] **FOUND-04**: 每个实体有唯一、语义化、稳定的 URL（/pen/pilot-custom-823, /brand/sailor 等）
+### 链接与身份
 
-### 词条与内容 (Content)
+- [ ] **DATA-01**: 用户点击任意公开站内链接都能进入有效内容页，不进入 404 或无内容空壳
+- [ ] **DATA-02**: 同一钢笔或实体只保留一个规范公开身份，搜索历史遗留的重复 slug 不再形成重复内容
+- [ ] **DATA-03**: 每个公开实体具有正确类型，圆珠笔、墨水、品牌入口和产品系列不伪装成单支钢笔型号
+- [ ] **DATA-04**: 公开页面不显示 identity pending、待映射、占位字段或内部数据库键名
 
-- [ ] **CONT-01**: 每个实体（笔、品牌、概念）有独立的结构化词条页面，展示核心属性和关联信息
-- [ ] **CONT-02**: 词条支持富文本内容渲染（Markdown、图片画廊、表格、引用）
-- [ ] **CONT-03**: 词条之间支持双向链接——A 链接 B 时，B 自动知道被 A 链接
-- [ ] **CONT-04**: 词条页面展示该实体的所有标签、所属组块、关联维度
-- [ ] **CONT-05**: 围绕一支笔展示全方位关联信息（购买渠道、手感描述、测评、实拍图、品牌故事）
-- [ ] **CONT-06**: 支持 Markdown 编辑 + 结构化字段表单录入内容
+### 图片
 
-### 浏览与探索 (Browse)
+- [ ] **MEDIA-01**: 所有公开图片都能稳定加载；硬破图、HTML 伪图片、example.com 占位图和错误代理响应被修复或隐藏
+- [ ] **MEDIA-02**: 型号页首图不会在同页无意义重复，画廊仅展示新增视角或细节
+- [ ] **MEDIA-03**: 白边、透明边和过小商品图在进入大图容器前被裁切、降级展示或替换
+- [ ] **MEDIA-04**: 不相关的文章和型号不共用会造成误认的封面图
 
-- [ ] **BROW-01**: 用户可按多维度交叉筛选实体（品牌 × 价位 × 笔尖类型 × 上墨方式 × 产地 × 用途）
-- [ ] **BROW-02**: 用户可通过全文搜索找到相关词条，支持模糊匹配和结果高亮
-- [ ] **BROW-03**: 词条页面展示局部关系图——以当前实体为中心的直接关联节点，可点击跳转
-- [ ] **BROW-04**: 鼠标悬停链接时弹出词条摘要 + 缩略图预览（减少跳转摩擦）
-- [ ] **BROW-05**: 同一实体可从不同维度入口进入（按品牌、按价位、按用途、按历史时期）
-- [ ] **BROW-06**: 2-4 个同类实体可并排对比展示属性差异
-- [ ] **BROW-07**: 系统主动推荐"你可能想看的下一个词条"（基于图距离、标签相似度、未浏览状态）
-- [ ] **BROW-08**: 词条展示"关联密度指标"——标识 hub 节点和孤岛节点，辅助内容建设
+### 内容与来源
 
-### 标签与概念 (Tag)
+- [ ] **CONT-01**: 文章中的相对链接、javascript 链接、原站交互说明和错误站内路径全部清理或规范化
+- [ ] **CONT-02**: 文章摘要和正文不再出现翻译结果、本文档信息翻译、残缺 ref、原始 Markdown 或导入标记
+- [ ] **CONT-03**: 每页只有一个主标题，图片说明和正文段落不会被错误渲染为 H1/H2
+- [ ] **CONT-04**: 型号故事不再批量复用“若你、购买时、收到后、它适合”等同构模板，事实、体验、判断和来源边界清楚
+- [ ] **CONT-05**: 来源卡只展示已审核且读者可理解的来源状态，不把 pending 等内部审核状态公开
 
-- [ ] **TAG-01**: 原子标签可自由组合，组合结果自动映射到更高层概念（如"活塞上墨 + 德国 + ¥2000+" → "德系高端活塞笔"）
-- [ ] **TAG-02**: 标签支持层级关系（如"笔尖类型"下有"弹性尖"、"硬尖"等）
-- [ ] **TAG-03**: 用户可创建自定义标签组合并保存为新的组块/概念
+### 型号与分类信息
 
-### 内容导入 (Ingest)
+- [ ] **INFO-01**: 型号页优先展示已核实的笔尖、上墨、长度、重量、握区、墨量、密封、兼容、在售状态和价格
+- [ ] **INFO-02**: 缺失或未核实的规格明确省略或标为“暂无可靠资料”，不以泛化占位词伪装成已知值
+- [ ] **INFO-03**: 品牌页展示当前归属、国家、创立时间、代表型号、技术特点、官方来源和品牌时间线的已核实部分
+- [ ] **INFO-04**: 笔尖、上墨、概念与材质分类使用中文可识别名称，并能链接到实际相关实体
+- [ ] **INFO-05**: 概念页不再显示内部 tag slug，且每个公开概念至少有定义、边界、来源和可继续浏览的实例
 
-- [ ] **ING-01**: 支持批量导入本地 Markdown 文件，自动解析为词条
-- [ ] **ING-02**: 支持导入 CSV/结构化数据（如品牌款型库），自动映射到 Schema 字段
-- [ ] **ING-03**: 支持从外部网站抓取内容（配置目标站点 + 抓取规则）
-- [ ] **ING-04**: 支持 PDF 解析（如《钢笔圣经》），提取结构化内容
-- [ ] **ING-05**: 每条导入内容标注来源（source attribution）
+### 交互与呈现
 
-### AI 标注 (AI-Tag)
+- [ ] **UX-01**: 手机汉堡导航打开后完整展示所有分类和维度入口，并支持键盘、触摸和关闭操作
+- [ ] **UX-02**: 分类页在桌面和手机端均可筛选、切换类型、继续加载并理解结果计数
+- [ ] **UX-03**: 对比页只显示一套本地化字段，单位、字段语义和缺失值一致
+- [ ] **UX-04**: 图谱在桌面和手机端的节点名称、起点选择与继续漫游操作可读可点
+- [ ] **UX-05**: 页面标题、主标题、图片 alt、焦点状态和文字对比满足基本无障碍与分享需求
 
-- [ ] **AITAG-01**: 导入非结构化内容时，AI 自动提取实体和原子标签
-- [ ] **AITAG-02**: AI 标注结果有置信度分档（高/中/低），低置信度需人工审核
-- [ ] **AITAG-03**: 维护黄金标准集（手动标注样本），用于评估 AI 标注质量
-- [ ] **AITAG-04**: AI 自动识别词条间的潜在关联并建议链接
+### 质量与发布
 
-### AI 对话 (AI-Chat)
+- [ ] **QA-01**: 599 个 sitemap URL 与所有页面公开站内链接完成全量状态、标题、结构和跳转检查
+- [ ] **QA-02**: 573 个公开实体完成类型、可见字段、来源、图片和信息完整度检查
+- [ ] **QA-03**: 所有公开图片完成加载、重复、白边、低清、比例和 alt 检查
+- [ ] **QA-04**: 桌面与手机关键用户路径完成浏览器验收，生产部署后逐项线上复查
 
-- [ ] **AICHAT-01**: 用户可用自然语言描述需求，系统从图谱中组合答案并推荐匹配实体
-- [ ] **AICHAT-02**: 对话查询结果引用图谱中的具体词条作为来源
-- [ ] **AICHAT-03**: 支持对话上下文跟踪（追问、细化需求）
+## Future Requirements
 
-### 界面与体验 (UI)
+### 检索与智能能力
 
-- [ ] **UI-01**: Web 端界面，桌面优先 + 基本移动端响应式
-- [ ] **UI-02**: 浏览体验流畅——页面切换快、图片懒加载、预渲染
-- [ ] **UI-03**: 暗色模式支持
-
-## v2 Requirements
-
-Deferred to future milestone. Tracked but not in current roadmap.
-
-### 进阶功能
-
-- **ADV-01**: PWA 离线支持
-- **ADV-02**: 时间轴视图（按品牌/型号发布年份浏览）
-- **ADV-03**: 用户个人收藏夹/书签
-- **ADV-04**: 内容版本历史
-- **ADV-05**: 外部 API 开放（供其他工具调用图谱数据）
+- **FUT-01**: 在分类和数据质量稳定后，重新评估是否需要全文搜索
+- **FUT-02**: 在来源、引用与质量控制成熟后，重新评估面向用户的 AI 问答
 
 ## Out of Scope
 
 | Feature | Reason |
 |---------|--------|
-| 全局图可视化 | 节点多了变毛线球，视觉噪音 > 信息价值 |
-| 社交功能（评论、分享、协作） | 个人知识库，不是社区 |
-| 实时协作编辑 | 单人使用，CRDT 复杂度 ROI 为零 |
-| 移动端原生 App | Web + 响应式足够 |
-| 用户权限系统 / 多租户 | 个人项目，权限是复杂度黑洞 |
-| 通知系统 | 单人使用，无需通知 |
-| 复杂编辑器（Notion 级 block editor） | 浏览工具不是写作工具 |
-| 自定义主题 | 一个好默认就够 |
+| 全文搜索、搜索建议、搜索 API | 用户明确要求当前版本撤掉，以分类展示为主 |
+| 问 AI、聊天、LLM 在线处理 | 用户明确要求当前版本不使用 LLM |
+| 社交、评论、账号体系 | 与个人钢笔资料馆核心价值无关 |
+| 独立移动端 App | 当前只完善响应式 Web |
 
 ## Traceability
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| FOUND-01 | Phase 1 | `pending` |
-| FOUND-02 | Phase 1 | `pending` |
-| FOUND-03 | Phase 2 | `pending` |
-| FOUND-04 | Phase 1 | `pending` |
-| CONT-01 | Phase 1 | `pending` |
-| CONT-02 | Phase 2 | `pending` |
-| CONT-03 | Phase 3 | `pending` |
-| CONT-04 | Phase 3 | `pending` |
-| CONT-05 | Phase 6 | `pending` |
-| CONT-06 | Phase 2 | `pending` |
-| BROW-01 | Phase 5 | `pending` |
-| BROW-02 | Phase 5 | `pending` |
-| BROW-03 | Phase 3 | `pending` |
-| BROW-04 | Phase 6 | `pending` |
-| BROW-05 | Phase 5 | `pending` |
-| BROW-06 | Phase 6 | `pending` |
-| BROW-07 | Phase 6 | `pending` |
-| BROW-08 | Phase 6 | `pending` |
-| TAG-01 | Phase 7 | `pending` |
-| TAG-02 | Phase 7 | `pending` |
-| TAG-03 | Phase 7 | `pending` |
-| ING-01 | Phase 4 | `pending` |
-| ING-02 | Phase 4 | `pending` |
-| ING-03 | Phase 8 | `pending` |
-| ING-04 | Phase 8 | `pending` |
-| ING-05 | Phase 4 | `pending` |
-| AITAG-01 | Phase 9 | `pending` |
-| AITAG-02 | Phase 9 | `pending` |
-| AITAG-03 | Phase 9 | `pending` |
-| AITAG-04 | Phase 9 | `pending` |
-| AICHAT-01 | Phase 10 | `pending` |
-| AICHAT-02 | Phase 10 | `pending` |
-| AICHAT-03 | Phase 10 | `pending` |
-| UI-01 | Phase 1 | `pending` |
-| UI-02 | Phase 6 | `pending` |
-| UI-03 | Phase 1 | `pending` |
+| SCOPE-01, SCOPE-02, SCOPE-03 | Phase 11 | Pending |
+| DATA-01, DATA-02, DATA-03, DATA-04 | Phase 12 | Pending |
+| MEDIA-01, MEDIA-02, MEDIA-03, MEDIA-04 | Phase 13 | Pending |
+| CONT-01, CONT-02, CONT-03, CONT-05 | Phase 14 | Pending |
+| CONT-04, INFO-01, INFO-02, INFO-03, INFO-04, INFO-05 | Phase 15 | Pending |
+| UX-01, UX-02, UX-03, UX-04, UX-05 | Phase 16 | Pending |
+| QA-01, QA-02, QA-03, QA-04 | Phase 17 | Pending |
 
 **Coverage:**
-- v1 requirements: 36 total
-- Mapped to phases: 36
+- v1.1 requirements: 30 total
+- Mapped to phases: 30
 - Unmapped: 0 ✓
 
 ---
-*Requirements defined: 2026-05-27*
-*Last updated: 2026-05-27 — traceability populated after roadmap creation*
+*Requirements defined: 2026-07-13*
+*Last updated: 2026-07-13 after milestone v1.1 definition*
