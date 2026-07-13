@@ -56,7 +56,7 @@ function readLocalContract() {
       .prepare(
         `SELECT id, COALESCE(thumbnail_url, image_url) AS name, '' AS slug
          FROM media_assets
-         WHERE id = 'media-commerce-169b0fb4640bf4'
+         WHERE id = 'media-warm-pen-atlas-pilot-brand-cover'
            AND review_status = 'approved'
            AND usage_status IN ('primary', 'gallery')`,
       )
@@ -132,6 +132,13 @@ function internalAnchorPaths(html: string) {
     }
   }
   return paths;
+}
+
+function htmlAttribute(tag: string, name: string) {
+  const match = tag.match(
+    new RegExp(`\\b${name}=(?:"([^"]*)"|'([^']*)')`, "i"),
+  );
+  return (match?.[1] || match?.[2] || "").replace(/&amp;/g, "&");
 }
 
 async function openHydratedDialog(
@@ -433,6 +440,88 @@ test.describe("site quality contract", () => {
     if (legacy.status() === 200) {
       expect(legacy.headers()["content-type"]).toMatch(/^image\//);
     }
+  });
+
+  test("public media is reusable, unique on each page, and never a rotating placeholder", async ({
+    page,
+    request,
+  }, testInfo) => {
+    if (!desktopOnly(testInfo.project.name)) return;
+
+    expect(
+      (
+        await request.get(
+          "/api/image-proxy?id=warm-pen-atlas-card-article-1-who-made-this-pen",
+        )
+      ).status(),
+    ).toBe(404);
+    expect(
+      (
+        await request.get("/api/image-proxy?id=media-commerce-169b0fb4640bf4")
+      ).status(),
+    ).toBe(404);
+    expect(
+      (
+        await request.get("/api/image-proxy?id=media-commons-0e62ab801d9015")
+      ).status(),
+    ).toBe(404);
+
+    await page.goto("/pen/pilot-custom-823", {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(
+      page.locator('img[src*="vacuum-filler-model-cover.jpg"]'),
+    ).toHaveCount(1);
+    await expect(page.locator("#archive img")).toHaveCount(0);
+
+    await page.goto("/pen/弘典-hongdian-517-517s", {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(page.getByText("暂无可公开复用的对应图片")).toBeVisible();
+
+    await page.goto("/article/1-who-made-this-pen", {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(page.locator(".legacy-note-badge").first()).toBeVisible();
+    await expect(page.locator('img[src*="info.png"]')).toHaveCount(0);
+
+    const sitemap = await request.get("/sitemap.xml");
+    expect(sitemap.ok()).toBeTruthy();
+    const sitemapXml = await sitemap.text();
+    const paths = [...sitemapXml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
+      (match) => new URL(match[1]).pathname,
+    );
+    const failures: string[] = [];
+    for (let offset = 0; offset < paths.length; offset += 16) {
+      await Promise.all(
+        paths.slice(offset, offset + 16).map(async (path) => {
+          const response = await request.get(path);
+          if (!response.ok()) return;
+          const html = await response.text();
+          const seen = new Set<string>();
+          for (const match of html.matchAll(/<img\b[^>]*>/gi)) {
+            const tag = match[0];
+            const src = htmlAttribute(tag, "src");
+            const alt = htmlAttribute(tag, "alt").trim();
+            if (!src) failures.push(`${path}: image without src`);
+            if (!alt) failures.push(`${path}: image without alt (${src})`);
+            if (
+              /^http:\/\//i.test(src) ||
+              /example\.com|pixel\.gif|\/article\/yyy|\/repair\/plush\/|\/icons\/lg\/(?:info|caution|warning)\.png|\/pendoctor\/(?:q|rx)\.png/i.test(
+                src,
+              )
+            ) {
+              failures.push(`${path}: blocked image ${src}`);
+            }
+            if (src && seen.has(src)) {
+              failures.push(`${path}: repeated image ${src}`);
+            }
+            if (src) seen.add(src);
+          }
+        }),
+      );
+    }
+    expect(failures).toEqual([]);
   });
 
   test("media fetcher blocks DNS rebinding, redirects and oversized bodies", async ({

@@ -93,8 +93,8 @@
 |-------|--------|
 | 11 | Complete |
 | 12 | Complete |
-| 13 | In progress |
-| 14 | Pending |
+| 13 | Complete |
+| 14 | In progress |
 | 15 | Pending |
 | 16 | Pending |
 | 17 | Pending |

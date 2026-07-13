@@ -6,6 +6,25 @@ import remarkRehype from "remark-rehype";
 import remarkWikiLink from "remark-wiki-link";
 
 const RICHARDS_PENS_BASE = "https://www.richardspens.com/";
+const BLOCKED_LEGACY_IMAGE_PATHS = new Set([
+  "/images/pixel.gif",
+  "/images/ref/adventures/04/dome.jpg",
+  "/images/ref/fillers/capillary/Fr1040173A-5.png",
+  "/images/ref/fillers/piston/US20140241783A-3.png",
+  "/images/ref/history/dip_less/handi_pen.jpg",
+  "/images/ref/history/war_and_fp/p-51_ad.jpg",
+  "/images/ref/nibs/beyond/angle.gif",
+  "/images/ref/pendoctor/speedline_filler.jpg",
+  "/images/ref/penshows/susan_colo_2014.jpg",
+]);
+
+const LEGACY_IMAGE_BADGES = new Map([
+  ["/images/icons/lg/info.png", "说明"],
+  ["/images/icons/lg/caution.png", "注意"],
+  ["/images/icons/lg/warning.png", "警告"],
+  ["/images/ref/pendoctor/q.png", "问"],
+  ["/images/ref/pendoctor/rx.png", "答"],
+]);
 
 type HastPropertyValue =
   | string
@@ -83,7 +102,27 @@ function escapeHtmlAttr(value: string): string {
 
 function normalizeRichardsPensUrl(value: string): string {
   const trimmed = value.trim();
-  if (/^(?:https?:|mailto:|#)/i.test(trimmed)) return trimmed;
+  if (/^https?:/i.test(trimmed)) {
+    try {
+      const parsed = new URL(trimmed);
+      if (
+        ["richardspens.com", "www.richardspens.com"].includes(
+          parsed.hostname.toLowerCase(),
+        )
+      ) {
+        parsed.protocol = "https:";
+        parsed.pathname = parsed.pathname.replace(
+          "/images/ref/repair/plush/",
+          "/images/ref/repair/plunger/",
+        );
+        return parsed.toString();
+      }
+    } catch {
+      return trimmed;
+    }
+    return trimmed;
+  }
+  if (/^(?:mailto:|#)/i.test(trimmed)) return trimmed;
   if (/^(?:\.\.?\/|\/)?[^?#]+\.html?(?:[?#].*)?$/i.test(trimmed)) {
     return new URL(trimmed.replace(/^\/+/, ""), RICHARDS_PENS_BASE).toString();
   }
@@ -96,14 +135,49 @@ function normalizeRichardsPensUrl(value: string): string {
   return trimmed;
 }
 
+function legacyImageBadge(value: string): string | null {
+  try {
+    return (
+      LEGACY_IMAGE_BADGES.get(new URL(value, RICHARDS_PENS_BASE).pathname) ||
+      null
+    );
+  } catch {
+    return null;
+  }
+}
+
+function isBlockedLegacyImage(value: string): boolean {
+  if (/^https?:\/\/example\.com\//i.test(value)) return true;
+  if (
+    /^\/(?:article|brand|browse|by|concept|exhibits|fill_system|graph|library|material|nib|pen|timeline)(?:\/|\?|#|$)/i.test(
+      value,
+    )
+  ) {
+    return true;
+  }
+  try {
+    const parsed = new URL(value, RICHARDS_PENS_BASE);
+    return (
+      ["richardspens.com", "www.richardspens.com"].includes(
+        parsed.hostname.toLowerCase(),
+      ) && BLOCKED_LEGACY_IMAGE_PATHS.has(parsed.pathname)
+    );
+  } catch {
+    return true;
+  }
+}
+
 function normalizeLegacyImageCaptions(md: string): string {
   return md.replace(
     /!\[([^\]]*)\]\(([^)\s]+)\)\s{0,2}\n---\s{0,2}\n[\u00a0\s]*\|\s*([^\n]+)/g,
-    (_, alt: string, src: string) => {
+    (_, alt: string, src: string, caption: string) => {
       const normalizedSrc = normalizeRichardsPensUrl(src);
+      const publicAlt = alt.trim() || caption.trim() || "资料插图";
       return `<figure class="image-figure"><img src="${escapeHtmlAttr(
         normalizedSrc,
-      )}" alt="${escapeHtmlAttr(alt)}" /></figure>`;
+      )}" alt="${escapeHtmlAttr(publicAlt)}" /><figcaption>${escapeHtmlText(
+        caption.trim(),
+      )}</figcaption></figure>`;
     },
   );
 }
@@ -179,11 +253,15 @@ function normalizeMarkdownImageRows(md: string): string {
     if (captions.length > 0) i += 1;
 
     const figures = images
-      .map((image) => {
+      .map((image, imageIndex) => {
         const src = normalizeRichardsPensUrl(image.src);
+        const caption = captions[imageIndex] || "";
+        const alt = image.alt.trim() || caption || "资料插图";
         return `<figure class="image-row-item"><img class="image-row-img" src="${escapeHtmlAttr(
           src,
-        )}" alt="${escapeHtmlAttr(image.alt)}" /></figure>`;
+        )}" alt="${escapeHtmlAttr(alt)}" />${
+          caption ? `<figcaption>${escapeHtmlText(caption)}</figcaption>` : ""
+        }</figure>`;
       })
       .join("");
 
@@ -291,6 +369,7 @@ function normalizeResidualBoldHtml(html: string): string {
  */
 function rehypeSanitizeUrls() {
   return (tree: HastNode) => {
+    const seenImageSources = new Set<string>();
     visitElements(tree, (node): undefined => {
       const properties = ensureProperties(node);
 
@@ -328,11 +407,21 @@ function rehypeSanitizeUrls() {
       if (node.tagName === "img" && properties.src) {
         const src = String(properties.src);
         if (/^\s*javascript:/i.test(src)) {
-          properties.src = "";
-          properties.alt = properties.alt || "(图片已移除)";
+          node.tagName = "span";
+          node.properties = { hidden: true, ariaHidden: true };
+          node.children = [];
         } else {
           const normalizedSrc = normalizeRichardsPensUrl(src);
-          if (/richardspens\.com/i.test(normalizedSrc)) {
+          const badge = legacyImageBadge(normalizedSrc);
+          if (badge) {
+            node.tagName = "span";
+            node.properties = { className: ["legacy-note-badge"] };
+            node.children = [{ type: "text", value: badge }];
+          } else if (isBlockedLegacyImage(normalizedSrc)) {
+            node.tagName = "span";
+            node.properties = { hidden: true, ariaHidden: true };
+            node.children = [];
+          } else if (/richardspens\.com/i.test(normalizedSrc)) {
             properties.src = `/api/image-proxy?url=${encodeURIComponent(
               normalizedSrc,
             )}`;
@@ -344,8 +433,17 @@ function rehypeSanitizeUrls() {
 
       // Keep image markup CSP-friendly. Broken images fall back to native browser UI.
       if (node.tagName === "img") {
+        properties.alt = String(properties.alt || "").trim() || "资料插图";
         properties.loading = "lazy";
         properties.decoding = "async";
+        const publicSrc = String(properties.src || "");
+        if (publicSrc && seenImageSources.has(publicSrc)) {
+          node.tagName = "span";
+          node.properties = { hidden: true, ariaHidden: true };
+          node.children = [];
+        } else if (publicSrc) {
+          seenImageSources.add(publicSrc);
+        }
       }
 
       // Fix richardspens icon-only links:
@@ -517,22 +615,44 @@ function rehypeImageRows() {
         }
       }
 
-      const rowChildren = imageContainers.map(({ wrapper, img }) => {
-        const imgWithClass: HastNode = {
-          ...img,
-          properties: { ...img.properties, className: ["image-row-img"] },
-        };
-        const content: HastNode = wrapper
-          ? { ...wrapper, children: [imgWithClass] }
-          : imgWithClass;
+      const rowChildren = imageContainers.map(
+        ({ wrapper, img }, imageIndex) => {
+          const caption = captionTexts[imageIndex] || "";
+          const imgWithClass: HastNode = {
+            ...img,
+            properties: {
+              ...img.properties,
+              alt:
+                String(img.properties?.alt || "").trim() ||
+                caption ||
+                "资料插图",
+              className: ["image-row-img"],
+            },
+          };
+          const content: HastNode = wrapper
+            ? { ...wrapper, children: [imgWithClass] }
+            : imgWithClass;
 
-        return {
-          type: "element",
-          tagName: "figure",
-          properties: { className: ["image-row-item"] },
-          children: [content],
-        };
-      });
+          return {
+            type: "element",
+            tagName: "figure",
+            properties: { className: ["image-row-item"] },
+            children: [
+              content,
+              ...(caption
+                ? [
+                    {
+                      type: "element",
+                      tagName: "figcaption",
+                      properties: {},
+                      children: [{ type: "text", value: caption }],
+                    } as HastNode,
+                  ]
+                : []),
+            ],
+          };
+        },
+      );
 
       parent.children[index] = {
         type: "element",

@@ -2,10 +2,12 @@ import { type NextRequest, NextResponse } from "next/server";
 import { queryOne } from "@/lib/db";
 import {
   fetchExternalImage,
+  getPublicMediaUrl,
   isRichardsPensUrl,
   MediaFetchError,
   pickExternalMediaUrl,
 } from "@/lib/media-url";
+import { publicMediaFilter } from "@/lib/public-media";
 
 export const runtime = "nodejs";
 
@@ -29,18 +31,30 @@ export async function GET(request: NextRequest) {
 
   if (id) {
     const media = (await queryOne(
-      `SELECT id, image_url, thumbnail_url
+      `SELECT id, image_url, thumbnail_url, local_path
        FROM media_assets
        WHERE id = ?
-         AND asset_type = 'image'
-         AND review_status = 'approved'
-         AND usage_status IN ('primary', 'gallery')`,
+         AND ${publicMediaFilter("media_assets")}`,
       [id],
     )) as
-      | { id: string; image_url: string | null; thumbnail_url: string | null }
+      | {
+          id: string;
+          image_url: string | null;
+          thumbnail_url: string | null;
+          local_path: string | null;
+        }
       | undefined;
 
     if (!media) return errorResponse("Approved media not found", 404);
+    const localUrl = getPublicMediaUrl({
+      id: media.id,
+      localPath: media.local_path,
+      imageUrl: media.image_url,
+      thumbnailUrl: media.thumbnail_url,
+    });
+    if (localUrl && !localUrl.startsWith("/api/image-proxy")) {
+      return NextResponse.redirect(new URL(localUrl, request.url), 307);
+    }
     const externalUrl = pickExternalMediaUrl({
       imageUrl: media.image_url,
       thumbnailUrl: media.thumbnail_url,
@@ -59,11 +73,17 @@ export async function GET(request: NextRequest) {
 
   try {
     const image = await fetchExternalImage(sourceUrl, { richardsPensOnly });
-    return new NextResponse(image.body.buffer as ArrayBuffer, {
+    const body = image.body;
+    const contentType = image.contentType;
+    const responseBody = body.buffer.slice(
+      body.byteOffset,
+      body.byteOffset + body.byteLength,
+    ) as ArrayBuffer;
+    return new NextResponse(responseBody, {
       status: 200,
       headers: {
-        "Content-Type": image.contentType,
-        "Content-Length": String(image.body.byteLength),
+        "Content-Type": contentType,
+        "Content-Length": String(body.byteLength),
         "Cache-Control":
           "public, max-age=86400, s-maxage=2592000, stale-while-revalidate=86400",
         "X-Content-Type-Options": "nosniff",

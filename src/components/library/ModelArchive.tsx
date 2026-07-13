@@ -1,5 +1,4 @@
 import { Books, PenNib } from "@phosphor-icons/react/dist/ssr";
-import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { MarkdownRenderer } from "@/components/MarkdownRenderer";
@@ -8,7 +7,6 @@ import {
   getEntityExternalIds,
   getEntityReferences,
   getModelSpec,
-  getPrimaryProductImage,
   getStoriesForEntity,
 } from "@/lib/library";
 import { cleanPublicText, displayPublicPrice } from "@/lib/publicText";
@@ -24,15 +22,13 @@ function sectionIcon(icon: ReactNode) {
 }
 
 export async function ModelArchive({ entityId }: { entityId: string }) {
-  const [spec, stories, sources, aliases, externalIds, productImage] =
-    await Promise.all([
-      getModelSpec(entityId),
-      getStoriesForEntity(entityId),
-      getEntityReferences(entityId, 6),
-      getEntityAliases(entityId),
-      getEntityExternalIds(entityId),
-      getPrimaryProductImage(entityId),
-    ]);
+  const [spec, stories, sources, aliases, externalIds] = await Promise.all([
+    getModelSpec(entityId),
+    getStoriesForEntity(entityId),
+    getEntityReferences(entityId, 6),
+    getEntityAliases(entityId),
+    getEntityExternalIds(entityId),
+  ]);
   const story =
     stories.find((item) => item.story_type === "model_story") || stories[0];
   const priceSource = sources.find(
@@ -84,37 +80,6 @@ export async function ModelArchive({ entityId }: { entityId: string }) {
             <h2 className="text-lg font-semibold">型号档案</h2>
           </div>
         </div>
-
-        {productImage && (
-          <figure
-            className="mb-5 overflow-hidden rounded-lg border"
-            style={{
-              borderColor: "var(--color-border-light)",
-              backgroundColor: "var(--color-surface-dim)",
-            }}
-          >
-            <div className="flex min-h-[220px] items-center justify-center p-4 sm:min-h-[280px]">
-              <Image
-                src={productImage.thumbnail_url || productImage.image_url}
-                alt={`${spec?.series_name || "钢笔型号"} 实物图`}
-                width={900}
-                height={360}
-                className="max-h-[320px] w-full object-contain"
-                unoptimized
-              />
-            </div>
-            <figcaption
-              className="border-t px-3 py-2 text-xs"
-              style={{
-                borderColor: "var(--color-border-light)",
-                color: "var(--color-ink-muted)",
-              }}
-            >
-              实物图：{productImage.title}
-              {productImage.source_name ? `｜${productImage.source_name}` : ""}
-            </figcaption>
-          </figure>
-        )}
 
         {spec && specFields.length > 0 ? (
           <div className="grid gap-3 sm:grid-cols-2">

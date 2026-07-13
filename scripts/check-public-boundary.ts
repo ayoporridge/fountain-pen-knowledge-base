@@ -1,5 +1,6 @@
 import { createClient } from "@libsql/client";
 import { publicEntityFilter } from "../src/lib/public-visibility";
+import { publicMediaFilter } from "../src/lib/public-media";
 import { cleanPublicText } from "../src/lib/publicText";
 
 const RETIRED_DUPLICATE_SLUGS = [
@@ -115,13 +116,21 @@ async function main() {
     failures.push("approved entity references include unapproved source items");
   }
 
+  const publicMedia = await db.execute(
+    `SELECT COUNT(*) AS total
+     FROM media_assets ma
+     JOIN entities e ON e.id = ma.entity_id
+     WHERE ${publicMediaFilter("ma")}
+       AND ${publicEntityFilter("e")}`,
+  );
+
   if (failures.length > 0) {
     for (const failure of failures) console.error(`- ${failure}`);
     process.exit(1);
   }
 
   console.log(
-    `Public boundary OK: ${publicCount.rows[0]?.total} entities, ${publicCount.rows[0]?.pens} pens, ${approvedSpecs.rows.length} approved specs.`,
+    `Public boundary OK: ${publicCount.rows[0]?.total} entities, ${publicCount.rows[0]?.pens} pens, ${approvedSpecs.rows.length} approved specs, ${publicMedia.rows[0]?.total} reusable media.`,
   );
 }
 

@@ -50,7 +50,11 @@ export function EntityCardImage({
         fill
         unoptimized
         sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-        className="object-cover"
+        className={
+          type === "pen"
+            ? "bg-[var(--color-surface-dim)] object-contain p-2"
+            : "object-cover"
+        }
         onError={() => setFailedSrc(src)}
       />
     );

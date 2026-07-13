@@ -20,10 +20,10 @@
 
 ### 图片
 
-- [ ] **MEDIA-01**: 所有公开图片都能稳定加载；硬破图、HTML 伪图片、example.com 占位图和错误代理响应被修复或隐藏
-- [ ] **MEDIA-02**: 型号页首图不会在同页无意义重复，画廊仅展示新增视角或细节
-- [ ] **MEDIA-03**: 白边、透明边和过小商品图在进入大图容器前被裁切、降级展示或替换
-- [ ] **MEDIA-04**: 不相关的文章和型号不共用会造成误认的封面图
+- [x] **MEDIA-01**: 所有公开图片都能稳定加载；硬破图、HTML 伪图片、example.com 占位图和错误代理响应被修复或隐藏
+- [x] **MEDIA-02**: 型号页首图不会在同页无意义重复，画廊仅展示新增视角或细节
+- [x] **MEDIA-03**: 白边、透明边和过小商品图在进入大图容器前被裁切、降级展示或替换
+- [x] **MEDIA-04**: 不相关的文章和型号不共用会造成误认的封面图
 
 ### 内容与来源
 
@@ -78,7 +78,7 @@
 |-------------|-------|--------|
 | SCOPE-01, SCOPE-02, SCOPE-03 | Phase 11 | Complete |
 | DATA-01, DATA-02, DATA-03, DATA-04 | Phase 12 | Complete |
-| MEDIA-01, MEDIA-02, MEDIA-03, MEDIA-04 | Phase 13 | Pending |
+| MEDIA-01, MEDIA-02, MEDIA-03, MEDIA-04 | Phase 13 | Complete |
 | CONT-01, CONT-02, CONT-03, CONT-05 | Phase 14 | Pending |
 | CONT-04, INFO-01, INFO-02, INFO-03, INFO-04, INFO-05 | Phase 15 | Pending |
 | UX-01, UX-02, UX-03, UX-04, UX-05 | Phase 16 | Pending |
@@ -91,4 +91,4 @@
 
 ---
 *Requirements defined: 2026-07-13*
-*Last updated: 2026-07-13 after Phase 12 completion*
+*Last updated: 2026-07-13 after Phase 13 completion*

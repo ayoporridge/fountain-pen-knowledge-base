@@ -15,6 +15,7 @@ import { ScrollReveal } from "@/components/ScrollReveal";
 import { TYPE_LABELS } from "@/lib/constants";
 import { queryAll } from "@/lib/db";
 import { getPublicMediaUrl } from "@/lib/media-url";
+import { publicMediaFilter } from "@/lib/public-media";
 import { PUBLIC_ENTITY_FILTER_SQL } from "@/lib/public-visibility";
 
 export const revalidate = 600;
@@ -88,24 +89,20 @@ export default async function Home() {
               SELECT ma.id
               FROM media_assets ma
               WHERE ma.entity_id = e.id
-                AND ma.asset_type = 'image'
-                AND (ma.local_path IS NOT NULL OR ma.image_url IS NOT NULL)
-                AND ma.review_status = 'approved'
-                AND ma.usage_status IN ('primary', 'gallery')
+                AND ${publicMediaFilter("ma")}
               ORDER BY CASE ma.usage_status WHEN 'primary' THEN 0 ELSE 1 END,
-                       ma.created_at DESC
+                       ma.created_at DESC,
+                       ma.id
               LIMIT 1
             ) as media_id,
             (
               SELECT COALESCE(ma.local_path, ma.thumbnail_url, ma.image_url)
               FROM media_assets ma
               WHERE ma.entity_id = e.id
-                AND ma.asset_type = 'image'
-                AND (ma.local_path IS NOT NULL OR ma.image_url IS NOT NULL)
-                AND ma.review_status = 'approved'
-                AND ma.usage_status IN ('primary', 'gallery')
+                AND ${publicMediaFilter("ma")}
               ORDER BY CASE ma.usage_status WHEN 'primary' THEN 0 ELSE 1 END,
-                       ma.created_at DESC
+                       ma.created_at DESC,
+                       ma.id
               LIMIT 1
             ) as media_url,
             COUNT(DISTINCT et.tag_id) as tag_count

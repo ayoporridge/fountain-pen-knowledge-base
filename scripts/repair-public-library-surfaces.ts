@@ -628,7 +628,9 @@ async function main() {
     const [hiddenArticles, cardImageCount, rewrittenBrands] = await Promise.all(
       [
         findHiddenArticles(db),
-        assignCardImages(db),
+        // The v1.1 classification release no longer assigns unrelated artwork
+        // to entities merely to avoid an empty card image.
+        Promise.resolve(0),
         SKIP_BRAND_STORIES || !REWRITE_LEGACY_BRAND_STORIES
           ? Promise.resolve([])
           : rewriteBrandStories(db),
@@ -642,7 +644,7 @@ async function main() {
       `- database: ${USE_TURSO ? "turso" : "local"}`,
       `- mode: ${WRITE ? "write" : "dry-run"}`,
       `- index-like articles filtered from public UI: ${hiddenArticles.length}`,
-      `- generated card images assigned: ${cardImageCount}`,
+      `- generated placeholder card images assigned: ${cardImageCount}`,
       `- generated media source links repaired: ${repairedMediaLinks}`,
       `- brand stories rewritten: ${rewrittenBrands.length}`,
       `- legacy brand story rewrite enabled: ${REWRITE_LEGACY_BRAND_STORIES ? "yes" : "no"}`,

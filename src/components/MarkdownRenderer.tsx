@@ -1,6 +1,7 @@
 import { queryOne } from "@/lib/db";
 import { renderMarkdown } from "@/lib/markdown";
 import { publicEntityFilter } from "@/lib/public-visibility";
+import { MarkdownHtml } from "./MarkdownHtml";
 
 interface MarkdownRendererProps {
   content: string;
@@ -22,11 +23,5 @@ export async function MarkdownRenderer({ content }: MarkdownRendererProps) {
 
   const html = await renderMarkdown(content, resolveHref);
 
-  return (
-    <div
-      className="prose prose-body dark:prose-invert max-w-none prose-headings:text-ink prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-p:leading-relaxed"
-      // biome-ignore lint/security/noDangerouslySetInnerHtml: markdown rendered via remark
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
-  );
+  return <MarkdownHtml html={html} />;
 }

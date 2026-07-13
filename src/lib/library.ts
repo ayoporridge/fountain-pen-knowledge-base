@@ -1,6 +1,7 @@
 import { queryAll, queryOne } from "@/lib/db";
 import { dedupeByEntityIdentity } from "@/lib/entity-identity";
 import { getCanonicalEntityPath } from "@/lib/entity-redirects";
+import { publicMediaFilter } from "@/lib/public-media";
 import { publicEntityFilter } from "@/lib/public-visibility";
 
 export interface StoryRecord {
@@ -151,8 +152,9 @@ export interface MediaAssetRecord {
 export interface ProductImageRecord {
   id: string;
   title: string;
-  image_url: string;
+  image_url: string | null;
   thumbnail_url: string | null;
+  local_path: string | null;
   source_url: string | null;
   author: string | null;
   license: string | null;
@@ -607,8 +609,7 @@ export async function getMediaAssetIndex(limit = 80) {
      LEFT JOIN source_items si ON si.id = ma.source_item_id
      LEFT JOIN source_registry sr ON sr.id = si.source_id
      LEFT JOIN entities e ON e.id = ma.entity_id
-     WHERE ma.review_status = 'approved'
-       AND ma.usage_status IN ('primary', 'gallery')
+     WHERE ${publicMediaFilter("ma")}
      ORDER BY
        CASE ma.asset_type WHEN 'image' THEN 0 ELSE 1 END,
        CASE ma.review_status WHEN 'approved' THEN 0 WHEN 'needs_license' THEN 1 ELSE 2 END,
@@ -620,7 +621,7 @@ export async function getMediaAssetIndex(limit = 80) {
 
 export async function getPrimaryProductImage(entityId: string) {
   return (await queryOne(
-    `SELECT ma.id, ma.title, ma.image_url, ma.thumbnail_url,
+    `SELECT ma.id, ma.title, ma.image_url, ma.thumbnail_url, ma.local_path,
             ma.source_url, ma.author, ma.license, ma.attribution_text,
             si.title as source_title,
             sr.name as source_name
@@ -628,15 +629,11 @@ export async function getPrimaryProductImage(entityId: string) {
      LEFT JOIN source_items si ON si.id = ma.source_item_id
      LEFT JOIN source_registry sr ON sr.id = si.source_id
      WHERE ma.entity_id = ?
-       AND ma.asset_type = 'image'
-       AND ma.image_url IS NOT NULL
-       AND ma.review_status = 'approved'
-       AND ma.usage_status IN ('primary', 'gallery')
-       AND ma.image_url NOT LIKE '/images/library/warm-pen-atlas/%'
-       AND COALESCE(ma.source_url, '') NOT LIKE '/images/library/warm-pen-atlas/%'
+       AND ${publicMediaFilter("ma")}
      ORDER BY
        CASE ma.usage_status WHEN 'primary' THEN 0 ELSE 1 END,
-       ma.created_at DESC
+       ma.created_at DESC,
+       ma.id
      LIMIT 1`,
     [entityId],
   )) as ProductImageRecord | undefined;

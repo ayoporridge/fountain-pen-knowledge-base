@@ -31,13 +31,17 @@ export class MediaFetchError extends Error {
   }
 }
 
-function isOnSitePath(value: string | null | undefined): value is string {
-  return !!value && value.startsWith("/") && !value.startsWith("//");
+function normalizeOnSitePath(value: string | null | undefined): string | null {
+  if (!value) return null;
+  if (value.startsWith("/") && !value.startsWith("//")) return value;
+  if (value.startsWith("public/")) return `/${value.slice("public/".length)}`;
+  return null;
 }
 
 export function getPublicMediaUrl(media: PublicMediaReference): string | null {
   for (const value of [media.localPath, media.thumbnailUrl, media.imageUrl]) {
-    if (isOnSitePath(value)) return value;
+    const onSitePath = normalizeOnSitePath(value);
+    if (onSitePath) return onSitePath;
   }
   return media.id
     ? `/api/image-proxy?id=${encodeURIComponent(media.id)}`
@@ -47,7 +51,7 @@ export function getPublicMediaUrl(media: PublicMediaReference): string | null {
 export function pickExternalMediaUrl(
   media: PublicMediaReference,
 ): string | null {
-  for (const value of [media.thumbnailUrl, media.imageUrl]) {
+  for (const value of [media.imageUrl, media.thumbnailUrl]) {
     if (!value) continue;
     try {
       const parsed = new URL(value);

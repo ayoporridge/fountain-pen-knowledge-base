@@ -7,6 +7,7 @@ import {
   MediaFetchError,
   pickExternalMediaUrl,
 } from "../src/lib/media-url";
+import { publicMediaFilter } from "../src/lib/public-media";
 
 type MediaRow = {
   id: string;
@@ -73,15 +74,20 @@ function validateApplyGate() {
 
 async function auditOne(row: MediaRow): Promise<AuditResult> {
   const checkedAt = new Date().toISOString();
-  if (row.local_path?.startsWith("/") && !row.local_path.startsWith("//")) {
-    const diskPath = path.join(process.cwd(), "public", row.local_path);
+  const localPath = row.local_path?.startsWith("public/")
+    ? row.local_path.slice("public/".length)
+    : row.local_path?.startsWith("/") && !row.local_path.startsWith("//")
+      ? row.local_path.slice(1)
+      : null;
+  if (localPath) {
+    const diskPath = path.join(process.cwd(), "public", localPath);
     try {
       const stat = await fs.stat(diskPath);
       return {
         media_id: row.id,
         entity_id: row.entity_id,
-        url: row.local_path,
-        final_url: row.local_path,
+        url: `/${localPath}`,
+        final_url: `/${localPath}`,
         status: "ok",
         mime: null,
         bytes: stat.size,
@@ -92,8 +98,8 @@ async function auditOne(row: MediaRow): Promise<AuditResult> {
       return {
         media_id: row.id,
         entity_id: row.entity_id,
-        url: row.local_path,
-        final_url: row.local_path,
+        url: `/${localPath}`,
+        final_url: `/${localPath}`,
         status: "missing",
         mime: null,
         bytes: null,
@@ -218,8 +224,7 @@ async function main() {
     `SELECT id, entity_id, image_url, thumbnail_url, local_path,
             review_status, usage_status
      FROM media_assets
-     WHERE review_status = 'approved'
-       AND usage_status IN ('primary', 'gallery')
+     WHERE ${publicMediaFilter("media_assets")}
      ORDER BY id`,
   )) as MediaRow[];
 

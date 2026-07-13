@@ -1,5 +1,6 @@
 import { queryAll, queryOne } from "@/lib/db";
 import { getPublicMediaUrl } from "@/lib/media-url";
+import { publicMediaFilter } from "@/lib/public-media";
 import { publicEntityFilter } from "@/lib/public-visibility";
 
 export const FACET_DIMENSIONS: Record<
@@ -133,7 +134,8 @@ function normalizeInput(
 
 const MEDIA_ORDER = `CASE ma.usage_status WHEN 'primary' THEN 0 ELSE 1 END,
   CASE WHEN ma.local_path IS NOT NULL THEN 0 ELSE 1 END,
-  ma.created_at DESC`;
+  ma.created_at DESC,
+  ma.id`;
 
 export async function getBrowseData(
   input: URLSearchParams | Record<string, string | string[] | undefined>,
@@ -175,40 +177,28 @@ export async function getBrowseData(
             (
               SELECT ma.id FROM media_assets ma
               WHERE ma.entity_id = e.id
-                AND ma.asset_type = 'image'
-                AND ma.review_status = 'approved'
-                AND ma.usage_status IN ('primary', 'gallery')
-                AND (ma.local_path IS NOT NULL OR ma.image_url IS NOT NULL)
+                AND ${publicMediaFilter("ma")}
               ORDER BY ${MEDIA_ORDER}
               LIMIT 1
             ) as media_id,
             (
               SELECT ma.local_path FROM media_assets ma
               WHERE ma.entity_id = e.id
-                AND ma.asset_type = 'image'
-                AND ma.review_status = 'approved'
-                AND ma.usage_status IN ('primary', 'gallery')
-                AND (ma.local_path IS NOT NULL OR ma.image_url IS NOT NULL)
+                AND ${publicMediaFilter("ma")}
               ORDER BY ${MEDIA_ORDER}
               LIMIT 1
             ) as media_local_path,
             (
               SELECT ma.thumbnail_url FROM media_assets ma
               WHERE ma.entity_id = e.id
-                AND ma.asset_type = 'image'
-                AND ma.review_status = 'approved'
-                AND ma.usage_status IN ('primary', 'gallery')
-                AND (ma.local_path IS NOT NULL OR ma.image_url IS NOT NULL)
+                AND ${publicMediaFilter("ma")}
               ORDER BY ${MEDIA_ORDER}
               LIMIT 1
             ) as media_thumbnail_url,
             (
               SELECT ma.image_url FROM media_assets ma
               WHERE ma.entity_id = e.id
-                AND ma.asset_type = 'image'
-                AND ma.review_status = 'approved'
-                AND ma.usage_status IN ('primary', 'gallery')
-                AND (ma.local_path IS NOT NULL OR ma.image_url IS NOT NULL)
+                AND ${publicMediaFilter("ma")}
               ORDER BY ${MEDIA_ORDER}
               LIMIT 1
             ) as media_image_url
@@ -218,8 +208,7 @@ export async function getBrowseData(
        CASE WHEN EXISTS (
          SELECT 1 FROM media_assets order_ma
          WHERE order_ma.entity_id = e.id
-           AND order_ma.review_status = 'approved'
-           AND order_ma.usage_status IN ('primary', 'gallery')
+           AND ${publicMediaFilter("order_ma")}
        ) THEN 0 ELSE 1 END,
        CASE WHEN length(COALESCE(e.summary, '')) >= 40 THEN 0 ELSE 1 END,
        (SELECT COUNT(*) FROM entity_tags order_et WHERE order_et.entity_id = e.id) DESC,

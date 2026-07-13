@@ -24,9 +24,9 @@ import { RelatedEntities } from "@/components/RelatedEntities";
 import { getEntitiesForConcept } from "@/lib/concept-engine";
 import { ATTR_LABELS, TYPE_ICONS, TYPE_LABELS } from "@/lib/constants";
 import { queryAll, queryOne } from "@/lib/db";
-import { getDetailHeroImageByIndex } from "@/lib/detail-hero-images";
 import { getCanonicalEntityPath } from "@/lib/entity-redirects";
 import { getEntityReferences, getPrimaryProductImage } from "@/lib/library";
+import { getPublicMediaUrl } from "@/lib/media-url";
 import { isPublicEntity, publicEntityFilter } from "@/lib/public-visibility";
 import { cleanPublicText, isPlaceholderSourceUrl } from "@/lib/publicText";
 import { toPlainTextSummary } from "@/lib/text";
@@ -71,7 +71,14 @@ export async function generateMetadata({
     : `${entity.name} — 钢笔知识图谱收录词条`;
 
   const productImage = await getPrimaryProductImage(entity.id);
-  const socialImage = productImage?.thumbnail_url || productImage?.image_url;
+  const socialImage = productImage
+    ? getPublicMediaUrl({
+        id: productImage.id,
+        localPath: productImage.local_path,
+        thumbnailUrl: productImage.thumbnail_url,
+        imageUrl: productImage.image_url,
+      })
+    : null;
   const canonical = `/${entity.type}/${entity.slug}`;
 
   return {
@@ -425,20 +432,15 @@ export default async function EntityPage({ params }: EntityPageProps) {
         >)
       : Promise.resolve(undefined),
   ]);
-  const heroIndexRow = (await queryOne(
-    `SELECT COUNT(*) as detail_index
-     FROM entities
-     WHERE type < ? OR (type = ? AND slug <= ?)`,
-    [entityType, entityType, entitySlug],
-  )) as { detail_index: number } | undefined;
-  const fallbackHeroImageUrl = getDetailHeroImageByIndex(
-    Number(heroIndexRow?.detail_index || 1) - 1,
-  );
-  const heroImageUrl =
-    productImage?.thumbnail_url ||
-    productImage?.image_url ||
-    fallbackHeroImageUrl;
-  const hasEntityHeroImage = Boolean(productImage);
+  const heroImageUrl = productImage
+    ? getPublicMediaUrl({
+        id: productImage.id,
+        localPath: productImage.local_path,
+        thumbnailUrl: productImage.thumbnail_url,
+        imageUrl: productImage.image_url,
+      })
+    : null;
+  const hasEntityHeroImage = Boolean(heroImageUrl);
   const evidenceBadges = [
     {
       label: "来源",
@@ -761,39 +763,78 @@ export default async function EntityPage({ params }: EntityPageProps) {
       </div>
 
       {/* ── Hero Image ── */}
-      <figure
-        className="mb-8 overflow-hidden rounded-lg border"
-        style={{
-          borderColor: "var(--color-border)",
-          backgroundColor: hasEntityHeroImage
-            ? "var(--color-surface-raised)"
-            : "var(--color-surface-dim)",
-          boxShadow: "var(--shadow-raised)",
-        }}
-      >
-        <Image
-          src={String(heroImageUrl)}
-          alt={String(entity.name)}
-          width={1200}
-          height={500}
-          className={`h-56 w-full sm:h-72 ${
-            hasEntityHeroImage ? "object-contain p-4" : "object-cover"
-          }`}
-          priority
-          unoptimized={hasEntityHeroImage}
-        />
-        <figcaption
-          className="border-t px-4 py-2 text-xs"
+      {hasEntityHeroImage ? (
+        <figure
+          className="mb-8 overflow-hidden rounded-lg border"
           style={{
-            borderColor: "var(--color-border-light)",
-            color: "var(--color-ink-muted)",
+            borderColor: "var(--color-border)",
+            backgroundColor: "var(--color-surface-dim)",
+            boxShadow: "var(--shadow-raised)",
           }}
         >
-          {hasEntityHeroImage
-            ? `实体图片：${productImage?.source_name || productImage?.source_title || "已登记媒体"}`
-            : "暂无实体主图，暂用资料馆氛围图。"}
-        </figcaption>
-      </figure>
+          <Image
+            src={String(heroImageUrl)}
+            alt={`${String(entity.name)} 资料图片`}
+            width={1200}
+            height={500}
+            className="h-56 w-full object-scale-down p-3 sm:h-72"
+            priority
+            unoptimized
+          />
+          <figcaption
+            className="flex flex-wrap gap-x-2 border-t px-4 py-2 text-xs"
+            style={{
+              borderColor: "var(--color-border-light)",
+              color: "var(--color-ink-muted)",
+            }}
+          >
+            {productImage?.license === "site-original" ? (
+              <span>
+                资料馆原创示意图，仅用于说明设计与机制，不代表实物照片
+              </span>
+            ) : (
+              <>
+                <span>{productImage?.title || String(entity.name)}</span>
+                {productImage?.author && (
+                  <span>作者：{productImage.author}</span>
+                )}
+                {productImage?.license && (
+                  <span>许可：{productImage.license}</span>
+                )}
+              </>
+            )}
+            {productImage?.source_url && (
+              <a
+                href={productImage.source_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ink-underline"
+              >
+                查看原始来源
+              </a>
+            )}
+          </figcaption>
+        </figure>
+      ) : (
+        <div
+          className="mb-8 flex min-h-44 items-center justify-center gap-3 rounded-lg border px-6 text-center"
+          style={{
+            borderColor: "var(--color-border)",
+            background:
+              "linear-gradient(135deg, var(--color-surface-dim), var(--color-surface-raised))",
+            color: "var(--color-ink-muted)",
+            boxShadow: "var(--shadow-raised)",
+          }}
+        >
+          <Icon size={30} weight="duotone" aria-hidden="true" />
+          <div>
+            <div className="font-medium" style={{ color: "var(--color-ink)" }}>
+              {TYPE_LABELS[entityType] || "馆藏"}资料卡
+            </div>
+            <div className="mt-1 text-sm">暂无可公开复用的对应图片</div>
+          </div>
+        </div>
+      )}
 
       <SectionNav items={sectionNavItems} />
 
