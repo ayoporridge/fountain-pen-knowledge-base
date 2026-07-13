@@ -54,7 +54,7 @@
 - [x] **QA-01**: 当前 sitemap 全部 URL 与所有页面公开站内链接完成全量状态、标题、结构和跳转检查
 - [x] **QA-02**: 550 个公开实体完成类型、可见字段、来源、图片和信息完整度检查
 - [x] **QA-03**: 所有公开图片完成加载、重复、白边、低清、比例和 alt 检查
-- [ ] **QA-04**: 桌面与手机关键用户路径完成浏览器验收，生产部署后逐项线上复查
+- [x] **QA-04**: 桌面与手机关键用户路径完成浏览器验收，生产部署后逐项线上复查
 
 ## Future Requirements
 
@@ -82,7 +82,7 @@
 | CONT-01, CONT-02, CONT-03, CONT-05 | Phase 14 | Complete |
 | CONT-04, INFO-01, INFO-02, INFO-03, INFO-04, INFO-05 | Phase 15 | Complete |
 | UX-01, UX-02, UX-03, UX-04, UX-05 | Phase 16 | Complete |
-| QA-01, QA-02, QA-03, QA-04 | Phase 17 | In progress |
+| QA-01, QA-02, QA-03, QA-04 | Phase 17 | Complete |
 
 **Coverage:**
 - v1.1 requirements: 30 total
@@ -91,4 +91,4 @@
 
 ---
 *Requirements defined: 2026-07-13*
-*Last updated: 2026-07-13 after Phase 16 completion*
+*Last updated: 2026-07-13 after Phase 17 production verification*
