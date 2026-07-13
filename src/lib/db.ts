@@ -14,7 +14,71 @@ const DB_PATH = path.join(process.cwd(), "data", "fpkg.db");
 const MIGRATIONS_DIR = path.join(process.cwd(), "migrations");
 
 let _client: Client | null = null;
-let _databaseReady: Promise<void> | null = null;
+
+const REMOTE_READ_RETRY_DELAYS_MS = [150, 500] as const;
+const TRANSIENT_DATABASE_CODES = new Set([
+  "NETWORK_ERROR",
+  "HRANA_WEBSOCKET_ERROR",
+]);
+const TRANSIENT_DATABASE_STATUSES = new Set([429, 500, 502, 503, 504]);
+
+export function isTransientDatabaseError(error: unknown): boolean {
+  const seen = new Set<unknown>();
+  let current = error;
+
+  while (current && typeof current === "object" && !seen.has(current)) {
+    seen.add(current);
+    const details = current as {
+      cause?: unknown;
+      code?: unknown;
+      status?: unknown;
+    };
+    const code = String(details.code || "").toUpperCase();
+    const status = Number(details.status);
+    if (
+      TRANSIENT_DATABASE_CODES.has(code) ||
+      TRANSIENT_DATABASE_STATUSES.has(status)
+    ) {
+      return true;
+    }
+    current = details.cause;
+  }
+
+  return false;
+}
+
+export async function retryTransientDatabaseRead<T>(
+  operation: () => Promise<T>,
+  retryDelays: readonly number[] = process.env.TURSO_DATABASE_URL
+    ? REMOTE_READ_RETRY_DELAYS_MS
+    : [],
+): Promise<T> {
+  for (let attempt = 0; ; attempt += 1) {
+    try {
+      return await operation();
+    } catch (error) {
+      const delay = retryDelays[attempt];
+      if (delay === undefined || !isTransientDatabaseError(error)) throw error;
+      const jitter = delay > 0 ? Math.floor(Math.random() * 75) : 0;
+      await new Promise((resolve) => setTimeout(resolve, delay + jitter));
+    }
+  }
+}
+
+export function createReadinessGuard(
+  check: () => Promise<void>,
+): () => Promise<void> {
+  let pending: Promise<void> | null = null;
+  return () => {
+    if (!pending) {
+      pending = check().catch((error) => {
+        pending = null;
+        throw error;
+      });
+    }
+    return pending;
+  };
+}
 
 /**
  * Get or create a database client.
@@ -33,7 +97,7 @@ export function getDb(): Client {
 
   if (url) {
     // Production: connect to Turso
-    _client = createClient({ url, authToken });
+    _client = createClient({ url, authToken, concurrency: 4 });
   } else {
     // Development: use local file
     const dataDir = path.dirname(DB_PATH);
@@ -178,6 +242,7 @@ export async function assertDatabaseReady(
   try {
     appliedRows = await db.execute("SELECT name, checksum FROM migrations");
   } catch (error) {
+    if (isTransientDatabaseError(error)) throw error;
     throw new Error(
       "Database schema is not initialized. Run `pnpm migrate` locally or `pnpm migrate:remote` before building/starting the app.",
       { cause: error },
@@ -211,12 +276,9 @@ export async function assertDatabaseReady(
   }
 }
 
-async function databaseReady(): Promise<void> {
-  if (!_databaseReady) {
-    _databaseReady = assertDatabaseReady(getDb());
-  }
-  return _databaseReady;
-}
+const databaseReady = createReadinessGuard(() =>
+  retryTransientDatabaseRead(() => assertDatabaseReady(getDb())),
+);
 
 /**
  * Compatibility wrapper: mimics better-sqlite3's db.prepare().all() / .run() API
@@ -228,7 +290,9 @@ export async function queryAll(
 ): Promise<unknown[]> {
   await databaseReady();
   const db = getDb();
-  const result = await db.execute({ sql, args: args as InArgs });
+  const result = await retryTransientDatabaseRead(() =>
+    db.execute({ sql, args: args as InArgs }),
+  );
   return result.rows;
 }
 
