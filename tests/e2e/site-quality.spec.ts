@@ -17,6 +17,14 @@ const RETIRED_DUPLICATE_SLUGS = [
   "写乐-sailor-21k-pro-gear-大鱼雷",
   "奥罗拉-aurora",
 ];
+const AUDIT_BATCH_SIZE = Math.max(
+  1,
+  Math.min(
+    16,
+    Number.parseInt(process.env.E2E_AUDIT_BATCH_SIZE || "16", 10) || 16,
+  ),
+);
+const FULL_AUDIT_TIMEOUT = process.env.E2E_BASE_URL ? 900_000 : 300_000;
 
 type LocalEntityRow = { id: string; slug: string; name: string };
 
@@ -154,7 +162,7 @@ async function openHydratedDialog(
 }
 
 test.describe("site quality contract", () => {
-  test.setTimeout(90_000);
+  test.setTimeout(process.env.E2E_BASE_URL ? FULL_AUDIT_TIMEOUT : 90_000);
 
   test("homepage classification shortcuts have deterministic destinations", async ({
     page,
@@ -602,9 +610,9 @@ test.describe("site quality contract", () => {
       (match) => new URL(match[1]).pathname,
     );
     const failures: string[] = [];
-    for (let offset = 0; offset < paths.length; offset += 16) {
+    for (let offset = 0; offset < paths.length; offset += AUDIT_BATCH_SIZE) {
       await Promise.all(
-        paths.slice(offset, offset + 16).map(async (path) => {
+        paths.slice(offset, offset + AUDIT_BATCH_SIZE).map(async (path) => {
           const response = await request.get(path);
           if (!response.ok()) return;
           const html = await response.text();
@@ -887,7 +895,7 @@ test.describe("site quality contract", () => {
     request,
   }, testInfo) => {
     if (!desktopOnly(testInfo.project.name)) return;
-    testInfo.setTimeout(180_000);
+    testInfo.setTimeout(FULL_AUDIT_TIMEOUT);
 
     const sitemap = await (await request.get("/sitemap.xml")).text();
     const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
@@ -905,8 +913,8 @@ test.describe("site quality contract", () => {
     ];
     const failures: string[] = [];
 
-    for (let offset = 0; offset < urls.length; offset += 16) {
-      const batch = urls.slice(offset, offset + 16);
+    for (let offset = 0; offset < urls.length; offset += AUDIT_BATCH_SIZE) {
+      const batch = urls.slice(offset, offset + AUDIT_BATCH_SIZE);
       await Promise.all(
         batch.map(async (url) => {
           const parsed = new URL(url);
@@ -933,7 +941,7 @@ test.describe("site quality contract", () => {
     request,
   }, testInfo) => {
     if (!desktopOnly(testInfo.project.name)) return;
-    testInfo.setTimeout(180_000);
+    testInfo.setTimeout(FULL_AUDIT_TIMEOUT);
 
     const sitemap = await (await request.get("/sitemap.xml")).text();
     const sitemapPaths = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
@@ -948,8 +956,12 @@ test.describe("site quality contract", () => {
     );
     const failures: string[] = [];
 
-    for (let offset = 0; offset < sitemapPaths.length; offset += 16) {
-      const batch = sitemapPaths.slice(offset, offset + 16);
+    for (
+      let offset = 0;
+      offset < sitemapPaths.length;
+      offset += AUDIT_BATCH_SIZE
+    ) {
+      const batch = sitemapPaths.slice(offset, offset + AUDIT_BATCH_SIZE);
       await Promise.all(
         batch.map(async (path) => {
           const response = await request.get(path);
@@ -968,8 +980,12 @@ test.describe("site quality contract", () => {
     }
 
     const allTargets = [...targets];
-    for (let offset = 0; offset < allTargets.length; offset += 16) {
-      const batch = allTargets.slice(offset, offset + 16);
+    for (
+      let offset = 0;
+      offset < allTargets.length;
+      offset += AUDIT_BATCH_SIZE
+    ) {
+      const batch = allTargets.slice(offset, offset + AUDIT_BATCH_SIZE);
       await Promise.all(
         batch.map(async (path) => {
           const response = await request.get(path);
@@ -1192,7 +1208,7 @@ test.describe("site quality contract", () => {
     request,
   }, testInfo) => {
     if (!mobileOnly(testInfo.project.name)) return;
-    testInfo.setTimeout(300_000);
+    testInfo.setTimeout(FULL_AUDIT_TIMEOUT);
 
     const sitemap = await (await request.get("/sitemap.xml")).text();
     const paths = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => {
@@ -1200,7 +1216,9 @@ test.describe("site quality contract", () => {
       return `${url.pathname}${url.search}`;
     });
     const pages = await Promise.all(
-      Array.from({ length: 6 }, () => context.newPage()),
+      Array.from({ length: Math.min(6, AUDIT_BATCH_SIZE) }, () =>
+        context.newPage(),
+      ),
     );
     const failures: string[] = [];
 

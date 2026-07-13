@@ -1,7 +1,14 @@
 import { expect, test } from "@playwright/test";
 import { HIDDEN_ARTICLE_SLUGS } from "../../src/lib/public-visibility";
 
-const BATCH_SIZE = 12;
+const BATCH_SIZE = Math.max(
+  1,
+  Math.min(
+    12,
+    Number.parseInt(process.env.E2E_AUDIT_BATCH_SIZE || "12", 10) || 12,
+  ),
+);
+const FULL_AUDIT_TIMEOUT = process.env.E2E_BASE_URL ? 900_000 : 240_000;
 const VOID_ELEMENTS = new Set([
   "area",
   "base",
@@ -141,7 +148,7 @@ test.describe("public article quality contract", () => {
     request,
   }, testInfo) => {
     if (testInfo.project.name !== "desktop") return;
-    testInfo.setTimeout(240_000);
+    testInfo.setTimeout(FULL_AUDIT_TIMEOUT);
 
     const sitemapResponse = await request.get("/sitemap.xml");
     expect(sitemapResponse.ok()).toBeTruthy();

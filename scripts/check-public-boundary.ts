@@ -1,5 +1,9 @@
 import { createClient } from "@libsql/client";
-import { publicEntityFilter } from "../src/lib/public-visibility";
+import {
+  HIDDEN_ARTICLE_SLUGS,
+  INDEX_ARTICLE_MARKERS,
+  publicEntityFilter,
+} from "../src/lib/public-visibility";
 import { publicMediaFilter } from "../src/lib/public-media";
 import { cleanPublicText } from "../src/lib/publicText";
 
@@ -48,6 +52,30 @@ async function main() {
   if (retired.rows.length > 0) {
     failures.push(
       `retired duplicate slugs remain public: ${retired.rows
+        .map((row) => row.slug)
+        .join(", ")}`,
+    );
+  }
+
+  const markerConditions = INDEX_ARTICLE_MARKERS.flatMap(() => [
+    "COALESCE(name, '') LIKE ?",
+    "COALESCE(summary, '') LIKE ?",
+    "COALESCE(body_md, '') LIKE ?",
+  ]);
+  const markerArgs = INDEX_ARTICLE_MARKERS.flatMap((marker) => {
+    const pattern = `%${marker}%`;
+    return [pattern, pattern, pattern];
+  });
+  const unlistedIndexArticles = await db.execute({
+    sql: `SELECT slug FROM entities
+          WHERE type = 'article'
+            AND (${markerConditions.join(" OR ")})
+            AND slug NOT IN (${HIDDEN_ARTICLE_SLUGS.map(() => "?").join(", ")})`,
+    args: [...markerArgs, ...HIDDEN_ARTICLE_SLUGS],
+  });
+  if (unlistedIndexArticles.rows.length > 0) {
+    failures.push(
+      `marker-matched index articles are missing from the explicit hidden list: ${unlistedIndexArticles.rows
         .map((row) => row.slug)
         .join(", ")}`,
     );

@@ -52,6 +52,11 @@ export const HIDDEN_ARTICLE_SLUGS = [
   "soviet-pens",
   "tribute-pens-and-reboots",
   "world-war-ii-and-the-fountain-pen",
+  "万特佳",
+  "公爵-duke",
+  "半句",
+  "永续",
+  "犀飞利-sheaffer-品牌泛称",
   "灵感提炼",
 ] as const;
 
@@ -88,24 +93,11 @@ export function publicEntityFilter(alias = "e"): string {
     HIDDEN_CONCEPT_SLUGS.map(quoteSqlLiteral).join(", ");
   const hiddenArticleSlugs =
     HIDDEN_ARTICLE_SLUGS.map(quoteSqlLiteral).join(", ");
-  const articleMarkerSql = INDEX_ARTICLE_MARKERS.map((marker) => {
-    const pattern = quoteSqlLiteral(`%${marker}%`);
-    return `COALESCE(${alias}.name, '') LIKE ${pattern}
-        OR COALESCE(${alias}.summary, '') LIKE ${pattern}
-        OR COALESCE(${alias}.body_md, '') LIKE ${pattern}`;
-  }).join("\n        OR ");
-
   return `NOT (
     ${alias}.slug IN (${hiddenDuplicateSlugs})
     OR (${alias}.type = 'brand' AND ${alias}.slug IN (${hiddenBrandSlugs}))
     OR (${alias}.type = 'concept' AND ${alias}.slug IN (${hiddenConceptSlugs}))
     OR (${alias}.type = 'article' AND ${alias}.slug IN (${hiddenArticleSlugs}))
-    OR (
-      ${alias}.type = 'article'
-      AND (
-        ${articleMarkerSql}
-      )
-    )
   )`;
 }
 
