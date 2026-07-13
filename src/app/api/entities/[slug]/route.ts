@@ -1,8 +1,10 @@
 import { nanoid } from "nanoid";
 import { type NextRequest, NextResponse } from "next/server";
 import { verifyAdminToken, verifyWriteAccess } from "@/lib/admin-auth";
+import { ATTR_LABELS, DIMENSION_LABELS } from "@/lib/constants";
 import { execute, queryAll, queryOne } from "@/lib/db";
 import { publicEntityFilter } from "@/lib/public-visibility";
+import { cleanPublicText } from "@/lib/publicText";
 
 // GET /api/entities/[slug]
 export async function GET(
@@ -12,7 +14,7 @@ export async function GET(
   const { slug } = await params;
 
   const entity = (await queryOne(
-    `SELECT e.* FROM entities e
+    `SELECT e.id, e.type, e.slug, e.name, e.summary FROM entities e
      WHERE e.slug = ? AND ${publicEntityFilter("e")}`,
     [slug],
   )) as Record<string, unknown> | undefined;
@@ -28,18 +30,28 @@ export async function GET(
 
   const tags = (await queryAll(
     `
-    SELECT t.id, t.name, t.dimension, t.slug
+    SELECT t.name, t.dimension
     FROM tags t
     JOIN entity_tags et ON et.tag_id = t.id
     WHERE et.entity_id = ?
+      AND t.name IS NOT NULL
   `,
     [entity.id],
-  )) as Array<{ id: string; name: string; dimension: string; slug: string }>;
+  )) as Array<{ name: string; dimension: string }>;
+
+  const attributes = Object.fromEntries(
+    attrs
+      .map(({ key, value }) => [key, cleanPublicText(value)] as const)
+      .filter(([key, value]) => ATTR_LABELS[key] && value),
+  );
 
   return NextResponse.json({
-    ...entity,
-    attributes: Object.fromEntries(attrs.map((a) => [a.key, a.value])),
-    tags,
+    type: entity.type,
+    slug: entity.slug,
+    name: entity.name,
+    summary: cleanPublicText(entity.summary),
+    attributes,
+    tags: tags.filter((tag) => DIMENSION_LABELS[tag.dimension]),
   });
 }
 

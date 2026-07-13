@@ -1,5 +1,6 @@
 import { queryOne } from "@/lib/db";
 import { renderMarkdown } from "@/lib/markdown";
+import { publicEntityFilter } from "@/lib/public-visibility";
 
 interface MarkdownRendererProps {
   content: string;
@@ -9,7 +10,8 @@ export async function MarkdownRenderer({ content }: MarkdownRendererProps) {
   // Resolve wiki-links: [[slug]] → /{type}/{slug}
   const resolveHref = async (slug: string): Promise<string | null> => {
     const entity = (await queryOne(
-      "SELECT type, slug FROM entities WHERE slug = ?",
+      `SELECT e.type, e.slug FROM entities e
+       WHERE e.slug = ? AND ${publicEntityFilter("e")}`,
       [slug],
     )) as { type: string; slug: string } | undefined;
     if (entity) {

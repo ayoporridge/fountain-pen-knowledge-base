@@ -1,5 +1,7 @@
 import { queryAll, queryOne } from "@/lib/db";
 import { dedupeByEntityIdentity } from "@/lib/entity-identity";
+import { getCanonicalEntityPath } from "@/lib/entity-redirects";
+import { publicEntityFilter } from "@/lib/public-visibility";
 
 export interface StoryRecord {
   id: string;
@@ -258,6 +260,7 @@ export async function getStoriesForEntity(entityId: string) {
     `SELECT id, title, story_type, summary, body_md, status
      FROM stories
      WHERE entity_id = ?
+       AND status IN ('published', 'reviewed')
      ORDER BY
        CASE status
          WHEN 'published' THEN 0
@@ -278,6 +281,7 @@ export async function getTimelineForEntity(entityId: string, limit = 12) {
      FROM timeline_events te
      LEFT JOIN source_items si ON si.id = te.source_item_id
      WHERE te.entity_id = ?
+       AND te.review_status = 'approved'
      ORDER BY te.start_date ASC, te.created_at ASC
      LIMIT ?`,
     [entityId, limit],
@@ -293,6 +297,8 @@ export async function getRecentTimeline(limit = 100) {
      FROM timeline_events te
      LEFT JOIN entities e ON e.id = te.entity_id
      LEFT JOIN source_items si ON si.id = te.source_item_id
+     WHERE te.review_status = 'approved'
+       AND (te.entity_id IS NULL OR ${publicEntityFilter("e")})
      ORDER BY te.start_date ASC, te.created_at ASC
      LIMIT ?`,
     [limit],
@@ -309,7 +315,8 @@ export async function getDiagramsForEntity(entityId: string) {
   return (await queryAll(
     `SELECT id, slug, title, diagram_type, svg, hotspots_json, source_note, license, review_status
      FROM diagrams
-     WHERE entity_id = ? OR entity_id IS NULL
+     WHERE (entity_id = ? OR entity_id IS NULL)
+       AND review_status IN ('published', 'reviewed')
      ORDER BY CASE WHEN entity_id = ? THEN 0 ELSE 1 END, title`,
     [entityId, entityId],
   )) as DiagramRecord[];
@@ -324,6 +331,8 @@ export async function getDiagramIndex(limit = 80) {
             e.name as entity_name
      FROM diagrams d
      LEFT JOIN entities e ON e.id = d.entity_id
+     WHERE d.review_status IN ('published', 'reviewed')
+       AND (d.entity_id IS NULL OR ${publicEntityFilter("e")})
      ORDER BY
        CASE d.review_status WHEN 'published' THEN 0 WHEN 'reviewed' THEN 1 ELSE 2 END,
        CASE d.diagram_type
@@ -343,7 +352,8 @@ export async function getModelSpec(entityId: string) {
     `SELECT ms.*, b.slug as brand_slug, b.name as brand_name
      FROM model_specs ms
      LEFT JOIN entities b ON b.id = ms.brand_entity_id
-     WHERE ms.entity_id = ?`,
+     WHERE ms.entity_id = ?
+       AND ms.review_status = 'approved'`,
     [entityId],
   )) as ModelSpecRecord | undefined;
 }
@@ -367,6 +377,7 @@ export async function getBrandRepresentativeModels(entityId: string) {
        OR (el.target_id = ? AND e.id = el.source_id)
      )
      WHERE e.type = 'pen'
+       AND ${publicEntityFilter("e")}
      ORDER BY e.name
      LIMIT 24`,
     [entityId, entityId],
@@ -386,6 +397,8 @@ export async function getEntityReferences(entityId: string, limit = 8) {
      JOIN source_items si ON si.id = er.source_item_id
      JOIN source_registry sr ON sr.id = si.source_id
      WHERE er.entity_id = ?
+       AND er.review_status = 'approved'
+       AND si.review_status = 'approved'
      ORDER BY
        CASE er.review_status WHEN 'approved' THEN 0 ELSE 1 END,
        si.title
@@ -412,6 +425,7 @@ export async function getClaimsForEntity(entityId: string, limit = 8) {
      LEFT JOIN source_items si ON si.id = c.source_item_id
      LEFT JOIN source_registry sr ON sr.id = si.source_id
      WHERE c.subject_entity_id = ?
+       AND c.review_status = 'approved'
      ORDER BY
        CASE c.review_status
          WHEN 'approved' THEN 0
@@ -444,6 +458,8 @@ export async function getCitationsForTarget(
      LEFT JOIN source_items si ON si.id = COALESCE(c.source_item_id, cl.source_item_id)
      LEFT JOIN source_registry sr ON sr.id = si.source_id
      WHERE c.target_type = ? AND c.target_id = ?
+       AND (si.id IS NULL OR si.review_status = 'approved')
+       AND (cl.id IS NULL OR cl.review_status = 'approved')
      ORDER BY
        CASE si.review_status WHEN 'approved' THEN 0 WHEN 'pending' THEN 1 ELSE 2 END,
        sr.name,
@@ -474,6 +490,8 @@ export async function getCitationsForTargets(
      LEFT JOIN source_items si ON si.id = COALESCE(c.source_item_id, cl.source_item_id)
      LEFT JOIN source_registry sr ON sr.id = si.source_id
      WHERE c.target_type = ? AND c.target_id IN (${placeholders})
+       AND (si.id IS NULL OR si.review_status = 'approved')
+       AND (cl.id IS NULL OR cl.review_status = 'approved')
      ORDER BY c.target_id, sr.name, si.title, c.id`,
     [targetType, ...targetIds],
   )) as CitationRecord[];
@@ -484,6 +502,7 @@ export async function getEntityExternalIds(entityId: string) {
     `SELECT id, provider, external_id, url, metadata_json
      FROM external_ids
      WHERE entity_id = ?
+       AND provider != 'research_index'
      ORDER BY provider, external_id`,
     [entityId],
   )) as ExternalIdRecord[];
@@ -512,8 +531,8 @@ export async function getSourceRegistryIndex() {
   return (await queryAll(
     `SELECT sr.id, sr.name, sr.source_type, sr.allowed_use, sr.reliability,
             sr.license, sr.attribution, sr.homepage_url, sr.fetch_method, sr.notes,
-            COUNT(DISTINCT si.id) as item_count,
-            COUNT(DISTINCT er.id) as reference_count
+            COUNT(DISTINCT CASE WHEN si.review_status = 'approved' THEN si.id END) as item_count,
+            COUNT(DISTINCT CASE WHEN er.review_status = 'approved' THEN er.id END) as reference_count
      FROM source_registry sr
      LEFT JOIN source_items si ON si.source_id = sr.id
      LEFT JOIN entity_references er ON er.source_item_id = si.id
@@ -540,7 +559,7 @@ export async function getSourceItemIndex(
   } = {},
 ) {
   const limit = options.limit ?? 80;
-  const filters: string[] = [];
+  const filters: string[] = ["si.review_status = 'approved'"];
   const args: unknown[] = [];
 
   if (options.sourceId) {
@@ -588,6 +607,8 @@ export async function getMediaAssetIndex(limit = 80) {
      LEFT JOIN source_items si ON si.id = ma.source_item_id
      LEFT JOIN source_registry sr ON sr.id = si.source_id
      LEFT JOIN entities e ON e.id = ma.entity_id
+     WHERE ma.review_status = 'approved'
+       AND ma.usage_status IN ('primary', 'gallery')
      ORDER BY
        CASE ma.asset_type WHEN 'image' THEN 0 ELSE 1 END,
        CASE ma.review_status WHEN 'approved' THEN 0 WHEN 'needs_license' THEN 1 ELSE 2 END,
@@ -633,6 +654,8 @@ export async function getCommunitySummaryIndex(limit = 80) {
      FROM community_summaries cs
      JOIN entities e ON e.id = cs.entity_id
      JOIN source_registry sr ON sr.id = cs.source_id
+     WHERE cs.status IN ('published', 'reviewed')
+       AND ${publicEntityFilter("e")}
      ORDER BY
        CASE cs.status WHEN 'published' THEN 0 WHEN 'reviewed' THEN 1 ELSE 2 END,
        e.name
@@ -643,14 +666,14 @@ export async function getCommunitySummaryIndex(limit = 80) {
 
 export async function getLibraryStats() {
   const rows = (await queryAll(
-    `SELECT 'sources' as key, COUNT(*) as value FROM source_registry
-     UNION ALL SELECT 'claims', COUNT(*) FROM claims
-     UNION ALL SELECT 'stories', COUNT(*) FROM stories
-     UNION ALL SELECT 'diagrams', COUNT(*) FROM diagrams
-     UNION ALL SELECT 'events', COUNT(*) FROM timeline_events
-     UNION ALL SELECT 'exhibits', COUNT(*) FROM exhibits
-     UNION ALL SELECT 'media', COUNT(*) FROM media_assets
-     UNION ALL SELECT 'community', COUNT(*) FROM community_summaries`,
+    `SELECT 'sources' as key, COUNT(*) as value FROM source_items WHERE review_status = 'approved'
+     UNION ALL SELECT 'claims', COUNT(*) FROM claims WHERE review_status = 'approved'
+     UNION ALL SELECT 'stories', COUNT(*) FROM stories WHERE status IN ('published', 'reviewed')
+     UNION ALL SELECT 'diagrams', COUNT(*) FROM diagrams WHERE review_status IN ('published', 'reviewed')
+     UNION ALL SELECT 'events', COUNT(*) FROM timeline_events WHERE review_status = 'approved'
+     UNION ALL SELECT 'exhibits', COUNT(*) FROM exhibits WHERE status IN ('published', 'reviewed')
+     UNION ALL SELECT 'media', COUNT(*) FROM media_assets WHERE review_status = 'approved' AND usage_status IN ('primary', 'gallery')
+     UNION ALL SELECT 'community', COUNT(*) FROM community_summaries WHERE status IN ('published', 'reviewed')`,
   )) as Array<{ key: string; value: number }>;
   return Object.fromEntries(rows.map((row) => [row.key, Number(row.value)]));
 }
@@ -834,9 +857,10 @@ export async function getFeaturedBrands(limit = 8) {
             COUNT(DISTINCT s.id) as story_count,
             COUNT(DISTINCT te.id) as event_count
      FROM entities e
-     LEFT JOIN stories s ON s.entity_id = e.id
-     LEFT JOIN timeline_events te ON te.entity_id = e.id
+     LEFT JOIN stories s ON s.entity_id = e.id AND s.status IN ('published', 'reviewed')
+     LEFT JOIN timeline_events te ON te.entity_id = e.id AND te.review_status = 'approved'
      WHERE e.type = 'brand'
+       AND ${publicEntityFilter("e")}
      GROUP BY e.id
      ORDER BY story_count DESC, event_count DESC, e.name
      LIMIT ?`,
@@ -876,10 +900,17 @@ export async function getExhibitSections(exhibitId: string) {
 }
 
 export async function getRelatedEntitiesByPaths(paths: string[]) {
-  if (paths.length === 0) return [];
+  const canonicalPaths = paths.map((pathValue) => {
+    const [type, ...slugParts] = pathValue.split("/");
+    const slug = slugParts.join("/");
+    return getCanonicalEntityPath(type, slug)?.replace(/^\//, "") || pathValue;
+  });
+  if (canonicalPaths.length === 0) return [];
 
-  const clauses = paths.map(() => "(e.type = ? AND e.slug = ?)").join(" OR ");
-  const args = paths.flatMap((pathValue) => {
+  const clauses = canonicalPaths
+    .map(() => "(e.type = ? AND e.slug = ?)")
+    .join(" OR ");
+  const args = canonicalPaths.flatMap((pathValue) => {
     const [type, ...slugParts] = pathValue.split("/");
     return [type, slugParts.join("/")];
   });
@@ -887,13 +918,14 @@ export async function getRelatedEntitiesByPaths(paths: string[]) {
   const rows = (await queryAll(
     `SELECT e.type, e.slug, e.name, e.summary
      FROM entities e
-     WHERE ${clauses}
+     WHERE (${clauses})
+       AND ${publicEntityFilter("e")}
      ORDER BY e.type, e.name`,
     args,
   )) as RelatedEntityRecord[];
 
   const byPath = new Map(rows.map((row) => [`${row.type}/${row.slug}`, row]));
-  return paths
+  return canonicalPaths
     .map((pathValue) => byPath.get(pathValue))
     .filter((row): row is RelatedEntityRecord => Boolean(row));
 }

@@ -3,14 +3,28 @@ import Link from "next/link";
 import type { EntityAliasRecord, ExternalIdRecord } from "@/lib/library";
 import { displayPublicSourceName } from "@/lib/publicText";
 
-function ExternalIdCard({ externalId }: { externalId: ExternalIdRecord }) {
+const PROVIDER_LABELS: Record<string, string> = {
+  official_site: "官方网站",
+  wikidata: "Wikidata",
+  richardspens_profile: "Richard's Pens",
+  secondary_profile: "参考资料",
+  penhero_profile: "PenHero",
+};
+
+function ExternalIdCard({
+  externalId,
+  providerLabel,
+}: {
+  externalId: ExternalIdRecord;
+  providerLabel: string;
+}) {
   return (
     <div
       className="rounded-lg border px-3 py-2"
       style={{ borderColor: "var(--color-border-light)" }}
     >
       <div className="text-xs" style={{ color: "var(--color-ink-muted)" }}>
-        {externalId.provider}
+        {providerLabel}
       </div>
       <div className="text-sm font-medium">{externalId.external_id}</div>
     </div>
@@ -42,7 +56,9 @@ export function IdentifierPanel({
       {externalIds.length > 0 && (
         <div className="mb-4 grid gap-2 sm:grid-cols-2">
           {externalIds.map((externalId) => {
-            const label = `${externalId.provider}: ${externalId.external_id}`;
+            const providerLabel = PROVIDER_LABELS[externalId.provider];
+            if (!providerLabel) return null;
+            const label = `${providerLabel}: ${externalId.external_id}`;
 
             return externalId.url ? (
               <Link
@@ -51,10 +67,17 @@ export function IdentifierPanel({
                 aria-label={label}
                 className="transition-colors hover:bg-[var(--color-surface-dim)]"
               >
-                <ExternalIdCard externalId={externalId} />
+                <ExternalIdCard
+                  externalId={externalId}
+                  providerLabel={providerLabel}
+                />
               </Link>
             ) : (
-              <ExternalIdCard key={externalId.id} externalId={externalId} />
+              <ExternalIdCard
+                key={externalId.id}
+                externalId={externalId}
+                providerLabel={providerLabel}
+              />
             );
           })}
         </div>

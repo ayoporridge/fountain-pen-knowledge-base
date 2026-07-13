@@ -79,7 +79,7 @@ export function Timeline({
                   color: "var(--color-accent)",
                 }}
               >
-                {EVENT_LABELS[event.event_type] || event.event_type}
+                {EVENT_LABELS[event.event_type] || "历史事件"}
               </span>
             </div>
             <h3

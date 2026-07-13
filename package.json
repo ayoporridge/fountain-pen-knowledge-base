@@ -56,6 +56,7 @@
     "audit:public-media": "tsx scripts/audit-public-media.ts",
     "verify:markdown": "tsx scripts/verify-markdown.ts",
     "check:data-contract": "tsx scripts/check-data-contract.ts",
+    "check:public-boundary": "tsx scripts/check-public-boundary.ts",
     "check:library": "tsx scripts/check-library-contract.ts",
     "test:library": "playwright test tests/e2e/library.spec.ts",
     "test:e2e": "playwright test",

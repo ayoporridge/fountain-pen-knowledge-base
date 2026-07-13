@@ -9,6 +9,13 @@ import {
 } from "../../src/lib/media-url";
 
 const HIDDEN_BRAND_SLUGS = ["banju", "saier", "shanghai", "yongxu"];
+const RETIRED_DUPLICATE_SLUGS = [
+  "百乐-pilot-custom-823",
+  "百利金-pelikan-m800",
+  "派克-parker-51-经典-vintage",
+  "写乐-sailor-21k-pro-gear-大鱼雷",
+  "奥罗拉-aurora",
+];
 
 type LocalEntityRow = { id: string; slug: string; name: string };
 
@@ -88,6 +95,45 @@ async function getCanonical(page: Page) {
   return page.locator('link[rel="canonical"]').getAttribute("href");
 }
 
+function visibleTextFromHtml(html: string) {
+  return html
+    .replace(/<script\b[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style\b[\s\S]*?<\/style>/gi, " ")
+    .replace(/<!--([\s\S]*?)-->/g, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function internalAnchorPaths(html: string) {
+  const paths = new Set<string>();
+  for (const match of html.matchAll(
+    /<a\b[^>]*\bhref=(?:"([^"]*)"|'([^']*)')[^>]*>/gi,
+  )) {
+    const href = (match[1] || match[2] || "").replace(/&amp;/g, "&");
+    if (
+      !href ||
+      href.startsWith("#") ||
+      /^(?:mailto:|tel:|javascript:)/i.test(href)
+    )
+      continue;
+    try {
+      const url = new URL(href, "https://fountain-pen-graph.vercel.app");
+      if (url.hostname !== "fountain-pen-graph.vercel.app") continue;
+      paths.add(`${url.pathname}${url.search}`);
+    } catch {
+      // malformed links are reported by the page-level content audit instead
+    }
+  }
+  return paths;
+}
+
 async function openHydratedDialog(
   trigger: ReturnType<Page["getByRole"]>,
   dialog: ReturnType<Page["getByRole"]>,
@@ -158,6 +204,64 @@ test.describe("site quality contract", () => {
     ).toBe(404);
   });
 
+  test("legacy identities resolve to one canonical public entity", async ({
+    page,
+    request,
+  }, testInfo) => {
+    if (!desktopOnly(testInfo.project.name)) return;
+
+    const redirects = [
+      ["/pen/百乐-pilot-custom-823", "/pen/pilot-custom-823"],
+      ["/pen/百利金-pelikan-m800", "/pen/pelikan-souveran-m800"],
+      ["/pen/the-parker-51", "/pen/parker-51-vintage"],
+      ["/pen/派克-parker-51-经典-vintage", "/pen/parker-51-vintage"],
+      ["/pen/写乐-sailor-21k-pro-gear-大鱼雷", "/pen/sailor-pro-gear"],
+      ["/pen/奥罗拉-aurora", "/brand/aurora"],
+      [
+        "/pen/kimberly-the-pen-that-saved-eversharp",
+        "/article/kimberly-pockette-ballpoint-history",
+      ],
+      [
+        "/pen/百乐-pilot-iroshizuku色彩雫",
+        "/article/pilot-iroshizuku-ink-guide",
+      ],
+    ] as const;
+    for (const [legacy, canonical] of redirects) {
+      await page.goto(legacy, { waitUntil: "domcontentloaded" });
+      await expect(page).toHaveURL(new RegExp(`${canonical}$`));
+      await expect(
+        page.getByRole("heading", { level: 1 }).first(),
+      ).toBeVisible();
+    }
+
+    for (const retired of [
+      "/library/media",
+      "/library/coverage",
+      "/library/community",
+    ]) {
+      await page.goto(retired, { waitUntil: "domcontentloaded" });
+      await expect(page).toHaveURL(/\/library$/);
+    }
+
+    expect(
+      (
+        await request.get(
+          "/07-%E7%BB%8F%E5%85%B8%E5%9E%8B%E5%8F%B7%E6%A1%A3%E6%A1%88/51",
+        )
+      ).status(),
+    ).toBe(404);
+
+    const pens = (await (
+      await request.get("/api/entities?type=pen")
+    ).json()) as Array<{ slug: string; type: string }>;
+    const penSlugs = new Set(pens.map((entity) => entity.slug));
+    for (const slug of RETIRED_DUPLICATE_SLUGS) {
+      expect(penSlugs.has(slug)).toBeFalsy();
+    }
+    expect(penSlugs.has("kimberly-pockette-ballpoint-history")).toBeFalsy();
+    expect(penSlugs.has("pilot-iroshizuku-ink-guide")).toBeFalsy();
+  });
+
   test("browse uses OR inside semantic facets and ships server results", async ({
     page,
     request,
@@ -217,7 +321,6 @@ test.describe("site quality contract", () => {
     const brandsResponse = await request.get("/api/entities?type=brand");
     expect(brandsResponse.ok()).toBeTruthy();
     const brands = (await brandsResponse.json()) as Array<{
-      id: string;
       slug: string;
     }>;
     const visibleSlugs = new Set(brands.map((entity) => entity.slug));
@@ -245,9 +348,30 @@ test.describe("site quality contract", () => {
 
     const publicEntity = await request.get("/api/entities/pilot-custom-823");
     expect(publicEntity.ok()).toBeTruthy();
-    const publicPayload = (await publicEntity.json()) as { id: string };
+    const publicPayload = (await publicEntity.json()) as Record<
+      string,
+      unknown
+    >;
+    expect(Object.keys(publicPayload).sort()).toEqual(
+      ["attributes", "name", "slug", "summary", "tags", "type"].sort(),
+    );
+    for (const internalField of [
+      "id",
+      "source",
+      "source_file",
+      "source_url",
+      "body_md",
+      "created_at",
+      "updated_at",
+    ]) {
+      expect(publicPayload).not.toHaveProperty(internalField);
+    }
+    const known823 = localContract.compare.find(
+      (entity) => entity.slug === "pilot-custom-823",
+    );
+    expect(known823?.id).toBeTruthy();
     const links = await request.get(
-      `/api/links?entity_id=${encodeURIComponent(publicPayload.id)}&depth=2`,
+      `/api/links?entity_id=${encodeURIComponent(known823?.id || "")}&depth=2`,
     );
     expect(links.ok()).toBeTruthy();
     const linkPayload = (await links.json()) as Record<
@@ -473,10 +597,7 @@ test.describe("site quality contract", () => {
       "/browse",
       "/library",
       "/library/sources",
-      "/library/media",
       "/library/diagrams",
-      "/library/coverage",
-      "/library/community",
       "/exhibits",
       `/exhibits/${localContract.exhibit?.slug || "japanese-big-three"}`,
       "/timeline",
@@ -527,6 +648,16 @@ test.describe("site quality contract", () => {
         `<loc>https://fountain-pen-graph.vercel.app${tool}`,
       );
     }
+    for (const retired of [
+      "/library/media",
+      "/library/coverage",
+      "/library/community",
+      ...RETIRED_DUPLICATE_SLUGS.map((slug) => `/pen/${slug}`),
+    ]) {
+      expect(sitemap).not.toContain(
+        `<loc>https://fountain-pen-graph.vercel.app${retired}`,
+      );
+    }
 
     const robots = await (await request.get("/robots.txt")).text();
     for (const disallowed of ["/api/", "/admin/", "/new"]) {
@@ -554,6 +685,121 @@ test.describe("site quality contract", () => {
           /^(HIT|STALE)$/.test(headers["x-vercel-cache"] || ""),
       ).toBeTruthy();
     }
+  });
+
+  test("every sitemap page hides editorial states and internal field names", async ({
+    request,
+  }, testInfo) => {
+    if (!desktopOnly(testInfo.project.name)) return;
+    testInfo.setTimeout(180_000);
+
+    const sitemap = await (await request.get("/sitemap.xml")).text();
+    const urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
+      (match) => match[1],
+    );
+    expect(urls.length).toBeGreaterThan(500);
+
+    const forbidden = [
+      /identity pending/i,
+      /待映射|待核验|需核验|待审核|未审核|资料核验中|研究队列|当前草稿|当前档案|待补证/,
+      /\b(?:review_status|usage_status|asset_type|source_type|item_type|story_type|coverage_status)\b/,
+      /\b(?:nib_material|body_material|fill_system|design_keywords|signature_technology)\b/,
+      /\b(?:official_site|research_index|richardspens_profile|secondary_profile|penhero_profile)\b/,
+      /\b(?:needs_source|needs_review|site-original)\b/,
+    ];
+    const failures: string[] = [];
+
+    for (let offset = 0; offset < urls.length; offset += 16) {
+      const batch = urls.slice(offset, offset + 16);
+      await Promise.all(
+        batch.map(async (url) => {
+          const parsed = new URL(url);
+          const response = await request.get(
+            `${parsed.pathname}${parsed.search}`,
+          );
+          if (!response.ok()) {
+            failures.push(`${response.status()} ${url}`);
+            return;
+          }
+          const text = visibleTextFromHtml(await response.text());
+          for (const pattern of forbidden) {
+            const match = text.match(pattern);
+            if (match) failures.push(`${url}: ${match[0]}`);
+          }
+        }),
+      );
+    }
+
+    expect(failures).toEqual([]);
+  });
+
+  test("every public internal link resolves to a real page", async ({
+    request,
+  }, testInfo) => {
+    if (!desktopOnly(testInfo.project.name)) return;
+    testInfo.setTimeout(180_000);
+
+    const sitemap = await (await request.get("/sitemap.xml")).text();
+    const sitemapPaths = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
+      (match) => {
+        const url = new URL(match[1]);
+        return `${url.pathname}${url.search}`;
+      },
+    );
+    const targets = new Set(sitemapPaths);
+    const targetSources = new Map<string, Set<string>>(
+      sitemapPaths.map((path) => [path, new Set(["sitemap"])]),
+    );
+    const failures: string[] = [];
+
+    for (let offset = 0; offset < sitemapPaths.length; offset += 16) {
+      const batch = sitemapPaths.slice(offset, offset + 16);
+      await Promise.all(
+        batch.map(async (path) => {
+          const response = await request.get(path);
+          if (!response.ok()) {
+            failures.push(`${response.status()} ${path}`);
+            return;
+          }
+          for (const target of internalAnchorPaths(await response.text())) {
+            targets.add(target);
+            if (!targetSources.has(target))
+              targetSources.set(target, new Set());
+            targetSources.get(target)?.add(path);
+          }
+        }),
+      );
+    }
+
+    const allTargets = [...targets];
+    for (let offset = 0; offset < allTargets.length; offset += 16) {
+      const batch = allTargets.slice(offset, offset + 16);
+      await Promise.all(
+        batch.map(async (path) => {
+          const response = await request.get(path);
+          if (!response.ok()) {
+            failures.push(
+              `${response.status()} ${path} from ${[
+                ...(targetSources.get(path) || []),
+              ].join(", ")}`,
+            );
+            return;
+          }
+          const contentType = response.headers()["content-type"] || "";
+          if (!contentType.includes("text/html")) return;
+          const html = await response.text();
+          if (!/<h1\b/i.test(html)) {
+            failures.push(
+              `200 shell ${path} from ${[
+                ...(targetSources.get(path) || []),
+              ].join(", ")}`,
+            );
+          }
+        }),
+      );
+    }
+
+    expect(failures).toEqual([]);
   });
 
   test("critical journeys have no browser errors or broken images", async ({

@@ -27,7 +27,7 @@ const ITEM_TYPE_LABELS: Record<string, string> = {
   manufacturer_directory: "厂商目录",
   manufacturer_profile: "厂商资料",
   media_file: "媒体文件",
-  media_search: "媒体搜索",
+  media_search: "媒体线索",
   model_profile: "型号资料",
   news_article: "新闻",
   nib_reference: "笔尖资料",
@@ -112,7 +112,7 @@ export function SourceCards({ sources, variant = "cards" }: SourceCardsProps) {
               )}
               <span>
                 {placeholder
-                  ? "待补证线索"
+                  ? "资料线索"
                   : displayPublicSourceName(source.source_name)}
                 {ITEM_TYPE_LABELS[source.item_type]
                   ? ` · ${ITEM_TYPE_LABELS[source.item_type]}`
@@ -140,7 +140,7 @@ export function SourceCards({ sources, variant = "cards" }: SourceCardsProps) {
                 style={{ color: "var(--color-accent)" }}
               >
                 {placeholder
-                  ? "待补证线索"
+                  ? "资料线索"
                   : displayPublicSourceName(source.source_name)}
               </span>
               <span

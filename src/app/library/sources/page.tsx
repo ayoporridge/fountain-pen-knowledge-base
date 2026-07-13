@@ -144,14 +144,6 @@ export default async function LibrarySourcesPage({
               <h3 className="font-semibold">
                 {displayPublicSourceName(source.name)}
               </h3>
-              {source.notes && (
-                <p
-                  className="mt-2 line-clamp-3 text-sm leading-relaxed"
-                  style={{ color: "var(--color-ink-muted)" }}
-                >
-                  {source.notes}
-                </p>
-              )}
               <div
                 className="mt-3 text-xs"
                 style={{ color: "var(--color-ink-muted)" }}

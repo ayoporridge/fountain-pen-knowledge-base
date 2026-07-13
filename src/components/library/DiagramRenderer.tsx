@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { DIAGRAM_TYPE_LABELS, MEDIA_LICENSE_LABELS } from "@/lib/constants";
 import type { CitationRecord, DiagramRecord } from "@/lib/library";
 import { CitationList } from "./CitationList";
 
@@ -54,7 +55,8 @@ export function DiagramRenderer({
             {diagram.title}
           </h3>
           <p className="text-xs" style={{ color: "var(--color-ink-muted)" }}>
-            {diagram.diagram_type} · {diagram.license}
+            {DIAGRAM_TYPE_LABELS[diagram.diagram_type] || "资料图"} ·{" "}
+            {MEDIA_LICENSE_LABELS[diagram.license] || "授权信息见来源"}
           </p>
         </figcaption>
       </div>

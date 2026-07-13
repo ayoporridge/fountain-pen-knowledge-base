@@ -3,10 +3,9 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
-import { ATTR_LABELS } from "@/lib/constants";
+import { ATTR_LABELS, DIMENSION_LABELS } from "@/lib/constants";
 
 interface EntityDetail {
-  id: string;
   type: string;
   slug: string;
   name: string;
@@ -119,12 +118,12 @@ function ComparePage() {
   // Collect all attribute keys
   const allAttrKeys = [
     ...new Set(entities.flatMap((e) => Object.keys(e.attributes))),
-  ];
+  ].filter((key) => Boolean(ATTR_LABELS[key]));
 
   // Collect all tag dimensions
   const allDimensions = [
     ...new Set(entities.flatMap((e) => e.tags.map((t) => t.dimension))),
-  ];
+  ].filter((dimension) => Boolean(DIMENSION_LABELS[dimension]));
 
   return (
     <div className="max-w-6xl mx-auto py-8 px-4">
@@ -176,7 +175,7 @@ function ComparePage() {
             {allAttrKeys.map((key) => (
               <tr key={key} className="border-b border-border-light">
                 <td className="p-3 text-sm font-medium text-ink-muted">
-                  {ATTR_LABELS[key] || key}
+                  {ATTR_LABELS[key]}
                 </td>
                 {entities.map((e) => (
                   <td key={e.slug} className="p-3 text-sm text-ink-light">
@@ -190,7 +189,7 @@ function ComparePage() {
             {allDimensions.map((dim) => (
               <tr key={dim} className="border-b border-border-light">
                 <td className="p-3 text-sm font-medium text-ink-muted">
-                  {dim}
+                  {DIMENSION_LABELS[dim]}
                 </td>
                 {entities.map((e) => {
                   const dimTags = e.tags.filter((t) => t.dimension === dim);

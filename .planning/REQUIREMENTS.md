@@ -13,10 +13,10 @@
 
 ### 链接与身份
 
-- [ ] **DATA-01**: 用户点击任意公开站内链接都能进入有效内容页，不进入 404 或无内容空壳
-- [ ] **DATA-02**: 同一钢笔或实体只保留一个规范公开身份，搜索历史遗留的重复 slug 不再形成重复内容
-- [ ] **DATA-03**: 每个公开实体具有正确类型，圆珠笔、墨水、品牌入口和产品系列不伪装成单支钢笔型号
-- [ ] **DATA-04**: 公开页面不显示 identity pending、待映射、占位字段或内部数据库键名
+- [x] **DATA-01**: 用户点击任意公开站内链接都能进入有效内容页，不进入 404 或无内容空壳
+- [x] **DATA-02**: 同一钢笔或实体只保留一个规范公开身份，搜索历史遗留的重复 slug 不再形成重复内容
+- [x] **DATA-03**: 每个公开实体具有正确类型，圆珠笔、墨水、品牌入口和产品系列不伪装成单支钢笔型号
+- [x] **DATA-04**: 公开页面不显示 identity pending、待映射、占位字段或内部数据库键名
 
 ### 图片
 
@@ -77,7 +77,7 @@
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | SCOPE-01, SCOPE-02, SCOPE-03 | Phase 11 | Complete |
-| DATA-01, DATA-02, DATA-03, DATA-04 | Phase 12 | Pending |
+| DATA-01, DATA-02, DATA-03, DATA-04 | Phase 12 | Complete |
 | MEDIA-01, MEDIA-02, MEDIA-03, MEDIA-04 | Phase 13 | Pending |
 | CONT-01, CONT-02, CONT-03, CONT-05 | Phase 14 | Pending |
 | CONT-04, INFO-01, INFO-02, INFO-03, INFO-04, INFO-05 | Phase 15 | Pending |
@@ -91,4 +91,4 @@
 
 ---
 *Requirements defined: 2026-07-13*
-*Last updated: 2026-07-13 after milestone v1.1 definition*
+*Last updated: 2026-07-13 after Phase 12 completion*

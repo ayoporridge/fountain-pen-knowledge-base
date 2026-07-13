@@ -62,7 +62,7 @@ export function ClaimCards({ claims }: { claims: ClaimRecord[] }) {
                   className="text-xs font-medium"
                   style={{ color: "var(--color-accent)" }}
                 >
-                  {PREDICATE_LABELS[claim.predicate] || claim.predicate}
+                  {PREDICATE_LABELS[claim.predicate] || "事实资料"}
                 </span>
                 <span
                   className="text-xs"

@@ -92,8 +92,8 @@
 | Phase | Status |
 |-------|--------|
 | 11 | Complete |
-| 12 | Pending |
-| 13 | Pending |
+| 12 | Complete |
+| 13 | In progress |
 | 14 | Pending |
 | 15 | Pending |
 | 16 | Pending |

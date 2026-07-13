@@ -2,29 +2,29 @@
 milestone: v1.1
 milestone_name: 分类资料馆全量修复
 status: building
-current_phase: 12
+current_phase: 13
 progress:
   total_phases: 7
-  completed_phases: 1
+  completed_phases: 2
   total_requirements: 30
-  completed_requirements: 3
+  completed_requirements: 7
 ---
 
 # State: Fountain Pen Knowledge Graph
 
 ## Current Position
 
-Phase: 12 — 链接、身份与分类纠错
-Plan: 清理 404/空壳、重复实体、错误类型和内部字段泄漏
+Phase: 13 — 图片资产全量修复
+Plan: 修复破图、重复图、白边低清图和错配封面
 Status: In progress
-Last activity: 2026-07-13 — Phase 11 completed; search/AI retired and classification navigation verified
+Last activity: 2026-07-13 — Phase 12 completed; public links, canonical identities and publication boundaries verified
 
 ## Project Reference
 
 See: `.planning/PROJECT.md`
 
 **Core value:** 通过可信内容、分类入口与关系链接，让用户持续漫游钢笔知识网络。
-**Current focus:** 链接、身份与分类纠错
+**Current focus:** 图片资产全量修复
 
 ## Decisions
 
@@ -39,4 +39,4 @@ None.
 
 ## Next Action
 
-执行 Phase 12，全量识别并修复错误链接、200 空壳、重复实体、错误类型和内部字段。
+执行 Phase 13，逐项修复破图、重复图、白边低清图与错配封面，并加入全量媒体回归。

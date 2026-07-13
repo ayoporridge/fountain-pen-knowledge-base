@@ -84,6 +84,9 @@ function escapeHtmlAttr(value: string): string {
 function normalizeRichardsPensUrl(value: string): string {
   const trimmed = value.trim();
   if (/^(?:https?:|mailto:|#)/i.test(trimmed)) return trimmed;
+  if (/^(?:\.\.?\/|\/)?[^?#]+\.html?(?:[?#].*)?$/i.test(trimmed)) {
+    return new URL(trimmed.replace(/^\/+/, ""), RICHARDS_PENS_BASE).toString();
+  }
   if (/^\/(?:ref|images)\//i.test(trimmed)) {
     return new URL(trimmed.slice(1), RICHARDS_PENS_BASE).toString();
   }
@@ -294,13 +297,30 @@ function rehypeSanitizeUrls() {
       if (node.tagName === "a" && properties.href) {
         const href = String(properties.href);
         if (/^\s*javascript:/i.test(href)) {
-          properties.href = "#";
-          properties.title = "(链接已移除)";
+          delete properties.href;
+          delete properties.title;
         } else {
-          properties.href = normalizeRichardsPensUrl(href).replace(
+          const normalizedHref = normalizeRichardsPensUrl(href).replace(
             /\.mdx?$/i,
             "",
           );
+          if (
+            /^(?:https?:|mailto:|#)/i.test(normalizedHref) ||
+            /^\/$/.test(normalizedHref) ||
+            /^\/(?:article|brand|browse|by|compare|concept|exhibits|fill_system|graph|library|material|nib|pen|timeline)(?:\/|\?|#|$)/.test(
+              normalizedHref,
+            )
+          ) {
+            properties.href = normalizedHref;
+          } else if (/^\/?(?:pdf|images|ref)\//i.test(normalizedHref)) {
+            properties.href = new URL(
+              normalizedHref.replace(/^\/+/, ""),
+              RICHARDS_PENS_BASE,
+            ).toString();
+          } else {
+            delete properties.href;
+            delete properties.title;
+          }
         }
       }
 
@@ -576,6 +596,13 @@ export async function renderMarkdown(
       ),
     ),
   );
+  if (resolvedMap) {
+    processed = processed.replace(
+      /\[\[([^\]]+)\]\]/g,
+      (original, rawSlug: string) =>
+        resolvedMap?.has(rawSlug.trim()) ? original : rawSlug.trim(),
+    );
+  }
   // Bold wrapping any inline HTML element: **<tag...>...</tag>**
   processed = processed.replace(
     /\*\*(<[a-z][a-z0-9]*\b[^>]*>.*?<\/[a-z][a-z0-9]*\s*>)\*\*/gi,

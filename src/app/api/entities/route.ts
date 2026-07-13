@@ -1,8 +1,10 @@
 import { nanoid } from "nanoid";
 import { type NextRequest, NextResponse } from "next/server";
 import { verifyWriteAccess } from "@/lib/admin-auth";
+import { ATTR_LABELS } from "@/lib/constants";
 import { execute, queryAll, queryOne } from "@/lib/db";
 import { publicEntityFilter } from "@/lib/public-visibility";
+import { cleanPublicText } from "@/lib/publicText";
 
 // GET /api/entities?type=pen
 export async function GET(request: NextRequest) {
@@ -12,7 +14,8 @@ export async function GET(request: NextRequest) {
   let rows: unknown[];
   if (type) {
     rows = await queryAll(
-      `SELECT e.*, GROUP_CONCAT(ea.key || '::' || ea.value, '||') as attrs_raw
+      `SELECT e.id, e.type, e.slug, e.name, e.summary,
+              GROUP_CONCAT(ea.key || '::' || ea.value, '||') as attrs_raw
        FROM entities e
        LEFT JOIN entity_attributes ea ON ea.entity_id = e.id
        WHERE e.type = ? AND ${publicEntityFilter("e")}
@@ -22,7 +25,8 @@ export async function GET(request: NextRequest) {
     );
   } else {
     rows = await queryAll(
-      `SELECT e.*, GROUP_CONCAT(ea.key || '::' || ea.value, '||') as attrs_raw
+      `SELECT e.id, e.type, e.slug, e.name, e.summary,
+              GROUP_CONCAT(ea.key || '::' || ea.value, '||') as attrs_raw
        FROM entities e
        LEFT JOIN entity_attributes ea ON ea.entity_id = e.id
        WHERE ${publicEntityFilter("e")}
@@ -38,12 +42,19 @@ export async function GET(request: NextRequest) {
       for (const pair of raw.split("||")) {
         const idx = pair.indexOf("::");
         if (idx > 0) {
-          attributes[pair.slice(0, idx)] = pair.slice(idx + 2);
+          const key = pair.slice(0, idx);
+          const value = cleanPublicText(pair.slice(idx + 2));
+          if (ATTR_LABELS[key] && value) attributes[key] = value;
         }
       }
     }
-    const { attrs_raw, ...rest } = row;
-    return { ...rest, attributes };
+    return {
+      type: row.type,
+      slug: row.slug,
+      name: row.name,
+      summary: cleanPublicText(row.summary),
+      attributes,
+    };
   });
 
   return NextResponse.json(entities);

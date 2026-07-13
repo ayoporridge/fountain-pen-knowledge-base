@@ -6,8 +6,6 @@ import {
   Flask,
   LinkSimple,
   PenNib,
-  ShieldCheck,
-  Sparkle,
 } from "@phosphor-icons/react/dist/ssr";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -51,22 +49,10 @@ const MODULES = [
     Icon: Compass,
   },
   {
-    title: "玩家口碑",
-    desc: "聚合社区趋势和常见争议，只保留元数据与摘要。",
-    href: "/library/community",
-    Icon: Sparkle,
-  },
-  {
     title: "来源索引",
     desc: "查看来源类型、授权说明、抓取方式和已登记参考资料。",
     href: "/library/sources",
     Icon: LinkSimple,
-  },
-  {
-    title: "媒体授权",
-    desc: "图片、扫描件和外部媒体会标明来源与授权说明。",
-    href: "/library/media",
-    Icon: ShieldCheck,
   },
 ];
 

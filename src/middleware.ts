@@ -14,6 +14,20 @@ const HIDDEN_PUBLIC_PATHS = new Set([
   "/article/犀飞利-sheaffer-品牌泛称",
 ]);
 
+const ALLOWED_TWO_SEGMENT_NAMESPACES = new Set([
+  "api",
+  "article",
+  "brand",
+  "by",
+  "concept",
+  "exhibits",
+  "fill_system",
+  "library",
+  "material",
+  "nib",
+  "pen",
+]);
+
 function normalizePathname(pathname: string) {
   const withoutTrailingSlash =
     pathname.length > 1 ? pathname.replace(/\/$/, "") : pathname;
@@ -27,10 +41,14 @@ function normalizePathname(pathname: string) {
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const normalizedPathname = normalizePathname(pathname);
+  const segments = normalizedPathname.split("/").filter(Boolean);
+  const hasInvalidTwoSegmentNamespace =
+    segments.length === 2 && !ALLOWED_TWO_SEGMENT_NAMESPACES.has(segments[0]);
 
   if (
     normalizedPathname === "/new" ||
     HIDDEN_PUBLIC_PATHS.has(normalizedPathname) ||
+    hasInvalidTwoSegmentNamespace ||
     /^\/[^/]+\/[^/]+\/edit\/?$/.test(normalizedPathname)
   ) {
     return new NextResponse("Not Found", {

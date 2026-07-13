@@ -13,7 +13,7 @@ test.describe("Entity basic flow", () => {
     await expect(page.getByText(/型号档案|钢笔/).first()).toBeVisible();
 
     // Verify the approved specification block contains core pen details.
-    await expect(page.getByText("已核规格")).toBeVisible();
+    await expect(page.getByText("规格速览")).toBeVisible();
     await expect(page.getByText("笔尖", { exact: true }).first()).toBeVisible();
     await expect(
       page.getByText("上墨方式", { exact: true }).first(),

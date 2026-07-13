@@ -2,6 +2,7 @@ import { Blueprint, ImagesSquare } from "@phosphor-icons/react/dist/ssr";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { DiagramRenderer } from "@/components/library/DiagramRenderer";
+import { DIAGRAM_TYPE_LABELS } from "@/lib/constants";
 import { getCitationsForTargets, getDiagramIndex } from "@/lib/library";
 
 export const revalidate = 600;
@@ -10,15 +11,6 @@ export const metadata: Metadata = {
   title: "图示馆",
   description: "钢笔图书馆的站内原创结构图、机制图和专题图示。",
   alternates: { canonical: "/library/diagrams" },
-};
-
-const DIAGRAM_TYPE_LABELS: Record<string, string> = {
-  mechanism: "机制图",
-  structure: "结构图",
-  timeline: "时间线",
-  family_tree: "系列树",
-  size_compare: "尺寸对比",
-  relationship: "关系图",
 };
 
 export default async function LibraryDiagramsPage() {
@@ -79,8 +71,7 @@ export default async function LibraryDiagramsPage() {
             >
               <Blueprint size={16} style={{ color: "var(--color-accent)" }} />
               <span>
-                {DIAGRAM_TYPE_LABELS[diagram.diagram_type] ||
-                  diagram.diagram_type}
+                {DIAGRAM_TYPE_LABELS[diagram.diagram_type] || "资料图"}
               </span>
               {diagram.entity_type &&
                 diagram.entity_slug &&

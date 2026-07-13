@@ -25,6 +25,7 @@ import { getEntitiesForConcept } from "@/lib/concept-engine";
 import { ATTR_LABELS, TYPE_ICONS, TYPE_LABELS } from "@/lib/constants";
 import { queryAll, queryOne } from "@/lib/db";
 import { getDetailHeroImageByIndex } from "@/lib/detail-hero-images";
+import { getCanonicalEntityPath } from "@/lib/entity-redirects";
 import { getEntityReferences, getPrimaryProductImage } from "@/lib/library";
 import { isPublicEntity, publicEntityFilter } from "@/lib/public-visibility";
 import { cleanPublicText, isPlaceholderSourceUrl } from "@/lib/publicText";
@@ -41,6 +42,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { type, slug: rawSlug } = await params;
   const slug = decodeURIComponent(rawSlug);
+  const canonicalPath = getCanonicalEntityPath(type, slug);
+  if (canonicalPath) permanentRedirect(canonicalPath);
   const entity = (await queryOne(
     "SELECT id, type, slug, name, summary, body_md FROM entities WHERE slug = ?",
     [slug],
@@ -148,13 +151,19 @@ async function ConceptRulePage({
         "SELECT name FROM tags WHERE slug = ? AND dimension = ?",
         [c.tag_slug, c.dimension],
       )) as { name: string } | undefined;
+      if (!tag?.name || !DIMENSION_LABELS[c.dimension]) return null;
       return {
         ...c,
-        name: tag?.name || c.tag_slug,
-        dimLabel: DIMENSION_LABELS[c.dimension] || c.dimension,
+        name: tag.name,
+        dimLabel: DIMENSION_LABELS[c.dimension],
       };
     }),
   );
+  const publicConditions = condWithNames.filter(
+    (condition): condition is NonNullable<typeof condition> =>
+      condition !== null,
+  );
+  if (publicConditions.length !== conditions.length) return null;
 
   return (
     <div className="mb-8">
@@ -170,7 +179,7 @@ async function ConceptRulePage({
           style={{ color: "var(--color-ink)" }}
         >
           该概念覆盖：
-          {condWithNames.map((c, i) => (
+          {publicConditions.map((c, i) => (
             <span key={c.tag_slug}>
               {i > 0 && " × "}
               <span
@@ -280,6 +289,8 @@ function SectionNav({
 export default async function EntityPage({ params }: EntityPageProps) {
   const { type, slug: rawSlug } = await params;
   const slug = decodeURIComponent(rawSlug);
+  const canonicalPath = getCanonicalEntityPath(type, slug);
+  if (canonicalPath) permanentRedirect(canonicalPath);
 
   const entity = (await queryOne("SELECT * FROM entities WHERE slug = ?", [
     slug,
@@ -378,18 +389,19 @@ export default async function EntityPage({ params }: EntityPageProps) {
     getPrimaryProductImage(String(entity.id)),
     queryOne(
       `SELECT
-         (SELECT COUNT(*) FROM entity_references er WHERE er.entity_id = ?) as source_count,
+         (SELECT COUNT(*)
+          FROM entity_references er
+          JOIN source_items si ON si.id = er.source_item_id
+          WHERE er.entity_id = ?
+            AND er.review_status = 'approved'
+            AND si.review_status = 'approved') as source_count,
          (SELECT COUNT(*) FROM claims c WHERE c.subject_entity_id = ? AND c.review_status = 'approved') as approved_claims,
-         (SELECT COUNT(*) FROM claims c WHERE c.subject_entity_id = ? AND c.review_status = 'needs_source') as needs_source_claims,
-         (SELECT COUNT(*) FROM model_specs ms WHERE ms.entity_id = ? AND ms.review_status = 'approved') as approved_specs,
-         (SELECT COUNT(*) FROM model_specs ms WHERE ms.entity_id = ? AND ms.review_status = 'needs_source') as needs_source_specs`,
-      [entity.id, entity.id, entity.id, entity.id, entity.id],
+         (SELECT COUNT(*) FROM model_specs ms WHERE ms.entity_id = ? AND ms.review_status = 'approved') as approved_specs`,
+      [entity.id, entity.id, entity.id],
     ) as Promise<{
       source_count: number;
       approved_claims: number;
-      needs_source_claims: number;
       approved_specs: number;
-      needs_source_specs: number;
     } | null>,
     entityType === "pen"
       ? (queryOne(
@@ -434,27 +446,15 @@ export default async function EntityPage({ params }: EntityPageProps) {
       tone: Number(evidenceCounts?.source_count || 0) > 0 ? "solid" : "muted",
     },
     {
-      label: "已核事实",
+      label: "事实依据",
       value: Number(evidenceCounts?.approved_claims || 0),
       tone:
         Number(evidenceCounts?.approved_claims || 0) > 0 ? "solid" : "muted",
     },
     {
-      label: "已核规格",
+      label: "规格资料",
       value: Number(evidenceCounts?.approved_specs || 0),
       tone: Number(evidenceCounts?.approved_specs || 0) > 0 ? "solid" : "muted",
-    },
-    {
-      label: "待补证",
-      value:
-        Number(evidenceCounts?.needs_source_claims || 0) +
-        Number(evidenceCounts?.needs_source_specs || 0),
-      tone:
-        Number(evidenceCounts?.needs_source_claims || 0) +
-          Number(evidenceCounts?.needs_source_specs || 0) >
-        0
-          ? "warn"
-          : "muted",
     },
   ];
   const bodyTextLength = entity.body_md ? String(entity.body_md).length : 0;
@@ -475,7 +475,7 @@ export default async function EntityPage({ params }: EntityPageProps) {
     Record<string, typeof sidebarSources>
   >((groups, source) => {
     const label = isPlaceholderSourceUrl(source.url)
-      ? "待补证"
+      ? "其他资料"
       : source.source_type === "official"
         ? "官方"
         : source.source_type === "retailer"
@@ -677,16 +677,13 @@ export default async function EntityPage({ params }: EntityPageProps) {
               key={badge.label}
               className="rounded-full border px-3 py-1 text-xs font-medium"
               style={{
-                borderColor:
-                  badge.tone === "warn"
-                    ? "var(--color-accent)"
-                    : "var(--color-border)",
+                borderColor: "var(--color-border)",
                 backgroundColor:
                   badge.tone === "solid"
                     ? "var(--color-accent-light)"
                     : "var(--color-surface-raised)",
                 color:
-                  badge.tone === "warn" || badge.tone === "solid"
+                  badge.tone === "solid"
                     ? "var(--color-accent)"
                     : "var(--color-ink-muted)",
               }}
@@ -702,7 +699,7 @@ export default async function EntityPage({ params }: EntityPageProps) {
               id="approved-specs-title"
               className="mb-3 text-sm font-semibold text-ink"
             >
-              已核规格
+              规格速览
             </h2>
             <dl className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
               {approvedSpecEntries.map(([key, value]) => (
@@ -715,7 +712,7 @@ export default async function EntityPage({ params }: EntityPageProps) {
                   }}
                 >
                   <dt className="text-xs text-ink-muted">
-                    {approvedSpecLabels[key] || key}
+                    {approvedSpecLabels[key] || "规格"}
                   </dt>
                   <dd className="mt-1 text-sm font-semibold text-ink">
                     {cleanPublicText(value)}
@@ -727,10 +724,13 @@ export default async function EntityPage({ params }: EntityPageProps) {
         )}
 
         {/* Key attributes — pen specs live in the model archive below. */}
-        {entityType !== "pen" &&
-          Object.entries(attrs).some(([, value]) => cleanPublicText(value)) && (
+        {!["pen", "brand"].includes(entityType) &&
+          Object.entries(attrs).some(
+            ([key, value]) => ATTR_LABELS[key] && cleanPublicText(value),
+          ) && (
             <div className="flex flex-wrap gap-4 mt-6">
               {Object.entries(attrs)
+                .filter(([key]) => Boolean(ATTR_LABELS[key]))
                 .map(([key, value]) => [key, cleanPublicText(value)] as const)
                 .filter(([, value]) => value)
                 .map(([key, value]) => (
@@ -746,7 +746,7 @@ export default async function EntityPage({ params }: EntityPageProps) {
                       className="text-xs font-medium mb-0.5"
                       style={{ color: "var(--color-ink-muted)" }}
                     >
-                      {ATTR_LABELS[key] || key}
+                      {ATTR_LABELS[key] || "属性"}
                     </div>
                     <div
                       className="text-sm font-semibold"
@@ -896,7 +896,7 @@ export default async function EntityPage({ params }: EntityPageProps) {
                 来源分级
               </h3>
               <div className="space-y-4">
-                {["官方", "经销商", "媒体与资料", "社区", "待补证"].map(
+                {["官方", "经销商", "媒体与资料", "社区", "其他资料"].map(
                   (label) => {
                     const sources = sourceGroups[label];
                     if (!sources?.length) return null;

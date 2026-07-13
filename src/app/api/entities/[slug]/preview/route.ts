@@ -41,7 +41,6 @@ export async function GET(
   )) as Array<{ name: string; dimension: string }>;
 
   return NextResponse.json({
-    id: entity.id,
     type: entity.type,
     slug: entity.slug,
     name: entity.name,
