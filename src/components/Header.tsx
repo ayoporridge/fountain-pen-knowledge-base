@@ -3,26 +3,16 @@
 import {
   BookOpen,
   CaretDown,
-  ChatCircleDots,
   Graph,
   List,
-  MagnifyingGlass,
   PenNib,
 } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { DIMENSION_ITEMS } from "@/lib/navigation";
 import { MobileNav } from "./MobileNav";
 import { ThemeToggle } from "./ThemeToggle";
-
-const DIMENSION_ITEMS = [
-  { href: "/by/nib", label: "笔尖类型" },
-  { href: "/by/fill", label: "上墨方式" },
-  { href: "/by/origin", label: "产地" },
-  { href: "/by/price", label: "价位" },
-  { href: "/by/usage", label: "用途" },
-  { href: "/by/material", label: "笔身材质" },
-];
 
 export function Header() {
   const pathname = usePathname();
@@ -112,21 +102,7 @@ export function Header() {
               }}
               aria-current={isActive("/browse") ? "page" : undefined}
             >
-              浏览
-            </Link>
-            <Link
-              href="/search"
-              className="flex min-h-11 items-center gap-1 border-b-2 text-sm transition-colors duration-140"
-              style={{
-                ...navStyle("/search"),
-                borderColor: isActive("/search")
-                  ? "var(--color-accent)"
-                  : "transparent",
-              }}
-              aria-current={isActive("/search") ? "page" : undefined}
-            >
-              <MagnifyingGlass size={14} />
-              搜索
+              分类浏览
             </Link>
             <Link
               href="/graph"
@@ -161,7 +137,7 @@ export function Header() {
               </button>
               {dropdownOpen && (
                 <div
-                  className="absolute top-full left-0 mt-1 w-36 rounded-lg shadow-lg border py-1 z-50 animate-fade-in"
+                  className="absolute top-full left-0 z-50 mt-1 grid w-72 grid-cols-2 rounded-lg border py-1 shadow-lg animate-fade-in"
                   style={{
                     backgroundColor: "var(--color-surface-raised)",
                     borderColor: "var(--color-border)",
@@ -182,19 +158,6 @@ export function Header() {
                 </div>
               )}
             </div>
-            <Link
-              href="/chat"
-              className="flex min-h-11 items-center gap-1 border-b-2 text-sm transition-colors duration-140"
-              style={{
-                ...navStyle("/chat"),
-                borderColor: isActive("/chat")
-                  ? "var(--color-accent)"
-                  : "transparent",
-              }}
-              aria-current={isActive("/chat") ? "page" : undefined}
-            >
-              <ChatCircleDots size={14} />问 AI
-            </Link>
           </div>
         </nav>
         <div className="flex items-center gap-3">

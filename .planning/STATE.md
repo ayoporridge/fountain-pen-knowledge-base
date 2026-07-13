@@ -2,29 +2,29 @@
 milestone: v1.1
 milestone_name: 分类资料馆全量修复
 status: building
-current_phase: 11
+current_phase: 12
 progress:
   total_phases: 7
-  completed_phases: 0
+  completed_phases: 1
   total_requirements: 30
-  completed_requirements: 0
+  completed_requirements: 3
 ---
 
 # State: Fountain Pen Knowledge Graph
 
 ## Current Position
 
-Phase: 11 — 去搜索与去 LLM
-Plan: 建立分类展示型产品范围并移除所有公开搜索、问 AI 与 LLM 路径
+Phase: 12 — 链接、身份与分类纠错
+Plan: 清理 404/空壳、重复实体、错误类型和内部字段泄漏
 Status: In progress
-Last activity: 2026-07-13 — Milestone v1.1 started from full-site audit
+Last activity: 2026-07-13 — Phase 11 completed; search/AI retired and classification navigation verified
 
 ## Project Reference
 
 See: `.planning/PROJECT.md`
 
 **Core value:** 通过可信内容、分类入口与关系链接，让用户持续漫游钢笔知识网络。
-**Current focus:** 去搜索与去 LLM
+**Current focus:** 链接、身份与分类纠错
 
 ## Decisions
 
@@ -39,4 +39,4 @@ None.
 
 ## Next Action
 
-执行 Phase 11，完成构建和针对旧搜索/AI URL 的回归检查。
+执行 Phase 12，全量识别并修复错误链接、200 空壳、重复实体、错误类型和内部字段。

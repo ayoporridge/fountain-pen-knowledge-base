@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Footer } from "@/components/Footer";
-import { GlobalShortcuts } from "@/components/GlobalShortcuts";
 import { Header } from "@/components/Header";
 import { Providers } from "@/components/Providers";
 import { TextureOverlay } from "@/components/TextureOverlay";
@@ -12,7 +11,7 @@ export const metadata: Metadata = {
     default: "钢笔知识图谱",
     template: "%s | 钢笔知识图谱",
   },
-  description: "AI 时代的钢笔百科全书——自由链接、多维探索的钢笔知识网络",
+  description: "按品牌、型号、笔尖、上墨方式与历史专题分类浏览的钢笔资料馆",
   openGraph: {
     title: "钢笔知识图谱",
     description: "一座可追溯、可漫游的钢笔资料馆。",
@@ -52,7 +51,6 @@ export default function RootLayout({
       >
         <Providers>
           <TextureOverlay />
-          <GlobalShortcuts />
           <Header />
           <main className="flex-1">{children}</main>
           <Footer />

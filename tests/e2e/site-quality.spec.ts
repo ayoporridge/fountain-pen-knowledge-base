@@ -7,20 +7,8 @@ import {
   type MediaFetcher,
   type MediaHostResolver,
 } from "../../src/lib/media-url";
-import {
-  searchPublicEntities,
-  withEntitiesFtsFallback,
-} from "../../src/lib/search";
 
 const HIDDEN_BRAND_SLUGS = ["banju", "saier", "shanghai", "yongxu"];
-const GOLD_SLUGS = new Set([
-  "nibmat-gold",
-  "nibmat-14k",
-  "nibmat-18k",
-  "nibmat-21k",
-  "nibmat-bicolor",
-]);
-const PRICE_UP_TO_500 = new Set(["price-entry", "price-mid"]);
 
 type LocalEntityRow = { id: string; slug: string; name: string };
 
@@ -114,172 +102,60 @@ async function openHydratedDialog(
 test.describe("site quality contract", () => {
   test.setTimeout(90_000);
 
-  test("homepage curated questions have deterministic destinations", async ({
+  test("homepage classification shortcuts have deterministic destinations", async ({
     page,
   }, testInfo) => {
     if (!desktopOnly(testInfo.project.name)) return;
 
-    const known823 = localContract.compare.find(
-      (entity) => entity.slug === "pilot-custom-823",
-    );
-    const known743 = localContract.compare.find(
-      (entity) => entity.slug === "百乐-pilot-custom-743",
-    );
-    expect(known823?.name).toContain("823");
-    expect(known743?.name).toContain("743");
-
     await page.goto("/");
-    const budget = page.getByRole("link", {
-      name: "500 以内，日系金尖有哪些选择？",
-    });
-    await expect(budget).toHaveAttribute(
-      "href",
-      "/browse?type=pen&origin=origin-japan&nib_material=gold&max_price=500",
-    );
-    await budget.click();
-    await expect(page).toHaveURL(/origin=origin-japan/);
-    await expect(page.getByText("所有金尖").first()).toBeVisible();
-    await expect(page.getByText("¥500 以内").first()).toBeVisible();
-
-    await page.goto("/");
-    const piston = page.getByRole("link", {
-      name: "活塞上墨和旋转上墨到底有什么区别？",
-    });
-    await expect(piston).toHaveAttribute("href", "/concept/piston-filler");
-    await piston.click();
-    await expect(page).toHaveURL(/\/concept\/piston-filler$/);
-
-    await page.goto("/");
-    const comparison = page.getByRole("link", {
-      name: "百乐 823 和 743 怎么选？",
-    });
-    await expect(comparison).toHaveAttribute(
-      "href",
-      "/compare?items=pilot-custom-823,%E7%99%BE%E4%B9%90-pilot-custom-743",
-    );
-    await comparison.click();
-    await expect(page).toHaveURL(/items=pilot-custom-823/);
-    await expect(page.getByText(/Custom 823/).first()).toBeVisible();
-    await expect(page.getByText(/Custom 743/).first()).toBeVisible();
+    for (const [name, href] of [
+      ["钢笔型号", "/browse?type=pen"],
+      ["品牌", "/browse?type=brand"],
+      ["笔尖", "/by/nib"],
+      ["上墨方式", "/by/fill"],
+      ["材质", "/by/material"],
+      ["历史专题", "/exhibits"],
+    ] as const) {
+      await expect(
+        page.getByRole("link", { name, exact: true }).first(),
+      ).toHaveAttribute("href", href);
+    }
+    await expect(
+      page.getByRole("link", { name: "查看全部分类" }),
+    ).toHaveAttribute("href", "/browse");
   });
 
-  test("Chinese search intent constrains every budget result", async ({
+  test("public release exposes classification only and retires search and AI", async ({
+    page,
     request,
   }, testInfo) => {
     if (!desktopOnly(testInfo.project.name)) return;
 
-    const response = await request.get(
-      "/api/search?q=500%E4%BB%A5%E5%86%85%EF%BC%8C%E6%97%A5%E7%B3%BB%E9%87%91%E5%B0%96%E6%9C%89%E5%93%AA%E4%BA%9B%E9%80%89%E6%8B%A9&limit=50",
-    );
-    expect(response.ok()).toBeTruthy();
-    const payload = (await response.json()) as {
-      intent: {
-        filters: Record<string, string>;
-        browseHref: string;
-      };
-      results: Array<{ slug: string; type: string }>;
-    };
-    expect(payload.intent.filters).toMatchObject({
-      type: "pen",
-      origin: "origin-japan",
-      nib_material: "gold",
-      max_price: "500",
-    });
-    expect(payload.intent.browseHref).toBe(
-      "/browse?type=pen&origin=origin-japan&nib_material=gold&max_price=500",
-    );
-    expect(payload.results.length).toBeGreaterThan(0);
-
-    for (const result of payload.results) {
-      expect(result.type).toBe("pen");
-      const detailResponse = await request.get(
-        `/api/entities/${encodeURIComponent(result.slug)}`,
-      );
-      expect(detailResponse.ok()).toBeTruthy();
-      const detail = (await detailResponse.json()) as {
-        type: string;
-        tags: Array<{ slug: string }>;
-      };
-      const slugs = new Set(detail.tags.map((tag) => tag.slug));
-      expect(detail.type).toBe("pen");
-      expect(slugs.has("origin-japan")).toBeTruthy();
-      expect([...GOLD_SLUGS].some((slug) => slugs.has(slug))).toBeTruthy();
-      expect([...PRICE_UP_TO_500].some((slug) => slugs.has(slug))).toBeTruthy();
+    for (const route of ["/", "/library"]) {
+      await page.goto(route, { waitUntil: "domcontentloaded" });
+      await expect(page.locator('input[type="search"]')).toHaveCount(0);
+      await expect(page.locator('a[href^="/search"]')).toHaveCount(0);
+      await expect(page.locator('a[href^="/chat"]')).toHaveCount(0);
     }
 
-    const models = await request.get(
-      "/api/search?q=%E7%99%BE%E4%B9%90%20823%20743&limit=50",
-    );
-    const modelPayload = (await models.json()) as {
-      results: Array<{ slug: string }>;
-    };
-    const resultSlugs = new Set(modelPayload.results.map((item) => item.slug));
-    expect(resultSlugs.has("pilot-custom-823")).toBeTruthy();
-    expect(resultSlugs.has("百乐-pilot-custom-743")).toBeTruthy();
+    await page.goto("/");
+    await page.keyboard.press("/");
+    await expect(page).toHaveURL(/\/$/);
 
-    const hostile = await request.get(
-      `/api/search?q=${encodeURIComponent('" OR * NEAR (')}`,
-    );
-    expect(hostile.status()).toBeLessThan(500);
-  });
+    await page.goto("/search?q=823");
+    await expect(page).toHaveURL(/\/browse$/);
+    await page.goto("/chat");
+    await expect(page).toHaveURL(/\/library$/);
 
-  test("search only falls back for a missing entities FTS table", async ({
-    request: _request,
-  }, testInfo) => {
-    if (!desktopOnly(testInfo.project.name)) return;
-
-    const missingFts = Object.assign(
-      new Error("SQLite error: no such table: entities_fts"),
-      { code: "SQLITE_UNKNOWN" },
-    );
-    const attemptedSql: string[] = [];
-    const response = await searchPublicEntities({
-      query: "823",
-      queryRunner: async (sql) => {
-        attemptedSql.push(sql);
-        if (attemptedSql.length === 1) throw missingFts;
-        return [
-          {
-            id: "test-823",
-            type: "pen",
-            slug: "pilot-custom-823",
-            name: "百乐 Custom 823",
-            summary: "test",
-            body_md: "",
-            source: "test",
-            aliases: null,
-            tag_count: 1,
-            total_count: 1,
-          },
-        ];
-      },
-    });
-    expect(attemptedSql).toHaveLength(2);
-    expect(attemptedSql[0]).toContain("entities_fts MATCH");
-    expect(attemptedSql[1]).not.toContain("entities_fts MATCH");
-    expect(response.results.map((result) => result.slug)).toEqual([
-      "pilot-custom-823",
-    ]);
-
-    const fallbackResult = await withEntitiesFtsFallback(
-      async () => {
-        throw missingFts;
-      },
-      async () => ["parameterized-like-result"],
-    );
-    expect(fallbackResult).toEqual(["parameterized-like-result"]);
-
-    const unrelatedError = new Error(
-      "SQLite error: no such table: entity_tags",
-    );
-    await expect(
-      withEntitiesFtsFallback(
-        async () => {
-          throw unrelatedError;
-        },
-        async () => ["must-not-run"],
-      ),
-    ).rejects.toBe(unrelatedError);
+    expect((await request.get("/api/search?q=823")).status()).toBe(404);
+    expect((await request.get("/api/chat")).status()).toBe(404);
+    expect(
+      (
+        await request.post("/api/chat", {
+          data: { messages: [{ role: "user", content: "test" }] },
+        })
+      ).status(),
+    ).toBe(404);
   });
 
   test("browse uses OR inside semantic facets and ships server results", async ({
@@ -619,25 +495,24 @@ test.describe("site quality contract", () => {
     await expect(
       page.locator('script[type="application/ld+json"]'),
     ).toHaveCount(1);
-    expect(
-      await page
-        .locator('script[type="application/ld+json"]')
-        .evaluateAll((scripts) =>
-          scripts.map((script) => script.textContent || "").join("\n"),
-        ),
-    ).toContain("WebSite");
+    const websiteJsonLd = await page
+      .locator('script[type="application/ld+json"]')
+      .evaluateAll((scripts) =>
+        scripts.map((script) => script.textContent || "").join("\n"),
+      );
+    expect(websiteJsonLd).toContain("WebSite");
+    expect(websiteJsonLd).not.toContain("SearchAction");
+    expect(websiteJsonLd).not.toContain("/search?q=");
     await page.goto("/library");
     await expect(
       page.locator('script[type="application/ld+json"]'),
     ).toHaveCount(0);
 
-    for (const route of ["/search", "/chat", "/compare"]) {
-      await page.goto(route, { waitUntil: "domcontentloaded" });
-      await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
-        "content",
-        /noindex/,
-      );
-    }
+    await page.goto("/compare", { waitUntil: "domcontentloaded" });
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+      "content",
+      /noindex/,
+    );
 
     const sitemap = await (await request.get("/sitemap.xml")).text();
     expect(sitemap).toContain("/graph");
@@ -663,7 +538,7 @@ test.describe("site quality contract", () => {
     request,
   }, testInfo) => {
     if (!desktopOnly(testInfo.project.name)) return;
-    for (const route of ["/api/browse?type=pen", "/api/search?q=823"]) {
+    for (const route of ["/api/browse?type=pen"]) {
       const first = await request.get(route);
       const second = await request.get(route);
       expect(first.ok()).toBeTruthy();
@@ -745,6 +620,15 @@ test.describe("site quality contract", () => {
     await openHydratedDialog(menuTrigger, menu);
     await expect(menu.getByRole("heading", { name: "导航" })).toHaveCount(1);
     await expect(menu.getByRole("button", { name: "关闭导航" })).toHaveCount(1);
+    await expect(menu.locator('a[href^="/search"]')).toHaveCount(0);
+    await expect(menu.locator('a[href^="/chat"]')).toHaveCount(0);
+    for (const name of ["分类浏览", "品牌", "笔尖类型", "上墨方式"]) {
+      await expect(menu.getByRole("link", { name, exact: true })).toBeVisible();
+    }
+    const menuBox = await menu.boundingBox();
+    expect(menuBox?.height || 0).toBeGreaterThan(
+      (page.viewportSize()?.height || 0) * 0.9,
+    );
     const navigationIsolation = await page.evaluate(() => {
       const dialog = document.querySelector<HTMLElement>(
         '#mobile-navigation-dialog[role="dialog"]',

@@ -7,9 +7,9 @@
 
 ### 产品范围
 
-- [ ] **SCOPE-01**: 用户在任何公开页面都不会看到搜索入口、搜索页面或搜索建议
-- [ ] **SCOPE-02**: 用户在任何公开页面都不会看到问 AI、聊天或 LLM 处理入口
-- [ ] **SCOPE-03**: 用户可以从首页、图书馆、类型、品牌、维度、专题与关系链接发现全部公开内容
+- [x] **SCOPE-01**: 用户在任何公开页面都不会看到搜索入口、搜索页面或搜索建议
+- [x] **SCOPE-02**: 用户在任何公开页面都不会看到问 AI、聊天或 LLM 处理入口
+- [x] **SCOPE-03**: 用户可以从首页、图书馆、类型、品牌、维度、专题与关系链接发现全部公开内容
 
 ### 链接与身份
 
@@ -76,7 +76,7 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| SCOPE-01, SCOPE-02, SCOPE-03 | Phase 11 | Pending |
+| SCOPE-01, SCOPE-02, SCOPE-03 | Phase 11 | Complete |
 | DATA-01, DATA-02, DATA-03, DATA-04 | Phase 12 | Pending |
 | MEDIA-01, MEDIA-02, MEDIA-03, MEDIA-04 | Phase 13 | Pending |
 | CONT-01, CONT-02, CONT-03, CONT-05 | Phase 14 | Pending |

@@ -12,7 +12,6 @@ import Link from "next/link";
 import BentoGrid from "@/components/BentoGrid";
 import { EntityCardImage } from "@/components/EntityCardImage";
 import { ScrollReveal } from "@/components/ScrollReveal";
-import { SearchBox } from "@/components/SearchBox";
 import { TYPE_LABELS } from "@/lib/constants";
 import { queryAll } from "@/lib/db";
 import { getPublicMediaUrl } from "@/lib/media-url";
@@ -21,7 +20,7 @@ import { PUBLIC_ENTITY_FILTER_SQL } from "@/lib/public-visibility";
 export const revalidate = 600;
 
 export const metadata: Metadata = {
-  title: "钢笔图书馆",
+  title: "钢笔资料馆",
   description:
     "一座可追溯的钢笔资料馆：从品牌、型号、工艺、历史展览和关系图谱进入钢笔世界。",
   alternates: { canonical: "/" },
@@ -29,19 +28,13 @@ export const metadata: Metadata = {
 
 // Star entries per type — queried from DB at build time
 
-const HERO_QUESTIONS = [
-  {
-    q: "500 以内，日系金尖有哪些选择？",
-    href: "/browse?type=pen&origin=origin-japan&nib_material=gold&max_price=500",
-  },
-  {
-    q: "活塞上墨和旋转上墨到底有什么区别？",
-    href: "/concept/piston-filler",
-  },
-  {
-    q: "百乐 823 和 743 怎么选？",
-    href: "/compare?items=pilot-custom-823,%E7%99%BE%E4%B9%90-pilot-custom-743",
-  },
+const HERO_CATEGORIES = [
+  { label: "钢笔型号", href: "/browse?type=pen" },
+  { label: "品牌", href: "/browse?type=brand" },
+  { label: "笔尖", href: "/by/nib" },
+  { label: "上墨方式", href: "/by/fill" },
+  { label: "材质", href: "/by/material" },
+  { label: "历史专题", href: "/exhibits" },
 ];
 
 const TASK_ENTRIES = [
@@ -77,13 +70,7 @@ export default async function Home() {
     "@type": "WebSite",
     name: "钢笔知识图谱",
     url: "https://fountain-pen-graph.vercel.app/",
-    description: "一座可追溯、可漫游的钢笔资料馆。",
-    potentialAction: {
-      "@type": "SearchAction",
-      target:
-        "https://fountain-pen-graph.vercel.app/search?q={search_term_string}",
-      "query-input": "required name=search_term_string",
-    },
+    description: "一座可追溯、可按分类漫游的钢笔资料馆。",
   };
   // Stats
   const stats = (await queryAll(
@@ -217,7 +204,7 @@ export default async function Home() {
             Fountain Pen Library
           </p>
           <h1 className="mb-4 max-w-3xl text-4xl font-bold tracking-tight text-[#fff7e8] sm:text-6xl">
-            钢笔图书馆
+            钢笔知识图谱
           </h1>
           <p
             className="mb-7 max-w-2xl text-base sm:text-lg"
@@ -229,24 +216,32 @@ export default async function Home() {
             一座可追溯的钢笔资料馆。你可以从品牌、型号、工艺、历史展览和关系图谱进入，沿着来源看懂一支笔。
           </p>
 
-          <div className="max-w-2xl">
-            <SearchBox placeholder="搜索品牌、型号、工艺、历史专题…" />
-          </div>
+          <nav className="flex max-w-3xl flex-wrap gap-2" aria-label="常用分类">
+            {HERO_CATEGORIES.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="inline-flex min-h-11 items-center rounded-full border px-4 py-2 text-sm font-semibold transition-colors hover:bg-white/10"
+                style={{
+                  borderColor: "rgba(255,247,232,0.42)",
+                  color: "#fff7e8",
+                  backgroundColor: "rgba(39,31,25,0.24)",
+                }}
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
 
-          <div className="mt-6 grid gap-3 sm:grid-cols-[1fr_auto] sm:items-end">
-            <div className="space-y-2">
-              {HERO_QUESTIONS.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="flex items-center gap-2 text-sm transition-colors ink-underline"
-                  style={{ color: "rgba(255,247,232,0.82)" }}
-                >
-                  <ArrowRight size={12} style={{ color: "#f3c37b" }} />
-                  {item.q}
-                </Link>
-              ))}
-            </div>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Link
+              href="/browse"
+              className="inline-flex w-fit items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold text-white transition-colors hover:brightness-110"
+              style={{ backgroundColor: "var(--color-accent)" }}
+            >
+              查看全部分类
+              <ArrowRight size={14} />
+            </Link>
             <Link
               href="/library"
               className="inline-flex w-fit items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition-colors hover:bg-white/10"
@@ -256,7 +251,7 @@ export default async function Home() {
                 fontFamily: "var(--font-label)",
               }}
             >
-              进入图书馆
+              查看馆区与专题
               <ArrowRight size={14} />
             </Link>
           </div>

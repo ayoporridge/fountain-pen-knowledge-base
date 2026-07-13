@@ -41,20 +41,29 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/search"
+                  href="/library"
                   className="hover:underline"
                   style={{ color: "var(--color-ink-muted)" }}
                 >
-                  搜索
+                  专题与资料
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/chat"
+                  href="/exhibits"
                   className="hover:underline"
                   style={{ color: "var(--color-ink-muted)" }}
                 >
-                  问 AI
+                  历史展览
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/graph"
+                  className="hover:underline"
+                  style={{ color: "var(--color-ink-muted)" }}
+                >
+                  关系图谱
                 </Link>
               </li>
             </ul>
@@ -117,8 +126,7 @@ export function Footer() {
               关于
             </h3>
             <p style={{ color: "var(--color-ink-muted)", lineHeight: 1.7 }}>
-              一个钢笔爱好者的个人项目。收集了 500+ 词条、70+
-              标签，覆盖品牌、型号、笔尖、上墨方式。数据来自社区讨论、评测文章和我的个人笔记。
+              一个钢笔爱好者的个人资料馆。按品牌、型号、笔尖、上墨方式和专题整理，资料来自社区讨论、评测文章和个人笔记。
             </p>
           </div>
         </div>

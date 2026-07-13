@@ -1,11 +1,9 @@
 import {
   ArrowRight,
   Books,
-  ChartBar,
   Clock,
   Compass,
   Flask,
-  Images,
   LinkSimple,
   PenNib,
   ShieldCheck,
@@ -13,7 +11,6 @@ import {
 } from "@phosphor-icons/react/dist/ssr";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { SearchBox } from "@/components/SearchBox";
 import {
   getFeaturedBrands,
   getLibraryStats,
@@ -23,7 +20,7 @@ import {
 export const revalidate = 600;
 
 export const metadata: Metadata = {
-  title: "钢笔图书馆",
+  title: "专题与资料",
   description: "从品牌、型号、工艺、历史、图示和玩家口碑进入钢笔资料馆。",
   alternates: { canonical: "/library" },
 };
@@ -71,21 +68,18 @@ const MODULES = [
     href: "/library/media",
     Icon: ShieldCheck,
   },
-  {
-    title: "图示馆",
-    desc: "站内原创 SVG、结构图、机制图、时间线和系列树。",
-    href: "/library/diagrams",
-    Icon: Images,
-  },
-  {
-    title: "覆盖审计",
-    desc: "按品牌和型号查看故事、来源、图示、媒体和规格的缺口。",
-    href: "/library/coverage",
-    Icon: ChartBar,
-  },
 ];
 
 const LIBRARY_HERO_IMAGE = "/images/library/warm-pen-atlas/library-hero.jpg";
+
+const CATEGORY_SHORTCUTS = [
+  { label: "全部型号", href: "/browse?type=pen" },
+  { label: "全部品牌", href: "/browse?type=brand" },
+  { label: "按笔尖", href: "/by/nib" },
+  { label: "按上墨", href: "/by/fill" },
+  { label: "按产地", href: "/by/origin" },
+  { label: "按价位", href: "/by/price" },
+];
 
 export default async function LibraryPage() {
   const [stats, brands, exhibits] = await Promise.all([
@@ -112,7 +106,7 @@ export default async function LibraryPage() {
             Fountain Pen Library
           </p>
           <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl">
-            钢笔图书馆
+            专题与资料
           </h1>
           <p
             className="text-base leading-relaxed sm:text-lg"
@@ -123,9 +117,22 @@ export default async function LibraryPage() {
         </div>
       </section>
 
-      <div className="mb-10 max-w-3xl">
-        <SearchBox placeholder="搜索品牌、型号、工艺、历史专题…" />
-      </div>
+      <nav className="mb-10 flex flex-wrap gap-2" aria-label="图书馆常用分类">
+        {CATEGORY_SHORTCUTS.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className="inline-flex min-h-11 items-center rounded-full border px-4 py-2 text-sm font-medium transition-colors hover:bg-[var(--color-surface-dim)]"
+            style={{
+              borderColor: "var(--color-border)",
+              backgroundColor: "var(--color-surface-raised)",
+              color: "var(--color-ink-light)",
+            }}
+          >
+            {item.label}
+          </Link>
+        ))}
+      </nav>
 
       <div className="mb-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
         {[
