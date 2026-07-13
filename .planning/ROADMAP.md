@@ -49,7 +49,7 @@
 
 ## Phase 14: 文章导入残留清理
 
-**Goal:** 201 篇公开文章像本站内容，而不是未经清理的原站镜像或翻译中间产物。
+**Goal:** 208 篇库内文章完成导入治理，188 篇完整文章以资料馆形态公开，不再显示原站镜像或翻译中间产物。
 
 **Success Criteria:**
 1. 相对链接、javascript 链接和错误站内路径全部清理
@@ -94,7 +94,7 @@
 | 11 | Complete |
 | 12 | Complete |
 | 13 | Complete |
-| 14 | In progress |
+| 14 | Complete |
 | 15 | Pending |
 | 16 | Pending |
 | 17 | Pending |

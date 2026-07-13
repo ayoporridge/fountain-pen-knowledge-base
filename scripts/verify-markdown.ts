@@ -5,6 +5,7 @@
 
 import { createClient } from "@libsql/client";
 import { renderMarkdown } from "../src/lib/markdown";
+import { publicEntityFilter } from "../src/lib/public-visibility";
 
 const db = createClient({ url: "file:data/fpkg.db" });
 
@@ -25,11 +26,11 @@ function isInsideTag(html: string, pos: number, tag: string): boolean {
 
 async function main() {
   const result = await db.execute(`
-    SELECT type, slug, name, body_md
-    FROM entities
-    WHERE body_md IS NOT NULL AND body_md != ''
-    ORDER BY LENGTH(body_md) DESC
-    LIMIT 80
+    SELECT e.type, e.slug, e.name, e.body_md
+    FROM entities e
+    WHERE e.body_md IS NOT NULL AND e.body_md != ''
+      AND ${publicEntityFilter("e")}
+    ORDER BY LENGTH(e.body_md) DESC
   `);
 
   const issues: Issue[] = [];
@@ -132,6 +133,13 @@ async function main() {
         const headingMatch = html.match(/<h([1-6])[^>]*>/g);
         if (headingMatch) {
           const levels = headingMatch.map((h) => parseInt(h.charAt(2)));
+          if (levels[0] !== 2 || levels.includes(1)) {
+            issues.push({
+              slug, type, name,
+              issue: "article heading boundary",
+              detail: `Expected body headings to start at h2 without h1; got ${levels.join(",")}`,
+            });
+          }
           for (let i = 1; i < levels.length; i++) {
             if (levels[i] - levels[i - 1] > 1) {
               issues.push({
@@ -142,6 +150,22 @@ async function main() {
               break;
             }
           }
+        }
+
+        if (/<a\b(?![^>]*\bhref=)[^>]*>/i.test(html)) {
+          issues.push({
+            slug, type, name,
+            issue: "anchor without href",
+            detail: "Rejected legacy links must render as plain text",
+          });
+        }
+
+        if (/javascript\s*:/i.test(html)) {
+          issues.push({
+            slug, type, name,
+            issue: "visible javascript residue",
+            detail: "Legacy script destination remains in rendered HTML",
+          });
         }
 
       } catch (err: any) {

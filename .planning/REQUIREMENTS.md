@@ -27,11 +27,11 @@
 
 ### 内容与来源
 
-- [ ] **CONT-01**: 文章中的相对链接、javascript 链接、原站交互说明和错误站内路径全部清理或规范化
-- [ ] **CONT-02**: 文章摘要和正文不再出现翻译结果、本文档信息翻译、残缺 ref、原始 Markdown 或导入标记
-- [ ] **CONT-03**: 每页只有一个主标题，图片说明和正文段落不会被错误渲染为 H1/H2
+- [x] **CONT-01**: 文章中的相对链接、javascript 链接、原站交互说明和错误站内路径全部清理或规范化
+- [x] **CONT-02**: 文章摘要和正文不再出现翻译结果、本文档信息翻译、残缺 ref、原始 Markdown 或导入标记
+- [x] **CONT-03**: 每页只有一个主标题，图片说明和正文段落不会被错误渲染为 H1/H2
 - [ ] **CONT-04**: 型号故事不再批量复用“若你、购买时、收到后、它适合”等同构模板，事实、体验、判断和来源边界清楚
-- [ ] **CONT-05**: 来源卡只展示已审核且读者可理解的来源状态，不把 pending 等内部审核状态公开
+- [x] **CONT-05**: 来源卡只展示已审核且读者可理解的来源状态，不把 pending 等内部审核状态公开
 
 ### 型号与分类信息
 
@@ -79,7 +79,7 @@
 | SCOPE-01, SCOPE-02, SCOPE-03 | Phase 11 | Complete |
 | DATA-01, DATA-02, DATA-03, DATA-04 | Phase 12 | Complete |
 | MEDIA-01, MEDIA-02, MEDIA-03, MEDIA-04 | Phase 13 | Complete |
-| CONT-01, CONT-02, CONT-03, CONT-05 | Phase 14 | Pending |
+| CONT-01, CONT-02, CONT-03, CONT-05 | Phase 14 | Complete |
 | CONT-04, INFO-01, INFO-02, INFO-03, INFO-04, INFO-05 | Phase 15 | Pending |
 | UX-01, UX-02, UX-03, UX-04, UX-05 | Phase 16 | Pending |
 | QA-01, QA-02, QA-03, QA-04 | Phase 17 | Pending |
@@ -91,4 +91,4 @@
 
 ---
 *Requirements defined: 2026-07-13*
-*Last updated: 2026-07-13 after Phase 13 completion*
+*Last updated: 2026-07-13 after Phase 14 completion*

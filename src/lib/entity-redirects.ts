@@ -7,7 +7,7 @@ const CANONICAL_ENTITY_PATHS: Record<string, string> = {
   "pen/奥罗拉-aurora": "/brand/aurora",
   "pen/kimberly-the-pen-that-saved-eversharp":
     "/article/kimberly-pockette-ballpoint-history",
-  "pen/百乐-pilot-iroshizuku色彩雫": "/article/pilot-iroshizuku-ink-guide",
+  "pen/百乐-pilot-iroshizuku色彩雫": "/browse?type=article",
 };
 
 export function getCanonicalEntityPath(type: string, slug: string) {

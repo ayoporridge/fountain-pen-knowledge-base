@@ -55,6 +55,7 @@
     "audit:entity-quality": "tsx scripts/audit-entity-quality.ts",
     "audit:public-media": "tsx scripts/audit-public-media.ts",
     "verify:markdown": "tsx scripts/verify-markdown.ts",
+    "check:articles": "tsx scripts/check-article-content.ts",
     "check:data-contract": "tsx scripts/check-data-contract.ts",
     "check:public-boundary": "tsx scripts/check-public-boundary.ts",
     "check:library": "tsx scripts/check-library-contract.ts",

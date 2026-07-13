@@ -101,7 +101,7 @@ function escapeHtmlAttr(value: string): string {
 }
 
 function normalizeRichardsPensUrl(value: string): string {
-  const trimmed = value.trim();
+  const trimmed = value.trim().replaceAll("&amp;", "&");
   if (/^https?:/i.test(trimmed)) {
     try {
       const parsed = new URL(trimmed);
@@ -126,13 +126,82 @@ function normalizeRichardsPensUrl(value: string): string {
   if (/^(?:\.\.?\/|\/)?[^?#]+\.html?(?:[?#].*)?$/i.test(trimmed)) {
     return new URL(trimmed.replace(/^\/+/, ""), RICHARDS_PENS_BASE).toString();
   }
-  if (/^\/(?:ref|images)\//i.test(trimmed)) {
+  if (/^\/(?:books|pdf|ref|images|xf)\//i.test(trimmed)) {
     return new URL(trimmed.slice(1), RICHARDS_PENS_BASE).toString();
   }
-  if (/^(?:ref|images)\//i.test(trimmed)) {
+  if (/^(?:books|pdf|ref|images|xf)\//i.test(trimmed)) {
     return new URL(trimmed, RICHARDS_PENS_BASE).toString();
   }
   return trimmed;
+}
+
+function decodeLegacyAlert(value: string): string {
+  try {
+    return decodeURIComponent(value.replace(/\\'/g, "'").replace(/\\"/g, '"'));
+  } catch {
+    return value;
+  }
+}
+
+/**
+ * RichardsPens used javascript: links for glossary popups and image viewers.
+ * Preserve their readable label (and alert definition), but never emit a fake
+ * or executable link in the archive.
+ */
+function normalizeLegacyJavascriptLinks(md: string): string {
+  return md
+    .split("\n")
+    .map((originalLine) => {
+      let line = originalLine;
+
+      while (/\]\((?:<)?javascript:/i.test(line)) {
+        const markerMatch = /\]\((?:<)?javascript:/i.exec(line);
+        if (!markerMatch) break;
+        const labelClose = markerMatch.index;
+        let depth = 1;
+        let labelOpen = labelClose - 1;
+        for (; labelOpen >= 0; labelOpen -= 1) {
+          if (line[labelOpen] === "]") depth += 1;
+          if (line[labelOpen] === "[") {
+            depth -= 1;
+            if (depth === 0) break;
+          }
+        }
+        if (labelOpen < 0) break;
+
+        const destinationStart = labelClose + 2;
+        const destinationTail = line.slice(destinationStart);
+        const usesAngles = destinationTail.startsWith("<");
+        let end = line.length;
+        if (usesAngles) {
+          const angleEnd = line.indexOf(">", destinationStart);
+          if (angleEnd >= 0) {
+            const suffix = line.slice(angleEnd + 1).match(/^\s*(?:"[^"]*")?\)/);
+            end = angleEnd + 1 + (suffix?.[0].length || 0);
+          }
+        } else {
+          const suffix = destinationTail.match(/;\s*(?:"[^"]*")?\)/);
+          if (suffix?.index !== undefined) {
+            end = destinationStart + suffix.index + suffix[0].length;
+          }
+        }
+
+        const label = line.slice(labelOpen + 1, labelClose);
+        const destination = line.slice(destinationStart, end);
+        const alertMatch = destination.match(
+          /javascript:alert\\?\('([\s\S]*)'\\?\)/i,
+        );
+        const replacement = /javascript:self\.history\.back/i.test(destination)
+          ? ""
+          : alertMatch
+            ? `${label}（${decodeLegacyAlert(alertMatch[1])}）`
+            : label;
+        line = `${line.slice(0, labelOpen)}${replacement}${line.slice(end)}`;
+      }
+
+      return line;
+    })
+    .join("\n");
 }
 
 function legacyImageBadge(value: string): string | null {
@@ -203,6 +272,74 @@ function normalizeLegacyTableSeparators(md: string): string {
     .join("\n");
 }
 
+function removeLegacyInteractionNotes(md: string): string {
+  const lines = md.split("\n");
+  const output: string[] = [];
+
+  for (let index = 0; index < lines.length; index += 1) {
+    const line = lines[index]
+      .replace(/[（(]点击图片可查看(?:放大)?(?:细节|细节大图|大图)[）)]/g, "")
+      .replace(/[（(]点击(?:上图|图片)可放大查看[）)]/g, "");
+    if (
+      /^\s*>/.test(line) &&
+      /javascript:showPop|images\/icons\/lg\//i.test(line)
+    ) {
+      const block: string[] = [line];
+      while (index + 1 < lines.length && /^\s*>/.test(lines[index + 1])) {
+        index += 1;
+        block.push(lines[index]);
+      }
+      const text = block.join("\n");
+      if (
+        /本页部分图片[^\n]*(?:点击|放大)|图片可点击放大|鼠标悬停|触屏设备|长按图片/.test(
+          text,
+        )
+      ) {
+        continue;
+      }
+      output.push(...block);
+      continue;
+    }
+
+    if (
+      /javascript:/i.test(line) &&
+      /返回上一页|返回顶部|返回目录|上一页|下一页|关闭窗口|打印本页/.test(line)
+    ) {
+      continue;
+    }
+
+    if (
+      /本页部分图片[^\n]*(?:点击|放大)|图片可点击放大|鼠标悬停|触屏设备|长按图片/.test(
+        line,
+      )
+    ) {
+      continue;
+    }
+
+    if (
+      /^(?:本文|本页|本内容)(?:所含|所载)?信息(?:力求|尽可能)/.test(line.trim())
+    ) {
+      const creditStart = line.search(
+        /特别感谢|部分[^\n]{0,30}信息由|关于[^\n]{0,40}信息由|需特别说明|感谢[A-Za-z\u4e00-\u9fff]/,
+      );
+      if (creditStart >= 0) output.push(line.slice(creditStart).trim());
+      continue;
+    }
+
+    if (
+      /^(?:#{1,6}\s*)?(?:本文|本内容)(?:亦|也)?收录于|^(?:#{1,6}\s*)?(?:本文|本内容)节选自/.test(
+        line.trim(),
+      ) &&
+      /电子书|RichardsPens钢笔指南/.test(line)
+    ) {
+      continue;
+    }
+    output.push(line);
+  }
+
+  return output.join("\n");
+}
+
 function parseMarkdownImages(line: string) {
   const imagePattern = /!\[([^\]]*)\]\((<[^>]+>|[^)\s]+)(?:\s+"[^"]*")?\)/g;
   return [...line.matchAll(imagePattern)].map((match) => ({
@@ -255,13 +392,15 @@ function normalizeMarkdownImageRows(md: string): string {
     const figures = images
       .map((image, imageIndex) => {
         const src = normalizeRichardsPensUrl(image.src);
-        const caption = captions[imageIndex] || "";
+        const caption =
+          captions[imageIndex] || meaningfulImageCaption(image.alt);
         const alt = image.alt.trim() || caption || "资料插图";
-        return `<figure class="image-row-item"><img class="image-row-img" src="${escapeHtmlAttr(
+        const tagName = caption ? "figure" : "div";
+        return `<${tagName} class="image-row-item"><img class="image-row-img" src="${escapeHtmlAttr(
           src,
         )}" alt="${escapeHtmlAttr(alt)}" />${
           caption ? `<figcaption>${escapeHtmlText(caption)}</figcaption>` : ""
-        }</figure>`;
+        }</${tagName}>`;
       })
       .join("");
 
@@ -269,6 +408,19 @@ function normalizeMarkdownImageRows(md: string): string {
   }
 
   return output.join("\n");
+}
+
+function meaningfulImageCaption(value: string | undefined): string {
+  const caption = String(value || "").trim();
+  if (!caption) return "";
+  if (
+    /^(?:资料插图|图片|照片|钢笔|fountain\s*pen|pen|photo|image)(?:\s*\d+)?$/i.test(
+      caption,
+    )
+  ) {
+    return "";
+  }
+  return caption;
 }
 
 function renderLegacyPipeCell(value: string): string {
@@ -376,29 +528,31 @@ function rehypeSanitizeUrls() {
       if (node.tagName === "a" && properties.href) {
         const href = String(properties.href);
         if (/^\s*javascript:/i.test(href)) {
-          delete properties.href;
-          delete properties.title;
+          node.tagName = "span";
+          node.properties = {};
         } else {
           const normalizedHref = normalizeRichardsPensUrl(href).replace(
             /\.mdx?$/i,
             "",
           );
           if (
-            /^(?:https?:|mailto:|#)/i.test(normalizedHref) ||
+            /^(?:https?:|#)/i.test(normalizedHref) ||
             /^\/$/.test(normalizedHref) ||
             /^\/(?:article|brand|browse|by|compare|concept|exhibits|fill_system|graph|library|material|nib|pen|timeline)(?:\/|\?|#|$)/.test(
               normalizedHref,
             )
           ) {
             properties.href = normalizedHref;
-          } else if (/^\/?(?:pdf|images|ref)\//i.test(normalizedHref)) {
+          } else if (
+            /^\/?(?:books|pdf|images|ref|xf)\//i.test(normalizedHref)
+          ) {
             properties.href = new URL(
               normalizedHref.replace(/^\/+/, ""),
               RICHARDS_PENS_BASE,
             ).toString();
           } else {
-            delete properties.href;
-            delete properties.title;
+            node.tagName = "span";
+            node.properties = {};
           }
         }
       }
@@ -466,11 +620,15 @@ function rehypeSanitizeUrls() {
                 String(child.value || "").trim() === ""),
           );
         if (hasOnlyIcon) {
-          const alt = String(iconImg.properties?.alt || "");
-          node.children = [
-            { type: "text", value: alt === "返回" ? "↩" : "链接" },
-          ];
+          node.tagName = "span";
+          node.properties = { hidden: true, ariaHidden: true };
+          node.children = [];
         }
+      }
+
+      if (node.tagName === "a" && !node.properties?.href) {
+        node.tagName = "span";
+        delete properties.title;
       }
       return undefined;
     });
@@ -490,12 +648,13 @@ function rehypeNormalizeHeadings() {
       return undefined;
     });
 
-    if (headings.length < 2) return;
+    if (headings.length === 0) return;
 
-    const newLevels: number[] = [headings[0].level];
+    const levelOffset = 2 - headings[0].level;
+    const newLevels: number[] = [2];
     for (let i = 1; i < headings.length; i++) {
       const prev = newLevels[i - 1];
-      const cur = headings[i].level;
+      const cur = Math.min(6, Math.max(2, headings[i].level + levelOffset));
       if (cur <= prev + 1) {
         newLevels.push(cur);
       } else {
@@ -509,6 +668,59 @@ function rehypeNormalizeHeadings() {
         headings[i].node.tagName = `h${newLevel}`;
       }
     }
+  };
+}
+
+function rehypeImageFigures() {
+  return (tree: HastNode) => {
+    visitElements(tree, (node, index, parent) => {
+      if (
+        !parent?.children ||
+        index === undefined ||
+        !isElementNode(node, "p")
+      ) {
+        return;
+      }
+
+      const meaningfulChildren = (node.children || []).filter(
+        (child) => child.type !== "text" || String(child.value || "").trim(),
+      );
+      if (meaningfulChildren.length !== 1) return;
+
+      const onlyChild = meaningfulChildren[0];
+      const image = isElementNode(onlyChild, "img")
+        ? onlyChild
+        : isElementNode(onlyChild, "a")
+          ? (onlyChild.children || []).find((child) =>
+              isElementNode(child, "img"),
+            )
+          : undefined;
+      if (!image || !isElementNode(image, "img")) return;
+
+      const caption = meaningfulImageCaption(
+        String(image.properties?.alt || ""),
+      );
+      if (!caption) return;
+      parent.children[index] = {
+        type: "element",
+        tagName: "figure",
+        properties: { className: ["image-figure"] },
+        children: [
+          onlyChild,
+          ...(caption
+            ? [
+                {
+                  type: "element",
+                  tagName: "figcaption",
+                  properties: {},
+                  children: [{ type: "text", value: caption }],
+                } as HastNode,
+              ]
+            : []),
+        ],
+      };
+      return false;
+    });
   };
 }
 
@@ -617,7 +829,9 @@ function rehypeImageRows() {
 
       const rowChildren = imageContainers.map(
         ({ wrapper, img }, imageIndex) => {
-          const caption = captionTexts[imageIndex] || "";
+          const caption =
+            captionTexts[imageIndex] ||
+            meaningfulImageCaption(String(img.properties?.alt || ""));
           const imgWithClass: HastNode = {
             ...img,
             properties: {
@@ -635,7 +849,7 @@ function rehypeImageRows() {
 
           return {
             type: "element",
-            tagName: "figure",
+            tagName: caption ? "figure" : "div",
             properties: { className: ["image-row-item"] },
             children: [
               content,
@@ -712,7 +926,11 @@ export async function renderMarkdown(
   let processed = normalizeLegacyImageCaptions(
     normalizeMarkdownPipeImageRows(
       normalizeMarkdownImageRows(
-        normalizeLegacyTableSeparators(normalizeBoldMarkdownLinks(md)),
+        normalizeLegacyTableSeparators(
+          normalizeBoldMarkdownLinks(
+            removeLegacyInteractionNotes(normalizeLegacyJavascriptLinks(md)),
+          ),
+        ),
       ),
     ),
   );
@@ -758,6 +976,7 @@ export async function renderMarkdown(
     .use(remarkRehype, { allowDangerousHtml: true })
     .use(rehypeRaw)
     .use(rehypeImageRows)
+    .use(rehypeImageFigures)
     .use(rehypeNormalizeHeadings)
     .use(rehypeSanitizeUrls)
     .use(rehypeStringify)

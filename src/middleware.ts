@@ -1,4 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
+import { HIDDEN_ARTICLE_SLUGS } from "@/lib/public-visibility";
 
 const HIDDEN_PUBLIC_PATHS = new Set([
   "/api/chat",
@@ -12,6 +13,7 @@ const HIDDEN_PUBLIC_PATHS = new Set([
   "/article/半句",
   "/article/永续",
   "/article/犀飞利-sheaffer-品牌泛称",
+  ...HIDDEN_ARTICLE_SLUGS.map((slug) => `/article/${slug}`),
 ]);
 
 const ALLOWED_TWO_SEGMENT_NAMESPACES = new Set([

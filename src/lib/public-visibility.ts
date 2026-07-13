@@ -21,6 +21,29 @@ export const HIDDEN_DUPLICATE_ENTITY_SLUGS = [
   "奥罗拉-aurora",
 ] as const;
 
+/**
+ * Imported pages that are incomplete, administrative, or still working notes.
+ * They remain in the database for source recovery, but must not appear on any
+ * public surface until an editor has restored and reviewed the full article.
+ */
+export const HIDDEN_ARTICLE_SLUGS = [
+  "about-us",
+  "contact-us",
+  "demonstrator-pens",
+  "hommel-s-meteor-fountain-pen-and-its-descendants",
+  "how-to-disassemble-and-reassemble-a-parker-51",
+  "parker-ivorine-pastel-and-moire-oh-my",
+  "personalized-pens-the-malarkey-pen",
+  "pilot-iroshizuku-ink-guide",
+  "preserving-your-pens-dos-and-don-ts",
+  "privacy-policy",
+  "readme",
+  "soviet-pens",
+  "tribute-pens-and-reboots",
+  "world-war-ii-and-the-fountain-pen",
+  "灵感提炼",
+] as const;
+
 export const INDEX_ARTICLE_MARKERS = [
   "品牌资料索引",
   "品牌索引",
@@ -50,6 +73,8 @@ export function publicEntityFilter(alias = "e"): string {
   const hiddenBrandSlugs = HIDDEN_BRAND_SLUGS.map(quoteSqlLiteral).join(", ");
   const hiddenDuplicateSlugs =
     HIDDEN_DUPLICATE_ENTITY_SLUGS.map(quoteSqlLiteral).join(", ");
+  const hiddenArticleSlugs =
+    HIDDEN_ARTICLE_SLUGS.map(quoteSqlLiteral).join(", ");
   const articleMarkerSql = INDEX_ARTICLE_MARKERS.map((marker) => {
     const pattern = quoteSqlLiteral(`%${marker}%`);
     return `COALESCE(${alias}.name, '') LIKE ${pattern}
@@ -60,6 +85,7 @@ export function publicEntityFilter(alias = "e"): string {
   return `NOT (
     ${alias}.slug IN (${hiddenDuplicateSlugs})
     OR (${alias}.type = 'brand' AND ${alias}.slug IN (${hiddenBrandSlugs}))
+    OR (${alias}.type = 'article' AND ${alias}.slug IN (${hiddenArticleSlugs}))
     OR (
       ${alias}.type = 'article'
       AND (
@@ -88,6 +114,9 @@ export function isPublicEntity(entity: EntityVisibilityInput): boolean {
   }
 
   if (type === "article") {
+    if ((HIDDEN_ARTICLE_SLUGS as readonly string[]).includes(slug)) {
+      return false;
+    }
     const text = [
       entity.name || "",
       entity.summary || "",

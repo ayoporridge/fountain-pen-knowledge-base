@@ -228,14 +228,16 @@ test.describe("site quality contract", () => {
         "/pen/kimberly-the-pen-that-saved-eversharp",
         "/article/kimberly-pockette-ballpoint-history",
       ],
-      [
-        "/pen/百乐-pilot-iroshizuku色彩雫",
-        "/article/pilot-iroshizuku-ink-guide",
-      ],
+      ["/pen/百乐-pilot-iroshizuku色彩雫", "/browse?type=article"],
     ] as const;
     for (const [legacy, canonical] of redirects) {
       await page.goto(legacy, { waitUntil: "domcontentloaded" });
-      await expect(page).toHaveURL(new RegExp(`${canonical}$`));
+      await expect
+        .poll(() => {
+          const current = new URL(page.url());
+          return `${current.pathname}${current.search}`;
+        })
+        .toBe(canonical);
       await expect(
         page.getByRole("heading", { level: 1 }).first(),
       ).toBeVisible();
@@ -482,8 +484,14 @@ test.describe("site quality contract", () => {
     await page.goto("/article/1-who-made-this-pen", {
       waitUntil: "domcontentloaded",
     });
-    await expect(page.locator(".legacy-note-badge").first()).toBeVisible();
+    await expect(page.locator(".legacy-note-badge")).toHaveCount(0);
     await expect(page.locator('img[src*="info.png"]')).toHaveCount(0);
+
+    await page.goto("/article/xxxvi", { waitUntil: "domcontentloaded" });
+    await expect(page.locator(".legacy-note-badge").first()).toBeVisible();
+    await expect(
+      page.locator('img[src*="warning.png"], img[src*="caution.png"]'),
+    ).toHaveCount(0);
 
     const sitemap = await request.get("/sitemap.xml");
     expect(sitemap.ok()).toBeTruthy();
