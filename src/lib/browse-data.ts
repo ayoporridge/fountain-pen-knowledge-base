@@ -30,7 +30,6 @@ const TYPE_FILTERS: Record<string, string[]> = {
 };
 
 export interface BrowseEntity {
-  id: string;
   type: string;
   slug: string;
   name: string;
@@ -38,7 +37,6 @@ export interface BrowseEntity {
   classification: string | null;
   source_count: number;
   image_url: string | null;
-  media_id: string | null;
 }
 
 export interface BrowseData {
@@ -234,7 +232,6 @@ export async function getBrowseData(
   }>;
 
   const entities: BrowseEntity[] = rows.map((row) => ({
-    id: String(row.id),
     type: String(row.type),
     slug: String(row.slug),
     name: String(row.name),
@@ -244,7 +241,6 @@ export async function getBrowseData(
         : null,
     classification: row.classification ? String(row.classification) : null,
     source_count: Number(row.source_count || 0),
-    media_id: row.media_id ? String(row.media_id) : null,
     image_url: getPublicMediaUrl({
       id: row.media_id,
       localPath: row.media_local_path,

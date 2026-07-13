@@ -434,7 +434,7 @@ export function BrowseExplorer({ initialData }: { initialData: BrowseData }) {
                 const Icon = TYPE_ICONS[entity.type] || PenNib;
                 return (
                   <Link
-                    key={entity.id}
+                    key={`${entity.type}:${entity.slug}`}
                     data-testid="browse-entity-card"
                     href={`/${entity.type}/${entity.slug}`}
                     className="block overflow-hidden rounded-xl border transition-all card-hover"

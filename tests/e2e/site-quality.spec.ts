@@ -448,6 +448,24 @@ test.describe("site quality contract", () => {
     for (const tag of previewPayload.tags) {
       expect(publicDimensions.has(tag.dimension)).toBeTruthy();
     }
+    const browseResponse = await request.get("/api/browse?type=pen");
+    expect(browseResponse.ok()).toBeTruthy();
+    const browsePayload = (await browseResponse.json()) as {
+      entities: Array<Record<string, unknown>>;
+    };
+    expect(browsePayload.entities.length).toBeGreaterThan(0);
+    expect(Object.keys(browsePayload.entities[0]).sort()).toEqual(
+      [
+        "type",
+        "slug",
+        "name",
+        "summary",
+        "classification",
+        "source_count",
+        "image_url",
+      ].sort(),
+    );
+    expect(browsePayload.entities[0].summary).toBeNull();
     const links = await request.get("/api/links?slug=pilot-custom-823&depth=2");
     expect(links.ok()).toBeTruthy();
     const linkPayload = (await links.json()) as Record<
