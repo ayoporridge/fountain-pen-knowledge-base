@@ -29,6 +29,7 @@ const AUDIT_BATCH_SIZE = Math.max(
   ),
 );
 const FULL_AUDIT_TIMEOUT = process.env.E2E_BASE_URL ? 900_000 : 300_000;
+const LOAD_MORE_TIMEOUT = process.env.E2E_BASE_URL ? 45_000 : 5_000;
 
 type LocalEntityRow = { id: string; slug: string; name: string };
 
@@ -327,12 +328,14 @@ test.describe("site quality contract", () => {
     if (await loadMore.isVisible()) {
       await loadMore.click();
       await expect
-        .poll(() =>
-          page
-            .locator(
-              'main a[href^="/pen/"], main a[href^="/brand/"], main a[href^="/article/"]',
-            )
-            .count(),
+        .poll(
+          () =>
+            page
+              .locator(
+                'main a[href^="/pen/"], main a[href^="/brand/"], main a[href^="/article/"]',
+              )
+              .count(),
+          { timeout: LOAD_MORE_TIMEOUT },
         )
         .toBeGreaterThan(before);
     }
