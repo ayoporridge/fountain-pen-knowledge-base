@@ -9,6 +9,7 @@ const BATCH_SIZE = Math.max(
   ),
 );
 const FULL_AUDIT_TIMEOUT = process.env.E2E_BASE_URL ? 900_000 : 240_000;
+const ARTICLE_REQUEST_TIMEOUT = process.env.E2E_BASE_URL ? 90_000 : 30_000;
 const VOID_ELEMENTS = new Set([
   "area",
   "base",
@@ -160,7 +161,9 @@ test.describe("public article quality contract", () => {
     for (let offset = 0; offset < articlePaths.length; offset += BATCH_SIZE) {
       await Promise.all(
         articlePaths.slice(offset, offset + BATCH_SIZE).map(async (path) => {
-          const response = await request.get(path);
+          const response = await request.get(path, {
+            timeout: ARTICLE_REQUEST_TIMEOUT,
+          });
           if (response.status() !== 200) {
             failures.push(
               `${path}: expected 200, received ${response.status()}`,
