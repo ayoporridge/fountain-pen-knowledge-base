@@ -2,6 +2,10 @@ import path from "node:path";
 import { expect, type Page, test } from "@playwright/test";
 import Database from "better-sqlite3";
 import {
+  ENTITY_DETAIL_LOADING_CONTAINER_CLASS,
+  ENTITY_DETAIL_LOADING_SUMMARY_CLASS,
+} from "../../src/app/[type]/[slug]/loading";
+import {
   fetchExternalImage,
   MAX_MEDIA_BYTES,
   type MediaFetcher,
@@ -1201,6 +1205,27 @@ test.describe("site quality contract", () => {
       .first()
       .evaluate((element) => getComputedStyle(element).animationDuration);
     expect(["0s", "0.001s", "0.01ms"]).toContain(animationDuration);
+  });
+
+  test("detail loading skeleton fits narrow mobile viewports", async ({
+    page,
+  }, testInfo) => {
+    if (!mobileOnly(testInfo.project.name)) return;
+
+    await page.goto("/", { waitUntil: "domcontentloaded" });
+    for (const width of [320, 390]) {
+      await page.setViewportSize({ width, height: 844 });
+      await page.locator("body").evaluate(
+        (body, classes) => {
+          body.innerHTML = `<div class="${classes.container}"><div class="${classes.summary}"></div></div>`;
+        },
+        {
+          container: ENTITY_DETAIL_LOADING_CONTAINER_CLASS,
+          summary: ENTITY_DETAIL_LOADING_SUMMARY_CLASS,
+        },
+      );
+      await expectNoHorizontalOverflow(page);
+    }
   });
 
   test("every sitemap page fits the mobile viewport", async ({
