@@ -3,18 +3,18 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 18
-current_phase_name: 统一发布门禁）
+current_phase_name: 统一发布门禁
 status: executing
-stopped_at: Completed 18-03-PLAN.md
-last_updated: "2026-07-15T12:27:04.922Z"
+stopped_at: Completed 18-04-PLAN.md
+last_updated: "2026-07-15T12:52:56.942Z"
 last_activity: 2026-07-15
-last_activity_desc: Completed 18-03 publication schema, invalidation, and atomic publish contract
+last_activity_desc: Completed 18-04 core public page and API boundary
 progress:
   total_phases: 16
   completed_phases: 7
   total_plans: 14
-  completed_plans: 10
-  percent: 71
+  completed_plans: 11
+  percent: 79
 ---
 
 # State: Fountain Pen Knowledge Graph
@@ -29,28 +29,29 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 ## Current Position
 
 Phase: 18 of 26（v1.2 phase 1 of 9 — 统一发布门禁）
-Plan: 3 of 7 in current phase
+Plan: 4 of 7 in current phase
 Status: Ready to execute
-Last activity: 2026-07-15 — Completed 18-03 publication schema, invalidation, and atomic publish contract
+Last activity: 2026-07-15 — Completed 18-04 core public page and API boundary
 
-Progress: [███████░░░] 71%
+Progress: [████████░░] 79%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 3
-- Average duration: 17 min
-- Total execution time: 50 min
+- Total plans completed: 4
+- Average duration: 21 min
+- Total execution time: 82 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 18–26 | 3 | 50 min | 17 min |
+| 18–26 | 4 | 82 min | 21 min |
 | Phase 18 P01 | 8 min | 2 tasks | 11 files |
 | Phase 18 P02 | 12 min | 2 tasks | 11 files |
 | Phase 18 P03 | 30 min | 3 tasks | 4 files |
+| Phase 18 P04 | 32 min | 2 tasks | 9 files |
 
 ## Accumulated Context
 
@@ -68,6 +69,9 @@ Progress: [███████░░░] 71%
 - [Phase 18]: Readiness is recomputed from current source rows; blockers_json is diagnostic only. — A mutable snapshot must never grant public authorization.
 - [Phase 18]: Unattached source inserts do not invalidate unrelated entities; source fan-out follows explicit ownership paths. — Owner-aware invalidation avoids global false positives while linked writes still fail closed.
 - [Phase 18]: TypeScript computes canonical hashes in one write transaction and SQLite independently guards published transitions. — The database can verify format and state invariants while the server owns deterministic SHA-256 calculation.
+- [Phase 18]: Local migrate uses the shared disposable database resolver — Fixture mode must reject the real catalog path and regression tests compare its snapshot.
+- [Phase 18]: Middleware routes while server pages authorize content — Database-backed public visibility must not enter the Edge bundle; public_entities remains the sole authorization set.
+- [Phase 18]: Core entity APIs use exact no-store DTOs — Public responses stay backward-compatible while IDs and publication internals remain private.
 
 ### Pending Todos
 
@@ -81,10 +85,10 @@ None.
 
 ## Next Action
 
-执行 `18-04-PLAN.md`，让主详情与 browse/sitemap/API surface 统一读取 `public_entities`。
+执行 `18-05-PLAN.md`，让 browse、首页、分类维度、graph 与 links 全部读取 `public_entities`。
 
 ## Session Continuity
 
-Last session: 2026-07-15T12:27:04.916Z
-Stopped at: Completed 18-03-PLAN.md
+Last session: 2026-07-15T12:52:38.336Z
+Stopped at: Completed 18-04-PLAN.md
 Resume file: None
