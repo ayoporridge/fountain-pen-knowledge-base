@@ -10,6 +10,7 @@ import {
 import { publicMediaFilter } from "@/lib/public-media";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 function errorResponse(message: string, status: number) {
   return NextResponse.json(
@@ -31,10 +32,11 @@ export async function GET(request: NextRequest) {
 
   if (id) {
     const media = (await queryOne(
-      `SELECT id, image_url, thumbnail_url, local_path
-       FROM media_assets
-       WHERE id = ?
-         AND ${publicMediaFilter("media_assets")}`,
+      `SELECT media.id, media.image_url, media.thumbnail_url, media.local_path
+       FROM media_assets media
+       JOIN public_entities public_owner ON public_owner.id = media.entity_id
+       WHERE media.id = ?
+         AND ${publicMediaFilter("media")}`,
       [id],
     )) as
       | {
@@ -53,7 +55,12 @@ export async function GET(request: NextRequest) {
       thumbnailUrl: media.thumbnail_url,
     });
     if (localUrl && !localUrl.startsWith("/api/image-proxy")) {
-      return NextResponse.redirect(new URL(localUrl, request.url), 307);
+      const response = NextResponse.redirect(
+        new URL(localUrl, request.url),
+        307,
+      );
+      response.headers.set("Cache-Control", "no-store");
+      return response;
     }
     const externalUrl = pickExternalMediaUrl({
       imageUrl: media.image_url,
@@ -84,8 +91,7 @@ export async function GET(request: NextRequest) {
       headers: {
         "Content-Type": contentType,
         "Content-Length": String(body.byteLength),
-        "Cache-Control":
-          "public, max-age=86400, s-maxage=2592000, stale-while-revalidate=86400",
+        "Cache-Control": "no-store",
         "X-Content-Type-Options": "nosniff",
       },
     });

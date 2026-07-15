@@ -418,11 +418,10 @@ export default async function EntityPage({ params }: EntityPageProps) {
       ? (queryOne(
           `SELECT b.id, b.type, b.slug, b.name
            FROM entity_links relation
-           JOIN entities b ON b.id = relation.target_id
+           JOIN public_entities b ON b.id = relation.target_id
            WHERE relation.source_id = ?
              AND relation.link_type = 'made_by'
              AND b.type = 'brand'
-             AND ${publicEntityFilter("b")}
            LIMIT 1`,
           [entity.id],
         ) as Promise<
@@ -499,7 +498,7 @@ export default async function EntityPage({ params }: EntityPageProps) {
   const hasGraph = ["brand", "pen"].includes(entityType) || links.length > 0;
   const sectionNavItems = [
     entityType === "brand"
-      ? { href: "#models", label: "代表型号" }
+      ? { href: "#models", label: "全部型号" }
       : entityType === "pen"
         ? { href: "#archive", label: "档案" }
         : entity.body_md

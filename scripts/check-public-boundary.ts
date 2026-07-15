@@ -1655,6 +1655,399 @@ async function runSecondaryLinkChecks() {
   );
 }
 
+async function seedSecondaryLibraryMediaFixtures(
+  db: ReturnType<typeof createClient>,
+): Promise<void> {
+  for (let index = 1; index <= 14; index += 1) {
+    const suffix = String(index).padStart(2, "0");
+    const entityId = `boundary-brand-model-${suffix}`;
+    await insertBoundaryEntity(db, entityId, "pen");
+    await insertBoundaryStory(db, entityId, "model_story");
+    await db.execute({
+      sql: `INSERT INTO entity_links (id, source_id, target_id, link_type)
+            VALUES (?, ?, 'boundary-public-brand', 'made_by')`,
+      args: [`${entityId}-maker`, entityId],
+    });
+  }
+
+  await db.execute(`
+    INSERT INTO source_registry (
+      id, name, source_type, allowed_use, reliability, homepage_url
+    ) VALUES (
+      'boundary-library-source',
+      'Boundary library source',
+      'official',
+      'metadata_only',
+      'high_for_basic_facts',
+      'https://boundary.invalid/library'
+    )
+  `);
+  await db.execute(`
+    INSERT INTO source_items (
+      id, source_id, title, url, review_status
+    ) VALUES
+      ('boundary-public-reference-item', 'boundary-library-source',
+       'Public reference', 'https://boundary.invalid/public-reference', 'approved'),
+      ('boundary-public-citation-item', 'boundary-library-source',
+       'Public citation', 'https://boundary.invalid/public-citation', 'approved'),
+      ('boundary-draft-reference-item', 'boundary-library-source',
+       'Draft reference', 'https://boundary.invalid/draft-reference', 'approved'),
+      ('boundary-draft-citation-item', 'boundary-library-source',
+       'Draft citation', 'https://boundary.invalid/draft-citation', 'approved')
+  `);
+  await db.execute(`
+    INSERT INTO entity_references (
+      id, entity_id, source_item_id, relation_type, review_status
+    ) VALUES
+      ('boundary-public-reference', 'boundary-public-brand',
+       'boundary-public-reference-item', 'official', 'approved'),
+      ('boundary-draft-reference', 'boundary-draft-brand',
+       'boundary-draft-reference-item', 'official', 'approved')
+  `);
+  await db.execute(`
+    INSERT INTO citations (id, target_type, target_id, source_item_id)
+    VALUES
+      ('boundary-public-entity-citation', 'entity', 'boundary-public-brand',
+       'boundary-public-citation-item'),
+      ('boundary-draft-entity-citation', 'entity', 'boundary-draft-brand',
+       'boundary-draft-citation-item')
+  `);
+
+  await db.execute(`
+    INSERT INTO media_assets (
+      id, entity_id, title, asset_type, image_url, local_path, author,
+      license, attribution_text, review_status, usage_status
+    ) VALUES
+      ('boundary-public-media', 'boundary-public-pen', 'Public media', 'image',
+       '/images/boundary-public.png', 'public/images/boundary-public.png',
+       'Boundary author', 'CC BY 4.0', 'Boundary attribution', 'approved', 'primary'),
+      ('boundary-draft-media', 'boundary-draft-pen', 'Draft media', 'image',
+       '/images/boundary-draft.png', 'public/images/boundary-draft.png',
+       'Boundary author', 'CC BY 4.0', 'Boundary attribution', 'approved', 'primary'),
+      ('boundary-orphan-media', NULL, 'Orphan media', 'image',
+       '/images/boundary-orphan.png', 'public/images/boundary-orphan.png',
+       'Boundary author', 'CC BY 4.0', 'Boundary attribution', 'approved', 'primary')
+  `);
+
+  const hotspots = JSON.stringify([
+    {
+      label: "Public target",
+      x: 20,
+      y: 30,
+      linked_entity: "/pen/boundary-public-pen",
+    },
+    {
+      label: "Draft target",
+      x: 70,
+      y: 60,
+      linked_entity: "/pen/boundary-draft-pen",
+    },
+  ]);
+  await db.execute({
+    sql: `INSERT INTO diagrams (
+            id, entity_id, slug, title, diagram_type, svg, hotspots_json,
+            license, review_status
+          ) VALUES
+            ('boundary-public-diagram', 'boundary-public-brand',
+             'boundary-public-diagram', 'Public diagram', 'relationship',
+             '<svg viewBox="0 0 10 10"></svg>', ?, 'site-original', 'published'),
+            ('boundary-draft-diagram', 'boundary-draft-brand',
+             'boundary-draft-diagram', 'Draft diagram', 'relationship',
+             '<svg viewBox="0 0 10 10"></svg>', ?, 'site-original', 'published'),
+            ('boundary-global-diagram', NULL,
+             'boundary-global-diagram', 'Global diagram', 'relationship',
+             '<svg viewBox="0 0 10 10"></svg>', ?, 'site-original', 'published')`,
+    args: [hotspots, hotspots, hotspots],
+  });
+
+  await publishEntity(db, {
+    entityId: "boundary-public-brand",
+    reviewer: "boundary-checker",
+  });
+  await publishEntity(db, {
+    entityId: "boundary-public-pen",
+    reviewer: "boundary-checker",
+  });
+  for (let index = 1; index <= 14; index += 1) {
+    await publishEntity(db, {
+      entityId: `boundary-brand-model-${String(index).padStart(2, "0")}`,
+      reviewer: "boundary-checker",
+    });
+  }
+}
+
+async function runSecondaryLibraryMediaChecks() {
+  const before = realDatabaseSnapshot();
+  const tempRoot = fs.realpathSync.native(
+    fs.mkdtempSync(
+      path.join(os.tmpdir(), "fpkg-public-boundary-secondary-library-"),
+    ),
+  );
+  const databasePath = path.join(tempRoot, "fixture.db");
+  const databaseUrl = `file:${databasePath}`;
+  const fixtureDb = createClient({ url: databaseUrl });
+
+  process.env.TURSO_DATABASE_URL = "";
+  process.env.TURSO_AUTH_TOKEN = "";
+  process.env.FPKG_DATABASE_URL = databaseUrl;
+  process.env.PUBLICATION_GATE_FIXTURE = "1";
+
+  try {
+    await migrateDatabase(fixtureDb);
+    await seedBoundaryFixtures(fixtureDb);
+    await seedSecondaryLibraryMediaFixtures(fixtureDb);
+
+    const libraryModule = await import("../src/lib/library");
+    const brandModule = await import(
+      "../src/components/library/BrandMuseum"
+    );
+    const detailModule = await import("../src/app/[type]/[slug]/page");
+    const imageProxyModule = await import("../src/app/api/image-proxy/route");
+    const libraryPageModule = await import("../src/app/library/page");
+    const sourcePageModule = await import("../src/app/library/sources/page");
+    const diagramPageModule = await import("../src/app/library/diagrams/page");
+    const reactModule = await import("react");
+    Object.assign(globalThis, { React: reactModule.default });
+
+    const expectedModelRows = await fixtureDb.execute(`
+      SELECT public_pen.type, public_pen.slug, public_pen.name
+      FROM public_entities public_brand
+      JOIN entity_links relation
+        ON relation.target_id = public_brand.id
+       AND relation.link_type = 'made_by'
+      JOIN public_entities public_pen
+        ON public_pen.id = relation.source_id
+       AND public_pen.type = 'pen'
+      WHERE public_brand.id = 'boundary-public-brand'
+        AND public_brand.type = 'brand'
+      GROUP BY public_pen.id
+      ORDER BY public_pen.name, public_pen.slug
+    `);
+    assertCondition(
+      expectedModelRows.rows.length === 15,
+      `Brand fixture expected 15 public models, got ${expectedModelRows.rows.length}.`,
+    );
+    const expectedModelPaths = expectedModelRows.rows.map(
+      (row) => `/${row.type}/${row.slug}`,
+    );
+    const brandModels = await libraryModule.getBrandPublicModels(
+      "boundary-public-brand",
+    );
+    assertCondition(
+      brandModels.count === expectedModelPaths.length,
+      "Brand model count differs from the direct reverse made_by oracle.",
+    );
+    assertJsonEqual(
+      brandModels.models.map(
+        (model: { type: string; slug: string }) =>
+          `/${model.type}/${model.slug}`,
+      ),
+      expectedModelPaths,
+      "Complete brand model paths",
+    );
+
+    const brandTree = await brandModule.BrandMuseum({
+      entityId: "boundary-public-brand",
+    });
+    const brandHrefs: string[] = [];
+    let brandText = "";
+    walkReactTree(brandTree, (props) => {
+      if (typeof props.href === "string") brandHrefs.push(props.href);
+      brandText += reactText(props.children);
+    });
+    assertJsonEqual(
+      brandHrefs.filter((href) => href.startsWith("/pen/")).sort(),
+      [...expectedModelPaths].sort(),
+      "Brand page model links",
+    );
+    assertCondition(
+      brandText.includes(`全部型号（${expectedModelPaths.length}）`),
+      "Brand page does not expose the accurate complete model count.",
+    );
+    const detailTree = await detailModule.default({
+      params: Promise.resolve({
+        type: "brand",
+        slug: "boundary-public-brand",
+      }),
+    });
+    let detailModelNav = false;
+    walkReactTree(detailTree, (props) => {
+      if (
+        Array.isArray(props.items) &&
+        props.items.some(
+          (item) =>
+            typeof item === "object" &&
+            item !== null &&
+            (item as { href?: unknown }).href === "#models" &&
+            (item as { label?: unknown }).label === "全部型号",
+        )
+      ) {
+        detailModelNav = true;
+      }
+    });
+    assertCondition(detailModelNav, "Brand detail nav still says representative models.");
+
+    const publicPenBrandCounts = await fixtureDb.execute(`
+      SELECT public_pen.id, COUNT(DISTINCT public_brand.id) as brand_count
+      FROM public_entities public_pen
+      LEFT JOIN entity_links relation
+        ON relation.source_id = public_pen.id
+       AND relation.link_type = 'made_by'
+      LEFT JOIN public_entities public_brand
+        ON public_brand.id = relation.target_id
+       AND public_brand.type = 'brand'
+      WHERE public_pen.type = 'pen'
+      GROUP BY public_pen.id
+      HAVING brand_count != 1
+    `);
+    assertCondition(
+      publicPenBrandCounts.rows.length === 0,
+      "A public pen does not resolve to exactly one direct public canonical brand.",
+    );
+
+    const registry = await libraryModule.getSourceRegistryIndex();
+    const sourceItems = await libraryModule.getSourceItemIndex({ limit: 20 });
+    assertJsonEqual(
+      sourceItems.map((item: { id: string }) => item.id).sort(),
+      ["boundary-public-citation-item", "boundary-public-reference-item"],
+      "Owner-aware source item index",
+    );
+    assertCondition(
+      registry.length === 1 &&
+        registry[0].id === "boundary-library-source" &&
+        Number(registry[0].item_count) === 2 &&
+        Number(registry[0].reference_count) === 2,
+      "Source registry counts include an unpublished owner.",
+    );
+
+    const media = await libraryModule.getMediaAssetIndex(20);
+    assertJsonEqual(
+      media.map((item: { id: string }) => item.id),
+      ["boundary-public-media"],
+      "Owner-aware media index",
+    );
+    assertCondition(
+      (await libraryModule.getPrimaryProductImage("boundary-draft-pen")) ===
+        undefined,
+      "Draft entity exposed a primary product image.",
+    );
+
+    const publicMediaResponse = await imageProxyModule.GET(
+      new NextRequest(
+        "http://boundary.invalid/api/image-proxy?id=boundary-public-media",
+      ),
+    );
+    const draftMediaResponse = await imageProxyModule.GET(
+      new NextRequest(
+        "http://boundary.invalid/api/image-proxy?id=boundary-draft-media",
+      ),
+    );
+    const orphanMediaResponse = await imageProxyModule.GET(
+      new NextRequest(
+        "http://boundary.invalid/api/image-proxy?id=boundary-orphan-media",
+      ),
+    );
+    assertCondition(
+      publicMediaResponse.status === 307 &&
+        publicMediaResponse.headers.get("cache-control") === "no-store",
+      "Public media redirect is not an immediate no-store response.",
+    );
+    for (const [label, response] of [
+      ["draft", draftMediaResponse],
+      ["orphan", orphanMediaResponse],
+    ] as const) {
+      assertCondition(
+        response.status === 404 &&
+          response.headers.get("cache-control") === "no-store",
+        `${label} media owner did not return a no-store 404.`,
+      );
+    }
+
+    const diagrams = await libraryModule.getDiagramIndex(20);
+    assertJsonEqual(
+      diagrams.map((diagram: { id: string }) => diagram.id).sort(),
+      ["boundary-global-diagram", "boundary-public-diagram"],
+      "Owner-aware diagram index",
+    );
+    const directPublicPaths = new Set(
+      (
+        await fixtureDb.execute("SELECT type, slug FROM public_entities")
+      ).rows.map((row) => `/${row.type}/${row.slug}`),
+    );
+    for (const diagram of diagrams as Array<{
+      hotspots_json: string | null;
+    }>) {
+      const hotspots = JSON.parse(diagram.hotspots_json || "[]") as Array<{
+        label?: string;
+        linked_entity?: string;
+      }>;
+      assertCondition(
+        hotspots.some((hotspot) => hotspot.label === "Draft target"),
+        "Diagram sanitizer removed the explanatory draft-target hotspot.",
+      );
+      assertCondition(
+        hotspots.every(
+          (hotspot) =>
+            !hotspot.linked_entity ||
+            directPublicPaths.has(hotspot.linked_entity),
+        ),
+        "Diagram hotspot retained an unpublished entity path.",
+      );
+    }
+    assertJsonEqual(
+      (await libraryModule.getDiagramsForEntity("boundary-draft-brand")).map(
+        (diagram: { id: string }) => diagram.id,
+      ),
+      ["boundary-global-diagram"],
+      "Draft diagram owner lookup",
+    );
+
+    assertCondition(
+      libraryPageModule.dynamic === "force-dynamic" &&
+        sourcePageModule.dynamic === "force-dynamic" &&
+        diagramPageModule.dynamic === "force-dynamic" &&
+        imageProxyModule.dynamic === "force-dynamic",
+      "A library/source/diagram/media surface is not force-dynamic.",
+    );
+    assertCondition(
+      libraryPageModule.revalidate === undefined &&
+        sourcePageModule.revalidate === undefined &&
+        diagramPageModule.revalidate === undefined,
+      "A library/source/diagram page still exports ISR revalidation.",
+    );
+
+    const publicRouteSources = [
+      "src/app/library/page.tsx",
+      "src/app/library/sources/page.tsx",
+      "src/app/library/diagrams/page.tsx",
+      "src/app/exhibits/page.tsx",
+      "src/app/timeline/page.tsx",
+    ].map((filePath) => fs.readFileSync(path.join(ROOT, filePath), "utf8"));
+    assertCondition(
+      publicRouteSources.every(
+        (source) => !source.includes("getLibraryCoverageReport"),
+      ),
+      "Private raw library coverage helper is reachable from a public route.",
+    );
+  } finally {
+    try {
+      getDb().close();
+    } finally {
+      fixtureDb.close();
+      fs.rmSync(tempRoot, { recursive: true, force: true });
+    }
+  }
+
+  assertCondition(
+    !fs.existsSync(tempRoot),
+    "Secondary library/media fixture was not cleaned.",
+  );
+  assertRealDatabaseUnchanged(before, "Secondary library/media checks");
+  console.log(
+    "Secondary library/media boundary passed: complete brand models and every source, media, image, and diagram owner/target are public with no-store delivery.",
+  );
+}
+
 async function runLegacyBoundary() {
   const db = createClient({ url: "file:data/fpkg.db" });
   const failures: string[] = [];
@@ -1939,6 +2332,10 @@ async function main() {
   }
   if (args.includes("--secondary-links")) {
     await runSecondaryLinkChecks();
+    return;
+  }
+  if (args.includes("--secondary-library-media")) {
+    await runSecondaryLibraryMediaChecks();
     return;
   }
   await runLegacyBoundary();

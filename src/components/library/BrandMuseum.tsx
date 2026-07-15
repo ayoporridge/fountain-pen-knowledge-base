@@ -1,7 +1,7 @@
 import { Clock, PenNib } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
 import {
-  getBrandRepresentativeModels,
+  getBrandPublicModels,
   getEntityAliases,
   getEntityExternalIds,
   getEntityReferences,
@@ -12,13 +12,15 @@ import { SourceCards } from "./SourceCards";
 import { Timeline } from "./Timeline";
 
 export async function BrandMuseum({ entityId }: { entityId: string }) {
-  const [timeline, models, sources, aliases, externalIds] = await Promise.all([
-    getTimelineForEntity(entityId, 10),
-    getBrandRepresentativeModels(entityId),
-    getEntityReferences(entityId, 6),
-    getEntityAliases(entityId),
-    getEntityExternalIds(entityId),
-  ]);
+  const [timeline, brandModels, sources, aliases, externalIds] =
+    await Promise.all([
+      getTimelineForEntity(entityId, 10),
+      getBrandPublicModels(entityId),
+      getEntityReferences(entityId, 6),
+      getEntityAliases(entityId),
+      getEntityExternalIds(entityId),
+    ]);
+  const { models, count: modelCount } = brandModels;
 
   return (
     <section className="mb-10 space-y-6">
@@ -34,7 +36,7 @@ export async function BrandMuseum({ entityId }: { entityId: string }) {
           <div className="library-section-icon" aria-hidden="true">
             <PenNib size={18} style={{ color: "var(--color-accent)" }} />
           </div>
-          <h2 className="text-lg font-semibold">代表型号</h2>
+          <h2 className="text-lg font-semibold">全部型号（{modelCount}）</h2>
         </div>
         {models.length > 0 ? (
           <div className="grid gap-2 sm:grid-cols-2">
@@ -54,7 +56,7 @@ export async function BrandMuseum({ entityId }: { entityId: string }) {
           </div>
         ) : (
           <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
-            暂无可公开展示的代表型号关系。
+            当前没有已发布型号。
           </p>
         )}
       </div>

@@ -5,7 +5,7 @@ import { DiagramRenderer } from "@/components/library/DiagramRenderer";
 import { DIAGRAM_TYPE_LABELS } from "@/lib/constants";
 import { getCitationsForTargets, getDiagramIndex } from "@/lib/library";
 
-export const revalidate = 600;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "图示馆",

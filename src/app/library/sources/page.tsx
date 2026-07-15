@@ -5,7 +5,7 @@ import { SourceCards } from "@/components/library/SourceCards";
 import { getSourceItemIndex, getSourceRegistryIndex } from "@/lib/library";
 import { displayPublicSourceName } from "@/lib/publicText";
 
-export const revalidate = 600;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "来源索引",

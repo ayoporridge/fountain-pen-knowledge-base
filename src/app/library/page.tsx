@@ -15,7 +15,7 @@ import {
   getPublishedExhibits,
 } from "@/lib/library";
 
-export const revalidate = 600;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "专题与资料",
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
 const MODULES = [
   {
     title: "品牌馆",
-    desc: "按品牌查看代表型号、已核对时间线和参考来源。",
+    desc: "按品牌查看全部已发布型号、已核对时间线和参考来源。",
     href: "/browse?type=brand",
     Icon: Books,
   },
