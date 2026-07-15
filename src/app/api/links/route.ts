@@ -4,6 +4,8 @@ import { verifyWriteAccess } from "@/lib/admin-auth";
 import { execute, queryAll, queryOne } from "@/lib/db";
 import { publicEntityFilter } from "@/lib/public-visibility";
 
+export const dynamic = "force-dynamic";
+
 const PUBLIC_LINK_SELECT = `
   source_entity.type || ':' || source_entity.slug as source_key,
   source_entity.slug as source_slug,
@@ -16,6 +18,13 @@ const PUBLIC_LINK_SELECT = `
   el.link_type,
   el.reason`;
 
+function noStoreJson(body: unknown, status = 200) {
+  return NextResponse.json(body, {
+    status,
+    headers: { "Cache-Control": "no-store" },
+  });
+}
+
 // Public graph reads use stable type/slug keys. Database ids and audit
 // timestamps stay server-side.
 export async function GET(request: NextRequest) {
@@ -26,7 +35,7 @@ export async function GET(request: NextRequest) {
   );
 
   if (!slug) {
-    return NextResponse.json({ error: "slug is required" }, { status: 400 });
+    return noStoreJson({ error: "slug is required" }, 400);
   }
 
   const center = (await queryOne(
@@ -35,7 +44,7 @@ export async function GET(request: NextRequest) {
     [slug],
   )) as { id: string } | undefined;
   if (!center) {
-    return NextResponse.json({ error: "Entity not found" }, { status: 404 });
+    return noStoreJson({ error: "Entity not found" }, 404);
   }
 
   const forward = await queryAll(
@@ -112,7 +121,7 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  return NextResponse.json({
+  return noStoreJson({
     forward,
     backlinks,
     ...(depth >= 2 ? { secondHopForward, secondHopBacklinks } : {}),

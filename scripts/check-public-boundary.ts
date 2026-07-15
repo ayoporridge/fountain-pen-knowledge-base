@@ -242,6 +242,13 @@ async function seedBoundaryFixtures(db: ReturnType<typeof createClient>) {
       ('boundary-draft-brand-origin', 'boundary-draft-brand', 'boundary-tag-origin'),
       ('boundary-public-article-material', 'boundary-public-article', 'boundary-tag-material')
   `);
+  await db.execute(`
+    INSERT INTO entity_links (id, source_id, target_id, link_type)
+    VALUES
+      ('boundary-public-article-pen', 'boundary-public-article', 'boundary-public-pen', 'related'),
+      ('boundary-public-article-draft-brand', 'boundary-public-article', 'boundary-draft-brand', 'related'),
+      ('boundary-draft-pen-public-article', 'boundary-draft-pen', 'boundary-public-article', 'related')
+  `);
 }
 
 function sortedKeys(value: Record<string, unknown>): string[] {
@@ -297,6 +304,31 @@ function normalizeCountRows(
   return rows
     .map((row) => ({ type: String(row.type), cnt: Number(row.cnt) }))
     .sort((a, b) => a.type.localeCompare(b.type));
+}
+
+function walkReactTree(
+  value: unknown,
+  visit: (props: Record<string, unknown>) => void,
+): void {
+  if (Array.isArray(value)) {
+    value.forEach((child) => walkReactTree(child, visit));
+    return;
+  }
+  if (!value || typeof value !== "object") return;
+  const props = (value as { props?: unknown }).props;
+  if (!props || typeof props !== "object" || Array.isArray(props)) return;
+  const record = props as Record<string, unknown>;
+  visit(record);
+  walkReactTree(record.children, visit);
+}
+
+function reactText(value: unknown): string {
+  if (typeof value === "string" || typeof value === "number") {
+    return String(value);
+  }
+  if (Array.isArray(value)) return value.map(reactText).join("");
+  if (!value || typeof value !== "object") return "";
+  return reactText((value as { props?: { children?: unknown } }).props?.children);
 }
 
 async function expectNextControlFlow(
@@ -983,6 +1015,247 @@ async function runDiscoveryListChecks() {
   );
 }
 
+async function runDiscoveryGraphChecks() {
+  const before = realDatabaseSnapshot();
+  const tempRoot = fs.realpathSync.native(
+    fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-public-boundary-graph-")),
+  );
+  const databasePath = path.join(tempRoot, "fixture.db");
+  const databaseUrl = `file:${databasePath}`;
+  const fixtureDb = createClient({ url: databaseUrl });
+
+  process.env.TURSO_DATABASE_URL = "";
+  process.env.TURSO_AUTH_TOKEN = "";
+  process.env.FPKG_DATABASE_URL = databaseUrl;
+  process.env.PUBLICATION_GATE_FIXTURE = "1";
+
+  try {
+    await migrateDatabase(fixtureDb);
+    await seedBoundaryFixtures(fixtureDb);
+
+    const graphModule = await import("../src/app/graph/page");
+    const linksModule = await import("../src/app/api/links/route");
+    const reactModule = await import("react");
+    Object.assign(globalThis, { React: reactModule.default });
+
+    const publicRows = await fixtureDb.execute(
+      "SELECT id, type, slug FROM public_entities",
+    );
+    const publicKeys = new Set(
+      publicRows.rows.map((row) => `${row.type}:${row.slug}`),
+    );
+    const publicBySlug = new Map(
+      publicRows.rows.map((row) => [
+        String(row.slug),
+        { id: String(row.id), type: String(row.type) },
+      ]),
+    );
+
+    const graphTree = await graphModule.default({
+      searchParams: Promise.resolve({ entity: "boundary-public-brand" }),
+    });
+    const graphHubs: Array<{ slug: string; degree: number }> = [];
+    const graphHrefs: string[] = [];
+    walkReactTree(graphTree, (props) => {
+      if (typeof props.href !== "string") return;
+      graphHrefs.push(props.href);
+      if (!props.href.startsWith("/graph?")) return;
+      const slug = new URL(props.href, "http://boundary.invalid").searchParams.get(
+        "entity",
+      );
+      const degree = Number(reactText(props.children).match(/·\s*(\d+)/)?.[1]);
+      assertCondition(slug, "Graph hub link omitted its entity slug.");
+      assertCondition(Number.isFinite(degree), `Graph hub ${slug} omitted degree.`);
+      graphHubs.push({ slug, degree });
+    });
+    assertCondition(graphHubs.length <= 12, "Graph hub limit exceeded 12.");
+    assertCondition(graphHubs.length > 0, "Graph fixture returned no public hubs.");
+    assertCondition(
+      graphHrefs.includes("/brand/boundary-public-brand"),
+      "Graph did not select the requested public center.",
+    );
+    for (const hub of graphHubs) {
+      const publicHub = publicBySlug.get(hub.slug);
+      assertCondition(
+        publicHub,
+        `Graph hub ${hub.slug} is outside public_entities.`,
+      );
+      const expectedDegree = await fixtureDb.execute({
+        sql: `SELECT COUNT(DISTINCT relation.id) as degree
+              FROM entity_links relation
+              JOIN public_entities public_neighbor
+                ON public_neighbor.id = CASE
+                  WHEN relation.source_id = ? THEN relation.target_id
+                  ELSE relation.source_id
+                END
+              WHERE (relation.source_id = ? OR relation.target_id = ?)
+                AND relation.link_type != 'reverse'`,
+        args: [publicHub.id, publicHub.id, publicHub.id],
+      });
+      assertCondition(
+        hub.degree === Number(expectedDegree.rows[0]?.degree || 0),
+        `Graph hub ${hub.slug} degree counts an unpublished neighbor.`,
+      );
+      assertCondition(
+        hub.degree > 0,
+        `Graph hub ${hub.slug} has no public neighbor.`,
+      );
+    }
+    assertCondition(
+      !graphHubs.some((hub) => hub.slug.includes("boundary-draft")),
+      "Graph hubs leaked a draft fixture.",
+    );
+
+    const draftTree = await graphModule.default({
+      searchParams: Promise.resolve({ entity: "boundary-draft-pen" }),
+    });
+    let draftSelectionLeaked = false;
+    walkReactTree(draftTree, (props) => {
+      for (const key of ["href", "entitySlug"] as const) {
+        if (
+          typeof props[key] === "string" &&
+          props[key].includes("boundary-draft-pen")
+        ) {
+          draftSelectionLeaked = true;
+        }
+      }
+    });
+    assertCondition(
+      !draftSelectionLeaked,
+      "Graph selected an unpublished center.",
+    );
+    assertCondition(
+      graphModule.dynamic === "force-dynamic" &&
+        graphModule.revalidate === undefined,
+      "Graph page is not force-dynamic or still exports ISR revalidation.",
+    );
+
+    const graphResponse = await linksModule.GET(
+      new NextRequest(
+        "http://boundary.invalid/api/links?slug=boundary-public-brand&depth=2",
+      ),
+    );
+    assertCondition(
+      graphResponse.status === 200 &&
+        graphResponse.headers.get("cache-control") === "no-store",
+      "Links API success response is not a no-store 200.",
+    );
+    const graphBody = (await graphResponse.json()) as Record<string, unknown>;
+    assertExactKeys(
+      graphBody,
+      ["forward", "backlinks", "secondHopForward", "secondHopBacklinks"],
+      "links depth=2",
+    );
+    assertNoPublicationInternals(graphBody, "links depth=2");
+
+    const linkKeys = [
+      "source_key",
+      "source_slug",
+      "source_name",
+      "source_type",
+      "target_key",
+      "target_slug",
+      "target_name",
+      "target_type",
+      "link_type",
+      "reason",
+    ] as const;
+    const allLinkRows: Array<Record<string, unknown>> = [];
+    for (const field of [
+      "forward",
+      "backlinks",
+      "secondHopForward",
+      "secondHopBacklinks",
+    ] as const) {
+      const rows = graphBody[field];
+      assertCondition(Array.isArray(rows), `links.${field} is not an array.`);
+      for (const [index, row] of rows.entries()) {
+        assertExactKeys(row, linkKeys, `links.${field}[${index}]`);
+        const link = row as Record<string, unknown>;
+        assertCondition(
+          publicKeys.has(String(link.source_key)),
+          `links.${field}[${index}] leaked source ${String(link.source_key)}.`,
+        );
+        assertCondition(
+          publicKeys.has(String(link.target_key)),
+          `links.${field}[${index}] leaked target ${String(link.target_key)}.`,
+        );
+        allLinkRows.push(link);
+      }
+    }
+    assertCondition(
+      allLinkRows.some(
+        (row) =>
+          row.source_key === "pen:boundary-public-pen" &&
+          row.target_key === "brand:boundary-public-brand",
+      ),
+      "Links API omitted the public pen-to-brand fixture.",
+    );
+    const serializedGraph = JSON.stringify(graphBody);
+    assertCondition(
+      !serializedGraph.includes("boundary-draft-pen") &&
+        !serializedGraph.includes("boundary-draft-brand"),
+      "Links API leaked an unpublished neighbor or second-hop owner.",
+    );
+
+    const articleResponse = await linksModule.GET(
+      new NextRequest(
+        "http://boundary.invalid/api/links?slug=boundary-public-article&depth=1",
+      ),
+    );
+    const articleBody = (await articleResponse.json()) as Record<string, unknown>;
+    assertCondition(
+      articleResponse.status === 200 &&
+        articleResponse.headers.get("cache-control") === "no-store",
+      "Links depth=1 response is not a no-store 200.",
+    );
+    assertExactKeys(articleBody, ["forward", "backlinks"], "links depth=1");
+    assertCondition(
+      !JSON.stringify(articleBody).includes("boundary-draft"),
+      "Links depth=1 leaked a draft endpoint.",
+    );
+
+    const missingSlugResponse = await linksModule.GET(
+      new NextRequest("http://boundary.invalid/api/links"),
+    );
+    const draftCenterResponse = await linksModule.GET(
+      new NextRequest(
+        "http://boundary.invalid/api/links?slug=boundary-draft-pen&depth=2",
+      ),
+    );
+    assertCondition(
+      missingSlugResponse.status === 400 &&
+        missingSlugResponse.headers.get("cache-control") === "no-store",
+      "Links missing-slug response is not a no-store 400.",
+    );
+    assertCondition(
+      draftCenterResponse.status === 404 &&
+        draftCenterResponse.headers.get("cache-control") === "no-store",
+      "Links draft center response is not a no-store 404.",
+    );
+    assertCondition(
+      linksModule.dynamic === "force-dynamic",
+      "Links API is not force-dynamic.",
+    );
+  } finally {
+    try {
+      getDb().close();
+    } finally {
+      fixtureDb.close();
+      fs.rmSync(tempRoot, { recursive: true, force: true });
+    }
+  }
+
+  assertCondition(
+    !fs.existsSync(tempRoot),
+    "Discovery graph fixture was not cleaned.",
+  );
+  assertRealDatabaseUnchanged(before, "Discovery graph checks");
+  console.log(
+    "Discovery graph boundary passed: graph hubs/degrees and every links center, endpoint, neighbor, and second-hop alias are public-only with no-store responses.",
+  );
+}
+
 async function runLegacyBoundary() {
   const db = createClient({ url: "file:data/fpkg.db" });
   const failures: string[] = [];
@@ -1259,6 +1532,10 @@ async function main() {
   }
   if (args.includes("--discovery-lists")) {
     await runDiscoveryListChecks();
+    return;
+  }
+  if (args.includes("--discovery-graph")) {
+    await runDiscoveryGraphChecks();
     return;
   }
   await runLegacyBoundary();

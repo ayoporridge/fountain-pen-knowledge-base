@@ -6,7 +6,7 @@ import { TYPE_LABELS } from "@/lib/constants";
 import { queryAll, queryOne } from "@/lib/db";
 import { publicEntityFilter } from "@/lib/public-visibility";
 
-export const revalidate = 600;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "关系图谱",
@@ -30,33 +30,58 @@ type HubEntity = {
 
 const HUB_QUERY = `
   SELECT e.id, e.type, e.slug, e.name, e.summary,
-         COUNT(DISTINCT CASE WHEN el.link_type != 'reverse' THEN el.id END) as degree
+         COUNT(DISTINCT CASE
+           WHEN el.link_type != 'reverse' AND graph_neighbor.id IS NOT NULL
+           THEN el.id
+         END) as degree
   FROM entities e
   LEFT JOIN entity_links el ON el.source_id = e.id OR el.target_id = e.id
+  LEFT JOIN entities graph_neighbor
+    ON graph_neighbor.id = CASE
+      WHEN el.source_id = e.id THEN el.target_id
+      ELSE el.source_id
+    END
+   AND ${publicEntityFilter("graph_neighbor")}
   WHERE ${publicEntityFilter("e")}
   GROUP BY e.id, e.type, e.slug, e.name, e.summary
   HAVING degree > 0
   ORDER BY degree DESC, e.name
   LIMIT 12`;
 
-export default async function GraphPage({ searchParams }: GraphPageProps) {
-  const params = (await searchParams) || {};
+async function getGraphPageData(requestedSlug: string) {
   const hubs = (await queryAll(HUB_QUERY)) as HubEntity[];
-  const requestedSlug =
-    typeof params.entity === "string" ? decodeURIComponent(params.entity) : "";
   const selected = requestedSlug
     ? ((await queryOne(
         `SELECT e.id, e.type, e.slug, e.name, e.summary,
-                COUNT(DISTINCT CASE WHEN el.link_type != 'reverse' THEN el.id END) as degree
+                COUNT(DISTINCT CASE
+                  WHEN el.link_type != 'reverse'
+                   AND selected_neighbor.id IS NOT NULL
+                  THEN el.id
+                END) as degree
          FROM entities e
-         LEFT JOIN entity_links el ON el.source_id = e.id OR el.target_id = e.id
+         LEFT JOIN entity_links el
+           ON el.source_id = e.id OR el.target_id = e.id
+         LEFT JOIN entities selected_neighbor
+           ON selected_neighbor.id = CASE
+             WHEN el.source_id = e.id THEN el.target_id
+             ELSE el.source_id
+           END
+          AND ${publicEntityFilter("selected_neighbor")}
          WHERE e.slug = ? AND ${publicEntityFilter("e")}
          GROUP BY e.id, e.type, e.slug, e.name, e.summary
          HAVING degree > 0`,
         [requestedSlug],
       )) as HubEntity | undefined)
     : hubs[0];
-  const current = selected || hubs[0];
+
+  return { hubs, current: selected || hubs[0] };
+}
+
+export default async function GraphPage({ searchParams }: GraphPageProps) {
+  const params = (await searchParams) || {};
+  const requestedSlug =
+    typeof params.entity === "string" ? decodeURIComponent(params.entity) : "";
+  const { hubs, current } = await getGraphPageData(requestedSlug);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
