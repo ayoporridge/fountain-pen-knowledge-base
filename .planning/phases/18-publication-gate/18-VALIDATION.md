@@ -40,7 +40,7 @@ created: 2026-07-15
 | 18-03-01 | 03 | 3 | PUB-01, PUB-02, PUB-06, PUB-07 | T-18-04 | Schema/readiness/type transitions, exact public brand ownership and draft-only backfill | migration/DB | `pnpm check:publication-gate -- --migration && pnpm check:publication-gate -- --backfill` | ❌ W0 | ⬜ pending |
 | 18-03-02 | 03 | 3 | PUB-02, PUB-05 | T-18-05 | Every critical write invalidates reviewed revision | DB mutation | `pnpm check:publication-gate -- --invalidation` | ❌ W0 | ⬜ pending |
 | 18-03-03 | 03 | 3 | PUB-02, PUB-05 | T-18-04 | Direct SQL cannot bypass atomic publish | transaction | `pnpm check:publication-gate -- --publish` | ❌ W0 | ⬜ pending |
-| 18-04-01 | 04 | 4 | PUB-03, PUB-04, PUB-05 | T-18-06 | Helper/detail/metadata/sitemap are canonical and no-store | integration | `pnpm check:public-boundary -- --core-detail` | ✅ existing; extend | ⬜ pending |
+| 18-04-01 | 04 | 4 | PUB-03, PUB-04, PUB-05 | T-18-06 | Local migrate honors disposable DB; helper/detail/metadata/sitemap are canonical and no-store | integration | `pnpm check:public-boundary -- --core-detail` | ✅ existing; extend | ⬜ pending |
 | 18-04-02 | 04 | 4 | PUB-03, PUB-04, PUB-05 | T-18-06 | Entity APIs are equivalent, allowlisted and no-store | integration | `pnpm check:public-boundary -- --core-api-cache` | ✅ existing; extend | ⬜ pending |
 | 18-05-01 | 05 | 5 | PUB-03, PUB-04, PUB-05 | T-18-07 | Browse/home/by lists and aggregates are equivalent | parity | `pnpm check:public-boundary -- --discovery-lists` | ✅ existing; extend | ⬜ pending |
 | 18-05-02 | 05 | 5 | PUB-03, PUB-04, PUB-05 | T-18-07 | Graph/links aliases are public subsets and no-store | parity | `pnpm check:public-boundary -- --discovery-graph` | ✅ existing; extend | ⬜ pending |
