@@ -47,9 +47,9 @@ created: 2026-07-15
 | 18-06-01 | 06 | 6 | PUB-03, PUB-04 | T-18-08 | Recommend/concept/wiki targets are public subsets | parity | `pnpm check:public-boundary -- --secondary-links` | ✅ existing; extend | ⬜ pending |
 | 18-06-02 | 06 | 6 | PUB-03, PUB-04, PUB-05, PUB-07 | T-18-08 | Brand page enumerates every public model; library/source/media owners are gated and no-store | parity | `pnpm check:public-boundary -- --secondary-library-media` | ✅ existing; extend | ⬜ pending |
 | 18-06-03 | 06 | 6 | PUB-03, PUB-04, PUB-05 | T-18-08 | Exhibit/timeline targets and secondary cache policy hold | parity | `pnpm check:public-boundary -- --secondary-exhibit-timeline-cache` | ✅ existing; extend | ⬜ pending |
-| 18-07-01 | 07 | 7 | PUB-01, PUB-02, PUB-05, PUB-06 | T-18-10 | Full migration matrix and compatibility hold | migration/regression | `pnpm check:publication-gate -- --migration-full && pnpm check:publication-gate -- --compatibility` | ❌ W0 | ⬜ pending |
-| 18-07-02 | 07 | 7 | PUB-03, PUB-04, PUB-07 | T-18-09 | Independent four-semantics and complete brand-model reverse parity hold | full parity | `pnpm check:public-boundary -- --all` | ✅ existing; extend | ⬜ pending |
-| 18-07-03 | 07 | 7 | PUB-02, PUB-03, PUB-04, PUB-05, PUB-07 | T-18-10, T-18-11 | Montblanc/Majohn drafts return hard 404; valid fixtures and all brand model links transition correctly | browser/API | `pnpm exec playwright test tests/e2e/publication-gate.spec.ts --project=desktop` | ❌ W0 | ⬜ pending |
+| 18-07-01 | 07 | 7 | PUB-01, PUB-02, PUB-05, PUB-06 | T-18-10 | Full migration matrix and compatibility hold | migration/regression | `pnpm check:publication-gate -- --migration-full && pnpm check:publication-gate -- --compatibility` | ✅ existing; extended | ✅ green |
+| 18-07-02 | 07 | 7 | PUB-03, PUB-04, PUB-07 | T-18-09 | Independent four-semantics and complete brand-model reverse parity hold | full parity | `pnpm check:public-boundary -- --all` | ✅ existing; extended | ✅ green |
+| 18-07-03 | 07 | 7 | PUB-02, PUB-03, PUB-04, PUB-05, PUB-07 | T-18-10, T-18-11 | Montblanc/Majohn drafts return hard 404; valid fixtures and all brand model links transition correctly | browser/API | `pnpm exec playwright test tests/e2e/publication-gate.spec.ts --project=desktop` | ✅ created | ✅ green |
 
 *Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
 
