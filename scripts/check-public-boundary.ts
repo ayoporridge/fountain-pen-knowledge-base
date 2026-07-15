@@ -657,14 +657,27 @@ async function runCoreDetailChecks() {
       "Detail or sitemap is not force-dynamic.",
     );
 
-    const middlewareResponse = middlewareModule.middleware(
+    const draftMiddlewareResponse = await middlewareModule.middleware(
       new NextRequest(
         "https://fountain-pen-graph.vercel.app/brand/boundary-draft-brand",
       ),
     );
     assertCondition(
-      middlewareResponse.headers.get("x-middleware-next") === "1",
-      "Middleware still authorizes brand slugs instead of deferring to the page gate.",
+      draftMiddlewareResponse.status === 404 &&
+        draftMiddlewareResponse.headers.get("cache-control") === "no-store" &&
+        draftMiddlewareResponse.headers.get("x-robots-tag") === "noindex" &&
+        !draftMiddlewareResponse.headers.has("location"),
+      "Middleware did not return a hard, non-indexable, no-store 404 for the draft brand.",
+    );
+
+    const publicMiddlewareResponse = await middlewareModule.middleware(
+      new NextRequest(
+        "https://fountain-pen-graph.vercel.app/brand/boundary-public-brand",
+      ),
+    );
+    assertCondition(
+      publicMiddlewareResponse.headers.get("x-middleware-next") === "1",
+      "Middleware did not pass the published brand through to the page renderer.",
     );
   } finally {
     try {
