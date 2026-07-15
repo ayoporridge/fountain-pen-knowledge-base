@@ -239,7 +239,7 @@ Plans 04–06 必须逐个处理以下 alias；“主实体被 gate”不代表 
 | by dimension | `src/app/by/[dimension]/page.tsx:70-126` | brands、pens、counts 中每个 alias gate |
 | concept cache | `src/lib/concept-engine.ts:14-116` | recompute 只缓存 public pen + public concept；read 时再次 gate |
 | wiki links | `src/components/MarkdownRenderer.tsx:10-21` | resolve only canonical public entity |
-| representative models | `src/lib/library.ts:387-403` | candidate pen from view；caller brand 也必须已 public |
+| complete brand models | `src/lib/library.ts:387-403` | 删除 `LIMIT 24`/`.slice(0, 12)`；全部 reverse `made_by` pen 来自 public view，caller brand 也必须已 public |
 | source indexes | `src/lib/library.ts:555-660` | citation usage 必须追溯并 gate owning entity；当前第二个 UNION 未 gate owner |
 | media index/primary media | `src/lib/library.ts:663-704` | owner-aware public gate；不能只检查 media policy |
 | featured brands / exhibit links | `src/lib/library.ts:916-993` | featured、related entity paths 统一 view；section JSON 中的 slug 解析后 gate |
@@ -328,7 +328,7 @@ Plans 04–06 必须逐个处理以下 alias；“主实体被 gate”不代表 
 ### Plan 06 — Secondary discovery
 
 1. Recommendation、concept cache、wiki resolution 只产生 public targets。
-2. Library representative/source/media/diagram 与 image proxy 实施 owner-aware gate；coverage helper 保持 private。
+2. Library complete brand-model/source/media/diagram 与 image proxy 实施 owner-aware gate；`BrandMuseum` 改为“全部型号”并显示准确数量，coverage helper 保持 private。
 3. Exhibit/timeline JSON links 解析后 gate；library/source/media/exhibit/timeline 随 surface no-store。
 
 ### Plan 07 — Independent parity and browser regression

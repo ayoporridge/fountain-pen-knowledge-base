@@ -27,11 +27,12 @@
 - publication 记录保存 `approved_content_hash` 与审核/发布时间；summary、published story、spec、claim/citation、source、variant、`made_by` 或 primary media 等关键输入变化时，数据库 trigger 原子递增 revision，旧审核立即失效；重新审核才计算并保存新 hash。
 - `published` transition 必须同时受 server-only transaction 和数据库 trigger 约束，直接 SQL 不能绕过 readiness、revision、contract version、hash 与 reviewer/timestamp 检查。
 - entity type 进入 brand/pen 时创建或重置 draft publication；brand↔pen 重置审核；离开 brand/pen 时保留显式非 published 记录，不能因删除 publication row 落回 legacy 非品牌可见路径。
+- 可公开 pen 必须且只能有一个指向可公开 canonical brand 的 approved `made_by`；brand 详情页从反向关系列出全部 public pens，不再使用“代表型号”或 `LIMIT 12` 截断。
 - 本阶段采用 fail-closed：readiness 无法计算、publication 缺失或 hash 不匹配时一律不公开。
 
 ### Public surface parity
-- detail、metadata、browse、facets、sitemap、graph、recommendations、品牌代表型号和公开 API 必须共享同一个 SQL/public helper，不得各自复制隐藏规则。
-- 完整列表做双向集合相等；detail/metadata 做逐 ID 可达性等价；facets/统计做聚合等价；graph、recommendations、代表型号等上下文结果只要求为 `public_entities` 的严格子集且不泄漏非公开实体。
+- detail、metadata、browse、facets、sitemap、graph、recommendations、品牌全部型号列表和公开 API 必须共享同一个 SQL/public helper，不得各自复制隐藏规则。
+- 完整列表做双向集合相等；detail/metadata 做逐 ID 可达性等价；facets/统计做聚合等价；graph、recommendations 等上下文结果只要求为 `public_entities` 的严格子集；品牌型号列表则按品牌与 reverse `made_by` public set 双向相等。
 - `isPublicEntity()` 与手工 slug 黑名单只能保留为过渡兼容或 canonical redirect 辅助，不能继续充当 brand/pen 的最终公开真相。
 - 新的公共查询必须避免把内部 publication 字段、blocker 或数据库 id 暴露到浏览 API。
 
@@ -39,6 +40,7 @@
 - 本地 SQLite migration、migration replay、数据契约、build 和全量公开集合测试通过后才完成 Phase 18。
 - Phase 18 不建立远程发布 UI；所有承载实体的页面/API 采用 dynamic/no-store，避免离线导入无法触发 Next cache purge。缓存优化等统一写入口成熟后再恢复。
 - Playwright 与 migration 正向 fixture 必须使用可注入的隔离数据库路径，不得修改 `data/fpkg.db`，也不得依赖 Pilot/LAMY 等真实目录行天然公开。
+- Montblanc 149 与 Majohn A1 都作为 deliberate draft/no-content 回归：Phase 18 证明它们不能以空壳 200 出现；后续内容阶段达标后再验证详情正文与品牌反向链接。
 - 远程 Turso migration 和正式部署不属于本阶段；Phase 26 才进行最终生产切换。
 - migration、write 和 publication transition 不使用自动重试；现有只读瞬时错误恢复规则保持不变。
 
@@ -66,7 +68,7 @@
 - `src/app/[type]/[slug]/page.tsx` — detail/metadata 当前公开判断。
 - `src/app/api/browse/route.ts` — browse API 与 facets 的公开集合入口。
 - `src/app/sitemap.ts` — sitemap 公开实体查询。
-- `src/lib/library.ts` — graph、recommendations、品牌代表型号和其他公共查询中的公开过滤。
+- `src/lib/library.ts` 与 `BrandMuseum` — graph、recommendations、品牌全部型号和其他公共查询中的公开过滤与完整枚举。
 - `src/lib/db.ts` — 本地/Turso 读写、只读 retry 与 micro-batching 约束。
 - `migrations/` — 顺序 migration、checksum 和远程显式迁移惯例。
 - `scripts/check-public-boundary.ts` — 当前公开边界检查及 Phase 18 需要增强的集合相等门禁。

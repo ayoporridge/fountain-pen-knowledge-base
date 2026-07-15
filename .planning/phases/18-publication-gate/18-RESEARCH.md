@@ -71,6 +71,24 @@ brand/model stories are deprecated, most model specifications are `needs_source`
 and existing audit scripts count non-public workflow states as complete. Phase 18
 therefore must fail closed rather than retain the current page count as a quality KPI.
 
+### Brand-model relationship baseline
+
+The 2026-07-15 local raw database already contains many `made_by` links, so the
+problem is both data quality and rendering, not total absence of relations:
+
+- 236 raw pen rows; 231 have at least one `made_by`, five have none;
+- one pen (`英雄派迪-一体尖`) points at two brands;
+- 69 raw brands; 62 have at least one reverse-linked pen, seven have none;
+- Majohn A1 is already linked to the Majohn brand;
+- `getBrandRepresentativeModels()` applies `LIMIT 24` and then `.slice(0, 12)`,
+  while `BrandMuseum` labels the section “代表型号”. Even correct relationships are
+  therefore intentionally hidden from the brand page.
+
+Phase 18 must enforce exactly one public canonical brand for a public pen and replace
+the representative slice with the complete public reverse set. Phase 23 performs the
+full raw inventory repair for the five missing, one multi-brand, seven empty-brand,
+and any semantically wrong links discovered by source-backed review.
+
 ## Migration blocker: false-applied migrations
 
 ### Canonical runner
@@ -263,7 +281,7 @@ brands.
 - `src/app/by/[dimension]/page.tsx`: brand list and entity/pen counts.
 - `src/lib/concept-engine.ts`: cached public entity index and concept matches.
 - `src/components/MarkdownRenderer.tsx`: wiki-link slug resolution.
-- `src/lib/library.ts`: representative models, featured brands, parent brand,
+- `src/lib/library.ts`: complete brand models, featured brands, parent brand,
   exhibit/timeline/diagram links, source index references.
 - `src/app/api/image-proxy/route.ts`: owner-aware access for media IDs.
 
@@ -407,7 +425,7 @@ sets with the same helper (the current tautology). Compare at least:
 - detail/metadata/detail API/preview: per-ID reachability equivalence;
 - facets/statistics: aggregate equivalence;
 - graph hubs/neighbors and recommendation candidates: strict public subset;
-- homepage/by-dimension/representative model discovery;
+- homepage/by-dimension/complete brand-model discovery;
 - wiki, exhibit, timeline, diagram, source, and media links.
 
 Replace `sitemap > 500` with exact set equality. Also assert that unpublished pages
@@ -418,7 +436,7 @@ leak publication internals.
 
 After each wave: migration safety, data contract, public boundary, library contract,
 lint, build, then desktop/mobile Playwright coverage. Phase completion requires an
-independent verifier to prove PUB-01 through PUB-06 against code and fresh databases.
+independent verifier to prove PUB-01 through PUB-07 against code and fresh databases.
 
 ## Planning decomposition
 
@@ -437,8 +455,10 @@ Recommended plans:
 5. **Primary discovery surfaces** — browse/home/by-dimension, graph and links API,
    including list/aggregate/subset semantics and no-store.
 6. **Secondary discovery surfaces** — recommendations, concept/wiki resolution,
-   library/source/media/exhibit/timeline owner gates and no-store.
-7. **Independent parity and browser regression** — Montblanc 149 fail-closed case,
+   complete brand-model enumeration, library/source/media/exhibit/timeline owner
+   gates and no-store.
+7. **Independent parity and browser regression** — Montblanc 149 and Majohn A1
+   fail-closed cases, complete brand-model reverse parity,
    bidirectional/per-ID/aggregate/subset checks, API leak checks, old E2E rewrite,
    and the complete local phase gate.
 

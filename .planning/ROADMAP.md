@@ -4,7 +4,7 @@
 **Updated:** 2026-07-15
 **Current Milestone:** v1.2 内容百科化与型号扩容
 **Granularity:** Fine
-**v1.2 Requirements:** 50
+**v1.2 Requirements:** 53
 
 ## Overview
 
@@ -142,12 +142,13 @@ v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史
 
 **Goal**: 公开页面只来自同一个可计算、可失效的 `public_entities` 真相集合，新建或未达标实体不会再以空壳形式泄漏。
 **Depends on**: Phase 17
-**Requirements**: PUB-01, PUB-02, PUB-03, PUB-04, PUB-05, PUB-06
+**Requirements**: PUB-01, PUB-02, PUB-03, PUB-04, PUB-05, PUB-06, PUB-07
 **Success Criteria** (what must be TRUE):
   1. 新建实体默认保持 draft；未达标、retired 或身份未决条目从详情页及全部发现入口消失，直接访问为 404，canonical 合并项明确跳转
-  2. 完整列表型 surface 与 `public_entities` 双向相等；detail/metadata 按 ID 可达性等价；facets/统计聚合等价；graph、recommendations、品牌代表型号等上下文结果严格为其子集
+  2. 完整列表型 surface 与 `public_entities` 双向相等；detail/metadata 按 ID 可达性等价；facets/统计聚合等价；graph、recommendations 等上下文结果严格为其子集；品牌型号列表按品牌与 reverse `made_by` public set 双向相等
   3. 正文、摘要、规格、证据、版本或主图变化后，旧 content review 立即失效，条目重新审核前不能继续公开
   4. 迁移只建立显式 publication 记录和 draft/backlog，不会批量复活 313 篇 deprecated 旧故事或 grandfather 旧条目
+  5. 每个公开型号恰好关联一个公开 canonical 品牌；品牌详情的型号区反向列出全部公开型号，数量与 `made_by` 关系集合一致且不截断
 **Plans**: TBD
 **UI hint**: yes
 
@@ -168,12 +169,13 @@ v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史
 
 **Goal**: 用户在品牌和型号页看到的是当前 content hash 下唯一已发布、证据充分且适合阅读的完整百科内容。
 **Depends on**: Phase 19
-**Requirements**: PAGE-01, PAGE-02, PAGE-03, PAGE-04, PAGE-05, PAGE-06, PAGE-07
+**Requirements**: PAGE-01, PAGE-02, PAGE-03, PAGE-04, PAGE-05, PAGE-06, PAGE-07, PAGE-08
 **Success Criteria** (what must be TRUE):
   1. 品牌和型号页显示 60–160 字自然中文摘要及唯一 published story，不再从 deprecated story 或 legacy body 拼出正式正文
   2. 型号页可阅读身份、历史、设计/尺寸/材质、笔尖与归因体验、上墨维护、版本边界和购买检查点，并显示逐字段有证据的规格、来源、版本与实体准确主图
   3. 品牌页可阅读正式正文、至少两个已审核时间节点、至少一个达标代表型号、来源及品牌相关主图
   4. 未知或未批准模块直接省略，页面不出现“暂无规格/来源/图片”等占位块，示意封面不冒充实物图
+  5. 品牌页列出其全部已发布型号及准确数量，型号页可返回唯一 canonical 品牌；两端链接与关系表一致
   5. 桌面与手机均可完整阅读章节导航、表格、来源、图片、版本和关系入口，无横向溢出或不可操作区域
 **Plans**: TBD
 **UI hint**: yes
@@ -209,13 +211,14 @@ v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史
 
 **Goal**: 2026-07-15 基线的 65 个品牌与 231 个型号全部有可信终态，不再有未盘点或靠低质量数据占据公开面的条目。
 **Depends on**: Phase 22
-**Requirements**: CONT-01, CONT-02, CONT-03, CONT-04, CONT-05, CONT-06, CONT-07
+**Requirements**: CONT-01, CONT-02, CONT-03, CONT-04, CONT-05, CONT-06, CONT-07, CONT-09
 **Success Criteria** (what must be TRUE):
   1. 基线 296 条逐条清账完毕，每条最终为达标 published，或带明确 blocker 的 draft/retired 并完全退出公开面，未盘点数为 0
   2. 每个公开型号满足 A/B/C 对应正文篇幅与主题覆盖，至少五项逐字段核实规格、两个独立来源组和合格主图；每个公开品牌具备完整身份/时间线/产品体系及至少一个达标代表型号
   3. 53 篇 Richard’s Pens legacy longform 逐篇完成版权、allowed use、独立性和事实 scope 审查；无站内全文权利的内容只作研究材料
   4. 223 个缺严格公开型号图的条目逐条完成来源、许可、落地、attribution 和实体匹配，无法取得合格图片的条目保持不公开
   5. 全库重复句、模板段、AI 套话、机器翻译腔、模糊归因、第一人称归属、数字/单位和中英文排版检查对所有新写或重写正文零失败
+  6. 231 个基线型号逐条完成 canonical 品牌归属核对，缺失/多重/错误 `made_by` 为 0；品牌反向型号集合零遗漏，Majohn A1 在内容达标前保持隐藏、达标后详情完整并出现在末匠品牌页
 **Plans**: TBD
 **UI hint**: yes
 

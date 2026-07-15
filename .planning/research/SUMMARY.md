@@ -102,7 +102,7 @@ public_entities
   AND blockers = 0
 ```
 
-detail、metadata、sitemap、browse、facets、graph、recommendations、品牌代表型号和公开 API 必须读取同一个 `public_entities` 集合。未达标 slug 直接返回 404，并从所有公开入口消失；如需编辑预览，使用受保护、`noindex` 的 preview route。
+detail、metadata、sitemap、browse、facets、graph、recommendations、品牌全部型号列表和公开 API 必须读取同一个 `public_entities` 授权集合。品牌型号列表按 reverse `made_by` 完整枚举，不做代表性截断。未达标 slug 直接返回 404，并从所有公开入口消失；如需编辑预览，使用受保护、`noindex` 的 preview route。
 
 所有新 publication 默认 `draft`。补全与发布必须是原子操作，不能先公开壳页再慢慢补内容。summary、story、spec、claim、citation、variant 或 primary media 变化时，旧 content review 因 hash 失效而不能继续授权公开。
 
