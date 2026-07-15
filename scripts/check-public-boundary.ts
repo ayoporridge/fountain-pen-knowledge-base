@@ -1303,6 +1303,15 @@ async function seedSecondaryLinkFixtures(
       'boundary-secondary-item'
     )
   `);
+  await db.execute(`
+    INSERT INTO entity_links (id, source_id, target_id, link_type)
+    VALUES (
+      'boundary-public-pen-draft-direct',
+      'boundary-public-pen',
+      'boundary-draft-brand',
+      'related'
+    )
+  `);
   await publishEntity(db, {
     entityId: "boundary-public-pen",
     reviewer: "boundary-checker",
@@ -1341,6 +1350,30 @@ async function seedSecondaryLinkFixtures(
   `);
   await publishEntity(db, {
     entityId: "boundary-public-peer",
+    reviewer: "boundary-checker",
+  });
+
+  await insertBoundaryEntity(db, "boundary-public-tag-peer", "pen");
+  await insertBoundaryStory(db, "boundary-public-tag-peer", "model_story");
+  await db.execute(`
+    INSERT INTO entity_links (id, source_id, target_id, link_type)
+    VALUES (
+      'boundary-public-tag-peer-maker',
+      'boundary-public-tag-peer',
+      'boundary-public-brand',
+      'made_by'
+    )
+  `);
+  await db.execute(`
+    INSERT INTO entity_tags (id, entity_id, tag_id)
+    VALUES (
+      'boundary-public-tag-peer-nib',
+      'boundary-public-tag-peer',
+      'boundary-tag-nib'
+    )
+  `);
+  await publishEntity(db, {
+    entityId: "boundary-public-tag-peer",
     reviewer: "boundary-checker",
   });
 
@@ -1474,7 +1507,17 @@ async function runSecondaryLinkChecks() {
       "Approved model peer with a public brand was omitted.",
     );
     assertCondition(
-      !recommendations.some((item) => item.id === "boundary-draft-pen"),
+      recommendations.some(
+        (item) => item.id === "boundary-public-tag-peer",
+      ),
+      "Published tag-only peer was omitted.",
+    );
+    assertCondition(
+      !recommendations.some(
+        (item) =>
+          item.id === "boundary-draft-pen" ||
+          item.id === "boundary-draft-brand",
+      ),
       "Recommendation leaked a draft direct/model/tag candidate.",
     );
     assertJsonEqual(

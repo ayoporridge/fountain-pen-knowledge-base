@@ -122,12 +122,18 @@ export async function getRecommendations(
               ELSE 'brand'
             END as match_kind
      FROM approved_specs current
-     JOIN public_entities current_entity ON current_entity.id = current.entity_id
+     JOIN public_entities current_entity
+       ON current_entity.id = current.entity_id
+      AND current_entity.type = 'pen'
      JOIN approved_specs candidate ON candidate.entity_id != current.entity_id
        AND current.brand_entity_id IS NOT NULL
        AND candidate.brand_entity_id = current.brand_entity_id
-     JOIN public_entities e ON e.id = candidate.entity_id
-     JOIN public_entities brand ON brand.id = candidate.brand_entity_id
+     JOIN public_entities e
+       ON e.id = candidate.entity_id
+      AND e.type = 'pen'
+     JOIN public_entities brand
+       ON brand.id = candidate.brand_entity_id
+      AND brand.type = 'brand'
      WHERE current.entity_id = ?
      ORDER BY CASE match_kind WHEN 'series' THEN 0 ELSE 1 END, e.name
      LIMIT ?`,
