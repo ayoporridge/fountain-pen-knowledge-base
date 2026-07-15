@@ -5,15 +5,15 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 18
 current_phase_name: 统一发布门禁）
 status: executing
-stopped_at: Completed 18-01-PLAN.md
-last_updated: "2026-07-15T09:49:54.989Z"
+stopped_at: Completed 18-02-PLAN.md
+last_updated: "2026-07-15T11:53:02.111Z"
 last_activity: 2026-07-15
 last_activity_desc: v1.2 roadmap created with 50/50 requirements mapped
 progress:
   total_phases: 16
   completed_phases: 7
   total_plans: 14
-  completed_plans: 8
+  completed_plans: 9
   percent: 44
 ---
 
@@ -29,7 +29,7 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 ## Current Position
 
 Phase: 18 of 26（v1.2 phase 1 of 9 — 统一发布门禁）
-Plan: 1 of 7 in current phase
+Plan: 2 of 7 in current phase
 Status: Ready to execute
 Last activity: 2026-07-15 — v1.2 roadmap created with 50/50 requirements mapped
 
@@ -49,6 +49,7 @@ Progress: [░░░░░░░░░░] 0%
 |-------|-------|-------|----------|
 | 18–26 | 0 | 0 min | — |
 | Phase 18 P01 | 8 min | 2 tasks | 11 files |
+| Phase 18 P02 | 12 min | 2 tasks | 11 files |
 
 ## Accumulated Context
 
@@ -60,6 +61,9 @@ Progress: [░░░░░░░░░░] 0%
 - 109 项覆盖矩阵是 taxonomy 处理项而非净新增页数；Phase 21 后再锁定 create/merge/split/rename/alias/retire 净量
 - P0/P1 在现有 65 个品牌、231 个型号清账完成前不得开始；P2 40 项与 P3 2 项不属于 v1.2 承诺范围
 - [Phase 18]: Migration ownership scanning runs by default across every TypeScript script; six Plan 18-02 legacy runners are accepted only by exact SHA-256 until 18-02 closes. — This preserves zero-bypass enforcement for new or modified scripts without editing files reserved for the immediately following plan.
+- [Phase 18]: FPKG_DATABASE_URL is an isolated server-only file override and is mutually exclusive with Turso. — Fixture mode must fail closed and may never resolve to the real catalog database.
+- [Phase 18]: Local Playwright starts through the shared publication fixture harness. — One lifecycle now owns canonical migration, Next child shutdown, client close, and temp cleanup.
+- [Phase 18]: Plan-level data-contract and build checks use a temporary catalog copy. — Validation must not open or mutate the real SQLite catalog.
 
 ### Pending Todos
 
@@ -77,6 +81,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-07-15T09:49:07.773Z
-Stopped at: Completed 18-01-PLAN.md
+Last session: 2026-07-15T11:53:02.106Z
+Stopped at: Completed 18-02-PLAN.md
 Resume file: None

@@ -165,10 +165,10 @@ v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史
   4. 迁移只建立显式 publication 记录和 draft/backlog，不会批量复活 313 篇 deprecated 旧故事或 grandfather 旧条目
   5. 每个公开型号恰好关联一个公开 canonical 品牌；品牌详情的型号区反向列出全部公开型号，数量与 `made_by` 关系集合一致且不截断
 
-**Plans**: 1/7 plans executed
+**Plans**: 2/7 plans executed
 
 - [x] 18-01-PLAN.md
-- [ ] 18-02-PLAN.md
+- [x] 18-02-PLAN.md
 - [ ] 18-03-PLAN.md
 - [ ] 18-04-PLAN.md
 - [ ] 18-05-PLAN.md
@@ -316,7 +316,7 @@ v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史
 | 15. 内容可信度与信息契约 | v1.1 | Complete | Complete | 2026-07-13 |
 | 16. 分类漫游与响应式体验 | v1.1 | Complete | Complete | 2026-07-13 |
 | 17. 全量回归与生产发布 | v1.1 | Complete | Complete | 2026-07-13 |
-| 18. 统一发布门禁 | v1.2 | 1/7 | In Progress|  |
+| 18. 统一发布门禁 | v1.2 | 2/7 | In Progress|  |
 | 19. 真实审计与证据契约 | v1.2 | 0/TBD | Not started | - |
 | 20. 百科页面 Renderer | v1.2 | 0/TBD | Not started | - |
 | 21. Taxonomy 与身份归一 | v1.2 | 0/TBD | Not started | - |
