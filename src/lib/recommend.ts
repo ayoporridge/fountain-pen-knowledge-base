@@ -1,5 +1,4 @@
 import { queryAll, queryOne } from "@/lib/db";
-import { publicEntityFilter } from "@/lib/public-visibility";
 
 export interface RecommendedEntity {
   id: string;
@@ -65,7 +64,7 @@ export async function getRecommendations(
   limit = 8,
 ): Promise<RecommendedEntity[]> {
   const current = (await queryOne(
-    "SELECT id, type, name FROM entities WHERE id = ?",
+    "SELECT id, type, name FROM public_entities WHERE id = ?",
     [entityId],
   )) as { id: string; type: string; name: string } | undefined;
   if (!current) return [];
@@ -74,13 +73,12 @@ export async function getRecommendations(
     `SELECT e.id, e.type, e.slug, e.name, e.summary,
             el.link_type
      FROM entity_links el
-     JOIN entities e ON (
+     JOIN public_entities e ON (
        (el.source_id = ? AND e.id = el.target_id)
        OR (el.target_id = ? AND e.id = el.source_id)
      )
      WHERE (el.source_id = ? OR el.target_id = ?)
        AND el.link_type != 'reverse'
-       AND ${publicEntityFilter("e")}
      ORDER BY CASE el.link_type
        WHEN 'brand_model' THEN 0
        WHEN 'made_by' THEN 1
@@ -124,13 +122,13 @@ export async function getRecommendations(
               ELSE 'brand'
             END as match_kind
      FROM approved_specs current
+     JOIN public_entities current_entity ON current_entity.id = current.entity_id
      JOIN approved_specs candidate ON candidate.entity_id != current.entity_id
        AND current.brand_entity_id IS NOT NULL
        AND candidate.brand_entity_id = current.brand_entity_id
-     JOIN entities e ON e.id = candidate.entity_id
-     LEFT JOIN entities brand ON brand.id = candidate.brand_entity_id
+     JOIN public_entities e ON e.id = candidate.entity_id
+     JOIN public_entities brand ON brand.id = candidate.brand_entity_id
      WHERE current.entity_id = ?
-       AND ${publicEntityFilter("e")}
      ORDER BY CASE match_kind WHEN 'series' THEN 0 ELSE 1 END, e.name
      LIMIT ?`,
     [entityId, limit * 3],
@@ -153,12 +151,11 @@ export async function getRecommendations(
      JOIN tags t ON t.id = mine.tag_id
      JOIN entity_tags theirs ON theirs.tag_id = mine.tag_id
        AND theirs.entity_id != mine.entity_id
-     JOIN entities e ON e.id = theirs.entity_id
+     JOIN public_entities e ON e.id = theirs.entity_id
      WHERE mine.entity_id = ?
        AND t.dimension IN (
          'nib_material', 'nib_type', 'fill_system', 'origin', 'body_material'
        )
-       AND ${publicEntityFilter("e")}
      GROUP BY e.id, e.type, e.slug, e.name, e.summary
      ORDER BY shared_tags DESC, e.name
      LIMIT ?`,

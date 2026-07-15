@@ -1256,6 +1256,362 @@ async function runDiscoveryGraphChecks() {
   );
 }
 
+async function seedSecondaryLinkFixtures(
+  db: ReturnType<typeof createClient>,
+): Promise<void> {
+  await db.execute(`
+    INSERT INTO source_registry (
+      id, name, source_type, allowed_use, reliability, homepage_url
+    ) VALUES (
+      'boundary-secondary-source',
+      'Boundary secondary source',
+      'official',
+      'metadata_only',
+      'high_for_basic_facts',
+      'https://boundary.invalid/'
+    )
+  `);
+  await db.execute(`
+    INSERT INTO source_items (
+      id, source_id, title, url, review_status
+    ) VALUES (
+      'boundary-secondary-item',
+      'boundary-secondary-source',
+      'Boundary secondary item',
+      'https://boundary.invalid/secondary',
+      'approved'
+    )
+  `);
+
+  await db.execute(`
+    INSERT INTO model_specs (
+      id, entity_id, brand_entity_id, series_name, review_status
+    ) VALUES (
+      'boundary-public-pen-spec',
+      'boundary-public-pen',
+      'boundary-public-brand',
+      'Boundary Series',
+      'approved'
+    )
+  `);
+  await db.execute(`
+    INSERT INTO citations (id, target_type, target_id, source_item_id)
+    VALUES (
+      'boundary-public-pen-spec-citation',
+      'model_spec',
+      'boundary-public-pen-spec',
+      'boundary-secondary-item'
+    )
+  `);
+  await publishEntity(db, {
+    entityId: "boundary-public-pen",
+    reviewer: "boundary-checker",
+  });
+
+  await insertBoundaryEntity(db, "boundary-public-peer", "pen");
+  await insertBoundaryStory(db, "boundary-public-peer", "model_story");
+  await db.execute(`
+    INSERT INTO entity_links (id, source_id, target_id, link_type)
+    VALUES (
+      'boundary-public-peer-maker',
+      'boundary-public-peer',
+      'boundary-public-brand',
+      'made_by'
+    )
+  `);
+  await db.execute(`
+    INSERT INTO model_specs (
+      id, entity_id, brand_entity_id, series_name, review_status
+    ) VALUES (
+      'boundary-public-peer-spec',
+      'boundary-public-peer',
+      'boundary-public-brand',
+      'Boundary Series',
+      'approved'
+    )
+  `);
+  await db.execute(`
+    INSERT INTO citations (id, target_type, target_id, source_item_id)
+    VALUES (
+      'boundary-public-peer-spec-citation',
+      'model_spec',
+      'boundary-public-peer-spec',
+      'boundary-secondary-item'
+    )
+  `);
+  await publishEntity(db, {
+    entityId: "boundary-public-peer",
+    reviewer: "boundary-checker",
+  });
+
+  await db.execute(`
+    INSERT INTO model_specs (
+      id, entity_id, brand_entity_id, series_name, review_status
+    ) VALUES (
+      'boundary-draft-pen-spec',
+      'boundary-draft-pen',
+      'boundary-public-brand',
+      'Boundary Series',
+      'approved'
+    )
+  `);
+  await db.execute(`
+    INSERT INTO citations (id, target_type, target_id, source_item_id)
+    VALUES (
+      'boundary-draft-pen-spec-citation',
+      'model_spec',
+      'boundary-draft-pen-spec',
+      'boundary-secondary-item'
+    )
+  `);
+
+  for (const suffix of ["current", "peer"] as const) {
+    const entityId = `boundary-misaligned-${suffix}`;
+    await insertBoundaryEntity(db, entityId, "pen");
+    await insertBoundaryStory(db, entityId, "model_story");
+    await db.execute({
+      sql: `INSERT INTO entity_links (id, source_id, target_id, link_type)
+            VALUES (?, ?, 'boundary-public-brand', 'made_by')`,
+      args: [`${entityId}-maker`, entityId],
+    });
+    await db.execute({
+      sql: `INSERT INTO model_specs (
+              id, entity_id, brand_entity_id, series_name, review_status
+            ) VALUES (?, ?, 'boundary-draft-brand', 'Draft Brand Series', 'approved')`,
+      args: [`${entityId}-spec`, entityId],
+    });
+    await db.execute({
+      sql: `INSERT INTO citations (id, target_type, target_id, source_item_id)
+            VALUES (?, 'model_spec', ?, 'boundary-secondary-item')`,
+      args: [`${entityId}-citation`, `${entityId}-spec`],
+    });
+    await publishEntity(db, {
+      entityId,
+      reviewer: "boundary-checker",
+    });
+  }
+
+  await insertBoundaryEntity(db, "boundary-public-concept", "concept");
+  await db.execute(`
+    INSERT INTO concept_rules (id, name, slug, conditions)
+    VALUES (
+      'boundary-public-rule',
+      'Boundary public rule',
+      'boundary-public-concept',
+      '[{"dimension":"nib_type","tag_slug":"boundary-nib"}]'
+    )
+  `);
+
+  await insertBoundaryEntity(db, "boundary-draft-concept", "concept");
+  await db.execute(`
+    INSERT INTO entity_publications (entity_id, status, blockers_json)
+    VALUES (
+      'boundary-draft-concept',
+      'draft',
+      '["publication_draft"]'
+    )
+  `);
+  await db.execute(`
+    INSERT INTO concept_rules (id, name, slug, conditions)
+    VALUES (
+      'boundary-draft-rule',
+      'Boundary draft rule',
+      'boundary-draft-concept',
+      '[{"dimension":"nib_type","tag_slug":"boundary-nib"}]'
+    )
+  `);
+}
+
+async function runSecondaryLinkChecks() {
+  const before = realDatabaseSnapshot();
+  const tempRoot = fs.realpathSync.native(
+    fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-public-boundary-secondary-links-")),
+  );
+  const databasePath = path.join(tempRoot, "fixture.db");
+  const databaseUrl = `file:${databasePath}`;
+  const fixtureDb = createClient({ url: databaseUrl });
+
+  process.env.TURSO_DATABASE_URL = "";
+  process.env.TURSO_AUTH_TOKEN = "";
+  process.env.FPKG_DATABASE_URL = databaseUrl;
+  process.env.PUBLICATION_GATE_FIXTURE = "1";
+
+  try {
+    await migrateDatabase(fixtureDb);
+    await seedBoundaryFixtures(fixtureDb);
+    await seedSecondaryLinkFixtures(fixtureDb);
+
+    const recommendModule = await import("../src/lib/recommend");
+    const conceptModule = await import("../src/lib/concept-engine");
+    const markdownModule = await import("../src/components/MarkdownRenderer");
+    const reactModule = await import("react");
+    Object.assign(globalThis, { React: reactModule.default });
+
+    const directPublicRows = await fixtureDb.execute(
+      "SELECT id, type, slug FROM public_entities",
+    );
+    const publicIds = new Set(directPublicRows.rows.map((row) => String(row.id)));
+    const publicPaths = new Set(
+      directPublicRows.rows.map((row) => `/${row.type}/${row.slug}`),
+    );
+
+    const recommendations = await recommendModule.getRecommendations(
+      "boundary-public-pen",
+      30,
+    );
+    assertCondition(
+      recommendations.length > 0,
+      "Published recommendation fixture returned no candidates.",
+    );
+    for (const recommendation of recommendations) {
+      assertCondition(
+        publicIds.has(recommendation.id),
+        `Recommendation leaked ${recommendation.id} outside direct public_entities oracle.`,
+      );
+    }
+    assertCondition(
+      recommendations.some((item) => item.id === "boundary-public-peer"),
+      "Approved model peer with a public brand was omitted.",
+    );
+    assertCondition(
+      !recommendations.some((item) => item.id === "boundary-draft-pen"),
+      "Recommendation leaked a draft direct/model/tag candidate.",
+    );
+    assertJsonEqual(
+      await recommendModule.getRecommendations("boundary-draft-pen", 30),
+      [],
+      "Draft recommendation current entity",
+    );
+
+    const misalignedRecommendations = await recommendModule.getRecommendations(
+      "boundary-misaligned-current",
+      30,
+    );
+    assertCondition(
+      !misalignedRecommendations.some(
+        (item) => item.id === "boundary-misaligned-peer",
+      ),
+      "Recommendation used an unpublished model-spec brand alias.",
+    );
+
+    const recomputed = await conceptModule.recomputeAllConceptMatches();
+    assertCondition(
+      recomputed.total ===
+        directPublicRows.rows.filter((row) => row.type === "pen").length,
+      "Concept recompute did not traverse exactly the direct public pen set.",
+    );
+    const materializedRows = await fixtureDb.execute(
+      "SELECT concept_id, entity_id FROM concept_matches ORDER BY concept_id, entity_id",
+    );
+    assertCondition(
+      materializedRows.rows.every(
+        (row) =>
+          row.concept_id === "boundary-public-rule" &&
+          publicIds.has(String(row.entity_id)),
+      ),
+      "Concept recompute materialized an unpublished concept or entity target.",
+    );
+    assertCondition(
+      materializedRows.rows.some(
+        (row) => row.entity_id === "boundary-public-pen",
+      ),
+      "Concept recompute omitted the matching published pen.",
+    );
+    assertCondition(
+      !materializedRows.rows.some(
+        (row) => row.entity_id === "boundary-draft-pen",
+      ),
+      "Concept recompute materialized a draft pen.",
+    );
+
+    await fixtureDb.execute(`
+      INSERT INTO concept_matches (id, concept_id, entity_id)
+      VALUES
+        ('boundary-stale-draft-pen-match', 'boundary-public-rule', 'boundary-draft-pen'),
+        ('boundary-stale-draft-concept-match', 'boundary-draft-rule', 'boundary-public-pen')
+    `);
+    const visibleConceptEntities = (await conceptModule.getEntitiesForConcept(
+      "boundary-public-rule",
+    )) as Array<{ id: string }>;
+    assertCondition(
+      visibleConceptEntities.every((entity) => publicIds.has(entity.id)) &&
+        !visibleConceptEntities.some(
+          (entity) => entity.id === "boundary-draft-pen",
+        ),
+      "Concept read leaked a stale unpublished match.",
+    );
+    assertJsonEqual(
+      await conceptModule.getEntitiesForConcept("boundary-draft-rule"),
+      [],
+      "Draft concept stale materialization",
+    );
+
+    const rendered = (await markdownModule.MarkdownRenderer({
+      content:
+        "[[boundary-public-pen]] / [[boundary-draft-pen]] / [[boundary-draft-concept]]",
+    })) as { props?: { html?: unknown } };
+    const html = String(rendered.props?.html || "");
+    const wikiHrefs = [...html.matchAll(/href="([^"]+)"/g)].map(
+      (match) => match[1],
+    );
+    assertCondition(
+      wikiHrefs.includes("/pen/boundary-public-pen"),
+      "Wiki renderer omitted a direct public target.",
+    );
+    assertCondition(
+      wikiHrefs.every((href) => publicPaths.has(href)),
+      `Wiki renderer emitted a target outside direct public_entities oracle: ${wikiHrefs.join(", ")}`,
+    );
+    assertCondition(
+      !html.includes('href="/pen/boundary-draft-pen"') &&
+        !html.includes('href="/concept/boundary-draft-concept"') &&
+        html.includes("boundary-draft-pen") &&
+        html.includes("boundary-draft-concept"),
+      "Unpublished wiki targets did not degrade to readable non-link text.",
+    );
+
+    await fixtureDb.execute(`
+      UPDATE entities
+      SET summary = 'Critical edit invalidates the current publication review.'
+      WHERE id = 'boundary-public-pen'
+    `);
+    assertJsonEqual(
+      await recommendModule.getRecommendations("boundary-public-pen", 30),
+      [],
+      "Critically edited recommendation current entity",
+    );
+    assertCondition(
+      !(await conceptModule.getEntitiesForConcept("boundary-public-rule") as Array<{ id: string }>).some(
+        (entity) => entity.id === "boundary-public-pen",
+      ),
+      "Stale concept row survived a critical edit on the next read.",
+    );
+    const editedWiki = (await markdownModule.MarkdownRenderer({
+      content: "[[boundary-public-pen]]",
+    })) as { props?: { html?: unknown } };
+    assertCondition(
+      !String(editedWiki.props?.html || "").includes("href="),
+      "Wiki target survived a critical edit on the next render.",
+    );
+  } finally {
+    try {
+      getDb().close();
+    } finally {
+      fixtureDb.close();
+      fs.rmSync(tempRoot, { recursive: true, force: true });
+    }
+  }
+
+  assertCondition(
+    !fs.existsSync(tempRoot),
+    "Secondary links fixture was not cleaned.",
+  );
+  assertRealDatabaseUnchanged(before, "Secondary links checks");
+  console.log(
+    "Secondary links boundary passed: recommendations, concept materialization/readback, stale matches, and wiki targets are direct public_entities subsets.",
+  );
+}
+
 async function runLegacyBoundary() {
   const db = createClient({ url: "file:data/fpkg.db" });
   const failures: string[] = [];
@@ -1536,6 +1892,10 @@ async function main() {
   }
   if (args.includes("--discovery-graph")) {
     await runDiscoveryGraphChecks();
+    return;
+  }
+  if (args.includes("--secondary-links")) {
+    await runSecondaryLinkChecks();
     return;
   }
   await runLegacyBoundary();

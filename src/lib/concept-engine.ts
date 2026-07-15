@@ -1,6 +1,5 @@
 import { nanoid } from "nanoid";
 import { execute, queryAll } from "@/lib/db";
-import { publicEntityFilter } from "@/lib/public-visibility";
 
 interface ConceptCondition {
   dimension: string;
@@ -15,11 +14,10 @@ export async function matchConceptsForEntity(
   entityId: string,
 ): Promise<string[]> {
   const publicPen = await queryAll(
-    `SELECT e.id
-     FROM entities e
-     WHERE e.id = ?
-       AND e.type = 'pen'
-       AND ${publicEntityFilter("e")}`,
+    `SELECT public_pen.id
+     FROM public_entities public_pen
+     WHERE public_pen.id = ?
+       AND public_pen.type = 'pen'`,
     [entityId],
   );
   if (publicPen.length === 0) return [];
@@ -28,9 +26,9 @@ export async function matchConceptsForEntity(
   const rules = (await queryAll(
     `SELECT cr.id, cr.conditions
      FROM concept_rules cr
-     JOIN entities concept
+     JOIN public_entities concept
        ON concept.type = 'concept' AND concept.slug = cr.slug
-     WHERE ${publicEntityFilter("concept")}`,
+    `,
   )) as Array<{ id: string; conditions: string }>;
 
   // Get entity's tags
@@ -77,10 +75,9 @@ export async function recomputeAllConceptMatches(): Promise<{
   await execute("DELETE FROM concept_matches");
 
   const entities = (await queryAll(
-    `SELECT e.id
-     FROM entities e
-     WHERE e.type = 'pen'
-       AND ${publicEntityFilter("e")}`,
+    `SELECT public_pen.id
+     FROM public_entities public_pen
+     WHERE public_pen.type = 'pen'`,
   )) as Array<{ id: string }>;
 
   let totalMatches = 0;
@@ -107,13 +104,11 @@ export async function getEntitiesForConcept(conceptId: string) {
     `SELECT e.id, e.type, e.slug, e.name, e.summary
      FROM concept_matches cm
      JOIN concept_rules cr ON cr.id = cm.concept_id
-     JOIN entities concept
+     JOIN public_entities concept
        ON concept.type = 'concept' AND concept.slug = cr.slug
-     JOIN entities e ON e.id = cm.entity_id
+     JOIN public_entities e ON e.id = cm.entity_id
      WHERE cr.id = ?
-       AND ${publicEntityFilter("concept")}
        AND e.type = 'pen'
-       AND ${publicEntityFilter("e")}
      ORDER BY e.name`,
     [conceptId],
   );
