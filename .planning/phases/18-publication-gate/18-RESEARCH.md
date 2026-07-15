@@ -424,17 +424,27 @@ independent verifier to prove PUB-01 through PUB-06 against code and fresh datab
 
 Recommended plans:
 
-1. **Migration ownership and isolated fixtures** — remove every legacy runner, add
-   static guard/tests, and make local/Playwright database paths injectable.
-2. **`030` publication contract** — tables/views/triggers, canonical hash and
-   server-only publish transaction, state transitions, replay and DB fixtures.
-3. **Runtime gate and all public surfaces** — canonical helpers, every primary and
-   secondary surface, non-brand/pen compatibility, dynamic/no-store behavior.
-4. **Independent parity and browser regression** — Montblanc 149 fail-closed case,
-   exact/aggregate/subset checks, API leak checks, old E2E rewrite, full verification.
+1. **Importer migration ownership** — remove the ten false-apply importer runners
+   and add the full scripts ownership/static behavior gate.
+2. **Seed/import runner cleanup and isolated fixtures** — route four seed entry
+   points through the canonical runner, make CSV/Markdown readiness-only, and add
+   injectable local/Playwright database harnesses.
+3. **`030` publication contract** — tables/views/triggers, version-aware schema
+   readiness, canonical hash, server-only publish transaction, state transitions,
+   replay and DB fixtures.
+4. **Core runtime gate** — canonical public helper, detail/metadata, sitemap,
+   entity list/detail/preview APIs, middleware, and no-store on every changed surface.
+5. **Primary discovery surfaces** — browse/home/by-dimension, graph and links API,
+   including list/aggregate/subset semantics and no-store.
+6. **Secondary discovery surfaces** — recommendations, concept/wiki resolution,
+   library/source/media/exhibit/timeline owner gates and no-store.
+7. **Independent parity and browser regression** — Montblanc 149 fail-closed case,
+   bidirectional/per-ID/aggregate/subset checks, API leak checks, old E2E rewrite,
+   and the complete local phase gate.
 
-Run sequentially because schema and fixture dependencies are strict and the public
-visibility/test files overlap. Do not postpone fixtures until the final plan.
+Run all seven plans sequentially because schema, fixture and shared checker
+dependencies are strict. Each plan and task owns fewer than fifteen modified files;
+fixtures are established in Plan 02 rather than postponed to the final plan.
 
 ## What not to do
 

@@ -84,7 +84,7 @@ try {
 }
 ```
 
-**Apply to Plan 01:**
+**Apply to Plan 03:**
 
 - `030` 只写普通 DDL、indexes、row triggers 和小规模 `INSERT OR IGNORE ... SELECT` backfill；不要在 migration 文件中包 outer `BEGIN/COMMIT`。
 - publish transition 复用同一个 bounded transaction/rollback 结构，但不能复用 migration marker 逻辑，也不能经过 `retryTransientDatabaseRead()`。
@@ -110,7 +110,7 @@ if (!pending) {
 return pending;
 ```
 
-`assertDatabaseReady()` 已经只读检查 marker 与 checksum，缺 schema 或 pending migration 时 fail closed（`src/lib/db.ts:234-277`）。Plan 01 应在这个函数中继续增加 `sqlite_schema` critical-object 检查，而不是新增一个旁路 readiness 函数。
+`assertDatabaseReady()` 已经只读检查 marker 与 checksum，缺 schema 或 pending migration 时 fail closed（`src/lib/db.ts:234-277`）。Plan 03 应在这个函数中继续增加版本感知的 `sqlite_schema` critical-object 检查，而不是新增一个旁路 readiness 函数。
 
 **Schema-object analogs:**
 
@@ -136,7 +136,7 @@ export function publicEntityFilter(alias = "e"): string {
 }
 ```
 
-**Apply to Plan 02:**
+**Apply to Plan 04:**
 
 - `publicEntityFilter(alias)` 应变成 alias-safe `EXISTS` against `public_entities`；所有 list/join 查询继续传内部常量 alias。
 - 增加 `getPublicEntityBySlug(type, slug)`（或等价 direct-view helper），让 metadata、detail 与 public entity API 直接从同一 view 获取，而不是 raw `entities` + JS 判断。
@@ -151,7 +151,7 @@ export function publicEntityFilter(alias = "e"): string {
 
 当前 metadata 与 page 都先调用 `getCanonicalEntityPath(type, slug)`，命中后 `permanentRedirect()`；之后才查询实体和执行 404。这一顺序符合 Phase 18：legacy identity 仍可 redirect，但 canonical target 若未发布会由目标 route 404。
 
-Plan 02 只需把后半段从 raw query + `isPublicEntity()` 改成 canonical public lookup：
+Plan 04 只需把后半段从 raw query + `isPublicEntity()` 改成 canonical public lookup：
 
 - 当前 metadata raw lookup：`page.tsx:65-80`；
 - 当前 detail raw `SELECT *` + JS gate：`page.tsx:323-333`；
@@ -178,7 +178,7 @@ return NextResponse.json({
 });
 ```
 
-**Apply to Plan 02/03:**
+**Apply to Plans 04–06:**
 
 - public GET 可以在 SQL 内部读取 `id` 做 join，但 response DTO 不得 spread raw row。
 - 新增 publication 列一律不加入 public DTO：至少阻止 `entity_id`、`status`、`depth_tier`、`quality_score`、`blockers_json`、`approved_content_hash`、`content_revision`、`reviewed_content_revision`、`reviewed_contract_version`、reviewer/timestamps/notes。
@@ -189,7 +189,7 @@ return NextResponse.json({
 
 **Primary analog:** `scripts/check-migration-safety.ts:7-116`
 
-现有 fixture 已提供 Plan 01/03 所需的大部分壳：
+现有 fixture 已提供 Plans 02/03/07 所需的大部分壳：
 
 - `mkdtempSync()` + 独立 migrations dir + file database（8-22）；
 - 首次 apply、第二次 idempotent（25-35）；
@@ -201,7 +201,7 @@ return NextResponse.json({
 
 **Apply to Plan 01:** extend `check-migration-safety.ts` with migration-writer ownership scan，白名单只允许 `src/lib/db.ts` 与 dedicated migration test fixtures 写 `migrations` table。该 guard 必须扫描全量 source files，不执行 importer SQL。
 
-**Apply to Plan 01/03:** new `scripts/check-publication-gate.ts` 复用相同 temp-root lifecycle，但使用 synthetic entities，不修改 `data/fpkg.db`。覆盖 empty replay、current-local-copy upgrade、second run、`quick_check`、`foreign_key_check`、schema objects、draft backfill、deprecated story invariance、illegal writes、critical INSERT/UPDATE/DELETE invalidation、non-brand/pen bidirectional `EXCEPT`。
+**Apply to Plans 02/03/07:** new `scripts/check-publication-gate.ts` 复用相同 temp-root lifecycle，但使用 synthetic entities，不修改 `data/fpkg.db`。Plan 02 建立 isolation lifecycle，Plan 03 覆盖 schema/invalidation/publish，Plan 07 完成 empty replay、current-local-copy upgrade、second run、`quick_check`、`foreign_key_check`、deprecated story invariance 与 non-brand/pen bidirectional `EXCEPT`。
 
 仓库没有“复制 current DB 后 upgrade”或 publication fixture analog；这一段按 validation matrix 新增，不要改写真实 catalog rows。
 
@@ -219,11 +219,11 @@ return NextResponse.json({
 - `finally` 关闭并发 pages；
 - 最后 `expect(failures).toEqual([])`。
 
-Plan 03 应复用 traversal/aggregation 结构，但不能复用当前数量 KPI：`site-quality.spec.ts:911` 的 `> 500` 和 1290 的 `>= 550` 必须改成 exact set equality。
+Plan 07 应复用 traversal/aggregation 结构，但不能复用当前数量 KPI：`site-quality.spec.ts:911` 的 `> 500` 和 1290 的 `>= 550` 必须改成 exact set equality。
 
 ## Complete Surface Anchor Map
 
-Plan 02 必须逐个处理以下 alias；“主实体被 gate”不代表 neighbor/owner/parent 自动安全。
+Plans 04–06 必须逐个处理以下 alias；“主实体被 gate”不代表 neighbor/owner/parent 自动安全。
 
 | Surface | Current anchor | Required Phase 18 change |
 |---|---|---|
@@ -259,7 +259,7 @@ Plan 02 必须逐个处理以下 alias；“主实体被 gate”不代表 neighb
 - image proxy success：`s-maxage=2592000` (`src/app/api/image-proxy/route.ts:82-91`)；
 - E2E 甚至要求 browse 可缓存 (`tests/e2e/site-quality.spec.ts:879-899`)。
 
-这些是 Phase 18 的反模式，不是 analog。Plan 02 必须二选一并用测试固定：
+这些是 Phase 18 的反模式，不是 analog。Plans 04–06 必须统一采用并测试固定的策略：
 
 1. 建立单一 publication/content-revision write path，并在 commit 成功后 purge detail + 全部 discovery surfaces；或
 2. 在统一 purge 尚未完成前，将所有 entity-bearing response 改为 conservative cache policy。
@@ -293,43 +293,51 @@ Plan 02 必须逐个处理以下 alias；“主实体被 gate”不代表 neighb
 | active cache purge | 无 `revalidatePath`/`revalidateTag`/tagged cache | 计划必须显式创建，或选择 conservative no-stale policy；不能默认 TTL 足够 |
 | independent public-universe parity oracle | 当前 checker 导入 runtime helper | expected side 用独立 contract SQL/fixture，actual side 调各 surface；禁止共享 authorization predicate |
 
-## Guidance for the Four Plans
+## Guidance for the Seven Plans
 
-### Plan 01 — Migration ownership and isolated fixtures
+### Plan 01 — Importer migration ownership
 
-严格顺序：
+1. 十个 source/content importer 在 write 前只调用 `assertDatabaseReady(client)`。
+2. `check-migration-safety.ts --migration-ownership` 全量扫描 scripts，并证明 missing migration 时 importer 不写 marker 或业务 row。
 
-1. 删除全部 embedded runner，write mode 前直接 `assertDatabaseReady(client)`；四个 seed entry point 改调 `migrateDatabase(client)`；CSV/Markdown importer 不再执行 migration。
-2. 扩展 `check-migration-safety.ts` 的静态 ownership guard，并先证明 missing `030` 时 importer 失败且不会写 marker。
-3. 让 `src/lib/db.ts` 与 Playwright 支持 server-only 的隔离数据库路径，不修改 `data/fpkg.db`。
-4. 先建 `check-publication-gate.ts` 的临时库生命周期与 synthetic fixture 壳，供后续计划共享。
+### Plan 02 — Seeds, CSV/Markdown, and isolated fixtures
 
-### Plan 02 — `030` publication contract
+1. 四个 seed entry point 只调用 `migrateDatabase(client)`；CSV/Markdown importer 只做 readiness preflight。
+2. `src/lib/db.ts`、`check-publication-gate.ts` 与 Playwright 使用 server-only disposable file DB，fixture 模式拒绝 `data/fpkg.db`。
 
-1. 扩展 `assertDatabaseReady()` 的版本感知 critical `sqlite_schema` object check。
-2. 新增 `030_publication_gate.sql`：tables/checks/indexes/views/state-machine/invalidation/publish-guard triggers + brand/pen draft backfill；不 publish、不改 deprecated story。
-3. 新增 canonical hash 与 bounded server-only publish transaction；所有 write 失败 rollback、无 retry，direct SQL 不能绕过。
-4. 用 isolated DB 覆盖 replay/upgrade/idempotency/constraints/invalidation/publish 与 type transition。
+### Plan 03 — `030` publication contract
 
-避免把 publication `status='published'` 与 hash freshness 写成阻止内容更新的 table-level CHECK；内容更新必须成功，然后因 revision mismatch 立即退出 view。
+1. 版本感知 `sqlite_schema` checks 与 draft-only backfill。
+2. Tables/views/type-state/invalidation/publish-guard triggers、canonical hash 和 bounded server-only publish transaction。
+3. Isolated fixtures 覆盖 schema、backfill、hash、I/U/D invalidation、direct SQL 与 publish rollback。
 
-### Plan 03 — Runtime gate and every public surface
+避免把 publication status/hash freshness 写成阻止内容更新的 table-level CHECK；内容更新必须成功，然后因 revision mismatch 立即退出 view。
 
-1. 先完成 `publicEntityFilter(alias)` → `EXISTS(public_entities)` 和 direct public lookup。
-2. 按上面的 Surface Anchor Map 逐文件替换；每个 query 审计所有 entity aliases，不只主表。
-3. metadata/detail 保持 redirect-first，之后 direct public lookup；unpublished 一律 404 且无 indexable metadata。
-4. public API 保持 explicit projections/exact DTO；增加 publication internals leak guard。
-5. source/media/exhibit/wiki/concept cache 等间接链接也必须 owner-aware gate。
-6. 明确保留 `getLibraryCoverageReport()` 为 private backlog helper。
-7. 将所有 entity-bearing page/API 统一改为 dynamic/no-store；离线写入存在时不采用无法可靠触发的 purge。
+### Plan 04 — Core runtime gate
 
-### Plan 04 — Independent parity and browser regression
+1. `publicEntityFilter(alias)` → `EXISTS(public_entities)` 与 direct public lookup。
+2. Redirect-first detail/metadata、sitemap、entity list/detail/preview APIs、middleware。
+3. 每个被修改的 entity-bearing page/API 同时改为 dynamic/no-store。
 
-1. `check-publication-gate.ts` 使用 synthetic valid brand/pen + missing/draft/in-review/retired/stale/hash/contract/blocker fixtures；Montblanc 149 作为 deliberate draft/no-content regression，不 publish 真实 catalog row。
-2. `check-public-boundary.ts` expected side 独立读取 `public_entities`/contract SQL：完整列表双向相等、detail/metadata 逐 ID 等价、聚合值等价、graph/recommend/library discovery 只允许 public 子集。
-3. `publication-gate.spec.ts` 验证 404、各入口缺席、valid fixture 全 surface 同现、critical edit/retire 立即消失、metadata/JSON-LD 不泄漏、API allowlist。
-4. 复用 sitemap 批处理和 failure aggregation，但删除 `>500`/`>=550` 数量断言。
-5. 最终按 `18-VALIDATION.md` 顺序运行 migration safety → data/publication contracts → public boundary → library → lint/build → desktop/mobile；Phase 18 不运行 remote migration 或 production deploy。
+### Plan 05 — Primary discovery
+
+1. Browse rows/counts/facets、home/by-dimension aggregates 使用 exact public set。
+2. Graph hubs/selected/neighbors 与 links center/source/target/two-hop 每个 alias gate。
+3. 列表用双向 equality、聚合用 keyed equality、graph/links 用 subset；随 surface no-store。
+
+### Plan 06 — Secondary discovery
+
+1. Recommendation、concept cache、wiki resolution 只产生 public targets。
+2. Library representative/source/media/diagram 与 image proxy 实施 owner-aware gate；coverage helper 保持 private。
+3. Exhibit/timeline JSON links 解析后 gate；library/source/media/exhibit/timeline 随 surface no-store。
+
+### Plan 07 — Independent parity and browser regression
+
+1. 完成 fresh/upgrade/idempotent/compatibility matrix；不修改真实 catalog。
+2. Expected side 独立读取 contract SQL，分别比较 bidirectional lists、per-ID reachability、aggregates 与 contextual subsets。
+3. Montblanc 149 draft/valid synthetic E2E，删除 `>500`/`>=550`、真实目录天然公开与 shared-cache 旧断言。
+4. Targeted desktop test 留在任务 verify；4–8 分钟 desktop/mobile full suite 只在 plan verification/phase gate 运行。
+5. Phase 18 不运行 remote migration、push 或 production deploy。
 
 ## Metadata
 
