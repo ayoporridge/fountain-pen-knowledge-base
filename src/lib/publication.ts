@@ -1,5 +1,11 @@
 import { createHash } from "node:crypto";
-import type { InArgs, InStatement, ResultSet } from "@libsql/client";
+import type {
+  Client,
+  InArgs,
+  InStatement,
+  ResultSet,
+  Transaction,
+} from "@libsql/client";
 
 export const PUBLICATION_CONTRACT_VERSION = 1 as const;
 const PUBLICATION_HASH_PREFIX = `sha256:v${PUBLICATION_CONTRACT_VERSION}:`;
@@ -7,6 +13,20 @@ const PUBLICATION_HASH_PREFIX = `sha256:v${PUBLICATION_CONTRACT_VERSION}:`;
 export interface PublicationDatabase {
   execute(statement: InStatement): Promise<ResultSet>;
 }
+
+export interface PublishEntityOptions {
+  entityId: string;
+  reviewer: string;
+}
+
+export interface PublishEntityResult {
+  entityId: string;
+  contentHash: string;
+  contentRevision: number;
+  publishedAt: string;
+}
+
+export type NonPublishedPublicationStatus = "draft" | "in_review" | "retired";
 
 type CanonicalPrimitive = null | boolean | number | string;
 type CanonicalValue =
@@ -427,4 +447,156 @@ export async function computePublicationContentHash(
   return `${PUBLICATION_HASH_PREFIX}${createHash("sha256")
     .update(stableStringify(payload))
     .digest("hex")}`;
+}
+
+async function rollbackQuietly(transaction: Transaction): Promise<void> {
+  if (transaction.closed) return;
+  try {
+    await transaction.rollback();
+  } catch {
+    // Preserve the publication failure that caused the rollback.
+  }
+}
+
+/**
+ * The sole server write path into published. This intentionally performs one
+ * bounded write transaction and never retries: re-running review work after an
+ * ambiguous write error could approve a different source snapshot.
+ */
+export async function publishEntity(
+  db: Pick<Client, "transaction">,
+  options: PublishEntityOptions,
+): Promise<PublishEntityResult> {
+  const entityId = normalizeText(options.entityId);
+  const reviewer = normalizeText(options.reviewer)?.trim();
+  if (!entityId)
+    throw new Error("publishEntity requires a non-empty entityId.");
+  if (!reviewer)
+    throw new Error("publishEntity requires a non-empty reviewer.");
+
+  const transaction = await db.transaction("write");
+  try {
+    const publicationRows = await rows(
+      transaction,
+      `
+        SELECT content_revision
+        FROM entity_publications
+        WHERE entity_id = ?
+      `,
+      [entityId],
+    );
+    if (publicationRows.length === 0) {
+      throw new Error(`Publication row not found: ${entityId}`);
+    }
+
+    const contentHash = await computePublicationContentHash(
+      transaction,
+      entityId,
+    );
+    const publishedAt = new Date().toISOString();
+    await transaction.execute({
+      sql: `
+        UPDATE entity_publications
+        SET status = 'in_review',
+            approved_content_hash = ?,
+            reviewed_content_revision = content_revision,
+            reviewed_contract_version = ?,
+            reviewed_by = ?,
+            reviewed_at = ?,
+            published_at = ?,
+            updated_at = datetime('now')
+        WHERE entity_id = ?
+      `,
+      args: [
+        contentHash,
+        PUBLICATION_CONTRACT_VERSION,
+        reviewer,
+        publishedAt,
+        publishedAt,
+        entityId,
+      ],
+    });
+
+    const readinessRows = await rows(
+      transaction,
+      `
+        SELECT blocker_count, blockers_json, publishable
+        FROM public_entity_readiness
+        WHERE entity_id = ? AND contract_version = ?
+      `,
+      [entityId, PUBLICATION_CONTRACT_VERSION],
+    );
+    const readiness = readinessRows[0];
+    if (!readiness) {
+      throw new Error(`Publication readiness row not found: ${entityId}`);
+    }
+    await transaction.execute({
+      sql: `
+        UPDATE entity_publications
+        SET blockers_json = ?, updated_at = datetime('now')
+        WHERE entity_id = ?
+      `,
+      args: [String(readiness.blockers_json ?? "[]"), entityId],
+    });
+    if (
+      Number(readiness.blocker_count) !== 0 ||
+      Number(readiness.publishable) !== 1
+    ) {
+      throw new Error(
+        `Publication readiness blocked ${entityId}: ${String(readiness.blockers_json ?? "[]")}`,
+      );
+    }
+
+    await transaction.execute({
+      sql: "UPDATE entity_publications SET status = 'published' WHERE entity_id = ?",
+      args: [entityId],
+    });
+    const publicRows = await rows(
+      transaction,
+      "SELECT 1 FROM public_entities WHERE id = ?",
+      [entityId],
+    );
+    if (publicRows.length !== 1) {
+      throw new Error(`Publication membership assertion failed: ${entityId}`);
+    }
+
+    const stateRows = await rows(
+      transaction,
+      `
+        SELECT content_revision
+        FROM entity_publications
+        WHERE entity_id = ?
+      `,
+      [entityId],
+    );
+    const contentRevision = Number(stateRows[0]?.content_revision);
+    await transaction.commit();
+    return { entityId, contentHash, contentRevision, publishedAt };
+  } catch (error) {
+    await rollbackQuietly(transaction);
+    throw error;
+  }
+}
+
+export async function setEntityPublicationStatus(
+  db: PublicationDatabase,
+  entityId: string,
+  status: NonPublishedPublicationStatus,
+): Promise<void> {
+  if (!(["draft", "in_review", "retired"] as const).includes(status)) {
+    throw new Error(
+      `Unsupported non-published publication status: ${String(status)}`,
+    );
+  }
+  const result = await db.execute({
+    sql: `
+      UPDATE entity_publications
+      SET status = ?, published_at = NULL, updated_at = datetime('now')
+      WHERE entity_id = ?
+    `,
+    args: [status, entityId],
+  });
+  if (result.rowsAffected !== 1) {
+    throw new Error(`Publication row not found: ${entityId}`);
+  }
 }

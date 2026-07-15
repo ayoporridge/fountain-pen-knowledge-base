@@ -1087,3 +1087,57 @@ BEGIN
       updated_at = datetime('now')
   WHERE entity_id = OLD.source_id;
 END;
+
+-- A published row must first exist as a non-public review row so readiness can
+-- be recomputed from committed-to-this-transaction metadata. Direct published
+-- inserts cannot satisfy that two-step contract.
+CREATE TRIGGER publication_publish_insert_guard
+BEFORE INSERT ON entity_publications
+WHEN NEW.status = 'published'
+BEGIN
+  SELECT RAISE(
+    ABORT,
+    'publication_guard: published insert requires an existing review row'
+  );
+END;
+
+-- The database independently checks every transition into published. It cannot
+-- reproduce the TypeScript SHA-256 calculation, but it enforces the canonical
+-- format and all current revision/contract/reviewer/readiness invariants.
+CREATE TRIGGER publication_publish_transition_guard
+BEFORE UPDATE OF status ON entity_publications
+WHEN NEW.status = 'published' AND OLD.status IS NOT 'published'
+BEGIN
+  SELECT CASE WHEN NEW.approved_content_hash IS NULL
+    OR length(NEW.approved_content_hash) != 74
+    OR substr(NEW.approved_content_hash, 1, 10) != 'sha256:v1:'
+    OR substr(NEW.approved_content_hash, 11) GLOB '*[^0-9a-f]*'
+    THEN RAISE(ABORT, 'publication_guard: invalid approved content hash')
+  END;
+  SELECT CASE WHEN NEW.reviewed_content_revision IS NULL
+    OR NEW.reviewed_content_revision != NEW.content_revision
+    THEN RAISE(ABORT, 'publication_guard: stale reviewed revision')
+  END;
+  SELECT CASE WHEN NEW.reviewed_contract_version IS NULL
+    OR NEW.reviewed_contract_version != 1
+    THEN RAISE(ABORT, 'publication_guard: stale contract version')
+  END;
+  SELECT CASE WHEN NEW.reviewed_by IS NULL OR trim(NEW.reviewed_by) = ''
+    THEN RAISE(ABORT, 'publication_guard: reviewer is required')
+  END;
+  SELECT CASE WHEN NEW.reviewed_at IS NULL OR trim(NEW.reviewed_at) = ''
+    THEN RAISE(ABORT, 'publication_guard: reviewed_at is required')
+  END;
+  SELECT CASE WHEN NEW.published_at IS NULL OR trim(NEW.published_at) = ''
+    THEN RAISE(ABORT, 'publication_guard: published_at is required')
+  END;
+  SELECT CASE WHEN NOT EXISTS (
+    SELECT 1
+    FROM public_entity_readiness readiness
+    WHERE readiness.entity_id = NEW.entity_id
+      AND readiness.contract_version = 1
+      AND readiness.blocker_count = 0
+      AND readiness.publishable = 1
+  ) THEN RAISE(ABORT, 'publication_guard: readiness blockers remain')
+  END;
+END;

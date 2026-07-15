@@ -12,7 +12,9 @@ import {
 } from "../src/lib/db";
 import {
   computePublicationContentHash,
+  publishEntity,
   readPublicationContentPayload,
+  setEntityPublicationStatus,
 } from "../src/lib/publication";
 
 const ROOT = process.cwd();
@@ -258,6 +260,7 @@ async function forceReviewedPublication(
   status: "draft" | "in_review" | "published" | "retired" = "published",
 ): Promise<void> {
   const contentHash = await computePublicationContentHash(client, entityId);
+  const stagedStatus = status === "published" ? "in_review" : status;
   await client.execute({
     sql: `
       UPDATE entity_publications
@@ -274,8 +277,14 @@ async function forceReviewedPublication(
           updated_at = datetime('now')
       WHERE entity_id = ?
     `,
-    args: [status, contentHash, status, entityId],
+    args: [stagedStatus, contentHash, status, entityId],
   });
+  if (status === "published") {
+    await client.execute({
+      sql: "UPDATE entity_publications SET status = 'published' WHERE entity_id = ?",
+      args: [entityId],
+    });
+  }
 }
 
 async function blockerCodes(client: Client, entityId: string): Promise<string[]> {
@@ -369,17 +378,17 @@ async function runMigrationContract(): Promise<void> {
       "UPDATE entities SET type = 'brand' WHERE id = 'fixture-transition'",
     );
     await assertPublicationReset(client, "fixture-transition", 1);
-    await forceReviewedPublication(client, "fixture-transition");
+    await forceReviewedPublication(client, "fixture-transition", "in_review");
     await client.execute(
       "UPDATE entities SET type = 'pen' WHERE id = 'fixture-transition'",
     );
     await assertPublicationReset(client, "fixture-transition", 2);
-    await forceReviewedPublication(client, "fixture-transition");
+    await forceReviewedPublication(client, "fixture-transition", "in_review");
     await client.execute(
       "UPDATE entities SET type = 'brand' WHERE id = 'fixture-transition'",
     );
     await assertPublicationReset(client, "fixture-transition", 3);
-    await forceReviewedPublication(client, "fixture-transition");
+    await forceReviewedPublication(client, "fixture-transition", "in_review");
     await client.execute(
       "UPDATE entities SET type = 'article' WHERE id = 'fixture-transition'",
     );
@@ -401,7 +410,7 @@ async function runMigrationContract(): Promise<void> {
 
     await insertEntity(client, "fixture-pen-missing-maker", "pen");
     await insertStory(client, "fixture-pen-missing-maker", "model_story");
-    await forceReviewedPublication(client, "fixture-pen-missing-maker");
+    await forceReviewedPublication(client, "fixture-pen-missing-maker", "in_review");
     await assertBlocker(client, "fixture-pen-missing-maker", "missing_made_by");
     await assertNotPublic(client, "fixture-pen-missing-maker");
 
@@ -416,7 +425,7 @@ async function runMigrationContract(): Promise<void> {
         'made_by'
       )
     `);
-    await forceReviewedPublication(client, "fixture-pen-draft-maker");
+    await forceReviewedPublication(client, "fixture-pen-draft-maker", "in_review");
     await assertBlocker(
       client,
       "fixture-pen-draft-maker",
@@ -442,7 +451,7 @@ async function runMigrationContract(): Promise<void> {
         'made_by'
       );
     `);
-    await forceReviewedPublication(client, "fixture-pen-multiple-makers");
+    await forceReviewedPublication(client, "fixture-pen-multiple-makers", "in_review");
     await assertBlocker(
       client,
       "fixture-pen-multiple-makers",
@@ -1013,6 +1022,292 @@ async function runInvalidationContract(): Promise<void> {
   );
 }
 
+async function publicationSnapshot(client: Client, entityId: string): Promise<string> {
+  const result = await client.execute({
+    sql: `
+      SELECT entity_id, status, depth_tier, quality_score, blockers_json,
+             approved_content_hash, content_revision, reviewed_content_revision,
+             reviewed_contract_version, reviewed_by, reviewed_at, published_at,
+             review_notes, created_at, updated_at
+      FROM entity_publications
+      WHERE entity_id = ?
+    `,
+    args: [entityId],
+  });
+  return JSON.stringify(result.rows[0] ?? null);
+}
+
+async function stageDirectReview(
+  client: Client,
+  entityId: string,
+  options: {
+    revisionOffset?: number;
+    contractVersion?: number;
+    reviewer?: string | null;
+    reviewedAt?: string | null;
+    publishedAt?: string | null;
+  } = {},
+): Promise<string> {
+  const contentHash = await computePublicationContentHash(client, entityId);
+  await client.execute({
+    sql: `
+      UPDATE entity_publications
+      SET approved_content_hash = ?,
+          reviewed_content_revision = content_revision + ?,
+          reviewed_contract_version = ?,
+          reviewed_by = ?,
+          reviewed_at = ?,
+          published_at = ?,
+          updated_at = datetime('now')
+      WHERE entity_id = ?
+    `,
+    args: [
+      contentHash,
+      options.revisionOffset ?? 0,
+      options.contractVersion ?? 1,
+      options.reviewer === undefined ? "direct-reviewer" : options.reviewer,
+      options.reviewedAt === undefined
+        ? "2026-07-15T02:00:00.000Z"
+        : options.reviewedAt,
+      options.publishedAt === undefined
+        ? "2026-07-15T02:00:01.000Z"
+        : options.publishedAt,
+      entityId,
+    ],
+  });
+  return contentHash;
+}
+
+async function runPublishContract(): Promise<void> {
+  await withFixture(async ({ client }) => {
+    await insertEntity(client, "fixture-no-publication", "article");
+    await expectReject(
+      () => publishEntity(client, {
+        entityId: "fixture-no-publication",
+        reviewer: "fixture-reviewer",
+      }),
+      "Publication row not found",
+    );
+
+    await insertEntity(client, "fixture-statuses", "brand");
+    await insertStory(client, "fixture-statuses", "brand_story");
+    await assertNotPublic(client, "fixture-statuses");
+    for (const status of ["in_review", "retired", "draft"] as const) {
+      await setEntityPublicationStatus(client, "fixture-statuses", status);
+      assertCondition(
+        (await publicationState(client, "fixture-statuses")).status === status,
+        `setEntityPublicationStatus did not persist ${status}.`,
+      );
+      await assertNotPublic(client, "fixture-statuses");
+    }
+    await expectReject(
+      () => setEntityPublicationStatus(
+        client,
+        "fixture-statuses",
+        "published" as never,
+      ),
+      "Unsupported non-published publication status",
+    );
+    await setEntityPublicationStatus(client, "fixture-statuses", "retired");
+    await publishEntity(client, {
+      entityId: "fixture-statuses",
+      reviewer: "fixture-reviewer",
+    });
+    await assertPublic(client, "fixture-statuses");
+
+    await insertEntity(client, "fixture-rollback", "brand");
+    const rollbackBefore = await publicationSnapshot(client, "fixture-rollback");
+    let transactionCalls = 0;
+    const countingClient = {
+      transaction: (...args: Parameters<Client["transaction"]>) => {
+        transactionCalls += 1;
+        return client.transaction(...args);
+      },
+    } as Pick<Client, "transaction">;
+    await expectReject(
+      () => publishEntity(countingClient, {
+        entityId: "fixture-rollback",
+        reviewer: "fixture-reviewer",
+      }),
+      "missing_published_story",
+    );
+    assertCondition(transactionCalls === 1, `publishEntity retried its write ${transactionCalls} times.`);
+    assertCondition(
+      rollbackBefore === await publicationSnapshot(client, "fixture-rollback"),
+      "Failed publish left partial review metadata instead of rolling back.",
+    );
+    await assertNotPublic(client, "fixture-rollback");
+
+    await insertEntity(client, "fixture-direct-status", "brand");
+    await insertStory(client, "fixture-direct-status", "brand_story");
+    await expectReject(
+      () => client.execute(
+        "UPDATE entity_publications SET status = 'published' WHERE entity_id = 'fixture-direct-status'",
+      ),
+      "publication_guard: invalid approved content hash",
+    );
+    await expectReject(
+      () => client.execute(
+        "UPDATE entity_publications SET approved_content_hash = 'not-a-hash' WHERE entity_id = 'fixture-direct-status'",
+      ),
+      "CHECK constraint failed",
+    );
+
+    await insertEntity(client, "fixture-stale-revision", "brand");
+    await insertStory(client, "fixture-stale-revision", "brand_story");
+    await stageDirectReview(client, "fixture-stale-revision", { revisionOffset: -1 });
+    await expectReject(
+      () => client.execute(
+        "UPDATE entity_publications SET status = 'published' WHERE entity_id = 'fixture-stale-revision'",
+      ),
+      "publication_guard: stale reviewed revision",
+    );
+
+    await insertEntity(client, "fixture-stale-contract", "brand");
+    await insertStory(client, "fixture-stale-contract", "brand_story");
+    await stageDirectReview(client, "fixture-stale-contract", { contractVersion: 2 });
+    await expectReject(
+      () => client.execute(
+        "UPDATE entity_publications SET status = 'published' WHERE entity_id = 'fixture-stale-contract'",
+      ),
+      "publication_guard: stale contract version",
+    );
+
+    await insertEntity(client, "fixture-missing-reviewer", "brand");
+    await insertStory(client, "fixture-missing-reviewer", "brand_story");
+    await stageDirectReview(client, "fixture-missing-reviewer", { reviewer: null });
+    await expectReject(
+      () => client.execute(
+        "UPDATE entity_publications SET status = 'published' WHERE entity_id = 'fixture-missing-reviewer'",
+      ),
+      "publication_guard: reviewer is required",
+    );
+
+    await insertEntity(client, "fixture-missing-published-at", "brand");
+    await insertStory(client, "fixture-missing-published-at", "brand_story");
+    await stageDirectReview(client, "fixture-missing-published-at", { publishedAt: null });
+    await expectReject(
+      () => client.execute(
+        "UPDATE entity_publications SET status = 'published' WHERE entity_id = 'fixture-missing-published-at'",
+      ),
+      "publication_guard: published_at is required",
+    );
+
+    await insertEntity(client, "fixture-one-statement", "brand");
+    await insertStory(client, "fixture-one-statement", "brand_story");
+    const oneStatementHash = await computePublicationContentHash(
+      client,
+      "fixture-one-statement",
+    );
+    await expectReject(
+      () => client.execute({
+        sql: `
+          UPDATE entity_publications
+          SET status = 'published',
+              approved_content_hash = ?,
+              reviewed_content_revision = content_revision,
+              reviewed_contract_version = 1,
+              reviewed_by = 'direct-reviewer',
+              reviewed_at = '2026-07-15T03:00:00.000Z',
+              published_at = '2026-07-15T03:00:01.000Z'
+          WHERE entity_id = 'fixture-one-statement'
+        `,
+        args: [oneStatementHash],
+      }),
+      "publication_guard: readiness blockers remain",
+    );
+
+    await insertEntity(client, "fixture-published-insert", "article");
+    await expectReject(
+      () => client.execute({
+        sql: `
+          INSERT INTO entity_publications (
+            entity_id, status, approved_content_hash, content_revision,
+            reviewed_content_revision, reviewed_contract_version,
+            reviewed_by, reviewed_at, published_at
+          ) VALUES (?, 'published', ?, 0, 0, 1, 'direct-reviewer', ?, ?)
+        `,
+        args: [
+          "fixture-published-insert",
+          VALID_HASH,
+          "2026-07-15T04:00:00.000Z",
+          "2026-07-15T04:00:01.000Z",
+        ],
+      }),
+      "publication_guard: published insert requires an existing review row",
+    );
+
+    await insertEntity(client, "fixture-valid-brand", "brand");
+    await insertStory(client, "fixture-valid-brand", "brand_story");
+    const firstBrandPublish = await publishEntity(client, {
+      entityId: "fixture-valid-brand",
+      reviewer: "brand-reviewer",
+    });
+    assertCondition(
+      /^sha256:v1:[0-9a-f]{64}$/.test(firstBrandPublish.contentHash),
+      `publishEntity returned malformed hash: ${firstBrandPublish.contentHash}.`,
+    );
+    await assertPublic(client, "fixture-valid-brand");
+    await client.execute(
+      "UPDATE entities SET summary = 'reviewed content changed' WHERE id = 'fixture-valid-brand'",
+    );
+    const invalidatedBrand = await publicationState(client, "fixture-valid-brand");
+    assertCondition(
+      invalidatedBrand.status === "in_review" &&
+        invalidatedBrand.approvedHash === firstBrandPublish.contentHash,
+      "Critical edit did not preserve the stale hash while hiding the brand.",
+    );
+    await assertNotPublic(client, "fixture-valid-brand");
+    const secondBrandPublish = await publishEntity(client, {
+      entityId: "fixture-valid-brand",
+      reviewer: "brand-reviewer-2",
+    });
+    assertCondition(
+      secondBrandPublish.contentHash !== firstBrandPublish.contentHash,
+      "Re-review after critical edit reused the stale content hash.",
+    );
+    await assertPublic(client, "fixture-valid-brand");
+
+    await insertEntity(client, "fixture-valid-pen", "pen");
+    await insertStory(client, "fixture-valid-pen", "model_story");
+    await client.execute(`
+      INSERT INTO entity_links (id, source_id, target_id, link_type)
+      VALUES ('fixture-valid-pen-maker', 'fixture-valid-pen', 'fixture-valid-brand', 'made_by')
+    `);
+    await publishEntity(client, {
+      entityId: "fixture-valid-pen",
+      reviewer: "pen-reviewer",
+    });
+    await assertPublic(client, "fixture-valid-pen");
+
+    await insertEntity(client, "fixture-private-brand", "brand");
+    await insertStory(client, "fixture-private-brand", "brand_story");
+    await insertEntity(client, "fixture-blocked-pen", "pen");
+    await insertStory(client, "fixture-blocked-pen", "model_story");
+    await client.execute(`
+      INSERT INTO entity_links (id, source_id, target_id, link_type)
+      VALUES ('fixture-blocked-pen-maker', 'fixture-blocked-pen', 'fixture-private-brand', 'made_by')
+    `);
+    const blockedPenBefore = await publicationSnapshot(client, "fixture-blocked-pen");
+    await expectReject(
+      () => publishEntity(client, {
+        entityId: "fixture-blocked-pen",
+        reviewer: "pen-reviewer",
+      }),
+      "made_by_brand_not_public",
+    );
+    assertCondition(
+      blockedPenBefore === await publicationSnapshot(client, "fixture-blocked-pen"),
+      "Blocked pen publish did not roll back review metadata.",
+    );
+    await assertNotPublic(client, "fixture-blocked-pen");
+  });
+
+  console.log(
+    "Publication publish contract passed: non-public states stay hidden, direct SQL is DB-guarded, failures roll back without retry, and valid brand/pen publish atomically.",
+  );
+}
+
 function processIsAlive(pid: number): boolean {
   try {
     process.kill(pid, 0);
@@ -1322,13 +1617,17 @@ async function main(): Promise<void> {
     await runInvalidationContract();
     return;
   }
+  if (args.includes("--publish")) {
+    await runPublishContract();
+    return;
+  }
   if (args.includes("--serve-e2e")) {
     await serveE2E(parsePort(args));
     return;
   }
 
   throw new Error(
-    "Usage: pnpm check:publication-gate -- --fixture-isolation | --migration | --backfill | --invalidation | --serve-e2e --port 3107",
+    "Usage: pnpm check:publication-gate -- --fixture-isolation | --migration | --backfill | --invalidation | --publish | --serve-e2e --port 3107",
   );
 }
 
