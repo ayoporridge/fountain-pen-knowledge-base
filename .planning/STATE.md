@@ -5,16 +5,16 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 18
 current_phase_name: 统一发布门禁
 status: executing
-stopped_at: Completed 18-04-PLAN.md
-last_updated: "2026-07-15T12:52:56.942Z"
+stopped_at: Completed 18-05-PLAN.md
+last_updated: "2026-07-15T13:07:26.347Z"
 last_activity: 2026-07-15
-last_activity_desc: Completed 18-04 core public page and API boundary
+last_activity_desc: Completed 18-05 primary discovery publication boundary
 progress:
   total_phases: 16
   completed_phases: 7
   total_plans: 14
-  completed_plans: 11
-  percent: 79
+  completed_plans: 12
+  percent: 86
 ---
 
 # State: Fountain Pen Knowledge Graph
@@ -29,19 +29,19 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 ## Current Position
 
 Phase: 18 of 26（v1.2 phase 1 of 9 — 统一发布门禁）
-Plan: 4 of 7 in current phase
+Plan: 5 of 7 in current phase
 Status: Ready to execute
-Last activity: 2026-07-15 — Completed 18-04 core public page and API boundary
+Last activity: 2026-07-15 — Completed 18-05 primary discovery publication boundary
 
-Progress: [████████░░] 79%
+Progress: [█████████░] 86%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 4
-- Average duration: 21 min
-- Total execution time: 82 min
+- Total plans completed: 5
+- Average duration: 19 min
+- Total execution time: 94 min
 
 **By Phase:**
 
@@ -52,6 +52,7 @@ Progress: [████████░░] 79%
 | Phase 18 P02 | 12 min | 2 tasks | 11 files |
 | Phase 18 P03 | 30 min | 3 tasks | 4 files |
 | Phase 18 P04 | 32 min | 2 tasks | 9 files |
+| Phase 18 P05 | 12 min | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -72,6 +73,9 @@ Progress: [████████░░] 79%
 - [Phase 18]: Local migrate uses the shared disposable database resolver — Fixture mode must reject the real catalog path and regression tests compare its snapshot.
 - [Phase 18]: Middleware routes while server pages authorize content — Database-backed public visibility must not enter the Edge bundle; public_entities remains the sole authorization set.
 - [Phase 18]: Core entity APIs use exact no-store DTOs — Public responses stay backward-compatible while IDs and publication internals remain private.
+- [Phase 18]: Primary discovery pages consume explicit canonical DTO helpers — Browse, homepage, and dimension parity are now testable against an independent public_entities oracle.
+- [Phase 18]: Graph validation uses contextual public-subset semantics — LIMIT results are not equated to the whole universe; each returned hub and degree is independently public-checked.
+- [Phase 18]: Primary discovery remains force-dynamic and no-store — Offline publication invalidation cannot safely purge stale Next caches yet.
 
 ### Pending Todos
 
@@ -85,10 +89,10 @@ None.
 
 ## Next Action
 
-执行 `18-05-PLAN.md`，让 browse、首页、分类维度、graph 与 links 全部读取 `public_entities`。
+执行 `18-06-PLAN.md`，让推荐、概念、Wiki、品牌全型号、资料库、来源、媒体、图片、展品与时间线全部受 `public_entities` 门禁约束并禁用缓存。
 
 ## Session Continuity
 
-Last session: 2026-07-15T12:52:38.336Z
-Stopped at: Completed 18-04-PLAN.md
+Last session: 2026-07-15T13:07:26.342Z
+Stopped at: Completed 18-05-PLAN.md
 Resume file: None
