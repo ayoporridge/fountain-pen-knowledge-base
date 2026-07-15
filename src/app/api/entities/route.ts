@@ -2,8 +2,11 @@ import { nanoid } from "nanoid";
 import { type NextRequest, NextResponse } from "next/server";
 import { verifyWriteAccess } from "@/lib/admin-auth";
 import { execute, queryAll, queryOne } from "@/lib/db";
-import { publicEntityFilter } from "@/lib/public-visibility";
 import { cleanPublicText } from "@/lib/publicText";
+
+export const dynamic = "force-dynamic";
+
+const NO_STORE_HEADERS = { "Cache-Control": "no-store" } as const;
 
 // GET /api/entities?type=pen
 export async function GET(request: NextRequest) {
@@ -12,18 +15,17 @@ export async function GET(request: NextRequest) {
   let rows: unknown[];
   if (type) {
     rows = await queryAll(
-      `SELECT e.type, e.slug, e.name, e.summary
-       FROM entities e
-       WHERE e.type = ? AND ${publicEntityFilter("e")}
-       ORDER BY e.name`,
+      `SELECT type, slug, name, summary
+       FROM public_entities
+       WHERE type = ?
+       ORDER BY name`,
       [type],
     );
   } else {
     rows = await queryAll(
-      `SELECT e.type, e.slug, e.name, e.summary
-       FROM entities e
-       WHERE ${publicEntityFilter("e")}
-       ORDER BY e.name`,
+      `SELECT type, slug, name, summary
+       FROM public_entities
+       ORDER BY name`,
     );
   }
 
@@ -36,7 +38,7 @@ export async function GET(request: NextRequest) {
       : cleanPublicText(row.summary),
   }));
 
-  return NextResponse.json(entities);
+  return NextResponse.json(entities, { headers: NO_STORE_HEADERS });
 }
 
 // POST /api/entities

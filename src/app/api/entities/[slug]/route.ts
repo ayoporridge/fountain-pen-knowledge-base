@@ -2,8 +2,11 @@ import { nanoid } from "nanoid";
 import { type NextRequest, NextResponse } from "next/server";
 import { verifyAdminToken, verifyWriteAccess } from "@/lib/admin-auth";
 import { execute, queryAll, queryOne } from "@/lib/db";
-import { publicEntityFilter } from "@/lib/public-visibility";
 import { cleanPublicText } from "@/lib/publicText";
+
+export const dynamic = "force-dynamic";
+
+const NO_STORE_HEADERS = { "Cache-Control": "no-store" } as const;
 
 // GET /api/entities/[slug]
 export async function GET(
@@ -13,23 +16,31 @@ export async function GET(
   const { slug } = await params;
 
   const entity = (await queryOne(
-    `SELECT e.id, e.type, e.slug, e.name, e.summary FROM entities e
-     WHERE e.slug = ? AND ${publicEntityFilter("e")}`,
+    `SELECT type, slug, name, summary
+     FROM public_entities
+     WHERE slug = ?
+     LIMIT 1`,
     [slug],
   )) as Record<string, unknown> | undefined;
 
   if (!entity) {
-    return NextResponse.json({ error: "Entity not found" }, { status: 404 });
+    return NextResponse.json(
+      { error: "Entity not found" },
+      { status: 404, headers: NO_STORE_HEADERS },
+    );
   }
 
-  return NextResponse.json({
-    type: entity.type,
-    slug: entity.slug,
-    name: entity.name,
-    summary: ["pen", "brand"].includes(String(entity.type))
-      ? null
-      : cleanPublicText(entity.summary),
-  });
+  return NextResponse.json(
+    {
+      type: entity.type,
+      slug: entity.slug,
+      name: entity.name,
+      summary: ["pen", "brand"].includes(String(entity.type))
+        ? null
+        : cleanPublicText(entity.summary),
+    },
+    { headers: NO_STORE_HEADERS },
+  );
 }
 
 // PUT /api/entities/[slug]

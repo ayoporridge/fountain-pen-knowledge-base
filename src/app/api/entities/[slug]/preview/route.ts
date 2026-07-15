@@ -1,6 +1,9 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { queryAll, queryOne } from "@/lib/db";
-import { publicEntityFilter } from "@/lib/public-visibility";
+
+export const dynamic = "force-dynamic";
+
+const NO_STORE_HEADERS = { "Cache-Control": "no-store" } as const;
 
 export async function GET(
   _request: NextRequest,
@@ -14,21 +17,24 @@ export async function GET(
             (
               SELECT COUNT(*)
               FROM entity_links preview_link
-              JOIN entities preview_neighbor ON preview_neighbor.id =
+              JOIN public_entities preview_neighbor ON preview_neighbor.id =
                 CASE
                   WHEN preview_link.source_id = e.id THEN preview_link.target_id
                   ELSE preview_link.source_id
                 END
               WHERE (preview_link.source_id = e.id OR preview_link.target_id = e.id)
-                AND ${publicEntityFilter("preview_neighbor")}
             ) as link_count
-     FROM entities e
-     WHERE e.slug = ? AND ${publicEntityFilter("e")}`,
+     FROM public_entities e
+     WHERE e.slug = ?
+     LIMIT 1`,
     [slug],
   )) as Record<string, string | number | null> | undefined;
 
   if (!entity) {
-    return NextResponse.json({ error: "Not found" }, { status: 404 });
+    return NextResponse.json(
+      { error: "Not found" },
+      { status: 404, headers: NO_STORE_HEADERS },
+    );
   }
 
   // Top tags
@@ -45,12 +51,15 @@ export async function GET(
     [entity.id],
   )) as Array<{ name: string; dimension: string }>;
 
-  return NextResponse.json({
-    type: entity.type,
-    slug: entity.slug,
-    name: entity.name,
-    summary: entity.summary,
-    link_count: entity.link_count,
-    tags,
-  });
+  return NextResponse.json(
+    {
+      type: entity.type,
+      slug: entity.slug,
+      name: entity.name,
+      summary: entity.summary,
+      link_count: entity.link_count,
+      tags,
+    },
+    { headers: NO_STORE_HEADERS },
+  );
 }
