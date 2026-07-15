@@ -5,16 +5,16 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 18
 current_phase_name: 统一发布门禁
 status: executing
-stopped_at: Completed 18-05-PLAN.md
-last_updated: "2026-07-15T13:07:26.347Z"
+stopped_at: Completed 18-06-PLAN.md
+last_updated: "2026-07-15T13:33:58.253Z"
 last_activity: 2026-07-15
-last_activity_desc: Completed 18-05 primary discovery publication boundary
+last_activity_desc: Completed 18-06 secondary surface publication boundary
 progress:
   total_phases: 16
   completed_phases: 7
   total_plans: 14
-  completed_plans: 12
-  percent: 86
+  completed_plans: 13
+  percent: 93
 ---
 
 # State: Fountain Pen Knowledge Graph
@@ -29,30 +29,31 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 ## Current Position
 
 Phase: 18 of 26（v1.2 phase 1 of 9 — 统一发布门禁）
-Plan: 5 of 7 in current phase
+Plan: 6 of 7 in current phase
 Status: Ready to execute
-Last activity: 2026-07-15 — Completed 18-05 primary discovery publication boundary
+Last activity: 2026-07-15 — Completed 18-06 secondary surface publication boundary
 
-Progress: [█████████░] 86%
+Progress: [█████████░] 93%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 5
-- Average duration: 19 min
-- Total execution time: 94 min
+- Total plans completed: 6
+- Average duration: 20 min
+- Total execution time: 119 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 18–26 | 4 | 82 min | 21 min |
+| 18–26 | 6 | 119 min | 20 min |
 | Phase 18 P01 | 8 min | 2 tasks | 11 files |
 | Phase 18 P02 | 12 min | 2 tasks | 11 files |
 | Phase 18 P03 | 30 min | 3 tasks | 4 files |
 | Phase 18 P04 | 32 min | 2 tasks | 9 files |
 | Phase 18 P05 | 12 min | 2 tasks | 8 files |
+| Phase 18 P06 | 25min | 3 tasks | 14 files |
 
 ## Accumulated Context
 
@@ -76,6 +77,9 @@ Progress: [█████████░] 86%
 - [Phase 18]: Primary discovery pages consume explicit canonical DTO helpers — Browse, homepage, and dimension parity are now testable against an independent public_entities oracle.
 - [Phase 18]: Graph validation uses contextual public-subset semantics — LIMIT results are not equated to the whole universe; each returned hub and degree is independently public-checked.
 - [Phase 18]: Primary discovery remains force-dynamic and no-store — Offline publication invalidation cannot safely purge stale Next caches yet.
+- [Phase 18]: Secondary candidate, owner, and resolved target reads all authorize through public_entities. — Independent gating prevents a reviewed child record or stale materialization from inheriting visibility from workflow status alone.
+- [Phase 18]: Brand pages enumerate the complete reverse made_by public-pen set without representative limits. — The public count and every model link must match canonical membership exactly.
+- [Phase 18]: Entity-bearing secondary pages and image responses remain dynamic and no-store. — The project has no unified active purge path, so publication transitions must be visible on the next request.
 
 ### Pending Todos
 
@@ -89,10 +93,10 @@ None.
 
 ## Next Action
 
-执行 `18-06-PLAN.md`，让推荐、概念、Wiki、品牌全型号、资料库、来源、媒体、图片、展品与时间线全部受 `public_entities` 门禁约束并禁用缓存。
+执行 `18-07-PLAN.md`，用独立四语义 parity oracle、migration/compatibility matrix 与 browser E2E 完成 Phase 18 全量本地验收。
 
 ## Session Continuity
 
-Last session: 2026-07-15T13:07:26.342Z
-Stopped at: Completed 18-05-PLAN.md
+Last session: 2026-07-15T13:33:58.248Z
+Stopped at: Completed 18-06-PLAN.md
 Resume file: None
