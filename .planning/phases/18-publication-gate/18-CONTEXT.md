@@ -22,18 +22,23 @@
 - canonical merge 的旧路径继续走显式 redirect；未达标、retired 或身份未决的直接 URL 返回 404，不返回可索引空壳 200。
 
 ### Readiness and invalidation
-- `public_entity_readiness` 负责给出 `publishable` 和 `blockers_json`；Phase 18 先建立可扩展的基础条件，Phase 19 再补齐逐字段证据、来源独立性、版本冲突和内容审核的完整计算。
+- `public_entity_readiness` 负责给出 `publishable` 和当前 contract version 的 blockers；Phase 18 建立 fail-closed 授权机制与 v1 结构门槛，Phase 19 以 v2 补齐逐字段证据、来源独立性、版本冲突和分层内容审核；未升级到当前版本的数据保持隐藏。
 - `public_entities` 是唯一公开集合；publication 不是靠总分或实体存在自动获得。
-- publication 记录保存 `content_hash` 与审核/发布时间；summary、published story、spec、citation、variant 或 primary media 改变后，旧 hash 不再授权公开。
+- publication 记录保存 `approved_content_hash` 与审核/发布时间；summary、published story、spec、claim/citation、source、variant、`made_by` 或 primary media 等关键输入变化时，数据库 trigger 原子递增 revision，旧审核立即失效；重新审核才计算并保存新 hash。
+- `published` transition 必须同时受 server-only transaction 和数据库 trigger 约束，直接 SQL 不能绕过 readiness、revision、contract version、hash 与 reviewer/timestamp 检查。
+- entity type 进入 brand/pen 时创建或重置 draft publication；brand↔pen 重置审核；离开 brand/pen 时保留显式非 published 记录，不能因删除 publication row 落回 legacy 非品牌可见路径。
 - 本阶段采用 fail-closed：readiness 无法计算、publication 缺失或 hash 不匹配时一律不公开。
 
 ### Public surface parity
 - detail、metadata、browse、facets、sitemap、graph、recommendations、品牌代表型号和公开 API 必须共享同一个 SQL/public helper，不得各自复制隐藏规则。
+- 完整列表做双向集合相等；detail/metadata 做逐 ID 可达性等价；facets/统计做聚合等价；graph、recommendations、代表型号等上下文结果只要求为 `public_entities` 的严格子集且不泄漏非公开实体。
 - `isPublicEntity()` 与手工 slug 黑名单只能保留为过渡兼容或 canonical redirect 辅助，不能继续充当 brand/pen 的最终公开真相。
 - 新的公共查询必须避免把内部 publication 字段、blocker 或数据库 id 暴露到浏览 API。
 
 ### Rollout safety
 - 本地 SQLite migration、migration replay、数据契约、build 和全量公开集合测试通过后才完成 Phase 18。
+- Phase 18 不建立远程发布 UI；所有承载实体的页面/API 采用 dynamic/no-store，避免离线导入无法触发 Next cache purge。缓存优化等统一写入口成熟后再恢复。
+- Playwright 与 migration 正向 fixture 必须使用可注入的隔离数据库路径，不得修改 `data/fpkg.db`，也不得依赖 Pilot/LAMY 等真实目录行天然公开。
 - 远程 Turso migration 和正式部署不属于本阶段；Phase 26 才进行最终生产切换。
 - migration、write 和 publication transition 不使用自动重试；现有只读瞬时错误恢复规则保持不变。
 
@@ -74,7 +79,7 @@
 
 - Montblanc 149 必须作为 fail-closed fixture：在 publication 缺失或 draft 时，不得出现在 browse/sitemap/graph/API，直接访问不返回公开 200。
 - 合格 fixture 必须证明 publication 状态、hash 和 readiness 同时通过后，同一个实体才会出现在所有公开 surface。
-- migration 后的初始 publishable brand/pen 数量不得凭旧 coverage 推断，Phase 19 用全量 readiness audit 计算。
+- migration 后真实 brand/pen 的初始 published 数量固定为 0；Phase 19 用全量 readiness audit 计算 v2 下的 publishable backlog。
 - 保留 article、concept、tag 等非 brand/pen 现有公开行为，除非它们明确走新的 publication 记录；本阶段不无意缩小与需求无关的内容面。
 
 </specifics>
@@ -82,7 +87,7 @@
 <deferred>
 ## Deferred Ideas
 
-- 逐字段 citation、source tier/independence、variant scope、冲突与 content review schema — Phase 19。
+- 逐字段 citation、source tier/independence、variant scope、冲突与分层 content review schema — Phase 19；Phase 18 仅提供 publication-level review/hash 和可升级 contract version。
 - brand/model summary、published story、规格、版本和媒体的新 renderer — Phase 20。
 - taxonomy merge/split/alias — Phase 21。
 - Montblanc 149 与全量内容补写 — Phase 22–23。

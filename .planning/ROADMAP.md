@@ -145,7 +145,7 @@ v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史
 **Requirements**: PUB-01, PUB-02, PUB-03, PUB-04, PUB-05, PUB-06
 **Success Criteria** (what must be TRUE):
   1. 新建实体默认保持 draft；未达标、retired 或身份未决条目从详情页及全部发现入口消失，直接访问为 404，canonical 合并项明确跳转
-  2. detail、metadata、browse、facets、sitemap、graph、recommendations、品牌代表型号和公开 API 返回完全相同的 `public_entities` 集合
+  2. 完整列表型 surface 与 `public_entities` 双向相等；detail/metadata 按 ID 可达性等价；facets/统计聚合等价；graph、recommendations、品牌代表型号等上下文结果严格为其子集
   3. 正文、摘要、规格、证据、版本或主图变化后，旧 content review 立即失效，条目重新审核前不能继续公开
   4. 迁移只建立显式 publication 记录和 draft/backlog，不会批量复活 313 篇 deprecated 旧故事或 grandfather 旧条目
 **Plans**: TBD

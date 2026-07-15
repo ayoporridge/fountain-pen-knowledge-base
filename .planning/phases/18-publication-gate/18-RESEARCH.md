@@ -81,7 +81,7 @@ implementation that should remain.
 
 ### Embedded legacy runners
 
-The following eleven scripts contain a compatibility path that, when `entities`
+The following eleven import/library scripts contain a compatibility path that, when `entities`
 already exists, writes pending migration names into `migrations` without executing
 their SQL:
 
@@ -96,6 +96,10 @@ their SQL:
 9. `scripts/import-warm-pen-atlas-media.ts`
 10. `scripts/import-wikidata-brands.ts`
 11. `scripts/seed-library-samples.ts`
+
+The same ownership guard must also cover `scripts/seed-concepts.ts`, which executes
+migrations and writes markers, plus `scripts/import-csv.ts` and
+`scripts/import-markdown.ts`, which independently read and split migration SQL.
 
 Because the resulting marker has a null checksum, the canonical runner later fills
 the checksum and skips the SQL. The migration can remain permanently false-applied.
@@ -126,7 +130,7 @@ One row per explicitly governed entity:
 | `depth_tier` | nullable `A`, `B`, `C` |
 | `quality_score` | nullable integer 0–100; diagnostic only |
 | `blockers_json` | valid JSON array snapshot; never an authorization source |
-| `content_hash` | nullable `sha256:v1:<64 lowercase hex>` |
+| `approved_content_hash` | nullable `sha256:v1:<64 lowercase hex>` for the last approved snapshot |
 | `content_revision` | monotonic non-negative integer |
 | `reviewed_content_revision` | revision approved by reviewer |
 | `reviewed_contract_version` | readiness contract version |
@@ -154,7 +158,8 @@ The Phase 18 v1 fixture contract should cover structural blockers only:
 - missing reviewer/review timestamp.
 
 Phase 19 extends this with the full evidence, spec, source independence, media,
-variant, and conflict rules, then increments the contract version.
+variant, conflict, and layered review rules, then increments the contract version.
+Any row still reviewed under v1 fails closed once v2 becomes current.
 
 ### `public_entity_readiness` view
 
@@ -191,8 +196,9 @@ database is expected to produce zero published brand/pen rows after migration.
 
 ### Hash and invalidation
 
-Compute a canonical JSON hash in TypeScript, using fixed keys, explicit nulls, and
-stable array ordering. At minimum include:
+Compute a canonical JSON hash in TypeScript. The format specification must define
+fixed keys, explicit nulls, type conversion, Unicode NFC, newline normalization,
+array sort keys, duplicate handling, and schema version. At minimum include:
 
 - entity type, slug, name, and summary;
 - correct published brand/model story;
@@ -201,13 +207,27 @@ stable array ordering. At minimum include:
 - approved primary media;
 - pen `made_by` relationship.
 
-SQLite row triggers increment `content_revision` on insert/update/delete of these
-inputs. The old hash remains as audit evidence, while the revision mismatch removes
-the entity from `public_entities` immediately. Entity creation as brand/pen should
-create a draft publication row. Conversion into brand/pen must reset approval/hash
-state so an unrelated prior approval cannot revive.
+The invalidation dependency matrix must additionally cover changes to
+`source_items` review/allowed-use, `source_registry` reliability/license,
+`entity_references`, and any published timeline input used by the active contract.
+Phase 19 migrations must add equivalent invalidation for new conflict, field
+citation, scope, and content-review tables before switching to v2.
 
-The publish function is a dedicated write transaction:
+SQLite row triggers increment `content_revision` on insert/update/delete of these
+inputs and move a currently published row back to `in_review`. The old approved hash
+remains as audit evidence, while the revision mismatch removes the entity from
+`public_entities` immediately. Entity creation as brand/pen should create a draft
+publication row. Conversion into brand/pen and brand↔pen changes must reset
+approval/hash state so an unrelated prior approval cannot revive. Leaving brand/pen
+must retain an explicit non-published publication row; deleting it would fall through
+to the non-brand legacy branch and could make the converted entity public.
+
+The publish function is a dedicated server-only write transaction. A database
+transition trigger must independently reject direct SQL attempts to enter
+`published` unless current readiness, revision, contract version, hash format,
+reviewer, and timestamps are valid.
+
+The controlled transaction:
 
 1. Read stable inputs and compute canonical hash.
 2. Write review metadata, hash, reviewed revision, and contract version.
@@ -284,11 +304,13 @@ Database fail-closed behavior is insufficient if cached pages remain public:
 - `/api/browse` allows ten minutes fresh plus one hour stale-while-revalidate;
 - successful image proxy responses cache for thirty days.
 
-Publication transitions and content-revision invalidation must purge the entity
-detail path plus all entity discovery surfaces. Until a single tag/path invalidation
-write path exists, entity-bearing responses should use a conservative cache policy.
-Tests must demonstrate that a published fixture disappears immediately after a
-critical content edit or retirement, not merely after TTL expiry.
+Offline import scripts and SQLite triggers cannot invoke Next.js cache purge. Phase
+18 therefore changes every entity-bearing page/API to dynamic/no-store, including
+owner-bound image proxy responses. This is the only architecture that makes an
+offline critical edit immediately fail closed without introducing a new authenticated
+publication service and outbox. Tests must demonstrate that a published fixture
+disappears on the next request after a critical edit or retirement. A later phase may
+restore tagged caching once all publication writes share one server-only entry point.
 
 ## SQLite and Turso compatibility
 
@@ -370,8 +392,10 @@ Create isolated fixtures covering:
 - valid v1 published brand and pen;
 - Montblanc 149 as a deliberate draft/no-content regression fixture.
 
-The current local production-shaped rows remain draft. Tests must not publish real
-catalog rows or rely on Pilot/LAMY as permanent fixtures.
+The current local production-shaped rows remain draft. `src/lib/db.ts` must accept a
+server-only test database URL/path override, and Playwright must launch Next against
+that disposable database. Tests must not publish real catalog rows or rely on
+Pilot/LAMY as permanent fixtures.
 
 ### Surface parity
 
@@ -379,11 +403,10 @@ catalog rows or rely on Pilot/LAMY as permanent fixtures.
 the complete public surface universe. It must not compute both expected and actual
 sets with the same helper (the current tautology). Compare at least:
 
-- detail/metadata availability;
-- paginated browse rows and facets;
-- sitemap entity URLs;
-- entity list/detail/preview APIs;
-- graph hubs/neighbors and recommendation candidates;
+- complete lists (browse, sitemap, entity list API): bidirectional equality;
+- detail/metadata/detail API/preview: per-ID reachability equivalence;
+- facets/statistics: aggregate equivalence;
+- graph hubs/neighbors and recommendation candidates: strict public subset;
 - homepage/by-dimension/representative model discovery;
 - wiki, exhibit, timeline, diagram, source, and media links.
 
@@ -401,15 +424,17 @@ independent verifier to prove PUB-01 through PUB-06 against code and fresh datab
 
 Recommended plans:
 
-1. **Migration ownership and `030` schema** — remove legacy runners, add static
-   guard/tests, add publication tables/views/triggers and replay tests.
-2. **Runtime gate and all public surfaces** — canonical helpers, every primary and
-   secondary surface, non-brand/pen compatibility, cache invalidation behavior.
-3. **Independent parity and browser regression** — fixtures, Montblanc 149 fail-closed
-   case, exact universe checks, API leak checks, full build/E2E verification.
+1. **Migration ownership and isolated fixtures** — remove every legacy runner, add
+   static guard/tests, and make local/Playwright database paths injectable.
+2. **`030` publication contract** — tables/views/triggers, canonical hash and
+   server-only publish transaction, state transitions, replay and DB fixtures.
+3. **Runtime gate and all public surfaces** — canonical helpers, every primary and
+   secondary surface, non-brand/pen compatibility, dynamic/no-store behavior.
+4. **Independent parity and browser regression** — Montblanc 149 fail-closed case,
+   exact/aggregate/subset checks, API leak checks, old E2E rewrite, full verification.
 
-Run sequentially because all three plans touch the public visibility contract and
-because Plan 2 requires the schema from Plan 1, while Plan 3 verifies both.
+Run sequentially because schema and fixture dependencies are strict and the public
+visibility/test files overlap. Do not postpone fixtures until the final plan.
 
 ## What not to do
 
@@ -421,4 +446,3 @@ because Plan 2 requires the schema from Plan 1, while Plan 3 verifies both.
 - Do not deploy the local fail-closed intermediate state to production.
 - Do not start full content publishing until Phase 19 has versioned the complete
   evidence contract.
-

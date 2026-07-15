@@ -8,7 +8,7 @@
 ### 公开资格与边界
 
 - [ ] **PUB-01**: 每个品牌和型号具有独立 publication 状态；新建实体默认 `draft`，不能因写入 `entities` 就自动公开
-- [ ] **PUB-02**: 系统通过统一 readiness 契约计算正文、规格、证据、版本、媒体、中文审核与 blocker，只有全部硬门槛通过的实体才可 `published`
+- [ ] **PUB-02**: 系统通过统一且版本化的 readiness 契约汇总当前 contract version 的全部 blocker，只有零 blocker 的实体才可 `published`；Phase 18 建立 fail-closed 授权机制与 v1 结构门槛，正文、规格、证据、版本、媒体和中文审核细则由 Phase 19 的 EVID 要求升级为 v2，未升级数据保持不可公开
 - [ ] **PUB-03**: 详情页、metadata、browse、facets、sitemap、graph、recommendations、品牌代表型号和公开 API 使用完全相同的 `public_entities` 集合
 - [ ] **PUB-04**: 未达标、退休或身份未决的条目不出现在任何公开入口；直接访问返回 404，canonical 合并项使用明确 redirect
 - [ ] **PUB-05**: 正文、摘要、规格、证据、版本或主图变化后，旧 content review 因 hash 变化自动失效，实体不能继续沿用旧审核公开

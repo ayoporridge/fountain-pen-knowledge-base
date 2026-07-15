@@ -51,6 +51,8 @@ Phase 18 不需要发明新的工程框架。仓库已经有四块应直接复�
 
 四个 seed entry point 应调用 `migrateDatabase(client)`，而不是自行读 SQL/写 marker：`scripts/seed.ts`、`scripts/seed-tags.ts`、`scripts/seed-concepts.ts`、`scripts/seed-library-samples.ts`。
 
+此外，`scripts/import-csv.ts` 与 `scripts/import-markdown.ts` 也会自行读取并拆分 migration SQL；ownership guard 必须禁止这些旁路。`seed-library-samples.ts` 同时具有 false-apply 和 seed 两种角色，所以完整风险清单是 11 个 false-apply script，而不是 10 个独立 importer。
+
 ## Pattern Assignments
 
 ### 1. Canonical migration runner 与 publication write transaction
@@ -179,7 +181,7 @@ return NextResponse.json({
 **Apply to Plan 02/03:**
 
 - public GET 可以在 SQL 内部读取 `id` 做 join，但 response DTO 不得 spread raw row。
-- 新增 publication 列一律不加入 public DTO：至少阻止 `entity_id`、`status`、`depth_tier`、`quality_score`、`blockers_json`、`content_hash`、`content_revision`、`reviewed_content_revision`、`reviewed_contract_version`、reviewer/timestamps/notes。
+- 新增 publication 列一律不加入 public DTO：至少阻止 `entity_id`、`status`、`depth_tier`、`quality_score`、`blockers_json`、`approved_content_hash`、`content_revision`、`reviewed_content_revision`、`reviewed_contract_version`、reviewer/timestamps/notes。
 - protected POST/PUT 目前可返回 internal data；不要把其 `SELECT *` 模式复制到 public GET。
 - `tests/e2e/site-quality.spec.ts:427-483` 已对 entity 与 browse payload 做 exact-key allowlist；扩展该测试，同时增加 publication 字段 denylist。links API 同样断言无 source/target database ids。
 
@@ -291,22 +293,27 @@ Plan 02 必须逐个处理以下 alias；“主实体被 gate”不代表 neighb
 | active cache purge | 无 `revalidatePath`/`revalidateTag`/tagged cache | 计划必须显式创建，或选择 conservative no-stale policy；不能默认 TTL 足够 |
 | independent public-universe parity oracle | 当前 checker 导入 runtime helper | expected side 用独立 contract SQL/fixture，actual side 调各 surface；禁止共享 authorization predicate |
 
-## Guidance for the Three Plans
+## Guidance for the Four Plans
 
-### Plan 01 — Migration ownership and `030` schema
+### Plan 01 — Migration ownership and isolated fixtures
 
 严格顺序：
 
-1. 删除 10 个 importer 的 embedded runner，write mode 前直接 `assertDatabaseReady(client)`；四个 seed entry point 改调 `migrateDatabase(client)`。
+1. 删除全部 embedded runner，write mode 前直接 `assertDatabaseReady(client)`；四个 seed entry point 改调 `migrateDatabase(client)`；CSV/Markdown importer 不再执行 migration。
 2. 扩展 `check-migration-safety.ts` 的静态 ownership guard，并先证明 missing `030` 时 importer 失败且不会写 marker。
-3. 扩展 `assertDatabaseReady()` 的 critical `sqlite_schema` object check。
-4. 才新增 `030_publication_gate.sql`：tables/checks/indexes/views/triggers + brand/pen draft backfill；不写 hash、不 publish、不改 deprecated story。
-5. 新增 deterministic hash 与 bounded publish transaction；所有 write 失败 rollback、无 retry。
-6. 用 isolated DB 覆盖 replay/upgrade/idempotency/constraints/invalidation/publish。
+3. 让 `src/lib/db.ts` 与 Playwright 支持 server-only 的隔离数据库路径，不修改 `data/fpkg.db`。
+4. 先建 `check-publication-gate.ts` 的临时库生命周期与 synthetic fixture 壳，供后续计划共享。
+
+### Plan 02 — `030` publication contract
+
+1. 扩展 `assertDatabaseReady()` 的版本感知 critical `sqlite_schema` object check。
+2. 新增 `030_publication_gate.sql`：tables/checks/indexes/views/state-machine/invalidation/publish-guard triggers + brand/pen draft backfill；不 publish、不改 deprecated story。
+3. 新增 canonical hash 与 bounded server-only publish transaction；所有 write 失败 rollback、无 retry，direct SQL 不能绕过。
+4. 用 isolated DB 覆盖 replay/upgrade/idempotency/constraints/invalidation/publish 与 type transition。
 
 避免把 publication `status='published'` 与 hash freshness 写成阻止内容更新的 table-level CHECK；内容更新必须成功，然后因 revision mismatch 立即退出 view。
 
-### Plan 02 — Runtime gate and every public surface
+### Plan 03 — Runtime gate and every public surface
 
 1. 先完成 `publicEntityFilter(alias)` → `EXISTS(public_entities)` 和 direct public lookup。
 2. 按上面的 Surface Anchor Map 逐文件替换；每个 query 审计所有 entity aliases，不只主表。
@@ -314,12 +321,12 @@ Plan 02 必须逐个处理以下 alias；“主实体被 gate”不代表 neighb
 4. public API 保持 explicit projections/exact DTO；增加 publication internals leak guard。
 5. source/media/exhibit/wiki/concept cache 等间接链接也必须 owner-aware gate。
 6. 明确保留 `getLibraryCoverageReport()` 为 private backlog helper。
-7. 落实 purge 或 conservative cache，并修改旧的“必须 shared-cache”测试目标。
+7. 将所有 entity-bearing page/API 统一改为 dynamic/no-store；离线写入存在时不采用无法可靠触发的 purge。
 
-### Plan 03 — Independent parity and browser regression
+### Plan 04 — Independent parity and browser regression
 
 1. `check-publication-gate.ts` 使用 synthetic valid brand/pen + missing/draft/in-review/retired/stale/hash/contract/blocker fixtures；Montblanc 149 作为 deliberate draft/no-content regression，不 publish 真实 catalog row。
-2. `check-public-boundary.ts` expected side 独立读取 `public_entities`/contract SQL，actual side逐个读取 detail、browse/facets、sitemap、APIs、graph/recommend/library discovery；双向 set diff 均为零。
+2. `check-public-boundary.ts` expected side 独立读取 `public_entities`/contract SQL：完整列表双向相等、detail/metadata 逐 ID 等价、聚合值等价、graph/recommend/library discovery 只允许 public 子集。
 3. `publication-gate.spec.ts` 验证 404、各入口缺席、valid fixture 全 surface 同现、critical edit/retire 立即消失、metadata/JSON-LD 不泄漏、API allowlist。
 4. 复用 sitemap 批处理和 failure aggregation，但删除 `>500`/`>=550` 数量断言。
 5. 最终按 `18-VALIDATION.md` 顺序运行 migration safety → data/publication contracts → public boundary → library → lint/build → desktop/mobile；Phase 18 不运行 remote migration 或 production deploy。
