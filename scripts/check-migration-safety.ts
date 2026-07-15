@@ -76,7 +76,7 @@ function assertMigrationOwnership(): void {
 
   const migrateScript = fs.readFileSync(path.join(ROOT, "scripts/migrate.ts"), "utf8");
   if (
-    !/import\s+\{\s*migrateDatabase\s*\}\s+from\s+["']\.\.\/src\/lib\/db["']/.test(
+    !/import\s+\{[^}]*\bmigrateDatabase\b[^}]*\}\s+from\s+["']\.\.\/src\/lib\/db["']/s.test(
       migrateScript,
     ) ||
     !/\bmigrateDatabase\s*\(\s*client\s*\)/.test(migrateScript)
