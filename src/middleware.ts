@@ -1,9 +1,5 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { getReclassifiedArticlePath } from "@/lib/entity-redirects";
-import {
-  HIDDEN_ARTICLE_SLUGS,
-  HIDDEN_CONCEPT_SLUGS,
-} from "@/lib/public-visibility";
 
 const HIDDEN_PUBLIC_PATHS = new Set([
   "/api/chat",
@@ -11,17 +7,6 @@ const HIDDEN_PUBLIC_PATHS = new Set([
   "/by/price",
   "/by/size",
   "/by/usage",
-  "/brand/banju",
-  "/brand/saier",
-  "/brand/shanghai",
-  "/brand/yongxu",
-  "/article/万特佳",
-  "/article/公爵-duke",
-  "/article/半句",
-  "/article/永续",
-  "/article/犀飞利-sheaffer-品牌泛称",
-  ...HIDDEN_ARTICLE_SLUGS.map((slug) => `/article/${slug}`),
-  ...HIDDEN_CONCEPT_SLUGS.map((slug) => `/concept/${slug}`),
 ]);
 
 const ALLOWED_TWO_SEGMENT_NAMESPACES = new Set([

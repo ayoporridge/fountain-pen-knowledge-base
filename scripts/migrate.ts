@@ -1,7 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
 import { createClient } from "@libsql/client";
-import { migrateDatabase } from "../src/lib/db";
+import {
+  migrateDatabase,
+  resolveDatabaseConnection,
+} from "../src/lib/db";
 
 function loadLocalEnv(): void {
   const envPath = path.join(process.cwd(), ".env.local");
@@ -22,30 +25,34 @@ function loadLocalEnv(): void {
 async function main(): Promise<void> {
   const remote = process.argv.includes("--remote");
   if (remote) loadLocalEnv();
-  const localDatabasePath = path.join(process.cwd(), "data", "fpkg.db");
-  const databaseUrl = remote
-    ? process.env.TURSO_DATABASE_URL
-    : `file:${localDatabasePath}`;
 
-  if (!databaseUrl) {
+  const connection = remote
+    ? resolveDatabaseConnection(process.env)
+    : resolveDatabaseConnection({
+        ...process.env,
+        TURSO_DATABASE_URL: undefined,
+        TURSO_AUTH_TOKEN: undefined,
+      });
+
+  if (remote && !process.env.TURSO_DATABASE_URL) {
     throw new Error(
       "TURSO_DATABASE_URL is required. Set it in the environment or .env.local before running `pnpm migrate:remote`.",
     );
   }
 
-  if (remote && !process.env.TURSO_AUTH_TOKEN) {
+  if (remote && !connection.authToken) {
     throw new Error(
       "TURSO_AUTH_TOKEN is required before running `pnpm migrate:remote`.",
     );
   }
 
-  if (!remote) {
-    fs.mkdirSync(path.dirname(localDatabasePath), { recursive: true });
+  if (!remote && connection.localPath) {
+    fs.mkdirSync(path.dirname(connection.localPath), { recursive: true });
   }
 
   const client = createClient({
-    url: databaseUrl,
-    authToken: remote ? process.env.TURSO_AUTH_TOKEN : undefined,
+    url: connection.url,
+    authToken: remote ? connection.authToken : undefined,
   });
 
   try {

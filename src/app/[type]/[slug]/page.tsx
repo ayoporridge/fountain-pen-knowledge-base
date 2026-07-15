@@ -1,4 +1,4 @@
-export const revalidate = 600;
+export const dynamic = "force-dynamic";
 
 import {
   ArrowLeft,
@@ -29,7 +29,10 @@ import {
   type ModelSpecRecord,
 } from "@/lib/library";
 import { getPublicMediaUrl } from "@/lib/media-url";
-import { isPublicEntity, publicEntityFilter } from "@/lib/public-visibility";
+import {
+  getPublicEntityBySlug,
+  publicEntityFilter,
+} from "@/lib/public-visibility";
 import { cleanPublicText, isPlaceholderSourceUrl } from "@/lib/publicText";
 import { toPlainTextSummary } from "@/lib/text";
 
@@ -62,27 +65,8 @@ export async function generateMetadata({
   const slug = decodeURIComponent(rawSlug);
   const canonicalPath = getCanonicalEntityPath(type, slug);
   if (canonicalPath) permanentRedirect(canonicalPath);
-  const entity = (await queryOne(
-    "SELECT id, type, slug, name, summary, body_md FROM entities WHERE slug = ?",
-    [slug],
-  )) as
-    | {
-        id: string;
-        type: string;
-        slug: string;
-        name: string;
-        summary: string | null;
-        body_md: string | null;
-      }
-    | undefined;
-
-  if (!entity || !isPublicEntity(entity)) {
-    return { title: "词条未找到 - 钢笔知识图谱" };
-  }
-
-  if (entity.type !== type || entity.slug !== slug) {
-    permanentRedirect(`/${entity.type}/${entity.slug}`);
-  }
+  const entity = await getPublicEntityBySlug(type, slug);
+  if (!entity) notFound();
 
   const desc =
     !["pen", "brand"].includes(entity.type) && entity.summary
@@ -320,23 +304,11 @@ export default async function EntityPage({ params }: EntityPageProps) {
   const canonicalPath = getCanonicalEntityPath(type, slug);
   if (canonicalPath) permanentRedirect(canonicalPath);
 
-  const entity = (await queryOne("SELECT * FROM entities WHERE slug = ?", [
-    slug,
-  ])) as Record<string, string | number | null> | undefined;
-
-  if (!entity) {
-    notFound();
-  }
-
-  if (!isPublicEntity(entity)) {
-    notFound();
-  }
+  const entity = await getPublicEntityBySlug(type, slug);
+  if (!entity) notFound();
 
   const entityType = String(entity.type);
   const entitySlug = String(entity.slug);
-  if (entityType !== type || entitySlug !== slug) {
-    permanentRedirect(`/${entityType}/${entitySlug}`);
-  }
 
   // Get tags
   const tags = (await queryAll(

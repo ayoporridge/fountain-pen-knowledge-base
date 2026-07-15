@@ -1,9 +1,26 @@
+import { queryOne } from "@/lib/db";
+
 type EntityVisibilityInput = {
   type?: string | number | null;
   slug?: string | number | null;
   name?: string | null;
   summary?: string | null;
   body_md?: string | null;
+};
+
+export type PublicEntity = {
+  id: string;
+  type: string;
+  slug: string;
+  name: string;
+  summary: string | null;
+  body_md: string | null;
+  source: string | null;
+  created_at: string;
+  updated_at: string;
+  source_url: string | null;
+  source_file: string | null;
+  imported_at: string | null;
 };
 
 export const HIDDEN_BRAND_SLUGS = [
@@ -70,43 +87,59 @@ export const INDEX_ARTICLE_MARKERS = [
   "索引条目",
 ];
 
-function quoteSqlLiteral(value: string): string {
-  return `'${value.replaceAll("'", "''")}'`;
-}
-
 /**
- * SQL fragment for the site's public-entity policy.
+ * SQL fragment for the canonical public-entity policy.
  *
  * The alias is restricted to a plain SQL identifier so callers can safely use
- * the same policy in joins without copying (and eventually drifting from) the
- * hidden-content rules.
+ * the same policy in joins without copying publication rules.
  */
 export function publicEntityFilter(alias = "e"): string {
   if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(alias)) {
     throw new Error(`Invalid entity SQL alias: ${alias}`);
   }
 
-  const hiddenBrandSlugs = HIDDEN_BRAND_SLUGS.map(quoteSqlLiteral).join(", ");
-  const hiddenDuplicateSlugs =
-    HIDDEN_DUPLICATE_ENTITY_SLUGS.map(quoteSqlLiteral).join(", ");
-  const hiddenConceptSlugs =
-    HIDDEN_CONCEPT_SLUGS.map(quoteSqlLiteral).join(", ");
-  const hiddenArticleSlugs =
-    HIDDEN_ARTICLE_SLUGS.map(quoteSqlLiteral).join(", ");
-  return `NOT (
-    ${alias}.slug IN (${hiddenDuplicateSlugs})
-    OR (${alias}.type = 'brand' AND ${alias}.slug IN (${hiddenBrandSlugs}))
-    OR (${alias}.type = 'concept' AND ${alias}.slug IN (${hiddenConceptSlugs}))
-    OR (${alias}.type = 'article' AND ${alias}.slug IN (${hiddenArticleSlugs}))
+  return `EXISTS (
+    SELECT 1
+    FROM public_entities public_entity
+    WHERE public_entity.id = ${alias}.id
   )`;
 }
 
 /** @deprecated Prefer publicEntityFilter(alias) in new queries. */
 export const PUBLIC_ENTITY_FILTER_SQL = publicEntityFilter("e");
 
+export async function getPublicEntityBySlug(
+  type: string,
+  slug: string,
+): Promise<PublicEntity | undefined> {
+  return (await queryOne(
+    `SELECT
+       id,
+       type,
+       slug,
+       name,
+       summary,
+       body_md,
+       source,
+       created_at,
+       updated_at,
+       source_url,
+       source_file,
+       imported_at
+     FROM public_entities
+     WHERE type = ? AND slug = ?
+     LIMIT 1`,
+    [type, slug],
+  )) as PublicEntity | undefined;
+}
+
 export function isPublicEntity(entity: EntityVisibilityInput): boolean {
   const type = String(entity.type || "");
   const slug = String(entity.slug || "");
+
+  if (type === "brand" || type === "pen") {
+    return false;
+  }
 
   if ((HIDDEN_DUPLICATE_ENTITY_SLUGS as readonly string[]).includes(slug)) {
     return false;
@@ -115,13 +148,6 @@ export function isPublicEntity(entity: EntityVisibilityInput): boolean {
   if (
     type === "concept" &&
     (HIDDEN_CONCEPT_SLUGS as readonly string[]).includes(slug)
-  ) {
-    return false;
-  }
-
-  if (
-    type === "brand" &&
-    (HIDDEN_BRAND_SLUGS as readonly string[]).includes(slug)
   ) {
     return false;
   }

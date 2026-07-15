@@ -1,6 +1,7 @@
+export const dynamic = "force-dynamic";
+
 import type { MetadataRoute } from "next";
 import { queryAll } from "@/lib/db";
-import { PUBLIC_ENTITY_FILTER_SQL } from "@/lib/public-visibility";
 
 const BASE_URL = "https://fountain-pen-graph.vercel.app";
 
@@ -61,41 +62,36 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   // Dynamic entity pages
-  try {
-    const [entities, exhibits] = (await Promise.all([
-      queryAll(
-        `SELECT type, slug, updated_at
-         FROM entities e
-         WHERE ${PUBLIC_ENTITY_FILTER_SQL}
-         ORDER BY updated_at DESC`,
-      ),
-      queryAll(
-        `SELECT slug, updated_at
-         FROM exhibits
-         WHERE status IN ('published', 'reviewed')
-         ORDER BY updated_at DESC`,
-      ),
-    ])) as [
-      Array<{ type: string; slug: string; updated_at: string }>,
-      Array<{ slug: string; updated_at: string }>,
-    ];
+  const [entities, exhibits] = (await Promise.all([
+    queryAll(
+      `SELECT type, slug, updated_at
+       FROM public_entities
+       ORDER BY updated_at DESC`,
+    ),
+    queryAll(
+      `SELECT slug, updated_at
+       FROM exhibits
+       WHERE status IN ('published', 'reviewed')
+       ORDER BY updated_at DESC`,
+    ),
+  ])) as [
+    Array<{ type: string; slug: string; updated_at: string }>,
+    Array<{ slug: string; updated_at: string }>,
+  ];
 
-    const entityPages: MetadataRoute.Sitemap = entities.map((e) => ({
-      url: `${BASE_URL}/${e.type}/${e.slug}`,
-      lastModified: new Date(e.updated_at),
-      changeFrequency: "weekly" as const,
-      priority: e.type === "pen" ? 0.9 : e.type === "brand" ? 0.7 : 0.5,
-    }));
+  const entityPages: MetadataRoute.Sitemap = entities.map((e) => ({
+    url: `${BASE_URL}/${e.type}/${e.slug}`,
+    lastModified: new Date(e.updated_at),
+    changeFrequency: "weekly" as const,
+    priority: e.type === "pen" ? 0.9 : e.type === "brand" ? 0.7 : 0.5,
+  }));
 
-    const exhibitPages: MetadataRoute.Sitemap = exhibits.map((exhibit) => ({
-      url: `${BASE_URL}/exhibits/${exhibit.slug}`,
-      lastModified: new Date(exhibit.updated_at),
-      changeFrequency: "monthly" as const,
-      priority: 0.65,
-    }));
+  const exhibitPages: MetadataRoute.Sitemap = exhibits.map((exhibit) => ({
+    url: `${BASE_URL}/exhibits/${exhibit.slug}`,
+    lastModified: new Date(exhibit.updated_at),
+    changeFrequency: "monthly" as const,
+    priority: 0.65,
+  }));
 
-    return [...staticPages, ...exhibitPages, ...entityPages];
-  } catch {
-    return staticPages;
-  }
+  return [...staticPages, ...exhibitPages, ...entityPages];
 }
