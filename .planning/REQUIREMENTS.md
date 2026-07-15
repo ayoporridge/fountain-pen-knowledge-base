@@ -103,13 +103,66 @@
 
 ## Traceability
 
-Roadmap 创建后填入；每条 requirement 必须且只能映射到一个 phase。
+每条 v1.2 requirement 必须且只能映射到一个 phase。
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| PUB-01 | Phase 18 | Pending |
+| PUB-02 | Phase 18 | Pending |
+| PUB-03 | Phase 18 | Pending |
+| PUB-04 | Phase 18 | Pending |
+| PUB-05 | Phase 18 | Pending |
+| PUB-06 | Phase 18 | Pending |
+| EVID-01 | Phase 19 | Pending |
+| EVID-02 | Phase 19 | Pending |
+| EVID-03 | Phase 19 | Pending |
+| EVID-04 | Phase 19 | Pending |
+| EVID-05 | Phase 19 | Pending |
+| EVID-06 | Phase 19 | Pending |
+| AUD-01 | Phase 19 | Pending |
+| AUD-02 | Phase 19 | Pending |
+| AUD-03 | Phase 19 | Pending |
+| AUD-04 | Phase 19 | Pending |
+| AUD-05 | Phase 19 | Pending |
+| QA-01 | Phase 19 | Pending |
+| PAGE-01 | Phase 20 | Pending |
+| PAGE-02 | Phase 20 | Pending |
+| PAGE-03 | Phase 20 | Pending |
+| PAGE-04 | Phase 20 | Pending |
+| PAGE-05 | Phase 20 | Pending |
+| PAGE-06 | Phase 20 | Pending |
+| PAGE-07 | Phase 20 | Pending |
+| TAX-01 | Phase 21 | Pending |
+| TAX-02 | Phase 21 | Pending |
+| TAX-03 | Phase 21 | Pending |
+| TAX-04 | Phase 21 | Pending |
+| TAX-05 | Phase 21 | Pending |
+| TAX-06 | Phase 21 | Pending |
+| EXP-01 | Phase 21 | Pending |
+| EXP-05 | Phase 21 | Pending |
+| CONT-08 | Phase 22 | Pending |
+| CONT-01 | Phase 23 | Pending |
+| CONT-02 | Phase 23 | Pending |
+| CONT-03 | Phase 23 | Pending |
+| CONT-04 | Phase 23 | Pending |
+| CONT-05 | Phase 23 | Pending |
+| CONT-06 | Phase 23 | Pending |
+| CONT-07 | Phase 23 | Pending |
+| EXP-02 | Phase 24 | Pending |
+| EXP-04 | Phase 24 | Pending |
+| EXP-03 | Phase 25 | Pending |
+| EXP-06 | Phase 25 | Pending |
+| QA-02 | Phase 26 | Pending |
+| QA-03 | Phase 26 | Pending |
+| QA-04 | Phase 26 | Pending |
+| QA-05 | Phase 26 | Pending |
+| QA-06 | Phase 26 | Pending |
 
 **Coverage:**
 - v1.2 requirements: 50 total
-- Mapped to phases: 0
-- Unmapped: 50
+- Mapped to phases: 50
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-07-15*
-*Last updated: 2026-07-15 after v1.2 content research*
+*Last updated: 2026-07-15 after v1.2 roadmap creation*
