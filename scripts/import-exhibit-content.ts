@@ -1,9 +1,7 @@
-import fs from "node:fs";
-import path from "node:path";
 import { createClient, type Client, type InArgs } from "@libsql/client";
+import { assertDatabaseReady } from "../src/lib/db";
 
 const WRITE = process.argv.includes("--write");
-const MIGRATIONS_DIR = path.join(process.cwd(), "migrations");
 const RETRIEVED_AT = "2026-06-26";
 
 type SourceRegistrySeed = {
@@ -1198,50 +1196,6 @@ async function execute(db: Client, sql: string, args: unknown[] = []) {
   await db.execute({ sql, args: args as InArgs });
 }
 
-async function runMigrations(db: Client) {
-  await execute(
-    db,
-    `CREATE TABLE IF NOT EXISTS migrations (
-      name TEXT PRIMARY KEY NOT NULL,
-      applied_at TEXT NOT NULL DEFAULT (datetime('now'))
-    )`,
-  );
-
-  if (!fs.existsSync(MIGRATIONS_DIR)) return;
-
-  const appliedRows = await db.execute("SELECT name FROM migrations");
-  const applied = new Set(appliedRows.rows.map((row) => String(row.name)));
-  const files = fs
-    .readdirSync(MIGRATIONS_DIR)
-    .filter((file) => file.endsWith(".sql"))
-    .sort();
-  const hasLegacySchema =
-    (
-      await db.execute(
-        "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'entities'",
-      )
-    ).rows.length > 0;
-
-  for (const file of files) {
-    if (applied.has(file)) continue;
-    if (hasLegacySchema && file !== "011_library_schema.sql") {
-      await execute(
-        db,
-        "INSERT OR IGNORE INTO migrations (name, applied_at) VALUES (?, datetime('now'))",
-        [file],
-      );
-      continue;
-    }
-    const sql = fs.readFileSync(path.join(MIGRATIONS_DIR, file), "utf-8");
-    await db.executeMultiple(sql);
-    await execute(
-      db,
-      "INSERT INTO migrations (name, applied_at) VALUES (?, datetime('now'))",
-      [file],
-    );
-  }
-}
-
 async function upsertSourceRegistry(db: Client, source: SourceRegistrySeed) {
   await execute(
     db,
@@ -1366,7 +1320,7 @@ async function main() {
 
   const db = getClient();
   await execute(db, "PRAGMA foreign_keys = ON");
-  if (WRITE) await runMigrations(db);
+  if (WRITE) await assertDatabaseReady(db);
 
   console.log(
     WRITE
