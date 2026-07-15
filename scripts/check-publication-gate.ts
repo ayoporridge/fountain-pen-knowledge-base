@@ -2069,6 +2069,13 @@ async function main(): Promise<void> {
   installSignalHandlers();
   const args = process.argv.slice(2);
 
+  if (args.length === 0 || args.includes("--all")) {
+    await runFixtureIsolation();
+    await runMigrationFullContract();
+    await runCompatibilityContract();
+    return;
+  }
+
   if (args.includes("--signal-probe")) {
     const reportIndex = args.indexOf("--report");
     const reportFile = reportIndex >= 0 ? args[reportIndex + 1] : undefined;
@@ -2110,7 +2117,7 @@ async function main(): Promise<void> {
   }
 
   throw new Error(
-    "Usage: pnpm check:publication-gate -- --fixture-isolation | --migration | --backfill | --invalidation | --publish | --migration-full | --compatibility | --serve-e2e --port 3107",
+    "Usage: pnpm check:publication-gate [-- --all | --fixture-isolation | --migration | --backfill | --invalidation | --publish | --migration-full | --compatibility | --serve-e2e --port 3107]",
   );
 }
 
