@@ -12,13 +12,10 @@ import Link from "next/link";
 import BentoGrid from "@/components/BentoGrid";
 import { EntityCardImage } from "@/components/EntityCardImage";
 import { ScrollReveal } from "@/components/ScrollReveal";
+import { getHomeDiscoveryData } from "@/lib/browse-data";
 import { TYPE_LABELS } from "@/lib/constants";
-import { queryAll } from "@/lib/db";
-import { getPublicMediaUrl } from "@/lib/media-url";
-import { publicMediaFilter } from "@/lib/public-media";
-import { PUBLIC_ENTITY_FILTER_SQL } from "@/lib/public-visibility";
 
-export const revalidate = 600;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "钢笔资料馆",
@@ -26,8 +23,6 @@ export const metadata: Metadata = {
     "一座可追溯的钢笔资料馆：从品牌、型号、工艺、历史展览和关系图谱进入钢笔世界。",
   alternates: { canonical: "/" },
 };
-
-// Star entries per type — queried from DB at build time
 
 const HERO_CATEGORIES = [
   { label: "钢笔型号", href: "/browse?type=pen" },
@@ -73,96 +68,7 @@ export default async function Home() {
     url: "https://fountain-pen-graph.vercel.app/",
     description: "一座可追溯、可按分类漫游的钢笔资料馆。",
   };
-  // Stats
-  const stats = (await queryAll(
-    `SELECT type, COUNT(*) as cnt
-     FROM entities e
-     WHERE ${PUBLIC_ENTITY_FILTER_SQL}
-     GROUP BY type
-     ORDER BY cnt DESC`,
-  )) as Array<{ type: string; cnt: number }>;
-
-  // Featured: well-tagged entries (curated, not just newest)
-  const featured = (await queryAll(
-    `SELECT e.type, e.name, e.slug, e.summary,
-            (
-              SELECT ma.id
-              FROM media_assets ma
-              WHERE ma.entity_id = e.id
-                AND ${publicMediaFilter("ma")}
-              ORDER BY CASE ma.usage_status WHEN 'primary' THEN 0 ELSE 1 END,
-                       ma.created_at DESC,
-                       ma.id
-              LIMIT 1
-            ) as media_id,
-            (
-              SELECT COALESCE(ma.local_path, ma.thumbnail_url, ma.image_url)
-              FROM media_assets ma
-              WHERE ma.entity_id = e.id
-                AND ${publicMediaFilter("ma")}
-              ORDER BY CASE ma.usage_status WHEN 'primary' THEN 0 ELSE 1 END,
-                       ma.created_at DESC,
-                       ma.id
-              LIMIT 1
-            ) as media_url,
-            COUNT(DISTINCT featured_tag.id) as tag_count
-     FROM entities e
-     LEFT JOIN entity_tags et ON et.entity_id = e.id
-     LEFT JOIN tags featured_tag ON featured_tag.id = et.tag_id
-       AND featured_tag.dimension IN (
-         'nib_type', 'nib_material', 'fill_system', 'origin',
-         'body_material'
-       )
-     WHERE ${PUBLIC_ENTITY_FILTER_SQL}
-     GROUP BY e.id
-     HAVING tag_count >= 1
-     ORDER BY tag_count DESC, e.created_at DESC
-     LIMIT 8`,
-  )) as Array<{
-    type: string;
-    name: string;
-    slug: string;
-    summary: string | null;
-    media_id: string | null;
-    media_url: string | null;
-    tag_count: number;
-  }>;
-
-  // Type breakdown with real star entries from DB
-  const typeBreakdown = await Promise.all(
-    stats
-      .filter((s) => s.type !== "material")
-      .map(async (s) => {
-        const type = String(s.type);
-        const stars = (await queryAll(
-          `SELECT name, slug FROM entities e
-           WHERE e.type = ?
-             AND ${PUBLIC_ENTITY_FILTER_SQL}
-           ORDER BY (
-                      SELECT COUNT(*)
-                      FROM entity_tags star_et
-                      JOIN tags star_tag ON star_tag.id = star_et.tag_id
-                      WHERE star_et.entity_id = e.id
-                        AND star_tag.dimension IN (
-                          'nib_type', 'nib_material', 'fill_system', 'origin',
-                          'body_material'
-                        )
-                    ) DESC,
-                    created_at DESC
-           LIMIT ?`,
-          [type, type === "pen" ? 3 : 2],
-        )) as Array<{ name: string; slug: string }>;
-        return {
-          type,
-          cnt: Number(s.cnt),
-          label: TYPE_LABELS[type] || type,
-          stars: stars.map((star) => ({
-            name: String(star.name),
-            slug: String(star.slug),
-          })),
-        };
-      }),
-  );
+  const { stats, featured, typeBreakdown } = await getHomeDiscoveryData();
   const totalEntries = stats.reduce((sum, item) => sum + Number(item.cnt), 0);
   const quickStats = [
     { label: "词条", value: totalEntries },
@@ -376,10 +282,7 @@ export default async function Home() {
                 <span className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-lg">
                   <EntityCardImage
                     compact
-                    src={getPublicMediaUrl({
-                      id: entity.media_id,
-                      imageUrl: entity.media_url,
-                    })}
+                    src={entity.imageUrl}
                     name={entity.name}
                     type={entity.type}
                   />
@@ -398,12 +301,12 @@ export default async function Home() {
                     >
                       {entity.summary}
                     </span>
-                  ) : entity.tag_count > 0 ? (
+                  ) : entity.tagCount > 0 ? (
                     <span
                       className="text-sm truncate block"
                       style={{ color: "var(--color-ink-muted)" }}
                     >
-                      {entity.tag_count} 个分类标签
+                      {entity.tagCount} 个分类标签
                     </span>
                   ) : null}
                 </div>

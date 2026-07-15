@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { BrowseExplorer } from "@/components/BrowseExplorer";
 import { getBrowseData } from "@/lib/browse-data";
 
-export const revalidate = 600;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "浏览馆藏 - 钢笔知识图谱",

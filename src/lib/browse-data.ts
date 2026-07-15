@@ -1,3 +1,4 @@
+import { TYPE_LABELS } from "@/lib/constants";
 import { queryAll, queryOne } from "@/lib/db";
 import { getPublicMediaUrl } from "@/lib/media-url";
 import { publicMediaFilter } from "@/lib/public-media";
@@ -48,6 +49,34 @@ export interface BrowseData {
   typeCounts: Array<{ type: string; cnt: number }>;
   activeFilters: Record<string, string>;
   activeType: string;
+}
+
+export interface HomeDiscoveryData {
+  stats: Array<{ type: string; cnt: number }>;
+  featured: Array<{
+    type: string;
+    name: string;
+    slug: string;
+    summary: string | null;
+    imageUrl: string | null;
+    tagCount: number;
+  }>;
+  typeBreakdown: Array<{
+    type: string;
+    cnt: number;
+    label: string;
+    stars: Array<{ name: string; slug: string }>;
+  }>;
+}
+
+export interface DimensionDiscoveryData {
+  items: Array<{
+    name: string;
+    slug: string;
+    dimension: string;
+    count: number;
+  }>;
+  totalEntities: number;
 }
 
 export type TagFilterGroup = {
@@ -346,5 +375,240 @@ export async function getBrowseData(
     })),
     activeFilters,
     activeType,
+  };
+}
+
+export async function getHomeDiscoveryData(): Promise<HomeDiscoveryData> {
+  const stats = (await queryAll(
+    `SELECT home_entity.type, COUNT(*) as cnt
+     FROM entities home_entity
+     WHERE ${publicEntityFilter("home_entity")}
+     GROUP BY home_entity.type
+     ORDER BY cnt DESC`,
+  )) as Array<{ type: string; cnt: number }>;
+
+  const featuredRows = (await queryAll(
+    `SELECT featured_entity.type,
+            featured_entity.name,
+            featured_entity.slug,
+            featured_entity.summary,
+            (
+              SELECT ma.id
+              FROM media_assets ma
+              WHERE ma.entity_id = featured_entity.id
+                AND ${publicMediaFilter("ma")}
+              ORDER BY CASE ma.usage_status WHEN 'primary' THEN 0 ELSE 1 END,
+                       ma.created_at DESC,
+                       ma.id
+              LIMIT 1
+            ) as media_id,
+            (
+              SELECT ma.local_path
+              FROM media_assets ma
+              WHERE ma.entity_id = featured_entity.id
+                AND ${publicMediaFilter("ma")}
+              ORDER BY CASE ma.usage_status WHEN 'primary' THEN 0 ELSE 1 END,
+                       ma.created_at DESC,
+                       ma.id
+              LIMIT 1
+            ) as media_local_path,
+            (
+              SELECT ma.thumbnail_url
+              FROM media_assets ma
+              WHERE ma.entity_id = featured_entity.id
+                AND ${publicMediaFilter("ma")}
+              ORDER BY CASE ma.usage_status WHEN 'primary' THEN 0 ELSE 1 END,
+                       ma.created_at DESC,
+                       ma.id
+              LIMIT 1
+            ) as media_thumbnail_url,
+            (
+              SELECT ma.image_url
+              FROM media_assets ma
+              WHERE ma.entity_id = featured_entity.id
+                AND ${publicMediaFilter("ma")}
+              ORDER BY CASE ma.usage_status WHEN 'primary' THEN 0 ELSE 1 END,
+                       ma.created_at DESC,
+                       ma.id
+              LIMIT 1
+            ) as media_image_url,
+            COUNT(DISTINCT featured_tag.id) as tag_count
+     FROM entities featured_entity
+     LEFT JOIN entity_tags featured_et
+       ON featured_et.entity_id = featured_entity.id
+     LEFT JOIN tags featured_tag
+       ON featured_tag.id = featured_et.tag_id
+      AND featured_tag.dimension IN (
+        'nib_type', 'nib_material', 'fill_system', 'origin', 'body_material'
+      )
+     WHERE ${publicEntityFilter("featured_entity")}
+     GROUP BY featured_entity.id
+     HAVING tag_count >= 1
+     ORDER BY tag_count DESC, featured_entity.created_at DESC
+     LIMIT 8`,
+  )) as Array<{
+    type: string;
+    name: string;
+    slug: string;
+    summary: string | null;
+    media_id: string | null;
+    media_local_path: string | null;
+    media_thumbnail_url: string | null;
+    media_image_url: string | null;
+    tag_count: number;
+  }>;
+
+  const normalizedStats = stats.map((row) => ({
+    type: String(row.type),
+    cnt: Number(row.cnt),
+  }));
+  const typeBreakdown = await Promise.all(
+    normalizedStats
+      .filter((stat) => stat.type !== "material")
+      .map(async (stat) => {
+        const starRows = (await queryAll(
+          `SELECT star_entity.name, star_entity.slug
+           FROM entities star_entity
+           WHERE star_entity.type = ?
+             AND ${publicEntityFilter("star_entity")}
+           ORDER BY (
+                      SELECT COUNT(*)
+                      FROM entity_tags star_et
+                      JOIN tags star_tag ON star_tag.id = star_et.tag_id
+                      WHERE star_et.entity_id = star_entity.id
+                        AND star_tag.dimension IN (
+                          'nib_type', 'nib_material', 'fill_system', 'origin',
+                          'body_material'
+                        )
+                    ) DESC,
+                    star_entity.created_at DESC
+           LIMIT ?`,
+          [stat.type, stat.type === "pen" ? 3 : 2],
+        )) as Array<{ name: string; slug: string }>;
+        return {
+          type: stat.type,
+          cnt: stat.cnt,
+          label: TYPE_LABELS[stat.type] || stat.type,
+          stars: starRows.map((star) => ({
+            name: String(star.name),
+            slug: String(star.slug),
+          })),
+        };
+      }),
+  );
+
+  return {
+    stats: normalizedStats,
+    featured: featuredRows.map((row) => ({
+      type: String(row.type),
+      name: String(row.name),
+      slug: String(row.slug),
+      summary:
+        !["pen", "brand"].includes(String(row.type)) && row.summary
+          ? String(row.summary)
+          : null,
+      imageUrl: getPublicMediaUrl({
+        id: row.media_id,
+        localPath: row.media_local_path,
+        thumbnailUrl: row.media_thumbnail_url,
+        imageUrl: row.media_image_url,
+      }),
+      tagCount: Number(row.tag_count || 0),
+    })),
+    typeBreakdown,
+  };
+}
+
+export async function getDimensionDiscoveryData(
+  dimension: string,
+  tagDimension: string,
+): Promise<DimensionDiscoveryData> {
+  if (dimension === "brand") {
+    const [rows, totalRow] = await Promise.all([
+      queryAll(
+        `SELECT brand_entity.name,
+                brand_entity.slug,
+                COUNT(DISTINCT pen_entity.id) as entity_count
+         FROM entities brand_entity
+         LEFT JOIN entity_links relation
+           ON relation.target_id = brand_entity.id
+          AND relation.link_type = 'made_by'
+         LEFT JOIN entities pen_entity
+           ON pen_entity.id = relation.source_id
+          AND pen_entity.type = 'pen'
+          AND ${publicEntityFilter("pen_entity")}
+         WHERE brand_entity.type = 'brand'
+           AND ${publicEntityFilter("brand_entity")}
+         GROUP BY brand_entity.id
+         ORDER BY brand_entity.name`,
+      ) as Promise<Array<{ name: string; slug: string; entity_count: number }>>,
+      queryOne(
+        `SELECT COUNT(DISTINCT pen_entity.id) as total
+         FROM entities brand_entity
+         JOIN entity_links relation
+           ON relation.target_id = brand_entity.id
+          AND relation.link_type = 'made_by'
+         JOIN entities pen_entity
+           ON pen_entity.id = relation.source_id
+          AND pen_entity.type = 'pen'
+         WHERE ${publicEntityFilter("brand_entity")}
+           AND ${publicEntityFilter("pen_entity")}`,
+      ) as Promise<{ total: number }>,
+    ]);
+
+    return {
+      items: rows.map((row) => ({
+        name: String(row.name),
+        slug: String(row.slug),
+        dimension: "brand",
+        count: Number(row.entity_count || 0),
+      })),
+      totalEntities: Number(totalRow.total || 0),
+    };
+  }
+
+  const [rows, totalRow] = await Promise.all([
+    queryAll(
+      `SELECT tag.name,
+              tag.slug,
+              tag.dimension,
+              COUNT(DISTINCT dimension_entity.id) as entity_count
+       FROM tags tag
+       JOIN entity_tags tagged ON tagged.tag_id = tag.id
+       JOIN entities dimension_entity
+         ON dimension_entity.id = tagged.entity_id
+        AND ${publicEntityFilter("dimension_entity")}
+       WHERE tag.dimension = ?
+       GROUP BY tag.id
+       HAVING entity_count > 0
+       ORDER BY entity_count DESC`,
+      [tagDimension],
+    ) as Promise<
+      Array<{
+        name: string;
+        slug: string;
+        dimension: string;
+        entity_count: number;
+      }>
+    >,
+    queryOne(
+      `SELECT COUNT(DISTINCT dimension_entity.id) as total
+       FROM entity_tags tagged
+       JOIN tags tag ON tag.id = tagged.tag_id
+       JOIN entities dimension_entity ON dimension_entity.id = tagged.entity_id
+       WHERE tag.dimension = ?
+         AND ${publicEntityFilter("dimension_entity")}`,
+      [tagDimension],
+    ) as Promise<{ total: number }>,
+  ]);
+
+  return {
+    items: rows.map((row) => ({
+      name: String(row.name),
+      slug: String(row.slug),
+      dimension: String(row.dimension),
+      count: Number(row.entity_count || 0),
+    })),
+    totalEntities: Number(totalRow.total || 0),
   };
 }

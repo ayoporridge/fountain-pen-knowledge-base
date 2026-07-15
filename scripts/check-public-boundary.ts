@@ -213,6 +213,35 @@ async function seedBoundaryFixtures(db: ReturnType<typeof createClient>) {
   });
 
   await insertBoundaryEntity(db, "boundary-public-article", "article");
+
+  await db.execute(`
+    INSERT INTO entity_links (id, source_id, target_id, link_type)
+    VALUES (
+      'boundary-draft-pen-maker',
+      'boundary-draft-pen',
+      'boundary-public-brand',
+      'made_by'
+    )
+  `);
+  await db.execute(`
+    INSERT INTO tags (id, name, slug, dimension, level)
+    VALUES
+      ('boundary-tag-nib', 'Boundary Nib', 'boundary-nib', 'nib_type', 'atom'),
+      ('boundary-tag-gold', 'Boundary Gold', 'nibmat-14k', 'nib_material', 'atom'),
+      ('boundary-tag-origin', 'Boundary Origin', 'boundary-origin', 'origin', 'atom'),
+      ('boundary-tag-material', 'Boundary Material', 'boundary-material', 'body_material', 'atom')
+  `);
+  await db.execute(`
+    INSERT INTO entity_tags (id, entity_id, tag_id)
+    VALUES
+      ('boundary-public-pen-nib', 'boundary-public-pen', 'boundary-tag-nib'),
+      ('boundary-public-pen-gold', 'boundary-public-pen', 'boundary-tag-gold'),
+      ('boundary-draft-pen-nib', 'boundary-draft-pen', 'boundary-tag-nib'),
+      ('boundary-draft-pen-gold', 'boundary-draft-pen', 'boundary-tag-gold'),
+      ('boundary-public-brand-origin', 'boundary-public-brand', 'boundary-tag-origin'),
+      ('boundary-draft-brand-origin', 'boundary-draft-brand', 'boundary-tag-origin'),
+      ('boundary-public-article-material', 'boundary-public-article', 'boundary-tag-material')
+  `);
 }
 
 function sortedKeys(value: Record<string, unknown>): string[] {
@@ -251,6 +280,23 @@ function assertNoPublicationInternals(value: unknown, label: string): void {
     );
     assertNoPublicationInternals(child, `${label}.${key}`);
   }
+}
+
+function assertJsonEqual(actual: unknown, expected: unknown, label: string) {
+  const actualJson = JSON.stringify(actual);
+  const expectedJson = JSON.stringify(expected);
+  assertCondition(
+    actualJson === expectedJson,
+    `${label} differs.\nExpected: ${expectedJson}\nActual: ${actualJson}`,
+  );
+}
+
+function normalizeCountRows(
+  rows: Array<{ type: unknown; cnt: unknown }>,
+): Array<{ type: string; cnt: number }> {
+  return rows
+    .map((row) => ({ type: String(row.type), cnt: Number(row.cnt) }))
+    .sort((a, b) => a.type.localeCompare(b.type));
 }
 
 async function expectNextControlFlow(
@@ -573,6 +619,370 @@ async function runCoreApiChecks() {
   );
 }
 
+async function runDiscoveryListChecks() {
+  const before = realDatabaseSnapshot();
+  const tempRoot = fs.realpathSync.native(
+    fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-public-boundary-lists-")),
+  );
+  const databasePath = path.join(tempRoot, "fixture.db");
+  const databaseUrl = `file:${databasePath}`;
+  const fixtureDb = createClient({ url: databaseUrl });
+
+  process.env.TURSO_DATABASE_URL = "";
+  process.env.TURSO_AUTH_TOKEN = "";
+  process.env.FPKG_DATABASE_URL = databaseUrl;
+  process.env.PUBLICATION_GATE_FIXTURE = "1";
+
+  try {
+    await migrateDatabase(fixtureDb);
+    await seedBoundaryFixtures(fixtureDb);
+
+    const browseDataModule = await import("../src/lib/browse-data");
+    const homeModule = await import("../src/app/page");
+    const browsePageModule = await import("../src/app/browse/page");
+    const dimensionPageModule = await import(
+      "../src/app/by/[dimension]/page"
+    );
+    const browseRouteModule = await import("../src/app/api/browse/route");
+    const reactModule = await import("react");
+    Object.assign(globalThis, { React: reactModule.default });
+
+    const expectedIdentityRows = await fixtureDb.execute(
+      "SELECT type, slug FROM public_entities ORDER BY type, slug",
+    );
+    const expectedIdentities = expectedIdentityRows.rows.map((row) =>
+      `${row.type}/${row.slug}`,
+    );
+    const browse = await browseDataModule.getBrowseData({ limit: "50" });
+    const browseIdentities = browse.entities
+      .map((entity) => `${entity.type}/${entity.slug}`)
+      .sort();
+    assertJsonEqual(
+      browseIdentities,
+      [...expectedIdentities].sort(),
+      "Browse row set",
+    );
+    assertCondition(
+      browse.total === expectedIdentities.length,
+      "Browse total is not exactly the public_entities row count.",
+    );
+    browse.entities.forEach((entity, index) =>
+      assertExactKeys(
+        entity,
+        [
+          "type",
+          "slug",
+          "name",
+          "summary",
+          "classification",
+          "source_count",
+          "image_url",
+        ],
+        `browse.entities[${index}]`,
+      ),
+    );
+    assertNoPublicationInternals(browse, "browse data");
+
+    const expectedTypeRows = await fixtureDb.execute(
+      `SELECT type, COUNT(*) as cnt
+       FROM public_entities
+       GROUP BY type`,
+    );
+    const expectedTypeCounts = normalizeCountRows(
+      expectedTypeRows.rows as Array<{ type: unknown; cnt: unknown }>,
+    );
+    assertJsonEqual(
+      normalizeCountRows(browse.typeCounts),
+      expectedTypeCounts,
+      "Browse type counts",
+    );
+
+    const expectedFacets: Record<
+      string,
+      Array<{ slug: string; name: string; count: number }>
+    > = {};
+    for (const [facetKey, info] of Object.entries(
+      browseDataModule.FACET_DIMENSIONS,
+    )) {
+      const rows = await fixtureDb.execute({
+        sql: `SELECT tag.slug, tag.name, COUNT(DISTINCT public_entity.id) as cnt
+              FROM tags tag
+              JOIN entity_tags tagged ON tagged.tag_id = tag.id
+              JOIN public_entities public_entity
+                ON public_entity.id = tagged.entity_id
+              WHERE tag.dimension = ?
+              GROUP BY tag.id
+              HAVING cnt > 0`,
+        args: [info.tagDimension],
+      });
+      const options = rows.rows.map((row) => ({
+        slug: String(row.slug),
+        name: String(row.name),
+        count: Number(row.cnt),
+      }));
+      if (facetKey === "nib_material") {
+        const gold = await fixtureDb.execute({
+          sql: `SELECT COUNT(DISTINCT public_entity.id) as cnt
+                FROM public_entities public_entity
+                JOIN entity_tags tagged ON tagged.entity_id = public_entity.id
+                JOIN tags tag ON tag.id = tagged.tag_id
+                WHERE tag.dimension = 'nib_material'
+                  AND tag.slug IN (${browseDataModule.GOLD_NIB_TAG_SLUGS.map(() => "?").join(", ")})`,
+          args: [...browseDataModule.GOLD_NIB_TAG_SLUGS],
+        });
+        const count = Number(gold.rows[0]?.cnt || 0);
+        if (count > 0) {
+          options.push({ slug: "gold", name: "所有金尖", count });
+        }
+      }
+      expectedFacets[facetKey] = options.sort((a, b) =>
+        a.slug.localeCompare(b.slug),
+      );
+    }
+    const actualFacets = Object.fromEntries(
+      Object.entries(browse.facets).map(([key, options]) => [
+        key,
+        [...options].sort((a, b) => a.slug.localeCompare(b.slug)),
+      ]),
+    );
+    assertJsonEqual(actualFacets, expectedFacets, "Browse keyed facets");
+
+    const filteredBrowse = await browseDataModule.getBrowseData({
+      nib_type: "boundary-nib",
+      limit: "50",
+    });
+    const expectedFilteredRows = await fixtureDb.execute({
+      sql: `SELECT public_entity.type, public_entity.slug
+            FROM public_entities public_entity
+            WHERE EXISTS (
+              SELECT 1
+              FROM entity_tags tagged
+              JOIN tags tag ON tag.id = tagged.tag_id
+              WHERE tagged.entity_id = public_entity.id
+                AND tag.dimension = 'nib_type'
+                AND tag.slug = ?
+            )
+            ORDER BY public_entity.type, public_entity.slug`,
+      args: ["boundary-nib"],
+    });
+    assertJsonEqual(
+      filteredBrowse.entities
+        .map((entity) => `${entity.type}/${entity.slug}`)
+        .sort(),
+      expectedFilteredRows.rows
+        .map((row) => `${row.type}/${row.slug}`)
+        .sort(),
+      "Filtered browse row set",
+    );
+
+    const apiResponse = await browseRouteModule.GET(
+      new NextRequest("http://boundary.invalid/api/browse?limit=50"),
+    );
+    const apiBody = (await apiResponse.json()) as Record<string, unknown>;
+    assertCondition(
+      apiResponse.headers.get("cache-control") === "no-store",
+      "Browse API is not no-store.",
+    );
+    assertJsonEqual(apiBody, browse, "Browse API DTO");
+    assertNoPublicationInternals(apiBody, "browse API");
+
+    const home = await browseDataModule.getHomeDiscoveryData();
+    assertJsonEqual(
+      normalizeCountRows(home.stats),
+      expectedTypeCounts,
+      "Home statistics",
+    );
+    const expectedFeaturedRows = await fixtureDb.execute(
+      `SELECT public_entity.type,
+              public_entity.slug,
+              COUNT(DISTINCT tag.id) as tag_count
+       FROM public_entities public_entity
+       LEFT JOIN entity_tags tagged ON tagged.entity_id = public_entity.id
+       LEFT JOIN tags tag
+         ON tag.id = tagged.tag_id
+        AND tag.dimension IN (
+          'nib_type', 'nib_material', 'fill_system', 'origin', 'body_material'
+        )
+       GROUP BY public_entity.id
+       HAVING tag_count >= 1`,
+    );
+    const expectedFeatured = expectedFeaturedRows.rows
+      .map((row) => ({
+        key: `${row.type}/${row.slug}`,
+        tagCount: Number(row.tag_count),
+      }))
+      .sort((a, b) => a.key.localeCompare(b.key));
+    const actualFeatured = home.featured
+      .map((row) => ({
+        key: `${row.type}/${row.slug}`,
+        tagCount: row.tagCount,
+      }))
+      .sort((a, b) => a.key.localeCompare(b.key));
+    assertJsonEqual(actualFeatured, expectedFeatured, "Home featured rows");
+    assertNoPublicationInternals(home, "home discovery");
+
+    for (const breakdown of home.typeBreakdown) {
+      const expectedStars = await fixtureDb.execute({
+        sql: `SELECT public_entity.name, public_entity.slug
+              FROM public_entities public_entity
+              WHERE public_entity.type = ?
+              ORDER BY (
+                         SELECT COUNT(*)
+                         FROM entity_tags tagged
+                         JOIN tags tag ON tag.id = tagged.tag_id
+                         WHERE tagged.entity_id = public_entity.id
+                           AND tag.dimension IN (
+                             'nib_type', 'nib_material', 'fill_system', 'origin',
+                             'body_material'
+                           )
+                       ) DESC,
+                       public_entity.created_at DESC
+              LIMIT ?`,
+        args: [breakdown.type, breakdown.type === "pen" ? 3 : 2],
+      });
+      assertJsonEqual(
+        breakdown.stars
+          .map((star) => `${star.name}/${star.slug}`)
+          .sort(),
+        expectedStars.rows
+          .map((star) => `${star.name}/${star.slug}`)
+          .sort(),
+        `Home ${breakdown.type} stars`,
+      );
+      const expectedCount = expectedTypeCounts.find(
+        (row) => row.type === breakdown.type,
+      )?.cnt;
+      assertCondition(
+        breakdown.cnt === expectedCount,
+        `Home ${breakdown.type} count differs from public_entities.`,
+      );
+    }
+
+    const brandDimension = await browseDataModule.getDimensionDiscoveryData(
+      "brand",
+      "brand",
+    );
+    const expectedBrandRows = await fixtureDb.execute(
+      `SELECT public_brand.name,
+              public_brand.slug,
+              COUNT(DISTINCT public_pen.id) as entity_count
+       FROM public_entities public_brand
+       LEFT JOIN entity_links relation
+         ON relation.target_id = public_brand.id
+        AND relation.link_type = 'made_by'
+       LEFT JOIN public_entities public_pen
+         ON public_pen.id = relation.source_id
+        AND public_pen.type = 'pen'
+       WHERE public_brand.type = 'brand'
+       GROUP BY public_brand.id`,
+    );
+    const expectedBrandItems = expectedBrandRows.rows
+      .map((row) => ({
+        name: String(row.name),
+        slug: String(row.slug),
+        dimension: "brand",
+        count: Number(row.entity_count || 0),
+      }))
+      .sort((a, b) => a.slug.localeCompare(b.slug));
+    assertJsonEqual(
+      [...brandDimension.items].sort((a, b) => a.slug.localeCompare(b.slug)),
+      expectedBrandItems,
+      "Brand dimension rows",
+    );
+    const expectedBrandTotal = await fixtureDb.execute(
+      `SELECT COUNT(DISTINCT public_pen.id) as total
+       FROM public_entities public_brand
+       JOIN entity_links relation
+         ON relation.target_id = public_brand.id
+        AND relation.link_type = 'made_by'
+       JOIN public_entities public_pen
+         ON public_pen.id = relation.source_id
+        AND public_pen.type = 'pen'
+       WHERE public_brand.type = 'brand'`,
+    );
+    assertCondition(
+      brandDimension.totalEntities ===
+        Number(expectedBrandTotal.rows[0]?.total || 0),
+      "Brand dimension total differs from the public reverse made_by set.",
+    );
+
+    const nibDimension = await browseDataModule.getDimensionDiscoveryData(
+      "nib",
+      "nib_type",
+    );
+    const expectedNibRows = await fixtureDb.execute(
+      `SELECT tag.name,
+              tag.slug,
+              tag.dimension,
+              COUNT(DISTINCT public_entity.id) as entity_count
+       FROM tags tag
+       JOIN entity_tags tagged ON tagged.tag_id = tag.id
+       JOIN public_entities public_entity ON public_entity.id = tagged.entity_id
+       WHERE tag.dimension = 'nib_type'
+       GROUP BY tag.id
+       HAVING entity_count > 0`,
+    );
+    assertJsonEqual(
+      [...nibDimension.items].sort((a, b) => a.slug.localeCompare(b.slug)),
+      expectedNibRows.rows
+        .map((row) => ({
+          name: String(row.name),
+          slug: String(row.slug),
+          dimension: String(row.dimension),
+          count: Number(row.entity_count || 0),
+        }))
+        .sort((a, b) => a.slug.localeCompare(b.slug)),
+      "Tag dimension rows",
+    );
+    const expectedNibTotal = await fixtureDb.execute(
+      `SELECT COUNT(DISTINCT public_entity.id) as total
+       FROM public_entities public_entity
+       JOIN entity_tags tagged ON tagged.entity_id = public_entity.id
+       JOIN tags tag ON tag.id = tagged.tag_id
+       WHERE tag.dimension = 'nib_type'`,
+    );
+    assertCondition(
+      nibDimension.totalEntities === Number(expectedNibTotal.rows[0]?.total || 0),
+      "Tag dimension total differs from public_entities.",
+    );
+
+    await homeModule.default();
+    await browsePageModule.default({ searchParams: Promise.resolve({ limit: "50" }) });
+    await dimensionPageModule.default({
+      params: Promise.resolve({ dimension: "brand" }),
+    });
+    assertCondition(
+      homeModule.dynamic === "force-dynamic" &&
+        browsePageModule.dynamic === "force-dynamic" &&
+        dimensionPageModule.dynamic === "force-dynamic" &&
+        browseRouteModule.dynamic === "force-dynamic",
+      "A discovery list page/API is not force-dynamic.",
+    );
+    assertCondition(
+      homeModule.revalidate === undefined &&
+        browsePageModule.revalidate === undefined &&
+        dimensionPageModule.revalidate === undefined,
+      "A discovery list page still exports ISR revalidation.",
+    );
+  } finally {
+    try {
+      getDb().close();
+    } finally {
+      fixtureDb.close();
+      fs.rmSync(tempRoot, { recursive: true, force: true });
+    }
+  }
+
+  assertCondition(
+    !fs.existsSync(tempRoot),
+    "Discovery list fixture was not cleaned.",
+  );
+  assertRealDatabaseUnchanged(before, "Discovery list checks");
+  console.log(
+    "Discovery list boundary passed: browse/API rows, keyed facets/counts, home, and by-dimension are exact public_entities projections with no-store responses.",
+  );
+}
+
 async function runLegacyBoundary() {
   const db = createClient({ url: "file:data/fpkg.db" });
   const failures: string[] = [];
@@ -845,6 +1255,10 @@ async function main() {
   }
   if (args.includes("--core-api-cache")) {
     await runCoreApiChecks();
+    return;
+  }
+  if (args.includes("--discovery-lists")) {
+    await runDiscoveryListChecks();
     return;
   }
   await runLegacyBoundary();

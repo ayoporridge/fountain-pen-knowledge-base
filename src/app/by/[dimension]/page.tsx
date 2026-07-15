@@ -1,5 +1,3 @@
-export const revalidate = 600;
-
 import {
   ArrowLeft,
   Buildings,
@@ -12,8 +10,9 @@ import {
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { queryAll, queryOne } from "@/lib/db";
-import { publicEntityFilter } from "@/lib/public-visibility";
+import { getDimensionDiscoveryData } from "@/lib/browse-data";
+
+export const dynamic = "force-dynamic";
 
 const DIMENSION_ICONS: Record<string, React.ElementType> = {
   brand: Buildings,
@@ -65,68 +64,10 @@ export default async function DimensionPage({ params }: DimensionPageProps) {
 
   const Icon = DIMENSION_ICONS[dimension] || MagnifyingGlass;
 
-  const tags =
-    dimension === "brand"
-      ? ((await queryAll(
-          `SELECT e.id, e.name, e.slug, 'brand' as dimension,
-                  COUNT(DISTINCT p.id) as entity_count
-           FROM entities e
-           LEFT JOIN entity_links relation
-             ON relation.target_id = e.id AND relation.link_type = 'made_by'
-           LEFT JOIN entities p
-             ON p.id = relation.source_id
-            AND p.type = 'pen'
-            AND ${publicEntityFilter("p")}
-           WHERE e.type = 'brand'
-             AND ${publicEntityFilter("e")}
-           GROUP BY e.id
-           ORDER BY e.name`,
-        )) as Array<{
-          id: string;
-          name: string;
-          slug: string;
-          dimension: string;
-          entity_count: number;
-        }>)
-      : ((await queryAll(
-          `SELECT t.id, t.name, t.slug, t.dimension, COUNT(DISTINCT e.id) as entity_count
-           FROM tags t
-           JOIN entity_tags et ON et.tag_id = t.id
-           JOIN entities e ON e.id = et.entity_id AND ${publicEntityFilter("e")}
-           WHERE t.dimension = ?
-           GROUP BY t.id
-           HAVING entity_count > 0
-           ORDER BY entity_count DESC`,
-          [dimConfig.tagDimension],
-        )) as Array<{
-          id: string;
-          name: string;
-          slug: string;
-          dimension: string;
-          entity_count: number;
-        }>);
-
-  const totalRow =
-    dimension === "brand"
-      ? ((await queryOne(
-          `SELECT COUNT(DISTINCT p.id) as total
-           FROM entities brand
-           JOIN entity_links relation
-             ON relation.target_id = brand.id AND relation.link_type = 'made_by'
-           JOIN entities p ON p.id = relation.source_id AND p.type = 'pen'
-           WHERE ${publicEntityFilter("brand")}
-             AND ${publicEntityFilter("p")}`,
-        )) as { total: number })
-      : ((await queryOne(
-          `SELECT COUNT(DISTINCT e.id) as total
-           FROM entity_tags et
-           JOIN tags t ON t.id = et.tag_id
-           JOIN entities e ON e.id = et.entity_id
-           WHERE t.dimension = ?
-             AND ${publicEntityFilter("e")}`,
-          [dimConfig.tagDimension],
-        )) as { total: number });
-  const totalEntities = Number(totalRow.total || 0);
+  const { items: tags, totalEntities } = await getDimensionDiscoveryData(
+    dimension,
+    dimConfig.tagDimension,
+  );
 
   const getBrowseLink = (tagSlug: string) => {
     if (dimension === "brand") return `/brand/${tagSlug}`;
@@ -209,7 +150,7 @@ export default async function DimensionPage({ params }: DimensionPageProps) {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {tags.map((tag) => (
           <Link
-            key={tag.id}
+            key={`${tag.dimension}:${tag.slug}`}
             href={getBrowseLink(tag.slug)}
             className="block p-4 rounded-xl transition-all card-hover"
             style={{
@@ -225,8 +166,8 @@ export default async function DimensionPage({ params }: DimensionPageProps) {
             </h3>
             <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
               {dimension === "brand"
-                ? `${tag.entity_count} 个关联型号`
-                : `${tag.entity_count} 个词条`}
+                ? `${tag.count} 个关联型号`
+                : `${tag.count} 个词条`}
             </p>
           </Link>
         ))}
