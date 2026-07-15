@@ -52,7 +52,7 @@ coverage:
     description: "The full migration matrix and non-brand/pen compatibility contract pass independently on disposable databases."
     requirement: "PUB-01, PUB-02, PUB-05, PUB-06"
     verification:
-      - kind: migration/regression
+      - kind: integration
         ref: "pnpm check:publication-gate -- --migration-full && pnpm check:publication-gate -- --compatibility"
         status: pass
     human_judgment: false
@@ -60,7 +60,7 @@ coverage:
     description: "All four public-surface semantics and complete reverse brand-model parity pass without reusing runtime authorization predicates."
     requirement: "PUB-03, PUB-04, PUB-07"
     verification:
-      - kind: full-parity
+      - kind: integration
         ref: "pnpm check:public-boundary -- --all"
         status: pass
     human_judgment: false
@@ -68,7 +68,7 @@ coverage:
     description: "Majohn A1 and Montblanc 149 stay hard-404 drafts while 15 valid models and every lifecycle transition are verified in an isolated browser fixture."
     requirement: "PUB-02, PUB-03, PUB-04, PUB-05, PUB-07"
     verification:
-      - kind: browser-api
+      - kind: e2e
         ref: "pnpm exec playwright test tests/e2e/publication-gate.spec.ts --project=desktop"
         status: pass
     human_judgment: false

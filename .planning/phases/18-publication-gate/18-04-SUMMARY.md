@@ -55,7 +55,7 @@ coverage:
       - kind: integration
         ref: "pnpm check:public-boundary -- --core-detail"
         status: pass
-      - kind: build
+      - kind: integration
         ref: "FPKG_DATABASE_URL=<disposable DB> PUBLICATION_GATE_FIXTURE=1 pnpm build"
         status: pass
     human_judgment: false
