@@ -1,24 +1,24 @@
 import { expect, test } from "@playwright/test";
 
+const EXTERNAL_E2E = Boolean(process.env.E2E_BASE_URL);
+const MISSING_ENTITY_SLUG = "e2e-deliberately-unpublished-pen";
+
+function expectNoStore(headers: Record<string, string>) {
+  expect(headers["cache-control"] || "").toContain("no-store");
+}
+
 test.describe("Entity basic flow", () => {
-  test("seed entity page renders correctly", async ({ page }) => {
-    await page.goto("/pen/%E5%87%8C%E7%BE%8E-lamy-lamy-2000");
+  test("an unpublished entity route fails closed with a hard 404", async ({
+    page,
+  }) => {
+    const response = await page.goto(`/pen/${MISSING_ENTITY_SLUG}`, {
+      waitUntil: "domcontentloaded",
+    });
 
-    // Verify entity name
-    await expect(page.getByRole("heading", { level: 1 })).toContainText(
-      "LAMY 2000",
-    );
-
-    // Verify the page identifies the entry as a pen archive.
-    await expect(page.getByText(/型号档案|钢笔/).first()).toBeVisible();
-
-    // Verify the approved specification block contains core pen details.
-    await expect(page.getByText("规格速览")).toBeVisible();
-    await expect(page.getByText("笔尖", { exact: true }).first()).toBeVisible();
-    await expect(
-      page.getByText("上墨方式", { exact: true }).first(),
-    ).toBeVisible();
-    await expect(page.getByText("产地", { exact: true }).first()).toBeVisible();
+    expect(response?.status()).toBe(404);
+    expectNoStore(response?.headers() || {});
+    expect(response?.headers()["x-robots-tag"] || "").toContain("noindex");
+    expect(page.url()).toContain(`/pen/${MISSING_ENTITY_SLUG}`);
   });
 
   test("homepage exposes the main curated routes", async ({ page }) => {
@@ -44,14 +44,37 @@ test.describe("Entity basic flow", () => {
     await expect(html).toHaveAttribute("class", /dark/);
   });
 
-  test("public entity API returns a known pen without mutating data", async ({
+  test("public entity API is no-store and fails closed", async ({
     request,
   }) => {
-    const response = await request.get("/api/entities/pilot-custom-823");
+    const listResponse = await request.get("/api/entities?type=pen");
+    expect(listResponse.ok()).toBeTruthy();
+    expectNoStore(listResponse.headers());
+    const pens = (await listResponse.json()) as Array<{
+      name: string;
+      slug: string;
+      summary: null;
+      type: string;
+    }>;
 
-    expect(response.ok()).toBeTruthy();
-    const entity = await response.json();
-    expect(entity.name).toContain("823");
-    expect(entity.slug).toBe("pilot-custom-823");
+    if (!EXTERNAL_E2E) expect(pens).toEqual([]);
+    for (const pen of pens) {
+      expect(Object.keys(pen).sort()).toEqual([
+        "name",
+        "slug",
+        "summary",
+        "type",
+      ]);
+      expect(pen.type).toBe("pen");
+      expect(pen.summary).toBeNull();
+    }
+
+    const missingResponse = await request.get(
+      `/api/entities/${MISSING_ENTITY_SLUG}`,
+      { maxRedirects: 0 },
+    );
+    expect(missingResponse.status()).toBe(404);
+    expectNoStore(missingResponse.headers());
+    expect(await missingResponse.json()).toEqual({ error: "Entity not found" });
   });
 });
