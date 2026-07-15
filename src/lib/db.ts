@@ -210,6 +210,19 @@ interface MigrationOptions {
   migrationsDir?: string;
 }
 
+const PUBLICATION_SCHEMA_MANIFEST = [
+  ["table", "entity_publications"],
+  ["index", "idx_entity_publications_status"],
+  ["index", "idx_entity_publications_review_contract"],
+  ["view", "publication_base_blockers"],
+  ["view", "publication_public_brands"],
+  ["view", "publication_blockers"],
+  ["view", "public_entity_readiness"],
+  ["view", "public_entities"],
+  ["trigger", "publication_entity_insert_draft"],
+  ["trigger", "publication_entity_type_reset"],
+] as const;
+
 function migrationFiles(migrationsDir = MIGRATIONS_DIR): string[] {
   if (!fs.existsSync(migrationsDir)) {
     throw new Error(`Migrations directory not found: ${migrationsDir}`);
@@ -364,6 +377,27 @@ export async function assertDatabaseReady(
     throw new Error(
       `Applied migration files changed (${changed.join(", ")}). Restore the applied SQL instead of rewriting history.`,
     );
+  }
+
+  if (files.includes("030_publication_gate.sql")) {
+    const names = PUBLICATION_SCHEMA_MANIFEST.map(([, name]) => name);
+    const placeholders = names.map(() => "?").join(", ");
+    const schemaRows = await db.execute({
+      sql: `SELECT type, name FROM sqlite_schema WHERE name IN (${placeholders})`,
+      args: names,
+    });
+    const actual = new Set(
+      schemaRows.rows.map((row) => `${String(row.type)}:${String(row.name)}`),
+    );
+    const missingObjects = PUBLICATION_SCHEMA_MANIFEST.filter(
+      ([type, name]) => !actual.has(`${type}:${name}`),
+    ).map(([type, name]) => `${type}:${name}`);
+
+    if (missingObjects.length > 0) {
+      throw new Error(
+        `Database publication schema is incomplete (${missingObjects.join(", ")}). Rehearse migration 030 on an isolated database before deployment.`,
+      );
+    }
   }
 }
 

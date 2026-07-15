@@ -6,13 +6,17 @@ import os from "node:os";
 import path from "node:path";
 import { createClient, type Client } from "@libsql/client";
 import {
+  assertDatabaseReady,
   migrateDatabase,
   resolveDatabaseConnection,
 } from "../src/lib/db";
 
 const ROOT = process.cwd();
 const REAL_DATABASE_PATH = path.join(ROOT, "data", "fpkg.db");
+const MIGRATIONS_PATH = path.join(ROOT, "migrations");
 const SCRIPT_PATH = path.join(ROOT, "scripts", "check-publication-gate.ts");
+const MIGRATION_030 = "030_publication_gate.sql";
+const VALID_HASH = `sha256:v1:${"a".repeat(64)}`;
 
 interface FixtureContext {
   tempRoot: string;
@@ -149,6 +153,415 @@ async function withFixture<T>(
   } finally {
     await cleanupFixture(fixture);
   }
+}
+
+async function withPre030Fixture<T>(
+  run: (fixture: FixtureContext, migrationsDir: string) => Promise<T>,
+): Promise<T> {
+  const tempRoot = fs.realpathSync.native(
+    fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-publication-pre030-")),
+  );
+  const migrationsDir = path.join(tempRoot, "migrations");
+  fs.mkdirSync(migrationsDir);
+  for (const file of fs.readdirSync(MIGRATIONS_PATH).sort()) {
+    if (!file.endsWith(".sql") || file >= MIGRATION_030) continue;
+    fs.copyFileSync(
+      path.join(MIGRATIONS_PATH, file),
+      path.join(migrationsDir, file),
+    );
+  }
+
+  const databasePath = path.join(tempRoot, "fixture.db");
+  const databaseUrl = `file:${databasePath}`;
+  const client = createClient({ url: databaseUrl });
+  const fixture: FixtureContext = {
+    tempRoot,
+    databasePath,
+    databaseUrl,
+    client,
+    children: new Set(),
+  };
+  activeFixture = fixture;
+
+  try {
+    await migrateDatabase(client, { migrationsDir });
+    return await run(fixture, migrationsDir);
+  } finally {
+    await cleanupFixture(fixture);
+  }
+}
+
+function assertCondition(
+  condition: unknown,
+  message: string,
+): asserts condition {
+  if (!condition) throw new Error(message);
+}
+
+async function expectReject(
+  run: () => Promise<unknown>,
+  messageFragment: string,
+): Promise<void> {
+  try {
+    await run();
+  } catch (error) {
+    if (error instanceof Error && error.message.includes(messageFragment)) return;
+    throw error;
+  }
+  throw new Error(`Expected rejection containing: ${messageFragment}`);
+}
+
+async function insertEntity(
+  client: Client,
+  id: string,
+  type: string,
+  summary = `${id} summary`,
+): Promise<void> {
+  await client.execute({
+    sql: `
+      INSERT INTO entities (id, type, slug, name, summary, body_md, source)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `,
+    args: [id, type, id, id, summary, `${id} body`, "fixture"],
+  });
+}
+
+async function insertStory(
+  client: Client,
+  entityId: string,
+  storyType: "brand_story" | "model_story",
+  status: "published" | "deprecated" = "published",
+): Promise<void> {
+  await client.execute({
+    sql: `
+      INSERT INTO stories (id, entity_id, title, story_type, body_md, status)
+      VALUES (?, ?, ?, ?, ?, ?)
+    `,
+    args: [
+      `story-${entityId}`,
+      entityId,
+      `${entityId} story`,
+      storyType,
+      `${entityId} story body`,
+      status,
+    ],
+  });
+}
+
+async function forceReviewedPublication(
+  client: Client,
+  entityId: string,
+  status: "draft" | "in_review" | "published" | "retired" = "published",
+): Promise<void> {
+  await client.execute({
+    sql: `
+      UPDATE entity_publications
+      SET status = ?,
+          approved_content_hash = ?,
+          reviewed_content_revision = content_revision,
+          reviewed_contract_version = 1,
+          reviewed_by = 'fixture-reviewer',
+          reviewed_at = '2026-07-15T00:00:00.000Z',
+          published_at = CASE
+            WHEN ? = 'published' THEN '2026-07-15T00:00:01.000Z'
+            ELSE NULL
+          END,
+          updated_at = datetime('now')
+      WHERE entity_id = ?
+    `,
+    args: [status, VALID_HASH, status, entityId],
+  });
+}
+
+async function blockerCodes(client: Client, entityId: string): Promise<string[]> {
+  const result = await client.execute({
+    sql: `
+      SELECT blocker_code
+      FROM publication_blockers
+      WHERE entity_id = ? AND contract_version = 1
+      ORDER BY blocker_code
+    `,
+    args: [entityId],
+  });
+  return result.rows.map((row) => String(row.blocker_code));
+}
+
+async function assertBlocker(
+  client: Client,
+  entityId: string,
+  expected: string,
+): Promise<void> {
+  const actual = await blockerCodes(client, entityId);
+  assertCondition(
+    actual.includes(expected),
+    `${entityId} was missing blocker ${expected}; got ${actual.join(", ") || "none"}.`,
+  );
+}
+
+async function assertNotPublic(client: Client, entityId: string): Promise<void> {
+  const result = await client.execute({
+    sql: "SELECT 1 FROM public_entities WHERE id = ?",
+    args: [entityId],
+  });
+  assertCondition(
+    result.rows.length === 0,
+    `${entityId} unexpectedly entered public_entities.`,
+  );
+}
+
+async function assertPublic(client: Client, entityId: string): Promise<void> {
+  const result = await client.execute({
+    sql: "SELECT 1 FROM public_entities WHERE id = ?",
+    args: [entityId],
+  });
+  assertCondition(
+    result.rows.length === 1,
+    `${entityId} did not enter public_entities.`,
+  );
+}
+
+async function assertPublicationReset(
+  client: Client,
+  entityId: string,
+  expectedRevision?: number,
+): Promise<void> {
+  const result = await client.execute({
+    sql: `
+      SELECT status, content_revision, approved_content_hash, reviewed_content_revision,
+             reviewed_contract_version, reviewed_by, reviewed_at, published_at
+      FROM entity_publications
+      WHERE entity_id = ?
+    `,
+    args: [entityId],
+  });
+  const row = result.rows[0];
+  assertCondition(row, `${entityId} lost its explicit publication row.`);
+  assertCondition(row.status === "draft", `${entityId} did not reset to draft.`);
+  if (expectedRevision !== undefined) {
+    assertCondition(
+      Number(row.content_revision) === expectedRevision,
+      `${entityId}.content_revision expected ${expectedRevision}, got ${String(row.content_revision)}.`,
+    );
+  }
+  for (const field of [
+    "approved_content_hash",
+    "reviewed_content_revision",
+    "reviewed_contract_version",
+    "reviewed_by",
+    "reviewed_at",
+    "published_at",
+  ] as const) {
+    assertCondition(row[field] === null, `${entityId}.${field} was not cleared.`);
+  }
+}
+
+async function runMigrationContract(): Promise<void> {
+  await withFixture(async ({ client }) => {
+    await assertDatabaseReady(client);
+
+    await insertEntity(client, "fixture-transition", "article");
+    await client.execute(
+      "UPDATE entities SET type = 'brand' WHERE id = 'fixture-transition'",
+    );
+    await assertPublicationReset(client, "fixture-transition", 1);
+    await forceReviewedPublication(client, "fixture-transition");
+    await client.execute(
+      "UPDATE entities SET type = 'pen' WHERE id = 'fixture-transition'",
+    );
+    await assertPublicationReset(client, "fixture-transition", 2);
+    await forceReviewedPublication(client, "fixture-transition");
+    await client.execute(
+      "UPDATE entities SET type = 'brand' WHERE id = 'fixture-transition'",
+    );
+    await assertPublicationReset(client, "fixture-transition", 3);
+    await forceReviewedPublication(client, "fixture-transition");
+    await client.execute(
+      "UPDATE entities SET type = 'article' WHERE id = 'fixture-transition'",
+    );
+    await assertPublicationReset(client, "fixture-transition", 4);
+
+    await insertEntity(client, "fixture-enter-pen", "concept");
+    await client.execute(
+      "UPDATE entities SET type = 'pen' WHERE id = 'fixture-enter-pen'",
+    );
+    await assertPublicationReset(client, "fixture-enter-pen", 1);
+
+    await insertEntity(client, "fixture-public-brand", "brand");
+    await insertStory(client, "fixture-public-brand", "brand_story");
+    await forceReviewedPublication(client, "fixture-public-brand");
+    await assertPublic(client, "fixture-public-brand");
+
+    await insertEntity(client, "fixture-draft-brand", "brand");
+    await insertStory(client, "fixture-draft-brand", "brand_story");
+
+    await insertEntity(client, "fixture-pen-missing-maker", "pen");
+    await insertStory(client, "fixture-pen-missing-maker", "model_story");
+    await forceReviewedPublication(client, "fixture-pen-missing-maker");
+    await assertBlocker(client, "fixture-pen-missing-maker", "missing_made_by");
+    await assertNotPublic(client, "fixture-pen-missing-maker");
+
+    await insertEntity(client, "fixture-pen-draft-maker", "pen");
+    await insertStory(client, "fixture-pen-draft-maker", "model_story");
+    await client.execute(`
+      INSERT INTO entity_links (id, source_id, target_id, link_type)
+      VALUES (
+        'fixture-link-draft-maker',
+        'fixture-pen-draft-maker',
+        'fixture-draft-brand',
+        'made_by'
+      )
+    `);
+    await forceReviewedPublication(client, "fixture-pen-draft-maker");
+    await assertBlocker(
+      client,
+      "fixture-pen-draft-maker",
+      "made_by_brand_not_public",
+    );
+    await assertNotPublic(client, "fixture-pen-draft-maker");
+
+    await insertEntity(client, "fixture-pen-multiple-makers", "pen");
+    await insertStory(client, "fixture-pen-multiple-makers", "model_story");
+    await client.executeMultiple(`
+      INSERT INTO entity_links (id, source_id, target_id, link_type)
+      VALUES (
+        'fixture-link-maker-one',
+        'fixture-pen-multiple-makers',
+        'fixture-public-brand',
+        'made_by'
+      );
+      INSERT INTO entity_links (id, source_id, target_id, link_type)
+      VALUES (
+        'fixture-link-maker-two',
+        'fixture-pen-multiple-makers',
+        'fixture-draft-brand',
+        'made_by'
+      );
+    `);
+    await forceReviewedPublication(client, "fixture-pen-multiple-makers");
+    await assertBlocker(
+      client,
+      "fixture-pen-multiple-makers",
+      "multiple_made_by",
+    );
+    await assertNotPublic(client, "fixture-pen-multiple-makers");
+
+    await insertEntity(client, "fixture-public-pen", "pen");
+    await insertStory(client, "fixture-public-pen", "model_story");
+    await client.execute(`
+      INSERT INTO entity_links (id, source_id, target_id, link_type)
+      VALUES (
+        'fixture-link-public-maker',
+        'fixture-public-pen',
+        'fixture-public-brand',
+        'made_by'
+      )
+    `);
+    await forceReviewedPublication(client, "fixture-public-pen");
+    await assertPublic(client, "fixture-public-pen");
+
+    await client.execute({
+      sql: "UPDATE entity_publications SET blockers_json = '[]' WHERE entity_id = ?",
+      args: ["fixture-pen-missing-maker"],
+    });
+    await assertNotPublic(client, "fixture-pen-missing-maker");
+
+    await client.execute("DROP VIEW public_entities");
+    await expectReject(
+      () => assertDatabaseReady(client),
+      "view:public_entities",
+    );
+  });
+
+  console.log(
+    "Publication migration contract passed: schema manifest, type transitions, readiness, PUB-07, and fail-closed public view verified in an isolated DB.",
+  );
+}
+
+async function storySnapshot(client: Client): Promise<string> {
+  const result = await client.execute(`
+    SELECT id, entity_id, title, story_type, summary, body_md, status,
+           source_notes, created_at, updated_at
+    FROM stories
+    ORDER BY id
+  `);
+  return createHash("sha256")
+    .update(JSON.stringify(result.rows))
+    .digest("hex");
+}
+
+async function runBackfillContract(): Promise<void> {
+  await withPre030Fixture(async ({ client }, migrationsDir) => {
+    await assertDatabaseReady(client, { migrationsDir });
+
+    await insertEntity(client, "fixture-backfill-brand", "brand");
+    await insertEntity(client, "fixture-backfill-pen", "pen");
+    await insertEntity(client, "fixture-backfill-article", "article");
+    await insertStory(client, "fixture-backfill-brand", "brand_story");
+    await insertStory(
+      client,
+      "fixture-backfill-pen",
+      "model_story",
+      "deprecated",
+    );
+    const storiesBefore = await storySnapshot(client);
+
+    fs.copyFileSync(
+      path.join(MIGRATIONS_PATH, MIGRATION_030),
+      path.join(migrationsDir, MIGRATION_030),
+    );
+    const firstRun = await migrateDatabase(client, { migrationsDir });
+    assertCondition(
+      firstRun.applied.length === 1 && firstRun.applied[0] === MIGRATION_030,
+      `Expected only ${MIGRATION_030} to apply; got ${firstRun.applied.join(", ") || "none"}.`,
+    );
+    await assertDatabaseReady(client, { migrationsDir });
+
+    const missingRows = await client.execute(`
+      SELECT e.id
+      FROM entities e
+      LEFT JOIN entity_publications ep ON ep.entity_id = e.id
+      WHERE e.type IN ('brand', 'pen') AND ep.entity_id IS NULL
+    `);
+    assertCondition(
+      missingRows.rows.length === 0,
+      `Backfill missed ${missingRows.rows.length} brand/pen publication rows.`,
+    );
+    const statuses = await client.execute(`
+      SELECT
+        count(*) AS total,
+        sum(CASE WHEN status = 'draft' THEN 1 ELSE 0 END) AS drafts,
+        sum(CASE WHEN status = 'published' THEN 1 ELSE 0 END) AS published
+      FROM entity_publications
+    `);
+    const statusRow = statuses.rows[0];
+    assertCondition(statusRow, "Backfill produced no publication status aggregate.");
+    assertCondition(
+      Number(statusRow.total) === Number(statusRow.drafts),
+      "Backfill did not leave every explicit publication row in draft.",
+    );
+    assertCondition(
+      Number(statusRow.published) === 0,
+      "Backfill unexpectedly published one or more entities.",
+    );
+    assertCondition(
+      storiesBefore === (await storySnapshot(client)),
+      "Migration 030 changed story rows during backfill.",
+    );
+
+    const secondRun = await migrateDatabase(client, { migrationsDir });
+    assertCondition(
+      secondRun.applied.length === 0 && secondRun.skipped.includes(MIGRATION_030),
+      "Migration 030 was not idempotently skipped on its second run.",
+    );
+    assertCondition(
+      storiesBefore === (await storySnapshot(client)),
+      "The idempotent migration replay changed story rows.",
+    );
+  });
+
+  console.log(
+    "Publication backfill contract passed: all brand/pen rows are draft, zero are published, stories are unchanged, and migration replay is idempotent.",
+  );
 }
 
 function processIsAlive(pid: number): boolean {
@@ -448,13 +861,21 @@ async function main(): Promise<void> {
     await runFixtureIsolation();
     return;
   }
+  if (args.includes("--migration")) {
+    await runMigrationContract();
+    return;
+  }
+  if (args.includes("--backfill")) {
+    await runBackfillContract();
+    return;
+  }
   if (args.includes("--serve-e2e")) {
     await serveE2E(parsePort(args));
     return;
   }
 
   throw new Error(
-    "Usage: pnpm check:publication-gate -- --fixture-isolation | --serve-e2e --port 3107",
+    "Usage: pnpm check:publication-gate -- --fixture-isolation | --migration | --backfill | --serve-e2e --port 3107",
   );
 }
 
