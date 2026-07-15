@@ -299,11 +299,10 @@ async function withCatalogCopy<T>(
   const before = snapshotRealDatabase();
   const mainSnapshot = before[path.basename(REAL_DATABASE_PATH)];
   const walSnapshot = before[path.basename(`${REAL_DATABASE_PATH}-wal`)];
-  const shmSnapshot = before[path.basename(`${REAL_DATABASE_PATH}-shm`)];
   assertCondition(mainSnapshot?.exists, "The local catalog snapshot is missing.");
   assertCondition(
-    !walSnapshot?.exists && !shmSnapshot?.exists,
-    "Refusing to copy the local catalog while WAL/SHM sidecars exist.",
+    !walSnapshot?.exists || walSnapshot.size === "0",
+    "Refusing to copy the local catalog while a non-empty WAL exists.",
   );
 
   const tempRoot = fs.realpathSync.native(
