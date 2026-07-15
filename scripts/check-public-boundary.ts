@@ -10,11 +10,6 @@ import {
   publishEntity,
   setEntityPublicationStatus,
 } from "../src/lib/publication";
-import {
-  HIDDEN_ARTICLE_SLUGS,
-  INDEX_ARTICLE_MARKERS,
-  publicEntityFilter,
-} from "../src/lib/public-visibility";
 import { publicMediaFilter } from "../src/lib/public-media";
 import { cleanPublicText } from "../src/lib/publicText";
 
@@ -25,6 +20,96 @@ const RETIRED_DUPLICATE_SLUGS = [
   "写乐-sailor-21k-pro-gear-大鱼雷",
   "奥罗拉-aurora",
 ];
+
+const LEGACY_HIDDEN_ARTICLE_SLUGS = [
+  "about-us",
+  "contact-us",
+  "demonstrator-pens",
+  "hommel-s-meteor-fountain-pen-and-its-descendants",
+  "how-to-disassemble-and-reassemble-a-parker-51",
+  "parker-ivorine-pastel-and-moire-oh-my",
+  "personalized-pens-the-malarkey-pen",
+  "pilot-iroshizuku-ink-guide",
+  "preserving-your-pens-dos-and-don-ts",
+  "privacy-policy",
+  "readme",
+  "soviet-pens",
+  "tribute-pens-and-reboots",
+  "world-war-ii-and-the-fountain-pen",
+  "万特佳",
+  "公爵-duke",
+  "半句",
+  "永续",
+  "犀飞利-sheaffer-品牌泛称",
+  "灵感提炼",
+] as const;
+
+const LEGACY_INDEX_ARTICLE_MARKERS = [
+  "品牌资料索引",
+  "品牌索引",
+  "品牌泛称",
+  "泛称页",
+  "泛称引用",
+  "不代表单一钢笔型号",
+  "索引条目",
+] as const;
+
+const ORACLE_FACET_DIMENSIONS = {
+  nib_type: "nib_type",
+  nib_material: "nib_material",
+  fill_system: "fill_system",
+  origin: "origin",
+  body_material: "body_material",
+} as const;
+
+const ORACLE_GOLD_NIB_TAG_SLUGS = [
+  "nibmat-gold",
+  "nibmat-14k",
+  "nibmat-18k",
+  "nibmat-21k",
+  "nibmat-bicolor",
+] as const;
+
+const ORACLE_PUBLIC_MODEL_IDS = [
+  "boundary-public-pen",
+  "boundary-public-peer",
+  "boundary-public-tag-peer",
+  "boundary-misaligned-current",
+  "boundary-misaligned-peer",
+  ...Array.from(
+    { length: 14 },
+    (_, index) => `boundary-brand-model-${String(index + 1).padStart(2, "0")}`,
+  ),
+] as const;
+
+const ORACLE_COMPATIBILITY_CONCEPT_IDS = [
+  "nbElcAgDbRRU",
+  "b9V0JqOxpBPx",
+  "joUC4ZhCkmTh",
+  "vCvOFoDMsP8U",
+  "bic3mrzjjpIp",
+  "rcyhCSbAfjM3",
+  "9vUWy7YhiL3W",
+  "sWKs7mBIQiuo",
+  "b91QvquyVqcU",
+] as const;
+
+const ORACLE_EXPECTED_PUBLIC_IDS = [
+  "boundary-public-brand",
+  ...ORACLE_PUBLIC_MODEL_IDS,
+  "boundary-public-article",
+  "boundary-public-concept",
+  ...ORACLE_COMPATIBILITY_CONCEPT_IDS,
+] as const;
+
+const ORACLE_EXPECTED_PRIVATE_IDS = [
+  "boundary-draft-brand",
+  "boundary-draft-pen",
+  "boundary-draft-concept",
+  "boundary-majohn-brand",
+  "boundary-majohn-a1",
+  "boundary-montblanc-149",
+] as const;
 
 const SPEC_FIELDS = [
   "series_name",
@@ -59,12 +144,87 @@ const PUBLICATION_DENYLIST = new Set([
   "created_at",
   "updated_at",
 ]);
+const PUBLICATION_STATE_DENYLIST = new Set([
+  "depth_tier",
+  "quality_score",
+  "blockers_json",
+  "approved_content_hash",
+  "content_revision",
+  "reviewed_content_revision",
+  "reviewed_contract_version",
+  "reviewed_by",
+  "reviewed_at",
+  "published_at",
+  "review_notes",
+]);
 
 function assertCondition(
   condition: unknown,
   message: string,
 ): asserts condition {
   if (!condition) throw new Error(message);
+}
+
+function actualPublicViewMembership(alias: string): string {
+  assertCondition(
+    /^[A-Za-z_][A-Za-z0-9_]*$/.test(alias),
+    `Invalid checker SQL alias: ${alias}`,
+  );
+  return `EXISTS (
+    SELECT 1
+    FROM public_entities checker_public_entity
+    WHERE checker_public_entity.id = ${alias}.id
+  )`;
+}
+
+function sortedUnique(values: Iterable<string>): string[] {
+  return [...new Set(values)].sort((left, right) =>
+    left.localeCompare(right),
+  );
+}
+
+function assertSetEqual(
+  actualValues: Iterable<string>,
+  expectedValues: Iterable<string>,
+  label: string,
+): void {
+  const actual = new Set(actualValues);
+  const expected = new Set(expectedValues);
+  const actualOnly = sortedUnique([...actual].filter((value) => !expected.has(value)));
+  const expectedOnly = sortedUnique(
+    [...expected].filter((value) => !actual.has(value)),
+  );
+  assertCondition(
+    actualOnly.length === 0 && expectedOnly.length === 0,
+    `${label} set mismatch; actual-only=${actualOnly.join(",") || "none"}; expected-only=${expectedOnly.join(",") || "none"}.`,
+  );
+}
+
+function assertSubset(
+  actualValues: Iterable<string>,
+  expectedValues: Iterable<string>,
+  label: string,
+): void {
+  const expected = new Set(expectedValues);
+  const illegal = sortedUnique(
+    [...actualValues].filter((value) => !expected.has(value)),
+  );
+  assertCondition(
+    illegal.length === 0,
+    `${label} emitted illegal context target(s): ${illegal.join(", ")}.`,
+  );
+}
+
+async function collectParityFailure(
+  failures: string[],
+  label: string,
+  run: () => Promise<void> | void,
+): Promise<void> {
+  try {
+    await run();
+  } catch (error) {
+    failures.push(`${label}: ${error instanceof Error ? error.message : String(error)}`);
+  }
 }
 
 function fileSnapshot(filePath: string) {
@@ -289,6 +449,24 @@ function assertNoPublicationInternals(value: unknown, label: string): void {
       `${label} leaked publication/internal key: ${key}`,
     );
     assertNoPublicationInternals(child, `${label}.${key}`);
+  }
+}
+
+function assertNoPublicationStateInternals(value: unknown, label: string): void {
+  if (Array.isArray(value)) {
+    value.forEach((item, index) =>
+      assertNoPublicationStateInternals(item, `${label}[${index}]`),
+    );
+    return;
+  }
+  if (!value || typeof value !== "object") return;
+
+  for (const [key, child] of Object.entries(value)) {
+    assertCondition(
+      !PUBLICATION_STATE_DENYLIST.has(key),
+      `${label} leaked publication-state key: ${key}`,
+    );
+    assertNoPublicationStateInternals(child, `${label}.${key}`);
   }
 }
 
@@ -2539,6 +2717,964 @@ async function runSecondaryExhibitTimelineCacheChecks() {
   );
 }
 
+async function seedIndependentDraftShells(
+  db: ReturnType<typeof createClient>,
+): Promise<void> {
+  await db.execute(`
+    INSERT INTO entities (id, type, slug, name, summary, body_md, source)
+    VALUES
+      ('boundary-majohn-brand', 'brand', '末匠-majohn', '末匠 Majohn', '', '', 'boundary-fixture'),
+      ('boundary-majohn-a1', 'pen', '末匠-majohn-a1-按动', '末匠 Majohn A1', '', '', 'boundary-fixture'),
+      ('boundary-montblanc-149', 'pen', '万宝龙-montblanc-大班149-meisterst-ck',
+       '万宝龙 Montblanc 大班 149', '', '', 'boundary-fixture')
+  `);
+  await db.execute(`
+    INSERT INTO entity_links (id, source_id, target_id, link_type)
+    VALUES (
+      'boundary-majohn-a1-maker',
+      'boundary-majohn-a1',
+      'boundary-majohn-brand',
+      'made_by'
+    )
+  `);
+}
+
+interface OracleEntityRow {
+  id: string;
+  type: string;
+  slug: string;
+  name: string;
+}
+
+async function readKnownOracleEntities(
+  db: ReturnType<typeof createClient>,
+  ids: readonly string[],
+): Promise<OracleEntityRow[]> {
+  const rows = await db.execute({
+    sql: `SELECT id, type, slug, name
+          FROM entities
+          WHERE id IN (${ids.map(() => "?").join(", ")})
+          ORDER BY id`,
+    args: [...ids],
+  });
+  assertSetEqual(
+    rows.rows.map((row) => String(row.id)),
+    ids,
+    "Independent fixture identity",
+  );
+  return rows.rows.map((row) => ({
+    id: String(row.id),
+    type: String(row.type),
+    slug: String(row.slug),
+    name: String(row.name),
+  }));
+}
+
+function expectedPublicCte(ids: readonly string[]): {
+  sql: string;
+  args: string[];
+} {
+  assertCondition(ids.length > 0, "Expected public ID oracle is empty.");
+  return {
+    sql: `expected_public(id) AS (VALUES ${ids.map(() => "(?)").join(", ")})`,
+    args: [...ids],
+  };
+}
+
+function entityIdentity(row: { type: unknown; slug: unknown }): string {
+  return `${String(row.type)}/${String(row.slug)}`;
+}
+
+async function runIndependentAllParity(): Promise<void> {
+  const before = realDatabaseSnapshot();
+  const tempRoot = fs.realpathSync.native(
+    fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-public-boundary-all-")),
+  );
+  const databasePath = path.join(tempRoot, "fixture.db");
+  const databaseUrl = `file:${databasePath}`;
+  const fixtureDb = createClient({ url: databaseUrl });
+  const failures: string[] = [];
+
+  process.env.TURSO_DATABASE_URL = "";
+  process.env.TURSO_AUTH_TOKEN = "";
+  process.env.FPKG_DATABASE_URL = databaseUrl;
+  process.env.PUBLICATION_GATE_FIXTURE = "1";
+
+  try {
+    await migrateDatabase(fixtureDb);
+    await seedBoundaryFixtures(fixtureDb);
+    await seedSecondaryLinkFixtures(fixtureDb);
+    await seedSecondaryLibraryMediaFixtures(fixtureDb);
+    await seedSecondaryExhibitTimelineFixtures(fixtureDb);
+    await seedIndependentDraftShells(fixtureDb);
+
+    const expectedRows = await readKnownOracleEntities(
+      fixtureDb,
+      ORACLE_EXPECTED_PUBLIC_IDS,
+    );
+    const privateRows = await readKnownOracleEntities(
+      fixtureDb,
+      ORACLE_EXPECTED_PRIVATE_IDS,
+    );
+    const expectedIds = new Set(expectedRows.map((row) => row.id));
+    const expectedIdentities = expectedRows.map(entityIdentity);
+    const expectedIdentityKeys = expectedRows.map(
+      (row) => `${row.type}:${row.slug}`,
+    );
+    const expectedPaths = expectedRows.map((row) => `/${entityIdentity(row)}`);
+    const expectedSlugs = new Set(expectedRows.map((row) => row.slug));
+    const privateSlugs = privateRows.map((row) => row.slug);
+    const oracle = expectedPublicCte(ORACLE_EXPECTED_PUBLIC_IDS);
+
+    const reactModule = await import("react");
+    Object.assign(globalThis, { React: reactModule.default });
+    const browseDataModule = await import("../src/lib/browse-data");
+    const sitemapModule = await import("../src/app/sitemap");
+    const entityListRoute = await import("../src/app/api/entities/route");
+    const entityDetailRoute = await import(
+      "../src/app/api/entities/[slug]/route"
+    );
+    const entityPreviewRoute = await import(
+      "../src/app/api/entities/[slug]/preview/route"
+    );
+    const detailModule = await import("../src/app/[type]/[slug]/page");
+    const graphModule = await import("../src/app/graph/page");
+    const linksModule = await import("../src/app/api/links/route");
+    const recommendModule = await import("../src/lib/recommend");
+    const conceptModule = await import("../src/lib/concept-engine");
+    const markdownModule = await import("../src/components/MarkdownRenderer");
+    const libraryModule = await import("../src/lib/library");
+    const brandModule = await import("../src/components/library/BrandMuseum");
+    const imageProxyModule = await import("../src/app/api/image-proxy/route");
+
+    await collectParityFailure(failures, "complete list equality", async () => {
+      const viewRows = await fixtureDb.execute(
+        "SELECT id, type, slug FROM public_entities ORDER BY id",
+      );
+      assertSetEqual(
+        viewRows.rows.map((row) => String(row.id)),
+        expectedIds,
+        "public_entities actual view",
+      );
+      assertSetEqual(
+        viewRows.rows.map(entityIdentity),
+        expectedIdentities,
+        "public_entities identities",
+      );
+
+      const browse = await browseDataModule.getBrowseData({ limit: "50" });
+      assertSetEqual(
+        browse.entities.map(entityIdentity),
+        expectedIdentities,
+        "browse rows",
+      );
+      assertCondition(
+        browse.total === expectedRows.length,
+        `Browse total aggregate expected ${expectedRows.length}, got ${browse.total}.`,
+      );
+      assertNoPublicationInternals(browse, "all-parity browse");
+
+      const sitemap = await sitemapModule.default();
+      const expectedTypes = new Set(expectedRows.map((row) => row.type));
+      const sitemapEntities = sitemap
+        .map((entry) => new URL(entry.url).pathname.replace(/^\/+/, ""))
+        .filter((pathname) => {
+          const [type, slug] = pathname.split("/");
+          return Boolean(type && slug && expectedTypes.has(type));
+        });
+      assertSetEqual(
+        sitemapEntities,
+        expectedIdentities,
+        "sitemap entity pages",
+      );
+
+      const listResponse = await entityListRoute.GET(
+        new NextRequest("http://boundary.invalid/api/entities"),
+      );
+      const listBody = (await listResponse.json()) as Array<
+        Record<string, unknown>
+      >;
+      assertCondition(
+        listResponse.status === 200 &&
+          listResponse.headers.get("cache-control") === "no-store",
+        "Entity list API is not a no-store 200.",
+      );
+      assertSetEqual(
+        listBody.map(entityIdentity),
+        expectedIdentities,
+        "entity list API",
+      );
+      listBody.forEach((row, index) =>
+        assertExactKeys(
+          row,
+          ["type", "slug", "name", "summary"],
+          `all-list[${index}]`,
+        ),
+      );
+      assertNoPublicationInternals(listBody, "all-parity entity list");
+
+      const serialized = JSON.stringify({ browse, sitemapEntities, listBody });
+      assertCondition(
+        privateSlugs.every((slug) => !serialized.includes(slug)),
+        "A complete-list surface leaked Montblanc, Majohn, or another draft fixture.",
+      );
+    });
+
+    await collectParityFailure(
+      failures,
+      "per-governed-ID detail/metadata/API equivalence",
+      async () => {
+        const allKnownIds = [
+          ...ORACLE_EXPECTED_PUBLIC_IDS,
+          ...ORACLE_EXPECTED_PRIVATE_IDS,
+        ];
+        const governed = await fixtureDb.execute({
+          sql: `SELECT e.id, e.type, e.slug
+                FROM entities e
+                WHERE e.id IN (${allKnownIds.map(() => "?").join(", ")})
+                  AND (
+                    e.type IN ('brand', 'pen')
+                    OR EXISTS (
+                      SELECT 1 FROM entity_publications publication
+                      WHERE publication.entity_id = e.id
+                    )
+                  )
+                ORDER BY e.id`,
+          args: allKnownIds,
+        });
+
+        for (const row of governed.rows) {
+          const id = String(row.id);
+          const type = String(row.type);
+          const slug = String(row.slug);
+          const expectedPublic = expectedIds.has(id);
+          const direct = await fixtureDb.execute({
+            sql: "SELECT 1 FROM public_entities WHERE id = ?",
+            args: [id],
+          });
+          assertCondition(
+            (direct.rows.length === 1) === expectedPublic,
+            `${id} actual view membership differs from independent known-ID oracle.`,
+          );
+
+          if (expectedPublic) {
+            const metadata = await detailModule.generateMetadata({
+              params: Promise.resolve({ type, slug }),
+            });
+            assertCondition(
+              metadata.alternates?.canonical === `/${type}/${slug}`,
+              `${id} metadata canonical is missing or wrong.`,
+            );
+            const pageTree = await detailModule.default({
+              params: Promise.resolve({ type, slug }),
+            });
+            if (type === "pen") {
+              const hrefs: string[] = [];
+              walkReactTree(pageTree, (props) => {
+                if (typeof props.href === "string") hrefs.push(props.href);
+              });
+              assertSetEqual(
+                hrefs.filter((href) => href.startsWith("/brand/")),
+                ["/brand/boundary-public-brand"],
+                `${id} canonical brand link`,
+              );
+            }
+          } else {
+            await expectNextControlFlow(
+              () =>
+                detailModule.generateMetadata({
+                  params: Promise.resolve({ type, slug }),
+                }),
+              "404",
+              `${id} metadata`,
+            );
+            await expectNextControlFlow(
+              () =>
+                detailModule.default({
+                  params: Promise.resolve({ type, slug }),
+                }),
+              "404",
+              `${id} detail`,
+            );
+          }
+
+          const detailResponse = await entityDetailRoute.GET(
+            new NextRequest(`http://boundary.invalid/api/entities/${slug}`),
+            { params: Promise.resolve({ slug }) },
+          );
+          const previewResponse = await entityPreviewRoute.GET(
+            new NextRequest(
+              `http://boundary.invalid/api/entities/${slug}/preview`,
+            ),
+            { params: Promise.resolve({ slug }) },
+          );
+          const expectedStatus = expectedPublic ? 200 : 404;
+          assertCondition(
+            detailResponse.status === expectedStatus &&
+              previewResponse.status === expectedStatus,
+            `${id} detail/preview API expected ${expectedStatus}, got ${detailResponse.status}/${previewResponse.status}.`,
+          );
+          assertCondition(
+            detailResponse.headers.get("cache-control") === "no-store" &&
+              previewResponse.headers.get("cache-control") === "no-store",
+            `${id} detail/preview API is not no-store.`,
+          );
+          const detailBody = await detailResponse.json();
+          const previewBody = await previewResponse.json();
+          assertNoPublicationInternals(detailBody, `${id} detail API`);
+          assertNoPublicationInternals(previewBody, `${id} preview API`);
+        }
+      },
+    );
+
+    await collectParityFailure(
+      failures,
+      "keyed facets/statistics/home/by aggregates",
+      async () => {
+        const browse = await browseDataModule.getBrowseData({ limit: "50" });
+        const expectedTypeRows = await fixtureDb.execute({
+          sql: `WITH ${oracle.sql}
+                SELECT e.type, COUNT(*) AS cnt
+                FROM entities e
+                JOIN expected_public expected ON expected.id = e.id
+                GROUP BY e.type
+                ORDER BY e.type`,
+          args: oracle.args,
+        });
+        const expectedTypeCounts = normalizeCountRows(
+          expectedTypeRows.rows as Array<{ type: unknown; cnt: unknown }>,
+        );
+        assertJsonEqual(
+          normalizeCountRows(browse.typeCounts),
+          expectedTypeCounts,
+          "Browse type aggregate",
+        );
+
+        const expectedFacets: Record<
+          string,
+          Array<{ slug: string; name: string; count: number }>
+        > = {};
+        for (const [facetKey, tagDimension] of Object.entries(
+          ORACLE_FACET_DIMENSIONS,
+        )) {
+          const facetRows = await fixtureDb.execute({
+            sql: `WITH ${oracle.sql}
+                  SELECT tag.slug, tag.name, COUNT(DISTINCT e.id) AS cnt
+                  FROM expected_public expected
+                  JOIN entities e ON e.id = expected.id
+                  JOIN entity_tags tagged ON tagged.entity_id = e.id
+                  JOIN tags tag ON tag.id = tagged.tag_id
+                  WHERE tag.dimension = ?
+                  GROUP BY tag.id
+                  HAVING cnt > 0`,
+            args: [...oracle.args, tagDimension],
+          });
+          const options = facetRows.rows.map((row) => ({
+            slug: String(row.slug),
+            name: String(row.name),
+            count: Number(row.cnt),
+          }));
+          if (facetKey === "nib_material") {
+            const gold = await fixtureDb.execute({
+              sql: `WITH ${oracle.sql}
+                    SELECT COUNT(DISTINCT e.id) AS cnt
+                    FROM expected_public expected
+                    JOIN entities e ON e.id = expected.id
+                    JOIN entity_tags tagged ON tagged.entity_id = e.id
+                    JOIN tags tag ON tag.id = tagged.tag_id
+                    WHERE tag.dimension = 'nib_material'
+                      AND tag.slug IN (${ORACLE_GOLD_NIB_TAG_SLUGS.map(() => "?").join(", ")})`,
+              args: [...oracle.args, ...ORACLE_GOLD_NIB_TAG_SLUGS],
+            });
+            const count = Number(gold.rows[0]?.cnt || 0);
+            if (count > 0) {
+              options.push({ slug: "gold", name: "所有金尖", count });
+            }
+          }
+          expectedFacets[facetKey] = options.sort((left, right) =>
+            left.slug.localeCompare(right.slug),
+          );
+        }
+        const actualFacets = Object.fromEntries(
+          Object.entries(browse.facets).map(([key, options]) => [
+            key,
+            [...options].sort((left, right) =>
+              left.slug.localeCompare(right.slug),
+            ),
+          ]),
+        );
+        assertJsonEqual(actualFacets, expectedFacets, "Browse keyed facets");
+
+        const home = await browseDataModule.getHomeDiscoveryData();
+        assertJsonEqual(
+          normalizeCountRows(home.stats),
+          expectedTypeCounts,
+          "Home type statistics",
+        );
+        const expectedTypeMap = new Map(
+          expectedTypeCounts.map((row) => [row.type, row.cnt]),
+        );
+        const actualBreakdownMap = new Map(
+          home.typeBreakdown.map((row) => [row.type, row.cnt]),
+        );
+        assertJsonEqual(
+          Object.fromEntries(
+            [...actualBreakdownMap.entries()].sort(([left], [right]) =>
+              left.localeCompare(right),
+            ),
+          ),
+          Object.fromEntries(
+            [...expectedTypeMap.entries()].sort(([left], [right]) =>
+              left.localeCompare(right),
+            ),
+          ),
+          "Home type breakdown counts",
+        );
+        assertSubset(
+          home.featured.map(entityIdentity),
+          expectedIdentities,
+          "Home featured",
+        );
+        for (const breakdown of home.typeBreakdown) {
+          assertSubset(
+            breakdown.stars.map(
+              (star) =>
+                `${breakdown.type}/${star.slug}`,
+            ),
+            expectedIdentities,
+            `Home ${breakdown.type} stars`,
+          );
+        }
+
+        const brandDimension = await browseDataModule.getDimensionDiscoveryData(
+          "brand",
+          "brand",
+        );
+        const expectedBrandRows = await fixtureDb.execute({
+          sql: `WITH ${oracle.sql}
+                SELECT brand.name, brand.slug,
+                       COUNT(DISTINCT pen.id) AS entity_count
+                FROM expected_public expected_brand
+                JOIN entities brand ON brand.id = expected_brand.id
+                LEFT JOIN entity_links relation
+                  ON relation.target_id = brand.id
+                 AND relation.link_type = 'made_by'
+                LEFT JOIN expected_public expected_pen
+                  ON expected_pen.id = relation.source_id
+                LEFT JOIN entities pen
+                  ON pen.id = expected_pen.id
+                 AND pen.type = 'pen'
+                WHERE brand.type = 'brand'
+                GROUP BY brand.id
+                ORDER BY brand.slug`,
+          args: oracle.args,
+        });
+        const expectedBrandItems = expectedBrandRows.rows.map((row) => ({
+          name: String(row.name),
+          slug: String(row.slug),
+          dimension: "brand",
+          count: Number(row.entity_count || 0),
+        }));
+        assertJsonEqual(
+          [...brandDimension.items].sort((left, right) =>
+            left.slug.localeCompare(right.slug),
+          ),
+          expectedBrandItems,
+          "Brand dimension keyed counts",
+        );
+        assertCondition(
+          brandDimension.totalEntities === ORACLE_PUBLIC_MODEL_IDS.length,
+          `Brand dimension total expected ${ORACLE_PUBLIC_MODEL_IDS.length}, got ${brandDimension.totalEntities}.`,
+        );
+
+        for (const [facetKey, tagDimension] of Object.entries(
+          ORACLE_FACET_DIMENSIONS,
+        )) {
+          const dimension = await browseDataModule.getDimensionDiscoveryData(
+            facetKey,
+            tagDimension,
+          );
+          const expectedDimensionRows = await fixtureDb.execute({
+            sql: `WITH ${oracle.sql}
+                  SELECT tag.name, tag.slug, tag.dimension,
+                         COUNT(DISTINCT e.id) AS entity_count
+                  FROM expected_public expected
+                  JOIN entities e ON e.id = expected.id
+                  JOIN entity_tags tagged ON tagged.entity_id = e.id
+                  JOIN tags tag ON tag.id = tagged.tag_id
+                  WHERE tag.dimension = ?
+                  GROUP BY tag.id
+                  HAVING entity_count > 0`,
+            args: [...oracle.args, tagDimension],
+          });
+          const expectedItems = expectedDimensionRows.rows
+            .map((row) => ({
+              name: String(row.name),
+              slug: String(row.slug),
+              dimension: String(row.dimension),
+              count: Number(row.entity_count || 0),
+            }))
+            .sort((left, right) => left.slug.localeCompare(right.slug));
+          assertJsonEqual(
+            [...dimension.items].sort((left, right) =>
+              left.slug.localeCompare(right.slug),
+            ),
+            expectedItems,
+            `By-${facetKey} keyed counts`,
+          );
+          const expectedDimensionTotal = await fixtureDb.execute({
+            sql: `WITH ${oracle.sql}
+                  SELECT COUNT(DISTINCT e.id) AS total
+                  FROM expected_public expected
+                  JOIN entities e ON e.id = expected.id
+                  JOIN entity_tags tagged ON tagged.entity_id = e.id
+                  JOIN tags tag ON tag.id = tagged.tag_id
+                  WHERE tag.dimension = ?`,
+            args: [...oracle.args, tagDimension],
+          });
+          assertCondition(
+            dimension.totalEntities ===
+              Number(expectedDimensionTotal.rows[0]?.total || 0),
+            `By-${facetKey} total aggregate differs from the independent expected set.`,
+          );
+        }
+      },
+    );
+
+    await collectParityFailure(
+      failures,
+      "contextual graph/links/recommend/wiki/concept subsets",
+      async () => {
+        const graphTree = await graphModule.default({
+          searchParams: Promise.resolve({ entity: "boundary-public-brand" }),
+        });
+        const graphTargets: string[] = [];
+        walkReactTree(graphTree, (props) => {
+          if (typeof props.href === "string") {
+            if (props.href.startsWith("/graph?")) {
+              const slug = new URL(
+                props.href,
+                "http://boundary.invalid",
+              ).searchParams.get("entity");
+              if (slug) graphTargets.push(slug);
+            } else {
+              const match = props.href.match(/^\/([^/]+)\/(.+)$/);
+              if (match) graphTargets.push(match[2]);
+            }
+          }
+          if (typeof props.entitySlug === "string") {
+            graphTargets.push(props.entitySlug);
+          }
+        });
+        assertSubset(graphTargets, expectedSlugs, "Graph page");
+
+        for (const draftSlug of [
+          "末匠-majohn-a1-按动",
+          "万宝龙-montblanc-大班149-meisterst-ck",
+        ]) {
+          const draftTree = await graphModule.default({
+            searchParams: Promise.resolve({ entity: draftSlug }),
+          });
+          let leaked = false;
+          walkReactTree(draftTree, (props) => {
+            leaked ||= Object.values(props).some(
+              (value) => typeof value === "string" && value.includes(draftSlug),
+            );
+          });
+          assertCondition(!leaked, `Graph selected draft center ${draftSlug}.`);
+        }
+
+        const linksResponse = await linksModule.GET(
+          new NextRequest(
+            "http://boundary.invalid/api/links?slug=boundary-public-brand&depth=2",
+          ),
+        );
+        const linksBody = (await linksResponse.json()) as Record<string, unknown>;
+        assertCondition(
+          linksResponse.status === 200 &&
+            linksResponse.headers.get("cache-control") === "no-store",
+          "Links API is not a no-store 200.",
+        );
+        const linkTargets: string[] = [];
+        for (const field of [
+          "forward",
+          "backlinks",
+          "secondHopForward",
+          "secondHopBacklinks",
+        ]) {
+          const rows = linksBody[field];
+          assertCondition(Array.isArray(rows), `links.${field} is not an array.`);
+          for (const row of rows as Array<Record<string, unknown>>) {
+            linkTargets.push(String(row.source_key), String(row.target_key));
+          }
+        }
+        assertSubset(linkTargets, expectedIdentityKeys, "Links API");
+        assertNoPublicationInternals(linksBody, "all-parity links API");
+
+        for (const entityId of [
+          "boundary-public-brand",
+          "boundary-public-pen",
+        ]) {
+          const recommendations = await recommendModule.getRecommendations(
+            entityId,
+            50,
+          );
+          assertSubset(
+            recommendations.map((item) => item.id),
+            expectedIds,
+            `Recommendations for ${entityId}`,
+          );
+        }
+        for (const entityId of [
+          "boundary-majohn-a1",
+          "boundary-montblanc-149",
+        ]) {
+          assertJsonEqual(
+            await recommendModule.getRecommendations(entityId, 50),
+            [],
+            `Draft recommendations for ${entityId}`,
+          );
+        }
+
+        await conceptModule.recomputeAllConceptMatches();
+        const conceptRows = await fixtureDb.execute(
+          "SELECT concept_id, entity_id FROM concept_matches ORDER BY concept_id, entity_id",
+        );
+        assertSubset(
+          conceptRows.rows.map((row) => String(row.entity_id)),
+          expectedIds,
+          "Concept materialization entities",
+        );
+        assertCondition(
+          conceptRows.rows.every(
+            (row) => row.concept_id === "boundary-public-rule",
+          ),
+          "Concept materialization included a draft concept.",
+        );
+        assertSubset(
+          (
+            (await conceptModule.getEntitiesForConcept(
+              "boundary-public-rule",
+            )) as Array<{ id: string }>
+          ).map((row) => row.id),
+          expectedIds,
+          "Concept readback",
+        );
+        assertJsonEqual(
+          await conceptModule.getEntitiesForConcept("boundary-draft-rule"),
+          [],
+          "Draft concept readback",
+        );
+
+        const wikiContent = [
+          ...expectedRows.map((row) => `[[${row.slug}]]`),
+          ...privateRows.map((row) => `[[${row.slug}]]`),
+        ].join(" / ");
+        const rendered = (await markdownModule.MarkdownRenderer({
+          content: wikiContent,
+        })) as { props?: { html?: unknown } };
+        const html = String(rendered.props?.html || "");
+        const wikiHrefs = [...html.matchAll(/href="([^"]+)"/g)].map(
+          (match) => match[1],
+        );
+        assertSubset(wikiHrefs, expectedPaths, "Wiki links");
+        assertCondition(
+          privateSlugs.every(
+            (slug) => !html.includes(`href="/${privateRows.find((row) => row.slug === slug)?.type}/${slug}"`),
+          ),
+          "Wiki links exposed a draft Montblanc, Majohn, or other governed target.",
+        );
+      },
+    );
+
+    await collectParityFailure(
+      failures,
+      "complete brand-model reverse equality",
+      async () => {
+        const expectedBrandRows = expectedRows.filter(
+          (row) => row.type === "brand",
+        );
+        for (const brand of expectedBrandRows) {
+          const reverseRows = await fixtureDb.execute({
+            sql: `WITH ${oracle.sql}
+                  SELECT pen.type, pen.slug, pen.name
+                  FROM entities brand
+                  JOIN entity_links relation
+                    ON relation.target_id = brand.id
+                   AND relation.link_type = 'made_by'
+                  JOIN expected_public expected_pen
+                    ON expected_pen.id = relation.source_id
+                  JOIN entities pen
+                    ON pen.id = expected_pen.id
+                   AND pen.type = 'pen'
+                  WHERE brand.id = ?
+                  GROUP BY pen.id
+                  ORDER BY pen.name, pen.slug`,
+            args: [...oracle.args, brand.id],
+          });
+          const expectedModelPaths = reverseRows.rows.map(
+            (row) => `/${entityIdentity(row)}`,
+          );
+          const actual = await libraryModule.getBrandPublicModels(brand.id);
+          assertCondition(
+            actual.count === expectedModelPaths.length,
+            `${brand.id} model count expected ${expectedModelPaths.length}, got ${actual.count}.`,
+          );
+          assertSetEqual(
+            actual.models.map((model) => `/${entityIdentity(model)}`),
+            expectedModelPaths,
+            `${brand.id} complete model reverse set`,
+          );
+
+          const brandTree = await brandModule.BrandMuseum({
+            entityId: brand.id,
+          });
+          const brandHrefs: string[] = [];
+          let brandText = "";
+          walkReactTree(brandTree, (props) => {
+            if (typeof props.href === "string") brandHrefs.push(props.href);
+            brandText += reactText(props.children);
+          });
+          assertSetEqual(
+            brandHrefs.filter((href) => href.startsWith("/pen/")),
+            expectedModelPaths,
+            `${brand.id} rendered model links`,
+          );
+          assertCondition(
+            brandText.includes(`全部型号（${expectedModelPaths.length}）`),
+            `${brand.id} rendered model count is inaccurate.`,
+          );
+        }
+
+        const ownership = await fixtureDb.execute({
+          sql: `WITH ${oracle.sql}
+                SELECT pen.id,
+                       COUNT(relation.id) AS all_made_by,
+                       COUNT(brand.id) AS public_brand_count
+                FROM expected_public expected_pen
+                JOIN entities pen
+                  ON pen.id = expected_pen.id
+                 AND pen.type = 'pen'
+                LEFT JOIN entity_links relation
+                  ON relation.source_id = pen.id
+                 AND relation.link_type = 'made_by'
+                LEFT JOIN expected_public expected_brand
+                  ON expected_brand.id = relation.target_id
+                LEFT JOIN entities brand
+                  ON brand.id = expected_brand.id
+                 AND brand.type = 'brand'
+                GROUP BY pen.id`,
+          args: oracle.args,
+        });
+        const invalid = ownership.rows.filter(
+          (row) =>
+            Number(row.all_made_by) !== 1 ||
+            Number(row.public_brand_count) !== 1,
+        );
+        assertCondition(
+          invalid.length === 0,
+          `Public pen canonical-brand cardinality failed: ${invalid
+            .map(
+              (row) =>
+                `${String(row.id)}(${String(row.all_made_by)}/${String(row.public_brand_count)})`,
+            )
+            .join(", ")}.`,
+        );
+        assertCondition(
+          ownership.rows.length === ORACLE_PUBLIC_MODEL_IDS.length,
+          `Expected ${ORACLE_PUBLIC_MODEL_IDS.length} public pens in ownership oracle, got ${ownership.rows.length}.`,
+        );
+      },
+    );
+
+    await collectParityFailure(
+      failures,
+      "source/media/diagram/exhibit/timeline subsets and API leaks",
+      async () => {
+        const sourceItems = await libraryModule.getSourceItemIndex({
+          limit: 100,
+        });
+        assertSetEqual(
+          sourceItems.map((item) => item.id),
+          [
+            "boundary-secondary-item",
+            "boundary-public-reference-item",
+            "boundary-public-citation-item",
+          ],
+          "Source item public-owner usage",
+        );
+        assertCondition(
+          sourceItems.every((item) => Number(item.reference_count) > 0),
+          "Source item index included an item without a public usage.",
+        );
+        const registry = await libraryModule.getSourceRegistryIndex();
+        assertSetEqual(
+          registry.map((item) => item.id),
+          [
+            "boundary-secondary-source",
+            "boundary-library-source",
+          ],
+          "Source registry public usage",
+        );
+
+        const media = await libraryModule.getMediaAssetIndex(100);
+        assertSetEqual(
+          media.map((item) => item.id),
+          ["boundary-public-media", "boundary-cache-media"],
+          "Media owner subset",
+        );
+        assertSubset(
+          media
+            .filter((item) => item.entity_type && item.entity_slug)
+            .map((item) => `${item.entity_type}/${item.entity_slug}`),
+          expectedIdentities,
+          "Media entity targets",
+        );
+
+        for (const [mediaId, expectedStatus] of [
+          ["boundary-public-media", 307],
+          ["boundary-cache-media", 307],
+          ["boundary-draft-media", 404],
+          ["boundary-orphan-media", 404],
+        ] as const) {
+          const response = await imageProxyModule.GET(
+            new NextRequest(
+              `http://boundary.invalid/api/image-proxy?id=${mediaId}`,
+            ),
+          );
+          assertCondition(
+            response.status === expectedStatus &&
+              response.headers.get("cache-control") === "no-store",
+            `${mediaId} image proxy expected no-store ${expectedStatus}, got ${response.status}.`,
+          );
+        }
+
+        const diagrams = await libraryModule.getDiagramIndex(100);
+        assertSetEqual(
+          diagrams.map((diagram) => diagram.id),
+          [
+            "boundary-public-diagram",
+            "boundary-global-diagram",
+            "boundary-cache-public-diagram",
+            "boundary-cache-global-diagram",
+          ],
+          "Diagram owner subset",
+        );
+        assertSubset(
+          diagrams
+            .filter(
+              (diagram) => diagram.entity_type && diagram.entity_slug,
+            )
+            .map(
+              (diagram) => `${diagram.entity_type}/${diagram.entity_slug}`,
+            ),
+          expectedIdentities,
+          "Diagram owners",
+        );
+        for (const diagram of diagrams) {
+          const hotspots = JSON.parse(diagram.hotspots_json || "[]") as Array<{
+            linked_entity?: string;
+          }>;
+          assertSubset(
+            hotspots
+              .map((hotspot) => hotspot.linked_entity)
+              .filter((value): value is string => Boolean(value)),
+            expectedPaths,
+            `${diagram.id} hotspots`,
+          );
+        }
+
+        const timeline = await libraryModule.getRecentTimeline(100);
+        assertSetEqual(
+          timeline.map((event) => event.id),
+          ["boundary-public-timeline", "boundary-global-timeline"],
+          "Timeline owner subset",
+        );
+        assertSubset(
+          timeline
+            .filter((event) => event.entity_type && event.entity_slug)
+            .map((event) => `${event.entity_type}/${event.entity_slug}`),
+          expectedIdentities,
+          "Timeline targets",
+        );
+
+        const sections = await libraryModule.getExhibitSections(
+          "boundary-public-exhibit",
+        );
+        assertCondition(sections.length === 1, "Published exhibit lost its section.");
+        const relatedPaths = parseFixtureJsonList(
+          sections[0].related_entity_slugs_json,
+        ).map((value) => `/${value.replace(/^\/+/, "")}`);
+        assertSubset(relatedPaths, expectedPaths, "Exhibit related entities");
+        assertSetEqual(
+          parseFixtureJsonList(sections[0].diagram_slugs_json),
+          ["boundary-cache-public-diagram", "boundary-cache-global-diagram"],
+          "Exhibit diagram targets",
+        );
+        const resolved = await libraryModule.getRelatedEntitiesByPaths([
+          "pen/boundary-public-pen",
+          "pen/boundary-draft-pen",
+          "pen/末匠-majohn-a1-按动",
+          "pen/万宝龙-montblanc-大班149-meisterst-ck",
+        ]);
+        assertSetEqual(
+          resolved.map(entityIdentity),
+          ["pen/boundary-public-pen"],
+          "Exhibit path resolution",
+        );
+
+        const featuredBrands = await libraryModule.getFeaturedBrands(100);
+        assertSetEqual(
+          featuredBrands.map((brand) => brand.slug),
+          ["boundary-public-brand"],
+          "Featured brand subset",
+        );
+
+        assertNoPublicationStateInternals(
+          { sourceItems, registry, media, diagrams, timeline, sections },
+          "secondary public DTOs",
+        );
+        const serialized = JSON.stringify({
+          sourceItems,
+          registry,
+          media,
+          diagrams,
+          timeline,
+          sections: sections.map(({ body_md: _bodyMd, ...section }) => section),
+        });
+        assertCondition(
+          privateSlugs.every((slug) => !serialized.includes(slug)),
+          "A secondary surface leaked a draft Montblanc, Majohn, or other governed target.",
+        );
+      },
+    );
+
+    if (failures.length > 0) {
+      for (const failure of failures) console.error(`- ${failure}`);
+      throw new Error(
+        `Independent four-semantics parity failed ${failures.length} category checks.`,
+      );
+    }
+
+    console.log(
+      `Independent public boundary passed: ${expectedRows.length} exact list identities, governed per-ID equivalence, keyed aggregates, contextual subsets, and ${ORACLE_PUBLIC_MODEL_IDS.length}/${ORACLE_PUBLIC_MODEL_IDS.length} complete reverse brand models. Majohn A1 and Montblanc 149 remain draft and absent.`,
+    );
+  } finally {
+    try {
+      getDb().close();
+    } finally {
+      fixtureDb.close();
+      fs.rmSync(tempRoot, { recursive: true, force: true });
+    }
+  }
+
+  assertCondition(
+    !fs.existsSync(tempRoot),
+    "Independent all-parity fixture was not cleaned.",
+  );
+  assertRealDatabaseUnchanged(before, "Independent all-parity checks");
+}
+
 async function runLegacyBoundary() {
   const db = createClient({ url: "file:data/fpkg.db" });
   const failures: string[] = [];
@@ -2552,12 +3688,12 @@ async function runLegacyBoundary() {
     `SELECT COUNT(*) AS total,
             SUM(CASE WHEN type = 'pen' THEN 1 ELSE 0 END) AS pens
      FROM entities e
-     WHERE ${publicEntityFilter("e")}`,
+     WHERE ${actualPublicViewMembership("e")}`,
   );
   const retired = await db.execute({
     sql: `SELECT slug FROM entities e
           WHERE slug IN (${RETIRED_DUPLICATE_SLUGS.map(() => "?").join(",")})
-            AND ${publicEntityFilter("e")}`,
+            AND ${actualPublicViewMembership("e")}`,
     args: RETIRED_DUPLICATE_SLUGS,
   });
   if (retired.rows.length > 0) {
@@ -2568,12 +3704,12 @@ async function runLegacyBoundary() {
     );
   }
 
-  const markerConditions = INDEX_ARTICLE_MARKERS.flatMap(() => [
+  const markerConditions = LEGACY_INDEX_ARTICLE_MARKERS.flatMap(() => [
     "COALESCE(name, '') LIKE ?",
     "COALESCE(summary, '') LIKE ?",
     "COALESCE(body_md, '') LIKE ?",
   ]);
-  const markerArgs = INDEX_ARTICLE_MARKERS.flatMap((marker) => {
+  const markerArgs = LEGACY_INDEX_ARTICLE_MARKERS.flatMap((marker) => {
     const pattern = `%${marker}%`;
     return [pattern, pattern, pattern];
   });
@@ -2581,8 +3717,8 @@ async function runLegacyBoundary() {
     sql: `SELECT slug FROM entities
           WHERE type = 'article'
             AND (${markerConditions.join(" OR ")})
-            AND slug NOT IN (${HIDDEN_ARTICLE_SLUGS.map(() => "?").join(", ")})`,
-    args: [...markerArgs, ...HIDDEN_ARTICLE_SLUGS],
+            AND slug NOT IN (${LEGACY_HIDDEN_ARTICLE_SLUGS.map(() => "?").join(", ")})`,
+    args: [...markerArgs, ...LEGACY_HIDDEN_ARTICLE_SLUGS],
   });
   if (unlistedIndexArticles.rows.length > 0) {
     failures.push(
@@ -2597,7 +3733,7 @@ async function runLegacyBoundary() {
      FROM entities e
      LEFT JOIN model_specs ms ON ms.entity_id = e.id
      WHERE e.type = 'pen'
-       AND ${publicEntityFilter("e")}
+       AND ${actualPublicViewMembership("e")}
        AND (
          lower(COALESCE(e.summary, '')) LIKE '%不是 fountain pen%'
          OR e.summary LIKE '%应按墨水线%'
@@ -2631,7 +3767,7 @@ async function runLegacyBoundary() {
      FROM model_specs ms
      JOIN entities e ON e.id = ms.entity_id
      WHERE ms.review_status = 'approved'
-       AND ${publicEntityFilter("e")}`,
+       AND ${actualPublicViewMembership("e")}`,
   );
   for (const row of approvedSpecs.rows) {
     for (const field of SPEC_FIELDS) {
@@ -2647,7 +3783,7 @@ async function runLegacyBoundary() {
      FROM model_specs ms
      JOIN entities e ON e.id = ms.entity_id
      WHERE ms.review_status = 'approved'
-       AND ${publicEntityFilter("e")}
+       AND ${actualPublicViewMembership("e")}
        AND NOT EXISTS (
          SELECT 1
          FROM citations citation
@@ -2680,7 +3816,7 @@ async function runLegacyBoundary() {
     `SELECT e.slug
      FROM model_specs ms
      JOIN entities e ON e.id = ms.entity_id
-     WHERE ${publicEntityFilter("e")}
+     WHERE ${actualPublicViewMembership("e")}
        AND (ms.price_range IS NOT NULL OR ms.status IS NOT NULL)`,
   );
   if (publicSnapshotFields.rows.length > 0) {
@@ -2740,7 +3876,7 @@ async function runLegacyBoundary() {
      FROM entity_references er
      JOIN source_items si ON si.id = er.source_item_id
      JOIN entities e ON e.id = er.entity_id
-     WHERE ${publicEntityFilter("e")}
+     WHERE ${actualPublicViewMembership("e")}
        AND er.review_status = 'approved'
        AND si.review_status != 'approved'`,
   );
@@ -2755,7 +3891,7 @@ async function runLegacyBoundary() {
               COALESCE(er.note, '') as note
        FROM entity_references er
        JOIN entities e ON e.id = er.entity_id
-       WHERE ${publicEntityFilter("e")}
+       WHERE ${actualPublicViewMembership("e")}
          AND er.review_status = 'approved'
        GROUP BY er.entity_id, er.source_item_id, er.relation_type, note
        HAVING COUNT(*) > 1
@@ -2768,7 +3904,7 @@ async function runLegacyBoundary() {
   const publicImportResidue = await db.execute(
     `SELECT e.slug
      FROM entities e
-     WHERE ${publicEntityFilter("e")}
+     WHERE ${actualPublicViewMembership("e")}
        AND (
          COALESCE(e.summary, '') LIKE '%参考资料索引%'
          OR COALESCE(e.body_md, '') LIKE '%参考资料索引%'
@@ -2790,7 +3926,7 @@ async function runLegacyBoundary() {
      FROM media_assets ma
      JOIN entities e ON e.id = ma.entity_id
      WHERE ${publicMediaFilter("ma")}
-       AND ${publicEntityFilter("e")}`,
+       AND ${actualPublicViewMembership("e")}`,
   );
 
   if (failures.length > 0) {
@@ -2805,6 +3941,10 @@ async function runLegacyBoundary() {
 
 async function main() {
   const args = process.argv.slice(2);
+  if (args.includes("--all") || args.length === 0) {
+    await runIndependentAllParity();
+    return;
+  }
   if (args.includes("--core-detail")) {
     await runCoreDetailChecks();
     return;
@@ -2833,7 +3973,11 @@ async function main() {
     await runSecondaryExhibitTimelineCacheChecks();
     return;
   }
-  await runLegacyBoundary();
+  if (args.includes("--legacy")) {
+    await runLegacyBoundary();
+    return;
+  }
+  throw new Error(`Unknown public-boundary option: ${args.join(" ")}`);
 }
 
 main().catch((error) => {
