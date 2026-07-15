@@ -1,12 +1,36 @@
-import { expect, test } from "@playwright/test";
+import { type APIResponse, expect, test } from "@playwright/test";
+
+const PUBLIC_CONCEPT_SLUGS = [
+  "eyedropper-filler",
+  "gold-nib",
+  "hooded-nib",
+  "iridium-nib",
+  "open-nib",
+  "semi-hooded-nib",
+  "steel-nib",
+  "titanium-nib",
+  "vacuum-filler",
+] as const;
+
+const HIDDEN_CONCEPT_SLUGS = [
+  "italic-nib",
+  "music-nib",
+  "rotary-filler",
+] as const;
 
 const FORBIDDEN_PUBLIC_COPY =
   /待核验|资料补证|研究队列|待拆分|待重分类|当前草稿|待补来源|资料边界|来源边界|Research index|Model archive|Read first|Brand story|Brand room/i;
 
-test.describe("Classification archive", () => {
+function expectNoStore(response: APIResponse) {
+  expect(response.headers()["cache-control"] || "").toContain("no-store");
+}
+
+test.describe("Classification archive publication fixture", () => {
   test.setTimeout(60_000);
 
-  test("homepage presents the classification archive", async ({ page }) => {
+  test("homepage presents classification navigation without search or AI", async ({
+    page,
+  }) => {
     await page.goto("/", { waitUntil: "domcontentloaded" });
 
     await expect(
@@ -22,17 +46,64 @@ test.describe("Classification archive", () => {
         page.getByRole("link", { name: new RegExp(task) }).first(),
       ).toBeVisible();
     }
-    await expect(page.locator('a[href^="/search"]')).toHaveCount(0);
-    await expect(page.locator('a[href^="/chat"]')).toHaveCount(0);
-    await expect(page.locator('a[href^="/compare"]')).toHaveCount(0);
-    await expect(page.locator('a[href^="/by/price"]')).toHaveCount(0);
+    for (const retiredPath of ["/search", "/chat", "/compare", "/by/price"]) {
+      await expect(page.locator(`a[href^="${retiredPath}"]`)).toHaveCount(0);
+    }
   });
 
-  test("browse separates content types and exposes only public facets", async ({
-    page,
+  test("fresh fixture exposes one exact, no-store public entity set", async ({
+    request,
   }) => {
-    await page.goto("/browse", { waitUntil: "networkidle" });
+    const allResponse = await request.get("/api/entities");
+    expect(allResponse.ok()).toBeTruthy();
+    expectNoStore(allResponse);
+    const all = (await allResponse.json()) as Array<{
+      type: string;
+      slug: string;
+      name: string;
+      summary: string | null;
+    }>;
+    expect(all.map((entity) => entity.slug).sort()).toEqual([
+      ...PUBLIC_CONCEPT_SLUGS,
+    ]);
+    expect(new Set(all.map((entity) => entity.type))).toEqual(
+      new Set(["concept"]),
+    );
 
+    for (const type of ["brand", "pen", "article"]) {
+      const response = await request.get(`/api/entities?type=${type}`);
+      expect(response.ok()).toBeTruthy();
+      expectNoStore(response);
+      expect(await response.json()).toEqual([]);
+    }
+
+    for (const slug of HIDDEN_CONCEPT_SLUGS) {
+      const response = await request.get(`/api/entities/${slug}`);
+      expect(response.status()).toBe(404);
+      expectNoStore(response);
+    }
+  });
+
+  test("browse uses exact fixture results and public facets only", async ({
+    page,
+    request,
+  }) => {
+    const response = await request.get("/api/browse?type=knowledge");
+    expect(response.ok()).toBeTruthy();
+    expectNoStore(response);
+    const payload = (await response.json()) as {
+      total: number;
+      entities: Array<{ type: string; slug: string }>;
+    };
+    expect(payload.total).toBe(PUBLIC_CONCEPT_SLUGS.length);
+    expect(payload.entities.map((entity) => entity.slug).sort()).toEqual([
+      ...PUBLIC_CONCEPT_SLUGS,
+    ]);
+    expect(payload.entities.every((entity) => entity.type === "concept")).toBe(
+      true,
+    );
+
+    await page.goto("/browse", { waitUntil: "domcontentloaded" });
     const typeTabs = page.getByTestId("browse-type-tabs");
     for (const label of ["全部", "钢笔", "品牌", "文章", "工艺概念"]) {
       await expect(typeTabs.getByText(label)).toBeVisible();
@@ -43,118 +114,41 @@ test.describe("Classification archive", () => {
       );
     }
 
-    await typeTabs.getByRole("tab", { name: "文章" }).click();
-    await expect(page).toHaveURL(/type=article/);
-    await expect(page.getByRole("heading", { name: "浏览文章" })).toBeVisible();
-    await expect(page.locator('a[href^="/article/"]').first()).toBeVisible();
+    await typeTabs.getByRole("tab", { name: "工艺概念" }).click();
+    await expect(page).toHaveURL(/type=knowledge/);
+    await expect(
+      page.getByRole("heading", { name: "浏览工艺概念" }),
+    ).toBeVisible();
+    const hrefs = await page
+      .locator('main a[href^="/concept/"]')
+      .evaluateAll((links) =>
+        links.map((link) => link.getAttribute("href") || "").sort(),
+      );
+    expect([...new Set(hrefs)]).toEqual(
+      PUBLIC_CONCEPT_SLUGS.map((slug) => `/concept/${slug}`).sort(),
+    );
   });
 
-  test("detail navigation matches the source-led page structure", async ({
+  test("every public concept detail is concrete and reader-facing", async ({
     page,
   }) => {
-    await page.goto("/pen/%E6%B0%B8%E7%94%9F-wingsung-601a", {
-      waitUntil: "domcontentloaded",
-    });
-
-    const sectionNav = page.getByRole("navigation", { name: "词条章节" });
-    for (const label of ["档案", "图谱", "来源"]) {
-      await expect(sectionNav.getByRole("link", { name: label })).toBeVisible();
+    for (const slug of PUBLIC_CONCEPT_SLUGS) {
+      const response = await page.goto(`/concept/${slug}`, {
+        waitUntil: "domcontentloaded",
+      });
+      expect(response?.status(), slug).toBe(200);
+      await expect(page.locator("h1"), slug).toHaveCount(1);
+      await expect(page.getByTestId("entity-summary"), slug).toBeVisible();
+      const text = await page.locator("body").innerText();
+      expect(text, slug).not.toMatch(FORBIDDEN_PUBLIC_COPY);
+      expect(text.length, slug).toBeGreaterThan(200);
     }
-    await expect(sectionNav.getByRole("link", { name: "故事" })).toHaveCount(0);
-    await expect(page.getByTestId("entity-summary")).toHaveCount(0);
-    expect(await page.locator("body").innerText()).not.toMatch(
-      FORBIDDEN_PUBLIC_COPY,
-    );
   });
 
-  test("source-backed pen profiles attribute first person to the author", async ({
-    page,
-  }) => {
-    await page.goto("/pen/the-parker-180", {
-      waitUntil: "domcontentloaded",
-    });
-
-    const sourceMaterial = page.locator("#source-material");
-    await expect(
-      sourceMaterial.getByRole("heading", { name: "来源资料译文/整理" }),
-    ).toBeVisible();
-    await expect(sourceMaterial).toContainText(
-      "文中的第一人称、使用经历和判断属于原作者，不代表本站实测",
-    );
-    await expect(
-      sourceMaterial.locator(
-        'a[href="https://www.richardspens.com/ref/profiles/180.htm"]',
-      ),
-    ).toBeVisible();
-  });
-
-  test("only evidence-backed model specs are public", async ({ page }) => {
-    await page.goto("/pen/%E5%87%8C%E7%BE%8E-lamy-lamy-2000", {
-      waitUntil: "domcontentloaded",
-    });
-    await expect(page.getByText("规格已核对")).toBeVisible();
-    await expect(page.getByRole("heading", { name: "规格速览" })).toBeVisible();
-    await expect(page.getByText("价位", { exact: true })).toHaveCount(0);
-
-    await page.goto("/pen/%E4%B8%8A%E6%B5%B7-shanghai-97%E5%9B%9E%E5%BD%92", {
-      waitUntil: "domcontentloaded",
-    });
-    await expect(page.getByRole("heading", { name: "规格速览" })).toHaveCount(
-      0,
-    );
-    await expect(page.getByText("规格已核对")).toHaveCount(0);
-  });
-
-  test("brand pages contain models, reviewed chronology and sources, not stories", async ({
-    page,
-  }) => {
-    await page.goto("/brand/lamy", { waitUntil: "domcontentloaded" });
-
-    await expect(page.getByRole("heading", { name: "代表型号" })).toBeVisible();
-    await expect(
-      page.getByRole("heading", { name: "品牌时间线" }),
-    ).toBeVisible();
-    await expect(page.getByRole("heading", { name: "来源" })).toBeVisible();
-    expect(await page.locator("body").innerText()).not.toMatch(
-      FORBIDDEN_PUBLIC_COPY,
-    );
-  });
-
-  test("recommendations never infer a cross-brand series from a generic name", async ({
-    page,
-  }) => {
-    await page.goto("/pen/the-esterbrook-dollar-pen", {
-      waitUntil: "domcontentloaded",
-    });
-    const recommendations = page.getByTestId("recommendations");
-    await expect(recommendations).toBeVisible();
-    await expect(recommendations).not.toContainText("同属「Dollar Pen」系列");
-  });
-
-  test("article body has one page H1 and no import residue", async ({
-    page,
-  }) => {
-    await page.goto("/article/the-esterbrook-model-j-family", {
-      waitUntil: "domcontentloaded",
-    });
-
-    await expect(page.locator("h1")).toHaveCount(1);
-    const body = await page.locator("body").innerText();
-    expect(body).not.toMatch(
-      /以下是翻译结果|```markdown|\[内容已截断\]|参考资料索引\s*\|\s*钢笔百科/i,
-    );
-    await expect(page.getByTestId("entity-summary")).toBeVisible();
-    const sourceUrls = await page
-      .locator("#sources a[href]")
-      .evaluateAll((links) => links.map((link) => link.getAttribute("href")));
-    expect(new Set(sourceUrls).size).toBe(sourceUrls.length);
-  });
-
-  test("library index exposes only current public modules", async ({
+  test("library modules render useful empty states without exposing editorial rows", async ({
     page,
   }) => {
     await page.goto("/library", { waitUntil: "domcontentloaded" });
-
     await expect(page.getByTestId("library-hero")).toHaveCSS(
       "background-image",
       /warm-pen-atlas\/library-hero\.jpg/,
@@ -173,51 +167,31 @@ test.describe("Classification archive", () => {
     for (const retired of ["媒体候选池", "覆盖审计", "故事"]) {
       await expect(page.getByText(retired, { exact: true })).toHaveCount(0);
     }
+
+    for (const [route, heading, kicker] of [
+      ["/library/sources", "来源索引", "参考来源"],
+      ["/library/diagrams", "图示馆", "结构与机制图"],
+      ["/timeline", "历史时间线", "资料馆时间线"],
+      ["/exhibits", "历史展览", "策展阅读"],
+    ] as const) {
+      await page.goto(route, { waitUntil: "domcontentloaded" });
+      await expect(page.getByRole("heading", { name: heading })).toBeVisible();
+      await expect(page.getByText(kicker, { exact: true })).toBeVisible();
+      expect(await page.locator("body").innerText()).not.toMatch(
+        /review_status|allowed_use|source_type|research_index|publication_draft/i,
+      );
+    }
   });
 
-  test("source and diagram indexes render public-facing labels", async ({
-    page,
-  }) => {
-    await page.goto("/library/sources", { waitUntil: "domcontentloaded" });
-    await expect(page.getByRole("heading", { name: "来源索引" })).toBeVisible();
-    await expect(page.getByText("参考来源", { exact: true })).toBeVisible();
-    await expect(page.getByText("公开资料检索", { exact: true })).toHaveCount(
-      0,
-    );
-    expect(await page.locator("body").innerText()).not.toMatch(
-      /review_status|allowed_use|source_type|research_index/,
-    );
-
-    await page.goto("/library/diagrams", { waitUntil: "domcontentloaded" });
-    await expect(page.getByRole("heading", { name: "图示馆" })).toBeVisible();
-    await expect(page.getByText("结构与机制图", { exact: true })).toBeVisible();
-    await expect(page.locator("figure").first()).toBeVisible();
-  });
-
-  test("timeline and exhibits use reader-facing Chinese labels", async ({
-    page,
-  }) => {
-    await page.goto("/timeline", { waitUntil: "domcontentloaded" });
-    await expect(page.getByText("资料馆时间线", { exact: true })).toBeVisible();
-    await expect(
-      page.getByText("Library Timeline", { exact: true }),
-    ).toHaveCount(0);
-
-    await page.goto("/exhibits", { waitUntil: "domcontentloaded" });
-    await expect(page.getByText("策展阅读", { exact: true })).toBeVisible();
-    await expect(page.getByText("Exhibits", { exact: true })).toHaveCount(0);
-    await expect(page.getByText("Exhibit", { exact: true })).toHaveCount(0);
-  });
-
-  test("public editing and retired anonymous schema APIs are unavailable", async ({
+  test("public editing and retired anonymous schema APIs stay unavailable", async ({
     request,
   }) => {
     expect((await request.get("/new")).status()).toBe(404);
-    expect((await request.get("/brand/pilot/edit")).status()).toBe(404);
+    expect((await request.get("/concept/gold-nib/edit")).status()).toBe(404);
     for (const endpoint of [
       "/api/tags",
       "/api/concepts",
-      "/api/entities/pilot-custom-823/tags",
+      "/api/entities/gold-nib/tags",
     ]) {
       expect((await request.get(endpoint)).status()).toBe(410);
     }
@@ -226,7 +200,7 @@ test.describe("Classification archive", () => {
       request.post("/api/entities", {
         data: { type: "brand", slug: "blocked-test", name: "Blocked Test" },
       }),
-      request.put("/api/entities/pilot", { data: { name: "Pilot" } }),
+      request.put("/api/entities/gold-nib", { data: { name: "Blocked" } }),
       request.post("/api/tags", {
         data: { name: "Blocked", slug: "blocked", dimension: "test" },
       }),
@@ -246,20 +220,18 @@ test.describe("Classification archive", () => {
         },
       }),
     ]);
-    for (const response of writes) {
-      expect(response.status()).toBe(403);
-    }
+    for (const response of writes) expect(response.status()).toBe(403);
   });
 
-  test("retired search, chat, compare and subjective dimension routes resolve deterministically", async ({
+  test("retired search, chat, compare and subjective dimensions resolve deterministically", async ({
     page,
     request,
   }) => {
-    await page.goto("/search?q=823");
+    await page.goto("/search?q=gold");
     await expect(page).toHaveURL(/\/browse$/);
     await page.goto("/chat");
     await expect(page).toHaveURL(/\/library$/);
-    await page.goto("/compare?items=pilot-custom-823");
+    await page.goto("/compare?items=gold-nib");
     await expect(page).toHaveURL(/\/browse\?type=pen$/);
 
     for (const dimension of ["price", "usage", "size", "style", "era"]) {

@@ -1,5 +1,9 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { getReclassifiedArticlePath } from "@/lib/entity-redirects";
+import {
+  getCanonicalEntityPath,
+  getReclassifiedArticlePath,
+} from "@/lib/entity-redirects";
+import { getPublicEntityBySlug } from "@/lib/public-visibility";
 
 const HIDDEN_PUBLIC_PATHS = new Set([
   "/api/chat",
@@ -31,6 +35,16 @@ const PUBLIC_BY_DIMENSIONS = new Set([
   "origin",
 ]);
 
+const ENTITY_NAMESPACES = new Set([
+  "article",
+  "brand",
+  "concept",
+  "fill_system",
+  "material",
+  "nib",
+  "pen",
+]);
+
 function normalizePathname(pathname: string) {
   const withoutTrailingSlash =
     pathname.length > 1 ? pathname.replace(/\/$/, "") : pathname;
@@ -41,13 +55,28 @@ function normalizePathname(pathname: string) {
   }
 }
 
-export function middleware(request: NextRequest) {
+function hardNotFound() {
+  return new NextResponse("Not Found", {
+    status: 404,
+    headers: {
+      "Cache-Control": "no-store",
+      "content-type": "text/plain; charset=utf-8",
+      "X-Robots-Tag": "noindex",
+    },
+  });
+}
+
+export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const normalizedPathname = normalizePathname(pathname);
   const segments = normalizedPathname.split("/").filter(Boolean);
   const reclassifiedArticlePath =
     segments.length === 2
       ? getReclassifiedArticlePath(segments[0], segments[1])
+      : null;
+  const canonicalEntityPath =
+    segments.length === 2
+      ? getCanonicalEntityPath(segments[0], segments[1])
       : null;
   const hasInvalidTwoSegmentNamespace =
     segments.length === 2 && !ALLOWED_TWO_SEGMENT_NAMESPACES.has(segments[0]);
@@ -63,6 +92,13 @@ export function middleware(request: NextRequest) {
     );
   }
 
+  if (canonicalEntityPath) {
+    return NextResponse.redirect(
+      new URL(canonicalEntityPath, request.url),
+      308,
+    );
+  }
+
   if (
     normalizedPathname === "/new" ||
     HIDDEN_PUBLIC_PATHS.has(normalizedPathname) ||
@@ -70,12 +106,12 @@ export function middleware(request: NextRequest) {
     hasInvalidDimension ||
     /^\/[^/]+\/[^/]+\/edit\/?$/.test(normalizedPathname)
   ) {
-    return new NextResponse("Not Found", {
-      status: 404,
-      headers: {
-        "content-type": "text/plain; charset=utf-8",
-      },
-    });
+    return hardNotFound();
+  }
+
+  if (segments.length === 2 && ENTITY_NAMESPACES.has(segments[0])) {
+    const entity = await getPublicEntityBySlug(segments[0], segments[1]);
+    if (!entity) return hardNotFound();
   }
 
   return NextResponse.next();
@@ -83,4 +119,5 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: ["/new", "/:type/:slug", "/:type/:slug/edit"],
+  runtime: "nodejs",
 };
