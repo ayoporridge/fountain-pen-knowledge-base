@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Timeline } from "@/components/library/Timeline";
 import { getRecentTimeline } from "@/lib/library";
 
-export const revalidate = 600;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "历史时间线",

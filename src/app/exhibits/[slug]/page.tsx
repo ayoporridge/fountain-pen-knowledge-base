@@ -12,7 +12,7 @@ import {
   getSourceItemsByIds,
 } from "@/lib/library";
 
-export const revalidate = 600;
+export const dynamic = "force-dynamic";
 
 interface ExhibitDetailPageProps {
   params: Promise<{ slug: string }>;

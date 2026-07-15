@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { getPublishedExhibits } from "@/lib/library";
 
-export const revalidate = 600;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "历史展览",

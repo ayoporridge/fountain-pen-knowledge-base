@@ -6,7 +6,10 @@ import { spawnSync } from "node:child_process";
 import { createClient } from "@libsql/client";
 import { NextRequest } from "next/server";
 import { getDb, migrateDatabase } from "../src/lib/db";
-import { publishEntity } from "../src/lib/publication";
+import {
+  publishEntity,
+  setEntityPublicationStatus,
+} from "../src/lib/publication";
 import {
   HIDDEN_ARTICLE_SLUGS,
   INDEX_ARTICLE_MARKERS,
@@ -2048,6 +2051,494 @@ async function runSecondaryLibraryMediaChecks() {
   );
 }
 
+async function seedSecondaryExhibitTimelineFixtures(
+  db: ReturnType<typeof createClient>,
+): Promise<void> {
+  await db.execute(`
+    INSERT INTO source_registry (
+      id, name, source_type, allowed_use, reliability, homepage_url
+    ) VALUES (
+      'boundary-exhibit-source',
+      'Boundary exhibit source',
+      'official',
+      'metadata_only',
+      'high_for_basic_facts',
+      'https://boundary.invalid/exhibit'
+    )
+  `);
+  await db.execute(`
+    INSERT INTO source_items (
+      id, source_id, title, url, review_status
+    ) VALUES (
+      'boundary-exhibit-item',
+      'boundary-exhibit-source',
+      'Boundary exhibit item',
+      'https://boundary.invalid/exhibit-item',
+      'approved'
+    )
+  `);
+  await db.execute(`
+    INSERT INTO timeline_events (
+      id, entity_id, title, event_type, start_date, description,
+      source_item_id, review_status
+    ) VALUES
+      ('boundary-public-timeline', 'boundary-public-pen',
+       'Public entity event', 'model_released', '2001',
+       'A public entity-owned timeline event.',
+       'boundary-exhibit-item', 'approved'),
+      ('boundary-draft-timeline', 'boundary-draft-pen',
+       'Draft entity event', 'model_released', '2002',
+       'A draft entity-owned timeline event.',
+       'boundary-exhibit-item', 'approved'),
+      ('boundary-global-timeline', NULL,
+       'Global public event', 'community_event', '2003',
+       'A non-entity event remains public.',
+       'boundary-exhibit-item', 'approved')
+  `);
+  await db.execute(`
+    INSERT INTO media_assets (
+      id, entity_id, title, asset_type, image_url, local_path, author,
+      license, attribution_text, review_status, usage_status
+    ) VALUES (
+      'boundary-cache-media',
+      'boundary-public-pen',
+      'Boundary cache media',
+      'image',
+      '/images/boundary-cache.png',
+      'public/images/boundary-cache.png',
+      'Boundary author',
+      'site-original',
+      'Boundary attribution',
+      'approved',
+      'primary'
+    )
+  `);
+  await db.execute(`
+    INSERT INTO diagrams (
+      id, entity_id, slug, title, diagram_type, svg, hotspots_json,
+      license, review_status
+    ) VALUES
+      ('boundary-cache-public-diagram', 'boundary-public-pen',
+       'boundary-cache-public-diagram', 'Public owner diagram',
+       'relationship', '<svg viewBox="0 0 10 10"></svg>', '[]',
+       'site-original', 'published'),
+      ('boundary-cache-draft-diagram', 'boundary-draft-pen',
+       'boundary-cache-draft-diagram', 'Draft owner diagram',
+       'relationship', '<svg viewBox="0 0 10 10"></svg>', '[]',
+       'site-original', 'published'),
+      ('boundary-cache-global-diagram', NULL,
+       'boundary-cache-global-diagram', 'Global diagram',
+       'relationship', '<svg viewBox="0 0 10 10"></svg>', '[]',
+       'site-original', 'published')
+  `);
+  await db.execute(`
+    INSERT INTO exhibits (id, slug, title, summary, status)
+    VALUES (
+      'boundary-public-exhibit',
+      'boundary-public-exhibit',
+      'Boundary public exhibit',
+      'A published exhibit that keeps its non-entity narrative.',
+      'published'
+    )
+  `);
+  await db.execute({
+    sql: `INSERT INTO exhibit_sections (
+            id, exhibit_id, position, title, body_md,
+            related_entity_slugs_json, diagram_slugs_json,
+            source_item_ids_json
+          ) VALUES (
+            'boundary-public-exhibit-section',
+            'boundary-public-exhibit',
+            0,
+            'Boundary section',
+            'Public [[boundary-public-pen]] and draft [[boundary-draft-pen]] references remain readable.',
+            ?,
+            ?,
+            ?
+          )`,
+    args: [
+      JSON.stringify([
+        'pen/boundary-public-pen',
+        'pen/boundary-draft-pen',
+      ]),
+      JSON.stringify([
+        'boundary-cache-public-diagram',
+        'boundary-cache-draft-diagram',
+        'boundary-cache-global-diagram',
+      ]),
+      JSON.stringify(['boundary-exhibit-item']),
+    ],
+  });
+
+  // Timeline and primary media are publication-critical inputs, so review the
+  // public pen again only after the complete fixture has been written.
+  await publishEntity(db, {
+    entityId: "boundary-public-pen",
+    reviewer: "boundary-checker",
+  });
+}
+
+function parseFixtureJsonList(value: string | null): string[] {
+  if (!value) return [];
+  const parsed = JSON.parse(value);
+  assertCondition(Array.isArray(parsed), "Fixture JSON list is not an array.");
+  return parsed.filter((item): item is string => typeof item === "string");
+}
+
+async function runSecondaryExhibitTimelineCacheChecks() {
+  const before = realDatabaseSnapshot();
+  const tempRoot = fs.realpathSync.native(
+    fs.mkdtempSync(
+      path.join(os.tmpdir(), "fpkg-public-boundary-secondary-exhibit-"),
+    ),
+  );
+  const databasePath = path.join(tempRoot, "fixture.db");
+  const databaseUrl = `file:${databasePath}`;
+  const fixtureDb = createClient({ url: databaseUrl });
+
+  process.env.TURSO_DATABASE_URL = "";
+  process.env.TURSO_AUTH_TOKEN = "";
+  process.env.FPKG_DATABASE_URL = databaseUrl;
+  process.env.PUBLICATION_GATE_FIXTURE = "1";
+
+  try {
+    await migrateDatabase(fixtureDb);
+    await seedBoundaryFixtures(fixtureDb);
+    await seedSecondaryExhibitTimelineFixtures(fixtureDb);
+
+    const libraryModule = await import("../src/lib/library");
+    const recommendModule = await import("../src/lib/recommend");
+    const markdownModule = await import("../src/components/MarkdownRenderer");
+    const imageProxyModule = await import("../src/app/api/image-proxy/route");
+    const detailModule = await import("../src/app/[type]/[slug]/page");
+    const libraryPageModule = await import("../src/app/library/page");
+    const sourcePageModule = await import("../src/app/library/sources/page");
+    const diagramPageModule = await import("../src/app/library/diagrams/page");
+    const exhibitPageModule = await import("../src/app/exhibits/page");
+    const exhibitDetailModule = await import(
+      "../src/app/exhibits/[slug]/page"
+    );
+    const timelinePageModule = await import("../src/app/timeline/page");
+    const reactModule = await import("react");
+    Object.assign(globalThis, { React: reactModule.default });
+
+    const publicPathOracle = async () => {
+      const rows = await fixtureDb.execute(
+        "SELECT type, slug FROM public_entities ORDER BY type, slug",
+      );
+      return new Set(rows.rows.map((row) => `${row.type}/${row.slug}`));
+    };
+    const assertPathSubset = async (paths: string[], label: string) => {
+      const publicPaths = await publicPathOracle();
+      for (const pathValue of paths) {
+        assertCondition(
+          publicPaths.has(pathValue.replace(/^\//, "")),
+          `${label} exposed ${pathValue} outside direct public_entities.`,
+        );
+      }
+    };
+
+    const recentTimeline = await libraryModule.getRecentTimeline(20);
+    assertJsonEqual(
+      recentTimeline.map((event: { id: string }) => event.id),
+      ["boundary-public-timeline", "boundary-global-timeline"],
+      "Initial owner-aware timeline",
+    );
+    await assertPathSubset(
+      recentTimeline
+        .filter(
+          (event: { entity_type?: string | null; entity_slug?: string | null }) =>
+            event.entity_type && event.entity_slug,
+        )
+        .map(
+          (event: { entity_type: string; entity_slug: string }) =>
+            `${event.entity_type}/${event.entity_slug}`,
+        ),
+      "Timeline entity targets",
+    );
+    assertJsonEqual(
+      await libraryModule.getTimelineForEntity("boundary-draft-pen", 20),
+      [],
+      "Draft timeline owner",
+    );
+
+    const initialSections = await libraryModule.getExhibitSections(
+      "boundary-public-exhibit",
+    );
+    assertCondition(initialSections.length === 1, "Published exhibit lost its section.");
+    assertJsonEqual(
+      parseFixtureJsonList(initialSections[0].related_entity_slugs_json),
+      ["pen/boundary-public-pen"],
+      "Sanitized exhibit entity paths",
+    );
+    assertJsonEqual(
+      parseFixtureJsonList(initialSections[0].diagram_slugs_json),
+      ["boundary-cache-public-diagram", "boundary-cache-global-diagram"],
+      "Sanitized exhibit diagram paths",
+    );
+    await assertPathSubset(
+      parseFixtureJsonList(initialSections[0].related_entity_slugs_json),
+      "Exhibit section entity targets",
+    );
+    assertJsonEqual(
+      (
+        await libraryModule.getRelatedEntitiesByPaths([
+          "pen/boundary-public-pen",
+          "pen/boundary-draft-pen",
+        ])
+      ).map((entity: { type: string; slug: string }) =>
+        `${entity.type}/${entity.slug}`,
+      ),
+      ["pen/boundary-public-pen"],
+      "Resolved exhibit entities",
+    );
+
+    const initialMarkdown = (await markdownModule.MarkdownRenderer({
+      content: initialSections[0].body_md,
+    })) as { props?: { html?: unknown } };
+    const initialHtml = String(initialMarkdown.props?.html || "");
+    assertCondition(
+      initialHtml.includes('href="/pen/boundary-public-pen"') &&
+        !initialHtml.includes('href="/pen/boundary-draft-pen"'),
+      "Exhibit body wiki resolution did not gate a draft entity target.",
+    );
+
+    assertCondition(
+      (await libraryModule.getPublishedExhibits()).some(
+        (exhibit: { id: string }) => exhibit.id === "boundary-public-exhibit",
+      ),
+      "Published non-entity exhibit disappeared from the list.",
+    );
+    const exhibitTree = await exhibitDetailModule.default({
+      params: Promise.resolve({ slug: "boundary-public-exhibit" }),
+    });
+    let renderedRelatedSlugs: string[] | null = null;
+    let renderedDiagramSlugs: string[] | null = null;
+    walkReactTree(exhibitTree, (props) => {
+      if (Array.isArray(props.relatedSlugs)) {
+        renderedRelatedSlugs = props.relatedSlugs.filter(
+          (item): item is string => typeof item === "string",
+        );
+      }
+      if (Array.isArray(props.diagramSlugs)) {
+        renderedDiagramSlugs = props.diagramSlugs.filter(
+          (item): item is string => typeof item === "string",
+        );
+      }
+    });
+    assertJsonEqual(
+      renderedRelatedSlugs,
+      ["pen/boundary-public-pen"],
+      "Exhibit detail related paths",
+    );
+    assertJsonEqual(
+      renderedDiagramSlugs,
+      ["boundary-cache-public-diagram", "boundary-cache-global-diagram"],
+      "Exhibit detail diagram paths",
+    );
+
+    const timelineTree = await timelinePageModule.default();
+    let timelineProps: Array<{
+      entity_type?: string | null;
+      entity_slug?: string | null;
+    }> = [];
+    walkReactTree(timelineTree, (props) => {
+      if (Array.isArray(props.events)) {
+        timelineProps = props.events as typeof timelineProps;
+      }
+    });
+    await assertPathSubset(
+      timelineProps
+        .filter((event) => event.entity_type && event.entity_slug)
+        .map((event) => `${event.entity_type}/${event.entity_slug}`),
+      "Timeline page targets",
+    );
+
+    const runtimeModules = [
+      detailModule,
+      libraryPageModule,
+      sourcePageModule,
+      diagramPageModule,
+      exhibitPageModule,
+      exhibitDetailModule,
+      timelinePageModule,
+      imageProxyModule,
+    ];
+    assertCondition(
+      runtimeModules.every((runtimeModule) => runtimeModule.dynamic === "force-dynamic"),
+      "An entity-bearing secondary page/API is not force-dynamic.",
+    );
+    assertCondition(
+      runtimeModules.every((runtimeModule) => runtimeModule.revalidate === undefined),
+      "An entity-bearing secondary page/API still exports ISR revalidation.",
+    );
+
+    const planRuntimeFiles = [
+      "src/lib/recommend.ts",
+      "src/lib/concept-engine.ts",
+      "src/components/MarkdownRenderer.tsx",
+      "src/components/library/BrandMuseum.tsx",
+      "src/lib/library.ts",
+      "src/app/[type]/[slug]/page.tsx",
+      "src/app/api/image-proxy/route.ts",
+      "src/app/library/page.tsx",
+      "src/app/library/sources/page.tsx",
+      "src/app/library/diagrams/page.tsx",
+      "src/app/exhibits/page.tsx",
+      "src/app/exhibits/[slug]/page.tsx",
+      "src/app/timeline/page.tsx",
+    ];
+    const forbiddenCachePatterns = [
+      /export\s+const\s+revalidate\s*=/,
+      /stale-while-revalidate/i,
+      /s-maxage/i,
+      /max-age/i,
+      /force-cache/i,
+      /unstable_cache/,
+      /cacheLife\s*\(/,
+      /cacheTag\s*\(/,
+    ];
+    for (const filePath of planRuntimeFiles) {
+      const source = fs.readFileSync(path.join(ROOT, filePath), "utf8");
+      assertCondition(
+        forbiddenCachePatterns.every((pattern) => !pattern.test(source)),
+        `${filePath} retains an entity-bearing TTL/SWR cache policy.`,
+      );
+    }
+
+    const assertTargetAbsentOnNextRead = async (label: string) => {
+      const publicRows = await fixtureDb.execute({
+        sql: "SELECT 1 FROM public_entities WHERE id = ?",
+        args: ["boundary-public-pen"],
+      });
+      assertCondition(
+        publicRows.rows.length === 0,
+        `${label}: target remained in the direct public_entities oracle.`,
+      );
+
+      const recommendations = await recommendModule.getRecommendations(
+        "boundary-public-brand",
+        30,
+      );
+      assertCondition(
+        !recommendations.some(
+          (item: { id: string }) => item.id === "boundary-public-pen",
+        ),
+        `${label}: recommendation retained the target.`,
+      );
+
+      const wiki = (await markdownModule.MarkdownRenderer({
+        content: "[[boundary-public-pen]]",
+      })) as { props?: { html?: unknown } };
+      assertCondition(
+        !String(wiki.props?.html || "").includes("href="),
+        `${label}: wiki retained the target.`,
+      );
+
+      const models = await libraryModule.getBrandPublicModels(
+        "boundary-public-brand",
+      );
+      assertCondition(
+        !models.models.some(
+          (model: { slug: string }) => model.slug === "boundary-public-pen",
+        ),
+        `${label}: brand library retained the target.`,
+      );
+
+      assertCondition(
+        !(await libraryModule.getMediaAssetIndex(20)).some(
+          (item: { id: string }) => item.id === "boundary-cache-media",
+        ),
+        `${label}: media index retained the target owner.`,
+      );
+      const imageResponse = await imageProxyModule.GET(
+        new NextRequest(
+          "http://boundary.invalid/api/image-proxy?id=boundary-cache-media",
+        ),
+      );
+      assertCondition(
+        imageResponse.status === 404 &&
+          imageResponse.headers.get("cache-control") === "no-store",
+        `${label}: image proxy did not immediately return a no-store 404.`,
+      );
+
+      const sections = await libraryModule.getExhibitSections(
+        "boundary-public-exhibit",
+      );
+      assertCondition(
+        sections.length === 1 &&
+          parseFixtureJsonList(sections[0].related_entity_slugs_json).length ===
+            0 &&
+          !parseFixtureJsonList(sections[0].diagram_slugs_json).includes(
+            "boundary-cache-public-diagram",
+          ) &&
+          parseFixtureJsonList(sections[0].diagram_slugs_json).includes(
+            "boundary-cache-global-diagram",
+          ),
+        `${label}: exhibit section retained an entity-owned target or lost non-entity content.`,
+      );
+      assertJsonEqual(
+        await libraryModule.getRelatedEntitiesByPaths([
+          "pen/boundary-public-pen",
+        ]),
+        [],
+        `${label}: exhibit entity resolution`,
+      );
+
+      const timeline = await libraryModule.getRecentTimeline(20);
+      assertCondition(
+        !timeline.some(
+          (event: { id: string }) => event.id === "boundary-public-timeline",
+        ) &&
+          timeline.some(
+            (event: { id: string }) => event.id === "boundary-global-timeline",
+          ),
+        `${label}: timeline retained the entity owner or lost the global event.`,
+      );
+    };
+
+    await fixtureDb.execute(`
+      UPDATE entities
+      SET summary = 'Critical edit invalidates every secondary surface.'
+      WHERE id = 'boundary-public-pen'
+    `);
+    await assertTargetAbsentOnNextRead("Critical edit next read");
+
+    await publishEntity(fixtureDb, {
+      entityId: "boundary-public-pen",
+      reviewer: "boundary-checker",
+    });
+    assertCondition(
+      (await fixtureDb.execute(
+        "SELECT 1 FROM public_entities WHERE id = 'boundary-public-pen'",
+      )).rows.length === 1,
+      "Republished target did not return before retirement.",
+    );
+    await setEntityPublicationStatus(
+      fixtureDb,
+      "boundary-public-pen",
+      "retired",
+    );
+    await assertTargetAbsentOnNextRead("Retire next read");
+  } finally {
+    try {
+      getDb().close();
+    } finally {
+      fixtureDb.close();
+      fs.rmSync(tempRoot, { recursive: true, force: true });
+    }
+  }
+
+  assertCondition(
+    !fs.existsSync(tempRoot),
+    "Secondary exhibit/timeline fixture was not cleaned.",
+  );
+  assertRealDatabaseUnchanged(before, "Secondary exhibit/timeline/cache checks");
+  console.log(
+    "Secondary exhibit/timeline/cache boundary passed: draft targets are gated and critical edit/retire disappear on the next no-store read while non-entity content remains.",
+  );
+}
+
 async function runLegacyBoundary() {
   const db = createClient({ url: "file:data/fpkg.db" });
   const failures: string[] = [];
@@ -2336,6 +2827,10 @@ async function main() {
   }
   if (args.includes("--secondary-library-media")) {
     await runSecondaryLibraryMediaChecks();
+    return;
+  }
+  if (args.includes("--secondary-exhibit-timeline-cache")) {
+    await runSecondaryExhibitTimelineCacheChecks();
     return;
   }
   await runLegacyBoundary();

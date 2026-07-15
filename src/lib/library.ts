@@ -286,6 +286,7 @@ export async function getTimelineForEntity(entityId: string, limit = 12) {
             te.description, te.review_status,
             si.title as source_title, si.url as source_url
      FROM timeline_events te
+     JOIN public_entities public_owner ON public_owner.id = te.entity_id
      JOIN source_items si ON si.id = te.source_item_id
      WHERE te.entity_id = ?
        AND te.review_status = 'approved'
@@ -303,10 +304,10 @@ export async function getRecentTimeline(limit = 100) {
             si.title as source_title, si.url as source_url,
             e.type as entity_type, e.slug as entity_slug, e.name as entity_name
      FROM timeline_events te
-     LEFT JOIN entities e ON e.id = te.entity_id
+     LEFT JOIN public_entities e ON e.id = te.entity_id
      LEFT JOIN source_items si ON si.id = te.source_item_id
      WHERE te.review_status = 'approved'
-       AND (te.entity_id IS NULL OR ${publicEntityFilter("e")})
+       AND (te.entity_id IS NULL OR e.id IS NOT NULL)
      ORDER BY te.start_date ASC, te.created_at ASC
      LIMIT ?`,
     [limit],
@@ -1125,7 +1126,7 @@ export async function getExhibit(slug: string) {
 }
 
 export async function getExhibitSections(exhibitId: string) {
-  return (await queryAll(
+  const sections = (await queryAll(
     `SELECT id, position, title, body_md, related_entity_slugs_json,
             diagram_slugs_json, source_item_ids_json
      FROM exhibit_sections
@@ -1133,14 +1134,62 @@ export async function getExhibitSections(exhibitId: string) {
      ORDER BY position ASC`,
     [exhibitId],
   )) as ExhibitSectionRecord[];
+
+  const relatedPaths = sections.flatMap((section) =>
+    parseStringList(section.related_entity_slugs_json)
+      .map(canonicalPublicPath)
+      .filter((value): value is string => Boolean(value)),
+  );
+  const publicRelated = await getRelatedEntitiesByPaths(relatedPaths);
+  const publicRelatedPaths = new Set(
+    publicRelated.map((entity) => `${entity.type}/${entity.slug}`),
+  );
+
+  const diagramSlugs = Array.from(
+    new Set(
+      sections.flatMap((section) =>
+        parseStringList(section.diagram_slugs_json),
+      ),
+    ),
+  );
+  const publicDiagramRows = diagramSlugs.length
+    ? ((await queryAll(
+        `SELECT diagram.slug
+         FROM diagrams diagram
+         LEFT JOIN public_entities public_owner
+           ON public_owner.id = diagram.entity_id
+         WHERE diagram.slug IN (${diagramSlugs.map(() => "?").join(", ")})
+           AND diagram.review_status IN ('published', 'reviewed')
+           AND (diagram.entity_id IS NULL OR public_owner.id IS NOT NULL)`,
+        diagramSlugs,
+      )) as Array<{ slug: string }>)
+    : [];
+  const publicDiagramSlugs = new Set(
+    publicDiagramRows.map((diagram) => diagram.slug),
+  );
+
+  return sections.map((section) => ({
+    ...section,
+    related_entity_slugs_json: JSON.stringify(
+      parseStringList(section.related_entity_slugs_json)
+        .map(canonicalPublicPath)
+        .filter(
+          (pathValue): pathValue is string =>
+            pathValue !== null && publicRelatedPaths.has(pathValue),
+        ),
+    ),
+    diagram_slugs_json: JSON.stringify(
+      parseStringList(section.diagram_slugs_json).filter((slug) =>
+        publicDiagramSlugs.has(slug),
+      ),
+    ),
+  }));
 }
 
 export async function getRelatedEntitiesByPaths(paths: string[]) {
-  const canonicalPaths = paths.map((pathValue) => {
-    const [type, ...slugParts] = pathValue.split("/");
-    const slug = slugParts.join("/");
-    return getCanonicalEntityPath(type, slug)?.replace(/^\//, "") || pathValue;
-  });
+  const canonicalPaths = paths
+    .map(canonicalPublicPath)
+    .filter((pathValue): pathValue is string => Boolean(pathValue));
   if (canonicalPaths.length === 0) return [];
 
   const clauses = canonicalPaths
@@ -1153,9 +1202,8 @@ export async function getRelatedEntitiesByPaths(paths: string[]) {
 
   const rows = (await queryAll(
     `SELECT e.type, e.slug, e.name, e.summary
-     FROM entities e
+     FROM public_entities e
      WHERE (${clauses})
-       AND ${publicEntityFilter("e")}
      ORDER BY e.type, e.name`,
     args,
   )) as RelatedEntityRecord[];
@@ -1164,6 +1212,18 @@ export async function getRelatedEntitiesByPaths(paths: string[]) {
   return canonicalPaths
     .map((pathValue) => byPath.get(pathValue))
     .filter((row): row is RelatedEntityRecord => Boolean(row));
+}
+
+function parseStringList(value: string | null): string[] {
+  if (!value) return [];
+  try {
+    const parsed = JSON.parse(value);
+    return Array.isArray(parsed)
+      ? parsed.filter((item): item is string => typeof item === "string")
+      : [];
+  } catch {
+    return [];
+  }
 }
 
 export async function getSourceItemsByIds(ids: string[]) {
