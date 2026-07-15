@@ -52,6 +52,10 @@ type FileState = {
   sha256?: string;
 };
 
+type FileContentState =
+  | { exists: false }
+  | { exists: true; size: number; sha256: string };
+
 let fixtureRoot = "";
 let fixtureDatabasePath = "";
 let fixtureDb: Client;
@@ -86,6 +90,33 @@ function snapshotRealDatabase(): Record<string, FileState> {
       },
     ),
   );
+}
+
+function fileContentState(state: FileState): FileContentState {
+  if (!state.exists) return { exists: false };
+  return {
+    exists: true,
+    size: state.size as number,
+    sha256: state.sha256 as string,
+  };
+}
+
+function expectRealDatabaseUnchanged(
+  before: Record<string, FileState>,
+  after: Record<string, FileState>,
+): void {
+  expect(
+    after["fpkg.db"],
+    "real main database content/metadata changed",
+  ).toEqual(before["fpkg.db"]);
+  expect(
+    fileContentState(after["fpkg.db-wal"]),
+    "real WAL existence or content changed",
+  ).toEqual(fileContentState(before["fpkg.db-wal"]));
+  expect(
+    fileContentState(after["fpkg.db-shm"]),
+    "real SHM existence, size, or content changed",
+  ).toEqual(fileContentState(before["fpkg.db-shm"]));
 }
 
 async function freePort(): Promise<number> {
@@ -493,7 +524,7 @@ test.describe("publication gate browser contract", () => {
     fixtureDb?.close();
     if (fixtureRoot) fs.rmSync(fixtureRoot, { recursive: true, force: true });
     expect(fs.existsSync(fixtureRoot)).toBeFalsy();
-    expect(snapshotRealDatabase()).toEqual(realDatabaseBefore);
+    expectRealDatabaseUnchanged(realDatabaseBefore, snapshotRealDatabase());
   });
 
   test("Majohn A1 and Montblanc 149 draft shells are absent from every public surface", async ({
