@@ -2,19 +2,19 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: — 内容百科化与型号扩容（当前）
-current_phase: 18
-current_phase_name: 统一发布门禁
+current_phase: 19
+current_phase_name: 真实审计与证据契约
 status: executing
-stopped_at: Completed 18-06-PLAN.md
-last_updated: "2026-07-15T13:33:58.253Z"
+stopped_at: Phase 18 complete; Phase 19 ready for planning
+last_updated: "2026-07-15T14:32:59.941Z"
 last_activity: 2026-07-15
-last_activity_desc: Completed 18-06 secondary surface publication boundary
+last_activity_desc: Phase 18 complete, transitioned to Phase 19
 progress:
   total_phases: 16
-  completed_phases: 7
+  completed_phases: 8
   total_plans: 14
-  completed_plans: 13
-  percent: 93
+  completed_plans: 14
+  percent: 50
 ---
 
 # State: Fountain Pen Knowledge Graph
@@ -24,46 +24,47 @@ progress:
 See: `.planning/PROJECT.md`（updated 2026-07-15）
 
 **Core value:** 通过可信、完整且彼此关联的内容，让用户持续漫游钢笔知识网络，而不是打开只有标题和关系的空壳页。
-**Current focus:** Phase 18 — 统一发布门禁
+**Current focus:** Phase 19 — 为实际 305 条品牌/型号库存建立零抽样审计与逐字段证据契约
 
 ## Current Position
 
-Phase: 18 of 26（v1.2 phase 1 of 9 — 统一发布门禁）
-Plan: 6 of 7 in current phase
+Phase: 19 of 26 (真实审计与证据契约)
+Plan: Not started
 Status: Ready to execute
-Last activity: 2026-07-15 — Completed 18-06 secondary surface publication boundary
+Last activity: 2026-07-15 — Phase 18 complete, transitioned to Phase 19
 
-Progress: [█████████░] 93%
+Progress: [█████░░░░░] 50%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 6
-- Average duration: 20 min
-- Total execution time: 119 min
+- Total plans completed: 14
+- Average duration: 22 min
+- Total execution time: 153 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 18–26 | 6 | 119 min | 20 min |
+| 18–26 | 7 | 153 min | 22 min |
 | Phase 18 P01 | 8 min | 2 tasks | 11 files |
 | Phase 18 P02 | 12 min | 2 tasks | 11 files |
 | Phase 18 P03 | 30 min | 3 tasks | 4 files |
 | Phase 18 P04 | 32 min | 2 tasks | 9 files |
 | Phase 18 P05 | 12 min | 2 tasks | 8 files |
 | Phase 18 P06 | 25min | 3 tasks | 14 files |
+| Phase 18 P07 | 34 min | 3 tasks | 6 files |
 
 ## Accumulated Context
 
 ### Decisions
 
-- v1.2 必须按 Phase 18 → 26 串行推进：publication gate → 真实 audit/evidence → renderer → taxonomy → Montblanc 149 → 现有 296 清账 → P0 → P1 → production QA
+- v1.2 必须按 Phase 18 → 26 串行推进：publication gate → 真实 audit/evidence → renderer → taxonomy → Montblanc 149 → 现有 305 条实际库存清账 → P0 → P1 → production QA
 - 任何新建或迁移实体默认 draft；只有 `public_entities` readiness 无 blocker 后才能原子发布
 - 296 篇 deprecated brand/model story 不得批量复活，只能作为重新研究和写作的线索
 - 109 项覆盖矩阵是 taxonomy 处理项而非净新增页数；Phase 21 后再锁定 create/merge/split/rename/alias/retire 净量
-- P0/P1 在现有 65 个品牌、231 个型号清账完成前不得开始；P2 40 项与 P3 2 项不属于 v1.2 承诺范围
+- P0/P1 在实际库存 69 个品牌、236 个型号清账完成前不得开始；旧 65+231 只作为公开基线追溯，P2 40 项与 P3 2 项不属于 v1.2 承诺范围
 - [Phase 18]: Migration ownership scanning runs by default across every TypeScript script; six Plan 18-02 legacy runners are accepted only by exact SHA-256 until 18-02 closes. — This preserves zero-bypass enforcement for new or modified scripts without editing files reserved for the immediately following plan.
 - [Phase 18]: FPKG_DATABASE_URL is an isolated server-only file override and is mutually exclusive with Turso. — Fixture mode must fail closed and may never resolve to the real catalog database.
 - [Phase 18]: Local Playwright starts through the shared publication fixture harness. — One lifecycle now owns canonical migration, Next child shutdown, client close, and temp cleanup.
@@ -80,6 +81,7 @@ Progress: [█████████░] 93%
 - [Phase 18]: Secondary candidate, owner, and resolved target reads all authorize through public_entities. — Independent gating prevents a reviewed child record or stale materialization from inheriting visibility from workflow status alone.
 - [Phase 18]: Brand pages enumerate the complete reverse made_by public-pen set without representative limits. — The public count and every model link must match canonical membership exactly.
 - [Phase 18]: Entity-bearing secondary pages and image responses remain dynamic and no-store. — The project has no unified active purge path, so publication transitions must be visible on the next request.
+- [Phase 18]: `public_entities` is the sole public authorization set, and brand pages enumerate the complete reverse public `made_by` set. — Unqualified model URLs are hard 404s; published brands cannot silently omit published models.
 
 ### Pending Todos
 
@@ -87,16 +89,16 @@ None.
 
 ### Blockers/Concerns
 
-- Phase 19 前不能假定新门禁下有任何现成可发布样板，initial publishable count 必须全量计算
+- Phase 19 前不能假定新门禁下有任何现成可发布样板，initial publishable count 必须全量计算；当前 raw inventory 是 69 brands + 236 pens，旧 65+231 基线不得替代它
 - 53 篇 Richard’s Pens 长文的 allowed use 与 223 个缺严格公开型号图条目的媒体获取成本，需在 Phase 23 逐条形成终态
 - taxonomy 净量未在 Phase 21 重算前，P0/P1 不使用“新增页数”作为进度指标
 
 ## Next Action
 
-执行 `18-07-PLAN.md`，用独立四语义 parity oracle、migration/compatibility matrix 与 browser E2E 完成 Phase 18 全量本地验收。
+规划并执行 Phase 19：先冻结 305 条 raw inventory manifest 与旧 296 条公开基线映射，再建立逐字段 evidence、scope、conflict、review 与零抽样 audit 契约。
 
 ## Session Continuity
 
-Last session: 2026-07-15T13:33:58.248Z
-Stopped at: Completed 18-06-PLAN.md
+Last session: 2026-07-15T14:32:59.941Z
+Stopped at: Phase 18 complete; Phase 19 ready for planning
 Resume file: None

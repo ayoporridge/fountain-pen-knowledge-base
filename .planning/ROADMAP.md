@@ -8,7 +8,7 @@
 
 ## Overview
 
-v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史保留。v1.2 从 Phase 18 继续编号：先把 publication、readiness、audit 与 evidence 变成唯一可信的公开契约，再开放 renderer；随后稳定 taxonomy，以 Montblanc 149 校准 A 档内容生产，再逐条清完现有 65 个品牌和 231 个型号，最后依次完成 P0 13 项、P1 54 项并在正式站做零抽样验收。
+v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史保留。v1.2 从 Phase 18 继续编号：先把 publication、readiness、audit 与 evidence 变成唯一可信的公开契约，再开放 renderer；随后稳定 taxonomy，以 Montblanc 149 校准 A 档内容生产，再逐条清完 2026-07-15 实际库存的 69 个品牌和 236 个型号（同时保留 65+231 的旧公开基线用于追溯），最后依次完成 P0 13 项、P1 54 项并在正式站做零抽样验收。
 
 ## Milestones
 
@@ -30,12 +30,12 @@ v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史
 
 ### v1.2 — 内容百科化与型号扩容（当前）
 
-- [ ] **Phase 18: 统一发布门禁** - 建立唯一 publication/readiness/public 集合并关闭所有空壳公开路径
-- [ ] **Phase 19: 真实审计与证据契约** - 生成 296 条真实台账并让逐字段证据、版本、冲突和审核状态可判定
+- [x] **Phase 18: 统一发布门禁** - 建立唯一 publication/readiness/public 集合并关闭所有空壳公开路径 (completed 2026-07-15)
+- [ ] **Phase 19: 真实审计与证据契约** - 为实际 305 条库存生成真实台账，并让逐字段证据、版本、冲突和审核状态可判定
 - [ ] **Phase 20: 百科页面 Renderer** - 只把当前 hash 下已发布的完整内容渲染成桌面与手机均可用的品牌/型号页
 - [ ] **Phase 21: Taxonomy 与身份归一** - 完成 alias、merge、split、rename、variant 和争议身份治理并重算扩容净量
 - [ ] **Phase 22: Montblanc 149 A 档样板** - 以全新研究、正文、规格、版本、来源和主图验证完整生产链
-- [ ] **Phase 23: 现有 296 条库存清账** - 逐条处理 65 个品牌与 231 个型号，达标发布或带理由退出公开面
+- [ ] **Phase 23: 现有 305 条库存清账** - 逐条处理 69 个品牌与 236 个型号，达标发布或带理由退出公开面
 - [ ] **Phase 24: P0 13 项扩容** - 在现有库存清零后完成全部 P0 身份、内容、证据、媒体与原子发布
 - [ ] **Phase 25: P1 54 项分批扩容** - 按地区和产品梯级逐批完成 P1，并继续隔离 P2/P3
 - [ ] **Phase 26: 全库生产验收** - 在本地、Turso 和正式域名重复零抽样、零 retry 的最终验收
@@ -165,7 +165,7 @@ v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史
   4. 迁移只建立显式 publication 记录和 draft/backlog，不会批量复活 313 篇 deprecated 旧故事或 grandfather 旧条目
   5. 每个公开型号恰好关联一个公开 canonical 品牌；品牌详情的型号区反向列出全部公开型号，数量与 `made_by` 关系集合一致且不截断
 
-**Plans**: 6/7 plans executed
+**Plans**: 7/7 plans executed
 
 - [x] 18-01-PLAN.md
 - [x] 18-02-PLAN.md
@@ -173,7 +173,7 @@ v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史
 - [x] 18-04-PLAN.md
 - [x] 18-05-PLAN.md
 - [x] 18-06-PLAN.md
-- [ ] 18-07-PLAN.md
+- [x] 18-07-PLAN.md
 
 **UI hint**: yes
 
@@ -184,7 +184,7 @@ v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史
 **Requirements**: EVID-01, EVID-02, EVID-03, EVID-04, EVID-05, EVID-06, AUD-01, AUD-02, AUD-03, AUD-04, AUD-05, QA-01
 **Success Criteria** (what must be TRUE):
 
-  1. 2026-07-15 基线的 65 个品牌、231 个型号各有一条 NDJSON/CSV 台账记录，可逐条看到实际公开内容、证据、审核状态与 blocker；`--limit` 不改变全库判定
+  1. 2026-07-15 实际库存的 69 个品牌、236 个型号各有一条 NDJSON/CSV 台账记录，可逐条看到 raw identity、旧公开基线归属、当前 publication、内容、证据、审核状态与 blocker；旧 65+231 基线和额外 9 条均可追溯，`--limit` 不改变全库判定
   2. 每个可公开规格字段都有 approved citation、evidence locator 与 variant/region/date scope；镜像只算一个独立来源组，retailer、社区或搜索结果不能独立解锁身份与核心规格
   3. 同一 scope 的冲突在解决前不进入规格卡，身份冲突阻止整条发布；内容、事实、中文和媒体审核分别绑定当前 hash
   4. audit 只统计真正可公开的数据，任一硬 blocker 都使条目失败；CI fixture 能确定性覆盖 deprecated、pending、needs_source、镜像、无逐字段 citation、unresolved conflict 与合格实体
@@ -240,26 +240,26 @@ v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史
 **Plans**: TBD
 **UI hint**: yes
 
-### Phase 23: 现有 296 条库存清账
+### Phase 23: 现有 305 条库存清账
 
-**Goal**: 2026-07-15 基线的 65 个品牌与 231 个型号全部有可信终态，不再有未盘点或靠低质量数据占据公开面的条目。
+**Goal**: 2026-07-15 实际库存的 69 个品牌与 236 个型号全部有可信终态，不再有未盘点或靠低质量数据占据公开面的条目；旧 65+231 公开基线继续作为独立追溯维度。
 **Depends on**: Phase 22
 **Requirements**: CONT-01, CONT-02, CONT-03, CONT-04, CONT-05, CONT-06, CONT-07, CONT-09
 **Success Criteria** (what must be TRUE):
 
-  1. 基线 296 条逐条清账完毕，每条最终为达标 published，或带明确 blocker 的 draft/retired 并完全退出公开面，未盘点数为 0
+  1. 实际库存 305 条逐条清账完毕，每条最终为达标 published，或带明确 blocker 的 draft/retired 并完全退出公开面，额外 9 条不得被旧基线漏掉，未盘点数为 0
   2. 每个公开型号满足 A/B/C 对应正文篇幅与主题覆盖，至少五项逐字段核实规格、两个独立来源组和合格主图；每个公开品牌具备完整身份/时间线/产品体系及至少一个达标代表型号
   3. 53 篇 Richard’s Pens legacy longform 逐篇完成版权、allowed use、独立性和事实 scope 审查；无站内全文权利的内容只作研究材料
   4. 223 个缺严格公开型号图的条目逐条完成来源、许可、落地、attribution 和实体匹配，无法取得合格图片的条目保持不公开
   5. 全库重复句、模板段、AI 套话、机器翻译腔、模糊归因、第一人称归属、数字/单位和中英文排版检查对所有新写或重写正文零失败
-  6. 231 个基线型号逐条完成 canonical 品牌归属核对，缺失/多重/错误 `made_by` 为 0；品牌反向型号集合零遗漏，Majohn A1 在内容达标前保持隐藏、达标后详情完整并出现在末匠品牌页
+  6. 236 个实际库存型号逐条完成 canonical 品牌归属核对，缺失/多重/错误 `made_by` 为 0；品牌反向型号集合零遗漏，Majohn A1 在内容达标前保持隐藏、达标后详情完整并出现在末匠品牌页
 
 **Plans**: TBD
 **UI hint**: yes
 
 ### Phase 24: P0 13 项扩容
 
-**Goal**: 在现有 296 条库存完成清账后，覆盖矩阵的 13 个 P0 处理项全部以同一硬门槛获得正确身份和公开结果。
+**Goal**: 在现有 305 条库存完成清账后，覆盖矩阵的 13 个 P0 处理项全部以同一硬门槛获得正确身份和公开结果。
 **Depends on**: Phase 23
 **Requirements**: EXP-02, EXP-04
 **Success Criteria** (what must be TRUE):
@@ -316,12 +316,12 @@ v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史
 | 15. 内容可信度与信息契约 | v1.1 | Complete | Complete | 2026-07-13 |
 | 16. 分类漫游与响应式体验 | v1.1 | Complete | Complete | 2026-07-13 |
 | 17. 全量回归与生产发布 | v1.1 | Complete | Complete | 2026-07-13 |
-| 18. 统一发布门禁 | v1.2 | 6/7 | In Progress|  |
+| 18. 统一发布门禁 | v1.2 | 7/7 | Complete    | 2026-07-15 |
 | 19. 真实审计与证据契约 | v1.2 | 0/TBD | Not started | - |
 | 20. 百科页面 Renderer | v1.2 | 0/TBD | Not started | - |
 | 21. Taxonomy 与身份归一 | v1.2 | 0/TBD | Not started | - |
 | 22. Montblanc 149 A 档样板 | v1.2 | 0/TBD | Not started | - |
-| 23. 现有 296 条库存清账 | v1.2 | 0/TBD | Not started | - |
+| 23. 现有 305 条库存清账 | v1.2 | 0/TBD | Not started | - |
 | 24. P0 13 项扩容 | v1.2 | 0/TBD | Not started | - |
 | 25. P1 54 项分批扩容 | v1.2 | 0/TBD | Not started | - |
 | 26. 全库生产验收 | v1.2 | 0/TBD | Not started | - |
