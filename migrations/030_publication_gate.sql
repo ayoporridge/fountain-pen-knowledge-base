@@ -144,6 +144,79 @@ DROP VIEW IF EXISTS public_entity_readiness;
 DROP VIEW IF EXISTS publication_blockers;
 DROP VIEW IF EXISTS publication_public_brands;
 DROP VIEW IF EXISTS publication_base_blockers;
+DROP VIEW IF EXISTS publication_source_item_entities;
+DROP VIEW IF EXISTS publication_citation_entities;
+DROP VIEW IF EXISTS publication_claim_entities;
+
+-- Internal dependency maps keep hash reads and source/citation invalidation on
+-- the same owner semantics. Exhibit citations have no entity owner in v1 and
+-- are intentionally absent instead of being guessed.
+CREATE VIEW publication_claim_entities (claim_id, entity_id) AS
+SELECT id, subject_entity_id
+FROM claims
+WHERE subject_entity_id IS NOT NULL;
+
+CREATE VIEW publication_citation_entities (citation_id, entity_id) AS
+SELECT id, target_id
+FROM citations
+WHERE target_type = 'entity'
+UNION
+SELECT citation.id, story.entity_id
+FROM citations citation
+JOIN stories story ON citation.target_type = 'story' AND story.id = citation.target_id
+WHERE story.entity_id IS NOT NULL
+UNION
+SELECT citation.id, event.entity_id
+FROM citations citation
+JOIN timeline_events event
+  ON citation.target_type = 'timeline_event' AND event.id = citation.target_id
+WHERE event.entity_id IS NOT NULL
+UNION
+SELECT citation.id, diagram.entity_id
+FROM citations citation
+JOIN diagrams diagram
+  ON citation.target_type = 'diagram' AND diagram.id = citation.target_id
+WHERE diagram.entity_id IS NOT NULL
+UNION
+SELECT citation.id, spec.entity_id
+FROM citations citation
+JOIN model_specs spec
+  ON citation.target_type = 'model_spec' AND spec.id = citation.target_id
+UNION
+SELECT citation.id, owner.entity_id
+FROM citations citation
+JOIN publication_claim_entities owner
+  ON citation.target_type = 'claim' AND owner.claim_id = citation.target_id
+UNION
+SELECT citation.id, owner.entity_id
+FROM citations citation
+JOIN publication_claim_entities owner ON owner.claim_id = citation.claim_id;
+
+CREATE VIEW publication_source_item_entities (source_item_id, entity_id) AS
+SELECT claim.source_item_id, owner.entity_id
+FROM claims claim
+JOIN publication_claim_entities owner ON owner.claim_id = claim.id
+WHERE claim.source_item_id IS NOT NULL
+UNION
+SELECT citation.source_item_id, owner.entity_id
+FROM citations citation
+JOIN publication_citation_entities owner ON owner.citation_id = citation.id
+WHERE citation.source_item_id IS NOT NULL
+UNION
+SELECT variant.source_item_id, variant.model_entity_id
+FROM model_variants variant
+WHERE variant.source_item_id IS NOT NULL
+UNION
+SELECT event.source_item_id, event.entity_id
+FROM timeline_events event
+WHERE event.source_item_id IS NOT NULL AND event.entity_id IS NOT NULL
+UNION
+SELECT media.source_item_id, media.entity_id
+FROM media_assets media
+WHERE media.source_item_id IS NOT NULL AND media.entity_id IS NOT NULL
+UNION
+SELECT reference.source_item_id, reference.entity_id
+FROM entity_references reference;
 
 -- Common blockers are independent of made_by, so a brand can become public
 -- before a pen points to it. This breaks the otherwise circular pen->brand gate.
@@ -450,3 +523,567 @@ WHERE e.type NOT IN ('brand', 'pen')
       '灵感提炼'
     )
   );
+
+-- Invalidation keeps the last approved hash as audit evidence. A monotonic
+-- revision mismatch removes the entity immediately; only a published row moves
+-- back to in_review so draft/retired workflow choices are preserved.
+CREATE TRIGGER publication_entity_content_update
+AFTER UPDATE OF slug, name, summary, body_md, source, source_url, source_file, imported_at
+ON entities
+WHEN OLD.slug IS NOT NEW.slug
+  OR OLD.name IS NOT NEW.name
+  OR OLD.summary IS NOT NEW.summary
+  OR OLD.body_md IS NOT NEW.body_md
+  OR OLD.source IS NOT NEW.source
+  OR OLD.source_url IS NOT NEW.source_url
+  OR OLD.source_file IS NOT NEW.source_file
+  OR OLD.imported_at IS NOT NEW.imported_at
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id = NEW.id;
+END;
+
+CREATE TRIGGER publication_entity_content_delete
+BEFORE DELETE ON entities
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id = OLD.id;
+END;
+
+CREATE TRIGGER publication_story_insert
+AFTER INSERT ON stories
+WHEN NEW.entity_id IS NOT NULL
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id = NEW.entity_id;
+END;
+
+CREATE TRIGGER publication_story_update
+AFTER UPDATE ON stories
+WHEN OLD.entity_id IS NOT NEW.entity_id
+  OR OLD.title IS NOT NEW.title
+  OR OLD.story_type IS NOT NEW.story_type
+  OR OLD.summary IS NOT NEW.summary
+  OR OLD.body_md IS NOT NEW.body_md
+  OR OLD.status IS NOT NEW.status
+  OR OLD.source_notes IS NOT NEW.source_notes
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id IN (OLD.entity_id, NEW.entity_id);
+END;
+
+CREATE TRIGGER publication_story_delete
+BEFORE DELETE ON stories
+WHEN OLD.entity_id IS NOT NULL
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id = OLD.entity_id;
+END;
+
+CREATE TRIGGER publication_model_spec_insert
+AFTER INSERT ON model_specs
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id = NEW.entity_id;
+END;
+
+CREATE TRIGGER publication_model_spec_update
+AFTER UPDATE ON model_specs
+WHEN OLD.entity_id IS NOT NEW.entity_id
+  OR OLD.brand_entity_id IS NOT NEW.brand_entity_id
+  OR OLD.series_name IS NOT NEW.series_name
+  OR OLD.release_year IS NOT NEW.release_year
+  OR OLD.origin_country IS NOT NEW.origin_country
+  OR OLD.nib IS NOT NEW.nib
+  OR OLD.fill_system IS NOT NEW.fill_system
+  OR OLD.material IS NOT NEW.material
+  OR OLD.dimensions IS NOT NEW.dimensions
+  OR OLD.weight IS NOT NEW.weight
+  OR OLD.price_range IS NOT NEW.price_range
+  OR OLD.status IS NOT NEW.status
+  OR OLD.review_status IS NOT NEW.review_status
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id IN (OLD.entity_id, NEW.entity_id);
+END;
+
+CREATE TRIGGER publication_model_spec_delete
+BEFORE DELETE ON model_specs
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id = OLD.entity_id;
+END;
+
+CREATE TRIGGER publication_model_variant_insert
+AFTER INSERT ON model_variants
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id = NEW.model_entity_id;
+END;
+
+CREATE TRIGGER publication_model_variant_update
+AFTER UPDATE ON model_variants
+WHEN OLD.model_entity_id IS NOT NEW.model_entity_id
+  OR OLD.variant_name IS NOT NEW.variant_name
+  OR OLD.release_year IS NOT NEW.release_year
+  OR OLD.notes IS NOT NEW.notes
+  OR OLD.source_item_id IS NOT NEW.source_item_id
+  OR OLD.review_status IS NOT NEW.review_status
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id IN (OLD.model_entity_id, NEW.model_entity_id);
+END;
+
+CREATE TRIGGER publication_model_variant_delete
+BEFORE DELETE ON model_variants
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id = OLD.model_entity_id;
+END;
+
+CREATE TRIGGER publication_claim_insert
+AFTER INSERT ON claims
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id = NEW.subject_entity_id;
+END;
+
+-- BEFORE captures the old subject and all citation owners; AFTER captures the
+-- new topology. Unchanged owners may increment twice, which is conservatively
+-- monotonic and required because SQLite row triggers have no statement scope.
+CREATE TRIGGER publication_claim_update_old
+BEFORE UPDATE ON claims
+WHEN OLD.subject_entity_id IS NOT NEW.subject_entity_id
+  OR OLD.subject_text IS NOT NEW.subject_text
+  OR OLD.predicate IS NOT NEW.predicate
+  OR OLD.object_entity_id IS NOT NEW.object_entity_id
+  OR OLD.object_text IS NOT NEW.object_text
+  OR OLD.source_item_id IS NOT NEW.source_item_id
+  OR OLD.evidence_locator IS NOT NEW.evidence_locator
+  OR OLD.confidence IS NOT NEW.confidence
+  OR OLD.review_status IS NOT NEW.review_status
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id = OLD.subject_entity_id
+     OR entity_id IN (
+       SELECT owner.entity_id
+       FROM citations citation
+       JOIN publication_citation_entities owner ON owner.citation_id = citation.id
+       WHERE citation.claim_id = OLD.id
+          OR (citation.target_type = 'claim' AND citation.target_id = OLD.id)
+     );
+END;
+
+CREATE TRIGGER publication_claim_update_new
+AFTER UPDATE ON claims
+WHEN OLD.subject_entity_id IS NOT NEW.subject_entity_id
+  OR OLD.subject_text IS NOT NEW.subject_text
+  OR OLD.predicate IS NOT NEW.predicate
+  OR OLD.object_entity_id IS NOT NEW.object_entity_id
+  OR OLD.object_text IS NOT NEW.object_text
+  OR OLD.source_item_id IS NOT NEW.source_item_id
+  OR OLD.evidence_locator IS NOT NEW.evidence_locator
+  OR OLD.confidence IS NOT NEW.confidence
+  OR OLD.review_status IS NOT NEW.review_status
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id = NEW.subject_entity_id
+     OR entity_id IN (
+       SELECT owner.entity_id
+       FROM citations citation
+       JOIN publication_citation_entities owner ON owner.citation_id = citation.id
+       WHERE citation.claim_id = NEW.id
+          OR (citation.target_type = 'claim' AND citation.target_id = NEW.id)
+     );
+END;
+
+CREATE TRIGGER publication_claim_delete
+BEFORE DELETE ON claims
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id = OLD.subject_entity_id
+     OR entity_id IN (
+       SELECT owner.entity_id
+       FROM citations citation
+       JOIN publication_citation_entities owner ON owner.citation_id = citation.id
+       WHERE citation.claim_id = OLD.id
+          OR (citation.target_type = 'claim' AND citation.target_id = OLD.id)
+     );
+END;
+
+CREATE TRIGGER publication_citation_insert
+AFTER INSERT ON citations
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id IN (
+    SELECT entity_id
+    FROM publication_citation_entities
+    WHERE citation_id = NEW.id
+  );
+END;
+
+CREATE TRIGGER publication_citation_update_old
+BEFORE UPDATE ON citations
+WHEN OLD.target_type IS NOT NEW.target_type
+  OR OLD.target_id IS NOT NEW.target_id
+  OR OLD.source_item_id IS NOT NEW.source_item_id
+  OR OLD.claim_id IS NOT NEW.claim_id
+  OR OLD.note IS NOT NEW.note
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id IN (
+    SELECT entity_id
+    FROM publication_citation_entities
+    WHERE citation_id = OLD.id
+  );
+END;
+
+CREATE TRIGGER publication_citation_update_new
+AFTER UPDATE ON citations
+WHEN OLD.target_type IS NOT NEW.target_type
+  OR OLD.target_id IS NOT NEW.target_id
+  OR OLD.source_item_id IS NOT NEW.source_item_id
+  OR OLD.claim_id IS NOT NEW.claim_id
+  OR OLD.note IS NOT NEW.note
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id IN (
+    SELECT entity_id
+    FROM publication_citation_entities
+    WHERE citation_id = NEW.id
+  );
+END;
+
+CREATE TRIGGER publication_citation_delete
+BEFORE DELETE ON citations
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id IN (
+    SELECT entity_id
+    FROM publication_citation_entities
+    WHERE citation_id = OLD.id
+  );
+END;
+
+CREATE TRIGGER publication_source_item_insert
+AFTER INSERT ON source_items
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id IN (
+    SELECT entity_id FROM publication_source_item_entities
+    WHERE source_item_id = NEW.id
+  );
+END;
+
+CREATE TRIGGER publication_source_item_update
+AFTER UPDATE ON source_items
+WHEN OLD.source_id IS NOT NEW.source_id
+  OR OLD.title IS NOT NEW.title
+  OR OLD.url IS NOT NEW.url
+  OR OLD.item_type IS NOT NEW.item_type
+  OR OLD.license IS NOT NEW.license
+  OR OLD.author IS NOT NEW.author
+  OR OLD.published_at IS NOT NEW.published_at
+  OR OLD.retrieved_at IS NOT NEW.retrieved_at
+  OR OLD.summary IS NOT NEW.summary
+  OR OLD.raw_metadata_json IS NOT NEW.raw_metadata_json
+  OR OLD.allowed_use IS NOT NEW.allowed_use
+  OR OLD.review_status IS NOT NEW.review_status
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id IN (
+    SELECT entity_id FROM publication_source_item_entities
+    WHERE source_item_id IN (OLD.id, NEW.id)
+  );
+END;
+
+CREATE TRIGGER publication_source_item_delete
+BEFORE DELETE ON source_items
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id IN (
+    SELECT entity_id FROM publication_source_item_entities
+    WHERE source_item_id = OLD.id
+  );
+END;
+
+CREATE TRIGGER publication_source_registry_insert
+AFTER INSERT ON source_registry
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id IN (
+    SELECT owner.entity_id
+    FROM source_items item
+    JOIN publication_source_item_entities owner ON owner.source_item_id = item.id
+    WHERE item.source_id = NEW.id
+  );
+END;
+
+CREATE TRIGGER publication_source_registry_update
+AFTER UPDATE ON source_registry
+WHEN OLD.name IS NOT NEW.name
+  OR OLD.source_type IS NOT NEW.source_type
+  OR OLD.allowed_use IS NOT NEW.allowed_use
+  OR OLD.reliability IS NOT NEW.reliability
+  OR OLD.license IS NOT NEW.license
+  OR OLD.attribution IS NOT NEW.attribution
+  OR OLD.homepage_url IS NOT NEW.homepage_url
+  OR OLD.fetch_method IS NOT NEW.fetch_method
+  OR OLD.notes IS NOT NEW.notes
+  OR OLD.last_checked_at IS NOT NEW.last_checked_at
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id IN (
+    SELECT owner.entity_id
+    FROM source_items item
+    JOIN publication_source_item_entities owner ON owner.source_item_id = item.id
+    WHERE item.source_id IN (OLD.id, NEW.id)
+  );
+END;
+
+CREATE TRIGGER publication_source_registry_delete
+BEFORE DELETE ON source_registry
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id IN (
+    SELECT owner.entity_id
+    FROM source_items item
+    JOIN publication_source_item_entities owner ON owner.source_item_id = item.id
+    WHERE item.source_id = OLD.id
+  );
+END;
+
+CREATE TRIGGER publication_entity_reference_insert
+AFTER INSERT ON entity_references
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id = NEW.entity_id;
+END;
+
+CREATE TRIGGER publication_entity_reference_update
+AFTER UPDATE ON entity_references
+WHEN OLD.entity_id IS NOT NEW.entity_id
+  OR OLD.source_item_id IS NOT NEW.source_item_id
+  OR OLD.relation_type IS NOT NEW.relation_type
+  OR OLD.note IS NOT NEW.note
+  OR OLD.review_status IS NOT NEW.review_status
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id IN (OLD.entity_id, NEW.entity_id);
+END;
+
+CREATE TRIGGER publication_entity_reference_delete
+BEFORE DELETE ON entity_references
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id = OLD.entity_id;
+END;
+
+CREATE TRIGGER publication_timeline_event_insert
+AFTER INSERT ON timeline_events
+WHEN NEW.entity_id IS NOT NULL
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id = NEW.entity_id;
+END;
+
+CREATE TRIGGER publication_timeline_event_update
+AFTER UPDATE ON timeline_events
+WHEN OLD.entity_id IS NOT NEW.entity_id
+  OR OLD.title IS NOT NEW.title
+  OR OLD.event_type IS NOT NEW.event_type
+  OR OLD.start_date IS NOT NEW.start_date
+  OR OLD.end_date IS NOT NEW.end_date
+  OR OLD.circa IS NOT NEW.circa
+  OR OLD.description IS NOT NEW.description
+  OR OLD.source_item_id IS NOT NEW.source_item_id
+  OR OLD.review_status IS NOT NEW.review_status
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id IN (OLD.entity_id, NEW.entity_id);
+END;
+
+CREATE TRIGGER publication_timeline_event_delete
+BEFORE DELETE ON timeline_events
+WHEN OLD.entity_id IS NOT NULL
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id = OLD.entity_id;
+END;
+
+CREATE TRIGGER publication_media_asset_insert
+AFTER INSERT ON media_assets
+WHEN NEW.entity_id IS NOT NULL
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id = NEW.entity_id;
+END;
+
+CREATE TRIGGER publication_media_asset_update
+AFTER UPDATE ON media_assets
+WHEN OLD.entity_id IS NOT NEW.entity_id
+  OR OLD.title IS NOT NEW.title
+  OR OLD.asset_type IS NOT NEW.asset_type
+  OR OLD.image_url IS NOT NEW.image_url
+  OR OLD.thumbnail_url IS NOT NEW.thumbnail_url
+  OR OLD.local_path IS NOT NEW.local_path
+  OR OLD.author IS NOT NEW.author
+  OR OLD.license IS NOT NEW.license
+  OR OLD.attribution_text IS NOT NEW.attribution_text
+  OR OLD.source_url IS NOT NEW.source_url
+  OR OLD.source_item_id IS NOT NEW.source_item_id
+  OR OLD.review_status IS NOT NEW.review_status
+  OR OLD.usage_status IS NOT NEW.usage_status
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id IN (OLD.entity_id, NEW.entity_id);
+END;
+
+CREATE TRIGGER publication_media_asset_delete
+BEFORE DELETE ON media_assets
+WHEN OLD.entity_id IS NOT NULL
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id = OLD.entity_id;
+END;
+
+CREATE TRIGGER publication_made_by_link_insert
+AFTER INSERT ON entity_links
+WHEN NEW.link_type = 'made_by'
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id = NEW.source_id;
+END;
+
+CREATE TRIGGER publication_made_by_link_update
+AFTER UPDATE ON entity_links
+WHEN (OLD.link_type = 'made_by' OR NEW.link_type = 'made_by')
+  AND (
+    OLD.source_id IS NOT NEW.source_id
+    OR OLD.target_id IS NOT NEW.target_id
+    OR OLD.link_type IS NOT NEW.link_type
+    OR OLD.reason IS NOT NEW.reason
+  )
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id IN (OLD.source_id, NEW.source_id);
+END;
+
+CREATE TRIGGER publication_made_by_link_delete
+BEFORE DELETE ON entity_links
+WHEN OLD.link_type = 'made_by'
+BEGIN
+  UPDATE entity_publications
+  SET content_revision = content_revision + 1,
+      status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
+      updated_at = datetime('now')
+  WHERE entity_id = OLD.source_id;
+END;
