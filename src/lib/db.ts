@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import {
   type Client,
   createClient,
@@ -81,6 +82,97 @@ export function createReadinessGuard(
   };
 }
 
+interface DatabaseConnectionConfig {
+  url: string;
+  authToken?: string;
+  concurrency?: number;
+  localPath?: string;
+}
+
+function canonicalizePotentialPath(inputPath: string): string {
+  let existingAncestor = path.resolve(inputPath);
+  const missingSegments: string[] = [];
+
+  while (!fs.existsSync(existingAncestor)) {
+    const parent = path.dirname(existingAncestor);
+    if (parent === existingAncestor) break;
+    missingSegments.unshift(path.basename(existingAncestor));
+    existingAncestor = parent;
+  }
+
+  const canonicalAncestor = fs.existsSync(existingAncestor)
+    ? fs.realpathSync.native(existingAncestor)
+    : existingAncestor;
+  return path.join(canonicalAncestor, ...missingSegments);
+}
+
+function fileDatabasePath(databaseUrl: string): string {
+  if (!databaseUrl.startsWith("file:")) {
+    throw new Error("FPKG_DATABASE_URL must be a file: URL.");
+  }
+  if (/[?#]/.test(databaseUrl)) {
+    throw new Error(
+      "FPKG_DATABASE_URL must identify one file without query or hash parameters.",
+    );
+  }
+
+  const rawPath = databaseUrl.startsWith("file://")
+    ? fileURLToPath(databaseUrl)
+    : decodeURIComponent(databaseUrl.slice("file:".length));
+  if (!rawPath || rawPath === ":memory:") {
+    throw new Error(
+      "FPKG_DATABASE_URL must identify a persistent disposable file.",
+    );
+  }
+
+  return canonicalizePotentialPath(rawPath);
+}
+
+/**
+ * Resolve the server-only database environment before creating a client.
+ * FPKG_DATABASE_URL exists solely for isolated local fixtures; it is never a
+ * browser-exposed NEXT_PUBLIC variable.
+ */
+export function resolveDatabaseConnection(
+  env: NodeJS.ProcessEnv = process.env,
+): DatabaseConnectionConfig {
+  const tursoUrl = env.TURSO_DATABASE_URL?.trim();
+  const fileUrl = env.FPKG_DATABASE_URL?.trim();
+  const fixtureMode = env.PUBLICATION_GATE_FIXTURE === "1";
+
+  if (tursoUrl && fileUrl) {
+    throw new Error(
+      "TURSO_DATABASE_URL and FPKG_DATABASE_URL are mutually exclusive.",
+    );
+  }
+  if (fixtureMode && !fileUrl) {
+    throw new Error(
+      "PUBLICATION_GATE_FIXTURE=1 requires an explicit file: FPKG_DATABASE_URL.",
+    );
+  }
+
+  if (fileUrl) {
+    const localPath = fileDatabasePath(fileUrl);
+    if (fixtureMode && localPath === canonicalizePotentialPath(DB_PATH)) {
+      throw new Error(
+        "Publication fixtures may not use the real data/fpkg.db database.",
+      );
+    }
+    return { url: fileUrl, localPath };
+  }
+
+  if (tursoUrl) {
+    return {
+      url: tursoUrl,
+      authToken: env.TURSO_AUTH_TOKEN,
+      concurrency: 4,
+    };
+  }
+
+  const localPath = canonicalizePotentialPath(DB_PATH);
+  return { url: `file:${localPath}`, localPath };
+}
+
 /**
  * Get or create a database client.
  * - In production (TURSO_URL set): connects to Turso cloud
@@ -93,20 +185,18 @@ export function createReadinessGuard(
 export function getDb(): Client {
   if (_client) return _client;
 
-  const url = process.env.TURSO_DATABASE_URL;
-  const authToken = process.env.TURSO_AUTH_TOKEN;
-
-  if (url) {
-    // Production: connect to Turso
-    _client = createClient({ url, authToken, concurrency: 4 });
-  } else {
-    // Development: use local file
-    const dataDir = path.dirname(DB_PATH);
+  const connection = resolveDatabaseConnection();
+  if (connection.localPath) {
+    const dataDir = path.dirname(connection.localPath);
     if (!fs.existsSync(dataDir)) {
       fs.mkdirSync(dataDir, { recursive: true });
     }
-    _client = createClient({ url: `file:${DB_PATH}` });
   }
+  _client = createClient({
+    url: connection.url,
+    authToken: connection.authToken,
+    concurrency: connection.concurrency,
+  });
 
   return _client;
 }
