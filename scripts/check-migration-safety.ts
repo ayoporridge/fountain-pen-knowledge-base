@@ -9,40 +9,6 @@ import { assertDatabaseReady, migrateDatabase } from "../src/lib/db";
 
 const ROOT = process.cwd();
 const CHECKER_PATH = "scripts/check-migration-safety.ts";
-const PLAN_02_SUMMARY = path.join(
-  ROOT,
-  ".planning/phases/18-publication-gate/18-02-SUMMARY.md",
-);
-
-// Plan 02 owns these remaining legacy runners. Until that plan closes, tolerate
-// only their exact reviewed bytes: any edit, new file, or reintroduced bypass
-// fails the ownership scan. Once Plan 02 has a summary, no exception remains.
-const TRANSITIONAL_PLAN_02_DEBT = new Map([
-  [
-    "scripts/seed.ts",
-    "7fab5b3607d375339efa07981eb25ae4c8edf5fe80fe45ced4f7fd464b8d5be5",
-  ],
-  [
-    "scripts/seed-tags.ts",
-    "423e98bc187e4a487f68b8fee1e06ad0c738ccd3a09962ed09dae84f21aefefa",
-  ],
-  [
-    "scripts/seed-concepts.ts",
-    "f938611e5f1990ddb2846ce5fbf75185f70da2e0a02b48cf94bdce0ea99a1034",
-  ],
-  [
-    "scripts/seed-library-samples.ts",
-    "dcbb78a3458c1e3844db397e6810ce339a9b3bf1e5215d7e8bb4af1d47d9b585",
-  ],
-  [
-    "scripts/import-csv.ts",
-    "33298415fad30f03169d3a3e20a98a21d7309063665877c11eb944dbbbc4b1ff",
-  ],
-  [
-    "scripts/import-markdown.ts",
-    "35e86e1a6e68c8349344cfae9e8fdac6eeec564cdbb8328bda89cfb68be82819",
-  ],
-]);
 
 function sha256(value: string): string {
   return createHash("sha256").update(value).digest("hex");
@@ -95,8 +61,6 @@ function migrationOwnershipFindings(source: string): string[] {
 function assertMigrationOwnership(): void {
   const scriptsDir = path.join(ROOT, "scripts");
   const files = sourceFiles(scriptsDir);
-  const allowTransitionalDebt = !fs.existsSync(PLAN_02_SUMMARY);
-  const tolerated: string[] = [];
   const violations: string[] = [];
 
   for (const file of files) {
@@ -106,16 +70,6 @@ function assertMigrationOwnership(): void {
     const source = fs.readFileSync(file, "utf8");
     const findings = migrationOwnershipFindings(source);
     if (findings.length === 0) continue;
-
-    const expectedHash = TRANSITIONAL_PLAN_02_DEBT.get(relativePath);
-    if (
-      allowTransitionalDebt &&
-      expectedHash !== undefined &&
-      sha256(source) === expectedHash
-    ) {
-      tolerated.push(relativePath);
-      continue;
-    }
 
     violations.push(`${relativePath}: ${findings.join(", ")}`);
   }
@@ -165,7 +119,7 @@ function assertMigrationOwnership(): void {
   }
 
   console.log(
-    `Migration ownership scan passed (${files.length - 1} scripts scanned; ${tolerated.length} exact Plan 02 debt fixture(s) tolerated).`,
+    `Migration ownership scan passed (${files.length - 1} scripts scanned; no migration-writer exceptions).`,
   );
 }
 

@@ -1,39 +1,28 @@
 import Database from "better-sqlite3";
+import { createClient } from "@libsql/client";
 import { nanoid } from "nanoid";
 import fs from "node:fs";
 import path from "node:path";
+import { migrateDatabase } from "../src/lib/db";
 
 const DB_PATH = path.join(process.cwd(), "data", "fpkg.db");
-const MIGRATIONS_DIR = path.join(process.cwd(), "migrations");
+
+async function main(): Promise<void> {
 
 // Ensure data dir
 const dataDir = path.dirname(DB_PATH);
 if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
 
+const migrationClient = createClient({ url: `file:${DB_PATH}` });
+try {
+  await migrateDatabase(migrationClient);
+} finally {
+  migrationClient.close();
+}
+
 const db = new Database(DB_PATH);
 db.pragma("journal_mode = WAL");
 db.pragma("foreign_keys = ON");
-
-// Run migrations
-db.exec(
-  "CREATE TABLE IF NOT EXISTS migrations (name TEXT PRIMARY KEY NOT NULL, applied_at TEXT NOT NULL)",
-);
-const applied = new Set(
-  (db.prepare("SELECT name FROM migrations").all() as Array<{ name: string }>).map(
-    (r) => r.name,
-  ),
-);
-for (const file of fs
-  .readdirSync(MIGRATIONS_DIR)
-  .filter((f) => f.endsWith(".sql"))
-  .sort()) {
-  if (applied.has(file)) continue;
-  db.exec(fs.readFileSync(path.join(MIGRATIONS_DIR, file), "utf-8"));
-  db.prepare("INSERT INTO migrations (name, applied_at) VALUES (?, datetime('now'))").run(
-    file,
-  );
-  console.log(`Applied migration: ${file}`);
-}
 
 // Seed data
 interface SeedEntity {
@@ -147,3 +136,9 @@ for (const seed of seeds) {
 
 console.log(`\n🌱 Seeded ${seeds.length} entities successfully!`);
 db.close();
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});

@@ -1,7 +1,8 @@
 import Database from "better-sqlite3";
+import { createClient } from "@libsql/client";
 import path from "node:path";
-import fs from "node:fs";
 import { nanoid } from "nanoid";
+import { migrateDatabase } from "../src/lib/db";
 
 const DB_PATH = path.join(process.cwd(), "data", "fpkg.db");
 
@@ -91,24 +92,16 @@ const CONCEPTS = [
   },
 ];
 
-function main() {
+async function main(): Promise<void> {
+  const migrationClient = createClient({ url: `file:${DB_PATH}` });
+  try {
+    await migrateDatabase(migrationClient);
+  } finally {
+    migrationClient.close();
+  }
+
   const db = new Database(DB_PATH);
   db.pragma("journal_mode = WAL");
-
-  // Run migration if needed
-  try {
-    db.prepare("SELECT id FROM concept_rules LIMIT 1").get();
-  } catch {
-    console.log("Running concept migration...");
-    const migration = fs.readFileSync(
-      path.join(process.cwd(), "migrations", "007_tag_hierarchy.sql"),
-      "utf-8",
-    );
-    for (const stmt of migration.split(";").filter((s) => s.trim())) {
-      db.exec(stmt);
-    }
-    db.prepare("INSERT OR IGNORE INTO migrations (name, applied_at) VALUES ('007_tag_hierarchy.sql', datetime('now'))").run();
-  }
 
   const insertRule = db.prepare(
     "INSERT OR IGNORE INTO concept_rules (id, name, slug, description, conditions) VALUES (?, ?, ?, ?, ?)",
@@ -162,4 +155,7 @@ function main() {
   db.close();
 }
 
-main();
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});

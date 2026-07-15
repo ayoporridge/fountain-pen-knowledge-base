@@ -1,8 +1,10 @@
 import Database from "better-sqlite3";
+import { createClient } from "@libsql/client";
 import fs from "node:fs";
 import path from "node:path";
 import { nanoid } from "nanoid";
 import { shouldReclassifyPenArticle } from "../src/lib/entity-quality";
+import { assertDatabaseReady } from "../src/lib/db";
 
 const DB_PATH = path.join(process.cwd(), "data", "fpkg.db");
 
@@ -91,27 +93,20 @@ function inferTypeFromCategory(categoryZh?: string): string {
   return map[categoryZh] || "concept";
 }
 
-export function importMarkdownDir(
+export async function importMarkdownDir(
   dirPath: string,
   options: { onConflict?: "skip" | "update" | "error" } = {},
-): ImportResult {
+): Promise<ImportResult> {
   const { onConflict = "skip" } = options;
+  const readinessClient = createClient({ url: `file:${DB_PATH}` });
+  try {
+    await assertDatabaseReady(readinessClient);
+  } finally {
+    readinessClient.close();
+  }
+
   const db = new Database(DB_PATH);
   db.pragma("journal_mode = WAL");
-
-  // Run source migration if needed
-  try {
-    db.prepare("SELECT source_url FROM entities LIMIT 1").get();
-  } catch {
-    console.log("Running source migration...");
-    const migration = fs.readFileSync(
-      path.join(process.cwd(), "migrations", "005_sources.sql"),
-      "utf-8",
-    );
-    for (const stmt of migration.split(";").filter((s) => s.trim())) {
-      db.exec(stmt);
-    }
-  }
 
   const result: ImportResult = {
     created: 0,
@@ -279,16 +274,23 @@ if (!fs.existsSync(absDir)) {
   process.exit(1);
 }
 
-const result = importMarkdownDir(absDir, { onConflict });
+async function main(): Promise<void> {
+  const result = await importMarkdownDir(absDir, { onConflict });
 
-console.log("\n📊 Import Report:");
-console.log(`  ✅ Created: ${result.created}`);
-console.log(`  🔄 Updated: ${result.updated}`);
-console.log(`  ⏭  Skipped: ${result.skipped}`);
-console.log(`  🔗 Links created: ${result.linksCreated}`);
-if (result.errors.length > 0) {
-  console.log(`  ❌ Errors: ${result.errors.length}`);
-  for (const err of result.errors) {
-    console.log(`    - ${err.file}: ${err.error}`);
+  console.log("\n📊 Import Report:");
+  console.log(`  ✅ Created: ${result.created}`);
+  console.log(`  🔄 Updated: ${result.updated}`);
+  console.log(`  ⏭  Skipped: ${result.skipped}`);
+  console.log(`  🔗 Links created: ${result.linksCreated}`);
+  if (result.errors.length > 0) {
+    console.log(`  ❌ Errors: ${result.errors.length}`);
+    for (const err of result.errors) {
+      console.log(`    - ${err.file}: ${err.error}`);
+    }
   }
 }
+
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});

@@ -1,9 +1,7 @@
-import fs from "node:fs";
-import path from "node:path";
 import { createClient, type Client, type InArgs } from "@libsql/client";
+import { migrateDatabase } from "../src/lib/db";
 
 const DB_URL = process.env.TURSO_DATABASE_URL || "file:data/fpkg.db";
-const MIGRATIONS_DIR = path.join(process.cwd(), "migrations");
 
 type DbValue = string | number | null;
 type EntityRow = {
@@ -25,51 +23,6 @@ function getClient() {
 
 async function execute(db: Client, sql: string, args: DbValue[] = []) {
   await db.execute({ sql, args: args as InArgs });
-}
-
-async function runMigrations(db: Client) {
-  await execute(
-    db,
-    `CREATE TABLE IF NOT EXISTS migrations (
-      name TEXT PRIMARY KEY NOT NULL,
-      applied_at TEXT NOT NULL DEFAULT (datetime('now'))
-    )`,
-  );
-
-  if (!fs.existsSync(MIGRATIONS_DIR)) return;
-
-  const appliedRows = await db.execute("SELECT name FROM migrations");
-  const applied = new Set(appliedRows.rows.map((row) => String(row.name)));
-  const files = fs
-    .readdirSync(MIGRATIONS_DIR)
-    .filter((file) => file.endsWith(".sql"))
-    .sort();
-  const hasLegacySchema =
-    (
-      await db.execute(
-        "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'entities'",
-      )
-    ).rows.length > 0;
-
-  for (const file of files) {
-    if (applied.has(file)) continue;
-    if (hasLegacySchema && file !== "011_library_schema.sql") {
-      await execute(
-        db,
-        "INSERT OR IGNORE INTO migrations (name, applied_at) VALUES (?, datetime('now'))",
-        [file],
-      );
-      continue;
-    }
-    const sql = fs.readFileSync(path.join(MIGRATIONS_DIR, file), "utf-8");
-    await db.executeMultiple(sql);
-    await execute(
-      db,
-      "INSERT INTO migrations (name, applied_at) VALUES (?, datetime('now'))",
-      [file],
-    );
-    console.log(`Applied migration: ${file}`);
-  }
 }
 
 async function findEntity(
@@ -845,7 +798,7 @@ const diagrams = [
 async function main() {
   const db = getClient();
   await execute(db, "PRAGMA foreign_keys = ON");
-  await runMigrations(db);
+  await migrateDatabase(db);
 
   const [pilot, lamy, pilot823, lamy2000] = await Promise.all([
     findEntity(db, "brand", ["pilot"], "Pilot"),
