@@ -24,6 +24,79 @@ const SCRIPT_PATH = path.join(ROOT, "scripts", "check-publication-gate.ts");
 const MIGRATION_030 = "030_publication_gate.sql";
 const VALID_HASH = `sha256:v1:${"a".repeat(64)}`;
 
+const CRITICAL_PUBLICATION_OBJECTS = [
+  ["table", "entity_publications"],
+  ["index", "idx_entity_publications_status"],
+  ["index", "idx_entity_publications_review_contract"],
+  ["view", "publication_claim_entities"],
+  ["view", "publication_citation_entities"],
+  ["view", "publication_source_item_entities"],
+  ["view", "publication_base_blockers"],
+  ["view", "publication_public_brands"],
+  ["view", "publication_blockers"],
+  ["view", "public_entity_readiness"],
+  ["view", "public_entities"],
+  ["trigger", "publication_entity_insert_draft"],
+  ["trigger", "publication_entity_type_reset"],
+  ["trigger", "publication_entity_content_update"],
+  ["trigger", "publication_story_insert"],
+  ["trigger", "publication_model_spec_insert"],
+  ["trigger", "publication_model_variant_insert"],
+  ["trigger", "publication_claim_insert"],
+  ["trigger", "publication_citation_insert"],
+  ["trigger", "publication_source_item_insert"],
+  ["trigger", "publication_source_registry_insert"],
+  ["trigger", "publication_entity_reference_insert"],
+  ["trigger", "publication_timeline_event_insert"],
+  ["trigger", "publication_media_asset_insert"],
+  ["trigger", "publication_made_by_link_insert"],
+  ["trigger", "publication_publish_insert_guard"],
+  ["trigger", "publication_publish_transition_guard"],
+] as const;
+
+// Independent copy of the pre-publication non-brand/pen visibility contract.
+// Do not import publicEntityFilter/isPublicEntity here: this is the expected
+// side of the compatibility oracle, not another runtime consumer.
+const LEGACY_PUBLIC_NON_BRAND_WHERE = `
+  e.type NOT IN ('brand', 'pen')
+  AND e.slug NOT IN (
+    '百乐-pilot-custom-823',
+    '百利金-pelikan-m800',
+    '派克-parker-51-经典-vintage',
+    '写乐-sailor-21k-pro-gear-大鱼雷',
+    '奥罗拉-aurora'
+  )
+  AND NOT (
+    e.type = 'concept'
+    AND e.slug IN ('italic-nib', 'music-nib', 'rotary-filler')
+  )
+  AND NOT (
+    e.type = 'article'
+    AND e.slug IN (
+      'about-us',
+      'contact-us',
+      'demonstrator-pens',
+      'hommel-s-meteor-fountain-pen-and-its-descendants',
+      'how-to-disassemble-and-reassemble-a-parker-51',
+      'parker-ivorine-pastel-and-moire-oh-my',
+      'personalized-pens-the-malarkey-pen',
+      'pilot-iroshizuku-ink-guide',
+      'preserving-your-pens-dos-and-don-ts',
+      'privacy-policy',
+      'readme',
+      'soviet-pens',
+      'tribute-pens-and-reboots',
+      'world-war-ii-and-the-fountain-pen',
+      '万特佳',
+      '公爵-duke',
+      '半句',
+      '永续',
+      '犀飞利-sheaffer-品牌泛称',
+      '灵感提炼'
+    )
+  )
+`;
+
 interface FixtureContext {
   tempRoot: string;
   databasePath: string;
@@ -39,6 +112,18 @@ interface FileSnapshot {
   mtimeNs?: string;
   mode?: number;
   sha256?: string;
+}
+
+interface DeprecatedStoryRow {
+  id: string;
+  storyType: string;
+  status: string;
+  bodyHash: string;
+}
+
+interface EntityContentRow {
+  id: string;
+  contentHash: string;
 }
 
 let activeFixture: FixtureContext | null = null;
@@ -194,6 +279,88 @@ async function withPre030Fixture<T>(
     return await run(fixture, migrationsDir);
   } finally {
     await cleanupFixture(fixture);
+  }
+}
+
+function assertSnapshotUnchanged(
+  before: Record<string, FileSnapshot>,
+  context: string,
+): void {
+  const after = snapshotRealDatabase();
+  assertCondition(
+    JSON.stringify(after) === JSON.stringify(before),
+    `${context} changed the real catalog.\nBefore: ${JSON.stringify(before)}\nAfter: ${JSON.stringify(after)}`,
+  );
+}
+
+async function withCatalogCopy<T>(
+  run: (fixture: FixtureContext) => Promise<T>,
+): Promise<T> {
+  const before = snapshotRealDatabase();
+  const mainSnapshot = before[path.basename(REAL_DATABASE_PATH)];
+  const walSnapshot = before[path.basename(`${REAL_DATABASE_PATH}-wal`)];
+  const shmSnapshot = before[path.basename(`${REAL_DATABASE_PATH}-shm`)];
+  assertCondition(mainSnapshot?.exists, "The local catalog snapshot is missing.");
+  assertCondition(
+    !walSnapshot?.exists && !shmSnapshot?.exists,
+    "Refusing to copy the local catalog while WAL/SHM sidecars exist.",
+  );
+
+  const tempRoot = fs.realpathSync.native(
+    fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-publication-catalog-copy-")),
+  );
+  const databasePath = path.join(tempRoot, "catalog-copy.db");
+  fs.copyFileSync(REAL_DATABASE_PATH, databasePath);
+  assertCondition(
+    fs.realpathSync.native(databasePath) !== fs.realpathSync.native(REAL_DATABASE_PATH),
+    "Catalog copy unexpectedly resolved to the real database path.",
+  );
+  const databaseUrl = `file:${databasePath}`;
+  const fixture: FixtureContext = {
+    tempRoot,
+    databasePath,
+    databaseUrl,
+    client: createClient({ url: databaseUrl }),
+    children: new Set(),
+  };
+  activeFixture = fixture;
+
+  try {
+    return await run(fixture);
+  } finally {
+    await cleanupFixture(fixture);
+    assertSnapshotUnchanged(before, "Disposable catalog-copy validation");
+  }
+}
+
+function describeFailure(error: unknown): string {
+  if (error instanceof AggregateError) {
+    return error.errors.map(describeFailure).join("\n");
+  }
+  if (error instanceof Error) {
+    const cause = error.cause ? `\nCaused by: ${describeFailure(error.cause)}` : "";
+    return `${error.message}${cause}`;
+  }
+  return String(error);
+}
+
+async function runCheckMatrix(
+  label: string,
+  checks: Array<{ name: string; run: () => Promise<void> }>,
+): Promise<void> {
+  const failures: string[] = [];
+  for (const check of checks) {
+    try {
+      await check.run();
+      console.log(`PASS ${label}: ${check.name}`);
+    } catch (error) {
+      failures.push(`${check.name}: ${describeFailure(error)}`);
+    }
+  }
+  if (failures.length > 0) {
+    throw new Error(
+      `${label} failed ${failures.length}/${checks.length} checks:\n- ${failures.join("\n- ")}`,
+    );
   }
 }
 
@@ -503,6 +670,144 @@ async function storySnapshot(client: Client): Promise<string> {
     .digest("hex");
 }
 
+async function deprecatedStoryRows(
+  client: Client,
+): Promise<DeprecatedStoryRow[]> {
+  const result = await client.execute(`
+    SELECT id, story_type, status, body_md
+    FROM stories
+    WHERE status = 'deprecated'
+      AND story_type IN ('brand_story', 'model_story')
+    ORDER BY id
+  `);
+  return result.rows.map((row) => ({
+    id: String(row.id),
+    storyType: String(row.story_type),
+    status: String(row.status),
+    bodyHash: createHash("sha256")
+      .update(String(row.body_md ?? ""))
+      .digest("hex"),
+  }));
+}
+
+async function entityContentRows(client: Client): Promise<EntityContentRow[]> {
+  const result = await client.execute(`
+    SELECT id, type, slug, name, summary, body_md, source, created_at,
+           updated_at, source_url, source_file, imported_at
+    FROM entities
+    ORDER BY id
+  `);
+  return result.rows.map((row) => ({
+    id: String(row.id),
+    contentHash: createHash("sha256")
+      .update(JSON.stringify(row))
+      .digest("hex"),
+  }));
+}
+
+function assertRowsEqual<T extends { id: string }>(
+  before: T[],
+  after: T[],
+  label: string,
+): void {
+  const beforeById = new Map(before.map((row) => [row.id, JSON.stringify(row)]));
+  const afterById = new Map(after.map((row) => [row.id, JSON.stringify(row)]));
+  const diffs = [...new Set([...beforeById.keys(), ...afterById.keys()])]
+    .filter((id) => beforeById.get(id) !== afterById.get(id))
+    .sort();
+  assertCondition(
+    diffs.length === 0,
+    `${label} changed ${diffs.length} rows: ${diffs.slice(0, 20).join(", ")}`,
+  );
+}
+
+async function assertMigrationChecksum(
+  client: Client,
+  migrationsDir = MIGRATIONS_PATH,
+): Promise<void> {
+  const marker = await client.execute({
+    sql: "SELECT checksum FROM migrations WHERE name = ?",
+    args: [MIGRATION_030],
+  });
+  const recorded = marker.rows[0]?.checksum;
+  const expected = createHash("sha256")
+    .update(fs.readFileSync(path.join(migrationsDir, MIGRATION_030), "utf8"))
+    .digest("hex");
+  assertCondition(
+    recorded !== null && recorded !== undefined && String(recorded) === expected,
+    `Migration 030 checksum mismatch: expected ${expected}, got ${String(recorded)}.`,
+  );
+}
+
+async function assertIntegrityAndCriticalSchema(
+  client: Client,
+  migrationsDir = MIGRATIONS_PATH,
+): Promise<void> {
+  const quickCheck = await client.execute("PRAGMA quick_check");
+  const quickFailures = quickCheck.rows.filter(
+    (row) => String(row.quick_check ?? Object.values(row)[0]) !== "ok",
+  );
+  assertCondition(
+    quickFailures.length === 0,
+    `PRAGMA quick_check failed: ${JSON.stringify(quickFailures)}`,
+  );
+
+  const foreignKeyCheck = await client.execute("PRAGMA foreign_key_check");
+  assertCondition(
+    foreignKeyCheck.rows.length === 0,
+    `PRAGMA foreign_key_check found ${foreignKeyCheck.rows.length} violations.`,
+  );
+
+  const names = CRITICAL_PUBLICATION_OBJECTS.map(([, name]) => name);
+  const schema = await client.execute({
+    sql: `SELECT type, name FROM sqlite_schema WHERE name IN (${names.map(() => "?").join(", ")})`,
+    args: names,
+  });
+  const actual = new Set(
+    schema.rows.map((row) => `${String(row.type)}:${String(row.name)}`),
+  );
+  const missing = CRITICAL_PUBLICATION_OBJECTS
+    .filter(([type, name]) => !actual.has(`${type}:${name}`))
+    .map(([type, name]) => `${type}:${name}`);
+  assertCondition(
+    missing.length === 0,
+    `Critical publication schema objects missing: ${missing.join(", ")}`,
+  );
+
+  await assertDatabaseReady(client, { migrationsDir });
+  await assertMigrationChecksum(client, migrationsDir);
+}
+
+async function assertDraftOnlyBrandPenBackfill(client: Client): Promise<void> {
+  const aggregate = await client.execute(`
+    SELECT
+      (SELECT count(*) FROM entities WHERE type IN ('brand', 'pen')) AS governed,
+      (SELECT count(*)
+       FROM entities e
+       JOIN entity_publications ep ON ep.entity_id = e.id
+       WHERE e.type IN ('brand', 'pen')) AS publication_rows,
+      (SELECT count(*)
+       FROM entities e
+       JOIN entity_publications ep ON ep.entity_id = e.id
+       WHERE e.type IN ('brand', 'pen') AND ep.status = 'draft') AS drafts,
+      (SELECT count(*)
+       FROM entities e
+       JOIN entity_publications ep ON ep.entity_id = e.id
+       WHERE e.type IN ('brand', 'pen') AND ep.status = 'published') AS published
+  `);
+  const row = aggregate.rows[0];
+  assertCondition(row, "Brand/pen publication aggregate is missing.");
+  const governed = Number(row.governed);
+  assertCondition(
+    governed === Number(row.publication_rows) && governed === Number(row.drafts),
+    `Expected ${governed} brand/pen rows to be draft; got ${String(row.publication_rows)} publication rows and ${String(row.drafts)} drafts.`,
+  );
+  assertCondition(
+    Number(row.published) === 0,
+    `Migration grandfathered ${String(row.published)} brand/pen rows into published.`,
+  );
+}
+
 async function runBackfillContract(): Promise<void> {
   await withPre030Fixture(async ({ client }, migrationsDir) => {
     await assertDatabaseReady(client, { migrationsDir });
@@ -575,6 +880,176 @@ async function runBackfillContract(): Promise<void> {
 
   console.log(
     "Publication backfill contract passed: all brand/pen rows are draft, zero are published, stories are unchanged, and migration replay is idempotent.",
+  );
+}
+
+async function runFreshReplayMatrix(): Promise<void> {
+  await withFixture(async ({ client }) => {
+    await insertEntity(client, "fixture-fresh-brand", "brand");
+    await insertEntity(client, "fixture-fresh-pen", "pen");
+    await assertDraftOnlyBrandPenBackfill(client);
+    await assertIntegrityAndCriticalSchema(client);
+
+    const secondRun = await migrateDatabase(client);
+    assertCondition(
+      secondRun.applied.length === 0 && secondRun.skipped.includes(MIGRATION_030),
+      `Fresh replay was not idempotent: ${JSON.stringify(secondRun)}.`,
+    );
+    await assertIntegrityAndCriticalSchema(client);
+  });
+}
+
+async function runCurrentCatalogCopyUpgrade(): Promise<void> {
+  await withCatalogCopy(async ({ client }) => {
+    const entitiesBefore = await entityContentRows(client);
+    const deprecatedStoriesBefore = await deprecatedStoryRows(client);
+    const markerBefore = await client.execute({
+      sql: "SELECT checksum FROM migrations WHERE name = ?",
+      args: [MIGRATION_030],
+    });
+
+    const firstRun = await migrateDatabase(client);
+    if (markerBefore.rows.length === 0) {
+      assertCondition(
+        firstRun.applied.length === 1 && firstRun.applied[0] === MIGRATION_030,
+        `Catalog-copy upgrade expected only ${MIGRATION_030}; got ${JSON.stringify(firstRun)}.`,
+      );
+    } else {
+      assertCondition(
+        firstRun.applied.length === 0 && firstRun.skipped.includes(MIGRATION_030),
+        `Catalog copy already had 030 but replay was not a clean skip: ${JSON.stringify(firstRun)}.`,
+      );
+    }
+
+    assertRowsEqual(
+      deprecatedStoriesBefore,
+      await deprecatedStoryRows(client),
+      "Deprecated brand/model stories",
+    );
+    assertRowsEqual(
+      entitiesBefore,
+      await entityContentRows(client),
+      "Entity content",
+    );
+    await assertDraftOnlyBrandPenBackfill(client);
+    await assertIntegrityAndCriticalSchema(client);
+
+    const secondRun = await migrateDatabase(client);
+    assertCondition(
+      secondRun.applied.length === 0 && secondRun.skipped.includes(MIGRATION_030),
+      `Catalog-copy second migration run was not idempotent: ${JSON.stringify(secondRun)}.`,
+    );
+    assertRowsEqual(
+      deprecatedStoriesBefore,
+      await deprecatedStoryRows(client),
+      "Deprecated brand/model stories after idempotent replay",
+    );
+    assertRowsEqual(
+      entitiesBefore,
+      await entityContentRows(client),
+      "Entity content after idempotent replay",
+    );
+    await assertIntegrityAndCriticalSchema(client);
+  });
+}
+
+async function runMigrationFullContract(): Promise<void> {
+  await runCheckMatrix("publication migration-full", [
+    { name: "empty fresh replay, schema, checksums, and integrity", run: runFreshReplayMatrix },
+    { name: "synthetic pre-030 upgrade and draft-only backfill", run: runBackfillContract },
+    { name: "current-catalog disposable-copy upgrade invariance", run: runCurrentCatalogCopyUpgrade },
+    { name: "type transitions, critical schema, and made_by readiness", run: runMigrationContract },
+    { name: "critical I/U/D invalidation matrix", run: runInvalidationContract },
+    { name: "direct-SQL guards, rollback, and atomic publish", run: runPublishContract },
+  ]);
+  console.log(
+    "Publication migration-full matrix passed: fresh/upgrade/idempotent/integrity/invalidation/direct-SQL/rollback checks are green.",
+  );
+}
+
+async function runCatalogCompatibility(): Promise<void> {
+  await withCatalogCopy(async ({ client }) => {
+    const expectedRows = await client.execute(`
+      SELECT e.id
+      FROM entities e
+      WHERE ${LEGACY_PUBLIC_NON_BRAND_WHERE}
+      ORDER BY e.id
+    `);
+    const expectedIds = expectedRows.rows.map((row) => String(row.id));
+
+    await migrateDatabase(client);
+    await client.execute(`
+      CREATE TEMP TABLE expected_legacy_public (
+        id TEXT PRIMARY KEY NOT NULL
+      )
+    `);
+    if (expectedIds.length > 0) {
+      await client.batch(
+        expectedIds.map((id) => ({
+          sql: "INSERT INTO expected_legacy_public (id) VALUES (?)",
+          args: [id],
+        })),
+        "write",
+      );
+    }
+
+    const expectedOnly = await client.execute(`
+      SELECT id FROM expected_legacy_public
+      EXCEPT
+      SELECT id FROM public_entities WHERE type NOT IN ('brand', 'pen')
+    `);
+    const actualOnly = await client.execute(`
+      SELECT id FROM public_entities WHERE type NOT IN ('brand', 'pen')
+      EXCEPT
+      SELECT id FROM expected_legacy_public
+    `);
+    assertCondition(
+      expectedOnly.rows.length === 0 && actualOnly.rows.length === 0,
+      `Non-brand/pen compatibility mismatch. expected-only=${expectedOnly.rows.map((row) => String(row.id)).join(",") || "none"}; actual-only=${actualOnly.rows.map((row) => String(row.id)).join(",") || "none"}.`,
+    );
+    await assertIntegrityAndCriticalSchema(client);
+  });
+}
+
+async function runExplicitNonBrandPublicationCompatibility(): Promise<void> {
+  await withFixture(async ({ client }) => {
+    const entityId = "fixture-explicit-article";
+    await insertEntity(client, entityId, "article");
+    await assertPublic(client, entityId);
+
+    await client.execute({
+      sql: `
+        INSERT INTO entity_publications (entity_id, status, blockers_json)
+        VALUES (?, 'draft', '["explicit_publication_draft"]')
+      `,
+      args: [entityId],
+    });
+    await assertNotPublic(client, entityId);
+
+    await publishEntity(client, {
+      entityId,
+      reviewer: "compatibility-reviewer",
+    });
+    await assertPublic(client, entityId);
+
+    await setEntityPublicationStatus(client, entityId, "retired");
+    await assertNotPublic(client, entityId);
+  });
+}
+
+async function runCompatibilityContract(): Promise<void> {
+  await runCheckMatrix("publication compatibility", [
+    {
+      name: "pre-upgrade legacy vs post-upgrade non-brand/pen bidirectional EXCEPT",
+      run: runCatalogCompatibility,
+    },
+    {
+      name: "explicit non-brand publication row switches to strict lifecycle",
+      run: runExplicitNonBrandPublicationCompatibility,
+    },
+  ]);
+  console.log(
+    "Publication compatibility passed: legacy non-brand/pen membership is identical in both EXCEPT directions and explicit publication rows use the strict gate.",
   );
 }
 
@@ -1621,13 +2096,21 @@ async function main(): Promise<void> {
     await runPublishContract();
     return;
   }
+  if (args.includes("--migration-full")) {
+    await runMigrationFullContract();
+    return;
+  }
+  if (args.includes("--compatibility")) {
+    await runCompatibilityContract();
+    return;
+  }
   if (args.includes("--serve-e2e")) {
     await serveE2E(parsePort(args));
     return;
   }
 
   throw new Error(
-    "Usage: pnpm check:publication-gate -- --fixture-isolation | --migration | --backfill | --invalidation | --publish | --serve-e2e --port 3107",
+    "Usage: pnpm check:publication-gate -- --fixture-isolation | --migration | --backfill | --invalidation | --publish | --migration-full | --compatibility | --serve-e2e --port 3107",
   );
 }
 
