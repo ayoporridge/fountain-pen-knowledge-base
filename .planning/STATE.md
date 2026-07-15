@@ -5,16 +5,16 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 18
 current_phase_name: 统一发布门禁）
 status: executing
-stopped_at: Completed 18-02-PLAN.md
-last_updated: "2026-07-15T11:53:02.111Z"
+stopped_at: Completed 18-03-PLAN.md
+last_updated: "2026-07-15T12:27:04.922Z"
 last_activity: 2026-07-15
-last_activity_desc: v1.2 roadmap created with 50/50 requirements mapped
+last_activity_desc: Completed 18-03 publication schema, invalidation, and atomic publish contract
 progress:
   total_phases: 16
   completed_phases: 7
   total_plans: 14
-  completed_plans: 9
-  percent: 44
+  completed_plans: 10
+  percent: 71
 ---
 
 # State: Fountain Pen Knowledge Graph
@@ -29,27 +29,28 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 ## Current Position
 
 Phase: 18 of 26（v1.2 phase 1 of 9 — 统一发布门禁）
-Plan: 2 of 7 in current phase
+Plan: 3 of 7 in current phase
 Status: Ready to execute
-Last activity: 2026-07-15 — v1.2 roadmap created with 50/50 requirements mapped
+Last activity: 2026-07-15 — Completed 18-03 publication schema, invalidation, and atomic publish contract
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [███████░░░] 71%
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 0
-- Average duration: —
-- Total execution time: 0 hours
+- Total plans completed: 3
+- Average duration: 17 min
+- Total execution time: 50 min
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 18–26 | 0 | 0 min | — |
+| 18–26 | 3 | 50 min | 17 min |
 | Phase 18 P01 | 8 min | 2 tasks | 11 files |
 | Phase 18 P02 | 12 min | 2 tasks | 11 files |
+| Phase 18 P03 | 30 min | 3 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -64,6 +65,9 @@ Progress: [░░░░░░░░░░] 0%
 - [Phase 18]: FPKG_DATABASE_URL is an isolated server-only file override and is mutually exclusive with Turso. — Fixture mode must fail closed and may never resolve to the real catalog database.
 - [Phase 18]: Local Playwright starts through the shared publication fixture harness. — One lifecycle now owns canonical migration, Next child shutdown, client close, and temp cleanup.
 - [Phase 18]: Plan-level data-contract and build checks use a temporary catalog copy. — Validation must not open or mutate the real SQLite catalog.
+- [Phase 18]: Readiness is recomputed from current source rows; blockers_json is diagnostic only. — A mutable snapshot must never grant public authorization.
+- [Phase 18]: Unattached source inserts do not invalidate unrelated entities; source fan-out follows explicit ownership paths. — Owner-aware invalidation avoids global false positives while linked writes still fail closed.
+- [Phase 18]: TypeScript computes canonical hashes in one write transaction and SQLite independently guards published transitions. — The database can verify format and state invariants while the server owns deterministic SHA-256 calculation.
 
 ### Pending Todos
 
@@ -77,10 +81,10 @@ None.
 
 ## Next Action
 
-运行 `/gsd-plan-phase 18`，把统一 publication/readiness/public view 契约拆成可执行计划。
+执行 `18-04-PLAN.md`，让主详情与 browse/sitemap/API surface 统一读取 `public_entities`。
 
 ## Session Continuity
 
-Last session: 2026-07-15T11:53:02.106Z
-Stopped at: Completed 18-02-PLAN.md
+Last session: 2026-07-15T12:27:04.916Z
+Stopped at: Completed 18-03-PLAN.md
 Resume file: None

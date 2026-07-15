@@ -8,12 +8,12 @@
 ### 公开资格与边界
 
 - [x] **PUB-01**: 每个品牌和型号具有独立 publication 状态；新建实体默认 `draft`，不能因写入 `entities` 就自动公开
-- [ ] **PUB-02**: 系统通过统一且版本化的 readiness 契约汇总当前 contract version 的全部 blocker，只有零 blocker 的实体才可 `published`；Phase 18 建立 fail-closed 授权机制与 v1 结构门槛，正文、规格、证据、版本、媒体和中文审核细则由 Phase 19 的 EVID 要求升级为 v2，未升级数据保持不可公开
+- [x] **PUB-02**: 系统通过统一且版本化的 readiness 契约汇总当前 contract version 的全部 blocker，只有零 blocker 的实体才可 `published`；Phase 18 建立 fail-closed 授权机制与 v1 结构门槛，正文、规格、证据、版本、媒体和中文审核细则由 Phase 19 的 EVID 要求升级为 v2，未升级数据保持不可公开
 - [ ] **PUB-03**: 详情页、metadata、browse、facets、sitemap、graph、recommendations、品牌全部型号列表和公开 API 使用同一个 `public_entities` 授权集合，并按完整列表、逐 ID、聚合或上下文子集语义验证
 - [ ] **PUB-04**: 未达标、退休或身份未决的条目不出现在任何公开入口；直接访问返回 404，canonical 合并项使用明确 redirect
-- [ ] **PUB-05**: 正文、摘要、规格、证据、版本或主图变化后，旧 content review 因 hash 变化自动失效，实体不能继续沿用旧审核公开
+- [x] **PUB-05**: 正文、摘要、规格、证据、版本或主图变化后，旧 content review 因 hash 变化自动失效，实体不能继续沿用旧审核公开
 - [x] **PUB-06**: 数据迁移只能建立 draft/backlog 与显式 publication 记录，不得批量恢复 313 篇 deprecated 旧故事或自动 grandfather 旧条目
-- [ ] **PUB-07**: 每个可公开型号必须且只能通过 approved `made_by` 关联一个可公开 canonical 品牌；品牌页反向列出该品牌全部可公开型号，集合与关系表双向一致，不使用“代表型号”截断
+- [x] **PUB-07**: 每个可公开型号必须且只能通过 approved `made_by` 关联一个可公开 canonical 品牌；品牌页反向列出该品牌全部可公开型号，集合与关系表双向一致，不使用“代表型号”截断
 
 ### 证据、版本与审核模型
 
@@ -111,12 +111,12 @@
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | PUB-01 | Phase 18 | Complete |
-| PUB-02 | Phase 18 | Pending |
+| PUB-02 | Phase 18 | Complete |
 | PUB-03 | Phase 18 | Pending |
 | PUB-04 | Phase 18 | Pending |
-| PUB-05 | Phase 18 | Pending |
+| PUB-05 | Phase 18 | Complete |
 | PUB-06 | Phase 18 | Complete |
-| PUB-07 | Phase 18 | Pending |
+| PUB-07 | Phase 18 | Complete |
 | EVID-01 | Phase 19 | Pending |
 | EVID-02 | Phase 19 | Pending |
 | EVID-03 | Phase 19 | Pending |
