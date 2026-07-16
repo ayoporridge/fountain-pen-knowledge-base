@@ -5,15 +5,15 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 19
 current_phase_name: real-audit-evidence
 status: executing
-stopped_at: Completed 19-02-PLAN.md
-last_updated: "2026-07-16T06:36:40.520Z"
+stopped_at: Completed 19-03-PLAN.md
+last_updated: "2026-07-16T07:33:00.701Z"
 last_activity: 2026-07-16
 last_activity_desc: Phase 19 execution started
 progress:
   total_phases: 16
   completed_phases: 8
   total_plans: 19
-  completed_plans: 16
+  completed_plans: 17
   percent: 50
 ---
 
@@ -29,7 +29,7 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 ## Current Position
 
 Phase: 19 (real-audit-evidence) — EXECUTING
-Plan: 3 of 5
+Plan: 4 of 5
 Status: Ready to execute
 Last activity: 2026-07-16 — Phase 19 execution started
 
@@ -57,6 +57,7 @@ Progress: [█████░░░░░] 50%
 | Phase 18 P07 | 34 min | 3 tasks | 6 files |
 | Phase 19 P01 | 17 min | 2 tasks | 6 files |
 | Phase 19 P02 | 52 min | 2 tasks | 3 files |
+| Phase 19 P03 | 48 min | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -92,6 +93,9 @@ Progress: [█████░░░░░] 50%
 - [Phase 19]: An approved core claim qualifies only through one complete citation-locator-scope-source chain; components from separate chains cannot be stitched together. — A partial citation paired with an unrelated scope or source would create false evidence completeness.
 - [Phase 19]: Migration 031 preserves retired rows but demotes every other v1 publication to draft and clears inherited approval metadata. — Contract v1 reviews and hashes cannot grandfather an entity into contract v2 authorization.
 - [Phase 19]: public_entities remains the only authorization predicate; blocker JSON is diagnostic only. — Authorization must read ordinary blocker rows and current contract state rather than a mutable diagnostic snapshot.
+- [Phase 19]: Canonical IDs are immutable publication identity. — Primary-key rewrites otherwise change the v2 hash without a reliable generic-reference invalidation owner.
+- [Phase 19]: Any content revision revokes every prior approved review. — Returning content to an old hash must not reactivate authorization from an earlier revision.
+- [Phase 19]: Published authorization snapshots are immutable in place. — Legitimate republish must first demote, then install the current snapshot and final review inside one transaction.
 
 ### Pending Todos
 
@@ -105,10 +109,10 @@ None.
 
 ## Next Action
 
-执行 `19-03-PLAN.md`：把 contract 2 接入 canonical hash、四类 current-hash review、无 retry 原子发布和完整 mutation invalidation fixtures。
+执行 `19-04-PLAN.md`：生成全量 deterministic inventory ledger，并让 quality/library audit 共享同一 publication truth。
 
 ## Session Continuity
 
-Last session: 2026-07-16T06:36:19.263Z
-Stopped at: Completed 19-02-PLAN.md
+Last session: 2026-07-16T07:32:41.581Z
+Stopped at: Completed 19-03-PLAN.md
 Resume file: None

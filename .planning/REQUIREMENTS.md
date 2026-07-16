@@ -27,8 +27,8 @@
 ### 全量测量与质量门禁
 
 - [x] **AUD-01**: 为 2026-07-15 实际库存的 69 个品牌、236 个型号生成逐条 NDJSON/CSV 台账，记录 raw identity、旧 65+231 公开基线归属、当前 publication、所有内容、审核状态、证据与 blocker；额外 9 条不得漏审
-- [ ] **AUD-02**: entity quality 与 library coverage 只统计真正可公开的状态和数据，不把 deprecated、pending、needs_source、candidate、draft 或不可复用媒体计为完成
-- [ ] **AUD-03**: 任一硬 blocker 都必须让条目失败；审计不再要求同时出现两个薄弱理由，也不再用总分抵消缺正文、缺来源或缺图片
+- [x] **AUD-02**: entity quality 与 library coverage 只统计真正可公开的状态和数据，不把 deprecated、pending、needs_source、candidate、draft 或不可复用媒体计为完成
+- [x] **AUD-03**: 任一硬 blocker 都必须让条目失败；审计不再要求同时出现两个薄弱理由，也不再用总分抵消缺正文、缺来源或缺图片
 - [x] **AUD-04**: readiness audit 同时输出 publication 结果和 backlog 原因，`--limit` 只能限制展示数量，不能改变全库判定
 - [ ] **AUD-05**: CI 与生产发布门禁要求公开 blocker 为 0，且 sitemap/browse/API/graph 的实体集合与 `public_entities` 精确相等
 
@@ -124,8 +124,8 @@
 | EVID-05 | Phase 19 | Complete |
 | EVID-06 | Phase 19 | Complete |
 | AUD-01 | Phase 19 | Complete |
-| AUD-02 | Phase 19 | Pending |
-| AUD-03 | Phase 19 | Pending |
+| AUD-02 | Phase 19 | Complete |
+| AUD-03 | Phase 19 | Complete |
 | AUD-04 | Phase 19 | Complete |
 | AUD-05 | Phase 19 | Pending |
 | QA-01 | Phase 19 | Complete |
