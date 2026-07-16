@@ -11,6 +11,11 @@ import {
   resolveDatabaseConnection,
 } from "../src/lib/db";
 import {
+  assertCatalogSnapshotUnchanged,
+  copyCheckpointedCatalogToDisposableCopy,
+  snapshotCatalogFiles,
+} from "../src/lib/audit/read-only-catalog";
+import {
   computePublicationContentHash,
   publishEntity,
   readPublicationContentPayload,
@@ -18,6 +23,7 @@ import {
   setEntityPublicationStatus,
 } from "../src/lib/publication";
 import {
+  assertPhase19LockedRealCatalog,
   cleanupActivePhase19Fixtures,
   cleanupPhase19Fixture,
   createPhase19Fixture,
@@ -306,39 +312,62 @@ function assertSnapshotUnchanged(
 async function withCatalogCopy<T>(
   run: (fixture: FixtureContext) => Promise<T>,
 ): Promise<T> {
-  const before = snapshotRealDatabase();
-  const mainSnapshot = before[path.basename(REAL_DATABASE_PATH)];
-  const walSnapshot = before[path.basename(`${REAL_DATABASE_PATH}-wal`)];
-  assertCondition(mainSnapshot?.exists, "The local catalog snapshot is missing.");
-  assertCondition(
-    !walSnapshot?.exists || walSnapshot.size === "0",
-    "Refusing to copy the local catalog while a non-empty WAL exists.",
+  const before = assertPhase19LockedRealCatalog(
+    snapshotCatalogFiles(REAL_DATABASE_PATH),
   );
 
   const tempRoot = fs.realpathSync.native(
     fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-publication-catalog-copy-")),
   );
   const databasePath = path.join(tempRoot, "catalog-copy.db");
-  fs.copyFileSync(REAL_DATABASE_PATH, databasePath);
-  assertCondition(
-    fs.realpathSync.native(databasePath) !== fs.realpathSync.native(REAL_DATABASE_PATH),
-    "Catalog copy unexpectedly resolved to the real database path.",
-  );
-  const databaseUrl = `file:${databasePath}`;
-  const fixture: FixtureContext = {
-    tempRoot,
-    databasePath,
-    databaseUrl,
-    client: createClient({ url: databaseUrl }),
-    children: new Set(),
-  };
-  activeFixture = fixture;
+  let fixture: FixtureContext | null = null;
 
   try {
+    copyCheckpointedCatalogToDisposableCopy(
+      REAL_DATABASE_PATH,
+      databasePath,
+      tempRoot,
+      { expectedSourceSnapshot: before },
+    );
+    assertCondition(
+      fs.realpathSync.native(databasePath) !==
+        fs.realpathSync.native(REAL_DATABASE_PATH),
+      "Catalog copy unexpectedly resolved to the real database path.",
+    );
+    const databaseUrl = `file:${databasePath}`;
+    fixture = {
+      tempRoot,
+      databasePath,
+      databaseUrl,
+      client: createClient({ url: databaseUrl }),
+      children: new Set(),
+    };
+    activeFixture = fixture;
     return await run(fixture);
   } finally {
-    await cleanupFixture(fixture);
-    assertSnapshotUnchanged(before, "Disposable catalog-copy validation");
+    const cleanupErrors: unknown[] = [];
+    try {
+      if (fixture) await cleanupFixture(fixture);
+      else fs.rmSync(tempRoot, { recursive: true, force: true });
+    } catch (error) {
+      cleanupErrors.push(error);
+    }
+    try {
+      assertCatalogSnapshotUnchanged(
+        before,
+        assertPhase19LockedRealCatalog(
+          snapshotCatalogFiles(REAL_DATABASE_PATH),
+        ),
+      );
+    } catch (error) {
+      cleanupErrors.push(error);
+    }
+    if (cleanupErrors.length > 0) {
+      throw new AggregateError(
+        cleanupErrors,
+        "Disposable catalog-copy cleanup failed closed.",
+      );
+    }
   }
 }
 
@@ -3248,7 +3277,9 @@ async function assertSignalCleanup(
 }
 
 async function runFixtureIsolation(): Promise<void> {
-  const before = snapshotRealDatabase();
+  const before = assertPhase19LockedRealCatalog(
+    snapshotCatalogFiles(REAL_DATABASE_PATH),
+  );
 
   expectThrow(
     () =>
@@ -3342,12 +3373,10 @@ async function runFixtureIsolation(): Promise<void> {
   );
   await assertSignalCleanup(signalReport);
 
-  const after = snapshotRealDatabase();
-  if (JSON.stringify(after) !== JSON.stringify(before)) {
-    throw new Error(
-      `Real database changed during fixture isolation.\nBefore: ${JSON.stringify(before)}\nAfter: ${JSON.stringify(after)}`,
-    );
-  }
+  assertCatalogSnapshotUnchanged(
+    before,
+    assertPhase19LockedRealCatalog(snapshotCatalogFiles(REAL_DATABASE_PATH)),
+  );
 
   console.log(
     "Publication fixture isolation passed: real DB unchanged; success, failure, and SIGTERM cleaned clients, servers, and temp roots.",

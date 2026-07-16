@@ -15,6 +15,26 @@ import type { CatalogSnapshot } from "../../src/lib/audit/audit-contracts";
 
 const ROOT = process.cwd();
 const REAL_CATALOG_PATH = path.join(ROOT, "data", "fpkg.db");
+const LOCKED_POST_INCIDENT_FINGERPRINT = {
+  main: {
+    size: "24723456",
+    inode: "46507656",
+    mtimeNs: "1784118828687297235",
+    sha256: "85015867a0e144cfe8cfa7ad5670a3813220209a0e2c63265b072eac18a385dc",
+  },
+  wal: {
+    size: "0",
+    inode: "70043998",
+    mtimeNs: "1784189498823576647",
+    sha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  },
+  shm: {
+    size: "32768",
+    inode: "70043999",
+    mtimeNs: "1784189892661781716",
+    sha256: "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb",
+  },
+} as const;
 const FIXTURE_ENV_KEYS = [
   "TURSO_DATABASE_URL",
   "TURSO_AUTH_TOKEN",
@@ -37,6 +57,10 @@ export interface Phase19Fixture {
   ): ChildProcess;
 }
 
+export interface CreatePhase19FixtureOptions {
+  readonly constructionSignalProbeReport?: string;
+}
+
 type ManagedPhase19Fixture = Phase19Fixture & {
   readonly children: Set<ChildProcess>;
   readonly realCatalogSnapshot: CatalogSnapshot;
@@ -46,6 +70,7 @@ type ManagedPhase19Fixture = Phase19Fixture & {
 
 const activeFixtures = new Set<ManagedPhase19Fixture>();
 const knownFixtures = new WeakSet<ManagedPhase19Fixture>();
+const detachedFixtureChildren = new WeakSet<ChildProcess>();
 const ownedRoots = new Set<string>();
 let signalCleanupStarted = false;
 let signalHandlersInstalled = false;
@@ -108,12 +133,76 @@ function waitForChildExit(
   });
 }
 
+function processGroupIsAlive(pid: number): boolean {
+  try {
+    process.kill(-pid, 0);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function waitForProcessGroupExit(
+  pid: number,
+  timeoutMs: number,
+): Promise<boolean> {
+  const deadline = Date.now() + timeoutMs;
+  while (Date.now() < deadline) {
+    if (!processGroupIsAlive(pid)) return true;
+    await new Promise((resolve) => setTimeout(resolve, 25));
+  }
+  return !processGroupIsAlive(pid);
+}
+
 async function stopChild(child: ChildProcess): Promise<void> {
+  if (detachedFixtureChildren.has(child) && child.pid) {
+    if (!processGroupIsAlive(child.pid)) return;
+    try {
+      process.kill(-child.pid, "SIGTERM");
+    } catch {
+      child.kill("SIGTERM");
+    }
+    if (await waitForProcessGroupExit(child.pid, 1_500)) return;
+    try {
+      process.kill(-child.pid, "SIGKILL");
+    } catch {
+      child.kill("SIGKILL");
+    }
+    await waitForProcessGroupExit(child.pid, 1_500);
+    return;
+  }
   if (hasExited(child)) return;
   child.kill("SIGTERM");
   if (await waitForChildExit(child, 1_500)) return;
   child.kill("SIGKILL");
   await waitForChildExit(child, 1_500);
+}
+
+export function assertPhase19LockedRealCatalog(
+  snapshot: CatalogSnapshot = snapshotCatalogFiles(REAL_CATALOG_PATH),
+): CatalogSnapshot {
+  const expectedPath = fs.realpathSync.native(REAL_CATALOG_PATH);
+  if (snapshot.sourcePath !== expectedPath) {
+    throw new Error(
+      `Phase 19 locked catalog path mismatch: ${snapshot.sourcePath}.`,
+    );
+  }
+  for (const kind of ["main", "wal", "shm"] as const) {
+    const actual = snapshot[kind];
+    const expected = LOCKED_POST_INCIDENT_FINGERPRINT[kind];
+    if (
+      !actual.exists ||
+      actual.size !== expected.size ||
+      actual.inode !== expected.inode ||
+      actual.mtimeNs !== expected.mtimeNs ||
+      actual.sha256 !== expected.sha256
+    ) {
+      throw new Error(
+        `Phase 19 locked ${kind} fingerprint mismatch: ${JSON.stringify(actual)}.`,
+      );
+    }
+  }
+  return snapshot;
 }
 
 export function snapshotRealCatalogInvariant(
@@ -180,6 +269,7 @@ export async function cleanupPhase19Fixture(
 
 export async function createPhase19Fixture(
   prefix = "fpkg-phase19-",
+  options: CreatePhase19FixtureOptions = {},
 ): Promise<Phase19Fixture> {
   if (activeFixtures.size > 0) {
     throw new Error("Phase 19 fixtures may not overlap in one process.");
@@ -190,6 +280,20 @@ export async function createPhase19Fixture(
     fs.mkdtempSync(path.join(os.tmpdir(), prefix)),
   );
   ownedRoots.add(tempRoot);
+  if (options.constructionSignalProbeReport) {
+    fs.writeFileSync(
+      options.constructionSignalProbeReport,
+      JSON.stringify({
+        tempRoot,
+        databasePath: path.join(tempRoot, "fixture.db"),
+        childPid: null,
+      }),
+      { encoding: "utf8", flag: "wx", mode: 0o600 },
+    );
+    await new Promise<never>(() => {
+      setInterval(() => undefined, 1_000);
+    });
+  }
   const sourcePath = path.join(tempRoot, "source.db");
   const databasePath = path.join(tempRoot, "fixture.db");
   const databaseUrl = `file:${databasePath}`;
@@ -265,8 +369,11 @@ export async function createPhase19Fixture(
           PUBLICATION_GATE_FIXTURE: "1",
         },
       });
+      if (options.detached === true) detachedFixtureChildren.add(child);
       children.add(child);
-      child.once("exit", () => children.delete(child));
+      child.once("exit", () => {
+        if (!detachedFixtureChildren.has(child)) children.delete(child);
+      });
       return child;
     },
   };
@@ -829,6 +936,14 @@ export async function cleanupActivePhase19Fixtures(): Promise<void> {
   for (const fixture of [...activeFixtures]) {
     try {
       await cleanupPhase19Fixture(fixture);
+    } catch (error) {
+      failures.push(error);
+    }
+  }
+  for (const ownedRoot of [...ownedRoots]) {
+    try {
+      fs.rmSync(ownedRoot, { recursive: true, force: true });
+      ownedRoots.delete(ownedRoot);
     } catch (error) {
       failures.push(error);
     }

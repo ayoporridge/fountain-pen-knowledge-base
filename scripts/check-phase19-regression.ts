@@ -5,8 +5,10 @@ import os from "node:os";
 import path from "node:path";
 import type { Client } from "@libsql/client";
 import {
+  assertPhase19LockedRealCatalog,
   cleanupPhase19Fixture,
   createPhase19Fixture,
+  installPhase19FixtureSignalHandlers,
   snapshotRealCatalogInvariant,
   type Phase19Fixture,
 } from "./lib/phase19-fixtures";
@@ -24,6 +26,7 @@ type RegressionOptions = {
   readonly commands: readonly RegressionCommand[];
   readonly reportFile?: string;
   readonly holdForSignal?: boolean;
+  readonly constructionSignalProbeReport?: string;
 };
 
 type ProbeReport = {
@@ -62,19 +65,40 @@ function waitForChildExit(
 }
 
 async function stopDetachedProcessGroup(child: ChildProcess): Promise<void> {
-  if (hasExited(child) || !child.pid) return;
+  if (!child.pid || !processGroupIsAlive(child.pid)) return;
   try {
     process.kill(-child.pid, "SIGTERM");
   } catch {
     child.kill("SIGTERM");
   }
-  if (await waitForChildExit(child, 5_000)) return;
+  if (await waitForProcessGroupExit(child.pid, 5_000)) return;
   try {
     process.kill(-child.pid, "SIGKILL");
   } catch {
     child.kill("SIGKILL");
   }
-  await waitForChildExit(child, 5_000);
+  await waitForProcessGroupExit(child.pid, 5_000);
+}
+
+function processGroupIsAlive(pid: number): boolean {
+  try {
+    process.kill(-pid, 0);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+async function waitForProcessGroupExit(
+  pid: number,
+  timeoutMs: number,
+): Promise<boolean> {
+  const deadline = Date.now() + timeoutMs;
+  while (Date.now() < deadline) {
+    if (!processGroupIsAlive(pid)) return true;
+    await new Promise((resolve) => setTimeout(resolve, 25));
+  }
+  return !processGroupIsAlive(pid);
 }
 
 async function assertCanonicalMigration031(client: Client): Promise<void> {
@@ -107,7 +131,7 @@ function childEnvironment(fixture: Phase19Fixture): NodeJS.ProcessEnv {
 async function runCommand(
   fixture: Phase19Fixture,
   command: RegressionCommand,
-  setCurrentChild: (child: ChildProcess | null) => void,
+  processGroups: Set<number>,
 ): Promise<void> {
   const child = fixture.registerChild(command.command, command.args, {
     cwd: ROOT,
@@ -115,14 +139,21 @@ async function runCommand(
     detached: true,
     stdio: "inherit",
   });
-  setCurrentChild(child);
+  assertCondition(child.pid, `${command.label} child has no PID.`);
+  processGroups.add(child.pid);
   const exitCode = await new Promise<number>((resolve, reject) => {
     child.once("error", reject);
     child.once("exit", (code, signal) => {
       resolve(code ?? (signal ? 1 : 0));
     });
   });
-  setCurrentChild(null);
+  if (processGroupIsAlive(child.pid)) {
+    await stopDetachedProcessGroup(child);
+  }
+  assertCondition(
+    !processGroupIsAlive(child.pid),
+    `${command.label} left its detached process group alive.`,
+  );
   assertCondition(
     exitCode === 0,
     `${command.label} failed with exit code ${exitCode}.`,
@@ -133,37 +164,35 @@ async function runCommand(
 export async function runPhase19RegressionWithDisposableDatabase(
   options: RegressionOptions,
 ): Promise<void> {
-  const realBefore = snapshotRealCatalogInvariant();
-  const fixture = await createPhase19Fixture("fpkg-phase19-regression-");
-  let currentChild: ChildProcess | null = null;
+  installPhase19FixtureSignalHandlers();
+  const realBefore = assertPhase19LockedRealCatalog(
+    snapshotRealCatalogInvariant(),
+  );
+  const fixture = await createPhase19Fixture("fpkg-phase19-regression-", {
+    constructionSignalProbeReport: options.constructionSignalProbeReport,
+  });
+  const processGroups = new Set<number>();
   let cleanupPromise: Promise<void> | null = null;
-  let signalInProgress = false;
 
   const cleanup = (): Promise<void> => {
     cleanupPromise ??= (async () => {
-      if (currentChild) await stopDetachedProcessGroup(currentChild);
-      currentChild = null;
       await cleanupPhase19Fixture(fixture);
-      snapshotRealCatalogInvariant(realBefore);
+      assertCondition(
+        !fs.existsSync(fixture.tempRoot),
+        `Regression cleanup left its owned root: ${fixture.tempRoot}.`,
+      );
+      for (const pid of processGroups) {
+        assertCondition(
+          !processGroupIsAlive(pid),
+          `Regression cleanup left process group ${pid} alive.`,
+        );
+      }
+      assertPhase19LockedRealCatalog(
+        snapshotRealCatalogInvariant(realBefore),
+      );
     })();
     return cleanupPromise;
   };
-  const signalHandlers = new Map<NodeJS.Signals, () => void>();
-  for (const [signal, exitCode] of [
-    ["SIGINT", 130],
-    ["SIGTERM", 143],
-  ] as const) {
-    const handler = () => {
-      if (signalInProgress) return;
-      signalInProgress = true;
-      void cleanup().then(
-        () => process.exit(exitCode),
-        () => process.exit(1),
-      );
-    };
-    signalHandlers.set(signal, handler);
-    process.once(signal, handler);
-  }
 
   try {
     await assertCanonicalMigration031(fixture.client);
@@ -178,7 +207,8 @@ export async function runPhase19RegressionWithDisposableDatabase(
           stdio: "ignore",
         },
       );
-      currentChild = idle;
+      assertCondition(idle.pid, "Signal probe child has no PID.");
+      processGroups.add(idle.pid);
     }
     if (options.reportFile) {
       fs.writeFileSync(
@@ -186,7 +216,7 @@ export async function runPhase19RegressionWithDisposableDatabase(
         JSON.stringify({
           tempRoot: fixture.tempRoot,
           databasePath: fixture.databasePath,
-          childPid: currentChild?.pid ?? null,
+          childPid: [...processGroups].at(-1) ?? null,
         } satisfies ProbeReport),
         { encoding: "utf8", flag: "wx", mode: 0o600 },
       );
@@ -195,15 +225,12 @@ export async function runPhase19RegressionWithDisposableDatabase(
       await new Promise<never>(() => undefined);
     }
     for (const command of options.commands) {
-      await runCommand(fixture, command, (child) => {
-        currentChild = child;
-      });
-      snapshotRealCatalogInvariant(realBefore);
+      await runCommand(fixture, command, processGroups);
+      assertPhase19LockedRealCatalog(
+        snapshotRealCatalogInvariant(realBefore),
+      );
     }
   } finally {
-    for (const [signal, handler] of signalHandlers) {
-      process.off(signal, handler);
-    }
     await cleanup();
   }
 }
@@ -262,12 +289,15 @@ async function assertProbeExit(
 }
 
 async function runLifecycleProbes(): Promise<void> {
-  const realBefore = snapshotRealCatalogInvariant();
+  const realBefore = assertPhase19LockedRealCatalog(
+    snapshotRealCatalogInvariant(),
+  );
   const probeRoot = fs.realpathSync.native(
     fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-phase19-regression-probes-")),
   );
   try {
     const failureReport = path.join(probeRoot, "failure.json");
+    const failureChildReport = `${failureReport}.child`;
     const failure = await spawnProbe(
       ["--failure-probe", "--report", failureReport],
       failureReport,
@@ -280,11 +310,41 @@ async function runLifecycleProbes(): Promise<void> {
       !fs.existsSync(failed.tempRoot),
       `Child failure leaked regression root: ${failed.tempRoot}.`,
     );
+    const failureChildPid = Number(
+      fs.readFileSync(failureChildReport, "utf8"),
+    );
+    assertCondition(
+      Number.isInteger(failureChildPid) && !processIsAlive(failureChildPid),
+      `Child failure leaked descendant process ${failureChildPid}.`,
+    );
 
     for (const [signal, expectedExitCode] of [
       ["SIGINT", 130],
       ["SIGTERM", 143],
     ] as const) {
+      const constructionReport = path.join(
+        probeRoot,
+        `${signal}-construction.json`,
+      );
+      const constructionProbe = await spawnProbe(
+        [
+          "--construction-signal-probe",
+          signal,
+          "--report",
+          constructionReport,
+        ],
+        constructionReport,
+      );
+      const construction = JSON.parse(
+        fs.readFileSync(constructionReport, "utf8"),
+      ) as ProbeReport;
+      constructionProbe.kill(signal);
+      await assertProbeExit(constructionProbe, expectedExitCode);
+      assertCondition(
+        !fs.existsSync(construction.tempRoot),
+        `${signal} construction window leaked ${construction.tempRoot}.`,
+      );
+
       const reportFile = path.join(probeRoot, `${signal}.json`);
       const probe = await spawnProbe(
         ["--signal-probe", signal, "--report", reportFile],
@@ -304,13 +364,17 @@ async function runLifecycleProbes(): Promise<void> {
         `${signal} leaked its regression root or process group.`,
       );
     }
-    snapshotRealCatalogInvariant(realBefore);
+    assertPhase19LockedRealCatalog(
+      snapshotRealCatalogInvariant(realBefore),
+    );
     console.log(
       "PASS Phase 19 regression: child failure, SIGINT, and SIGTERM cleanup",
     );
   } finally {
     fs.rmSync(probeRoot, { recursive: true, force: true });
-    snapshotRealCatalogInvariant(realBefore);
+    assertPhase19LockedRealCatalog(
+      snapshotRealCatalogInvariant(realBefore),
+    );
   }
 }
 
@@ -324,13 +388,22 @@ function reportPath(args: readonly string[]): string {
 async function main(): Promise<void> {
   const args = process.argv.slice(2).filter((arg) => arg !== "--");
   if (args[0] === "--failure-probe") {
+    const reportFile = reportPath(args);
+    const childReport = `${reportFile}.child`;
+    const failureProgram = [
+      'const { spawn } = require("node:child_process");',
+      'const fs = require("node:fs");',
+      'const child = spawn(process.execPath, ["-e", "setInterval(() => {}, 1000)"], { stdio: "ignore" });',
+      `fs.writeFileSync(${JSON.stringify(childReport)}, String(child.pid));`,
+      "setTimeout(() => process.exit(7), 100);",
+    ].join("\n");
     await runPhase19RegressionWithDisposableDatabase({
-      reportFile: reportPath(args),
+      reportFile,
       commands: [
         {
           label: "deliberate failure",
           command: process.execPath,
-          args: ["-e", "process.exit(7)"],
+          args: ["-e", failureProgram],
         },
       ],
     });
@@ -344,6 +417,18 @@ async function main(): Promise<void> {
     await runPhase19RegressionWithDisposableDatabase({
       reportFile: reportPath(args),
       holdForSignal: true,
+      commands: [],
+    });
+    return;
+  }
+  if (args[0] === "--construction-signal-probe") {
+    assertCondition(
+      args[1] === "SIGINT" || args[1] === "SIGTERM",
+      "--construction-signal-probe requires SIGINT or SIGTERM.",
+    );
+    const constructionSignalProbeReport = reportPath(args);
+    await runPhase19RegressionWithDisposableDatabase({
+      constructionSignalProbeReport,
       commands: [],
     });
     return;

@@ -5,6 +5,11 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { createClient } from "@libsql/client";
 import { NextRequest } from "next/server";
+import {
+  assertCatalogSnapshotUnchanged,
+  copyCheckpointedCatalogToDisposableCopy,
+  snapshotCatalogFiles,
+} from "../src/lib/audit/read-only-catalog";
 import { getDb, migrateDatabase } from "../src/lib/db";
 import {
   publishEntity,
@@ -14,6 +19,7 @@ import {
 import { publicMediaFilter } from "../src/lib/public-media";
 import { cleanPublicText } from "../src/lib/publicText";
 import {
+  assertPhase19LockedRealCatalog,
   seedQualifiedPublicationFixture,
   type QualifiedPublicationFixtureIds,
 } from "./lib/phase19-fixtures";
@@ -3673,8 +3679,23 @@ async function runIndependentAllParity(): Promise<void> {
 }
 
 async function runLegacyBoundary() {
-  const db = createClient({ url: "file:data/fpkg.db" });
-  const failures: string[] = [];
+  const sourceBefore = assertPhase19LockedRealCatalog(
+    snapshotCatalogFiles(REAL_DATABASE_PATH),
+  );
+  const tempRoot = fs.realpathSync.native(
+    fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-public-boundary-legacy-")),
+  );
+  const databasePath = path.join(tempRoot, "catalog-copy.db");
+  try {
+    copyCheckpointedCatalogToDisposableCopy(
+      REAL_DATABASE_PATH,
+      databasePath,
+      tempRoot,
+      { expectedSourceSnapshot: sourceBefore },
+    );
+    const db = createClient({ url: `file:${databasePath}` });
+    try {
+      const failures: string[] = [];
 
   const foreignKeys = await db.execute("PRAGMA foreign_key_check");
   if (foreignKeys.rows.length > 0) {
@@ -3928,12 +3949,24 @@ async function runLegacyBoundary() {
 
   if (failures.length > 0) {
     for (const failure of failures) console.error(`- ${failure}`);
-    process.exit(1);
+    throw new Error(`Legacy public boundary failed ${failures.length} checks.`);
   }
 
   console.log(
     `Public boundary OK: ${publicCount.rows[0]?.total} entities, ${publicCount.rows[0]?.pens} pens, ${approvedSpecs.rows.length} approved specs, ${publicMedia.rows[0]?.total} reusable media.`,
   );
+    } finally {
+      db.close();
+    }
+  } finally {
+    fs.rmSync(tempRoot, { recursive: true, force: true });
+    assertCatalogSnapshotUnchanged(
+      sourceBefore,
+      assertPhase19LockedRealCatalog(
+        snapshotCatalogFiles(REAL_DATABASE_PATH),
+      ),
+    );
+  }
 }
 
 async function main() {

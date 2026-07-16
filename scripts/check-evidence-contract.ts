@@ -9,6 +9,7 @@ import { assertDatabaseReady, resolveDatabaseConnection } from "../src/lib/db";
 import {
   assertCatalogSnapshotUnchanged,
   backupCatalogToDisposableCopy,
+  copyCheckpointedCatalogToDisposableCopy,
   openReadOnlyCatalog,
   snapshotCatalogFiles,
 } from "../src/lib/audit/read-only-catalog";
@@ -20,6 +21,7 @@ import {
   recordEntityContentReview,
 } from "../src/lib/publication";
 import {
+  assertPhase19LockedRealCatalog,
   installPhase19FixtureSignalHandlers,
   seedQualifiedPublicationFixture,
   withPhase19Fixture,
@@ -391,7 +393,9 @@ function runCanonicalMigration(fixture: MigrationFixture): string {
 async function createMigrationFixture(
   kind: MigrationFixtureKind,
 ): Promise<{ fixture: MigrationFixture; realBefore: CatalogSnapshot }> {
-  const realBefore = snapshotCatalogFiles(REAL_CATALOG_PATH);
+  const realBefore = assertPhase19LockedRealCatalog(
+    snapshotCatalogFiles(REAL_CATALOG_PATH),
+  );
   assertRealCatalogCopyPreconditions(realBefore);
   const tempRoot = fs.realpathSync.native(
     fs.mkdtempSync(path.join(os.tmpdir(), `fpkg-phase19-evidence-${kind}-`)),
@@ -401,7 +405,14 @@ async function createMigrationFixture(
 
   try {
     if (kind === "fresh") createFreshSource(sourcePath);
-    else fs.copyFileSync(REAL_CATALOG_PATH, sourcePath);
+    else {
+      copyCheckpointedCatalogToDisposableCopy(
+        REAL_CATALOG_PATH,
+        sourcePath,
+        tempRoot,
+        { expectedSourceSnapshot: realBefore },
+      );
+    }
 
     const upgradeSource = kind === "upgrade"
       ? prepareUpgradeSource(sourcePath)
@@ -437,7 +448,12 @@ async function createMigrationFixture(
     };
   } catch (error) {
     fs.rmSync(tempRoot, { recursive: true, force: true });
-    assertCatalogSnapshotUnchanged(realBefore);
+    assertCatalogSnapshotUnchanged(
+      realBefore,
+      assertPhase19LockedRealCatalog(
+        snapshotCatalogFiles(REAL_CATALOG_PATH),
+      ),
+    );
     throw error;
   }
 }
@@ -452,7 +468,12 @@ async function withMigratedFixture<T>(
     return await run(fixture, firstMigrationOutput);
   } finally {
     fs.rmSync(fixture.tempRoot, { recursive: true, force: true });
-    assertCatalogSnapshotUnchanged(realBefore);
+    assertCatalogSnapshotUnchanged(
+      realBefore,
+      assertPhase19LockedRealCatalog(
+        snapshotCatalogFiles(REAL_CATALOG_PATH),
+      ),
+    );
   }
 }
 

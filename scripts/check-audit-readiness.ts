@@ -1062,6 +1062,7 @@ function writeFileExclusivelyAndSync(filePath: string, bytes: Buffer): void {
 function publishCanonicalArtifactSet(
   finalOutDir: string,
   artifacts: ReadonlyMap<string, Buffer>,
+  validateInstalledSet: () => void,
 ): void {
   assertCanonicalFinalOutDir(finalOutDir);
   fs.mkdirSync(finalOutDir, { recursive: true });
@@ -1106,6 +1107,7 @@ function publishCanonicalArtifactSet(
       readArtifacts(finalOutDir),
       "Final canonical artifact set",
     );
+    validateInstalledSet();
     completed = true;
   } finally {
     if (!completed) {
@@ -1209,8 +1211,9 @@ async function runRealArtifactsContract(
     });
 
     assertSourceStillLocked(sourceBefore);
-    publishCanonicalArtifactSet(finalOutDir, unlimitedArtifacts);
-    assertSourceStillLocked(sourceBefore);
+    publishCanonicalArtifactSet(finalOutDir, unlimitedArtifacts, () => {
+      assertSourceStillLocked(sourceBefore);
+    });
     assertArtifactBuffersEqual(
       unlimitedArtifacts,
       readArtifacts(finalOutDir),
