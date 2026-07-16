@@ -210,7 +210,7 @@ interface MigrationOptions {
   migrationsDir?: string;
 }
 
-const PUBLICATION_SCHEMA_MANIFEST = [
+const PUBLICATION_SCHEMA_MANIFEST_V1 = [
   ["table", "entity_publications"],
   ["index", "idx_entity_publications_status"],
   ["index", "idx_entity_publications_review_contract"],
@@ -263,6 +263,61 @@ const PUBLICATION_SCHEMA_MANIFEST = [
   ["trigger", "publication_made_by_link_delete"],
   ["trigger", "publication_publish_insert_guard"],
   ["trigger", "publication_publish_transition_guard"],
+] as const;
+
+const PUBLICATION_SCHEMA_MANIFEST_V2 = [
+  ...PUBLICATION_SCHEMA_MANIFEST_V1,
+  ["table", "fact_scopes"],
+  ["table", "spec_field_evidence"],
+  ["table", "claim_evidence"],
+  ["table", "fact_conflicts"],
+  ["table", "fact_conflict_members"],
+  ["table", "entity_content_reviews"],
+  ["index", "idx_fact_scopes_entity"],
+  ["index", "idx_fact_scopes_variant"],
+  ["index", "idx_spec_field_evidence_spec_field"],
+  ["index", "idx_spec_field_evidence_citation"],
+  ["index", "idx_spec_field_evidence_scope"],
+  ["index", "idx_claim_evidence_claim"],
+  ["index", "idx_claim_evidence_citation"],
+  ["index", "idx_claim_evidence_scope"],
+  ["index", "idx_fact_conflicts_entity_status"],
+  ["index", "idx_fact_conflicts_scope"],
+  ["index", "idx_fact_conflict_members_conflict"],
+  ["index", "idx_fact_conflict_members_citation"],
+  ["index", "idx_entity_content_reviews_lookup"],
+  ["view", "publication_v2_qualified_source_items"],
+  ["view", "publication_v2_field_evidence"],
+  ["view", "publication_v2_qualified_core_claims"],
+  ["view", "publication_v2_source_groups"],
+  ["view", "publication_v2_source_group_counts"],
+  ["view", "publication_v2_required_spec_fields"],
+  ["view", "publication_v2_missing_core_claim_evidence"],
+  ["view", "publication_v2_unresolved_conflicts"],
+  ["view", "publication_v2_current_reviews"],
+  ["view", "publication_v2_qualified_primary_media"],
+  ["trigger", "publication_fact_scope_insert"],
+  ["trigger", "publication_fact_scope_update_old"],
+  ["trigger", "publication_fact_scope_update_new"],
+  ["trigger", "publication_fact_scope_delete"],
+  ["trigger", "publication_spec_field_evidence_insert"],
+  ["trigger", "publication_spec_field_evidence_update_old"],
+  ["trigger", "publication_spec_field_evidence_update_new"],
+  ["trigger", "publication_spec_field_evidence_delete"],
+  ["trigger", "publication_claim_evidence_insert"],
+  ["trigger", "publication_claim_evidence_update_old"],
+  ["trigger", "publication_claim_evidence_update_new"],
+  ["trigger", "publication_claim_evidence_delete"],
+  ["trigger", "publication_fact_conflict_insert"],
+  ["trigger", "publication_fact_conflict_update_old"],
+  ["trigger", "publication_fact_conflict_update_new"],
+  ["trigger", "publication_fact_conflict_delete"],
+  ["trigger", "publication_fact_conflict_member_insert"],
+  ["trigger", "publication_fact_conflict_member_update_old"],
+  ["trigger", "publication_fact_conflict_member_update_new"],
+  ["trigger", "publication_fact_conflict_member_delete"],
+  ["trigger", "publication_content_review_update"],
+  ["trigger", "publication_content_review_delete"],
 ] as const;
 
 function migrationFiles(migrationsDir = MIGRATIONS_DIR): string[] {
@@ -422,7 +477,14 @@ export async function assertDatabaseReady(
   }
 
   if (files.includes("030_publication_gate.sql")) {
-    const names = PUBLICATION_SCHEMA_MANIFEST.map(([, name]) => name);
+    const publicationContract = files.includes("031_evidence_readiness_v2.sql")
+      ? 2
+      : 1;
+    const publicationManifest =
+      publicationContract === 2
+        ? PUBLICATION_SCHEMA_MANIFEST_V2
+        : PUBLICATION_SCHEMA_MANIFEST_V1;
+    const names = publicationManifest.map(([, name]) => name);
     const placeholders = names.map(() => "?").join(", ");
     const schemaRows = await db.execute({
       sql: `SELECT type, name FROM sqlite_schema WHERE name IN (${placeholders})`,
@@ -431,13 +493,13 @@ export async function assertDatabaseReady(
     const actual = new Set(
       schemaRows.rows.map((row) => `${String(row.type)}:${String(row.name)}`),
     );
-    const missingObjects = PUBLICATION_SCHEMA_MANIFEST.filter(
-      ([type, name]) => !actual.has(`${type}:${name}`),
-    ).map(([type, name]) => `${type}:${name}`);
+    const missingObjects = publicationManifest
+      .filter(([type, name]) => !actual.has(`${type}:${name}`))
+      .map(([type, name]) => `${type}:${name}`);
 
     if (missingObjects.length > 0) {
       throw new Error(
-        `Database publication schema is incomplete (${missingObjects.join(", ")}). Rehearse migration 030 on an isolated database before deployment.`,
+        `Database publication schema is incomplete (${missingObjects.join(", ")}). Rehearse migration ${publicationContract === 2 ? "031" : "030"} on an isolated database before deployment.`,
       );
     }
   }
