@@ -41,6 +41,11 @@ const MIGRATIONS_DIR = path.join(ROOT, "migrations");
 const MIGRATION_030 = "030_publication_gate.sql";
 const MIGRATION_031 = "031_evidence_readiness_v2.sql";
 const AUDIT_CLI_PATH = path.join(ROOT, "scripts", "audit-readiness-v2.ts");
+const LIBRARY_CONTRACT_PATH = path.join(
+  ROOT,
+  "scripts",
+  "check-library-contract.ts",
+);
 const ARTIFACT_FILES = [
   "inventory-readiness-v2.ndjson",
   "inventory-readiness-v2.csv",
@@ -830,6 +835,425 @@ async function runCliInputsContract(): Promise<void> {
   );
 }
 
+type LegacyAuditJson = {
+  summary: { inventory_audited: number; backlog: number };
+  rows: Array<{
+    entity_id: string;
+    blocker_count: number;
+    content_ready: boolean;
+  }>;
+  counts?: Record<string, number>;
+  summaries?: unknown[];
+  priorityBrands?: unknown[];
+  priorityPens?: unknown[];
+};
+
+function runLegacyAuditScript(
+  scriptName: "audit-entity-quality.ts" | "audit-library-coverage.ts",
+  databasePath: string,
+  limit: number | null,
+): { status: number; json: LegacyAuditJson; stderr: string } {
+  const require = createRequire(import.meta.url);
+  const tsxCli = require.resolve("tsx/cli");
+  const args = [
+    tsxCli,
+    path.join(ROOT, "scripts", scriptName),
+    "--database-path",
+    databasePath,
+    "--json",
+  ];
+  if (limit !== null) args.push(`--limit=${limit}`);
+  const child = spawnSync(process.execPath, args, {
+    cwd: ROOT,
+    env: {
+      ...process.env,
+      TURSO_DATABASE_URL: "",
+      TURSO_AUTH_TOKEN: "",
+      FPKG_DATABASE_URL: "",
+      PUBLICATION_GATE_FIXTURE: "",
+    },
+    encoding: "utf8",
+    maxBuffer: 20 * 1024 * 1024,
+    timeout: 30_000,
+  });
+  assertCondition(!child.error, `Legacy audit failed to start: ${child.error?.message}.`);
+  assertCondition(child.signal === null, `Legacy audit exited by ${child.signal}.`);
+  const finalLine = (child.stdout ?? "").trim().split("\n").at(-1);
+  assertCondition(finalLine?.startsWith("{"), `Legacy audit emitted no JSON: ${child.stderr}.`);
+  return {
+    status: child.status ?? -1,
+    json: JSON.parse(finalLine) as LegacyAuditJson,
+    stderr: child.stderr ?? "",
+  };
+}
+
+async function seedLegacyStatusFixtures(client: Client): Promise<void> {
+  await client.execute(`
+    INSERT INTO entities (id, type, slug, name, summary, body_md, source)
+    VALUES
+      ('legacy-deprecated', 'brand', 'legacy-deprecated', 'Legacy deprecated', '', '', 'audit-fixture'),
+      ('legacy-pending', 'brand', 'legacy-pending', 'Legacy pending', '', '', 'audit-fixture'),
+      ('legacy-needs-source', 'pen', 'legacy-needs-source', 'Legacy needs source', '', '', 'audit-fixture'),
+      ('legacy-candidate', 'brand', 'legacy-candidate', 'Legacy candidate', '', '', 'audit-fixture'),
+      ('legacy-draft', 'brand', 'legacy-draft', 'Legacy draft', '', '', 'audit-fixture')
+  `);
+  await client.execute(`
+    INSERT INTO stories (id, entity_id, title, story_type, body_md, status)
+    VALUES ('legacy-deprecated-story', 'legacy-deprecated', 'Deprecated',
+            'brand_story', 'Deprecated status must remain backlog.', 'deprecated')
+  `);
+  await client.execute(`
+    INSERT INTO claims (
+      id, subject_entity_id, predicate, object_text, review_status, fact_class
+    ) VALUES (
+      'legacy-pending-claim', 'legacy-pending', 'status', 'pending evidence',
+      'pending', 'core'
+    )
+  `);
+  await client.execute(`
+    INSERT INTO model_specs (id, entity_id, series_name, review_status)
+    VALUES ('legacy-needs-source-spec', 'legacy-needs-source', 'Unqualified',
+            'needs_source')
+  `);
+  await client.execute(`
+    INSERT INTO media_assets (
+      id, entity_id, title, asset_type, image_url, license,
+      review_status, usage_status
+    ) VALUES (
+      'legacy-candidate-media', 'legacy-candidate', 'Candidate media', 'image',
+      '/images/candidate.png', 'cc-by', 'approved', 'candidate'
+    )
+  `);
+}
+
+async function runLegacyAuditsContract(): Promise<void> {
+  await withPhase19Fixture(async ({ client, databasePath }) => {
+    const brand = await seedQualifiedPublicationFixture(client, {
+      entityId: "legacy-ready-brand",
+      entityType: "brand",
+    });
+    await approveAndPublish(client, brand.entityId);
+    const pen = await seedQualifiedPublicationFixture(client, {
+      entityId: "legacy-ready-pen",
+      entityType: "pen",
+      brandEntityId: brand.entityId,
+    });
+    await approveAndPublish(client, pen.entityId);
+    const singleBlocker = await seedQualifiedPublicationFixture(client, {
+      entityId: "legacy-single-blocker",
+      entityType: "brand",
+    });
+    await approveAndPublish(client, singleBlocker.entityId);
+    await client.execute({
+      sql: `UPDATE entity_content_reviews
+            SET status = 'revoked', updated_at = datetime('now')
+            WHERE entity_id = ? AND review_kind = 'fact' AND status = 'approved'`,
+      args: [singleBlocker.entityId],
+    });
+    await seedLegacyStatusFixtures(client);
+    await client.execute("PRAGMA wal_checkpoint(TRUNCATE)");
+
+    const auditClient = openReadOnlyCatalog(databasePath, { env: {} });
+    try {
+      const source = captureSourceInventoryProvenance(auditClient);
+      const provenance = captureInventoryAuditProvenance(auditClient, source);
+      const result = runReadinessAudit(auditClient, provenance);
+      const byId = new Map(result.rows.map((row) => [row.entity_id, row]));
+      assertCondition(
+        byId.get("legacy-ready-brand")?.content_ready === true &&
+          byId.get("legacy-ready-pen")?.content_ready === true,
+        "Qualified contract-v2 fixtures were not ready.",
+      );
+      assertCondition(
+        byId.get("legacy-single-blocker")?.blocker_count === 1 &&
+          byId.get("legacy-single-blocker")?.blocker_codes[0] ===
+            "missing_fact_review" &&
+          byId.get("legacy-single-blocker")?.content_ready === false,
+        "One hard blocker was offset by otherwise complete content.",
+      );
+      assertCondition(
+        byId.get("legacy-deprecated")?.published_story_count === 0 &&
+          byId.get("legacy-deprecated")?.backlog_story_count === 1 &&
+          byId.get("legacy-pending")?.qualified_core_claim_count === 0 &&
+          byId.get("legacy-pending")?.backlog_claim_count === 1 &&
+          byId.get("legacy-needs-source")?.approved_model_spec_count === 0 &&
+          byId.get("legacy-needs-source")?.backlog_model_spec_count === 1 &&
+          byId.get("legacy-candidate")?.qualified_primary_media_count === 0 &&
+          byId.get("legacy-draft")?.publication_status === "draft",
+        "Deprecated/pending/needs_source/candidate/draft status inflated qualification.",
+      );
+    } finally {
+      auditClient.close();
+    }
+
+    for (const scriptName of [
+      "audit-entity-quality.ts",
+      "audit-library-coverage.ts",
+    ] as const) {
+      const unlimited = runLegacyAuditScript(scriptName, databasePath, null);
+      const limited = runLegacyAuditScript(scriptName, databasePath, 1);
+      assertCondition(
+        unlimited.status === 1 && limited.status === 1,
+        `${scriptName} limit changed complete failure exit semantics: ${unlimited.status}/${limited.status}.`,
+      );
+      assertCondition(
+        JSON.stringify(unlimited.json) === JSON.stringify(limited.json),
+        `${scriptName} limit changed JSON scan, summary, or complete rows.`,
+      );
+      assertCondition(
+        unlimited.json.rows.length === unlimited.json.summary.inventory_audited,
+        `${scriptName} JSON omitted canonical inventory rows.`,
+      );
+    }
+
+    const libraryModule = await import("../src/lib/library");
+    const modelSpec = await libraryModule.getModelSpec("legacy-ready-pen");
+    assertCondition(modelSpec, "Qualified public model spec was not returned.");
+    const specFieldMap = {
+      series_name: modelSpec.series_name,
+      release_year: modelSpec.release_year,
+      origin_country: modelSpec.origin_country,
+      nib: modelSpec.nib,
+      fill_system: modelSpec.fill_system,
+      material: modelSpec.material,
+      dimensions: modelSpec.dimensions,
+      weight: modelSpec.weight,
+      price_range: modelSpec.price_range,
+      status: modelSpec.status,
+      brand_entity_id: modelSpec.brand_slug,
+    } as const;
+    for (const [fieldKey, value] of Object.entries(specFieldMap)) {
+      if (value === null || value === undefined) continue;
+      const evidence = await client.execute({
+        sql: `SELECT 1
+              FROM publication_v2_field_evidence
+              WHERE model_spec_id = ? AND field_key = ?
+              LIMIT 1`,
+        args: [modelSpec.id, fieldKey],
+      });
+      assertCondition(
+        evidence.rows.length === 1,
+        `getModelSpec leaked an unqualified field: ${fieldKey}.`,
+      );
+    }
+    assertCondition(
+      (await libraryModule.getModelSpec("legacy-needs-source")) === undefined,
+      "getModelSpec bypassed public_entities for a blocked owner.",
+    );
+    const coverage = await libraryModule.getLibraryCoverageReport(1_000_000);
+    const coverageRows = [
+      ...coverage.priorityBrands,
+      ...coverage.priorityPens,
+    ];
+    const coverageById = new Map(coverageRows.map((row) => [row.id, row]));
+    assertCondition(
+      coverageById.get("legacy-ready-brand")?.coverage_status === "ready" &&
+        coverageById.get("legacy-ready-pen")?.coverage_status === "ready" &&
+        coverageById.get("legacy-single-blocker")?.coverage_status !== "ready",
+      "Library coverage used a score instead of hard-blocker readiness truth.",
+    );
+    assertCondition(
+      coverageById.get("legacy-deprecated")?.story_count === 0 &&
+        coverageById.get("legacy-pending")?.claim_count === 0 &&
+        coverageById.get("legacy-needs-source")?.model_spec_count === 0 &&
+        coverageById.get("legacy-candidate")?.media_count === 0,
+      "Library coverage counted an unqualified legacy status.",
+    );
+  });
+
+  console.log(
+    "Legacy audit contract passed: entity/library reports share complete contract-v2 truth, one blocker fails, limit changes console only, and public specs expose qualified fields only.",
+  );
+}
+
+function libraryContractTempRoots(): Set<string> {
+  return new Set(
+    fs
+      .readdirSync(os.tmpdir())
+      .filter((entry) => entry.startsWith("fpkg-library-contract-"))
+      .map((entry) => path.join(os.tmpdir(), entry)),
+  );
+}
+
+function runLibraryContractChild(
+  args: readonly string[],
+  env: NodeJS.ProcessEnv = {},
+): ReturnType<typeof spawnSync> {
+  const require = createRequire(import.meta.url);
+  const tsxCli = require.resolve("tsx/cli");
+  return spawnSync(process.execPath, [tsxCli, LIBRARY_CONTRACT_PATH, ...args], {
+    cwd: ROOT,
+    env: {
+      ...process.env,
+      TURSO_DATABASE_URL: "",
+      TURSO_AUTH_TOKEN: "",
+      FPKG_DATABASE_URL: "",
+      PUBLICATION_GATE_FIXTURE: "",
+      ...env,
+    },
+    encoding: "utf8",
+    maxBuffer: 20 * 1024 * 1024,
+    timeout: 30_000,
+  });
+}
+
+async function runLibraryContractSafety(): Promise<void> {
+  const checkerSource = fs.readFileSync(LIBRARY_CONTRACT_PATH, "utf8");
+  assertCondition(
+    checkerSource.includes("backupCatalogToDisposableCopy") &&
+      checkerSource.includes("snapshotCatalogFiles") &&
+      checkerSource.includes("--database-path"),
+    "Library contract checker has not adopted the protected online-backup seam.",
+  );
+
+  const realBefore = snapshotRealCatalogInvariant();
+  await withPhase19Fixture(async (fixture) => {
+    await fixture.client.execute("PRAGMA wal_checkpoint(TRUNCATE)");
+    fixture.client.close();
+    const sourceBefore = snapshotCatalogFiles(fixture.databasePath);
+    const rootsBefore = libraryContractTempRoots();
+
+    const success = runLibraryContractChild([
+      "--database-path",
+      fixture.databasePath,
+    ]);
+    assertCondition(
+      !success.error && success.status === 0 && success.signal === null,
+      `Library contract owned-copy success probe failed: ${success.stderr || success.stdout}`,
+    );
+    assertCatalogSnapshotUnchanged(
+      sourceBefore,
+      snapshotCatalogFiles(fixture.databasePath),
+    );
+
+    const corruptPath = path.join(fixture.tempRoot, "corrupt-source.db");
+    fs.writeFileSync(corruptPath, "not a sqlite database");
+    const corruptBefore = snapshotCatalogFiles(corruptPath);
+    const failure = runLibraryContractChild([
+      "--database-path",
+      corruptPath,
+    ]);
+    assertCondition(
+      !failure.error && failure.status === 1 && failure.signal === null,
+      "Library contract failure probe did not fail closed.",
+    );
+    assertCatalogSnapshotUnchanged(
+      corruptBefore,
+      snapshotCatalogFiles(corruptPath),
+    );
+
+    const symlinkPath = path.join(fixture.tempRoot, "catalog-link.db");
+    fs.symlinkSync(fixture.databasePath, symlinkPath);
+    const symlink = runLibraryContractChild(["--database-path", symlinkPath]);
+    assertCondition(
+      symlink.status === 1 &&
+        `${symlink.stdout}\n${symlink.stderr}`.includes("must not be a symlink"),
+      "Library contract checker accepted a source symlink.",
+    );
+    const remote = runLibraryContractChild([
+      "--database-path",
+      "libsql://example.invalid/catalog",
+    ]);
+    assertCondition(
+      remote.status === 1 &&
+        `${remote.stdout}\n${remote.stderr}`.includes("local file"),
+      "Library contract checker accepted a remote database URL.",
+    );
+    const remoteEnvironment = runLibraryContractChild(
+      ["--database-path", fixture.databasePath],
+      {
+        TURSO_DATABASE_URL: "libsql://example.invalid/catalog",
+        TURSO_AUTH_TOKEN: "must-not-appear",
+      },
+    );
+    const remoteEnvironmentOutput = `${remoteEnvironment.stdout}\n${remoteEnvironment.stderr}`;
+    assertCondition(
+      remoteEnvironment.status === 1 &&
+        remoteEnvironmentOutput.includes("Turso database selection is forbidden") &&
+        !remoteEnvironmentOutput.includes("must-not-appear"),
+      "Library contract checker did not reject remote environment selection safely.",
+    );
+
+    const reportFile = path.join(
+      fixture.tempRoot,
+      `library-signal-${process.pid}.json`,
+    );
+    const require = createRequire(import.meta.url);
+    const tsxCli = require.resolve("tsx/cli");
+    const signalOutput: string[] = [];
+    const signalChild = spawn(
+      process.execPath,
+      [
+        tsxCli,
+        LIBRARY_CONTRACT_PATH,
+        "--database-path",
+        fixture.databasePath,
+        "--signal-probe-report",
+        reportFile,
+      ],
+      {
+        cwd: ROOT,
+        env: {
+          ...process.env,
+          TURSO_DATABASE_URL: "",
+          TURSO_AUTH_TOKEN: "",
+          FPKG_DATABASE_URL: "",
+          PUBLICATION_GATE_FIXTURE: "",
+        },
+        stdio: ["ignore", "pipe", "pipe"],
+      },
+    );
+    signalChild.stdout?.on("data", (chunk) => signalOutput.push(String(chunk)));
+    signalChild.stderr?.on("data", (chunk) => signalOutput.push(String(chunk)));
+    try {
+      await waitForFile(reportFile, 10_000);
+      const report = JSON.parse(fs.readFileSync(reportFile, "utf8")) as {
+        tempRoot: string;
+        databasePath: string;
+      };
+      assertCondition(
+        fs.existsSync(report.tempRoot) && fs.existsSync(report.databasePath),
+        "Library contract signal probe did not expose its owned copy.",
+      );
+      signalChild.kill("SIGTERM");
+      assertCondition(
+        await waitForChildExit(signalChild, 8_000),
+        "Library contract signal probe did not exit after SIGTERM.",
+      );
+      assertCondition(
+        !fs.existsSync(report.tempRoot),
+        "Library contract SIGTERM cleanup left its owned root behind.",
+      );
+    } catch (error) {
+      await stopChild(signalChild);
+      throw new Error(
+        `Library contract signal cleanup failed: ${
+          error instanceof Error ? error.message : String(error)
+        }. ${signalOutput.join("")}`,
+        { cause: error },
+      );
+    } finally {
+      fs.rmSync(reportFile, { force: true });
+    }
+
+    assertCatalogSnapshotUnchanged(
+      sourceBefore,
+      snapshotCatalogFiles(fixture.databasePath),
+    );
+    const rootsAfter = libraryContractTempRoots();
+    assertCondition(
+      JSON.stringify([...rootsBefore].sort()) ===
+        JSON.stringify([...rootsAfter].sort()),
+      "Library contract probes leaked an owned temporary root.",
+    );
+  });
+  snapshotRealCatalogInvariant(realBefore);
+
+  console.log(
+    "Library contract safety passed: protected backup/migration, real/remote/symlink rejection, failure cleanup, SIGTERM cleanup, and current real main/WAL/SHM snapshot preservation.",
+  );
+}
+
 function createCheckpointedWalFixture(tempRoot: string): {
   database: Database.Database;
   databasePath: string;
@@ -1355,6 +1779,8 @@ async function main(): Promise<void> {
     "--backup-migration",
     "--artifacts-limit",
     "--cli-inputs",
+    "--legacy-audits",
+    "--library-contract-safety",
   ];
   if (
     args.length > 0 &&
@@ -1364,11 +1790,15 @@ async function main(): Promise<void> {
     if (modes.has("--backup-migration")) await runBackupMigrationContract();
     if (modes.has("--artifacts-limit")) await runArtifactsLimitContract();
     if (modes.has("--cli-inputs")) await runCliInputsContract();
+    if (modes.has("--legacy-audits")) await runLegacyAuditsContract();
+    if (modes.has("--library-contract-safety")) {
+      await runLibraryContractSafety();
+    }
     return;
   }
   if (args.length !== 1) {
     throw new Error(
-      "Usage: pnpm exec tsx scripts/check-audit-readiness.ts --readonly-isolation|--readonly-backup|--fixture-isolation|[--inventory] [--backup-migration] [--artifacts-limit] [--cli-inputs]",
+      "Usage: pnpm exec tsx scripts/check-audit-readiness.ts --readonly-isolation|--readonly-backup|--fixture-isolation|[--inventory] [--backup-migration] [--artifacts-limit] [--cli-inputs] [--legacy-audits] [--library-contract-safety]",
     );
   }
   if (args[0] === "--readonly-isolation") {
