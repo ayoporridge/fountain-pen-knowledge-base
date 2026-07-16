@@ -48,6 +48,7 @@ const activeFixtures = new Set<ManagedPhase19Fixture>();
 const knownFixtures = new WeakSet<ManagedPhase19Fixture>();
 const ownedRoots = new Set<string>();
 let signalCleanupStarted = false;
+let signalHandlersInstalled = false;
 
 function sanitizedFixtureEnvironment(
   databaseUrl: string,
@@ -818,7 +819,7 @@ export async function seedQualifiedPublicationFixture(
   return ids;
 }
 
-async function cleanupActiveFixtures(): Promise<void> {
+export async function cleanupActivePhase19Fixtures(): Promise<void> {
   const failures: unknown[] = [];
   for (const fixture of [...activeFixtures]) {
     try {
@@ -832,20 +833,24 @@ async function cleanupActiveFixtures(): Promise<void> {
   }
 }
 
-for (const [signal, exitCode] of [
-  ["SIGINT", 130],
-  ["SIGTERM", 143],
-] as const) {
-  process.once(signal, () => {
-    if (signalCleanupStarted) return;
-    signalCleanupStarted = true;
-    void (async () => {
-      try {
-        await cleanupActiveFixtures();
-        process.exit(exitCode);
-      } catch {
-        process.exit(1);
-      }
-    })();
-  });
+export function installPhase19FixtureSignalHandlers(): void {
+  if (signalHandlersInstalled) return;
+  signalHandlersInstalled = true;
+  for (const [signal, exitCode] of [
+    ["SIGINT", 130],
+    ["SIGTERM", 143],
+  ] as const) {
+    process.once(signal, () => {
+      if (signalCleanupStarted) return;
+      signalCleanupStarted = true;
+      void (async () => {
+        try {
+          await cleanupActivePhase19Fixtures();
+          process.exit(exitCode);
+        } catch {
+          process.exit(1);
+        }
+      })();
+    });
+  }
 }

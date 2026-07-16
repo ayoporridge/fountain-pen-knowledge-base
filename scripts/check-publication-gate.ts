@@ -18,6 +18,9 @@ import {
   setEntityPublicationStatus,
 } from "../src/lib/publication";
 import {
+  cleanupActivePhase19Fixtures,
+  cleanupPhase19Fixture,
+  createPhase19Fixture,
   seedQualifiedPublicationFixture,
   withPhase19Fixture,
 } from "./lib/phase19-fixtures";
@@ -27,6 +30,7 @@ const REAL_DATABASE_PATH = path.join(ROOT, "data", "fpkg.db");
 const MIGRATIONS_PATH = path.join(ROOT, "migrations");
 const SCRIPT_PATH = path.join(ROOT, "scripts", "check-publication-gate.ts");
 const MIGRATION_030 = "030_publication_gate.sql";
+const MIGRATION_031 = "031_evidence_readiness_v2.sql";
 const VALID_HASH = `sha256:v1:${"a".repeat(64)}`;
 
 const CRITICAL_PUBLICATION_OBJECTS = [
@@ -430,7 +434,7 @@ async function forceReviewedPublication(
   entityId: string,
   status: "draft" | "in_review" | "published" | "retired" = "published",
 ): Promise<void> {
-  const contentHash = await computePublicationContentHash(client, entityId);
+  const contentHash = VALID_HASH;
   const stagedStatus = status === "published" ? "in_review" : status;
   await client.execute({
     sql: `
@@ -541,8 +545,13 @@ async function assertPublicationReset(
 }
 
 async function runMigrationContract(): Promise<void> {
-  await withFixture(async ({ client }) => {
-    await assertDatabaseReady(client);
+  await withPre030Fixture(async ({ client }, migrationsDir) => {
+    fs.copyFileSync(
+      path.join(MIGRATIONS_PATH, MIGRATION_030),
+      path.join(migrationsDir, MIGRATION_030),
+    );
+    await migrateDatabase(client, { migrationsDir });
+    await assertDatabaseReady(client, { migrationsDir });
 
     await insertEntity(client, "fixture-transition", "article");
     await client.execute(
@@ -652,7 +661,7 @@ async function runMigrationContract(): Promise<void> {
 
     await client.execute("DROP VIEW public_entities");
     await expectReject(
-      () => assertDatabaseReady(client),
+      () => assertDatabaseReady(client, { migrationsDir }),
       "view:public_entities",
     );
   });
@@ -907,23 +916,26 @@ async function runCurrentCatalogCopyUpgrade(): Promise<void> {
   await withCatalogCopy(async ({ client }) => {
     const entitiesBefore = await entityContentRows(client);
     const deprecatedStoriesBefore = await deprecatedStoryRows(client);
+    const governedMigrations = [MIGRATION_030, MIGRATION_031];
     const markerBefore = await client.execute({
-      sql: "SELECT checksum FROM migrations WHERE name = ?",
-      args: [MIGRATION_030],
+      sql: `SELECT name FROM migrations WHERE name IN (${governedMigrations.map(() => "?").join(", ")})`,
+      args: governedMigrations,
     });
+    const previouslyApplied = new Set(
+      markerBefore.rows.map((row) => String(row.name)),
+    );
+    const expectedApplied = governedMigrations.filter(
+      (migration) => !previouslyApplied.has(migration),
+    );
 
     const firstRun = await migrateDatabase(client);
-    if (markerBefore.rows.length === 0) {
-      assertCondition(
-        firstRun.applied.length === 1 && firstRun.applied[0] === MIGRATION_030,
-        `Catalog-copy upgrade expected only ${MIGRATION_030}; got ${JSON.stringify(firstRun)}.`,
-      );
-    } else {
-      assertCondition(
-        firstRun.applied.length === 0 && firstRun.skipped.includes(MIGRATION_030),
-        `Catalog copy already had 030 but replay was not a clean skip: ${JSON.stringify(firstRun)}.`,
-      );
-    }
+    assertCondition(
+      JSON.stringify(firstRun.applied) === JSON.stringify(expectedApplied) &&
+        [...previouslyApplied].every((migration) =>
+          firstRun.skipped.includes(migration),
+        ),
+      `Catalog-copy upgrade expected ${JSON.stringify(expectedApplied)} to apply and prior markers to skip; got ${JSON.stringify(firstRun)}.`,
+    );
 
     assertRowsEqual(
       deprecatedStoriesBefore,
@@ -940,7 +952,10 @@ async function runCurrentCatalogCopyUpgrade(): Promise<void> {
 
     const secondRun = await migrateDatabase(client);
     assertCondition(
-      secondRun.applied.length === 0 && secondRun.skipped.includes(MIGRATION_030),
+      secondRun.applied.length === 0 &&
+        governedMigrations.every((migration) =>
+          secondRun.skipped.includes(migration),
+        ),
       `Catalog-copy second migration run was not idempotent: ${JSON.stringify(secondRun)}.`,
     );
     assertRowsEqual(
@@ -1579,6 +1594,37 @@ async function runInvalidationContract(): Promise<void> {
     });
     await approveCurrentContentAndPublish(client, brand.entityId);
 
+    for (const [label, sql, id] of [
+      [
+        "entities canonical content UPDATE",
+        "UPDATE entities SET summary = summary || ':updated' WHERE id = ?",
+        brand.entityId,
+      ],
+      [
+        "stories canonical content UPDATE",
+        "UPDATE stories SET body_md = body_md || ':updated' WHERE id = ?",
+        brand.storyId,
+      ],
+      [
+        "entity_references canonical content UPDATE",
+        "UPDATE entity_references SET note = note || ':updated' WHERE id = ?",
+        brand.referenceId,
+      ],
+      [
+        "timeline_events canonical content UPDATE",
+        "UPDATE timeline_events SET description = description || ':updated' WHERE id = ?",
+        brand.timelineId,
+      ],
+    ] as const) {
+      await assertV2InvalidatingMutation(
+        client,
+        brand.entityId,
+        label,
+        mutations,
+        () => client.execute({ sql, args: [id] }),
+      );
+    }
+
     const extraScopeId = `${brand.entityId}-scope-extra`;
     await assertV2InvalidatingMutation(
       client,
@@ -1710,19 +1756,10 @@ async function runInvalidationContract(): Promise<void> {
       "citations DELETE",
       mutations,
       () =>
-        client.batch(
-          [
-            {
-              sql: "DELETE FROM citations WHERE id = ?",
-              args: [auxiliaryCitationId],
-            },
-            {
-              sql: "UPDATE fact_scopes SET nib_scope = 'citation-delete-marker' WHERE id = ?",
-              args: [brand.scopeId],
-            },
-          ],
-          "write",
-        ),
+        client.execute({
+          sql: "DELETE FROM citations WHERE id = ?",
+          args: [auxiliaryCitationId],
+        }),
     );
 
     for (const [label, sql] of [
@@ -1823,19 +1860,10 @@ async function runInvalidationContract(): Promise<void> {
       "fact_conflict_members DELETE",
       mutations,
       () =>
-        client.batch(
-          [
-            {
-              sql: "DELETE FROM fact_conflict_members WHERE id = ?",
-              args: [additionalMemberId],
-            },
-            {
-              sql: "UPDATE fact_scopes SET material_scope = 'member-delete-marker' WHERE id = ?",
-              args: [brand.scopeId],
-            },
-          ],
-          "write",
-        ),
+        client.execute({
+          sql: "DELETE FROM fact_conflict_members WHERE id = ?",
+          args: [additionalMemberId],
+        }),
     );
     const additionalConflictId = `${brand.entityId}-conflict-extra`;
     await assertV2InvalidatingMutation(
@@ -1871,19 +1899,10 @@ async function runInvalidationContract(): Promise<void> {
       "fact_conflicts DELETE",
       mutations,
       () =>
-        client.batch(
-          [
-            {
-              sql: "DELETE FROM fact_conflicts WHERE id = ?",
-              args: [additionalConflictId],
-            },
-            {
-              sql: "UPDATE fact_scopes SET edition_scope = 'conflict-delete-marker' WHERE id = ?",
-              args: [brand.scopeId],
-            },
-          ],
-          "write",
-        ),
+        client.execute({
+          sql: "DELETE FROM fact_conflicts WHERE id = ?",
+          args: [additionalConflictId],
+        }),
     );
     await assertV2InvalidatingMutation(
       client,
@@ -1962,19 +1981,10 @@ async function runInvalidationContract(): Promise<void> {
       "owned source item DELETE",
       mutations,
       () =>
-        client.batch(
-          [
-            {
-              sql: "DELETE FROM source_items WHERE id = ?",
-              args: [extraItemId],
-            },
-            {
-              sql: "UPDATE fact_scopes SET valid_to = '2026-11-30' WHERE id = ?",
-              args: [brand.scopeId],
-            },
-          ],
-          "write",
-        ),
+        client.execute({
+          sql: "DELETE FROM source_items WHERE id = ?",
+          args: [extraItemId],
+        }),
     );
 
     const pen = await seedQualifiedPublicationFixture(client, {
@@ -1990,6 +2000,32 @@ async function runInvalidationContract(): Promise<void> {
         pen.modelSpecId,
       "Qualified pen fixture omitted spec evidence IDs.",
     );
+    for (const [label, sql, id] of [
+      [
+        "model_specs canonical content UPDATE",
+        "UPDATE model_specs SET nib = '14k fine' WHERE id = ?",
+        pen.modelSpecId,
+      ],
+      [
+        "model_variants canonical content UPDATE",
+        "UPDATE model_variants SET notes = notes || ':updated' WHERE id = ?",
+        pen.variantId,
+      ],
+      [
+        "made_by canonical content UPDATE",
+        "UPDATE entity_links SET reason = reason || ':updated' WHERE id = ?",
+        pen.madeById,
+      ],
+    ] as const) {
+      assertCondition(id, `${label} fixture ID is missing.`);
+      await assertV2InvalidatingMutation(
+        client,
+        pen.entityId,
+        label,
+        mutations,
+        () => client.execute({ sql, args: [id] }),
+      );
+    }
     await assertV2InvalidatingMutation(
       client,
       pen.entityId,
@@ -2088,12 +2124,12 @@ async function runInvalidationContract(): Promise<void> {
     await assertNotPublic(client, crossOwner.entityId);
 
     assertCondition(
-      mutations.count === 31,
-      `Expected 31 contract-v2 invalidation mutations, observed ${mutations.count}.`,
+      mutations.count === 38,
+      `Expected 38 contract-v2 invalidation mutations, observed ${mutations.count}.`,
     );
   });
   console.log(
-    "Publication invalidation contract passed: 31 v2 scope/evidence/classification/provenance/conflict/media I/U/D mutations demote current publications, stale reviews fail, and cross-owner claims invalidate every owner.",
+    "Publication invalidation contract passed: 38 legacy+v2 payload dependency mutations demote current publications, standalone deletes revoke stale reviews, and cross-owner claims invalidate every owner.",
   );
 }
 
@@ -2658,9 +2694,220 @@ async function runDirectSqlContract2Matrix(): Promise<void> {
       "CHECK constraint failed",
     );
   });
+
+  await withPhase19Fixture(async ({ client }) => {
+    const brand = await seedQualifiedPublicationFixture(client, {
+      entityId: "phase19-immutable-id-brand",
+      entityType: "brand",
+    });
+    await approveCurrentContentAndPublish(client, brand.entityId);
+    const pen = await seedQualifiedPublicationFixture(client, {
+      entityId: "phase19-immutable-id-pen",
+      entityType: "pen",
+      brandEntityId: brand.entityId,
+    });
+    await approveCurrentContentAndPublish(client, pen.entityId);
+    assertCondition(
+      pen.modelSpecId &&
+        pen.variantId &&
+        pen.primarySpecEvidenceId &&
+        pen.madeById,
+      "Immutable-ID pen fixture omitted required identifiers.",
+    );
+    const brandSnapshot = await publicationSnapshot(client, brand.entityId);
+    const penSnapshot = await publicationSnapshot(client, pen.entityId);
+    const brandHash = await computePublicationContentHash(client, brand.entityId);
+    const penHash = await computePublicationContentHash(client, pen.entityId);
+    for (const guard of [
+      { table: "entities", column: "id", id: brand.entityId },
+      { table: "stories", column: "id", id: brand.storyId },
+      { table: "model_specs", column: "id", id: pen.modelSpecId },
+      { table: "model_variants", column: "id", id: pen.variantId },
+      { table: "claims", column: "id", id: brand.primaryClaimId },
+      { table: "citations", column: "id", id: brand.primaryCitationId },
+      { table: "source_items", column: "id", id: brand.primaryItemId },
+      {
+        table: "source_registry",
+        column: "id",
+        id: brand.primaryRegistryId,
+      },
+      {
+        table: "entity_references",
+        column: "id",
+        id: brand.referenceId,
+      },
+      { table: "timeline_events", column: "id", id: brand.timelineId },
+      { table: "media_assets", column: "id", id: brand.mediaId },
+      { table: "entity_links", column: "id", id: pen.madeById },
+      { table: "fact_scopes", column: "id", id: brand.scopeId },
+      {
+        table: "spec_field_evidence",
+        column: "id",
+        id: pen.primarySpecEvidenceId,
+      },
+      {
+        table: "claim_evidence",
+        column: "id",
+        id: brand.primaryClaimEvidenceId,
+      },
+      { table: "fact_conflicts", column: "id", id: brand.conflictId },
+      {
+        table: "fact_conflict_members",
+        column: "id",
+        id: brand.conflictMemberId,
+      },
+      {
+        table: "entity_publications",
+        column: "entity_id",
+        id: brand.entityId,
+      },
+    ] as const) {
+      await expectReject(
+        () =>
+          client.execute({
+            sql: `UPDATE ${guard.table} SET ${guard.column} = ? WHERE ${guard.column} = ?`,
+            args: [`${guard.id}-mutated`, guard.id],
+          }),
+        `publication_guard: ${guard.table}.${guard.column} is immutable`,
+      );
+    }
+    assertCondition(
+      (await publicationSnapshot(client, brand.entityId)) === brandSnapshot &&
+        (await publicationSnapshot(client, pen.entityId)) === penSnapshot &&
+        (await computePublicationContentHash(client, brand.entityId)) ===
+          brandHash &&
+        (await computePublicationContentHash(client, pen.entityId)) === penHash,
+      "Rejected canonical ID rewrites changed lifecycle state or content hash.",
+    );
+    await assertPublic(client, brand.entityId);
+    await assertPublic(client, pen.entityId);
+  });
+
+  await withPhase19Fixture(async ({ client }) => {
+    const entity = await seedQualifiedPublicationFixture(client, {
+      entityId: "phase19-published-snapshot-immutable",
+      entityType: "brand",
+    });
+    await recordV2FirstThreeReviews(client, entity.entityId);
+    const firstPublish = await publishEntity(client, {
+      entityId: entity.entityId,
+      reviewer: "phase19-first-publication-reviewer",
+    });
+    await client.execute({
+      sql: "UPDATE stories SET body_md = body_md || ':new-revision' WHERE id = ?",
+      args: [entity.storyId],
+    });
+    const revoked = await client.execute({
+      sql: `
+        SELECT count(*) AS approved_count
+        FROM entity_content_reviews
+        WHERE entity_id = ? AND content_hash = ? AND status = 'approved'
+      `,
+      args: [entity.entityId, firstPublish.contentHash],
+    });
+    assertCondition(
+      Number(revoked.rows[0]?.approved_count ?? -1) === 0,
+      "Content revision did not revoke every approval on the stale hash.",
+    );
+    await recordV2FirstThreeReviews(client, entity.entityId);
+    const secondPublish = await publishEntity(client, {
+      entityId: entity.entityId,
+      reviewer: "phase19-second-publication-reviewer",
+    });
+    assertCondition(
+      secondPublish.contentHash !== firstPublish.contentHash,
+      "Published snapshot tamper fixture did not create a second content hash.",
+    );
+    const publishedSnapshot = await publicationSnapshot(client, entity.entityId);
+    for (const mutation of [
+      {
+        sql: "UPDATE entity_publications SET approved_content_hash = ? WHERE entity_id = ?",
+        args: [firstPublish.contentHash, entity.entityId],
+      },
+      {
+        sql: "UPDATE entity_publications SET content_revision = content_revision + 1 WHERE entity_id = ?",
+        args: [entity.entityId],
+      },
+      {
+        sql: "UPDATE entity_publications SET reviewed_content_revision = reviewed_content_revision - 1 WHERE entity_id = ?",
+        args: [entity.entityId],
+      },
+      {
+        sql: "UPDATE entity_publications SET reviewed_contract_version = 1 WHERE entity_id = ?",
+        args: [entity.entityId],
+      },
+      {
+        sql: "UPDATE entity_publications SET reviewed_by = 'tampered' WHERE entity_id = ?",
+        args: [entity.entityId],
+      },
+      {
+        sql: "UPDATE entity_publications SET reviewed_at = '2026-07-15T00:00:00.000Z' WHERE entity_id = ?",
+        args: [entity.entityId],
+      },
+      {
+        sql: "UPDATE entity_publications SET published_at = '2026-07-15T00:00:00.000Z' WHERE entity_id = ?",
+        args: [entity.entityId],
+      },
+    ]) {
+      await expectReject(
+        () => client.execute(mutation),
+        "publication_guard: published authorization snapshot is immutable",
+      );
+      assertCondition(
+        (await publicationSnapshot(client, entity.entityId)) ===
+          publishedSnapshot,
+        "Rejected published snapshot tamper changed lifecycle state.",
+      );
+    }
+
+    await client.execute({
+      sql: `
+        UPDATE entity_publications
+        SET status = 'in_review',
+            approved_content_hash = ?,
+            reviewed_content_revision = content_revision,
+            reviewed_contract_version = 2,
+            reviewed_by = 'stale-direct-reviewer',
+            reviewed_at = '2026-07-16T00:00:00.000Z',
+            published_at = NULL
+        WHERE entity_id = ?
+      `,
+      args: [firstPublish.contentHash, entity.entityId],
+    });
+    await expectReject(
+      () =>
+        client.execute({
+          sql: `
+            UPDATE entity_publications
+            SET status = 'published',
+                published_at = '2026-07-16T00:00:01.000Z'
+            WHERE entity_id = ?
+          `,
+          args: [entity.entityId],
+        }),
+      "publication_guard: readiness blockers remain",
+    );
+    await assertNotPublic(client, entity.entityId);
+    const refreshed = await publishEntity(client, {
+      entityId: entity.entityId,
+      reviewer: "phase19-refresh-after-stale-direct-sql",
+    });
+    assertCondition(
+      refreshed.contentHash === secondPublish.contentHash,
+      "Server publish did not restore the current canonical hash after stale direct SQL.",
+    );
+    await assertPublic(client, entity.entityId);
+  });
 }
 
 async function runPublishContract(): Promise<void> {
+  const signalSnapshot = snapshotRealDatabase();
+  const sharedSignalReport = path.join(
+    os.tmpdir(),
+    `fpkg-publication-shared-signal-${process.pid}-${Date.now()}.json`,
+  );
+  await assertSignalCleanup(sharedSignalReport, "--shared-signal-probe");
+  assertSnapshotUnchanged(signalSnapshot, "Shared Phase 19 SIGTERM cleanup");
   await runDirectSqlContract2Matrix();
 
   await withPhase19Fixture(async ({ client }) => {
@@ -2941,13 +3188,16 @@ function idleChild(fixture: FixtureContext): ChildProcess {
   );
 }
 
-async function assertSignalCleanup(reportFile: string): Promise<void> {
+async function assertSignalCleanup(
+  reportFile: string,
+  probeFlag = "--signal-probe",
+): Promise<void> {
   const require = createRequire(import.meta.url);
   const tsxCli = require.resolve("tsx/cli");
   const output: string[] = [];
   const child = spawn(
     process.execPath,
-    [tsxCli, SCRIPT_PATH, "--signal-probe", "--report", reportFile],
+    [tsxCli, SCRIPT_PATH, probeFlag, "--report", reportFile],
     {
       cwd: ROOT,
       env: {
@@ -3157,6 +3407,46 @@ async function runSignalProbe(reportFile: string): Promise<void> {
   await new Promise(() => undefined);
 }
 
+async function runSharedSignalProbe(reportFile: string): Promise<void> {
+  const fixture = await createPhase19Fixture(
+    "fpkg-publication-shared-signal-probe-",
+  );
+  try {
+    const server = fixture.registerChild(
+      process.execPath,
+      ["-e", "setInterval(() => {}, 1000)"],
+      { cwd: ROOT, stdio: "ignore" },
+    );
+    if (!server.pid) throw new Error("Shared signal probe child has no PID.");
+    fs.writeFileSync(
+      reportFile,
+      JSON.stringify({
+        tempRoot: fixture.tempRoot,
+        databasePath: fixture.databasePath,
+        serverPid: server.pid,
+      }),
+    );
+    await new Promise(() => undefined);
+  } catch (error) {
+    await cleanupPhase19Fixture(fixture);
+    throw error;
+  }
+}
+
+async function cleanupAllFixtures(): Promise<void> {
+  const legacyFixture = activeFixture;
+  const results = await Promise.allSettled([
+    ...(legacyFixture ? [cleanupFixture(legacyFixture)] : []),
+    cleanupActivePhase19Fixtures(),
+  ]);
+  const failures = results
+    .filter((result) => result.status === "rejected")
+    .map((result) => result.reason);
+  if (failures.length > 0) {
+    throw new AggregateError(failures, "Publication fixture cleanup failed.");
+  }
+}
+
 function installSignalHandlers(): void {
   for (const [signal, exitCode] of [
     ["SIGINT", 130],
@@ -3166,16 +3456,20 @@ function installSignalHandlers(): void {
       if (signalCleanupStarted) return;
       signalCleanupStarted = true;
       void (async () => {
-        if (activeFixture) await cleanupFixture(activeFixture);
-        process.exit(exitCode);
+        try {
+          await cleanupAllFixtures();
+          process.exit(exitCode);
+        } catch {
+          process.exit(1);
+        }
       })();
     });
   }
 }
 
 async function main(): Promise<void> {
-  installSignalHandlers();
   const args = process.argv.slice(2);
+  installSignalHandlers();
 
   if (args.length === 0 || args.includes("--all")) {
     await runFixtureIsolation();
@@ -3189,6 +3483,15 @@ async function main(): Promise<void> {
     const reportFile = reportIndex >= 0 ? args[reportIndex + 1] : undefined;
     if (!reportFile) throw new Error("--signal-probe requires --report <path>.");
     await runSignalProbe(reportFile);
+    return;
+  }
+  if (args.includes("--shared-signal-probe")) {
+    const reportIndex = args.indexOf("--report");
+    const reportFile = reportIndex >= 0 ? args[reportIndex + 1] : undefined;
+    if (!reportFile) {
+      throw new Error("--shared-signal-probe requires --report <path>.");
+    }
+    await runSharedSignalProbe(reportFile);
     return;
   }
   if (args.includes("--fixture-isolation")) {
@@ -3230,7 +3533,11 @@ async function main(): Promise<void> {
 }
 
 main().catch(async (error) => {
-  if (activeFixture) await cleanupFixture(activeFixture);
+  try {
+    await cleanupAllFixtures();
+  } catch (cleanupError) {
+    console.error(cleanupError);
+  }
   console.error(error);
   process.exitCode = 1;
 });

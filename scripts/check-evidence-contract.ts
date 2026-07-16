@@ -20,6 +20,7 @@ import {
   recordEntityContentReview,
 } from "../src/lib/publication";
 import {
+  installPhase19FixtureSignalHandlers,
   seedQualifiedPublicationFixture,
   withPhase19Fixture,
 } from "./lib/phase19-fixtures";
@@ -110,6 +111,26 @@ const REQUIRED_V2_OBJECTS = [
   ["trigger", "publication_fact_conflict_member_delete"],
   ["trigger", "publication_content_review_update"],
   ["trigger", "publication_content_review_delete"],
+  ["trigger", "publication_entity_id_immutable"],
+  ["trigger", "publication_story_id_immutable"],
+  ["trigger", "publication_model_spec_id_immutable"],
+  ["trigger", "publication_model_variant_id_immutable"],
+  ["trigger", "publication_claim_id_immutable"],
+  ["trigger", "publication_citation_id_immutable"],
+  ["trigger", "publication_source_item_id_immutable"],
+  ["trigger", "publication_source_registry_id_immutable"],
+  ["trigger", "publication_entity_reference_id_immutable"],
+  ["trigger", "publication_timeline_event_id_immutable"],
+  ["trigger", "publication_media_asset_id_immutable"],
+  ["trigger", "publication_entity_link_id_immutable"],
+  ["trigger", "publication_fact_scope_id_immutable"],
+  ["trigger", "publication_spec_field_evidence_id_immutable"],
+  ["trigger", "publication_claim_evidence_id_immutable"],
+  ["trigger", "publication_fact_conflict_id_immutable"],
+  ["trigger", "publication_fact_conflict_member_id_immutable"],
+  ["trigger", "publication_lifecycle_entity_id_immutable"],
+  ["trigger", "publication_content_revision_revoke_reviews"],
+  ["trigger", "publication_published_snapshot_immutable"],
 ] as const;
 
 type MigrationFixtureKind = "fresh" | "upgrade";
@@ -3379,6 +3400,12 @@ async function runReadinessPublishContract(): Promise<void> {
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2).filter((arg) => arg !== "--");
+  if (
+    args.includes("--hash-invalidation") ||
+    args.includes("--readiness-publish")
+  ) {
+    installPhase19FixtureSignalHandlers();
+  }
   if (args.length === 1 && args[0] === "--migration") {
     await runMigrationContract();
     return;

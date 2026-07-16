@@ -2329,6 +2329,180 @@ BEGIN
     );
 END;
 
+-- Canonical payload identifiers are semantic identity, not mutable transport
+-- metadata. Every other payload column has owner-aware invalidation above;
+-- rejecting primary-key rewrites closes the remaining stale-hash path without
+-- trying to cascade generic citation target identifiers.
+CREATE TRIGGER publication_entity_id_immutable
+BEFORE UPDATE OF id ON entities
+WHEN OLD.id IS NOT NEW.id
+BEGIN
+  SELECT RAISE(ABORT, 'publication_guard: entities.id is immutable');
+END;
+
+CREATE TRIGGER publication_story_id_immutable
+BEFORE UPDATE OF id ON stories
+WHEN OLD.id IS NOT NEW.id
+BEGIN
+  SELECT RAISE(ABORT, 'publication_guard: stories.id is immutable');
+END;
+
+CREATE TRIGGER publication_model_spec_id_immutable
+BEFORE UPDATE OF id ON model_specs
+WHEN OLD.id IS NOT NEW.id
+BEGIN
+  SELECT RAISE(ABORT, 'publication_guard: model_specs.id is immutable');
+END;
+
+CREATE TRIGGER publication_model_variant_id_immutable
+BEFORE UPDATE OF id ON model_variants
+WHEN OLD.id IS NOT NEW.id
+BEGIN
+  SELECT RAISE(ABORT, 'publication_guard: model_variants.id is immutable');
+END;
+
+CREATE TRIGGER publication_claim_id_immutable
+BEFORE UPDATE OF id ON claims
+WHEN OLD.id IS NOT NEW.id
+BEGIN
+  SELECT RAISE(ABORT, 'publication_guard: claims.id is immutable');
+END;
+
+CREATE TRIGGER publication_citation_id_immutable
+BEFORE UPDATE OF id ON citations
+WHEN OLD.id IS NOT NEW.id
+BEGIN
+  SELECT RAISE(ABORT, 'publication_guard: citations.id is immutable');
+END;
+
+CREATE TRIGGER publication_source_item_id_immutable
+BEFORE UPDATE OF id ON source_items
+WHEN OLD.id IS NOT NEW.id
+BEGIN
+  SELECT RAISE(ABORT, 'publication_guard: source_items.id is immutable');
+END;
+
+CREATE TRIGGER publication_source_registry_id_immutable
+BEFORE UPDATE OF id ON source_registry
+WHEN OLD.id IS NOT NEW.id
+BEGIN
+  SELECT RAISE(ABORT, 'publication_guard: source_registry.id is immutable');
+END;
+
+CREATE TRIGGER publication_entity_reference_id_immutable
+BEFORE UPDATE OF id ON entity_references
+WHEN OLD.id IS NOT NEW.id
+BEGIN
+  SELECT RAISE(ABORT, 'publication_guard: entity_references.id is immutable');
+END;
+
+CREATE TRIGGER publication_timeline_event_id_immutable
+BEFORE UPDATE OF id ON timeline_events
+WHEN OLD.id IS NOT NEW.id
+BEGIN
+  SELECT RAISE(ABORT, 'publication_guard: timeline_events.id is immutable');
+END;
+
+CREATE TRIGGER publication_media_asset_id_immutable
+BEFORE UPDATE OF id ON media_assets
+WHEN OLD.id IS NOT NEW.id
+BEGIN
+  SELECT RAISE(ABORT, 'publication_guard: media_assets.id is immutable');
+END;
+
+CREATE TRIGGER publication_entity_link_id_immutable
+BEFORE UPDATE OF id ON entity_links
+WHEN OLD.id IS NOT NEW.id
+BEGIN
+  SELECT RAISE(ABORT, 'publication_guard: entity_links.id is immutable');
+END;
+
+CREATE TRIGGER publication_fact_scope_id_immutable
+BEFORE UPDATE OF id ON fact_scopes
+WHEN OLD.id IS NOT NEW.id
+BEGIN
+  SELECT RAISE(ABORT, 'publication_guard: fact_scopes.id is immutable');
+END;
+
+CREATE TRIGGER publication_spec_field_evidence_id_immutable
+BEFORE UPDATE OF id ON spec_field_evidence
+WHEN OLD.id IS NOT NEW.id
+BEGIN
+  SELECT RAISE(ABORT, 'publication_guard: spec_field_evidence.id is immutable');
+END;
+
+CREATE TRIGGER publication_claim_evidence_id_immutable
+BEFORE UPDATE OF id ON claim_evidence
+WHEN OLD.id IS NOT NEW.id
+BEGIN
+  SELECT RAISE(ABORT, 'publication_guard: claim_evidence.id is immutable');
+END;
+
+CREATE TRIGGER publication_fact_conflict_id_immutable
+BEFORE UPDATE OF id ON fact_conflicts
+WHEN OLD.id IS NOT NEW.id
+BEGIN
+  SELECT RAISE(ABORT, 'publication_guard: fact_conflicts.id is immutable');
+END;
+
+CREATE TRIGGER publication_fact_conflict_member_id_immutable
+BEFORE UPDATE OF id ON fact_conflict_members
+WHEN OLD.id IS NOT NEW.id
+BEGIN
+  SELECT RAISE(ABORT, 'publication_guard: fact_conflict_members.id is immutable');
+END;
+
+CREATE TRIGGER publication_lifecycle_entity_id_immutable
+BEFORE UPDATE OF entity_id ON entity_publications
+WHEN OLD.entity_id IS NOT NEW.entity_id
+BEGIN
+  SELECT RAISE(ABORT, 'publication_guard: entity_publications.entity_id is immutable');
+END;
+
+-- Any canonical content revision permanently invalidates prior approvals. The
+-- rows remain as audit evidence with revoked status, but cannot be re-selected
+-- by a later direct-SQL lifecycle snapshot, even if content returns to an old
+-- hash.
+CREATE TRIGGER publication_content_revision_revoke_reviews
+AFTER UPDATE OF content_revision ON entity_publications
+WHEN OLD.content_revision IS NOT NEW.content_revision
+BEGIN
+  UPDATE entity_content_reviews
+  SET status = 'revoked', updated_at = datetime('now')
+  WHERE entity_id = NEW.entity_id AND status = 'approved';
+END;
+
+-- While an entity remains published, its authorization snapshot is immutable.
+-- Legitimate content/review invalidation first demotes it to in_review, and
+-- publishEntity likewise stages a fresh in_review snapshot before transition.
+CREATE TRIGGER publication_published_snapshot_immutable
+BEFORE UPDATE OF
+  approved_content_hash,
+  content_revision,
+  reviewed_content_revision,
+  reviewed_contract_version,
+  reviewed_by,
+  reviewed_at,
+  published_at
+ON entity_publications
+WHEN OLD.status = 'published'
+  AND NEW.status = 'published'
+  AND (
+    OLD.approved_content_hash IS NOT NEW.approved_content_hash
+    OR OLD.content_revision IS NOT NEW.content_revision
+    OR OLD.reviewed_content_revision IS NOT NEW.reviewed_content_revision
+    OR OLD.reviewed_contract_version IS NOT NEW.reviewed_contract_version
+    OR OLD.reviewed_by IS NOT NEW.reviewed_by
+    OR OLD.reviewed_at IS NOT NEW.reviewed_at
+    OR OLD.published_at IS NOT NEW.published_at
+  )
+BEGIN
+  SELECT RAISE(
+    ABORT,
+    'publication_guard: published authorization snapshot is immutable'
+  );
+END;
+
 CREATE TRIGGER publication_publish_insert_guard
 BEFORE INSERT ON entity_publications
 WHEN NEW.status = 'published'
