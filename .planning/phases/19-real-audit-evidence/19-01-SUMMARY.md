@@ -91,7 +91,7 @@ Each task was committed independently:
 | D-01 | AUD-04 | `check-audit-readiness --readonly-backup` validates an online backup inside the owned root and rejects source, sidecar, existing, outside-root, and symlink-escape destinations. | Pass |
 | D-02 | QA-01 | Both fixture-isolation checks plus migration ownership prove canonical migrations and child processes use only a disposable owned database. | Pass |
 
-## Verification
+## Validation Results
 
 - `pnpm exec tsx scripts/check-audit-readiness.ts --readonly-isolation` - passed.
 - `pnpm exec tsx scripts/check-audit-readiness.ts --readonly-backup` - passed.
