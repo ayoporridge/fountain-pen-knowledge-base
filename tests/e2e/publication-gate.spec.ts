@@ -1,8 +1,5 @@
-import { type ChildProcess, spawn } from "node:child_process";
 import { createHash } from "node:crypto";
 import fs from "node:fs";
-import { createServer } from "node:net";
-import os from "node:os";
 import path from "node:path";
 import { type Client, createClient } from "@libsql/client";
 import {
@@ -12,9 +9,11 @@ import {
   request as playwrightRequest,
   test,
 } from "@playwright/test";
-import { migrateDatabase } from "../../src/lib/db";
+import { seedQualifiedPublicationFixture } from "../../scripts/lib/phase19-fixtures";
+import { resolveDatabaseConnection } from "../../src/lib/db";
 import {
   publishEntity,
+  recordEntityContentReview,
   setEntityPublicationStatus,
 } from "../../src/lib/publication";
 
@@ -42,6 +41,7 @@ const PRIVATE_MEDIA_IDS = [
   "publication-majohn-media",
   "publication-montblanc-media",
 ] as const;
+const QUALIFICATION_SOURCE_PREFIX = "publication-contract";
 
 type FileState = {
   exists: boolean;
@@ -56,14 +56,10 @@ type FileContentState =
   | { exists: false }
   | { exists: true; size: number; sha256: string };
 
-let fixtureRoot = "";
-let fixtureDatabasePath = "";
 let fixtureDb: Client;
-let fixtureServer: ChildProcess | undefined;
 let fixtureBaseUrl = "";
 let fixtureRequest: APIRequestContext;
 let realDatabaseBefore: Record<string, FileState>;
-const serverLog: string[] = [];
 
 function snapshotRealDatabase(): Record<string, FileState> {
   const databasePath = path.join(process.cwd(), "data", "fpkg.db");
@@ -119,79 +115,6 @@ function expectRealDatabaseUnchanged(
   ).toEqual(fileContentState(before["fpkg.db-shm"]));
 }
 
-async function freePort(): Promise<number> {
-  return await new Promise((resolve, reject) => {
-    const server = createServer();
-    server.once("error", reject);
-    server.listen(0, "127.0.0.1", () => {
-      const address = server.address();
-      if (!address || typeof address === "string") {
-        server.close();
-        reject(new Error("Could not allocate an isolated E2E port."));
-        return;
-      }
-      server.close((error) => {
-        if (error) reject(error);
-        else resolve(address.port);
-      });
-    });
-  });
-}
-
-function appendServerLog(prefix: string, chunk: Buffer | string): void {
-  for (const line of String(chunk).split(/\r?\n/)) {
-    if (line.trim()) serverLog.push(`${prefix} ${line}`);
-  }
-  if (serverLog.length > 400) serverLog.splice(0, serverLog.length - 400);
-}
-
-async function waitForServer(url: string): Promise<void> {
-  const deadline = Date.now() + 30_000;
-  while (Date.now() < deadline) {
-    if (fixtureServer?.exitCode !== null) {
-      throw new Error(
-        `Isolated Next server exited before readiness.\n${serverLog.join("\n")}`,
-      );
-    }
-    try {
-      const response = await fetch(url, { cache: "no-store" });
-      if (response.status < 500) return;
-    } catch {
-      // The child has not bound its port yet.
-    }
-    await new Promise((resolve) => setTimeout(resolve, 100));
-  }
-  throw new Error(
-    `Timed out waiting for isolated Next server at ${url}.\n${serverLog.join("\n")}`,
-  );
-}
-
-async function stopServer(): Promise<void> {
-  const server = fixtureServer;
-  fixtureServer = undefined;
-  if (!server?.pid || server.exitCode !== null) return;
-
-  try {
-    process.kill(-server.pid, "SIGTERM");
-  } catch {
-    server.kill("SIGTERM");
-  }
-  await new Promise<void>((resolve) => {
-    const timeout = setTimeout(() => {
-      try {
-        if (server.pid) process.kill(-server.pid, "SIGKILL");
-      } catch {
-        server.kill("SIGKILL");
-      }
-      resolve();
-    }, 5_000);
-    server.once("exit", () => {
-      clearTimeout(timeout);
-      resolve();
-    });
-  });
-}
-
 async function insertEntity(
   id: string,
   type: "brand" | "pen" | "article",
@@ -207,27 +130,49 @@ async function insertEntity(
   });
 }
 
-async function insertStory(
+async function approveCurrentContentAndPublish(
   entityId: string,
-  storyType: "brand_story" | "model_story",
+  reviewer = "publication-e2e",
 ): Promise<void> {
-  await fixtureDb.execute({
-    sql: `INSERT INTO stories (
-            id, entity_id, title, story_type, summary, body_md, status
-          ) VALUES (?, ?, ?, ?, ?, ?, 'published')`,
-    args: [
-      `${entityId}-story`,
+  for (const reviewKind of ["fact", "language", "media"] as const) {
+    await recordEntityContentReview(fixtureDb, {
       entityId,
-      `${entityId} story`,
-      storyType,
-      `${entityId} has a reviewed editorial story.`,
-      `${entityId} 的发布故事包含明确、非空的型号资料。`,
-    ],
-  });
+      reviewKind,
+      reviewer: `${reviewer}-${reviewKind}`,
+      status: "approved",
+      notes: "Contract-v2 browser fixture review.",
+    });
+  }
+  await publishEntity(fixtureDb, { entityId, reviewer });
+}
+
+async function cleanupPublicationFixtureRows(): Promise<void> {
+  await fixtureDb.execute("DELETE FROM entities WHERE id LIKE 'publication-%'");
+  await fixtureDb.execute(
+    `DELETE FROM citations
+     WHERE id LIKE 'publication-%'
+        OR source_item_id LIKE 'publication-%'
+        OR claim_id LIKE 'publication-%'`,
+  );
+  await fixtureDb.execute(
+    "DELETE FROM source_items WHERE id LIKE 'publication-%'",
+  );
+  await fixtureDb.execute(
+    "DELETE FROM source_registry WHERE id LIKE 'publication-%'",
+  );
 }
 
 async function seedFixture(): Promise<void> {
-  await migrateDatabase(fixtureDb);
+  const migration = await fixtureDb.execute({
+    sql: "SELECT checksum FROM migrations WHERE name = ? LIMIT 1",
+    args: ["031_evidence_readiness_v2.sql"],
+  });
+  if (migration.rows.length !== 1) {
+    throw new Error(
+      "Publication E2E requires the Phase 19 wrapper's canonical migration 031 database.",
+    );
+  }
+  await cleanupPublicationFixtureRows();
 
   await fixtureDb.execute(`
     INSERT INTO source_registry (
@@ -248,19 +193,24 @@ async function seedFixture(): Promise<void> {
        'Publication Private Evidence', 'https://fixture.invalid/private/model', 'approved')
   `);
 
-  await insertEntity(
-    BRAND_ID,
-    "brand",
-    BRAND_SLUG,
-    "Publication Brand",
-    "A synthetic brand reviewed specifically for the publication gate.",
-    "Publication Brand 的页面必须完整列出每一个已发布型号。",
-  );
-  await insertStory(BRAND_ID, "brand_story");
-  await publishEntity(fixtureDb, {
+  await seedQualifiedPublicationFixture(fixtureDb, {
     entityId: BRAND_ID,
-    reviewer: "publication-e2e",
+    entityType: "brand",
+    sharedSourcePrefix: QUALIFICATION_SOURCE_PREFIX,
+    includeSecondarySurfaceRows: false,
   });
+  await fixtureDb.execute({
+    sql: `UPDATE entities
+          SET name = ?, summary = ?, body_md = ?
+          WHERE id = ?`,
+    args: [
+      "Publication Brand",
+      "A synthetic brand reviewed specifically for the publication gate.",
+      "Publication Brand 的页面必须完整列出每一个已发布型号。",
+      BRAND_ID,
+    ],
+  });
+  await approveCurrentContentAndPublish(BRAND_ID);
 
   await insertEntity(
     "publication-majohn-brand",
@@ -326,46 +276,46 @@ async function seedFixture(): Promise<void> {
 
   for (const [index, entityId] of MODEL_IDS.entries()) {
     const number = String(index + 1).padStart(2, "0");
-    await insertEntity(
+    const fixture = await seedQualifiedPublicationFixture(fixtureDb, {
       entityId,
-      "pen",
-      MODEL_SLUGS[index],
-      `Publication Model ${number}`,
-      `Publication Model ${number} has reviewed identity, maker, specifications and narrative.`,
-      `Publication Model ${number} 的型号页包含真实发布事务核准的摘要、故事、规格和品牌关系。`,
-    );
-    await insertStory(entityId, "model_story");
-    await fixtureDb.execute({
-      sql: `INSERT INTO entity_links (id, source_id, target_id, link_type)
-            VALUES (?, ?, ?, 'made_by')`,
-      args: [`${entityId}-maker`, entityId, BRAND_ID],
+      entityType: "pen",
+      brandEntityId: BRAND_ID,
+      sharedSourcePrefix: QUALIFICATION_SOURCE_PREFIX,
+      includeSecondarySurfaceRows: false,
     });
+    if (!fixture.modelSpecId || !fixture.primarySpecCitationId) {
+      throw new Error(`${entityId} qualification fixture omitted spec IDs.`);
+    }
     await fixtureDb.execute({
-      sql: `INSERT INTO model_specs (
-              id, entity_id, brand_entity_id, series_name, release_year,
-              origin_country, nib, fill_system, material, review_status
-            ) VALUES (?, ?, ?, ?, ?, 'Fixture', 'F', 'cartridge/converter',
-                      'resin', 'approved')`,
+      sql: `UPDATE entities
+            SET name = ?, summary = ?, body_md = ?
+            WHERE id = ?`,
       args: [
-        `${entityId}-spec`,
+        `Publication Model ${number}`,
+        `Publication Model ${number} has reviewed identity, maker, specifications and narrative.`,
+        `Publication Model ${number} 的型号页包含真实发布事务核准的摘要、故事、规格和品牌关系。`,
         entityId,
-        BRAND_ID,
-        "Publication Series",
-        String(2010 + index),
       ],
     });
     await fixtureDb.execute({
-      sql: `INSERT INTO citations (
-              id, target_type, target_id, source_item_id, note
-            ) VALUES (?, 'model_spec', ?, 'publication-public-item',
-                      'Synthetic publication evidence')`,
-      args: [`${entityId}-spec-citation`, `${entityId}-spec`],
+      sql: "UPDATE model_specs SET series_name = 'Publication Series' WHERE id = ?",
+      args: [fixture.modelSpecId],
+    });
+    await fixtureDb.execute({
+      sql: `INSERT INTO spec_field_evidence (
+              id, model_spec_id, field_key, citation_id, scope_id,
+              evidence_locator, review_status
+            ) VALUES (?, ?, 'series_name', ?, ?, ?, 'approved')`,
+      args: [
+        `${entityId}-spec-evidence-series-name`,
+        fixture.modelSpecId,
+        fixture.primarySpecCitationId,
+        fixture.scopeId,
+        `publication-spec:${entityId}:series_name`,
+      ],
     });
     if (index < MODEL_IDS.length - 1) {
-      await publishEntity(fixtureDb, {
-        entityId,
-        reviewer: "publication-e2e",
-      });
+      await approveCurrentContentAndPublish(entityId);
     }
   }
 
@@ -401,10 +351,7 @@ async function seedFixture(): Promise<void> {
 
   // The first public model gained publication-critical source/media rows after
   // its initial review, so the fixture deliberately performs a fresh review.
-  await publishEntity(fixtureDb, {
-    entityId: MODEL_IDS[0],
-    reviewer: "publication-e2e",
-  });
+  await approveCurrentContentAndPublish(MODEL_IDS[0]);
 
   await insertEntity(
     "publication-wiki",
@@ -475,34 +422,21 @@ test.describe("publication gate browser contract", () => {
 
   test.beforeAll(async () => {
     realDatabaseBefore = snapshotRealDatabase();
-    fixtureRoot = fs.realpathSync.native(
-      fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-publication-browser-")),
-    );
-    fixtureDatabasePath = path.join(fixtureRoot, "fixture.db");
-    fixtureDb = createClient({ url: `file:${fixtureDatabasePath}` });
+    const connection = resolveDatabaseConnection(process.env);
+    if (
+      process.env.PUBLICATION_GATE_FIXTURE !== "1" ||
+      !connection.localPath ||
+      !process.env.FPKG_DATABASE_URL
+    ) {
+      throw new Error(
+        "Publication E2E must run through scripts/check-phase19-regression.ts with one explicit disposable database.",
+      );
+    }
+    fixtureDb = createClient({ url: process.env.FPKG_DATABASE_URL });
     await seedFixture();
 
-    const port = await freePort();
-    fixtureBaseUrl = `http://127.0.0.1:${port}`;
-    fixtureServer = spawn("pnpm", ["start", "-p", String(port)], {
-      cwd: process.cwd(),
-      detached: true,
-      env: {
-        ...process.env,
-        TURSO_DATABASE_URL: "",
-        TURSO_AUTH_TOKEN: "",
-        FPKG_DATABASE_URL: `file:${fixtureDatabasePath}`,
-        PUBLICATION_GATE_FIXTURE: "1",
-      },
-      stdio: ["ignore", "pipe", "pipe"],
-    });
-    fixtureServer.stdout?.on("data", (chunk) =>
-      appendServerLog("stdout", chunk),
-    );
-    fixtureServer.stderr?.on("data", (chunk) =>
-      appendServerLog("stderr", chunk),
-    );
-    await waitForServer(fixtureBaseUrl);
+    fixtureBaseUrl =
+      process.env.E2E_BASE_URL?.replace(/\/$/, "") || "http://127.0.0.1:3107";
     fixtureRequest = await playwrightRequest.newContext({
       baseURL: fixtureBaseUrl,
       extraHTTPHeaders: { "Cache-Control": "no-cache" },
@@ -511,19 +445,14 @@ test.describe("publication gate browser contract", () => {
 
   test.afterEach(async ({ page: _page }, testInfo) => {
     expect(testInfo.retry).toBe(0);
-    if (testInfo.status !== testInfo.expectedStatus) {
-      console.error(
-        `Isolated publication server log:\n${serverLog.slice(-120).join("\n")}`,
-      );
-    }
   });
 
   test.afterAll(async () => {
     await fixtureRequest?.dispose();
-    await stopServer();
-    fixtureDb?.close();
-    if (fixtureRoot) fs.rmSync(fixtureRoot, { recursive: true, force: true });
-    expect(fs.existsSync(fixtureRoot)).toBeFalsy();
+    if (fixtureDb) {
+      await cleanupPublicationFixtureRows();
+      fixtureDb.close();
+    }
     expectRealDatabaseUnchanged(realDatabaseBefore, snapshotRealDatabase());
   });
 
@@ -657,10 +586,7 @@ test.describe("publication gate browser contract", () => {
 
   test("a true publish transaction changes the next request from 404 to 200", async () => {
     await expectLifecycleVisible(false);
-    await publishEntity(fixtureDb, {
-      entityId: LIFECYCLE_ID,
-      reviewer: "publication-e2e",
-    });
+    await approveCurrentContentAndPublish(LIFECYCLE_ID);
     await expectLifecycleVisible(true);
   });
 
@@ -784,10 +710,10 @@ test.describe("publication gate browser contract", () => {
     });
     await expectLifecycleVisible(false);
 
-    await publishEntity(fixtureDb, {
-      entityId: LIFECYCLE_ID,
-      reviewer: "publication-e2e-rereview",
-    });
+    await approveCurrentContentAndPublish(
+      LIFECYCLE_ID,
+      "publication-e2e-rereview",
+    );
     await expectLifecycleVisible(true);
 
     await setEntityPublicationStatus(fixtureDb, LIFECYCLE_ID, "retired");

@@ -333,6 +333,8 @@ export interface QualifiedPublicationFixtureOptions {
   readonly brandEntityId?: string;
   readonly reverseIndependentRows?: boolean;
   readonly canonicalTextVariant?: "nfc-lf" | "nfd-crlf";
+  readonly sharedSourcePrefix?: string;
+  readonly includeSecondarySurfaceRows?: boolean;
 }
 
 function ordered<T>(values: readonly T[], reverse: boolean): T[] {
@@ -352,6 +354,7 @@ export async function seedQualifiedPublicationFixture(
     throw new Error("A qualified pen fixture requires brandEntityId.");
   }
   const prefix = options.entityId;
+  const sourcePrefix = options.sharedSourcePrefix ?? prefix;
   const reverse = options.reverseIndependentRows === true;
   const nfdCrLf = options.canonicalTextVariant === "nfd-crlf";
   const text = (value: string): string =>
@@ -360,12 +363,12 @@ export async function seedQualifiedPublicationFixture(
     entityId: options.entityId,
     storyId: `${prefix}-story`,
     scopeId: `${prefix}-scope`,
-    primaryRegistryId: `${prefix}-registry-primary`,
-    secondaryRegistryId: `${prefix}-registry-secondary`,
-    mirrorRegistryId: `${prefix}-registry-mirror`,
-    primaryItemId: `${prefix}-item-primary`,
-    secondaryItemId: `${prefix}-item-secondary`,
-    mirrorItemId: `${prefix}-item-mirror`,
+    primaryRegistryId: `${sourcePrefix}-registry-primary`,
+    secondaryRegistryId: `${sourcePrefix}-registry-secondary`,
+    mirrorRegistryId: `${sourcePrefix}-registry-mirror`,
+    primaryItemId: `${sourcePrefix}-item-primary`,
+    secondaryItemId: `${sourcePrefix}-item-secondary`,
+    mirrorItemId: `${sourcePrefix}-item-mirror`,
     primaryClaimId: `${prefix}-claim-primary`,
     secondaryClaimId: `${prefix}-claim-secondary`,
     mirrorClaimId: `${prefix}-claim-mirror`,
@@ -438,27 +441,27 @@ export async function seedQualifiedPublicationFixture(
       name: "Primary registry",
       type: "official",
       tier: "primary",
-      group: `${prefix}-origin`,
+      group: `${sourcePrefix}-origin`,
     },
     {
       id: ids.secondaryRegistryId,
       name: "Independent secondary registry",
       type: "book",
       tier: "professional_secondary",
-      group: `${prefix}-secondary`,
+      group: `${sourcePrefix}-secondary`,
     },
     {
       id: ids.mirrorRegistryId,
       name: "Same-origin mirror registry",
       type: "blog",
       tier: "professional_secondary",
-      group: `${prefix}-origin`,
+      group: `${sourcePrefix}-origin`,
     },
   ] as const;
   for (const registry of ordered(registryRows, reverse)) {
     await client.execute({
       sql: `
-        INSERT INTO source_registry (
+        INSERT OR IGNORE INTO source_registry (
           id, name, source_type, allowed_use, reliability, license,
           attribution, homepage_url, fetch_method, notes, last_checked_at,
           default_source_tier, default_independence_group
@@ -484,27 +487,27 @@ export async function seedQualifiedPublicationFixture(
       registryId: ids.primaryRegistryId,
       title: "Primary item",
       tier: "primary",
-      group: `${prefix}-origin`,
+      group: `${sourcePrefix}-origin`,
     },
     {
       id: ids.secondaryItemId,
       registryId: ids.secondaryRegistryId,
       title: "Independent secondary item",
       tier: "professional_secondary",
-      group: `${prefix}-secondary`,
+      group: `${sourcePrefix}-secondary`,
     },
     {
       id: ids.mirrorItemId,
       registryId: ids.mirrorRegistryId,
       title: "Same-origin mirror item",
       tier: "professional_secondary",
-      group: `${prefix}-origin`,
+      group: `${sourcePrefix}-origin`,
     },
   ] as const;
   for (const item of ordered(itemRows, reverse)) {
     await client.execute({
       sql: `
-        INSERT INTO source_items (
+        INSERT OR IGNORE INTO source_items (
           id, source_id, title, url, item_type, license, author,
           published_at, retrieved_at, summary, raw_metadata_json,
           allowed_use, review_status, source_tier, independence_group,
@@ -772,35 +775,37 @@ export async function seedQualifiedPublicationFixture(
       ids.primaryItemId,
     ],
   });
-  await client.execute({
-    sql: `
-      INSERT INTO entity_references (
-        id, entity_id, source_item_id, relation_type, note, review_status
-      ) VALUES (?, ?, ?, 'history', ?, 'approved')
-    `,
-    args: [
-      ids.referenceId,
-      ids.entityId,
-      ids.secondaryItemId,
-      text("Independent history reference\nfixed"),
-    ],
-  });
-  await client.execute({
-    sql: `
-      INSERT INTO timeline_events (
-        id, entity_id, title, event_type, start_date, circa,
-        description, source_item_id, review_status
-      ) VALUES (?, ?, ?, 'design_milestone', '2026-01-01', 0, ?, ?,
-                'approved')
-    `,
-    args: [
-      ids.timelineId,
-      ids.entityId,
-      text("Café milestone"),
-      text("Milestone description\nfixed"),
-      ids.primaryItemId,
-    ],
-  });
+  if (options.includeSecondarySurfaceRows !== false) {
+    await client.execute({
+      sql: `
+        INSERT INTO entity_references (
+          id, entity_id, source_item_id, relation_type, note, review_status
+        ) VALUES (?, ?, ?, 'history', ?, 'approved')
+      `,
+      args: [
+        ids.referenceId,
+        ids.entityId,
+        ids.secondaryItemId,
+        text("Independent history reference\nfixed"),
+      ],
+    });
+    await client.execute({
+      sql: `
+        INSERT INTO timeline_events (
+          id, entity_id, title, event_type, start_date, circa,
+          description, source_item_id, review_status
+        ) VALUES (?, ?, ?, 'design_milestone', '2026-01-01', 0, ?, ?,
+                  'approved')
+      `,
+      args: [
+        ids.timelineId,
+        ids.entityId,
+        text("Café milestone"),
+        text("Milestone description\nfixed"),
+        ids.primaryItemId,
+      ],
+    });
+  }
   if (ids.madeById) {
     await client.execute({
       sql: `

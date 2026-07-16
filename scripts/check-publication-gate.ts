@@ -136,6 +136,7 @@ interface EntityContentRow {
 }
 
 let activeFixture: FixtureContext | null = null;
+let borrowedE2EServer: ChildProcess | null = null;
 let signalCleanupStarted = false;
 
 function sha256File(filePath: string): string {
@@ -1045,6 +1046,7 @@ async function runExplicitNonBrandPublicationCompatibility(): Promise<void> {
     });
     await assertNotPublic(client, entityId);
 
+    await recordV2FirstThreeReviews(client, entityId);
     await publishEntity(client, {
       entityId,
       reviewer: "compatibility-reviewer",
@@ -3366,6 +3368,50 @@ function parsePort(args: string[]): number {
 }
 
 async function serveE2E(port: number): Promise<void> {
+  if (
+    process.env.PUBLICATION_GATE_FIXTURE === "1" &&
+    process.env.FPKG_DATABASE_URL?.trim()
+  ) {
+    const connection = resolveDatabaseConnection(process.env);
+    assertCondition(
+      connection.localPath,
+      "Shared E2E server requires an explicit disposable local database.",
+    );
+    const client = createClient({ url: process.env.FPKG_DATABASE_URL });
+    try {
+      await assertDatabaseReady(client);
+    } finally {
+      client.close();
+    }
+    const require = createRequire(import.meta.url);
+    const nextCli = require.resolve("next/dist/bin/next");
+    borrowedE2EServer = spawn(
+      process.execPath,
+      [nextCli, "start", "-p", String(port)],
+      {
+        cwd: ROOT,
+        env: {
+          ...process.env,
+          TURSO_DATABASE_URL: "",
+          TURSO_AUTH_TOKEN: "",
+          FPKG_DATABASE_URL: process.env.FPKG_DATABASE_URL,
+          PUBLICATION_GATE_FIXTURE: "1",
+        },
+        stdio: "inherit",
+      },
+    );
+    const server = borrowedE2EServer;
+    const exitCode = await new Promise<number>((resolve, reject) => {
+      server.once("error", reject);
+      server.once("exit", (code, signal) => {
+        resolve(code ?? (signal ? 1 : 0));
+      });
+    });
+    borrowedE2EServer = null;
+    if (exitCode !== 0) process.exitCode = exitCode;
+    return;
+  }
+
   const fixture = await createFixture("fpkg-publication-e2e-");
   try {
     console.log(`Publication E2E fixture: ${fixture.databasePath}`);
@@ -3436,9 +3482,11 @@ async function runSharedSignalProbe(reportFile: string): Promise<void> {
 async function cleanupAllFixtures(): Promise<void> {
   const legacyFixture = activeFixture;
   const results = await Promise.allSettled([
+    ...(borrowedE2EServer ? [stopChild(borrowedE2EServer)] : []),
     ...(legacyFixture ? [cleanupFixture(legacyFixture)] : []),
     cleanupActivePhase19Fixtures(),
   ]);
+  borrowedE2EServer = null;
   const failures = results
     .filter((result) => result.status === "rejected")
     .map((result) => result.reason);

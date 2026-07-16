@@ -8,10 +8,15 @@ import { NextRequest } from "next/server";
 import { getDb, migrateDatabase } from "../src/lib/db";
 import {
   publishEntity,
+  recordEntityContentReview,
   setEntityPublicationStatus,
 } from "../src/lib/publication";
 import { publicMediaFilter } from "../src/lib/public-media";
 import { cleanPublicText } from "../src/lib/publicText";
+import {
+  seedQualifiedPublicationFixture,
+  type QualifiedPublicationFixtureIds,
+} from "./lib/phase19-fixtures";
 
 const RETIRED_DUPLICATE_SLUGS = [
   "百乐-pilot-custom-823",
@@ -109,6 +114,18 @@ const ORACLE_EXPECTED_PRIVATE_IDS = [
   "boundary-majohn-brand",
   "boundary-majohn-a1",
   "boundary-montblanc-149",
+] as const;
+
+const BOUNDARY_QUALIFICATION_SOURCE_PREFIX = "boundary-contract";
+const BOUNDARY_QUALIFICATION_SOURCE_ITEM_IDS = [
+  `${BOUNDARY_QUALIFICATION_SOURCE_PREFIX}-item-primary`,
+  `${BOUNDARY_QUALIFICATION_SOURCE_PREFIX}-item-secondary`,
+  `${BOUNDARY_QUALIFICATION_SOURCE_PREFIX}-item-mirror`,
+] as const;
+const BOUNDARY_QUALIFICATION_REGISTRY_IDS = [
+  `${BOUNDARY_QUALIFICATION_SOURCE_PREFIX}-registry-primary`,
+  `${BOUNDARY_QUALIFICATION_SOURCE_PREFIX}-registry-secondary`,
+  `${BOUNDARY_QUALIFICATION_SOURCE_PREFIX}-registry-mirror`,
 ] as const;
 
 const SPEC_FIELDS = [
@@ -328,52 +345,79 @@ async function insertBoundaryEntity(
   });
 }
 
-async function insertBoundaryStory(
+async function seedQualifiedBoundaryEntity(
   db: ReturnType<typeof createClient>,
   entityId: string,
-  storyType: "brand_story" | "model_story",
-) {
-  await db.execute({
-    sql: `
-      INSERT INTO stories (id, entity_id, title, story_type, body_md, status)
-      VALUES (?, ?, ?, ?, ?, 'published')
-    `,
-    args: [
-      `story-${entityId}`,
-      entityId,
-      `${entityId} story`,
-      storyType,
-      `${entityId} reviewed story body`,
-    ],
+  entityType: "brand" | "pen",
+  brandEntityId?: string,
+): Promise<QualifiedPublicationFixtureIds> {
+  return seedQualifiedPublicationFixture(db, {
+    entityId,
+    entityType,
+    brandEntityId,
+    sharedSourcePrefix: BOUNDARY_QUALIFICATION_SOURCE_PREFIX,
+    includeSecondarySurfaceRows: false,
   });
 }
 
-async function seedBoundaryFixtures(db: ReturnType<typeof createClient>) {
-  await insertBoundaryEntity(db, "boundary-public-brand", "brand");
-  await insertBoundaryStory(db, "boundary-public-brand", "brand_story");
+async function approveBoundaryEntity(
+  db: ReturnType<typeof createClient>,
+  entityId: string,
+): Promise<void> {
+  for (const reviewKind of ["fact", "language", "media"] as const) {
+    await recordEntityContentReview(db, {
+      entityId,
+      reviewKind,
+      reviewer: `boundary-${reviewKind}-reviewer`,
+      status: "approved",
+      notes: "Contract-v2 public-boundary fixture review.",
+    });
+  }
   await publishEntity(db, {
-    entityId: "boundary-public-brand",
-    reviewer: "boundary-checker",
+    entityId,
+    reviewer: "boundary-publication-reviewer",
   });
+}
+
+async function qualifyBoundarySpecFields(
+  db: ReturnType<typeof createClient>,
+  entityId: string,
+  fields: readonly string[],
+): Promise<void> {
+  for (const field of fields) {
+    await db.execute({
+      sql: `
+        INSERT INTO spec_field_evidence (
+          id, model_spec_id, field_key, citation_id, scope_id,
+          evidence_locator, review_status
+        ) VALUES (?, ?, ?, ?, ?, ?, 'approved')
+      `,
+      args: [
+        `${entityId}-spec-evidence-${field}`,
+        `${entityId}-spec`,
+        field,
+        `${entityId}-citation-spec-primary`,
+        `${entityId}-scope`,
+        `boundary-spec:${entityId}:${field}`,
+      ],
+    });
+  }
+}
+
+async function seedBoundaryFixtures(db: ReturnType<typeof createClient>) {
+  await seedQualifiedBoundaryEntity(db, "boundary-public-brand", "brand");
+  await approveBoundaryEntity(db, "boundary-public-brand");
 
   await insertBoundaryEntity(db, "boundary-draft-brand", "brand");
   await insertBoundaryEntity(db, "boundary-draft-pen", "pen");
 
-  await insertBoundaryEntity(db, "boundary-public-pen", "pen");
-  await insertBoundaryStory(db, "boundary-public-pen", "model_story");
-  await db.execute(`
-    INSERT INTO entity_links (id, source_id, target_id, link_type)
-    VALUES (
-      'boundary-public-pen-maker',
-      'boundary-public-pen',
-      'boundary-public-brand',
-      'made_by'
-    )
-  `);
-  await publishEntity(db, {
-    entityId: "boundary-public-pen",
-    reviewer: "boundary-checker",
-  });
+  await seedQualifiedBoundaryEntity(
+    db,
+    "boundary-public-pen",
+    "pen",
+    "boundary-public-brand",
+  );
+  await approveBoundaryEntity(db, "boundary-public-pen");
 
   await insertBoundaryEntity(db, "boundary-public-article", "article");
 
@@ -1454,49 +1498,15 @@ async function seedSecondaryLinkFixtures(
   db: ReturnType<typeof createClient>,
 ): Promise<void> {
   await db.execute(`
-    INSERT INTO source_registry (
-      id, name, source_type, allowed_use, reliability, homepage_url
-    ) VALUES (
-      'boundary-secondary-source',
-      'Boundary secondary source',
-      'official',
-      'metadata_only',
-      'high_for_basic_facts',
-      'https://boundary.invalid/'
-    )
+    UPDATE model_specs
+    SET brand_entity_id = 'boundary-public-brand',
+        series_name = 'Boundary Series'
+    WHERE id = 'boundary-public-pen-spec'
   `);
-  await db.execute(`
-    INSERT INTO source_items (
-      id, source_id, title, url, review_status
-    ) VALUES (
-      'boundary-secondary-item',
-      'boundary-secondary-source',
-      'Boundary secondary item',
-      'https://boundary.invalid/secondary',
-      'approved'
-    )
-  `);
-
-  await db.execute(`
-    INSERT INTO model_specs (
-      id, entity_id, brand_entity_id, series_name, review_status
-    ) VALUES (
-      'boundary-public-pen-spec',
-      'boundary-public-pen',
-      'boundary-public-brand',
-      'Boundary Series',
-      'approved'
-    )
-  `);
-  await db.execute(`
-    INSERT INTO citations (id, target_type, target_id, source_item_id)
-    VALUES (
-      'boundary-public-pen-spec-citation',
-      'model_spec',
-      'boundary-public-pen-spec',
-      'boundary-secondary-item'
-    )
-  `);
+  await qualifyBoundarySpecFields(db, "boundary-public-pen", [
+    "brand_entity_id",
+    "series_name",
+  ]);
   await db.execute(`
     INSERT INTO entity_links (id, source_id, target_id, link_type)
     VALUES (
@@ -1506,58 +1516,32 @@ async function seedSecondaryLinkFixtures(
       'related'
     )
   `);
-  await publishEntity(db, {
-    entityId: "boundary-public-pen",
-    reviewer: "boundary-checker",
-  });
+  await approveBoundaryEntity(db, "boundary-public-pen");
 
-  await insertBoundaryEntity(db, "boundary-public-peer", "pen");
-  await insertBoundaryStory(db, "boundary-public-peer", "model_story");
+  await seedQualifiedBoundaryEntity(
+    db,
+    "boundary-public-peer",
+    "pen",
+    "boundary-public-brand",
+  );
   await db.execute(`
-    INSERT INTO entity_links (id, source_id, target_id, link_type)
-    VALUES (
-      'boundary-public-peer-maker',
-      'boundary-public-peer',
-      'boundary-public-brand',
-      'made_by'
-    )
+    UPDATE model_specs
+    SET brand_entity_id = 'boundary-public-brand',
+        series_name = 'Boundary Series'
+    WHERE id = 'boundary-public-peer-spec'
   `);
-  await db.execute(`
-    INSERT INTO model_specs (
-      id, entity_id, brand_entity_id, series_name, review_status
-    ) VALUES (
-      'boundary-public-peer-spec',
-      'boundary-public-peer',
-      'boundary-public-brand',
-      'Boundary Series',
-      'approved'
-    )
-  `);
-  await db.execute(`
-    INSERT INTO citations (id, target_type, target_id, source_item_id)
-    VALUES (
-      'boundary-public-peer-spec-citation',
-      'model_spec',
-      'boundary-public-peer-spec',
-      'boundary-secondary-item'
-    )
-  `);
-  await publishEntity(db, {
-    entityId: "boundary-public-peer",
-    reviewer: "boundary-checker",
-  });
+  await qualifyBoundarySpecFields(db, "boundary-public-peer", [
+    "brand_entity_id",
+    "series_name",
+  ]);
+  await approveBoundaryEntity(db, "boundary-public-peer");
 
-  await insertBoundaryEntity(db, "boundary-public-tag-peer", "pen");
-  await insertBoundaryStory(db, "boundary-public-tag-peer", "model_story");
-  await db.execute(`
-    INSERT INTO entity_links (id, source_id, target_id, link_type)
-    VALUES (
-      'boundary-public-tag-peer-maker',
-      'boundary-public-tag-peer',
-      'boundary-public-brand',
-      'made_by'
-    )
-  `);
+  await seedQualifiedBoundaryEntity(
+    db,
+    "boundary-public-tag-peer",
+    "pen",
+    "boundary-public-brand",
+  );
   await db.execute(`
     INSERT INTO entity_tags (id, entity_id, tag_id)
     VALUES (
@@ -1566,10 +1550,7 @@ async function seedSecondaryLinkFixtures(
       'boundary-tag-nib'
     )
   `);
-  await publishEntity(db, {
-    entityId: "boundary-public-tag-peer",
-    reviewer: "boundary-checker",
-  });
+  await approveBoundaryEntity(db, "boundary-public-tag-peer");
 
   await db.execute(`
     INSERT INTO model_specs (
@@ -1582,40 +1563,27 @@ async function seedSecondaryLinkFixtures(
       'approved'
     )
   `);
-  await db.execute(`
-    INSERT INTO citations (id, target_type, target_id, source_item_id)
-    VALUES (
-      'boundary-draft-pen-spec-citation',
-      'model_spec',
-      'boundary-draft-pen-spec',
-      'boundary-secondary-item'
-    )
-  `);
 
   for (const suffix of ["current", "peer"] as const) {
     const entityId = `boundary-misaligned-${suffix}`;
-    await insertBoundaryEntity(db, entityId, "pen");
-    await insertBoundaryStory(db, entityId, "model_story");
-    await db.execute({
-      sql: `INSERT INTO entity_links (id, source_id, target_id, link_type)
-            VALUES (?, ?, 'boundary-public-brand', 'made_by')`,
-      args: [`${entityId}-maker`, entityId],
-    });
-    await db.execute({
-      sql: `INSERT INTO model_specs (
-              id, entity_id, brand_entity_id, series_name, review_status
-            ) VALUES (?, ?, 'boundary-draft-brand', 'Draft Brand Series', 'approved')`,
-      args: [`${entityId}-spec`, entityId],
-    });
-    await db.execute({
-      sql: `INSERT INTO citations (id, target_type, target_id, source_item_id)
-            VALUES (?, 'model_spec', ?, 'boundary-secondary-item')`,
-      args: [`${entityId}-citation`, `${entityId}-spec`],
-    });
-    await publishEntity(db, {
+    await seedQualifiedBoundaryEntity(
+      db,
       entityId,
-      reviewer: "boundary-checker",
+      "pen",
+      "boundary-public-brand",
+    );
+    await db.execute({
+      sql: `UPDATE model_specs
+            SET brand_entity_id = 'boundary-draft-brand',
+                series_name = 'Draft Brand Series'
+            WHERE id = ?`,
+      args: [`${entityId}-spec`],
     });
+    await qualifyBoundarySpecFields(db, entityId, [
+      "brand_entity_id",
+      "series_name",
+    ]);
+    await approveBoundaryEntity(db, entityId);
   }
 
   await insertBoundaryEntity(db, "boundary-public-concept", "concept");
@@ -1855,13 +1823,12 @@ async function seedSecondaryLibraryMediaFixtures(
   for (let index = 1; index <= 14; index += 1) {
     const suffix = String(index).padStart(2, "0");
     const entityId = `boundary-brand-model-${suffix}`;
-    await insertBoundaryEntity(db, entityId, "pen");
-    await insertBoundaryStory(db, entityId, "model_story");
-    await db.execute({
-      sql: `INSERT INTO entity_links (id, source_id, target_id, link_type)
-            VALUES (?, ?, 'boundary-public-brand', 'made_by')`,
-      args: [`${entityId}-maker`, entityId],
-    });
+    await seedQualifiedBoundaryEntity(
+      db,
+      entityId,
+      "pen",
+      "boundary-public-brand",
+    );
   }
 
   await db.execute(`
@@ -1954,19 +1921,13 @@ async function seedSecondaryLibraryMediaFixtures(
     args: [hotspots, hotspots, hotspots],
   });
 
-  await publishEntity(db, {
-    entityId: "boundary-public-brand",
-    reviewer: "boundary-checker",
-  });
-  await publishEntity(db, {
-    entityId: "boundary-public-pen",
-    reviewer: "boundary-checker",
-  });
+  await approveBoundaryEntity(db, "boundary-public-brand");
+  await approveBoundaryEntity(db, "boundary-public-pen");
   for (let index = 1; index <= 14; index += 1) {
-    await publishEntity(db, {
-      entityId: `boundary-brand-model-${String(index).padStart(2, "0")}`,
-      reviewer: "boundary-checker",
-    });
+    await approveBoundaryEntity(
+      db,
+      `boundary-brand-model-${String(index).padStart(2, "0")}`,
+    );
   }
 }
 
@@ -2101,21 +2062,35 @@ async function runSecondaryLibraryMediaChecks() {
 
     const registry = await libraryModule.getSourceRegistryIndex();
     const sourceItems = await libraryModule.getSourceItemIndex({ limit: 20 });
-    assertJsonEqual(
-      sourceItems.map((item: { id: string }) => item.id).sort(),
-      ["boundary-public-citation-item", "boundary-public-reference-item"],
+    assertSetEqual(
+      sourceItems.map((item: { id: string }) => item.id),
+      [
+        ...BOUNDARY_QUALIFICATION_SOURCE_ITEM_IDS,
+        "boundary-public-citation-item",
+        "boundary-public-reference-item",
+      ],
       "Owner-aware source item index",
     );
+    assertSetEqual(
+      registry.map((item: { id: string }) => item.id),
+      [
+        ...BOUNDARY_QUALIFICATION_REGISTRY_IDS,
+        "boundary-library-source",
+      ],
+      "Owner-aware source registry index",
+    );
+    const libraryRegistry = registry.find(
+      (item) => item.id === "boundary-library-source",
+    );
     assertCondition(
-      registry.length === 1 &&
-        registry[0].id === "boundary-library-source" &&
-        Number(registry[0].item_count) === 2 &&
-        Number(registry[0].reference_count) === 2,
+      libraryRegistry &&
+        Number(libraryRegistry.item_count) === 2 &&
+        Number(libraryRegistry.reference_count) === 2,
       "Source registry counts include an unpublished owner.",
     );
 
     const media = await libraryModule.getMediaAssetIndex(20);
-    assertJsonEqual(
+    assertSetEqual(
       media.map((item: { id: string }) => item.id),
       ["boundary-public-media"],
       "Owner-aware media index",
@@ -2363,10 +2338,7 @@ async function seedSecondaryExhibitTimelineFixtures(
 
   // Timeline and primary media are publication-critical inputs, so review the
   // public pen again only after the complete fixture has been written.
-  await publishEntity(db, {
-    entityId: "boundary-public-pen",
-    reviewer: "boundary-checker",
-  });
+  await approveBoundaryEntity(db, "boundary-public-pen");
 }
 
 function parseFixtureJsonList(value: string | null): string[] {
@@ -2838,6 +2810,18 @@ async function runIndependentAllParity(): Promise<void> {
     const expectedSlugs = new Set(expectedRows.map((row) => row.slug));
     const privateSlugs = privateRows.map((row) => row.slug);
     const oracle = expectedPublicCte(ORACLE_EXPECTED_PUBLIC_IDS);
+    const publishedBlockers = await fixtureDb.execute(`
+      SELECT COUNT(*) AS total
+      FROM publication_blockers blocker
+      JOIN entity_publications publication
+        ON publication.entity_id = blocker.entity_id
+       AND publication.status = 'published'
+      WHERE blocker.contract_version = 2
+    `);
+    assertCondition(
+      Number(publishedBlockers.rows[0]?.total ?? -1) === 0,
+      `Published contract-v2 blocker count is ${String(publishedBlockers.rows[0]?.total)}.`,
+    );
 
     const reactModule = await import("react");
     Object.assign(globalThis, { React: reactModule.default });
@@ -3510,7 +3494,7 @@ async function runIndependentAllParity(): Promise<void> {
         assertSetEqual(
           sourceItems.map((item) => item.id),
           [
-            "boundary-secondary-item",
+            ...BOUNDARY_QUALIFICATION_SOURCE_ITEM_IDS,
             "boundary-public-reference-item",
             "boundary-public-citation-item",
           ],
@@ -3524,7 +3508,7 @@ async function runIndependentAllParity(): Promise<void> {
         assertSetEqual(
           registry.map((item) => item.id),
           [
-            "boundary-secondary-source",
+            ...BOUNDARY_QUALIFICATION_REGISTRY_IDS,
             "boundary-library-source",
           ],
           "Source registry public usage",
@@ -3670,7 +3654,7 @@ async function runIndependentAllParity(): Promise<void> {
     }
 
     console.log(
-      `Independent public boundary passed: ${expectedRows.length} exact list identities, governed per-ID equivalence, keyed aggregates, contextual subsets, and ${ORACLE_PUBLIC_MODEL_IDS.length}/${ORACLE_PUBLIC_MODEL_IDS.length} complete reverse brand models. Majohn A1 and Montblanc 149 remain draft and absent.`,
+      `Independent public boundary passed: published_blockers=0 list_diff=0 per_id_diff=0 aggregate_diff=0 context_diff=0 reverse_diff=0; ${expectedRows.length} exact identities and ${ORACLE_PUBLIC_MODEL_IDS.length}/${ORACLE_PUBLIC_MODEL_IDS.length} complete reverse brand models. Majohn A1 and Montblanc 149 remain draft and absent.`,
     );
   } finally {
     try {
