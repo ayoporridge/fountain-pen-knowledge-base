@@ -132,6 +132,13 @@ export type InventoryAuditResult = {
   readonly summary: InventoryAuditSummary;
 };
 
+export type InventoryAuditVerdict = {
+  readonly inventory_complete: boolean;
+  readonly content_complete: boolean;
+  readonly public_clean: boolean;
+  readonly complete: boolean;
+};
+
 type RawIdentityRow = {
   id: string;
   type: "brand" | "pen";
@@ -906,4 +913,170 @@ export function runReadinessAudit(
     backlog: rows.filter((row) => !row.content_ready).length,
   };
   return { provenance, rows, summary };
+}
+
+export function inventoryAuditVerdict(
+  result: InventoryAuditResult,
+): InventoryAuditVerdict {
+  const identities = result.rows.map((row) => row.entity_id);
+  const inventoryComplete =
+    result.rows.length === result.summary.inventory_audited &&
+    new Set(identities).size === identities.length &&
+    result.summary.brand_inventory_audited +
+      result.summary.pen_inventory_audited ===
+      result.summary.inventory_audited;
+  const contentComplete =
+    inventoryComplete &&
+    result.summary.backlog === 0 &&
+    result.summary.content_ready === result.summary.inventory_audited;
+  const publicClean =
+    result.summary.published_blockers === 0 &&
+    result.summary.public_blockers === 0;
+  return {
+    inventory_complete: inventoryComplete,
+    content_complete: contentComplete,
+    public_clean: publicClean,
+    complete: inventoryComplete && contentComplete && publicClean,
+  };
+}
+
+export function assertLockedInventoryBaseline(
+  result: InventoryAuditResult,
+): void {
+  if (
+    result.summary.inventory_audited !== 305 ||
+    result.summary.brand_inventory_audited !== LEGACY_PUBLIC_BASELINE_COUNTS.brand +
+      LEGACY_PUBLIC_BASELINE_EXCLUSIONS.brand.length ||
+    result.summary.pen_inventory_audited !== LEGACY_PUBLIC_BASELINE_COUNTS.pen +
+      LEGACY_PUBLIC_BASELINE_EXCLUSIONS.pen.length ||
+    result.summary.legacy_public_baseline !== LEGACY_PUBLIC_BASELINE_COUNTS.total
+  ) {
+    throw new Error(
+      `Locked inventory baseline mismatch: ${JSON.stringify(result.summary)}.`,
+    );
+  }
+  const actualExclusions = result.rows
+    .filter((row) => !row.in_legacy_public_baseline)
+    .map((row) => `${row.entity_type}:${row.slug}`)
+    .sort(compareText);
+  const expectedExclusions = [
+    ...LEGACY_PUBLIC_BASELINE_EXCLUSIONS.brand.map(
+      (slug) => `brand:${slug}`,
+    ),
+    ...LEGACY_PUBLIC_BASELINE_EXCLUSIONS.pen.map((slug) => `pen:${slug}`),
+  ].sort(compareText);
+  if (JSON.stringify(actualExclusions) !== JSON.stringify(expectedExclusions)) {
+    throw new Error(
+      `Locked legacy exclusion identities mismatch; actual=${actualExclusions.join(",")}; expected=${expectedExclusions.join(",")}.`,
+    );
+  }
+  const nonDraft = result.rows
+    .filter((row) => row.publication_status !== "draft")
+    .map((row) => `${row.entity_type}:${row.slug}:${row.publication_status}`);
+  if (nonDraft.length > 0) {
+    throw new Error(
+      `Locked post-031 inventory must be all draft; found ${nonDraft.join(",")}.`,
+    );
+  }
+}
+
+export function serializeInventoryNdjson(result: InventoryAuditResult): string {
+  if (result.rows.length === 0) return "";
+  return `${result.rows.map((row) => JSON.stringify(row)).join("\n")}\n`;
+}
+
+const INVENTORY_CSV_COLUMNS = [
+  "source_inventory_snapshot_id",
+  "entity_id",
+  "entity_type",
+  "slug",
+  "name",
+  "in_legacy_public_baseline",
+  "publication_status",
+  "readiness_contract_version",
+  "is_public",
+  "content_ready",
+  "blocker_count",
+  "blocker_codes",
+  "blocker_details",
+  "story_count",
+  "published_story_count",
+  "backlog_story_count",
+  "model_spec_count",
+  "approved_model_spec_count",
+  "backlog_model_spec_count",
+  "claim_count",
+  "qualified_core_claim_count",
+  "approved_editorial_claim_count",
+  "backlog_claim_count",
+  "reference_count",
+  "qualified_reference_count",
+  "backlog_reference_count",
+  "source_item_count",
+  "qualified_source_item_count",
+  "backlog_source_item_count",
+  "primary_archive_source_group_count",
+  "professional_secondary_source_group_count",
+  "auxiliary_source_group_count",
+  "required_spec_field_count",
+  "qualified_spec_field_count",
+  "missing_spec_field_count",
+  "unresolved_field_conflict_count",
+  "unresolved_identity_conflict_count",
+  "fact_review",
+  "language_review",
+  "media_review",
+  "publication_review",
+  "primary_media_count",
+  "qualified_primary_media_count",
+  "disposition",
+  "made_by_status",
+  "made_by_target_ids",
+  "made_by_target_names",
+  "made_by_target_types",
+  "canonical_brand_id",
+  "canonical_brand_slug",
+  "raw_reverse_model_ids",
+  "raw_reverse_model_slugs",
+  "public_reverse_model_ids",
+  "public_reverse_model_slugs",
+  "reverse_model_diff_ids",
+  "reverse_model_diff_slugs",
+] as const satisfies readonly (keyof InventoryAuditRow)[];
+
+function csvCell(value: unknown): string {
+  let display: string;
+  if (value === null || value === undefined) display = "";
+  else if (Array.isArray(value) || typeof value === "object") {
+    display = JSON.stringify(value);
+  } else {
+    display = String(value);
+  }
+  if (/^[=+\-@]/.test(display)) display = `'${display}`;
+  return `"${display.replaceAll('"', '""')}"`;
+}
+
+export function serializeInventoryCsv(result: InventoryAuditResult): string {
+  const records = [
+    INVENTORY_CSV_COLUMNS.map(csvCell).join(","),
+    ...result.rows.map((row) =>
+      INVENTORY_CSV_COLUMNS.map((column) => csvCell(row[column])).join(","),
+    ),
+  ];
+  return `${records.join("\r\n")}\r\n`;
+}
+
+export function serializeInventorySummary(
+  result: InventoryAuditResult,
+): string {
+  return `${JSON.stringify(
+    {
+      artifact_contract_version: 1,
+      provenance: result.provenance,
+      summary: result.summary,
+      verdict: inventoryAuditVerdict(result),
+    },
+    null,
+    2,
+  )}\n`;
 }

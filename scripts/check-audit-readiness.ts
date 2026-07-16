@@ -701,8 +701,9 @@ async function runCliInputsContract(): Promise<void> {
     fs.existsSync(AUDIT_CLI_PATH),
     "Canonical readiness artifact CLI is not implemented.",
   );
-  await withPhase19Fixture(async ({ client, databasePath, tempRoot }) => {
-    await client.execute("PRAGMA wal_checkpoint(TRUNCATE)");
+  await withPhase19Fixture(async ({ tempRoot }) => {
+    const inputSource = createCheckpointedWalFixture(tempRoot);
+    const { databasePath } = inputSource;
     const sourcePaths = [
       databasePath,
       `${databasePath}-wal`,
@@ -712,104 +713,116 @@ async function runCliInputsContract(): Promise<void> {
       sourcePaths.every((filePath) => fs.existsSync(filePath)),
       "CLI input fixture requires main/WAL/SHM source files.",
     );
-    const validOut = path.join(tempRoot, "valid-out");
-    const base = ["--database-path", databasePath, "--out-dir", validOut];
-    assertCliFailure(
-      ["--database-path", databasePath],
-      "--out-dir is required",
-      sourcePaths,
-    );
-    assertCliFailure(
-      ["--database-path", databasePath, "--out-dir", "relative-output"],
-      "--out-dir must be absolute",
-      sourcePaths,
-    );
-    assertCliFailure(
-      ["--database-path", "relative.db", "--out-dir", validOut],
-      "--database-path must be absolute",
-      sourcePaths,
-    );
-    for (const invalidLimit of [
-      "0",
-      "-1",
-      "1.5",
-      "NaN",
-      "Infinity",
-      "1000001",
-    ]) {
-      assertCliFailure(
-        [...base, "--limit", invalidLimit],
-        "--limit must be a decimal integer from 1 to 1000000",
-        [...sourcePaths, ...artifactPaths(validOut)],
-      );
-    }
-
-    const databaseSymlink = path.join(tempRoot, "database-link.db");
-    fs.symlinkSync(databasePath, databaseSymlink);
-    assertCliFailure(
-      ["--database-path", databaseSymlink, "--out-dir", validOut],
-      "--database-path must not be a symlink",
-      sourcePaths,
-    );
-    const escapeRoot = fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-audit-out-escape-"));
     try {
-      const outputSymlink = path.join(tempRoot, "output-link");
-      fs.symlinkSync(escapeRoot, outputSymlink, "dir");
+      const validOut = path.join(tempRoot, "valid-out");
+      const base = ["--database-path", databasePath, "--out-dir", validOut];
       assertCliFailure(
-        ["--database-path", databasePath, "--out-dir", outputSymlink],
-        "--out-dir must not traverse a symlink",
+        ["--database-path", databasePath],
+        "--out-dir is required",
         sourcePaths,
       );
-    } finally {
-      fs.rmSync(escapeRoot, { recursive: true, force: true });
-    }
-
-    const aliasCases = [
-      [sourcePaths[0]!, ARTIFACT_FILES[0]],
-      [sourcePaths[1]!, ARTIFACT_FILES[1]],
-      [sourcePaths[2]!, ARTIFACT_FILES[2]],
-    ] as const;
-    for (const [sourcePath, artifactFile] of aliasCases) {
-      const aliasOut = path.join(tempRoot, `alias-${artifactFile}`);
-      fs.mkdirSync(aliasOut);
-      const aliasTarget = path.join(aliasOut, artifactFile);
-      fs.linkSync(sourcePath, aliasTarget);
       assertCliFailure(
-        ["--database-path", databasePath, "--out-dir", aliasOut],
-        "artifact target aliases the source database family",
-        [...sourcePaths, ...artifactPaths(aliasOut)],
+        ["--database-path", databasePath, "--out-dir", "relative-output"],
+        "--out-dir must be absolute",
+        sourcePaths,
       );
-    }
+      assertCliFailure(
+        ["--database-path", "relative.db", "--out-dir", validOut],
+        "--database-path must be absolute",
+        sourcePaths,
+      );
+      for (const invalidLimit of [
+        "0",
+        "-1",
+        "1.5",
+        "NaN",
+        "Infinity",
+        "1000001",
+      ]) {
+        assertCliFailure(
+          [...base, "--limit", invalidLimit],
+          "--limit must be a decimal integer from 1 to 1000000",
+          [...sourcePaths, ...artifactPaths(validOut)],
+        );
+      }
 
-    const nonFileOut = path.join(tempRoot, "non-file-target");
-    fs.mkdirSync(nonFileOut);
-    fs.mkdirSync(path.join(nonFileOut, ARTIFACT_FILES[0]));
-    assertCliFailure(
-      ["--database-path", databasePath, "--out-dir", nonFileOut],
-      "artifact target must be a regular file",
-      sourcePaths,
-    );
-    const symlinkTargetOut = path.join(tempRoot, "symlink-target");
-    fs.mkdirSync(symlinkTargetOut);
-    fs.symlinkSync(
-      databasePath,
-      path.join(symlinkTargetOut, ARTIFACT_FILES[0]),
-    );
-    assertCliFailure(
-      ["--database-path", databasePath, "--out-dir", symlinkTargetOut],
-      "artifact target must not be a symlink",
-      sourcePaths,
-    );
-    assertCliFailure(
-      base,
-      "Turso database selection is forbidden",
-      sourcePaths,
-      { TURSO_DATABASE_URL: "libsql://example.invalid" },
-    );
-    assertCatalogSnapshotUnchanged(
-      snapshotCatalogFiles(databasePath),
-      snapshotCatalogFiles(databasePath),
-    );
+      const databaseSymlink = path.join(tempRoot, "database-link.db");
+      fs.symlinkSync(databasePath, databaseSymlink);
+      assertCliFailure(
+        ["--database-path", databaseSymlink, "--out-dir", validOut],
+        "--database-path must not be a symlink",
+        sourcePaths,
+      );
+      const escapeRoot = fs.mkdtempSync(
+        path.join(os.tmpdir(), "fpkg-audit-out-escape-"),
+      );
+      try {
+        const outputSymlink = path.join(tempRoot, "output-link");
+        fs.symlinkSync(escapeRoot, outputSymlink, "dir");
+        assertCliFailure(
+          ["--database-path", databasePath, "--out-dir", outputSymlink],
+          "--out-dir must not traverse a symlink",
+          sourcePaths,
+        );
+      } finally {
+        fs.rmSync(escapeRoot, { recursive: true, force: true });
+      }
+
+      const aliasCases = [
+        [sourcePaths[0]!, ARTIFACT_FILES[0]],
+        [sourcePaths[1]!, ARTIFACT_FILES[1]],
+        [sourcePaths[2]!, ARTIFACT_FILES[2]],
+      ] as const;
+      for (const [sourcePath, artifactFile] of aliasCases) {
+        const aliasOut = path.join(tempRoot, `alias-${artifactFile}`);
+        fs.mkdirSync(aliasOut);
+        const aliasTarget = path.join(aliasOut, artifactFile);
+        fs.linkSync(sourcePath, aliasTarget);
+        const aliasSnapshot = snapshotCatalogFiles(databasePath);
+        assertCliFailure(
+          ["--database-path", databasePath, "--out-dir", aliasOut],
+          "artifact target aliases the source database family",
+          [...sourcePaths, ...artifactPaths(aliasOut)],
+        );
+        assertCatalogSnapshotUnchanged(
+          aliasSnapshot,
+          snapshotCatalogFiles(databasePath),
+        );
+      }
+
+      const nonFileOut = path.join(tempRoot, "non-file-target");
+      fs.mkdirSync(nonFileOut);
+      fs.mkdirSync(path.join(nonFileOut, ARTIFACT_FILES[0]));
+      assertCliFailure(
+        ["--database-path", databasePath, "--out-dir", nonFileOut],
+        "artifact target must be a regular file",
+        sourcePaths,
+      );
+      const symlinkTargetOut = path.join(tempRoot, "symlink-target");
+      fs.mkdirSync(symlinkTargetOut);
+      fs.symlinkSync(
+        databasePath,
+        path.join(symlinkTargetOut, ARTIFACT_FILES[0]),
+      );
+      assertCliFailure(
+        ["--database-path", databasePath, "--out-dir", symlinkTargetOut],
+        "artifact target must not be a symlink",
+        sourcePaths,
+      );
+      const finalSourceSnapshot = snapshotCatalogFiles(databasePath);
+      assertCliFailure(
+        base,
+        "Turso database selection is forbidden",
+        sourcePaths,
+        { TURSO_DATABASE_URL: "libsql://example.invalid" },
+      );
+      assertCatalogSnapshotUnchanged(
+        finalSourceSnapshot,
+        snapshotCatalogFiles(databasePath),
+      );
+    } finally {
+      inputSource.database.close();
+    }
   });
 
   console.log(
