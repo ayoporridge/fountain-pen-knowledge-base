@@ -3,6 +3,7 @@ import {
   spawnSync,
   type ChildProcess,
 } from "node:child_process";
+import { createHash } from "node:crypto";
 import fs from "node:fs";
 import { createRequire } from "node:module";
 import os from "node:os";
@@ -17,14 +18,27 @@ import {
   snapshotCatalogFiles,
 } from "../src/lib/audit/read-only-catalog";
 import {
+  captureInventoryAuditProvenance,
+  captureSourceInventoryProvenance,
+  runReadinessAudit,
+} from "../src/lib/audit/readiness-audit";
+import {
+  publishEntity,
+  recordEntityContentReview,
+} from "../src/lib/publication";
+import {
   cleanupPhase19Fixture,
   createPhase19Fixture,
+  seedQualifiedPublicationFixture,
   snapshotRealCatalogInvariant,
   withPhase19Fixture,
 } from "./lib/phase19-fixtures";
 
 const ROOT = process.cwd();
 const SCRIPT_PATH = path.join(ROOT, "scripts", "check-audit-readiness.ts");
+const MIGRATIONS_DIR = path.join(ROOT, "migrations");
+const MIGRATION_030 = "030_publication_gate.sql";
+const MIGRATION_031 = "031_evidence_readiness_v2.sql";
 
 type ProbeRow = {
   id: number;
@@ -84,6 +98,317 @@ async function withOwnedTempRoot<T>(
       fs.rmSync(tempRoot, { recursive: true, force: true });
     }
   }
+}
+
+function sha256File(filePath: string): string {
+  return createHash("sha256").update(fs.readFileSync(filePath)).digest("hex");
+}
+
+function sorted(values: Iterable<string>): string[] {
+  return [...values].sort((left, right) =>
+    left < right ? -1 : left > right ? 1 : 0,
+  );
+}
+
+function assertSetEqual(
+  actualValues: Iterable<string>,
+  expectedValues: Iterable<string>,
+  label: string,
+): void {
+  const actual = new Set(actualValues);
+  const expected = new Set(expectedValues);
+  const actualOnly = sorted([...actual].filter((value) => !expected.has(value)));
+  const expectedOnly = sorted(
+    [...expected].filter((value) => !actual.has(value)),
+  );
+  assertCondition(
+    actualOnly.length === 0 && expectedOnly.length === 0,
+    `${label} set mismatch; actual-only=${actualOnly.join(",") || "none"}; expected-only=${expectedOnly.join(",") || "none"}.`,
+  );
+}
+
+async function approveAndPublish(client: Client, entityId: string): Promise<void> {
+  for (const reviewKind of ["fact", "language", "media"] as const) {
+    await recordEntityContentReview(client, {
+      entityId,
+      reviewKind,
+      reviewer: `audit-${reviewKind}-reviewer`,
+      status: "approved",
+      notes: "Audit ledger fixture approval.",
+    });
+  }
+  await publishEntity(client, {
+    entityId,
+    reviewer: "audit-publication-reviewer",
+  });
+}
+
+async function seedLedgerRelationshipShells(client: Client): Promise<void> {
+  await client.execute(`
+    INSERT INTO entities (id, type, slug, name, summary, body_md, source)
+    VALUES
+      ('audit-second-brand', 'brand', 'audit-second-brand', 'Audit second brand', '', '', 'audit-fixture'),
+      ('audit-no-publication', 'brand', 'audit-no-publication', 'Audit no publication', '', '', 'audit-fixture'),
+      ('audit-missing-pen', 'pen', '百乐-pilot-custom-823', 'Audit missing pen', '', '', 'audit-fixture'),
+      ('audit-multiple-pen', 'pen', 'audit-multiple-pen', 'Audit multiple pen', '', '', 'audit-fixture'),
+      ('audit-noncanonical-pen', 'pen', 'audit-noncanonical-pen', 'Audit noncanonical pen', '', '', 'audit-fixture'),
+      ('audit-nonbrand-target', 'concept', 'audit-nonbrand-target', 'Audit non-brand target', '', '', 'audit-fixture')
+  `);
+  await client.execute(
+    "DELETE FROM entity_publications WHERE entity_id = 'audit-no-publication'",
+  );
+  await client.execute(`
+    INSERT INTO entity_links (id, source_id, target_id, link_type)
+    VALUES
+      ('audit-multiple-maker-a', 'audit-multiple-pen', 'audit-public-brand', 'made_by'),
+      ('audit-multiple-maker-b', 'audit-multiple-pen', 'audit-second-brand', 'made_by'),
+      ('audit-noncanonical-maker', 'audit-noncanonical-pen', 'audit-nonbrand-target', 'made_by')
+  `);
+}
+
+async function runInventoryContract(): Promise<void> {
+  await withPhase19Fixture(async ({ client, databasePath }) => {
+    const initialInventory = await client.execute(`
+      SELECT id
+      FROM entities
+      WHERE type IN ('brand', 'pen')
+      ORDER BY type, slug, id
+    `);
+    const brand = await seedQualifiedPublicationFixture(client, {
+      entityId: "audit-public-brand",
+      entityType: "brand",
+    });
+    await approveAndPublish(client, brand.entityId);
+    const pen = await seedQualifiedPublicationFixture(client, {
+      entityId: "audit-public-pen",
+      entityType: "pen",
+      brandEntityId: brand.entityId,
+    });
+    await approveAndPublish(client, pen.entityId);
+    await seedLedgerRelationshipShells(client);
+    const legacyExcluded = await client.execute(`
+      SELECT id, slug
+      FROM entities
+      WHERE slug IN ('banju', '百乐-pilot-custom-823')
+      ORDER BY slug, id
+    `);
+    assertCondition(
+      legacyExcluded.rows.length === 2,
+      "Audit fixture is missing the locked legacy-exclusion identities.",
+    );
+    await client.execute("PRAGMA wal_checkpoint(TRUNCATE)");
+
+    const auditClient = openReadOnlyCatalog(databasePath, { env: {} });
+    try {
+      const source = captureSourceInventoryProvenance(auditClient);
+      const provenance = captureInventoryAuditProvenance(auditClient, source);
+      const result = runReadinessAudit(auditClient, provenance);
+      const addedIds = [
+        "audit-public-brand",
+        "audit-public-pen",
+        "audit-second-brand",
+        "audit-no-publication",
+        "audit-missing-pen",
+        "audit-multiple-pen",
+        "audit-noncanonical-pen",
+      ];
+      const expectedIds = [
+        ...initialInventory.rows.map((row) => String(row.id)),
+        ...addedIds,
+      ];
+      assertSetEqual(
+        result.rows.map((row) => row.entity_id),
+        expectedIds,
+        "Inventory ledger identities",
+      );
+      assertCondition(
+        result.rows.length === expectedIds.length &&
+          new Set(result.rows.map((row) => row.entity_id)).size === result.rows.length,
+        "Inventory ledger did not return exactly one row per raw identity.",
+      );
+
+      const byId = new Map(result.rows.map((row) => [row.entity_id, row]));
+      const noPublication = byId.get("audit-no-publication");
+      assertCondition(
+        noPublication?.publication_status === "missing" &&
+          noPublication.blocker_codes.includes("missing_publication"),
+        "Raw entity without a publication row was omitted or misclassified.",
+      );
+      assertCondition(
+        byId.get("audit-missing-pen")?.made_by_status === "missing" &&
+          byId.get("audit-public-pen")?.made_by_status === "exactly_one" &&
+          byId.get("audit-multiple-pen")?.made_by_status === "multiple" &&
+          byId.get("audit-noncanonical-pen")?.made_by_status === "noncanonical",
+        "The four made_by dispositions were not preserved.",
+      );
+      assertCondition(
+        legacyExcluded.rows.every(
+          (row) => byId.get(String(row.id))?.in_legacy_public_baseline === false,
+        ),
+        "Locked legacy exclusions were not traced independently from the audit universe.",
+      );
+
+      const reverse = byId.get("audit-public-brand");
+      assertSetEqual(
+        reverse?.raw_reverse_model_ids ?? [],
+        ["audit-public-pen", "audit-multiple-pen"],
+        "Brand raw reverse models",
+      );
+      assertSetEqual(
+        reverse?.public_reverse_model_ids ?? [],
+        ["audit-public-pen"],
+        "Brand public reverse models",
+      );
+      assertSetEqual(
+        reverse?.reverse_model_diff_ids ?? [],
+        ["audit-multiple-pen"],
+        "Brand reverse model difference",
+      );
+      assertCondition(
+        result.summary.inventory_audited === expectedIds.length &&
+          result.summary.content_ready === 2 &&
+          result.summary.published === 2 &&
+          result.summary.published_blockers === 0 &&
+          result.summary.backlog === expectedIds.length - 2,
+        `Inventory/content/public summary dimensions were conflated: ${JSON.stringify(result.summary)}.`,
+      );
+      assertCondition(
+        result.rows.every(
+          (row) => row.content_ready === (row.blocker_count === 0),
+        ),
+        "A hard blocker was offset instead of failing the row.",
+      );
+    } finally {
+      auditClient.close();
+    }
+  });
+
+  console.log(
+    "Audit inventory contract passed: every raw brand/pen has one deterministic row, all relationship dispositions are explicit, and summary dimensions stay separate.",
+  );
+}
+
+function createMigrationsThrough030(tempRoot: string): string {
+  const targetDir = path.join(tempRoot, "migrations-through-030");
+  fs.mkdirSync(targetDir);
+  const files = fs
+    .readdirSync(MIGRATIONS_DIR)
+    .filter((file) => {
+      const match = file.match(/^(\d{3})_.*\.sql$/);
+      return Boolean(match && Number(match[1]) <= 30);
+    })
+    .sort();
+  assertCondition(
+    files.includes(MIGRATION_030) && !files.includes(MIGRATION_031),
+    "Pre-031 migration fixture did not end exactly at migration 030.",
+  );
+  for (const file of files) {
+    fs.copyFileSync(path.join(MIGRATIONS_DIR, file), path.join(targetDir, file));
+  }
+  return targetDir;
+}
+
+async function runBackupMigrationContract(): Promise<void> {
+  await withOwnedTempRoot("fpkg-audit-030-031-", async (tempRoot) => {
+    const migrationsThrough030 = createMigrationsThrough030(tempRoot);
+    const sourcePath = path.join(tempRoot, "source-030.db");
+    const auditPath = path.join(tempRoot, "audit-031.db");
+    const sourceClient = createClient({ url: `file:${sourcePath}` });
+    try {
+      await migrateDatabase(sourceClient, {
+        migrationsDir: migrationsThrough030,
+      });
+    } finally {
+      sourceClient.close();
+    }
+
+    const normalizeSource = new Database(sourcePath);
+    try {
+      normalizeSource.pragma("wal_checkpoint(TRUNCATE)");
+      normalizeSource.pragma("journal_mode = DELETE");
+    } finally {
+      normalizeSource.close();
+    }
+    const sourceBefore = snapshotCatalogFiles(sourcePath);
+    const source = openReadOnlyCatalog(sourcePath, { env: {} });
+    try {
+      const backup = await backupCatalogToDisposableCopy(
+        source,
+        auditPath,
+        tempRoot,
+      );
+      assertCondition(
+        backup.destinationPath === auditPath && backup.remainingPages === 0,
+        "Pre-031 source online backup did not complete inside the owned root.",
+      );
+    } finally {
+      source.close();
+    }
+
+    const preMigrationCopy = openReadOnlyCatalog(auditPath, { env: {} });
+    let sourceProvenance;
+    try {
+      sourceProvenance = captureSourceInventoryProvenance(preMigrationCopy);
+      assertCondition(
+        preMigrationCopy.get(
+          "SELECT 1 FROM sqlite_schema WHERE type = 'table' AND name = 'schema_migrations'",
+        ) === undefined,
+        "Audit provenance invented a schema_migrations table.",
+      );
+    } finally {
+      preMigrationCopy.close();
+    }
+
+    const writableCopy = createClient({ url: `file:${auditPath}` });
+    try {
+      await migrateDatabase(writableCopy);
+      await writableCopy.execute("PRAGMA wal_checkpoint(TRUNCATE)");
+    } finally {
+      writableCopy.close();
+    }
+
+    const migratedCopy = openReadOnlyCatalog(auditPath, { env: {} });
+    try {
+      const provenance = captureInventoryAuditProvenance(
+        migratedCopy,
+        sourceProvenance,
+      );
+      const result = runReadinessAudit(migratedCopy, provenance);
+      assertCondition(
+        provenance.source_schema_max_migration === 30 &&
+          provenance.source_schema_migration_name === MIGRATION_030 &&
+          provenance.source_schema_migration_checksum ===
+            sha256File(path.join(MIGRATIONS_DIR, MIGRATION_030)),
+        `Source migration provenance is not exact 030: ${JSON.stringify(provenance)}.`,
+      );
+      assertCondition(
+        provenance.audit_schema_max_migration === 31 &&
+          provenance.audit_schema_migration_name === MIGRATION_031 &&
+          provenance.audit_schema_migration_checksum ===
+            sha256File(path.join(MIGRATIONS_DIR, MIGRATION_031)) &&
+          provenance.audit_database_kind ===
+            "owned_disposable_migrated_copy",
+        `Audit migration provenance is not exact 031: ${JSON.stringify(provenance)}.`,
+      );
+      assertCondition(
+        result.rows.length > 0 &&
+          result.rows.every(
+            (row) =>
+              row.source_inventory_snapshot_id ===
+              provenance.source_inventory_snapshot_id,
+          ),
+        "Post-migration readiness did not retain the pre-migration inventory snapshot identity.",
+      );
+    } finally {
+      migratedCopy.close();
+    }
+
+    assertCatalogSnapshotUnchanged(sourceBefore, snapshotCatalogFiles(sourcePath));
+  });
+
+  console.log(
+    "Audit backup migration passed: source provenance is exact migration 030, readiness runs only on the owned canonical 031 copy, and source main/WAL/SHM remain unchanged.",
+  );
 }
 
 function createCheckpointedWalFixture(tempRoot: string): {
@@ -602,9 +927,19 @@ async function main(): Promise<void> {
     await runSignalProbe(reportFile);
     return;
   }
+  const modes = new Set(args);
+  const inventoryModes = ["--inventory", "--backup-migration"];
+  if (
+    args.length > 0 &&
+    args.every((arg) => inventoryModes.includes(arg))
+  ) {
+    if (modes.has("--inventory")) await runInventoryContract();
+    if (modes.has("--backup-migration")) await runBackupMigrationContract();
+    return;
+  }
   if (args.length !== 1) {
     throw new Error(
-      "Usage: pnpm exec tsx scripts/check-audit-readiness.ts --readonly-isolation|--readonly-backup|--fixture-isolation",
+      "Usage: pnpm exec tsx scripts/check-audit-readiness.ts --readonly-isolation|--readonly-backup|--fixture-isolation|[--inventory] [--backup-migration]",
     );
   }
   if (args[0] === "--readonly-isolation") {
