@@ -40,6 +40,13 @@ const SCRIPT_PATH = path.join(ROOT, "scripts", "check-audit-readiness.ts");
 const MIGRATIONS_DIR = path.join(ROOT, "migrations");
 const MIGRATION_030 = "030_publication_gate.sql";
 const MIGRATION_031 = "031_evidence_readiness_v2.sql";
+const AUDIT_CLI_PATH = path.join(ROOT, "scripts", "audit-readiness-v2.ts");
+const ARTIFACT_FILES = [
+  "inventory-readiness-v2.ndjson",
+  "inventory-readiness-v2.csv",
+  "inventory-readiness-v2-summary.json",
+] as const;
+const CSV_FORMULA_NAME = '=SUM(1,2), "quoted"\r\nnext line';
 
 type ProbeRow = {
   id: number;
@@ -409,6 +416,404 @@ async function runBackupMigrationContract(): Promise<void> {
 
   console.log(
     "Audit backup migration passed: source provenance is exact migration 030, readiness runs only on the owned canonical 031 copy, and source main/WAL/SHM remain unchanged.",
+  );
+}
+
+type AuditCliJson = {
+  summary: {
+    inventory_audited: number;
+    backlog: number;
+  };
+  verdict: {
+    inventory_complete: boolean;
+    content_complete: boolean;
+    public_clean: boolean;
+  };
+  exit_code: number;
+  console_row_count: number;
+  rows: Array<{ entity_id: string }>;
+};
+
+type AuditCliResult = {
+  status: number;
+  stdout: string;
+  stderr: string;
+  json: AuditCliJson | null;
+};
+
+function runAuditCli(
+  args: readonly string[],
+  envOverrides: NodeJS.ProcessEnv = {},
+): AuditCliResult {
+  const require = createRequire(import.meta.url);
+  const tsxCli = require.resolve("tsx/cli");
+  const child = spawnSync(process.execPath, [tsxCli, AUDIT_CLI_PATH, ...args], {
+    cwd: ROOT,
+    env: {
+      ...process.env,
+      TURSO_DATABASE_URL: "",
+      TURSO_AUTH_TOKEN: "",
+      FPKG_DATABASE_URL: "",
+      PUBLICATION_GATE_FIXTURE: "",
+      ...envOverrides,
+    },
+    encoding: "utf8",
+    timeout: 30_000,
+  });
+  assertCondition(
+    !child.error,
+    `Audit CLI failed to start: ${child.error?.message ?? "unknown error"}.`,
+  );
+  assertCondition(
+    child.signal === null,
+    `Audit CLI exited by signal: ${child.signal ?? "unknown"}.`,
+  );
+  const stdout = child.stdout ?? "";
+  const stderr = child.stderr ?? "";
+  let json: AuditCliJson | null = null;
+  const finalLine = stdout.trim().split("\n").at(-1);
+  if (finalLine?.startsWith("{")) {
+    json = JSON.parse(finalLine) as AuditCliJson;
+  }
+  return { status: child.status ?? -1, stdout, stderr, json };
+}
+
+function artifactPaths(outDir: string): string[] {
+  return ARTIFACT_FILES.map((file) => path.join(outDir, file));
+}
+
+function readArtifacts(outDir: string): Map<string, Buffer> {
+  const result = new Map<string, Buffer>();
+  for (const file of ARTIFACT_FILES) {
+    const filePath = path.join(outDir, file);
+    assertCondition(fs.existsSync(filePath), `Missing audit artifact: ${filePath}.`);
+    result.set(file, fs.readFileSync(filePath));
+  }
+  return result;
+}
+
+function artifactHashes(artifacts: ReadonlyMap<string, Buffer>): string[] {
+  return ARTIFACT_FILES.map((file) =>
+    createHash("sha256").update(artifacts.get(file) ?? Buffer.alloc(0)).digest("hex"),
+  );
+}
+
+function parseCsv(csv: string): string[][] {
+  const records: string[][] = [];
+  let record: string[] = [];
+  let field = "";
+  let quoted = false;
+  for (let index = 0; index < csv.length; index += 1) {
+    const character = csv[index]!;
+    if (quoted) {
+      if (character === '"') {
+        if (csv[index + 1] === '"') {
+          field += '"';
+          index += 1;
+        } else {
+          quoted = false;
+        }
+      } else {
+        field += character;
+      }
+      continue;
+    }
+    if (character === '"' && field === "") {
+      quoted = true;
+    } else if (character === ",") {
+      record.push(field);
+      field = "";
+    } else if (character === "\r" && csv[index + 1] === "\n") {
+      record.push(field);
+      records.push(record);
+      record = [];
+      field = "";
+      index += 1;
+    } else if (character === "\n") {
+      record.push(field);
+      records.push(record);
+      record = [];
+      field = "";
+    } else {
+      field += character;
+    }
+  }
+  assertCondition(!quoted, "CSV parser ended inside a quoted field.");
+  assertCondition(
+    record.length === 0 && field === "",
+    "CSV artifact did not end on a complete record boundary.",
+  );
+  return records;
+}
+
+async function seedArtifactFixture(client: Client): Promise<void> {
+  await client.execute({
+    sql: `
+      INSERT INTO entities (id, type, slug, name, summary, body_md, source)
+      VALUES ('audit-csv-formula', 'brand', 'audit-csv-formula', ?, '', '', 'audit-fixture')
+    `,
+    args: [CSV_FORMULA_NAME],
+  });
+  await client.execute("PRAGMA wal_checkpoint(TRUNCATE)");
+}
+
+async function runArtifactsLimitContract(): Promise<void> {
+  assertCondition(
+    fs.existsSync(AUDIT_CLI_PATH),
+    "Canonical readiness artifact CLI is not implemented.",
+  );
+  await withPhase19Fixture(async ({ client, databasePath, tempRoot }) => {
+    await seedArtifactFixture(client);
+    const outUnlimited = path.join(tempRoot, "artifacts-unlimited");
+    const outRepeat = path.join(tempRoot, "artifacts-repeat");
+    const outLimited = path.join(tempRoot, "artifacts-limit-1");
+    const common = ["--database-path", databasePath, "--json"];
+    const unlimited = runAuditCli([...common, "--out-dir", outUnlimited]);
+    const repeat = runAuditCli([...common, "--out-dir", outRepeat]);
+    const limited = runAuditCli([
+      ...common,
+      "--out-dir",
+      outLimited,
+      "--limit",
+      "1",
+    ]);
+    assertCondition(
+      unlimited.status === 1 && repeat.status === 1 && limited.status === 1,
+      `Content-gate exit semantics diverged: ${unlimited.status}/${repeat.status}/${limited.status}.`,
+    );
+    assertCondition(
+      unlimited.json && repeat.json && limited.json,
+      `Audit CLI did not emit JSON: ${unlimited.stderr}${repeat.stderr}${limited.stderr}`,
+    );
+    const unlimitedArtifacts = readArtifacts(outUnlimited);
+    const repeatArtifacts = readArtifacts(outRepeat);
+    const limitedArtifacts = readArtifacts(outLimited);
+    assertCondition(
+      JSON.stringify(artifactHashes(unlimitedArtifacts)) ===
+        JSON.stringify(artifactHashes(repeatArtifacts)) &&
+        JSON.stringify(artifactHashes(unlimitedArtifacts)) ===
+          JSON.stringify(artifactHashes(limitedArtifacts)),
+      "Repeat and limit=1 canonical artifact hashes differ.",
+    );
+    assertCondition(
+      JSON.stringify(unlimited.json.summary) ===
+        JSON.stringify(limited.json.summary) &&
+        JSON.stringify(unlimited.json.verdict) ===
+          JSON.stringify(limited.json.verdict) &&
+        unlimited.json.exit_code === limited.json.exit_code,
+      "Limit changed summary, verdict, or exit semantics.",
+    );
+    assertCondition(
+      unlimited.json.console_row_count ===
+        unlimited.json.summary.inventory_audited &&
+        limited.json.console_row_count === 1 &&
+        limited.json.rows.length === 1,
+      "Limit did not remain isolated to terminal preview rows.",
+    );
+
+    const ndjson = String(
+      unlimitedArtifacts.get("inventory-readiness-v2.ndjson"),
+    );
+    assertCondition(ndjson.endsWith("\n"), "NDJSON lacks a trailing newline.");
+    const ndjsonRows = ndjson
+      .trimEnd()
+      .split("\n")
+      .map((line) => JSON.parse(line) as { entity_id: string; name: string });
+    assertCondition(
+      ndjsonRows.length === unlimited.json.summary.inventory_audited &&
+        new Set(ndjsonRows.map((row) => row.entity_id)).size === ndjsonRows.length,
+      "NDJSON is not exactly one row per complete inventory identity.",
+    );
+    assertCondition(
+      ndjsonRows.find((row) => row.entity_id === "audit-csv-formula")?.name ===
+        CSV_FORMULA_NAME,
+      "NDJSON did not preserve the canonical formula-like text.",
+    );
+
+    const csvRecords = parseCsv(
+      String(unlimitedArtifacts.get("inventory-readiness-v2.csv")),
+    );
+    const header = csvRecords[0] ?? [];
+    assertCondition(
+      csvRecords.length === ndjsonRows.length + 1 &&
+        csvRecords.every((record) => record.length === header.length),
+      "CSV logical row count or fixed-column width differs from NDJSON.",
+    );
+    const entityIndex = header.indexOf("entity_id");
+    const nameIndex = header.indexOf("name");
+    const formulaRecord = csvRecords.find(
+      (record) => record[entityIndex] === "audit-csv-formula",
+    );
+    assertCondition(
+      formulaRecord?.[nameIndex] === `'${CSV_FORMULA_NAME}`,
+      "CSV formula protection or comma/quote/CRLF escaping failed.",
+    );
+    const summaryBytes = String(
+      unlimitedArtifacts.get("inventory-readiness-v2-summary.json"),
+    );
+    assertCondition(
+      !/(checked_at|timestamp|hostname|out_dir|output_path)/i.test(summaryBytes),
+      "Canonical summary contains run-specific clock, host, or output path metadata.",
+    );
+  });
+
+  console.log(
+    "Audit artifact contract passed: repeat and limit=1 bytes, hashes, summary, verdict, and exit semantics are identical; only terminal preview is limited.",
+  );
+}
+
+function assertCliFailure(
+  args: readonly string[],
+  expectedMessage: string,
+  watchedPaths: readonly string[],
+  envOverrides: NodeJS.ProcessEnv = {},
+): void {
+  const before = watchedPaths.map((filePath) => ({
+    filePath,
+    exists: fs.existsSync(filePath),
+    hash:
+      fs.existsSync(filePath) && fs.statSync(filePath).isFile()
+        ? sha256File(filePath)
+        : null,
+  }));
+  const result = runAuditCli(args, envOverrides);
+  assertCondition(result.status !== 0, `Invalid CLI input unexpectedly passed: ${args.join(" ")}.`);
+  assertCondition(
+    `${result.stderr}\n${result.stdout}`.includes(expectedMessage),
+    `Invalid CLI input did not report ${JSON.stringify(expectedMessage)}: ${result.stderr}${result.stdout}`,
+  );
+  for (const item of before) {
+    assertCondition(
+      fs.existsSync(item.filePath) === item.exists,
+      `Invalid CLI input changed path existence: ${item.filePath}.`,
+    );
+    if (item.exists && item.hash) {
+      assertCondition(
+        sha256File(item.filePath) === item.hash,
+        `Invalid CLI input changed existing file bytes: ${item.filePath}.`,
+      );
+    }
+  }
+}
+
+async function runCliInputsContract(): Promise<void> {
+  assertCondition(
+    fs.existsSync(AUDIT_CLI_PATH),
+    "Canonical readiness artifact CLI is not implemented.",
+  );
+  await withPhase19Fixture(async ({ client, databasePath, tempRoot }) => {
+    await client.execute("PRAGMA wal_checkpoint(TRUNCATE)");
+    const sourcePaths = [
+      databasePath,
+      `${databasePath}-wal`,
+      `${databasePath}-shm`,
+    ];
+    assertCondition(
+      sourcePaths.every((filePath) => fs.existsSync(filePath)),
+      "CLI input fixture requires main/WAL/SHM source files.",
+    );
+    const validOut = path.join(tempRoot, "valid-out");
+    const base = ["--database-path", databasePath, "--out-dir", validOut];
+    assertCliFailure(
+      ["--database-path", databasePath],
+      "--out-dir is required",
+      sourcePaths,
+    );
+    assertCliFailure(
+      ["--database-path", databasePath, "--out-dir", "relative-output"],
+      "--out-dir must be absolute",
+      sourcePaths,
+    );
+    assertCliFailure(
+      ["--database-path", "relative.db", "--out-dir", validOut],
+      "--database-path must be absolute",
+      sourcePaths,
+    );
+    for (const invalidLimit of [
+      "0",
+      "-1",
+      "1.5",
+      "NaN",
+      "Infinity",
+      "1000001",
+    ]) {
+      assertCliFailure(
+        [...base, "--limit", invalidLimit],
+        "--limit must be a decimal integer from 1 to 1000000",
+        [...sourcePaths, ...artifactPaths(validOut)],
+      );
+    }
+
+    const databaseSymlink = path.join(tempRoot, "database-link.db");
+    fs.symlinkSync(databasePath, databaseSymlink);
+    assertCliFailure(
+      ["--database-path", databaseSymlink, "--out-dir", validOut],
+      "--database-path must not be a symlink",
+      sourcePaths,
+    );
+    const escapeRoot = fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-audit-out-escape-"));
+    try {
+      const outputSymlink = path.join(tempRoot, "output-link");
+      fs.symlinkSync(escapeRoot, outputSymlink, "dir");
+      assertCliFailure(
+        ["--database-path", databasePath, "--out-dir", outputSymlink],
+        "--out-dir must not traverse a symlink",
+        sourcePaths,
+      );
+    } finally {
+      fs.rmSync(escapeRoot, { recursive: true, force: true });
+    }
+
+    const aliasCases = [
+      [sourcePaths[0]!, ARTIFACT_FILES[0]],
+      [sourcePaths[1]!, ARTIFACT_FILES[1]],
+      [sourcePaths[2]!, ARTIFACT_FILES[2]],
+    ] as const;
+    for (const [sourcePath, artifactFile] of aliasCases) {
+      const aliasOut = path.join(tempRoot, `alias-${artifactFile}`);
+      fs.mkdirSync(aliasOut);
+      const aliasTarget = path.join(aliasOut, artifactFile);
+      fs.linkSync(sourcePath, aliasTarget);
+      assertCliFailure(
+        ["--database-path", databasePath, "--out-dir", aliasOut],
+        "artifact target aliases the source database family",
+        [...sourcePaths, ...artifactPaths(aliasOut)],
+      );
+    }
+
+    const nonFileOut = path.join(tempRoot, "non-file-target");
+    fs.mkdirSync(nonFileOut);
+    fs.mkdirSync(path.join(nonFileOut, ARTIFACT_FILES[0]));
+    assertCliFailure(
+      ["--database-path", databasePath, "--out-dir", nonFileOut],
+      "artifact target must be a regular file",
+      sourcePaths,
+    );
+    const symlinkTargetOut = path.join(tempRoot, "symlink-target");
+    fs.mkdirSync(symlinkTargetOut);
+    fs.symlinkSync(
+      databasePath,
+      path.join(symlinkTargetOut, ARTIFACT_FILES[0]),
+    );
+    assertCliFailure(
+      ["--database-path", databasePath, "--out-dir", symlinkTargetOut],
+      "artifact target must not be a symlink",
+      sourcePaths,
+    );
+    assertCliFailure(
+      base,
+      "Turso database selection is forbidden",
+      sourcePaths,
+      { TURSO_DATABASE_URL: "libsql://example.invalid" },
+    );
+    assertCatalogSnapshotUnchanged(
+      snapshotCatalogFiles(databasePath),
+      snapshotCatalogFiles(databasePath),
+    );
+  });
+
+  console.log(
+    "Audit CLI input contract passed: invalid limits, implicit/relative/symlink paths, and DB/WAL/SHM aliases all fail before artifact writes.",
   );
 }
 
@@ -932,18 +1337,25 @@ async function main(): Promise<void> {
     return;
   }
   const modes = new Set(args);
-  const inventoryModes = ["--inventory", "--backup-migration"];
+  const inventoryModes = [
+    "--inventory",
+    "--backup-migration",
+    "--artifacts-limit",
+    "--cli-inputs",
+  ];
   if (
     args.length > 0 &&
     args.every((arg) => inventoryModes.includes(arg))
   ) {
     if (modes.has("--inventory")) await runInventoryContract();
     if (modes.has("--backup-migration")) await runBackupMigrationContract();
+    if (modes.has("--artifacts-limit")) await runArtifactsLimitContract();
+    if (modes.has("--cli-inputs")) await runCliInputsContract();
     return;
   }
   if (args.length !== 1) {
     throw new Error(
-      "Usage: pnpm exec tsx scripts/check-audit-readiness.ts --readonly-isolation|--readonly-backup|--fixture-isolation|[--inventory] [--backup-migration]",
+      "Usage: pnpm exec tsx scripts/check-audit-readiness.ts --readonly-isolation|--readonly-backup|--fixture-isolation|[--inventory] [--backup-migration] [--artifacts-limit] [--cli-inputs]",
     );
   }
   if (args[0] === "--readonly-isolation") {
