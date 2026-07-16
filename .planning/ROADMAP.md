@@ -190,7 +190,34 @@ v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史
   4. audit 只统计真正可公开的数据，任一硬 blocker 都使条目失败；CI fixture 能确定性覆盖 deprecated、pending、needs_source、镜像、无逐字段 citation、unresolved conflict 与合格实体
   5. CI 和生产门禁报告 `published blockers = 0`，且 sitemap、browse、API、graph 与 `public_entities` 的集合差异为 0
 
-**Plans**: TBD
+**Plans**: 5 plans
+
+**Wave 1 — safety/test seams**
+
+- [ ] 19-01-PLAN.md — explicit read-only catalog adapter, SQLite online backup and disposable fixture lifecycle
+
+**Wave 2** *(blocked on Wave 1 completion)*
+
+- [ ] 19-02-PLAN.md — migration 031 normalized evidence/scope/conflict/review schema and readiness v2
+
+**Wave 3** *(blocked on Wave 2 completion)*
+
+- [ ] 19-03-PLAN.md — canonical hash v2, four current-hash reviews and atomic publication
+
+**Wave 4** *(blocked on Wave 3 completion)*
+
+- [ ] 19-04-PLAN.md — canonical full-inventory ledger, deterministic artifacts and shared audit truth
+
+**Wave 5** *(blocked on Wave 4 completion)*
+
+- [ ] 19-05-PLAN.md — complete fixtures, real 305-row artifacts, public parity and disposable build/E2E regression
+
+**Cross-cutting constraints:**
+
+- Real catalog is explicit read-only and main/WAL/SHM snapshot-protected; readiness runs only after SQLite online backup is migrated inside an owned disposable copy.
+- `public_entities` remains the sole authorization set; audit views diagnose but never authorize, and expected parity oracles stay independent.
+- All 305 identities are audited without sampling; `--limit` affects console output only, and zero public entities cannot masquerade as content completion.
+- No remote Turso write, push, deployment, network content collection, bulk writing, renderer or taxonomy repair occurs in Phase 19.
 
 ### Phase 20: 百科页面 Renderer
 
@@ -317,7 +344,7 @@ v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史
 | 16. 分类漫游与响应式体验 | v1.1 | Complete | Complete | 2026-07-13 |
 | 17. 全量回归与生产发布 | v1.1 | Complete | Complete | 2026-07-13 |
 | 18. 统一发布门禁 | v1.2 | 7/7 | Complete    | 2026-07-15 |
-| 19. 真实审计与证据契约 | v1.2 | 0/TBD | Not started | - |
+| 19. 真实审计与证据契约 | v1.2 | 0/5 | Planned | - |
 | 20. 百科页面 Renderer | v1.2 | 0/TBD | Not started | - |
 | 21. Taxonomy 与身份归一 | v1.2 | 0/TBD | Not started | - |
 | 22. Montblanc 149 A 档样板 | v1.2 | 0/TBD | Not started | - |

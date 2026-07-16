@@ -14,6 +14,14 @@
 <decisions>
 ## Implementation Decisions
 
+- **D-01:** 以 69 个品牌、236 个型号共 305 条 raw inventory 为全量审计集合，旧 65+231 基线只作追溯，额外 9 条不得漏审。
+- **D-02:** NDJSON/CSV 零抽样且确定；`--limit` 只能改变终端展示，不能改变扫描、artifact、summary、exit 或判定。
+- **D-03:** 公开规格与核心事实必须逐项绑定 approved citation、locator、scope 和满足 tier/independence/allowed-use 的 source-item provenance。
+- **D-04:** scope、字段/身份冲突和 fact/language/media/publication 四类 current-hash review 必须分别可判定。
+- **D-05:** readiness contract v2 fail closed，`public_entities` 继续是唯一公开授权集合，任何硬 blocker 不可被总分抵消。
+- **D-06:** 真实 catalog 仅显式只读并受 main/WAL/SHM 快照保护；所有 migration、写入、fixture、build 与 browser DB 均为 owned disposable，禁止远程与部署。
+- **D-07:** 全部型号逐条记录 made_by 状态，全部品牌记录完整 reverse raw/public 型号集合；Phase 19 只审计，不静默修 taxonomy/content。
+
 ### D-01 全量库存口径
 - 审计集合固定为执行开始时真实数据库中的全部 `brand` 与 `pen` raw rows，当前已知是 69 个品牌、236 个型号，共 305 条；旧 65+231 公开基线只作为可追溯字段，不能替代或缩小审计范围。
 - 台账必须明确列出额外 4 个品牌和 5 个型号的身份与 disposition，不能因其曾隐藏、重复、占位或未达标而漏审。

@@ -4,15 +4,15 @@ milestone: v1.2
 milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 19
 current_phase_name: 真实审计与证据契约
-status: executing
-stopped_at: Phase 18 complete; Phase 19 ready for planning
-last_updated: "2026-07-15T14:32:59.941Z"
-last_activity: 2026-07-15
-last_activity_desc: Phase 18 complete, transitioned to Phase 19
+status: ready_to_execute
+stopped_at: Phase 19 planned; ready to execute 19-01-PLAN.md
+last_updated: "2026-07-16T13:08:50+08:00"
+last_activity: 2026-07-16
+last_activity_desc: Phase 19 planned and independently verified in five waves
 progress:
   total_phases: 16
   completed_phases: 8
-  total_plans: 14
+  total_plans: 19
   completed_plans: 14
   percent: 50
 ---
@@ -29,9 +29,9 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 ## Current Position
 
 Phase: 19 of 26 (真实审计与证据契约)
-Plan: Not started
+Plan: 0 of 5 in current phase
 Status: Ready to execute
-Last activity: 2026-07-15 — Phase 18 complete, transitioned to Phase 19
+Last activity: 2026-07-16 — Phase 19 planned and independently verified in five waves
 
 Progress: [█████░░░░░] 50%
 
@@ -82,6 +82,8 @@ Progress: [█████░░░░░] 50%
 - [Phase 18]: Brand pages enumerate the complete reverse made_by public-pen set without representative limits. — The public count and every model link must match canonical membership exactly.
 - [Phase 18]: Entity-bearing secondary pages and image responses remain dynamic and no-store. — The project has no unified active purge path, so publication transitions must be visible on the next request.
 - [Phase 18]: `public_entities` is the sole public authorization set, and brand pages enumerate the complete reverse public `made_by` set. — Unqualified model URLs are hard 404s; published brands cannot silently omit published models.
+- [Phase 19 planning]: A real migration-030 catalog is opened read-only, copied through SQLite online backup, and only the owned copy is canonically migrated to 031 for readiness audit. — This preserves source main/WAL/SHM while allowing contract-v2 measurement.
+- [Phase 19 planning]: Source tier and independence group qualify at source-item provenance level, not registry/provider level. — One registry can contain independent documents and one document can have mirrors across registries.
 
 ### Pending Todos
 
@@ -95,10 +97,10 @@ None.
 
 ## Next Action
 
-规划并执行 Phase 19：先冻结 305 条 raw inventory manifest 与旧 296 条公开基线映射，再建立逐字段 evidence、scope、conflict、review 与零抽样 audit 契约。
+执行 `19-01-PLAN.md`：先建立显式只读 catalog adapter、SQLite online backup、main/WAL/SHM 快照保护和 disposable Phase 19 fixture lifecycle。
 
 ## Session Continuity
 
-Last session: 2026-07-15T14:32:59.941Z
-Stopped at: Phase 18 complete; Phase 19 ready for planning
+Last session: 2026-07-16T13:08:50+08:00
+Stopped at: Phase 19 planned; ready to execute 19-01-PLAN.md
 Resume file: None
