@@ -5,15 +5,15 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 19
 current_phase_name: real-audit-evidence
 status: executing
-stopped_at: Completed 19-03-PLAN.md
-last_updated: "2026-07-16T07:33:00.701Z"
+stopped_at: Completed 19-04-PLAN.md
+last_updated: "2026-07-16T08:41:10.879Z"
 last_activity: 2026-07-16
-last_activity_desc: Phase 19 execution started
+last_activity_desc: Phase 19 Plan 04 completed
 progress:
   total_phases: 16
   completed_phases: 8
   total_plans: 19
-  completed_plans: 17
+  completed_plans: 18
   percent: 50
 ---
 
@@ -29,9 +29,9 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 ## Current Position
 
 Phase: 19 (real-audit-evidence) — EXECUTING
-Plan: 4 of 5
+Plan: 5 of 5
 Status: Ready to execute
-Last activity: 2026-07-16 — Phase 19 execution started
+Last activity: 2026-07-16 — Phase 19 Plan 04 completed
 
 Progress: [█████░░░░░] 50%
 
@@ -58,6 +58,7 @@ Progress: [█████░░░░░] 50%
 | Phase 19 P01 | 17 min | 2 tasks | 6 files |
 | Phase 19 P02 | 52 min | 2 tasks | 3 files |
 | Phase 19 P03 | 48 min | 2 tasks | 6 files |
+| Phase 19 P04 | 54 min | 3 tasks | 10 files |
 
 ## Accumulated Context
 
@@ -96,6 +97,9 @@ Progress: [█████░░░░░] 50%
 - [Phase 19]: Canonical IDs are immutable publication identity. — Primary-key rewrites otherwise change the v2 hash without a reliable generic-reference invalidation owner.
 - [Phase 19]: Any content revision revokes every prior approved review. — Returning content to an old hash must not reactivate authorization from an earlier revision.
 - [Phase 19]: Published authorization snapshots are immutable in place. — Legitimate republish must first demote, then install the current snapshot and final review inside one transaction.
+- [Phase 19]: Protected audit sources use checkpointed exclusive copies and are never SQLite-opened — Live verification showed normal and readonly SQLite access can delete or retime sidecars; empty-WAL/no-journal/single-link copies preserve the source while all migration and queries run only on owned files.
+- [Phase 19]: Raw inventory, content readiness, and public lifecycle remain separate audit dimensions — The 305-row universe must remain complete while blocker-free drafts are publishable but not legacy/library complete until they are in public_entities.
+- [Phase 19]: Audit limits are presentation-only — Canonical NDJSON, CSV, summary, hashes, verdict, and exit semantics derive from the complete sorted universe before any terminal slice.
 
 ### Pending Todos
 
@@ -109,10 +113,10 @@ None.
 
 ## Next Action
 
-执行 `19-04-PLAN.md`：生成全量 deterministic inventory ledger，并让 quality/library audit 共享同一 publication truth。
+执行 `19-05-PLAN.md`：在事故后稳定基线上生成真实 305-row artifacts，验证 public parity，并完成 disposable build/E2E regression。
 
 ## Session Continuity
 
-Last session: 2026-07-16T07:32:41.581Z
-Stopped at: Completed 19-03-PLAN.md
+Last session: 2026-07-16T08:41:10.873Z
+Stopped at: Completed 19-04-PLAN.md
 Resume file: None
