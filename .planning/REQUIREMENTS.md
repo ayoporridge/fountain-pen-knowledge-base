@@ -17,12 +17,12 @@
 
 ### 证据、版本与审核模型
 
-- [ ] **EVID-01**: 每个公开规格字段都有独立 approved citation、evidence locator 和适用范围；row-level queue anchor 不能解锁整份规格
-- [ ] **EVID-02**: 来源记录包含 source kind/tier、independence group、allowed use、retrieved date 与必要的归档定位，镜像与转载只算一个独立来源组
-- [ ] **EVID-03**: 现售、历史、地区、年代、笔尖、材料和特别版差异具有明确 variant/scope；型号家族事实不能由单一当前特别版反向证明
-- [ ] **EVID-04**: 同一 scope 的冲突事实有 unresolved/resolved 状态与 resolution note；未解决的字段不进入规格卡，身份冲突阻止整条发布
-- [ ] **EVID-05**: 事实、中文自然度、媒体相关性/许可和最终 publication review 分开记录，并绑定被审核内容的 hash
-- [ ] **EVID-06**: 一手来源或同期档案与独立专业二手来源共同构成公开门槛；retailer、社区和搜索结果不能单独证明身份与核心规格
+- [x] **EVID-01**: 每个公开规格字段都有独立 approved citation、evidence locator 和适用范围；row-level queue anchor 不能解锁整份规格
+- [x] **EVID-02**: 来源记录包含 source kind/tier、independence group、allowed use、retrieved date 与必要的归档定位，镜像与转载只算一个独立来源组
+- [x] **EVID-03**: 现售、历史、地区、年代、笔尖、材料和特别版差异具有明确 variant/scope；型号家族事实不能由单一当前特别版反向证明
+- [x] **EVID-04**: 同一 scope 的冲突事实有 unresolved/resolved 状态与 resolution note；未解决的字段不进入规格卡，身份冲突阻止整条发布
+- [x] **EVID-05**: 事实、中文自然度、媒体相关性/许可和最终 publication review 分开记录，并绑定被审核内容的 hash
+- [x] **EVID-06**: 一手来源或同期档案与独立专业二手来源共同构成公开门槛；retailer、社区和搜索结果不能单独证明身份与核心规格
 
 ### 全量测量与质量门禁
 
@@ -117,12 +117,12 @@
 | PUB-05 | Phase 18 | Complete |
 | PUB-06 | Phase 18 | Complete |
 | PUB-07 | Phase 18 | Complete |
-| EVID-01 | Phase 19 | Pending |
-| EVID-02 | Phase 19 | Pending |
-| EVID-03 | Phase 19 | Pending |
-| EVID-04 | Phase 19 | Pending |
-| EVID-05 | Phase 19 | Pending |
-| EVID-06 | Phase 19 | Pending |
+| EVID-01 | Phase 19 | Complete |
+| EVID-02 | Phase 19 | Complete |
+| EVID-03 | Phase 19 | Complete |
+| EVID-04 | Phase 19 | Complete |
+| EVID-05 | Phase 19 | Complete |
+| EVID-06 | Phase 19 | Complete |
 | AUD-01 | Phase 19 | Complete |
 | AUD-02 | Phase 19 | Pending |
 | AUD-03 | Phase 19 | Pending |

@@ -190,7 +190,7 @@ v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史
   4. audit 只统计真正可公开的数据，任一硬 blocker 都使条目失败；CI fixture 能确定性覆盖 deprecated、pending、needs_source、镜像、无逐字段 citation、unresolved conflict 与合格实体
   5. CI 和生产门禁报告 `published blockers = 0`，且 sitemap、browse、API、graph 与 `public_entities` 的集合差异为 0
 
-**Plans**: 1/5 plans executed
+**Plans**: 2/5 plans executed
 
 **Wave 1 — safety/test seams**
 
@@ -198,7 +198,7 @@ v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史
 
 **Wave 2** *(blocked on Wave 1 completion)*
 
-- [ ] 19-02-PLAN.md — migration 031 normalized evidence/scope/conflict/review schema and readiness v2
+- [x] 19-02-PLAN.md — migration 031 normalized evidence/scope/conflict/review schema and readiness v2
 
 **Wave 3** *(blocked on Wave 2 completion)*
 
@@ -344,7 +344,7 @@ v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史
 | 16. 分类漫游与响应式体验 | v1.1 | Complete | Complete | 2026-07-13 |
 | 17. 全量回归与生产发布 | v1.1 | Complete | Complete | 2026-07-13 |
 | 18. 统一发布门禁 | v1.2 | 7/7 | Complete    | 2026-07-15 |
-| 19. 真实审计与证据契约 | v1.2 | 1/5 | In Progress|  |
+| 19. 真实审计与证据契约 | v1.2 | 2/5 | In Progress|  |
 | 20. 百科页面 Renderer | v1.2 | 0/TBD | Not started | - |
 | 21. Taxonomy 与身份归一 | v1.2 | 0/TBD | Not started | - |
 | 22. Montblanc 149 A 档样板 | v1.2 | 0/TBD | Not started | - |
