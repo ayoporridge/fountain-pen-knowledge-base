@@ -1,16 +1,30 @@
-import { spawnSync } from "node:child_process";
+import {
+  spawn,
+  spawnSync,
+  type ChildProcess,
+} from "node:child_process";
 import fs from "node:fs";
+import { createRequire } from "node:module";
 import os from "node:os";
 import path from "node:path";
-import { createClient } from "@libsql/client";
+import { createClient, type Client } from "@libsql/client";
 import Database from "better-sqlite3";
-import { migrateDatabase } from "../src/lib/db";
+import { migrateDatabase, resolveDatabaseConnection } from "../src/lib/db";
 import {
   assertCatalogSnapshotUnchanged,
   backupCatalogToDisposableCopy,
   openReadOnlyCatalog,
   snapshotCatalogFiles,
 } from "../src/lib/audit/read-only-catalog";
+import {
+  cleanupPhase19Fixture,
+  createPhase19Fixture,
+  snapshotRealCatalogInvariant,
+  withPhase19Fixture,
+} from "./lib/phase19-fixtures";
+
+const ROOT = process.cwd();
+const SCRIPT_PATH = path.join(ROOT, "scripts", "check-audit-readiness.ts");
 
 type ProbeRow = {
   id: number;
@@ -323,11 +337,274 @@ async function runReadOnlyBackup(): Promise<void> {
   );
 }
 
+function hasExited(child: ChildProcess): boolean {
+  return child.exitCode !== null || child.signalCode !== null;
+}
+
+function waitForChildExit(
+  child: ChildProcess,
+  timeoutMs: number,
+): Promise<boolean> {
+  if (hasExited(child)) return Promise.resolve(true);
+  return new Promise((resolve) => {
+    const onExit = () => {
+      clearTimeout(timer);
+      resolve(true);
+    };
+    const timer = setTimeout(() => {
+      child.off("exit", onExit);
+      resolve(false);
+    }, timeoutMs);
+    child.once("exit", onExit);
+  });
+}
+
+async function stopChild(child: ChildProcess): Promise<void> {
+  if (hasExited(child)) return;
+  child.kill("SIGTERM");
+  if (await waitForChildExit(child, 1_500)) return;
+  child.kill("SIGKILL");
+  await waitForChildExit(child, 1_500);
+}
+
+function processIsAlive(pid: number): boolean {
+  if (!pid) return false;
+  try {
+    process.kill(pid, 0);
+    return true;
+  } catch (error) {
+    return (error as NodeJS.ErrnoException).code === "EPERM";
+  }
+}
+
+async function assertClientClosed(client: Client): Promise<void> {
+  try {
+    await client.execute("SELECT 1");
+  } catch {
+    return;
+  }
+  throw new Error("Phase 19 fixture cleanup left its client usable.");
+}
+
+async function waitForFile(filePath: string, timeoutMs: number): Promise<void> {
+  const deadline = Date.now() + timeoutMs;
+  while (Date.now() < deadline) {
+    if (fs.existsSync(filePath)) return;
+    await new Promise((resolve) => setTimeout(resolve, 25));
+  }
+  throw new Error("Timed out waiting for the Phase 19 signal report.");
+}
+
+async function assertSignalCleanup(
+  signal: "SIGINT" | "SIGTERM",
+): Promise<void> {
+  const reportFile = path.join(
+    os.tmpdir(),
+    `fpkg-phase19-${signal.toLowerCase()}-${process.pid}-${Date.now()}.json`,
+  );
+  const require = createRequire(import.meta.url);
+  const tsxCli = require.resolve("tsx/cli");
+  const output: string[] = [];
+  const child = spawn(
+    process.execPath,
+    [tsxCli, SCRIPT_PATH, "--signal-probe", "--report", reportFile],
+    {
+      cwd: ROOT,
+      env: {
+        ...process.env,
+        TURSO_DATABASE_URL: "libsql://example.invalid",
+        TURSO_AUTH_TOKEN: "must-not-appear",
+        FPKG_DATABASE_URL: "",
+        PUBLICATION_GATE_FIXTURE: "",
+      },
+      stdio: ["ignore", "pipe", "pipe"],
+    },
+  );
+  child.stdout?.on("data", (chunk) => output.push(String(chunk)));
+  child.stderr?.on("data", (chunk) => output.push(String(chunk)));
+
+  try {
+    await waitForFile(reportFile, 10_000);
+    const report = JSON.parse(fs.readFileSync(reportFile, "utf8")) as {
+      tempRoot: string;
+      databasePath: string;
+      childPid: number;
+      remoteCleared: boolean;
+    };
+    assertCondition(
+      fs.existsSync(report.databasePath) && processIsAlive(report.childPid),
+      "Signal probe did not create both its fixture database and child.",
+    );
+    assertCondition(
+      report.remoteCleared,
+      "Signal probe did not clear inherited remote database selection.",
+    );
+
+    child.kill(signal);
+    if (!(await waitForChildExit(child, 8_000))) {
+      child.kill("SIGKILL");
+      throw new Error(`Signal probe did not exit after ${signal}.`);
+    }
+    assertCondition(
+      !fs.existsSync(report.tempRoot),
+      `${signal} left its fixture root behind.`,
+    );
+    assertCondition(
+      !processIsAlive(report.childPid),
+      `${signal} left its registered child alive.`,
+    );
+  } catch (error) {
+    await stopChild(child);
+    throw new Error(
+      `Phase 19 ${signal} cleanup probe failed. ${output.join("")}`,
+      { cause: error },
+    );
+  } finally {
+    fs.rmSync(reportFile, { force: true });
+  }
+}
+
+async function runFixtureIsolation(): Promise<void> {
+  const realBefore = snapshotRealCatalogInvariant();
+  const realCatalogPath = path.join(ROOT, "data", "fpkg.db");
+
+  expectThrow(
+    () =>
+      resolveDatabaseConnection({
+        TURSO_DATABASE_URL: "libsql://example.invalid",
+        FPKG_DATABASE_URL: "file:/tmp/phase19-fixture.db",
+      }),
+    "mutually exclusive",
+  );
+  expectThrow(
+    () =>
+      resolveDatabaseConnection({
+        PUBLICATION_GATE_FIXTURE: "1",
+        FPKG_DATABASE_URL: "libsql://example.invalid",
+      }),
+    "must be a file:",
+  );
+  expectThrow(
+    () =>
+      resolveDatabaseConnection({
+        PUBLICATION_GATE_FIXTURE: "1",
+        FPKG_DATABASE_URL: `file:${realCatalogPath}`,
+      }),
+    "may not use the real data/fpkg.db",
+  );
+
+  let successRoot = "";
+  let successClient: Client | null = null;
+  await withPhase19Fixture(async (fixture) => {
+    successRoot = fixture.tempRoot;
+    successClient = fixture.client;
+    assertCondition(
+      process.env.TURSO_DATABASE_URL === "" &&
+        process.env.TURSO_AUTH_TOKEN === "" &&
+        process.env.FPKG_DATABASE_URL === fixture.databaseUrl &&
+        process.env.PUBLICATION_GATE_FIXTURE === "1",
+      "Phase 19 fixture did not install its fail-closed environment.",
+    );
+    const connection = resolveDatabaseConnection();
+    assertCondition(
+      connection.localPath === fixture.databasePath,
+      "Fixture resolver did not select the owned database.",
+    );
+    const migrations = await fixture.client.execute(
+      "SELECT COUNT(*) AS count FROM migrations",
+    );
+    assertCondition(
+      Number(migrations.rows[0]?.count) > 0,
+      "Phase 19 fixture did not receive canonical migrations.",
+    );
+  });
+  assertCondition(
+    !fs.existsSync(successRoot) && successClient,
+    "Successful fixture lifecycle did not remove its temp root.",
+  );
+  await assertClientClosed(successClient);
+
+  let failureRoot = "";
+  let failureClient: Client | null = null;
+  let failureChildPid = 0;
+  let expectedFailure = false;
+  try {
+    await withPhase19Fixture(async (fixture) => {
+      failureRoot = fixture.tempRoot;
+      failureClient = fixture.client;
+      const child = fixture.registerChild(
+        process.execPath,
+        ["-e", "setInterval(() => {}, 1000)"],
+        { cwd: ROOT, stdio: "ignore" },
+      );
+      assertCondition(child.pid, "Failure fixture child has no PID.");
+      failureChildPid = child.pid;
+      throw new Error("deliberate Phase 19 fixture failure");
+    });
+  } catch (error) {
+    expectedFailure =
+      error instanceof Error &&
+      error.message === "deliberate Phase 19 fixture failure";
+  }
+  assertCondition(
+    expectedFailure &&
+      !fs.existsSync(failureRoot) &&
+      !processIsAlive(failureChildPid) &&
+      failureClient,
+    "Failed fixture lifecycle leaked its root, child, or client.",
+  );
+  await assertClientClosed(failureClient);
+
+  await assertSignalCleanup("SIGINT");
+  await assertSignalCleanup("SIGTERM");
+  snapshotRealCatalogInvariant(realBefore);
+
+  console.log(
+    "Audit fixture isolation passed: success, failure, SIGINT, and SIGTERM cleaned owned clients, children, and roots; real main/WAL/SHM unchanged.",
+  );
+}
+
+async function runSignalProbe(reportFile: string): Promise<void> {
+  const fixture = await createPhase19Fixture("fpkg-phase19-signal-probe-");
+  try {
+    const child = fixture.registerChild(
+      process.execPath,
+      ["-e", "setInterval(() => {}, 1000)"],
+      { cwd: ROOT, stdio: "ignore" },
+    );
+    assertCondition(child.pid, "Signal fixture child has no PID.");
+    fs.writeFileSync(
+      reportFile,
+      JSON.stringify({
+        tempRoot: fixture.tempRoot,
+        databasePath: fixture.databasePath,
+        childPid: child.pid,
+        remoteCleared:
+          process.env.TURSO_DATABASE_URL === "" &&
+          process.env.TURSO_AUTH_TOKEN === "",
+      }),
+    );
+    await new Promise(() => undefined);
+  } catch (error) {
+    await cleanupPhase19Fixture(fixture);
+    throw error;
+  }
+}
+
 async function main(): Promise<void> {
-  const args = process.argv.slice(2);
+  const args = process.argv.slice(2).filter((arg) => arg !== "--");
+  if (args[0] === "--signal-probe") {
+    const reportIndex = args.indexOf("--report");
+    const reportFile = reportIndex >= 0 ? args[reportIndex + 1] : undefined;
+    if (!reportFile) {
+      throw new Error("--signal-probe requires --report <path>.");
+    }
+    await runSignalProbe(reportFile);
+    return;
+  }
   if (args.length !== 1) {
     throw new Error(
-      "Usage: pnpm exec tsx scripts/check-audit-readiness.ts --readonly-isolation|--readonly-backup",
+      "Usage: pnpm exec tsx scripts/check-audit-readiness.ts --readonly-isolation|--readonly-backup|--fixture-isolation",
     );
   }
   if (args[0] === "--readonly-isolation") {
@@ -336,6 +613,10 @@ async function main(): Promise<void> {
   }
   if (args[0] === "--readonly-backup") {
     await runReadOnlyBackup();
+    return;
+  }
+  if (args[0] === "--fixture-isolation") {
+    await runFixtureIsolation();
     return;
   }
   throw new Error(`Unknown audit readiness mode: ${args[0]}`);
