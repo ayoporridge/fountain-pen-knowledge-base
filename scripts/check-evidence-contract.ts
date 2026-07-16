@@ -2727,6 +2727,572 @@ async function contract2Blockers(
   return result.rows.map((row) => String(row.blocker_code));
 }
 
+interface Contract2BlockerDetail {
+  blockerCode: string;
+  detailKey: string;
+}
+
+async function contract2BlockerDetails(
+  client: Client,
+  entityId: string,
+): Promise<Contract2BlockerDetail[]> {
+  const result = await client.execute({
+    sql: `
+      SELECT blocker_code, detail_key
+      FROM publication_blockers
+      WHERE entity_id = ? AND contract_version = 2
+      ORDER BY blocker_code, subject_type, subject_id, detail_key
+    `,
+    args: [entityId],
+  });
+  return result.rows.map((row) => ({
+    blockerCode: String(row.blocker_code),
+    detailKey: String(row.detail_key),
+  }));
+}
+
+function blockerDetail(blockerCode: string, detailKey: string): Contract2BlockerDetail {
+  return { blockerCode, detailKey };
+}
+
+async function assertExactContract2Blockers(
+  client: Client,
+  entityId: string,
+  expected: readonly Contract2BlockerDetail[],
+  label: string,
+): Promise<void> {
+  const actual = await contract2BlockerDetails(client, entityId);
+  assertCondition(
+    JSON.stringify(actual) === JSON.stringify(expected),
+    `${label} blocker/detail mismatch. expected=${JSON.stringify(expected)} actual=${JSON.stringify(actual)}.`,
+  );
+  const readiness = await client.execute({
+    sql: `
+      SELECT blocker_count, publishable
+      FROM public_entity_readiness
+      WHERE entity_id = ? AND contract_version = 2
+    `,
+    args: [entityId],
+  });
+  assertCondition(
+    readiness.rows.length === 1 &&
+      Number(readiness.rows[0]?.blocker_count) === expected.length &&
+      Number(readiness.rows[0]?.publishable) === 0,
+    `${label} readiness was not an exact ${expected.length}-blocker failure: ${JSON.stringify(readiness.rows)}.`,
+  );
+}
+
+async function stageCompleteContract2Snapshot(
+  client: Client,
+  entityId: string,
+): Promise<string> {
+  const contentHash = await computePublicationContentHash(client, entityId);
+  await stageReviewSnapshot(client, entityId, contentHash, [
+    "fact",
+    "language",
+    "media",
+    "publication",
+  ]);
+  return contentHash;
+}
+
+async function assertDirectSqlBlocked(
+  client: Client,
+  entityId: string,
+  label: string,
+): Promise<void> {
+  await expectReject(
+    () =>
+      client.execute({
+        sql: `
+          UPDATE entity_publications
+          SET status = 'published',
+              published_at = '2026-07-16T00:00:03.000Z'
+          WHERE entity_id = ?
+        `,
+        args: [entityId],
+      }),
+    "publication_guard: readiness blockers remain",
+  );
+  await assertNoPublicMembership(client, entityId, label);
+}
+
+async function assertPublicationApiBlocked(
+  client: Client,
+  entityId: string,
+  label: string,
+): Promise<void> {
+  const before = await publicationLifecycleSnapshot(client, entityId);
+  await expectReject(
+    () =>
+      publishEntity(client, {
+        entityId,
+        reviewer: "phase19-qa-publication-reviewer",
+      }),
+    "Publication readiness blocked",
+  );
+  assertCondition(
+    (await publicationLifecycleSnapshot(client, entityId)) === before,
+    `${label} left a lifecycle change after publication rollback.`,
+  );
+  await assertNoPublicMembership(client, entityId, label);
+}
+
+async function assertBlockedQaCase(
+  client: Client,
+  entityId: string,
+  expected: readonly Contract2BlockerDetail[],
+  label: string,
+): Promise<void> {
+  await stageCompleteContract2Snapshot(client, entityId);
+  await assertExactContract2Blockers(client, entityId, expected, label);
+  await assertDirectSqlBlocked(client, entityId, `${label} direct SQL`);
+  await assertPublicationApiBlocked(client, entityId, `${label} API`);
+}
+
+async function seedQaPenFixture(
+  client: Client,
+  entityId: string,
+): Promise<Awaited<ReturnType<typeof seedQualifiedPublicationFixture>>> {
+  const brand = await seedQualifiedPublicationFixture(client, {
+    entityId: `${entityId}-brand`,
+    entityType: "brand",
+  });
+  await recordFirstThreeCurrentReviews(client, brand.entityId);
+  await publishEntity(client, {
+    entityId: brand.entityId,
+    reviewer: "phase19-qa-brand-publication-reviewer",
+  });
+  return seedQualifiedPublicationFixture(client, {
+    entityId,
+    entityType: "pen",
+    brandEntityId: brand.entityId,
+  });
+}
+
+async function runApprovedClaimSingleVariableCases(): Promise<void> {
+  for (const missingComponent of [
+    "citation",
+    "locator",
+    "scope",
+    "source_provenance",
+  ] as const) {
+    await withPhase19Fixture(async ({ client }) => {
+      const entity = await seedQaPenFixture(
+        client,
+        `phase19-qa-claim-${missingComponent}`,
+      );
+      const nonqualifyingItemId = `${entity.entityId}-item-unqualified`;
+      await client.execute({
+        sql: `
+          INSERT INTO source_items (
+            id, source_id, title, url, retrieved_at, allowed_use,
+            review_status, archive_url, archive_locator
+          ) VALUES (?, ?, 'Unqualified provenance item', ?, '2026-07-16',
+                    'summary_only', 'approved', ?, 'snapshot:unqualified')
+        `,
+        args: [
+          nonqualifyingItemId,
+          entity.primaryRegistryId,
+          `https://example.invalid/items/${nonqualifyingItemId}`,
+          `https://archive.invalid/items/${nonqualifyingItemId}`,
+        ],
+      });
+
+      if (missingComponent === "citation") {
+        await client.execute({
+          sql: `
+            UPDATE citations
+            SET target_type = 'entity', target_id = ?
+            WHERE id = ?
+          `,
+          args: [entity.entityId, entity.primaryCitationId],
+        });
+      } else if (missingComponent === "locator") {
+        await client.execute({
+          sql: "UPDATE citations SET evidence_locator = NULL WHERE id = ?",
+          args: [entity.primaryCitationId],
+        });
+      } else if (missingComponent === "scope") {
+        await client.execute({
+          sql: "UPDATE citations SET scope_id = NULL WHERE id = ?",
+          args: [entity.primaryCitationId],
+        });
+      } else {
+        await client.execute({
+          sql: "UPDATE citations SET source_item_id = ? WHERE id = ?",
+          args: [nonqualifyingItemId, entity.primaryCitationId],
+        });
+      }
+
+      const expectedDetail = `${entity.primaryClaimId}:${missingComponent}`;
+      await assertBlockedQaCase(
+        client,
+        entity.entityId,
+        [blockerDetail("approved_claim_missing_evidence", expectedDetail)],
+        `approved core claim missing ${missingComponent}`,
+      );
+    });
+    console.log(`PASS QA-01: approved core claim missing ${missingComponent}`);
+  }
+}
+
+async function runRequiredNegativeCases(): Promise<void> {
+  await withPhase19Fixture(async ({ client }) => {
+    const entity = await seedQualifiedPublicationFixture(client, {
+      entityId: "phase19-qa-deprecated-story",
+      entityType: "brand",
+    });
+    const deprecatedStoryId = `${entity.entityId}-deprecated-story`;
+    await client.execute({
+      sql: `
+        INSERT INTO stories (
+          id, entity_id, title, story_type, body_md, status
+        ) VALUES (?, ?, 'Deprecated trace only', 'overview',
+                  'Deprecated trace body', 'deprecated')
+      `,
+      args: [deprecatedStoryId, entity.entityId],
+    });
+    await assertBlockedQaCase(
+      client,
+      entity.entityId,
+      [blockerDetail("deprecated_story_present", deprecatedStoryId)],
+      "deprecated story",
+    );
+  });
+  console.log("PASS QA-01: deprecated story");
+
+  await withPhase19Fixture(async ({ client }) => {
+    const entity = await seedQualifiedPublicationFixture(client, {
+      entityId: "phase19-qa-pending-claim",
+      entityType: "brand",
+    });
+    await client.execute({
+      sql: "UPDATE claims SET review_status = 'pending' WHERE id = ?",
+      args: [entity.classificationClaimId],
+    });
+    await assertBlockedQaCase(
+      client,
+      entity.entityId,
+      [blockerDetail("pending_claim_present", entity.classificationClaimId)],
+      "pending claim",
+    );
+  });
+  console.log("PASS QA-01: pending claim");
+
+  await withPhase19Fixture(async ({ client }) => {
+    const entity = await seedQualifiedPublicationFixture(client, {
+      entityId: "phase19-qa-needs-source-spec",
+      entityType: "brand",
+    });
+    const specId = `${entity.entityId}-needs-source-spec`;
+    await client.execute({
+      sql: `
+        INSERT INTO model_specs (id, entity_id, review_status)
+        VALUES (?, ?, 'needs_source')
+      `,
+      args: [specId, entity.entityId],
+    });
+    await assertBlockedQaCase(
+      client,
+      entity.entityId,
+      [blockerDetail("spec_needs_source", specId)],
+      "needs_source spec",
+    );
+  });
+  console.log("PASS QA-01: needs_source spec");
+
+  await withPhase19Fixture(async ({ client }) => {
+    const entity = await seedQaPenFixture(
+      client,
+      "phase19-qa-missing-spec-field-evidence",
+    );
+    assertCondition(entity.modelSpecId, "Pen QA fixture omitted modelSpecId.");
+    await client.execute({
+      sql: "UPDATE model_specs SET fill_system = 'piston' WHERE id = ?",
+      args: [entity.modelSpecId],
+    });
+    await assertBlockedQaCase(
+      client,
+      entity.entityId,
+      [
+        blockerDetail(
+          "missing_field_evidence",
+          `${entity.modelSpecId}:fill_system`,
+        ),
+      ],
+      "nonempty spec field without field evidence",
+    );
+  });
+  console.log("PASS QA-01: nonempty spec field without field evidence");
+
+  await withPhase19Fixture(async ({ client }) => {
+    const entity = await seedQualifiedPublicationFixture(client, {
+      entityId: "phase19-qa-retailer-only",
+      entityType: "brand",
+    });
+    await client.execute({
+      sql: `
+        UPDATE source_items
+        SET source_tier = 'retailer'
+        WHERE id IN (?, ?, ?)
+      `,
+      args: [entity.primaryItemId, entity.secondaryItemId, entity.mirrorItemId],
+    });
+    await assertBlockedQaCase(
+      client,
+      entity.entityId,
+      [
+        blockerDetail("missing_primary_or_archive_group", entity.entityId),
+        blockerDetail(
+          "missing_professional_secondary_group",
+          entity.entityId,
+        ),
+      ],
+      "retailer-only evidence",
+    );
+  });
+  console.log("PASS QA-01: retailer-only evidence");
+
+  for (const conflictKind of ["field", "identity", "made_by"] as const) {
+    await withPhase19Fixture(async ({ client }) => {
+      const entity = conflictKind === "made_by"
+        ? await seedQaPenFixture(client, `phase19-qa-${conflictKind}-conflict`)
+        : await seedQualifiedPublicationFixture(client, {
+            entityId: `phase19-qa-${conflictKind}-conflict`,
+            entityType: "brand",
+          });
+      await client.execute({
+        sql: `
+          UPDATE fact_conflicts
+          SET field_key = ?, conflict_kind = ?, status = 'open',
+              resolution_note = NULL
+          WHERE id = ?
+        `,
+        args: [
+          conflictKind === "field" ? "release_year" : conflictKind,
+          conflictKind,
+          entity.conflictId,
+        ],
+      });
+      await assertBlockedQaCase(
+        client,
+        entity.entityId,
+        [
+          blockerDetail(
+            conflictKind === "field"
+              ? "unresolved_field_conflict"
+              : "unresolved_identity_conflict",
+            entity.conflictId,
+          ),
+        ],
+        `unresolved ${conflictKind} conflict`,
+      );
+    });
+    console.log(`PASS QA-01: unresolved ${conflictKind} conflict`);
+  }
+}
+
+async function runStaleReviewCases(): Promise<void> {
+  for (const reviewKind of [
+    "fact",
+    "language",
+    "media",
+    "publication",
+  ] as const) {
+    await withPhase19Fixture(async ({ client }) => {
+      const entity = await seedQualifiedPublicationFixture(client, {
+        entityId: `phase19-qa-stale-${reviewKind}-review`,
+        entityType: "brand",
+      });
+      const currentHash = await stageCompleteContract2Snapshot(
+        client,
+        entity.entityId,
+      );
+      const staleHash = `sha256:v2:${"e".repeat(64)}`;
+      assertCondition(
+        staleHash !== currentHash,
+        `${reviewKind} stale-review fixture accidentally matched current hash.`,
+      );
+      await client.execute({
+        sql: `
+          DELETE FROM entity_content_reviews
+          WHERE entity_id = ? AND review_kind = ? AND content_hash = ?
+        `,
+        args: [entity.entityId, reviewKind, currentHash],
+      });
+      await client.execute({
+        sql: `
+          INSERT INTO entity_content_reviews (
+            id, entity_id, review_kind, content_hash, status,
+            reviewer, reviewed_at, note
+          ) VALUES (?, ?, ?, ?, 'approved', 'stale-reviewer',
+                    '2026-07-15T00:00:00.000Z', 'stale hash fixture')
+        `,
+        args: [
+          `stale-review-${entity.entityId}-${reviewKind}`,
+          entity.entityId,
+          reviewKind,
+          staleHash,
+        ],
+      });
+      await assertExactContract2Blockers(
+        client,
+        entity.entityId,
+        [blockerDetail(`missing_${reviewKind}_review`, reviewKind)],
+        `stale ${reviewKind} review`,
+      );
+      await assertDirectSqlBlocked(
+        client,
+        entity.entityId,
+        `stale ${reviewKind} review direct SQL`,
+      );
+
+      if (reviewKind === "publication") {
+        const published = await publishEntity(client, {
+          entityId: entity.entityId,
+          reviewer: "phase19-current-publication-reviewer",
+        });
+        assertCondition(
+          published.contentHash === currentHash &&
+            (await currentPublicationReviewCount(
+              client,
+              entity.entityId,
+              currentHash,
+            )) === 1,
+          "publishEntity did not replace the stale publication review on the current hash.",
+        );
+        const blockers = await contract2BlockerDetails(client, entity.entityId);
+        assertCondition(
+          blockers.length === 0,
+          `Stale publication review refresh retained blockers: ${JSON.stringify(blockers)}.`,
+        );
+      } else {
+        const before = await publicationLifecycleSnapshot(
+          client,
+          entity.entityId,
+        );
+        await expectReject(
+          () =>
+            publishEntity(client, {
+              entityId: entity.entityId,
+              reviewer: "phase19-publication-reviewer",
+            }),
+          `current-hash reviews missing for ${entity.entityId}: ${reviewKind}`,
+        );
+        assertCondition(
+          (await publicationLifecycleSnapshot(client, entity.entityId)) ===
+            before,
+          `Stale ${reviewKind} review left an in_review snapshot or final review.`,
+        );
+        await assertNoPublicMembership(
+          client,
+          entity.entityId,
+          `stale ${reviewKind} review API`,
+        );
+      }
+    });
+    console.log(`PASS QA-01: stale ${reviewKind} review`);
+  }
+}
+
+async function runMirrorAndCompletePositiveCase(): Promise<void> {
+  await withPhase19Fixture(async ({ client }) => {
+    const brand = await seedQualifiedPublicationFixture(client, {
+      entityId: "phase19-qa-complete-brand",
+      entityType: "brand",
+    });
+    const sourceCounts = await client.execute({
+      sql: `
+        SELECT primary_archive_group_count, professional_secondary_group_count,
+               auxiliary_group_count
+        FROM publication_v2_source_group_counts
+        WHERE entity_id = ?
+      `,
+      args: [brand.entityId],
+    });
+    const counts = sourceCounts.rows[0];
+    assertCondition(
+      Number(counts?.primary_archive_group_count) === 1 &&
+        Number(counts?.professional_secondary_group_count) === 1 &&
+        Number(counts?.auxiliary_group_count) === 0,
+      `Mirror grouping changed source thresholds: ${JSON.stringify(counts)}.`,
+    );
+    const groups = await client.execute({
+      sql: `
+        SELECT count(DISTINCT independence_group) AS group_count
+        FROM publication_v2_source_groups
+        WHERE entity_id = ?
+      `,
+      args: [brand.entityId],
+    });
+    assertCondition(
+      Number(groups.rows[0]?.group_count) === 2,
+      "Primary item, same-origin mirror, and independent secondary did not collapse to two independence groups.",
+    );
+    await recordFirstThreeCurrentReviews(client, brand.entityId);
+    await publishEntity(client, {
+      entityId: brand.entityId,
+      reviewer: "phase19-complete-brand-reviewer",
+    });
+
+    const pen = await seedQualifiedPublicationFixture(client, {
+      entityId: "phase19-qa-complete-pen",
+      entityType: "pen",
+      brandEntityId: brand.entityId,
+    });
+    await recordFirstThreeCurrentReviews(client, pen.entityId);
+    await publishEntity(client, {
+      entityId: pen.entityId,
+      reviewer: "phase19-complete-pen-reviewer",
+    });
+    for (const entityId of [brand.entityId, pen.entityId]) {
+      const blockers = await contract2BlockerDetails(client, entityId);
+      assertCondition(
+        blockers.length === 0,
+        `${entityId} retained blockers after complete publication: ${JSON.stringify(blockers)}.`,
+      );
+      const publicRow = await client.execute({
+        sql: "SELECT id FROM public_entities WHERE id = ?",
+        args: [entityId],
+      });
+      assertCondition(
+        publicRow.rows.length === 1,
+        `${entityId} did not enter public_entities after complete qualification.`,
+      );
+    }
+    const reverseModels = await client.execute({
+      sql: `
+        SELECT pen.id
+        FROM public_entities pen
+        JOIN entity_links link
+          ON link.source_id = pen.id AND link.link_type = 'made_by'
+        WHERE pen.type = 'pen' AND link.target_id = ?
+        ORDER BY pen.id
+      `,
+      args: [brand.entityId],
+    });
+    assertCondition(
+      JSON.stringify(reverseModels.rows.map((row) => String(row.id))) ===
+        JSON.stringify([pen.entityId]),
+      `Complete brand reverse public model set mismatch: ${JSON.stringify(reverseModels.rows)}.`,
+    );
+  });
+  console.log(
+    "PASS QA-01: mirror group deduplication and complete brand+pen atomic publication",
+  );
+}
+
+async function runQa01CompleteMatrix(): Promise<void> {
+  await runApprovedClaimSingleVariableCases();
+  await runRequiredNegativeCases();
+  await runStaleReviewCases();
+  await runMirrorAndCompletePositiveCase();
+  console.log(
+    "QA-01 complete matrix passed: independent evidence-component, status, conflict, review, source-group, and complete brand+pen cases are exact and fail closed.",
+  );
+}
+
 async function assertNoPublicMembership(
   client: Client,
   entityId: string,
@@ -3402,7 +3968,9 @@ async function main(): Promise<void> {
   const args = process.argv.slice(2).filter((arg) => arg !== "--");
   if (
     args.includes("--hash-invalidation") ||
-    args.includes("--readiness-publish")
+    args.includes("--readiness-publish") ||
+    args.includes("--all") ||
+    args.length === 0
   ) {
     installPhase19FixtureSignalHandlers();
   }
@@ -3429,6 +3997,9 @@ async function main(): Promise<void> {
   if (args.length === 0 || (args.length === 1 && args[0] === "--all")) {
     await runMigrationContract();
     await runSchemaContract();
+    await runHashInvalidationContract();
+    await runReadinessPublishContract();
+    await runQa01CompleteMatrix();
     return;
   }
   throw new Error(

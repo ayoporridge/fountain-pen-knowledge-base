@@ -668,8 +668,11 @@ UNION ALL
 SELECT id, entity_id, 'status' FROM model_specs
 WHERE status IS NOT NULL AND trim(status) != '';
 
--- One row per approved core claim and missing component. The public blocker
--- code remains deliberately low-cardinality; detail_key carries the component.
+-- One row per approved core claim and missing component. Component probes are
+-- deliberately independent: a broken claim-to-citation mapping must not erase
+-- the locator, scope, or source provenance that still exists on that evidence
+-- row. The qualified-core-claim view above remains the complete-chain gate.
+-- The public blocker code stays low-cardinality; detail_key carries the part.
 CREATE VIEW publication_v2_missing_core_claim_evidence AS
 SELECT
   owner.entity_id,
@@ -705,8 +708,6 @@ WHERE claim.review_status = 'approved'
     WHERE evidence.claim_id = claim.id
       AND evidence.review_status = 'approved'
       AND citation.review_status = 'approved'
-      AND citation.target_type = 'claim'
-      AND citation.target_id = claim.id
       AND trim(evidence.evidence_locator) != ''
       AND citation.evidence_locator IS NOT NULL
       AND trim(citation.evidence_locator) != ''
@@ -731,8 +732,6 @@ WHERE claim.review_status = 'approved'
     WHERE evidence.claim_id = claim.id
       AND evidence.review_status = 'approved'
       AND citation.review_status = 'approved'
-      AND citation.target_type = 'claim'
-      AND citation.target_id = claim.id
       AND (
         scope.variant_id IS NULL
         OR EXISTS (
@@ -755,10 +754,7 @@ WHERE claim.review_status = 'approved'
   AND claim.fact_class = 'core'
   AND NOT EXISTS (
     SELECT 1 FROM claim_evidence evidence
-    JOIN citations citation
-      ON citation.id = evidence.citation_id
-      AND citation.target_type = 'claim'
-      AND citation.target_id = claim.id
+    JOIN citations citation ON citation.id = evidence.citation_id
     JOIN publication_v2_qualified_source_items source
       ON source.source_item_id = citation.source_item_id
     WHERE evidence.claim_id = claim.id
@@ -796,8 +792,6 @@ WHERE claim.review_status = 'approved'
     WHERE evidence.claim_id = claim.id
       AND evidence.review_status = 'approved'
       AND citation.review_status = 'approved'
-      AND citation.target_type = 'claim'
-      AND citation.target_id = claim.id
       AND trim(evidence.evidence_locator) != ''
       AND citation.evidence_locator IS NOT NULL
       AND trim(citation.evidence_locator) != ''
@@ -812,8 +806,6 @@ WHERE claim.review_status = 'approved'
     WHERE evidence.claim_id = claim.id
       AND evidence.review_status = 'approved'
       AND citation.review_status = 'approved'
-      AND citation.target_type = 'claim'
-      AND citation.target_id = claim.id
       AND (
         scope.variant_id IS NULL
         OR EXISTS (
@@ -826,10 +818,7 @@ WHERE claim.review_status = 'approved'
   )
   AND EXISTS (
     SELECT 1 FROM claim_evidence evidence
-    JOIN citations citation
-      ON citation.id = evidence.citation_id
-      AND citation.target_type = 'claim'
-      AND citation.target_id = claim.id
+    JOIN citations citation ON citation.id = evidence.citation_id
     JOIN publication_v2_qualified_source_items source
       ON source.source_item_id = citation.source_item_id
     WHERE evidence.claim_id = claim.id
