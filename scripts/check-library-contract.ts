@@ -141,14 +141,14 @@ function validateSignalReportPath(reportPath: string, sourcePath: string): strin
   return canonicalPath;
 }
 
-function createOwnedWorkspace(sourcePath: string): OwnedWorkspace {
+function createOwnedWorkspace(sourceBefore: CatalogSnapshot): OwnedWorkspace {
   const tempRoot = fs.realpathSync.native(
     fs.mkdtempSync(path.join(os.tmpdir(), TEMP_PREFIX)),
   );
   return {
     tempRoot,
     databasePath: path.join(tempRoot, "library-contract.db"),
-    sourceBefore: snapshotCatalogFiles(sourcePath),
+    sourceBefore,
     writer: null,
     reader: null,
     cleanupPromise: null,
@@ -206,7 +206,8 @@ async function withOwnedMigratedCopy<T>(
   signalProbeReport: string | null,
   run: (database: AuditReadClient) => Promise<T>,
 ): Promise<T> {
-  const workspace = createOwnedWorkspace(sourcePath);
+  const sourceBefore = snapshotCatalogFiles(sourcePath);
+  const workspace = createOwnedWorkspace(sourceBefore);
   let signalCleanupStarted = false;
   const signalHandlers = new Map<NodeJS.Signals, () => void>();
   for (const [signal, exitCode] of [

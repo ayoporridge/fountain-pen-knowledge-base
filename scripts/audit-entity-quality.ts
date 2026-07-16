@@ -57,7 +57,9 @@ function findDuplicateGroups(rows: readonly InventoryAuditRow[]): DuplicateGroup
 async function main(): Promise<void> {
   const limit = parseLimit();
   const jsonOutput = process.argv.includes("--json");
-  const result = await runReadinessAuditOnOwnedCopy(explicitDatabasePath());
+  const result = await runReadinessAuditOnOwnedCopy(explicitDatabasePath(), {
+    signalProbeReport: option("--signal-probe-report"),
+  });
   const duplicateGroups = findDuplicateGroups(result.rows);
   const suspiciousPenArticles: SuspiciousEntity[] = result.rows
     .filter(
@@ -76,8 +78,13 @@ async function main(): Promise<void> {
       reasons: entity.blocker_codes.filter((code) => code.includes("story")),
     }));
   const thinEntities: SuspiciousEntity[] = result.rows
-    .filter((row) => !row.content_ready)
-    .map((entity) => ({ entity, reasons: [...entity.blocker_codes] }));
+    .filter((row) => !row.content_ready || !row.is_public)
+    .map((entity) => ({
+      entity,
+      reasons: entity.content_ready
+        ? [`publication_status:${entity.publication_status}`]
+        : [...entity.blocker_codes],
+    }));
   const relationshipBlockers = result.rows.filter(
     (row) => row.entity_type === "pen" && row.made_by_status !== "exactly_one",
   ).length;
@@ -127,7 +134,7 @@ async function main(): Promise<void> {
       );
     }
   }
-  process.exitCode = result.summary.backlog === 0 ? 0 : 1;
+  process.exitCode = thinEntities.length === 0 ? 0 : 1;
 }
 
 main().catch((error) => {

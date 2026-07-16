@@ -326,6 +326,20 @@ function resolveCheckpointedSource(inputPath: string): CatalogSnapshot {
   if (sourcePath.endsWith("-wal") || sourcePath.endsWith("-shm")) {
     throw new Error("Checkpointed catalog source must identify the main file.");
   }
+  const sourceDirectory = path.dirname(sourcePath);
+  const sourceBasename = path.basename(sourcePath);
+  const rollbackArtifacts = fs
+    .readdirSync(sourceDirectory)
+    .filter(
+      (entry) =>
+        entry === `${sourceBasename}-journal` ||
+        entry.startsWith(`${sourceBasename}-mj `),
+    );
+  if (rollbackArtifacts.length > 0) {
+    throw new Error(
+      `Checkpointed catalog source has rollback journal artifacts: ${rollbackArtifacts.sort().join(", ")}.`,
+    );
+  }
   for (const familyPath of [
     sourcePath,
     `${sourcePath}-wal`,
@@ -355,6 +369,15 @@ function resolveCheckpointedSource(inputPath: string): CatalogSnapshot {
     throw new Error(
       "Checkpointed catalog source family contains hardlink aliases.",
     );
+  }
+  for (const file of [snapshot.main, snapshot.wal, snapshot.shm]) {
+    if (!file.exists) continue;
+    const stat = fs.statSync(file.path, { bigint: true });
+    if (stat.nlink.toString() !== "1") {
+      throw new Error(
+        `Checkpointed catalog ${file.kind} must have link count one; external hardlink aliases are forbidden.`,
+      );
+    }
   }
   if (snapshot.wal.exists && snapshot.wal.size !== "0") {
     throw new Error(
@@ -435,6 +458,7 @@ function resolveCheckpointedCopyDestination(
 function copyMainFileExclusive(
   sourceSnapshot: CatalogSnapshot,
   destinationPath: string,
+  createdDestination: { device: string; inode: string } | null,
 ): void {
   const sourceFlags = fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW;
   const destinationFlags =
@@ -451,6 +475,13 @@ function copyMainFileExclusive(
       destinationFlags,
       0o600,
     );
+    const destinationStat = fs.fstatSync(destinationDescriptor, {
+      bigint: true,
+    });
+    if (createdDestination) {
+      createdDestination.device = destinationStat.dev.toString();
+      createdDestination.inode = destinationStat.ino.toString();
+    }
     const sourceStatBefore = fs.fstatSync(sourceDescriptor, { bigint: true });
     if (
       !sourceStatBefore.isFile() ||
@@ -533,8 +564,13 @@ export function copyCheckpointedCatalogToDisposableCopy(
     ownedRootPath,
     sourceSnapshotBefore,
   );
+  const createdDestination = { device: "", inode: "" };
   try {
-    copyMainFileExclusive(sourceSnapshotBefore, destination.destinationPath);
+    copyMainFileExclusive(
+      sourceSnapshotBefore,
+      destination.destinationPath,
+      createdDestination,
+    );
     const sourceSnapshotAfter = resolveCheckpointedSource(
       sourceSnapshotBefore.sourcePath,
     );
@@ -562,10 +598,20 @@ export function copyCheckpointedCatalogToDisposableCopy(
     };
   } catch (error) {
     if (
+      createdDestination.device !== "" &&
       pathInsideRoot(destination.destinationPath, destination.ownedRoot) &&
-      pathEntryExists(destination.destinationPath)
+      pathEntryExists(destination.destinationPath) &&
+      !fs.lstatSync(destination.destinationPath).isSymbolicLink()
     ) {
-      fs.rmSync(destination.destinationPath, { force: true });
+      const current = fs.statSync(destination.destinationPath, {
+        bigint: true,
+      });
+      if (
+        current.dev.toString() === createdDestination.device &&
+        current.ino.toString() === createdDestination.inode
+      ) {
+        fs.rmSync(destination.destinationPath, { force: true });
+      }
     }
     throw error;
   }

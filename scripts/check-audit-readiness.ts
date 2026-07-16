@@ -869,11 +869,14 @@ type LegacyAuditJson = {
     entity_id: string;
     blocker_count: number;
     content_ready: boolean;
+    is_public: boolean;
+    publication_status: string;
   }>;
   counts?: Record<string, number>;
   summaries?: unknown[];
-  priorityBrands?: unknown[];
-  priorityPens?: unknown[];
+  priorityBrands?: Array<{ id: string; coverage_status: string }>;
+  priorityPens?: Array<{ id: string; coverage_status: string }>;
+  thinEntities?: Array<{ entity: { entity_id: string } }>;
 };
 
 function runLegacyAuditScript(
@@ -978,6 +981,17 @@ async function runLegacyAuditsContract(): Promise<void> {
             WHERE entity_id = ? AND review_kind = 'fact' AND status = 'approved'`,
       args: [singleBlocker.entityId],
     });
+    const qualifiedDraft = await seedQualifiedPublicationFixture(client, {
+      entityId: "legacy-qualified-draft",
+      entityType: "brand",
+    });
+    await approveAndPublish(client, qualifiedDraft.entityId);
+    await client.execute({
+      sql: `UPDATE entity_publications
+            SET status = 'draft', updated_at = datetime('now')
+            WHERE entity_id = ?`,
+      args: [qualifiedDraft.entityId],
+    });
     await seedLegacyStatusFixtures(client);
     await client.execute("PRAGMA wal_checkpoint(TRUNCATE)");
 
@@ -998,6 +1012,12 @@ async function runLegacyAuditsContract(): Promise<void> {
             "missing_fact_review" &&
           byId.get("legacy-single-blocker")?.content_ready === false,
         "One hard blocker was offset by otherwise complete content.",
+      );
+      assertCondition(
+        byId.get("legacy-qualified-draft")?.content_ready === true &&
+          byId.get("legacy-qualified-draft")?.is_public === false &&
+          byId.get("legacy-qualified-draft")?.publication_status === "draft",
+        "Qualified draft fixture did not isolate publication state from content readiness.",
       );
       assertCondition(
         byId.get("legacy-deprecated")?.published_story_count === 0 &&
@@ -1032,6 +1052,24 @@ async function runLegacyAuditsContract(): Promise<void> {
         unlimited.json.rows.length === unlimited.json.summary.inventory_audited,
         `${scriptName} JSON omitted canonical inventory rows.`,
       );
+      if (scriptName === "audit-entity-quality.ts") {
+        assertCondition(
+          unlimited.json.thinEntities?.some(
+            (item) => item.entity.entity_id === "legacy-qualified-draft",
+          ),
+          "Entity quality marked a fully evidenced draft as complete.",
+        );
+      } else {
+        const priorities = [
+          ...(unlimited.json.priorityBrands ?? []),
+          ...(unlimited.json.priorityPens ?? []),
+        ];
+        assertCondition(
+          priorities.find((row) => row.id === "legacy-qualified-draft")
+            ?.coverage_status !== "ready",
+          "Library coverage marked a fully evidenced draft as ready.",
+        );
+      }
     }
 
     const libraryModule = await import("../src/lib/library");
@@ -1077,6 +1115,8 @@ async function runLegacyAuditsContract(): Promise<void> {
     assertCondition(
       coverageById.get("legacy-ready-brand")?.coverage_status === "ready" &&
         coverageById.get("legacy-ready-pen")?.coverage_status === "ready" &&
+        coverageById.get("legacy-qualified-draft")?.coverage_status !==
+          "ready" &&
         coverageById.get("legacy-single-blocker")?.coverage_status !== "ready",
       "Library coverage used a score instead of hard-blocker readiness truth.",
     );
@@ -1100,6 +1140,144 @@ function libraryContractTempRoots(): Set<string> {
       .readdirSync(os.tmpdir())
       .filter((entry) => entry.startsWith("fpkg-library-contract-"))
       .map((entry) => path.join(os.tmpdir(), entry)),
+  );
+}
+
+function readinessAuditTempRoots(): Set<string> {
+  return new Set(
+    fs
+      .readdirSync(os.tmpdir())
+      .filter((entry) => entry.startsWith("fpkg-readiness-v2-"))
+      .map((entry) => path.join(os.tmpdir(), entry)),
+  );
+}
+
+type ReadinessOwnedCopyScript =
+  | "audit-readiness-v2.ts"
+  | "audit-entity-quality.ts"
+  | "audit-library-coverage.ts";
+
+function readinessScriptArguments(
+  scriptName: ReadinessOwnedCopyScript,
+  databasePath: string,
+  outputRoot: string,
+): string[] {
+  const args = [
+    path.join(ROOT, "scripts", scriptName),
+    "--database-path",
+    databasePath,
+  ];
+  if (scriptName === "audit-readiness-v2.ts") {
+    fs.mkdirSync(outputRoot, { recursive: true });
+    args.push("--out-dir", outputRoot);
+  }
+  return args;
+}
+
+async function assertReadinessSignalCleanup(
+  scriptName: ReadinessOwnedCopyScript,
+  signal: "SIGINT" | "SIGTERM",
+  databasePath: string,
+  fixtureRoot: string,
+): Promise<void> {
+  const require = createRequire(import.meta.url);
+  const tsxCli = require.resolve("tsx/cli");
+  const suffix = `${scriptName.replace(/\.ts$/, "")}-${signal.toLowerCase()}`;
+  const outputRoot = path.join(fixtureRoot, `${suffix}-out`);
+  const reportFile = path.join(fixtureRoot, `${suffix}-report.json`);
+  const args = [
+    tsxCli,
+    ...readinessScriptArguments(
+      scriptName,
+      databasePath,
+      outputRoot,
+    ),
+    "--signal-probe-report",
+    reportFile,
+  ];
+  const output: string[] = [];
+  const child = spawn(process.execPath, args, {
+    cwd: ROOT,
+    env: {
+      ...process.env,
+      TURSO_DATABASE_URL: "",
+      TURSO_AUTH_TOKEN: "",
+      FPKG_DATABASE_URL: "",
+      PUBLICATION_GATE_FIXTURE: "",
+    },
+    stdio: ["ignore", "pipe", "pipe"],
+  });
+  child.stdout?.on("data", (chunk) => output.push(String(chunk)));
+  child.stderr?.on("data", (chunk) => output.push(String(chunk)));
+  try {
+    await waitForFile(reportFile, 15_000);
+    const report = JSON.parse(fs.readFileSync(reportFile, "utf8")) as {
+      tempRoot: string;
+      databasePath: string;
+    };
+    assertCondition(
+      fs.existsSync(report.tempRoot) && fs.existsSync(report.databasePath),
+      `${scriptName} ${signal} probe did not expose its owned copy.`,
+    );
+    child.kill(signal);
+    assertCondition(
+      await waitForChildExit(child, 8_000),
+      `${scriptName} did not exit after ${signal}.`,
+    );
+    assertCondition(
+      !fs.existsSync(report.tempRoot),
+      `${scriptName} ${signal} left its owned root behind.`,
+    );
+  } catch (error) {
+    await stopChild(child);
+    throw new Error(
+      `${scriptName} ${signal} cleanup failed: ${
+        error instanceof Error ? error.message : String(error)
+      }. ${output.join("")}`,
+      { cause: error },
+    );
+  } finally {
+    fs.rmSync(reportFile, { force: true });
+  }
+}
+
+function assertReadinessFailureCleanup(
+  scriptName: ReadinessOwnedCopyScript,
+  databasePath: string,
+  fixtureRoot: string,
+): void {
+  const require = createRequire(import.meta.url);
+  const tsxCli = require.resolve("tsx/cli");
+  const outputRoot = path.join(
+    fixtureRoot,
+    `${scriptName.replace(/\.ts$/, "")}-failure-out`,
+  );
+  const child = spawnSync(
+    process.execPath,
+    [
+      tsxCli,
+      ...readinessScriptArguments(
+        scriptName,
+        databasePath,
+        outputRoot,
+      ),
+    ],
+    {
+      cwd: ROOT,
+      env: {
+        ...process.env,
+        TURSO_DATABASE_URL: "",
+        TURSO_AUTH_TOKEN: "",
+        FPKG_DATABASE_URL: "",
+        PUBLICATION_GATE_FIXTURE: "",
+      },
+      encoding: "utf8",
+      timeout: 30_000,
+    },
+  );
+  assertCondition(
+    !child.error && child.status === 1 && child.signal === null,
+    `${scriptName} failure probe did not fail closed: ${child.stderr || child.stdout}`,
   );
 }
 
@@ -1187,6 +1365,18 @@ async function runCheckpointedCopyContract(): Promise<void> {
     );
     fs.writeFileSync(`${sourcePath}-wal`, "");
 
+    fs.writeFileSync(`${sourcePath}-journal`, "hot rollback state");
+    expectThrow(
+      () =>
+        copyCheckpointedCatalogToDisposableCopy(
+          sourcePath,
+          path.join(ownedRoot, "rollback-journal.db"),
+          ownedRoot,
+        ),
+      "rollback journal artifacts",
+    );
+    fs.rmSync(`${sourcePath}-journal`);
+
     const mainSymlink = path.join(tempRoot, "main-link.db");
     fs.symlinkSync(sourcePath, mainSymlink);
     expectThrow(
@@ -1232,8 +1422,36 @@ async function runCheckpointedCopyContract(): Promise<void> {
           hardlinkDestination,
           ownedRoot,
         ),
-      "hardlink alias of the source family",
+      "link count one",
     );
+    fs.rmSync(hardlinkDestination);
+
+    const walOwnerPath = path.join(tempRoot, "wal-owner.db");
+    const walOwner = new Database(walOwnerPath);
+    try {
+      walOwner.pragma("journal_mode = WAL");
+      walOwner.pragma("wal_autocheckpoint = 0");
+      walOwner.exec(
+        "CREATE TABLE wal_probe(id INTEGER PRIMARY KEY); INSERT INTO wal_probe DEFAULT VALUES;",
+      );
+      assertCondition(
+        fs.statSync(`${walOwnerPath}-wal`).size > 0,
+        "Hardlink bypass fixture did not retain a non-empty WAL.",
+      );
+      const hiddenWalAlias = path.join(tempRoot, "hidden-wal-alias.db");
+      fs.linkSync(walOwnerPath, hiddenWalAlias);
+      expectThrow(
+        () =>
+          copyCheckpointedCatalogToDisposableCopy(
+            hiddenWalAlias,
+            path.join(ownedRoot, "hidden-wal-copy.db"),
+            ownedRoot,
+          ),
+        "link count one",
+      );
+    } finally {
+      walOwner.close();
+    }
     const existingDestination = path.join(ownedRoot, "existing.db");
     fs.writeFileSync(existingDestination, "existing");
     expectThrow(
@@ -1244,6 +1462,10 @@ async function runCheckpointedCopyContract(): Promise<void> {
           ownedRoot,
         ),
       "must not already exist",
+    );
+    assertCondition(
+      fs.readFileSync(existingDestination, "utf8") === "existing",
+      "Rejected destination overwrite deleted or changed the caller file.",
     );
 
     const outsideRoot = path.join(tempRoot, "outside");
@@ -1392,67 +1614,105 @@ async function runLibraryContractSafety(): Promise<void> {
       "Library contract checker did not reject remote environment selection safely.",
     );
 
-    const reportFile = path.join(
-      fixture.tempRoot,
-      `library-signal-${process.pid}.json`,
-    );
     const require = createRequire(import.meta.url);
     const tsxCli = require.resolve("tsx/cli");
-    const signalOutput: string[] = [];
-    const signalChild = spawn(
-      process.execPath,
-      [
-        tsxCli,
-        LIBRARY_CONTRACT_PATH,
-        "--database-path",
-        fixture.databasePath,
-        "--signal-probe-report",
-        reportFile,
-      ],
-      {
-        cwd: ROOT,
-        env: {
-          ...process.env,
-          TURSO_DATABASE_URL: "",
-          TURSO_AUTH_TOKEN: "",
-          FPKG_DATABASE_URL: "",
-          PUBLICATION_GATE_FIXTURE: "",
+    for (const signal of ["SIGINT", "SIGTERM"] as const) {
+      const reportFile = path.join(
+        fixture.tempRoot,
+        `library-${signal.toLowerCase()}-${process.pid}.json`,
+      );
+      const signalOutput: string[] = [];
+      const signalChild = spawn(
+        process.execPath,
+        [
+          tsxCli,
+          LIBRARY_CONTRACT_PATH,
+          "--database-path",
+          fixture.databasePath,
+          "--signal-probe-report",
+          reportFile,
+        ],
+        {
+          cwd: ROOT,
+          env: {
+            ...process.env,
+            TURSO_DATABASE_URL: "",
+            TURSO_AUTH_TOKEN: "",
+            FPKG_DATABASE_URL: "",
+            PUBLICATION_GATE_FIXTURE: "",
+          },
+          stdio: ["ignore", "pipe", "pipe"],
         },
-        stdio: ["ignore", "pipe", "pipe"],
-      },
-    );
-    signalChild.stdout?.on("data", (chunk) => signalOutput.push(String(chunk)));
-    signalChild.stderr?.on("data", (chunk) => signalOutput.push(String(chunk)));
-    try {
-      await waitForFile(reportFile, 10_000);
-      const report = JSON.parse(fs.readFileSync(reportFile, "utf8")) as {
-        tempRoot: string;
-        databasePath: string;
-      };
-      assertCondition(
-        fs.existsSync(report.tempRoot) && fs.existsSync(report.databasePath),
-        "Library contract signal probe did not expose its owned copy.",
       );
-      signalChild.kill("SIGTERM");
-      assertCondition(
-        await waitForChildExit(signalChild, 8_000),
-        "Library contract signal probe did not exit after SIGTERM.",
-      );
-      assertCondition(
-        !fs.existsSync(report.tempRoot),
-        "Library contract SIGTERM cleanup left its owned root behind.",
-      );
-    } catch (error) {
-      await stopChild(signalChild);
-      throw new Error(
-        `Library contract signal cleanup failed: ${
-          error instanceof Error ? error.message : String(error)
-        }. ${signalOutput.join("")}`,
-        { cause: error },
-      );
-    } finally {
-      fs.rmSync(reportFile, { force: true });
+      signalChild.stdout?.on("data", (chunk) => signalOutput.push(String(chunk)));
+      signalChild.stderr?.on("data", (chunk) => signalOutput.push(String(chunk)));
+      try {
+        await waitForFile(reportFile, 10_000);
+        const report = JSON.parse(fs.readFileSync(reportFile, "utf8")) as {
+          tempRoot: string;
+          databasePath: string;
+        };
+        assertCondition(
+          fs.existsSync(report.tempRoot) && fs.existsSync(report.databasePath),
+          "Library contract signal probe did not expose its owned copy.",
+        );
+        signalChild.kill(signal);
+        assertCondition(
+          await waitForChildExit(signalChild, 8_000),
+          `Library contract signal probe did not exit after ${signal}.`,
+        );
+        assertCondition(
+          !fs.existsSync(report.tempRoot),
+          `Library contract ${signal} cleanup left its owned root behind.`,
+        );
+      } catch (error) {
+        await stopChild(signalChild);
+        throw new Error(
+          `Library contract ${signal} cleanup failed: ${
+            error instanceof Error ? error.message : String(error)
+          }. ${signalOutput.join("")}`,
+          { cause: error },
+        );
+      } finally {
+        fs.rmSync(reportFile, { force: true });
+      }
     }
+
+    const readinessRootsBefore = readinessAuditTempRoots();
+    const readinessCorruptPath = path.join(
+      fixture.tempRoot,
+      "readiness-corrupt.db",
+    );
+    fs.writeFileSync(readinessCorruptPath, "not a sqlite database");
+    const readinessCorruptBefore = snapshotCatalogFiles(readinessCorruptPath);
+    for (const scriptName of [
+      "audit-readiness-v2.ts",
+      "audit-entity-quality.ts",
+      "audit-library-coverage.ts",
+    ] as const) {
+      assertReadinessFailureCleanup(
+        scriptName,
+        readinessCorruptPath,
+        fixture.tempRoot,
+      );
+      for (const signal of ["SIGINT", "SIGTERM"] as const) {
+        await assertReadinessSignalCleanup(
+          scriptName,
+          signal,
+          fixture.databasePath,
+          fixture.tempRoot,
+        );
+      }
+    }
+    assertCatalogSnapshotUnchanged(
+      readinessCorruptBefore,
+      snapshotCatalogFiles(readinessCorruptPath),
+    );
+    assertCondition(
+      JSON.stringify([...readinessRootsBefore].sort()) ===
+        JSON.stringify([...readinessAuditTempRoots()].sort()),
+      "Readiness/legacy failure or signal probes leaked an owned root.",
+    );
 
     assertCatalogSnapshotUnchanged(
       sourceBefore,
@@ -1468,7 +1728,7 @@ async function runLibraryContractSafety(): Promise<void> {
   snapshotRealCatalogInvariant(realBefore);
 
   console.log(
-    "Library contract safety passed: checkpointed exclusive copy/migration, real/remote/symlink/hardlink/overwrite rejection, concurrent-change failure, cleanup, and current real main/WAL/SHM snapshot preservation.",
+    "Shared audit safety passed: checkpointed exclusive copy/migration, remote/symlink/hardlink/WAL/journal/overwrite rejection, concurrent-change failure, success/failure/SIGINT/SIGTERM cleanup, and current real main/WAL/SHM snapshot preservation.",
   );
 }
 

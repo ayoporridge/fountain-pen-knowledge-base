@@ -2,8 +2,12 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { createClient } from "@libsql/client";
+import { createClient, type Client } from "@libsql/client";
 import { migrateDatabase } from "../src/lib/db";
+import type {
+  AuditReadClient,
+  CatalogSnapshot,
+} from "../src/lib/audit/audit-contracts";
 import {
   assertCatalogSnapshotUnchanged,
   copyCheckpointedCatalogToDisposableCopy,
@@ -36,6 +40,21 @@ type CliOptions = {
   json: boolean;
   inventoryOnly: boolean;
   verifyBaseline: boolean;
+  signalProbeReport: string | null;
+};
+
+export type ReadinessOwnedCopyOptions = {
+  signalProbeReport?: string | null;
+};
+
+type ReadinessOwnedWorkspace = {
+  ownedRoot: string;
+  auditPath: string;
+  sourceBefore: CatalogSnapshot;
+  preMigrationCopy: AuditReadClient | null;
+  writableCopy: Client | null;
+  migratedCopy: AuditReadClient | null;
+  cleaned: boolean;
 };
 
 type ExistingFileIdentity = {
@@ -48,7 +67,12 @@ function parseArguments(argv: readonly string[]): CliOptions {
   const args = argv.filter((arg) => arg !== "--");
   const values = new Map<string, string>();
   const flags = new Set<string>();
-  const valueOptions = new Set(["--database-path", "--out-dir", "--limit"]);
+  const valueOptions = new Set([
+    "--database-path",
+    "--out-dir",
+    "--limit",
+    "--signal-probe-report",
+  ]);
   const booleanOptions = new Set([
     "--json",
     "--inventory-only",
@@ -104,6 +128,7 @@ function parseArguments(argv: readonly string[]): CliOptions {
     json: flags.has("--json"),
     inventoryOnly: flags.has("--inventory-only"),
     verifyBaseline: flags.has("--verify-baseline"),
+    signalProbeReport: values.get("--signal-probe-report") ?? null,
   };
 }
 
@@ -279,63 +304,213 @@ function writeArtifacts(
   }
 }
 
+function validateSignalProbeReport(
+  reportPath: string | null | undefined,
+  sourcePath: string,
+): string | null {
+  if (!reportPath) return null;
+  if (!path.isAbsolute(reportPath)) {
+    throw new Error("--signal-probe-report must be absolute.");
+  }
+  if (fs.existsSync(reportPath)) {
+    throw new Error("--signal-probe-report must not already exist.");
+  }
+  const parent = path.dirname(reportPath);
+  if (!fs.existsSync(parent) || !fs.statSync(parent).isDirectory()) {
+    throw new Error("--signal-probe-report parent must be an existing directory.");
+  }
+  const canonicalParent = fs.realpathSync.native(parent);
+  if (canonicalParent !== path.resolve(parent)) {
+    throw new Error("--signal-probe-report must not traverse a symlink.");
+  }
+  const canonicalReport = path.join(canonicalParent, path.basename(reportPath));
+  if (
+    [sourcePath, `${sourcePath}-wal`, `${sourcePath}-shm`].includes(
+      canonicalReport,
+    )
+  ) {
+    throw new Error("--signal-probe-report must not alias the source catalog.");
+  }
+  return canonicalReport;
+}
+
+function cleanupReadinessWorkspace(workspace: ReadinessOwnedWorkspace): void {
+  if (workspace.cleaned) return;
+  workspace.cleaned = true;
+  const cleanupErrors: unknown[] = [];
+  for (const key of [
+    "migratedCopy",
+    "writableCopy",
+    "preMigrationCopy",
+  ] as const) {
+    try {
+      workspace[key]?.close();
+    } catch (error) {
+      cleanupErrors.push(error);
+    } finally {
+      workspace[key] = null;
+    }
+  }
+  try {
+    const canonicalRoot = fs.existsSync(workspace.ownedRoot)
+      ? fs.realpathSync.native(workspace.ownedRoot)
+      : workspace.ownedRoot;
+    if (
+      path.dirname(canonicalRoot) !== fs.realpathSync.native(os.tmpdir()) ||
+      !path.basename(canonicalRoot).startsWith("fpkg-readiness-v2-")
+    ) {
+      throw new Error("Readiness audit cleanup refused an unmanaged root.");
+    }
+    fs.rmSync(canonicalRoot, { recursive: true, force: true });
+  } catch (error) {
+    cleanupErrors.push(error);
+  }
+  try {
+    assertCatalogSnapshotUnchanged(
+      workspace.sourceBefore,
+      snapshotCatalogFiles(workspace.sourceBefore.sourcePath),
+    );
+  } catch (error) {
+    cleanupErrors.push(error);
+  }
+  if (cleanupErrors.length > 0) {
+    throw new AggregateError(
+      cleanupErrors,
+      "Readiness audit owned workspace cleanup failed closed.",
+    );
+  }
+}
+
 export async function runReadinessAuditOnOwnedCopy(
   databasePath: string,
+  options: ReadinessOwnedCopyOptions = {},
 ): Promise<InventoryAuditResult> {
+  if (process.env.TURSO_DATABASE_URL?.trim()) {
+    throw new Error(
+      "Turso database selection is forbidden for explicit readiness audits.",
+    );
+  }
+  const sourceBefore = snapshotCatalogFiles(databasePath);
+  const signalProbeReport = validateSignalProbeReport(
+    options.signalProbeReport,
+    sourceBefore.sourcePath,
+  );
   const ownedRoot = fs.realpathSync.native(
     fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-readiness-v2-")),
   );
-  const auditPath = path.join(ownedRoot, "audit-copy.db");
+  const workspace: ReadinessOwnedWorkspace = {
+    ownedRoot,
+    auditPath: path.join(ownedRoot, "audit-copy.db"),
+    sourceBefore,
+    preMigrationCopy: null,
+    writableCopy: null,
+    migratedCopy: null,
+    cleaned: false,
+  };
+  let signalCleanupStarted = false;
+  const signalHandlers = new Map<NodeJS.Signals, () => void>();
+  for (const [signal, exitCode] of [
+    ["SIGINT", 130],
+    ["SIGTERM", 143],
+  ] as const) {
+    const handler = () => {
+      if (signalCleanupStarted) return;
+      signalCleanupStarted = true;
+      try {
+        cleanupReadinessWorkspace(workspace);
+        process.exit(exitCode);
+      } catch {
+        process.exit(1);
+      }
+    };
+    signalHandlers.set(signal, handler);
+    process.once(signal, handler);
+  }
+
   try {
-    const sourceBefore = snapshotCatalogFiles(databasePath);
     copyCheckpointedCatalogToDisposableCopy(
       databasePath,
-      auditPath,
+      workspace.auditPath,
       ownedRoot,
       { expectedSourceSnapshot: sourceBefore },
     );
 
-    const preMigrationCopy = openReadOnlyCatalog(auditPath, { env: {} });
     let sourceProvenance;
+    workspace.preMigrationCopy = openReadOnlyCatalog(workspace.auditPath, {
+      env: {},
+    });
     try {
-      sourceProvenance = captureSourceInventoryProvenance(preMigrationCopy);
+      sourceProvenance = captureSourceInventoryProvenance(
+        workspace.preMigrationCopy,
+      );
     } finally {
-      preMigrationCopy.close();
+      workspace.preMigrationCopy.close();
+      workspace.preMigrationCopy = null;
     }
 
-    const writableCopy = createClient({ url: `file:${auditPath}` });
+    workspace.writableCopy = createClient({
+      url: `file:${workspace.auditPath}`,
+    });
     try {
-      await migrateDatabase(writableCopy);
-      await writableCopy.execute("PRAGMA wal_checkpoint(TRUNCATE)");
-      const quickCheck = await writableCopy.execute("PRAGMA quick_check");
+      await migrateDatabase(workspace.writableCopy);
+      await workspace.writableCopy.execute("PRAGMA wal_checkpoint(TRUNCATE)");
+      const quickCheck = await workspace.writableCopy.execute(
+        "PRAGMA quick_check",
+      );
       if (
         quickCheck.rows.length !== 1 ||
         String(quickCheck.rows[0]?.quick_check) !== "ok"
       ) {
         throw new Error("Audit owned copy failed PRAGMA quick_check.");
       }
-      const foreignKeys = await writableCopy.execute("PRAGMA foreign_key_check");
+      const foreignKeys = await workspace.writableCopy.execute(
+        "PRAGMA foreign_key_check",
+      );
       if (foreignKeys.rows.length > 0) {
         throw new Error(
           `Audit owned copy has ${foreignKeys.rows.length} foreign-key violation(s).`,
         );
       }
     } finally {
-      writableCopy.close();
+      workspace.writableCopy.close();
+      workspace.writableCopy = null;
     }
 
-    const migratedCopy = openReadOnlyCatalog(auditPath, { env: {} });
+    if (signalProbeReport) {
+      fs.writeFileSync(
+        signalProbeReport,
+        JSON.stringify({
+          tempRoot: workspace.ownedRoot,
+          databasePath: workspace.auditPath,
+        }),
+        { encoding: "utf8", flag: "wx", mode: 0o600 },
+      );
+      await new Promise<never>(() => {
+        setInterval(() => undefined, 1_000);
+      });
+    }
+
+    workspace.migratedCopy = openReadOnlyCatalog(workspace.auditPath, {
+      env: {},
+    });
     try {
       const provenance = captureInventoryAuditProvenance(
-        migratedCopy,
+        workspace.migratedCopy,
         sourceProvenance,
       );
-      return runReadinessAudit(migratedCopy, provenance);
+      return runReadinessAudit(workspace.migratedCopy, provenance);
     } finally {
-      migratedCopy.close();
+      workspace.migratedCopy.close();
+      workspace.migratedCopy = null;
     }
   } finally {
-    fs.rmSync(ownedRoot, { recursive: true, force: true });
+    try {
+      cleanupReadinessWorkspace(workspace);
+    } finally {
+      for (const [signal, handler] of signalHandlers) {
+        process.off(signal, handler);
+      }
+    }
   }
 }
 
@@ -343,7 +518,9 @@ async function main(): Promise<void> {
   const options = parseArguments(process.argv.slice(2));
   const validated = validateInputs(options);
   const sourceBefore = snapshotCatalogFiles(validated.databasePath);
-  const result = await runReadinessAuditOnOwnedCopy(validated.databasePath);
+  const result = await runReadinessAuditOnOwnedCopy(validated.databasePath, {
+    signalProbeReport: options.signalProbeReport,
+  });
   assertCatalogSnapshotUnchanged(
     sourceBefore,
     snapshotCatalogFiles(validated.databasePath),

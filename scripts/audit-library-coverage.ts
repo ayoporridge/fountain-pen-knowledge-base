@@ -66,6 +66,7 @@ function coverageScore(row: InventoryAuditRow): number {
 
 function coverageRow(row: InventoryAuditRow) {
   const score = coverageScore(row);
+  const qualifiesAsReady = row.content_ready && row.is_public;
   return {
     id: row.entity_id,
     type: row.entity_type,
@@ -87,13 +88,18 @@ function coverageRow(row: InventoryAuditRow) {
     ].filter((state) => state === "approved_current").length,
     blocker_count: row.blocker_count,
     blocker_codes: row.blocker_codes,
+    is_public: row.is_public,
     coverage_score: score,
-    coverage_status: row.content_ready
+    coverage_status: qualifiesAsReady
       ? ("ready" as const)
       : score >= 45
         ? ("starter" as const)
         : ("gap" as const),
-    missing_items: row.blocker_codes,
+    missing_items: qualifiesAsReady
+      ? []
+      : row.blocker_codes.length > 0
+        ? row.blocker_codes
+        : [`publication_status:${row.publication_status}`],
   };
 }
 
@@ -128,7 +134,9 @@ function summarize(type: "brand" | "pen", rows: readonly CoverageRow[]) {
 async function main(): Promise<void> {
   const limit = parseLimit();
   const jsonOutput = process.argv.includes("--json");
-  const result = await runReadinessAuditOnOwnedCopy(explicitDatabasePath());
+  const result = await runReadinessAuditOnOwnedCopy(explicitDatabasePath(), {
+    signalProbeReport: option("--signal-probe-report"),
+  });
   const rows = result.rows.map(coverageRow);
   const byPriority = (left: CoverageRow, right: CoverageRow) =>
     left.coverage_score - right.coverage_score ||
@@ -173,7 +181,9 @@ async function main(): Promise<void> {
       );
     }
   }
-  process.exitCode = result.summary.backlog === 0 ? 0 : 1;
+  process.exitCode = rows.every((row) => row.coverage_status === "ready")
+    ? 0
+    : 1;
 }
 
 main().catch((error) => {

@@ -235,6 +235,7 @@ export interface LibraryCoverageEntityRecord {
   model_spec_count: number;
   current_review_count: number;
   blocker_count: number;
+  is_public: boolean;
   blocker_codes: string[];
   coverage_score: number;
   coverage_status: "ready" | "starter" | "gap";
@@ -968,8 +969,12 @@ export async function getLibraryStats() {
 
 type RawCoverageEntity = Omit<
   LibraryCoverageEntityRecord,
-  "coverage_score" | "coverage_status" | "missing_items" | "blocker_codes"
-> & { blocker_codes_json: string | null };
+  | "coverage_score"
+  | "coverage_status"
+  | "missing_items"
+  | "blocker_codes"
+  | "is_public"
+> & { blocker_codes_json: string | null; is_public: number };
 
 function normalizeCoverageRow(row: RawCoverageEntity): RawCoverageEntity {
   return {
@@ -1019,18 +1024,26 @@ function enrichCoverageEntity(
   const row = normalizeCoverageRow(rawRow);
   const coverage_score = scoreCoverage(row);
   const blocker_codes = parseBlockerCodes(row.blocker_codes_json);
-  const { blocker_codes_json: _blockerCodesJson, ...publicRow } = row;
+  const {
+    blocker_codes_json: _blockerCodesJson,
+    is_public: rawIsPublic,
+    ...publicRow
+  } = row;
+  const is_public = rawIsPublic === 1;
+  const missing_items =
+    blocker_codes.length > 0 ? blocker_codes : is_public ? [] : ["not_public"];
   return {
     ...publicRow,
+    is_public,
     blocker_codes,
     coverage_score,
     coverage_status:
-      row.blocker_count === 0
+      row.blocker_count === 0 && is_public
         ? "ready"
         : coverage_score >= 45
           ? "starter"
           : "gap",
-    missing_items: blocker_codes,
+    missing_items,
   };
 }
 
@@ -1135,10 +1148,12 @@ export async function getLibraryCoverageReport(
                 WHERE review.entity_id = e.id
               ), 0) AS current_review_count,
               readiness.blocker_count,
+              CASE WHEN public_owner.id IS NULL THEN 0 ELSE 1 END AS is_public,
               readiness.blockers_json AS blocker_codes_json
        FROM entities e
        JOIN public_entity_readiness readiness
          ON readiness.entity_id = e.id AND readiness.contract_version = 2
+       LEFT JOIN public_entities public_owner ON public_owner.id = e.id
        WHERE e.type IN ('brand', 'pen')
        ORDER BY e.type, e.name`,
     )) as RawCoverageEntity[]
