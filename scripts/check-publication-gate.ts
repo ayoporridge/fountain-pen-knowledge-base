@@ -14,8 +14,13 @@ import {
   computePublicationContentHash,
   publishEntity,
   readPublicationContentPayload,
+  recordEntityContentReview,
   setEntityPublicationStatus,
 } from "../src/lib/publication";
+import {
+  seedQualifiedPublicationFixture,
+  withPhase19Fixture,
+} from "./lib/phase19-fixtures";
 
 const ROOT = process.cwd();
 const REAL_DATABASE_PATH = path.join(ROOT, "data", "fpkg.db");
@@ -1256,7 +1261,7 @@ async function hashFixture(reverse: boolean): Promise<{
   });
 }
 
-async function runInvalidationContract(): Promise<void> {
+async function runLegacyInvalidationContract(): Promise<void> {
   const forwardHash = await hashFixture(false);
   const reverseHash = await hashFixture(true);
   assertCondition(
@@ -1493,6 +1498,602 @@ async function runInvalidationContract(): Promise<void> {
 
   console.log(
     "Publication invalidation contract passed: canonical hash is order/NFC/newline stable, critical edits change it, and the 12-table 36-mutation fan-out matrix is fail-closed.",
+  );
+}
+
+async function approveCurrentContentAndPublish(
+  client: Client,
+  entityId: string,
+): Promise<string> {
+  let contentHash: string | null = null;
+  for (const reviewKind of ["fact", "language", "media"] as const) {
+    const review = await recordEntityContentReview(client, {
+      entityId,
+      reviewKind,
+      reviewer: `phase19-${reviewKind}-reviewer`,
+      status: "approved",
+      notes: "Fixed contract-v2 invalidation fixture review.",
+    });
+    contentHash ??= review.contentHash;
+    assertCondition(
+      review.contentHash === contentHash,
+      `${entityId} content changed while recording independent reviews.`,
+    );
+  }
+  const published = await publishEntity(client, {
+    entityId,
+    reviewer: "phase19-publication-reviewer",
+  });
+  assertCondition(
+    published.contentHash === contentHash,
+    `${entityId} publication used a different hash than its content reviews.`,
+  );
+  await assertPublic(client, entityId);
+  return published.contentHash;
+}
+
+async function assertV2InvalidatingMutation(
+  client: Client,
+  entityId: string,
+  label: string,
+  counter: { count: number },
+  mutate: () => Promise<unknown>,
+): Promise<void> {
+  const before = await publicationState(client, entityId);
+  const beforeHash = await computePublicationContentHash(client, entityId);
+  assertCondition(
+    before.status === "published" && before.approvedHash === beforeHash,
+    `${label} fixture was not current-hash published.`,
+  );
+  await mutate();
+  counter.count += 1;
+  const after = await publicationState(client, entityId);
+  const afterHash = await computePublicationContentHash(client, entityId);
+  assertCondition(
+    after.revision > before.revision,
+    `${label} did not advance content_revision.`,
+  );
+  assertCondition(
+    after.status === "in_review" && after.approvedHash === before.approvedHash,
+    `${label} did not retain the stale audit hash while demoting publication.`,
+  );
+  assertCondition(afterHash !== beforeHash, `${label} did not change sha256:v2.`);
+  await assertNotPublic(client, entityId);
+  await expectReject(
+    () =>
+      publishEntity(client, {
+        entityId,
+        reviewer: "phase19-stale-review-check",
+      }),
+    "current-hash reviews missing",
+  );
+  await approveCurrentContentAndPublish(client, entityId);
+}
+
+async function runInvalidationContract(): Promise<void> {
+  await withPhase19Fixture(async ({ client }) => {
+    const mutations = { count: 0 };
+    const brand = await seedQualifiedPublicationFixture(client, {
+      entityId: "phase19-invalidation-brand",
+      entityType: "brand",
+    });
+    await approveCurrentContentAndPublish(client, brand.entityId);
+
+    const extraScopeId = `${brand.entityId}-scope-extra`;
+    await assertV2InvalidatingMutation(
+      client,
+      brand.entityId,
+      "fact_scopes INSERT",
+      mutations,
+      () =>
+        client.execute({
+          sql: `
+            INSERT INTO fact_scopes (
+              id, entity_id, scope_key, market, production_state
+            ) VALUES (?, ?, 'global-historical', 'global', 'historical')
+          `,
+          args: [extraScopeId, brand.entityId],
+        }),
+    );
+    await assertV2InvalidatingMutation(
+      client,
+      brand.entityId,
+      "citation/claim_evidence scope rebind",
+      mutations,
+      () =>
+        client.batch(
+          [
+            {
+              sql: "UPDATE citations SET scope_id = ? WHERE id = ?",
+              args: [extraScopeId, brand.primaryCitationId],
+            },
+            {
+              sql: "UPDATE claim_evidence SET scope_id = ? WHERE id = ?",
+              args: [extraScopeId, brand.primaryClaimEvidenceId],
+            },
+          ],
+          "write",
+        ),
+    );
+    await assertV2InvalidatingMutation(
+      client,
+      brand.entityId,
+      "claims.fact_class UPDATE",
+      mutations,
+      () =>
+        client.execute({
+          sql: "UPDATE claims SET fact_class = 'editorial' WHERE id = ?",
+          args: [brand.mirrorClaimId],
+        }),
+    );
+    await assertV2InvalidatingMutation(
+      client,
+      brand.entityId,
+      "claim_evidence UPDATE",
+      mutations,
+      () =>
+        client.execute({
+          sql: "UPDATE claim_evidence SET evidence_locator = evidence_locator || ':updated' WHERE id = ?",
+          args: [brand.mirrorClaimEvidenceId],
+        }),
+    );
+    await assertV2InvalidatingMutation(
+      client,
+      brand.entityId,
+      "claim_evidence DELETE",
+      mutations,
+      () =>
+        client.execute({
+          sql: "DELETE FROM claim_evidence WHERE id = ?",
+          args: [brand.mirrorClaimEvidenceId],
+        }),
+    );
+    await assertV2InvalidatingMutation(
+      client,
+      brand.entityId,
+      "claim_evidence INSERT",
+      mutations,
+      () =>
+        client.execute({
+          sql: `
+            INSERT INTO claim_evidence (
+              id, claim_id, citation_id, scope_id, evidence_locator,
+              review_status
+            ) VALUES (?, ?, ?, ?, 'mapping-locator:restored', 'approved')
+          `,
+          args: [
+            brand.mirrorClaimEvidenceId,
+            brand.mirrorClaimId,
+            brand.mirrorCitationId,
+            brand.scopeId,
+          ],
+        }),
+    );
+
+    const auxiliaryCitationId = `${brand.entityId}-citation-auxiliary`;
+    await assertV2InvalidatingMutation(
+      client,
+      brand.entityId,
+      "citations INSERT",
+      mutations,
+      () =>
+        client.execute({
+          sql: `
+            INSERT INTO citations (
+              id, target_type, target_id, source_item_id, note,
+              review_status, evidence_locator, scope_id
+            ) VALUES (?, 'entity', ?, ?, 'auxiliary citation',
+                      'approved', 'auxiliary:1', ?)
+          `,
+          args: [
+            auxiliaryCitationId,
+            brand.entityId,
+            brand.mirrorItemId,
+            brand.scopeId,
+          ],
+        }),
+    );
+    await assertV2InvalidatingMutation(
+      client,
+      brand.entityId,
+      "citations UPDATE",
+      mutations,
+      () =>
+        client.execute({
+          sql: "UPDATE citations SET evidence_locator = 'auxiliary:2' WHERE id = ?",
+          args: [auxiliaryCitationId],
+        }),
+    );
+    await assertV2InvalidatingMutation(
+      client,
+      brand.entityId,
+      "citations DELETE",
+      mutations,
+      () =>
+        client.batch(
+          [
+            {
+              sql: "DELETE FROM citations WHERE id = ?",
+              args: [auxiliaryCitationId],
+            },
+            {
+              sql: "UPDATE fact_scopes SET nib_scope = 'citation-delete-marker' WHERE id = ?",
+              args: [brand.scopeId],
+            },
+          ],
+          "write",
+        ),
+    );
+
+    for (const [label, sql] of [
+      [
+        "source_items.source_tier UPDATE",
+        "UPDATE source_items SET source_tier = 'contemporary_archive' WHERE id = ?",
+      ],
+      [
+        "source_items.independence_group UPDATE",
+        "UPDATE source_items SET independence_group = independence_group || '-updated' WHERE id = ?",
+      ],
+      [
+        "source_items.archive_url UPDATE",
+        "UPDATE source_items SET archive_url = archive_url || '?v=2' WHERE id = ?",
+      ],
+      [
+        "source_items.archive_locator UPDATE",
+        "UPDATE source_items SET archive_locator = archive_locator || ':v2' WHERE id = ?",
+      ],
+      [
+        "source_items.allowed_use UPDATE",
+        "UPDATE source_items SET allowed_use = 'metadata_only' WHERE id = ?",
+      ],
+      [
+        "source_items.retrieved_at UPDATE",
+        "UPDATE source_items SET retrieved_at = '2026-07-17' WHERE id = ?",
+      ],
+    ] as const) {
+      await assertV2InvalidatingMutation(
+        client,
+        brand.entityId,
+        label,
+        mutations,
+        () =>
+          client.execute({
+            sql,
+            args: [brand.primaryItemId],
+          }),
+      );
+    }
+    await assertV2InvalidatingMutation(
+      client,
+      brand.entityId,
+      "source_registry provenance UPDATE",
+      mutations,
+      () =>
+        client.execute({
+          sql: `
+            UPDATE source_registry
+            SET default_source_tier = 'contemporary_archive',
+                default_independence_group = default_independence_group || '-updated'
+            WHERE id = ?
+          `,
+          args: [brand.primaryRegistryId],
+        }),
+    );
+    await assertV2InvalidatingMutation(
+      client,
+      brand.entityId,
+      "fact_conflicts UPDATE",
+      mutations,
+      () =>
+        client.execute({
+          sql: "UPDATE fact_conflicts SET resolution_note = resolution_note || ':updated' WHERE id = ?",
+          args: [brand.conflictId],
+        }),
+    );
+    const additionalMemberId = `${brand.entityId}-conflict-member-extra`;
+    await assertV2InvalidatingMutation(
+      client,
+      brand.entityId,
+      "fact_conflict_members INSERT",
+      mutations,
+      () =>
+        client.execute({
+          sql: `
+            INSERT INTO fact_conflict_members (
+              id, conflict_id, citation_id, asserted_value
+            ) VALUES (?, ?, ?, '2025')
+          `,
+          args: [additionalMemberId, brand.conflictId, brand.secondaryCitationId],
+        }),
+    );
+    await assertV2InvalidatingMutation(
+      client,
+      brand.entityId,
+      "fact_conflict_members UPDATE",
+      mutations,
+      () =>
+        client.execute({
+          sql: "UPDATE fact_conflict_members SET asserted_value = '2024' WHERE id = ?",
+          args: [additionalMemberId],
+        }),
+    );
+    await assertV2InvalidatingMutation(
+      client,
+      brand.entityId,
+      "fact_conflict_members DELETE",
+      mutations,
+      () =>
+        client.batch(
+          [
+            {
+              sql: "DELETE FROM fact_conflict_members WHERE id = ?",
+              args: [additionalMemberId],
+            },
+            {
+              sql: "UPDATE fact_scopes SET material_scope = 'member-delete-marker' WHERE id = ?",
+              args: [brand.scopeId],
+            },
+          ],
+          "write",
+        ),
+    );
+    const additionalConflictId = `${brand.entityId}-conflict-extra`;
+    await assertV2InvalidatingMutation(
+      client,
+      brand.entityId,
+      "fact_conflicts INSERT",
+      mutations,
+      () =>
+        client.execute({
+          sql: `
+            INSERT INTO fact_conflicts (
+              id, entity_id, field_key, scope_id, conflict_kind,
+              status, resolution_note
+            ) VALUES (?, ?, 'material', ?, 'field', 'resolved', 'resolved')
+          `,
+          args: [additionalConflictId, brand.entityId, brand.scopeId],
+        }),
+    );
+    await assertV2InvalidatingMutation(
+      client,
+      brand.entityId,
+      "fact_conflicts second UPDATE",
+      mutations,
+      () =>
+        client.execute({
+          sql: "UPDATE fact_conflicts SET status = 'dismissed', resolution_note = 'dismissed' WHERE id = ?",
+          args: [additionalConflictId],
+        }),
+    );
+    await assertV2InvalidatingMutation(
+      client,
+      brand.entityId,
+      "fact_conflicts DELETE",
+      mutations,
+      () =>
+        client.batch(
+          [
+            {
+              sql: "DELETE FROM fact_conflicts WHERE id = ?",
+              args: [additionalConflictId],
+            },
+            {
+              sql: "UPDATE fact_scopes SET edition_scope = 'conflict-delete-marker' WHERE id = ?",
+              args: [brand.scopeId],
+            },
+          ],
+          "write",
+        ),
+    );
+    await assertV2InvalidatingMutation(
+      client,
+      brand.entityId,
+      "approved reusable primary media UPDATE",
+      mutations,
+      () =>
+        client.execute({
+          sql: "UPDATE media_assets SET title = title || ':updated', license = 'cc-by-4.0' WHERE id = ?",
+          args: [brand.mediaId],
+        }),
+    );
+
+    const extraRegistryId = `${brand.entityId}-registry-extra`;
+    const extraItemId = `${brand.entityId}-item-extra`;
+    const extraReferenceId = `${brand.entityId}-reference-extra`;
+    await assertV2InvalidatingMutation(
+      client,
+      brand.entityId,
+      "owned source item INSERT",
+      mutations,
+      () =>
+        client.batch(
+          [
+            {
+              sql: `
+                INSERT INTO source_registry (
+                  id, name, source_type, allowed_use, reliability
+                ) VALUES (?, 'Extra registry', 'book', 'summary_only', 'medium')
+              `,
+              args: [extraRegistryId],
+            },
+            {
+              sql: `
+                INSERT INTO source_items (
+                  id, source_id, title, url, retrieved_at, allowed_use,
+                  review_status, source_tier, independence_group,
+                  archive_url, archive_locator
+                ) VALUES (?, ?, 'Extra item', ?, '2026-07-16',
+                          'summary_only', 'approved', 'community', ?, ?, 'snapshot:extra')
+              `,
+              args: [
+                extraItemId,
+                extraRegistryId,
+                `https://example.invalid/${extraItemId}`,
+                `${brand.entityId}-extra`,
+                `https://archive.invalid/${extraItemId}`,
+              ],
+            },
+            {
+              sql: `
+                INSERT INTO entity_references (
+                  id, entity_id, source_item_id, relation_type, review_status
+                ) VALUES (?, ?, ?, 'community', 'approved')
+              `,
+              args: [extraReferenceId, brand.entityId, extraItemId],
+            },
+          ],
+          "write",
+        ),
+    );
+    await assertV2InvalidatingMutation(
+      client,
+      brand.entityId,
+      "owned source item UPDATE",
+      mutations,
+      () =>
+        client.execute({
+          sql: "UPDATE source_items SET archive_locator = 'snapshot:extra-updated' WHERE id = ?",
+          args: [extraItemId],
+        }),
+    );
+    await assertV2InvalidatingMutation(
+      client,
+      brand.entityId,
+      "owned source item DELETE",
+      mutations,
+      () =>
+        client.batch(
+          [
+            {
+              sql: "DELETE FROM source_items WHERE id = ?",
+              args: [extraItemId],
+            },
+            {
+              sql: "UPDATE fact_scopes SET valid_to = '2026-11-30' WHERE id = ?",
+              args: [brand.scopeId],
+            },
+          ],
+          "write",
+        ),
+    );
+
+    const pen = await seedQualifiedPublicationFixture(client, {
+      entityId: "phase19-invalidation-pen",
+      entityType: "pen",
+      brandEntityId: brand.entityId,
+    });
+    await approveCurrentContentAndPublish(client, pen.entityId);
+    assertCondition(
+      pen.primarySpecEvidenceId &&
+        pen.secondarySpecEvidenceId &&
+        pen.secondarySpecCitationId &&
+        pen.modelSpecId,
+      "Qualified pen fixture omitted spec evidence IDs.",
+    );
+    await assertV2InvalidatingMutation(
+      client,
+      pen.entityId,
+      "spec_field_evidence UPDATE",
+      mutations,
+      () =>
+        client.execute({
+          sql: "UPDATE spec_field_evidence SET evidence_locator = evidence_locator || ':updated' WHERE id = ?",
+          args: [pen.primarySpecEvidenceId],
+        }),
+    );
+    await assertV2InvalidatingMutation(
+      client,
+      pen.entityId,
+      "spec_field_evidence DELETE",
+      mutations,
+      () =>
+        client.execute({
+          sql: "DELETE FROM spec_field_evidence WHERE id = ?",
+          args: [pen.secondarySpecEvidenceId],
+        }),
+    );
+    await assertV2InvalidatingMutation(
+      client,
+      pen.entityId,
+      "spec_field_evidence INSERT",
+      mutations,
+      () =>
+        client.execute({
+          sql: `
+            INSERT INTO spec_field_evidence (
+              id, model_spec_id, field_key, citation_id, scope_id,
+              evidence_locator, review_status
+            ) VALUES (?, ?, 'nib', ?, ?, 'spec-mapping:restored', 'approved')
+          `,
+          args: [
+            pen.secondarySpecEvidenceId,
+            pen.modelSpecId,
+            pen.secondarySpecCitationId,
+            pen.scopeId,
+          ],
+        }),
+    );
+
+    const crossOwner = await seedQualifiedPublicationFixture(client, {
+      entityId: "phase19-cross-owner-brand",
+      entityType: "brand",
+    });
+    await approveCurrentContentAndPublish(client, crossOwner.entityId);
+    const sharedClaimId = "phase19-cross-owner-editorial-claim";
+    await client.execute({
+      sql: `
+        INSERT INTO claims (
+          id, subject_entity_id, predicate, object_text, source_item_id,
+          review_status, fact_class
+        ) VALUES (?, ?, 'shared_editorial_fact', 'before', ?, 'approved', 'editorial')
+      `,
+      args: [sharedClaimId, brand.entityId, brand.primaryItemId],
+    });
+    await client.execute({
+      sql: `
+        INSERT INTO citations (
+          id, target_type, target_id, source_item_id, claim_id, note,
+          review_status, evidence_locator, scope_id
+        ) VALUES (
+          'phase19-cross-owner-citation', 'entity', ?, ?, ?, 'shared owner',
+          'approved', 'shared:1', ?
+        )
+      `,
+      args: [
+        crossOwner.entityId,
+        crossOwner.primaryItemId,
+        sharedClaimId,
+        crossOwner.scopeId,
+      ],
+    });
+    await approveCurrentContentAndPublish(client, brand.entityId);
+    await approveCurrentContentAndPublish(client, crossOwner.entityId);
+    const directBefore = await publicationState(client, brand.entityId);
+    const indirectBefore = await publicationState(client, crossOwner.entityId);
+    await client.execute({
+      sql: "UPDATE claims SET object_text = 'after' WHERE id = ?",
+      args: [sharedClaimId],
+    });
+    mutations.count += 1;
+    const directAfter = await publicationState(client, brand.entityId);
+    const indirectAfter = await publicationState(client, crossOwner.entityId);
+    assertCondition(
+      directAfter.revision > directBefore.revision &&
+        indirectAfter.revision > indirectBefore.revision &&
+        directAfter.status === "in_review" &&
+        indirectAfter.status === "in_review",
+      "Cross-owner claim mutation did not invalidate both direct and citation-derived owners.",
+    );
+    await assertNotPublic(client, brand.entityId);
+    await assertNotPublic(client, crossOwner.entityId);
+
+    assertCondition(
+      mutations.count === 31,
+      `Expected 31 contract-v2 invalidation mutations, observed ${mutations.count}.`,
+    );
+  });
+  console.log(
+    "Publication invalidation contract passed: 31 v2 scope/evidence/classification/provenance/conflict/media I/U/D mutations demote current publications, stale reviews fail, and cross-owner claims invalidate every owner.",
   );
 }
 

@@ -7,7 +7,7 @@ import type {
   Transaction,
 } from "@libsql/client";
 
-export const PUBLICATION_CONTRACT_VERSION = 1 as const;
+export const PUBLICATION_CONTRACT_VERSION = 2 as const;
 const PUBLICATION_HASH_PREFIX = `sha256:v${PUBLICATION_CONTRACT_VERSION}:`;
 
 export interface PublicationDatabase {
@@ -24,6 +24,30 @@ export interface PublishEntityResult {
   contentHash: string;
   contentRevision: number;
   publishedAt: string;
+}
+
+export type ReviewKind = "fact" | "language" | "media" | "publication";
+export type ContentReviewKind = Exclude<ReviewKind, "publication">;
+export type ContentReviewStatus =
+  | "pending"
+  | "approved"
+  | "rejected"
+  | "revoked";
+
+export interface RecordEntityContentReviewOptions {
+  entityId: string;
+  reviewKind: ContentReviewKind;
+  reviewer: string;
+  status: ContentReviewStatus;
+  notes?: string | null;
+}
+
+export interface RecordEntityContentReviewResult {
+  entityId: string;
+  reviewKind: ContentReviewKind;
+  contentHash: string;
+  status: ContentReviewStatus;
+  reviewedAt: string;
 }
 
 export type NonPublishedPublicationStatus = "draft" | "in_review" | "retired";
@@ -136,9 +160,10 @@ async function rowsForIds(
 }
 
 /**
- * Read every v1 publication-critical input with fixed keys and explicit nulls.
- * Created/updated timestamps are excluded because they are transport metadata,
- * not reviewed public content. Phase 19 adds source independence under v2.
+ * Read every contract-v2 publication-critical input with fixed keys and
+ * explicit nulls. Created/updated timestamps and entity_content_reviews are
+ * excluded: the former are transport metadata, while the latter point to this
+ * payload's hash and would create a review/hash self-reference.
  */
 export async function readPublicationContentPayload(
   db: PublicationDatabase,
@@ -196,30 +221,89 @@ export async function readPublicationContentPayload(
     `,
     [entityId],
   );
-  const citationRows = await rows(
-    db,
-    `
-      SELECT DISTINCT citation.id, citation.target_type, citation.target_id,
-             citation.source_item_id, citation.claim_id, citation.note
-      FROM citations citation
-      JOIN publication_citation_entities owner ON owner.citation_id = citation.id
-      WHERE owner.entity_id = ?
-    `,
-    [entityId],
-  );
-  const citationClaimIds = uniqueText(citationRows.map((row) => row.claim_id));
   const claimRows = await rows(
     db,
     `
       SELECT DISTINCT claim.id, claim.subject_entity_id, claim.subject_text,
              claim.predicate, claim.object_entity_id, claim.object_text,
              claim.source_item_id, claim.evidence_locator, claim.confidence,
-             claim.review_status
+             claim.review_status, claim.fact_class
       FROM claims claim
-      WHERE claim.subject_entity_id = ?
-         OR claim.id IN (${citationClaimIds.length > 0 ? citationClaimIds.map(() => "?").join(", ") : "NULL"})
+      JOIN publication_payload_claim_entities owner ON owner.claim_id = claim.id
+      WHERE owner.entity_id = ?
     `,
-    [entityId, ...citationClaimIds],
+    [entityId],
+  );
+  const citationRows = await rows(
+    db,
+    `
+      SELECT DISTINCT citation.id, citation.target_type, citation.target_id,
+             citation.source_item_id, citation.claim_id, citation.note,
+             citation.review_status, citation.evidence_locator,
+             citation.scope_id
+      FROM citations citation
+      JOIN publication_invalidation_citation_entities owner
+        ON owner.citation_id = citation.id
+      WHERE owner.entity_id = ?
+    `,
+    [entityId],
+  );
+  const scopeRows = await rows(
+    db,
+    `
+      SELECT id, entity_id, variant_id, scope_key, market, valid_from,
+             valid_to, production_state, nib_scope, material_scope,
+             edition_scope
+      FROM fact_scopes
+      WHERE entity_id = ?
+    `,
+    [entityId],
+  );
+  const specEvidenceRows = await rows(
+    db,
+    `
+      SELECT evidence.id, evidence.model_spec_id, evidence.field_key,
+             evidence.citation_id, evidence.scope_id,
+             evidence.evidence_locator, evidence.review_status
+      FROM spec_field_evidence evidence
+      JOIN model_specs spec ON spec.id = evidence.model_spec_id
+      WHERE spec.entity_id = ?
+    `,
+    [entityId],
+  );
+  const claimEvidenceRows = await rows(
+    db,
+    `
+      SELECT DISTINCT evidence.id, evidence.claim_id, evidence.citation_id,
+             evidence.scope_id, evidence.evidence_locator,
+             evidence.review_status
+      FROM claim_evidence evidence
+      JOIN publication_payload_claim_entities owner
+        ON owner.claim_id = evidence.claim_id
+      WHERE owner.entity_id = ?
+    `,
+    [entityId],
+  );
+  const conflictRows = await rows(
+    db,
+    `
+      SELECT id, entity_id, field_key, scope_id, conflict_kind, status,
+             resolution_note
+      FROM fact_conflicts
+      WHERE entity_id = ?
+    `,
+    [entityId],
+  );
+  const conflictMemberRows = await rows(
+    db,
+    `
+      SELECT member.id, member.conflict_id, member.citation_id,
+             member.asserted_value
+      FROM fact_conflict_members member
+      JOIN fact_conflicts conflict ON conflict.id = member.conflict_id
+      WHERE conflict.entity_id = ?
+    `,
+    [entityId],
   );
   const referenceRows = await rows(
     db,
@@ -243,13 +327,15 @@ export async function readPublicationContentPayload(
   const mediaRows = await rows(
     db,
     `
-      SELECT id, entity_id, title, asset_type, image_url, thumbnail_url,
-             local_path, author, license, attribution_text, source_url,
-             source_item_id, review_status, usage_status
-      FROM media_assets
-      WHERE entity_id = ?
-        AND review_status = 'approved'
-        AND usage_status = 'primary'
+      SELECT media.id, media.entity_id, media.title, media.asset_type,
+             media.image_url, media.thumbnail_url, media.local_path,
+             media.author, media.license, media.attribution_text,
+             media.source_url, media.source_item_id, media.review_status,
+             media.usage_status
+      FROM media_assets media
+      JOIN publication_v2_qualified_primary_media reusable
+        ON reusable.media_id = media.id
+      WHERE media.entity_id = ?
     `,
     [entityId],
   );
@@ -263,23 +349,21 @@ export async function readPublicationContentPayload(
     [entityId],
   );
 
-  const sourceItemIds = uniqueText([
-    ...variantRows.map((row) => row.source_item_id),
-    ...claimRows.map((row) => row.source_item_id),
-    ...citationRows.map((row) => row.source_item_id),
-    ...referenceRows.map((row) => row.source_item_id),
-    ...timelineRows.map((row) => row.source_item_id),
-    ...mediaRows.map((row) => row.source_item_id),
-  ]);
-  const sourceItemRows = await rowsForIds(
+  const sourceItemRows = await rows(
     db,
     `
-      SELECT id, source_id, title, url, item_type, license, author,
-             published_at, retrieved_at, summary, raw_metadata_json,
-             allowed_use, review_status
-      FROM source_items
+      SELECT DISTINCT item.id, item.source_id, item.title, item.url,
+             item.item_type, item.license, item.author, item.published_at,
+             item.retrieved_at, item.summary, item.raw_metadata_json,
+             item.allowed_use, item.review_status, item.source_tier,
+             item.independence_group, item.archive_url,
+             item.archive_locator
+      FROM source_items item
+      JOIN publication_source_item_entities owner
+        ON owner.source_item_id = item.id
+      WHERE owner.entity_id = ?
     `,
-    sourceItemIds,
+    [entityId],
   );
   const sourceRegistryIds = uniqueText(
     sourceItemRows.map((row) => row.source_id),
@@ -288,7 +372,8 @@ export async function readPublicationContentPayload(
     db,
     `
       SELECT id, name, source_type, allowed_use, reliability, license,
-             attribution, homepage_url, fetch_method, notes, last_checked_at
+             attribution, homepage_url, fetch_method, notes, last_checked_at,
+             default_source_tier, default_independence_group
       FROM source_registry
     `,
     sourceRegistryIds,
@@ -355,6 +440,7 @@ export async function readPublicationContentPayload(
       evidenceLocator: normalizeText(row.evidence_locator),
       confidence: normalizeNumber(row.confidence),
       reviewStatus: normalizeText(row.review_status),
+      factClass: normalizeText(row.fact_class),
     })),
     citations: citationRows.map((row) => ({
       id: normalizeText(row.id),
@@ -363,6 +449,54 @@ export async function readPublicationContentPayload(
       sourceItemId: normalizeText(row.source_item_id),
       claimId: normalizeText(row.claim_id),
       note: normalizeText(row.note),
+      reviewStatus: normalizeText(row.review_status),
+      evidenceLocator: normalizeText(row.evidence_locator),
+      scopeId: normalizeText(row.scope_id),
+    })),
+    factScopes: scopeRows.map((row) => ({
+      id: normalizeText(row.id),
+      entityId: normalizeText(row.entity_id),
+      variantId: normalizeText(row.variant_id),
+      scopeKey: normalizeText(row.scope_key),
+      market: normalizeText(row.market),
+      validFrom: normalizeText(row.valid_from),
+      validTo: normalizeText(row.valid_to),
+      productionState: normalizeText(row.production_state),
+      nibScope: normalizeText(row.nib_scope),
+      materialScope: normalizeText(row.material_scope),
+      editionScope: normalizeText(row.edition_scope),
+    })),
+    specFieldEvidence: specEvidenceRows.map((row) => ({
+      id: normalizeText(row.id),
+      modelSpecId: normalizeText(row.model_spec_id),
+      fieldKey: normalizeText(row.field_key),
+      citationId: normalizeText(row.citation_id),
+      scopeId: normalizeText(row.scope_id),
+      evidenceLocator: normalizeText(row.evidence_locator),
+      reviewStatus: normalizeText(row.review_status),
+    })),
+    claimEvidence: claimEvidenceRows.map((row) => ({
+      id: normalizeText(row.id),
+      claimId: normalizeText(row.claim_id),
+      citationId: normalizeText(row.citation_id),
+      scopeId: normalizeText(row.scope_id),
+      evidenceLocator: normalizeText(row.evidence_locator),
+      reviewStatus: normalizeText(row.review_status),
+    })),
+    factConflicts: conflictRows.map((row) => ({
+      id: normalizeText(row.id),
+      entityId: normalizeText(row.entity_id),
+      fieldKey: normalizeText(row.field_key),
+      scopeId: normalizeText(row.scope_id),
+      conflictKind: normalizeText(row.conflict_kind),
+      status: normalizeText(row.status),
+      resolutionNote: normalizeText(row.resolution_note),
+    })),
+    factConflictMembers: conflictMemberRows.map((row) => ({
+      id: normalizeText(row.id),
+      conflictId: normalizeText(row.conflict_id),
+      citationId: normalizeText(row.citation_id),
+      assertedValue: normalizeText(row.asserted_value),
     })),
     sourceItems: sourceItemRows.map((row) => ({
       id: normalizeText(row.id),
@@ -378,6 +512,10 @@ export async function readPublicationContentPayload(
       rawMetadata: normalizeJson(row.raw_metadata_json),
       allowedUse: normalizeText(row.allowed_use),
       reviewStatus: normalizeText(row.review_status),
+      sourceTier: normalizeText(row.source_tier),
+      independenceGroup: normalizeText(row.independence_group),
+      archiveUrl: normalizeText(row.archive_url),
+      archiveLocator: normalizeText(row.archive_locator),
     })),
     sourceRegistries: sourceRegistryRows.map((row) => ({
       id: normalizeText(row.id),
@@ -391,7 +529,8 @@ export async function readPublicationContentPayload(
       fetchMethod: normalizeText(row.fetch_method),
       notes: normalizeText(row.notes),
       lastCheckedAt: normalizeText(row.last_checked_at),
-      independenceGroup: null,
+      defaultSourceTier: normalizeText(row.default_source_tier),
+      defaultIndependenceGroup: normalizeText(row.default_independence_group),
     })),
     entityReferences: referenceRows.map((row) => ({
       id: normalizeText(row.id),
@@ -458,6 +597,97 @@ async function rollbackQuietly(transaction: Transaction): Promise<void> {
   }
 }
 
+function reviewRecordId(
+  entityId: string,
+  reviewKind: ReviewKind,
+  contentHash: string,
+): string {
+  return `review-${createHash("sha256")
+    .update(stableStringify({ entityId, reviewKind, contentHash }))
+    .digest("hex")}`;
+}
+
+/**
+ * Record one of the three independent content approvals against the current
+ * canonical hash. The final publication review is deliberately unavailable
+ * through this API and is owned by publishEntity's transaction.
+ */
+export async function recordEntityContentReview(
+  db: Pick<Client, "transaction">,
+  options: RecordEntityContentReviewOptions,
+): Promise<RecordEntityContentReviewResult> {
+  const entityId = normalizeText(options.entityId)?.trim();
+  const reviewKind = normalizeText(options.reviewKind);
+  const reviewer = normalizeText(options.reviewer)?.trim();
+  const status = normalizeText(options.status);
+  const notes = normalizeText(options.notes);
+  if (!entityId) {
+    throw new Error("recordEntityContentReview requires a non-empty entityId.");
+  }
+  if (
+    !(
+      reviewKind === "fact" ||
+      reviewKind === "language" ||
+      reviewKind === "media"
+    )
+  ) {
+    throw new Error(
+      "recordEntityContentReview only accepts fact, language, or media reviews.",
+    );
+  }
+  if (!reviewer) {
+    throw new Error("recordEntityContentReview requires a non-empty reviewer.");
+  }
+  if (
+    !(
+      status === "pending" ||
+      status === "approved" ||
+      status === "rejected" ||
+      status === "revoked"
+    )
+  ) {
+    throw new Error(`Unsupported content review status: ${String(status)}`);
+  }
+
+  const transaction = await db.transaction("write");
+  try {
+    const contentHash = await computePublicationContentHash(
+      transaction,
+      entityId,
+    );
+    const reviewedAt = new Date().toISOString();
+    await transaction.execute({
+      sql: `
+        INSERT INTO entity_content_reviews (
+          id, entity_id, review_kind, content_hash, status,
+          reviewer, reviewed_at, note
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ON CONFLICT(entity_id, review_kind, content_hash) DO UPDATE SET
+          status = excluded.status,
+          reviewer = excluded.reviewer,
+          reviewed_at = excluded.reviewed_at,
+          note = excluded.note,
+          updated_at = datetime('now')
+      `,
+      args: [
+        reviewRecordId(entityId, reviewKind, contentHash),
+        entityId,
+        reviewKind,
+        contentHash,
+        status,
+        reviewer,
+        reviewedAt,
+        notes,
+      ],
+    });
+    await transaction.commit();
+    return { entityId, reviewKind, contentHash, status, reviewedAt };
+  } catch (error) {
+    await rollbackQuietly(transaction);
+    throw error;
+  }
+}
+
 /**
  * The sole server write path into published. This intentionally performs one
  * bounded write transaction and never retries: re-running review work after an
@@ -489,31 +719,91 @@ export async function publishEntity(
       throw new Error(`Publication row not found: ${entityId}`);
     }
 
+    const contentRevision = Number(publicationRows[0]?.content_revision);
+    if (!Number.isSafeInteger(contentRevision) || contentRevision < 0) {
+      throw new Error(`Invalid publication content revision: ${entityId}`);
+    }
     const contentHash = await computePublicationContentHash(
       transaction,
       entityId,
     );
-    const publishedAt = new Date().toISOString();
-    await transaction.execute({
+    const approvedReviewRows = await rows(
+      transaction,
+      `
+        SELECT review_kind
+        FROM entity_content_reviews
+        WHERE entity_id = ?
+          AND content_hash = ?
+          AND status = 'approved'
+          AND reviewer IS NOT NULL
+          AND trim(reviewer) != ''
+          AND reviewed_at IS NOT NULL
+          AND trim(reviewed_at) != ''
+          AND review_kind IN ('fact', 'language', 'media')
+      `,
+      [entityId, contentHash],
+    );
+    const approvedReviewKinds = new Set(
+      approvedReviewRows.map((row) => String(row.review_kind)),
+    );
+    const missingReviewKinds = (["fact", "language", "media"] as const).filter(
+      (reviewKind) => !approvedReviewKinds.has(reviewKind),
+    );
+    if (missingReviewKinds.length > 0) {
+      throw new Error(
+        `Publication current-hash reviews missing for ${entityId}: ${missingReviewKinds.join(", ")}`,
+      );
+    }
+
+    const reviewedAt = new Date().toISOString();
+    const lifecycleUpdate = await transaction.execute({
       sql: `
         UPDATE entity_publications
         SET status = 'in_review',
             approved_content_hash = ?,
-            reviewed_content_revision = content_revision,
+            reviewed_content_revision = ?,
             reviewed_contract_version = ?,
             reviewed_by = ?,
             reviewed_at = ?,
-            published_at = ?,
+            published_at = NULL,
+            blockers_json = '[]',
             updated_at = datetime('now')
-        WHERE entity_id = ?
+        WHERE entity_id = ? AND content_revision = ?
       `,
       args: [
         contentHash,
+        contentRevision,
         PUBLICATION_CONTRACT_VERSION,
         reviewer,
-        publishedAt,
-        publishedAt,
+        reviewedAt,
         entityId,
+        contentRevision,
+      ],
+    });
+    if (lifecycleUpdate.rowsAffected !== 1) {
+      throw new Error(`Publication lifecycle snapshot failed: ${entityId}`);
+    }
+
+    await transaction.execute({
+      sql: `
+        INSERT INTO entity_content_reviews (
+          id, entity_id, review_kind, content_hash, status,
+          reviewer, reviewed_at, note
+        ) VALUES (?, ?, 'publication', ?, 'approved', ?, ?, ?)
+        ON CONFLICT(entity_id, review_kind, content_hash) DO UPDATE SET
+          status = 'approved',
+          reviewer = excluded.reviewer,
+          reviewed_at = excluded.reviewed_at,
+          note = excluded.note,
+          updated_at = datetime('now')
+      `,
+      args: [
+        reviewRecordId(entityId, "publication", contentHash),
+        entityId,
+        contentHash,
+        reviewer,
+        reviewedAt,
+        "Approved by atomic publication transaction.",
       ],
     });
 
@@ -547,10 +837,18 @@ export async function publishEntity(
       );
     }
 
-    await transaction.execute({
-      sql: "UPDATE entity_publications SET status = 'published' WHERE entity_id = ?",
-      args: [entityId],
+    const publishedAt = new Date().toISOString();
+    const publicationUpdate = await transaction.execute({
+      sql: `
+        UPDATE entity_publications
+        SET status = 'published', published_at = ?, updated_at = datetime('now')
+        WHERE entity_id = ? AND status = 'in_review'
+      `,
+      args: [publishedAt, entityId],
     });
+    if (publicationUpdate.rowsAffected !== 1) {
+      throw new Error(`Publication transition failed: ${entityId}`);
+    }
     const publicRows = await rows(
       transaction,
       "SELECT 1 FROM public_entities WHERE id = ?",
@@ -560,16 +858,6 @@ export async function publishEntity(
       throw new Error(`Publication membership assertion failed: ${entityId}`);
     }
 
-    const stateRows = await rows(
-      transaction,
-      `
-        SELECT content_revision
-        FROM entity_publications
-        WHERE entity_id = ?
-      `,
-      [entityId],
-    );
-    const contentRevision = Number(stateRows[0]?.content_revision);
     await transaction.commit();
     return { entityId, contentHash, contentRevision, publishedAt };
   } catch (error) {

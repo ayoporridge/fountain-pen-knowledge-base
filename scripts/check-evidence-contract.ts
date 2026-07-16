@@ -13,7 +13,14 @@ import {
   snapshotCatalogFiles,
 } from "../src/lib/audit/read-only-catalog";
 import type { CatalogSnapshot } from "../src/lib/audit/audit-contracts";
-import { computePublicationContentHash } from "../src/lib/publication";
+import {
+  computePublicationContentHash,
+  readPublicationContentPayload,
+} from "../src/lib/publication";
+import {
+  seedQualifiedPublicationFixture,
+  withPhase19Fixture,
+} from "./lib/phase19-fixtures";
 
 const ROOT = process.cwd();
 const REAL_CATALOG_PATH = path.join(ROOT, "data", "fpkg.db");
@@ -2603,37 +2610,487 @@ async function runFixtureIsolation(): Promise<void> {
   );
 }
 
+async function contentRevision(client: Client, entityId: string): Promise<number> {
+  const result = await client.execute({
+    sql: "SELECT content_revision FROM entity_publications WHERE entity_id = ?",
+    args: [entityId],
+  });
+  const revision = Number(result.rows[0]?.content_revision);
+  assertCondition(
+    Number.isSafeInteger(revision),
+    `Missing content revision for ${entityId}.`,
+  );
+  return revision;
+}
+
+async function assertCanonicalMutation(
+  client: Client,
+  entityId: string,
+  label: string,
+  sql: string,
+  args: unknown[],
+): Promise<void> {
+  const beforeHash = await computePublicationContentHash(client, entityId);
+  const beforeRevision = await contentRevision(client, entityId);
+  const result = await client.execute({ sql, args });
+  assertCondition(result.rowsAffected > 0, `${label} mutated no rows.`);
+  const afterHash = await computePublicationContentHash(client, entityId);
+  const afterRevision = await contentRevision(client, entityId);
+  assertCondition(afterHash !== beforeHash, `${label} did not change the v2 hash.`);
+  assertCondition(
+    afterRevision > beforeRevision,
+    `${label} did not advance content_revision.`,
+  );
+}
+
+async function stageReviewSnapshot(
+  client: Client,
+  entityId: string,
+  contentHash: string,
+  reviewKinds: readonly string[],
+): Promise<void> {
+  await client.execute({
+    sql: `
+      UPDATE entity_publications
+      SET status = 'in_review',
+          approved_content_hash = ?,
+          reviewed_content_revision = content_revision,
+          reviewed_contract_version = 2,
+          reviewed_by = 'phase19-contract-reviewer',
+          reviewed_at = '2026-07-16T00:00:00.000Z',
+          published_at = NULL,
+          blockers_json = '[]'
+      WHERE entity_id = ?
+    `,
+    args: [contentHash, entityId],
+  });
+  for (const reviewKind of reviewKinds) {
+    await client.execute({
+      sql: `
+        INSERT INTO entity_content_reviews (
+          id, entity_id, review_kind, content_hash, status,
+          reviewer, reviewed_at, note
+        ) VALUES (?, ?, ?, ?, 'approved', 'phase19-contract-reviewer',
+                  '2026-07-16T00:00:00.000Z', 'fixed fixture review')
+        ON CONFLICT(entity_id, review_kind, content_hash) DO UPDATE SET
+          status = 'approved',
+          reviewer = excluded.reviewer,
+          reviewed_at = excluded.reviewed_at,
+          note = excluded.note
+      `,
+      args: [
+        `review-${entityId}-${reviewKind}`,
+        entityId,
+        reviewKind,
+        contentHash,
+      ],
+    });
+  }
+}
+
+async function contract2Blockers(
+  client: Client,
+  entityId: string,
+): Promise<string[]> {
+  const result = await client.execute({
+    sql: `
+      SELECT blocker_code
+      FROM publication_blockers
+      WHERE entity_id = ? AND contract_version = 2
+      ORDER BY blocker_code, subject_type, subject_id, detail_key
+    `,
+    args: [entityId],
+  });
+  return result.rows.map((row) => String(row.blocker_code));
+}
+
+async function assertNoPublicMembership(
+  client: Client,
+  entityId: string,
+  label: string,
+): Promise<void> {
+  const result = await client.execute({
+    sql: "SELECT 1 FROM public_entities WHERE id = ?",
+    args: [entityId],
+  });
+  assertCondition(result.rows.length === 0, `${label} remained public.`);
+}
+
 async function runHashInvalidationContract(): Promise<void> {
-  await withMigratedFixture("fresh", async (fixture) => {
-    const client = createClient({ url: fixture.databaseUrl });
-    try {
-      await client.execute({
-        sql: `
-          INSERT INTO entities (
-            id, type, slug, name, summary, body_md, source
-          ) VALUES (?, 'brand', ?, ?, ?, ?, ?)
-        `,
-        args: [
-          "phase19-v2-hash-red",
-          "phase19-v2-hash-red",
-          "Phase 19 v2 hash",
-          "Canonical hash contract fixture",
-          "Canonical hash contract body",
-          "phase19-contract",
-        ],
+  let canonicalHash: string | null = null;
+  for (const [canonicalTextVariant, reverseIndependentRows] of [
+    ["nfc-lf", false],
+    ["nfd-crlf", true],
+  ] as const) {
+    await withPhase19Fixture(async ({ client }) => {
+      const entityId = "phase19-canonical-equivalence";
+      await seedQualifiedPublicationFixture(client, {
+        entityId,
+        entityType: "brand",
+        canonicalTextVariant,
+        reverseIndependentRows,
       });
-      const contentHash = await computePublicationContentHash(
-        client,
-        "phase19-v2-hash-red",
-      );
+      const contentHash = await computePublicationContentHash(client, entityId);
       assertCondition(
         /^sha256:v2:[0-9a-f]{64}$/.test(contentHash),
         `Canonical publication hash must use contract v2, received ${contentHash}.`,
       );
-    } finally {
-      client.close();
+      if (canonicalHash === null) canonicalHash = contentHash;
+      else {
+        assertCondition(
+          contentHash === canonicalHash,
+          "Row order, JSON key order, Unicode normalization, or newline form changed the canonical hash.",
+        );
+      }
+      const payload = (await readPublicationContentPayload(
+        client,
+        entityId,
+      )) as unknown as Record<string, unknown>;
+      for (const key of [
+        "factScopes",
+        "claimEvidence",
+        "factConflicts",
+        "factConflictMembers",
+        "sourceItems",
+        "primaryMedia",
+      ]) {
+        assertCondition(key in payload, `Canonical payload omitted ${key}.`);
+      }
+      assertCondition(
+        !("entityContentReviews" in payload),
+        "Canonical payload must exclude hash-bound review rows.",
+      );
+    });
+  }
+
+  await withPhase19Fixture(async ({ client }) => {
+    const brand = await seedQualifiedPublicationFixture(client, {
+      entityId: "phase19-hash-brand",
+      entityType: "brand",
+    });
+    const pen = await seedQualifiedPublicationFixture(client, {
+      entityId: "phase19-hash-pen",
+      entityType: "pen",
+      brandEntityId: brand.entityId,
+    });
+    const brandMutations = [
+      [
+        "claim fact classification",
+        "UPDATE claims SET fact_class = 'core' WHERE id = ?",
+        [brand.classificationClaimId],
+      ],
+      [
+        "claim review semantics",
+        "UPDATE claims SET review_status = 'rejected' WHERE id = ?",
+        [brand.primaryClaimId],
+      ],
+      [
+        "citation locator",
+        "UPDATE citations SET evidence_locator = evidence_locator || ':updated' WHERE id = ?",
+        [brand.primaryCitationId],
+      ],
+      [
+        "citation scope",
+        "UPDATE citations SET scope_id = NULL WHERE id = ?",
+        [brand.primaryCitationId],
+      ],
+      [
+        "citation review semantics",
+        "UPDATE citations SET review_status = 'needs_review' WHERE id = ?",
+        [brand.secondaryCitationId],
+      ],
+      [
+        "claim evidence locator",
+        "UPDATE claim_evidence SET evidence_locator = evidence_locator || ':updated' WHERE id = ?",
+        [brand.primaryClaimEvidenceId],
+      ],
+      [
+        "claim evidence review semantics",
+        "UPDATE claim_evidence SET review_status = 'needs_review' WHERE id = ?",
+        [brand.secondaryClaimEvidenceId],
+      ],
+      [
+        "fact scope",
+        "UPDATE fact_scopes SET market = 'eu' WHERE id = ?",
+        [brand.scopeId],
+      ],
+      [
+        "source tier",
+        "UPDATE source_items SET source_tier = 'contemporary_archive' WHERE id = ?",
+        [brand.primaryItemId],
+      ],
+      [
+        "source independence group",
+        "UPDATE source_items SET independence_group = independence_group || '-updated' WHERE id = ?",
+        [brand.primaryItemId],
+      ],
+      [
+        "source archive URL",
+        "UPDATE source_items SET archive_url = archive_url || '?v=2' WHERE id = ?",
+        [brand.primaryItemId],
+      ],
+      [
+        "source archive locator",
+        "UPDATE source_items SET archive_locator = archive_locator || ':v2' WHERE id = ?",
+        [brand.primaryItemId],
+      ],
+      [
+        "source allowed use",
+        "UPDATE source_items SET allowed_use = 'metadata_only' WHERE id = ?",
+        [brand.primaryItemId],
+      ],
+      [
+        "source retrieval time",
+        "UPDATE source_items SET retrieved_at = '2026-07-17' WHERE id = ?",
+        [brand.primaryItemId],
+      ],
+      [
+        "source review semantics",
+        "UPDATE source_items SET review_status = 'needs_review' WHERE id = ?",
+        [brand.mirrorItemId],
+      ],
+      [
+        "source metadata canonicalization",
+        "UPDATE source_items SET raw_metadata_json = '{\"a\":1,\"b\":3}' WHERE id = ?",
+        [brand.secondaryItemId],
+      ],
+      [
+        "registry provenance defaults",
+        "UPDATE source_registry SET default_source_tier = 'contemporary_archive', default_independence_group = default_independence_group || '-updated' WHERE id = ?",
+        [brand.primaryRegistryId],
+      ],
+      [
+        "resolved conflict payload",
+        "UPDATE fact_conflicts SET resolution_note = resolution_note || ':updated' WHERE id = ?",
+        [brand.conflictId],
+      ],
+      [
+        "conflict member payload",
+        "UPDATE fact_conflict_members SET asserted_value = '2027' WHERE id = ?",
+        [brand.conflictMemberId],
+      ],
+      [
+        "primary media payload",
+        "UPDATE media_assets SET title = title || ':updated', license = 'cc-by-4.0' WHERE id = ?",
+        [brand.mediaId],
+      ],
+    ] as const;
+    for (const [label, sql, args] of brandMutations) {
+      await assertCanonicalMutation(client, brand.entityId, label, sql, [...args]);
+    }
+
+    assertCondition(
+      pen.modelSpecId !== null &&
+        pen.primarySpecEvidenceId !== null &&
+        pen.secondarySpecEvidenceId !== null,
+      "Pen fixture omitted required spec evidence identifiers.",
+    );
+    for (const [label, sql, args] of [
+      [
+        "model spec review semantics",
+        "UPDATE model_specs SET review_status = 'rejected' WHERE id = ?",
+        [pen.modelSpecId],
+      ],
+      [
+        "spec evidence locator",
+        "UPDATE spec_field_evidence SET evidence_locator = evidence_locator || ':updated' WHERE id = ?",
+        [pen.primarySpecEvidenceId],
+      ],
+      [
+        "spec evidence review semantics",
+        "UPDATE spec_field_evidence SET review_status = 'needs_review' WHERE id = ?",
+        [pen.secondarySpecEvidenceId],
+      ],
+    ] as const) {
+      await assertCanonicalMutation(client, pen.entityId, label, sql, [...args]);
     }
   });
+
+  await withPhase19Fixture(async ({ client }) => {
+    const entity = await seedQualifiedPublicationFixture(client, {
+      entityId: "phase19-review-exclusion",
+      entityType: "brand",
+    });
+    const contentHash = await computePublicationContentHash(
+      client,
+      entity.entityId,
+    );
+    const revision = await contentRevision(client, entity.entityId);
+    await stageReviewSnapshot(client, entity.entityId, contentHash, [
+      "fact",
+      "language",
+      "media",
+    ]);
+    let blockers = await contract2Blockers(client, entity.entityId);
+    assertCondition(
+      blockers.includes("missing_publication_review") &&
+        !blockers.includes("missing_fact_review") &&
+        !blockers.includes("missing_language_review") &&
+        !blockers.includes("missing_media_review"),
+      `Review insert readiness mismatch: ${JSON.stringify(blockers)}.`,
+    );
+    await stageReviewSnapshot(client, entity.entityId, contentHash, [
+      "publication",
+    ]);
+    blockers = await contract2Blockers(client, entity.entityId);
+    assertCondition(
+      blockers.length === 0,
+      `Fully reviewed fixture retained blockers: ${JSON.stringify(blockers)}.`,
+    );
+    assertCondition(
+      (await computePublicationContentHash(client, entity.entityId)) ===
+        contentHash &&
+        (await contentRevision(client, entity.entityId)) === revision,
+      "Review insertion changed content hash or content_revision.",
+    );
+    await client.execute({
+      sql: `
+        UPDATE entity_publications
+        SET status = 'published', published_at = '2026-07-16T00:00:01.000Z'
+        WHERE entity_id = ?
+      `,
+      args: [entity.entityId],
+    });
+    await client.execute({
+      sql: `
+        UPDATE entity_content_reviews
+        SET status = 'revoked'
+        WHERE entity_id = ? AND review_kind = 'language' AND content_hash = ?
+      `,
+      args: [entity.entityId, contentHash],
+    });
+    blockers = await contract2Blockers(client, entity.entityId);
+    assertCondition(
+      blockers.includes("missing_language_review"),
+      "Revoking a current-hash language review did not change readiness.",
+    );
+    await assertNoPublicMembership(
+      client,
+      entity.entityId,
+      "Revoked review fixture",
+    );
+    assertCondition(
+      (await computePublicationContentHash(client, entity.entityId)) ===
+        contentHash &&
+        (await contentRevision(client, entity.entityId)) === revision,
+      "Review update changed content hash or content_revision.",
+    );
+    await client.execute({
+      sql: `
+        UPDATE entity_content_reviews
+        SET status = 'approved'
+        WHERE entity_id = ? AND review_kind = 'language' AND content_hash = ?
+      `,
+      args: [entity.entityId, contentHash],
+    });
+    await client.execute({
+      sql: `
+        UPDATE entity_publications
+        SET status = 'published', published_at = '2026-07-16T00:00:02.000Z'
+        WHERE entity_id = ?
+      `,
+      args: [entity.entityId],
+    });
+    await client.execute({
+      sql: `
+        DELETE FROM entity_content_reviews
+        WHERE entity_id = ? AND review_kind = 'media' AND content_hash = ?
+      `,
+      args: [entity.entityId, contentHash],
+    });
+    blockers = await contract2Blockers(client, entity.entityId);
+    assertCondition(
+      blockers.includes("missing_media_review"),
+      "Deleting a current-hash media review did not change readiness.",
+    );
+    await assertNoPublicMembership(
+      client,
+      entity.entityId,
+      "Deleted review fixture",
+    );
+    assertCondition(
+      (await computePublicationContentHash(client, entity.entityId)) ===
+        contentHash &&
+        (await contentRevision(client, entity.entityId)) === revision,
+      "Review delete changed content hash or content_revision.",
+    );
+  });
+
+  for (const missingComponent of [
+    "citation",
+    "locator",
+    "scope",
+    "provenance",
+  ] as const) {
+    await withPhase19Fixture(async ({ client }) => {
+      const entity = await seedQualifiedPublicationFixture(client, {
+        entityId: `phase19-missing-${missingComponent}`,
+        entityType: "brand",
+      });
+      if (missingComponent === "citation") {
+        await client.execute({
+          sql: "DELETE FROM citations WHERE id = ?",
+          args: [entity.primaryCitationId],
+        });
+      } else if (missingComponent === "locator") {
+        await client.execute({
+          sql: "UPDATE citations SET evidence_locator = NULL WHERE id = ?",
+          args: [entity.primaryCitationId],
+        });
+      } else if (missingComponent === "scope") {
+        await client.execute({
+          sql: "UPDATE citations SET scope_id = NULL WHERE id = ?",
+          args: [entity.primaryCitationId],
+        });
+      } else {
+        await client.execute({
+          sql: "UPDATE source_items SET source_tier = NULL WHERE id = ?",
+          args: [entity.primaryItemId],
+        });
+      }
+      const contentHash = await computePublicationContentHash(
+        client,
+        entity.entityId,
+      );
+      await stageReviewSnapshot(client, entity.entityId, contentHash, [
+        "fact",
+        "language",
+        "media",
+        "publication",
+      ]);
+      const blockers = await contract2Blockers(client, entity.entityId);
+      assertCondition(
+        blockers.includes("approved_claim_missing_evidence"),
+        `${missingComponent} removal did not produce exact approved_claim_missing_evidence: ${JSON.stringify(blockers)}.`,
+      );
+      let directSqlRejected = false;
+      try {
+        await client.execute({
+          sql: `
+            UPDATE entity_publications
+            SET status = 'published',
+                published_at = '2026-07-16T00:00:03.000Z'
+            WHERE entity_id = ?
+          `,
+          args: [entity.entityId],
+        });
+      } catch {
+        directSqlRejected = true;
+      }
+      assertCondition(
+        directSqlRejected,
+        `${missingComponent} evidence gap bypassed the direct-SQL guard.`,
+      );
+      await assertNoPublicMembership(
+        client,
+        entity.entityId,
+        `${missingComponent} evidence gap`,
+      );
+    });
+  }
+  console.log(
+    "Evidence hash/invalidation contract passed: deterministic v2 payload, normalized evidence/provenance/conflicts/media, review exclusion, and exact incomplete-core-claim blockers are green.",
+  );
 }
 
 async function main(): Promise<void> {
