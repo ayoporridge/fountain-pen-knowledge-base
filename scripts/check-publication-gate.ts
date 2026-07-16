@@ -2153,7 +2153,7 @@ async function stageDirectReview(
   return contentHash;
 }
 
-async function runPublishContract(): Promise<void> {
+async function runLegacyPublishContract(): Promise<void> {
   await withFixture(async ({ client }) => {
     await insertEntity(client, "fixture-no-publication", "article");
     await expectReject(
@@ -2380,6 +2380,514 @@ async function runPublishContract(): Promise<void> {
 
   console.log(
     "Publication publish contract passed: non-public states stay hidden, direct SQL is DB-guarded, failures roll back without retry, and valid brand/pen publish atomically.",
+  );
+}
+
+interface PublicationTransactionTrace {
+  transactionCalls: number;
+  events: string[];
+}
+
+function tracedPublicationClient(client: Client): {
+  db: Pick<Client, "transaction">;
+  trace: PublicationTransactionTrace;
+} {
+  const trace: PublicationTransactionTrace = {
+    transactionCalls: 0,
+    events: [],
+  };
+  const db: Pick<Client, "transaction"> = {
+    async transaction(...args: Parameters<Client["transaction"]>) {
+      trace.transactionCalls += 1;
+      trace.events.push(`TRANSACTION:${String(args[0] ?? "write")}`);
+      const transaction = await client.transaction(...args);
+      return new Proxy(transaction, {
+        get(target, property) {
+          if (property === "execute") {
+            return async (...executeArgs: Parameters<typeof target.execute>) => {
+              const statement = executeArgs[0];
+              const sql = typeof statement === "string"
+                ? statement
+                : String(statement.sql);
+              trace.events.push(`SQL:${sql.replace(/\s+/g, " ").trim()}`);
+              return target.execute(...executeArgs);
+            };
+          }
+          if (property === "commit") {
+            return async () => {
+              trace.events.push("COMMIT");
+              return target.commit();
+            };
+          }
+          if (property === "rollback") {
+            return async () => {
+              trace.events.push("ROLLBACK");
+              return target.rollback();
+            };
+          }
+          const value = Reflect.get(target, property, target);
+          return typeof value === "function" ? value.bind(target) : value;
+        },
+      });
+    },
+  };
+  return { db, trace };
+}
+
+function traceIndex(trace: PublicationTransactionTrace, fragment: string): number {
+  return trace.events.findIndex((event) => event.includes(fragment));
+}
+
+function assertTraceOrder(
+  trace: PublicationTransactionTrace,
+  fragments: readonly string[],
+  label: string,
+): void {
+  const indices = fragments.map((fragment) => traceIndex(trace, fragment));
+  assertCondition(
+    indices.every((index) => index >= 0) &&
+      indices.every((index, position) => position === 0 || index > indices[position - 1]),
+    `${label} transaction order mismatch: ${JSON.stringify(trace.events)}.`,
+  );
+}
+
+async function recordV2FirstThreeReviews(
+  client: Client,
+  entityId: string,
+  excludedKind?: "fact" | "language" | "media",
+): Promise<string> {
+  let contentHash: string | null = null;
+  for (const reviewKind of ["fact", "language", "media"] as const) {
+    if (reviewKind === excludedKind) continue;
+    const review = await recordEntityContentReview(client, {
+      entityId,
+      reviewKind,
+      reviewer: `phase19-${reviewKind}-reviewer`,
+      status: "approved",
+      notes: "Fixed publication transaction fixture review.",
+    });
+    contentHash ??= review.contentHash;
+    assertCondition(
+      review.contentHash === contentHash,
+      `${entityId} changed while recording first-three reviews.`,
+    );
+  }
+  return contentHash ?? computePublicationContentHash(client, entityId);
+}
+
+interface DirectSnapshotOptions {
+  revisionOffset?: number;
+  contractVersion?: number;
+  reviewer?: string | null;
+  reviewedAt?: string | null;
+  includePublicationReview?: boolean;
+}
+
+async function stageDirectContract2Snapshot(
+  client: Client,
+  entityId: string,
+  options: DirectSnapshotOptions = {},
+): Promise<string> {
+  const contentHash = await computePublicationContentHash(client, entityId);
+  await client.execute({
+    sql: `
+      UPDATE entity_publications
+      SET status = 'in_review',
+          approved_content_hash = ?,
+          reviewed_content_revision = content_revision + ?,
+          reviewed_contract_version = ?,
+          reviewed_by = ?,
+          reviewed_at = ?,
+          published_at = NULL,
+          blockers_json = '[]'
+      WHERE entity_id = ?
+    `,
+    args: [
+      contentHash,
+      options.revisionOffset ?? 0,
+      options.contractVersion ?? 2,
+      options.reviewer === undefined ? "direct-reviewer" : options.reviewer,
+      options.reviewedAt === undefined
+        ? "2026-07-16T00:00:00.000Z"
+        : options.reviewedAt,
+      entityId,
+    ],
+  });
+  if (options.includePublicationReview !== false) {
+    await client.execute({
+      sql: `
+        INSERT INTO entity_content_reviews (
+          id, entity_id, review_kind, content_hash, status,
+          reviewer, reviewed_at, note
+        ) VALUES (?, ?, 'publication', ?, 'approved', 'direct-reviewer',
+                  '2026-07-16T00:00:00.000Z', 'direct SQL fixture')
+        ON CONFLICT(entity_id, review_kind, content_hash) DO UPDATE SET
+          status = 'approved',
+          reviewer = excluded.reviewer,
+          reviewed_at = excluded.reviewed_at,
+          note = excluded.note
+      `,
+      args: [
+        `direct-publication-review-${entityId}`,
+        entityId,
+        contentHash,
+      ],
+    });
+  }
+  return contentHash;
+}
+
+async function v2BlockerCodes(
+  client: Client,
+  entityId: string,
+): Promise<string[]> {
+  const result = await client.execute({
+    sql: `
+      SELECT blocker_code
+      FROM publication_blockers
+      WHERE entity_id = ? AND contract_version = 2
+      ORDER BY blocker_code, subject_type, subject_id, detail_key
+    `,
+    args: [entityId],
+  });
+  return result.rows.map((row) => String(row.blocker_code));
+}
+
+async function publicationReviewCount(
+  client: Client,
+  entityId: string,
+  contentHash: string,
+): Promise<number> {
+  const result = await client.execute({
+    sql: `
+      SELECT count(*) AS review_count
+      FROM entity_content_reviews
+      WHERE entity_id = ? AND review_kind = 'publication'
+        AND content_hash = ? AND status = 'approved'
+    `,
+    args: [entityId, contentHash],
+  });
+  return Number(result.rows[0]?.review_count ?? 0);
+}
+
+async function runDirectSqlContract2Matrix(): Promise<void> {
+  for (const testCase of [
+    "no-snapshot",
+    "stale-hash",
+    "stale-revision",
+    "stale-contract",
+    "missing-reviewer",
+    "missing-reviewed-at",
+    "missing-published-at",
+    "missing-language-review",
+    "missing-publication-review",
+  ] as const) {
+    await withPhase19Fixture(async ({ client }) => {
+      const entity = await seedQualifiedPublicationFixture(client, {
+        entityId: `phase19-direct-${testCase}`,
+        entityType: "brand",
+      });
+      if (testCase !== "no-snapshot") {
+        await recordV2FirstThreeReviews(client, entity.entityId);
+        await stageDirectContract2Snapshot(client, entity.entityId, {
+          revisionOffset: testCase === "stale-revision" ? -1 : 0,
+          contractVersion: testCase === "stale-contract" ? 1 : 2,
+          reviewer: testCase === "missing-reviewer" ? null : undefined,
+          reviewedAt: testCase === "missing-reviewed-at" ? null : undefined,
+          includePublicationReview: testCase !== "missing-publication-review",
+        });
+        if (testCase === "stale-hash") {
+          await client.execute({
+            sql: "UPDATE stories SET body_md = body_md || '\nchanged' WHERE id = ?",
+            args: [entity.storyId],
+          });
+        } else if (testCase === "missing-language-review") {
+          await client.execute({
+            sql: `
+              DELETE FROM entity_content_reviews
+              WHERE entity_id = ? AND review_kind = 'language'
+            `,
+            args: [entity.entityId],
+          });
+        }
+      }
+
+      const expected = testCase === "no-snapshot"
+        ? "publication_guard: invalid approved content hash"
+        : testCase === "stale-hash" || testCase === "stale-revision"
+          ? "publication_guard: stale reviewed revision"
+          : testCase === "stale-contract"
+            ? "publication_guard: stale contract version"
+            : testCase === "missing-reviewer"
+              ? "publication_guard: reviewer is required"
+              : testCase === "missing-reviewed-at"
+                ? "publication_guard: reviewed_at is required"
+                : testCase === "missing-published-at"
+                  ? "publication_guard: published_at is required"
+                  : "publication_guard: readiness blockers remain";
+      await expectReject(
+        () =>
+          client.execute({
+            sql: testCase === "missing-published-at"
+              ? "UPDATE entity_publications SET status = 'published' WHERE entity_id = ?"
+              : `
+                  UPDATE entity_publications
+                  SET status = 'published',
+                      published_at = '2026-07-16T00:00:01.000Z'
+                  WHERE entity_id = ?
+                `,
+            args: [entity.entityId],
+          }),
+        expected,
+      );
+      await assertNotPublic(client, entity.entityId);
+    });
+  }
+
+  await withPhase19Fixture(async ({ client }) => {
+    const entity = await seedQualifiedPublicationFixture(client, {
+      entityId: "phase19-direct-invalid-hash",
+      entityType: "brand",
+    });
+    await expectReject(
+      () =>
+        client.execute({
+          sql: "UPDATE entity_publications SET approved_content_hash = 'not-a-hash' WHERE entity_id = ?",
+          args: [entity.entityId],
+        }),
+      "CHECK constraint failed",
+    );
+  });
+}
+
+async function runPublishContract(): Promise<void> {
+  await runDirectSqlContract2Matrix();
+
+  await withPhase19Fixture(async ({ client }) => {
+    const blocked = await seedQualifiedPublicationFixture(client, {
+      entityId: "phase19-transaction-blocked",
+      entityType: "brand",
+    });
+    await client.execute({
+      sql: "DELETE FROM media_assets WHERE id = ?",
+      args: [blocked.mediaId],
+    });
+    const blockedHash = await recordV2FirstThreeReviews(
+      client,
+      blocked.entityId,
+    );
+    const blockedBefore = await publicationSnapshot(client, blocked.entityId);
+    const blockedTrace = tracedPublicationClient(client);
+    await expectReject(
+      () =>
+        publishEntity(blockedTrace.db, {
+          entityId: blocked.entityId,
+          reviewer: "phase19-blocked-publication-reviewer",
+        }),
+      "Publication readiness blocked",
+    );
+    assertCondition(
+      blockedTrace.trace.transactionCalls === 1 &&
+        blockedTrace.trace.events.filter((event) => event === "ROLLBACK").length === 1 &&
+        !blockedTrace.trace.events.includes("COMMIT"),
+      `Blocked publish retried or did not roll back exactly once: ${JSON.stringify(blockedTrace.trace)}.`,
+    );
+    assertTraceOrder(
+      blockedTrace.trace,
+      [
+        "review_kind IN ('fact', 'language', 'media')",
+        "SET status = 'in_review'",
+        "'publication'",
+        "FROM public_entity_readiness",
+        "ROLLBACK",
+      ],
+      "Blocked publish",
+    );
+    assertCondition(
+      traceIndex(blockedTrace.trace, "SET status = 'published'") === -1,
+      "Blocked publish attempted the final published transition.",
+    );
+    assertCondition(
+      (await publicationSnapshot(client, blocked.entityId)) === blockedBefore,
+      "Blocked publish left a lifecycle snapshot after rollback.",
+    );
+    assertCondition(
+      (await publicationReviewCount(client, blocked.entityId, blockedHash)) === 0,
+      "Blocked publish left its transaction-owned publication review.",
+    );
+    await assertNotPublic(client, blocked.entityId);
+  });
+
+  await withPhase19Fixture(async ({ client }) => {
+    const missingReview = await seedQualifiedPublicationFixture(client, {
+      entityId: "phase19-transaction-missing-media-review",
+      entityType: "brand",
+    });
+    await recordV2FirstThreeReviews(client, missingReview.entityId, "media");
+    const before = await publicationSnapshot(client, missingReview.entityId);
+    const traced = tracedPublicationClient(client);
+    await expectReject(
+      () =>
+        publishEntity(traced.db, {
+          entityId: missingReview.entityId,
+          reviewer: "phase19-publication-reviewer",
+        }),
+      "current-hash reviews missing",
+    );
+    assertCondition(
+      traced.trace.transactionCalls === 1 &&
+        traced.trace.events.filter((event) => event === "ROLLBACK").length === 1 &&
+        traceIndex(traced.trace, "SET status = 'in_review'") === -1 &&
+        traceIndex(traced.trace, "'publication'") === -1,
+      `Missing first-three review mutated lifecycle before validation: ${JSON.stringify(traced.trace)}.`,
+    );
+    assertCondition(
+      (await publicationSnapshot(client, missingReview.entityId)) === before,
+      "Missing first-three review changed lifecycle state.",
+    );
+  });
+
+  await withPhase19Fixture(async ({ client }) => {
+    const brand = await seedQualifiedPublicationFixture(client, {
+      entityId: "phase19-stale-publication-brand",
+      entityType: "brand",
+    });
+    const currentHash = await recordV2FirstThreeReviews(client, brand.entityId);
+    await stageDirectContract2Snapshot(client, brand.entityId, {
+      includePublicationReview: false,
+    });
+    const staleHash = `sha256:v2:${"d".repeat(64)}`;
+    await client.execute({
+      sql: `
+        INSERT INTO entity_content_reviews (
+          id, entity_id, review_kind, content_hash, status,
+          reviewer, reviewed_at
+        ) VALUES (
+          'phase19-stale-publication-review', ?, 'publication', ?, 'approved',
+          'stale-reviewer', '2026-07-15T00:00:00.000Z'
+        )
+      `,
+      args: [brand.entityId, staleHash],
+    });
+    const prepublishBlockers = await v2BlockerCodes(client, brand.entityId);
+    assertCondition(
+      prepublishBlockers.includes("missing_publication_review"),
+      `Stale publication review did not block readiness: ${JSON.stringify(prepublishBlockers)}.`,
+    );
+    await expectReject(
+      () =>
+        client.execute({
+          sql: `
+            UPDATE entity_publications
+            SET status = 'published',
+                published_at = '2026-07-16T00:00:01.000Z'
+            WHERE entity_id = ?
+          `,
+          args: [brand.entityId],
+        }),
+      "publication_guard: readiness blockers remain",
+    );
+    const tracedBrand = tracedPublicationClient(client);
+    const publishedBrand = await publishEntity(tracedBrand.db, {
+      entityId: brand.entityId,
+      reviewer: "phase19-current-publication-reviewer",
+    });
+    assertCondition(
+      publishedBrand.contentHash === currentHash &&
+        tracedBrand.trace.transactionCalls === 1,
+      "Server publication did not refresh the stale final review on the current hash.",
+    );
+    assertTraceOrder(
+      tracedBrand.trace,
+      [
+        "review_kind IN ('fact', 'language', 'media')",
+        "SET status = 'in_review'",
+        "'publication'",
+        "FROM public_entity_readiness",
+        "SET status = 'published'",
+        "FROM public_entities",
+        "COMMIT",
+      ],
+      "Successful publish",
+    );
+    assertCondition(
+      tracedBrand.trace.events.filter((event) => event === "COMMIT").length === 1 &&
+        !tracedBrand.trace.events.includes("ROLLBACK") &&
+        (await publicationReviewCount(client, brand.entityId, currentHash)) === 1,
+      "Successful publish did not commit exactly one current-hash publication review.",
+    );
+    await assertPublic(client, brand.entityId);
+
+    const pen = await seedQualifiedPublicationFixture(client, {
+      entityId: "phase19-atomic-publication-pen",
+      entityType: "pen",
+      brandEntityId: brand.entityId,
+    });
+    await recordV2FirstThreeReviews(client, pen.entityId);
+    const publishedPen = await publishEntity(client, {
+      entityId: pen.entityId,
+      reviewer: "phase19-pen-publication-reviewer",
+    });
+    await assertPublic(client, pen.entityId);
+    const publicMadeBy = await client.execute({
+      sql: `
+        SELECT link.id
+        FROM entity_links link
+        JOIN public_entities target ON target.id = link.target_id
+        WHERE link.source_id = ? AND link.link_type = 'made_by'
+      `,
+      args: [pen.entityId],
+    });
+    assertCondition(
+      publicMadeBy.rows.length === 1,
+      "Published pen did not have exactly one made_by edge to its public brand.",
+    );
+    await client.execute({
+      sql: "UPDATE media_assets SET title = title || ':critical-edit' WHERE id = ?",
+      args: [pen.mediaId],
+    });
+    await assertNotPublic(client, pen.entityId);
+    const editSnapshot = await publicationSnapshot(client, pen.entityId);
+    await expectReject(
+      () =>
+        publishEntity(client, {
+          entityId: pen.entityId,
+          reviewer: "phase19-stale-first-three-reviewer",
+        }),
+      "current-hash reviews missing",
+    );
+    assertCondition(
+      (await publicationSnapshot(client, pen.entityId)) === editSnapshot,
+      "Stale first-three reviews left partial publication state.",
+    );
+    await recordV2FirstThreeReviews(client, pen.entityId);
+    const republishedPen = await publishEntity(client, {
+      entityId: pen.entityId,
+      reviewer: "phase19-republication-reviewer",
+    });
+    assertCondition(
+      republishedPen.contentHash !== publishedPen.contentHash,
+      "Critical edit reused the stale content hash.",
+    );
+    await assertPublic(client, pen.entityId);
+
+    for (const status of ["in_review", "retired", "draft"] as const) {
+      await setEntityPublicationStatus(client, pen.entityId, status);
+      await assertNotPublic(client, pen.entityId);
+    }
+    await expectReject(
+      () =>
+        setEntityPublicationStatus(
+          client,
+          pen.entityId,
+          "published" as never,
+        ),
+      "Unsupported non-published publication status",
+    );
+  });
+
+  console.log(
+    "Publication publish contract passed: direct SQL rejects stale/incomplete snapshots, one ordered no-retry transaction owns final review, failures fully roll back, and qualified brand+pen publish atomically.",
   );
 }
 

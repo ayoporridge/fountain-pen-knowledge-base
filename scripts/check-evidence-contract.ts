@@ -15,7 +15,9 @@ import {
 import type { CatalogSnapshot } from "../src/lib/audit/audit-contracts";
 import {
   computePublicationContentHash,
+  publishEntity,
   readPublicationContentPayload,
+  recordEntityContentReview,
 } from "../src/lib/publication";
 import {
   seedQualifiedPublicationFixture,
@@ -3093,6 +3095,288 @@ async function runHashInvalidationContract(): Promise<void> {
   );
 }
 
+async function publicationLifecycleSnapshot(
+  client: Client,
+  entityId: string,
+): Promise<string> {
+  const result = await client.execute({
+    sql: `
+      SELECT entity_id, status, depth_tier, quality_score, blockers_json,
+             approved_content_hash, content_revision,
+             reviewed_content_revision, reviewed_contract_version,
+             reviewed_by, reviewed_at, published_at, review_notes,
+             created_at, updated_at
+      FROM entity_publications
+      WHERE entity_id = ?
+    `,
+    args: [entityId],
+  });
+  return JSON.stringify(result.rows[0] ?? null);
+}
+
+async function recordFirstThreeCurrentReviews(
+  client: Client,
+  entityId: string,
+  excludedKind?: "fact" | "language" | "media",
+): Promise<string> {
+  let contentHash: string | null = null;
+  for (const reviewKind of ["fact", "language", "media"] as const) {
+    if (reviewKind === excludedKind) continue;
+    const review = await recordEntityContentReview(client, {
+      entityId,
+      reviewKind,
+      reviewer: `phase19-${reviewKind}-reviewer`,
+      status: "approved",
+      notes: "Fixed readiness/publish fixture review.",
+    });
+    contentHash ??= review.contentHash;
+    assertCondition(
+      review.contentHash === contentHash,
+      `${entityId} changed while recording current-hash reviews.`,
+    );
+  }
+  return contentHash ?? computePublicationContentHash(client, entityId);
+}
+
+async function currentPublicationReviewCount(
+  client: Client,
+  entityId: string,
+  contentHash: string,
+): Promise<number> {
+  const result = await client.execute({
+    sql: `
+      SELECT count(*) AS review_count
+      FROM entity_content_reviews
+      WHERE entity_id = ? AND review_kind = 'publication'
+        AND content_hash = ? AND status = 'approved'
+    `,
+    args: [entityId, contentHash],
+  });
+  return Number(result.rows[0]?.review_count ?? 0);
+}
+
+async function runReadinessPublishContract(): Promise<void> {
+  await withPhase19Fixture(async ({ client }) => {
+    const entity = await seedQualifiedPublicationFixture(client, {
+      entityId: "phase19-publication-review-api",
+      entityType: "brand",
+    });
+    await expectReject(
+      () =>
+        recordEntityContentReview(client, {
+          entityId: entity.entityId,
+          reviewKind: "publication" as "fact",
+          reviewer: "forbidden-caller",
+          status: "approved",
+        }),
+      "only accepts fact, language, or media",
+    );
+  });
+
+  for (const missingReview of ["fact", "language", "media"] as const) {
+    await withPhase19Fixture(async ({ client }) => {
+      const entity = await seedQualifiedPublicationFixture(client, {
+        entityId: `phase19-missing-${missingReview}-review`,
+        entityType: "brand",
+      });
+      const contentHash = await recordFirstThreeCurrentReviews(
+        client,
+        entity.entityId,
+        missingReview,
+      );
+      const before = await publicationLifecycleSnapshot(client, entity.entityId);
+      await expectReject(
+        () =>
+          publishEntity(client, {
+            entityId: entity.entityId,
+            reviewer: "phase19-publication-reviewer",
+          }),
+        `current-hash reviews missing for ${entity.entityId}: ${missingReview}`,
+      );
+      const after = await publicationLifecycleSnapshot(client, entity.entityId);
+      assertCondition(
+        after === before,
+        `Missing ${missingReview} review left a lifecycle snapshot after rollback.`,
+      );
+      assertCondition(
+        (await currentPublicationReviewCount(
+          client,
+          entity.entityId,
+          contentHash,
+        )) === 0,
+        `Missing ${missingReview} review left a publication review.`,
+      );
+      await assertNoPublicMembership(
+        client,
+        entity.entityId,
+        `Missing ${missingReview} review fixture`,
+      );
+    });
+  }
+
+  for (const blockerCase of [
+    "evidence",
+    "source",
+    "scope",
+    "conflict",
+  ] as const) {
+    await withPhase19Fixture(async ({ client }) => {
+      const entity = await seedQualifiedPublicationFixture(client, {
+        entityId: `phase19-publish-blocker-${blockerCase}`,
+        entityType: "brand",
+      });
+      if (blockerCase === "evidence") {
+        await client.execute({
+          sql: "DELETE FROM citations WHERE id = ?",
+          args: [entity.primaryCitationId],
+        });
+      } else if (blockerCase === "source") {
+        await client.execute({
+          sql: "UPDATE source_items SET archive_locator = NULL WHERE id = ?",
+          args: [entity.primaryItemId],
+        });
+      } else if (blockerCase === "scope") {
+        await client.execute({
+          sql: "UPDATE citations SET scope_id = NULL WHERE id = ?",
+          args: [entity.primaryCitationId],
+        });
+      } else {
+        await client.execute({
+          sql: "UPDATE fact_conflicts SET status = 'open', resolution_note = NULL WHERE id = ?",
+          args: [entity.conflictId],
+        });
+      }
+      const contentHash = await recordFirstThreeCurrentReviews(
+        client,
+        entity.entityId,
+      );
+      const before = await publicationLifecycleSnapshot(client, entity.entityId);
+      await expectReject(
+        () =>
+          publishEntity(client, {
+            entityId: entity.entityId,
+            reviewer: "phase19-publication-reviewer",
+          }),
+        "Publication readiness blocked",
+      );
+      const after = await publicationLifecycleSnapshot(client, entity.entityId);
+      assertCondition(
+        after === before,
+        `${blockerCase} blocker left an in_review v2 snapshot after rollback.`,
+      );
+      assertCondition(
+        (await currentPublicationReviewCount(
+          client,
+          entity.entityId,
+          contentHash,
+        )) === 0,
+        `${blockerCase} blocker left the transaction-owned publication review.`,
+      );
+      const blockers = await contract2Blockers(client, entity.entityId);
+      const expectedBlocker = blockerCase === "conflict"
+        ? "unresolved_field_conflict"
+        : "approved_claim_missing_evidence";
+      assertCondition(
+        blockers.includes(expectedBlocker),
+        `${blockerCase} fixture missed ${expectedBlocker}: ${JSON.stringify(blockers)}.`,
+      );
+      await assertNoPublicMembership(
+        client,
+        entity.entityId,
+        `${blockerCase} blocker fixture`,
+      );
+    });
+  }
+
+  await withPhase19Fixture(async ({ client }) => {
+    const brand = await seedQualifiedPublicationFixture(client, {
+      entityId: "phase19-atomic-brand",
+      entityType: "brand",
+    });
+    await recordFirstThreeCurrentReviews(client, brand.entityId);
+    const publishedBrand = await publishEntity(client, {
+      entityId: brand.entityId,
+      reviewer: "phase19-brand-publication-reviewer",
+    });
+    const pen = await seedQualifiedPublicationFixture(client, {
+      entityId: "phase19-atomic-pen",
+      entityType: "pen",
+      brandEntityId: brand.entityId,
+    });
+    await recordFirstThreeCurrentReviews(client, pen.entityId);
+    const publishedPen = await publishEntity(client, {
+      entityId: pen.entityId,
+      reviewer: "phase19-pen-publication-reviewer",
+    });
+    const publicRows = await client.execute({
+      sql: `
+        SELECT id FROM public_entities
+        WHERE id IN (?, ?)
+        ORDER BY id
+      `,
+      args: [brand.entityId, pen.entityId],
+    });
+    assertCondition(
+      publicRows.rows.length === 2,
+      "Fully qualified brand+pen did not atomically enter public_entities.",
+    );
+    const madeBy = await client.execute({
+      sql: `
+        SELECT link.id
+        FROM entity_links link
+        JOIN public_entities brand ON brand.id = link.target_id
+        WHERE link.source_id = ? AND link.link_type = 'made_by'
+      `,
+      args: [pen.entityId],
+    });
+    assertCondition(
+      madeBy.rows.length === 1,
+      "Published pen must have exactly one made_by edge to a public brand.",
+    );
+
+    await client.execute({
+      sql: "UPDATE stories SET body_md = body_md || '\ncritical edit' WHERE id = ?",
+      args: [pen.storyId],
+    });
+    await assertNoPublicMembership(client, pen.entityId, "Critical edit pen");
+    const staleSnapshot = await publicationLifecycleSnapshot(
+      client,
+      pen.entityId,
+    );
+    await expectReject(
+      () =>
+        publishEntity(client, {
+          entityId: pen.entityId,
+          reviewer: "phase19-stale-publication-reviewer",
+        }),
+      "current-hash reviews missing",
+    );
+    assertCondition(
+      (await publicationLifecycleSnapshot(client, pen.entityId)) ===
+        staleSnapshot,
+      "Stale first-three reviews changed lifecycle state on failed publish.",
+    );
+    await recordFirstThreeCurrentReviews(client, pen.entityId);
+    const republishedPen = await publishEntity(client, {
+      entityId: pen.entityId,
+      reviewer: "phase19-republication-reviewer",
+    });
+    assertCondition(
+      republishedPen.contentHash !== publishedPen.contentHash &&
+        publishedBrand.contentHash.startsWith("sha256:v2:") &&
+        (await currentPublicationReviewCount(
+          client,
+          pen.entityId,
+          republishedPen.contentHash,
+        )) === 1,
+      "Critical edit did not require fresh first-three reviews and a refreshed final review.",
+    );
+  });
+  console.log(
+    "Evidence readiness/publish contract passed: three current-hash content reviews, transaction-owned publication review, blocker rollback, and atomic brand+pen publication are green.",
+  );
+}
+
 async function main(): Promise<void> {
   const args = process.argv.slice(2).filter((arg) => arg !== "--");
   if (args.length === 1 && args[0] === "--migration") {
@@ -3111,13 +3395,17 @@ async function main(): Promise<void> {
     await runHashInvalidationContract();
     return;
   }
+  if (args.length === 1 && args[0] === "--readiness-publish") {
+    await runReadinessPublishContract();
+    return;
+  }
   if (args.length === 0 || (args.length === 1 && args[0] === "--all")) {
     await runMigrationContract();
     await runSchemaContract();
     return;
   }
   throw new Error(
-    "Usage: pnpm check:evidence-contract -- --migration|--schema|--fixture-isolation|--hash-invalidation|--all",
+    "Usage: pnpm check:evidence-contract -- --migration|--schema|--fixture-isolation|--hash-invalidation|--readiness-publish|--all",
   );
 }
 
