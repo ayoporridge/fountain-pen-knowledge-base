@@ -14,7 +14,11 @@ ALTER TABLE source_registry ADD COLUMN default_source_tier TEXT CHECK (
 );
 ALTER TABLE source_registry ADD COLUMN default_independence_group TEXT CHECK (
   default_independence_group IS NULL
-  OR trim(default_independence_group) != ''
+  OR (
+    trim(default_independence_group) != ''
+    AND default_independence_group = lower(trim(default_independence_group))
+    AND default_independence_group NOT GLOB '*[^a-z0-9._:-]*'
+  )
 );
 
 ALTER TABLE source_items ADD COLUMN source_tier TEXT CHECK (
@@ -28,7 +32,11 @@ ALTER TABLE source_items ADD COLUMN source_tier TEXT CHECK (
   )
 );
 ALTER TABLE source_items ADD COLUMN independence_group TEXT CHECK (
-  independence_group IS NULL OR trim(independence_group) != ''
+  independence_group IS NULL OR (
+    trim(independence_group) != ''
+    AND independence_group = lower(trim(independence_group))
+    AND independence_group NOT GLOB '*[^a-z0-9._:-]*'
+  )
 );
 ALTER TABLE source_items ADD COLUMN archive_url TEXT CHECK (
   archive_url IS NULL OR trim(archive_url) != ''
@@ -153,6 +161,13 @@ CREATE TABLE fact_conflicts (
 CREATE INDEX idx_fact_conflicts_entity_status
   ON fact_conflicts(entity_id, status, conflict_kind);
 CREATE INDEX idx_fact_conflicts_scope ON fact_conflicts(scope_id);
+CREATE UNIQUE INDEX idx_fact_conflicts_semantic_unique
+  ON fact_conflicts(
+    entity_id,
+    field_key,
+    coalesce(scope_id, ''),
+    conflict_kind
+  );
 
 CREATE TABLE fact_conflict_members (
   id TEXT PRIMARY KEY NOT NULL,
@@ -219,6 +234,9 @@ DROP VIEW IF EXISTS publication_v2_qualified_core_claims;
 DROP VIEW IF EXISTS publication_v2_field_evidence;
 DROP VIEW IF EXISTS publication_v2_qualified_source_items;
 DROP VIEW IF EXISTS publication_source_item_entities;
+DROP VIEW IF EXISTS publication_invalidation_citation_entities;
+DROP VIEW IF EXISTS publication_evidence_citation_entities;
+DROP VIEW IF EXISTS publication_payload_claim_entities;
 DROP VIEW IF EXISTS publication_citation_entities;
 DROP VIEW IF EXISTS publication_claim_entities;
 
@@ -391,15 +409,52 @@ SELECT citation.id, owner.entity_id
 FROM citations citation
 JOIN publication_claim_entities owner ON owner.claim_id = citation.claim_id;
 
+-- This projection matches the claim set read by the canonical publication
+-- payload: direct subject claims plus every citation.claim_id pulled in by a
+-- citation owned by that entity. Blockers, qualification and invalidation must
+-- all use this expanded owner set.
+CREATE VIEW publication_payload_claim_entities (claim_id, entity_id) AS
+SELECT claim_id, entity_id
+FROM publication_claim_entities
+UNION
+SELECT citation.claim_id, owner.entity_id
+FROM citations citation
+JOIN publication_citation_entities owner ON owner.citation_id = citation.id
+WHERE citation.claim_id IS NOT NULL;
+
+-- Evidence citations can belong to a payload owner even when their target
+-- claim has no direct subject_entity_id. Keep this projection separate from
+-- the canonical citation-read owner view to avoid a circular view definition.
+CREATE VIEW publication_evidence_citation_entities (citation_id, entity_id) AS
+SELECT evidence.citation_id, owner.entity_id
+FROM claim_evidence evidence
+JOIN publication_payload_claim_entities owner ON owner.claim_id = evidence.claim_id
+UNION
+SELECT evidence.citation_id, spec.entity_id
+FROM spec_field_evidence evidence
+JOIN model_specs spec ON spec.id = evidence.model_spec_id
+UNION
+SELECT member.citation_id, conflict.entity_id
+FROM fact_conflict_members member
+JOIN fact_conflicts conflict ON conflict.id = member.conflict_id;
+
+CREATE VIEW publication_invalidation_citation_entities (citation_id, entity_id) AS
+SELECT citation_id, entity_id
+FROM publication_citation_entities
+UNION
+SELECT citation_id, entity_id
+FROM publication_evidence_citation_entities;
+
 CREATE VIEW publication_source_item_entities (source_item_id, entity_id) AS
 SELECT claim.source_item_id, owner.entity_id
 FROM claims claim
-JOIN publication_claim_entities owner ON owner.claim_id = claim.id
+JOIN publication_payload_claim_entities owner ON owner.claim_id = claim.id
 WHERE claim.source_item_id IS NOT NULL
 UNION
 SELECT citation.source_item_id, owner.entity_id
 FROM citations citation
-JOIN publication_citation_entities owner ON owner.citation_id = citation.id
+JOIN publication_invalidation_citation_entities owner
+  ON owner.citation_id = citation.id
 WHERE citation.source_item_id IS NOT NULL
 UNION
 SELECT variant.source_item_id, variant.model_entity_id
@@ -491,11 +546,20 @@ WHERE spec.review_status = 'approved'
       AND conflict.status = 'open'
       AND conflict.field_key = evidence.field_key
       AND (conflict.scope_id IS NULL OR conflict.scope_id = evidence.scope_id)
+  )
+  AND (
+    scope.variant_id IS NULL
+    OR EXISTS (
+      SELECT 1
+      FROM model_variants variant
+      WHERE variant.id = scope.variant_id
+        AND variant.model_entity_id = scope.entity_id
+    )
   );
 
 CREATE VIEW publication_v2_qualified_core_claims AS
 SELECT DISTINCT
-  claim.subject_entity_id AS entity_id,
+  owner.entity_id,
   claim.id AS claim_id,
   evidence.id AS evidence_id,
   citation.id AS citation_id,
@@ -504,9 +568,10 @@ SELECT DISTINCT
   source.source_tier,
   source.independence_group
 FROM claims claim
+JOIN publication_payload_claim_entities owner ON owner.claim_id = claim.id
 JOIN claim_evidence evidence ON evidence.claim_id = claim.id
 JOIN fact_scopes scope
-  ON scope.id = evidence.scope_id AND scope.entity_id = claim.subject_entity_id
+  ON scope.id = evidence.scope_id AND scope.entity_id = owner.entity_id
 JOIN citations citation
   ON citation.id = evidence.citation_id
   AND citation.target_type = 'claim'
@@ -514,14 +579,22 @@ JOIN citations citation
   AND citation.scope_id = evidence.scope_id
 JOIN publication_v2_qualified_source_items source
   ON source.source_item_id = citation.source_item_id
-WHERE claim.subject_entity_id IS NOT NULL
-  AND claim.review_status = 'approved'
+WHERE claim.review_status = 'approved'
   AND claim.fact_class = 'core'
   AND evidence.review_status = 'approved'
   AND citation.review_status = 'approved'
   AND trim(evidence.evidence_locator) != ''
   AND citation.evidence_locator IS NOT NULL
-  AND trim(citation.evidence_locator) != '';
+  AND trim(citation.evidence_locator) != ''
+  AND (
+    scope.variant_id IS NULL
+    OR EXISTS (
+      SELECT 1
+      FROM model_variants variant
+      WHERE variant.id = scope.variant_id
+        AND variant.model_entity_id = scope.entity_id
+    )
+  );
 
 CREATE VIEW publication_v2_source_groups AS
 SELECT DISTINCT
@@ -599,13 +672,13 @@ WHERE status IS NOT NULL AND trim(status) != '';
 -- code remains deliberately low-cardinality; detail_key carries the component.
 CREATE VIEW publication_v2_missing_core_claim_evidence AS
 SELECT
-  claim.subject_entity_id AS entity_id,
+  owner.entity_id,
   claim.id AS claim_id,
   'citation' AS missing_component,
   claim.id || ':citation' AS detail_key
 FROM claims claim
-WHERE claim.subject_entity_id IS NOT NULL
-  AND claim.review_status = 'approved'
+JOIN publication_payload_claim_entities owner ON owner.claim_id = claim.id
+WHERE claim.review_status = 'approved'
   AND claim.fact_class = 'core'
   AND NOT EXISTS (
     SELECT 1 FROM claim_evidence evidence
@@ -618,14 +691,96 @@ WHERE claim.subject_entity_id IS NOT NULL
   )
 UNION ALL
 SELECT
-  claim.subject_entity_id,
+  owner.entity_id,
   claim.id,
   'locator',
   claim.id || ':locator'
 FROM claims claim
-WHERE claim.subject_entity_id IS NOT NULL
-  AND claim.review_status = 'approved'
+JOIN publication_payload_claim_entities owner ON owner.claim_id = claim.id
+WHERE claim.review_status = 'approved'
   AND claim.fact_class = 'core'
+  AND NOT EXISTS (
+    SELECT 1 FROM claim_evidence evidence
+    JOIN citations citation ON citation.id = evidence.citation_id
+    WHERE evidence.claim_id = claim.id
+      AND evidence.review_status = 'approved'
+      AND citation.review_status = 'approved'
+      AND citation.target_type = 'claim'
+      AND citation.target_id = claim.id
+      AND trim(evidence.evidence_locator) != ''
+      AND citation.evidence_locator IS NOT NULL
+      AND trim(citation.evidence_locator) != ''
+  )
+UNION ALL
+SELECT
+  owner.entity_id,
+  claim.id,
+  'scope',
+  claim.id || ':scope'
+FROM claims claim
+JOIN publication_payload_claim_entities owner ON owner.claim_id = claim.id
+WHERE claim.review_status = 'approved'
+  AND claim.fact_class = 'core'
+  AND NOT EXISTS (
+    SELECT 1 FROM claim_evidence evidence
+    JOIN citations citation ON citation.id = evidence.citation_id
+    JOIN fact_scopes scope
+      ON scope.id = evidence.scope_id
+      AND scope.id = citation.scope_id
+      AND scope.entity_id = owner.entity_id
+    WHERE evidence.claim_id = claim.id
+      AND evidence.review_status = 'approved'
+      AND citation.review_status = 'approved'
+      AND citation.target_type = 'claim'
+      AND citation.target_id = claim.id
+      AND (
+        scope.variant_id IS NULL
+        OR EXISTS (
+          SELECT 1
+          FROM model_variants variant
+          WHERE variant.id = scope.variant_id
+            AND variant.model_entity_id = scope.entity_id
+        )
+      )
+  )
+UNION ALL
+SELECT
+  owner.entity_id,
+  claim.id,
+  'source_provenance',
+  claim.id || ':source_provenance'
+FROM claims claim
+JOIN publication_payload_claim_entities owner ON owner.claim_id = claim.id
+WHERE claim.review_status = 'approved'
+  AND claim.fact_class = 'core'
+  AND NOT EXISTS (
+    SELECT 1 FROM claim_evidence evidence
+    JOIN citations citation
+      ON citation.id = evidence.citation_id
+      AND citation.target_type = 'claim'
+      AND citation.target_id = claim.id
+    JOIN publication_v2_qualified_source_items source
+      ON source.source_item_id = citation.source_item_id
+    WHERE evidence.claim_id = claim.id
+      AND evidence.review_status = 'approved'
+      AND citation.review_status = 'approved'
+  )
+UNION ALL
+SELECT
+  owner.entity_id,
+  claim.id,
+  'complete_chain',
+  claim.id || ':complete_chain'
+FROM claims claim
+JOIN publication_payload_claim_entities owner ON owner.claim_id = claim.id
+WHERE claim.review_status = 'approved'
+  AND claim.fact_class = 'core'
+  AND NOT EXISTS (
+    SELECT 1
+    FROM publication_v2_qualified_core_claims qualified
+    WHERE qualified.entity_id = owner.entity_id
+      AND qualified.claim_id = claim.id
+  )
   AND EXISTS (
     SELECT 1 FROM claim_evidence evidence
     JOIN citations citation ON citation.id = evidence.citation_id
@@ -635,7 +790,7 @@ WHERE claim.subject_entity_id IS NOT NULL
       AND citation.target_type = 'claim'
       AND citation.target_id = claim.id
   )
-  AND NOT EXISTS (
+  AND EXISTS (
     SELECT 1 FROM claim_evidence evidence
     JOIN citations citation ON citation.id = evidence.citation_id
     WHERE evidence.claim_id = claim.id
@@ -647,57 +802,39 @@ WHERE claim.subject_entity_id IS NOT NULL
       AND citation.evidence_locator IS NOT NULL
       AND trim(citation.evidence_locator) != ''
   )
-UNION ALL
-SELECT
-  claim.subject_entity_id,
-  claim.id,
-  'scope',
-  claim.id || ':scope'
-FROM claims claim
-WHERE claim.subject_entity_id IS NOT NULL
-  AND claim.review_status = 'approved'
-  AND claim.fact_class = 'core'
-  AND NOT EXISTS (
+  AND EXISTS (
     SELECT 1 FROM claim_evidence evidence
     JOIN citations citation ON citation.id = evidence.citation_id
     JOIN fact_scopes scope
       ON scope.id = evidence.scope_id
       AND scope.id = citation.scope_id
-      AND scope.entity_id = claim.subject_entity_id
+      AND scope.entity_id = owner.entity_id
     WHERE evidence.claim_id = claim.id
       AND evidence.review_status = 'approved'
       AND citation.review_status = 'approved'
       AND citation.target_type = 'claim'
       AND citation.target_id = claim.id
+      AND (
+        scope.variant_id IS NULL
+        OR EXISTS (
+          SELECT 1
+          FROM model_variants variant
+          WHERE variant.id = scope.variant_id
+            AND variant.model_entity_id = scope.entity_id
+        )
+      )
   )
-UNION ALL
-SELECT
-  claim.subject_entity_id,
-  claim.id,
-  'source_provenance',
-  claim.id || ':source_provenance'
-FROM claims claim
-WHERE claim.subject_entity_id IS NOT NULL
-  AND claim.review_status = 'approved'
-  AND claim.fact_class = 'core'
-  AND NOT EXISTS (
+  AND EXISTS (
     SELECT 1 FROM claim_evidence evidence
     JOIN citations citation
       ON citation.id = evidence.citation_id
       AND citation.target_type = 'claim'
       AND citation.target_id = claim.id
-      AND citation.scope_id = evidence.scope_id
-    JOIN fact_scopes scope
-      ON scope.id = evidence.scope_id
-      AND scope.entity_id = claim.subject_entity_id
     JOIN publication_v2_qualified_source_items source
       ON source.source_item_id = citation.source_item_id
     WHERE evidence.claim_id = claim.id
       AND evidence.review_status = 'approved'
       AND citation.review_status = 'approved'
-      AND trim(evidence.evidence_locator) != ''
-      AND citation.evidence_locator IS NOT NULL
-      AND trim(citation.evidence_locator) != ''
   );
 
 CREATE VIEW publication_v2_unresolved_conflicts AS
@@ -727,8 +864,22 @@ WHERE entity_id IS NOT NULL
   AND usage_status = 'primary'
   AND license IS NOT NULL
   AND trim(license) != ''
-  AND lower(trim(license)) NOT IN (
-    'unknown', 'all-rights-reserved', 'copyrighted'
+  AND lower(trim(license)) IN (
+    'cc0',
+    'cc0-1.0',
+    'public domain',
+    'public-domain',
+    'cc-by',
+    'cc-by-2.0',
+    'cc-by-3.0',
+    'cc-by-4.0',
+    'cc-by-sa',
+    'cc-by-sa-2.0',
+    'cc-by-sa-3.0',
+    'cc-by-sa-4.0',
+    'site-original',
+    'own-work',
+    'permission-granted'
   )
   AND (
     (image_url IS NOT NULL AND trim(image_url) != '')
@@ -851,16 +1002,30 @@ WHERE publication_entity_id IS NOT NULL
   AND publication_status = 'published'
   AND (published_at IS NULL OR trim(published_at) = '')
 UNION ALL
-SELECT claim.subject_entity_id, 2, 'pending_claim_present', 'claim', claim.id, claim.id
+SELECT owner.entity_id, 2, 'pending_claim_present', 'claim', claim.id, claim.id
 FROM claims claim
-JOIN governed_entities governed ON governed.id = claim.subject_entity_id
+JOIN publication_payload_claim_entities owner ON owner.claim_id = claim.id
+JOIN governed_entities governed ON governed.id = owner.entity_id
 WHERE claim.review_status IN ('pending', 'needs_source')
 UNION ALL
-SELECT claim.subject_entity_id, 2, 'approved_claim_unclassified', 'claim', claim.id, claim.id
+SELECT owner.entity_id, 2, 'approved_claim_unclassified', 'claim', claim.id, claim.id
 FROM claims claim
-JOIN governed_entities governed ON governed.id = claim.subject_entity_id
+JOIN publication_payload_claim_entities owner ON owner.claim_id = claim.id
+JOIN governed_entities governed ON governed.id = owner.entity_id
 WHERE claim.review_status = 'approved'
   AND claim.fact_class = 'unclassified'
+UNION ALL
+SELECT governed.id, 2, 'missing_approved_core_claim', 'claim', governed.id, governed.id
+FROM governed_entities governed
+WHERE governed.type IN ('brand', 'pen')
+  AND NOT EXISTS (
+    SELECT 1
+    FROM claims claim
+    JOIN publication_payload_claim_entities owner ON owner.claim_id = claim.id
+    WHERE owner.entity_id = governed.id
+      AND claim.review_status = 'approved'
+      AND claim.fact_class = 'core'
+  )
 UNION ALL
 SELECT spec.entity_id, 2, 'spec_needs_source', 'model_spec', spec.id, spec.id
 FROM model_specs spec
@@ -1415,7 +1580,8 @@ BEGIN
      OR entity_id IN (
        SELECT owner.entity_id
        FROM citations citation
-       JOIN publication_citation_entities owner ON owner.citation_id = citation.id
+       JOIN publication_invalidation_citation_entities owner
+         ON owner.citation_id = citation.id
        WHERE citation.claim_id = OLD.id
           OR (citation.target_type = 'claim' AND citation.target_id = OLD.id)
      );
@@ -1442,7 +1608,8 @@ BEGIN
      OR entity_id IN (
        SELECT owner.entity_id
        FROM citations citation
-       JOIN publication_citation_entities owner ON owner.citation_id = citation.id
+       JOIN publication_invalidation_citation_entities owner
+         ON owner.citation_id = citation.id
        WHERE citation.claim_id = NEW.id
           OR (citation.target_type = 'claim' AND citation.target_id = NEW.id)
      );
@@ -1459,7 +1626,8 @@ BEGIN
      OR entity_id IN (
        SELECT owner.entity_id
        FROM citations citation
-       JOIN publication_citation_entities owner ON owner.citation_id = citation.id
+       JOIN publication_invalidation_citation_entities owner
+         ON owner.citation_id = citation.id
        WHERE citation.claim_id = OLD.id
           OR (citation.target_type = 'claim' AND citation.target_id = OLD.id)
      );
@@ -1473,7 +1641,7 @@ BEGIN
       status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
       updated_at = datetime('now')
   WHERE entity_id IN (
-    SELECT entity_id FROM publication_citation_entities
+    SELECT entity_id FROM publication_invalidation_citation_entities
     WHERE citation_id = NEW.id
   );
 END;
@@ -1494,7 +1662,7 @@ BEGIN
       status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
       updated_at = datetime('now')
   WHERE entity_id IN (
-    SELECT entity_id FROM publication_citation_entities
+    SELECT entity_id FROM publication_invalidation_citation_entities
     WHERE citation_id = OLD.id
   );
 END;
@@ -1515,7 +1683,7 @@ BEGIN
       status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
       updated_at = datetime('now')
   WHERE entity_id IN (
-    SELECT entity_id FROM publication_citation_entities
+    SELECT entity_id FROM publication_invalidation_citation_entities
     WHERE citation_id = NEW.id
   );
 END;
@@ -1528,7 +1696,7 @@ BEGIN
       status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
       updated_at = datetime('now')
   WHERE entity_id IN (
-    SELECT entity_id FROM publication_citation_entities
+    SELECT entity_id FROM publication_invalidation_citation_entities
     WHERE citation_id = OLD.id
   );
 END;
@@ -1806,6 +1974,32 @@ BEGIN
 END;
 
 -- Phase 19 normalized payload invalidation.
+CREATE TRIGGER fact_scope_variant_insert_guard
+BEFORE INSERT ON fact_scopes
+WHEN NEW.variant_id IS NOT NULL
+  AND NOT EXISTS (
+    SELECT 1
+    FROM model_variants variant
+    WHERE variant.id = NEW.variant_id
+      AND variant.model_entity_id = NEW.entity_id
+  )
+BEGIN
+  SELECT RAISE(ABORT, 'fact_scope: variant entity mismatch');
+END;
+
+CREATE TRIGGER fact_scope_variant_update_guard
+BEFORE UPDATE OF entity_id, variant_id ON fact_scopes
+WHEN NEW.variant_id IS NOT NULL
+  AND NOT EXISTS (
+    SELECT 1
+    FROM model_variants variant
+    WHERE variant.id = NEW.variant_id
+      AND variant.model_entity_id = NEW.entity_id
+  )
+BEGIN
+  SELECT RAISE(ABORT, 'fact_scope: variant entity mismatch');
+END;
+
 CREATE TRIGGER publication_fact_scope_insert
 AFTER INSERT ON fact_scopes
 BEGIN
@@ -1933,8 +2127,10 @@ BEGIN
   SET content_revision = content_revision + 1,
       status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
       updated_at = datetime('now')
-  WHERE entity_id = (
-    SELECT subject_entity_id FROM claims WHERE id = NEW.claim_id
+  WHERE entity_id IN (
+    SELECT entity_id
+    FROM publication_payload_claim_entities
+    WHERE claim_id = NEW.claim_id
   );
 END;
 
@@ -1950,8 +2146,10 @@ BEGIN
   SET content_revision = content_revision + 1,
       status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
       updated_at = datetime('now')
-  WHERE entity_id = (
-    SELECT subject_entity_id FROM claims WHERE id = OLD.claim_id
+  WHERE entity_id IN (
+    SELECT entity_id
+    FROM publication_payload_claim_entities
+    WHERE claim_id = OLD.claim_id
   );
 END;
 
@@ -1967,8 +2165,10 @@ BEGIN
   SET content_revision = content_revision + 1,
       status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
       updated_at = datetime('now')
-  WHERE entity_id = (
-    SELECT subject_entity_id FROM claims WHERE id = NEW.claim_id
+  WHERE entity_id IN (
+    SELECT entity_id
+    FROM publication_payload_claim_entities
+    WHERE claim_id = NEW.claim_id
   );
 END;
 
@@ -1979,8 +2179,10 @@ BEGIN
   SET content_revision = content_revision + 1,
       status = CASE WHEN status = 'published' THEN 'in_review' ELSE status END,
       updated_at = datetime('now')
-  WHERE entity_id = (
-    SELECT subject_entity_id FROM claims WHERE id = OLD.claim_id
+  WHERE entity_id IN (
+    SELECT entity_id
+    FROM publication_payload_claim_entities
+    WHERE claim_id = OLD.claim_id
   );
 END;
 

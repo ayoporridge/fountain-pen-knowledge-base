@@ -47,6 +47,7 @@ const REQUIRED_V2_OBJECTS = [
   ["index", "idx_claim_evidence_scope"],
   ["index", "idx_fact_conflicts_entity_status"],
   ["index", "idx_fact_conflicts_scope"],
+  ["index", "idx_fact_conflicts_semantic_unique"],
   ["index", "idx_fact_conflict_members_conflict"],
   ["index", "idx_fact_conflict_members_citation"],
   ["index", "idx_entity_content_reviews_lookup"],
@@ -62,6 +63,9 @@ const REQUIRED_V2_OBJECTS = [
   ["view", "publication_v2_unresolved_conflicts"],
   ["view", "publication_v2_current_reviews"],
   ["view", "publication_v2_qualified_primary_media"],
+  ["view", "publication_payload_claim_entities"],
+  ["view", "publication_evidence_citation_entities"],
+  ["view", "publication_invalidation_citation_entities"],
   ["view", "publication_claim_entities"],
   ["view", "publication_citation_entities"],
   ["view", "publication_source_item_entities"],
@@ -72,6 +76,8 @@ const REQUIRED_V2_OBJECTS = [
   ["view", "public_entities"],
   ["trigger", "publication_publish_insert_guard"],
   ["trigger", "publication_publish_transition_guard"],
+  ["trigger", "fact_scope_variant_insert_guard"],
+  ["trigger", "fact_scope_variant_update_guard"],
   ["trigger", "publication_fact_scope_insert"],
   ["trigger", "publication_fact_scope_update_old"],
   ["trigger", "publication_fact_scope_update_new"],
@@ -112,6 +118,12 @@ interface MigrationFixture {
   readonly databasePath: string;
   readonly databaseUrl: string;
   readonly lifecycleBefore: readonly PublicationLifecycleRow[];
+  readonly legacyNonBrandBefore: readonly string[];
+}
+
+interface UpgradeSourceState {
+  readonly lifecycleBefore: readonly PublicationLifecycleRow[];
+  readonly legacyNonBrandBefore: readonly string[];
 }
 
 function assertCondition(
@@ -206,7 +218,7 @@ function readLifecycle(database: Database.Database): PublicationLifecycleRow[] {
     .all() as PublicationLifecycleRow[];
 }
 
-function prepareUpgradeSource(sourcePath: string): PublicationLifecycleRow[] {
+function prepareUpgradeSource(sourcePath: string): UpgradeSourceState {
   const database = new Database(sourcePath);
   try {
     database.pragma("foreign_keys = ON");
@@ -304,7 +316,22 @@ function prepareUpgradeSource(sourcePath: string): PublicationLifecycleRow[] {
     // read-only SQLite open may create staging -wal/-shm sidecars and correctly
     // trip the source snapshot guard.
     database.pragma("journal_mode = DELETE");
-    return readLifecycle(database);
+    const legacyNonBrandBefore = (
+      database
+        .prepare(
+          `
+            SELECT id
+            FROM public_entities
+            WHERE type NOT IN ('brand', 'pen')
+            ORDER BY id
+          `,
+        )
+        .all() as Array<{ id: string }>
+    ).map((row) => row.id);
+    return {
+      lifecycleBefore: readLifecycle(database),
+      legacyNonBrandBefore,
+    };
   } finally {
     database.close();
   }
@@ -345,9 +372,9 @@ async function createMigrationFixture(
     if (kind === "fresh") createFreshSource(sourcePath);
     else fs.copyFileSync(REAL_CATALOG_PATH, sourcePath);
 
-    const lifecycleBefore = kind === "upgrade"
+    const upgradeSource = kind === "upgrade"
       ? prepareUpgradeSource(sourcePath)
-      : [];
+      : { lifecycleBefore: [], legacyNonBrandBefore: [] };
     const source = openReadOnlyCatalog(sourcePath, {
       env: migrationEnvironment(`file:${databasePath}`),
     });
@@ -373,7 +400,8 @@ async function createMigrationFixture(
         sourcePath,
         databasePath,
         databaseUrl: `file:${databasePath}`,
-        lifecycleBefore,
+        lifecycleBefore: upgradeSource.lifecycleBefore,
+        legacyNonBrandBefore: upgradeSource.legacyNonBrandBefore,
       },
     };
   } catch (error) {
@@ -530,6 +558,23 @@ async function assertUpgradeLifecycle(
   );
 }
 
+async function assertLegacyNonBrandCompatibility(
+  client: Client,
+  before: readonly string[],
+): Promise<void> {
+  const result = await client.execute(`
+    SELECT id
+    FROM public_entities
+    WHERE type NOT IN ('brand', 'pen')
+    ORDER BY id
+  `);
+  const after = result.rows.map((row) => String(row.id));
+  assertCondition(
+    JSON.stringify(after) === JSON.stringify(before),
+    `Contract-v2 migration changed the legacy non-brand public set (${before.length} -> ${after.length}).`,
+  );
+}
+
 async function runMigrationContract(): Promise<void> {
   const migration030Before = sha256File(MIGRATION_030_PATH);
 
@@ -567,6 +612,10 @@ async function runMigrationContract(): Promise<void> {
       await assertMigrationMarker(client);
       await assertMigration030Unchanged(client);
       await assertUpgradeLifecycle(client, fixture.lifecycleBefore);
+      await assertLegacyNonBrandCompatibility(
+        client,
+        fixture.legacyNonBrandBefore,
+      );
       await assertIntegrity(client);
       await assertDatabaseReady(client);
       await assertRequiredObjects(client);
@@ -576,6 +625,10 @@ async function runMigrationContract(): Promise<void> {
         `Upgrade replay was not idempotent:\n${replayOutput}`,
       );
       await assertUpgradeLifecycle(client, fixture.lifecycleBefore);
+      await assertLegacyNonBrandCompatibility(
+        client,
+        fixture.legacyNonBrandBefore,
+      );
     } finally {
       client.close();
     }
@@ -719,6 +772,155 @@ function seedCoreEvidence(
     );
 }
 
+interface PublicationState {
+  status: string;
+  revision: number;
+  approvedHash: string | null;
+}
+
+function publicationState(
+  database: Database.Database,
+  entityId: string,
+): PublicationState {
+  const row = database
+    .prepare(
+      `
+        SELECT
+          status,
+          content_revision AS revision,
+          approved_content_hash AS approvedHash
+        FROM entity_publications
+        WHERE entity_id = ?
+      `,
+    )
+    .get(entityId) as PublicationState | undefined;
+  assertCondition(row, `Missing publication lifecycle for ${entityId}.`);
+  return row;
+}
+
+function contract2Hash(sequence: number): string {
+  return `sha256:v2:${sequence.toString(16).padStart(64, "0")}`;
+}
+
+function setContract2ReviewSnapshot(
+  database: Database.Database,
+  entityId: string,
+  sequence: number,
+): string {
+  const contentHash = contract2Hash(sequence);
+  database
+    .prepare(
+      `
+        UPDATE entity_publications
+        SET status = 'in_review',
+            blockers_json = '[]',
+            approved_content_hash = ?,
+            reviewed_content_revision = content_revision,
+            reviewed_contract_version = 2,
+            reviewed_by = 'phase19-contract-reviewer',
+            reviewed_at = '2026-07-16T00:00:00.000Z',
+            published_at = '2026-07-16T00:00:01.000Z'
+        WHERE entity_id = ?
+      `,
+    )
+    .run(contentHash, entityId);
+  const revisionBeforeReviews = publicationState(database, entityId).revision;
+  const insert = database.prepare(
+    `
+      INSERT INTO entity_content_reviews (
+        id, entity_id, review_kind, content_hash, status,
+        reviewer, reviewed_at
+      ) VALUES (?, ?, ?, ?, 'approved', 'phase19-contract-reviewer',
+                '2026-07-16T00:00:00.000Z')
+    `,
+  );
+  for (const reviewKind of ["fact", "language", "media", "publication"]) {
+    insert.run(
+      `review-${entityId}-${sequence}-${reviewKind}`,
+      entityId,
+      reviewKind,
+      contentHash,
+    );
+  }
+  assertCondition(
+    publicationState(database, entityId).revision === revisionBeforeReviews,
+    "Review snapshot insertion changed content_revision.",
+  );
+  return contentHash;
+}
+
+function assertNotPublic(
+  database: Database.Database,
+  entityId: string,
+  message: string,
+): void {
+  const row = database
+    .prepare("SELECT 1 FROM public_entities WHERE id = ?")
+    .get(entityId);
+  assertCondition(!row, message);
+}
+
+function publishReviewedEntity(
+  database: Database.Database,
+  entityId: string,
+): void {
+  const blockers = database
+    .prepare(
+      `
+        SELECT blocker_code AS blockerCode, detail_key AS detailKey
+        FROM publication_blockers
+        WHERE entity_id = ? AND contract_version = 2
+        ORDER BY blocker_code, subject_type, subject_id, detail_key
+      `,
+    )
+    .all(entityId);
+  assertCondition(
+    blockers.length === 0,
+    `${entityId} unexpectedly retained blockers before publish: ${JSON.stringify(blockers)}`,
+  );
+  database
+    .prepare(
+      "UPDATE entity_publications SET status = 'published' WHERE entity_id = ?",
+    )
+    .run(entityId);
+  const row = database
+    .prepare("SELECT 1 FROM public_entities WHERE id = ?")
+    .get(entityId);
+  assertCondition(row, `${entityId} did not enter sole public_entities view.`);
+}
+
+function assertPayloadInvalidation(
+  database: Database.Database,
+  entityId: string,
+  label: string,
+  mutate: () => void,
+): void {
+  const before = publicationState(database, entityId);
+  assertCondition(
+    before.status === "published",
+    `${label} fixture was not published before mutation.`,
+  );
+  mutate();
+  const after = publicationState(database, entityId);
+  assertCondition(
+    after.revision > before.revision,
+    `${label} did not increment content_revision.`,
+  );
+  assertCondition(
+    after.status === "in_review",
+    `${label} did not demote the published lifecycle row.`,
+  );
+  assertCondition(
+    after.approvedHash === before.approvedHash,
+    `${label} discarded the old approved hash instead of retaining audit evidence.`,
+  );
+  assertNotPublic(
+    database,
+    entityId,
+    `${label} left a stale publication in public_entities.`,
+  );
+}
+
 async function runSchemaContract(): Promise<void> {
   await withMigratedFixture("fresh", async (fixture) => {
     const database = new Database(fixture.databasePath);
@@ -846,6 +1048,34 @@ async function runSchemaContract(): Promise<void> {
           )
           .run(id, name);
       }
+      for (const [index, invalidGroup] of [
+        "shared-primary-origin ",
+        "Shared-primary-origin",
+      ].entries()) {
+        expectSqliteReject(
+          () =>
+            database
+              .prepare(
+                `
+                  INSERT INTO source_items (
+                    id, source_id, title, url, retrieved_at, allowed_use,
+                    review_status, source_tier, independence_group,
+                    archive_url, archive_locator
+                  ) VALUES (
+                    ?, 'registry-a', 'Invalid group', ?, '2026-07-16',
+                    'summary_only', 'approved', 'primary', ?,
+                    'https://archive.invalid/invalid-group', 'snapshot:invalid'
+                  )
+                `,
+              )
+              .run(
+                `invalid-group-${index}`,
+                `https://example.invalid/invalid-group/${index}`,
+                invalidGroup,
+              ),
+          "CHECK constraint failed",
+        );
+      }
 
       const itemSeeds: SourceItemSeed[] = [
         { id: "item-default-only", sourceId: "registry-defaults" },
@@ -868,6 +1098,12 @@ async function runSchemaContract(): Promise<void> {
           group: "independent-secondary",
         },
         {
+          id: "item-secondary-mirror",
+          sourceId: "registry-b",
+          tier: "professional_secondary",
+          group: "shared-primary-origin",
+        },
+        {
           id: "item-retailer-a",
           sourceId: "registry-a",
           tier: "retailer",
@@ -887,6 +1123,23 @@ async function runSchemaContract(): Promise<void> {
         },
       ];
       for (const seed of itemSeeds) seedSourceItem(database, seed);
+      database
+        .prepare(
+          `
+            INSERT INTO source_items (
+              id, source_id, title, url, retrieved_at, review_status,
+              source_tier, independence_group, archive_url, archive_locator
+            ) VALUES (
+              'item-missing-allowed-use', 'registry-a',
+              'Item missing allowed use',
+              'https://example.invalid/item-missing-allowed-use',
+              '2026-07-16', 'approved', 'primary', 'missing-use-group',
+              'https://archive.invalid/item-missing-allowed-use',
+              'snapshot:missing-use'
+            )
+          `,
+        )
+        .run();
 
       const qualifiedItemIds = new Set(
         (
@@ -906,15 +1159,59 @@ async function runSchemaContract(): Promise<void> {
         "Registry tier/group defaults incorrectly qualified an item with NULL item provenance.",
       );
       assertCondition(
+        !qualifiedItemIds.has("item-missing-allowed-use"),
+        "An item without explicit allowed_use incorrectly qualified.",
+      );
+      assertCondition(
         itemSeeds.slice(1).every((seed) => qualifiedItemIds.has(seed.id)),
         "An explicitly reviewed item-level provenance row failed qualification.",
       );
 
       seedScope(database, entityId, "scope-core");
+      database
+        .prepare(
+          `
+            INSERT INTO entities (id, type, slug, name, summary)
+            VALUES (
+              'variant-other-entity', 'concept', 'variant-other-entity',
+              'Other variant owner', 'Variant coherence fixture'
+            )
+          `,
+        )
+        .run();
+      database
+        .prepare(
+          `
+            INSERT INTO model_variants (
+              id, model_entity_id, variant_name, review_status
+            ) VALUES (
+              'variant-owned-elsewhere', 'variant-other-entity',
+              'Elsewhere variant', 'approved'
+            )
+          `,
+        )
+        .run();
+      expectSqliteReject(
+        () =>
+          database
+            .prepare(
+              `
+                INSERT INTO fact_scopes (
+                  id, entity_id, variant_id, scope_key
+                ) VALUES (
+                  'cross-entity-variant-scope', ?,
+                  'variant-owned-elsewhere', 'cross-entity-variant-scope'
+                )
+              `,
+            )
+            .run(entityId),
+        "fact_scope: variant entity mismatch",
+      );
       for (const [claimId, itemId] of [
         ["claim-primary-a", "item-primary-a"],
         ["claim-primary-b", "item-primary-b"],
         ["claim-secondary-a", "item-secondary-a"],
+        ["claim-secondary-mirror", "item-secondary-mirror"],
         ["claim-retailer-a", "item-retailer-a"],
         ["claim-community-a", "item-community-a"],
         ["claim-search-a", "item-search-a"],
@@ -930,6 +1227,12 @@ async function runSchemaContract(): Promise<void> {
         entityId,
         claimId: "claim-default-provenance",
         itemId: "item-default-only",
+        scopeId: "scope-core",
+      });
+      seedCoreEvidence(database, {
+        entityId,
+        claimId: "claim-missing-allowed-use",
+        itemId: "item-missing-allowed-use",
         scopeId: "scope-core",
       });
       seedCoreEvidence(database, {
@@ -953,6 +1256,55 @@ async function runSchemaContract(): Promise<void> {
         scopeId: "scope-core",
         citationScopeId: null,
       });
+      database
+        .prepare(
+          `
+            INSERT INTO claims (
+              id, subject_entity_id, predicate, object_text,
+              review_status, fact_class
+            ) VALUES (
+              'claim-partial-stitch', ?, 'partial_stitch', 'partial',
+              'approved', 'core'
+            )
+          `,
+        )
+        .run(entityId);
+      for (const [suffix, itemId, citationScope] of [
+        ["scoped", "item-default-only", "scope-core"],
+        ["sourced", "item-primary-a", null],
+      ] as const) {
+        database
+          .prepare(
+            `
+              INSERT INTO citations (
+                id, target_type, target_id, source_item_id,
+                review_status, evidence_locator, scope_id
+              ) VALUES (?, 'claim', 'claim-partial-stitch', ?, 'approved', ?, ?)
+            `,
+          )
+          .run(
+            `citation-partial-${suffix}`,
+            itemId,
+            `locator:partial:${suffix}`,
+            citationScope,
+          );
+        database
+          .prepare(
+            `
+              INSERT INTO claim_evidence (
+                id, claim_id, citation_id, scope_id,
+                evidence_locator, review_status
+              ) VALUES (
+                ?, 'claim-partial-stitch', ?, 'scope-core', ?, 'approved'
+              )
+            `,
+          )
+          .run(
+            `evidence-partial-${suffix}`,
+            `citation-partial-${suffix}`,
+            `mapping:partial:${suffix}`,
+          );
+      }
 
       const sourceCounts = database
         .prepare(
@@ -996,29 +1348,43 @@ async function runSchemaContract(): Promise<void> {
           `,
         )
         .all(entityId) as Array<{ subjectId: string; detailKey: string }>;
-      const missingDetails = new Set(
-        missingEvidence.map((row) => row.detailKey),
-      );
-      for (const expected of [
-        "claim-default-provenance:source_provenance",
-        "claim-missing-citation:citation",
-        "claim-missing-locator:locator",
-        "claim-missing-scope:scope",
-      ]) {
+      const actualDetailsByClaim = new Map<string, string[]>();
+      for (const row of missingEvidence) {
+        const details = actualDetailsByClaim.get(row.subjectId) ?? [];
+        details.push(row.detailKey);
+        actualDetailsByClaim.set(row.subjectId, details);
+      }
+      const expectedDetailsByClaim = new Map<string, string[]>([
+        [
+          "claim-default-provenance",
+          ["claim-default-provenance:source_provenance"],
+        ],
+        [
+          "claim-missing-allowed-use",
+          ["claim-missing-allowed-use:source_provenance"],
+        ],
+        [
+          "claim-missing-citation",
+          [
+            "claim-missing-citation:citation",
+            "claim-missing-citation:locator",
+            "claim-missing-citation:scope",
+            "claim-missing-citation:source_provenance",
+          ],
+        ],
+        ["claim-missing-locator", ["claim-missing-locator:locator"]],
+        ["claim-missing-scope", ["claim-missing-scope:scope"]],
+        ["claim-partial-stitch", ["claim-partial-stitch:complete_chain"]],
+      ]);
+      for (const [claimId, expected] of expectedDetailsByClaim) {
+        const actual = actualDetailsByClaim.get(claimId) ?? [];
         assertCondition(
-          missingDetails.has(expected),
-          `Missing exact approved_claim_missing_evidence detail ${expected}.`,
+          JSON.stringify(actual) === JSON.stringify(expected),
+          `${claimId} missing-component details differ: ${JSON.stringify(actual)}.`,
         );
       }
       assertCondition(
-        missingEvidence.every((row) =>
-          [
-            "claim-default-provenance",
-            "claim-missing-citation",
-            "claim-missing-locator",
-            "claim-missing-scope",
-          ].includes(row.subjectId)
-        ),
+        actualDetailsByClaim.size === expectedDetailsByClaim.size,
         "A complete approved core claim received approved_claim_missing_evidence.",
       );
 
@@ -1039,6 +1405,7 @@ async function runSchemaContract(): Promise<void> {
         "claim-primary-a",
         "claim-primary-b",
         "claim-secondary-a",
+        "claim-secondary-mirror",
         "claim-retailer-a",
         "claim-community-a",
         "claim-search-a",
@@ -1050,9 +1417,11 @@ async function runSchemaContract(): Promise<void> {
       }
       for (const claimId of [
         "claim-default-provenance",
+        "claim-missing-allowed-use",
         "claim-missing-citation",
         "claim-missing-locator",
         "claim-missing-scope",
+        "claim-partial-stitch",
       ]) {
         assertCondition(
           !qualifiedCoreClaims.has(claimId),
@@ -1212,6 +1581,30 @@ async function runSchemaContract(): Promise<void> {
             .run(entityId),
         "CHECK constraint failed",
       );
+      database
+        .prepare(
+          `
+            INSERT INTO fact_conflicts (
+              id, entity_id, field_key, conflict_kind, status
+            ) VALUES ('null-scope-conflict-a', ?, 'identity', 'identity', 'open')
+          `,
+        )
+        .run(entityId);
+      expectSqliteReject(
+        () =>
+          database
+            .prepare(
+              `
+                INSERT INTO fact_conflicts (
+                  id, entity_id, field_key, conflict_kind, status
+                ) VALUES (
+                  'null-scope-conflict-b', ?, 'identity', 'identity', 'open'
+                )
+              `,
+            )
+            .run(entityId),
+        "UNIQUE constraint failed",
+      );
 
       const contentHash = `sha256:v2:${"c".repeat(64)}`;
       database
@@ -1316,6 +1709,864 @@ async function runSchemaContract(): Promise<void> {
             ),
         "CHECK constraint failed",
       );
+      const incompleteCoreReadiness = database
+        .prepare(
+          `
+            SELECT publishable, blocker_count AS blockerCount
+            FROM public_entity_readiness
+            WHERE entity_id = ? AND contract_version = 2
+          `,
+        )
+        .get(entityId) as
+        | { publishable: number; blockerCount: number }
+        | undefined;
+      assertCondition(
+        Number(incompleteCoreReadiness?.publishable) === 0 &&
+          Number(incompleteCoreReadiness?.blockerCount) > 0,
+        "Approved core claims with incomplete evidence did not fail readiness.",
+      );
+      assertNotPublic(
+        database,
+        entityId,
+        "Approved core claims with incomplete evidence entered public_entities.",
+      );
+
+      const blockedEntityId = "phase19-direct-sql-blocked";
+      seedSchemaEntity(database, blockedEntityId);
+      setContract2ReviewSnapshot(database, blockedEntityId, 100);
+      database
+        .prepare(
+          `
+            UPDATE entity_publications
+            SET blockers_json = '[]', quality_score = 100
+            WHERE entity_id = ?
+          `,
+        )
+        .run(blockedEntityId);
+      expectSqliteReject(
+        () =>
+          database
+            .prepare(
+              "UPDATE entity_publications SET status = 'published' WHERE entity_id = ?",
+            )
+            .run(blockedEntityId),
+        "publication_guard: readiness blockers remain",
+      );
+      assertNotPublic(
+        database,
+        blockedEntityId,
+        "Forged score/blockers_json exposed a zero-evidence entity.",
+      );
+      expectSqliteReject(
+        () =>
+          database
+            .prepare(
+              `
+                UPDATE entity_publications
+                SET approved_content_hash = ?
+                WHERE entity_id = ?
+              `,
+            )
+            .run(V1_HASH, blockedEntityId),
+        "CHECK constraint failed",
+      );
+
+      database
+        .prepare(
+          `
+            INSERT INTO entities (id, type, slug, name, summary)
+            VALUES (
+              'phase19-direct-insert-concept', 'concept',
+              'phase19-direct-insert-concept', 'Direct insert concept',
+              'Direct insert guard fixture'
+            )
+          `,
+        )
+        .run();
+      expectSqliteReject(
+        () =>
+          database
+            .prepare(
+              `
+                INSERT INTO entity_publications (
+                  entity_id, status, blockers_json, approved_content_hash,
+                  content_revision, reviewed_content_revision,
+                  reviewed_contract_version, reviewed_by, reviewed_at,
+                  published_at
+                ) VALUES (
+                  'phase19-direct-insert-concept', 'published', '[]', ?,
+                  0, 0, 2, 'direct-reviewer',
+                  '2026-07-16T00:00:00.000Z',
+                  '2026-07-16T00:00:01.000Z'
+                )
+              `,
+            )
+            .run(contract2Hash(101)),
+        "publication_guard: published insert requires an existing review row",
+      );
+
+      const proprietaryMediaEntity = "phase19-proprietary-media";
+      seedSchemaEntity(database, proprietaryMediaEntity);
+      for (const [id, license] of [
+        ["proprietary-media-a", "proprietary"],
+        ["proprietary-media-b", "All rights reserved"],
+      ]) {
+        database
+          .prepare(
+            `
+              INSERT INTO media_assets (
+                id, entity_id, title, asset_type, image_url, license,
+                review_status, usage_status
+              ) VALUES (?, ?, ?, 'image', ?, ?, 'approved', 'primary')
+            `,
+          )
+          .run(
+            id,
+            proprietaryMediaEntity,
+            id,
+            `https://images.invalid/${id}.jpg`,
+            license,
+          );
+      }
+      assertCondition(
+        !database
+          .prepare(
+            `
+              SELECT 1 FROM publication_v2_qualified_primary_media
+              WHERE entity_id = ?
+            `,
+          )
+          .get(proprietaryMediaEntity),
+        "An unrecognized/proprietary media license qualified as reusable.",
+      );
+      assertCondition(
+        database
+          .prepare(
+            `
+              SELECT 1 FROM publication_blockers
+              WHERE entity_id = ?
+                AND blocker_code = 'missing_approved_primary_media'
+            `,
+          )
+          .get(proprietaryMediaEntity),
+        "Proprietary media did not retain missing_approved_primary_media.",
+      );
+
+      const auxiliaryEntityId = "phase19-auxiliary-only";
+      seedSchemaEntity(database, auxiliaryEntityId);
+      database
+        .prepare(
+          `
+            INSERT INTO stories (
+              id, entity_id, title, story_type, body_md, status
+            ) VALUES (
+              'story-phase19-auxiliary-only', ?, 'Auxiliary-only brand story',
+              'brand_story', 'Auxiliary-only story body', 'published'
+            )
+          `,
+        )
+        .run(auxiliaryEntityId);
+      seedScope(database, auxiliaryEntityId, "scope-auxiliary-only");
+      for (const [claimId, itemId] of [
+        ["aux-claim-retailer", "item-retailer-a"],
+        ["aux-claim-community", "item-community-a"],
+        ["aux-claim-search", "item-search-a"],
+      ]) {
+        seedCoreEvidence(database, {
+          entityId: auxiliaryEntityId,
+          claimId,
+          itemId,
+          scopeId: "scope-auxiliary-only",
+        });
+      }
+      database
+        .prepare(
+          `
+            INSERT INTO media_assets (
+              id, entity_id, title, asset_type, image_url, license,
+              review_status, usage_status
+            ) VALUES (
+              'auxiliary-primary-media', ?, 'Auxiliary primary image', 'image',
+              'https://images.invalid/auxiliary.jpg', 'CC-BY-4.0',
+              'approved', 'primary'
+            )
+          `,
+        )
+        .run(auxiliaryEntityId);
+      setContract2ReviewSnapshot(database, auxiliaryEntityId, 150);
+      const auxiliaryCounts = database
+        .prepare(
+          `
+            SELECT
+              primary_archive_group_count AS primaryCount,
+              professional_secondary_group_count AS secondaryCount,
+              auxiliary_group_count AS auxiliaryCount
+            FROM publication_v2_source_group_counts
+            WHERE entity_id = ?
+          `,
+        )
+        .get(auxiliaryEntityId) as
+        | {
+          primaryCount: number;
+          secondaryCount: number;
+          auxiliaryCount: number;
+        }
+        | undefined;
+      assertCondition(
+        Number(auxiliaryCounts?.primaryCount) === 0 &&
+          Number(auxiliaryCounts?.secondaryCount) === 0 &&
+          Number(auxiliaryCounts?.auxiliaryCount) === 3,
+        "Retailer/community/search sources incorrectly satisfied a required source tier.",
+      );
+      const auxiliaryBlockers = new Set(
+        (
+          database
+            .prepare(
+              `
+                SELECT blocker_code AS blockerCode
+                FROM publication_blockers
+                WHERE entity_id = ?
+              `,
+            )
+            .all(auxiliaryEntityId) as Array<{ blockerCode: string }>
+        ).map((row) => row.blockerCode),
+      );
+      assertCondition(
+        auxiliaryBlockers.has("missing_primary_or_archive_group") &&
+          auxiliaryBlockers.has("missing_professional_secondary_group"),
+        "Auxiliary-only evidence lacked both hard source-threshold blockers.",
+      );
+      expectSqliteReject(
+        () =>
+          database
+            .prepare(
+              "UPDATE entity_publications SET status = 'published' WHERE entity_id = ?",
+            )
+            .run(auxiliaryEntityId),
+        "publication_guard: readiness blockers remain",
+      );
+      assertNotPublic(
+        database,
+        auxiliaryEntityId,
+        "Auxiliary-only evidence entered public_entities.",
+      );
+
+      const readyEntityId = "phase19-contract-ready";
+      seedSchemaEntity(database, readyEntityId);
+      database
+        .prepare(
+          `
+            INSERT INTO stories (
+              id, entity_id, title, story_type, body_md, status
+            ) VALUES (
+              'story-phase19-contract-ready', ?, 'Ready brand story',
+              'brand_story', 'Complete ready story body', 'published'
+            )
+          `,
+        )
+        .run(readyEntityId);
+      seedScope(database, readyEntityId, "scope-ready");
+      seedCoreEvidence(database, {
+        entityId: readyEntityId,
+        claimId: "ready-claim-primary",
+        itemId: "item-primary-a",
+        scopeId: "scope-ready",
+      });
+      seedCoreEvidence(database, {
+        entityId: readyEntityId,
+        claimId: "ready-claim-secondary",
+        itemId: "item-secondary-a",
+        scopeId: "scope-ready",
+      });
+      database
+        .prepare(
+          `
+            INSERT INTO model_specs (
+              id, entity_id, nib, review_status
+            ) VALUES ('ready-spec', ?, '18k medium', 'approved')
+          `,
+        )
+        .run(readyEntityId);
+      for (const [suffix, itemId] of [
+        ["primary", "item-primary-a"],
+        ["secondary", "item-secondary-a"],
+      ]) {
+        database
+          .prepare(
+            `
+              INSERT INTO citations (
+                id, target_type, target_id, source_item_id,
+                review_status, evidence_locator, scope_id
+              ) VALUES (?, 'model_spec', 'ready-spec', ?, 'approved',
+                        ?, 'scope-ready')
+            `,
+          )
+          .run(
+            `ready-spec-citation-${suffix}`,
+            itemId,
+            `table:nib:${suffix}`,
+          );
+        database
+          .prepare(
+            `
+              INSERT INTO spec_field_evidence (
+                id, model_spec_id, field_key, citation_id, scope_id,
+                evidence_locator, review_status
+              ) VALUES (?, 'ready-spec', 'nib', ?, 'scope-ready', ?, 'approved')
+            `,
+          )
+          .run(
+            `ready-field-evidence-${suffix}`,
+            `ready-spec-citation-${suffix}`,
+            `row:nib:${suffix}`,
+          );
+      }
+      database
+        .prepare(
+          `
+            INSERT INTO media_assets (
+              id, entity_id, title, asset_type, image_url, license,
+              review_status, usage_status
+            ) VALUES (
+              'ready-primary-media', ?, 'Ready primary image', 'image',
+              'https://images.invalid/ready.jpg', 'CC-BY-4.0',
+              'approved', 'primary'
+            )
+          `,
+        )
+        .run(readyEntityId);
+      database
+        .prepare(
+          `
+            INSERT INTO fact_conflicts (
+              id, entity_id, field_key, scope_id, conflict_kind,
+              status, resolution_note
+            ) VALUES (
+              'ready-resolved-conflict', ?, 'historical_note', 'scope-ready',
+              'field', 'resolved', 'Resolved before publication'
+            )
+          `,
+        )
+        .run(readyEntityId);
+
+      setContract2ReviewSnapshot(database, readyEntityId, 200);
+      const readyReadiness = database
+        .prepare(
+          `
+            SELECT contract_version AS contractVersion,
+                   blocker_count AS blockerCount,
+                   publishable
+            FROM public_entity_readiness
+            WHERE entity_id = ?
+          `,
+        )
+        .get(readyEntityId) as
+        | { contractVersion: number; blockerCount: number; publishable: number }
+        | undefined;
+      assertCondition(
+        Number(readyReadiness?.contractVersion) === 2 &&
+          Number(readyReadiness?.blockerCount) === 0 &&
+          Number(readyReadiness?.publishable) === 1,
+        `Complete contract-v2 entity was not ready: ${JSON.stringify(readyReadiness)}`,
+      );
+      publishReviewedEntity(database, readyEntityId);
+      database
+        .prepare(
+          `
+            UPDATE entity_publications
+            SET blockers_json = '["forged_diagnostic_blocker"]'
+            WHERE entity_id = ?
+          `,
+        )
+        .run(readyEntityId);
+      assertCondition(
+        database
+          .prepare("SELECT 1 FROM public_entities WHERE id = ?")
+          .get(readyEntityId),
+        "Diagnostic blockers_json incorrectly became an authorization predicate.",
+      );
+
+      let reviewSequence = 201;
+      seedSourceItem(database, {
+        id: "item-cross-owner-claim-source",
+        sourceId: "registry-a",
+        tier: "community",
+        group: "cross-owner-claim-source",
+      });
+      seedSourceItem(database, {
+        id: "item-cross-owner-evidence-source",
+        sourceId: "registry-b",
+        tier: "professional_secondary",
+        group: "cross-owner-evidence-source",
+      });
+      database
+        .prepare(
+          `
+            INSERT INTO claims (
+              id, subject_text, predicate, object_text, source_item_id,
+              review_status, fact_class
+            ) VALUES (
+              'cross-owner-claim', 'Cross-owner subject', 'cross_owner_fact',
+              'Cross-owner value', 'item-cross-owner-claim-source',
+              'pending', 'unclassified'
+            )
+          `,
+        )
+        .run();
+      database
+        .prepare(
+          `
+            INSERT INTO citations (
+              id, target_type, target_id, source_item_id, claim_id,
+              review_status, evidence_locator, scope_id
+            ) VALUES (
+              'cross-owner-attachment', 'entity', ?, 'item-primary-a',
+              'cross-owner-claim', 'approved', 'attachment:cross-owner',
+              'scope-ready'
+            )
+          `,
+        )
+        .run(readyEntityId);
+      assertCondition(
+        publicationState(database, readyEntityId).status === "in_review",
+        "Cross-owner claim attachment did not invalidate its payload owner.",
+      );
+      assertCondition(
+        database
+          .prepare(
+            `
+              SELECT 1 FROM publication_blockers
+              WHERE entity_id = ?
+                AND blocker_code = 'pending_claim_present'
+                AND subject_id = 'cross-owner-claim'
+            `,
+          )
+          .get(readyEntityId),
+        "Citation-owned pending claim lacked a blocker on its payload owner.",
+      );
+      setContract2ReviewSnapshot(database, readyEntityId, reviewSequence++);
+      expectSqliteReject(
+        () =>
+          database
+            .prepare(
+              "UPDATE entity_publications SET status = 'published' WHERE entity_id = ?",
+            )
+            .run(readyEntityId),
+        "publication_guard: readiness blockers remain",
+      );
+      database
+        .prepare(
+          `
+            UPDATE claims
+            SET review_status = 'approved', fact_class = 'core'
+            WHERE id = 'cross-owner-claim'
+          `,
+        )
+        .run();
+      database
+        .prepare(
+          `
+            INSERT INTO citations (
+              id, target_type, target_id, source_item_id,
+              review_status, evidence_locator, scope_id
+            ) VALUES (
+              'cross-owner-evidence-citation', 'claim', 'cross-owner-claim',
+              'item-cross-owner-evidence-source', 'approved',
+              'evidence:cross-owner',
+              'scope-ready'
+            )
+          `,
+        )
+        .run();
+      database
+        .prepare(
+          `
+            INSERT INTO claim_evidence (
+              id, claim_id, citation_id, scope_id,
+              evidence_locator, review_status
+            ) VALUES (
+              'cross-owner-evidence', 'cross-owner-claim',
+              'cross-owner-evidence-citation', 'scope-ready',
+              'mapping:cross-owner', 'approved'
+            )
+          `,
+        )
+        .run();
+      assertCondition(
+        database
+          .prepare(
+            `
+              SELECT 1 FROM publication_v2_qualified_core_claims
+              WHERE entity_id = ? AND claim_id = 'cross-owner-claim'
+            `,
+          )
+          .get(readyEntityId),
+        "Citation-owned core claim did not qualify for its payload owner.",
+      );
+      setContract2ReviewSnapshot(database, readyEntityId, reviewSequence++);
+      publishReviewedEntity(database, readyEntityId);
+      assertPayloadInvalidation(
+        database,
+        readyEntityId,
+        "citation-owned claim source update",
+        () => {
+          database
+            .prepare(
+              `
+                UPDATE source_items
+                SET archive_locator = 'snapshot:cross-owner:revised'
+                WHERE id = 'item-cross-owner-claim-source'
+              `,
+            )
+            .run();
+        },
+      );
+      setContract2ReviewSnapshot(database, readyEntityId, reviewSequence++);
+      publishReviewedEntity(database, readyEntityId);
+      assertPayloadInvalidation(
+        database,
+        readyEntityId,
+        "citation-owned evidence citation update",
+        () => {
+          database
+            .prepare(
+              `
+                UPDATE citations
+                SET evidence_locator = 'evidence:cross-owner:revised'
+                WHERE id = 'cross-owner-evidence-citation'
+              `,
+            )
+            .run();
+        },
+      );
+      setContract2ReviewSnapshot(database, readyEntityId, reviewSequence++);
+      publishReviewedEntity(database, readyEntityId);
+      assertPayloadInvalidation(
+        database,
+        readyEntityId,
+        "citation-owned evidence source update",
+        () => {
+          database
+            .prepare(
+              `
+                UPDATE source_items
+                SET archive_locator = 'snapshot:cross-owner-evidence:revised'
+                WHERE id = 'item-cross-owner-evidence-source'
+              `,
+            )
+            .run();
+        },
+      );
+      setContract2ReviewSnapshot(database, readyEntityId, reviewSequence++);
+      publishReviewedEntity(database, readyEntityId);
+
+      assertPayloadInvalidation(
+        database,
+        readyEntityId,
+        "fact scope update",
+        () => {
+          database
+            .prepare(
+              "UPDATE fact_scopes SET market = 'cn' WHERE id = 'scope-ready'",
+            )
+            .run();
+        },
+      );
+      expectSqliteReject(
+        () =>
+          database
+            .prepare(
+              "UPDATE entity_publications SET status = 'published' WHERE entity_id = ?",
+            )
+            .run(readyEntityId),
+        "publication_guard: stale reviewed revision",
+      );
+      setContract2ReviewSnapshot(database, readyEntityId, reviewSequence++);
+      publishReviewedEntity(database, readyEntityId);
+
+      assertPayloadInvalidation(
+        database,
+        readyEntityId,
+        "claim classification update",
+        () => {
+          database
+            .prepare(
+              "UPDATE claims SET fact_class = 'editorial' WHERE id = 'ready-claim-primary'",
+            )
+            .run();
+        },
+      );
+      setContract2ReviewSnapshot(database, readyEntityId, reviewSequence++);
+      publishReviewedEntity(database, readyEntityId);
+
+      assertPayloadInvalidation(
+        database,
+        readyEntityId,
+        "claim evidence update",
+        () => {
+          database
+            .prepare(
+              `
+                UPDATE claim_evidence
+                SET evidence_locator = 'mapping:ready-primary:revised'
+                WHERE id = 'evidence-ready-claim-primary'
+              `,
+            )
+            .run();
+        },
+      );
+      setContract2ReviewSnapshot(database, readyEntityId, reviewSequence++);
+      publishReviewedEntity(database, readyEntityId);
+
+      assertPayloadInvalidation(
+        database,
+        readyEntityId,
+        "citation evidence update",
+        () => {
+          database
+            .prepare(
+              `
+                UPDATE citations
+                SET evidence_locator = 'locator:ready-primary:revised'
+                WHERE id = 'citation-ready-claim-primary'
+              `,
+            )
+            .run();
+        },
+      );
+      setContract2ReviewSnapshot(database, readyEntityId, reviewSequence++);
+      publishReviewedEntity(database, readyEntityId);
+
+      assertPayloadInvalidation(
+        database,
+        readyEntityId,
+        "source item provenance update",
+        () => {
+          database
+            .prepare(
+              `
+                UPDATE source_items
+                SET archive_locator = 'snapshot:phase19:revised'
+                WHERE id = 'item-primary-a'
+              `,
+            )
+            .run();
+        },
+      );
+      setContract2ReviewSnapshot(database, readyEntityId, reviewSequence++);
+      publishReviewedEntity(database, readyEntityId);
+
+      assertPayloadInvalidation(
+        database,
+        readyEntityId,
+        "spec field evidence update",
+        () => {
+          database
+            .prepare(
+              `
+                UPDATE spec_field_evidence
+                SET evidence_locator = 'row:nib:primary:revised'
+                WHERE id = 'ready-field-evidence-primary'
+              `,
+            )
+            .run();
+        },
+      );
+      setContract2ReviewSnapshot(database, readyEntityId, reviewSequence++);
+      publishReviewedEntity(database, readyEntityId);
+
+      assertPayloadInvalidation(
+        database,
+        readyEntityId,
+        "conflict member insert",
+        () => {
+          database
+            .prepare(
+              `
+                INSERT INTO fact_conflict_members (
+                  id, conflict_id, citation_id, asserted_value
+                ) VALUES (
+                  'ready-conflict-member', 'ready-resolved-conflict',
+                  'citation-ready-claim-primary', 'historical assertion'
+                )
+              `,
+            )
+            .run();
+        },
+      );
+      setContract2ReviewSnapshot(database, readyEntityId, reviewSequence++);
+      publishReviewedEntity(database, readyEntityId);
+
+      assertPayloadInvalidation(
+        database,
+        readyEntityId,
+        "primary media update",
+        () => {
+          database
+            .prepare(
+              `
+                UPDATE media_assets
+                SET title = 'Ready primary image revised'
+                WHERE id = 'ready-primary-media'
+              `,
+            )
+            .run();
+        },
+      );
+      setContract2ReviewSnapshot(database, readyEntityId, reviewSequence++);
+      publishReviewedEntity(database, readyEntityId);
+
+      assertPayloadInvalidation(
+        database,
+        readyEntityId,
+        "unresolved identity conflict insert",
+        () => {
+          database
+            .prepare(
+              `
+                INSERT INTO fact_conflicts (
+                  id, entity_id, field_key, conflict_kind, status
+                ) VALUES (
+                  'ready-open-identity-conflict', ?, 'canonical_identity',
+                  'identity', 'open'
+                )
+              `,
+            )
+            .run(readyEntityId);
+        },
+      );
+      setContract2ReviewSnapshot(database, readyEntityId, reviewSequence++);
+      const identityBlocker = database
+        .prepare(
+          `
+            SELECT 1 FROM publication_blockers
+            WHERE entity_id = ?
+              AND blocker_code = 'unresolved_identity_conflict'
+              AND subject_id = 'ready-open-identity-conflict'
+          `,
+        )
+        .get(readyEntityId);
+      assertCondition(identityBlocker, "Open identity conflict lacked a hard blocker.");
+      expectSqliteReject(
+        () =>
+          database
+            .prepare(
+              "UPDATE entity_publications SET status = 'published' WHERE entity_id = ?",
+            )
+            .run(readyEntityId),
+        "publication_guard: readiness blockers remain",
+      );
+      database
+        .prepare(
+          `
+            UPDATE fact_conflicts
+            SET status = 'resolved', resolution_note = 'Canonical identity resolved'
+            WHERE id = 'ready-open-identity-conflict'
+          `,
+        )
+        .run();
+      setContract2ReviewSnapshot(database, readyEntityId, reviewSequence++);
+      publishReviewedEntity(database, readyEntityId);
+
+      const beforeReviewRevoke = publicationState(database, readyEntityId);
+      database
+        .prepare(
+          `
+            UPDATE entity_content_reviews
+            SET status = 'revoked'
+            WHERE entity_id = ?
+              AND review_kind = 'fact'
+              AND content_hash = ?
+          `,
+        )
+        .run(readyEntityId, beforeReviewRevoke.approvedHash);
+      const afterReviewRevoke = publicationState(database, readyEntityId);
+      assertCondition(
+        afterReviewRevoke.revision === beforeReviewRevoke.revision &&
+          afterReviewRevoke.status === "in_review",
+        "Revoking a current fact review did not demote without changing revision.",
+      );
+      assertNotPublic(
+        database,
+        readyEntityId,
+        "Revoked current fact review remained public.",
+      );
+      assertCondition(
+        database
+          .prepare(
+            `
+              SELECT 1 FROM publication_blockers
+              WHERE entity_id = ? AND blocker_code = 'missing_fact_review'
+            `,
+          )
+          .get(readyEntityId),
+        "Revoked current fact review lacked missing_fact_review.",
+      );
+      database
+        .prepare(
+          `
+            UPDATE entity_content_reviews
+            SET status = 'approved'
+            WHERE entity_id = ?
+              AND review_kind = 'fact'
+              AND content_hash = ?
+          `,
+        )
+        .run(readyEntityId, beforeReviewRevoke.approvedHash);
+      publishReviewedEntity(database, readyEntityId);
+
+      const beforeReviewDelete = publicationState(database, readyEntityId);
+      database
+        .prepare(
+          `
+            DELETE FROM entity_content_reviews
+            WHERE entity_id = ?
+              AND review_kind = 'language'
+              AND content_hash = ?
+          `,
+        )
+        .run(readyEntityId, beforeReviewDelete.approvedHash);
+      const afterReviewDelete = publicationState(database, readyEntityId);
+      assertCondition(
+        afterReviewDelete.revision === beforeReviewDelete.revision &&
+          afterReviewDelete.status === "in_review",
+        "Deleting a current language review did not demote without changing revision.",
+      );
+      assertNotPublic(
+        database,
+        readyEntityId,
+        "Deleted current language review remained public.",
+      );
+      assertCondition(
+        database
+          .prepare(
+            `
+              SELECT 1 FROM publication_blockers
+              WHERE entity_id = ? AND blocker_code = 'missing_language_review'
+            `,
+          )
+          .get(readyEntityId),
+        "Deleted current language review lacked missing_language_review.",
+      );
+      database
+        .prepare(
+          `
+            INSERT INTO entity_content_reviews (
+              id, entity_id, review_kind, content_hash, status,
+              reviewer, reviewed_at
+            ) VALUES (
+              'replacement-language-review', ?, 'language', ?, 'approved',
+              'phase19-contract-reviewer', '2026-07-16T00:00:00.000Z'
+            )
+          `,
+        )
+        .run(readyEntityId, beforeReviewDelete.approvedHash);
+      assertCondition(
+        publicationState(database, readyEntityId).revision ===
+          beforeReviewDelete.revision,
+        "Replacing a hash-bound review changed content_revision.",
+      );
+      publishReviewedEntity(database, readyEntityId);
     } finally {
       database.close();
     }
