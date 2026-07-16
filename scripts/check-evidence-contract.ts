@@ -13,6 +13,7 @@ import {
   snapshotCatalogFiles,
 } from "../src/lib/audit/read-only-catalog";
 import type { CatalogSnapshot } from "../src/lib/audit/audit-contracts";
+import { computePublicationContentHash } from "../src/lib/publication";
 
 const ROOT = process.cwd();
 const REAL_CATALOG_PATH = path.join(ROOT, "data", "fpkg.db");
@@ -2602,6 +2603,39 @@ async function runFixtureIsolation(): Promise<void> {
   );
 }
 
+async function runHashInvalidationContract(): Promise<void> {
+  await withMigratedFixture("fresh", async (fixture) => {
+    const client = createClient({ url: fixture.databaseUrl });
+    try {
+      await client.execute({
+        sql: `
+          INSERT INTO entities (
+            id, type, slug, name, summary, body_md, source
+          ) VALUES (?, 'brand', ?, ?, ?, ?, ?)
+        `,
+        args: [
+          "phase19-v2-hash-red",
+          "phase19-v2-hash-red",
+          "Phase 19 v2 hash",
+          "Canonical hash contract fixture",
+          "Canonical hash contract body",
+          "phase19-contract",
+        ],
+      });
+      const contentHash = await computePublicationContentHash(
+        client,
+        "phase19-v2-hash-red",
+      );
+      assertCondition(
+        /^sha256:v2:[0-9a-f]{64}$/.test(contentHash),
+        `Canonical publication hash must use contract v2, received ${contentHash}.`,
+      );
+    } finally {
+      client.close();
+    }
+  });
+}
+
 async function main(): Promise<void> {
   const args = process.argv.slice(2).filter((arg) => arg !== "--");
   if (args.length === 1 && args[0] === "--migration") {
@@ -2616,13 +2650,17 @@ async function main(): Promise<void> {
     await runFixtureIsolation();
     return;
   }
+  if (args.length === 1 && args[0] === "--hash-invalidation") {
+    await runHashInvalidationContract();
+    return;
+  }
   if (args.length === 0 || (args.length === 1 && args[0] === "--all")) {
     await runMigrationContract();
     await runSchemaContract();
     return;
   }
   throw new Error(
-    "Usage: pnpm check:evidence-contract -- --migration|--schema|--fixture-isolation|--all",
+    "Usage: pnpm check:evidence-contract -- --migration|--schema|--fixture-isolation|--hash-invalidation|--all",
   );
 }
 
