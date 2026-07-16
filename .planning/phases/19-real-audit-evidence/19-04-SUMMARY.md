@@ -222,7 +222,7 @@ None. No credentials, remote resources, or configuration changes are required.
 - All created/modified implementation files exist and all seven task/recovery commits are present.
 - Every Plan 19-04 verification plus migration ownership, fixture/signal isolation, TypeScript, lint, diff, temp-root, and dual-peer checks passed.
 - The latest safety peer reported no remaining findings after all fixes.
-- No implementation stub remains; the two “not implemented” strings in the checker are existence-guard failure messages, and `placeholders` occurrences in `library.ts` are SQL parameter arrays.
+- No implementation stub remains; the two “not implemented” strings in the checker are existence-guard diagnostics, and `placeholders` occurrences in `library.ts` are SQL parameter arrays.
 - The original sidecar metadata was not preserved; the incident and final stable post-incident baseline are recorded in full above.
 
 ---
