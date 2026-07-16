@@ -29,6 +29,7 @@ import {
 import {
   cleanupPhase19Fixture,
   createPhase19Fixture,
+  installPhase19FixtureSignalHandlers,
   seedQualifiedPublicationFixture,
   snapshotRealCatalogInvariant,
   withPhase19Fixture,
@@ -781,7 +782,9 @@ async function assertSignalCleanup(
   } catch (error) {
     await stopChild(child);
     throw new Error(
-      `Phase 19 ${signal} cleanup probe failed. ${output.join("")}`,
+      `Phase 19 ${signal} cleanup probe failed: ${
+        error instanceof Error ? error.message : String(error)
+      }. ${output.join("")}`,
       { cause: error },
     );
   } finally {
@@ -890,6 +893,7 @@ async function runFixtureIsolation(): Promise<void> {
 }
 
 async function runSignalProbe(reportFile: string): Promise<void> {
+  installPhase19FixtureSignalHandlers();
   const fixture = await createPhase19Fixture("fpkg-phase19-signal-probe-");
   try {
     const child = fixture.registerChild(
