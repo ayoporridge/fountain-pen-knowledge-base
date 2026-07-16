@@ -35,11 +35,20 @@ type ProbeReport = {
   readonly childPid: number | null;
 };
 
+const FORBIDDEN_E2E_BASE_URL_MESSAGE =
+  "Phase 19 regression forbids non-empty E2E_BASE_URL; browser checks must use the owned local server.";
+
 function assertCondition(
   condition: unknown,
   message: string,
 ): asserts condition {
   if (!condition) throw new Error(message);
+}
+
+function assertNoExternalE2EBaseUrl(
+  env: NodeJS.ProcessEnv = process.env,
+): void {
+  assertCondition(!env.E2E_BASE_URL, FORBIDDEN_E2E_BASE_URL_MESSAGE);
 }
 
 function hasExited(child: ChildProcess): boolean {
@@ -125,6 +134,7 @@ function childEnvironment(fixture: Phase19Fixture): NodeJS.ProcessEnv {
     TURSO_AUTH_TOKEN: "",
     FPKG_DATABASE_URL: fixture.databaseUrl,
     PUBLICATION_GATE_FIXTURE: "1",
+    E2E_BASE_URL: "",
   };
 }
 
@@ -164,6 +174,7 @@ async function runCommand(
 export async function runPhase19RegressionWithDisposableDatabase(
   options: RegressionOptions,
 ): Promise<void> {
+  assertNoExternalE2EBaseUrl();
   installPhase19FixtureSignalHandlers();
   const realBefore = assertPhase19LockedRealCatalog(
     snapshotRealCatalogInvariant(),
@@ -267,11 +278,57 @@ async function spawnProbe(
       TURSO_AUTH_TOKEN: "",
       FPKG_DATABASE_URL: "",
       PUBLICATION_GATE_FIXTURE: "",
+      E2E_BASE_URL: "",
     },
     stdio: ["ignore", "ignore", "ignore"],
   });
   await waitForFile(reportFile, 10_000);
   return child;
+}
+
+function regressionTempRoots(): string[] {
+  return fs
+    .readdirSync(os.tmpdir())
+    .filter((entry) => entry.startsWith("fpkg-phase19-regression-"))
+    .map((entry) => path.join(os.tmpdir(), entry))
+    .sort();
+}
+
+async function runHostileBaseUrlProbe(probeRoot: string): Promise<void> {
+  const require = createRequire(import.meta.url);
+  const tsxCli = require.resolve("tsx/cli");
+  const reportFile = path.join(probeRoot, "hostile-base-url.json");
+  const rootsBefore = regressionTempRoots();
+  const child = spawn(
+    process.execPath,
+    [tsxCli, SCRIPT_PATH, "--hostile-env-probe", "--report", reportFile],
+    {
+      cwd: ROOT,
+      env: {
+        ...process.env,
+        TURSO_DATABASE_URL: "",
+        TURSO_AUTH_TOKEN: "",
+        FPKG_DATABASE_URL: "",
+        PUBLICATION_GATE_FIXTURE: "",
+        E2E_BASE_URL: "https://phase19-must-not-connect.invalid",
+      },
+      stdio: ["ignore", "ignore", "pipe"],
+    },
+  );
+  let stderr = "";
+  child.stderr?.on("data", (chunk) => {
+    stderr += String(chunk);
+  });
+  await assertProbeExit(child, 1);
+  assertCondition(
+    stderr.includes(FORBIDDEN_E2E_BASE_URL_MESSAGE),
+    `Hostile E2E_BASE_URL probe did not fail for the expected reason: ${stderr}`,
+  );
+  assertCondition(
+    !fs.existsSync(reportFile) &&
+      JSON.stringify(regressionTempRoots()) === JSON.stringify(rootsBefore),
+    "Hostile E2E_BASE_URL created a fixture or changed regression temp roots.",
+  );
 }
 
 async function assertProbeExit(
@@ -296,6 +353,8 @@ async function runLifecycleProbes(): Promise<void> {
     fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-phase19-regression-probes-")),
   );
   try {
+    await runHostileBaseUrlProbe(probeRoot);
+
     const failureReport = path.join(probeRoot, "failure.json");
     const failureChildReport = `${failureReport}.child`;
     const failure = await spawnProbe(
@@ -387,6 +446,7 @@ function reportPath(args: readonly string[]): string {
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2).filter((arg) => arg !== "--");
+  assertNoExternalE2EBaseUrl();
   if (args[0] === "--failure-probe") {
     const reportFile = reportPath(args);
     const childReport = `${reportFile}.child`;
