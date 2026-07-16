@@ -1,11 +1,12 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { createClient } from "@libsql/client";
 import { migrateDatabase } from "../src/lib/db";
 import {
   assertCatalogSnapshotUnchanged,
-  backupCatalogToDisposableCopy,
+  copyCheckpointedCatalogToDisposableCopy,
   openReadOnlyCatalog,
   snapshotCatalogFiles,
 } from "../src/lib/audit/read-only-catalog";
@@ -278,7 +279,7 @@ function writeArtifacts(
   }
 }
 
-async function auditOwnedCopy(
+export async function runReadinessAuditOnOwnedCopy(
   databasePath: string,
 ): Promise<InventoryAuditResult> {
   const ownedRoot = fs.realpathSync.native(
@@ -286,12 +287,13 @@ async function auditOwnedCopy(
   );
   const auditPath = path.join(ownedRoot, "audit-copy.db");
   try {
-    const source = openReadOnlyCatalog(databasePath, { env: process.env });
-    try {
-      await backupCatalogToDisposableCopy(source, auditPath, ownedRoot);
-    } finally {
-      source.close();
-    }
+    const sourceBefore = snapshotCatalogFiles(databasePath);
+    copyCheckpointedCatalogToDisposableCopy(
+      databasePath,
+      auditPath,
+      ownedRoot,
+      { expectedSourceSnapshot: sourceBefore },
+    );
 
     const preMigrationCopy = openReadOnlyCatalog(auditPath, { env: {} });
     let sourceProvenance;
@@ -305,6 +307,19 @@ async function auditOwnedCopy(
     try {
       await migrateDatabase(writableCopy);
       await writableCopy.execute("PRAGMA wal_checkpoint(TRUNCATE)");
+      const quickCheck = await writableCopy.execute("PRAGMA quick_check");
+      if (
+        quickCheck.rows.length !== 1 ||
+        String(quickCheck.rows[0]?.quick_check) !== "ok"
+      ) {
+        throw new Error("Audit owned copy failed PRAGMA quick_check.");
+      }
+      const foreignKeys = await writableCopy.execute("PRAGMA foreign_key_check");
+      if (foreignKeys.rows.length > 0) {
+        throw new Error(
+          `Audit owned copy has ${foreignKeys.rows.length} foreign-key violation(s).`,
+        );
+      }
     } finally {
       writableCopy.close();
     }
@@ -328,7 +343,7 @@ async function main(): Promise<void> {
   const options = parseArguments(process.argv.slice(2));
   const validated = validateInputs(options);
   const sourceBefore = snapshotCatalogFiles(validated.databasePath);
-  const result = await auditOwnedCopy(validated.databasePath);
+  const result = await runReadinessAuditOnOwnedCopy(validated.databasePath);
   assertCatalogSnapshotUnchanged(
     sourceBefore,
     snapshotCatalogFiles(validated.databasePath),
@@ -380,7 +395,12 @@ async function main(): Promise<void> {
   process.exitCode = exitCode;
 }
 
-main().catch((error) => {
-  console.error(error instanceof Error ? error.message : String(error));
-  process.exitCode = 1;
-});
+if (
+  process.argv[1] &&
+  path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)
+) {
+  main().catch((error) => {
+    console.error(error instanceof Error ? error.message : String(error));
+    process.exitCode = 1;
+  });
+}

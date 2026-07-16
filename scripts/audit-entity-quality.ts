@@ -1,175 +1,136 @@
-import { createClient } from "@libsql/client";
-import {
-  getArticleLikeReasons,
-  normalizeEntityName,
-} from "../src/lib/entity-quality";
-
-const LIMIT_ARG = process.argv.find((arg) => arg.startsWith("--limit="));
-const LIMIT = LIMIT_ARG ? Number(LIMIT_ARG.split("=")[1]) : 20;
-const JSON_OUTPUT = process.argv.includes("--json");
-
-type EntityRow = {
-  id: string;
-  type: string;
-  slug: string;
-  name: string;
-  summary: string | null;
-  body_md: string | null;
-  source_file: string | null;
-  source_url: string | null;
-  story_count: number;
-  claim_count: number;
-};
+import path from "node:path";
+import { normalizeEntityName } from "../src/lib/entity-quality";
+import type { InventoryAuditRow } from "../src/lib/audit/readiness-audit";
+import { runReadinessAuditOnOwnedCopy } from "./audit-readiness-v2";
 
 type DuplicateGroup = {
   key: string;
-  entities: EntityRow[];
+  entities: InventoryAuditRow[];
 };
 
 type SuspiciousEntity = {
-  entity: EntityRow;
+  entity: InventoryAuditRow;
   reasons: string[];
 };
 
-function getClient() {
-  if (process.env.TURSO_DATABASE_URL) {
-    return createClient({
-      url: process.env.TURSO_DATABASE_URL,
-      authToken: process.env.TURSO_AUTH_TOKEN,
-    });
+function option(name: string): string | undefined {
+  const exactIndex = process.argv.indexOf(name);
+  if (exactIndex >= 0) return process.argv[exactIndex + 1];
+  return process.argv.find((arg) => arg.startsWith(`${name}=`))?.slice(name.length + 1);
+}
+
+function parseLimit(): number {
+  const value = option("--limit") ?? "20";
+  if (!/^[1-9]\d*$/.test(value)) {
+    throw new Error("--limit must be a positive decimal integer.");
   }
-  return createClient({ url: "file:data/fpkg.db" });
-}
-
-function toEntity(row: EntityRow): EntityRow {
-  return {
-    ...row,
-    story_count: Number(row.story_count || 0),
-    claim_count: Number(row.claim_count || 0),
-  };
-}
-
-function shortContentReasons(entity: EntityRow) {
-  if (!["brand", "pen"].includes(entity.type)) return [];
-
-  const reasons: string[] = [];
-  const summaryLength = entity.summary?.trim().length || 0;
-  const bodyLength = entity.body_md?.trim().length || 0;
-
-  if (summaryLength < 12) reasons.push("short_summary");
-  if (bodyLength < 80 && entity.story_count === 0) reasons.push("no_detail_body_or_story");
-  if (entity.claim_count === 0) reasons.push("no_claims");
-
-  return reasons;
-}
-
-function findDuplicateGroups(entities: EntityRow[]) {
-  const groups = new Map<string, EntityRow[]>();
-
-  for (const entity of entities) {
-    const key = `${entity.type}:${normalizeEntityName(entity.name)}`;
-    if (!key.endsWith(":")) {
-      groups.set(key, [...(groups.get(key) || []), entity]);
-    }
+  const limit = Number(value);
+  if (!Number.isSafeInteger(limit) || limit > 1_000_000) {
+    throw new Error("--limit must be a positive decimal integer.");
   }
+  return limit;
+}
 
+function explicitDatabasePath(): string {
+  const value = option("--database-path");
+  if (!value) throw new Error("--database-path is required for the contract-v2 audit.");
+  if (!path.isAbsolute(value)) throw new Error("--database-path must be absolute.");
+  return value;
+}
+
+function findDuplicateGroups(rows: readonly InventoryAuditRow[]): DuplicateGroup[] {
+  const groups = new Map<string, InventoryAuditRow[]>();
+  for (const row of rows) {
+    const key = `${row.entity_type}:${normalizeEntityName(row.name)}`;
+    if (!key.endsWith(":")) groups.set(key, [...(groups.get(key) ?? []), row]);
+  }
   return [...groups.entries()]
-    .filter(([, rows]) => rows.length > 1)
-    .map(([key, rows]) => ({ key, entities: rows }))
-    .sort((a, b) => b.entities.length - a.entities.length || a.key.localeCompare(b.key));
+    .filter(([, entities]) => entities.length > 1)
+    .map(([key, entities]) => ({ key, entities }))
+    .sort(
+      (left, right) =>
+        right.entities.length - left.entities.length ||
+        left.key.localeCompare(right.key),
+    );
 }
 
-async function main() {
-  const db = getClient();
-  const limit = Number.isFinite(LIMIT) && LIMIT > 0 ? LIMIT : 20;
-  const rows = await db.execute(`
-    SELECT e.id, e.type, e.slug, e.name, e.summary, e.body_md, e.source_file, e.source_url,
-           COUNT(DISTINCT s.id) as story_count,
-           COUNT(DISTINCT c.id) as claim_count
-    FROM entities e
-    LEFT JOIN stories s ON s.entity_id = e.id
-    LEFT JOIN claims c ON c.subject_entity_id = e.id
-    GROUP BY e.id
-    ORDER BY e.type, e.name
-  `);
-  const entities = rows.rows.map((row) => toEntity(row as unknown as EntityRow));
-
-  const duplicateGroups = findDuplicateGroups(entities);
-  const suspiciousPenArticles = entities
-    .map((entity): SuspiciousEntity => ({ entity, reasons: getArticleLikeReasons(entity) }))
-    .filter((item) => item.reasons.length > 0)
-    .sort(
-      (a, b) =>
-        b.reasons.length - a.reasons.length ||
-        b.entity.name.length - a.entity.name.length ||
-        a.entity.name.localeCompare(b.entity.name),
-    );
-  const thinEntities = entities
-    .map((entity): SuspiciousEntity => ({ entity, reasons: shortContentReasons(entity) }))
-    .filter((item) => item.reasons.length >= 2)
-    .sort(
-      (a, b) =>
-        b.reasons.length - a.reasons.length ||
-        a.entity.type.localeCompare(b.entity.type) ||
-        a.entity.name.localeCompare(b.entity.name),
-    );
-  const brokenLinks = await db.execute(`
-    SELECT COUNT(*) as value
-    FROM entity_links el
-    LEFT JOIN entities se ON se.id = el.source_id
-    LEFT JOIN entities te ON te.id = el.target_id
-    WHERE se.id IS NULL OR te.id IS NULL OR el.source_id = el.target_id
-  `);
-
+async function main(): Promise<void> {
+  const limit = parseLimit();
+  const jsonOutput = process.argv.includes("--json");
+  const result = await runReadinessAuditOnOwnedCopy(explicitDatabasePath());
+  const duplicateGroups = findDuplicateGroups(result.rows);
+  const suspiciousPenArticles: SuspiciousEntity[] = result.rows
+    .filter(
+      (row) =>
+        row.entity_type === "pen" &&
+        row.blocker_codes.some((code) =>
+          [
+            "missing_published_story",
+            "multiple_published_stories",
+            "deprecated_story_present",
+          ].includes(code),
+        ),
+    )
+    .map((entity) => ({
+      entity,
+      reasons: entity.blocker_codes.filter((code) => code.includes("story")),
+    }));
+  const thinEntities: SuspiciousEntity[] = result.rows
+    .filter((row) => !row.content_ready)
+    .map((entity) => ({ entity, reasons: [...entity.blocker_codes] }));
+  const relationshipBlockers = result.rows.filter(
+    (row) => row.entity_type === "pen" && row.made_by_status !== "exactly_one",
+  ).length;
   const report = {
     counts: {
-      entities: entities.length,
+      entities: result.summary.inventory_audited,
       duplicateGroups: duplicateGroups.length,
       suspiciousPenArticles: suspiciousPenArticles.length,
       thinEntities: thinEntities.length,
-      brokenLinks: Number(brokenLinks.rows[0]?.value || 0),
+      brokenLinks: relationshipBlockers,
     },
-    duplicateGroups: duplicateGroups.slice(0, limit),
-    suspiciousPenArticles: suspiciousPenArticles.slice(0, limit),
-    thinEntities: thinEntities.slice(0, limit),
+    summary: result.summary,
+    provenance: result.provenance,
+    duplicateGroups,
+    suspiciousPenArticles,
+    thinEntities,
+    rows: result.rows,
   };
 
-  if (JSON_OUTPUT) {
-    console.log(JSON.stringify(report, null, 2));
-    return;
-  }
+  if (jsonOutput) {
+    console.log(JSON.stringify(report));
+  } else {
+    console.log("Entity quality audit:");
+    console.log(`  entities: ${report.counts.entities}`);
+    console.log(`  duplicate name groups: ${report.counts.duplicateGroups}`);
+    console.log(`  suspicious pen articles: ${report.counts.suspiciousPenArticles}`);
+    console.log(`  thin brand/model entities: ${report.counts.thinEntities}`);
+    console.log(`  made_by relationship blockers: ${report.counts.brokenLinks}`);
 
-  console.log("Entity quality audit:");
-  console.log(`  entities: ${report.counts.entities}`);
-  console.log(`  duplicate name groups: ${report.counts.duplicateGroups}`);
-  console.log(`  suspicious pen articles: ${report.counts.suspiciousPenArticles}`);
-  console.log(`  thin brand/model entities: ${report.counts.thinEntities}`);
-  console.log(`  broken/self links: ${report.counts.brokenLinks}`);
-
-  console.log("\nSuspicious pen articles:");
-  for (const item of report.suspiciousPenArticles) {
-    console.log(
-      `  - ${item.entity.name} (${item.entity.slug}) [${item.reasons.join(", ")}]`,
-    );
-  }
-
-  console.log("\nDuplicate name groups:");
-  for (const group of report.duplicateGroups) {
-    console.log(`  - ${group.key}:`);
-    for (const entity of group.entities) {
-      console.log(`      ${entity.type}/${entity.slug} ${entity.name}`);
+    console.log("\nSuspicious pen articles:");
+    for (const item of suspiciousPenArticles.slice(0, limit)) {
+      console.log(
+        `  - ${item.entity.name} (${item.entity.slug}) [${item.reasons.join(", ")}]`,
+      );
+    }
+    console.log("\nDuplicate name groups:");
+    for (const group of duplicateGroups.slice(0, limit)) {
+      console.log(`  - ${group.key}:`);
+      for (const entity of group.entities) {
+        console.log(`      ${entity.entity_type}/${entity.slug} ${entity.name}`);
+      }
+    }
+    console.log("\nThin brand/model entities:");
+    for (const item of thinEntities.slice(0, limit)) {
+      console.log(
+        `  - ${item.entity.entity_type}/${item.entity.slug} ${item.entity.name} [${item.reasons.join(", ")}]`,
+      );
     }
   }
-
-  console.log("\nThin brand/model entities:");
-  for (const item of report.thinEntities) {
-    console.log(
-      `  - ${item.entity.type}/${item.entity.slug} ${item.entity.name} [${item.reasons.join(", ")}]`,
-    );
-  }
+  process.exitCode = result.summary.backlog === 0 ? 0 : 1;
 }
 
 main().catch((error) => {
-  console.error(error);
-  process.exit(1);
+  console.error(error instanceof Error ? error.message : String(error));
+  process.exitCode = 1;
 });

@@ -233,6 +233,9 @@ export interface LibraryCoverageEntityRecord {
   external_id_count: number;
   alias_count: number;
   model_spec_count: number;
+  current_review_count: number;
+  blocker_count: number;
+  blocker_codes: string[];
   coverage_score: number;
   coverage_status: "ready" | "starter" | "gap";
   missing_items: string[];
@@ -435,22 +438,70 @@ async function sanitizeDiagramEntityTargets(
 
 export async function getModelSpec(entityId: string) {
   return (await queryOne(
-    `SELECT ms.*, b.slug as brand_slug, b.name as brand_name
+    `WITH qualified_fields AS (
+       SELECT DISTINCT model_spec_id, field_key
+       FROM publication_v2_field_evidence
+     )
+     SELECT ms.id,
+            CASE WHEN EXISTS (
+              SELECT 1 FROM qualified_fields field
+              WHERE field.model_spec_id = ms.id AND field.field_key = 'series_name'
+            ) THEN ms.series_name END AS series_name,
+            CASE WHEN EXISTS (
+              SELECT 1 FROM qualified_fields field
+              WHERE field.model_spec_id = ms.id AND field.field_key = 'release_year'
+            ) THEN ms.release_year END AS release_year,
+            CASE WHEN EXISTS (
+              SELECT 1 FROM qualified_fields field
+              WHERE field.model_spec_id = ms.id AND field.field_key = 'origin_country'
+            ) THEN ms.origin_country END AS origin_country,
+            CASE WHEN EXISTS (
+              SELECT 1 FROM qualified_fields field
+              WHERE field.model_spec_id = ms.id AND field.field_key = 'nib'
+            ) THEN ms.nib END AS nib,
+            CASE WHEN EXISTS (
+              SELECT 1 FROM qualified_fields field
+              WHERE field.model_spec_id = ms.id AND field.field_key = 'fill_system'
+            ) THEN ms.fill_system END AS fill_system,
+            CASE WHEN EXISTS (
+              SELECT 1 FROM qualified_fields field
+              WHERE field.model_spec_id = ms.id AND field.field_key = 'material'
+            ) THEN ms.material END AS material,
+            CASE WHEN EXISTS (
+              SELECT 1 FROM qualified_fields field
+              WHERE field.model_spec_id = ms.id AND field.field_key = 'dimensions'
+            ) THEN ms.dimensions END AS dimensions,
+            CASE WHEN EXISTS (
+              SELECT 1 FROM qualified_fields field
+              WHERE field.model_spec_id = ms.id AND field.field_key = 'weight'
+            ) THEN ms.weight END AS weight,
+            CASE WHEN EXISTS (
+              SELECT 1 FROM qualified_fields field
+              WHERE field.model_spec_id = ms.id AND field.field_key = 'price_range'
+            ) THEN ms.price_range END AS price_range,
+            CASE WHEN EXISTS (
+              SELECT 1 FROM qualified_fields field
+              WHERE field.model_spec_id = ms.id AND field.field_key = 'status'
+            ) THEN ms.status END AS status,
+            ms.review_status,
+            CASE WHEN EXISTS (
+              SELECT 1 FROM qualified_fields field
+              WHERE field.model_spec_id = ms.id AND field.field_key = 'brand_entity_id'
+            ) THEN public_brand.slug END AS brand_slug,
+            CASE WHEN EXISTS (
+              SELECT 1 FROM qualified_fields field
+              WHERE field.model_spec_id = ms.id AND field.field_key = 'brand_entity_id'
+            ) THEN public_brand.name END AS brand_name
      FROM model_specs ms
-     LEFT JOIN entities b ON b.id = ms.brand_entity_id
+     JOIN public_entities public_owner
+       ON public_owner.id = ms.entity_id AND public_owner.type = 'pen'
+     LEFT JOIN public_entities public_brand
+       ON public_brand.id = ms.brand_entity_id AND public_brand.type = 'brand'
      WHERE ms.entity_id = ?
        AND ms.review_status = 'approved'
-       AND (b.id IS NULL OR ${publicEntityFilter("b")})
        AND EXISTS (
-         SELECT 1
-         FROM citations c
-         LEFT JOIN claims cl ON cl.id = c.claim_id
-         JOIN source_items si
-           ON si.id = COALESCE(c.source_item_id, cl.source_item_id)
-         WHERE c.target_type = 'model_spec'
-           AND c.target_id = ms.id
-           AND si.review_status = 'approved'
-           AND (c.claim_id IS NULL OR cl.review_status = 'approved')
+         SELECT 1 FROM qualified_fields field
+         WHERE field.model_spec_id = ms.id
        )`,
     [entityId],
   )) as ModelSpecRecord | undefined;
@@ -917,8 +968,8 @@ export async function getLibraryStats() {
 
 type RawCoverageEntity = Omit<
   LibraryCoverageEntityRecord,
-  "coverage_score" | "coverage_status" | "missing_items"
->;
+  "coverage_score" | "coverage_status" | "missing_items" | "blocker_codes"
+> & { blocker_codes_json: string | null };
 
 function normalizeCoverageRow(row: RawCoverageEntity): RawCoverageEntity {
   return {
@@ -933,56 +984,33 @@ function normalizeCoverageRow(row: RawCoverageEntity): RawCoverageEntity {
     external_id_count: Number(row.external_id_count || 0),
     alias_count: Number(row.alias_count || 0),
     model_spec_count: Number(row.model_spec_count || 0),
+    current_review_count: Number(row.current_review_count || 0),
+    blocker_count: Number(row.blocker_count || 0),
+    blocker_codes_json: row.blocker_codes_json,
   };
 }
 
-function scoreCoverage(row: RawCoverageEntity) {
-  const checks =
-    row.type === "brand"
-      ? [
-          [row.story_count > 0, 2],
-          [row.claim_count > 0, 2],
-          [row.reference_count > 0, 1],
-          [row.event_count > 0, 1],
-          [row.media_count > 0, 1],
-          [row.external_id_count > 0, 1],
-          [row.alias_count >= 2, 1],
-        ]
-      : [
-          [row.story_count > 0, 2],
-          [row.model_spec_count > 0, 2],
-          [row.claim_count > 0, 2],
-          [row.reference_count > 0, 1],
-          [row.media_count > 0, 1],
-          [row.diagram_count > 0, 1],
-          [row.event_count > 0, 1],
-        ];
-
-  const total = checks.reduce((sum, [, weight]) => sum + Number(weight), 0);
-  const earned = checks.reduce(
-    (sum, [passed, weight]) => sum + (passed ? Number(weight) : 0),
-    0,
-  );
-  return Math.round((earned / total) * 100);
+function parseBlockerCodes(value: string | null): string[] {
+  try {
+    const parsed = JSON.parse(value || "[]");
+    return Array.isArray(parsed) ? [...new Set(parsed.map(String))].sort() : [];
+  } catch {
+    return [];
+  }
 }
 
-function coverageMissingItems(row: RawCoverageEntity) {
-  const missing: string[] = [];
-  if (row.story_count === 0) missing.push("故事");
-  if (row.claim_count === 0) missing.push("事实");
-  if (row.reference_count === 0) missing.push("来源");
-  if (row.media_count === 0) missing.push("媒体候选");
-  if (row.event_count === 0) missing.push("时间线");
-
-  if (row.type === "brand") {
-    if (row.external_id_count === 0) missing.push("外部标识");
-    if (row.alias_count < 2) missing.push("别名");
-  } else {
-    if (row.model_spec_count === 0) missing.push("规格");
-    if (row.diagram_count === 0) missing.push("图示");
-  }
-
-  return missing;
+function scoreCoverage(row: RawCoverageEntity) {
+  const checks = [
+    row.story_count > 0,
+    row.claim_count > 0,
+    row.reference_count > 0,
+    row.media_count > 0,
+    row.current_review_count === 4,
+  ];
+  if (row.type === "pen") checks.push(row.model_spec_count > 0);
+  return Math.round(
+    (checks.filter(Boolean).length / Math.max(checks.length, 1)) * 100,
+  );
 }
 
 function enrichCoverageEntity(
@@ -990,12 +1018,19 @@ function enrichCoverageEntity(
 ): LibraryCoverageEntityRecord {
   const row = normalizeCoverageRow(rawRow);
   const coverage_score = scoreCoverage(row);
+  const blocker_codes = parseBlockerCodes(row.blocker_codes_json);
+  const { blocker_codes_json: _blockerCodesJson, ...publicRow } = row;
   return {
-    ...row,
+    ...publicRow,
+    blocker_codes,
     coverage_score,
     coverage_status:
-      coverage_score >= 80 ? "ready" : coverage_score >= 45 ? "starter" : "gap",
-    missing_items: coverageMissingItems(row),
+      row.blocker_count === 0
+        ? "ready"
+        : coverage_score >= 45
+          ? "starter"
+          : "gap",
+    missing_items: blocker_codes,
   };
 }
 
@@ -1038,28 +1073,73 @@ export async function getLibraryCoverageReport(
   const rows = (
     (await queryAll(
       `SELECT e.id, e.type, e.slug, e.name, e.summary,
-              COUNT(DISTINCT s.id) as story_count,
-              COUNT(DISTINCT c.id) as claim_count,
-              COUNT(DISTINCT er.id) as reference_count,
-              COUNT(DISTINCT ma.id) as media_count,
-              COUNT(DISTINCT CASE WHEN ma.asset_type = 'image' THEN ma.id END) as image_count,
-              COUNT(DISTINCT d.id) as diagram_count,
-              COUNT(DISTINCT te.id) as event_count,
-              COUNT(DISTINCT ex.id) as external_id_count,
-              COUNT(DISTINCT ea.id) as alias_count,
-              COUNT(DISTINCT ms.id) as model_spec_count
+              coalesce((
+                SELECT count(*)
+                FROM stories story
+                WHERE story.entity_id = e.id
+                  AND story.status = 'published'
+                  AND story.story_type = CASE
+                    WHEN e.type = 'brand' THEN 'brand_story'
+                    ELSE 'model_story'
+                  END
+              ), 0) AS story_count,
+              coalesce((
+                SELECT count(DISTINCT claim.claim_id)
+                FROM publication_v2_qualified_core_claims claim
+                WHERE claim.entity_id = e.id
+              ), 0) AS claim_count,
+              coalesce((
+                SELECT count(*)
+                FROM publication_v2_source_groups source_group
+                WHERE source_group.entity_id = e.id
+              ), 0) AS reference_count,
+              coalesce((
+                SELECT count(*)
+                FROM publication_v2_qualified_primary_media media
+                WHERE media.entity_id = e.id
+              ), 0) AS media_count,
+              coalesce((
+                SELECT count(*)
+                FROM publication_v2_qualified_primary_media media
+                WHERE media.entity_id = e.id
+              ), 0) AS image_count,
+              0 AS diagram_count,
+              0 AS event_count,
+              0 AS external_id_count,
+              0 AS alias_count,
+              coalesce((
+                SELECT count(*)
+                FROM model_specs spec
+                WHERE spec.entity_id = e.id
+                  AND spec.review_status = 'approved'
+                  AND EXISTS (
+                    SELECT 1
+                    FROM publication_v2_required_spec_fields required
+                    WHERE required.model_spec_id = spec.id
+                  )
+                  AND NOT EXISTS (
+                    SELECT 1
+                    FROM publication_v2_required_spec_fields required
+                    WHERE required.model_spec_id = spec.id
+                      AND NOT EXISTS (
+                        SELECT 1
+                        FROM publication_v2_field_evidence evidence
+                        WHERE evidence.model_spec_id = required.model_spec_id
+                          AND evidence.field_key = required.field_key
+                      )
+                  )
+              ), 0) AS model_spec_count,
+              coalesce((
+                SELECT count(DISTINCT review.review_kind)
+                FROM publication_v2_current_reviews review
+                WHERE review.entity_id = e.id
+              ), 0) AS current_review_count,
+              readiness.blocker_count,
+              readiness.blockers_json AS blocker_codes_json
        FROM entities e
-       LEFT JOIN stories s ON s.entity_id = e.id
-       LEFT JOIN claims c ON c.subject_entity_id = e.id
-       LEFT JOIN entity_references er ON er.entity_id = e.id
-       LEFT JOIN media_assets ma ON ma.entity_id = e.id
-       LEFT JOIN diagrams d ON d.entity_id = e.id
-       LEFT JOIN timeline_events te ON te.entity_id = e.id
-       LEFT JOIN external_ids ex ON ex.entity_id = e.id
-       LEFT JOIN entity_aliases ea ON ea.entity_id = e.id
-       LEFT JOIN model_specs ms ON ms.entity_id = e.id
+       JOIN public_entity_readiness readiness
+         ON readiness.entity_id = e.id AND readiness.contract_version = 2
        WHERE e.type IN ('brand', 'pen')
-       GROUP BY e.id
        ORDER BY e.type, e.name`,
     )) as RawCoverageEntity[]
   ).map(enrichCoverageEntity);

@@ -226,7 +226,9 @@ function asText(value: unknown, label: string): string {
 function asNumber(value: unknown, label: string): number {
   const number = Number(value);
   if (!Number.isSafeInteger(number) || number < 0) {
-    throw new Error(`Readiness audit expected a non-negative integer for ${label}.`);
+    throw new Error(
+      `Readiness audit expected a non-negative integer for ${label}.`,
+    );
   }
   return number;
 }
@@ -241,7 +243,9 @@ function rawInventory(db: AuditReadClient): RawIdentityRow[] {
   const inventory = rows.map((row) => {
     const type = asText(row.type, "entity type");
     if (type !== "brand" && type !== "pen") {
-      throw new Error(`Readiness audit encountered unsupported entity type: ${type}.`);
+      throw new Error(
+        `Readiness audit encountered unsupported entity type: ${type}.`,
+      );
     }
     const entityType: RawIdentityRow["type"] =
       type === "brand" ? "brand" : "pen";
@@ -254,7 +258,9 @@ function rawInventory(db: AuditReadClient): RawIdentityRow[] {
   });
   const identities = inventory.map((row) => row.id);
   if (new Set(identities).size !== identities.length) {
-    throw new Error("Readiness audit raw universe contains duplicate identities.");
+    throw new Error(
+      "Readiness audit raw universe contains duplicate identities.",
+    );
   }
   const sorted = [...inventory].sort(
     (left, right) =>
@@ -263,7 +269,9 @@ function rawInventory(db: AuditReadClient): RawIdentityRow[] {
       compareText(left.id, right.id),
   );
   if (JSON.stringify(sorted) !== JSON.stringify(inventory)) {
-    throw new Error("Readiness audit raw universe is not deterministically sorted.");
+    throw new Error(
+      "Readiness audit raw universe is not deterministically sorted.",
+    );
   }
   return inventory;
 }
@@ -283,12 +291,16 @@ function migrationBoundary(db: AuditReadClient): AuditMigrationBoundary {
     ORDER BY CAST(substr(name, 1, 3) AS INTEGER), name
   `);
   if (rows.length === 0) {
-    throw new Error("Readiness audit found no canonical three-digit migration provenance.");
+    throw new Error(
+      "Readiness audit found no canonical three-digit migration provenance.",
+    );
   }
   const normalized = rows.map((row) => {
     const name = asText(row.name, "migration name");
     if (!/^\d{3}_/.test(name)) {
-      throw new Error(`Readiness audit rejected non-canonical migration name: ${name}.`);
+      throw new Error(
+        `Readiness audit rejected non-canonical migration name: ${name}.`,
+      );
     }
     return {
       max_migration: Number(name.slice(0, 3)),
@@ -308,7 +320,10 @@ function migrationBoundary(db: AuditReadClient): AuditMigrationBoundary {
         .join(", ")}.`,
     );
   }
-  const boundary = boundaryRows[0]!;
+  const boundary = boundaryRows[0];
+  if (!boundary) {
+    throw new Error("Readiness audit migration boundary row is missing.");
+  }
   if (!boundary.applied_at || String(boundary.applied_at).trim() === "") {
     throw new Error(
       `Readiness audit migration ${boundary.migration_name} has no applied_at provenance.`,
@@ -459,7 +474,9 @@ export function captureInventoryAuditProvenance(
       [view],
     );
     if (!found) {
-      throw new Error(`Readiness audit copy is missing contract-v2 view: ${view}.`);
+      throw new Error(
+        `Readiness audit copy is missing contract-v2 view: ${view}.`,
+      );
     }
   }
   return {
@@ -476,11 +493,17 @@ export function runReadinessAudit(
   provenance: InventoryAuditProvenance,
 ): InventoryAuditResult {
   if (provenance.audit_database_kind !== "owned_disposable_migrated_copy") {
-    throw new Error("Readiness audit requires an owned disposable migrated copy.");
+    throw new Error(
+      "Readiness audit requires an owned disposable migrated copy.",
+    );
   }
   const inventory = rawInventory(db);
-  if (inventorySnapshotId(inventory) !== provenance.source_inventory_snapshot_id) {
-    throw new Error("Readiness audit inventory no longer matches source provenance.");
+  if (
+    inventorySnapshotId(inventory) !== provenance.source_inventory_snapshot_id
+  ) {
+    throw new Error(
+      "Readiness audit inventory no longer matches source provenance.",
+    );
   }
   const currentBoundary = migrationBoundary(db);
   if (
@@ -489,7 +512,9 @@ export function runReadinessAudit(
     currentBoundary.migration_checksum !==
       provenance.audit_schema_migration_checksum
   ) {
-    throw new Error("Readiness audit schema provenance changed before the scan.");
+    throw new Error(
+      "Readiness audit schema provenance changed before the scan.",
+    );
   }
 
   const inventoryIds = inventory.map((row) => row.id);
@@ -527,7 +552,9 @@ export function runReadinessAudit(
   );
   for (const publicId of publicIds) {
     if (!readiness.has(publicId)) {
-      throw new Error(`Public identity is outside the raw audit universe: ${publicId}.`);
+      throw new Error(
+        `Public identity is outside the raw audit universe: ${publicId}.`,
+      );
     }
   }
 
@@ -751,12 +778,15 @@ export function runReadinessAudit(
       subject_id: blocker.subject_id,
       detail_key: blocker.detail_key,
     }));
-    if (asNumber(readinessRow.blocker_count, "readiness blocker count") !== blockerDetails.length) {
+    if (
+      asNumber(readinessRow.blocker_count, "readiness blocker count") !==
+      blockerDetails.length
+    ) {
       throw new Error(`Readiness blocker count diverged for ${entity.id}.`);
     }
-    const blockerCodes = [...new Set(blockerDetails.map((row) => row.blocker_code))].sort(
-      compareText,
-    );
+    const blockerCodes = [
+      ...new Set(blockerDetails.map((row) => row.blocker_code)),
+    ].sort(compareText);
     const contentReady = blockerDetails.length === 0;
     const storyCounts = stories.get(entity.id) ?? { total: 0, qualified: 0 };
     const specCounts = specs.get(entity.id) ?? { total: 0, qualified: 0 };
@@ -775,7 +805,9 @@ export function runReadinessAudit(
     const requiredFieldCount = requiredFields.get(entity.id) ?? 0;
     const qualifiedFieldCount = qualifiedFields.get(entity.id) ?? 0;
     if (qualifiedFieldCount > requiredFieldCount) {
-      throw new Error(`Qualified spec fields exceed required fields for ${entity.id}.`);
+      throw new Error(
+        `Qualified spec fields exceed required fields for ${entity.id}.`,
+      );
     }
     const conflictCounts = conflicts.get(entity.id);
     const reviewKinds = reviews.get(entity.id) ?? new Set<string>();
@@ -784,20 +816,26 @@ export function runReadinessAudit(
     let madeByStatus: MadeByDisposition = "not_applicable";
     let canonicalBrandId: string | null = null;
     let canonicalBrandSlug: string | null = null;
-    const penMadeBy = entity.type === "pen" ? (madeBy.get(entity.id) ?? []) : [];
+    const penMadeBy =
+      entity.type === "pen" ? (madeBy.get(entity.id) ?? []) : [];
+    const maker = penMadeBy[0];
     if (entity.type === "pen") {
       if (penMadeBy.length === 0) madeByStatus = "missing";
       else if (penMadeBy.length > 1) madeByStatus = "multiple";
-      else if (penMadeBy[0]?.target_type !== "brand") madeByStatus = "noncanonical";
+      else if (!maker || maker.target_type !== "brand")
+        madeByStatus = "noncanonical";
       else {
         madeByStatus = "exactly_one";
-        canonicalBrandId = penMadeBy[0]!.target_id;
-        canonicalBrandSlug = penMadeBy[0]!.target_slug;
+        canonicalBrandId = maker.target_id;
+        canonicalBrandSlug = maker.target_slug;
       }
     }
 
-    const rawModels = entity.type === "brand" ? (rawReverse.get(entity.id) ?? []) : [];
-    const publicModels = rawModels.filter((model) => publicIds.has(model.pen_id));
+    const rawModels =
+      entity.type === "brand" ? (rawReverse.get(entity.id) ?? []) : [];
+    const publicModels = rawModels.filter((model) =>
+      publicIds.has(model.pen_id),
+    );
     const publicModelIds = new Set(publicModels.map((model) => model.pen_id));
     const differenceModels = rawModels.filter(
       (model) => !publicModelIds.has(model.pen_id),
@@ -898,7 +936,8 @@ export function runReadinessAudit(
     inventory_audited: rows.length,
     brand_inventory_audited: rows.filter((row) => row.entity_type === "brand")
       .length,
-    pen_inventory_audited: rows.filter((row) => row.entity_type === "pen").length,
+    pen_inventory_audited: rows.filter((row) => row.entity_type === "pen")
+      .length,
     legacy_public_baseline: rows.filter((row) => row.in_legacy_public_baseline)
       .length,
     content_ready: rows.filter((row) => row.content_ready).length,
@@ -908,8 +947,9 @@ export function runReadinessAudit(
     published_blockers: rows.filter(
       (row) => row.publication_status === "published" && row.blocker_count > 0,
     ).length,
-    public_blockers: rows.filter((row) => row.is_public && row.blocker_count > 0)
-      .length,
+    public_blockers: rows.filter(
+      (row) => row.is_public && row.blocker_count > 0,
+    ).length,
     backlog: rows.filter((row) => !row.content_ready).length,
   };
   return { provenance, rows, summary };
@@ -945,11 +985,14 @@ export function assertLockedInventoryBaseline(
 ): void {
   if (
     result.summary.inventory_audited !== 305 ||
-    result.summary.brand_inventory_audited !== LEGACY_PUBLIC_BASELINE_COUNTS.brand +
-      LEGACY_PUBLIC_BASELINE_EXCLUSIONS.brand.length ||
-    result.summary.pen_inventory_audited !== LEGACY_PUBLIC_BASELINE_COUNTS.pen +
-      LEGACY_PUBLIC_BASELINE_EXCLUSIONS.pen.length ||
-    result.summary.legacy_public_baseline !== LEGACY_PUBLIC_BASELINE_COUNTS.total
+    result.summary.brand_inventory_audited !==
+      LEGACY_PUBLIC_BASELINE_COUNTS.brand +
+        LEGACY_PUBLIC_BASELINE_EXCLUSIONS.brand.length ||
+    result.summary.pen_inventory_audited !==
+      LEGACY_PUBLIC_BASELINE_COUNTS.pen +
+        LEGACY_PUBLIC_BASELINE_EXCLUSIONS.pen.length ||
+    result.summary.legacy_public_baseline !==
+      LEGACY_PUBLIC_BASELINE_COUNTS.total
   ) {
     throw new Error(
       `Locked inventory baseline mismatch: ${JSON.stringify(result.summary)}.`,
@@ -960,9 +1003,7 @@ export function assertLockedInventoryBaseline(
     .map((row) => `${row.entity_type}:${row.slug}`)
     .sort(compareText);
   const expectedExclusions = [
-    ...LEGACY_PUBLIC_BASELINE_EXCLUSIONS.brand.map(
-      (slug) => `brand:${slug}`,
-    ),
+    ...LEGACY_PUBLIC_BASELINE_EXCLUSIONS.brand.map((slug) => `brand:${slug}`),
     ...LEGACY_PUBLIC_BASELINE_EXCLUSIONS.pen.map((slug) => `pen:${slug}`),
   ].sort(compareText);
   if (JSON.stringify(actualExclusions) !== JSON.stringify(expectedExclusions)) {

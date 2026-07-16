@@ -96,3 +96,12 @@ export interface CatalogBackupResult {
   sourceSnapshotBefore: CatalogSnapshot;
   sourceSnapshotAfter: CatalogSnapshot;
 }
+
+export interface CatalogCheckpointedCopyResult {
+  sourcePath: string;
+  destinationPath: string;
+  ownedRoot: string;
+  sourceSnapshotBefore: CatalogSnapshot;
+  sourceSnapshotAfter: CatalogSnapshot;
+  destinationSnapshot: CatalogSnapshot;
+}

@@ -14,6 +14,7 @@ import { migrateDatabase, resolveDatabaseConnection } from "../src/lib/db";
 import {
   assertCatalogSnapshotUnchanged,
   backupCatalogToDisposableCopy,
+  copyCheckpointedCatalogToDisposableCopy,
   openReadOnlyCatalog,
   snapshotCatalogFiles,
 } from "../src/lib/audit/read-only-catalog";
@@ -40,6 +41,38 @@ const SCRIPT_PATH = path.join(ROOT, "scripts", "check-audit-readiness.ts");
 const MIGRATIONS_DIR = path.join(ROOT, "migrations");
 const MIGRATION_030 = "030_publication_gate.sql";
 const MIGRATION_031 = "031_evidence_readiness_v2.sql";
+const MIGRATIONS_THROUGH_030 = [
+  "001_init.sql",
+  "002_schema.sql",
+  "003_tags.sql",
+  "004_links.sql",
+  "005_sources.sql",
+  "006_fts.sql",
+  "007_tag_hierarchy.sql",
+  "008_fix_fk.sql",
+  "009_brands_and_concepts.sql",
+  "010_fix_summaries.sql",
+  "011_library_schema.sql",
+  "012_public_identity_cleanup.sql",
+  "013_public_reference_status_consistency.sql",
+  "014_public_media_cleanup.sql",
+  "015_restore_reusable_media.sql",
+  "016_article_import_residue_cleanup.sql",
+  "017_article_structure_cleanup.sql",
+  "018_article_summaries.sql",
+  "019_reclassify_knowledge_articles.sql",
+  "020_article_summaries_after_reclass.sql",
+  "021_public_specs_and_relations.sql",
+  "022_concept_public_contract.sql",
+  "023_retire_template_stories.sql",
+  "024_phase15_contract_cleanup.sql",
+  "025_article_reclass_residue_cleanup.sql",
+  "026_public_reference_deduplication.sql",
+  "027_remove_source_navigation_residue.sql",
+  "028_remove_remaining_translation_wrappers.sql",
+  "029_online_campus_source_contract.sql",
+  MIGRATION_030,
+] as const;
 const AUDIT_CLI_PATH = path.join(ROOT, "scripts", "audit-readiness-v2.ts");
 const LIBRARY_CONTRACT_PATH = path.join(
   ROOT,
@@ -304,18 +337,16 @@ async function runInventoryContract(): Promise<void> {
 function createMigrationsThrough030(tempRoot: string): string {
   const targetDir = path.join(tempRoot, "migrations-through-030");
   fs.mkdirSync(targetDir);
-  const files = fs
-    .readdirSync(MIGRATIONS_DIR)
-    .filter((file) => {
-      const match = file.match(/^(\d{3})_.*\.sql$/);
-      return Boolean(match && Number(match[1]) <= 30);
-    })
-    .sort();
   assertCondition(
-    files.includes(MIGRATION_030) && !files.includes(MIGRATION_031),
+    MIGRATIONS_THROUGH_030.at(-1) === MIGRATION_030 &&
+      !new Set<string>(MIGRATIONS_THROUGH_030).has(MIGRATION_031),
     "Pre-031 migration fixture did not end exactly at migration 030.",
   );
-  for (const file of files) {
+  for (const file of MIGRATIONS_THROUGH_030) {
+    assertCondition(
+      fs.existsSync(path.join(MIGRATIONS_DIR, file)),
+      `Pre-031 migration fixture is missing ${file}.`,
+    );
     fs.copyFileSync(path.join(MIGRATIONS_DIR, file), path.join(targetDir, file));
   }
   return targetDir;
@@ -343,20 +374,17 @@ async function runBackupMigrationContract(): Promise<void> {
       normalizeSource.close();
     }
     const sourceBefore = snapshotCatalogFiles(sourcePath);
-    const source = openReadOnlyCatalog(sourcePath, { env: {} });
-    try {
-      const backup = await backupCatalogToDisposableCopy(
-        source,
-        auditPath,
-        tempRoot,
-      );
-      assertCondition(
-        backup.destinationPath === auditPath && backup.remainingPages === 0,
-        "Pre-031 source online backup did not complete inside the owned root.",
-      );
-    } finally {
-      source.close();
-    }
+    const copied = copyCheckpointedCatalogToDisposableCopy(
+      sourcePath,
+      auditPath,
+      tempRoot,
+      { expectedSourceSnapshot: sourceBefore },
+    );
+    assertCondition(
+      copied.destinationPath === auditPath &&
+        copied.destinationSnapshot.main.sha256 === sourceBefore.main.sha256,
+      "Pre-031 source checkpointed copy did not complete inside the owned root.",
+    );
 
     const preMigrationCopy = openReadOnlyCatalog(auditPath, { env: {} });
     let sourceProvenance;
@@ -420,7 +448,7 @@ async function runBackupMigrationContract(): Promise<void> {
   });
 
   console.log(
-    "Audit backup migration passed: source provenance is exact migration 030, readiness runs only on the owned canonical 031 copy, and source main/WAL/SHM remain unchanged.",
+    "Audit checkpointed-copy migration passed: source provenance is exact migration 030, readiness runs only on the owned canonical 031 copy, and source main/WAL/SHM remain unchanged.",
   );
 }
 
@@ -1097,16 +1125,206 @@ function runLibraryContractChild(
   });
 }
 
+async function runCheckpointedCopyContract(): Promise<void> {
+  await withOwnedTempRoot("fpkg-checkpointed-copy-", async (tempRoot) => {
+    const sourcePath = path.join(tempRoot, "source.db");
+    const sourceDatabase = new Database(sourcePath);
+    try {
+      sourceDatabase.pragma("journal_mode = DELETE");
+      sourceDatabase.exec(
+        "CREATE TABLE source_probe(id INTEGER PRIMARY KEY, label TEXT NOT NULL); INSERT INTO source_probe(label) VALUES ('checkpointed');",
+      );
+    } finally {
+      sourceDatabase.close();
+    }
+    fs.writeFileSync(`${sourcePath}-wal`, "");
+    fs.writeFileSync(`${sourcePath}-shm`, Buffer.alloc(32_768));
+    const sourceBefore = snapshotCatalogFiles(sourcePath);
+    const ownedRoot = path.join(tempRoot, "owned");
+    fs.mkdirSync(ownedRoot);
+    const destinationPath = path.join(ownedRoot, "copy.db");
+    const copied = copyCheckpointedCatalogToDisposableCopy(
+      sourcePath,
+      destinationPath,
+      ownedRoot,
+      { expectedSourceSnapshot: sourceBefore },
+    );
+    assertCatalogSnapshotUnchanged(
+      sourceBefore,
+      snapshotCatalogFiles(sourcePath),
+    );
+    assertCondition(
+      copied.destinationPath === destinationPath &&
+        copied.destinationSnapshot.main.sha256 === sourceBefore.main.sha256 &&
+        copied.destinationSnapshot.main.inode !== sourceBefore.main.inode,
+      "Checkpointed copy did not create an independent byte-identical main file.",
+    );
+    const copiedDatabase = new Database(destinationPath, {
+      readonly: true,
+      fileMustExist: true,
+    });
+    try {
+      const probe = copiedDatabase
+        .prepare("SELECT label FROM source_probe")
+        .get() as { label: string };
+      assertCondition(
+        probe.label === "checkpointed",
+        "Checkpointed copy omitted source data.",
+      );
+    } finally {
+      copiedDatabase.close();
+    }
+
+    fs.writeFileSync(`${sourcePath}-wal`, "pending");
+    expectThrow(
+      () =>
+        copyCheckpointedCatalogToDisposableCopy(
+          sourcePath,
+          path.join(ownedRoot, "non-empty-wal.db"),
+          ownedRoot,
+        ),
+      "non-empty WAL",
+    );
+    fs.writeFileSync(`${sourcePath}-wal`, "");
+
+    const mainSymlink = path.join(tempRoot, "main-link.db");
+    fs.symlinkSync(sourcePath, mainSymlink);
+    expectThrow(
+      () =>
+        copyCheckpointedCatalogToDisposableCopy(
+          mainSymlink,
+          path.join(ownedRoot, "main-symlink.db"),
+          ownedRoot,
+        ),
+      "must not be a symlink",
+    );
+    fs.rmSync(`${sourcePath}-wal`);
+    fs.symlinkSync(sourcePath, `${sourcePath}-wal`);
+    expectThrow(
+      () =>
+        copyCheckpointedCatalogToDisposableCopy(
+          sourcePath,
+          path.join(ownedRoot, "wal-symlink.db"),
+          ownedRoot,
+        ),
+      "must not be a symlink",
+    );
+    fs.rmSync(`${sourcePath}-wal`);
+    fs.linkSync(sourcePath, `${sourcePath}-wal`);
+    expectThrow(
+      () =>
+        copyCheckpointedCatalogToDisposableCopy(
+          sourcePath,
+          path.join(ownedRoot, "family-hardlink.db"),
+          ownedRoot,
+        ),
+      "hardlink aliases",
+    );
+    fs.rmSync(`${sourcePath}-wal`);
+    fs.writeFileSync(`${sourcePath}-wal`, "");
+
+    const hardlinkDestination = path.join(ownedRoot, "hardlink-destination.db");
+    fs.linkSync(sourcePath, hardlinkDestination);
+    expectThrow(
+      () =>
+        copyCheckpointedCatalogToDisposableCopy(
+          sourcePath,
+          hardlinkDestination,
+          ownedRoot,
+        ),
+      "hardlink alias of the source family",
+    );
+    const existingDestination = path.join(ownedRoot, "existing.db");
+    fs.writeFileSync(existingDestination, "existing");
+    expectThrow(
+      () =>
+        copyCheckpointedCatalogToDisposableCopy(
+          sourcePath,
+          existingDestination,
+          ownedRoot,
+        ),
+      "must not already exist",
+    );
+
+    const outsideRoot = path.join(tempRoot, "outside");
+    fs.mkdirSync(outsideRoot);
+    const escapeLink = path.join(ownedRoot, "escape");
+    fs.symlinkSync(outsideRoot, escapeLink, "dir");
+    expectThrow(
+      () =>
+        copyCheckpointedCatalogToDisposableCopy(
+          sourcePath,
+          path.join(escapeLink, "escaped.db"),
+          ownedRoot,
+        ),
+      "inside the caller-owned root",
+    );
+
+    const staleSnapshot = snapshotCatalogFiles(sourcePath);
+    const now = new Date(Date.now() + 2_000);
+    fs.utimesSync(sourcePath, now, now);
+    expectThrow(
+      () =>
+        copyCheckpointedCatalogToDisposableCopy(
+          sourcePath,
+          path.join(ownedRoot, "stale-snapshot.db"),
+          ownedRoot,
+          { expectedSourceSnapshot: staleSnapshot },
+        ),
+      "snapshot changed",
+    );
+
+    const concurrentPath = path.join(tempRoot, "concurrent.db");
+    fs.writeFileSync(concurrentPath, Buffer.alloc(32 * 1024 * 1024));
+    fs.writeFileSync(`${concurrentPath}-wal`, "");
+    fs.writeFileSync(`${concurrentPath}-shm`, Buffer.alloc(32_768));
+    const readyFile = path.join(tempRoot, "concurrent-ready");
+    const mutator = spawn(
+      process.execPath,
+      [
+        "-e",
+        `const fs=require('node:fs');const p=${JSON.stringify(concurrentPath)};const r=${JSON.stringify(readyFile)};const fd=fs.openSync(p,'r+');let n=0;fs.writeFileSync(r,'ready');setInterval(()=>{fs.writeSync(fd,Buffer.from([n++%256]),0,1,0);},1);`,
+      ],
+      { cwd: ROOT, stdio: "ignore" },
+    );
+    try {
+      await waitForFile(readyFile, 5_000);
+      let concurrentRejected = false;
+      try {
+        copyCheckpointedCatalogToDisposableCopy(
+          concurrentPath,
+          path.join(ownedRoot, "concurrent-copy.db"),
+          ownedRoot,
+        );
+      } catch (error) {
+        concurrentRejected =
+          error instanceof Error && error.message.includes("changed");
+      }
+      assertCondition(
+        concurrentRejected,
+        "Checkpointed copy did not reject a concurrently changing source.",
+      );
+    } finally {
+      await stopChild(mutator);
+    }
+    assertCondition(
+      !fs.existsSync(path.join(ownedRoot, "concurrent-copy.db")),
+      "Rejected concurrent copy left a partial destination.",
+    );
+  });
+}
+
 async function runLibraryContractSafety(): Promise<void> {
   const checkerSource = fs.readFileSync(LIBRARY_CONTRACT_PATH, "utf8");
   assertCondition(
-    checkerSource.includes("backupCatalogToDisposableCopy") &&
+    checkerSource.includes("copyCheckpointedCatalogToDisposableCopy") &&
       checkerSource.includes("snapshotCatalogFiles") &&
       checkerSource.includes("--database-path"),
     "Library contract checker has not adopted the protected online-backup seam.",
   );
 
   const realBefore = snapshotRealCatalogInvariant();
+  await runCheckpointedCopyContract();
   await withPhase19Fixture(async (fixture) => {
     await fixture.client.execute("PRAGMA wal_checkpoint(TRUNCATE)");
     fixture.client.close();
@@ -1250,7 +1468,7 @@ async function runLibraryContractSafety(): Promise<void> {
   snapshotRealCatalogInvariant(realBefore);
 
   console.log(
-    "Library contract safety passed: protected backup/migration, real/remote/symlink rejection, failure cleanup, SIGTERM cleanup, and current real main/WAL/SHM snapshot preservation.",
+    "Library contract safety passed: checkpointed exclusive copy/migration, real/remote/symlink/hardlink/overwrite rejection, concurrent-change failure, cleanup, and current real main/WAL/SHM snapshot preservation.",
   );
 }
 

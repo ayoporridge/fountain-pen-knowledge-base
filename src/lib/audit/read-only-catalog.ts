@@ -6,6 +6,7 @@ import type {
   AuditReadClient,
   AuditSqlValue,
   CatalogBackupResult,
+  CatalogCheckpointedCopyResult,
   CatalogFileKind,
   CatalogFileSnapshot,
   CatalogSnapshot,
@@ -13,6 +14,10 @@ import type {
 
 export type OpenReadOnlyCatalogOptions = {
   env?: NodeJS.ProcessEnv;
+};
+
+export type CopyCheckpointedCatalogOptions = {
+  expectedSourceSnapshot?: CatalogSnapshot;
 };
 
 type OpenCatalogState = {
@@ -74,9 +79,7 @@ function resolveExistingCatalogPath(inputPath: string): string {
 
 function sha256File(filePath: string): string | null {
   try {
-    return createHash("sha256")
-      .update(fs.readFileSync(filePath))
-      .digest("hex");
+    return createHash("sha256").update(fs.readFileSync(filePath)).digest("hex");
   } catch (error) {
     const code = (error as NodeJS.ErrnoException).code;
     if (code === "EACCES" || code === "EPERM") return null;
@@ -296,6 +299,276 @@ function pathInsideRoot(candidatePath: string, ownedRoot: string): boolean {
     candidatePath !== ownedRoot &&
     candidatePath.startsWith(`${ownedRoot}${path.sep}`)
   );
+}
+
+function fileIdentity(snapshot: CatalogFileSnapshot): string | null {
+  if (!snapshot.exists || snapshot.device === null || snapshot.inode === null) {
+    return null;
+  }
+  return `${snapshot.device}:${snapshot.inode}`;
+}
+
+function resolveCheckpointedSource(inputPath: string): CatalogSnapshot {
+  assertFilesystemPath(inputPath);
+  if (!fs.existsSync(inputPath)) {
+    throw new Error("Checkpointed catalog source does not exist.");
+  }
+  const inputLstat = fs.lstatSync(inputPath);
+  if (inputLstat.isSymbolicLink()) {
+    throw new Error(
+      "Checkpointed catalog source family must not be a symlink.",
+    );
+  }
+  if (!inputLstat.isFile()) {
+    throw new Error("Checkpointed catalog source main must be a regular file.");
+  }
+  const sourcePath = fs.realpathSync.native(inputPath);
+  if (sourcePath.endsWith("-wal") || sourcePath.endsWith("-shm")) {
+    throw new Error("Checkpointed catalog source must identify the main file.");
+  }
+  for (const familyPath of [
+    sourcePath,
+    `${sourcePath}-wal`,
+    `${sourcePath}-shm`,
+  ]) {
+    if (!pathEntryExists(familyPath)) continue;
+    const lstat = fs.lstatSync(familyPath);
+    if (lstat.isSymbolicLink()) {
+      throw new Error(
+        "Checkpointed catalog source family must not be a symlink.",
+      );
+    }
+    if (!lstat.isFile()) {
+      throw new Error(
+        "Checkpointed catalog source family must contain only regular files.",
+      );
+    }
+  }
+  const snapshot = snapshotCatalogFiles(sourcePath);
+  if (!snapshot.main.exists || snapshot.main.sha256 === null) {
+    throw new Error("Checkpointed catalog source main is not readable.");
+  }
+  const identities = [snapshot.main, snapshot.wal, snapshot.shm]
+    .map(fileIdentity)
+    .filter((identity): identity is string => identity !== null);
+  if (new Set(identities).size !== identities.length) {
+    throw new Error(
+      "Checkpointed catalog source family contains hardlink aliases.",
+    );
+  }
+  if (snapshot.wal.exists && snapshot.wal.size !== "0") {
+    throw new Error(
+      "Checkpointed catalog source has a non-empty WAL; recovery is forbidden.",
+    );
+  }
+  return snapshot;
+}
+
+function resolveCheckpointedCopyDestination(
+  destinationPath: string,
+  ownedRootPath: string,
+  sourceSnapshot: CatalogSnapshot,
+): { destinationPath: string; ownedRoot: string } {
+  assertFilesystemPath(destinationPath);
+  assertFilesystemPath(ownedRootPath);
+  if (!fs.existsSync(ownedRootPath)) {
+    throw new Error("Checkpointed catalog owned root does not exist.");
+  }
+  const ownedRootLstat = fs.lstatSync(ownedRootPath);
+  if (ownedRootLstat.isSymbolicLink() || !ownedRootLstat.isDirectory()) {
+    throw new Error(
+      "Checkpointed catalog owned root must be a non-symlink directory.",
+    );
+  }
+  const ownedRoot = fs.realpathSync.native(ownedRootPath);
+  const resolvedInput = path.resolve(destinationPath);
+  const sourceFamilyPaths = [
+    sourceSnapshot.sourcePath,
+    `${sourceSnapshot.sourcePath}-wal`,
+    `${sourceSnapshot.sourcePath}-shm`,
+  ];
+  if (sourceFamilyPaths.includes(resolvedInput)) {
+    throw new Error(
+      "Checkpointed catalog destination must not be the source or a sidecar.",
+    );
+  }
+  if (pathEntryExists(resolvedInput)) {
+    const destinationLstat = fs.lstatSync(resolvedInput);
+    if (!destinationLstat.isSymbolicLink()) {
+      const destinationStat = fs.statSync(resolvedInput, { bigint: true });
+      const destinationIdentity = `${destinationStat.dev}:${destinationStat.ino}`;
+      const sourceIdentities = [
+        sourceSnapshot.main,
+        sourceSnapshot.wal,
+        sourceSnapshot.shm,
+      ].map(fileIdentity);
+      if (sourceIdentities.includes(destinationIdentity)) {
+        throw new Error(
+          "Checkpointed catalog destination is a hardlink alias of the source family.",
+        );
+      }
+    }
+    throw new Error("Checkpointed catalog destination must not already exist.");
+  }
+  const parentPath = path.dirname(resolvedInput);
+  if (!fs.existsSync(parentPath)) {
+    throw new Error("Checkpointed catalog destination parent does not exist.");
+  }
+  const canonicalParent = fs.realpathSync.native(parentPath);
+  const canonicalDestination = path.join(
+    canonicalParent,
+    path.basename(resolvedInput),
+  );
+  if (!pathInsideRoot(canonicalDestination, ownedRoot)) {
+    throw new Error(
+      "Checkpointed catalog destination must remain inside the caller-owned root.",
+    );
+  }
+  if (sourceFamilyPaths.includes(canonicalDestination)) {
+    throw new Error(
+      "Checkpointed catalog destination must not be the source or a sidecar.",
+    );
+  }
+  return { destinationPath: canonicalDestination, ownedRoot };
+}
+
+function copyMainFileExclusive(
+  sourceSnapshot: CatalogSnapshot,
+  destinationPath: string,
+): void {
+  const sourceFlags = fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW;
+  const destinationFlags =
+    fs.constants.O_WRONLY |
+    fs.constants.O_CREAT |
+    fs.constants.O_EXCL |
+    fs.constants.O_NOFOLLOW;
+  let sourceDescriptor: number | null = null;
+  let destinationDescriptor: number | null = null;
+  try {
+    sourceDescriptor = fs.openSync(sourceSnapshot.sourcePath, sourceFlags);
+    destinationDescriptor = fs.openSync(
+      destinationPath,
+      destinationFlags,
+      0o600,
+    );
+    const sourceStatBefore = fs.fstatSync(sourceDescriptor, { bigint: true });
+    if (
+      !sourceStatBefore.isFile() ||
+      sourceStatBefore.dev.toString() !== sourceSnapshot.main.device ||
+      sourceStatBefore.ino.toString() !== sourceSnapshot.main.inode
+    ) {
+      throw new Error("Checkpointed catalog source changed before copy.");
+    }
+
+    const digest = createHash("sha256");
+    const buffer = Buffer.allocUnsafe(1024 * 1024);
+    let sourceOffset = 0;
+    while (true) {
+      const bytesRead = fs.readSync(
+        sourceDescriptor,
+        buffer,
+        0,
+        buffer.length,
+        sourceOffset,
+      );
+      if (bytesRead === 0) break;
+      digest.update(buffer.subarray(0, bytesRead));
+      let written = 0;
+      while (written < bytesRead) {
+        written += fs.writeSync(
+          destinationDescriptor,
+          buffer,
+          written,
+          bytesRead - written,
+        );
+      }
+      sourceOffset += bytesRead;
+    }
+    fs.fsyncSync(destinationDescriptor);
+    const sourceStatAfter = fs.fstatSync(sourceDescriptor, { bigint: true });
+    const stableFields = [
+      "dev",
+      "ino",
+      "mode",
+      "uid",
+      "gid",
+      "size",
+      "mtimeNs",
+      "ctimeNs",
+      "birthtimeNs",
+    ] as const;
+    if (
+      stableFields.some(
+        (field) =>
+          sourceStatAfter[field].toString() !==
+          sourceSnapshot.main[
+            field === "dev" ? "device" : field === "ino" ? "inode" : field
+          ],
+      ) ||
+      digest.digest("hex") !== sourceSnapshot.main.sha256
+    ) {
+      throw new Error("Checkpointed catalog source changed during copy.");
+    }
+  } finally {
+    if (destinationDescriptor !== null) fs.closeSync(destinationDescriptor);
+    if (sourceDescriptor !== null) fs.closeSync(sourceDescriptor);
+  }
+}
+
+export function copyCheckpointedCatalogToDisposableCopy(
+  sourcePath: string,
+  destinationPath: string,
+  ownedRootPath: string,
+  options: CopyCheckpointedCatalogOptions = {},
+): CatalogCheckpointedCopyResult {
+  const sourceSnapshotBefore = resolveCheckpointedSource(sourcePath);
+  if (options.expectedSourceSnapshot) {
+    assertCatalogSnapshotUnchanged(
+      options.expectedSourceSnapshot,
+      sourceSnapshotBefore,
+    );
+  }
+  const destination = resolveCheckpointedCopyDestination(
+    destinationPath,
+    ownedRootPath,
+    sourceSnapshotBefore,
+  );
+  try {
+    copyMainFileExclusive(sourceSnapshotBefore, destination.destinationPath);
+    const sourceSnapshotAfter = resolveCheckpointedSource(
+      sourceSnapshotBefore.sourcePath,
+    );
+    assertCatalogSnapshotUnchanged(sourceSnapshotBefore, sourceSnapshotAfter);
+    const destinationSnapshot = snapshotCatalogFiles(
+      destination.destinationPath,
+    );
+    const destinationIdentity = fileIdentity(destinationSnapshot.main);
+    if (
+      !destinationSnapshot.main.exists ||
+      destinationSnapshot.main.sha256 !== sourceSnapshotBefore.main.sha256 ||
+      destinationIdentity === fileIdentity(sourceSnapshotBefore.main)
+    ) {
+      throw new Error(
+        "Checkpointed catalog destination does not match the source main file.",
+      );
+    }
+    return {
+      sourcePath: sourceSnapshotBefore.sourcePath,
+      destinationPath: fs.realpathSync.native(destination.destinationPath),
+      ownedRoot: destination.ownedRoot,
+      sourceSnapshotBefore,
+      sourceSnapshotAfter,
+      destinationSnapshot,
+    };
+  } catch (error) {
+    if (
+      pathInsideRoot(destination.destinationPath, destination.ownedRoot) &&
+      pathEntryExists(destination.destinationPath)
+    ) {
+      fs.rmSync(destination.destinationPath, { force: true });
+    }
+    throw error;
+  }
 }
 
 function resolveBackupDestination(
