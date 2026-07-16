@@ -26,10 +26,10 @@
 
 ### 全量测量与质量门禁
 
-- [ ] **AUD-01**: 为 2026-07-15 实际库存的 69 个品牌、236 个型号生成逐条 NDJSON/CSV 台账，记录 raw identity、旧 65+231 公开基线归属、当前 publication、所有内容、审核状态、证据与 blocker；额外 9 条不得漏审
+- [x] **AUD-01**: 为 2026-07-15 实际库存的 69 个品牌、236 个型号生成逐条 NDJSON/CSV 台账，记录 raw identity、旧 65+231 公开基线归属、当前 publication、所有内容、审核状态、证据与 blocker；额外 9 条不得漏审
 - [ ] **AUD-02**: entity quality 与 library coverage 只统计真正可公开的状态和数据，不把 deprecated、pending、needs_source、candidate、draft 或不可复用媒体计为完成
 - [ ] **AUD-03**: 任一硬 blocker 都必须让条目失败；审计不再要求同时出现两个薄弱理由，也不再用总分抵消缺正文、缺来源或缺图片
-- [ ] **AUD-04**: readiness audit 同时输出 publication 结果和 backlog 原因，`--limit` 只能限制展示数量，不能改变全库判定
+- [x] **AUD-04**: readiness audit 同时输出 publication 结果和 backlog 原因，`--limit` 只能限制展示数量，不能改变全库判定
 - [ ] **AUD-05**: CI 与生产发布门禁要求公开 blocker 为 0，且 sitemap/browse/API/graph 的实体集合与 `public_entities` 精确相等
 
 ### 品牌与型号页面
@@ -75,7 +75,7 @@
 
 ### 发布与全量验收
 
-- [ ] **QA-01**: 数据层 fixture 覆盖 deprecated story、pending claim、needs_source spec、镜像来源、无逐字段 citation、unresolved conflict 和完整合格实体
+- [x] **QA-01**: 数据层 fixture 覆盖 deprecated story、pending claim、needs_source spec、镜像来源、无逐字段 citation、unresolved conflict 和完整合格实体
 - [ ] **QA-02**: Montblanc 149、核心 A/B/C 型号、品牌页、draft 页面、canonical redirect 和 taxonomy split/merge 具有确定性浏览器回归
 - [ ] **QA-03**: 对 sitemap 中每个品牌和型号逐条检查摘要、正文长度与主题、规格证据、独立来源、主图、版本、禁用文案、移动端布局和站内链接
 - [ ] **QA-04**: 所有 draft/retired/unqualified 条目均不出现在 browse、sitemap、graph、recommendations 与 API，直接公开访问不返回可索引空壳 200
@@ -123,12 +123,12 @@
 | EVID-04 | Phase 19 | Pending |
 | EVID-05 | Phase 19 | Pending |
 | EVID-06 | Phase 19 | Pending |
-| AUD-01 | Phase 19 | Pending |
+| AUD-01 | Phase 19 | Complete |
 | AUD-02 | Phase 19 | Pending |
 | AUD-03 | Phase 19 | Pending |
-| AUD-04 | Phase 19 | Pending |
+| AUD-04 | Phase 19 | Complete |
 | AUD-05 | Phase 19 | Pending |
-| QA-01 | Phase 19 | Pending |
+| QA-01 | Phase 19 | Complete |
 | PAGE-01 | Phase 20 | Pending |
 | PAGE-02 | Phase 20 | Pending |
 | PAGE-03 | Phase 20 | Pending |

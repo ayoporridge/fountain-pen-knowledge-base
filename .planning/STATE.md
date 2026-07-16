@@ -3,17 +3,17 @@ gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 19
-current_phase_name: 真实审计与证据契约
-status: ready_to_execute
-stopped_at: Phase 19 planned; ready to execute 19-01-PLAN.md
-last_updated: "2026-07-16T13:08:50+08:00"
+current_phase_name: real-audit-evidence
+status: executing
+stopped_at: Completed 19-01-PLAN.md
+last_updated: "2026-07-16T05:33:24.912Z"
 last_activity: 2026-07-16
-last_activity_desc: Phase 19 planned and independently verified in five waves
+last_activity_desc: Phase 19 execution started
 progress:
   total_phases: 16
   completed_phases: 8
   total_plans: 19
-  completed_plans: 14
+  completed_plans: 15
   percent: 50
 ---
 
@@ -24,14 +24,14 @@ progress:
 See: `.planning/PROJECT.md`（updated 2026-07-15）
 
 **Core value:** 通过可信、完整且彼此关联的内容，让用户持续漫游钢笔知识网络，而不是打开只有标题和关系的空壳页。
-**Current focus:** Phase 19 — 为实际 305 条品牌/型号库存建立零抽样审计与逐字段证据契约
+**Current focus:** Phase 19 — real-audit-evidence
 
 ## Current Position
 
-Phase: 19 of 26 (真实审计与证据契约)
-Plan: 0 of 5 in current phase
+Phase: 19 (real-audit-evidence) — EXECUTING
+Plan: 2 of 5
 Status: Ready to execute
-Last activity: 2026-07-16 — Phase 19 planned and independently verified in five waves
+Last activity: 2026-07-16 — Phase 19 execution started
 
 Progress: [█████░░░░░] 50%
 
@@ -55,6 +55,7 @@ Progress: [█████░░░░░] 50%
 | Phase 18 P05 | 12 min | 2 tasks | 8 files |
 | Phase 18 P06 | 25min | 3 tasks | 14 files |
 | Phase 18 P07 | 34 min | 3 tasks | 6 files |
+| Phase 19 P01 | 17 min | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -84,6 +85,8 @@ Progress: [█████░░░░░] 50%
 - [Phase 18]: `public_entities` is the sole public authorization set, and brand pages enumerate the complete reverse public `made_by` set. — Unqualified model URLs are hard 404s; published brands cannot silently omit published models.
 - [Phase 19 planning]: A real migration-030 catalog is opened read-only, copied through SQLite online backup, and only the owned copy is canonically migrated to 031 for readiness audit. — This preserves source main/WAL/SHM while allowing contract-v2 measurement.
 - [Phase 19 planning]: Source tier and independence group qualify at source-item provenance level, not registry/provider level. — One registry can contain independent documents and one document can have mirrors across registries.
+- [Phase 19]: Non-empty WAL audit sources fail closed unless filesystem immutability prevents SQLite from mutating SHM — Readonly and query_only SQLite access can still rewrite SHM during WAL recovery; the adapter rejects unsafe sources before opening and retains before/after snapshot verification.
+- [Phase 19]: Canonical migrations and audit child processes run only inside one owned disposable fixture root — A canonical realpath, sanitized database environment, managed children and idempotent cleanup prevent fixture work from falling through to the production catalog.
 
 ### Pending Todos
 
@@ -101,6 +104,6 @@ None.
 
 ## Session Continuity
 
-Last session: 2026-07-16T13:08:50+08:00
-Stopped at: Phase 19 planned; ready to execute 19-01-PLAN.md
+Last session: 2026-07-16T05:33:24.907Z
+Stopped at: Completed 19-01-PLAN.md
 Resume file: None
