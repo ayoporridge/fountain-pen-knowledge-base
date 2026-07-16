@@ -22,7 +22,12 @@ import {
   captureInventoryAuditProvenance,
   captureSourceInventoryProvenance,
   runReadinessAudit,
+  type InventoryAuditProvenance,
+  type InventoryAuditRow,
+  type InventoryAuditSummary,
+  type InventoryAuditVerdict,
 } from "../src/lib/audit/readiness-audit";
+import type { CatalogSnapshot } from "../src/lib/audit/audit-contracts";
 import {
   publishEntity,
   recordEntityContentReview,
@@ -85,6 +90,62 @@ const ARTIFACT_FILES = [
   "inventory-readiness-v2-summary.json",
 ] as const;
 const CSV_FORMULA_NAME = '=SUM(1,2), "quoted"\r\nnext line';
+const REAL_CATALOG_PATH = path.join(ROOT, "data", "fpkg.db");
+const FINAL_ARTIFACT_DIRECTORY = path.join(
+  ROOT,
+  ".planning",
+  "phases",
+  "19-real-audit-evidence",
+  "artifacts",
+);
+const LOCKED_REAL_CATALOG_FINGERPRINT = {
+  main: {
+    size: "24723456",
+    inode: "46507656",
+    mtimeNs: "1784118828687297235",
+    sha256: "85015867a0e144cfe8cfa7ad5670a3813220209a0e2c63265b072eac18a385dc",
+  },
+  wal: {
+    size: "0",
+    inode: "70043998",
+    mtimeNs: "1784189498823576647",
+    sha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  },
+  shm: {
+    size: "32768",
+    inode: "70043999",
+    mtimeNs: "1784189892661781716",
+    sha256: "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb",
+  },
+} as const;
+const LOCKED_SOURCE_INVENTORY_SNAPSHOT_ID =
+  "sha256:17e1f1bc8cc4bfdcf490c7a7f48d97154d6449e0800f60cc3e9a9e88f9177ba4";
+const LOCKED_MIGRATION_030_CHECKSUM =
+  "1737d53f29c6f8d1c947f93d2a71bf9dd672de150d75dd81b150c48749d21e4a";
+const LOCKED_MIGRATION_031_CHECKSUM =
+  "abe240f9e4911682636e1b681fbb6a6b6ca31c3abe2cfe9bcc13f0221b04660b";
+const LOCKED_LEGACY_EXCLUSIONS = [
+  "brand:banju",
+  "brand:saier",
+  "brand:shanghai",
+  "brand:yongxu",
+  "pen:百乐-pilot-custom-823",
+  "pen:百利金-pelikan-m800",
+  "pen:派克-parker-51-经典-vintage",
+  "pen:写乐-sailor-21k-pro-gear-大鱼雷",
+  "pen:奥罗拉-aurora",
+] as const;
+const LOCKED_MISSING_MADE_BY_SLUGS = [
+  "the-camel-pen",
+  "the-j-g-rider-fountain-pen",
+  "the-john-hancock-cartridge-pen",
+  "the-postal-reservoir-pen",
+  "the-security-pen",
+] as const;
+const LOCKED_MULTIPLE_MADE_BY_TARGETS = [
+  "LIfzzmbCfFPt:英雄 (Hero):brand",
+  "qpcW25Dw0fxW:英雄派迪 (Hero Paddy):brand",
+] as const;
 
 type ProbeRow = {
   id: number;
@@ -154,6 +215,10 @@ function sorted(values: Iterable<string>): string[] {
   return [...values].sort((left, right) =>
     left < right ? -1 : left > right ? 1 : 0,
   );
+}
+
+function compareStableText(left: string, right: string): number {
+  return left < right ? -1 : left > right ? 1 : 0;
 }
 
 function assertSetEqual(
@@ -453,18 +518,19 @@ async function runBackupMigrationContract(): Promise<void> {
 }
 
 type AuditCliJson = {
-  summary: {
-    inventory_audited: number;
-    backlog: number;
-  };
-  verdict: {
-    inventory_complete: boolean;
-    content_complete: boolean;
-    public_clean: boolean;
-  };
+  provenance: InventoryAuditProvenance;
+  summary: InventoryAuditSummary;
+  verdict: InventoryAuditVerdict;
   exit_code: number;
   console_row_count: number;
-  rows: Array<{ entity_id: string }>;
+  rows: InventoryAuditRow[];
+};
+
+type CanonicalSummaryArtifact = {
+  artifact_contract_version: number;
+  provenance: InventoryAuditProvenance;
+  summary: InventoryAuditSummary;
+  verdict: InventoryAuditVerdict;
 };
 
 type AuditCliResult = {
@@ -491,7 +557,8 @@ function runAuditCli(
       ...envOverrides,
     },
     encoding: "utf8",
-    timeout: 30_000,
+    maxBuffer: 64 * 1024 * 1024,
+    timeout: 120_000,
   });
   assertCondition(
     !child.error,
@@ -577,6 +644,582 @@ function parseCsv(csv: string): string[][] {
     "CSV artifact did not end on a complete record boundary.",
   );
   return records;
+}
+
+function decodeCsvFormulaProtection(value: string): string {
+  return value.startsWith("'") && /^[=+\-@]/.test(value.slice(1))
+    ? value.slice(1)
+    : value;
+}
+
+function canonicalizePotentialLocalPath(inputPath: string): string {
+  let existingAncestor = path.resolve(inputPath);
+  const missingSegments: string[] = [];
+  while (!fs.existsSync(existingAncestor)) {
+    const parent = path.dirname(existingAncestor);
+    assertCondition(
+      parent !== existingAncestor,
+      `Cannot resolve an existing ancestor for ${inputPath}.`,
+    );
+    missingSegments.unshift(path.basename(existingAncestor));
+    existingAncestor = parent;
+  }
+  return path.join(
+    fs.realpathSync.native(existingAncestor),
+    ...missingSegments,
+  );
+}
+
+function assertLockedRealCatalogFingerprint(snapshot: CatalogSnapshot): void {
+  const expectedSourcePath = fs.realpathSync.native(REAL_CATALOG_PATH);
+  assertCondition(
+    snapshot.sourcePath === expectedSourcePath,
+    `Real artifact source must be the locked catalog ${expectedSourcePath}; received ${snapshot.sourcePath}.`,
+  );
+  for (const kind of ["main", "wal", "shm"] as const) {
+    const actual = snapshot[kind];
+    const expected = LOCKED_REAL_CATALOG_FINGERPRINT[kind];
+    assertCondition(
+      actual.exists &&
+        actual.size === expected.size &&
+        actual.inode === expected.inode &&
+        actual.mtimeNs === expected.mtimeNs &&
+        actual.sha256 === expected.sha256,
+      `Locked real catalog ${kind} fingerprint mismatch: ${JSON.stringify(actual)}.`,
+    );
+  }
+}
+
+function assertSourceStillLocked(before: CatalogSnapshot): void {
+  const after = snapshotCatalogFiles(before.sourcePath);
+  assertCatalogSnapshotUnchanged(before, after);
+  assertLockedRealCatalogFingerprint(after);
+}
+
+function assertExactRealProvenance(
+  provenance: InventoryAuditProvenance,
+): void {
+  assertCondition(
+    sha256File(path.join(MIGRATIONS_DIR, MIGRATION_030)) ===
+      LOCKED_MIGRATION_030_CHECKSUM &&
+      sha256File(path.join(MIGRATIONS_DIR, MIGRATION_031)) ===
+        LOCKED_MIGRATION_031_CHECKSUM,
+    "Canonical migration files no longer match the locked 030/031 checksums.",
+  );
+  assertCondition(
+    provenance.source_inventory_snapshot_id ===
+      LOCKED_SOURCE_INVENTORY_SNAPSHOT_ID &&
+      provenance.source_schema_max_migration === 30 &&
+      provenance.source_schema_migration_name === MIGRATION_030 &&
+      provenance.source_schema_migration_checksum ===
+        LOCKED_MIGRATION_030_CHECKSUM &&
+      provenance.audit_schema_max_migration === 31 &&
+      provenance.audit_schema_migration_name === MIGRATION_031 &&
+      provenance.audit_schema_migration_checksum ===
+        LOCKED_MIGRATION_031_CHECKSUM &&
+      provenance.audit_database_kind ===
+        "owned_disposable_migrated_copy",
+    `Real artifact provenance mismatch: ${JSON.stringify(provenance)}.`,
+  );
+}
+
+function assertArtifactBuffersEqual(
+  left: ReadonlyMap<string, Buffer>,
+  right: ReadonlyMap<string, Buffer>,
+  label: string,
+): void {
+  for (const file of ARTIFACT_FILES) {
+    const leftBytes = left.get(file);
+    const rightBytes = right.get(file);
+    assertCondition(leftBytes && rightBytes, `${label} is missing ${file}.`);
+    assertCondition(
+      leftBytes.equals(rightBytes),
+      `${label} bytes differ for ${file}.`,
+    );
+    assertCondition(
+      createHash("sha256").update(leftBytes).digest("hex") ===
+        createHash("sha256").update(rightBytes).digest("hex"),
+      `${label} SHA-256 differs for ${file}.`,
+    );
+  }
+}
+
+function assertRowProvenance(
+  row: InventoryAuditRow,
+  provenance: InventoryAuditProvenance,
+): void {
+  assertCondition(
+    row.source_inventory_snapshot_id ===
+      provenance.source_inventory_snapshot_id &&
+      row.source_schema_max_migration ===
+        provenance.source_schema_max_migration &&
+      row.source_schema_migration_name ===
+        provenance.source_schema_migration_name &&
+      row.source_schema_migration_checksum ===
+        provenance.source_schema_migration_checksum &&
+      row.audit_schema_max_migration ===
+        provenance.audit_schema_max_migration &&
+      row.audit_schema_migration_name ===
+        provenance.audit_schema_migration_name &&
+      row.audit_schema_migration_checksum ===
+        provenance.audit_schema_migration_checksum &&
+      row.audit_database_kind === provenance.audit_database_kind,
+    `Inventory row ${row.entity_id} does not carry the complete artifact provenance.`,
+  );
+}
+
+function assertRealReverseAndMadeBy(rows: readonly InventoryAuditRow[]): void {
+  const identities = new Map(rows.map((row) => [row.entity_id, row]));
+  const penRows = rows.filter((row) => row.entity_type === "pen");
+  const reverseByBrand = new Map<
+    string,
+    Array<{ entity_id: string; slug: string; is_public: boolean }>
+  >();
+  const dispositionCounts = new Map<string, number>();
+
+  for (const pen of penRows) {
+    const targetCount = pen.made_by_target_ids.length;
+    assertCondition(
+      pen.made_by_target_names.length === targetCount &&
+        pen.made_by_target_types.length === targetCount,
+      `made_by target columns differ in width for ${pen.slug}.`,
+    );
+    const expectedDisposition =
+      targetCount === 0
+        ? "missing"
+        : targetCount > 1
+          ? "multiple"
+          : pen.made_by_target_types[0] === "brand"
+            ? "exactly_one"
+            : "noncanonical";
+    assertCondition(
+      pen.made_by_status === expectedDisposition,
+      `made_by disposition mismatch for ${pen.slug}: ${pen.made_by_status}/${expectedDisposition}.`,
+    );
+    dispositionCounts.set(
+      pen.made_by_status,
+      (dispositionCounts.get(pen.made_by_status) ?? 0) + 1,
+    );
+
+    const seenBrandTargets = new Set<string>();
+    for (let index = 0; index < targetCount; index += 1) {
+      const targetId = pen.made_by_target_ids[index]!;
+      const targetName = pen.made_by_target_names[index]!;
+      const targetType = pen.made_by_target_types[index]!;
+      if (targetType !== "brand") continue;
+      const target = identities.get(targetId);
+      assertCondition(
+        target?.entity_type === "brand" && target.name === targetName,
+        `made_by target ${targetId} for ${pen.slug} does not match a raw brand identity.`,
+      );
+      if (seenBrandTargets.has(targetId)) continue;
+      seenBrandTargets.add(targetId);
+      const models = reverseByBrand.get(targetId) ?? [];
+      models.push({
+        entity_id: pen.entity_id,
+        slug: pen.slug,
+        is_public: pen.is_public,
+      });
+      reverseByBrand.set(targetId, models);
+    }
+
+    if (expectedDisposition === "exactly_one") {
+      const brand = identities.get(pen.made_by_target_ids[0]!);
+      assertCondition(
+        pen.canonical_brand_id === brand?.entity_id &&
+          pen.canonical_brand_slug === brand.slug,
+        `Canonical made_by projection mismatch for ${pen.slug}.`,
+      );
+    } else {
+      assertCondition(
+        pen.canonical_brand_id === null && pen.canonical_brand_slug === null,
+        `Noncanonical made_by row ${pen.slug} exposed a canonical brand.`,
+      );
+    }
+  }
+
+  assertCondition(
+    dispositionCounts.get("exactly_one") === 230 &&
+      dispositionCounts.get("missing") === 5 &&
+      dispositionCounts.get("multiple") === 1 &&
+      (dispositionCounts.get("noncanonical") ?? 0) === 0,
+    `Real made_by counts mismatch: ${JSON.stringify(Object.fromEntries(dispositionCounts))}.`,
+  );
+  assertSetEqual(
+    penRows
+      .filter((row) => row.made_by_status === "missing")
+      .map((row) => row.slug),
+    LOCKED_MISSING_MADE_BY_SLUGS,
+    "Real missing made_by slugs",
+  );
+  const multiple = penRows.filter((row) => row.made_by_status === "multiple");
+  assertCondition(
+    multiple.length === 1 && multiple[0]?.slug === "英雄派迪-一体尖",
+    `Real multiple made_by identity mismatch: ${JSON.stringify(multiple)}.`,
+  );
+  assertSetEqual(
+    multiple[0]!.made_by_target_ids.map(
+      (id, index) =>
+        `${id}:${multiple[0]!.made_by_target_names[index]}:${multiple[0]!.made_by_target_types[index]}`,
+    ),
+    LOCKED_MULTIPLE_MADE_BY_TARGETS,
+    "Real multiple made_by targets",
+  );
+
+  for (const brand of rows.filter((row) => row.entity_type === "brand")) {
+    const expectedRaw = (reverseByBrand.get(brand.entity_id) ?? []).sort(
+      (left, right) =>
+        compareStableText(left.slug, right.slug) ||
+        compareStableText(left.entity_id, right.entity_id),
+    );
+    const expectedPublic = expectedRaw.filter((model) => model.is_public);
+    const publicIds = new Set(expectedPublic.map((model) => model.entity_id));
+    const expectedDifference = expectedRaw.filter(
+      (model) => !publicIds.has(model.entity_id),
+    );
+    assertSetEqual(
+      brand.raw_reverse_model_ids,
+      expectedRaw.map((model) => model.entity_id),
+      `Raw reverse model IDs for ${brand.slug}`,
+    );
+    assertSetEqual(
+      brand.raw_reverse_model_slugs,
+      expectedRaw.map((model) => model.slug),
+      `Raw reverse model slugs for ${brand.slug}`,
+    );
+    assertSetEqual(
+      brand.public_reverse_model_ids,
+      expectedPublic.map((model) => model.entity_id),
+      `Public reverse model IDs for ${brand.slug}`,
+    );
+    assertSetEqual(
+      brand.public_reverse_model_slugs,
+      expectedPublic.map((model) => model.slug),
+      `Public reverse model slugs for ${brand.slug}`,
+    );
+    assertSetEqual(
+      brand.reverse_model_diff_ids,
+      expectedDifference.map((model) => model.entity_id),
+      `Reverse model difference IDs for ${brand.slug}`,
+    );
+    assertSetEqual(
+      brand.reverse_model_diff_slugs,
+      expectedDifference.map((model) => model.slug),
+      `Reverse model difference slugs for ${brand.slug}`,
+    );
+  }
+}
+
+function assertRealArtifactContract(
+  artifacts: ReadonlyMap<string, Buffer>,
+  cli: AuditCliJson,
+): void {
+  const ndjsonBytes = artifacts.get("inventory-readiness-v2.ndjson");
+  const csvBytes = artifacts.get("inventory-readiness-v2.csv");
+  const summaryBytes = artifacts.get("inventory-readiness-v2-summary.json");
+  assertCondition(
+    ndjsonBytes && csvBytes && summaryBytes,
+    "Canonical real artifact set is incomplete.",
+  );
+  for (const [file, bytes] of artifacts) {
+    const text = bytes.toString("utf8");
+    assertCondition(
+      !text.includes("applied_at") && !text.includes("schema_migrations"),
+      `${file} leaked forbidden migration runtime metadata.`,
+    );
+  }
+  const rows = ndjsonBytes
+    .toString("utf8")
+    .trimEnd()
+    .split("\n")
+    .map((line) => JSON.parse(line) as InventoryAuditRow);
+  const summary = JSON.parse(
+    summaryBytes.toString("utf8"),
+  ) as CanonicalSummaryArtifact;
+  assertExactRealProvenance(summary.provenance);
+  assertCondition(
+    JSON.stringify(cli.provenance) === JSON.stringify(summary.provenance),
+    "CLI and summary provenance differ.",
+  );
+  assertCondition(
+    rows.length === 305 && new Set(rows.map((row) => row.entity_id)).size === 305,
+    "Real NDJSON must contain exactly 305 unique identities.",
+  );
+  assertCondition(
+    rows.filter((row) => row.entity_type === "brand").length === 69 &&
+      rows.filter((row) => row.entity_type === "pen").length === 236,
+    "Real NDJSON inventory split must be 69 brands and 236 pens.",
+  );
+  const expectedOrder = [...rows].sort(
+    (left, right) =>
+      compareStableText(left.entity_type, right.entity_type) ||
+      compareStableText(left.slug, right.slug) ||
+      compareStableText(left.entity_id, right.entity_id),
+  );
+  assertCondition(
+    rows.every((row, index) => row.entity_id === expectedOrder[index]?.entity_id),
+    "Real NDJSON rows are not in deterministic type/slug/id order.",
+  );
+  for (const row of rows) assertRowProvenance(row, summary.provenance);
+  assertCondition(
+    rows.every(
+      (row) =>
+        row.publication_status === "draft" &&
+        !row.is_public &&
+        !row.content_ready,
+    ),
+    "Locked real ledger must remain all-draft, non-public, and blocked.",
+  );
+  assertSetEqual(
+    rows
+      .filter((row) => !row.in_legacy_public_baseline)
+      .map((row) => `${row.entity_type}:${row.slug}`),
+    LOCKED_LEGACY_EXCLUSIONS,
+    "Real legacy exclusions",
+  );
+  assertRealReverseAndMadeBy(rows);
+
+  const expectedSummary: InventoryAuditSummary = {
+    inventory_audited: 305,
+    brand_inventory_audited: 69,
+    pen_inventory_audited: 236,
+    legacy_public_baseline: 296,
+    content_ready: 0,
+    published: 0,
+    public_entities: 0,
+    published_blockers: 0,
+    public_blockers: 0,
+    backlog: 305,
+  };
+  const expectedVerdict: InventoryAuditVerdict = {
+    inventory_complete: true,
+    content_complete: false,
+    public_clean: true,
+    complete: false,
+  };
+  assertCondition(
+    summary.artifact_contract_version === 1 &&
+      JSON.stringify(summary.summary) === JSON.stringify(expectedSummary) &&
+      JSON.stringify(summary.verdict) === JSON.stringify(expectedVerdict) &&
+      JSON.stringify(cli.summary) === JSON.stringify(expectedSummary) &&
+      JSON.stringify(cli.verdict) === JSON.stringify(expectedVerdict),
+    `Real summary or verdict mismatch: ${summaryBytes.toString("utf8")}.`,
+  );
+  assertCondition(
+    JSON.stringify(cli.rows) === JSON.stringify(rows),
+    "Unlimited CLI rows differ from canonical NDJSON rows.",
+  );
+
+  const csvRecords = parseCsv(csvBytes.toString("utf8"));
+  const header = csvRecords[0] ?? [];
+  const entityIndex = header.indexOf("entity_id");
+  const typeIndex = header.indexOf("entity_type");
+  const slugIndex = header.indexOf("slug");
+  assertCondition(
+    csvRecords.length === 306 &&
+      entityIndex >= 0 &&
+      typeIndex >= 0 &&
+      slugIndex >= 0 &&
+      csvRecords.every((record) => record.length === header.length),
+    "Real CSV must contain one fixed-width header plus 305 logical rows.",
+  );
+  assertSetEqual(
+    csvRecords
+      .slice(1)
+      .map(
+        (record) =>
+          `${decodeCsvFormulaProtection(record[typeIndex]!)}:${decodeCsvFormulaProtection(record[slugIndex]!)}:${decodeCsvFormulaProtection(record[entityIndex]!)}`,
+      ),
+    rows.map((row) => `${row.entity_type}:${row.slug}:${row.entity_id}`),
+    "Real CSV/NDJSON identities",
+  );
+}
+
+function assertCanonicalFinalOutDir(finalOutDir: string): void {
+  assertCondition(
+    path.isAbsolute(finalOutDir),
+    "--final-out-dir must be an explicit absolute path.",
+  );
+  const actual = canonicalizePotentialLocalPath(finalOutDir);
+  const expected = canonicalizePotentialLocalPath(FINAL_ARTIFACT_DIRECTORY);
+  assertCondition(
+    path.resolve(finalOutDir) === path.resolve(FINAL_ARTIFACT_DIRECTORY) &&
+      actual === expected,
+    `--final-out-dir must be the fixed Phase 19 artifact directory: ${FINAL_ARTIFACT_DIRECTORY}.`,
+  );
+}
+
+function writeFileExclusivelyAndSync(filePath: string, bytes: Buffer): void {
+  const descriptor = fs.openSync(filePath, "wx", 0o600);
+  try {
+    fs.writeFileSync(descriptor, bytes);
+    fs.fsyncSync(descriptor);
+  } finally {
+    fs.closeSync(descriptor);
+  }
+}
+
+function publishCanonicalArtifactSet(
+  finalOutDir: string,
+  artifacts: ReadonlyMap<string, Buffer>,
+): void {
+  assertCanonicalFinalOutDir(finalOutDir);
+  fs.mkdirSync(finalOutDir, { recursive: true });
+  assertCondition(
+    fs.statSync(finalOutDir).isDirectory() &&
+      !fs.lstatSync(finalOutDir).isSymbolicLink(),
+    "Final artifact path must be a real directory, not a symlink.",
+  );
+  const token = `${process.pid}-${Date.now()}`;
+  const temporary = new Map<string, string>();
+  const backups = new Map<string, string>();
+  const installed = new Set<string>();
+  let completed = false;
+  try {
+    for (const file of ARTIFACT_FILES) {
+      const bytes = artifacts.get(file);
+      assertCondition(bytes, `Verified artifact bytes missing for ${file}.`);
+      const target = path.join(finalOutDir, file);
+      if (fs.existsSync(target)) {
+        assertCondition(
+          fs.lstatSync(target).isFile() &&
+            !fs.lstatSync(target).isSymbolicLink(),
+          `Existing artifact target is not a regular file: ${target}.`,
+        );
+      }
+      const temp = path.join(finalOutDir, `.${file}.${token}.tmp`);
+      writeFileExclusivelyAndSync(temp, bytes);
+      temporary.set(target, temp);
+    }
+    for (const target of temporary.keys()) {
+      if (!fs.existsSync(target)) continue;
+      const backup = `${target}.${token}.backup`;
+      fs.renameSync(target, backup);
+      backups.set(target, backup);
+    }
+    for (const [target, temp] of temporary) {
+      fs.renameSync(temp, target);
+      installed.add(target);
+    }
+    assertArtifactBuffersEqual(
+      artifacts,
+      readArtifacts(finalOutDir),
+      "Final canonical artifact set",
+    );
+    completed = true;
+  } finally {
+    if (!completed) {
+      for (const target of installed) {
+        if (fs.existsSync(target)) fs.rmSync(target, { force: true });
+      }
+      for (const [target, backup] of [...backups].reverse()) {
+        if (fs.existsSync(backup)) fs.renameSync(backup, target);
+      }
+    }
+    for (const temp of temporary.values()) {
+      if (fs.existsSync(temp)) fs.rmSync(temp, { force: true });
+    }
+    if (completed) {
+      for (const backup of backups.values()) {
+        if (fs.existsSync(backup)) fs.rmSync(backup, { force: true });
+      }
+    }
+  }
+}
+
+async function runRealArtifactsContract(
+  databasePath: string,
+  finalOutDir: string,
+): Promise<void> {
+  assertCondition(
+    path.isAbsolute(databasePath),
+    "--database-path must be an explicit absolute path.",
+  );
+  assertCondition(
+    fs.realpathSync.native(databasePath) ===
+      fs.realpathSync.native(REAL_CATALOG_PATH),
+    `--real-artifacts accepts only the locked catalog ${REAL_CATALOG_PATH}.`,
+  );
+  assertCanonicalFinalOutDir(finalOutDir);
+  const sourceBefore = snapshotCatalogFiles(databasePath);
+  assertLockedRealCatalogFingerprint(sourceBefore);
+
+  await withOwnedTempRoot("fpkg-phase19-real-artifacts-", async (tempRoot) => {
+    const unlimitedOut = path.join(tempRoot, "unlimited");
+    const limitedOut = path.join(tempRoot, "limit-1");
+    const common = [
+      "--database-path",
+      sourceBefore.sourcePath,
+      "--json",
+      "--verify-baseline",
+    ];
+    const unlimited = runAuditCli([
+      ...common,
+      "--out-dir",
+      unlimitedOut,
+    ]);
+    assertSourceStillLocked(sourceBefore);
+    const limited = runAuditCli([
+      ...common,
+      "--out-dir",
+      limitedOut,
+      "--limit",
+      "1",
+    ]);
+    assertSourceStillLocked(sourceBefore);
+    assertCondition(
+      unlimited.status === 1 && limited.status === 1,
+      `Real audit must report content-incomplete exit 1, received ${unlimited.status}/${limited.status}: ${unlimited.stderr}${limited.stderr}`,
+    );
+    assertCondition(
+      unlimited.json && limited.json,
+      `Real audit CLI did not emit JSON: ${unlimited.stderr}${limited.stderr}`,
+    );
+    assertCondition(
+      unlimited.json.exit_code === 1 &&
+        limited.json.exit_code === 1 &&
+        unlimited.json.console_row_count === 305 &&
+        unlimited.json.rows.length === 305 &&
+        limited.json.console_row_count === 1 &&
+        limited.json.rows.length === 1 &&
+        JSON.stringify(limited.json.rows[0]) ===
+          JSON.stringify(unlimited.json.rows[0]),
+      "Real audit limit changed exit semantics or did not remain terminal-only.",
+    );
+    assertCondition(
+      JSON.stringify(unlimited.json.provenance) ===
+        JSON.stringify(limited.json.provenance) &&
+        JSON.stringify(unlimited.json.summary) ===
+          JSON.stringify(limited.json.summary) &&
+        JSON.stringify(unlimited.json.verdict) ===
+          JSON.stringify(limited.json.verdict),
+      "Unlimited and limit=1 real audit metadata differ.",
+    );
+    const unlimitedArtifacts = readArtifacts(unlimitedOut);
+    const limitedArtifacts = readArtifacts(limitedOut);
+    assertArtifactBuffersEqual(
+      unlimitedArtifacts,
+      limitedArtifacts,
+      "Unlimited/limit=1 real artifacts",
+    );
+    assertRealArtifactContract(unlimitedArtifacts, unlimited.json);
+    assertRealArtifactContract(limitedArtifacts, {
+      ...limited.json,
+      rows: unlimited.json.rows,
+    });
+
+    assertSourceStillLocked(sourceBefore);
+    publishCanonicalArtifactSet(finalOutDir, unlimitedArtifacts);
+    assertSourceStillLocked(sourceBefore);
+    assertArtifactBuffersEqual(
+      unlimitedArtifacts,
+      readArtifacts(finalOutDir),
+      "Verified/final real artifacts",
+    );
+    console.log(
+      `Real audit artifacts passed: inventory=305 brands=69 pens=236 legacy=296 content_ready=0 published=0 public_clean=true hashes=${artifactHashes(unlimitedArtifacts).join(",")}.`,
+    );
+  });
 }
 
 async function seedArtifactFixture(client: Client): Promise<void> {
@@ -2251,6 +2894,37 @@ async function main(): Promise<void> {
     await runSignalProbe(reportFile);
     return;
   }
+  if (args[0] === "--real-artifacts") {
+    assertCondition(
+      args.length === 5 &&
+        args.filter((arg) => arg === "--database-path").length === 1 &&
+        args.filter((arg) => arg === "--final-out-dir").length === 1,
+      "Usage: pnpm check:audit-readiness -- --real-artifacts --database-path <absolute-fpkg.db> --final-out-dir <absolute-artifact-directory>.",
+    );
+    const databaseIndex = args.indexOf("--database-path");
+    const finalOutIndex = args.indexOf("--final-out-dir");
+    const databasePath = args[databaseIndex + 1];
+    const finalOutDir = args[finalOutIndex + 1];
+    assertCondition(
+      databaseIndex > 0 &&
+        finalOutIndex > 0 &&
+        databasePath &&
+        finalOutDir &&
+        !databasePath.startsWith("--") &&
+        !finalOutDir.startsWith("--"),
+      "--real-artifacts requires explicit values for --database-path and --final-out-dir.",
+    );
+    await runRealArtifactsContract(databasePath, finalOutDir);
+    return;
+  }
+  if (args.length === 1 && args[0] === "--fixture") {
+    await runInventoryContract();
+    await runBackupMigrationContract();
+    await runCliInputsContract();
+    await runLegacyAuditsContract();
+    await runLibraryContractSafety();
+    return;
+  }
   const modes = new Set(args);
   const inventoryModes = [
     "--inventory",
@@ -2276,7 +2950,7 @@ async function main(): Promise<void> {
   }
   if (args.length !== 1) {
     throw new Error(
-      "Usage: pnpm exec tsx scripts/check-audit-readiness.ts --readonly-isolation|--readonly-backup|--fixture-isolation|[--inventory] [--backup-migration] [--artifacts-limit] [--cli-inputs] [--legacy-audits] [--library-contract-safety]",
+      "Usage: pnpm exec tsx scripts/check-audit-readiness.ts --readonly-isolation|--readonly-backup|--fixture-isolation|--fixture|--real-artifacts --database-path <absolute-fpkg.db> --final-out-dir <absolute-artifact-directory>|[--inventory] [--backup-migration] [--artifacts-limit] [--cli-inputs] [--legacy-audits] [--library-contract-safety]",
     );
   }
   if (args[0] === "--readonly-isolation") {

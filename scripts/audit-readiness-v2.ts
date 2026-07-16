@@ -440,6 +440,15 @@ export async function runReadinessAuditOnOwnedCopy(
       env: {},
     });
     try {
+      if (
+        workspace.preMigrationCopy.get(
+          "SELECT name FROM sqlite_schema WHERE type = 'table' AND name = 'schema_migrations'",
+        )
+      ) {
+        throw new Error(
+          "Readiness audit rejects legacy schema_migrations provenance.",
+        );
+      }
       sourceProvenance = captureSourceInventoryProvenance(
         workspace.preMigrationCopy,
       );
@@ -494,6 +503,15 @@ export async function runReadinessAuditOnOwnedCopy(
       env: {},
     });
     try {
+      if (
+        workspace.migratedCopy.get(
+          "SELECT name FROM sqlite_schema WHERE type = 'table' AND name = 'schema_migrations'",
+        )
+      ) {
+        throw new Error(
+          "Canonical audit copy unexpectedly contains schema_migrations.",
+        );
+      }
       const provenance = captureInventoryAuditProvenance(
         workspace.migratedCopy,
         sourceProvenance,

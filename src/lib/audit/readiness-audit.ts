@@ -56,6 +56,13 @@ export type CurrentReviewState = "approved_current" | "missing_current";
 
 export type InventoryAuditRow = {
   readonly source_inventory_snapshot_id: string;
+  readonly source_schema_max_migration: number;
+  readonly source_schema_migration_name: string;
+  readonly source_schema_migration_checksum: string;
+  readonly audit_schema_max_migration: number;
+  readonly audit_schema_migration_name: string;
+  readonly audit_schema_migration_checksum: string;
+  readonly audit_database_kind: "owned_disposable_migrated_copy";
   readonly entity_id: string;
   readonly entity_type: "brand" | "pen";
   readonly slug: string;
@@ -843,6 +850,15 @@ export function runReadinessAudit(
     const publicationStatus = publication?.status ?? "missing";
     return {
       source_inventory_snapshot_id: provenance.source_inventory_snapshot_id,
+      source_schema_max_migration: provenance.source_schema_max_migration,
+      source_schema_migration_name: provenance.source_schema_migration_name,
+      source_schema_migration_checksum:
+        provenance.source_schema_migration_checksum,
+      audit_schema_max_migration: provenance.audit_schema_max_migration,
+      audit_schema_migration_name: provenance.audit_schema_migration_name,
+      audit_schema_migration_checksum:
+        provenance.audit_schema_migration_checksum,
+      audit_database_kind: provenance.audit_database_kind,
       entity_id: entity.id,
       entity_type: entity.type,
       slug: entity.slug,
@@ -1019,6 +1035,61 @@ export function assertLockedInventoryBaseline(
       `Locked post-031 inventory must be all draft; found ${nonDraft.join(",")}.`,
     );
   }
+  const penRows = result.rows.filter((row) => row.entity_type === "pen");
+  const madeByCounts = new Map<MadeByDisposition, number>();
+  for (const row of penRows) {
+    madeByCounts.set(
+      row.made_by_status,
+      (madeByCounts.get(row.made_by_status) ?? 0) + 1,
+    );
+  }
+  if (
+    madeByCounts.get("exactly_one") !== 230 ||
+    madeByCounts.get("missing") !== 5 ||
+    madeByCounts.get("multiple") !== 1 ||
+    (madeByCounts.get("noncanonical") ?? 0) !== 0
+  ) {
+    throw new Error(
+      `Locked made_by disposition counts mismatch: ${JSON.stringify(Object.fromEntries(madeByCounts))}.`,
+    );
+  }
+  const missingMadeBySlugs = penRows
+    .filter((row) => row.made_by_status === "missing")
+    .map((row) => row.slug)
+    .sort(compareText);
+  const expectedMissingMadeBySlugs = [
+    "the-camel-pen",
+    "the-j-g-rider-fountain-pen",
+    "the-john-hancock-cartridge-pen",
+    "the-postal-reservoir-pen",
+    "the-security-pen",
+  ].sort(compareText);
+  if (
+    JSON.stringify(missingMadeBySlugs) !==
+    JSON.stringify(expectedMissingMadeBySlugs)
+  ) {
+    throw new Error(
+      `Locked missing made_by slugs mismatch: ${missingMadeBySlugs.join(",")}.`,
+    );
+  }
+  const multipleMadeBy = penRows.filter(
+    (row) => row.made_by_status === "multiple",
+  );
+  if (
+    multipleMadeBy.length !== 1 ||
+    multipleMadeBy[0]?.slug !== "英雄派迪-一体尖" ||
+    JSON.stringify(
+      [...multipleMadeBy[0].made_by_target_names].sort(compareText),
+    ) !==
+      JSON.stringify(
+        ["英雄 (Hero)", "英雄派迪 (Hero Paddy)"].sort(compareText),
+      ) ||
+    multipleMadeBy[0].made_by_target_types.some((type) => type !== "brand")
+  ) {
+    throw new Error(
+      `Locked multiple made_by disposition mismatch: ${JSON.stringify(multipleMadeBy)}.`,
+    );
+  }
 }
 
 export function serializeInventoryNdjson(result: InventoryAuditResult): string {
@@ -1028,6 +1099,13 @@ export function serializeInventoryNdjson(result: InventoryAuditResult): string {
 
 const INVENTORY_CSV_COLUMNS = [
   "source_inventory_snapshot_id",
+  "source_schema_max_migration",
+  "source_schema_migration_name",
+  "source_schema_migration_checksum",
+  "audit_schema_max_migration",
+  "audit_schema_migration_name",
+  "audit_schema_migration_checksum",
+  "audit_database_kind",
   "entity_id",
   "entity_type",
   "slug",

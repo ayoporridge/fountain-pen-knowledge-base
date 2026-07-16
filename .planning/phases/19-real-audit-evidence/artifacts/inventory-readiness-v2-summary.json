@@ -1,0 +1,31 @@
+{
+  "artifact_contract_version": 1,
+  "provenance": {
+    "source_inventory_snapshot_id": "sha256:17e1f1bc8cc4bfdcf490c7a7f48d97154d6449e0800f60cc3e9a9e88f9177ba4",
+    "source_schema_max_migration": 30,
+    "source_schema_migration_name": "030_publication_gate.sql",
+    "source_schema_migration_checksum": "1737d53f29c6f8d1c947f93d2a71bf9dd672de150d75dd81b150c48749d21e4a",
+    "audit_schema_max_migration": 31,
+    "audit_schema_migration_name": "031_evidence_readiness_v2.sql",
+    "audit_schema_migration_checksum": "abe240f9e4911682636e1b681fbb6a6b6ca31c3abe2cfe9bcc13f0221b04660b",
+    "audit_database_kind": "owned_disposable_migrated_copy"
+  },
+  "summary": {
+    "inventory_audited": 305,
+    "brand_inventory_audited": 69,
+    "pen_inventory_audited": 236,
+    "legacy_public_baseline": 296,
+    "content_ready": 0,
+    "published": 0,
+    "public_entities": 0,
+    "published_blockers": 0,
+    "public_blockers": 0,
+    "backlog": 305
+  },
+  "verdict": {
+    "inventory_complete": true,
+    "content_complete": false,
+    "public_clean": true,
+    "complete": false
+  }
+}
