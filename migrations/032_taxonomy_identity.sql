@@ -681,7 +681,12 @@ FROM media_assets media
 WHERE media.source_item_id IS NOT NULL AND media.entity_id IS NOT NULL
 UNION
 SELECT reference.source_item_id, reference.entity_id
-FROM entity_references reference;
+FROM entity_references reference
+UNION
+SELECT alias.source_item_id, alias.entity_id
+FROM entity_aliases alias
+WHERE alias.source_item_id IS NOT NULL
+  AND alias.review_status = 'approved';
 
 CREATE VIEW publication_v2_qualified_source_items AS
 SELECT

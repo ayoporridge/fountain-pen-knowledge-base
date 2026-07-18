@@ -571,6 +571,121 @@ test("taxonomy substrate constraints and immutable identity reject malformed sta
   });
 });
 
+test("approved alias source ownership invalidates publication fail closed", async () => {
+  await withFixture(async (fixture) => {
+    await seedPublishedV2Pair(fixture.client);
+    await apply032(fixture);
+    await republishV3(fixture.client, "brand-v2");
+    await republishV3(fixture.client, "pen-v2");
+
+    await fixture.client.execute(`INSERT INTO source_items (
+      id, source_id, title, url, item_type, license, author, published_at,
+      retrieved_at, summary, raw_metadata_json, allowed_use, review_status,
+      source_tier, independence_group, archive_url, archive_locator
+    ) VALUES
+      ('alias-source-approved', 'registry-primary', 'Approved alias source',
+        'https://fixture.invalid/alias/approved', 'web_page', 'CC0', 'Fixture',
+        '2022-01-01', '2026-07-18', 'Approved alias', '{}', 'summary_only',
+        'approved', 'primary', 'alias-approved',
+        'https://archive.invalid/alias-approved', 'snapshot:alias-approved'),
+      ('alias-source-pending', 'registry-primary', 'Pending alias source',
+        'https://fixture.invalid/alias/pending', 'web_page', 'CC0', 'Fixture',
+        '2022-01-01', '2026-07-18', 'Pending alias', '{}', 'summary_only',
+        'approved', 'primary', 'alias-pending',
+        'https://archive.invalid/alias-pending', 'snapshot:alias-pending'),
+      ('alias-source-rejected', 'registry-primary', 'Rejected alias source',
+        'https://fixture.invalid/alias/rejected', 'web_page', 'CC0', 'Fixture',
+        '2022-01-01', '2026-07-18', 'Rejected alias', '{}', 'summary_only',
+        'approved', 'primary', 'alias-rejected',
+        'https://archive.invalid/alias-rejected', 'snapshot:alias-rejected')`);
+    await fixture.client.execute(`INSERT INTO entity_aliases (
+      id, entity_id, alias, source_item_id, review_status
+    ) VALUES
+      ('alias-approved-owner', 'pen-v2', 'Approved owner alias',
+        'alias-source-approved', 'approved'),
+      ('alias-pending-owner', 'pen-v2', 'Pending owner alias',
+        'alias-source-pending', 'pending'),
+      ('alias-rejected-owner', 'pen-v2', 'Rejected owner alias',
+        'alias-source-rejected', 'rejected')`);
+
+    const approvedHash = await republishV3(fixture.client, "pen-v2");
+    const published = await sqlOne(
+      fixture.client,
+      `SELECT status, content_revision
+       FROM entity_publications WHERE entity_id = 'pen-v2'`,
+    );
+    assert.equal(published.status, "published");
+    const sourceItems = (
+      (await readPublicationContentPayload(
+        fixture.client,
+        "pen-v2",
+      )) as Record<string, unknown>
+    ).sourceItems as Record<string, unknown>[];
+    assert.ok(sourceItems.some((item) => item.id === "alias-source-approved"));
+    assert.ok(!sourceItems.some((item) => item.id === "alias-source-pending"));
+    assert.ok(!sourceItems.some((item) => item.id === "alias-source-rejected"));
+
+    await fixture.client.execute(`UPDATE source_items
+      SET title = title || ' updated'
+      WHERE id IN ('alias-source-pending', 'alias-source-rejected')`);
+    const afterUnreviewedSourceUpdates = await sqlOne(
+      fixture.client,
+      `SELECT status, content_revision
+       FROM entity_publications WHERE entity_id = 'pen-v2'`,
+    );
+    assert.equal(afterUnreviewedSourceUpdates.status, "published");
+    assert.equal(
+      Number(afterUnreviewedSourceUpdates.content_revision),
+      Number(published.content_revision),
+    );
+    assert.equal(
+      await computePublicationContentHash(fixture.client, "pen-v2"),
+      approvedHash,
+    );
+
+    await fixture.client.execute(`UPDATE source_items
+      SET review_status = 'rejected'
+      WHERE id = 'alias-source-approved'`);
+    const invalidated = await sqlOne(
+      fixture.client,
+      `SELECT status, content_revision
+       FROM entity_publications WHERE entity_id = 'pen-v2'`,
+    );
+    assert.equal(invalidated.status, "in_review");
+    assert.equal(
+      Number(invalidated.content_revision),
+      Number(published.content_revision) + 1,
+    );
+    assert.notEqual(
+      await computePublicationContentHash(fixture.client, "pen-v2"),
+      approvedHash,
+    );
+    assert.equal(
+      Number(
+        (
+          await sqlOne(
+            fixture.client,
+            `SELECT count(*) AS count FROM entity_content_reviews
+             WHERE entity_id = 'pen-v2' AND status = 'approved'`,
+          )
+        ).count,
+      ),
+      0,
+    );
+    assert.equal(
+      Number(
+        (
+          await sqlOne(
+            fixture.client,
+            "SELECT count(*) AS count FROM public_entities WHERE id = 'pen-v2'",
+          )
+        ).count,
+      ),
+      0,
+    );
+  });
+});
+
 test("taxonomy hash and review revocation fail closed without automatic republish", async () => {
   await withFixture(async (fixture) => {
     await seedPublishedV2Pair(fixture.client);
