@@ -527,6 +527,14 @@ test("taxonomy substrate constraints and immutable identity reject malformed sta
       target_entity_id, status
     ) VALUES ('action-1', 'batch-1', 'row-1', 'rename', '${"b".repeat(64)}',
       'pen-v2', 'pen-v2', 'staged')`);
+    await fixture.client.execute(`INSERT INTO taxonomy_batches (
+      id, source_key, source_checksum, status
+    ) VALUES ('batch-2', 'fixture:matrix:second', '${"d".repeat(64)}', 'staged')`);
+    await fixture.client.execute(`INSERT INTO taxonomy_actions (
+      id, batch_id, source_row_key, action_kind, action_checksum, source_entity_id,
+      target_entity_id, status
+    ) VALUES ('action-2', 'batch-2', 'row-2', 'rename', '${"e".repeat(64)}',
+      'pen-v2', 'pen-v2', 'staged')`);
     await assert.rejects(
       fixture.client.execute(`INSERT INTO taxonomy_actions (
         id, batch_id, source_row_key, action_kind, action_checksum, status
@@ -580,6 +588,38 @@ test("taxonomy substrate constraints and immutable identity reject malformed sta
       id, batch_id, action_id, source_path, target_path, redirect_kind
     ) VALUES ('redirect-1', 'batch-1', 'action-1', '/pen/pen-v2',
       '/pen/pen-child-a', 'permanent')`);
+    await assert.rejects(
+      fixture.client.execute(`INSERT INTO entity_lineage (
+        id, batch_id, action_id, source_entity_id, target_entity_id, lineage_kind
+      ) VALUES ('lineage-cross-batch', 'batch-1', 'action-2',
+        'pen-child-a', 'pen-other', 'merge')`),
+    );
+    await assert.rejects(
+      fixture.client.execute(`INSERT INTO entity_redirects (
+        id, batch_id, action_id, source_path, target_path, redirect_kind
+      ) VALUES ('redirect-cross-batch', 'batch-1', 'action-2',
+        '/pen/cross-batch', '/pen/pen-other', 'permanent')`),
+    );
+    await assert.rejects(
+      fixture.client.execute(`UPDATE entity_lineage
+        SET action_id = 'action-2' WHERE id = 'lineage-a'`),
+    );
+    await assert.rejects(
+      fixture.client.execute(`UPDATE entity_lineage
+        SET batch_id = 'batch-2' WHERE id = 'lineage-a'`),
+    );
+    await assert.rejects(
+      fixture.client.execute(`UPDATE entity_redirects
+        SET action_id = 'action-2' WHERE id = 'redirect-1'`),
+    );
+    await assert.rejects(
+      fixture.client.execute(`UPDATE entity_redirects
+        SET batch_id = 'batch-2' WHERE id = 'redirect-1'`),
+    );
+    await assert.rejects(
+      fixture.client.execute(`UPDATE taxonomy_actions
+        SET batch_id = 'batch-2' WHERE id = 'action-1'`),
+    );
     await assert.rejects(
       fixture.client.execute(`INSERT INTO entity_redirects (
         id, batch_id, source_path, target_path, redirect_kind

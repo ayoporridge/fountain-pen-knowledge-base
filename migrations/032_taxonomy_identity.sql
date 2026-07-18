@@ -410,6 +410,63 @@ CREATE TABLE entity_redirects (
 
 CREATE INDEX idx_entity_redirects_target ON entity_redirects(target_path);
 
+-- Nullable action links retain ON DELETE SET NULL while these guards enforce
+-- that every non-null action belongs to the row's taxonomy batch.
+CREATE TRIGGER entity_lineage_action_batch_insert_guard
+BEFORE INSERT ON entity_lineage
+WHEN NEW.action_id IS NOT NULL
+  AND NOT EXISTS (
+    SELECT 1 FROM taxonomy_actions action
+    WHERE action.id = NEW.action_id AND action.batch_id = NEW.batch_id
+  )
+BEGIN
+  SELECT RAISE(ABORT, 'taxonomy_guard: lineage action batch mismatch');
+END;
+
+CREATE TRIGGER entity_lineage_action_batch_update_guard
+BEFORE UPDATE OF batch_id, action_id ON entity_lineage
+WHEN NEW.action_id IS NOT NULL
+  AND NOT EXISTS (
+    SELECT 1 FROM taxonomy_actions action
+    WHERE action.id = NEW.action_id AND action.batch_id = NEW.batch_id
+  )
+BEGIN
+  SELECT RAISE(ABORT, 'taxonomy_guard: lineage action batch mismatch');
+END;
+
+CREATE TRIGGER entity_redirect_action_batch_insert_guard
+BEFORE INSERT ON entity_redirects
+WHEN NEW.action_id IS NOT NULL
+  AND NOT EXISTS (
+    SELECT 1 FROM taxonomy_actions action
+    WHERE action.id = NEW.action_id AND action.batch_id = NEW.batch_id
+  )
+BEGIN
+  SELECT RAISE(ABORT, 'taxonomy_guard: redirect action batch mismatch');
+END;
+
+CREATE TRIGGER entity_redirect_action_batch_update_guard
+BEFORE UPDATE OF batch_id, action_id ON entity_redirects
+WHEN NEW.action_id IS NOT NULL
+  AND NOT EXISTS (
+    SELECT 1 FROM taxonomy_actions action
+    WHERE action.id = NEW.action_id AND action.batch_id = NEW.batch_id
+  )
+BEGIN
+  SELECT RAISE(ABORT, 'taxonomy_guard: redirect action batch mismatch');
+END;
+
+CREATE TRIGGER taxonomy_action_batch_update_guard
+BEFORE UPDATE OF batch_id ON taxonomy_actions
+WHEN OLD.batch_id IS NOT NEW.batch_id
+  AND (
+    EXISTS (SELECT 1 FROM entity_lineage WHERE action_id = OLD.id)
+    OR EXISTS (SELECT 1 FROM entity_redirects WHERE action_id = OLD.id)
+  )
+BEGIN
+  SELECT RAISE(ABORT, 'taxonomy_guard: referenced action batch is immutable');
+END;
+
 -- Ordinary product options remain rows under one model. Edition groups may
 -- parent color/material/nib/market-SKU children, never another model's row.
 ALTER TABLE model_variants ADD COLUMN variant_kind TEXT NOT NULL DEFAULT 'variant'
