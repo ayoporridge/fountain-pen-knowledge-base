@@ -16,6 +16,8 @@ type NavItem = {
   level?: StoryHeading["level"];
 };
 
+type NavVariant = "desktop" | "mobile";
+
 function EntityHeader({ data }: { data: PublishedPageData }) {
   const typeLabel = data.type === "brand" ? "品牌" : "钢笔型号";
   const parent = data.type === "pen" ? data.canonicalBrand : null;
@@ -91,7 +93,8 @@ function PrimaryMedia({ data }: { data: PublishedPageData }) {
             href={media.sourceUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex min-h-11 items-center ink-underline"
+            aria-label="查看图片来源（在新窗口打开）"
+            className="encyclopedia-source-link ink-underline"
           >
             查看图片来源
           </a>
@@ -119,29 +122,38 @@ function StoryArticle({
   );
 }
 
-function SectionNav({ items }: { items: NavItem[] }) {
+function SectionNav({
+  items,
+  variant,
+}: {
+  items: NavItem[];
+  variant: NavVariant;
+}) {
   if (items.length < 2) return null;
+  const isMobile = variant === "mobile";
   return (
     <nav
-      aria-label="词条章节"
-      className="encyclopedia-section-nav mb-8 overflow-x-auto rounded-lg border p-2"
-      style={{
-        borderColor: "var(--color-border)",
-        backgroundColor: "var(--color-surface-raised)",
-      }}
+      aria-label={isMobile ? "移动词条目录" : "桌面词条目录"}
+      className={
+        isMobile
+          ? "encyclopedia-mobile-nav encyclopedia-local-scroll"
+          : "encyclopedia-toc"
+      }
     >
-      <div className="flex min-w-max gap-1">
-        {items.map((item) => (
-          <a
-            key={item.href}
-            href={item.href}
-            data-heading-level={item.level}
-            className="inline-flex min-h-11 items-center rounded-lg px-3 py-2 text-sm font-medium text-ink-light"
-          >
-            {item.label}
-          </a>
+      <ul>
+        {items.map((item, index) => (
+          <li key={item.href}>
+            <a
+              href={item.href}
+              data-heading-level={item.level}
+              aria-current={index === 0 ? "location" : undefined}
+              className="text-sm text-ink-light"
+            >
+              {item.label}
+            </a>
+          </li>
         ))}
-      </div>
+      </ul>
     </nav>
   );
 }
@@ -165,7 +177,8 @@ function QualifiedSources({ sources }: { sources: PublishedSource[] }) {
               href={source.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-11 max-w-full items-center break-words font-medium ink-underline"
+              aria-label={`${source.title}（在新窗口打开）`}
+              className="encyclopedia-source-link max-w-full font-medium ink-underline"
             >
               {source.title}
             </a>
@@ -177,7 +190,8 @@ function QualifiedSources({ sources }: { sources: PublishedSource[] }) {
                 href={source.archiveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 inline-flex min-h-11 items-center text-sm ink-underline"
+                aria-label={`${source.title}存档（在新窗口打开）`}
+                className="encyclopedia-source-link mt-2 text-sm ink-underline"
               >
                 查看存档
               </a>
@@ -232,38 +246,59 @@ function navigationItems(
   const moduleItems: NavItem[] =
     data.type === "brand"
       ? [
-          { href: "#timeline", label: "品牌时间线" },
-          { href: "#models", label: `全部型号（${data.models.length}）` },
-          { href: "#sources", label: "来源" },
+          ...(data.timeline.length > 0
+            ? [{ href: "#timeline", label: "品牌时间线" }]
+            : []),
+          ...(data.models.length > 0
+            ? [
+                {
+                  href: "#models",
+                  label: `全部型号（${data.models.length}）`,
+                },
+              ]
+            : []),
+          ...(data.sources.length > 0
+            ? [{ href: "#sources", label: "来源" }]
+            : []),
         ]
       : [
           { href: "#brand", label: "品牌" },
-          { href: "#specs", label: "核心规格" },
+          ...(data.specs.length > 0
+            ? [{ href: "#specs", label: "核心规格" }]
+            : []),
           ...(data.variants.length > 0
             ? [{ href: "#variants", label: "版本差异" }]
             : []),
-          { href: "#sources", label: "来源" },
+          ...(data.sources.length > 0
+            ? [{ href: "#sources", label: "来源" }]
+            : []),
         ];
-  return [...headingItems, ...moduleItems];
+  return [{ href: "#story", label: "正文" }, ...headingItems, ...moduleItems];
 }
 
 export function EncyclopediaShell({ data, document }: ShellProps) {
+  const items = navigationItems(data, document);
   return (
-    <main className="encyclopedia-shell mx-auto max-w-6xl px-4 py-8">
+    <main className="encyclopedia-page">
       <EntityHeader data={data} />
       {data.type === "pen" ? <CanonicalRelations data={data} /> : null}
       <PrimaryMedia data={data} />
-      <SectionNav items={navigationItems(data, document)} />
+      <SectionNav items={items} variant="mobile" />
 
-      <div className="encyclopedia-content space-y-10">
-        <StoryArticle data={data} document={document} />
-        {data.type === "brand" ? (
-          <BrandMuseum timeline={data.timeline} models={data.models} />
-        ) : (
-          <ModelArchive specs={data.specs} variants={data.variants} />
-        )}
-        <QualifiedSources sources={data.sources} />
-        <ExploreMore data={data} />
+      <div className="encyclopedia-grid">
+        <div className="encyclopedia-main">
+          <StoryArticle data={data} document={document} />
+          {data.type === "brand" ? (
+            <BrandMuseum timeline={data.timeline} models={data.models} />
+          ) : (
+            <ModelArchive specs={data.specs} variants={data.variants} />
+          )}
+          <QualifiedSources sources={data.sources} />
+          <ExploreMore data={data} />
+        </div>
+        <aside className="encyclopedia-rail" aria-label="词条目录栏">
+          <SectionNav items={items} variant="desktop" />
+        </aside>
       </div>
     </main>
   );

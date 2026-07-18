@@ -196,6 +196,157 @@ describe("server markup encyclopedia shell", () => {
   });
 });
 
+describe("responsive selectors", () => {
+  it("defines the exact desktop/mobile layout and local overflow contract", () => {
+    const css = readFileSync("src/app/globals.css", "utf8");
+
+    for (const selector of [
+      ".encyclopedia-page",
+      ".encyclopedia-grid",
+      ".encyclopedia-main",
+      ".encyclopedia-rail",
+      ".encyclopedia-toc",
+      ".encyclopedia-mobile-nav",
+      ".encyclopedia-source-link",
+      ".encyclopedia-local-scroll",
+    ]) {
+      assert.match(css, new RegExp(selector.replace(".", "\\.")));
+    }
+
+    assert.match(css, /max-width:\s*1152px/);
+    assert.match(css, /padding-inline:\s*16px/);
+    assert.match(css, /@media\s*\(min-width:\s*1024px\)/);
+    assert.match(css, /padding-inline:\s*24px/);
+    assert.match(
+      css,
+      /grid-template-columns:\s*repeat\(12,\s*minmax\(0,\s*1fr\)\)/,
+    );
+    assert.match(css, /grid-column:\s*span 8/);
+    assert.match(css, /grid-column:\s*span 4/);
+    assert.match(css, /gap:\s*32px/);
+    assert.match(css, /position:\s*sticky/);
+    assert.match(css, /top:\s*96px/);
+    assert.match(css, /scroll-margin-top:\s*96px/);
+    assert.match(css, /min-width:\s*0/);
+    assert.match(css, /min-height:\s*44px/);
+    assert.match(css, /\.encyclopedia-local-scroll[\s\S]*overflow-x:\s*auto/);
+    assert.match(css, /\.prose-body pre[\s\S]*overflow-x:\s*auto/);
+    assert.match(css, /\.prose-body table[\s\S]*overflow-x:\s*auto/);
+    assert.match(css, /\.image-row\s*\{[^}]*overflow-x:\s*visible/);
+    assert.match(css, /outline:\s*3px solid var\(--color-accent\)/);
+    assert.match(css, /\.dark\s*\{[\s\S]*--color-surface:/);
+    assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)/);
+    assert.doesNotMatch(css, /\.encyclopedia-story[^}]*overflow-x:\s*auto/);
+  });
+});
+
+describe("navigation", () => {
+  it("shares exact heading and present-module targets across desktop and mobile TOCs", async () => {
+    const data = modelPage({
+      variants: [
+        {
+          name: "早期版本",
+          releaseYear: "2021",
+          notes: "首发版本采用明确记录的结构。",
+          source: {
+            title: "版本资料",
+            url: "https://example.com/variant-source",
+            sourceName: "Example Archive",
+          },
+        },
+      ],
+    });
+    const document = await renderMarkdownDocument(data.story.bodyMd);
+    const html = renderToStaticMarkup(
+      createElement(EncyclopediaShell, { data, document }),
+    );
+    const navHrefSet = (label: string) => {
+      const nav = html.match(
+        new RegExp(`<nav[^>]*aria-label="${label}"[\\s\\S]*?<\\/nav>`),
+      )?.[0];
+      assert.ok(nav, `${label} should be rendered`);
+      return [...nav.matchAll(/href="(#[^"]+)"/g)].map((match) => match[1]);
+    };
+
+    const desktop = navHrefSet("桌面词条目录");
+    const mobile = navHrefSet("移动词条目录");
+    assert.deepEqual(desktop, mobile);
+    assert.deepEqual(desktop, [
+      "#story",
+      "#身份与产品线",
+      "#书写体验",
+      "#brand",
+      "#specs",
+      "#variants",
+      "#sources",
+    ]);
+    for (const href of desktop) {
+      assert.match(html, new RegExp(`id="${href.slice(1)}"`));
+    }
+    assert.equal((html.match(/aria-current="location"/g) || []).length, 2);
+  });
+
+  it("removes both navigation entries when an optional module is absent", async () => {
+    const data = modelPage({ variants: [], sources: [] });
+    const document = await renderMarkdownDocument(data.story.bodyMd);
+    const html = renderToStaticMarkup(
+      createElement(EncyclopediaShell, { data, document }),
+    );
+
+    assert.doesNotMatch(
+      html,
+      /id="variants"|href="#variants"|id="sources"|href="#sources"/,
+    );
+  });
+});
+
+describe("accessibility", () => {
+  it("keeps semantic facts, media, lists, and safe external links in server HTML", async () => {
+    const model = modelPage();
+    const modelDocument = await renderMarkdownDocument(model.story.bodyMd);
+    const modelHtml = renderToStaticMarkup(
+      createElement(EncyclopediaShell, {
+        data: model,
+        document: modelDocument,
+      }),
+    );
+    const brand = brandPage();
+    const brandDocument = await renderMarkdownDocument(brand.story.bodyMd);
+    const brandHtml = renderToStaticMarkup(
+      createElement(EncyclopediaShell, {
+        data: brand,
+        document: brandDocument,
+      }),
+    );
+
+    assert.match(
+      modelHtml,
+      /<figure[^>]*class="[^"]*encyclopedia-primary-media/,
+    );
+    assert.match(modelHtml, /alt="Renderer Model：Renderer Model 侧面全貌"/);
+    assert.match(modelHtml, /<figcaption/);
+    assert.match(modelHtml, /<dl/);
+    assert.match(brandHtml, /<ol/);
+    assert.match(brandHtml, /<ul/);
+    assert.match(
+      modelHtml,
+      /target="_blank" rel="noopener noreferrer"[^>]*aria-label="[^"]*新窗口/,
+    );
+    assert.doesNotMatch(
+      `${modelHtml}${brandHtml}`,
+      /line-clamp|read-more|data-hydration|aria-hidden="true"[^>]*PAGE06/,
+    );
+    const shellSource = readFileSync(
+      "src/components/library/EncyclopediaShell.tsx",
+      "utf8",
+    );
+    assert.doesNotMatch(
+      shellSource,
+      /\bfetch\(|useEffect|useState|max-h-\[[^\]]+\][^\n]*encyclopedia-story/,
+    );
+  });
+});
+
 describe("evidence modules", () => {
   it("renders the complete sourced brand timeline and all fifteen unique model links", () => {
     const data = brandPage();
