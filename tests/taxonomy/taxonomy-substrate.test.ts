@@ -410,6 +410,20 @@ test("taxonomy substrate and migration replay preserve revoked v2 compatibility"
     );
     await assert.rejects(
       fixture.client.execute({
+        sql: `INSERT INTO entity_content_reviews (
+          id, entity_id, review_kind, content_hash, status
+        ) VALUES ('new-revoked-v2-review', 'pen-v2', 'fact', ?, 'revoked')`,
+        args: [V2_HASH],
+      }),
+    );
+    await assert.rejects(
+      fixture.client.execute({
+        sql: "DELETE FROM entity_content_reviews WHERE id = ?",
+        args: [String(afterReviews[0].id)],
+      }),
+    );
+    await assert.rejects(
+      fixture.client.execute({
         sql: `UPDATE entity_publications
               SET approved_content_hash = ?, reviewed_contract_version = 2
               WHERE entity_id = 'pen-v2'`,
@@ -495,6 +509,12 @@ test("taxonomy substrate constraints and immutable identity reject malformed sta
         id, entity_id, alias, alias_kind, review_status
       ) VALUES ('alias-no-source', 'pen-v2', 'Unsourced', 'alias', 'approved')`),
     );
+    await assert.rejects(
+      fixture.client.execute(`INSERT INTO entity_aliases (
+        id, entity_id, alias, alias_kind, source_item_id, review_status
+      ) VALUES ('alias-no-market', 'pen-v2', 'Unscoped regional',
+        'regional_name', 'source-primary', 'approved')`),
+    );
 
     await fixture.client.execute(`INSERT INTO entities (
       id, type, slug, name, summary
@@ -531,6 +551,10 @@ test("taxonomy substrate constraints and immutable identity reject malformed sta
     await assert.rejects(
       fixture.client.execute(`UPDATE model_variants
         SET parent_variant_id = 'variant-color' WHERE id = 'variant-edition'`),
+    );
+    await assert.rejects(
+      fixture.client.execute(`UPDATE model_variants
+        SET variant_kind = 'color' WHERE id = 'variant-edition'`),
     );
     await fixture.client.execute(`INSERT INTO model_variants (
       id, model_entity_id, variant_name, variant_kind, review_status

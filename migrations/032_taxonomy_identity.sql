@@ -164,6 +164,29 @@ ALTER TABLE entity_content_reviews_v3 RENAME TO entity_content_reviews;
 CREATE INDEX idx_entity_content_reviews_lookup
   ON entity_content_reviews(entity_id, content_hash, review_kind, status);
 
+-- Contract-v2 rows entered only through the table-copy above. Runtime writes
+-- must be v3; legacy rows are immutable audit history, not reusable reviews.
+CREATE TRIGGER entity_content_review_legacy_insert_guard
+BEFORE INSERT ON entity_content_reviews
+WHEN substr(NEW.content_hash, 1, 10) != 'sha256:v3:'
+BEGIN
+  SELECT RAISE(ABORT, 'publication_guard: legacy review insert is forbidden');
+END;
+
+CREATE TRIGGER entity_content_review_legacy_update_guard
+BEFORE UPDATE ON entity_content_reviews
+WHEN substr(OLD.content_hash, 1, 10) != 'sha256:v3:'
+BEGIN
+  SELECT RAISE(ABORT, 'publication_guard: legacy review history is immutable');
+END;
+
+CREATE TRIGGER entity_content_review_legacy_delete_guard
+BEFORE DELETE ON entity_content_reviews
+WHEN substr(OLD.content_hash, 1, 10) != 'sha256:v3:'
+BEGIN
+  SELECT RAISE(ABORT, 'publication_guard: legacy review history is immutable');
+END;
+
 -- Every governed lifecycle row loses the old authorization snapshot and moves
 -- to the next revision exactly once. Retired/draft/in-review states stay put;
 -- published rows become in_review and nothing is automatically republished.
@@ -260,6 +283,9 @@ WHEN (
   NEW.valid_from IS NOT NULL
   AND NEW.valid_to IS NOT NULL
   AND NEW.valid_from > NEW.valid_to
+) OR (
+  NEW.alias_kind IN ('regional_name', 'licensed_name')
+  AND NEW.market IS NULL
 ) OR (NEW.review_status = 'approved' AND NEW.source_item_id IS NULL)
 BEGIN
   SELECT RAISE(ABORT, 'taxonomy_guard: invalid alias validity or provenance');
@@ -271,6 +297,9 @@ WHEN (
   NEW.valid_from IS NOT NULL
   AND NEW.valid_to IS NOT NULL
   AND NEW.valid_from > NEW.valid_to
+) OR (
+  NEW.alias_kind IN ('regional_name', 'licensed_name')
+  AND NEW.market IS NULL
 ) OR (NEW.review_status = 'approved' AND NEW.source_item_id IS NULL)
 BEGIN
   SELECT RAISE(ABORT, 'taxonomy_guard: invalid alias validity or provenance');
@@ -435,6 +464,19 @@ BEGIN
   )
   SELECT CASE WHEN EXISTS (SELECT 1 FROM ancestor WHERE id = NEW.id)
     THEN RAISE(ABORT, 'taxonomy_guard: variant hierarchy cycle') END;
+END;
+
+CREATE TRIGGER model_variant_parent_owner_update_guard
+BEFORE UPDATE OF model_entity_id, variant_kind ON model_variants
+WHEN EXISTS (
+  SELECT 1 FROM model_variants child WHERE child.parent_variant_id = OLD.id
+)
+AND (
+  NEW.model_entity_id IS NOT OLD.model_entity_id
+  OR NEW.variant_kind != 'edition_group'
+)
+BEGIN
+  SELECT RAISE(ABORT, 'taxonomy_guard: edition parent ownership is immutable');
 END;
 
 CREATE TRIGGER publication_entity_alias_insert
