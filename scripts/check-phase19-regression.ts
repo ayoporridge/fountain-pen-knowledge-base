@@ -44,10 +44,22 @@ type LifecycleScopeReport = {
   readonly descendantPid: number | null;
 };
 
+type LifecycleConstructionScopeReport = {
+  readonly probeRoot: string;
+  readonly childPid: null;
+  readonly descendantPid: null;
+};
+
+type LateRegistrationReport = LifecycleScopeReport & {
+  readonly lateChildPid: number;
+  readonly registrationRejected: boolean;
+};
+
 type LifecycleProbeScope = {
   createOwnedRoot(prefix: string): string;
   registerChild(child: ChildProcess): ChildProcess;
   activeChildCount(): number;
+  isOpen(): boolean;
 };
 
 type WaitForProcessGroupExit = (
@@ -57,7 +69,11 @@ type WaitForProcessGroupExit = (
 
 type LifecycleProbeScopeOptions = {
   readonly waitForGroupExit?: WaitForProcessGroupExit;
-  readonly afterOwnedRootCreated?: (ownedRoot: string) => void;
+};
+
+type LifecycleConstructionSignalProbe = {
+  readonly signal: CatchableSignal;
+  readonly reportFile: string;
 };
 
 const FORBIDDEN_E2E_BASE_URL_MESSAGE =
@@ -129,6 +145,15 @@ function processGroupIsAlive(pid: number): boolean {
   }
 }
 
+function killDetachedProcessGroupImmediately(child: ChildProcess): void {
+  if (!child.pid) return;
+  try {
+    process.kill(-child.pid, "SIGKILL");
+  } catch {
+    child.kill("SIGKILL");
+  }
+}
+
 async function waitForProcessGroupExit(
   pid: number,
   timeoutMs: number,
@@ -179,30 +204,42 @@ async function withLifecycleProbeScope<T>(
   let ownedRoot: string | null = null;
   let cleanupPromise: Promise<void> | null = null;
   let signalCleanupStarted = false;
+  let acceptingWork = true;
 
   const cleanup = (signal?: CatchableSignal): Promise<void> => {
+    acceptingWork = false;
     cleanupPromise ??= (async () => {
       const failures: unknown[] = [];
-      for (const child of [...children]) {
-        try {
-          if (signal) {
-            await forwardSignalToDetachedProcessGroup(
-              child,
-              signal,
-              waitForGroupExit,
+      let previousSnapshot: string | null = null;
+      while (children.size > 0) {
+        const snapshot = [...children];
+        const snapshotKey = snapshot
+          .map((child) => child.pid ?? -1)
+          .sort((left, right) => left - right)
+          .join(",");
+        if (snapshotKey === previousSnapshot) break;
+        previousSnapshot = snapshotKey;
+        for (const child of snapshot) {
+          try {
+            if (signal) {
+              await forwardSignalToDetachedProcessGroup(
+                child,
+                signal,
+                waitForGroupExit,
+              );
+            } else {
+              await stopDetachedProcessGroup(child, waitForGroupExit);
+            }
+            assertCondition(
+              !child.pid || !processGroupIsAlive(child.pid),
+              `Lifecycle cleanup left process group ${String(child.pid)} alive.`,
             );
-          } else {
-            await stopDetachedProcessGroup(child, waitForGroupExit);
-          }
-          assertCondition(
-            !child.pid || !processGroupIsAlive(child.pid),
-            `Lifecycle cleanup left process group ${String(child.pid)} alive.`,
-          );
-        } catch (error) {
-          failures.push(error);
-        } finally {
-          if (!child.pid || !processGroupIsAlive(child.pid)) {
-            children.delete(child);
+          } catch (error) {
+            failures.push(error);
+          } finally {
+            if (!child.pid || !processGroupIsAlive(child.pid)) {
+              children.delete(child);
+            }
           }
         }
       }
@@ -247,11 +284,14 @@ async function withLifecycleProbeScope<T>(
 
   const scope: LifecycleProbeScope = {
     createOwnedRoot(prefix): string {
+      assertCondition(
+        acceptingWork,
+        "Lifecycle probe scope is closed for cleanup.",
+      );
       assertCondition(!ownedRoot, "Lifecycle probe scope already owns a root.");
       ownedRoot = fs.realpathSync.native(
         fs.mkdtempSync(path.join(os.tmpdir(), prefix)),
       );
-      options.afterOwnedRootCreated?.(ownedRoot);
       return ownedRoot;
     },
     registerChild(child): ChildProcess {
@@ -268,10 +308,17 @@ async function withLifecycleProbeScope<T>(
           () => undefined,
         );
       });
+      if (!acceptingWork) {
+        killDetachedProcessGroupImmediately(child);
+        throw new Error("Lifecycle probe scope is closed for cleanup.");
+      }
       return child;
     },
     activeChildCount(): number {
       return children.size;
+    },
+    isOpen(): boolean {
+      return acceptingWork;
     },
   };
 
@@ -342,6 +389,8 @@ async function runCommand(
     !processGroupIsAlive(child.pid),
     `${command.label} left its detached process group alive.`,
   );
+  fixture.releaseChild(child);
+  processGroups.delete(child.pid);
   assertCondition(
     exitCode === 0,
     `${command.label} failed with exit code ${exitCode}.`,
@@ -599,42 +648,6 @@ async function runLifecycleParentSignalProbe(
   });
 }
 
-async function runActualConstructionSignalProbe(
-  signal: CatchableSignal,
-  reportFile: string,
-): Promise<void> {
-  await withLifecycleProbeScope(async (scope) => {
-    const probeRoot = scope.createOwnedRoot(
-      "fpkg-phase19-lifecycle-actual-construction-",
-    );
-    const child = scope.registerChild(
-      spawn(process.execPath, ["-e", "setInterval(() => {}, 1000)"], {
-        cwd: ROOT,
-        detached: true,
-        stdio: "ignore",
-      }),
-    );
-    assertCondition(
-      child.pid,
-      "Actual construction lifecycle probe child has no PID.",
-    );
-    fs.writeFileSync(
-      reportFile,
-      JSON.stringify({
-        probeRoot,
-        childPid: child.pid,
-        descendantPid: null,
-      } satisfies LifecycleScopeReport),
-      { encoding: "utf8", flag: "wx", mode: 0o600 },
-    );
-    await new Promise<never>(() => undefined);
-  }, () => undefined, {
-    afterOwnedRootCreated: () => {
-      process.kill(process.pid, signal);
-    },
-  });
-}
-
 async function assertActualConstructionSignalCleanup(
   scope: LifecycleProbeScope,
   probeRoot: string,
@@ -659,12 +672,101 @@ async function assertActualConstructionSignalCleanup(
     );
     const report = JSON.parse(
       fs.readFileSync(reportFile, "utf8"),
-    ) as LifecycleScopeReport;
+    ) as LifecycleConstructionScopeReport;
     await assertProbeExit(probe, expectedExitCode);
     assertCondition(
-      (await waitForProcessExit(report.childPid, 5_000)) &&
+      report.childPid === null && !fs.existsSync(report.probeRoot),
+      `${signal} actual construction cleanup was not root-only or leaked its owned root.`,
+    );
+  }
+}
+
+async function runLateRegistrationSignalProbe(
+  signal: CatchableSignal,
+  reportFile: string,
+): Promise<void> {
+  await withLifecycleProbeScope(
+    async (scope) => {
+      const probeRoot = scope.createOwnedRoot(
+        "fpkg-phase19-lifecycle-late-registration-",
+      );
+      const child = scope.registerChild(
+        spawn(process.execPath, ["-e", "setInterval(() => {}, 1000)"], {
+          cwd: ROOT,
+          detached: true,
+          stdio: "ignore",
+        }),
+      );
+      assertCondition(child.pid, "Late-registration probe child has no PID.");
+      process.kill(process.pid, signal);
+      const cleanupDeadline = Date.now() + 5_000;
+      while (scope.isOpen() && Date.now() < cleanupDeadline) {
+        await new Promise((resolve) => setTimeout(resolve, 10));
+      }
+      assertCondition(
+        !scope.isOpen(),
+        `${signal} did not close lifecycle orchestration for cleanup.`,
+      );
+
+      const lateChild = spawn(
+        process.execPath,
+        ["-e", "setInterval(() => {}, 1000)"],
+        { cwd: ROOT, detached: true, stdio: "ignore" },
+      );
+      assertCondition(lateChild.pid, "Late lifecycle child has no PID.");
+      let registrationRejected = false;
+      try {
+        scope.registerChild(lateChild);
+      } catch {
+        registrationRejected = true;
+      }
+      fs.writeFileSync(
+        reportFile,
+        JSON.stringify({
+          probeRoot,
+          childPid: child.pid,
+          descendantPid: null,
+          lateChildPid: lateChild.pid,
+          registrationRejected,
+        } satisfies LateRegistrationReport),
+        { encoding: "utf8", flag: "wx", mode: 0o600 },
+      );
+      await new Promise<never>(() => undefined);
+    },
+    () => undefined,
+    {
+      waitForGroupExit: async (pid, timeoutMs) => {
+        await new Promise((resolve) => setTimeout(resolve, 300));
+        return waitForProcessGroupExit(pid, timeoutMs);
+      },
+    },
+  );
+}
+
+async function assertLateRegistrationRejectedWithoutLeak(
+  scope: LifecycleProbeScope,
+  probeRoot: string,
+): Promise<void> {
+  for (const [signal, expectedExitCode] of [
+    ["SIGINT", 130],
+    ["SIGTERM", 143],
+  ] as const) {
+    const reportFile = path.join(probeRoot, `outer-late-${signal}.json`);
+    const probe = await spawnProbe(
+      scope,
+      ["--lifecycle-late-registration-probe", signal, "--report", reportFile],
+      reportFile,
+    );
+    const report = JSON.parse(
+      fs.readFileSync(reportFile, "utf8"),
+    ) as LateRegistrationReport;
+    await assertProbeExit(probe, expectedExitCode);
+    assertCondition(
+      report.registrationRejected &&
+        (await waitForProcessExit(report.childPid, 5_000)) &&
+        (await waitForProcessExit(report.lateChildPid, 5_000)) &&
         !fs.existsSync(report.probeRoot),
-      `${signal} actual construction cleanup leaked its child or owned root.`,
+      `${signal} late registration was accepted or leaked an owned resource.`,
     );
   }
 }
@@ -694,11 +796,16 @@ async function assertRepeatedLifecycleSignalCleanup(
   scope: LifecycleProbeScope,
   probeRoot: string,
 ): Promise<void> {
-  for (const [signal, expectedExitCode] of [
-    ["SIGINT", 130],
-    ["SIGTERM", 143],
+  for (const [firstSignal, repeatedSignal, expectedExitCode] of [
+    ["SIGINT", "SIGINT", 130],
+    ["SIGTERM", "SIGTERM", 143],
+    ["SIGINT", "SIGTERM", 130],
+    ["SIGTERM", "SIGINT", 143],
   ] as const) {
-    const reportFile = path.join(probeRoot, `outer-double-${signal}.json`);
+    const reportFile = path.join(
+      probeRoot,
+      `outer-repeat-${firstSignal}-${repeatedSignal}.json`,
+    );
     const probe = await spawnProbe(
       scope,
       [
@@ -713,20 +820,20 @@ async function assertRepeatedLifecycleSignalCleanup(
     const report = JSON.parse(
       fs.readFileSync(reportFile, "utf8"),
     ) as LifecycleScopeReport;
-    probe.kill(signal);
+    probe.kill(firstSignal);
     await new Promise((resolve) => setTimeout(resolve, 25));
     assertCondition(
       probe.pid && processIsAlive(probe.pid),
-      `${signal} repeated-signal probe exited before cleanup was exercised.`,
+      `${firstSignal}/${repeatedSignal} probe exited before repeated cleanup was exercised.`,
     );
-    probe.kill(signal);
+    probe.kill(repeatedSignal);
     await assertProbeExit(probe, expectedExitCode);
     assertCondition(
       (await waitForProcessExit(report.childPid, 5_000)) &&
         (!report.descendantPid ||
           (await waitForProcessExit(report.descendantPid, 5_000))) &&
         !fs.existsSync(report.probeRoot),
-      `${signal} repeated-signal cleanup leaked a root, child, or descendant.`,
+      `${firstSignal}/${repeatedSignal} cleanup leaked a root, child, or descendant.`,
     );
   }
 }
@@ -768,6 +875,7 @@ async function assertScopedLifecycleSignalCleanup(
 ): Promise<void> {
   await assertExitedLifecycleChildUnregistered(scope);
   await assertActualConstructionSignalCleanup(scope, probeRoot);
+  await assertLateRegistrationRejectedWithoutLeak(scope, probeRoot);
   for (const [signal, expectedExitCode] of [
     ["SIGINT", 130],
     ["SIGTERM", 143],
@@ -801,7 +909,7 @@ async function assertScopedLifecycleSignalCleanup(
   await assertRepeatedLifecycleSignalCleanup(scope, probeRoot);
   await assertLifecycleCleanupFailureIsFailClosed(scope, probeRoot);
   console.log(
-    "PASS Phase 19 regression: top-level construction/runtime, repeated-signal, forced-failure, and process-group cleanup",
+    "PASS Phase 19 regression: actual construction/runtime, late-registration, repeated/mixed-signal, forced-failure, and process-group cleanup",
   );
 }
 
@@ -814,7 +922,9 @@ async function runLifecycleScopeContractOnly(): Promise<void> {
   });
 }
 
-async function runLifecycleProbes(): Promise<void> {
+async function runLifecycleProbes(
+  constructionSignalProbe?: LifecycleConstructionSignalProbe,
+): Promise<void> {
   const realBefore = assertPhase19LockedRealCatalog(
     snapshotRealCatalogInvariant(),
   );
@@ -822,6 +932,22 @@ async function runLifecycleProbes(): Promise<void> {
     const probeRoot = scope.createOwnedRoot(
       "fpkg-phase19-regression-probes-",
     );
+    if (constructionSignalProbe) {
+      fs.writeFileSync(
+        constructionSignalProbe.reportFile,
+        JSON.stringify({
+          probeRoot,
+          childPid: null,
+          descendantPid: null,
+        } satisfies LifecycleConstructionScopeReport),
+        { encoding: "utf8", flag: "wx", mode: 0o600 },
+      );
+      process.kill(process.pid, constructionSignalProbe.signal);
+      await new Promise((resolve) => setTimeout(resolve, 10_000));
+      throw new Error(
+        `${constructionSignalProbe.signal} construction probe resumed after signal cleanup.`,
+      );
+    }
     await assertScopedLifecycleSignalCleanup(scope, probeRoot);
     await runHostileBaseUrlProbe(scope, probeRoot);
 
@@ -924,7 +1050,18 @@ async function main(): Promise<void> {
       args[1] === "SIGINT" || args[1] === "SIGTERM",
       "--lifecycle-actual-construction-probe requires SIGINT or SIGTERM.",
     );
-    await runActualConstructionSignalProbe(args[1], reportPath(args));
+    await runLifecycleProbes({
+      signal: args[1],
+      reportFile: reportPath(args),
+    });
+    return;
+  }
+  if (args[0] === "--lifecycle-late-registration-probe") {
+    assertCondition(
+      args[1] === "SIGINT" || args[1] === "SIGTERM",
+      "--lifecycle-late-registration-probe requires SIGINT or SIGTERM.",
+    );
+    await runLateRegistrationSignalProbe(args[1], reportPath(args));
     return;
   }
   if (args[0] === "--lifecycle-parent-signal-probe") {
