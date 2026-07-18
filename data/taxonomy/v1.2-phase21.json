@@ -1,0 +1,3282 @@
+{
+  "schemaVersion": "1.0",
+  "source": {
+    "matrixPath": ".planning/research/V1.2-MODEL-COVERAGE.md",
+    "matrixSha256": "sha256:71d02fbcecb5c26d671a349d9e8b0f54279390365904a6f52446224539e4e1c2",
+    "addendumPath": ".planning/research/V1.2-OFFICIAL-COVERAGE-GAPS-2026-07-18.md",
+    "addendumSha256": "sha256:cb059d3818e29de80e63cb40d6d872b756b8daef5bcaa865af22ed5b5ded44b0",
+    "inventorySnapshotChecksum": "sha256:17e1f1bc8cc4bfdcf490c7a7f48d97154d6449e0800f60cc3e9a9e88f9177ba4"
+  },
+  "matrixChecksum": "sha256:f59a0baf27f85f3b98542c46b15afbabdc92e6c0c02890951716bfa184d684df",
+  "matrix": [
+    {
+      "sourceRowKey": "日本::Pilot Custom Urushi",
+      "title": "Pilot Custom Urushi",
+      "region": "日本",
+      "era": "现行旗舰",
+      "status": "M",
+      "priority": "P0",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://webcatalog.pilot.co.jp/products/DispDetail.do?itemID=t000100004090&volumeName=00004"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "日本::Pilot Elabo / Falcon",
+      "title": "Pilot Elabo / Falcon",
+      "region": "日本",
+      "era": "现行",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "alias",
+      "executionState": "gated",
+      "blocker": "Exact survivor, canonical slug, or brand ownership is not locked for mutation; resolve against a Phase 21 owned catalog copy without fuzzy matching.",
+      "canonical": null,
+      "variantDisposition": "alias_only",
+      "evidenceRefs": [
+        "https://www.pilot.co.jp/support/warranty/jp/fountain/"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "日本::Pilot Justus 95",
+      "title": "Pilot Justus 95",
+      "region": "日本",
+      "era": "现行",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.pilot.co.jp/support/warranty/en/fountain/justus95.html"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "日本::Pilot Silvern",
+      "title": "Pilot Silvern",
+      "region": "日本",
+      "era": "现行高端",
+      "status": "M",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.pilot.co.jp/support/warranty/jp/fountain/"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "日本::Platinum Preppy",
+      "title": "Platinum Preppy",
+      "region": "日本",
+      "era": "现行入门",
+      "status": "M",
+      "priority": "P0",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.platinum-pen.co.jp/en/brands/detail/?pid=89"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "日本::Platinum Procyon",
+      "title": "Platinum Procyon",
+      "region": "日本",
+      "era": "现行中端",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.platinum-pen.co.jp/en/brands/detail/?pid=91"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "日本::Platinum Plaisir",
+      "title": "Platinum Plaisir",
+      "region": "日本",
+      "era": "现行入门",
+      "status": "M",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.platinum-pen.co.jp/en/products/detail/"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "日本::Platinum Prefounte",
+      "title": "Platinum Prefounte",
+      "region": "日本",
+      "era": "现行入门",
+      "status": "M",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.platinum-pen.co.jp/en/products/detail/"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "日本::Sailor Pro Gear Slim",
+      "title": "Sailor Pro Gear Slim",
+      "region": "日本",
+      "era": "现行中端",
+      "status": "S/M",
+      "priority": "P0",
+      "primaryAction": "split",
+      "executionState": "gated",
+      "blocker": "Exact survivor, canonical slug, or brand ownership is not locked for mutation; resolve against a Phase 21 owned catalog copy without fuzzy matching.",
+      "canonical": null,
+      "variantDisposition": "attach_as_edition",
+      "evidenceRefs": [
+        "https://en.sailor.co.jp/topics/professional-gear-series/"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "日本::Sailor TUZU Adjust",
+      "title": "Sailor TUZU Adjust",
+      "region": "日本",
+      "era": "现行入门",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://en.sailor.co.jp/product/11-0453-2/"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "日本::Sailor Lecoule",
+      "title": "Sailor Lecoule",
+      "region": "日本",
+      "era": "现行入门",
+      "status": "M",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://en.sailor.co.jp/product/11-0313/"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "日本::Sailor 1911 Realo",
+      "title": "Sailor 1911 Realo",
+      "region": "日本",
+      "era": "现行高端",
+      "status": "M",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://en.sailor.co.jp/product/11-1853/"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "日本::Nakaya Decapod",
+      "title": "Nakaya Decapod",
+      "region": "日本",
+      "era": "现行、暂缓接单",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.nakaya.org/en/products/info/36690/",
+        "https://www.nakaya.org/en/news/24531/"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "日本::Namiki Nippon Art",
+      "title": "Namiki Nippon Art",
+      "region": "日本",
+      "era": "现行",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.pilot-namiki.com/en/collection/nippon-art/"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "日本::Eboya Houju",
+      "title": "Eboya Houju",
+      "region": "日本",
+      "era": "现行",
+      "status": "BM",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://eboyashop.com/collections/frontpage/products/houju-black-m-size"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "日本::Taccia Spotlight",
+      "title": "Taccia Spotlight",
+      "region": "日本",
+      "era": "现行",
+      "status": "BM",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://taccia.com/products/spotlight-fountain-pen"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "德国与瑞士::Montblanc Meisterstück Classique 145",
+      "title": "Montblanc Meisterstück Classique 145",
+      "region": "德国与瑞士",
+      "era": "现行",
+      "status": "M",
+      "priority": "P0",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.montblanc.com/en-us/meisterstuck-classique-fountain-pen-MB132466.html"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "德国与瑞士::Montblanc StarWalker",
+      "title": "Montblanc StarWalker",
+      "region": "德国与瑞士",
+      "era": "现行",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.montblanc.com/en-us/writing-instruments/collection/starwalker"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "德国与瑞士::LAMY aion",
+      "title": "LAMY aion",
+      "region": "德国与瑞士",
+      "era": "现行",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.lamy.com/en-us/p/lamy-aion-fountain-pen"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "德国与瑞士::LAMY cp1",
+      "title": "LAMY cp1",
+      "region": "德国与瑞士",
+      "era": "现行",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.lamy.com/en-us/p/lamy-cp1-fountain-pen/55111650214222"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "德国与瑞士::LAMY ideos",
+      "title": "LAMY ideos",
+      "region": "德国与瑞士",
+      "era": "现行",
+      "status": "M",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.lamy.com/en-us/p/lamy-ideos-pd-fountain-pen"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "德国与瑞士::Kaweco Supra",
+      "title": "Kaweco Supra",
+      "region": "德国与瑞士",
+      "era": "现行",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.kaweco-pen.com/files/catalog/KawecoCoBrandingCatalogue/files/assets/common/downloads/Kaweco%20Co-Branding-Katalog.pdf?uni=abbc40a1436cc3b4f0809decdb7bcfef"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "德国与瑞士::Kaweco Perkeo",
+      "title": "Kaweco Perkeo",
+      "region": "德国与瑞士",
+      "era": "现行入门",
+      "status": "M",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.kaweco-pen.com/en/Series/PERKEO/"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "德国与瑞士::Kaweco Dia2",
+      "title": "Kaweco Dia2",
+      "region": "德国与瑞士",
+      "era": "现行复古",
+      "status": "M",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.kaweco-pen.com/files/catalog/KawecoCoBrandingCatalogue/files/assets/common/downloads/Kaweco%20Co-Branding-Katalog.pdf?uni=abbc40a1436cc3b4f0809decdb7bcfef"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "德国与瑞士::Diplomat Excellence A2",
+      "title": "Diplomat Excellence A2",
+      "region": "德国与瑞士",
+      "era": "现行高端",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.diplomat-pen.com/en/shop/diplomat/excellence-a2/"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "德国与瑞士::Diplomat Elox",
+      "title": "Diplomat Elox",
+      "region": "德国与瑞士",
+      "era": "现行",
+      "status": "M",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.diplomat-pen.com/en/collections/"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "德国与瑞士::Faber-Castell Grip",
+      "title": "Faber-Castell Grip",
+      "region": "德国与瑞士",
+      "era": "现行入门",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.faber-castell.com/products/Grip2011fountainpenFblack/140908"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "德国与瑞士::Schneider Ray",
+      "title": "Schneider Ray",
+      "region": "德国与瑞士",
+      "era": "现行入门",
+      "status": "M",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://schneiderpen.com/uk/theme-worlds/product-series/ray"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "德国与瑞士::Pelikan Toledo M700",
+      "title": "Pelikan Toledo M700",
+      "region": "德国与瑞士",
+      "era": "现行高端",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://mam.pelikan.com/en/pelikan/media/963586/download"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "德国与瑞士::Pelikan 100 / 100N",
+      "title": "Pelikan 100 / 100N",
+      "region": "德国与瑞士",
+      "era": "历史",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.pelikan.com/ae/brand/pelikan-history.html"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "德国与瑞士::Caran d’Ache Léman",
+      "title": "Caran d’Ache Léman",
+      "region": "德国与瑞士",
+      "era": "现行旗舰",
+      "status": "BM",
+      "priority": "P0",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.carandache.com/us/en/collection-leman-s-1142.htm"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "德国与瑞士::Otto Hutt design04",
+      "title": "Otto Hutt design04",
+      "region": "德国与瑞士",
+      "era": "现行",
+      "status": "BM",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://oldwww.ottohutt.com/en/projects/design04/"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "德国与瑞士::Otto Hutt design07",
+      "title": "Otto Hutt design07",
+      "region": "德国与瑞士",
+      "era": "现行旗舰",
+      "status": "BM",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://oldwww.ottohutt.com/en/projects/design07/"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "德国与瑞士::Waldmann Tuscany",
+      "title": "Waldmann Tuscany",
+      "region": "德国与瑞士",
+      "era": "现行",
+      "status": "BM",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.waldmannpen.com/pens/tuscany"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "德国与瑞士::Cleo Skribent Classic",
+      "title": "Cleo Skribent Classic",
+      "region": "德国与瑞士",
+      "era": "现行",
+      "status": "BM",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.cleo-skribent.de/fileadmin/cleo/Dateien/Downloads/Katalog_2025_Web.pdf"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "意大利::Aurora 88",
+      "title": "Aurora 88",
+      "region": "意大利",
+      "era": "现行经典",
+      "status": "S/M",
+      "priority": "P0",
+      "primaryAction": "split",
+      "executionState": "apply",
+      "blocker": null,
+      "canonical": {
+        "entityId": "5CcEDOz9jiUg",
+        "type": "pen",
+        "slug": "aurora-88",
+        "name": "奥罗拉 Aurora 88",
+        "makerId": "CJXe8UpnkHLJ"
+      },
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://aurorapen.it/il-mondo-aurora/"
+      ],
+      "atomicActions": [
+        {
+          "kind": "retire_generic",
+          "sourceId": "G9ptvLpfyzNQ",
+          "targetId": null,
+          "targetType": "pen",
+          "targetSlug": null
+        },
+        {
+          "kind": "create_from_research",
+          "sourceId": null,
+          "targetId": "5CcEDOz9jiUg",
+          "targetType": "pen",
+          "targetSlug": "aurora-88"
+        }
+      ]
+    },
+    {
+      "sourceRowKey": "意大利::Aurora Optima",
+      "title": "Aurora Optima",
+      "region": "意大利",
+      "era": "现行旗舰",
+      "status": "M",
+      "priority": "P0",
+      "primaryAction": "create",
+      "executionState": "apply",
+      "blocker": null,
+      "canonical": {
+        "entityId": "5waoVLPHU2Pt",
+        "type": "pen",
+        "slug": "aurora-optima",
+        "name": "奥罗拉 Aurora Optima",
+        "makerId": "CJXe8UpnkHLJ"
+      },
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://aurorapen.it/shop/optima-auroloide-stilografica/"
+      ],
+      "atomicActions": [
+        {
+          "kind": "create_from_research",
+          "sourceId": null,
+          "targetId": "5waoVLPHU2Pt",
+          "targetType": "pen",
+          "targetSlug": "aurora-optima"
+        }
+      ]
+    },
+    {
+      "sourceRowKey": "意大利::Leonardo Momento Zero",
+      "title": "Leonardo Momento Zero",
+      "region": "意大利",
+      "era": "现行核心",
+      "status": "M",
+      "priority": "P0",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://leonardopen.com/collections/momento-zero-collection"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "意大利::Leonardo Furore",
+      "title": "Leonardo Furore",
+      "region": "意大利",
+      "era": "现行",
+      "status": "S",
+      "priority": "P1",
+      "primaryAction": "split",
+      "executionState": "apply",
+      "blocker": null,
+      "canonical": {
+        "entityId": "ixul2gTcJ06B",
+        "type": "pen",
+        "slug": "leonardo-furore",
+        "name": "Leonardo Furore",
+        "makerId": "g5r4udSOYhI5"
+      },
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://leonardopen.com/it"
+      ],
+      "atomicActions": [
+        {
+          "kind": "retire_mixed",
+          "sourceId": "s0HAxT1gsHxh",
+          "targetId": null,
+          "targetType": "pen",
+          "targetSlug": null
+        },
+        {
+          "kind": "split_create",
+          "sourceId": null,
+          "targetId": "ixul2gTcJ06B",
+          "targetType": "pen",
+          "targetSlug": "leonardo-furore"
+        }
+      ]
+    },
+    {
+      "sourceRowKey": "意大利::Leonardo Momento Magico",
+      "title": "Leonardo Momento Magico",
+      "region": "意大利",
+      "era": "现行",
+      "status": "S",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "apply",
+      "blocker": null,
+      "canonical": {
+        "entityId": "UE5otlwKUfp9",
+        "type": "pen",
+        "slug": "leonardo-momento-magico",
+        "name": "Leonardo Momento Magico",
+        "makerId": "g5r4udSOYhI5"
+      },
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://leonardopen.com/it"
+      ],
+      "atomicActions": [
+        {
+          "kind": "split_create",
+          "sourceId": null,
+          "targetId": "UE5otlwKUfp9",
+          "targetType": "pen",
+          "targetSlug": "leonardo-momento-magico"
+        }
+      ]
+    },
+    {
+      "sourceRowKey": "意大利::Montegrappa Elmo 01",
+      "title": "Montegrappa Elmo 01",
+      "region": "意大利",
+      "era": "现行入门",
+      "status": "BM",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.montegrappa.com/en/collections/edizioni-regolari/elmo01-1041.html"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "意大利::Montegrappa Extra 1930",
+      "title": "Montegrappa Extra 1930",
+      "region": "意大利",
+      "era": "现行旗舰",
+      "status": "BM",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.montegrappa.com/en/collections/edizioni-continuative/extra-1930-1162.html?c=454"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "意大利::SCRIBO Feel",
+      "title": "SCRIBO Feel",
+      "region": "意大利",
+      "era": "现行旗舰",
+      "status": "BM",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.scritturabolognese.com/en/negozio/fountain-pens/feel-en/feel-blue-black-2/"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "意大利::Stipula Etruria",
+      "title": "Stipula Etruria",
+      "region": "意大利",
+      "era": "现行",
+      "status": "BM",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.stipula.com/en/product-page/etruria-magnifica-avorio-stilo"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "意大利::OMAS Ogiva",
+      "title": "OMAS Ogiva",
+      "region": "意大利",
+      "era": "现行复兴",
+      "status": "BM",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://omasofficial.com/collections/ogiva-demonstrator"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "意大利::Delta Dolcevita",
+      "title": "Delta Dolcevita",
+      "region": "意大利",
+      "era": "现行复兴",
+      "status": "BM",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.pens.it/en/collections/delta"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "意大利::Pineider Avatar UR",
+      "title": "Pineider Avatar UR",
+      "region": "意大利",
+      "era": "现行",
+      "status": "BM",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://us.pineider.com/en/writing-instruments/collections/avatar-ur?page=1"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "意大利::Santini Libra",
+      "title": "Santini Libra",
+      "region": "意大利",
+      "era": "现行",
+      "status": "BM",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://santini-italia.com/libra-intenso.html"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "意大利::Visconti Divina Elegance",
+      "title": "Visconti Divina Elegance",
+      "region": "意大利",
+      "era": "现行高端",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.visconti.it/en/shop/1-luxury-pens/73-divina-elegance-fountain-pen.html?sc=45"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "意大利::Visconti Mirage",
+      "title": "Visconti Mirage",
+      "region": "意大利",
+      "era": "现行中端",
+      "status": "M",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.visconti.it/en/shop/1-luxury-pens/76-mirage-fountain-pen.html?sc=64"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "法国、英国与美国::S.T. Dupont Line D Eternity",
+      "title": "S.T. Dupont Line D Eternity",
+      "region": "法国、英国与美国",
+      "era": "现行旗舰",
+      "status": "BM",
+      "priority": "P0",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://us.st-dupont.com/products/fountain-pen-eternity-420216l"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "法国、英国与美国::S.T. Dupont Initial",
+      "title": "S.T. Dupont Initial",
+      "region": "法国、英国与美国",
+      "era": "现行入门",
+      "status": "BM",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://en.st-dupont.com/products/fountain-pen-initial-270216"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "法国、英国与美国::Waterman Hémisphère",
+      "title": "Waterman Hémisphère",
+      "region": "法国、英国与美国",
+      "era": "现行",
+      "status": "S",
+      "priority": "P0",
+      "primaryAction": "split",
+      "executionState": "apply",
+      "blocker": null,
+      "canonical": {
+        "entityId": "gwKClNnwt3V3",
+        "type": "pen",
+        "slug": "waterman-hemisphere",
+        "name": "威迪文 Waterman Hémisphère",
+        "makerId": "zkAu9PePDdqJ"
+      },
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.waterman.com/pens/"
+      ],
+      "atomicActions": [
+        {
+          "kind": "split_retain_as",
+          "sourceId": "gwKClNnwt3V3",
+          "targetId": "gwKClNnwt3V3",
+          "targetType": "pen",
+          "targetSlug": "waterman-hemisphere"
+        }
+      ]
+    },
+    {
+      "sourceRowKey": "法国、英国与美国::Waterman Exception",
+      "title": "Waterman Exception",
+      "region": "法国、英国与美国",
+      "era": "现行旗舰",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.waterman.com/pens/exception/"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "法国、英国与美国::Waterman Charleston",
+      "title": "Waterman Charleston",
+      "region": "法国、英国与美国",
+      "era": "历史 / 停产",
+      "status": "S/M",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "apply",
+      "blocker": null,
+      "canonical": {
+        "entityId": "4dcEbeUCjxH-",
+        "type": "pen",
+        "slug": "waterman-charleston",
+        "name": "威迪文 Waterman Charleston",
+        "makerId": "zkAu9PePDdqJ"
+      },
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://assets.waterman.com/is/content/NewellRubbermaid/wtrmn_trdctlg_2021"
+      ],
+      "atomicActions": [
+        {
+          "kind": "split_create",
+          "sourceId": null,
+          "targetId": "4dcEbeUCjxH-",
+          "targetType": "pen",
+          "targetSlug": "waterman-charleston"
+        }
+      ]
+    },
+    {
+      "sourceRowKey": "法国、英国与美国::Yard-O-Led Viceroy Grand",
+      "title": "Yard-O-Led Viceroy Grand",
+      "region": "法国、英国与美国",
+      "era": "现行旗舰",
+      "status": "BM",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.yard-o-led.com/collections/the-grand-fountain-pen"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "法国、英国与美国::Conway Stewart Churchill",
+      "title": "Conway Stewart Churchill",
+      "region": "法国、英国与美国",
+      "era": "现行复兴",
+      "status": "BM",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://conwaystewart.com/en-us/collections/churchill"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "法国、英国与美国::Onoto Magna",
+      "title": "Onoto Magna",
+      "region": "法国、英国与美国",
+      "era": "现行复兴",
+      "status": "BM",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://onoto.com/wp-content/uploads/2018/11/Onoto-Brochure-Final.pdf"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "法国、英国与美国::Mabie Todd Swan",
+      "title": "Mabie Todd Swan",
+      "region": "法国、英国与美国",
+      "era": "历史",
+      "status": "BM",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://collection.sciencemuseumgroup.org.uk/objects/co8419105/swan-fountain-pen"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "法国、英国与美国::Cross Townsend",
+      "title": "Cross Townsend",
+      "region": "法国、英国与美国",
+      "era": "现行旗舰",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://cross.com/collections/fountain-pen"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "法国、英国与美国::Esterbrook Estie 标准版",
+      "title": "Esterbrook Estie 标准版",
+      "region": "法国、英国与美国",
+      "era": "现行",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.esterbrookpens.com/pages/esties"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "法国、英国与美国::Esterbrook Model J",
+      "title": "Esterbrook Model J",
+      "region": "法国、英国与美国",
+      "era": "历史 / 复刻",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.esterbrookpens.com/blogs/news/a-guide-to-esterbrook-pen-models-estie-model-j-and-jr-pocket-pen-1"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "法国、英国与美国::Wahl-Eversharp Skyline",
+      "title": "Wahl-Eversharp Skyline",
+      "region": "法国、英国与美国",
+      "era": "历史 / 复兴",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://wahl-eversharp.com/pages/history",
+        "https://penhero.com/PenGallery/Eversharp/EversharpSkyline.htm"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "法国、英国与美国::Conklin Duragraph",
+      "title": "Conklin Duragraph",
+      "region": "法国、英国与美国",
+      "era": "现行",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://conklinpens.com/pages/duragraph"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "法国、英国与美国::Franklin-Christoph Model 20",
+      "title": "Franklin-Christoph Model 20",
+      "region": "法国、英国与美国",
+      "era": "现行",
+      "status": "BM",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.franklin-christoph.com/collections/fountain-pens/model-20"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "法国、英国与美国::Edison Collier",
+      "title": "Edison Collier",
+      "region": "法国、英国与美国",
+      "era": "现行",
+      "status": "BM",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://edisonpen.com/collier-main-page/"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "法国、英国与美国::Schon DSGN Pocket Six",
+      "title": "Schon DSGN Pocket Six",
+      "region": "法国、英国与美国",
+      "era": "现行",
+      "status": "BM",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.schondsgn.com/products/brass-pocket-six-fountain-pens"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "法国、英国与美国::Noodler’s Ahab",
+      "title": "Noodler’s Ahab",
+      "region": "法国、英国与美国",
+      "era": "现行",
+      "status": "S/M",
+      "priority": "P1",
+      "primaryAction": "rename",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://noodlersink.com/wp-content/uploads/Neponset-instruction-sheet.pdf"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "法国、英国与美国::BENU Euphoria",
+      "title": "BENU Euphoria",
+      "region": "法国、英国与美国",
+      "era": "现行",
+      "status": "BM",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.benupens.com/shop/product/beam-me-up"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "法国、英国与美国::Karas Kustoms Vertex",
+      "title": "Karas Kustoms Vertex",
+      "region": "法国、英国与美国",
+      "era": "现行",
+      "status": "BM",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://karaskustoms.com/collections/fountain-pens"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "法国、英国与美国::Retro 51 Tornado Fountain Pen",
+      "title": "Retro 51 Tornado Fountain Pen",
+      "region": "法国、英国与美国",
+      "era": "现行",
+      "status": "BM",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://promo.retro51.com/collections/by-style/products/tornado-acrylic-silver-lining-fountain-pen"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "法国、英国与美国::Sheaffer Icon",
+      "title": "Sheaffer Icon",
+      "region": "法国、英国与美国",
+      "era": "现行",
+      "status": "M",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://sheaffer.com/products/sheaffer%C2%AE-icon-9108-matte-black-fountain-pen-with-gloss-black-trim-medium"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "法国、英国与美国::Monteverde Ritma",
+      "title": "Monteverde Ritma",
+      "region": "法国、英国与美国",
+      "era": "现行",
+      "status": "M",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.monteverdepens.com/collections/ritma-1"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "法国、英国与美国::Graphomatic Inkmaker",
+      "title": "Graphomatic Inkmaker",
+      "region": "法国、英国与美国",
+      "era": "历史",
+      "status": "M",
+      "priority": "P3",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://tile.loc.gov/storage-services/service/ll/fedreg/fr010/fr010112/fr010112.pdf",
+        "https://gopens.com/PDF/Catalog57.pdf"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "台湾::Opus 88 Demo",
+      "title": "Opus 88 Demo",
+      "region": "台湾",
+      "era": "现行",
+      "status": "S",
+      "priority": "P0",
+      "primaryAction": "split",
+      "executionState": "apply",
+      "blocker": null,
+      "canonical": {
+        "entityId": "CqFpmT3l4Mtm",
+        "type": "pen",
+        "slug": "opus-88-demo",
+        "name": "Opus 88 Demo",
+        "makerId": "I6tjleAZx9RU"
+      },
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://endlesspens.com/collections/opus-88"
+      ],
+      "atomicActions": [
+        {
+          "kind": "retire_mixed",
+          "sourceId": "dTCUDu03vrI6",
+          "targetId": null,
+          "targetType": "pen",
+          "targetSlug": null
+        },
+        {
+          "kind": "split_create",
+          "sourceId": null,
+          "targetId": "CqFpmT3l4Mtm",
+          "targetType": "pen",
+          "targetSlug": "opus-88-demo"
+        }
+      ]
+    },
+    {
+      "sourceRowKey": "台湾::Opus 88 Koloro",
+      "title": "Opus 88 Koloro",
+      "region": "台湾",
+      "era": "现行",
+      "status": "S",
+      "priority": "P0",
+      "primaryAction": "create",
+      "executionState": "apply",
+      "blocker": null,
+      "canonical": {
+        "entityId": "0CNmbxM54-GA",
+        "type": "pen",
+        "slug": "opus-88-koloro",
+        "name": "Opus 88 Koloro",
+        "makerId": "I6tjleAZx9RU"
+      },
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://juspirit.com/collections/opus-88"
+      ],
+      "atomicActions": [
+        {
+          "kind": "split_create",
+          "sourceId": null,
+          "targetId": "0CNmbxM54-GA",
+          "targetType": "pen",
+          "targetSlug": "opus-88-koloro"
+        }
+      ]
+    },
+    {
+      "sourceRowKey": "台湾::ystudio Classic Revolve",
+      "title": "ystudio Classic Revolve",
+      "region": "台湾",
+      "era": "现行",
+      "status": "BM",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.ystudiostyle.com/products/classic-revolve-fountain-pen"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "台湾::Laban 325",
+      "title": "Laban 325",
+      "region": "台湾",
+      "era": "现行旗舰",
+      "status": "BM",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://laban.com/en-de/blogs/media-coverage/pen-world-laban-pen-co-stroke-by-stroke"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "台湾::Fine Writing International Fenestro",
+      "title": "Fine Writing International Fenestro",
+      "region": "台湾",
+      "era": "现行",
+      "status": "BM",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://finewriting.com.tw/en/pages/execlusive",
+        "https://www.peytonstreetpens.com/fine-writing-intl-fenestro-fountain-pen-various-colors-c-c-various-nib-sizes-near-mint-work-well.html"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "台湾::Opus 88 Omar",
+      "title": "Opus 88 Omar",
+      "region": "台湾",
+      "era": "现行",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.juspirit.com.tw/products/opus88-omar-transparent"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "台湾::TWSBI Swipe",
+      "title": "TWSBI Swipe",
+      "region": "台湾",
+      "era": "现行入门",
+      "status": "M",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.twsbi.com/products/twsbi-swipe-ice-blue-fountain-pen"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "台湾::Opus 88 Jazz",
+      "title": "Opus 88 Jazz",
+      "region": "台湾",
+      "era": "现行",
+      "status": "M",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://endlesspens.com/collections/opus-88"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "台湾::SKB RS-301N",
+      "title": "SKB RS-301N",
+      "region": "台湾",
+      "era": "现行",
+      "status": "M",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.skb.com.tw/product/product%26product_id%3D301"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "台湾::IWI Laureate",
+      "title": "IWI Laureate",
+      "region": "台湾",
+      "era": "现行",
+      "status": "BM",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.dgtaiwan.com/en/product/CBA4659B8C39B7F74DB2D20CF853B2A2B879C1F6AAA6E55A/info.html"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "台湾::Cypress Crown Mini",
+      "title": "Cypress Crown Mini",
+      "region": "台湾",
+      "era": "现行",
+      "status": "BM",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://mrcypress.com.tw/en/shop/",
+        "https://cloudcdn.taiwantradeshows.com.tw/2020/giftionery/download/preview-en.pdf"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "中国大陆::Asvine P36",
+      "title": "Asvine P36",
+      "region": "中国大陆",
+      "era": "现行",
+      "status": "A",
+      "priority": "P0",
+      "primaryAction": "alias",
+      "executionState": "gated",
+      "blocker": "Exact survivor, canonical slug, or brand ownership is not locked for mutation; resolve against a Phase 21 owned catalog copy without fuzzy matching.",
+      "canonical": null,
+      "variantDisposition": "alias_only",
+      "evidenceRefs": [
+        "https://www.fpnibs.com/products/asvine-p36",
+        "https://www.rakuten.com.tw/shop/ddd11dd/product/rfywq0wbr/"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "中国大陆::Asvine V126",
+      "title": "Asvine V126",
+      "region": "中国大陆",
+      "era": "现行",
+      "status": "BM/A",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "gated",
+      "blocker": "Exact survivor, canonical slug, or brand ownership is not locked for mutation; resolve against a Phase 21 owned catalog copy without fuzzy matching.",
+      "canonical": null,
+      "variantDisposition": "alias_only",
+      "evidenceRefs": [
+        "https://www.ttpen.com/products/asvine-v126-frosted-transparent-acrylic-fountain-pen-vacuum-filling-ink-view-barrel"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "中国大陆::Jinhao 9019 Dadao",
+      "title": "Jinhao 9019 Dadao",
+      "region": "中国大陆",
+      "era": "现行",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.alibaba.com/wholesale/jinhao-nib.html"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "中国大陆::PenBBS 355",
+      "title": "PenBBS 355",
+      "region": "中国大陆",
+      "era": "现行",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.gentlemanstationer.com/blog/tag/PenBBS%2B355"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "中国大陆::PenBBS 308",
+      "title": "PenBBS 308",
+      "region": "中国大陆",
+      "era": "现行",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.gentlemanstationer.com/blog/2019/10/8/pen-review-penbbs-308-fountain-pen"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "中国大陆::HongDian N7",
+      "title": "HongDian N7",
+      "region": "中国大陆",
+      "era": "现行",
+      "status": "M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://mall.jd.com/index-1000450047.html"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "中国大陆::Wing Sung / JunLai 630",
+      "title": "Wing Sung / JunLai 630",
+      "region": "中国大陆",
+      "era": "现行",
+      "status": "G/M",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "gated",
+      "blocker": "Exact survivor, canonical slug, or brand ownership is not locked for mutation; resolve against a Phase 21 owned catalog copy without fuzzy matching.",
+      "canonical": null,
+      "variantDisposition": "identity_pending",
+      "evidenceRefs": [
+        "https://www.fountainpencompanion.com/pen_brands/241-wing-sung/pen_models/253-630"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "中国大陆::Jinhao X450",
+      "title": "Jinhao X450",
+      "region": "中国大陆",
+      "era": "现行",
+      "status": "M",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.alibaba.com/countrysearch/CN/shanghai-fountain-pen.html"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "中国大陆::Jinhao X750",
+      "title": "Jinhao X750",
+      "region": "中国大陆",
+      "era": "现行",
+      "status": "M",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.alibaba.com/countrysearch/CN/shanghai-fountain-pen.html"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "中国大陆::PenBBS 500",
+      "title": "PenBBS 500",
+      "region": "中国大陆",
+      "era": "现行",
+      "status": "M",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.etsy.com/fr/shop/PENBBSOfficialStore"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "中国大陆::HongDian N12",
+      "title": "HongDian N12",
+      "region": "中国大陆",
+      "era": "现行",
+      "status": "M",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://mall.jd.com/index-1000450047.html"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "中国大陆::Hero 8100 18K",
+      "title": "Hero 8100 18K",
+      "region": "中国大陆",
+      "era": "现行旗舰",
+      "status": "M",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://hero.com.cn/product-detail/4.html"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "中国大陆::Majohn C1",
+      "title": "Majohn C1",
+      "region": "中国大陆",
+      "era": "现行",
+      "status": "M",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://makoba.com/products/majohn-moonman-c1-fountain-pen-transparent"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "中国大陆::Duke 551 Confucius",
+      "title": "Duke 551 Confucius",
+      "region": "中国大陆",
+      "era": "现行、资料弱",
+      "status": "M",
+      "priority": "P3",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.made-in-china.com/showroom/huangduke/"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "印度与其他独立品牌::Kanwrite Heritage",
+      "title": "Kanwrite Heritage",
+      "region": "印度与其他独立品牌",
+      "era": "印度现行",
+      "status": "BM",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://kanwrite.com/fountain-pens/heritage/"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "印度与其他独立品牌::Ranga Model 3",
+      "title": "Ranga Model 3",
+      "region": "印度与其他独立品牌",
+      "era": "印度现行",
+      "status": "BM",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://rangapens.com/model-3"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "印度与其他独立品牌::Magna Carta Mag 600",
+      "title": "Magna Carta Mag 600",
+      "region": "印度与其他独立品牌",
+      "era": "印度现行",
+      "status": "BM",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://magnacartapens.com/collections/mag-600"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "印度与其他独立品牌::Nahvalur Original Plus",
+      "title": "Nahvalur Original Plus",
+      "region": "印度与其他独立品牌",
+      "era": "美国 / 全球现行",
+      "status": "BM",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://nahvalur.com/products/nahvalur-original-plus-soft-coral-fountain-pen"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "印度与其他独立品牌::Gravitas Ultemate Vac",
+      "title": "Gravitas Ultemate Vac",
+      "region": "印度与其他独立品牌",
+      "era": "爱尔兰现行",
+      "status": "BM",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.gravitaspens.com/products/gravitas-ultemate-vac"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "印度与其他独立品牌::Kanwrite Desire",
+      "title": "Kanwrite Desire",
+      "region": "印度与其他独立品牌",
+      "era": "印度现行入门",
+      "status": "BM",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://kanwrite.com/fountain-pens/"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "印度与其他独立品牌::Lotus Student",
+      "title": "Lotus Student",
+      "region": "印度与其他独立品牌",
+      "era": "印度现行",
+      "status": "BM",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.lotuspens.com/product/97"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "印度与其他独立品牌::Ensso Piuma",
+      "title": "Ensso Piuma",
+      "region": "印度与其他独立品牌",
+      "era": "美国现行",
+      "status": "BM",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://www.ensso.com/pages/minimal-design"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "印度与其他独立品牌::Kilk Orient",
+      "title": "Kilk Orient",
+      "region": "印度与其他独立品牌",
+      "era": "土耳其现行",
+      "status": "BM",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://kilk.ist/product/orient-fountain-pen/?v=85d1a9c488d7"
+      ],
+      "atomicActions": []
+    },
+    {
+      "sourceRowKey": "印度与其他独立品牌::FPR Himalaya V2",
+      "title": "FPR Himalaya V2",
+      "region": "印度与其他独立品牌",
+      "era": "美国 / 印度现行",
+      "status": "BM",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "canonical": null,
+      "variantDisposition": "none",
+      "evidenceRefs": [
+        "https://fprevolutionusa.com/"
+      ],
+      "atomicActions": []
+    }
+  ],
+  "outOfMatrixActions": [
+    {
+      "key": "identity::pilot-metropolitan-cocoon",
+      "title": "Pilot Metropolitan / Cocoon",
+      "brand": "Pilot",
+      "priority": "P0",
+      "primaryAction": "alias",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://webcatalog.pilot.co.jp/products/DispCate.do?category=%E4%B8%87%E5%B9%B4%E7%AD%86%2F%E4%B8%87%E5%B9%B4%E7%AD%86&volumeName=00004"
+      ]
+    },
+    {
+      "key": "identity::majohn-a1",
+      "title": "Majohn A1 / Moonman A1 alias",
+      "brand": "Majohn",
+      "priority": "P0",
+      "primaryAction": "alias",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://makoba.com/collections/majohn"
+      ]
+    },
+    {
+      "key": "identity::skb-f10-f21",
+      "title": "SKB / Penton F10-F21 ownership correction",
+      "brand": "SKB / Penton",
+      "priority": "P0",
+      "primaryAction": "retire",
+      "executionState": "gated",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://www.skb.com.tw/%E6%9B%B8%E5%AF%AB%E7%94%A8%E5%93%81"
+      ]
+    },
+    {
+      "key": "official::pilot-capless-decimo",
+      "title": "Pilot Capless / Decimo split",
+      "brand": "Pilot",
+      "priority": "P0",
+      "primaryAction": "split",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://webcatalog.pilot.co.jp/products/DispCate.do?category=%E4%B8%87%E5%B9%B4%E7%AD%86%2F%E4%B8%87%E5%B9%B4%E7%AD%86&volumeName=00004"
+      ]
+    },
+    {
+      "key": "official::pilot-custom-823-duplicate",
+      "title": "Pilot Custom 823 duplicate merge",
+      "brand": "Pilot",
+      "priority": "P0",
+      "primaryAction": "merge",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://webcatalog.pilot.co.jp/products/DispCate.do?category=%E4%B8%87%E5%B9%B4%E7%AD%86%2F%E4%B8%87%E5%B9%B4%E7%AD%86&volumeName=00004"
+      ]
+    },
+    {
+      "key": "official::pilot-lightive",
+      "title": "Pilot Lightive",
+      "brand": "Pilot",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://webcatalog.pilot.co.jp/products/DispCate.do?category=%E4%B8%87%E5%B9%B4%E7%AD%86%2F%E4%B8%87%E5%B9%B4%E7%AD%86&volumeName=00004"
+      ]
+    },
+    {
+      "key": "official::pilot-custom-ns",
+      "title": "Pilot Custom NS",
+      "brand": "Pilot",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://webcatalog.pilot.co.jp/products/DispCate.do?category=%E4%B8%87%E5%B9%B4%E7%AD%86%2F%E4%B8%87%E5%B9%B4%E7%AD%86&volumeName=00004"
+      ]
+    },
+    {
+      "key": "official::pilot-capless-ls",
+      "title": "Pilot Capless LS",
+      "brand": "Pilot",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://webcatalog.pilot.co.jp/products/DispCate.do?category=%E4%B8%87%E5%B9%B4%E7%AD%86%2F%E4%B8%87%E5%B9%B4%E7%AD%86&volumeName=00004"
+      ]
+    },
+    {
+      "key": "official::platinum-travia",
+      "title": "Platinum #3776 Century Travia",
+      "brand": "Platinum",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://www.platinum-pen.co.jp/common/pdf/travia_en.pdf"
+      ]
+    },
+    {
+      "key": "official::sailor-1911-standard-large",
+      "title": "Sailor 1911 Standard / Large split",
+      "brand": "Sailor",
+      "priority": "P0",
+      "primaryAction": "split",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://en.sailor.co.jp/topics/1911-series/"
+      ]
+    },
+    {
+      "key": "official::sailor-pro-gear-duplicate",
+      "title": "Sailor Pro Gear duplicate merge",
+      "brand": "Sailor",
+      "priority": "P0",
+      "primaryAction": "merge",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://en.sailor.co.jp/topics/professional-gear-series/"
+      ]
+    },
+    {
+      "key": "official::sailor-pro-gear-realo",
+      "title": "Sailor Professional Gear Realo",
+      "brand": "Sailor",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://en.sailor.co.jp/product/11-3926/"
+      ]
+    },
+    {
+      "key": "official::lamy-imporium",
+      "title": "LAMY imporium",
+      "brand": "LAMY",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://www.lamy.com/en-us/p/lamy-imporium-fountain-pen/52874010722638"
+      ]
+    },
+    {
+      "key": "official::lamy-abc",
+      "title": "LAMY abc",
+      "brand": "LAMY",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://www.lamy.com/en-us/p/lamy-abc-fountain-pen"
+      ]
+    },
+    {
+      "key": "official::lamy-accent",
+      "title": "LAMY accent",
+      "brand": "LAMY",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://www.lamy.com/en-us/writing-tools/fountain-pens"
+      ]
+    },
+    {
+      "key": "official::lamy-joy",
+      "title": "LAMY joy",
+      "brand": "LAMY",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://www.lamy.com/en-us/writing-tools/fountain-pens"
+      ]
+    },
+    {
+      "key": "official::lamy-nexx",
+      "title": "LAMY nexx",
+      "brand": "LAMY",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://www.lamy.com/en-us/writing-tools/fountain-pens"
+      ]
+    },
+    {
+      "key": "official::lamy-scala",
+      "title": "LAMY scala",
+      "brand": "LAMY",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://www.lamy.com/en-us/p/lamy-scala-fountain-pen"
+      ]
+    },
+    {
+      "key": "official::pelikan-pelikano",
+      "title": "Pelikan Pelikano",
+      "brand": "Pelikan",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://www.pelikan.com/int/en/products/writing/58-fountain-pens/486-pelikano-standard.html"
+      ]
+    },
+    {
+      "key": "official::pelikan-p457-twist",
+      "title": "Pelikan P457 to Twist rename",
+      "brand": "Pelikan",
+      "priority": "P0",
+      "primaryAction": "rename",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://www.pelikan.com/int/en/products/writing/58-fountain-pens/61-twist-2.html"
+      ]
+    },
+    {
+      "key": "official::pelikan-pura-p40",
+      "title": "Pelikan Pura P40",
+      "brand": "Pelikan",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://www.pelikan-passion.com/int/writing/elegance"
+      ]
+    },
+    {
+      "key": "official::pelikan-p200-p205",
+      "title": "Pelikan P200 / P205",
+      "brand": "Pelikan",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://www.pelikan-passion.com/int/writing/elegance/classic"
+      ]
+    },
+    {
+      "key": "official::pelikan-m800-duplicate",
+      "title": "Pelikan M800 duplicate merge",
+      "brand": "Pelikan",
+      "priority": "P0",
+      "primaryAction": "merge",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://www.pelikan-passion.com/images/international/assets/catalogs/fine-writing-instruments-current-catalog-en.pdf"
+      ]
+    },
+    {
+      "key": "official::montblanc-heritage-rouge-et-noir",
+      "title": "Montblanc Heritage Rouge et Noir",
+      "brand": "Montblanc",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://www.montblanc.com/en-us/writing-instruments/collection/heritage"
+      ]
+    },
+    {
+      "key": "official::montblanc-heritage-baby",
+      "title": "Montblanc Heritage Baby",
+      "brand": "Montblanc",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://www.montblanc.com/en-us/writing-instruments/collection/heritage"
+      ]
+    },
+    {
+      "key": "official::waterman-allure",
+      "title": "Waterman Allure",
+      "brand": "Waterman",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://www.waterman.com/allure-pens.html"
+      ]
+    },
+    {
+      "key": "official::parker-ingenuity",
+      "title": "Parker Ingenuity",
+      "brand": "Parker",
+      "priority": "P1",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://www.parkerpen.com/writing-types/collections/ingenuity/"
+      ]
+    },
+    {
+      "key": "official::parker-urban",
+      "title": "Parker Urban",
+      "brand": "Parker",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://www.parkerpen.com/writing-types/collections/urban/"
+      ]
+    },
+    {
+      "key": "official::parker-vector-xl",
+      "title": "Parker Vector XL",
+      "brand": "Parker",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://www.parkerpen.com/writing-types/collections/vector-xl/"
+      ]
+    },
+    {
+      "key": "official::parker-51-vintage-duplicates",
+      "title": "Parker 51 Vintage duplicate merge",
+      "brand": "Parker",
+      "priority": "P0",
+      "primaryAction": "merge",
+      "executionState": "defer",
+      "blocker": "Official or identity research records the action, but exact catalog IDs and an owned-copy conflict review are required before mutation.",
+      "canonical": null,
+      "evidenceRefs": [
+        "https://www.parkerpen.com/legacy.html"
+      ]
+    }
+  ],
+  "stableSets": {
+    "before": {
+      "brandIds": [
+        "zkAu9PePDdqJ",
+        "I6tjleAZx9RU",
+        "g5r4udSOYhI5",
+        "CJXe8UpnkHLJ"
+      ],
+      "penIds": [
+        "gwKClNnwt3V3",
+        "dTCUDu03vrI6",
+        "s0HAxT1gsHxh",
+        "G9ptvLpfyzNQ"
+      ],
+      "pageIds": [
+        "zkAu9PePDdqJ",
+        "I6tjleAZx9RU",
+        "g5r4udSOYhI5",
+        "CJXe8UpnkHLJ",
+        "gwKClNnwt3V3",
+        "dTCUDu03vrI6",
+        "s0HAxT1gsHxh",
+        "G9ptvLpfyzNQ"
+      ]
+    },
+    "after": {
+      "brandIds": [
+        "zkAu9PePDdqJ",
+        "I6tjleAZx9RU",
+        "g5r4udSOYhI5",
+        "CJXe8UpnkHLJ"
+      ],
+      "penIds": [
+        "gwKClNnwt3V3",
+        "4dcEbeUCjxH-",
+        "CqFpmT3l4Mtm",
+        "0CNmbxM54-GA",
+        "ixul2gTcJ06B",
+        "UE5otlwKUfp9",
+        "5CcEDOz9jiUg",
+        "5waoVLPHU2Pt"
+      ],
+      "pageIds": [
+        "zkAu9PePDdqJ",
+        "I6tjleAZx9RU",
+        "g5r4udSOYhI5",
+        "CJXe8UpnkHLJ",
+        "gwKClNnwt3V3",
+        "4dcEbeUCjxH-",
+        "CqFpmT3l4Mtm",
+        "0CNmbxM54-GA",
+        "ixul2gTcJ06B",
+        "UE5otlwKUfp9",
+        "5CcEDOz9jiUg",
+        "5waoVLPHU2Pt"
+      ]
+    }
+  },
+  "payloadAssignments": [
+    {
+      "donorId": "gwKClNnwt3V3",
+      "surface": "source",
+      "ordinal": 1,
+      "itemId": "source-waterman-official-heritage",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:c33bffdc198caa0af48b540f978cb97fd30c4cb4c38a3fe6374f99ecdc07cbd1",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "4dcEbeUCjxH-"
+    },
+    {
+      "donorId": "gwKClNnwt3V3",
+      "surface": "source",
+      "ordinal": 2,
+      "itemId": "source-waterman-hemisphere-public-search",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:ade9154b00205dd5825fb394710c7cf4080597ee52aaa31333746180be991a7c",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "gwKClNnwt3V3"
+    },
+    {
+      "donorId": "gwKClNnwt3V3",
+      "surface": "story",
+      "ordinal": 1,
+      "itemId": "story-model-waterman-charleston-hemisphere-research",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:dcfe77970600f2afea84af14bab432d4932d63cb1bb50896792428473b351a58",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "gwKClNnwt3V3",
+      "surface": "spec",
+      "ordinal": 1,
+      "itemId": "spec-waterman-charleston-hemisphere-research",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:aab32a189eb4d4dd5e804120891c4c4034acde3b1b6803098a6f633d79e89914",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "gwKClNnwt3V3",
+      "surface": "claim",
+      "ordinal": 1,
+      "itemId": "claim-waterman-charleston-hemisphere-boundary",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:cb482639788a341c6fdb2e9b638e7eb399e26f493017fde5ed72bffc6c2b9543",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "gwKClNnwt3V3",
+      "surface": "relation",
+      "ordinal": 1,
+      "itemId": "J25ObeaqSJNA",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:6943acace2eda674f093de2df4e10ed98d2ca8c201731dc10a32e9683bffbd4a",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "gwKClNnwt3V3"
+    },
+    {
+      "donorId": "gwKClNnwt3V3",
+      "surface": "tag",
+      "ordinal": 1,
+      "itemId": "FifYswoY4HW5",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:4e43fd420d3fd709cc7e41599e71e23d739f15e4b7e4a33b7165e86302b3f3a7",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "gwKClNnwt3V3",
+      "surface": "tag",
+      "ordinal": 2,
+      "itemId": "0hkIHv8cywOi",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:8715463ec41ec1fc2d80f75ba1c98b91d140ce381aad4e06ff6095c7396e72a9",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "gwKClNnwt3V3",
+      "surface": "tag",
+      "ordinal": 3,
+      "itemId": "2ybNREhz9YhG",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:8b712e3dbd7bfbfdff80ec6a6beb0e344c9d60e83455e6415573fa5b7a014928",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "gwKClNnwt3V3",
+      "surface": "reference",
+      "ordinal": 1,
+      "itemId": "reference-model-gap-gwKClNnwt3V3-source-waterman-official-heritage",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:2e216a99a6e8b54fff64db913a154d957486ceca2a8b05234aee31b3ccd3d6f0",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "4dcEbeUCjxH-"
+    },
+    {
+      "donorId": "gwKClNnwt3V3",
+      "surface": "reference",
+      "ordinal": 2,
+      "itemId": "reference-model-gap-gwKClNnwt3V3-source-waterman-hemisphere-public-search",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:22f5cf60d70f55f1c1bedebe80253362c080accef02cb6280aa71f35af0e0fed",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "gwKClNnwt3V3"
+    },
+    {
+      "donorId": "gwKClNnwt3V3",
+      "surface": "citation",
+      "ordinal": 1,
+      "itemId": "cite-claim-waterman-charleston-hemisphere-boundary-source-waterman-hemisphere-public-search",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:6e7b7f0c13600c5ca04d345d633cf2d5062566935a00699a94e37870244ed1a1",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "gwKClNnwt3V3",
+      "surface": "citation",
+      "ordinal": 2,
+      "itemId": "cite-spec-waterman-charleston-hemisphere-research-source-waterman-official-heritage",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:a6733daa2fb6d159f7b664df410aea998c14cf8ad378cb2fbd664cf10d472099",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "gwKClNnwt3V3",
+      "surface": "citation",
+      "ordinal": 3,
+      "itemId": "cite-story-model-waterman-charleston-hemisphere-research-source-waterman-official-heritage",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:cb40862c2def7b8e494f0adab9df8c1163fc5cfe2fff72d775f5297f1f2badb9",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "gwKClNnwt3V3",
+      "surface": "citation",
+      "ordinal": 4,
+      "itemId": "cite-story-model-waterman-charleston-hemisphere-research-source-waterman-hemisphere-public-search",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:aa63c43eabb3d58db17cac293ae1c4ef0c5d8f67ee70ab92230350e280167794",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "gwKClNnwt3V3",
+      "surface": "citation",
+      "ordinal": 5,
+      "itemId": "cite-story-model-waterman-charleston-hemisphere-research-claim-waterman-charleston-hemisphere-boundary",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:cacb4c004accb5fb94ceb310a23ddca46bd206c624e6a15d2a7542b2e460ac92",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "gwKClNnwt3V3",
+      "surface": "media",
+      "ordinal": 1,
+      "itemId": null,
+      "slotKey": "phase19-slot:gwKClNnwt3V3:media:1:72347dbd22e0",
+      "evidenceChecksum": "sha256:72347dbd22e0938f000ffe8fb79f444f98ad56a7d9522faf4560c8ce7f8d3539",
+      "requiresOwnedCopyResolution": true,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "gwKClNnwt3V3",
+      "surface": "review",
+      "ordinal": 1,
+      "itemId": null,
+      "slotKey": "phase19-slot:gwKClNnwt3V3:review:1:fa5033867332",
+      "evidenceChecksum": "sha256:fa50338673323829809e0110fff9f642f7d636ef1301ec8b441d1019ef31db8e",
+      "requiresOwnedCopyResolution": true,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "dTCUDu03vrI6",
+      "surface": "source",
+      "ordinal": 1,
+      "itemId": "source-opus88-demo-juspirit",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:51346f060cb0634ba89efe9b7279a44aad7ea6dbcf957eee7a4b406225db4a63",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "CqFpmT3l4Mtm"
+    },
+    {
+      "donorId": "dTCUDu03vrI6",
+      "surface": "story",
+      "ordinal": 1,
+      "itemId": "story-model-opus88-demo-kolora-library",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:7b198551c6b9b3f83f2ec01eb229b2c9f8704a3e4db6d5bda8fe98b35169d095",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "dTCUDu03vrI6",
+      "surface": "spec",
+      "ordinal": 1,
+      "itemId": "spec-opus88-demo-kolora",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:7621ec007b4ba27604fbac026a5fb7d2ca9820979a14e74195092269173ca36d",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "dTCUDu03vrI6",
+      "surface": "claim",
+      "ordinal": 1,
+      "itemId": "claim-opus88-demo-eyedropper",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:c170e6f47a65a585b398a661bf1f4ace53cc8b0e89952f4095abf0343cb04387",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "CqFpmT3l4Mtm"
+    },
+    {
+      "donorId": "dTCUDu03vrI6",
+      "surface": "claim",
+      "ordinal": 2,
+      "itemId": "claim-opus88-demo-material",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:bdcc2b11854a3af4e6a64cd2c28cf67946a6d9624792fa271b2771b09575560e",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "CqFpmT3l4Mtm"
+    },
+    {
+      "donorId": "dTCUDu03vrI6",
+      "surface": "claim",
+      "ordinal": 3,
+      "itemId": "claim-opus88-demo-nib",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:723f3f1ea8e82f4139b52e948db998f8d0004f402d97bbc247c3437076c7726a",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "CqFpmT3l4Mtm"
+    },
+    {
+      "donorId": "dTCUDu03vrI6",
+      "surface": "relation",
+      "ordinal": 1,
+      "itemId": "7G9AtDVPwdjj",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:19f75fa5e00243d37dba47946913ce47a7896a4d1afc3a3bbace770bbc81d207",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "retired_source",
+      "targetId": null
+    },
+    {
+      "donorId": "dTCUDu03vrI6",
+      "surface": "tag",
+      "ordinal": 1,
+      "itemId": "RcvSDJ90NxMJ",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:0fb43bc20cc90309e29bc2da9c5f9dfb9c7467f941455059a6e0dda6c671516e",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "dTCUDu03vrI6",
+      "surface": "tag",
+      "ordinal": 2,
+      "itemId": "B_1VRKBI8Br5",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:5b4942deca031a497b030dcdad29b788fb29e3db1c68dbcb9810ccfc3a59c75d",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "dTCUDu03vrI6",
+      "surface": "reference",
+      "ordinal": 1,
+      "itemId": "reference-reference-model-dTCUDu03vrI6-source-opus88-demo-juspirit",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:d6119814dbf367a48f5341223e5ad5495a159f12346bdd6b26256c54f27f0b95",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "dTCUDu03vrI6",
+      "surface": "citation",
+      "ordinal": 1,
+      "itemId": "cite-spec-opus88-demo-kolora-source-opus88-demo-juspirit",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:1e38d0ec3f6c8b87b9b9edd0bdf57f20cc8e5d89a6619be090579b90dc5b3d73",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "CqFpmT3l4Mtm"
+    },
+    {
+      "donorId": "dTCUDu03vrI6",
+      "surface": "citation",
+      "ordinal": 2,
+      "itemId": "cite-story-model-opus88-demo-kolora-library-source-opus88-demo-juspirit",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:8b83db3a9728f992e2af7a48225ab2a9c9e200adbb36ba416443e03506946187",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "CqFpmT3l4Mtm"
+    },
+    {
+      "donorId": "dTCUDu03vrI6",
+      "surface": "citation",
+      "ordinal": 3,
+      "itemId": "cite-claim-opus88-demo-eyedropper-source-opus88-demo-juspirit",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:af9da5a5c9fa31a66b41f96c905b2f4d57860724ac2618f7cb450f4d1acf4f85",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "CqFpmT3l4Mtm"
+    },
+    {
+      "donorId": "dTCUDu03vrI6",
+      "surface": "citation",
+      "ordinal": 4,
+      "itemId": "cite-claim-opus88-demo-material-source-opus88-demo-juspirit",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:5f124be42c26fdd4657424551d6c66bc5f6660cbd7f01165a3e08bcec4047aa0",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "CqFpmT3l4Mtm"
+    },
+    {
+      "donorId": "dTCUDu03vrI6",
+      "surface": "citation",
+      "ordinal": 5,
+      "itemId": "cite-claim-opus88-demo-nib-source-opus88-demo-juspirit",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:fcd15ffde7ae306b05c45e13be27e43b9d942cd972765ef2273d9e4cdd0d88f3",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "CqFpmT3l4Mtm"
+    },
+    {
+      "donorId": "dTCUDu03vrI6",
+      "surface": "variant",
+      "ordinal": 1,
+      "itemId": "variant-opus88-demo",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:c1e32923e420c84e2f628012d798d4f9d8842d71cc1b4edc802216647fec31ae",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "CqFpmT3l4Mtm"
+    },
+    {
+      "donorId": "dTCUDu03vrI6",
+      "surface": "variant",
+      "ordinal": 2,
+      "itemId": "variant-opus88-kolora",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:ad550b553204c11259fa697d140942402d614ef8d812b7e5b2988d17e47d35ad",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "dTCUDu03vrI6",
+      "surface": "media",
+      "ordinal": 1,
+      "itemId": null,
+      "slotKey": "phase19-slot:dTCUDu03vrI6:media:1:4db7a5503536",
+      "evidenceChecksum": "sha256:4db7a55035365b08febd3d6db1e2003f807c438be15570712d98fe6ba44d9f02",
+      "requiresOwnedCopyResolution": true,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "dTCUDu03vrI6",
+      "surface": "review",
+      "ordinal": 1,
+      "itemId": null,
+      "slotKey": "phase19-slot:dTCUDu03vrI6:review:1:7e25c32c52c1",
+      "evidenceChecksum": "sha256:7e25c32c52c1a14f1f6065c23797352ff881da7527128e3114573154b864bb3e",
+      "requiresOwnedCopyResolution": true,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "s0HAxT1gsHxh",
+      "surface": "source",
+      "ordinal": 1,
+      "itemId": "source-leonardo-momento-magico-official",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:51d14ce906dc8a4020cee6246a19be26420ca5b02ae0d2ba18b03e7416e51539",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "UE5otlwKUfp9"
+    },
+    {
+      "donorId": "s0HAxT1gsHxh",
+      "surface": "story",
+      "ordinal": 1,
+      "itemId": "story-model-leonardo-furore-momento-magico-library",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:8b5b31c128d4c19f95795ee4ad15434b0e900998f34b063af99135059da77466",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "s0HAxT1gsHxh",
+      "surface": "spec",
+      "ordinal": 1,
+      "itemId": "spec-leonardo-furore-momento-magico",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:280a9449d981def97c17c37140499a394bd93ec69cdf2184cfe114c9f326a815",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "s0HAxT1gsHxh",
+      "surface": "claim",
+      "ordinal": 1,
+      "itemId": "claim-leonardo-momento-magico-piston",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:272da3f3a44fc26e4c9b4255ccec73b23aa2f356a9b1e0d6aa1d0614a0c1e01e",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "UE5otlwKUfp9"
+    },
+    {
+      "donorId": "s0HAxT1gsHxh",
+      "surface": "claim",
+      "ordinal": 2,
+      "itemId": "claim-leonardo-momento-magico-nibs",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:c70ac74df0330a254773087ee283d46b0b4d1283049c51f44b06c8c0d79414b5",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "UE5otlwKUfp9"
+    },
+    {
+      "donorId": "s0HAxT1gsHxh",
+      "surface": "claim",
+      "ordinal": 3,
+      "itemId": "claim-leonardo-momento-magico-resin",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:c46a81108367decc214b57361c4bf9a46b52a7449f85db574369bda38b13f927",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "UE5otlwKUfp9"
+    },
+    {
+      "donorId": "s0HAxT1gsHxh",
+      "surface": "relation",
+      "ordinal": 1,
+      "itemId": "j9pdtn9Fkjoq",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:664dd54c5d3d2c05569abb1d9d303d29ce6dff69eeffb9cade6ba576de1a2bf3",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "retired_source",
+      "targetId": null
+    },
+    {
+      "donorId": "s0HAxT1gsHxh",
+      "surface": "tag",
+      "ordinal": 1,
+      "itemId": "tS2wFSIG_t9b",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:2682881f6e4c861c486281de1fbabf832269aeecb9f22704c63231de92f28232",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "s0HAxT1gsHxh",
+      "surface": "tag",
+      "ordinal": 2,
+      "itemId": "YxD03bIJdDbl",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:0f13b46b7450989411f5df5e9306298c443a34d4184c3582cf4bc16b37949d8b",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "s0HAxT1gsHxh",
+      "surface": "tag",
+      "ordinal": 3,
+      "itemId": "6IO0Q6uN0Rtl",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:870645baf6121e75ef91ad0385f4451bf1e7071ab7e796a058867086cb8b9531",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "s0HAxT1gsHxh",
+      "surface": "reference",
+      "ordinal": 1,
+      "itemId": "reference-official-model-s0HAxT1gsHxh-source-leonardo-momento-magico-official",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:60641ca9b3a26b28cc8e762a0acf2be08acdb1a84c5c0fbec2a1d00a9a801d9c",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "s0HAxT1gsHxh",
+      "surface": "citation",
+      "ordinal": 1,
+      "itemId": "cite-spec-leonardo-furore-momento-magico-source-leonardo-momento-magico-official",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:4314941b7472e9914be7a1b9e99fcefeb0ea41e6f234b3ff0c2e8eb716e38102",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "UE5otlwKUfp9"
+    },
+    {
+      "donorId": "s0HAxT1gsHxh",
+      "surface": "citation",
+      "ordinal": 2,
+      "itemId": "cite-story-model-leonardo-furore-momento-magico-library-source-leonardo-momento-magico-official",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:3c7491c61a648ab7a76ed334d3b9b6faa5fd143a152e551b2093e56acd429cdb",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "UE5otlwKUfp9"
+    },
+    {
+      "donorId": "s0HAxT1gsHxh",
+      "surface": "citation",
+      "ordinal": 3,
+      "itemId": "cite-claim-leonardo-momento-magico-piston-source-leonardo-momento-magico-official",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:8460b078940bb9545c1ba453c1da31536140107958041de400e03a98d93006a0",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "UE5otlwKUfp9"
+    },
+    {
+      "donorId": "s0HAxT1gsHxh",
+      "surface": "citation",
+      "ordinal": 4,
+      "itemId": "cite-claim-leonardo-momento-magico-nibs-source-leonardo-momento-magico-official",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:d802c48b9cdc0a7bb2f2b920afc1fdd552626a7ed0856b5e8a9229daa7b7f726",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "UE5otlwKUfp9"
+    },
+    {
+      "donorId": "s0HAxT1gsHxh",
+      "surface": "citation",
+      "ordinal": 5,
+      "itemId": "cite-claim-leonardo-momento-magico-resin-source-leonardo-momento-magico-official",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:a946342cc3d4b6a2a8cd50b5bdda56d16dc615efb7e87145409ae3f179021486",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "UE5otlwKUfp9"
+    },
+    {
+      "donorId": "s0HAxT1gsHxh",
+      "surface": "variant",
+      "ordinal": 1,
+      "itemId": "variant-leonardo-furore",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:480c191cf64bdeed49f4c0b2863a07971d8a6a0dda01621e0d1e2bb9fc85a93e",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "ixul2gTcJ06B"
+    },
+    {
+      "donorId": "s0HAxT1gsHxh",
+      "surface": "variant",
+      "ordinal": 2,
+      "itemId": "variant-leonardo-furore-grande",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:a439b528b8b621b96008d88db18964bacd1825996bd2f416f1dc4737777f4ecf",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "s0HAxT1gsHxh",
+      "surface": "variant",
+      "ordinal": 3,
+      "itemId": "variant-leonardo-momento-magico",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:4713f4c23b4120354a7488a6e02218b6fc587a065b58ea7164058e816ec62333",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "supported_output",
+      "targetId": "UE5otlwKUfp9"
+    },
+    {
+      "donorId": "s0HAxT1gsHxh",
+      "surface": "media",
+      "ordinal": 1,
+      "itemId": null,
+      "slotKey": "phase19-slot:s0HAxT1gsHxh:media:1:5ca8c6182dab",
+      "evidenceChecksum": "sha256:5ca8c6182dabfee49edf7a096e8910ab16c63251845b121a1e4e241f2ac1ccb1",
+      "requiresOwnedCopyResolution": true,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "s0HAxT1gsHxh",
+      "surface": "review",
+      "ordinal": 1,
+      "itemId": null,
+      "slotKey": "phase19-slot:s0HAxT1gsHxh:review:1:b875e99a828f",
+      "evidenceChecksum": "sha256:b875e99a828f1b577ac8eeadc5710d59f38abc17d8c2b6ce09554471b8404ffd",
+      "requiresOwnedCopyResolution": true,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "G9ptvLpfyzNQ",
+      "surface": "source",
+      "ordinal": 1,
+      "itemId": "source-aurora-generic-public-search",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:447abba2560e724c4f2cac743e5a54dad06de4dcbd3d7a563fc790af7ef7faf8",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "retired_source",
+      "targetId": null
+    },
+    {
+      "donorId": "G9ptvLpfyzNQ",
+      "surface": "story",
+      "ordinal": 1,
+      "itemId": "story-model-aurora-generic-research",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:dda5dc4f633fb0c03b88a9a892770cb39c382f67cc102091446b1e9b28506a37",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "retired_source",
+      "targetId": null
+    },
+    {
+      "donorId": "G9ptvLpfyzNQ",
+      "surface": "spec",
+      "ordinal": 1,
+      "itemId": "spec-aurora-generic-research",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:688f2ad60997b7b2806dca9fa2574a244e333678f3a0ad4ce8c37337dab329af",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "retired_source",
+      "targetId": null
+    },
+    {
+      "donorId": "G9ptvLpfyzNQ",
+      "surface": "claim",
+      "ordinal": 1,
+      "itemId": "claim-aurora-generic-source-boundary",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:a1d6747d722a359377cdf4b6b3e13a983f90e2a95c67b8d7b2809693fb2ba110",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "retired_source",
+      "targetId": null
+    },
+    {
+      "donorId": "G9ptvLpfyzNQ",
+      "surface": "relation",
+      "ordinal": 1,
+      "itemId": "1gZom9f9qNs7",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:6e494e16e345932bf51688ea7bb2f283374bbaf5048b5d85ab3990f3c453e074",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "retired_source",
+      "targetId": null
+    },
+    {
+      "donorId": "G9ptvLpfyzNQ",
+      "surface": "tag",
+      "ordinal": 1,
+      "itemId": "xIYm499e6PtN",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:d9a129c9be8d822bca82e4b78cee1d9868487843c343e0fcbb69a9e01f20b9ee",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "retired_source",
+      "targetId": null
+    },
+    {
+      "donorId": "G9ptvLpfyzNQ",
+      "surface": "tag",
+      "ordinal": 2,
+      "itemId": "-9Wd2YxCU-CH",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:f8c0a6ff5ef19da67a62e7c43a56ed174aeb50f2da2fc66581312847373a4d83",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "retired_source",
+      "targetId": null
+    },
+    {
+      "donorId": "G9ptvLpfyzNQ",
+      "surface": "media",
+      "ordinal": 1,
+      "itemId": "media-commons-b0e37dd28d727c",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:04b8d8bd1d2c1d09d0a3ab4d79cc3d9087d7b2ae44f6a678c0a378478481cc0b",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "G9ptvLpfyzNQ",
+      "surface": "reference",
+      "ordinal": 1,
+      "itemId": "reference-model-gap-G9ptvLpfyzNQ-source-aurora-generic-public-search",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:a91c4cd943b1d2ff68ec464ce580f982428625524a7fc25c7eaa71d3799b3d05",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "retired_source",
+      "targetId": null
+    },
+    {
+      "donorId": "G9ptvLpfyzNQ",
+      "surface": "citation",
+      "ordinal": 1,
+      "itemId": "cite-claim-aurora-generic-source-boundary-source-aurora-generic-public-search",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:ad708591d0170a087e293943071e2bb60ce9ff5089fda68e4f685e100a5ccba3",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "retired_source",
+      "targetId": null
+    },
+    {
+      "donorId": "G9ptvLpfyzNQ",
+      "surface": "citation",
+      "ordinal": 2,
+      "itemId": "cite-spec-aurora-generic-research-source-aurora-generic-public-search",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:b64908964c87ebd7c58980efe9d265cddf12bfaff06b28a770c2a01519e26a06",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "retired_source",
+      "targetId": null
+    },
+    {
+      "donorId": "G9ptvLpfyzNQ",
+      "surface": "citation",
+      "ordinal": 3,
+      "itemId": "cite-story-model-aurora-generic-research-source-aurora-generic-public-search",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:07464f273216cbad2962ce939f3454f7165e54e8118ecc407ef9e8b75fce85f8",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "retired_source",
+      "targetId": null
+    },
+    {
+      "donorId": "G9ptvLpfyzNQ",
+      "surface": "citation",
+      "ordinal": 4,
+      "itemId": "cite-story-model-aurora-generic-research-claim-aurora-generic-source-boundary",
+      "slotKey": null,
+      "evidenceChecksum": "sha256:b2761b1e587ca5dbe52ddab11410d9e1825900a97d2574e4ab9368d59f534af4",
+      "requiresOwnedCopyResolution": false,
+      "disposition": "retired_source",
+      "targetId": null
+    },
+    {
+      "donorId": "G9ptvLpfyzNQ",
+      "surface": "source",
+      "ordinal": 2,
+      "itemId": null,
+      "slotKey": "phase19-slot:G9ptvLpfyzNQ:source:2:e0c03c080eeb",
+      "evidenceChecksum": "sha256:e0c03c080eebd83d0101ed0e2e3224339e599c1abb398127a80ec56a4e474cbe",
+      "requiresOwnedCopyResolution": true,
+      "disposition": "pending_conflict",
+      "targetId": null
+    },
+    {
+      "donorId": "G9ptvLpfyzNQ",
+      "surface": "review",
+      "ordinal": 1,
+      "itemId": null,
+      "slotKey": "phase19-slot:G9ptvLpfyzNQ:review:1:9595e0bbd43f",
+      "evidenceChecksum": "sha256:9595e0bbd43f14878fd8324556a87b2f4bf856cd2f3a1d6eb3047c5925401dd9",
+      "requiresOwnedCopyResolution": true,
+      "disposition": "pending_conflict",
+      "targetId": null
+    }
+  ],
+  "lockedRoutes": [
+    {
+      "sourcePath": "/pen/威迪文-waterman-查尔斯顿-hemisphere",
+      "policy": "redirect_if_target_public",
+      "targetPath": "/pen/waterman-hemisphere"
+    },
+    {
+      "sourcePath": "/pen/opus-88-demo-kolora",
+      "policy": "always_404",
+      "targetPath": null
+    },
+    {
+      "sourcePath": "/pen/leonardo-furore-momento-magico",
+      "policy": "always_404",
+      "targetPath": null
+    },
+    {
+      "sourcePath": "/pen/奥罗拉-aurora",
+      "policy": "redirect_if_target_public",
+      "targetPath": "/brand/aurora"
+    }
+  ]
+}

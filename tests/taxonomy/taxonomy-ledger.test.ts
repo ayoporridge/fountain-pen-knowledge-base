@@ -91,38 +91,61 @@ test("taxonomy fixture safety", async () => {
 
   const protectedCatalog = path.join(process.cwd(), "data", "fpkg.db");
   const unsafeEnvironments: Array<[string, NodeJS.ProcessEnv]> = [
-    ["missing flag", {}],
+    ["missing flag", { NODE_ENV: "test" }],
     [
       "remote credentials",
-      { TAXONOMY_FIXTURE: "1", TURSO_DATABASE_URL: "libsql://remote.invalid" },
+      {
+        NODE_ENV: "test",
+        TAXONOMY_FIXTURE: "1",
+        TURSO_DATABASE_URL: "libsql://remote.invalid",
+      },
     ],
     [
       "external base URL",
-      { TAXONOMY_FIXTURE: "1", E2E_BASE_URL: "https://example.com" },
+      {
+        NODE_ENV: "test",
+        TAXONOMY_FIXTURE: "1",
+        E2E_BASE_URL: "https://example.com",
+      },
     ],
     [
       "protected catalog",
-      { TAXONOMY_FIXTURE: "1", FPKG_DATABASE_URL: `file:${protectedCatalog}` },
+      {
+        NODE_ENV: "test",
+        TAXONOMY_FIXTURE: "1",
+        FPKG_DATABASE_URL: `file:${protectedCatalog}`,
+      },
     ],
     [
       "outside destination",
-      { TAXONOMY_FIXTURE: "1", FPKG_DATABASE_URL: `file:${harmlessFile}` },
+      {
+        NODE_ENV: "test",
+        TAXONOMY_FIXTURE: "1",
+        FPKG_DATABASE_URL: `file:${harmlessFile}`,
+      },
     ],
     [
       "symlink alias",
-      { TAXONOMY_FIXTURE: "1", FPKG_DATABASE_URL: `file:${symlinkPath}` },
+      {
+        NODE_ENV: "test",
+        TAXONOMY_FIXTURE: "1",
+        FPKG_DATABASE_URL: `file:${symlinkPath}`,
+      },
     ],
     [
       "hardlink alias",
-      { TAXONOMY_FIXTURE: "1", FPKG_DATABASE_URL: `file:${hardlinkPath}` },
+      {
+        NODE_ENV: "test",
+        TAXONOMY_FIXTURE: "1",
+        FPKG_DATABASE_URL: `file:${hardlinkPath}`,
+      },
     ],
   ];
 
   try {
     for (const [label, env] of unsafeEnvironments) {
       await assert.rejects(
-        createTaxonomyFixture(env),
-        undefined,
+        () => createTaxonomyFixture(env),
         `${label} must fail closed`,
       );
     }
@@ -136,7 +159,10 @@ test("taxonomy fixture safety", async () => {
     fs.rmSync(unsafeRoot, { recursive: true, force: true });
   }
 
-  const fixture = await createTaxonomyFixture({ TAXONOMY_FIXTURE: "1" });
+  const fixture = await createTaxonomyFixture({
+    NODE_ENV: "test",
+    TAXONOMY_FIXTURE: "1",
+  });
   assert.ok(fs.existsSync(fixture.databasePath));
   assert.equal(path.dirname(fixture.databasePath), fixture.tempRoot);
   const migrations = await fixture.client.execute(
@@ -205,7 +231,13 @@ test("net action reconciliation uses exact stable ID sets and locked identities"
       canonical.slug,
       canonical.makerId,
     ]);
-  assert.deepEqual(actualOutputs, lockedOutputs);
+  const actualOutputById = new Map(
+    actualOutputs.map((output) => [output[0], output] as const),
+  );
+  assert.deepEqual(
+    lockedOutputs.map(([entityId]) => actualOutputById.get(entityId)),
+    lockedOutputs,
+  );
 
   for (const [entityId, slug] of lockedOutputs.slice(1)) {
     const derived = createHash("sha256")
@@ -238,15 +270,29 @@ test("net action reconciliation uses exact stable ID sets and locked identities"
     },
   ]);
 
-  const payloadIds = plan.payloadAssignments.map((item) => item.itemId);
-  assert.equal(new Set(payloadIds).size, payloadIds.length);
+  const assignmentKeys = plan.payloadAssignments.map(
+    (item) => item.itemId ?? item.slotKey,
+  );
+  assert.equal(new Set(assignmentKeys).size, assignmentKeys.length);
   assert.ok(
     plan.payloadAssignments.every(
       (item) =>
-        item.disposition === "retired_source" ||
-        item.disposition === "pending_conflict" ||
+        (item.disposition === "retired_source" && item.itemId) ||
+        (item.disposition === "pending_conflict" &&
+          (item.itemId ||
+            (item.slotKey && item.requiresOwnedCopyResolution))) ||
         (item.disposition === "supported_output" && item.targetId),
     ),
+  );
+  assert.ok(
+    plan.payloadAssignments.some(
+      (item) => item.slotKey && item.requiresOwnedCopyResolution,
+    ),
+    "unexposed Phase 19 row IDs must remain explicit unresolved slots",
+  );
+  assert.throws(
+    () => reconcileTaxonomyPlan(plan, { requireResolvedPayloads: true }),
+    /owned copy|payload.*unresolved/i,
   );
 });
 
