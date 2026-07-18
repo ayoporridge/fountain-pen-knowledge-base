@@ -1,7 +1,5 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import fs from "node:fs";
-import path from "node:path";
 import test from "node:test";
 import type { Client } from "@libsql/client";
 import {
@@ -14,18 +12,12 @@ import {
   resolveTaxonomyPlan,
 } from "../../src/lib/taxonomy/apply-taxonomy";
 import {
-  loadTaxonomyPlan,
   type AtomicIdentityAction,
+  loadTaxonomyPlan,
   type TaxonomyDecision,
   type TaxonomyPlan,
 } from "../../src/lib/taxonomy/identity-plan";
 
-const MANIFEST_PATH = path.join(
-  process.cwd(),
-  "data",
-  "taxonomy",
-  "v1.2-phase21.json",
-);
 const IDS = {
   pilotBrand: "pilotbrand01",
   majohnBrand: "majohnbrand1",
@@ -157,12 +149,7 @@ function syntheticResolvedPlan(): TaxonomyPlan {
     evidenceRefs: [SOURCE_URLS.merge],
     atomicActions: [
       atomic("retire_mixed", IDS.moonmanA1, null, "moonman-a1"),
-      atomic(
-        "split_retain_as",
-        IDS.majohnA1,
-        IDS.majohnA1,
-        "majohn-a1",
-      ),
+      atomic("split_retain_as", IDS.majohnA1, IDS.majohnA1, "majohn-a1"),
     ],
   });
   replaceDecision(plan, 3, {
@@ -180,12 +167,7 @@ function syntheticResolvedPlan(): TaxonomyPlan {
     },
     evidenceRefs: [SOURCE_URLS.reassign],
     atomicActions: [
-      atomic(
-        "split_retain_as",
-        IDS.asvineP36,
-        IDS.asvineP36,
-        "意斯华-p36",
-      ),
+      atomic("split_retain_as", IDS.asvineP36, IDS.asvineP36, "意斯华-p36"),
     ],
   });
   replaceDecision(plan, 4, {
@@ -202,9 +184,7 @@ function syntheticResolvedPlan(): TaxonomyPlan {
       makerId: IDS.wingSungBrand,
     },
     evidenceRefs: [SOURCE_URLS.retire],
-    atomicActions: [
-      atomic("retire_generic", IDS.skb, null, "skb-rs-301n"),
-    ],
+    atomicActions: [atomic("retire_generic", IDS.skb, null, "skb-rs-301n")],
   });
 
   const extraBrands = [
@@ -255,15 +235,20 @@ async function insert(
 async function seedCanonicalFixture(fixture: TaxonomyFixture): Promise<void> {
   const db = fixture.client;
   const brands = [
-    [IDS.pilotBrand, "pilot", "Pilot"],
-    [IDS.majohnBrand, "majohn", "末匠 Majohn"],
-    [IDS.asvineBrand, "asvine", "Asvine"],
-    [IDS.wrongBrand, "wrong-brand", "错误品牌"],
-    [IDS.wingSungBrand, "wing-sung", "永生 Wing Sung"],
-    [IDS.junLaiBrand, "junlai", "君来 JunLai"],
+    [IDS.pilotBrand, "taxonomy-pilot", "Pilot"],
+    [IDS.majohnBrand, "taxonomy-majohn", "末匠 Majohn"],
+    [IDS.asvineBrand, "taxonomy-asvine", "Asvine"],
+    [IDS.wrongBrand, "taxonomy-wrong-brand", "错误品牌"],
+    [IDS.wingSungBrand, "taxonomy-wing-sung", "永生 Wing Sung"],
+    [IDS.junLaiBrand, "taxonomy-junlai", "君来 JunLai"],
   ] as const;
   const pens = [
-    [IDS.pilotMr, "百乐-pilot-贵妃-cocoon", "百乐 Pilot 贵妃 Cocoon", IDS.pilotBrand],
+    [
+      IDS.pilotMr,
+      "百乐-pilot-贵妃-cocoon",
+      "百乐 Pilot 贵妃 Cocoon",
+      IDS.pilotBrand,
+    ],
     [IDS.elabo, "pilot-elabo", "百乐 Pilot Elabo", IDS.pilotBrand],
     [IDS.majohnA1, "majohn-a1", "末匠 Majohn A1", IDS.majohnBrand],
     [IDS.moonmanA1, "moonman-a1", "Moonman A1", IDS.majohnBrand],
@@ -272,50 +257,100 @@ async function seedCanonicalFixture(fixture: TaxonomyFixture): Promise<void> {
   ] as const;
 
   for (const [id, slug, name] of brands) {
-    await insert(db, "INSERT INTO entities (id, type, slug, name) VALUES (?, 'brand', ?, ?)", [id, slug, name]);
+    await insert(
+      db,
+      "INSERT INTO entities (id, type, slug, name) VALUES (?, 'brand', ?, ?)",
+      [id, slug, name],
+    );
   }
   for (const [id, slug, name, makerId] of pens) {
-    await insert(db, "INSERT INTO entities (id, type, slug, name) VALUES (?, 'pen', ?, ?)", [id, slug, name]);
-    await insert(db, "INSERT INTO entity_links (id, source_id, target_id, link_type) VALUES (?, ?, ?, 'made_by')", [`link-${id}`, id, makerId]);
+    await insert(
+      db,
+      "INSERT INTO entities (id, type, slug, name) VALUES (?, 'pen', ?, ?)",
+      [id, slug, name],
+    );
+    await insert(
+      db,
+      "INSERT INTO entity_links (id, source_id, target_id, link_type) VALUES (?, ?, ?, 'made_by')",
+      [`link-${id}`, id, makerId],
+    );
   }
   await db.execute(
     "UPDATE entity_publications SET status = 'in_review', blockers_json = '[]' WHERE entity_id LIKE '%brand%' OR entity_id IN (?, ?, ?, ?, ?, ?)",
-    [IDS.pilotMr, IDS.elabo, IDS.majohnA1, IDS.moonmanA1, IDS.asvineP36, IDS.skb],
+    [
+      IDS.pilotMr,
+      IDS.elabo,
+      IDS.majohnA1,
+      IDS.moonmanA1,
+      IDS.asvineP36,
+      IDS.skb,
+    ],
   );
 
-  await insert(db, `INSERT INTO source_registry
+  await insert(
+    db,
+    `INSERT INTO source_registry
     (id, name, source_type, allowed_use, reliability)
-    VALUES ('taxsource001', 'Taxonomy fixture sources', 'official', 'metadata_only', 'high_for_basic_facts')`);
+    VALUES ('taxsource001', 'Taxonomy fixture sources', 'official', 'metadata_only', 'high_for_basic_facts')`,
+  );
   for (const [index, url] of Object.values(SOURCE_URLS).entries()) {
-    await insert(db, `INSERT INTO source_items
+    await insert(
+      db,
+      `INSERT INTO source_items
       (id, source_id, title, url, allowed_use, review_status, source_tier,
        independence_group, retrieved_at)
-      VALUES (?, 'taxsource001', ?, ?, 'metadata_only', 'approved', 'primary', ?, '2026-07-18')`, [
-      `sourceitem0${index + 1}`,
-      `Taxonomy source ${index + 1}`,
-      url,
-      `taxonomy-source-${index + 1}`,
-    ]);
+      VALUES (?, 'taxsource001', ?, ?, 'metadata_only', 'approved', 'primary', ?, '2026-07-18')`,
+      [
+        `sourceitem0${index + 1}`,
+        `Taxonomy source ${index + 1}`,
+        url,
+        `taxonomy-source-${index + 1}`,
+      ],
+    );
   }
 
-  await insert(db, "INSERT INTO tags (id, name, slug, dimension, level) VALUES ('taxtag000001', 'Taxonomy sentinel', 'taxonomy-sentinel', 'usage', 'atom')");
-  await insert(db, "INSERT INTO entity_tags (id, entity_id, tag_id) VALUES ('donortag0001', ?, 'taxtag000001')", [IDS.moonmanA1]);
-  await insert(db, "INSERT INTO entity_attributes (id, entity_id, key, value) VALUES ('donorattr001', ?, 'taxonomy_sentinel', 'compatible')", [IDS.moonmanA1]);
-  await insert(db, `INSERT INTO entity_references
+  await insert(
+    db,
+    "INSERT INTO tags (id, name, slug, dimension, level) VALUES ('taxtag000001', 'Taxonomy sentinel', 'taxonomy-sentinel', 'usage', 'atom')",
+  );
+  await insert(
+    db,
+    "INSERT INTO entity_tags (id, entity_id, tag_id) VALUES ('donortag0001', ?, 'taxtag000001')",
+    [IDS.moonmanA1],
+  );
+  await insert(
+    db,
+    "INSERT INTO entity_attributes (id, entity_id, key, value) VALUES ('donorattr001', ?, 'taxonomy_sentinel', 'compatible')",
+    [IDS.moonmanA1],
+  );
+  await insert(
+    db,
+    `INSERT INTO entity_references
     (id, entity_id, source_item_id, relation_type, note, review_status)
-    VALUES ('donorref0001', ?, 'sourceitem03', 'official', 'A1 identity', 'approved')`, [IDS.moonmanA1]);
-  await insert(db, `INSERT INTO external_ids
+    VALUES ('donorref0001', ?, 'sourceitem03', 'official', 'A1 identity', 'approved')`,
+    [IDS.moonmanA1],
+  );
+  await insert(
+    db,
+    `INSERT INTO external_ids
     (id, entity_id, provider, external_id, url)
-    VALUES ('donorext0001', ?, 'fixture', 'moonman-a1', 'https://example.test/id/moonman-a1')`, [IDS.moonmanA1]);
-  await insert(db, `INSERT INTO entity_aliases
+    VALUES ('donorext0001', ?, 'fixture', 'moonman-a1', 'https://example.test/id/moonman-a1')`,
+    [IDS.moonmanA1],
+  );
+  await insert(
+    db,
+    `INSERT INTO entity_aliases
     (id, entity_id, alias, language, source_id, alias_kind, source_item_id, review_status)
-    VALUES ('donoralias01', ?, 'Moonman A1', 'en', 'taxsource001', 'former_name', 'sourceitem03', 'approved')`, [IDS.moonmanA1]);
-  await insert(db, `INSERT INTO entity_content_reviews
+    VALUES ('donoralias01', ?, 'Moonman A1', 'en', 'taxsource001', 'former_name', 'sourceitem03', 'approved')`,
+    [IDS.moonmanA1],
+  );
+  await insert(
+    db,
+    `INSERT INTO entity_content_reviews
     (id, entity_id, review_kind, content_hash, status, reviewer, reviewed_at)
-    VALUES ('donorreview1', ?, 'fact', ?, 'approved', 'fixture-reviewer', '2026-07-18')`, [
-    IDS.moonmanA1,
-    `sha256:v3:${"a".repeat(64)}`,
-  ]);
+    VALUES ('donorreview1', ?, 'fact', ?, 'approved', 'fixture-reviewer', '2026-07-18')`,
+    [IDS.moonmanA1, `sha256:v3:${"a".repeat(64)}`],
+  );
 }
 
 async function withCanonicalFixture(
@@ -333,7 +368,11 @@ async function withCanonicalFixture(
   }
 }
 
-async function scalar(db: Client, sql: string, args: string[] = []): Promise<string> {
+async function scalar(
+  db: Client,
+  sql: string,
+  args: string[] = [],
+): Promise<string> {
   const result = await db.execute({ sql, args });
   assert.equal(result.rows.length, 1);
   return String(Object.values(result.rows[0] ?? {})[0]);
@@ -358,57 +397,108 @@ test("rename alias merge retire and identity gate are lifecycle-safe", async () 
     });
 
     assert.equal(
-      await scalar(client, "SELECT slug FROM entities WHERE id = ?", [IDS.pilotMr]),
+      await scalar(client, "SELECT slug FROM entities WHERE id = ?", [
+        IDS.pilotMr,
+      ]),
       "pilot-mr-metropolitan-cocoon",
     );
     assert.equal(
-      await scalar(client, "SELECT COUNT(*) FROM entity_aliases WHERE entity_id = ? AND alias = 'Falcon' AND market = '海外' AND review_status = 'approved'", [IDS.elabo]),
+      await scalar(
+        client,
+        "SELECT COUNT(*) FROM entity_aliases WHERE entity_id = ? AND alias = 'Falcon' AND market = '海外' AND review_status = 'approved'",
+        [IDS.elabo],
+      ),
       "1",
     );
     assert.equal(
-      await scalar(client, "SELECT COUNT(*) FROM entity_aliases WHERE entity_id = ? AND alias LIKE '%贵妃%'", [IDS.pilotMr]),
+      await scalar(
+        client,
+        "SELECT COUNT(*) FROM entity_aliases WHERE entity_id = ? AND alias LIKE '%贵妃%'",
+        [IDS.pilotMr],
+      ),
       "0",
     );
     assert.equal(
-      await scalar(client, "SELECT status FROM entity_publications WHERE entity_id = ?", [IDS.moonmanA1]),
+      await scalar(
+        client,
+        "SELECT status FROM entity_publications WHERE entity_id = ?",
+        [IDS.moonmanA1],
+      ),
       "retired",
     );
     assert.equal(
-      await scalar(client, "SELECT COUNT(*) FROM entities WHERE id = ?", [IDS.moonmanA1]),
+      await scalar(client, "SELECT COUNT(*) FROM entities WHERE id = ?", [
+        IDS.moonmanA1,
+      ]),
       "1",
     );
-    for (const table of ["entity_attributes", "entity_tags", "entity_references", "external_ids"] as const) {
+    for (const table of [
+      "entity_attributes",
+      "entity_tags",
+      "entity_references",
+      "external_ids",
+    ] as const) {
       assert.equal(
-        await scalar(client, `SELECT COUNT(*) FROM ${table} WHERE entity_id = ?`, [IDS.majohnA1]),
+        await scalar(
+          client,
+          `SELECT COUNT(*) FROM ${table} WHERE entity_id = ?`,
+          [IDS.majohnA1],
+        ),
         "1",
       );
       assert.equal(
-        await scalar(client, `SELECT COUNT(*) FROM ${table} WHERE entity_id = ?`, [IDS.moonmanA1]),
+        await scalar(
+          client,
+          `SELECT COUNT(*) FROM ${table} WHERE entity_id = ?`,
+          [IDS.moonmanA1],
+        ),
         "1",
       );
     }
     assert.equal(
-      await scalar(client, "SELECT COUNT(*) FROM entity_content_reviews WHERE entity_id = ?", [IDS.majohnA1]),
+      await scalar(
+        client,
+        "SELECT COUNT(*) FROM entity_content_reviews WHERE entity_id = ?",
+        [IDS.majohnA1],
+      ),
       "0",
     );
     assert.equal(
-      await scalar(client, "SELECT entity_id FROM entity_content_reviews WHERE id = 'donorreview1'"),
+      await scalar(
+        client,
+        "SELECT entity_id FROM entity_content_reviews WHERE id = 'donorreview1'",
+      ),
       IDS.moonmanA1,
     );
     assert.equal(
-      await scalar(client, "SELECT target_id FROM entity_links WHERE source_id = ? AND link_type = 'made_by'", [IDS.asvineP36]),
+      await scalar(
+        client,
+        "SELECT target_id FROM entity_links WHERE source_id = ? AND link_type = 'made_by'",
+        [IDS.asvineP36],
+      ),
       IDS.asvineBrand,
     );
     assert.equal(
-      await scalar(client, "SELECT COUNT(*) FROM entities WHERE id IN (?, ?) AND type = 'brand'", [IDS.wingSungBrand, IDS.junLaiBrand]),
+      await scalar(
+        client,
+        "SELECT COUNT(*) FROM entities WHERE id IN (?, ?) AND type = 'brand'",
+        [IDS.wingSungBrand, IDS.junLaiBrand],
+      ),
       "2",
     );
     assert.equal(
-      await scalar(client, "SELECT COUNT(*) FROM public_entities WHERE id IN (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", Object.values(IDS)),
+      await scalar(
+        client,
+        "SELECT COUNT(*) FROM public_entities WHERE id IN (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        Object.values(IDS),
+      ),
       "0",
     );
     assert.equal(
-      await scalar(client, "SELECT redirect_kind FROM entity_redirects WHERE source_path = '/pen/skb-rs-301n'"),
+      await scalar(
+        client,
+        "SELECT redirect_kind FROM entity_redirects WHERE source_path = '/pen/skb-rs-301n'",
+      ),
       "hard_404",
     );
   });
@@ -417,10 +507,17 @@ test("rename alias merge retire and identity gate are lifecycle-safe", async () 
 test("locked split identity action is delegated with zero writes", async () => {
   await withCanonicalFixture(async ({ client }) => {
     const plan = syntheticResolvedPlan();
-    const decision = plan.matrix.find((row) => row.sourceRowKey === "测试::Falcon");
+    const decision = plan.matrix.find(
+      (row) => row.sourceRowKey === "测试::Falcon",
+    );
     assert.ok(decision);
     decision.atomicActions = [
-      atomic("split_retain_as", "dTCUDu03vrI6", "dTCUDu03vrI6", "opus-88-demo-kolora"),
+      atomic(
+        "split_retain_as",
+        "dTCUDu03vrI6",
+        "dTCUDu03vrI6",
+        "opus-88-demo-kolora",
+      ),
     ];
     decision.canonical = {
       entityId: "dTCUDu03vrI6",
@@ -431,11 +528,20 @@ test("locked split identity action is delegated with zero writes", async () => {
     };
     plan.matrixChecksum = matrixChecksum(plan.matrix);
 
-    const before = await scalar(client, "SELECT COUNT(*) FROM taxonomy_batches");
+    const before = await scalar(
+      client,
+      "SELECT COUNT(*) FROM taxonomy_batches",
+    );
     const resolved = await resolveTaxonomyPlan(client, plan);
-    assert.match(resolved.blockers.map((item) => item.code).join(","), /locked_split_delegated/);
+    assert.match(
+      resolved.blockers.map((item) => item.code).join(","),
+      /locked_split_delegated/,
+    );
     await assert.rejects(() => applyTaxonomyPlan(client, resolved), /blocker/i);
-    assert.equal(await scalar(client, "SELECT COUNT(*) FROM taxonomy_batches"), before);
+    assert.equal(
+      await scalar(client, "SELECT COUNT(*) FROM taxonomy_batches"),
+      before,
+    );
   });
 });
 
@@ -450,13 +556,23 @@ test("transaction rollback leaves no batch marker or partial rename", async () =
         SELECT RAISE(ABORT, 'taxonomy fixture injected failure');
       END`);
 
-    await assert.rejects(() => applyTaxonomyPlan(client, resolved), /injected failure/i);
-    assert.equal(await scalar(client, "SELECT COUNT(*) FROM taxonomy_batches"), "0");
-    assert.equal(await scalar(client, "SELECT COUNT(*) FROM taxonomy_actions"), "0");
+    await assert.rejects(
+      () => applyTaxonomyPlan(client, resolved),
+      /injected failure/i,
+    );
     assert.equal(
-      await scalar(client, "SELECT slug FROM entities WHERE id = ?", [IDS.pilotMr]),
+      await scalar(client, "SELECT COUNT(*) FROM taxonomy_batches"),
+      "0",
+    );
+    assert.equal(
+      await scalar(client, "SELECT COUNT(*) FROM taxonomy_actions"),
+      "0",
+    );
+    assert.equal(
+      await scalar(client, "SELECT slug FROM entities WHERE id = ?", [
+        IDS.pilotMr,
+      ]),
       "百乐-pilot-贵妃-cocoon",
     );
   });
 });
-
