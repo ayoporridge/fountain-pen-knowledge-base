@@ -255,11 +255,11 @@ v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史
   4. SKB/Penton/SIKIB、Wing Sung/JunLai 630 等身份争议在证据充分前保持 draft，且不错误挂靠品牌
   5. taxonomy 批次完成后，109 项矩阵明确给出 create、merge、split、rename、alias、retire 的净数量，不再把处理项数当作新增页数
 
-**Plans**: 2/6 plans executed
+**Plans**: 3/6 plans executed
 
 - [x] 21-01-PLAN.md — Identity substrate, publication hash coverage and review invalidation
 - [x] 21-02-PLAN.md — Guarded disposable fixture and exact 109-row net-action ledger
-- [ ] 21-03-PLAN.md — Canonical alias, rename, merge and retire transaction
+- [x] 21-03-PLAN.md — Canonical alias, rename, merge and retire transaction
 - [ ] 21-04-PLAN.md — Split, variant hierarchy and complete reference/media/relation migration
 - [ ] 21-05-PLAN.md — Full owned-copy audit and checked-in public redirect generation
 - [ ] 21-06-PLAN.md — Canonical identity DTO/UI and isolated temporary-fixture browser acceptance
@@ -360,7 +360,7 @@ v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史
 | 18. 统一发布门禁 | v1.2 | 7/7 | Complete    | 2026-07-15 |
 | 19. 真实审计与证据契约 | v1.2 | 5/5 | Complete   | 2026-07-18 |
 | 20. 百科页面 Renderer | v1.2 | 3/4 | In Progress|  |
-| 21. Taxonomy 与身份归一 | v1.2 | 2/6 | In Progress|  |
+| 21. Taxonomy 与身份归一 | v1.2 | 3/6 | In Progress|  |
 | 22. Montblanc 149 A 档样板 | v1.2 | 0/TBD | Not started | - |
 | 23. 现有 305 条库存清账 | v1.2 | 0/TBD | Not started | - |
 | 24. P0 13 项扩容 | v1.2 | 0/TBD | Not started | - |

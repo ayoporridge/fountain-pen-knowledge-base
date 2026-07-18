@@ -5,16 +5,16 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
-stopped_at: Phase 20-04 recorded gaps_found; Phase 21 execution started under the user-directed content-track exception
-last_updated: "2026-07-18T18:04:05.784Z"
-last_activity: 2026-07-18
-last_activity_desc: Phase 21 execution started
+stopped_at: Phase 21 Plan 03 complete; Plan 04 locked split migration executing while sourced content drafts proceed in parallel
+last_updated: "2026-07-18T18:33:46.515Z"
+last_activity: 2026-07-19
+last_activity_desc: Phase 21 Plan 03 completed; Montblanc 149 and Majohn A1 publishable drafts committed
 progress:
   total_phases: 16
   completed_phases: 10
   total_plans: 29
-  completed_plans: 25
-  percent: 63
+  completed_plans: 26
+  percent: 90
 ---
 
 # State: Fountain Pen Knowledge Graph
@@ -29,9 +29,9 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 ## Current Position
 
 Phase: 21 (Taxonomy 与身份归一) — EXECUTING
-Plan: 3 of 6
-Status: Ready to execute
-Last activity: 2026-07-18 — Phase 21 execution started
+Plan: 4 of 6
+Status: In progress
+Last activity: 2026-07-19 — Phase 21 Plan 03 completed; sourced Montblanc 149 and Majohn A1 drafts committed
 
 Progress: [█████░░░░░] 50%
 
@@ -116,10 +116,10 @@ Progress: [█████░░░░░] 50%
 
 ## Next Action
 
-执行 Phase 21 Plan 01：在一次性测试数据库中新增 taxonomy identity substrate，并把 publication contract 从 `sha256:v2` 完整迁移到仅允许新审核授权的 `sha256:v3`。
+执行 Phase 21 Plan 04：按锁定 ID 拆分 Waterman、Opus 88、Leonardo、Aurora 混合页，并迁移其明确归属的引用、媒体和品牌关系；歧义内容保持 fail-closed。同时准备 Phase 22 将 Montblanc 149 正文、逐字段证据和授权主图写入 owned catalog copy。
 
 ## Session Continuity
 
-Last session: 2026-07-19T01:17:15+08:00
-Stopped at: Phase 21 Plan 01 ready to execute; Phase 20-04 gap preserved as a production-release blocker
+Last session: 2026-07-19T02:33:46+08:00
+Stopped at: Phase 21 Plan 04 executing; Phase 20-04 gap preserved as a production-release blocker
 Resume file: None
