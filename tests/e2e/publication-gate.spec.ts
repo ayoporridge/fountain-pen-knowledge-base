@@ -42,6 +42,10 @@ const PRIVATE_MEDIA_IDS = [
   "publication-montblanc-media",
 ] as const;
 const QUALIFICATION_SOURCE_PREFIX = "publication-contract";
+const SQLITE_BUSY_RETRY_DELAYS_MS = [50, 100, 250, 500, 1_000] as const;
+
+type FixtureGetOptions = NonNullable<Parameters<APIRequestContext["get"]>[1]>;
+type FixtureHeadOptions = NonNullable<Parameters<APIRequestContext["head"]>[1]>;
 
 type FileState = {
   exists: boolean;
@@ -60,6 +64,54 @@ let fixtureDb: Client;
 let fixtureBaseUrl = "";
 let fixtureRequest: APIRequestContext;
 let realDatabaseBefore: Record<string, FileState>;
+
+function fixtureGet(
+  url: string,
+  options: FixtureGetOptions = {},
+): Promise<APIResponse> {
+  return fixtureRequest.get(url, { ...options, maxRetries: 1 });
+}
+
+function fixtureHead(
+  url: string,
+  options: FixtureHeadOptions = {},
+): Promise<APIResponse> {
+  return fixtureRequest.head(url, { ...options, maxRetries: 1 });
+}
+
+function isSqliteBusy(error: unknown): boolean {
+  const seen = new Set<unknown>();
+  let current = error;
+  while (current && typeof current === "object" && !seen.has(current)) {
+    seen.add(current);
+    const details = current as {
+      cause?: unknown;
+      code?: unknown;
+      message?: unknown;
+    };
+    if (
+      String(details.code ?? "").toUpperCase() === "SQLITE_BUSY" ||
+      /\bSQLITE_BUSY\b/.test(String(details.message ?? ""))
+    ) {
+      return true;
+    }
+    current = details.cause;
+  }
+  return false;
+}
+
+async function executeCleanup(sql: string): Promise<void> {
+  for (let attempt = 0; ; attempt += 1) {
+    try {
+      await fixtureDb.execute(sql);
+      return;
+    } catch (error) {
+      const delay = SQLITE_BUSY_RETRY_DELAYS_MS[attempt];
+      if (delay === undefined || !isSqliteBusy(error)) throw error;
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
+  }
+}
 
 function snapshotRealDatabase(): Record<string, FileState> {
   const databasePath = path.join(process.cwd(), "data", "fpkg.db");
@@ -147,17 +199,17 @@ async function approveCurrentContentAndPublish(
 }
 
 async function cleanupPublicationFixtureRows(): Promise<void> {
-  await fixtureDb.execute("DELETE FROM entities WHERE id LIKE 'publication-%'");
-  await fixtureDb.execute(
+  await executeCleanup("DELETE FROM entities WHERE id LIKE 'publication-%'");
+  await executeCleanup(
     `DELETE FROM citations
      WHERE id LIKE 'publication-%'
         OR source_item_id LIKE 'publication-%'
         OR claim_id LIKE 'publication-%'`,
   );
-  await fixtureDb.execute(
+  await executeCleanup(
     "DELETE FROM source_items WHERE id LIKE 'publication-%'",
   );
-  await fixtureDb.execute(
+  await executeCleanup(
     "DELETE FROM source_registry WHERE id LIKE 'publication-%'",
   );
 }
@@ -372,7 +424,7 @@ function expectNoStore(response: APIResponse): void {
 }
 
 async function sitemapPaths(): Promise<string[]> {
-  const response = await fixtureRequest.get("/sitemap.xml");
+  const response = await fixtureGet("/sitemap.xml");
   expect(response.ok()).toBeTruthy();
   return [...(await response.text()).matchAll(/<loc>([^<]+)<\/loc>/g)].map(
     (match) => decodeURIComponent(new URL(match[1]).pathname),
@@ -380,7 +432,7 @@ async function sitemapPaths(): Promise<string[]> {
 }
 
 async function publicPenSlugs(): Promise<string[]> {
-  const response = await fixtureRequest.get("/api/entities?type=pen");
+  const response = await fixtureGet("/api/entities?type=pen");
   expect(response.ok()).toBeTruthy();
   expectNoStore(response);
   const rows = (await response.json()) as Array<{ slug: string }>;
@@ -388,10 +440,10 @@ async function publicPenSlugs(): Promise<string[]> {
 }
 
 async function expectLifecycleVisible(visible: boolean): Promise<void> {
-  const pageResponse = await fixtureRequest.get(`/pen/${LIFECYCLE_SLUG}`);
+  const pageResponse = await fixtureGet(`/pen/${LIFECYCLE_SLUG}`);
   expect(pageResponse.status()).toBe(visible ? 200 : 404);
   const pageBody = await pageResponse.text();
-  const metadataResponse = await fixtureRequest.head(`/pen/${LIFECYCLE_SLUG}`);
+  const metadataResponse = await fixtureHead(`/pen/${LIFECYCLE_SLUG}`);
   expect(metadataResponse.status()).toBe(visible ? 200 : 404);
   if (visible) {
     expect(pageBody).toContain("application/ld+json");
@@ -405,9 +457,7 @@ async function expectLifecycleVisible(visible: boolean): Promise<void> {
     expectNoStore(metadataResponse);
     expect(metadataResponse.headers()["x-robots-tag"]).toContain("noindex");
   }
-  const apiResponse = await fixtureRequest.get(
-    `/api/entities/${LIFECYCLE_SLUG}`,
-  );
+  const apiResponse = await fixtureGet(`/api/entities/${LIFECYCLE_SLUG}`);
   expect(apiResponse.status()).toBe(visible ? 200 : 404);
   expectNoStore(apiResponse);
   expect((await publicPenSlugs()).includes(LIFECYCLE_SLUG)).toBe(visible);
@@ -418,9 +468,10 @@ async function expectLifecycleVisible(visible: boolean): Promise<void> {
 
 test.describe("publication gate browser contract", () => {
   test.describe.configure({ mode: "serial" });
-  test.setTimeout(120_000);
+  test.setTimeout(60_000);
 
   test.beforeAll(async () => {
+    test.setTimeout(60_000);
     realDatabaseBefore = snapshotRealDatabase();
     const connection = resolveDatabaseConnection(process.env);
     if (
@@ -448,10 +499,14 @@ test.describe("publication gate browser contract", () => {
   });
 
   test.afterAll(async () => {
+    test.setTimeout(60_000);
     await fixtureRequest?.dispose();
     if (fixtureDb) {
-      await cleanupPublicationFixtureRows();
-      fixtureDb.close();
+      try {
+        await cleanupPublicationFixtureRows();
+      } finally {
+        fixtureDb.close();
+      }
     }
     expectRealDatabaseUnchanged(realDatabaseBefore, snapshotRealDatabase());
   });
@@ -490,7 +545,7 @@ test.describe("publication gate browser contract", () => {
       },
     ]);
 
-    const browseResponse = await fixtureRequest.get("/api/browse?type=pen");
+    const browseResponse = await fixtureGet("/api/browse?type=pen");
     expect(browseResponse.ok()).toBeTruthy();
     expectNoStore(browseResponse);
     const browse = (await browseResponse.json()) as {
@@ -502,7 +557,7 @@ test.describe("publication gate browser contract", () => {
 
     for (const slug of PRIVATE_MODEL_SLUGS) {
       const detail = encodedPath("pen", slug);
-      const detailResponse = await fixtureRequest.get(detail, {
+      const detailResponse = await fixtureGet(detail, {
         maxRedirects: 0,
       });
       const detailBody = await detailResponse.text();
@@ -514,7 +569,7 @@ test.describe("publication gate browser contract", () => {
       expectNoStore(detailResponse);
       expect(detailResponse.headers()["x-robots-tag"]).toContain("noindex");
       expect(detailBody).not.toContain("application/ld+json");
-      const metadataResponse = await fixtureRequest.head(detail, {
+      const metadataResponse = await fixtureHead(detail, {
         maxRedirects: 0,
       });
       expect(
@@ -526,7 +581,7 @@ test.describe("publication gate browser contract", () => {
       expect(metadataResponse.headers()["x-robots-tag"]).toContain("noindex");
 
       for (const suffix of ["", "/preview"] as const) {
-        const response = await fixtureRequest.get(
+        const response = await fixtureGet(
           `/api/entities/${encodeURIComponent(slug)}${suffix}`,
         );
         expect(response.status()).toBe(404);
@@ -534,7 +589,7 @@ test.describe("publication gate browser contract", () => {
       }
       expect(
         (
-          await fixtureRequest.get(
+          await fixtureGet(
             `/api/links?slug=${encodeURIComponent(slug)}&depth=2`,
           )
         ).status(),
@@ -559,10 +614,9 @@ test.describe("publication gate browser contract", () => {
     }
 
     for (const mediaId of PRIVATE_MEDIA_IDS) {
-      const response = await fixtureRequest.get(
-        `/api/image-proxy?id=${mediaId}`,
-        { maxRedirects: 0 },
-      );
+      const response = await fixtureGet(`/api/image-proxy?id=${mediaId}`, {
+        maxRedirects: 0,
+      });
       expect(response.status()).toBe(404);
       expectNoStore(response);
     }
@@ -575,7 +629,7 @@ test.describe("publication gate browser contract", () => {
       1,
     );
 
-    const sourceIndex = await fixtureRequest.get("/library/sources");
+    const sourceIndex = await fixtureGet("/library/sources");
     expect(sourceIndex.ok()).toBeTruthy();
     const sourceHtml = await sourceIndex.text();
     expect(sourceHtml).not.toContain("Publication Private Evidence");
@@ -595,13 +649,13 @@ test.describe("publication gate browser contract", () => {
   }) => {
     expect(await publicPenSlugs()).toEqual([...MODEL_SLUGS].sort());
 
-    const brandsResponse = await fixtureRequest.get("/api/entities?type=brand");
+    const brandsResponse = await fixtureGet("/api/entities?type=brand");
     expect(brandsResponse.ok()).toBeTruthy();
     expectNoStore(brandsResponse);
     const brands = (await brandsResponse.json()) as Array<{ slug: string }>;
     expect(brands.map((brand) => brand.slug)).toEqual([BRAND_SLUG]);
 
-    const browseResponse = await fixtureRequest.get("/api/browse?type=pen");
+    const browseResponse = await fixtureGet("/api/browse?type=pen");
     expect(browseResponse.ok()).toBeTruthy();
     expectNoStore(browseResponse);
     const browse = (await browseResponse.json()) as {
@@ -633,7 +687,7 @@ test.describe("publication gate browser contract", () => {
     expect(renderedModels).toEqual([...MODEL_PATHS].sort());
 
     for (const modelPath of MODEL_PATHS) {
-      const response = await fixtureRequest.get(modelPath);
+      const response = await fixtureGet(modelPath);
       expect(response.status(), modelPath).toBe(200);
       const html = await response.text();
       expect(html, modelPath).toContain("型号档案");
@@ -644,7 +698,7 @@ test.describe("publication gate browser contract", () => {
       expect([...brandPaths], modelPath).toEqual([BRAND_PATH]);
     }
 
-    const linksResponse = await fixtureRequest.get(
+    const linksResponse = await fixtureGet(
       `/api/links?slug=${BRAND_SLUG}&depth=2`,
     );
     expect(linksResponse.ok()).toBeTruthy();
@@ -665,7 +719,7 @@ test.describe("publication gate browser contract", () => {
     }
     expect([...directlyLinkedModels].sort()).toEqual([...MODEL_SLUGS].sort());
 
-    const graph = await fixtureRequest.get(`/graph?entity=${BRAND_SLUG}`);
+    const graph = await fixtureGet(`/graph?entity=${BRAND_SLUG}`);
     expect(graph.ok()).toBeTruthy();
     const graphHtml = await graph.text();
     for (const privateSlug of PRIVATE_SLUGS) {
@@ -684,13 +738,13 @@ test.describe("publication gate browser contract", () => {
       expect(MODEL_PATHS.includes(href) || href === BRAND_PATH).toBeTruthy();
     }
 
-    const sourceIndex = await fixtureRequest.get("/library/sources");
+    const sourceIndex = await fixtureGet("/library/sources");
     expect(sourceIndex.ok()).toBeTruthy();
     const sourceHtml = await sourceIndex.text();
     expect(sourceHtml).toContain("Publication Public Evidence");
     expect(sourceHtml).not.toContain("Publication Private Evidence");
 
-    const publicMedia = await fixtureRequest.get(
+    const publicMedia = await fixtureGet(
       `/api/image-proxy?id=${PUBLIC_MEDIA_ID}`,
       { maxRedirects: 0 },
     );
