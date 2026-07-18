@@ -5,75 +5,78 @@ status: draft
 nyquist_compliant: true
 wave_0_complete: false
 created: 2026-07-18
+revised: 2026-07-18
 ---
 
 # Phase 20 — Validation Strategy
 
-> 百科页面 Renderer 的反馈与验收契约。所有浏览器数据来自独立 disposable fixture；不得把 fixture 通过描述为真实 305 条内容已经发布。
+> Waves 1–3 use only focused Node/tsx contract tests created in their owning tasks. Real browser commands first appear in Wave 4 and always run through 'scripts/check-renderer.ts'. Fixture evidence never proves publication or image correctness for the real 305-row inventory.
 
----
+## Execution Preflight
+
+Before Phase 20 execution, read '.planning/phases/19-real-audit-evidence/19-VERIFICATION.md'; never rerun the Phase 19 wrapper. If its status is 'gaps_found', execution may continue only under the accepted user-directed content-track exception, must record that exception in Phase 20 summaries/evidence, and must not imply the Phase 19 debt vanished. Any other blocking verdict requires user direction.
 
 ## Test Infrastructure
 
 | Property | Value |
-|----------|-------|
-| **Framework** | Playwright desktop/mobile + TypeScript contract tests |
-| **Config file** | `playwright.config.ts`, `package.json` |
-| **Quick run command** | `pnpm exec playwright test tests/e2e/renderer.spec.ts --project=desktop` |
-| **Full suite command** | `pnpm exec playwright test tests/e2e/renderer.spec.ts --project=desktop --project=mobile && pnpm exec tsc --noEmit` |
-| **Estimated runtime** | quick target <60 seconds; full target <3 minutes |
-
----
+|---|---|
+| Wave 1 | 'tsx --test' loader/fixture contracts in 'tests/renderer/entity-page.test.ts' |
+| Waves 2–3 | 'tsx --test' Markdown/server-markup/responsive contracts in 'tests/renderer/components.test.tsx' |
+| Wave 4 | Playwright desktop/mobile only through 'scripts/check-renderer.ts' |
+| E2E server | Existing 'check:publication-gate -- --serve-e2e' borrowed-DB seam; no Phase 19 lifecycle edits |
+| Build | Runner creates owned DB first, then runs build with sanitized explicit fixture env |
+| Broad suites | Forbidden: 'pnpm test:e2e', 'check-phase19-regression', Phase 19 monolithic wrapper |
 
 ## Sampling Rate
 
-- **After every task commit:** Run the narrowest renderer contract or browser case named by that task.
-- **After every plan wave:** Run `pnpm exec playwright test tests/e2e/renderer.spec.ts --project=desktop --project=mobile`.
-- **Before `$gsd-verify-work`:** Renderer desktop/mobile, TypeScript and changed-file Biome checks must be green; run the existing desktop publication-gate spec once as focused regression.
-- **Max feedback latency:** 180 seconds. Do not use the Phase 19 monolithic wrapper in this phase.
+- After each Wave 1 task: run its named 'entity-page.test.ts' selector.
+- After each Wave 2–3 task: run its named 'components.test.tsx' selector.
+- Wave 4 Task 1: one runner invocation for renderer desktop+mobile and four screenshots.
+- Wave 4 Task 2: one runner invocation for Phase 20-owned boundary cases, then typecheck and exact-file Biome.
+- Wave 4 Task 3: blocking human approval of each fixture hero mapping.
 
----
+## 9/9 Task Verification Map
 
-## Per-Task Verification Map
+| Task ID | Plan | Wave | Requirement | Threat Ref | Test Type | Automated / Human Gate | File Exists | Status |
+|---|---:|---:|---|---|---|---|---|---|
+| 20-01-01 | 01 | 1 | PAGE-02, PAGE-03, PAGE-05, PAGE-06, PAGE-08 | T-20-04 | fixture + RED | 'tsx --test' selectors 'fixture boot|fixture safety'; RED must fail only for absent entity-page module | ❌ W0 | ⬜ pending |
+| 20-01-02 | 01 | 1 | PAGE-02, PAGE-03, PAGE-05, PAGE-08 | T-20-01, T-20-02, T-20-03 | loader contract | 'pnpm exec tsx --test --test-name-pattern "page loader|qualified content" tests/renderer/entity-page.test.ts' | ❌ W0 | ⬜ pending |
+| 20-02-01 | 02 | 2 | PAGE-01, PAGE-02, PAGE-07 | T-20-05 | Markdown/markup | 'pnpm exec tsx --test --test-name-pattern "heading|server markup|raw HTML|javascript URL" tests/renderer/components.test.tsx' | ❌ W0 | ⬜ pending |
+| 20-02-02 | 02 | 2 | PAGE-03, PAGE-04, PAGE-08 | T-20-06, T-20-07 | component contract | 'pnpm exec tsx --test --test-name-pattern "evidence modules" tests/renderer/components.test.tsx' | ❌ W0 | ⬜ pending |
+| 20-02-03 | 02 | 2 | PAGE-01, PAGE-02, PAGE-04, PAGE-06 | T-20-08 | route/server markup | 'pnpm exec tsx --test --test-name-pattern "route markup|PAGE-06 topics" tests/renderer/components.test.tsx && pnpm exec tsc --noEmit' | ❌ W0 | ⬜ pending |
+| 20-03-01 | 03 | 3 | PAGE-07 | T-20-09, T-20-10 | CSS/markup contract | 'pnpm exec tsx --test --test-name-pattern "responsive selectors|navigation|accessibility" tests/renderer/components.test.tsx' | ❌ W0 | ⬜ pending |
+| 20-04-01 | 04 | 4 | PAGE-01–PAGE-08 | T-20-11, T-20-13 | desktop/mobile E2E | 'pnpm exec tsx scripts/check-renderer.ts --spec=renderer --project=desktop,mobile --evidence-dir=.planning/phases/20-renderer/artifacts' | ❌ W0 | ⬜ pending |
+| 20-04-02 | 04 | 4 | PAGE-02, PAGE-08 | T-20-11, T-20-12 | boundary + scope | 'pnpm exec tsx scripts/check-renderer.ts --spec=boundary --project=desktop' plus typecheck/exact-file Biome | ❌ W0 | ⬜ pending |
+| 20-04-03 | 04 | 4 | PAGE-05 | T-20-13 | human visual | Approve brand/model entity ↔ asset ↔ rights ↔ attribution mappings in four screenshots/evidence table | ❌ W0 | ⬜ pending |
 
-| Task ID | Plan | Wave | Requirement | Threat Ref | Secure Behavior | Test Type | Automated Command | File Exists | Status |
-|---------|------|------|-------------|------------|-----------------|-----------|-------------------|-------------|--------|
-| 20-01-01 | 01 | 1 | PAGE-02, PAGE-03, PAGE-05, PAGE-08 | T-20-01 | Slug/type remain bound parameters and `public_entities` is the only authorization anchor | contract | `pnpm exec playwright test tests/e2e/renderer.spec.ts --project=desktop --grep "page loader"` | ❌ W0 | ⬜ pending |
-| 20-01-02 | 01 | 1 | PAGE-02, PAGE-03 | T-20-02 | Legacy, deprecated and unqualified sentinels never enter the page view model | contract | `pnpm exec playwright test tests/e2e/renderer.spec.ts --project=desktop --grep "qualified content"` | ❌ W0 | ⬜ pending |
-| 20-02-01 | 02 | 2 | PAGE-01, PAGE-02, PAGE-04, PAGE-06 | T-20-03 | Server HTML renders only the expected published story and approved public data | browser | `pnpm exec playwright test tests/e2e/renderer.spec.ts --project=desktop --grep "encyclopedia content"` | ❌ W0 | ⬜ pending |
-| 20-02-02 | 02 | 2 | PAGE-03, PAGE-05, PAGE-08 | T-20-04 | Optional unknown modules are omitted; media and canonical relations cannot silently fall back | browser | `pnpm exec playwright test tests/e2e/renderer.spec.ts --project=desktop --grep "evidence modules"` | ❌ W0 | ⬜ pending |
-| 20-03-01 | 03 | 3 | PAGE-07 | T-20-05 | Headings, long URLs, tables, images and relations remain readable without whole-page overflow | browser | `pnpm exec playwright test tests/e2e/renderer.spec.ts --project=mobile` | ❌ W0 | ⬜ pending |
-| 20-04-01 | 04 | 4 | PAGE-01–PAGE-08 | — | Phase 19 publication semantics and protected real inventory remain unchanged | regression | `pnpm exec playwright test tests/e2e/publication-gate.spec.ts --project=desktop` | ✅ | ⬜ pending |
+Status semantics: '⬜ pending' means not yet executed; '❌ W0' means the owning planned task creates the test/artifact. Do not mark RED/green before execution evidence exists.
 
-*Status: ⬜ pending · ✅ green · ❌ red · ⚠️ flaky*
+## Wave 0 Artifacts
 
----
+- Task 20-01-01 creates 'scripts/lib/renderer-fixture.ts' and 'tests/renderer/entity-page.test.ts', including environment guard adversaries and complete PAGE-06 sentinels.
+- Task 20-02-01 creates 'tests/renderer/components.test.tsx', including same-AST and raw HTML/JavaScript URL cases.
+- Task 20-04-01 creates 'scripts/check-renderer.ts' and 'tests/e2e/renderer.spec.ts'; no E2E command is valid before this wave.
 
-## Wave 0 Requirements
+## Required Adversarial Coverage
 
-- [ ] `tests/e2e/renderer.spec.ts` — isolated brand/pen fixture and PAGE-01–PAGE-08 assertions.
-- [ ] Fixture data includes a published brand with 15 models, a published model, unique expected stories, qualified specs/sources/variants/media, and deliberately unqualified sentinels.
-- [ ] Fixture cleanup owns only its generated IDs and database root; it does not reuse or modify Phase 19 lifecycle orchestration.
-- [ ] Desktop and mobile projects both execute real brand and model renderer pages.
+- Reject remote credentials, external inherited 'E2E_BASE_URL', protected-catalog path/alias, and missing fixture flag before resource access.
+- SQL-shaped slug/type cannot alter authorization or return another entity.
+- Raw HTML/script and 'javascript:' URLs are removed or inert after the existing Markdown sanitation path.
+- Legacy/deprecated/unqualified/generic-media sentinels never enter loader, server HTML, desktop, or mobile output.
 
----
+## PAGE-06 Completeness Matrix
 
-## Manual-Only Verifications
+The fixture story contains independent sentinels for: identity/product line; history; design/dimensions/materials/ergonomics; nib; attributed writing experience; filling/maintenance; variant boundaries; purchase checks. Every sentinel must pass in server markup, initial HTTP response, desktop, and mobile. A single story-start assertion is insufficient.
 
-| Behavior | Requirement | Why Manual | Test Instructions |
-|----------|-------------|------------|-------------------|
-| Desktop and mobile reading hierarchy is coherent | PAGE-07 | Automated assertions cannot fully judge reading hierarchy | Capture brand and model pages at desktop/mobile widths; verify summary, hero, story, facts, sources and relations appear in the specified order and no control obscures content. |
-| Entity image visually matches the named brand/model | PAGE-05 | File metadata and ownership cannot prove visual identity | Inspect each fixture/production candidate image against the named entity and recorded attribution before publication. |
+## PAGE-05 Visual Evidence Gate
 
----
+Automated checks prove current owner, qualified primary status, stable path, attribution, license, and source. Task 20-04-03 additionally requires human visual approval of each fixture entity-to-asset mapping using desktop/mobile screenshots and the evidence table. This approves fixture assets only; visual review for every real 305 image is explicitly Phase 23 work.
 
-## Validation Sign-Off
+## Phase Completion Gates
 
-- [x] All planned behaviors have an automated target or explicit Wave 0 dependency.
-- [x] Sampling continuity has no three consecutive tasks without automated verification.
-- [x] Wave 0 identifies every missing renderer fixture/test artifact.
-- [x] Commands use no watch-mode flags.
-- [x] Feedback target is under 180 seconds and excludes the monolithic wrapper.
-- [x] `nyquist_compliant: true` is set in frontmatter.
-
-**Approval:** strategy approved 2026-07-18; execution evidence pending
+- All nine task rows have current evidence.
+- Runner desktop/mobile and Phase 20-owned public-boundary modes are green.
+- TypeScript and exact changed-file Biome checks are green.
+- Four screenshots and '20-VERIFICATION-EVIDENCE.md' exist.
+- Human hero mapping checkpoint is approved.
+- Evidence states any Phase 19 'gaps_found' exception and makes no real-305/deployment claim.

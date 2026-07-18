@@ -190,7 +190,7 @@ v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史
   4. audit 只统计真正可公开的数据，任一硬 blocker 都使条目失败；CI fixture 能确定性覆盖 deprecated、pending、needs_source、镜像、无逐字段 citation、unresolved conflict 与合格实体
   5. CI 和生产门禁报告 `published blockers = 0`，且 sitemap、browse、API、graph 与 `public_entities` 的集合差异为 0
 
-**Plans**: 5/5 plans executed
+**Plans**: 5/5 plans complete
 
 **Wave 1 — safety/test seams**
 
@@ -233,7 +233,13 @@ v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史
   5. 品牌页列出其全部已发布型号及准确数量，型号页可返回唯一 canonical 品牌；两端链接与关系表一致
   5. 桌面与手机均可完整阅读章节导航、表格、来源、图片、版本和关系入口，无横向溢出或不可操作区域
 
-**Plans**: TBD
+**Plans**: 0/4 plans executed
+
+- [ ] 20-01-PLAN.md
+- [ ] 20-02-PLAN.md
+- [ ] 20-03-PLAN.md
+- [ ] 20-04-PLAN.md
+
 **UI hint**: yes
 
 ### Phase 21: Taxonomy 与身份归一
@@ -344,8 +350,8 @@ v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史
 | 16. 分类漫游与响应式体验 | v1.1 | Complete | Complete | 2026-07-13 |
 | 17. 全量回归与生产发布 | v1.1 | Complete | Complete | 2026-07-13 |
 | 18. 统一发布门禁 | v1.2 | 7/7 | Complete    | 2026-07-15 |
-| 19. 真实审计与证据契约 | v1.2 | 5/5 | In Progress | |
-| 20. 百科页面 Renderer | v1.2 | 0/TBD | Not started | - |
+| 19. 真实审计与证据契约 | v1.2 | 5/5 | Complete   | 2026-07-18 |
+| 20. 百科页面 Renderer | v1.2 | 0/4 | Planned    |  |
 | 21. Taxonomy 与身份归一 | v1.2 | 0/TBD | Not started | - |
 | 22. Montblanc 149 A 档样板 | v1.2 | 0/TBD | Not started | - |
 | 23. 现有 305 条库存清账 | v1.2 | 0/TBD | Not started | - |
