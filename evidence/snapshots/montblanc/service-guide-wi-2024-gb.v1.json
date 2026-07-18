@@ -1,0 +1,60 @@
+{
+  "schema": "fountain-pen-evidence-snapshot/v1",
+  "kind": "project_evidence_snapshot",
+  "source": {
+    "key": "montblanc-service-guide-2024-gb",
+    "title": "Montblanc Writing Instruments Service Guide 2024",
+    "canonical_url": "https://www.montblanc.com/on/demandware.static/-/Library-Sites-WWSharedLibrary/default/documents/ServiceGuide_WI_online_2024_GB.pdf",
+    "publisher": "Montblanc",
+    "source_tier": "primary",
+    "content_type": "application/pdf",
+    "page_count": 16,
+    "retrieved_at": "2026-07-18"
+  },
+  "archive_status": {
+    "external_archive_found": false,
+    "checked": [
+      "Internet Archive CDX",
+      "Common Crawl index"
+    ],
+    "note": "No independently retrievable archived copy was found on 2026-07-19. This project snapshot preserves only paraphrased facts and document locators; it does not preserve the source PDF or any source image."
+  },
+  "rights": {
+    "allowed_use": "summary_only",
+    "raw_document_stored": false,
+    "source_images_stored": false
+  },
+  "facts": [
+    {
+      "key": "brand-origin-1906",
+      "paraphrase_zh": "品牌将书写工具业务的起点追溯至 1906 年。",
+      "locator": "pdf-page-index:2; heading=Montblanc Creating New Heights; viewer-lines=22-40"
+    },
+    {
+      "key": "piston-fill-level",
+      "paraphrase_zh": "活塞上墨后，官方建议让约 4 至 6 滴墨水回流墨瓶，再把活塞旋回，以减少供墨器过饱和。",
+      "locator": "pdf-page-index:3; heading=Fountain Pen with Piston Mechanism; viewer-lines=58-73"
+    },
+    {
+      "key": "do-not-post-cap",
+      "paraphrase_zh": "官方保养说明建议书写时不要把笔帽套在笔尾，以免损伤笔身。",
+      "locator": "pdf-page-index:8; heading=Care Recommendations / General info; viewer-lines=131-138"
+    },
+    {
+      "key": "cleaning-interval",
+      "paraphrase_zh": "官方建议大约每三个月以温水清洁钢笔；更换墨水颜色或长期停用前也应清洁。",
+      "locator": "pdf-page-index:8; heading=Care Recommendations / Fountain Pen; viewer-lines=149-180"
+    },
+    {
+      "key": "nib-exchange-window",
+      "paraphrase_zh": "未曾书写且笔尖状态完好的新笔，通常可在购入后六周内按官方条件申请免费更换笔尖。",
+      "locator": "pdf-page-index:10; heading=Service / Nib exchange; viewer-lines=229-243"
+    }
+  ],
+  "verification": {
+    "reviewer": "phase22-curated-content",
+    "verified_at": "2026-07-19",
+    "source_pdf_sha256": null,
+    "note": "Populate source_pdf_sha256 only after the exact retrieved PDF bytes are retained and hashed; do not infer or fabricate it."
+  }
+}
