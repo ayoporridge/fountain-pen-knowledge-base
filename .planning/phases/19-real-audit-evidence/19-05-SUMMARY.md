@@ -139,7 +139,7 @@ There is **no claim that one final monolithic `--build-e2e` invocation passed af
 3. A canonical disposable-fixture supplement ran only the minimal stateful publication sequence: case 2 as the required publication setup, then the previously incomplete cases 3 and 4. Result: **3 passed in 2.0 minutes**.
 4. The same bounded supplement then ran the mobile project with one worker and an owned local server. Result: **14 passed in 12.4 seconds**.
 
-Together, the same final wrapper's lifecycle/build/first 34 desktop passes plus the post-restoration desktop 2→3→4 and mobile 14 provide timeboxed composite coverage. A future phase verifier should still run the monolithic wrapper once to retire this verification debt.
+Together, the same final wrapper's lifecycle/build/first 34 desktop passes plus the post-restoration desktop 2→3→4 and mobile 14 provide timeboxed composite coverage. The phase verifier should assess this evidence and its monolithic debt without automatically starting another wrapper run.
 
 ## Task and Recovery Commits
 
@@ -188,7 +188,7 @@ An earlier executor was interrupted by platform safety filtering/stream disconne
 
 ## Known Verification Debt and Residual Risk
 
-- **Monolithic wrapper debt:** lifecycle, build, every desktop case, and mobile all have current evidence, but not from one post-fix wrapper invocation. The phase verifier should run `pnpm exec tsx scripts/check-phase19-regression.ts --build-e2e` once.
+- **Monolithic wrapper debt:** lifecycle, build, every desktop case, and mobile all have current evidence, but not from one post-fix wrapper invocation. The verifier may accept the composite evidence; if it considers the debt blocking, it should record a validation gap rather than automatically restarting the timeboxed loop.
 - **Theoretical same-UID empty-directory replacement race:** Python's `dir_fd` helper revalidates device/inode and emptiness before `os.rmdir(name, dir_fd=parent_fd)`, but POSIX exposes no remove-by-open-directory-fd primitive. A malicious same-UID actor with access to the private temp parent could theoretically swap in another empty directory between the final identity check and `rmdir`. The helper cannot recursively delete that replacement or follow aliases, and any non-empty, shared, symlinked, identity-changed, or helper-unavailable state fails closed and retains the quarantine. This is accepted as narrow local harness debt, not a production trust-boundary guarantee.
 - **Pre-existing lint warning:** `src/app/globals.css:834` uses `!important`; unrelated and unchanged.
 
@@ -206,9 +206,9 @@ None.
 
 ## Next Phase Readiness
 
-- Plan 19-05 is complete with the browser verification debt above; Phase 19 itself remains **In Progress** until the phase verifier reviews this evidence.
-- Do not advance to Phase 20 or mark Phase 19 complete from this summary alone.
-- The verifier must preserve the authoritative post-incident main/WAL/SHM baseline and must not SQLite-open the protected source.
+- Plan 19-05 is complete with the browser verification debt above; Phase 19 remains **In Progress** until the verifier assesses the composite evidence.
+- If the verifier considers the debt blocking, record a validation gap; this does not automatically block separate content-track planning.
+- Any future verification must preserve the authoritative post-incident main/WAL/SHM baseline and must not SQLite-open the protected source.
 
 ## Self-Check: PASSED WITH DEBT
 

@@ -4,16 +4,16 @@ milestone: v1.2
 milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 19
 current_phase_name: real-audit-evidence
-status: executing
-stopped_at: Completed 19-04-PLAN.md
-last_updated: "2026-07-16T08:41:10.879Z"
-last_activity: 2026-07-16
-last_activity_desc: Phase 19 Plan 04 completed
+status: verifying
+stopped_at: Completed 19-05-PLAN.md; awaiting Phase 19 verification
+last_updated: "2026-07-18T13:42:26.232Z"
+last_activity: 2026-07-18
+last_activity_desc: Phase 19 Plan 05 completed with monolithic wrapper verification debt
 progress:
   total_phases: 16
   completed_phases: 8
   total_plans: 19
-  completed_plans: 18
+  completed_plans: 19
   percent: 50
 ---
 
@@ -28,10 +28,10 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 
 ## Current Position
 
-Phase: 19 (real-audit-evidence) — EXECUTING
+Phase: 19 (real-audit-evidence) — VERIFYING
 Plan: 5 of 5
-Status: Ready to execute
-Last activity: 2026-07-16 — Phase 19 Plan 04 completed
+Status: Plan execution complete — awaiting phase verification
+Last activity: 2026-07-18 — Phase 19 Plan 05 completed with documented composite browser evidence
 
 Progress: [█████░░░░░] 50%
 
@@ -59,6 +59,7 @@ Progress: [█████░░░░░] 50%
 | Phase 19 P02 | 52 min | 2 tasks | 3 files |
 | Phase 19 P03 | 48 min | 2 tasks | 6 files |
 | Phase 19 P04 | 54 min | 3 tasks | 10 files |
+| Phase 19 P05 | 34 min | 3 tasks | 10 files |
 
 ## Accumulated Context
 
@@ -100,6 +101,8 @@ Progress: [█████░░░░░] 50%
 - [Phase 19]: Protected audit sources use checkpointed exclusive copies and are never SQLite-opened — Live verification showed normal and readonly SQLite access can delete or retime sidecars; empty-WAL/no-journal/single-link copies preserve the source while all migration and queries run only on owned files.
 - [Phase 19]: Raw inventory, content readiness, and public lifecycle remain separate audit dimensions — The 305-row universe must remain complete while blocker-free drafts are publishable but not legacy/library complete until they are in public_entities.
 - [Phase 19]: Audit limits are presentation-only — Canonical NDJSON, CSV, summary, hashes, verdict, and exit semantics derive from the complete sorted universe before any terminal slice.
+- [Phase 19]: Final browser acceptance is timeboxed composite evidence with explicit monolithic debt. — The verifier assesses the composite evidence without automatically rerunning the wrapper; if the debt blocks acceptance, it records a validation gap while separate content-track planning may proceed.
+- [Phase 19]: Artifact and fixture cleanup is capability-bound and fail-closed; uncertain ownership or surviving children retain owned resources instead of pathname-recursive deletion. — Cleanup safety takes precedence over deleting temporary debris when ownership or process termination cannot be proven.
 
 ### Pending Todos
 
@@ -113,10 +116,10 @@ None.
 
 ## Next Action
 
-执行 `19-05-PLAN.md`：在事故后稳定基线上生成真实 305-row artifacts，验证 public parity，并完成 disposable build/E2E regression。
+由 Phase 19 verifier 评估 composite evidence 与 monolithic debt；不自动重跑 wrapper。若 debt 被判定为阻断，则登记 validation gap，内容主线可另行推进。
 
 ## Session Continuity
 
-Last session: 2026-07-16T08:41:10.873Z
-Stopped at: Completed 19-04-PLAN.md
+Last session: 2026-07-18T13:42:26.227Z
+Stopped at: Completed 19-05-PLAN.md; awaiting Phase 19 verification
 Resume file: None
