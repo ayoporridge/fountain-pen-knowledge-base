@@ -1,25 +1,24 @@
-import { createHash } from "node:crypto";
-import fs from "node:fs";
-import path from "node:path";
 import assert from "node:assert/strict";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
 import test from "node:test";
-import {
-  cleanupPhase19Fixture,
-  createPhase19Fixture,
-} from "../../scripts/lib/phase19-fixtures";
+import { type Client, createClient } from "@libsql/client";
 import { applyPhase22MontblancContent } from "../../scripts/apply-phase22-content";
+import {
+  assertCatalogSnapshotUnchanged,
+  copyCheckpointedCatalogToDisposableCopy,
+  snapshotCatalogFiles,
+} from "../../src/lib/audit/read-only-catalog";
+import { migrateDatabase } from "../../src/lib/db";
 
 const ROOT = process.cwd();
 const REAL_CATALOG = path.join(ROOT, "data", "fpkg.db");
 const MONTBLANC_ID = "CJM8uLY0LmIX";
 const MONTBLANC_149_ID = "1fojl5ZRSeua";
 
-function sha256(filePath: string): string {
-  return createHash("sha256").update(fs.readFileSync(filePath)).digest("hex");
-}
-
 async function scalar(
-  client: Awaited<ReturnType<typeof createPhase19Fixture>>["client"],
+  client: Client,
   sql: string,
   args: string[] = [],
 ): Promise<number> {
@@ -28,13 +27,35 @@ async function scalar(
 }
 
 test("Phase 22 publishes sourced Montblanc brand then 149 on an owned copy", async () => {
-  const protectedHash = sha256(REAL_CATALOG);
-  const fixture = await createPhase19Fixture();
+  const protectedSnapshot = snapshotCatalogFiles(REAL_CATALOG);
+  const ownedRoot = fs.realpathSync.native(
+    fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-phase22-")),
+  );
+  const databasePath = path.join(ownedRoot, "catalog.db");
+  const copy = copyCheckpointedCatalogToDisposableCopy(
+    REAL_CATALOG,
+    databasePath,
+    ownedRoot,
+    { expectedSourceSnapshot: protectedSnapshot },
+  );
+  const client = createClient({ url: `file:${copy.destinationPath}` });
   try {
-    const first = await applyPhase22MontblancContent(fixture.client, {
+    await migrateDatabase(client);
+    const applyOptions = {
       workspaceRoot: ROOT,
       reviewer: "phase22-curated-content",
-    });
+      databasePath: copy.destinationPath,
+      ownedRoot,
+      protectedCatalogPath: REAL_CATALOG,
+      protectedCatalogSnapshot: protectedSnapshot,
+      env: {
+        ...process.env,
+        TURSO_DATABASE_URL: "",
+        TURSO_AUTH_TOKEN: "",
+        FPKG_DATABASE_URL: "",
+      },
+    } as const;
+    const first = await applyPhase22MontblancContent(client, applyOptions);
 
     assert.deepEqual(
       first.entities.map((entity) => [entity.entityId, entity.outcome]),
@@ -44,7 +65,7 @@ test("Phase 22 publishes sourced Montblanc brand then 149 on an owned copy", asy
       ],
     );
 
-    const publicRows = await fixture.client.execute({
+    const publicRows = await client.execute({
       sql: `
         SELECT id, type, length(body_md) AS body_length
         FROM public_entities
@@ -63,7 +84,7 @@ test("Phase 22 publishes sourced Montblanc brand then 149 on an owned copy", asy
     for (const entityId of [MONTBLANC_ID, MONTBLANC_149_ID]) {
       assert.equal(
         await scalar(
-          fixture.client,
+          client,
           `SELECT blocker_count AS value
              FROM public_entity_readiness
             WHERE entity_id = ? AND contract_version = 3`,
@@ -73,11 +94,10 @@ test("Phase 22 publishes sourced Montblanc brand then 149 on an owned copy", asy
       );
       assert.equal(
         await scalar(
-          fixture.client,
+          client,
           `SELECT count(*) AS value
-             FROM entity_content_reviews review
+             FROM publication_v2_current_reviews review
             WHERE review.entity_id = ?
-              AND review.status = 'approved'
               AND review.review_kind IN ('fact', 'language', 'media', 'publication')`,
           [entityId],
         ),
@@ -87,7 +107,7 @@ test("Phase 22 publishes sourced Montblanc brand then 149 on an owned copy", asy
 
     assert.equal(
       await scalar(
-        fixture.client,
+        client,
         `SELECT count(DISTINCT evidence.field_key) AS value
            FROM spec_field_evidence evidence
            JOIN model_specs spec ON spec.id = evidence.model_spec_id
@@ -98,7 +118,7 @@ test("Phase 22 publishes sourced Montblanc brand then 149 on an owned copy", asy
     );
     assert.equal(
       await scalar(
-        fixture.client,
+        client,
         `SELECT count(*) AS value
            FROM publication_v2_source_group_counts
           WHERE entity_id = ?
@@ -110,7 +130,7 @@ test("Phase 22 publishes sourced Montblanc brand then 149 on an owned copy", asy
     );
     assert.equal(
       await scalar(
-        fixture.client,
+        client,
         `SELECT count(*) AS value
            FROM media_assets
           WHERE entity_id = ? AND usage_status = 'primary'
@@ -121,7 +141,7 @@ test("Phase 22 publishes sourced Montblanc brand then 149 on an owned copy", asy
     );
     assert.equal(
       await scalar(
-        fixture.client,
+        client,
         `SELECT count(*) AS value
            FROM entity_links
           WHERE source_id = ? AND target_id = ? AND link_type = 'made_by'`,
@@ -130,22 +150,19 @@ test("Phase 22 publishes sourced Montblanc brand then 149 on an owned copy", asy
       1,
     );
 
-    const revisionsBeforeReplay = await fixture.client.execute({
+    const revisionsBeforeReplay = await client.execute({
       sql: `SELECT entity_id, content_revision
               FROM entity_publications
              WHERE entity_id IN (?, ?)
              ORDER BY entity_id`,
       args: [MONTBLANC_ID, MONTBLANC_149_ID],
     });
-    const replay = await applyPhase22MontblancContent(fixture.client, {
-      workspaceRoot: ROOT,
-      reviewer: "phase22-curated-content",
-    });
+    const replay = await applyPhase22MontblancContent(client, applyOptions);
     assert.deepEqual(
       replay.entities.map((entity) => entity.outcome),
       ["noop", "noop"],
     );
-    const revisionsAfterReplay = await fixture.client.execute({
+    const revisionsAfterReplay = await client.execute({
       sql: `SELECT entity_id, content_revision
               FROM entity_publications
              WHERE entity_id IN (?, ?)
@@ -157,8 +174,9 @@ test("Phase 22 publishes sourced Montblanc brand then 149 on an owned copy", asy
       revisionsBeforeReplay.rows.map((row) => ({ ...row })),
     );
   } finally {
-    await cleanupPhase19Fixture(fixture);
+    client.close();
+    fs.rmSync(ownedRoot, { recursive: true, force: true });
   }
 
-  assert.equal(sha256(REAL_CATALOG), protectedHash);
+  assertCatalogSnapshotUnchanged(protectedSnapshot);
 });

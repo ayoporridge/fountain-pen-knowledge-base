@@ -6,6 +6,17 @@ const PUBLIC_MEDIA_LICENSES = [
   "CC BY-SA 3.0 de",
   "CC BY-SA 4.0",
   "Public domain",
+  "cc0",
+  "cc0-1.0",
+  "public-domain",
+  "cc-by",
+  "cc-by-2.0",
+  "cc-by-3.0",
+  "cc-by-4.0",
+  "cc-by-sa",
+  "cc-by-sa-2.0",
+  "cc-by-sa-3.0",
+  "cc-by-sa-4.0",
   "BSD",
 ] as const;
 
