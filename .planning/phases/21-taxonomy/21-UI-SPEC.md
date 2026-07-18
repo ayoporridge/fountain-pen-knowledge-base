@@ -5,6 +5,7 @@ status: draft
 shadcn_initialized: false
 preset: none
 created: 2026-07-19
+revised: 2026-07-19
 inherits: 20-renderer/20-UI-SPEC.md
 ---
 
@@ -23,6 +24,8 @@ inherits: 20-renderer/20-UI-SPEC.md
 | Input | Locked contract |
 |---|---|
 | `21-IDENTITY-RESEARCH.md` | MR/Metropolitan/Cocoon、Elabo/Falcon、Moonman/Majohn、PGS/四季织、JunLai/Wing Sung 630、Asvine P36 的 canonical 与层级结论 |
+| `V1.2-MODEL-COVERAGE.md` / `V1.2-OFFICIAL-COVERAGE-GAPS-2026-07-18.md` | Waterman、Opus 88、Leonardo、Aurora、SKB/Penton/SIKIB 的已证实拆分边界与未决项 |
+| Phase 19 inventory ledger | 当前旧 slug、旧名称、draft/publication 状态与品牌关系基线 |
 | `REQUIREMENTS.md` TAX-01–06、EXP-05 | alias 归一、merge/split/rename/retire、family/edition/variant、争议身份 fail closed |
 | `REQUIREMENTS.md` PUB-03/04/07、PAGE-08 | `public_entities` 为唯一公开集合；品牌全部型号与型号唯一品牌双向一致 |
 | `20-UI-SPEC.md` | Warm Pen Atlas 视觉 token、百科 shell、44px 触控、mobile 无横向溢出、无空状态卡 |
@@ -31,17 +34,18 @@ inherits: 20-renderer/20-UI-SPEC.md
 
 ## No-New-Surface Boundary
 
-Phase 21 **不新增任何公开 surface**。允许的 UI 变化只有现有百科 shell 内的身份文本、层级文本、canonical 链接和已有 `版本差异` 内容。
+Phase 21 **不新增页面模板或 route type**。允许的 UI 变化只有现有百科 shell 内的身份文本、层级文本、canonical 链接和已有 `版本差异` 内容。经身份决议、内容审核与 publication gate 批准的新 canonical model，可以复用既有 `/pen/[slug]` route；这不是新增 surface，也绝不允许先创建公开空壳。
 
 | In scope | Explicitly out of scope |
 |---|---|
-| 修正现有 H1、breadcrumb、metadata、JSON-LD 与 canonical URL | 新页面模板、alias 详情页、edition/variant 独立页 |
+| 修正现有 H1、breadcrumb、metadata、JSON-LD 与 canonical URL | 新页面模板、route type、alias 详情页、edition/variant 独立页 |
+| 为已通过 gate 的真实 sibling model 复用既有 `/pen/[slug]` | 未通过 gate 的 canonical candidate、family、edition 或 variant 空壳页 |
 | 在现有 header 增加可省略的 `亦称` / `地区名称` / `曾用名` 文本行 | 搜索、搜索建议、LLM/Chat、AI 解释 |
 | 在现有 breadcrumb / `版本差异` 中表达 family → model → edition → variant | taxonomy 管理后台、审核队列、争议说明页 |
 | 旧 URL 永久重定向到现有 canonical 页面或最接近的现有 canonical 父页面 | redirect 选择页、迁移提示页、toast、modal |
 | 去重品牌型号列表、关系入口和探索链接 | 新 palette、字体、icon library、component registry 或动效语言 |
 
-不存在独立 route 的 family、edition 或 variant 只显示为非链接层级文本或现有 `版本差异` 条目；不得为了让层级“可点击”而创建空壳页。
+不存在独立 route 的 family、edition 或 variant 只显示为非链接层级文本或现有 `版本差异` 条目；不得为了让层级“可点击”而创建空壳页。只有 coverage/identity 文档明确为稳定独立型号、迁移计划锁定 canonical identity/slug，且完整通过 `public_entities` gate 后，才能复用现有型号 route。
 
 ---
 
@@ -113,7 +117,7 @@ Accent reserved for: 可点击链接、focus-visible outline、当前目录状�
 1. canonical breadcrumb；
 2. type kicker；
 3. 唯一 canonical H1；
-4. 可选 identity lines：`地区名称` → `亦称` → `曾用名`；
+4. 可选 identity lines：`地区名称` → `亦称` → `曾用名` → `生产方`；
 5. 60–160 字 summary；
 6. 型号唯一 `品牌：{canonical brand}` 链接；
 7. 其余 Phase 20 模块。
@@ -122,12 +126,13 @@ Identity line 是 header 内的语义 `<dl>` / description rows，不新建 card
 
 ### Title, Alias and Region Rules
 
-- H1 只显示 canonical 中文展示名；地区名、旧名和市场俗称不得与 H1 并列成多个标题。
+- H1 只显示当前 canonical 主名称；地区名、历史名、市场俗称及“日本名/海外名/中国名”等括注一律移到 identity row。H1 不得重复 identity row，例如不得写 `百乐 MR／Metropolitan（日本名 Cocoon，中国名 88G）` 或 `百乐 Elabo（海外名 Falcon）万年笔`。
 - `地区名称` 格式为 `{地区}：{名称}`，多项以 ` · ` 分隔，例如 `日本：Cocoon · 海外：Metropolitan · 中国：88G`。
 - `亦称` 只显示已审核、确实指向同一实体的 public aliases；`曾用名` 只显示历史品牌名或旧商标。
 - canonical 名本身、仅大小写/全半角/标点不同的重复项、内部 key、错误 alias 与未决候选必须去重或排除。
 - alias 是解释文本，不是第二条 canonical link；旧 alias URL 的可达性由 redirect 实现。
 - licensed marketing name 不是第二 canonical 品牌。仅在身份已解决并公开后，可用普通文本 `授权销售名：{name}（{scope/date}）`；它不得进入型号页的 `品牌` 区。
+- 证据合格且 scope 明确的 producer 使用普通文本 `生产方：{producer}`。producer 不进入 H1、`品牌` 字段、breadcrumb、品牌型号 count 或 canonical brand JSON-LD；没有 approved producer 时整行省略。
 
 ### Metadata and Structured Data
 
@@ -152,6 +157,8 @@ Redirect 在 metadata 和页面 HTML 生成前完成；旧 route 不得先渲染
 | target 仍为 draft / identity dispute | 旧 URL 与 canonical candidate 都返回 404；不得 redirect 到隐藏页或公开迁移诊断 |
 
 成功 redirect 后，地址栏、H1、breadcrumb、canonical metadata 与 JSON-LD 全部反映目标实体。不得有 redirect chain、loop、alias 页面 200 或一个旧 URL 随机落到多个目标之一。
+
+任何 case 若现有 research 只锁定 canonical display name、尚未锁定 canonical slug 或 target mapping，则该 target 保持 draft，旧 URL 保持 404。planner 必须先在 migration manifest 中写出 exact slug、old→target mapping 与证据依据；禁止按名称自行拼 slug、随机挑 child 或提前启用 redirect。
 
 ---
 
@@ -190,7 +197,7 @@ Redirect 在 metadata 和页面 HTML 生成前完成；旧 route 不得先渲染
 ### Model Page
 
 - `品牌` 区恰好显示一个 public canonical brand link；0 或多于 1 条时沿用 Phase 20 fail-closed，拒绝渲染 partial page。
-- 历史商标、授权销售标和制造者关系不能冒充第二 canonical brand；如需呈现，只能作为已审核的普通 identity/fact 文本。
+- 历史商标、授权销售标和 producer 不能冒充第二 canonical brand；如需呈现，只能作为已审核的 `曾用名`、`授权销售名` 或 `生产方` 普通文本。
 - family/edition/variant 关系不能进入 `品牌` 区，也不能被 graph/recommendation 当作品牌归属证明。
 
 ### Navigation Dedupe
@@ -216,10 +223,24 @@ Redirect 在 metadata 和页面 HTML 生成前完成；旧 route 不得先渲染
 
 | Case | Before（禁止继续出现） | After（可见合同） |
 |---|---|---|
-| Cocoon ≠ 贵妃 | H1 `百乐 Pilot 贵妃 Cocoon`；把 `贵妃` 当 Cocoon alias；Cocoon/Metropolitan/88G 重复型号 | 单一 H1 `百乐 MR／Metropolitan（日本名 Cocoon，中国名 88G）`；breadcrumb 为 `首页 › 百乐 Pilot › {canonical H1}`；`地区名称：日本：Cocoon · 海外：Metropolitan · 中国：88G`；title/OG/JSON-LD 均用 canonical H1；`贵妃` 在 H1、alias、breadcrumb、metadata、JSON-LD 中全部缺席；旧错误 slug permanent redirect 到 canonical model；FP-60R 卡利贵妃保持独立身份 |
-| Elabo / Falcon | 两个重复型号、两个品牌列表项或把 Falcon nib 当成 Falcon 成品型号 | 单一 H1 `百乐 Elabo（海外名 Falcon）万年笔`；breadcrumb 为 `首页 › 百乐 Pilot › {canonical H1}`；`地区名称：日本：Elabo · 海外：Falcon`；Elabo/Falcon 旧 route 都 redirect 到同一 canonical URL/metadata；百乐品牌页只计一个 model；FA/Falcon nib 只作技术关系 |
-| PGS 四季织 | `写乐 Sailor 四季织 1224` 被计为基础 model；四个配色各自进入品牌全部型号 | 品牌页只列一次 `写乐 Professional Gear Slim（PGS）万年笔`；redirect 后 breadcrumb 为 `首页 › 写乐 Sailor › {PGS canonical H1}`；现有 `版本差异` 中显示 `Professional Gear › Professional Gear Slim › SHIKIORI／四季织 11-1224 › {配色}`；旧四季织 route redirect 到 PGS canonical page 的 `#shikiori-11-1224`；H1 与 metadata 仍为 PGS canonical model，edition/color 不增加型号 count |
-| JunLai 630 | 同时出现 `Wing Sung 630` 与 `JunLai 630`；或未经解决就挂到 Wing Sung 品牌 | 当前中等置信度/授权冲突未完成 publication 前，两条 route 均 404，所有发现入口与 metadata 均无该项。未来只有在身份解决并重新发布后，才显示单一 H1 `君来 JunLai 630`；`Wing Sung／永生 630` 仅作有时间与 6 系 scope 的授权销售名，旧 route redirect 到 JunLai canonical；绝不把 JunLai 与 Wing Sung 全局品牌合并 |
+| Cocoon ≠ 贵妃 | H1 `百乐 Pilot 贵妃 Cocoon`；把 `贵妃` 当 Cocoon alias；Cocoon/Metropolitan/88G 重复型号 | 单一 H1 `百乐 MR 万年笔`；breadcrumb 为 `首页 › 百乐 Pilot › 百乐 MR 万年笔`；`地区名称：日本：Cocoon · 海外：Metropolitan · 中国：88G`；title/OG/JSON-LD 均用 H1；`贵妃` 在 H1、alias、breadcrumb、metadata、JSON-LD 中全部缺席；旧错误 slug 只在 exact mapping 锁定且 target published 后 redirect；FP-60R 卡利贵妃保持独立身份 |
+| Elabo / Falcon | 两个重复型号、两个品牌列表项或把 Falcon nib 当成 Falcon 成品型号 | 单一 H1 `百乐 Elabo 万年笔`；breadcrumb 为 `首页 › 百乐 Pilot › 百乐 Elabo 万年笔`；`地区名称：日本：Elabo · 海外：Falcon`；Elabo/Falcon old route 都指向同一 canonical URL/metadata；百乐品牌页只计一个 model；FA/Falcon nib 只作技术关系 |
+| PGS 四季织 | `写乐 Sailor 四季织 1224` 被计为基础 model；四个配色各自进入品牌全部型号 | H1 `写乐 Professional Gear Slim 万年笔`，`亦称：PGS`；品牌页只列一次该 model；redirect 后 breadcrumb 使用 canonical H1；现有 `版本差异` 中显示 `Professional Gear › Professional Gear Slim › SHIKIORI／四季织 11-1224 › {配色}`；旧四季织 route redirect 到 canonical model 的 `#shikiori-11-1224`；edition/color 不增加型号 count |
+| JunLai 630 | 同时出现 `Wing Sung 630` 与 `JunLai 630`；或未经解决就挂到 Wing Sung 品牌 | 当前中等置信度/授权冲突未完成 publication 前，两条 route 均 404，所有发现入口与 metadata 均无该项。未来只有在身份解决并重新发布后，才显示 H1 `君来 JunLai 630`、`生产方：上海格林` 与 scoped `授权销售名：Wing Sung／永生`；producer/licensed name 均不进入品牌字段、breadcrumb 或 count；绝不把 JunLai 与 Wing Sung 全局品牌合并 |
+
+### Coverage Cases Requiring Exact Migration Rows
+
+下表中的旧 slug 来自 Phase 19 ledger，canonical 判断来自现有 v1.2 coverage/identity 文档。`未锁定` 不是 planner 的自由发挥项：必须保持 draft/404，直到 migration manifest 用证据锁定 exact slug 与 mapping。
+
+| Case | Exact old slug | Canonical display / status | Redirect acceptance | Brand-count / alias-variant acceptance |
+|---|---|---|---|---|
+| Waterman split | `/pen/威迪文-waterman-查尔斯顿-hemisphere` | `威迪文 Waterman Hémisphère` 与历史型号 `威迪文 Waterman Charleston`；两个 canonical slug 在现有文档中未锁定，故均先 draft | 旧内容已被研究判定实际指向 Hémisphère；只有 Hémisphère exact slug 锁定且 published 后，旧 slug 才 redirect 到它。Charleston 使用另一个经 gate 批准的 `/pen/[slug]` | 结构上一个混合 model 拆为两个 model，Waterman canonical model count 净 `+1`；public count 只随每个 child 独立过 gate 增加；两者不是 alias/variant |
+| Opus 88 split | `/pen/opus-88-demo-kolora` | `Opus 88 Demo` 与 `Opus 88 Koloro`；canonical slugs 未锁定，先 draft；`Kolora` 是错误拼写 | 旧混合页不能诚实选择 child：两个 child 均 published 后 redirect 到既有 `/brand/opus88`；此前旧 slug 404 | 结构 count `1→2`、净 `+1`；Demo/Koloro 是两个 models，不互为 alias/variant；`Kolora` 不作可见 alias |
+| Leonardo split | `/pen/leonardo-furore-momento-magico` | `Leonardo Furore` 与 `Leonardo Momento Magico`；canonical slugs 未锁定，先 draft | 两个 child 均 published 后，旧混合 slug redirect 到既有 `/brand/leonardo`；此前 404 | 结构 count `1→2`、净 `+1`；Furore 与 Momento Magico 的造型/上墨不同，不互为 alias/variant |
+| Aurora placeholder | `/pen/奥罗拉-aurora` | `Aurora 88` 与 `Aurora Optima` 是真实 models；canonical slugs 未锁定，先 draft；泛称占位必须 retired | 品牌公开时旧泛称 redirect 到既有 `/brand/aurora`，绝不随机指向 88 或 Optima；否则 404 | 泛称 placeholder 不计 model；两个 target 各自过 gate 后分别计数。若以旧 row 承接 88，manifest 必须明示，planner 不得猜；generic hero/story/tags 不得继承 |
+| SKB/Penton/SIKIB | `/pen/skb派顿-f10-f21` | F10/F21 的 canonical brand、producer、canonical slugs 均未解决；保持 draft；不得挂台湾 SKB | old slug 与所有 candidate routes 均 404；没有 public redirect target | 不计台湾 SKB 或任何品牌 model count；F10/F21、Penton、SIKIB 不得互设 alias。未来 producer 证据充分只显示 `生产方`，不自动决定品牌 |
+| Majohn A1 | `/pen/末匠-majohn-a1-按动` | key `majohn-a1`；H1 `末匠 Majohn A1 按动钢笔`；当前仍因内容 gate 保持 draft | 当前 exact route 404；达到完整内容 gate 后原 route 成为 canonical 200。未在 ledger 出现的 Moonman slug 不得凭空创建 | `/brand/majohn` 只增加/保留一个 A1；`亦称：Moonman A1`，brand 页可显示 `曾用名：Moonman`；clip/clipless、颜色、nib width 为 variants |
+| Asvine P36 | `/pen/意斯华-p36` | key `asvine-p36`；H1 `Asvine P36 钛合金活塞钢笔`；canonical brand 为 `Asvine`，但 route-preserve 与 rename 的源文档存在未决，保持 draft | manifest 必须明确“保留旧 slug 为 canonical”或“old→new exact slug redirect”之一；锁定前 404，planner 不得自行生成 `/pen/asvine-p36` | 全局 model count 不变；从错误的意斯华品牌归属转到 Asvine 后，旧品牌 `-1`、Asvine `+1`；`地区名称：中国市场：意斯华 P36`；Titanium 是描述，Asvine/Bock nib unit 与 nib width 为 options/variants |
 
 ---
 
@@ -259,6 +280,7 @@ Redirect 在 metadata 和页面 HTML 生成前完成；旧 route 不得先渲染
 | Historical brand/mark | `曾用名` |
 | Product hierarchy | `产品层级` |
 | Scoped licensed name | `授权销售名` |
+| Qualified producer | `生产方` |
 | Canonical brand | 沿用 Phase 20：`品牌：{品牌名}` |
 | Brand model list | 沿用 Phase 20：`全部型号（{count}）` |
 | Variant section | 沿用 Phase 20：`版本差异` |
@@ -274,7 +296,7 @@ Primary CTA 继续沿用 `继续探索关系图谱`；Phase 21 不增加 CTA。O
 | Existing responsibility | Phase 21 extension |
 |---|---|
 | `PublishedPageData` / loader | 只返回 canonical root、approved public aliases/scopes、唯一 brand 与去重 hierarchy；继续从 `public_entities` 授权 |
-| `EntityHeader` | canonical H1；可选 identity rows；canonical breadcrumb，不查询或推断 identity |
+| `EntityHeader` | canonical H1；可选 identity rows（含合格 producer）；canonical breadcrumb，不查询或推断 identity |
 | `BrandMuseum` | 按 canonical entity ID 输出全部 public models 与准确 count；不显示 editions/aliases |
 | `ModelArchive` | 在既有 `版本差异` 中输出 edition/variant 层级与稳定 fragment；不创建独立页 |
 | route metadata | redirect 优先；所有 metadata/JSON-LD 使用 canonical root；approved alias 仅进入 `alternateName` |
@@ -298,6 +320,30 @@ Primary CTA 继续沿用 `继续探索关系图谱`；Phase 21 不增加 CTA。O
 
 ---
 
+## TAX-06 Migration Visibility Acceptance
+
+Merge、split、rename、retire fixture 必须同时证明页面身份正确和旧实体零泄漏：
+
+- old route 只能是约定的 308 或 404，绝不返回旧实体 200；所有 canonical navigation、breadcrumb、metadata 与 JSON-LD 不含 old ID/slug/name sentinel。
+- target hero 必须是 target-exact、qualified primary media 且只出现一次。旧 hero 只有完成 owner/scope 迁移与 media re-review 才可使用；ambiguous split media 不复制给两个 child。没有合格 hero 的 child 保持 draft。
+- source/citation 只迁移到 evidence scope 能证明的 target；ambiguous row 不复制。页面 source list 按 canonical source identity 去重，visible citation locator 只出现于正确 target。
+- tag 只迁移语义仍成立的 canonical tag，并按 canonical tag ID 去重；old entity tag、generic placeholder tag 和 redirect-source relation 不出现在 DOM、graph 或 recommendations。
+- fixture 为 old hero alt/attribution、source title、citation locator、tag label、relation name 各放唯一 sentinel；目标页分别断言允许迁移项恰好 1 次、禁止/未决项 0 次，old page 0 个可索引 HTML/metadata 节点。
+
+---
+
+## EXP-01 Data Acceptance
+
+EXP-01 不产生公开统计页；验收产物是可 diff 的 NDJSON/CSV + summary：
+
+- 109 个 coverage 处理项各恰好一行，包含 stable item ID、before entity/slug、primary action（`create|merge|split|rename|alias|retire`）、canonical target(s)、brand、variant/edition disposition、publication result 与 blocker。
+- 六类 primary action 计数之和必须等于 109；辅助 redirect/tag/evidence 步骤不得重复计为第二个处理项。
+- 同时输出 before/after canonical model ID sets、各品牌 before/after canonical model sets 与 exact set diff。`net canonical models = |after set| - |before set|`，不得把 109 或 action 次数当净新增数。
+- summary count 必须能逐行回算，且 after set 与迁移后实际 canonical inventory 双向 `EXCEPT = 0`；draft/retired/alias/edition/variant 不计 public brand count。
+- canonical slug、mapping 或归属未锁定的行只能输出 `draft + blocker + no redirect`，不得为凑齐 action/count 推测答案。
+
+---
+
 ## Verification Contract
 
 UI checker、planner 与 executor至少验证：
@@ -307,7 +353,9 @@ UI checker、planner 与 executor至少验证：
 - Elabo/Falcon 在百乐品牌 `全部型号` 中只出现一个 link，型号页只有一个 canonical brand。
 - PGS 四季织 fixture 的 edition/colors 只出现在 `版本差异` hierarchy，不增加品牌 model count；旧 slug 到达稳定 fragment。
 - JunLai 630 unresolved fixture 在 detail、brand models、browse、sitemap、graph、recommendations、metadata/JSON-LD 中均不可见；两条 direct route 都是 404。
+- Waterman、Opus 88、Leonardo、Aurora、SKB/Penton/SIKIB、Majohn A1、Asvine P36 逐行满足上表 old slug、draft/redirect、brand count 与 alias/variant 约束；未锁定 slug 没有被 planner 猜出。
 - merge 后同一 canonical target 在 breadcrumb/models/relations/explore 的同一区域只出现一次；split child 各出现一次且 href 已 canonicalize。
+- TAX-06 fixture 的旧 hero/source/citation/tag/relation 禁止 sentinels 为 0，允许迁移项恰好 1；EXP-01 109 行、六类计数、canonical set diff 与实际 inventory 全部精确对账。
 - brand model heading count 等于实际 canonical model links；model canonical brand link 恰好 1 条。
 - desktop 与 mobile 上长中英文 H1、地区名称、层级路径和型号列表均完整可读，page-level `scrollWidth <= clientWidth`。
 - JS disabled / hydration pending 时 canonical name、identity lines、breadcrumb、hierarchy 与 canonical relations 已存在于 server HTML。
