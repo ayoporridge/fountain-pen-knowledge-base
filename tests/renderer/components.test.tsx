@@ -2,8 +2,10 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import React, { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
+import { BrandMuseum } from "@/components/library/BrandMuseum";
 import { EncyclopediaShell } from "@/components/library/EncyclopediaShell";
-import type { ModelPageData } from "@/lib/entity-page";
+import { ModelArchive } from "@/components/library/ModelArchive";
+import type { BrandPageData, ModelPageData } from "@/lib/entity-page";
 import { renderMarkdownDocument } from "@/lib/markdown";
 
 Object.assign(globalThis, { React });
@@ -61,6 +63,59 @@ function modelPage(overrides: Partial<ModelPageData> = {}): ModelPageData {
       name: "Renderer Brand",
       summary: "Renderer Brand summary",
     },
+    ...overrides,
+  };
+}
+
+function brandPage(overrides: Partial<BrandPageData> = {}): BrandPageData {
+  return {
+    id: "renderer-brand",
+    type: "brand",
+    slug: "renderer-brand",
+    name: "Renderer Brand",
+    summary: SUMMARY,
+    story: {
+      title: "Renderer Brand 正式正文",
+      bodyMd: "## 品牌历史\n\nBRAND_STORY_SENTINEL",
+    },
+    sources: modelPage().sources,
+    primaryMedia: {
+      ...modelPage().primaryMedia,
+      title: "Renderer Brand 标志与产品全貌",
+      imageUrl: "/media/renderer-brand.jpg",
+    },
+    timeline: [
+      {
+        title: "品牌创立",
+        startDate: "1900",
+        endDate: null,
+        circa: true,
+        description: "品牌开始生产书写工具。",
+        source: {
+          title: "品牌档案一",
+          url: "https://example.com/brand-history-1",
+          sourceName: "Example Archive",
+        },
+      },
+      {
+        title: "产品线扩展",
+        startDate: "1950",
+        endDate: null,
+        circa: false,
+        description: "品牌推出新的钢笔产品线。",
+        source: {
+          title: "品牌档案二",
+          url: "https://example.com/brand-history-2",
+          sourceName: "Example Archive",
+        },
+      },
+    ],
+    models: Array.from({ length: 15 }, (_, index) => ({
+      type: "pen" as const,
+      slug: `renderer-model-${index + 1}`,
+      name: `Renderer Model ${index + 1}`,
+      summary: `Renderer Model ${index + 1} summary`,
+    })),
     ...overrides,
   };
 }
@@ -134,5 +189,75 @@ describe("server markup encyclopedia shell", () => {
 
     assert.doesNotMatch(html, /id="variants"|href="#variants"|版本与年代边界/);
     assert.doesNotMatch(html, /暂无|没有可公开|placeholder/i);
+  });
+});
+
+describe("evidence modules", () => {
+  it("renders the complete sourced brand timeline and all fifteen unique model links", () => {
+    const data = brandPage();
+    const html = renderToStaticMarkup(
+      createElement(BrandMuseum, {
+        timeline: data.timeline,
+        models: data.models,
+      }),
+    );
+    const modelLinks = [...html.matchAll(/href="\/pen\/(renderer-model-\d+)"/g)].map(
+      (match) => match[1],
+    );
+
+    assert.match(html, /全部型号（15）/);
+    assert.equal(modelLinks.length, 15);
+    assert.equal(new Set(modelLinks).size, 15);
+    assert.match(html, /品牌档案一/);
+    assert.match(html, /品牌档案二/);
+    assert.doesNotMatch(html, /暂无|待补充|未知|LEGACY_INVALID_SENTINEL/);
+  });
+
+  it("renders evidence for every model fact, preserves zero, and includes qualified variants", () => {
+    const data = modelPage({
+      variants: [
+        {
+          name: "早期版本",
+          releaseYear: "2021",
+          notes: "首发版本采用明确记录的结构。",
+          source: {
+            title: "版本资料",
+            url: "https://example.com/variant-source",
+            sourceName: "Example Archive",
+          },
+        },
+      ],
+    });
+    const html = renderToStaticMarkup(
+      createElement(ModelArchive, {
+        specs: data.specs,
+        variants: data.variants,
+      }),
+    );
+
+    assert.match(html, /核心规格/);
+    assert.match(html, />重量</);
+    assert.match(html, />0</);
+    assert.match(html, /来源：Renderer 官方资料/);
+    assert.match(html, /规格表第 3 行/);
+    assert.match(html, /版本差异/);
+    assert.match(html, /早期版本/);
+    assert.match(html, /来源：版本资料/);
+    assert.doesNotMatch(
+      html,
+      /review_status|published|approved|暂无|待补充|未知|LEGACY_INVALID_SENTINEL/,
+    );
+  });
+
+  it("omits the complete variants module when no qualified variant exists", () => {
+    const data = modelPage({ variants: [] });
+    const html = renderToStaticMarkup(
+      createElement(ModelArchive, {
+        specs: data.specs,
+        variants: data.variants,
+      }),
+    );
+
+    assert.doesNotMatch(html, /id="variants"|版本差异|暂无|待补充|未知/);
   });
 });
