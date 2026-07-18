@@ -119,7 +119,7 @@ Progress: [█████░░░░░] 50%
 | # | Description | Date | Commit | Directory |
 |---|-------------|------|--------|-----------|
 | 260719-56l | 接入 Montblanc 146、144、No.22，并按主图证据区分公开与阻断草稿 | 2026-07-19 | 9e17e06 | [260719-56l-montblanc-146-144-no-22](./quick/260719-56l-montblanc-146-144-no-22-146-144-no-22-ll/) |
-| 260719-6ec | 补齐 Majohn 品牌与 A1 的来源化正文、规格、版本、关系和原创编辑插画 | 2026-07-19 | pending | [260719-6ec-majohn-a1](./quick/260719-6ec-majohn-a1/) |
+| 260719-6ec | 补齐 Majohn 品牌与 A1 的来源化正文、规格、版本、关系和原创编辑插画 | 2026-07-19 | ea94af7 | [260719-6ec-majohn-a1](./quick/260719-6ec-majohn-a1/) |
 
 ## Next Action
 
