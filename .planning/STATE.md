@@ -5,15 +5,15 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
-stopped_at: Phase 21 Plan 03 complete; Plan 04 locked split migration executing while sourced content drafts proceed in parallel
-last_updated: "2026-07-19T05:03:46+08:00"
+stopped_at: Quick 260719-8b4 complete; Pelikan M800 sourced pack is next
+last_updated: "2026-07-19T06:31:09+08:00"
 last_activity: 2026-07-19
-last_activity_desc: Quick 260719-6ec completed; Majohn brand and A1 sourced content integrated
+last_activity_desc: Quick 260719-8b4 completed; TWSBI, Kaweco and Pilot sourced content integrated
 progress:
   total_phases: 16
   completed_phases: 10
-  total_plans: 29
-  completed_plans: 26
+  total_plans: 30
+  completed_plans: 27
   percent: 90
 ---
 
@@ -31,7 +31,7 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 Phase: 21 (Taxonomy 与身份归一) — EXECUTING
 Plan: 4 of 6
 Status: In progress
-Last activity: 2026-07-19 — Quick 260719-6ec completed; Majohn brand and A1 sourced content integrated
+Last activity: 2026-07-19 — Quick 260719-8b4 completed; TWSBI, Kaweco and Pilot sourced content integrated
 
 Progress: [█████░░░░░] 50%
 
@@ -120,10 +120,11 @@ Progress: [█████░░░░░] 50%
 |---|-------------|------|--------|-----------|
 | 260719-56l | 接入 Montblanc 146、144、No.22，并按主图证据区分公开与阻断草稿 | 2026-07-19 | 9e17e06 | [260719-56l-montblanc-146-144-no-22](./quick/260719-56l-montblanc-146-144-no-22-146-144-no-22-ll/) |
 | 260719-6ec | 补齐 Majohn 品牌与 A1 的来源化正文、规格、版本、关系和原创编辑插画 | 2026-07-19 | ea94af7 | [260719-6ec-majohn-a1](./quick/260719-6ec-majohn-a1/) |
+| 260719-8b4 | 补齐 TWSBI、Kaweco、Pilot 三个品牌及 ECO、Classic Sport、Custom 74 的来源化内容 | 2026-07-19 | pending | [260719-8b4-content-batch-twsbi-kaweco-pilot](./quick/260719-8b4-content-batch-twsbi-kaweco-pilot/) |
 
 ## Next Action
 
-继续 Phase 23 内容清账：按已完成的外网研究先推进 TWSBI、Pelikan、Pilot、Parker 等品牌的重复合并、混名拆分和来源化正文；授权图片缺口单独记录，不阻塞文字、规格与品牌—型号关系落库。生产写入与浏览器验收仍留到最终发布批次。
+继续 Phase 23 内容清账：先落地已完成官网与专业资料核对的 Pelikan 品牌／Souverän M800，再处理 Parker 品牌、vintage／2021 Parker 51 拆分、Vector／Vector XL 纠名和缺失的 Ingenuity、Urban。授权图片缺口单独记录，不阻塞文字、规格与品牌—型号关系落库。生产写入与浏览器验收仍留到最终发布批次。
 
 ## Session Continuity
 
