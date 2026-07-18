@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { describe, it } from "node:test";
 import React, { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
@@ -259,5 +260,54 @@ describe("evidence modules", () => {
     );
 
     assert.doesNotMatch(html, /id="variants"|版本差异|暂无|待补充|未知/);
+  });
+});
+
+describe("route markup", () => {
+  it("uses the same request-cached published snapshot for metadata and the visible page", () => {
+    const source = readFileSync("src/app/[type]/[slug]/page.tsx", "utf8");
+
+    assert.match(source, /const loadPublishedEntityPage = cache\(/);
+    assert.equal(
+      [...source.matchAll(/loadPublishedEntityPage\(type, slug\)/g)].length,
+      2,
+    );
+    assert.match(source, /description: data\.summary/);
+    assert.match(source, /data\.primaryMedia\.imageUrl/);
+    assert.match(source, /renderMarkdownDocument\(data\.story\.bodyMd\)/);
+    assert.match(source, /<EncyclopediaShell data=\{data\} document=\{document\}/);
+    assert.match(source, /error instanceof PublishedPageInvariantError/);
+    assert.match(source, /JSON\.stringify\([\s\S]*?replaceAll\("<", "\\\\u003c"\)/);
+  });
+});
+
+describe("PAGE-06 topics", () => {
+  it("keeps all eight independent model-story topics in server markup", async () => {
+    const sentinels = [
+      "PAGE06_IDENTITY_PRODUCT_LINE",
+      "PAGE06_HISTORY",
+      "PAGE06_DESIGN_DIMENSIONS_MATERIALS_ERGONOMICS",
+      "PAGE06_NIB",
+      "PAGE06_ATTRIBUTED_WRITING_EXPERIENCE",
+      "PAGE06_FILLING_MAINTENANCE",
+      "PAGE06_VARIANT_BOUNDARIES",
+      "PAGE06_PURCHASE_CHECKS",
+    ];
+    const bodyMd = sentinels
+      .map((sentinel, index) => `## 主题 ${index + 1}\n\n${sentinel}`)
+      .join("\n\n");
+    const data = modelPage({
+      story: { title: "完整型号正文", bodyMd },
+    });
+    const document = await renderMarkdownDocument(bodyMd);
+    const html = renderToStaticMarkup(
+      createElement(EncyclopediaShell, { data, document }),
+    );
+
+    for (const sentinel of sentinels) assert.match(html, new RegExp(sentinel));
+    assert.doesNotMatch(
+      html,
+      /LEGACY_BODY_SENTINEL|DEPRECATED_STORY_SENTINEL|line-clamp|read-more/,
+    );
   });
 });
