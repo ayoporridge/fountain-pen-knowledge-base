@@ -43,6 +43,7 @@ import {
 
 const ROOT = process.cwd();
 const SCRIPT_PATH = path.join(ROOT, "scripts", "check-audit-readiness.ts");
+const ARTIFACT_PROBE_SCRIPT_PATH = path.resolve(process.argv[1] ?? SCRIPT_PATH);
 const MIGRATIONS_DIR = path.join(ROOT, "migrations");
 const MIGRATION_030 = "030_publication_gate.sql";
 const MIGRATION_031 = "031_evidence_readiness_v2.sql";
@@ -1323,30 +1324,46 @@ type ArtifactParentSignalProbeReport = {
 type ArtifactProbeIdentity = {
   readonly dev: string;
   readonly ino: string;
+  readonly nlink: string;
 };
 
 type ArtifactProbeOwnershipManifest = {
-  readonly version: 1;
-  readonly token: string;
+  readonly version: 2;
+  readonly nonce: string;
+  readonly scopeRoot: string;
+  readonly tempRoot: string;
+  readonly reportFile: string;
+  readonly nonceFile: string;
   readonly root: ArtifactProbeIdentity;
   readonly work: ArtifactProbeIdentity;
   readonly report: ArtifactProbeIdentity;
+  readonly nonceIdentity: ArtifactProbeIdentity;
 };
 
 type ArtifactProbeOwnership = {
-  readonly token: string;
+  readonly nonce: string;
   readonly scopeRoot: string;
   readonly tempRoot: string;
-  readonly markerFile: string;
   readonly reportFile: string;
+  readonly nonceFile: string;
+  readonly rootDescriptor: number;
+  readonly workDescriptor: number;
+  readonly reportDescriptor: number;
+  readonly nonceDescriptor: number;
   readonly root: ArtifactProbeIdentity;
   readonly work: ArtifactProbeIdentity;
-  readonly marker: ArtifactProbeIdentity;
   readonly report: ArtifactProbeIdentity;
+  readonly nonceIdentity: ArtifactProbeIdentity;
+  readonly ownsDescriptors: boolean;
+  descriptorsClosed: boolean;
 };
 
 function artifactProbeIdentity(stats: fs.BigIntStats): ArtifactProbeIdentity {
-  return { dev: stats.dev.toString(), ino: stats.ino.toString() };
+  return {
+    dev: stats.dev.toString(),
+    ino: stats.ino.toString(),
+    nlink: stats.nlink.toString(),
+  };
 }
 
 function sameArtifactProbeIdentity(
@@ -1356,219 +1373,499 @@ function sameArtifactProbeIdentity(
   return left.dev === right.dev && left.ino === right.ino;
 }
 
+function readArtifactProbeDescriptor(descriptor: number): string {
+  const stats = fs.fstatSync(descriptor, { bigint: true });
+  assertCondition(
+    stats.isFile() && stats.size >= 0n && stats.size <= 64n * 1024n,
+    "Artifact probe authority descriptor is not a bounded regular file.",
+  );
+  const bytes = Buffer.alloc(Number(stats.size));
+  let offset = 0;
+  while (offset < bytes.length) {
+    const count = fs.readSync(
+      descriptor,
+      bytes,
+      offset,
+      bytes.length - offset,
+      offset,
+    );
+    assertCondition(count > 0, "Artifact probe authority descriptor ended early.");
+    offset += count;
+  }
+  return bytes.toString("utf8");
+}
+
+function writeArtifactProbeDescriptor(
+  descriptor: number,
+  contents: string,
+): void {
+  const bytes = Buffer.from(contents, "utf8");
+  fs.ftruncateSync(descriptor, 0);
+  let offset = 0;
+  while (offset < bytes.length) {
+    offset += fs.writeSync(
+      descriptor,
+      bytes,
+      offset,
+      bytes.length - offset,
+      offset,
+    );
+  }
+  fs.fsyncSync(descriptor);
+}
+
+function assertArtifactProbeIdentityShape(
+  value: unknown,
+  label: string,
+): asserts value is ArtifactProbeIdentity {
+  const identity = value as Partial<ArtifactProbeIdentity> | null;
+  assertCondition(
+    identity !== null &&
+      typeof identity === "object" &&
+      typeof identity.dev === "string" &&
+      /^\d+$/.test(identity.dev) &&
+      typeof identity.ino === "string" &&
+      /^\d+$/.test(identity.ino) &&
+      typeof identity.nlink === "string" &&
+      /^\d+$/.test(identity.nlink),
+    `Artifact probe ${label} identity is malformed.`,
+  );
+}
+
+function parseArtifactProbeManifest(
+  descriptor: number,
+): ArtifactProbeOwnershipManifest {
+  const parsed = JSON.parse(
+    readArtifactProbeDescriptor(descriptor),
+  ) as Partial<ArtifactProbeOwnershipManifest>;
+  assertCondition(
+    parsed.version === 2 &&
+      typeof parsed.nonce === "string" &&
+      /^[0-9a-f-]{36}$/.test(parsed.nonce) &&
+      typeof parsed.scopeRoot === "string" &&
+      typeof parsed.tempRoot === "string" &&
+      typeof parsed.reportFile === "string" &&
+      typeof parsed.nonceFile === "string",
+    "Artifact probe inherited nonce manifest is malformed.",
+  );
+  assertArtifactProbeIdentityShape(parsed.root, "root");
+  assertArtifactProbeIdentityShape(parsed.work, "work");
+  assertArtifactProbeIdentityShape(parsed.report, "report");
+  assertArtifactProbeIdentityShape(parsed.nonceIdentity, "nonce");
+  return parsed as ArtifactProbeOwnershipManifest;
+}
+
+function assertArtifactProbePathDescriptor(
+  filePath: string,
+  descriptor: number,
+  expected: ArtifactProbeIdentity,
+  kind: "directory" | "file",
+  requireSingleLink: boolean,
+  requireOriginalLinkCount: boolean,
+): void {
+  const pathStats = fs.lstatSync(filePath, { bigint: true });
+  const descriptorStats = fs.fstatSync(descriptor, { bigint: true });
+  const expectedKind =
+    kind === "directory"
+      ? pathStats.isDirectory() && descriptorStats.isDirectory()
+      : pathStats.isFile() && descriptorStats.isFile();
+  const pathIdentity = artifactProbeIdentity(pathStats);
+  const descriptorIdentity = artifactProbeIdentity(descriptorStats);
+  assertCondition(
+    expectedKind &&
+      !pathStats.isSymbolicLink() &&
+      sameArtifactProbeIdentity(pathIdentity, descriptorIdentity) &&
+      sameArtifactProbeIdentity(pathIdentity, expected),
+    `Artifact probe ${kind} capability does not match its inherited descriptor.`,
+  );
+  if (requireSingleLink) {
+    assertCondition(
+      pathStats.nlink === 1n && descriptorStats.nlink === 1n,
+      "Artifact probe regular-file capability must have exactly one link.",
+    );
+  }
+  if (requireOriginalLinkCount) {
+    assertCondition(
+      pathIdentity.nlink === expected.nlink &&
+        descriptorIdentity.nlink === expected.nlink,
+      `Artifact probe ${kind} link count changed after authority creation: ${filePath} expected=${expected.nlink} path=${pathIdentity.nlink} descriptor=${descriptorIdentity.nlink}.`,
+    );
+  }
+}
+
+function assertArtifactProbeAuthority(
+  ownership: ArtifactProbeOwnership,
+): void {
+  assertCondition(
+    !ownership.descriptorsClosed,
+    "Artifact probe authority descriptors are already closed.",
+  );
+  const temporaryDirectory = fs.realpathSync.native(os.tmpdir());
+  assertCondition(
+    path.dirname(ownership.scopeRoot) === temporaryDirectory &&
+      path.basename(ownership.scopeRoot).startsWith(
+        "fpkg-artifact-signal-probe-",
+      ) &&
+      ownership.tempRoot === path.join(ownership.scopeRoot, "work") &&
+      ownership.reportFile === path.join(ownership.scopeRoot, "report.json") &&
+      ownership.nonceFile === path.join(ownership.scopeRoot, ".authority"),
+    "Artifact probe authority paths are outside the owned temporary namespace.",
+  );
+  assertArtifactProbePathDescriptor(
+    ownership.scopeRoot,
+    ownership.rootDescriptor,
+    ownership.root,
+    "directory",
+    false,
+    true,
+  );
+  assertArtifactProbePathDescriptor(
+    ownership.tempRoot,
+    ownership.workDescriptor,
+    ownership.work,
+    "directory",
+    false,
+    false,
+  );
+  assertArtifactProbePathDescriptor(
+    ownership.reportFile,
+    ownership.reportDescriptor,
+    ownership.report,
+    "file",
+    true,
+    true,
+  );
+  assertArtifactProbePathDescriptor(
+    ownership.nonceFile,
+    ownership.nonceDescriptor,
+    ownership.nonceIdentity,
+    "file",
+    true,
+    true,
+  );
+  const manifest = parseArtifactProbeManifest(ownership.nonceDescriptor);
+  assertCondition(
+    manifest.nonce === ownership.nonce &&
+      manifest.scopeRoot === ownership.scopeRoot &&
+      manifest.tempRoot === ownership.tempRoot &&
+      manifest.reportFile === ownership.reportFile &&
+      manifest.nonceFile === ownership.nonceFile &&
+      sameArtifactProbeIdentity(manifest.root, ownership.root) &&
+      sameArtifactProbeIdentity(manifest.work, ownership.work) &&
+      sameArtifactProbeIdentity(manifest.report, ownership.report) &&
+      sameArtifactProbeIdentity(
+        manifest.nonceIdentity,
+        ownership.nonceIdentity,
+      ),
+    "Artifact probe nonce manifest does not match the inherited capabilities.",
+  );
+}
+
+type ArtifactProbeTreeEntry = {
+  readonly relativePath: string;
+  readonly kind: "directory" | "file";
+  readonly identity: ArtifactProbeIdentity;
+};
+
+function snapshotArtifactProbeTree(root: string): ArtifactProbeTreeEntry[] {
+  const entries: ArtifactProbeTreeEntry[] = [];
+  const identities = new Set<string>();
+  const visit = (current: string, relativePath: string): void => {
+    const stats = fs.lstatSync(current, { bigint: true });
+    assertCondition(
+      !stats.isSymbolicLink(),
+      `Artifact probe tree contains a nested symlink: ${relativePath}.`,
+    );
+    const kind = stats.isDirectory()
+      ? "directory"
+      : stats.isFile()
+        ? "file"
+        : null;
+    assertCondition(
+      kind !== null,
+      `Artifact probe tree contains a non-file entry: ${relativePath}.`,
+    );
+    if (kind === "file") {
+      assertCondition(
+        stats.nlink === 1n,
+        `Artifact probe tree contains a shared-link file: ${relativePath}.`,
+      );
+    }
+    const identity = artifactProbeIdentity(stats);
+    const key = `${identity.dev}:${identity.ino}`;
+    assertCondition(
+      !identities.has(key),
+      `Artifact probe tree contains an inode alias: ${relativePath}.`,
+    );
+    identities.add(key);
+    entries.push({ relativePath, kind, identity });
+    if (kind === "directory") {
+      for (const name of fs.readdirSync(current).sort(compareStableText)) {
+        visit(
+          path.join(current, name),
+          relativePath === "." ? name : path.join(relativePath, name),
+        );
+      }
+    }
+  };
+  visit(root, ".");
+  return entries;
+}
+
+function assertInitialArtifactProbeTree(
+  ownership: ArtifactProbeOwnership,
+): void {
+  assertArtifactProbeAuthority(ownership);
+  const tree = snapshotArtifactProbeTree(ownership.scopeRoot);
+  assertCondition(
+    JSON.stringify(tree.map((entry) => entry.relativePath)) ===
+      JSON.stringify([".", ".authority", "report.json", "work"]),
+    "Artifact probe work root was not exclusively empty at handoff.",
+  );
+}
+
 function createArtifactProbeOwnership(): ArtifactProbeOwnership {
-  const token = randomUUID();
+  const nonce = randomUUID();
   const scopeRoot = fs.realpathSync.native(
     fs.mkdtempSync(
-      path.join(os.tmpdir(), `fpkg-artifact-signal-probe-${token}-`),
+      path.join(os.tmpdir(), "fpkg-artifact-signal-probe-"),
     ),
   );
   fs.chmodSync(scopeRoot, 0o700);
   const tempRoot = path.join(scopeRoot, "work");
-  const markerFile = path.join(scopeRoot, ".ownership.json");
   const reportFile = path.join(scopeRoot, "report.json");
-  fs.mkdirSync(tempRoot, { mode: 0o700 });
-  const reportDescriptor = fs.openSync(reportFile, "wx", 0o600);
-  fs.closeSync(reportDescriptor);
-  const root = artifactProbeIdentity(
-    fs.lstatSync(scopeRoot, { bigint: true }),
-  );
-  const work = artifactProbeIdentity(
-    fs.lstatSync(tempRoot, { bigint: true }),
-  );
-  const report = artifactProbeIdentity(
-    fs.lstatSync(reportFile, { bigint: true }),
-  );
-  const manifest: ArtifactProbeOwnershipManifest = {
-    version: 1,
-    token,
-    root,
-    work,
-    report,
-  };
-  fs.writeFileSync(markerFile, JSON.stringify(manifest), {
-    encoding: "utf8",
-    flag: "wx",
-    mode: 0o600,
-  });
-  const marker = artifactProbeIdentity(
-    fs.lstatSync(markerFile, { bigint: true }),
-  );
-  return {
-    token,
-    scopeRoot,
-    tempRoot,
-    markerFile,
-    reportFile,
-    root,
-    work,
-    marker,
-    report,
-  };
+  const nonceFile = path.join(scopeRoot, ".authority");
+  const descriptors: number[] = [];
+  try {
+    fs.mkdirSync(tempRoot, { recursive: false, mode: 0o700 });
+    const reportDescriptor = fs.openSync(
+      reportFile,
+      fs.constants.O_RDWR |
+        fs.constants.O_CREAT |
+        fs.constants.O_EXCL |
+        fs.constants.O_NOFOLLOW,
+      0o600,
+    );
+    descriptors.push(reportDescriptor);
+    const nonceDescriptor = fs.openSync(
+      nonceFile,
+      fs.constants.O_RDWR |
+        fs.constants.O_CREAT |
+        fs.constants.O_EXCL |
+        fs.constants.O_NOFOLLOW,
+      0o600,
+    );
+    descriptors.push(nonceDescriptor);
+    const rootDescriptor = fs.openSync(
+      scopeRoot,
+      fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW,
+    );
+    descriptors.push(rootDescriptor);
+    const workDescriptor = fs.openSync(
+      tempRoot,
+      fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW,
+    );
+    descriptors.push(workDescriptor);
+    const ownership: ArtifactProbeOwnership = {
+      nonce,
+      scopeRoot,
+      tempRoot,
+      reportFile,
+      nonceFile,
+      rootDescriptor,
+      workDescriptor,
+      reportDescriptor,
+      nonceDescriptor,
+      root: artifactProbeIdentity(
+        fs.fstatSync(rootDescriptor, { bigint: true }),
+      ),
+      work: artifactProbeIdentity(
+        fs.fstatSync(workDescriptor, { bigint: true }),
+      ),
+      report: artifactProbeIdentity(
+        fs.fstatSync(reportDescriptor, { bigint: true }),
+      ),
+      nonceIdentity: artifactProbeIdentity(
+        fs.fstatSync(nonceDescriptor, { bigint: true }),
+      ),
+      ownsDescriptors: true,
+      descriptorsClosed: false,
+    };
+    const manifest: ArtifactProbeOwnershipManifest = {
+      version: 2,
+      nonce,
+      scopeRoot,
+      tempRoot,
+      reportFile,
+      nonceFile,
+      root: ownership.root,
+      work: ownership.work,
+      report: ownership.report,
+      nonceIdentity: ownership.nonceIdentity,
+    };
+    writeArtifactProbeDescriptor(nonceDescriptor, JSON.stringify(manifest));
+    assertInitialArtifactProbeTree(ownership);
+    return ownership;
+  } catch (error) {
+    for (const descriptor of descriptors.reverse()) {
+      try {
+        fs.closeSync(descriptor);
+      } catch {
+        // Preserve the original authority-creation error.
+      }
+    }
+    if (fs.existsSync(scopeRoot)) {
+      fs.rmSync(scopeRoot, { recursive: true, force: true });
+    }
+    throw error;
+  }
 }
 
-function loadArtifactProbeOwnership(
-  scopeRoot: string,
-  token: string,
-  expected?: ArtifactProbeOwnership,
-  requireWork = false,
-): ArtifactProbeOwnership {
-  const temporaryDirectory = fs.realpathSync.native(os.tmpdir());
-  const resolvedRoot = path.resolve(scopeRoot);
-  assertCondition(
-    path.dirname(resolvedRoot) === temporaryDirectory &&
-      path.basename(resolvedRoot).startsWith(
-        `fpkg-artifact-signal-probe-${token}-`,
-      ) &&
-      fs.existsSync(resolvedRoot),
-    "Artifact probe capability root is outside the owned temporary namespace.",
-  );
-  const rootStats = fs.lstatSync(resolvedRoot, { bigint: true });
-  assertCondition(
-    rootStats.isDirectory() && !rootStats.isSymbolicLink(),
-    "Artifact probe capability root must be a real directory.",
-  );
-  const markerFile = path.join(resolvedRoot, ".ownership.json");
-  const reportFile = path.join(resolvedRoot, "report.json");
-  const tempRoot = path.join(resolvedRoot, "work");
-  const markerPathStats = fs.lstatSync(markerFile, { bigint: true });
-  assertCondition(
-    markerPathStats.isFile() && !markerPathStats.isSymbolicLink(),
-    "Artifact probe ownership marker path must be a regular file.",
-  );
-  const markerDescriptor = fs.openSync(markerFile, "r");
-  let markerStats: fs.BigIntStats;
-  let manifest: ArtifactProbeOwnershipManifest;
-  try {
-    markerStats = fs.fstatSync(markerDescriptor, { bigint: true });
-    assertCondition(
-      markerStats.isFile() &&
-        sameArtifactProbeIdentity(
-          artifactProbeIdentity(markerPathStats),
-          artifactProbeIdentity(markerStats),
-        ),
-      "Artifact probe ownership marker must be a regular file.",
-    );
-    manifest = JSON.parse(
-      fs.readFileSync(markerDescriptor, "utf8"),
-    ) as ArtifactProbeOwnershipManifest;
-  } finally {
-    fs.closeSync(markerDescriptor);
-  }
-  const reportPathStats = fs.lstatSync(reportFile, { bigint: true });
-  assertCondition(
-    reportPathStats.isFile() && !reportPathStats.isSymbolicLink(),
-    "Artifact probe report path must be a regular file.",
-  );
-  const reportDescriptor = fs.openSync(reportFile, "r+");
-  let reportStats: fs.BigIntStats;
-  try {
-    reportStats = fs.fstatSync(reportDescriptor, { bigint: true });
-    assertCondition(
-      reportStats.isFile() &&
-        sameArtifactProbeIdentity(
-          artifactProbeIdentity(reportPathStats),
-          artifactProbeIdentity(reportStats),
-        ),
-      "Artifact probe report capability must be a regular file.",
-    );
-  } finally {
-    fs.closeSync(reportDescriptor);
-  }
-  let work = manifest.work;
-  if (fs.existsSync(tempRoot)) {
-    const workStats = fs.lstatSync(tempRoot, { bigint: true });
-    assertCondition(
-      workStats.isDirectory() && !workStats.isSymbolicLink(),
-      "Artifact probe work path must be a real directory.",
-    );
-    work = artifactProbeIdentity(workStats);
-  } else {
-    assertCondition(
-      !requireWork,
-      "Artifact probe work path disappeared before use.",
-    );
-  }
+const INHERITED_ARTIFACT_ROOT_FD = 3;
+const INHERITED_ARTIFACT_WORK_FD = 4;
+const INHERITED_ARTIFACT_REPORT_FD = 5;
+const INHERITED_ARTIFACT_NONCE_FD = 6;
+
+function loadInheritedArtifactProbeOwnership(): ArtifactProbeOwnership {
+  const manifest = parseArtifactProbeManifest(INHERITED_ARTIFACT_NONCE_FD);
   const ownership: ArtifactProbeOwnership = {
-    token,
-    scopeRoot: resolvedRoot,
-    tempRoot,
-    markerFile,
-    reportFile,
-    root: artifactProbeIdentity(rootStats),
-    work,
-    marker: artifactProbeIdentity(markerStats),
-    report: artifactProbeIdentity(reportStats),
+    nonce: manifest.nonce,
+    scopeRoot: manifest.scopeRoot,
+    tempRoot: manifest.tempRoot,
+    reportFile: manifest.reportFile,
+    nonceFile: manifest.nonceFile,
+    rootDescriptor: INHERITED_ARTIFACT_ROOT_FD,
+    workDescriptor: INHERITED_ARTIFACT_WORK_FD,
+    reportDescriptor: INHERITED_ARTIFACT_REPORT_FD,
+    nonceDescriptor: INHERITED_ARTIFACT_NONCE_FD,
+    root: manifest.root,
+    work: manifest.work,
+    report: manifest.report,
+    nonceIdentity: manifest.nonceIdentity,
+    ownsDescriptors: false,
+    descriptorsClosed: false,
   };
-  assertCondition(
-    manifest.version === 1 &&
-      manifest.token === token &&
-      sameArtifactProbeIdentity(manifest.root, ownership.root) &&
-      sameArtifactProbeIdentity(manifest.work, ownership.work) &&
-      sameArtifactProbeIdentity(manifest.report, ownership.report),
-    "Artifact probe ownership manifest does not match its root/report inodes.",
+  assertInitialArtifactProbeTree(ownership);
+  const cwdIdentity = artifactProbeIdentity(
+    fs.lstatSync(".", { bigint: true }),
   );
-  if (expected) {
-    assertCondition(
-      expected.token === ownership.token &&
-        expected.scopeRoot === ownership.scopeRoot &&
-        sameArtifactProbeIdentity(expected.root, ownership.root) &&
-        sameArtifactProbeIdentity(expected.work, ownership.work) &&
-        sameArtifactProbeIdentity(expected.marker, ownership.marker) &&
-        sameArtifactProbeIdentity(expected.report, ownership.report),
-      "Artifact probe capability changed after creation.",
-    );
-  }
+  assertCondition(
+    sameArtifactProbeIdentity(cwdIdentity, ownership.work),
+    "Artifact probe child cwd does not match its inherited work descriptor.",
+  );
   return ownership;
+}
+
+function closeArtifactProbeDescriptors(ownership: ArtifactProbeOwnership): void {
+  if (ownership.descriptorsClosed || !ownership.ownsDescriptors) return;
+  ownership.descriptorsClosed = true;
+  for (const descriptor of [
+    ownership.nonceDescriptor,
+    ownership.reportDescriptor,
+    ownership.workDescriptor,
+    ownership.rootDescriptor,
+  ]) {
+    try {
+      fs.closeSync(descriptor);
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "EBADF") throw error;
+    }
+  }
+}
+
+function assertQuarantinedArtifactProbeRoot(
+  ownership: ArtifactProbeOwnership,
+  quarantinePath: string,
+  expectedTree: readonly ArtifactProbeTreeEntry[],
+): void {
+  const pathStats = fs.lstatSync(quarantinePath, { bigint: true });
+  const descriptorStats = fs.fstatSync(ownership.rootDescriptor, {
+    bigint: true,
+  });
+  assertCondition(
+    pathStats.isDirectory() &&
+      !pathStats.isSymbolicLink() &&
+      sameArtifactProbeIdentity(
+        artifactProbeIdentity(pathStats),
+        ownership.root,
+      ) &&
+      sameArtifactProbeIdentity(
+        artifactProbeIdentity(descriptorStats),
+        ownership.root,
+      ),
+    "Artifact probe quarantine root changed after ownership verification.",
+  );
+  const actualTree = snapshotArtifactProbeTree(quarantinePath);
+  assertCondition(
+    JSON.stringify(actualTree) === JSON.stringify(expectedTree),
+    "Artifact probe quarantine tree changed after ownership verification.",
+  );
+}
+
+function cleanupArtifactProbeOwnership(
+  ownership: ArtifactProbeOwnership,
+  afterQuarantineVerification?: (quarantinePath: string) => void,
+): void {
+  if (ownership.descriptorsClosed) return;
+  let quarantinePath: string | null = null;
+  try {
+    assertArtifactProbeAuthority(ownership);
+    const expectedTree = snapshotArtifactProbeTree(ownership.scopeRoot);
+    const parent = path.dirname(ownership.scopeRoot);
+    quarantinePath = path.join(
+      parent,
+      `.${path.basename(ownership.scopeRoot)}.quarantine-${randomUUID()}`,
+    );
+    assertCondition(
+      !fs.existsSync(quarantinePath),
+      "Artifact probe random quarantine path unexpectedly exists.",
+    );
+    fs.renameSync(ownership.scopeRoot, quarantinePath);
+    assertQuarantinedArtifactProbeRoot(
+      ownership,
+      quarantinePath,
+      expectedTree,
+    );
+    afterQuarantineVerification?.(quarantinePath);
+    assertQuarantinedArtifactProbeRoot(
+      ownership,
+      quarantinePath,
+      expectedTree,
+    );
+    fs.rmSync(quarantinePath, { recursive: true, force: false });
+    assertCondition(
+      !fs.existsSync(quarantinePath),
+      "Artifact probe quarantine root remained after cleanup.",
+    );
+  } finally {
+    closeArtifactProbeDescriptors(ownership);
+  }
 }
 
 function writeArtifactProbeReport(
   ownership: ArtifactProbeOwnership,
   report: ArtifactSignalProbeReport | ArtifactParentSignalProbeReport,
 ): void {
-  loadArtifactProbeOwnership(
-    ownership.scopeRoot,
-    ownership.token,
-    ownership,
+  assertArtifactProbeAuthority(ownership);
+  const identity = artifactProbeIdentity(
+    fs.fstatSync(ownership.reportDescriptor, { bigint: true }),
   );
-  const descriptor = fs.openSync(ownership.reportFile, "r+");
-  try {
-    const identity = artifactProbeIdentity(
-      fs.fstatSync(descriptor, { bigint: true }),
-    );
-    assertCondition(
-      sameArtifactProbeIdentity(identity, ownership.report),
-      "Artifact probe report inode changed before write.",
-    );
-    fs.ftruncateSync(descriptor, 0);
-    fs.writeFileSync(descriptor, JSON.stringify(report));
-    fs.fsyncSync(descriptor);
-  } finally {
-    fs.closeSync(descriptor);
-  }
+  assertCondition(
+    sameArtifactProbeIdentity(identity, ownership.report) &&
+      identity.nlink === "1",
+    "Artifact probe report inode changed before descriptor write.",
+  );
+  writeArtifactProbeDescriptor(
+    ownership.reportDescriptor,
+    JSON.stringify(report),
+  );
 }
 
 function readArtifactProbeReportContents(
   ownership: ArtifactProbeOwnership,
 ): string {
-  loadArtifactProbeOwnership(
-    ownership.scopeRoot,
-    ownership.token,
-    ownership,
-  );
-  const descriptor = fs.openSync(ownership.reportFile, "r");
-  try {
-    const identity = artifactProbeIdentity(
-      fs.fstatSync(descriptor, { bigint: true }),
-    );
-    assertCondition(
-      sameArtifactProbeIdentity(identity, ownership.report),
-      "Artifact probe report inode changed before read.",
-    );
-    return fs.readFileSync(descriptor, "utf8");
-  } finally {
-    fs.closeSync(descriptor);
-  }
+  assertArtifactProbeAuthority(ownership);
+  return readArtifactProbeDescriptor(ownership.reportDescriptor);
 }
 
 function artifactSignalProbeBytes(label: string): Map<string, Buffer> {
@@ -1585,26 +1882,16 @@ async function runArtifactSignalProbe(
   window: ArtifactPublicationWindow,
   ownership: ArtifactProbeOwnership,
 ): Promise<void> {
-  loadArtifactProbeOwnership(
-    ownership.scopeRoot,
-    ownership.token,
-    ownership,
-    true,
-  );
+  assertInitialArtifactProbeTree(ownership);
   const { tempRoot } = ownership;
-  assertCondition(
-    fs.existsSync(tempRoot) &&
-      fs.lstatSync(tempRoot).isDirectory() &&
-      !fs.lstatSync(tempRoot).isSymbolicLink(),
-    "Artifact signal probe work root is not owned by its capability.",
-  );
-  const finalOutDir = path.join(tempRoot, "artifacts");
+  const finalOutDir = ".";
+  const reportedOutDir = tempRoot;
   const originalArtifacts = artifactSignalProbeBytes("original");
   const replacementArtifacts = artifactSignalProbeBytes("replacement");
-  fs.mkdirSync(finalOutDir, { recursive: true });
   for (const [file, bytes] of originalArtifacts) {
-    fs.writeFileSync(path.join(finalOutDir, file), bytes);
+    writeFileExclusivelyAndSync(path.join(finalOutDir, file), bytes);
   }
+  snapshotArtifactProbeTree(ownership.scopeRoot);
   try {
     await installCanonicalArtifactSet(
       finalOutDir,
@@ -1615,7 +1902,7 @@ async function runArtifactSignalProbe(
         const report: ArtifactSignalProbeReport = {
           phase: "ready",
           tempRoot,
-          finalOutDir,
+          finalOutDir: reportedOutDir,
           signal,
           window,
         };
@@ -1651,18 +1938,12 @@ async function runArtifactSignalProbe(
     const cleanedReport: ArtifactSignalProbeReport = {
       phase: "cleaned",
       tempRoot,
-      finalOutDir,
+      finalOutDir: reportedOutDir,
       signal,
       window,
       restoredHashes: artifactHashes(originalArtifacts),
     };
-    loadArtifactProbeOwnership(
-      ownership.scopeRoot,
-      ownership.token,
-      ownership,
-      true,
-    );
-    fs.rmSync(tempRoot, { recursive: true, force: true });
+    snapshotArtifactProbeTree(ownership.scopeRoot);
     writeArtifactProbeReport(ownership, cleanedReport);
     throw error;
   }
@@ -1676,17 +1957,12 @@ async function readArtifactSignalProbeReport(
   const deadline = Date.now() + timeoutMs;
   while (Date.now() < deadline) {
     try {
-      loadArtifactProbeOwnership(
-        ownership.scopeRoot,
-        ownership.token,
-        ownership,
-      );
       const report = JSON.parse(
         readArtifactProbeReportContents(ownership),
       ) as ArtifactSignalProbeReport;
       if (report.phase === expectedPhase) return report;
     } catch {
-      // The child may still be replacing the small report atomically enough for JSON parsing.
+      // The child may still be truncating and rewriting the authorized report descriptor.
     }
     await new Promise((resolve) => setTimeout(resolve, 25));
   }
@@ -1723,17 +1999,7 @@ async function cleanupArtifactProbeProcess(
       !scope.child || hasExited(scope.child),
       `Owned artifact probe child ${scope.child?.pid ?? "unknown"} was not reaped.`,
     );
-    if (fs.existsSync(scope.ownership.scopeRoot)) {
-      loadArtifactProbeOwnership(
-        scope.ownership.scopeRoot,
-        scope.ownership.token,
-        scope.ownership,
-      );
-      fs.rmSync(scope.ownership.scopeRoot, {
-        recursive: true,
-        force: true,
-      });
-    }
+    cleanupArtifactProbeOwnership(scope.ownership);
   })();
   return scope.cleanup;
 }
@@ -1775,80 +2041,168 @@ async function withSignalManagedArtifactProbe<T>(
   }
 }
 
-function assertArtifactProbeCapabilityRejection(): void {
-  const require = createRequire(import.meta.url);
-  const tsxCli = require.resolve("tsx/cli");
-  const run = (probeRoot: string, probeToken: string) =>
-    spawnSync(
-      process.execPath,
-      [
-        tsxCli,
-        SCRIPT_PATH,
-        "--artifact-signal-probe",
-        "--signal",
-        "SIGINT",
-        "--window",
-        "after-backup",
-        "--probe-root",
-        probeRoot,
-        "--probe-token",
-        probeToken,
-      ],
-      {
-        cwd: ROOT,
-        env: {
-          ...process.env,
-          TURSO_DATABASE_URL: "",
-          TURSO_AUTH_TOKEN: "",
-          FPKG_DATABASE_URL: "",
-          PUBLICATION_GATE_FIXTURE: "",
-        },
-        encoding: "utf8",
-        timeout: 10_000,
+function runArtifactAuthorityCheck(
+  ownership?: ArtifactProbeOwnership,
+  descriptors: Partial<{
+    root: number;
+    work: number;
+    report: number;
+    nonce: number;
+  }> = {},
+): ReturnType<typeof spawnSync> {
+  const stdio = ownership
+    ? [
+        "ignore",
+        "pipe",
+        "pipe",
+        descriptors.root ?? ownership.rootDescriptor,
+        descriptors.work ?? ownership.workDescriptor,
+        descriptors.report ?? ownership.reportDescriptor,
+        descriptors.nonce ?? ownership.nonceDescriptor,
+      ]
+    : ["ignore", "pipe", "pipe"];
+  return spawnSync(
+    process.execPath,
+    [
+      ...process.execArgv,
+      ARTIFACT_PROBE_SCRIPT_PATH,
+      "--artifact-authority-check",
+    ],
+    {
+      cwd: ownership?.tempRoot ?? ROOT,
+      env: {
+        ...process.env,
+        TURSO_DATABASE_URL: "",
+        TURSO_AUTH_TOKEN: "",
+        FPKG_DATABASE_URL: "",
+        PUBLICATION_GATE_FIXTURE: "",
       },
-    );
+      stdio,
+      encoding: "utf8",
+      timeout: 10_000,
+    },
+  );
+}
 
-  const forgedToken = randomUUID();
+function assertArtifactProbeCapabilityRejection(): void {
+  const noDescriptors = runArtifactAuthorityCheck();
+  assertCondition(
+    noDescriptors.status === 1 && noDescriptors.signal === null,
+    "Artifact hidden probe accepted CLI-declared authority without inherited descriptors.",
+  );
+
+  const positive = createArtifactProbeOwnership();
+  try {
+    const accepted = runArtifactAuthorityCheck(positive);
+    assertCondition(
+      accepted.status === 0 && accepted.signal === null,
+      `Artifact hidden probe rejected parent-held descriptors: ${accepted.stderr || accepted.stdout}`,
+    );
+  } finally {
+    cleanupArtifactProbeOwnership(positive);
+  }
+
+  const forgedDescriptor = createArtifactProbeOwnership();
   const forgedRoot = fs.realpathSync.native(
-    fs.mkdtempSync(
-      path.join(
-        os.tmpdir(),
-        `fpkg-artifact-signal-probe-${forgedToken}-`,
-      ),
-    ),
+    fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-artifact-forged-root-")),
   );
   const forgedSentinel = path.join(forgedRoot, "sentinel.txt");
   fs.writeFileSync(forgedSentinel, "must-remain", { flag: "wx" });
+  const forgedRootDescriptor = fs.openSync(
+    forgedRoot,
+    fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW,
+  );
   try {
-    const forged = run(forgedRoot, forgedToken);
+    const rejected = runArtifactAuthorityCheck(forgedDescriptor, {
+      root: forgedRootDescriptor,
+    });
     assertCondition(
-      forged.status === 1 &&
+      rejected.status === 1 &&
         fs.readFileSync(forgedSentinel, "utf8") === "must-remain",
-      "Artifact hidden probe accepted an unowned prefix-only root.",
+      "Artifact hidden probe accepted a forged root descriptor.",
     );
   } finally {
+    fs.closeSync(forgedRootDescriptor);
+    cleanupArtifactProbeOwnership(forgedDescriptor);
     fs.rmSync(forgedRoot, { recursive: true, force: true });
   }
 
-  const ownership = createArtifactProbeOwnership();
-  const victimRoot = fs.realpathSync.native(
-    fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-artifact-probe-victim-")),
+  const sharedLink = createArtifactProbeOwnership();
+  const sharedRoot = fs.realpathSync.native(
+    fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-artifact-shared-link-")),
   );
-  const victimFile = path.join(victimRoot, "victim.txt");
-  fs.writeFileSync(victimFile, "must-not-change", { flag: "wx" });
+  const reportAlias = path.join(sharedRoot, "report-alias.json");
+  fs.linkSync(sharedLink.reportFile, reportAlias);
   try {
-    fs.rmSync(ownership.reportFile);
-    fs.symlinkSync(victimFile, ownership.reportFile);
-    const tampered = run(ownership.scopeRoot, ownership.token);
+    const rejected = runArtifactAuthorityCheck(sharedLink);
     assertCondition(
-      tampered.status === 1 &&
-        fs.readFileSync(victimFile, "utf8") === "must-not-change" &&
-        fs.existsSync(ownership.tempRoot),
-      "Artifact hidden probe followed a tampered report capability.",
+      rejected.status === 1 && fs.existsSync(reportAlias),
+      "Artifact hidden probe accepted a shared-link authority file.",
     );
   } finally {
-    fs.rmSync(ownership.scopeRoot, { recursive: true, force: true });
-    fs.rmSync(victimRoot, { recursive: true, force: true });
+    fs.rmSync(reportAlias, { force: true });
+    cleanupArtifactProbeOwnership(sharedLink);
+    fs.rmSync(sharedRoot, { recursive: true, force: true });
+  }
+
+  const nestedAlias = createArtifactProbeOwnership();
+  const aliasVictim = fs.realpathSync.native(
+    fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-artifact-alias-victim-")),
+  );
+  const victimFile = path.join(aliasVictim, "must-remain.txt");
+  const aliasPath = path.join(nestedAlias.tempRoot, "nested-alias");
+  fs.writeFileSync(victimFile, "must-remain", { flag: "wx" });
+  fs.symlinkSync(aliasVictim, aliasPath, "dir");
+  try {
+    const rejected = runArtifactAuthorityCheck(nestedAlias);
+    assertCondition(
+      rejected.status === 1 &&
+        fs.readFileSync(victimFile, "utf8") === "must-remain",
+      "Artifact hidden probe accepted a nested work-path alias.",
+    );
+  } finally {
+    fs.rmSync(aliasPath, { force: true });
+    cleanupArtifactProbeOwnership(nestedAlias);
+    fs.rmSync(aliasVictim, { recursive: true, force: true });
+  }
+
+  const replacementWindow = createArtifactProbeOwnership();
+  const historicalRoot = fs.realpathSync.native(
+    fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-artifact-signal-probe-history-")),
+  );
+  const historicalSentinel = path.join(historicalRoot, "must-remain.txt");
+  fs.writeFileSync(historicalSentinel, "must-remain", { flag: "wx" });
+  let displacedRoot = "";
+  let replacementRoot = "";
+  expectThrow(
+    () =>
+      cleanupArtifactProbeOwnership(replacementWindow, (quarantinePath) => {
+        displacedRoot = `${quarantinePath}.displaced`;
+        replacementRoot = quarantinePath;
+        fs.renameSync(quarantinePath, displacedRoot);
+        fs.mkdirSync(replacementRoot, { mode: 0o700 });
+        fs.writeFileSync(path.join(replacementRoot, "replacement.txt"), "stay", {
+          flag: "wx",
+        });
+      }),
+    "quarantine root changed",
+  );
+  try {
+    assertCondition(
+      fs.readFileSync(path.join(replacementRoot, "replacement.txt"), "utf8") ===
+        "stay" &&
+        fs.existsSync(displacedRoot) &&
+        fs.readFileSync(historicalSentinel, "utf8") === "must-remain",
+      "Artifact cleanup deleted a replacement or historical probe root.",
+    );
+  } finally {
+    if (replacementRoot) {
+      fs.rmSync(replacementRoot, { recursive: true, force: true });
+    }
+    if (displacedRoot) {
+      fs.rmSync(displacedRoot, { recursive: true, force: true });
+    }
+    fs.rmSync(historicalRoot, { recursive: true, force: true });
   }
 }
 
@@ -1859,8 +2213,6 @@ async function assertArtifactPublicationSignalSafety(
   ) => Promise<void>,
   skipParentContract = false,
 ): Promise<void> {
-  const require = createRequire(import.meta.url);
-  const tsxCli = require.resolve("tsx/cli");
   for (const signal of ["SIGINT", "SIGTERM"] as const) {
     for (const window of ["after-backup", "after-first-install"] as const) {
       const output: string[] = [];
@@ -1871,20 +2223,16 @@ async function assertArtifactPublicationSignalSafety(
           const child = spawn(
             process.execPath,
             [
-              tsxCli,
-              SCRIPT_PATH,
+              ...process.execArgv,
+              ARTIFACT_PROBE_SCRIPT_PATH,
               "--artifact-signal-probe",
               "--signal",
               signal,
               "--window",
               window,
-              "--probe-root",
-              ownership.scopeRoot,
-              "--probe-token",
-              ownership.token,
             ],
             {
-              cwd: ROOT,
+              cwd: ownership.tempRoot,
               env: {
                 ...process.env,
                 TURSO_DATABASE_URL: "",
@@ -1892,7 +2240,15 @@ async function assertArtifactPublicationSignalSafety(
                 FPKG_DATABASE_URL: "",
                 PUBLICATION_GATE_FIXTURE: "",
               },
-              stdio: ["ignore", "pipe", "pipe"],
+              stdio: [
+                "ignore",
+                "pipe",
+                "pipe",
+                ownership.rootDescriptor,
+                ownership.workDescriptor,
+                ownership.reportDescriptor,
+                ownership.nonceDescriptor,
+              ],
             },
           );
           scope.child = child;
@@ -1924,9 +2280,9 @@ async function assertArtifactPublicationSignalSafety(
           assertCondition(
             child.signalCode === null &&
               child.exitCode === (signal === "SIGINT" ? 130 : 143) &&
-              !fs.existsSync(cleaned.tempRoot) &&
+              fs.existsSync(cleaned.tempRoot) &&
               cleaned.restoredHashes?.length === ARTIFACT_FILES.length,
-            `${signal} ${window} did not restore the complete artifact set and clean its owned root.`,
+            `${signal} ${window} did not restore the complete artifact set through its owned descriptors.`,
           );
         });
       } catch (error) {
@@ -1994,8 +2350,6 @@ async function runArtifactParentSignalTarget(
 }
 
 async function assertArtifactParentHarnessSignalSafety(): Promise<void> {
-  const require = createRequire(import.meta.url);
-  const tsxCli = require.resolve("tsx/cli");
   for (const signal of ["SIGINT", "SIGTERM"] as const) {
     const output: string[] = [];
     const ownership = createArtifactProbeOwnership();
@@ -2005,18 +2359,14 @@ async function assertArtifactParentHarnessSignalSafety(): Promise<void> {
         const target = spawn(
           process.execPath,
           [
-            tsxCli,
-            SCRIPT_PATH,
+            ...process.execArgv,
+            ARTIFACT_PROBE_SCRIPT_PATH,
             "--artifact-parent-signal-target",
             "--signal",
             signal,
-            "--probe-root",
-            ownership.scopeRoot,
-            "--probe-token",
-            ownership.token,
           ],
           {
-            cwd: ROOT,
+            cwd: ownership.tempRoot,
             env: {
               ...process.env,
               TURSO_DATABASE_URL: "",
@@ -2024,7 +2374,15 @@ async function assertArtifactParentHarnessSignalSafety(): Promise<void> {
               FPKG_DATABASE_URL: "",
               PUBLICATION_GATE_FIXTURE: "",
             },
-            stdio: ["ignore", "pipe", "pipe"],
+            stdio: [
+              "ignore",
+              "pipe",
+              "pipe",
+              ownership.rootDescriptor,
+              ownership.workDescriptor,
+              ownership.reportDescriptor,
+              ownership.nonceDescriptor,
+            ],
           },
         );
         scope.child = target;
@@ -3721,47 +4079,42 @@ async function runSignalProbe(reportFile: string): Promise<void> {
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2).filter((arg) => arg !== "--");
+  if (args[0] === "--artifact-authority-check") {
+    assertCondition(
+      args.length === 1,
+      "--artifact-authority-check accepts inherited descriptors only.",
+    );
+    loadInheritedArtifactProbeOwnership();
+    return;
+  }
   if (args[0] === "--artifact-parent-signal-target") {
     const signalIndex = args.indexOf("--signal");
-    const probeRootIndex = args.indexOf("--probe-root");
-    const probeTokenIndex = args.indexOf("--probe-token");
     const signal = args[signalIndex + 1];
-    const probeRoot = args[probeRootIndex + 1];
-    const probeToken = args[probeTokenIndex + 1];
     assertCondition(
-      args.length === 7 &&
-        (signal === "SIGINT" || signal === "SIGTERM") &&
-        probeRoot &&
-        probeToken,
-      "--artifact-parent-signal-target requires --signal SIGINT|SIGTERM --probe-root <owned-path> --probe-token <nonce>.",
+      args.length === 3 && (signal === "SIGINT" || signal === "SIGTERM"),
+      "--artifact-parent-signal-target requires --signal SIGINT|SIGTERM and inherited authority descriptors.",
     );
     await runArtifactParentSignalTarget(
       signal,
-      loadArtifactProbeOwnership(probeRoot, probeToken, undefined, true),
+      loadInheritedArtifactProbeOwnership(),
     );
     return;
   }
   if (args[0] === "--artifact-signal-probe") {
     const signalIndex = args.indexOf("--signal");
     const windowIndex = args.indexOf("--window");
-    const probeRootIndex = args.indexOf("--probe-root");
-    const probeTokenIndex = args.indexOf("--probe-token");
     const signal = args[signalIndex + 1];
     const window = args[windowIndex + 1];
-    const probeRoot = args[probeRootIndex + 1];
-    const probeToken = args[probeTokenIndex + 1];
     assertCondition(
-      args.length === 9 &&
+      args.length === 5 &&
         (signal === "SIGINT" || signal === "SIGTERM") &&
-        (window === "after-backup" || window === "after-first-install") &&
-        probeRoot &&
-        probeToken,
-      "--artifact-signal-probe requires --signal SIGINT|SIGTERM --window after-backup|after-first-install --probe-root <owned-path> --probe-token <nonce>.",
+        (window === "after-backup" || window === "after-first-install"),
+      "--artifact-signal-probe requires --signal SIGINT|SIGTERM --window after-backup|after-first-install and inherited authority descriptors.",
     );
     await runArtifactSignalProbe(
       signal,
       window,
-      loadArtifactProbeOwnership(probeRoot, probeToken, undefined, true),
+      loadInheritedArtifactProbeOwnership(),
     );
     return;
   }
