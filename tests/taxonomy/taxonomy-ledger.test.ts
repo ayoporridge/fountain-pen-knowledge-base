@@ -29,12 +29,30 @@ test("taxonomy fixture safety", async () => {
   const protectedCatalog = path.join(process.cwd(), "data", "fpkg.db");
   const unsafeEnvironments: Array<[string, NodeJS.ProcessEnv]> = [
     ["missing flag", {}],
-    ["remote credentials", { TAXONOMY_FIXTURE: "1", TURSO_DATABASE_URL: "libsql://remote.invalid" }],
-    ["external base URL", { TAXONOMY_FIXTURE: "1", E2E_BASE_URL: "https://example.com" }],
-    ["protected catalog", { TAXONOMY_FIXTURE: "1", FPKG_DATABASE_URL: `file:${protectedCatalog}` }],
-    ["outside destination", { TAXONOMY_FIXTURE: "1", FPKG_DATABASE_URL: `file:${harmlessFile}` }],
-    ["symlink alias", { TAXONOMY_FIXTURE: "1", FPKG_DATABASE_URL: `file:${symlinkPath}` }],
-    ["hardlink alias", { TAXONOMY_FIXTURE: "1", FPKG_DATABASE_URL: `file:${hardlinkPath}` }],
+    [
+      "remote credentials",
+      { TAXONOMY_FIXTURE: "1", TURSO_DATABASE_URL: "libsql://remote.invalid" },
+    ],
+    [
+      "external base URL",
+      { TAXONOMY_FIXTURE: "1", E2E_BASE_URL: "https://example.com" },
+    ],
+    [
+      "protected catalog",
+      { TAXONOMY_FIXTURE: "1", FPKG_DATABASE_URL: `file:${protectedCatalog}` },
+    ],
+    [
+      "outside destination",
+      { TAXONOMY_FIXTURE: "1", FPKG_DATABASE_URL: `file:${harmlessFile}` },
+    ],
+    [
+      "symlink alias",
+      { TAXONOMY_FIXTURE: "1", FPKG_DATABASE_URL: `file:${symlinkPath}` },
+    ],
+    [
+      "hardlink alias",
+      { TAXONOMY_FIXTURE: "1", FPKG_DATABASE_URL: `file:${hardlinkPath}` },
+    ],
   ];
 
   try {
