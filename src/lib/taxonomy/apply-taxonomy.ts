@@ -1,14 +1,21 @@
 import { createHash } from "node:crypto";
 import type { Client, InArgs, ResultSet, Transaction } from "@libsql/client";
 import {
+  type PayloadAssignment,
   type PrimaryAction,
   reconcileTaxonomyPlan,
   type TaxonomyDecision,
   type TaxonomyPlan,
 } from "./identity-plan";
+import {
+  type ReferenceAssignmentResolution,
+  type ReferenceInventoryItem,
+  resolveReferenceAssignments,
+} from "./reference-migration";
 
 const SCOPE = "non_split" as const;
 const SOURCE_KEY = "taxonomy:v1.2:non_split";
+const LOCKED_SPLIT_SOURCE_KEY = "taxonomy:v1.2:locked_split";
 const LOCKED_ENTITY_IDS = new Set([
   "gwKClNnwt3V3",
   "dTCUDu03vrI6",
@@ -22,6 +29,100 @@ const LOCKED_ENTITY_IDS = new Set([
   "5CcEDOz9jiUg",
   "5waoVLPHU2Pt",
 ]);
+
+const LOCKED_SPLIT_DONORS = [
+  {
+    id: "gwKClNnwt3V3",
+    slug: "威迪文-waterman-查尔斯顿-hemisphere",
+    makerId: "zkAu9PePDdqJ",
+    retire: false,
+  },
+  {
+    id: "dTCUDu03vrI6",
+    slug: "opus-88-demo-kolora",
+    makerId: "I6tjleAZx9RU",
+    retire: true,
+  },
+  {
+    id: "s0HAxT1gsHxh",
+    slug: "leonardo-furore-momento-magico",
+    makerId: "g5r4udSOYhI5",
+    retire: true,
+  },
+  {
+    id: "G9ptvLpfyzNQ",
+    slug: "奥罗拉-aurora",
+    makerId: "CJXe8UpnkHLJ",
+    retire: true,
+  },
+] as const;
+
+const LOCKED_SPLIT_OUTPUTS = [
+  {
+    id: "gwKClNnwt3V3",
+    slug: "waterman-hemisphere",
+    name: "威迪文 Waterman Hémisphère",
+    makerId: "zkAu9PePDdqJ",
+    donorId: "gwKClNnwt3V3",
+    sourceRowKey: "法国、英国与美国::Waterman Hémisphère",
+  },
+  {
+    id: "4dcEbeUCjxH-",
+    slug: "waterman-charleston",
+    name: "威迪文 Waterman Charleston",
+    makerId: "zkAu9PePDdqJ",
+    donorId: "gwKClNnwt3V3",
+    sourceRowKey: "法国、英国与美国::Waterman Charleston",
+  },
+  {
+    id: "CqFpmT3l4Mtm",
+    slug: "opus-88-demo",
+    name: "Opus 88 Demo",
+    makerId: "I6tjleAZx9RU",
+    donorId: "dTCUDu03vrI6",
+    sourceRowKey: "台湾::Opus 88 Demo",
+  },
+  {
+    id: "0CNmbxM54-GA",
+    slug: "opus-88-koloro",
+    name: "Opus 88 Koloro",
+    makerId: "I6tjleAZx9RU",
+    donorId: "dTCUDu03vrI6",
+    sourceRowKey: "台湾::Opus 88 Koloro",
+  },
+  {
+    id: "ixul2gTcJ06B",
+    slug: "leonardo-furore",
+    name: "Leonardo Furore",
+    makerId: "g5r4udSOYhI5",
+    donorId: "s0HAxT1gsHxh",
+    sourceRowKey: "意大利::Leonardo Furore",
+  },
+  {
+    id: "UE5otlwKUfp9",
+    slug: "leonardo-momento-magico",
+    name: "Leonardo Momento Magico",
+    makerId: "g5r4udSOYhI5",
+    donorId: "s0HAxT1gsHxh",
+    sourceRowKey: "意大利::Leonardo Momento Magico",
+  },
+  {
+    id: "5CcEDOz9jiUg",
+    slug: "aurora-88",
+    name: "奥罗拉 Aurora 88",
+    makerId: "CJXe8UpnkHLJ",
+    donorId: "G9ptvLpfyzNQ",
+    sourceRowKey: "意大利::Aurora 88",
+  },
+  {
+    id: "5waoVLPHU2Pt",
+    slug: "aurora-optima",
+    name: "奥罗拉 Aurora Optima",
+    makerId: "CJXe8UpnkHLJ",
+    donorId: "G9ptvLpfyzNQ",
+    sourceRowKey: "意大利::Aurora Optima",
+  },
+] as const;
 
 type CanonicalActionKind = Extract<
   PrimaryAction,
@@ -122,6 +223,23 @@ export interface ApplyTaxonomyResult {
   batchId: string;
   sourceChecksum: string;
   actionCounts: Record<CanonicalActionKind, number>;
+  splitCount?: number;
+  outputCount?: number;
+}
+
+export interface ResolvedLockedSplitPlan {
+  scope: "locked_split";
+  sourceKey: typeof LOCKED_SPLIT_SOURCE_KEY;
+  sourceChecksum: string;
+  batchId: string;
+  sourceRowCount: 8;
+  outputs: Array<(typeof LOCKED_SPLIT_OUTPUTS)[number]>;
+  donors: Array<
+    (typeof LOCKED_SPLIT_DONORS)[number] & { snapshot: EntitySnapshot }
+  >;
+  assignments: ReferenceAssignmentResolution;
+  blockers: TaxonomyBlocker[];
+  replay: "none" | "noop";
 }
 
 function stableJson(value: unknown): string {
@@ -927,6 +1045,296 @@ export async function resolveTaxonomyPlan(
   };
 }
 
+async function lockedSplitInventory(
+  db: Queryable,
+): Promise<ReferenceInventoryItem[]> {
+  const donorIds = LOCKED_SPLIT_DONORS.map((item) => item.id);
+  const placeholders = donorIds.map(() => "?").join(", ");
+  const inventory: ReferenceInventoryItem[] = [];
+  const addOwnedRows = async (
+    surface: PayloadAssignment["surface"],
+    sql: string,
+    itemColumn = "id",
+    rowColumn = "id",
+  ): Promise<void> => {
+    for (const row of await rows(db, sql, donorIds)) {
+      inventory.push({
+        donorId: rowString(row, "entity_id"),
+        surface,
+        itemId: rowString(row, itemColumn),
+        rowId: rowString(row, rowColumn),
+      });
+    }
+  };
+
+  await addOwnedRows(
+    "story",
+    `SELECT id, entity_id FROM stories WHERE entity_id IN (${placeholders})`,
+  );
+  await addOwnedRows(
+    "spec",
+    `SELECT id, entity_id FROM model_specs WHERE entity_id IN (${placeholders})`,
+  );
+  await addOwnedRows(
+    "media",
+    `SELECT id, entity_id FROM media_assets WHERE entity_id IN (${placeholders})`,
+  );
+  await addOwnedRows(
+    "tag",
+    `SELECT id, entity_id, tag_id FROM entity_tags WHERE entity_id IN (${placeholders})`,
+    "tag_id",
+  );
+  await addOwnedRows(
+    "relation",
+    `SELECT id, source_id AS entity_id
+       FROM entity_links
+      WHERE source_id IN (${placeholders})
+        AND link_type NOT IN ('made_by', 'reverse')`,
+  );
+  await addOwnedRows(
+    "reference",
+    `SELECT id, entity_id FROM entity_references WHERE entity_id IN (${placeholders})`,
+  );
+  await addOwnedRows(
+    "variant",
+    `SELECT id, model_entity_id AS entity_id
+       FROM model_variants WHERE model_entity_id IN (${placeholders})`,
+  );
+  await addOwnedRows(
+    "review",
+    `SELECT id, entity_id
+       FROM entity_content_reviews WHERE entity_id IN (${placeholders})`,
+  );
+
+  for (const row of await rows(
+    db,
+    `SELECT id, subject_entity_id, object_entity_id
+       FROM claims
+      WHERE subject_entity_id IN (${placeholders})
+         OR object_entity_id IN (${placeholders})`,
+    [...donorIds, ...donorIds],
+  )) {
+    const subject = nullableRowString(row, "subject_entity_id");
+    const object = nullableRowString(row, "object_entity_id");
+    const owners = [subject, object].filter(
+      (id): id is string => id !== null && donorIds.includes(id as never),
+    );
+    for (const donorId of new Set(owners)) {
+      inventory.push({
+        donorId,
+        surface: "claim",
+        itemId: rowString(row, "id"),
+        rowId: rowString(row, "id"),
+      });
+    }
+  }
+  for (const row of await rows(
+    db,
+    `SELECT id, target_id AS entity_id
+       FROM citations
+      WHERE target_type = 'entity' AND target_id IN (${placeholders})`,
+    donorIds,
+  )) {
+    inventory.push({
+      donorId: rowString(row, "entity_id"),
+      surface: "citation",
+      itemId: rowString(row, "id"),
+      rowId: rowString(row, "id"),
+    });
+  }
+  inventory.sort((left, right) =>
+    `${left.donorId}:${left.surface}:${left.itemId}`.localeCompare(
+      `${right.donorId}:${right.surface}:${right.itemId}`,
+    ),
+  );
+  return inventory;
+}
+
+export async function resolveLockedSplitTaxonomyPlan(
+  db: Pick<Client, "execute">,
+  plan: TaxonomyPlan,
+): Promise<ResolvedLockedSplitPlan> {
+  const blockers: TaxonomyBlocker[] = [];
+  let sourceRowCount = 0;
+  try {
+    const reconciliation = reconcileTaxonomyPlan(plan, {
+      scope: "locked_split",
+    });
+    sourceRowCount = reconciliation.sourceRowKeys.length;
+  } catch (error) {
+    blocker(
+      blockers,
+      "unresolved_locked_split_manifest",
+      null,
+      error instanceof Error ? error.message : String(error),
+    );
+  }
+  if (sourceRowCount !== 0 && sourceRowCount !== 8) {
+    blocker(
+      blockers,
+      "locked_split_cardinality",
+      null,
+      `Expected exactly 8 locked split rows; found ${sourceRowCount}.`,
+    );
+  }
+
+  const decisions = new Map(
+    plan.matrix.map((decision) => [decision.sourceRowKey, decision]),
+  );
+  for (const output of LOCKED_SPLIT_OUTPUTS) {
+    const decision = decisions.get(output.sourceRowKey);
+    if (
+      !decision ||
+      decision.executionState !== "apply" ||
+      decision.canonical?.entityId !== output.id ||
+      decision.canonical.slug !== output.slug ||
+      decision.canonical.name !== output.name ||
+      decision.canonical.makerId !== output.makerId
+    ) {
+      blocker(
+        blockers,
+        "locked_output_contract_mismatch",
+        output.sourceRowKey,
+        `Locked output ${output.id}/${output.slug} does not match the manifest.`,
+      );
+    }
+  }
+
+  const donors: ResolvedLockedSplitPlan["donors"] = [];
+  for (const donor of LOCKED_SPLIT_DONORS) {
+    const snapshot = await entitySnapshot(db, donor.id);
+    if (
+      !snapshot ||
+      snapshot.type !== "pen" ||
+      snapshot.slug !== donor.slug ||
+      snapshot.makerId !== donor.makerId
+    ) {
+      blocker(
+        blockers,
+        "locked_donor_before_state_mismatch",
+        null,
+        `Expected exact donor ${donor.id}/${donor.slug}/${donor.makerId}.`,
+      );
+    } else {
+      donors.push({ ...donor, snapshot });
+    }
+    const maker = await entitySnapshot(db, donor.makerId);
+    if (!maker || maker.type !== "brand") {
+      blocker(
+        blockers,
+        "locked_maker_before_state_mismatch",
+        null,
+        `Expected exact brand ${donor.makerId}.`,
+      );
+    }
+  }
+
+  for (const output of LOCKED_SPLIT_OUTPUTS) {
+    if (output.id === LOCKED_SPLIT_DONORS[0].id) continue;
+    if (await entitySnapshot(db, output.id)) {
+      blocker(
+        blockers,
+        "locked_output_id_collision",
+        output.sourceRowKey,
+        `Locked output ID ${output.id} already exists.`,
+      );
+    }
+    const slugRows = await rows(db, "SELECT id FROM entities WHERE slug = ?", [
+      output.slug,
+    ]);
+    if (slugRows.length > 0) {
+      blocker(
+        blockers,
+        "locked_output_slug_collision",
+        output.sourceRowKey,
+        `Locked output slug ${output.slug} already exists.`,
+      );
+    }
+  }
+
+  const donorIds: ReadonlySet<string> = new Set(
+    LOCKED_SPLIT_DONORS.map((item) => item.id),
+  );
+  const assignments = resolveReferenceAssignments(
+    plan.payloadAssignments.filter((item) => donorIds.has(item.donorId)),
+    await lockedSplitInventory(db),
+    new Set(LOCKED_SPLIT_OUTPUTS.map((item) => item.id)),
+  );
+  for (const issue of assignments.blockers) {
+    blocker(
+      blockers,
+      issue.code,
+      null,
+      `${issue.donorId ?? "unknown"}: ${issue.message}`,
+    );
+  }
+  for (const item of [...assignments.retained, ...assignments.pending]) {
+    if (item.donorId === LOCKED_SPLIT_DONORS[0].id) {
+      blocker(
+        blockers,
+        "retained_donor_ambiguous_payload",
+        null,
+        `Waterman continuity winner cannot retain ambiguous ${item.surface} ${item.itemId}.`,
+      );
+    }
+  }
+
+  const sourceChecksum = sha256(plan);
+  const batchId = stableId("taxonomy-batch", {
+    sourceKey: LOCKED_SPLIT_SOURCE_KEY,
+    sourceChecksum,
+  });
+  let replay: ResolvedLockedSplitPlan["replay"] = "none";
+  const previous = await rows(
+    db,
+    "SELECT source_checksum, status FROM taxonomy_batches WHERE source_key = ?",
+    [LOCKED_SPLIT_SOURCE_KEY],
+  );
+  if (previous.length > 1) {
+    blocker(
+      blockers,
+      "batch_key_cardinality",
+      null,
+      "Locked split batch key is not unique.",
+    );
+  } else if (previous.length === 1) {
+    if (rowString(previous[0], "source_checksum") !== sourceChecksum) {
+      blocker(
+        blockers,
+        "batch_checksum_conflict",
+        null,
+        "Locked split batch checksum changed.",
+      );
+    } else if (rowString(previous[0], "status") === "applied") {
+      replay = "noop";
+    } else {
+      blocker(
+        blockers,
+        "incomplete_batch_replay",
+        null,
+        "Locked split batch is not terminal.",
+      );
+    }
+  }
+  blockers.sort((left, right) =>
+    `${left.sourceRowKey ?? ""}:${left.code}`.localeCompare(
+      `${right.sourceRowKey ?? ""}:${right.code}`,
+    ),
+  );
+  return {
+    scope: "locked_split",
+    sourceKey: LOCKED_SPLIT_SOURCE_KEY,
+    sourceChecksum,
+    batchId,
+    sourceRowCount: 8,
+    outputs: [...LOCKED_SPLIT_OUTPUTS],
+    donors,
+    assignments,
+    blockers,
+    replay,
+  };
+}
+
 async function expectOne(result: ResultSet, label: string): Promise<void> {
   if (result.rowsAffected !== 1) {
     throw new Error(
@@ -1296,7 +1704,7 @@ function emptyActionCounts(): Record<CanonicalActionKind, number> {
   return { alias: 0, merge: 0, rename: 0, retire: 0 };
 }
 
-export async function applyTaxonomyPlan(
+async function applyNonSplitTaxonomyPlan(
   db: Pick<Client, "transaction">,
   resolved: ResolvedTaxonomyPlan,
 ): Promise<ApplyTaxonomyResult> {
@@ -1433,4 +1841,435 @@ export async function applyTaxonomyPlan(
     await rollbackQuietly(transaction);
     throw error;
   }
+}
+
+function lockedActionId(
+  resolved: ResolvedLockedSplitPlan,
+  output: (typeof LOCKED_SPLIT_OUTPUTS)[number],
+): string {
+  return stableId("taxonomy-action", {
+    batchId: resolved.batchId,
+    sourceRowKey: output.sourceRowKey,
+    donorId: output.donorId,
+    outputId: output.id,
+  });
+}
+
+async function moveLockedAssignment(
+  transaction: Transaction,
+  assignment: ReferenceAssignmentResolution["moves"][number],
+): Promise<void> {
+  if (!assignment.targetId) throw new Error("Locked payload move lost target.");
+  const targetId = assignment.targetId;
+  if (assignment.surface === "story") {
+    await expectOne(
+      await transaction.execute({
+        sql: "UPDATE stories SET entity_id = ?, status = 'draft', updated_at = datetime('now') WHERE id = ? AND entity_id = ?",
+        args: [targetId, assignment.rowId, assignment.donorId],
+      }),
+      `move story ${assignment.itemId}`,
+    );
+    return;
+  }
+  if (assignment.surface === "spec") {
+    await expectOne(
+      await transaction.execute({
+        sql: "UPDATE model_specs SET entity_id = ?, brand_entity_id = NULL, review_status = 'pending', updated_at = datetime('now') WHERE id = ? AND entity_id = ?",
+        args: [targetId, assignment.rowId, assignment.donorId],
+      }),
+      `move spec ${assignment.itemId}`,
+    );
+    return;
+  }
+  if (assignment.surface === "claim") {
+    const result = await transaction.execute({
+      sql: `UPDATE claims
+               SET subject_entity_id = CASE WHEN subject_entity_id = ? THEN ? ELSE subject_entity_id END,
+                   object_entity_id = CASE WHEN object_entity_id = ? THEN ? ELSE object_entity_id END,
+                   review_status = 'needs_source', updated_at = datetime('now')
+             WHERE id = ? AND (subject_entity_id = ? OR object_entity_id = ?)`,
+      args: [
+        assignment.donorId,
+        targetId,
+        assignment.donorId,
+        targetId,
+        assignment.rowId,
+        assignment.donorId,
+        assignment.donorId,
+      ],
+    });
+    await expectOne(result, `move claim ${assignment.itemId}`);
+    return;
+  }
+  if (assignment.surface === "citation") {
+    await expectOne(
+      await transaction.execute({
+        sql: "UPDATE citations SET target_id = ?, review_status = 'needs_review' WHERE id = ? AND target_type = 'entity' AND target_id = ?",
+        args: [targetId, assignment.rowId, assignment.donorId],
+      }),
+      `move citation ${assignment.itemId}`,
+    );
+    return;
+  }
+  if (assignment.surface === "media") {
+    await expectOne(
+      await transaction.execute({
+        sql: "UPDATE media_assets SET entity_id = ?, review_status = 'pending', usage_status = 'candidate', updated_at = datetime('now') WHERE id = ? AND entity_id = ?",
+        args: [targetId, assignment.rowId, assignment.donorId],
+      }),
+      `move media ${assignment.itemId}`,
+    );
+    return;
+  }
+  if (assignment.surface === "tag") {
+    await expectOne(
+      await transaction.execute({
+        sql: "UPDATE entity_tags SET entity_id = ? WHERE id = ? AND entity_id = ?",
+        args: [targetId, assignment.rowId, assignment.donorId],
+      }),
+      `move tag ${assignment.itemId}`,
+    );
+    return;
+  }
+  if (assignment.surface === "reference") {
+    await expectOne(
+      await transaction.execute({
+        sql: "UPDATE entity_references SET entity_id = ?, review_status = 'pending' WHERE id = ? AND entity_id = ?",
+        args: [targetId, assignment.rowId, assignment.donorId],
+      }),
+      `move reference ${assignment.itemId}`,
+    );
+    return;
+  }
+  if (assignment.surface === "variant") {
+    await expectOne(
+      await transaction.execute({
+        sql: "UPDATE model_variants SET model_entity_id = ?, review_status = 'pending' WHERE id = ? AND model_entity_id = ?",
+        args: [targetId, assignment.rowId, assignment.donorId],
+      }),
+      `move variant ${assignment.itemId}`,
+    );
+    return;
+  }
+  if (assignment.surface === "relation") {
+    const relationRows = await rows(
+      transaction,
+      `SELECT id, source_id, target_id, link_type, reason
+         FROM entity_links
+        WHERE id = ? AND source_id = ? AND link_type NOT IN ('made_by', 'reverse')`,
+      [assignment.rowId, assignment.donorId],
+    );
+    if (relationRows.length !== 1)
+      throw new Error(`Relation ${assignment.itemId} lost exact ownership.`);
+    const relation = relationRows[0];
+    await expectOne(
+      await transaction.execute({
+        sql: "DELETE FROM entity_links WHERE id = ?",
+        args: [assignment.rowId],
+      }),
+      `remove relation ${assignment.itemId}`,
+    );
+    await expectOne(
+      await transaction.execute({
+        sql: "INSERT INTO entity_links (id, source_id, target_id, link_type, reason) VALUES (?, ?, ?, ?, ?)",
+        args: [
+          assignment.rowId,
+          targetId,
+          rowString(relation, "target_id"),
+          rowString(relation, "link_type"),
+          nullableRowString(relation, "reason"),
+        ],
+      }),
+      `rebuild relation ${assignment.itemId}`,
+    );
+    return;
+  }
+  if (assignment.surface === "source") return;
+  throw new Error(`Review payload ${assignment.itemId} cannot be inherited.`);
+}
+
+async function applyLockedSplitTaxonomyPlan(
+  db: Pick<Client, "transaction">,
+  resolved: ResolvedLockedSplitPlan,
+): Promise<ApplyTaxonomyResult> {
+  if (resolved.blockers.length > 0) {
+    throw new Error(
+      `Taxonomy apply refused ${resolved.blockers.length} locked split blocker(s).`,
+    );
+  }
+  if (resolved.replay === "noop") {
+    return {
+      applied: false,
+      replay: "noop",
+      batchId: resolved.batchId,
+      sourceChecksum: resolved.sourceChecksum,
+      actionCounts: emptyActionCounts(),
+      splitCount: 0,
+      outputCount: 0,
+    };
+  }
+  if (resolved.outputs.length !== 8 || resolved.donors.length !== 4) {
+    throw new Error(
+      "Locked split apply requires exactly four donors and eight outputs.",
+    );
+  }
+
+  const transaction = await db.transaction("write");
+  try {
+    for (const donor of resolved.donors)
+      await assertSnapshot(transaction, donor.snapshot);
+    await expectOne(
+      await transaction.execute({
+        sql: `INSERT INTO taxonomy_batches
+              (id, source_key, source_checksum, status, note)
+            VALUES (?, ?, ?, 'staged', 'Plan 21-04 exact locked split')`,
+        args: [resolved.batchId, resolved.sourceKey, resolved.sourceChecksum],
+      }),
+      "insert locked split batch",
+    );
+
+    for (const donor of resolved.donors) {
+      await demote(transaction, donor.id);
+      await demote(transaction, donor.makerId);
+    }
+    for (const output of resolved.outputs) {
+      if (output.id === LOCKED_SPLIT_DONORS[0].id) {
+        await expectOne(
+          await transaction.execute({
+            sql: "UPDATE entities SET slug = ?, name = ?, updated_at = datetime('now') WHERE id = ? AND slug = ?",
+            args: [
+              output.slug,
+              output.name,
+              output.id,
+              LOCKED_SPLIT_DONORS[0].slug,
+            ],
+          }),
+          "retain Waterman Hémisphère",
+        );
+      } else {
+        await expectOne(
+          await transaction.execute({
+            sql: "INSERT INTO entities (id, type, slug, name) VALUES (?, 'pen', ?, ?)",
+            args: [output.id, output.slug, output.name],
+          }),
+          `create locked output ${output.id}`,
+        );
+        await demote(transaction, output.id);
+        await expectOne(
+          await transaction.execute({
+            sql: "INSERT INTO entity_links (id, source_id, target_id, link_type) VALUES (?, ?, ?, 'made_by')",
+            args: [
+              stableId("taxonomy-link", {
+                batchId: resolved.batchId,
+                outputId: output.id,
+                makerId: output.makerId,
+              }),
+              output.id,
+              output.makerId,
+            ],
+          }),
+          `insert locked maker ${output.id}`,
+        );
+      }
+    }
+
+    for (const output of resolved.outputs) {
+      const actionId = lockedActionId(resolved, output);
+      const actionChecksum = sha256({
+        sourceRowKey: output.sourceRowKey,
+        donorId: output.donorId,
+        outputId: output.id,
+        outputSlug: output.slug,
+      });
+      await expectOne(
+        await transaction.execute({
+          sql: `INSERT INTO taxonomy_actions (
+                  id, batch_id, source_row_key, action_kind, action_checksum,
+                  source_entity_id, target_entity_id, status, note
+                ) VALUES (?, ?, ?, 'split', ?, ?, ?, 'staged', 'exact locked output')`,
+          args: [
+            actionId,
+            resolved.batchId,
+            output.sourceRowKey,
+            actionChecksum,
+            output.donorId,
+            output.id,
+          ],
+        }),
+        `insert locked action ${output.sourceRowKey}`,
+      );
+      if (output.id !== output.donorId) {
+        await expectOne(
+          await transaction.execute({
+            sql: `INSERT INTO entity_lineage (
+                    id, batch_id, action_id, source_entity_id, target_entity_id,
+                    lineage_kind, fallback_reason
+                  ) VALUES (?, ?, ?, ?, ?, 'split', 'exact locked payload assignment')`,
+            args: [
+              stableId("taxonomy-lineage", {
+                batchId: resolved.batchId,
+                donorId: output.donorId,
+                outputId: output.id,
+              }),
+              resolved.batchId,
+              actionId,
+              output.donorId,
+              output.id,
+            ],
+          }),
+          `insert locked lineage ${output.id}`,
+        );
+      }
+    }
+
+    for (const assignment of resolved.assignments.moves) {
+      await moveLockedAssignment(transaction, assignment);
+    }
+
+    for (const donor of resolved.donors.filter((item) => item.retire)) {
+      await expectOne(
+        await transaction.execute({
+          sql: "DELETE FROM entity_links WHERE source_id = ? AND target_id = ? AND link_type = 'made_by'",
+          args: [donor.id, donor.makerId],
+        }),
+        `remove retired donor maker ${donor.id}`,
+      );
+      await expectOne(
+        await transaction.execute({
+          sql: `UPDATE entity_publications
+                   SET status = 'retired', blockers_json = '["taxonomy_split_source"]',
+                       approved_content_hash = NULL, reviewed_content_revision = NULL,
+                       reviewed_contract_version = NULL, reviewed_by = NULL,
+                       reviewed_at = NULL, published_at = NULL, updated_at = datetime('now')
+                 WHERE entity_id = ?`,
+          args: [donor.id],
+        }),
+        `retire locked donor ${donor.id}`,
+      );
+    }
+
+    const routeRows = [
+      {
+        output: resolved.outputs[0],
+        sourcePath: "/pen/威迪文-waterman-查尔斯顿-hemisphere",
+        targetPath: "/pen/waterman-hemisphere",
+      },
+      {
+        output: resolved.outputs[6],
+        sourcePath: "/pen/奥罗拉-aurora",
+        targetPath: "/brand/aurora",
+      },
+    ];
+    for (const route of routeRows) {
+      await expectOne(
+        await transaction.execute({
+          sql: `INSERT INTO entity_redirects (
+                  id, batch_id, action_id, source_path, target_path,
+                  redirect_kind, fallback_reason
+                ) VALUES (?, ?, ?, ?, ?, 'permanent', 'activate only when target is public')`,
+          args: [
+            stableId("taxonomy-redirect", {
+              batchId: resolved.batchId,
+              sourcePath: route.sourcePath,
+            }),
+            resolved.batchId,
+            lockedActionId(resolved, route.output),
+            route.sourcePath,
+            route.targetPath,
+          ],
+        }),
+        `insert locked redirect ${route.sourcePath}`,
+      );
+    }
+
+    for (const output of resolved.outputs) {
+      const makers = await rows(
+        transaction,
+        "SELECT target_id FROM entity_links WHERE source_id = ? AND link_type = 'made_by'",
+        [output.id],
+      );
+      if (
+        makers.length !== 1 ||
+        rowString(makers[0], "target_id") !== output.makerId
+      ) {
+        throw new Error(
+          `Locked output ${output.id} lost canonical maker parity.`,
+        );
+      }
+      const reviews = await rows(
+        transaction,
+        "SELECT id FROM entity_content_reviews WHERE entity_id = ?",
+        [output.id],
+      );
+      if (output.id !== LOCKED_SPLIT_DONORS[0].id && reviews.length !== 0) {
+        throw new Error(`Locked output ${output.id} inherited donor reviews.`);
+      }
+      await expectOne(
+        await transaction.execute({
+          sql: "UPDATE taxonomy_actions SET status = 'applied', updated_at = datetime('now') WHERE id = ? AND status = 'staged'",
+          args: [lockedActionId(resolved, output)],
+        }),
+        `complete locked action ${output.sourceRowKey}`,
+      );
+    }
+
+    const outputIds = resolved.outputs.map((item) => item.id);
+    const placeholders = outputIds.map(() => "?").join(", ");
+    if (
+      (
+        await rows(
+          transaction,
+          `SELECT id FROM public_entities WHERE id IN (${placeholders})`,
+          outputIds,
+        )
+      ).length !== 0
+    ) {
+      throw new Error(
+        "Locked split output became public without fresh review.",
+      );
+    }
+    const foreignKeyErrors = await rows(
+      transaction,
+      "PRAGMA foreign_key_check",
+    );
+    if (foreignKeyErrors.length !== 0)
+      throw new Error("Locked split produced a foreign-key orphan.");
+    await expectOne(
+      await transaction.execute({
+        sql: "UPDATE taxonomy_batches SET status = 'applied', updated_at = datetime('now') WHERE id = ? AND status = 'staged'",
+        args: [resolved.batchId],
+      }),
+      "complete locked split batch",
+    );
+    await transaction.commit();
+    return {
+      applied: true,
+      replay: "applied",
+      batchId: resolved.batchId,
+      sourceChecksum: resolved.sourceChecksum,
+      actionCounts: emptyActionCounts(),
+      splitCount: 4,
+      outputCount: 8,
+    };
+  } catch (error) {
+    await rollbackQuietly(transaction);
+    throw error;
+  }
+}
+
+export function applyTaxonomyPlan(
+  db: Pick<Client, "transaction">,
+  resolved: ResolvedTaxonomyPlan,
+): Promise<ApplyTaxonomyResult>;
+export function applyTaxonomyPlan(
+  db: Pick<Client, "transaction">,
+  resolved: ResolvedLockedSplitPlan,
+): Promise<ApplyTaxonomyResult>;
+export function applyTaxonomyPlan(
+  db: Pick<Client, "transaction">,
+  resolved: ResolvedTaxonomyPlan | ResolvedLockedSplitPlan,
+): Promise<ApplyTaxonomyResult> {
+  return resolved.scope === "locked_split"
+    ? applyLockedSplitTaxonomyPlan(db, resolved)
+    : applyNonSplitTaxonomyPlan(db, resolved);
 }

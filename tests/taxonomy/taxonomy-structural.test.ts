@@ -2,20 +2,20 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import type { Client } from "@libsql/client";
 import {
-  applyTaxonomyPlan,
-  resolveLockedSplitTaxonomyPlan,
-} from "../../src/lib/taxonomy/apply-taxonomy";
-import {
-  type PayloadAssignment,
-  loadTaxonomyPlan,
-  type TaxonomyPlan,
-} from "../../src/lib/taxonomy/identity-plan";
-import { validateVariantHierarchy } from "../../src/lib/taxonomy/reference-migration";
-import {
   cleanupTaxonomyFixture,
   createTaxonomyFixture,
   type TaxonomyFixture,
 } from "../../scripts/lib/taxonomy-fixture";
+import {
+  applyTaxonomyPlan,
+  resolveLockedSplitTaxonomyPlan,
+} from "../../src/lib/taxonomy/apply-taxonomy";
+import {
+  loadTaxonomyPlan,
+  type PayloadAssignment,
+  type TaxonomyPlan,
+} from "../../src/lib/taxonomy/identity-plan";
+import { validateVariantHierarchy } from "../../src/lib/taxonomy/reference-migration";
 
 const LOCKED = {
   brands: {
@@ -114,12 +114,6 @@ async function scalar(
 
 async function seedLockedFixture(fixture: TaxonomyFixture): Promise<void> {
   const db = fixture.client;
-  const brands = [
-    [LOCKED.brands.waterman, "waterman", "威迪文 (Waterman)"],
-    [LOCKED.brands.opus, "opus88", "Opus 88"],
-    [LOCKED.brands.leonardo, "leonardo", "Leonardo"],
-    [LOCKED.brands.aurora, "aurora", "奥罗拉 (Aurora)"],
-  ] as const;
   const donors = [
     [
       LOCKED.donors.waterman,
@@ -146,14 +140,6 @@ async function seedLockedFixture(fixture: TaxonomyFixture): Promise<void> {
       LOCKED.brands.aurora,
     ],
   ] as const;
-
-  for (const [id, slug, name] of brands) {
-    await insert(
-      db,
-      "INSERT INTO entities (id, type, slug, name) VALUES (?, 'brand', ?, ?)",
-      [id, slug, name],
-    );
-  }
   for (const [id, slug, name, makerId] of donors) {
     await insert(
       db,
@@ -222,9 +208,11 @@ test("mixed split applies exact locked outputs and ambiguous payload stays retir
     const result = await applyTaxonomyPlan(client, resolved);
     assert.equal(result.applied, true);
     assert.equal(
-      await scalar(client, "SELECT COUNT(*) FROM entities WHERE id IN (?, ?, ?, ?, ?, ?, ?, ?)", [
-        ...Object.values(LOCKED.outputs),
-      ]),
+      await scalar(
+        client,
+        "SELECT COUNT(*) FROM entities WHERE id IN (?, ?, ?, ?, ?, ?, ?, ?)",
+        [...Object.values(LOCKED.outputs)],
+      ),
       "8",
     );
     assert.equal(
@@ -234,17 +222,25 @@ test("mixed split applies exact locked outputs and ambiguous payload stays retir
       "waterman-hemisphere",
     );
     assert.equal(
-      await scalar(client, "SELECT entity_id FROM stories WHERE id = 'locked-story-opus'"),
+      await scalar(
+        client,
+        "SELECT entity_id FROM stories WHERE id = 'locked-story-opus'",
+      ),
       LOCKED.outputs.demo,
     );
     assert.equal(
-      await scalar(client, "SELECT entity_id FROM media_assets WHERE id = 'locked-media-opus'"),
+      await scalar(
+        client,
+        "SELECT entity_id FROM media_assets WHERE id = 'locked-media-opus'",
+      ),
       LOCKED.donors.opus,
     );
     assert.equal(
-      await scalar(client, "SELECT COUNT(*) FROM public_entities WHERE id IN (?, ?, ?, ?, ?, ?, ?, ?)", [
-        ...Object.values(LOCKED.outputs),
-      ]),
+      await scalar(
+        client,
+        "SELECT COUNT(*) FROM public_entities WHERE id IN (?, ?, ?, ?, ?, ?, ?, ?)",
+        [...Object.values(LOCKED.outputs)],
+      ),
       "0",
     );
   });
@@ -288,7 +284,9 @@ test("variant hierarchy adds no pen entity and ambiguous payload blocks", async 
     );
     const resolved = await resolveLockedSplitTaxonomyPlan(client, plan);
     assert.equal(
-      resolved.blockers.some((item) => item.code === "ambiguous_payload_assignment"),
+      resolved.blockers.some(
+        (item) => item.code === "ambiguous_payload_assignment",
+      ),
       true,
     );
     await assert.rejects(() => applyTaxonomyPlan(client, resolved), /blocker/);
