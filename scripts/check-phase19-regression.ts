@@ -57,6 +57,7 @@ type WaitForProcessGroupExit = (
 
 type LifecycleProbeScopeOptions = {
   readonly waitForGroupExit?: WaitForProcessGroupExit;
+  readonly afterOwnedRootCreated?: (ownedRoot: string) => void;
 };
 
 const FORBIDDEN_E2E_BASE_URL_MESSAGE =
@@ -250,6 +251,7 @@ async function withLifecycleProbeScope<T>(
       ownedRoot = fs.realpathSync.native(
         fs.mkdtempSync(path.join(os.tmpdir(), prefix)),
       );
+      options.afterOwnedRootCreated?.(ownedRoot);
       return ownedRoot;
     },
     registerChild(child): ChildProcess {
@@ -597,6 +599,76 @@ async function runLifecycleParentSignalProbe(
   });
 }
 
+async function runActualConstructionSignalProbe(
+  signal: CatchableSignal,
+  reportFile: string,
+): Promise<void> {
+  await withLifecycleProbeScope(async (scope) => {
+    const probeRoot = scope.createOwnedRoot(
+      "fpkg-phase19-lifecycle-actual-construction-",
+    );
+    const child = scope.registerChild(
+      spawn(process.execPath, ["-e", "setInterval(() => {}, 1000)"], {
+        cwd: ROOT,
+        detached: true,
+        stdio: "ignore",
+      }),
+    );
+    assertCondition(
+      child.pid,
+      "Actual construction lifecycle probe child has no PID.",
+    );
+    fs.writeFileSync(
+      reportFile,
+      JSON.stringify({
+        probeRoot,
+        childPid: child.pid,
+        descendantPid: null,
+      } satisfies LifecycleScopeReport),
+      { encoding: "utf8", flag: "wx", mode: 0o600 },
+    );
+    await new Promise<never>(() => undefined);
+  }, () => undefined, {
+    afterOwnedRootCreated: () => {
+      process.kill(process.pid, signal);
+    },
+  });
+}
+
+async function assertActualConstructionSignalCleanup(
+  scope: LifecycleProbeScope,
+  probeRoot: string,
+): Promise<void> {
+  for (const [signal, expectedExitCode] of [
+    ["SIGINT", 130],
+    ["SIGTERM", 143],
+  ] as const) {
+    const reportFile = path.join(
+      probeRoot,
+      `outer-actual-construction-${signal}.json`,
+    );
+    const probe = await spawnProbe(
+      scope,
+      [
+        "--lifecycle-actual-construction-probe",
+        signal,
+        "--report",
+        reportFile,
+      ],
+      reportFile,
+    );
+    const report = JSON.parse(
+      fs.readFileSync(reportFile, "utf8"),
+    ) as LifecycleScopeReport;
+    await assertProbeExit(probe, expectedExitCode);
+    assertCondition(
+      (await waitForProcessExit(report.childPid, 5_000)) &&
+        !fs.existsSync(report.probeRoot),
+      `${signal} actual construction cleanup leaked its child or owned root.`,
+    );
+  }
+}
+
 async function assertExitedLifecycleChildUnregistered(
   scope: LifecycleProbeScope,
 ): Promise<void> {
@@ -695,43 +767,36 @@ async function assertScopedLifecycleSignalCleanup(
   probeRoot: string,
 ): Promise<void> {
   await assertExitedLifecycleChildUnregistered(scope);
-  for (const stage of ["construction", "runtime"] as const) {
-    for (const [signal, expectedExitCode] of [
-      ["SIGINT", 130],
-      ["SIGTERM", 143],
-    ] as const) {
-      const reportFile = path.join(
-        probeRoot,
-        `outer-${stage}-${signal}.json`,
-      );
-      const probe = await spawnProbe(
-        scope,
-        ["--lifecycle-parent-signal-probe", stage, "--report", reportFile],
-        reportFile,
-      );
-      const report = JSON.parse(
-        fs.readFileSync(reportFile, "utf8"),
-      ) as LifecycleScopeReport;
-      assertCondition(
-        fs.existsSync(report.probeRoot) && processIsAlive(report.childPid),
-        `${stage} ${signal} outer lifecycle probe did not become active.`,
-      );
-      if (stage === "runtime") {
-        assertCondition(
-          report.descendantPid && processIsAlive(report.descendantPid),
-          `${stage} ${signal} outer lifecycle descendant did not become active.`,
-        );
-      }
-      probe.kill(signal);
-      await assertProbeExit(probe, expectedExitCode);
-      assertCondition(
-        (await waitForProcessExit(report.childPid, 5_000)) &&
-          (!report.descendantPid ||
-            (await waitForProcessExit(report.descendantPid, 5_000))) &&
-          !fs.existsSync(report.probeRoot),
-        `${stage} ${signal} outer lifecycle cleanup leaked a root, child, or descendant.`,
-      );
-    }
+  await assertActualConstructionSignalCleanup(scope, probeRoot);
+  for (const [signal, expectedExitCode] of [
+    ["SIGINT", 130],
+    ["SIGTERM", 143],
+  ] as const) {
+    const reportFile = path.join(probeRoot, `outer-runtime-${signal}.json`);
+    const probe = await spawnProbe(
+      scope,
+      ["--lifecycle-parent-signal-probe", "runtime", "--report", reportFile],
+      reportFile,
+    );
+    const report = JSON.parse(
+      fs.readFileSync(reportFile, "utf8"),
+    ) as LifecycleScopeReport;
+    assertCondition(
+      fs.existsSync(report.probeRoot) &&
+        processIsAlive(report.childPid) &&
+        report.descendantPid &&
+        processIsAlive(report.descendantPid),
+      `runtime ${signal} outer lifecycle probe did not become active.`,
+    );
+    probe.kill(signal);
+    await assertProbeExit(probe, expectedExitCode);
+    assertCondition(
+      (await waitForProcessExit(report.childPid, 5_000)) &&
+        (!report.descendantPid ||
+          (await waitForProcessExit(report.descendantPid, 5_000))) &&
+        !fs.existsSync(report.probeRoot),
+      `runtime ${signal} outer lifecycle cleanup leaked a root, child, or descendant.`,
+    );
   }
   await assertRepeatedLifecycleSignalCleanup(scope, probeRoot);
   await assertLifecycleCleanupFailureIsFailClosed(scope, probeRoot);
@@ -854,6 +919,14 @@ function reportPath(args: readonly string[]): string {
 async function main(): Promise<void> {
   const args = process.argv.slice(2).filter((arg) => arg !== "--");
   assertNoExternalE2EBaseUrl();
+  if (args[0] === "--lifecycle-actual-construction-probe") {
+    assertCondition(
+      args[1] === "SIGINT" || args[1] === "SIGTERM",
+      "--lifecycle-actual-construction-probe requires SIGINT or SIGTERM.",
+    );
+    await runActualConstructionSignalProbe(args[1], reportPath(args));
+    return;
+  }
   if (args[0] === "--lifecycle-parent-signal-probe") {
     assertCondition(
       args[1] === "construction" || args[1] === "runtime",
