@@ -1,0 +1,1177 @@
+{
+  "$schema": "fountain-pen-content-research/v1",
+  "schemaVersion": 1,
+  "entity": {
+    "id": null,
+    "inventoryStatus": "missing_new_entity_research",
+    "type": "pen",
+    "slug": null,
+    "canonicalName": "万宝龙 Montblanc Meisterstück 145／Classique",
+    "brandEntityId": "CJM8uLY0LmIX",
+    "canonicalNameStatus": "proposed",
+    "aliases": [
+      {
+        "alias": "Montblanc 145",
+        "language": "en",
+        "scope": "collector and market model identifier",
+        "sourceKey": "fountainpen-de-145-chopin"
+      },
+      {
+        "alias": "Meisterstück 145",
+        "language": "de",
+        "scope": "collector and market model identifier",
+        "sourceKey": "commons-montblanc-145"
+      },
+      {
+        "alias": "Meisterstück Classique",
+        "language": "de",
+        "scope": "current official model name",
+        "sourceKey": "mb-classique-mb132466"
+      },
+      {
+        "alias": "Montblanc Classique",
+        "language": "en",
+        "scope": "current shorthand; historically ambiguous with discontinued 144",
+        "sourceKey": "mb-classique-mb132466"
+      },
+      {
+        "alias": "万宝龙 145",
+        "language": "zh",
+        "scope": "Chinese search alias",
+        "sourceKey": "fountainpen-de-145-chopin"
+      },
+      {
+        "alias": "大班 145",
+        "language": "zh",
+        "scope": "Chinese market search alias",
+        "sourceKey": "fountainpen-de-145-chopin"
+      },
+      {
+        "alias": "Chopin",
+        "language": "en",
+        "scope": "historical collector/catalogue name associated with music-CD packaging",
+        "sourceKey": "fountainpen-de-145-chopin"
+      },
+      {
+        "alias": "Hommage à Frédéric Chopin",
+        "language": "fr",
+        "scope": "historical packaging/name; not the current MB132466 Ident",
+        "sourceKey": "fountainpen-de-classique-overview"
+      },
+      {
+        "alias": "P145",
+        "language": "und",
+        "scope": "collector shorthand for platinum-trim 145; not current official Ident",
+        "sourceKey": "fountainpen-de-classique-overview"
+      }
+    ]
+  },
+  "research": {
+    "retrievedAt": "2026-07-19",
+    "primarySourceKey": "mb-classique-mb132466",
+    "publishableContentFile": ".planning/content-research/montblanc-145-publishable-content-2026-07-19.md",
+    "boundary": "现行规格只锚定 Classique MB132466／EF。145、历史 144、146 LeGrand 与 149 按型号、供墨和笔帽结构分开；未找到官方 145 引入年，因此不填 release_year。",
+    "officialIndependenceNote": "所有 Montblanc 产品、历史与服务页面同属 montblanc-official independenceGroup，只是同一官方来源体系内的互补证据，不能计作多方独立确认。",
+    "collectorIndependenceNote": "fountainpen.de 的 145、144、系列索引和赝品 PDF 同属 fountainpen-de independenceGroup，不能彼此计作独立旁证。"
+  },
+  "sources": [
+    {
+      "key": "mb-classique-mb132466",
+      "registryKey": "montblanc-official",
+      "registryName": "Montblanc 官方网站",
+      "sourceType": "official_product",
+      "tier": "primary",
+      "independenceGroup": "montblanc-official",
+      "title": "Meisterstück Platinum-Coated Classique Fountain Pen",
+      "url": "https://www.montblanc.com/en-us/meisterstuck-classique-fountain-pen-MB132466.html",
+      "author": "Montblanc",
+      "retrievedAt": "2026-07-19",
+      "summary": "现行 Classique MB132466／EF 的官方名称、材质、笔尖、尺寸、重量、饰件和商品状态。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {
+        "kind": "stable-product-id-and-section",
+        "value": "Ident No. MB132466; Details & Composition > Features, Writing Modes, Dimensions; selected size EF",
+        "retrievedAt": "2026-07-19"
+      }
+    },
+    {
+      "key": "mb-writing-instrument-care",
+      "registryKey": "montblanc-official",
+      "registryName": "Montblanc 官方网站",
+      "sourceType": "official_service",
+      "tier": "primary",
+      "independenceGroup": "montblanc-official",
+      "title": "Writing Instrument Care Services",
+      "url": "https://www.montblanc.com/en-co/customer-service-rna/care-services/writing-instruments.html",
+      "author": "Montblanc",
+      "retrievedAt": "2026-07-19",
+      "summary": "官方说明 Classique 使用墨囊或随附上墨器，并提供清洗、笔尖更换和付费真伪鉴定信息。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {
+        "kind": "stable-url-and-headings",
+        "value": "Care & Use; Writing Modes > Fountain Pen; Nibs; Services > Authenticity Service",
+        "retrievedAt": "2026-07-19"
+      }
+    },
+    {
+      "key": "mb-service-guide-2024",
+      "registryKey": "montblanc-official",
+      "registryName": "Montblanc 官方网站",
+      "sourceType": "official_pdf",
+      "tier": "primary",
+      "independenceGroup": "montblanc-official",
+      "title": "Montblanc Writing Instruments Service Guide 2024",
+      "url": "https://www.montblanc.com/on/demandware.static/-/Library-Sites-WWSharedLibrary/default/documents/ServiceGuide_WI_online_2024_GB.pdf",
+      "author": "Montblanc",
+      "publishedAt": "2024",
+      "retrievedAt": "2026-07-19",
+      "summary": "官方上墨器、墨囊、清洗、存放、旅行和笔尖更换指南。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {
+        "kind": "pdf-filename-hash-and-pages",
+        "value": "ServiceGuide_WI_online_2024_GB.pdf; PDF pages 3-4, 8, 10-11; printed pages 6-8, 17-18, 20-23",
+        "sha256": "25659b68a037cab3716ba994dd0d0dbf2956b8ba7a20ff23649fcd8474d00089",
+        "byteSize": 2345553,
+        "pageCount": 16,
+        "retrievedAt": "2026-07-19"
+      }
+    },
+    {
+      "key": "mb-meisterstuck-100-years",
+      "registryKey": "montblanc-official",
+      "registryName": "Montblanc 官方网站",
+      "sourceType": "official_history",
+      "tier": "primary",
+      "independenceGroup": "montblanc-official",
+      "title": "Meisterstück 100 Years",
+      "url": "https://www.montblanc.com/en-gb/discover/edit/meisterstuck-100-years.html",
+      "author": "Montblanc",
+      "retrievedAt": "2026-07-19",
+      "summary": "官方 Meisterstück 家族历史专题，可确认 1924 家族起点与设计演变，但页面没有给出 145 的引入年。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {
+        "kind": "stable-url-and-timeline-headings",
+        "value": "The Beginning 1924; Birth of the icon 1949; Style detour 1960; Return to the cigar 1973-2024",
+        "retrievedAt": "2026-07-19"
+      }
+    },
+    {
+      "key": "mb-legrand-mb132460",
+      "registryKey": "montblanc-official",
+      "registryName": "Montblanc 官方网站",
+      "sourceType": "official_product",
+      "tier": "primary",
+      "independenceGroup": "montblanc-official",
+      "title": "Meisterstück Gold-Coated LeGrand Fountain Pen",
+      "url": "https://www.montblanc.com/en-co/meisterstuck-gold-coated-legrand-fountain-pen-MB132460.html",
+      "author": "Montblanc",
+      "retrievedAt": "2026-07-19",
+      "summary": "现行 LeGrand MB132460／M 的官方尺寸、重量和笔尖，用作同代体量比较。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {
+        "kind": "stable-product-id-and-section",
+        "value": "Ident No. MB132460; Details > Nib Description, Dimensions, Physical Weight; selected size M",
+        "retrievedAt": "2026-07-19"
+      }
+    },
+    {
+      "key": "mb-149-mb132114",
+      "registryKey": "montblanc-official",
+      "registryName": "Montblanc 官方网站",
+      "sourceType": "official_product",
+      "tier": "primary",
+      "independenceGroup": "montblanc-official",
+      "title": "Meisterstück Gold-Coated 149 Fountain Pen, B",
+      "url": "https://www.montblanc.com/en-us/meisterstuck-gold-coated-149-fountain-pen-%28b%29-MB132114.html",
+      "author": "Montblanc",
+      "retrievedAt": "2026-07-19",
+      "summary": "现行 149 MB132114／B 的官方尺寸、重量和 Au750／18K 笔尖，用作同代体量比较。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {
+        "kind": "stable-product-id-and-section",
+        "value": "Ident No. MB132114; Details & Composition > Nib Description, Dimensions, Physical Weight; selected size B",
+        "retrievedAt": "2026-07-19"
+      }
+    },
+    {
+      "key": "fountainpen-de-145-chopin",
+      "registryKey": "fountainpen-de",
+      "registryName": "fountainpen.de",
+      "sourceType": "collector_model_guide",
+      "tier": "specialist_secondary",
+      "independenceGroup": "fountainpen-de",
+      "title": "Montblanc Meisterstück 145 Chopin",
+      "url": "https://www.fountainpen.de/c-145-en.htm",
+      "author": "fountainpen.de collector community",
+      "retrievedAt": "2026-07-19",
+      "summary": "收藏资料将 145 与 Chopin 名称、金／铂金饰件、墨囊／上墨器和音乐 CD 礼盒联系起来。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {
+        "kind": "stable-url-and-page-heading",
+        "value": "Montblanc Meisterstück 145 Chopin; model description lines on cartridges/converter, 14 kt nib and music CD",
+        "retrievedAt": "2026-07-19"
+      }
+    },
+    {
+      "key": "fountainpen-de-classique-overview",
+      "registryKey": "fountainpen-de",
+      "registryName": "fountainpen.de",
+      "sourceType": "collector_range_index",
+      "tier": "specialist_secondary",
+      "independenceGroup": "fountainpen-de",
+      "title": "Montblanc Meisterstück Classique",
+      "url": "https://www.fountainpen.de/classic-montblanc-meisterstueck.htm",
+      "author": "fountainpen.de collector community",
+      "retrievedAt": "2026-07-19",
+      "summary": "收藏系列索引列出 145 Chopin（seit 1998）、144 Classique、146 LeGrand，以及 P145 铂金饰件写法；1998 未获官方复核。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {
+        "kind": "stable-url-and-model-table",
+        "value": "Model overview rows: 145 Chopin (seit 1998), 144 Classique, P145 Classique converter fountain pen, 146 LeGrand piston fountain pen",
+        "retrievedAt": "2026-07-19"
+      }
+    },
+    {
+      "key": "fountainpen-de-144",
+      "registryKey": "fountainpen-de",
+      "registryName": "fountainpen.de",
+      "sourceType": "collector_model_guide",
+      "tier": "specialist_secondary",
+      "independenceGroup": "fountainpen-de",
+      "title": "Montblanc Meisterstück 144 — Classique Predecessor Fountain Pen",
+      "url": "https://www.fountainpen.de/c-montblanc-meisterstueck-144-en.htm",
+      "author": "fountainpen.de collector community",
+      "retrievedAt": "2026-07-19",
+      "summary": "收藏页把 144 标为 Classique 前代近缘型号、墨囊／上墨器供墨并已停产。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {
+        "kind": "stable-url-and-page-heading",
+        "value": "Page title and model description: 144 Classique predecessor, cartridge/piston converter, no longer produced",
+        "retrievedAt": "2026-07-19"
+      }
+    },
+    {
+      "key": "pm-pens-144",
+      "registryKey": "pm-pens",
+      "registryName": "PM Pens",
+      "sourceType": "independent_restoration_record",
+      "tier": "specialist_secondary",
+      "independenceGroup": "pm-pens",
+      "title": "Montblanc 144",
+      "url": "https://www.pm-pens.com/2021/06/28/montblanc-144/",
+      "author": "geoff / PM Pens",
+      "publishedAt": "2021-06-28",
+      "retrievedAt": "2026-07-19",
+      "summary": "一支 144 的独立维修与测量记录，明确 144 扣帽、145／Chopin 旋帽，以及 144 更细更轻。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {
+        "kind": "dated-url-and-opening-paragraph",
+        "value": "2021/06/28; opening comparison: 144 snap-on cap versus screw-on Chopin 145",
+        "retrievedAt": "2026-07-19"
+      }
+    },
+    {
+      "key": "pen-boutique-meisterstuck-comparison",
+      "registryKey": "pen-boutique",
+      "registryName": "Pen Boutique",
+      "sourceType": "retailer_editorial",
+      "tier": "retailer_secondary",
+      "independenceGroup": "pen-boutique",
+      "title": "Why are Montblancs so Special? Let's Begin with Meisterstück",
+      "url": "https://www.penboutique.com/blogs/blog/why-are-montblancs-so-special-lets-begin-with-meisterstuck",
+      "author": "Pen Boutique",
+      "publishedAt": "2022",
+      "retrievedAt": "2026-07-19",
+      "summary": "零售商编辑对 149、146、145、144 的供墨和帽结构表；只采用客观结构对照，不采用价值判断或笔尖软硬推论。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {
+        "kind": "stable-url-and-comparison-table",
+        "value": "Summary table: Nib, Filling, Cap for 149/146/145/144; dimension table retained only as conflict evidence",
+        "retrievedAt": "2026-07-19"
+      }
+    },
+    {
+      "key": "always-sunny-classique-review",
+      "registryKey": "always-sunny-always-real",
+      "registryName": "Always Sunny Always Real",
+      "sourceType": "independent_review",
+      "tier": "independent_experience",
+      "independenceGroup": "always-sunny-always-real",
+      "title": "Pen Review: Montblanc Meisterstück Classique Platinum Line",
+      "url": "https://alwayssunnyalwaysreal.wordpress.com/2016/03/12/pen-review-montblanc-meisterstuck-classique-platinum-line/",
+      "author": "Always Sunny Always Real",
+      "publishedAt": "2016-03-12",
+      "retrievedAt": "2026-07-19",
+      "summary": "单支 Classique 铂金饰件样本的旋盖、套帽、墨囊／上墨器与握持体验；不代表所有样本或手型。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {
+        "kind": "dated-url-and-sections",
+        "value": "2016/03/12; Pen Design, Filling System, Summary",
+        "retrievedAt": "2026-07-19"
+      }
+    },
+    {
+      "key": "fountainpen-de-fakes-2004",
+      "registryKey": "fountainpen-de",
+      "registryName": "fountainpen.de",
+      "sourceType": "collector_guidance_pdf",
+      "tier": "specialist_secondary",
+      "independenceGroup": "fountainpen-de",
+      "title": "Fountainpen.de Newsletter Nr. 1 / 2004 — Vorsicht Fälschungen",
+      "url": "https://www.fountainpen.de/news/Newsletter1-fakes.pdf",
+      "author": "fountainpen.de collector community",
+      "publishedAt": "2004-03",
+      "retrievedAt": "2026-07-19",
+      "summary": "旧版 Meisterstück 赝品指南；支持包装、文件、序列号不能单独验真，以及应索取笔尖细节和咨询授权渠道。具体旧外观特征不推广到 2026 年赝品。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {
+        "kind": "pdf-filename-hash-and-pages",
+        "value": "Newsletter1-fakes.pdf; PDF pages 2-4 for packaging, serial number, nib and 144 ring cautions",
+        "sha256": "2c8ac5790433f12a2db8cfcabe44e63d5553759e19b1d29ff2343f258ce3fa3a",
+        "byteSize": 380153,
+        "pageCount": 8,
+        "retrievedAt": "2026-07-19"
+      }
+    },
+    {
+      "key": "commons-montblanc-145",
+      "registryKey": "wikimedia-commons",
+      "registryName": "Wikimedia Commons",
+      "sourceType": "licensed_media",
+      "tier": "media_primary",
+      "independenceGroup": "wikimedia-1971markus",
+      "title": "Mont Blanc Meisterstück Classique Mod. 145.jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Mont_Blanc_Meisterst%C3%BCck_Classique_Mod._145.jpg",
+      "author": "1971markus",
+      "publishedAt": "2014-11-22",
+      "retrievedAt": "2026-07-19",
+      "summary": "上传者自有作品，明确标为 Meisterstück Classique Mod. 145；画面为金色饰件、旋盖螺纹可见。CC BY-SA 4.0。",
+      "allowedUse": "store_full",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "archiveLocator": {
+        "kind": "wikimedia-permanent-revision",
+        "value": "https://commons.wikimedia.org/w/index.php?title=File:Mont_Blanc_Meisterstück_Classique_Mod._145.jpg&oldid=1109925370",
+        "retrievedAt": "2026-07-19"
+      }
+    }
+  ],
+  "variants": [
+    {
+      "key": "current-platinum-mb132466-ef",
+      "name": "现行黑色铂金饰件 Classique／EF",
+      "releaseYear": null,
+      "productionState": "current_official_listing",
+      "notes": "MB132466／EF 是本文现行规格锚点；在线页面于 2026-07-19 标为 sold out，不能由此推断型号已停产。",
+      "sourceKey": "mb-classique-mb132466"
+    },
+    {
+      "key": "historical-chopin-packaging",
+      "name": "145 Chopin／Hommage à Frédéric Chopin 礼盒版本",
+      "releaseYear": null,
+      "productionState": "historical_naming",
+      "notes": "收藏资料记录金色和铂金饰件以及附音乐 CD 的礼盒；Chopin 曾作为尺寸／款式名称，不自动等同独立编号限量版。",
+      "sourceKey": "fountainpen-de-145-chopin"
+    },
+    {
+      "key": "pictured-gold-trim-sample",
+      "name": "2014 年上传的金色饰件 145 实拍样本",
+      "releaseYear": "unknown",
+      "productionState": "sample_only",
+      "notes": "Commons 文件明确标为 Classique Mod. 145；只用于外观与旋盖结构展示，不代表当前铂金饰件 MB132466，也不用于断年。",
+      "sourceKey": "commons-montblanc-145"
+    }
+  ],
+  "relatedModels": [
+    {
+      "key": "historical-144-classique",
+      "name": "Meisterstück 144／historical Classique",
+      "relationship": "discontinued related predecessor; cartridge/converter and snap cap",
+      "sourceKey": "fountainpen-de-144"
+    },
+    {
+      "key": "current-146-legrand",
+      "name": "Meisterstück 146／LeGrand",
+      "relationship": "larger current comparison; piston filler and screw cap",
+      "sourceKey": "mb-legrand-mb132460"
+    },
+    {
+      "key": "current-149",
+      "name": "Meisterstück 149",
+      "relationship": "largest regular current comparison; piston filler, screw cap and Au750/18K nib",
+      "sourceKey": "mb-149-mb132114"
+    }
+  ],
+  "scopes": [
+    {
+      "key": "current-classique-ef",
+      "scopeKey": "current-platinum-classique-mb132466-ef",
+      "variantKey": "current-platinum-mb132466-ef",
+      "market": "Montblanc en-US listing; product identity anchored by Ident No.",
+      "productionState": "current_official_listing",
+      "nibScope": "EF",
+      "materialScope": "black precious resin; platinum-coated fittings",
+      "editionScope": "standard current product MB132466"
+    },
+    {
+      "key": "current-classique-family",
+      "scopeKey": "current-classique-nib-selection",
+      "market": "current official product selector",
+      "productionState": "current",
+      "nibScope": "EF/F/M/B/BB/OM/OB/OBB",
+      "editionScope": "nib selection only; physical weight remains MB132466/EF-specific"
+    },
+    {
+      "key": "current-service",
+      "scopeKey": "current-classique-service-guidance",
+      "market": "global guidance; regional terms may differ",
+      "productionState": "current",
+      "editionScope": "cartridge/converter use, cleaning, nib exchange and authenticity service"
+    },
+    {
+      "key": "model-name-history",
+      "scopeKey": "145-classique-chopin-name-history",
+      "validFrom": null,
+      "productionState": "historical-and-current",
+      "editionScope": "collector/model naming only; not a single stable SKU"
+    },
+    {
+      "key": "collector-intro-signal",
+      "scopeKey": "collector-claimed-since-1998",
+      "validFrom": "1998",
+      "productionState": "unverified_historical_signal",
+      "editionScope": "fountainpen.de collector index only; no official launch evidence located"
+    },
+    {
+      "key": "historical-chopin",
+      "scopeKey": "historical-145-chopin-packaging",
+      "variantKey": "historical-chopin-packaging",
+      "productionState": "historical_naming",
+      "editionScope": "music-CD packaging and Chopin naming; exact dates not established"
+    },
+    {
+      "key": "historical-144",
+      "scopeKey": "discontinued-144-classique",
+      "productionState": "discontinued",
+      "editionScope": "related model only, not a 145 variant"
+    },
+    {
+      "key": "current-146-comparison",
+      "scopeKey": "current-legrand-mb132460-m",
+      "market": "Montblanc en-CO listing",
+      "productionState": "current",
+      "editionScope": "size, weight, nib and fill-system comparison only"
+    },
+    {
+      "key": "current-149-comparison",
+      "scopeKey": "current-149-mb132114-b",
+      "market": "Montblanc en-US listing",
+      "productionState": "current",
+      "editionScope": "size, weight, nib and fill-system comparison only"
+    },
+    {
+      "key": "independent-145-sample",
+      "scopeKey": "single-classique-platinum-review-2016",
+      "productionState": "experience_sample",
+      "editionScope": "one reviewer and one platinum-trim Classique sample"
+    },
+    {
+      "key": "retailer-comparison",
+      "scopeKey": "retailer-149-146-145-144-comparison",
+      "productionState": "secondary_comparison",
+      "editionScope": "cap and fill mapping only; current dimensions defer to official SKU pages"
+    },
+    {
+      "key": "auth-guidance-2004",
+      "scopeKey": "meisterstuck-counterfeit-guidance-2004",
+      "validFrom": "2004",
+      "productionState": "historical_guidance",
+      "editionScope": "evergreen warning against single-marker authentication; old visual markers not generalized to current fakes"
+    },
+    {
+      "key": "media-sample",
+      "scopeKey": "gold-trim-145-photo-2014",
+      "variantKey": "pictured-gold-trim-sample",
+      "productionState": "sample_only",
+      "editionScope": "visual identity, visible threads and license only"
+    }
+  ],
+  "claims": [
+    {
+      "key": "current-mb132466-configuration",
+      "predicate": "current_product_configuration",
+      "objectText": "MB132466／EF 是现行铂金饰件 Classique：黑色 precious resin、Au585／14K 双色金尖，官网列 140 × 13.7 mm 和 21.73 g。",
+      "factClass": "core",
+      "confidence": 0.99,
+      "sourceKey": "mb-classique-mb132466",
+      "locator": "Ident MB132466; selected size EF; Features, Writing Modes and Dimensions.",
+      "evidence": [
+        {
+          "key": "official-current-configuration",
+          "sourceKey": "mb-classique-mb132466",
+          "scopeKey": "current-classique-ef",
+          "locator": "Details for MB132466/EF: barrel, cap, clip, nib, dimensions and physical weight."
+        }
+      ]
+    },
+    {
+      "key": "current-classique-cartridge-converter",
+      "predicate": "fill_system",
+      "objectText": "Montblanc 当前官方服务页明确写明 Meisterstück Classique 可使用墨囊，或使用随附上墨器从瓶装墨水上墨。",
+      "factClass": "core",
+      "confidence": 0.99,
+      "sourceKey": "mb-writing-instrument-care",
+      "locator": "Writing Modes > Fountain Pen.",
+      "evidence": [
+        {
+          "key": "official-classique-fill",
+          "sourceKey": "mb-writing-instrument-care",
+          "scopeKey": "current-service",
+          "locator": "Classique and StarWalker can use ink cartridges or included ink converter."
+        },
+        {
+          "key": "official-converter-cartridge-diagrams",
+          "sourceKey": "mb-service-guide-2024",
+          "scopeKey": "current-service",
+          "locator": "PDF pages 3-4, printed pages 6-8: piston-converter and cartridge diagrams."
+        }
+      ]
+    },
+    {
+      "key": "current-145-screw-cap",
+      "predicate": "cap_mechanism",
+      "objectText": "145／Classique 使用旋入式笔帽；当前官方产品页未提供文字字段，独立实物评测和明确标为 145 的授权照片共同支持该结构。",
+      "factClass": "core_secondary",
+      "confidence": 0.94,
+      "sourceKey": "always-sunny-classique-review",
+      "locator": "Pen Design section and visible barrel threads in licensed 145 photograph.",
+      "evidence": [
+        {
+          "key": "review-screw-cap",
+          "sourceKey": "always-sunny-classique-review",
+          "scopeKey": "independent-145-sample",
+          "locator": "Pen Design: cap screws off and posts by friction."
+        },
+        {
+          "key": "photo-visible-threads",
+          "sourceKey": "commons-montblanc-145",
+          "scopeKey": "media-sample",
+          "locator": "Uploader identifies Classique Mod. 145; open pen photograph visibly shows barrel cap threads."
+        }
+      ]
+    },
+    {
+      "key": "current-nib-range",
+      "predicate": "available_nib_widths",
+      "objectText": "现行 Classique 商品选择器列出 EF、F、M、B、BB、OM、OB、OBB 八种笔尖。",
+      "factClass": "core",
+      "confidence": 0.99,
+      "sourceKey": "mb-classique-mb132466",
+      "locator": "Current Classique size selector.",
+      "evidence": [
+        {
+          "key": "product-selector-eight-nibs",
+          "sourceKey": "mb-classique-mb132466",
+          "scopeKey": "current-classique-family",
+          "locator": "Classique size selector: EF, F, OM, B, OB, BB, OBB, M."
+        },
+        {
+          "key": "service-eight-nibs",
+          "sourceKey": "mb-writing-instrument-care",
+          "scopeKey": "current-service",
+          "locator": "Nibs section lists eight widths; OBBB qualification is 149-only."
+        }
+      ]
+    },
+    {
+      "key": "145-classique-current-name-boundary",
+      "predicate": "current_name_and_model_identifier",
+      "objectText": "当前官方商品层使用 Classique，145 是收藏与市场通行型号编号；内容页可并列，但不能声称 MB132466 页面以 145 为商品标题。",
+      "factClass": "scope_boundary",
+      "confidence": 0.95,
+      "sourceKey": "mb-classique-mb132466",
+      "locator": "Current product model selector says Classique; collector guide and Commons file explicitly identify 145.",
+      "evidence": [
+        {
+          "key": "current-classique-selector",
+          "sourceKey": "mb-classique-mb132466",
+          "scopeKey": "current-classique-ef",
+          "locator": "Product title/description and model selector use Classique; Ident MB132466."
+        },
+        {
+          "key": "collector-145-identifier",
+          "sourceKey": "fountainpen-de-145-chopin",
+          "scopeKey": "model-name-history",
+          "locator": "Page title and body identify Montblanc Meisterstück 145 Chopin."
+        },
+        {
+          "key": "commons-145-identifier",
+          "sourceKey": "commons-montblanc-145",
+          "scopeKey": "media-sample",
+          "locator": "Commons description: Mont Blanc Meisterstück Classique Mod. 145."
+        }
+      ]
+    },
+    {
+      "key": "historical-chopin-alias",
+      "predicate": "historical_alias_and_packaging",
+      "objectText": "收藏资料把 145 与 Chopin／Hommage à Frédéric Chopin 和音乐 CD 礼盒联系起来，并将 Chopin 描述为尺寸／款式名而非自动成立的独立限量版。",
+      "factClass": "historical_secondary",
+      "confidence": 0.87,
+      "sourceKey": "fountainpen-de-145-chopin",
+      "locator": "145 Chopin model page and Classique range index.",
+      "evidence": [
+        {
+          "key": "collector-chopin-cd",
+          "sourceKey": "fountainpen-de-145-chopin",
+          "scopeKey": "historical-chopin",
+          "locator": "Page identifies 145 Chopin and states gift box with music CD."
+        },
+        {
+          "key": "collector-chopin-size-name",
+          "sourceKey": "fountainpen-de-classique-overview",
+          "scopeKey": "model-name-history",
+          "locator": "Overview states Chopin and Mozart were size designations, not automatically special editions."
+        }
+      ]
+    },
+    {
+      "key": "release-year-not-confirmed",
+      "predicate": "model_introduction_year",
+      "objectText": "收藏系列索引标注 145 Chopin 'seit 1998'，但当前官方历史专题没有给出 145 引入年，尚无同期官方目录或发布稿复核，因此 release_year 保持为空。",
+      "factClass": "known_unknown",
+      "confidence": 0.99,
+      "sourceKey": "fountainpen-de-classique-overview",
+      "locator": "Collector overview says since 1998; official history page does not date 145.",
+      "evidence": [
+        {
+          "key": "collector-since-1998",
+          "sourceKey": "fountainpen-de-classique-overview",
+          "scopeKey": "collector-intro-signal",
+          "locator": "Overview row: 145 Chopin (seit 1998)."
+        },
+        {
+          "key": "official-history-no-145-date",
+          "sourceKey": "mb-meisterstuck-100-years",
+          "scopeKey": "model-name-history",
+          "locator": "Official timeline covers 1924, 1935, 1949, 1960 and 1973-2024 but does not identify a 145 launch year.",
+          "qualifies": false
+        }
+      ]
+    },
+    {
+      "key": "144-vs-145-boundary",
+      "predicate": "related_model_boundary",
+      "objectText": "历史 144 与 145 都可见 Classique 名称并采用墨囊／上墨器；144 为扣帽、145 为旋帽，144 已停产且通常更细更轻。",
+      "factClass": "core_secondary",
+      "confidence": 0.93,
+      "sourceKey": "pm-pens-144",
+      "locator": "PM Pens opening comparison plus fountainpen.de 144/145 model pages.",
+      "evidence": [
+        {
+          "key": "independent-144-145-cap",
+          "sourceKey": "pm-pens-144",
+          "scopeKey": "historical-144",
+          "locator": "Opening paragraph: 144 snap-on cap versus screw-on Chopin 145; 144 smaller and lighter."
+        },
+        {
+          "key": "collector-144-discontinued-fill",
+          "sourceKey": "fountainpen-de-144",
+          "scopeKey": "historical-144",
+          "locator": "144 page: cartridges or piston converter; no longer produced."
+        },
+        {
+          "key": "retailer-cap-fill-table",
+          "sourceKey": "pen-boutique-meisterstuck-comparison",
+          "scopeKey": "retailer-comparison",
+          "locator": "Summary table: 145 cartridge/converter and screw cap; 144 cartridge/converter and snap cap."
+        }
+      ]
+    },
+    {
+      "key": "current-family-size-fill-cap-boundary",
+      "predicate": "comparison_with_146_and_149",
+      "objectText": "当前 SKU 锚点中，145／Classique 为 140 × 13.7 mm、21.73 g、墨囊／上墨器；146 为 145.8 × 15.5 mm、25.42 g、活塞；149 为 147.3 × 17.3 mm、32 g、活塞。三者均为旋帽。",
+      "factClass": "comparison",
+      "confidence": 0.97,
+      "sourceKey": "mb-classique-mb132466",
+      "locator": "Three official product pages plus official filling guidance and retailer cap table.",
+      "evidence": [
+        {
+          "key": "classique-current-comparison-side",
+          "sourceKey": "mb-classique-mb132466",
+          "scopeKey": "current-classique-ef",
+          "locator": "MB132466/EF dimensions 140 × 13.7 mm, weight 21.73 g, Au585/14K nib."
+        },
+        {
+          "key": "legrand-current-comparison-side",
+          "sourceKey": "mb-legrand-mb132460",
+          "scopeKey": "current-146-comparison",
+          "locator": "MB132460/M dimensions 145.8 × 15.5 mm, weight 25.42 g, Au585/14K nib."
+        },
+        {
+          "key": "149-current-comparison-side",
+          "sourceKey": "mb-149-mb132114",
+          "scopeKey": "current-149-comparison",
+          "locator": "MB132114/B dimensions 147.3 × 17.3 mm, weight 32 g, Au750/18K nib."
+        },
+        {
+          "key": "official-fill-boundary",
+          "sourceKey": "mb-writing-instrument-care",
+          "scopeKey": "current-service",
+          "locator": "Current guidance contrasts Classique cartridge/converter with LeGrand and 149 piston filling."
+        },
+        {
+          "key": "retailer-all-caps",
+          "sourceKey": "pen-boutique-meisterstuck-comparison",
+          "scopeKey": "retailer-comparison",
+          "locator": "Comparison table identifies screw caps for 149, 146 and 145."
+        }
+      ]
+    },
+    {
+      "key": "official-maintenance-guidance",
+      "predicate": "current_maintenance",
+      "objectText": "官方建议约每三个月以不含化学剂的温水清洗；永久性墨水约每两至三周清洗，不要向笔帽灌水。",
+      "factClass": "service",
+      "confidence": 0.98,
+      "sourceKey": "mb-writing-instrument-care",
+      "locator": "Care & Use and permanent-ink guidance; 2024 Service Guide cleaning section.",
+      "evidence": [
+        {
+          "key": "care-page-cleaning",
+          "sourceKey": "mb-writing-instrument-care",
+          "scopeKey": "current-service",
+          "locator": "Cleaning once every three months; permanent ink every two to three weeks."
+        },
+        {
+          "key": "service-guide-cleaning",
+          "sourceKey": "mb-service-guide-2024",
+          "scopeKey": "current-service",
+          "locator": "PDF page 8, printed pages 16-18: lukewarm water without chemicals and never fill cap with water."
+        }
+      ]
+    },
+    {
+      "key": "ergonomics-single-sample",
+      "predicate": "ergonomic_experience",
+      "objectText": "一位独立评测者认为自己的 Classique 铂金饰件样本无帽与套帽都平衡，但套帽可能在使用中松动；这只是单支、单手型体验。",
+      "factClass": "experience_sample",
+      "confidence": 0.82,
+      "sourceKey": "always-sunny-classique-review",
+      "locator": "Pen Design and Summary sections.",
+      "evidence": [
+        {
+          "key": "single-reviewer-posting-balance",
+          "sourceKey": "always-sunny-classique-review",
+          "scopeKey": "independent-145-sample",
+          "locator": "Reviewer reports balanced posted/unposted and notes posted cap may loosen."
+        }
+      ]
+    },
+    {
+      "key": "serial-and-papers-not-sufficient",
+      "predicate": "authentication_risk",
+      "objectText": "收藏赝品指南明确提醒，包装、文件和序列号都可能被仿制，不能作为单点验真结论；该原则仍可用，2004 年的具体外观标记不推广到当前赝品。",
+      "factClass": "risk_guidance",
+      "confidence": 0.92,
+      "sourceKey": "fountainpen-de-fakes-2004",
+      "locator": "PDF pages 2-3: no good authenticity markers, packaging/papers and serial number cautions.",
+      "evidence": [
+        {
+          "key": "collector-no-single-marker",
+          "sourceKey": "fountainpen-de-fakes-2004",
+          "scopeKey": "auth-guidance-2004",
+          "locator": "PDF page 2: fake packaging/papers and engraved serial numbers; serial is poorly suited to identify replicas."
+        },
+        {
+          "key": "collector-request-nib-detail",
+          "sourceKey": "fountainpen-de-fakes-2004",
+          "scopeKey": "auth-guidance-2004",
+          "locator": "PDF page 4: request a detailed nib photograph; examples are period-specific."
+        }
+      ]
+    },
+    {
+      "key": "official-authenticity-service",
+      "predicate": "authenticity_evaluation",
+      "objectText": "Montblanc 当前提供付费真伪鉴定；精品店或授权零售商可送总部，确认为真品后可出具鉴定证书。",
+      "factClass": "service",
+      "confidence": 0.99,
+      "sourceKey": "mb-writing-instrument-care",
+      "locator": "Services > Authenticity Service.",
+      "evidence": [
+        {
+          "key": "official-authenticity-flow",
+          "sourceKey": "mb-writing-instrument-care",
+          "scopeKey": "current-service",
+          "locator": "Authenticity Service: submission through boutique/authorized retailer, headquarters inspection, chargeable service and certificate for genuine product."
+        }
+      ]
+    },
+    {
+      "key": "licensed-photo-is-145-gold-trim",
+      "predicate": "media_identity_and_license",
+      "objectText": "Commons 文件说明明确把图中钢笔标为 Meisterstück Classique Mod. 145；图为金色饰件并显示旋帽螺纹，授权为 CC BY-SA 4.0。",
+      "factClass": "media",
+      "confidence": 0.99,
+      "sourceKey": "commons-montblanc-145",
+      "locator": "Commons Summary, Licensing and permanent revision oldid 1109925370.",
+      "evidence": [
+        {
+          "key": "commons-identity-license",
+          "sourceKey": "commons-montblanc-145",
+          "scopeKey": "media-sample",
+          "locator": "Description: Mont Blanc Meisterstück Classique Mod. 145; own work by 1971markus; CC BY-SA 4.0."
+        }
+      ]
+    }
+  ],
+  "spec": {
+    "brandEntityId": "CJM8uLY0LmIX",
+    "values": {
+      "brand_entity_id": "CJM8uLY0LmIX",
+      "model_identifier": "145",
+      "current_official_name": "Meisterstück Classique",
+      "aliases": "Montblanc 145; Meisterstück 145; Classique; historical Chopin/Hommage à Frédéric Chopin; collector shorthand P145",
+      "release_year": null,
+      "release_year_note": "收藏索引称 seit 1998；未获官方发布资料或同期目录复核",
+      "pen_type": "旋盖式墨囊／上墨器钢笔",
+      "current_reference_sku": "MB132466／EF",
+      "nib": "现行锚点：Au585／14K 金，镀铑嵌饰",
+      "nib_sizes": "现行 Classique：EF、F、M、B、BB、OM、OB、OBB",
+      "fill_system": "墨囊或随附上墨器",
+      "cap_mechanism": "旋入式；当前官方页无文字字段，由独立实物评测和授权照片支持",
+      "material": "现行锚点：黑色 precious resin（品牌用语）",
+      "trim": "现行锚点：镀铂金饰件；带独立序列号的镀铂金笔夹",
+      "dimensions": "现行 MB132466／EF：140 × 13.7 mm；官网未清楚标注两轴含义",
+      "weight": "现行 MB132466／EF：21.73 g",
+      "ink_capacity_ml": null,
+      "status": "当前官方商品页存在；2026-07-19 页面标为 online sold out，不据此推断停产"
+    },
+    "evidence": [
+      {
+        "key": "brand-official",
+        "fieldKey": "brand_entity_id",
+        "sourceKey": "mb-classique-mb132466",
+        "scopeKey": "current-classique-ef",
+        "locator": "Montblanc official product breadcrumb and product identity."
+      },
+      {
+        "key": "model-identifier-collector",
+        "fieldKey": "model_identifier",
+        "sourceKey": "fountainpen-de-145-chopin",
+        "scopeKey": "model-name-history",
+        "locator": "Page title: Montblanc Meisterstück 145 Chopin."
+      },
+      {
+        "key": "model-identifier-media",
+        "fieldKey": "model_identifier",
+        "sourceKey": "commons-montblanc-145",
+        "scopeKey": "media-sample",
+        "locator": "Commons description explicitly identifies Classique Mod. 145."
+      },
+      {
+        "key": "current-name-official",
+        "fieldKey": "current_official_name",
+        "sourceKey": "mb-classique-mb132466",
+        "scopeKey": "current-classique-ef",
+        "locator": "Current model selector and product description use Meisterstück Classique."
+      },
+      {
+        "key": "aliases-collector",
+        "fieldKey": "aliases",
+        "sourceKey": "fountainpen-de-classique-overview",
+        "scopeKey": "model-name-history",
+        "locator": "Range index maps 145, Chopin, Classique converter fountain pen and P145 platinum version."
+      },
+      {
+        "key": "aliases-current",
+        "fieldKey": "aliases",
+        "sourceKey": "mb-classique-mb132466",
+        "scopeKey": "current-classique-ef",
+        "locator": "Current official name Classique and Ident MB132466."
+      },
+      {
+        "key": "release-no-official-confirmation",
+        "fieldKey": "release_year",
+        "sourceKey": "mb-meisterstuck-100-years",
+        "scopeKey": "model-name-history",
+        "locator": "Official history page does not supply a 145 launch year.",
+        "qualifies": false,
+        "researchStatus": "not_found_in_official_history"
+      },
+      {
+        "key": "release-collector-1998",
+        "fieldKey": "release_year_note",
+        "sourceKey": "fountainpen-de-classique-overview",
+        "scopeKey": "collector-intro-signal",
+        "locator": "Collector overview: 145 Chopin (seit 1998); treated as unconfirmed secondary evidence."
+      },
+      {
+        "key": "pen-type-composite",
+        "fieldKey": "pen_type",
+        "sourceKey": "mb-writing-instrument-care",
+        "scopeKey": "current-service",
+        "locator": "Official cartridge/converter fill; screw cap separately supported by independent review."
+      },
+      {
+        "key": "sku-official",
+        "fieldKey": "current_reference_sku",
+        "sourceKey": "mb-classique-mb132466",
+        "scopeKey": "current-classique-ef",
+        "locator": "Ident No. MB132466; selected size EF."
+      },
+      {
+        "key": "nib-product",
+        "fieldKey": "nib",
+        "sourceKey": "mb-classique-mb132466",
+        "scopeKey": "current-classique-ef",
+        "locator": "Nib Description: handcrafted Au585/14K gold nib with rhodium-coated inlay."
+      },
+      {
+        "key": "nib-sizes-product",
+        "fieldKey": "nib_sizes",
+        "sourceKey": "mb-classique-mb132466",
+        "scopeKey": "current-classique-family",
+        "locator": "Classique size selector: EF, F, OM, B, OB, BB, OBB, M."
+      },
+      {
+        "key": "fill-official-care",
+        "fieldKey": "fill_system",
+        "sourceKey": "mb-writing-instrument-care",
+        "scopeKey": "current-service",
+        "locator": "Classique can use cartridges or included ink converter."
+      },
+      {
+        "key": "cap-review",
+        "fieldKey": "cap_mechanism",
+        "sourceKey": "always-sunny-classique-review",
+        "scopeKey": "independent-145-sample",
+        "locator": "Pen Design: cap screws off."
+      },
+      {
+        "key": "cap-photo",
+        "fieldKey": "cap_mechanism",
+        "sourceKey": "commons-montblanc-145",
+        "scopeKey": "media-sample",
+        "locator": "Open-view 145 photograph visibly shows barrel threads."
+      },
+      {
+        "key": "material-product",
+        "fieldKey": "material",
+        "sourceKey": "mb-classique-mb132466",
+        "scopeKey": "current-classique-ef",
+        "locator": "Barrel and cap descriptions: black precious resin."
+      },
+      {
+        "key": "trim-product",
+        "fieldKey": "trim",
+        "sourceKey": "mb-classique-mb132466",
+        "scopeKey": "current-classique-ef",
+        "locator": "Three platinum-coated rings and platinum-coated clip with individual serial number."
+      },
+      {
+        "key": "dimensions-product",
+        "fieldKey": "dimensions",
+        "sourceKey": "mb-classique-mb132466",
+        "scopeKey": "current-classique-ef",
+        "locator": "Dimensions field: 140 mm * 13.7 mm; axes not labelled on page."
+      },
+      {
+        "key": "weight-product",
+        "fieldKey": "weight",
+        "sourceKey": "mb-classique-mb132466",
+        "scopeKey": "current-classique-ef",
+        "locator": "Physical Weight: 21.73 g for MB132466/EF."
+      },
+      {
+        "key": "ink-capacity-not-published",
+        "fieldKey": "ink_capacity_ml",
+        "sourceKey": "mb-writing-instrument-care",
+        "scopeKey": "current-service",
+        "locator": "Current product page, care page and 2024 service guide provide no numeric Classique converter/cartridge capacity.",
+        "qualifies": false,
+        "researchStatus": "not_found_in_official_current_sources"
+      },
+      {
+        "key": "status-current-page",
+        "fieldKey": "status",
+        "sourceKey": "mb-classique-mb132466",
+        "scopeKey": "current-classique-ef",
+        "locator": "Live official MB132466 listing retrieved 2026-07-19; page label Online Sold Out."
+      }
+    ]
+  },
+  "conflicts": [
+    {
+      "key": "release-year-collector-only",
+      "fieldKey": "release_year",
+      "scopeKey": "model-name-history",
+      "conflictKind": "evidence_gap",
+      "status": "unresolved",
+      "resolutionNote": "fountainpen.de 标注 145 Chopin 'seit 1998'，但未找到 Montblanc 官方发布稿或同期目录。正文只披露收藏资料说法，spec.release_year 保持 null。",
+      "members": [
+        {
+          "citationKey": "collector-since-1998",
+          "sourceKey": "fountainpen-de-classique-overview",
+          "assertedValue": "since 1998"
+        },
+        {
+          "citationKey": "official-history-no-145-date",
+          "sourceKey": "mb-meisterstuck-100-years",
+          "assertedValue": "no 145 launch year stated",
+          "qualifies": false
+        }
+      ]
+    },
+    {
+      "key": "classique-applies-to-144-and-145",
+      "fieldKey": "current_official_name",
+      "scopeKey": "model-name-history",
+      "conflictKind": "naming",
+      "status": "contextualized",
+      "resolutionNote": "当前 MB132466 商品层的 Classique 与 145 并列；历史中古语境里 144 也使用 Classique。中古鉴定必须结合扣帽／旋帽和供墨结构，不能只看 Classique 字样。",
+      "members": [
+        {
+          "citationKey": "current-classique-selector",
+          "sourceKey": "mb-classique-mb132466",
+          "assertedValue": "current Classique"
+        },
+        {
+          "citationKey": "collector-144-discontinued-fill",
+          "sourceKey": "fountainpen-de-144",
+          "assertedValue": "historical 144 Classique"
+        }
+      ]
+    },
+    {
+      "key": "current-width-13-7-vs-retailer-14-1",
+      "fieldKey": "dimensions",
+      "scopeKey": "current-classique-ef",
+      "conflictKind": "field",
+      "status": "resolved",
+      "resolutionNote": "现行 MB132466 采用官方 140 × 13.7 mm。Pen Boutique 对照表的 140 × 14.1 mm 可能来自其他饰件、旧样本或测量口径，只保留为冲突记录，不写入当前 spec。",
+      "members": [
+        {
+          "citationKey": "dimensions-product",
+          "sourceKey": "mb-classique-mb132466",
+          "assertedValue": "140 × 13.7 mm"
+        },
+        {
+          "citationKey": "retailer-dimensions-table",
+          "sourceKey": "pen-boutique-meisterstuck-comparison",
+          "assertedValue": "140 × 14.1 mm",
+          "qualifies": false
+        }
+      ]
+    },
+    {
+      "key": "chopin-name-vs-special-edition-assumption",
+      "fieldKey": "aliases",
+      "scopeKey": "historical-chopin",
+      "conflictKind": "naming",
+      "status": "contextualized",
+      "resolutionNote": "保留 Chopin／Hommage à Frédéric Chopin 为历史检索别名和礼盒语境；不把所有 Chopin 145 自动写成单独编号限量版，也不把旧称替换当前 MB132466 Ident。",
+      "members": [
+        {
+          "citationKey": "collector-chopin-cd",
+          "sourceKey": "fountainpen-de-145-chopin",
+          "assertedValue": "145 Chopin with music CD packaging"
+        },
+        {
+          "citationKey": "collector-chopin-size-name",
+          "sourceKey": "fountainpen-de-classique-overview",
+          "assertedValue": "Chopin used as size designation"
+        }
+      ]
+    }
+  ],
+  "media": [
+    {
+      "key": "montblanc-145-gold-trim-primary",
+      "title": "Montblanc Meisterstück Classique 145 金色饰件旋盖实拍",
+      "sourceKey": "commons-montblanc-145",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1d/Mont_Blanc_Meisterst%C3%BCck_Classique_Mod._145.jpg",
+      "localPath": "/images/entities/montblanc/montblanc-145-gold-trim.jpg",
+      "repositoryPath": "public/images/entities/montblanc/montblanc-145-gold-trim.jpg",
+      "author": "1971markus",
+      "license": "cc-by-sa-4.0",
+      "derivativeLicense": "cc-by-sa-4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "attributionText": "Photo: © 1971markus@wikipedia.de, CC BY-SA 4.0, via Wikimedia Commons; resized and recompressed.",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Mont_Blanc_Meisterst%C3%BCck_Classique_Mod._145.jpg",
+      "identityNote": "Commons description explicitly identifies Meisterstück Classique Mod. 145. The image shows a gold-trim sample with visible cap threads; it is not current platinum-trim MB132466 and is not a 144, 146 or 149.",
+      "usageStatus": "primary",
+      "upstreamMetadata": {
+        "width": 4078,
+        "height": 3695,
+        "byteSize": 4390724,
+        "mimeType": "image/jpeg",
+        "sha1": "197d86d0db0aece1555137e12a11691f42a23671",
+        "publishedAt": "2014-11-22",
+        "sourceType": "own work"
+      },
+      "retrievalDerivative": {
+        "transport": "images.weserv.nl proxy of canonical Wikimedia upload after Wikimedia CDN rate limiting",
+        "width": 2200,
+        "height": 1993,
+        "byteSize": 648198,
+        "sha256": "41af2ed57cb905b59230e7df883dc962b4cd9090eb117b7c9706e8fb6ba57f9c"
+      },
+      "localDerivative": {
+        "width": 2000,
+        "height": 1812,
+        "byteSize": 722938,
+        "mimeType": "image/jpeg",
+        "sha256": "0be679426a938e3ddafd27b990dc179ea996776ee8ac267bfcc9da9c0620f7a6",
+        "transform": "Aspect ratio preserved; resized to 2000 px width and recompressed as progressive JPEG; no crop and no content alteration."
+      },
+      "archiveLocator": "https://commons.wikimedia.org/w/index.php?title=File:Mont_Blanc_Meisterstück_Classique_Mod._145.jpg&oldid=1109925370"
+    }
+  ],
+  "editorialGuardrails": [
+    "不得把 MB132466／EF 的 140 × 13.7 mm、21.73 g、铂金饰件或 Au585／14K 规格推广到所有 145、Chopin、主题版或历史 144。",
+    "不得声称 Montblanc 当前 MB132466 商品标题使用 145；当前官方名是 Classique，145 来自收藏资料、实物命名和市场通用编号。",
+    "不得把 fountainpen.de 的 'seit 1998' 直接写成官方发布年；release_year 在找到同期官方目录或发布稿前保持 null。",
+    "不得仅凭 Classique 字样区分中古 144 和 145；144 也曾使用 Classique，需结合扣帽／旋帽、笔杆螺纹和供墨结构。",
+    "不得把 145 写成活塞笔；当前官方明确为墨囊或随附上墨器。146 LeGrand 和 149 的现行常规版才是内置活塞。",
+    "不得把 Au585／14K 与 Au750／18K 直接解释为固定的软硬、弹性或书写品质高低。",
+    "不得填入非官方墨水容量数字；当前官方资料未找到 Classique 容量数值。",
+    "不得把包装、文件、序列号、PIX 字样、透光颜色或单一外观细节写成决定性验真方法；赝品特征会随年代改变。",
+    "fountainpen.de 的四项资料同属一个 independenceGroup，不能写成四家收藏来源一致确认。",
+    "Commons 图片是金色饰件 145 样本，图注必须保留与铂金饰件 MB132466 的区别；本地衍生图继续遵守 CC BY-SA 4.0。"
+  ],
+  "openQuestions": [
+    {
+      "key": "official-145-introduction-year",
+      "question": "是否能从 Montblanc 同期官方目录或发布材料确认 145／Chopin 的准确引入年？",
+      "status": "open",
+      "impact": "release_year 保持 null；只披露收藏索引称 since 1998。"
+    },
+    {
+      "key": "official-name-transition",
+      "question": "Chopin／Hommage à Frédéric Chopin 何时、以何种市场口径转为当前 Classique 命名？",
+      "status": "open",
+      "impact": "旧称只作历史别名，不写精确改名年份。"
+    },
+    {
+      "key": "official-cap-field",
+      "question": "Montblanc 是否有当前官方文字资料明确标注 MB132466 的 screw-cap 字段？",
+      "status": "open",
+      "impact": "当前 cap_mechanism 由独立实物评测和明确授权照片支持，confidence 低于官方规格字段。"
+    },
+    {
+      "key": "official-dimension-axis-labels",
+      "question": "官方 140 × 13.7 mm 两条轴的正式字段名是什么？",
+      "status": "open",
+      "impact": "只原样记录两项尺寸，不自行写成长和最大直径。"
+    },
+    {
+      "key": "official-ink-capacity",
+      "question": "万宝龙是否在可核验的当前官方技术资料中公布 Classique 上墨器或墨囊容量？",
+      "status": "open",
+      "impact": "ink_capacity_ml 保持 null，不采用零售商或个人估算。"
+    }
+  ]
+}
