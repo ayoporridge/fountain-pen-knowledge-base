@@ -1,0 +1,333 @@
+{
+  "generated_at": "2026-07-19T00:00:00+08:00",
+  "retrieved_at": "2026-07-19",
+  "identity_anchor": {
+    "path": ".planning/phases/19-real-audit-evidence/artifacts/inventory-readiness-v2.ndjson",
+    "snapshot_id": "sha256:17e1f1bc8cc4bfdcf490c7a7f48d97154d6449e0800f60cc3e9a9e88f9177ba4",
+    "entities": [
+      {
+        "entity_id": "Eh5c49pldpwk",
+        "name": "万宝龙 Montblanc 144 (Vintage)",
+        "slug": "万宝龙-montblanc-144"
+      },
+      {
+        "entity_id": "nOIr_Up5WcyJ",
+        "name": "万宝龙 Montblanc 学生龙22 (Vintage)",
+        "slug": "万宝龙-montblanc-学生龙22"
+      }
+    ]
+  },
+  "method": {
+    "principles": [
+      "Separate early and later Montblanc 144 generations instead of merging their specifications.",
+      "Treat Student 22 / 学生龙 as an unofficial search alias unless a primary catalogue proves otherwise.",
+      "Use dealer measurements only as specimen-level observations.",
+      "Leave weight, ink capacity and universal dimensions unknown when no model-scoped primary evidence is available.",
+      "Do not copy source images without a verified reusable licence."
+    ],
+    "media_result": "No reusable primary media was added: the useful historical photographs found were copyrighted collector or dealer images, and no sufficiently identified open-licence image for either exact model was verified."
+  },
+  "model_coverage": {
+    "montblanc_144": {
+      "entity_id": "Eh5c49pldpwk",
+      "source_ids": [
+        "mb-meisterstuck-100",
+        "mb-service-guide-2024",
+        "vintage-mb-no-144",
+        "fountainpen-de-144-periods",
+        "fountainpen-de-144-guide",
+        "mishkas-144-1990s",
+        "andrew-lensky-144-generations",
+        "schreibkultur-144-classique",
+        "mb-current-classique"
+      ],
+      "independence_groups": [
+        "montblanc_official",
+        "vintage_montblanc_pens",
+        "fountainpen_de",
+        "mishkas_pen_lab",
+        "andrew_lensky",
+        "schreibkultur"
+      ]
+    },
+    "montblanc_no_22": {
+      "entity_id": "nOIr_Up5WcyJ",
+      "source_ids": [
+        "mb-meisterstuck-100",
+        "mb-service-guide-2024",
+        "chris-raper-classic-pens",
+        "fountainpen-de-no-22",
+        "peyton-street-no-22",
+        "penboard-mb-1960s"
+      ],
+      "independence_groups": [
+        "montblanc_official",
+        "chris_raper",
+        "fountainpen_de",
+        "peyton_street_pens",
+        "penboard"
+      ]
+    }
+  },
+  "sources": [
+    {
+      "source_id": "mb-meisterstuck-100",
+      "models": ["montblanc_144", "montblanc_no_22"],
+      "url": "https://www.montblanc.com/en-gb/discover/edit/meisterstuck-100-years.html",
+      "title": "Meisterstück 100 Years",
+      "publisher": "Montblanc",
+      "retrieved_at": "2026-07-19",
+      "tier": "primary_official",
+      "independence_group": "montblanc_official",
+      "supports": [
+        "Montblanc introduced models 142, 144 and 146 in 1949.",
+        "The 1960 Linie 60 changed to injection-moulded resin and a slimmer design language.",
+        "The official history distinguishes 1950s ebonite/celluloid from modern precious resin."
+      ],
+      "limitations": [
+        "The page does not publish a complete model-specific specification or exact production chronology for No. 22.",
+        "Its general 1949 narrative contains wording about 149 elsewhere on the page that is not used for the 144 claim."
+      ]
+    },
+    {
+      "source_id": "mb-service-guide-2024",
+      "models": ["montblanc_144", "montblanc_no_22"],
+      "url": "https://www.montblanc.com/on/demandware.static/-/Library-Sites-WWSharedLibrary/default/documents/ServiceGuide_WI_online_2024_GB.pdf",
+      "title": "Writing Instruments Service Guide 2024",
+      "publisher": "Montblanc",
+      "retrieved_at": "2026-07-19",
+      "tier": "primary_official",
+      "independence_group": "montblanc_official",
+      "supports": [
+        "Use lukewarm water without chemical products for routine fountain-pen cleaning.",
+        "Do not fill the cap with water; use a damp lint-free cloth."
+      ],
+      "limitations": [
+        "This is current generic care guidance, not an original period manual for either vintage model.",
+        "Vintage celluloid, brittle plastic and seized mechanisms may require more conservative specialist handling."
+      ]
+    },
+    {
+      "source_id": "vintage-mb-no-144",
+      "models": ["montblanc_144"],
+      "url": "https://www.vintagemontblancpens.com/no-144",
+      "title": "No. 144",
+      "publisher": "Vintage Montblanc Pens",
+      "retrieved_at": "2026-07-19",
+      "tier": "specialist_collector",
+      "independence_group": "vintage_montblanc_pens",
+      "supports": [
+        "An early-1950s 144 is documented in green-striped celluloid.",
+        "Black, grey-striped and green-striped 144 variants appear in collector and catalogue evidence.",
+        "Masterpiece and Made in Germany markings can indicate a non-German export example.",
+        "A KEF nib is documented on one specimen."
+      ],
+      "limitations": [
+        "The page centres on one collector specimen and should not be used for universal dimensions or nib fitment.",
+        "Its bibliography cites a specialist book, but that book was not independently inspected in this retrieval."
+      ]
+    },
+    {
+      "source_id": "fountainpen-de-144-periods",
+      "models": ["montblanc_144"],
+      "url": "https://www.fountainpen.de/faq-en/0d1435-in-which-periods-were-the-montblanc-meisterstueck-144-and.htm",
+      "title": "In which periods were the Montblanc Meisterstück 144 and 146 produced after 1961, and are the models technically comparable?",
+      "publisher": "fountainpen.de",
+      "retrieved_at": "2026-07-19",
+      "tier": "specialist_collector",
+      "independence_group": "fountainpen_de",
+      "supports": [
+        "The Goertz slim-line redesign ended production of the earlier 142, 144 and 146 while 149 continued.",
+        "Classic cigar-shaped designs gradually returned from 1979.",
+        "The later 144 was marketed as Classique and was subsequently discontinued."
+      ],
+      "limitations": [
+        "The page explicitly describes its knowledge base as collector discussion accumulated over more than 20 years.",
+        "It does not provide one exact relaunch or discontinuation date for 144."
+      ]
+    },
+    {
+      "source_id": "fountainpen-de-144-guide",
+      "models": ["montblanc_144"],
+      "url": "https://www.fountainpen.de/c-montblanc-meisterstueck-144.htm",
+      "title": "Montblanc Meisterstück 144 — Classique-Vorgänger Füllhalter (eingestellt ca. 2005)",
+      "publisher": "fountainpen.de",
+      "retrieved_at": "2026-07-19",
+      "tier": "specialist_collector",
+      "independence_group": "fountainpen_de",
+      "supports": [
+        "The later 144 is described as a discontinued small Meisterstück using cartridges or a piston converter.",
+        "The standard guide lists a 14K gold nib and EF, F, M, OM, B, OB, BB and OBB widths.",
+        "The page dates discontinuation to approximately 2005."
+      ],
+      "limitations": [
+        "The origin page presented an automated-access gate during this retrieval; its indexed text was cross-checked against the accessible fountainpen.de FAQ and an independent NOS specimen.",
+        "Special metal versions and market-specific specimens may not share the standard nib material."
+      ]
+    },
+    {
+      "source_id": "mishkas-144-1990s",
+      "models": ["montblanc_144"],
+      "url": "https://mishkaspens.com/vintage-pens/vintage-fountain-pens/mont-blanc-144-fountain-pen-1990s-model/",
+      "title": "Mont Blanc Meisterstück 144 Fountain Pen 1990s Model",
+      "publisher": "Mishka's Pen Lab",
+      "retrieved_at": "2026-07-19",
+      "tier": "professional_secondary_specimen",
+      "independence_group": "mishkas_pen_lab",
+      "supports": [
+        "A documented 1990s new-old-stock 144 uses its original converter and a single-colour 14K fine nib.",
+        "That specimen measures 135.7 mm capped, 12 mm maximum cap diameter and 10 mm maximum section diameter.",
+        "The specimen is categorised as cartridge-converter filled."
+      ],
+      "limitations": [
+        "Measurements and nib configuration apply to this specimen only, not every 144 generation or finish.",
+        "The page is a dealer listing rather than a factory catalogue."
+      ]
+    },
+    {
+      "source_id": "andrew-lensky-144-generations",
+      "models": ["montblanc_144"],
+      "url": "https://lenskiy.org/2023/10/montblanc-meisterstuck-144-gen-2/",
+      "title": "Montblanc Meisterstück 144 Gen.2",
+      "publisher": "Andrew Lensky",
+      "retrieved_at": "2026-07-19",
+      "tier": "specialist_restorer",
+      "independence_group": "andrew_lensky",
+      "supports": [
+        "The specialist chronology separates the early celluloid piston/screw-cap generation from later 144 generations.",
+        "It describes the approximately 1995–2004 generation as 14K two-tone, cartridge-converter filled and friction capped.",
+        "It identifies 145 as the 2004 replacement with a screw cap and without the corrosion-prone ring ahead of the nib."
+      ],
+      "limitations": [
+        "The origin page returned an access error to the browser during this retrieval; claims were available through the search index only.",
+        "Its detailed generation dates are a restorer's chronology and are therefore presented as approximate, not official production cut-offs."
+      ]
+    },
+    {
+      "source_id": "schreibkultur-144-classique",
+      "models": ["montblanc_144"],
+      "url": "https://schreibkultur.net/montblanc-meisterstueck-144-classique/",
+      "title": "Montblanc Meisterstück 144 Classique Füllfederhalter",
+      "publisher": "Schreibkultur",
+      "retrieved_at": "2026-07-19",
+      "tier": "independent_long_term_specimen_review",
+      "independence_group": "schreibkultur",
+      "supports": [
+        "A 1994 144 Classique specimen uses resin, a 14K nib and a cartridge/converter system.",
+        "The review lists EF, F, M, B, BB, OM, OB and OBB nib choices and compares 144 with 145.",
+        "It describes 144 as discontinued and 145 as the then-current alternative."
+      ],
+      "limitations": [
+        "Measurements and writing impressions belong to the author's specimen.",
+        "The article was published in 2015, so its statement about current availability is used only with a live Montblanc Classique product page."
+      ]
+    },
+    {
+      "source_id": "mb-current-classique",
+      "models": ["montblanc_144"],
+      "url": "https://www.montblanc.com/en-us/meisterstuck-classique-fountain-pen-MB132581VG.html",
+      "title": "Meisterstück Classique Fountain Pen",
+      "publisher": "Montblanc",
+      "retrieved_at": "2026-07-19",
+      "tier": "primary_official_current",
+      "independence_group": "montblanc_official",
+      "supports": [
+        "Montblanc currently markets a Meisterstück Classique under Ident No. MB132581VG.",
+        "The current product page describes black precious resin, three platinum-coated rings and an Au585/14K nib."
+      ],
+      "limitations": [
+        "The public product page does not use the historical 145 number in its product title.",
+        "Current specifications are intentionally not copied into the vintage 144 model fields."
+      ]
+    },
+    {
+      "source_id": "chris-raper-classic-pens",
+      "models": ["montblanc_no_22"],
+      "url": "https://chrisraper.org.uk/blog/montblanc-classic-pens/",
+      "title": "Montblanc Classic pens (1960–2010)",
+      "publisher": "Chris Raper",
+      "retrieved_at": "2026-07-19",
+      "tier": "specialist_collector_synthesis",
+      "independence_group": "chris_raper",
+      "supports": [
+        "No. 22 belongs to the Medium range and demi-size class, not the Economy range.",
+        "The 22/24 configuration is documented as push cap, wide-plus-thin cap bands, 14K wing nib, piston filler and wide blue ink window.",
+        "A transcription of the 1969 North American catalogue describes No. 22 with 14K nib, 1/20 14K gold-filled trim and a 25-year guarantee.",
+        "The same catalogue transcription lists flexible EF/F/M/B/BB and rigid EF nib choices for No. 22.",
+        "Parts interchange across 12/22/32-family pens creates a material risk of cap, nib-unit or body chimeras."
+      ],
+      "limitations": [
+        "This is an independent synthesis combining catalogues, collector sites and the author's specimens, not a Montblanc publication.",
+        "The linked catalogue image was not treated as a separately verified archive locator in this source record.",
+        "The author's general writing-feel observations are not used as universal claims."
+      ]
+    },
+    {
+      "source_id": "fountainpen-de-no-22",
+      "models": ["montblanc_no_22"],
+      "url": "https://www.fountainpen.de/old-60-22.htm",
+      "title": "Montblanc 22",
+      "publisher": "fountainpen.de",
+      "retrieved_at": "2026-07-19",
+      "tier": "specialist_collector",
+      "independence_group": "fountainpen_de",
+      "supports": [
+        "The page catalogues Montblanc 22 as a 1960–1970 model.",
+        "Its specimen photographs provide an independent visual cross-check for the model and nib form."
+      ],
+      "limitations": [
+        "The page provides a date range and images but little textual specification.",
+        "The photographs are copyrighted and were not reused."
+      ]
+    },
+    {
+      "source_id": "peyton-street-no-22",
+      "models": ["montblanc_no_22"],
+      "url": "https://www.peytonstreetpens.com/montblanc-22-fountain-pen-1960s-black-piston-fill-14k-broad-nib-excellent-works-well.html",
+      "title": "Montblanc 22 Fountain Pen (1960s) — Black, Piston Fill, 14k Broad Nib",
+      "publisher": "Peyton Street Pens",
+      "retrieved_at": "2026-07-19",
+      "tier": "professional_secondary_specimen",
+      "independence_group": "peyton_street_pens",
+      "supports": [
+        "One 1960s specimen has Model 22 engraved on the cap band, a tested piston filler, blue-tinted ink window and 14K broad nib.",
+        "That specimen measures 5-1/8 inches capped.",
+        "Its broad nib was springy but explicitly not described as flexible."
+      ],
+      "limitations": [
+        "Length, nib width and writing feel describe one dealer specimen only.",
+        "The page is a sales record, not an official catalogue."
+      ]
+    },
+    {
+      "source_id": "penboard-mb-1960s",
+      "models": ["montblanc_no_22"],
+      "url": "https://www.penboard.de/shop/hlist/MB/VI60/0/setla%3Dit",
+      "title": "Montblanc — Vintage Pens 1960ies to present",
+      "publisher": "Penboard.de",
+      "retrieved_at": "2026-07-19",
+      "tier": "specialist_specimen_database",
+      "independence_group": "penboard",
+      "supports": [
+        "Multiple 1961 No. 22 specimens are catalogued with piston filling and 14K nibs in F, M or B.",
+        "One No. 22 specimen is recorded at approximately 130 mm long and 12.9 mm cap diameter."
+      ],
+      "limitations": [
+        "The page is a long specialist sales/specimen database and individual records may reflect owner attribution.",
+        "Dimensions and nib behaviour remain specimen-level evidence."
+      ]
+    }
+  ],
+  "unresolved": [
+    {
+      "model": "montblanc_144",
+      "fields": ["universal_dimensions", "weight_g", "ink_capacity_ml", "exact_relaunch_year", "exact_discontinuation_year"],
+      "reason": "No model-scoped primary source covering all 144 generations was verified; specialist chronologies differ slightly."
+    },
+    {
+      "model": "montblanc_no_22",
+      "fields": ["weight_g", "ink_capacity_ml", "universal_diameter", "official_student_name", "confirmed_22P_variant"],
+      "reason": "No direct Montblanc catalogue scan with a stable verified locator was obtained for these claims; existing evidence either contradicts the nickname or is specimen/community-level."
+    }
+  ]
+}
