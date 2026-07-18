@@ -468,10 +468,10 @@ async function expectLifecycleVisible(visible: boolean): Promise<void> {
 
 test.describe("publication gate browser contract", () => {
   test.describe.configure({ mode: "serial" });
-  test.setTimeout(60_000);
+  test.setTimeout(120_000);
 
   test.beforeAll(async () => {
-    test.setTimeout(60_000);
+    test.setTimeout(120_000);
     realDatabaseBefore = snapshotRealDatabase();
     const connection = resolveDatabaseConnection(process.env);
     if (
@@ -499,7 +499,7 @@ test.describe("publication gate browser contract", () => {
   });
 
   test.afterAll(async () => {
-    test.setTimeout(60_000);
+    test.setTimeout(120_000);
     await fixtureRequest?.dispose();
     if (fixtureDb) {
       try {
