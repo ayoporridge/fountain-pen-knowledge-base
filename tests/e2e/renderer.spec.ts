@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { createClient, type Client } from "@libsql/client";
+import { type Client, createClient } from "@libsql/client";
 import { expect, type Locator, test } from "@playwright/test";
 import {
   publishEntity,
@@ -74,7 +74,9 @@ function assertOwnedFixture(): void {
     throw new Error("Renderer E2E base URL must be explicit loopback HTTP.");
   }
   if (!databaseUrl.startsWith("file:") || /[?#]/.test(databaseUrl)) {
-    throw new Error("Renderer E2E database must be an explicit local file URL.");
+    throw new Error(
+      "Renderer E2E database must be an explicit local file URL.",
+    );
   }
   const databasePath = path.resolve(decodeURIComponent(databaseUrl.slice(5)));
   if (
@@ -82,7 +84,9 @@ function assertOwnedFixture(): void {
       `${path.join(fs.realpathSync.native(os.tmpdir()), "fpkg-renderer-")}`,
     )
   ) {
-    throw new Error("Renderer E2E database must live in an owned renderer root.");
+    throw new Error(
+      "Renderer E2E database must live in an owned renderer root.",
+    );
   }
 }
 
@@ -111,24 +115,27 @@ async function expectSharedRendererSurface(
   await expect(image).toHaveAttribute("src", asset.imageUrl);
   await expect(image).toHaveAttribute("alt", new RegExp(asset.name));
   await expect
-    .poll(() => image.evaluate((node) => (node as HTMLImageElement).naturalWidth))
+    .poll(() =>
+      image.evaluate((node) => (node as HTMLImageElement).naturalWidth),
+    )
     .toBeGreaterThan(0);
   const caption = page.locator(".encyclopedia-primary-media figcaption");
   await expect(caption).toContainText(asset.attribution);
   await expect(caption).toContainText(`许可：${asset.license}`);
-  await expect(caption.getByRole("link", { name: /查看图片来源/ })).toHaveAttribute(
-    "href",
-    asset.sourceUrl,
-  );
+  await expect(
+    caption.getByRole("link", { name: /查看图片来源/ }),
+  ).toHaveAttribute("href", asset.sourceUrl);
 
-  const headingHrefs = await page.locator("article h2[id]").evaluateAll((nodes) =>
-    nodes.map((node) => `#${node.id}`),
-  );
+  const headingHrefs = await page
+    .locator("article h2[id]")
+    .evaluateAll((nodes) => nodes.map((node) => `#${node.id}`));
   const navigationHrefs = await page
     .locator(".encyclopedia-toc a, .encyclopedia-mobile-nav a")
     .evaluateAll((nodes) => nodes.map((node) => node.getAttribute("href")));
   for (const href of headingHrefs) {
-    expect(navigationHrefs.filter((candidate) => candidate === href)).toHaveLength(2);
+    expect(
+      navigationHrefs.filter((candidate) => candidate === href),
+    ).toHaveLength(2);
   }
 
   const source = page.locator("#sources a").first();
@@ -161,7 +168,9 @@ test.describe("@renderer independent encyclopedia renderer", () => {
     expect(html).toContain("全部型号（15）");
 
     await page.goto("/brand/renderer-brand", { waitUntil: "domcontentloaded" });
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText(BRAND_NAME);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+      BRAND_NAME,
+    );
     await expect(page.getByTestId("entity-summary")).toHaveText(BRAND_SUMMARY);
     await expect(page.locator("#story")).toContainText("Renderer 品牌历史正文");
     const modelLinks = page.locator('#models a[href^="/pen/"]');
@@ -172,7 +181,10 @@ test.describe("@renderer independent encyclopedia renderer", () => {
     expect(new Set(hrefs).size).toBe(15);
     await expect(page.locator("#models h2")).toHaveText("全部型号（15）");
     await expectTouchTarget(modelLinks.first());
-    await expectSharedRendererSurface(page, assetManifest?.brand as AssetEvidence);
+    await expectSharedRendererSurface(
+      page,
+      assetManifest?.brand as AssetEvidence,
+    );
     for (const sentinel of FORBIDDEN) {
       await expect(page.locator("body")).not.toContainText(sentinel);
     }
@@ -199,19 +211,28 @@ test.describe("@renderer independent encyclopedia renderer", () => {
     expect(html).toContain("/brand/renderer-brand");
     for (const sentinel of TOPIC_SENTINELS) expect(html).toContain(sentinel);
 
-    await page.goto("/pen/renderer-model-01", { waitUntil: "domcontentloaded" });
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText(MODEL_NAME);
+    await page.goto("/pen/renderer-model-01", {
+      waitUntil: "domcontentloaded",
+    });
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+      MODEL_NAME,
+    );
     await expect(page.getByTestId("entity-summary")).toHaveText(MODEL_SUMMARY);
     for (const sentinel of TOPIC_SENTINELS) {
       await expect(page.locator("#story")).toContainText(sentinel);
     }
-    const canonicalBrand = page.locator('#brand a[href="/brand/renderer-brand"]');
+    const canonicalBrand = page.locator(
+      '#brand a[href="/brand/renderer-brand"]',
+    );
     await expect(canonicalBrand).toHaveCount(1);
     await expect(canonicalBrand).toHaveText(BRAND_NAME);
     await expectTouchTarget(canonicalBrand);
     await expect(page.locator("#specs")).toContainText("重量");
     await expect(page.locator("#specs")).toContainText("0");
-    await expectSharedRendererSurface(page, assetManifest?.model as AssetEvidence);
+    await expectSharedRendererSurface(
+      page,
+      assetManifest?.model as AssetEvidence,
+    );
     for (const sentinel of FORBIDDEN) {
       await expect(page.locator("body")).not.toContainText(sentinel);
     }
@@ -240,7 +261,9 @@ test.describe("@boundary Phase 20 public boundary", () => {
   test("nonpublic content is 404 while the complete fixture is readable", async ({
     request,
   }) => {
-    expect((await request.get("/pen/renderer-unqualified-spec")).status()).toBe(404);
+    expect((await request.get("/pen/renderer-unqualified-spec")).status()).toBe(
+      404,
+    );
     expect((await request.get("/pen/renderer-model-01")).status()).toBe(200);
   });
 
@@ -252,9 +275,9 @@ test.describe("@boundary Phase 20 public boundary", () => {
             SET body_md = body_md || '\n\nBOUNDARY_MUTATION_RENDERER'
             WHERE id = 'renderer-model-01-story-1'`,
     });
-    expect((await request.get("/pen/renderer-model-01?boundary=mutated")).status()).toBe(
-      404,
-    );
+    expect(
+      (await request.get("/pen/renderer-model-01?boundary=mutated")).status(),
+    ).toBe(404);
   });
 
   test("current-hash fixture review and republish restores the model", async ({
@@ -273,7 +296,9 @@ test.describe("@boundary Phase 20 public boundary", () => {
       entityId: "renderer-model-01",
       reviewer: "renderer-boundary",
     });
-    const response = await request.get("/pen/renderer-model-01?boundary=republished");
+    const response = await request.get(
+      "/pen/renderer-model-01?boundary=republished",
+    );
     expect(response.status()).toBe(200);
     expect(await response.text()).toContain("BOUNDARY_MUTATION_RENDERER");
   });
