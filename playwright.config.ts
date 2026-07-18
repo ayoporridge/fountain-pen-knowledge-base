@@ -29,7 +29,7 @@ export default defineConfig({
     },
     {
       name: "mobile",
-      testMatch: /site-quality\.spec\.ts/,
+      testMatch: /(?:site-quality|renderer)\.spec\.ts/,
       use: {
         viewport: { width: 390, height: 844 },
         hasTouch: true,
