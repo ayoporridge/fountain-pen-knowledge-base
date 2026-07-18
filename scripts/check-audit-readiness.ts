@@ -1358,6 +1358,103 @@ type ArtifactProbeOwnership = {
   descriptorsClosed: boolean;
 };
 
+const ARTIFACT_PROBE_CAPABILITY_CLEANUP_SOURCE = String.raw`
+import json
+import os
+import stat
+import sys
+
+ROOT_FD = 3
+PARENT_FD = 4
+name = sys.argv[1]
+expected = (int(sys.argv[2]), int(sys.argv[3]))
+ident = lambda info: (info.st_dev, info.st_ino)
+emit = lambda status, **fields: print(
+    json.dumps({"status": status, **fields}, separators=(",", ":"))
+)
+
+def clear(directory_fd):
+    for entry in sorted(os.listdir(directory_fd)):
+        initial = os.stat(entry, dir_fd=directory_fd, follow_symlinks=False)
+        if stat.S_ISDIR(initial.st_mode):
+            child_fd = os.open(
+                entry, os.O_RDONLY | os.O_DIRECTORY | os.O_NOFOLLOW,
+                dir_fd=directory_fd,
+            )
+            try:
+                opened = os.fstat(child_fd)
+                if ident(opened) != ident(initial):
+                    raise RuntimeError("directory_identity_changed_before_open")
+                clear(child_fd)
+                current = os.stat(entry, dir_fd=directory_fd, follow_symlinks=False)
+                if ident(current) != ident(opened) or os.listdir(child_fd):
+                    raise RuntimeError("directory_identity_changed_before_rmdir")
+                os.rmdir(entry, dir_fd=directory_fd)
+            finally:
+                os.close(child_fd)
+        elif stat.S_ISREG(initial.st_mode) and initial.st_nlink == 1:
+            current = os.stat(entry, dir_fd=directory_fd, follow_symlinks=False)
+            if ident(current) != ident(initial) or current.st_nlink != 1:
+                raise RuntimeError("file_identity_changed_before_unlink")
+            os.unlink(entry, dir_fd=directory_fd)
+        else:
+            raise RuntimeError("unsafe_or_shared_entry")
+
+def main():
+    if not name or name in (".", "..") or os.path.basename(name) != name:
+        raise RuntimeError("invalid_quarantine_name")
+    root_before = os.fstat(ROOT_FD)
+    parent = os.fstat(PARENT_FD)
+    if not stat.S_ISDIR(root_before.st_mode) or not stat.S_ISDIR(parent.st_mode):
+        raise RuntimeError("inherited_descriptor_is_not_directory")
+    if ident(root_before) != expected:
+        raise RuntimeError("root_descriptor_identity_changed")
+    clear(ROOT_FD)
+    if os.listdir(ROOT_FD):
+        raise RuntimeError("root_not_empty_after_cleanup")
+    try:
+        entry = os.stat(name, dir_fd=PARENT_FD, follow_symlinks=False)
+    except FileNotFoundError:
+        emit("retained", reason="entry_missing")
+        raise SystemExit(17)
+    if ident(entry) != ident(root_before):
+        emit("retained", reason="entry_identity_changed")
+        raise SystemExit(17)
+    os.rmdir(name, dir_fd=PARENT_FD)
+    try:
+        os.stat(name, dir_fd=PARENT_FD, follow_symlinks=False)
+    except FileNotFoundError:
+        pass
+    else:
+        emit("retained", reason="entry_reappeared_after_rmdir")
+        raise SystemExit(18)
+    root_after = os.fstat(ROOT_FD)
+    emit(
+        "removed",
+        entry_absent=True,
+        root_dev=str(root_after.st_dev),
+        root_ino=str(root_after.st_ino),
+        root_nlink_before=str(root_before.st_nlink),
+        root_nlink_after=str(root_after.st_nlink),
+    )
+
+try:
+    main()
+except Exception as error:
+    emit("retained", reason=f"{type(error).__name__}:{error}")
+    raise SystemExit(19)
+`;
+
+type ArtifactProbeCapabilityCleanupReport = {
+  readonly status: "removed" | "retained";
+  readonly reason?: string;
+  readonly entry_absent?: boolean;
+  readonly root_dev?: string;
+  readonly root_ino?: string;
+  readonly root_nlink_before?: string;
+  readonly root_nlink_after?: string;
+};
+
 function artifactProbeIdentity(stats: fs.BigIntStats): ArtifactProbeIdentity {
   return {
     dev: stats.dev.toString(),
@@ -1802,16 +1899,101 @@ function assertQuarantinedArtifactProbeRoot(
   );
 }
 
+function removeQuarantinedArtifactProbeRoot(
+  ownership: ArtifactProbeOwnership,
+  parentDescriptor: number,
+  quarantinePath: string,
+): void {
+  const cleanup = spawnSync(
+    "python3",
+    [
+      "-c",
+      ARTIFACT_PROBE_CAPABILITY_CLEANUP_SOURCE,
+      path.basename(quarantinePath),
+      ownership.root.dev,
+      ownership.root.ino,
+    ],
+    {
+      cwd: ROOT,
+      env: {
+        PATH: process.env.PATH,
+      },
+      stdio: [
+        "ignore",
+        "pipe",
+        "pipe",
+        ownership.rootDescriptor,
+        parentDescriptor,
+      ],
+      encoding: "utf8",
+      timeout: 10_000,
+      maxBuffer: 64 * 1024,
+    },
+  );
+  let report: ArtifactProbeCapabilityCleanupReport | null = null;
+  try {
+    report = JSON.parse(
+      typeof cleanup.stdout === "string" ? cleanup.stdout.trim() : "",
+    ) as ArtifactProbeCapabilityCleanupReport;
+  } catch {
+    // A missing or failed helper is reported below without another path operation.
+  }
+  const removed =
+    !cleanup.error &&
+    cleanup.status === 0 &&
+    cleanup.signal === null &&
+    report?.status === "removed" &&
+    report.entry_absent === true &&
+    report.root_dev === ownership.root.dev &&
+    report.root_ino === ownership.root.ino &&
+    typeof report.root_nlink_before === "string" &&
+    typeof report.root_nlink_after === "string";
+  if (removed) return;
+
+  const reason =
+    report?.reason ??
+    cleanup.error?.code ??
+    cleanup.signal ??
+    (cleanup.status === null ? "helper_did_not_exit" : `helper_exit_${cleanup.status}`);
+  const stderr =
+    typeof cleanup.stderr === "string" ? cleanup.stderr.trim() : "";
+  throw new Error(
+    `Artifact probe capability cleanup failed closed (${reason}); the quarantine was retained without pathname-recursive deletion.${stderr ? ` helper stderr=${JSON.stringify(stderr)}` : ""}`,
+    { cause: cleanup.error },
+  );
+}
+
 function cleanupArtifactProbeOwnership(
   ownership: ArtifactProbeOwnership,
   afterQuarantineVerification?: (quarantinePath: string) => void,
+  afterFinalQuarantineVerification?: (quarantinePath: string) => void,
 ): void {
   if (ownership.descriptorsClosed) return;
   let quarantinePath: string | null = null;
+  let parentDescriptor: number | null = null;
   try {
     assertArtifactProbeAuthority(ownership);
     const expectedTree = snapshotArtifactProbeTree(ownership.scopeRoot);
     const parent = path.dirname(ownership.scopeRoot);
+    parentDescriptor = fs.openSync(
+      parent,
+      fs.constants.O_RDONLY |
+        fs.constants.O_DIRECTORY |
+        fs.constants.O_NOFOLLOW,
+    );
+    const parentPathStats = fs.lstatSync(parent, { bigint: true });
+    const parentDescriptorStats = fs.fstatSync(parentDescriptor, {
+      bigint: true,
+    });
+    assertCondition(
+      parentPathStats.isDirectory() &&
+        parentDescriptorStats.isDirectory() &&
+        sameArtifactProbeIdentity(
+          artifactProbeIdentity(parentPathStats),
+          artifactProbeIdentity(parentDescriptorStats),
+        ),
+      "Artifact probe quarantine parent does not match its held descriptor.",
+    );
     quarantinePath = path.join(
       parent,
       `.${path.basename(ownership.scopeRoot)}.quarantine-${randomUUID()}`,
@@ -1832,12 +2014,14 @@ function cleanupArtifactProbeOwnership(
       quarantinePath,
       expectedTree,
     );
-    fs.rmSync(quarantinePath, { recursive: true, force: false });
-    assertCondition(
-      !fs.existsSync(quarantinePath),
-      "Artifact probe quarantine root remained after cleanup.",
+    afterFinalQuarantineVerification?.(quarantinePath);
+    removeQuarantinedArtifactProbeRoot(
+      ownership,
+      parentDescriptor,
+      quarantinePath,
     );
   } finally {
+    if (parentDescriptor !== null) fs.closeSync(parentDescriptor);
     closeArtifactProbeDescriptors(ownership);
   }
 }
@@ -2166,43 +2350,79 @@ function assertArtifactProbeCapabilityRejection(): void {
     fs.rmSync(aliasVictim, { recursive: true, force: true });
   }
 
-  const replacementWindow = createArtifactProbeOwnership();
-  const historicalRoot = fs.realpathSync.native(
-    fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-artifact-signal-probe-history-")),
-  );
-  const historicalSentinel = path.join(historicalRoot, "must-remain.txt");
-  fs.writeFileSync(historicalSentinel, "must-remain", { flag: "wx" });
-  let displacedRoot = "";
-  let replacementRoot = "";
-  expectThrow(
-    () =>
-      cleanupArtifactProbeOwnership(replacementWindow, (quarantinePath) => {
-        displacedRoot = `${quarantinePath}.displaced`;
-        replacementRoot = quarantinePath;
-        fs.renameSync(quarantinePath, displacedRoot);
-        fs.mkdirSync(replacementRoot, { mode: 0o700 });
-        fs.writeFileSync(path.join(replacementRoot, "replacement.txt"), "stay", {
-          flag: "wx",
-        });
-      }),
-    "quarantine root changed",
-  );
+  for (const afterFinalCheck of [false, true]) {
+    const replacementWindow = createArtifactProbeOwnership();
+    const historicalRoot = fs.realpathSync.native(
+      fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-artifact-probe-history-")),
+    );
+    const historicalSentinel = path.join(historicalRoot, "must-remain.txt");
+    fs.writeFileSync(historicalSentinel, "must-remain", { flag: "wx" });
+    let displacedRoot = "";
+    let replacementRoot = "";
+    const replaceQuarantine = (quarantinePath: string) => {
+      displacedRoot = `${quarantinePath}.displaced`;
+      replacementRoot = quarantinePath;
+      fs.renameSync(quarantinePath, displacedRoot);
+      fs.mkdirSync(replacementRoot, { mode: 0o700 });
+      fs.writeFileSync(path.join(replacementRoot, "replacement.txt"), "stay", {
+        flag: "wx",
+      });
+    };
+    try {
+      expectThrow(
+        () =>
+          cleanupArtifactProbeOwnership(
+            replacementWindow,
+            afterFinalCheck ? undefined : replaceQuarantine,
+            afterFinalCheck ? replaceQuarantine : undefined,
+          ),
+        afterFinalCheck ? "entry_identity_changed" : "quarantine root changed",
+      );
+      assertCondition(
+        fs.readFileSync(path.join(replacementRoot, "replacement.txt"), "utf8") ===
+          "stay" &&
+          fs.existsSync(displacedRoot) &&
+          (!afterFinalCheck || fs.readdirSync(displacedRoot).length === 0) &&
+          fs.readFileSync(historicalSentinel, "utf8") === "must-remain",
+        "Artifact cleanup deleted a replacement or historical probe sibling.",
+      );
+    } finally {
+      if (replacementRoot) {
+        fs.rmSync(replacementRoot, { recursive: true, force: true });
+      }
+      if (displacedRoot) {
+        fs.rmSync(displacedRoot, { recursive: true, force: true });
+      }
+      fs.rmSync(historicalRoot, { recursive: true, force: true });
+    }
+  }
+
+  const unavailableHelperWindow = createArtifactProbeOwnership();
+  const originalPath = process.env.PATH;
+  let unavailableHelperQuarantine = "";
   try {
+    expectThrow(
+      () =>
+        cleanupArtifactProbeOwnership(
+          unavailableHelperWindow,
+          undefined,
+          (quarantinePath) => {
+            unavailableHelperQuarantine = quarantinePath;
+            process.env.PATH = "";
+          },
+        ),
+      "ENOENT",
+    );
     assertCondition(
-      fs.readFileSync(path.join(replacementRoot, "replacement.txt"), "utf8") ===
-        "stay" &&
-        fs.existsSync(displacedRoot) &&
-        fs.readFileSync(historicalSentinel, "utf8") === "must-remain",
-      "Artifact cleanup deleted a replacement or historical probe root.",
+      fs.existsSync(unavailableHelperQuarantine),
+      "Artifact cleanup removed its quarantine when the capability helper was unavailable.",
     );
   } finally {
-    if (replacementRoot) {
-      fs.rmSync(replacementRoot, { recursive: true, force: true });
+    if (originalPath === undefined) delete process.env.PATH;
+    else process.env.PATH = originalPath;
+    if (unavailableHelperQuarantine) {
+      fs.rmSync(unavailableHelperQuarantine, { recursive: true, force: true });
     }
-    if (displacedRoot) {
-      fs.rmSync(displacedRoot, { recursive: true, force: true });
-    }
-    fs.rmSync(historicalRoot, { recursive: true, force: true });
   }
 }
 
