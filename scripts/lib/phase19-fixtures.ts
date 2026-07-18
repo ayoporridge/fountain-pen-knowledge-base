@@ -55,6 +55,12 @@ export interface Phase19Fixture {
     args: readonly string[],
     options?: SpawnOptions,
   ): ChildProcess;
+  /**
+   * Release a registered child only after its process (or detached process
+   * group) has been confirmed to have exited. Calls are idempotent for a child
+   * already released by this fixture and reject children owned elsewhere.
+   */
+  releaseChild(child: ChildProcess): void;
 }
 
 export interface CreatePhase19FixtureOptions {
@@ -71,8 +77,8 @@ type ManagedPhase19Fixture = Phase19Fixture & {
 const activeFixtures = new Set<ManagedPhase19Fixture>();
 const knownFixtures = new WeakSet<ManagedPhase19Fixture>();
 const detachedFixtureChildren = new WeakSet<ChildProcess>();
+const fixtureChildOwners = new WeakMap<ChildProcess, ManagedPhase19Fixture>();
 const ownedRoots = new Set<string>();
-let signalCleanupStarted = false;
 let signalHandlersInstalled = false;
 
 function sanitizedFixtureEnvironment(
@@ -137,9 +143,16 @@ function processGroupIsAlive(pid: number): boolean {
   try {
     process.kill(-pid, 0);
     return true;
-  } catch {
-    return false;
+  } catch (error) {
+    return (error as NodeJS.ErrnoException).code !== "ESRCH";
   }
+}
+
+function delayWithoutKeepingProcessAlive(timeoutMs: number): Promise<void> {
+  return new Promise((resolve) => {
+    const timer = setTimeout(resolve, timeoutMs);
+    timer.unref();
+  });
 }
 
 async function waitForProcessGroupExit(
@@ -168,14 +181,71 @@ async function stopChild(child: ChildProcess): Promise<void> {
     } catch {
       child.kill("SIGKILL");
     }
-    await waitForProcessGroupExit(child.pid, 1_500);
-    return;
+    if (await waitForProcessGroupExit(child.pid, 1_500)) return;
+    throw new Error(
+      `Phase 19 detached process group ${child.pid} survived SIGKILL.`,
+    );
   }
   if (hasExited(child)) return;
   child.kill("SIGTERM");
   if (await waitForChildExit(child, 1_500)) return;
   child.kill("SIGKILL");
-  await waitForChildExit(child, 1_500);
+  if (await waitForChildExit(child, 1_500)) return;
+  throw new Error(
+    `Phase 19 child process ${child.pid ?? "without-pid"} survived SIGKILL.`,
+  );
+}
+
+function releaseChildRegistration(
+  fixture: ManagedPhase19Fixture,
+  child: ChildProcess,
+): void {
+  fixture.children.delete(child);
+  detachedFixtureChildren.delete(child);
+}
+
+function releaseConfirmedChild(
+  fixture: ManagedPhase19Fixture,
+  child: ChildProcess,
+): void {
+  const owner = fixtureChildOwners.get(child);
+  if (owner !== fixture) {
+    throw new Error("Phase 19 child release rejected a foreign child.");
+  }
+  if (!fixture.children.has(child)) return;
+
+  if (detachedFixtureChildren.has(child) && child.pid) {
+    if (processGroupIsAlive(child.pid)) {
+      throw new Error(
+        `Phase 19 refused to release live process group ${child.pid}.`,
+      );
+    }
+  } else if (!hasExited(child)) {
+    throw new Error("Phase 19 refused to release a live child process.");
+  }
+  releaseChildRegistration(fixture, child);
+}
+
+async function releaseDetachedChildWhenGroupExits(
+  fixture: ManagedPhase19Fixture,
+  child: ChildProcess,
+): Promise<void> {
+  const pid = child.pid;
+  if (!pid) return;
+  while (
+    fixture.children.has(child) &&
+    detachedFixtureChildren.has(child) &&
+    processGroupIsAlive(pid)
+  ) {
+    await delayWithoutKeepingProcessAlive(25);
+  }
+  if (
+    fixture.children.has(child) &&
+    detachedFixtureChildren.has(child) &&
+    !processGroupIsAlive(pid)
+  ) {
+    releaseChildRegistration(fixture, child);
+  }
 }
 
 export function assertPhase19LockedRealCatalog(
@@ -229,11 +299,15 @@ export async function cleanupPhase19Fixture(
 
   managed.cleanupPromise = (async () => {
     const cleanupErrors: unknown[] = [];
-    try {
-      await Promise.all([...managed.children].map(stopChild));
-      managed.children.clear();
-    } catch (error) {
-      cleanupErrors.push(error);
+    const children = [...managed.children];
+    const childCleanupResults = await Promise.allSettled(
+      children.map(async (child) => {
+        await stopChild(child);
+        releaseChildRegistration(managed, child);
+      }),
+    );
+    for (const result of childCleanupResults) {
+      if (result.status === "rejected") cleanupErrors.push(result.reason);
     }
     try {
       managed.client.close();
@@ -371,10 +445,18 @@ export async function createPhase19Fixture(
       });
       if (options.detached === true) detachedFixtureChildren.add(child);
       children.add(child);
+      fixtureChildOwners.set(child, fixture);
       child.once("exit", () => {
-        if (!detachedFixtureChildren.has(child)) children.delete(child);
+        if (detachedFixtureChildren.has(child)) {
+          void releaseDetachedChildWhenGroupExits(fixture, child);
+        } else {
+          releaseChildRegistration(fixture, child);
+        }
       });
       return child;
+    },
+    releaseChild(child: ChildProcess): void {
+      releaseConfirmedChild(fixture, child);
     },
   };
   knownFixtures.add(fixture);
@@ -953,24 +1035,44 @@ export async function cleanupActivePhase19Fixtures(): Promise<void> {
   }
 }
 
+export interface Phase19FixtureSignalHandlerOptions {
+  readonly cleanup?: () => Promise<void>;
+  readonly exit?: (exitCode: number) => void;
+}
+
+/**
+ * Exposed as a hermetic contract seam so signal cleanup behavior can be
+ * verified without delivering an OS signal to the test process.
+ */
+export function createPhase19FixtureSignalHandler(
+  options: Phase19FixtureSignalHandlerOptions = {},
+): (signal: "SIGINT" | "SIGTERM") => void {
+  const cleanup = options.cleanup ?? cleanupActivePhase19Fixtures;
+  const exit = options.exit ?? ((exitCode: number) => process.exit(exitCode));
+  let cleanupStarted = false;
+
+  return (signal) => {
+    if (cleanupStarted) return;
+    cleanupStarted = true;
+    const exitCode = signal === "SIGINT" ? 130 : 143;
+    void (async () => {
+      try {
+        await cleanup();
+        exit(exitCode);
+      } catch {
+        exit(1);
+      }
+    })();
+  };
+}
+
 export function installPhase19FixtureSignalHandlers(): void {
   if (signalHandlersInstalled) return;
   signalHandlersInstalled = true;
-  for (const [signal, exitCode] of [
-    ["SIGINT", 130],
-    ["SIGTERM", 143],
-  ] as const) {
-    process.once(signal, () => {
-      if (signalCleanupStarted) return;
-      signalCleanupStarted = true;
-      void (async () => {
-        try {
-          await cleanupActivePhase19Fixtures();
-          process.exit(exitCode);
-        } catch {
-          process.exit(1);
-        }
-      })();
+  const handleSignal = createPhase19FixtureSignalHandler();
+  for (const signal of ["SIGINT", "SIGTERM"] as const) {
+    process.on(signal, () => {
+      handleSignal(signal);
     });
   }
 }
