@@ -47,6 +47,16 @@ type LifecycleScopeReport = {
 type LifecycleProbeScope = {
   createOwnedRoot(prefix: string): string;
   registerChild(child: ChildProcess): ChildProcess;
+  activeChildCount(): number;
+};
+
+type WaitForProcessGroupExit = (
+  pid: number,
+  timeoutMs: number,
+) => Promise<boolean>;
+
+type LifecycleProbeScopeOptions = {
+  readonly waitForGroupExit?: WaitForProcessGroupExit;
 };
 
 const FORBIDDEN_E2E_BASE_URL_MESSAGE =
@@ -87,20 +97,26 @@ function waitForChildExit(
   });
 }
 
-async function stopDetachedProcessGroup(child: ChildProcess): Promise<void> {
+async function stopDetachedProcessGroup(
+  child: ChildProcess,
+  waitForGroupExit: WaitForProcessGroupExit = waitForProcessGroupExit,
+): Promise<void> {
   if (!child.pid || !processGroupIsAlive(child.pid)) return;
   try {
     process.kill(-child.pid, "SIGTERM");
   } catch {
     child.kill("SIGTERM");
   }
-  if (await waitForProcessGroupExit(child.pid, 5_000)) return;
+  if (await waitForGroupExit(child.pid, 5_000)) return;
   try {
     process.kill(-child.pid, "SIGKILL");
   } catch {
     child.kill("SIGKILL");
   }
-  await waitForProcessGroupExit(child.pid, 5_000);
+  assertCondition(
+    await waitForGroupExit(child.pid, 5_000),
+    `Lifecycle cleanup could not stop process group ${child.pid}.`,
+  );
 }
 
 function processGroupIsAlive(pid: number): boolean {
@@ -139,6 +155,7 @@ async function waitForProcessExit(
 async function forwardSignalToDetachedProcessGroup(
   child: ChildProcess,
   signal: CatchableSignal,
+  waitForGroupExit: WaitForProcessGroupExit = waitForProcessGroupExit,
 ): Promise<void> {
   if (!child.pid || !processGroupIsAlive(child.pid)) return;
   try {
@@ -146,14 +163,17 @@ async function forwardSignalToDetachedProcessGroup(
   } catch {
     child.kill(signal);
   }
-  if (await waitForProcessGroupExit(child.pid, 15_000)) return;
-  await stopDetachedProcessGroup(child);
+  if (await waitForGroupExit(child.pid, 15_000)) return;
+  await stopDetachedProcessGroup(child, waitForGroupExit);
 }
 
 async function withLifecycleProbeScope<T>(
   run: (scope: LifecycleProbeScope) => Promise<T>,
   verifyCleanup: () => void = () => undefined,
+  options: LifecycleProbeScopeOptions = {},
 ): Promise<T> {
+  const waitForGroupExit =
+    options.waitForGroupExit ?? waitForProcessGroupExit;
   const children = new Set<ChildProcess>();
   let ownedRoot: string | null = null;
   let cleanupPromise: Promise<void> | null = null;
@@ -161,18 +181,48 @@ async function withLifecycleProbeScope<T>(
 
   const cleanup = (signal?: CatchableSignal): Promise<void> => {
     cleanupPromise ??= (async () => {
-      for (const child of children) {
-        if (signal) {
-          await forwardSignalToDetachedProcessGroup(child, signal);
-        } else {
-          await stopDetachedProcessGroup(child);
+      const failures: unknown[] = [];
+      for (const child of [...children]) {
+        try {
+          if (signal) {
+            await forwardSignalToDetachedProcessGroup(
+              child,
+              signal,
+              waitForGroupExit,
+            );
+          } else {
+            await stopDetachedProcessGroup(child, waitForGroupExit);
+          }
+          assertCondition(
+            !child.pid || !processGroupIsAlive(child.pid),
+            `Lifecycle cleanup left process group ${String(child.pid)} alive.`,
+          );
+        } catch (error) {
+          failures.push(error);
+        } finally {
+          if (!child.pid || !processGroupIsAlive(child.pid)) {
+            children.delete(child);
+          }
         }
       }
-      children.clear();
-      if (ownedRoot && fs.existsSync(ownedRoot)) {
-        fs.rmSync(ownedRoot, { recursive: true, force: true });
+      try {
+        if (ownedRoot && fs.existsSync(ownedRoot)) {
+          fs.rmSync(ownedRoot, { recursive: true, force: true });
+        }
+      } catch (error) {
+        failures.push(error);
       }
-      verifyCleanup();
+      try {
+        verifyCleanup();
+      } catch (error) {
+        failures.push(error);
+      }
+      if (failures.length > 0 || children.size > 0) {
+        throw new AggregateError(
+          failures,
+          `Lifecycle probe cleanup failed with ${children.size} process group(s) still tracked.`,
+        );
+      }
     })();
     return cleanupPromise;
   };
@@ -191,7 +241,7 @@ async function withLifecycleProbeScope<T>(
       );
     };
     handlers.set(signal, handler);
-    process.once(signal, handler);
+    process.on(signal, handler);
   }
 
   const scope: LifecycleProbeScope = {
@@ -205,7 +255,21 @@ async function withLifecycleProbeScope<T>(
     registerChild(child): ChildProcess {
       assertCondition(child.pid, "Lifecycle probe child has no PID.");
       children.add(child);
+      child.once("exit", () => {
+        if (cleanupPromise || !child.pid) return;
+        if (!processGroupIsAlive(child.pid)) {
+          children.delete(child);
+          return;
+        }
+        void stopDetachedProcessGroup(child, waitForGroupExit).then(
+          () => children.delete(child),
+          () => undefined,
+        );
+      });
       return child;
+    },
+    activeChildCount(): number {
+      return children.size;
     },
   };
 
@@ -468,22 +532,37 @@ async function assertProbeExit(
 async function runLifecycleParentSignalProbe(
   stage: LifecycleProbeStage,
   reportFile: string,
+  options: {
+    readonly slowCleanup?: boolean;
+    readonly forceWaitFailure?: boolean;
+  } = {},
 ): Promise<void> {
   await withLifecycleProbeScope(async (scope) => {
     const probeRoot = scope.createOwnedRoot(
       `fpkg-phase19-lifecycle-${stage}-`,
     );
     const descendantReport = path.join(probeRoot, "descendant.pid");
+    const slowCleanupProgram = options.slowCleanup
+      ? [
+          "let stopping = false;",
+          "const stop = () => { if (stopping) return; stopping = true; setTimeout(() => process.exit(0), 300); };",
+          'process.on("SIGINT", stop);',
+          'process.on("SIGTERM", stop);',
+        ]
+      : [];
     const childProgram =
       stage === "runtime"
         ? [
+            ...slowCleanupProgram,
             'const { spawn } = require("node:child_process");',
             'const fs = require("node:fs");',
             'const child = spawn(process.execPath, ["-e", "setInterval(() => {}, 1000)"], { stdio: "ignore" });',
             `fs.writeFileSync(${JSON.stringify(descendantReport)}, String(child.pid));`,
             "setInterval(() => {}, 1000);",
           ].join("\n")
-        : "setInterval(() => {}, 1000);";
+        : [...slowCleanupProgram, "setInterval(() => {}, 1000);"].join(
+            "\n",
+          );
     const child = scope.registerChild(
       spawn(process.execPath, ["-e", childProgram], {
         cwd: ROOT,
@@ -511,13 +590,111 @@ async function runLifecycleParentSignalProbe(
       { encoding: "utf8", flag: "wx", mode: 0o600 },
     );
     await new Promise<never>(() => undefined);
+  }, () => undefined, {
+    waitForGroupExit: options.forceWaitFailure
+      ? async () => false
+      : undefined,
   });
+}
+
+async function assertExitedLifecycleChildUnregistered(
+  scope: LifecycleProbeScope,
+): Promise<void> {
+  const child = scope.registerChild(
+    spawn(process.execPath, ["-e", "process.exit(0)"], {
+      cwd: ROOT,
+      detached: true,
+      stdio: "ignore",
+    }),
+  );
+  await assertProbeExit(child, 0);
+  const deadline = Date.now() + 5_000;
+  while (Date.now() < deadline && scope.activeChildCount() > 0) {
+    await new Promise((resolve) => setTimeout(resolve, 25));
+  }
+  assertCondition(
+    scope.activeChildCount() === 0,
+    "Exited lifecycle probe remained registered after its process group ended.",
+  );
+}
+
+async function assertRepeatedLifecycleSignalCleanup(
+  scope: LifecycleProbeScope,
+  probeRoot: string,
+): Promise<void> {
+  for (const [signal, expectedExitCode] of [
+    ["SIGINT", 130],
+    ["SIGTERM", 143],
+  ] as const) {
+    const reportFile = path.join(probeRoot, `outer-double-${signal}.json`);
+    const probe = await spawnProbe(
+      scope,
+      [
+        "--lifecycle-parent-signal-probe",
+        "runtime",
+        "--slow-cleanup",
+        "--report",
+        reportFile,
+      ],
+      reportFile,
+    );
+    const report = JSON.parse(
+      fs.readFileSync(reportFile, "utf8"),
+    ) as LifecycleScopeReport;
+    probe.kill(signal);
+    await new Promise((resolve) => setTimeout(resolve, 25));
+    assertCondition(
+      probe.pid && processIsAlive(probe.pid),
+      `${signal} repeated-signal probe exited before cleanup was exercised.`,
+    );
+    probe.kill(signal);
+    await assertProbeExit(probe, expectedExitCode);
+    assertCondition(
+      (await waitForProcessExit(report.childPid, 5_000)) &&
+        (!report.descendantPid ||
+          (await waitForProcessExit(report.descendantPid, 5_000))) &&
+        !fs.existsSync(report.probeRoot),
+      `${signal} repeated-signal cleanup leaked a root, child, or descendant.`,
+    );
+  }
+}
+
+async function assertLifecycleCleanupFailureIsFailClosed(
+  scope: LifecycleProbeScope,
+  probeRoot: string,
+): Promise<void> {
+  const reportFile = path.join(probeRoot, "outer-forced-cleanup-failure.json");
+  const probe = await spawnProbe(
+    scope,
+    [
+      "--lifecycle-parent-signal-probe",
+      "runtime",
+      "--slow-cleanup",
+      "--force-wait-failure",
+      "--report",
+      reportFile,
+    ],
+    reportFile,
+  );
+  const report = JSON.parse(
+    fs.readFileSync(reportFile, "utf8"),
+  ) as LifecycleScopeReport;
+  probe.kill("SIGTERM");
+  await assertProbeExit(probe, 1);
+  assertCondition(
+    (await waitForProcessExit(report.childPid, 5_000)) &&
+      (!report.descendantPid ||
+        (await waitForProcessExit(report.descendantPid, 5_000))) &&
+      !fs.existsSync(report.probeRoot),
+    "Forced lifecycle cleanup failure did not fail closed after cleaning owned resources.",
+  );
 }
 
 async function assertScopedLifecycleSignalCleanup(
   scope: LifecycleProbeScope,
   probeRoot: string,
 ): Promise<void> {
+  await assertExitedLifecycleChildUnregistered(scope);
   for (const stage of ["construction", "runtime"] as const) {
     for (const [signal, expectedExitCode] of [
       ["SIGINT", 130],
@@ -556,8 +733,10 @@ async function assertScopedLifecycleSignalCleanup(
       );
     }
   }
+  await assertRepeatedLifecycleSignalCleanup(scope, probeRoot);
+  await assertLifecycleCleanupFailureIsFailClosed(scope, probeRoot);
   console.log(
-    "PASS Phase 19 regression: top-level construction/runtime SIGINT/SIGTERM cleanup",
+    "PASS Phase 19 regression: top-level construction/runtime, repeated-signal, forced-failure, and process-group cleanup",
   );
 }
 
@@ -680,7 +859,10 @@ async function main(): Promise<void> {
       args[1] === "construction" || args[1] === "runtime",
       "--lifecycle-parent-signal-probe requires construction or runtime.",
     );
-    await runLifecycleParentSignalProbe(args[1], reportPath(args));
+    await runLifecycleParentSignalProbe(args[1], reportPath(args), {
+      slowCleanup: args.includes("--slow-cleanup"),
+      forceWaitFailure: args.includes("--force-wait-failure"),
+    });
     return;
   }
   if (args.length === 1 && args[0] === "--lifecycle-scope-contract") {
