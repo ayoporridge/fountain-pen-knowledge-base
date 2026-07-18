@@ -5,16 +5,16 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
-stopped_at: Quick 260719-8b4 complete; Pelikan M800 sourced pack is next
-last_updated: "2026-07-19T06:31:09+08:00"
+stopped_at: Quick 260719-93j, 260719-9d2 and 260719-9gh complete; next P0 content wave ready
+last_updated: "2026-07-19T07:49:28+08:00"
 last_activity: 2026-07-19
-last_activity_desc: Quick 260719-8b4 completed; TWSBI, Kaweco and Pilot sourced content integrated
+last_activity_desc: Pelikan M800, Parker 51 generations and Sailor 1911 Standard sourced packs integrated
 progress:
   total_phases: 16
   completed_phases: 10
-  total_plans: 30
-  completed_plans: 27
-  percent: 90
+  total_plans: 33
+  completed_plans: 30
+  percent: 91
 ---
 
 # State: Fountain Pen Knowledge Graph
@@ -31,7 +31,7 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 Phase: 21 (Taxonomy 与身份归一) — EXECUTING
 Plan: 4 of 6
 Status: In progress
-Last activity: 2026-07-19 — Quick 260719-8b4 completed; TWSBI, Kaweco and Pilot sourced content integrated
+Last activity: 2026-07-19 — Pelikan M800, Parker 51 generations and Sailor 1911 Standard sourced packs integrated
 
 Progress: [█████░░░░░] 50%
 
@@ -121,10 +121,13 @@ Progress: [█████░░░░░] 50%
 | 260719-56l | 接入 Montblanc 146、144、No.22，并按主图证据区分公开与阻断草稿 | 2026-07-19 | 9e17e06 | [260719-56l-montblanc-146-144-no-22](./quick/260719-56l-montblanc-146-144-no-22-146-144-no-22-ll/) |
 | 260719-6ec | 补齐 Majohn 品牌与 A1 的来源化正文、规格、版本、关系和原创编辑插画 | 2026-07-19 | ea94af7 | [260719-6ec-majohn-a1](./quick/260719-6ec-majohn-a1/) |
 | 260719-8b4 | 补齐 TWSBI、Kaweco、Pilot 三个品牌及 ECO、Classic Sport、Custom 74 的来源化内容 | 2026-07-19 | e44405b | [260719-8b4-content-batch-twsbi-kaweco-pilot](./quick/260719-8b4-content-batch-twsbi-kaweco-pilot/) |
+| 260719-93j | 补齐 Pelikan 品牌与 canonical Souverän M800，并校正 M800／M805／M815 边界 | 2026-07-19 | cfe5721 | [260719-93j-pelikan-canonical-souver-n-m800-2025-m80](./quick/260719-93j-pelikan-canonical-souver-n-m800-2025-m80/) |
+| 260719-9d2 | 补齐 Parker 品牌并拆分 vintage 与 2021 两代 Parker 51 | 2026-07-19 | d2088fb | [260719-9d2-parker-vintage-parker-51-2021-parker-51](./quick/260719-9d2-parker-vintage-parker-51-2021-parker-51-/) |
+| 260719-9gh | 补齐 Sailor 品牌与 canonical 1911 Standard／Profit Standard 11-1219 | 2026-07-19 | dabebc1 | [260719-9gh-sailor-canonical-1911-standard-profit-st](./quick/260719-9gh-sailor-canonical-1911-standard-profit-st/) |
 
 ## Next Action
 
-继续 Phase 23 内容清账：先落地已完成官网与专业资料核对的 Pelikan 品牌／Souverän M800，再处理 Parker 品牌、vintage／2021 Parker 51 拆分、Vector／Vector XL 纠名和缺失的 Ingenuity、Urban。授权图片缺口单独记录，不阻塞文字、规格与品牌—型号关系落库。生产写入与浏览器验收仍留到最终发布批次。
+继续 Phase 23 内容清账并启动下一批 P0：Parker 先补 Ingenuity、Urban，再处理 Vector／Vector XL 与现代／vintage Duofold；Sailor 先处理 full-size Professional Gear、Profit 14／18、PGS 21 与 Profit Realo 18；Pelikan 继续 M1000、M600 等现存 raw 型号及 mislabeled M605。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与浏览器全量验收留到内容批次完成后执行。
 
 ## Session Continuity
 
