@@ -275,9 +275,15 @@ describe("route markup", () => {
     assert.match(source, /description: data\.summary/);
     assert.match(source, /data\.primaryMedia\.imageUrl/);
     assert.match(source, /renderMarkdownDocument\(data\.story\.bodyMd\)/);
-    assert.match(source, /<EncyclopediaShell data=\{data\} document=\{document\}/);
+    assert.match(
+      source,
+      /<EncyclopediaShell data=\{data\} document=\{document\}/,
+    );
     assert.match(source, /error instanceof PublishedPageInvariantError/);
-    assert.match(source, /JSON\.stringify\([\s\S]*?replaceAll\("<", "\\\\u003c"\)/);
+    assert.match(
+      source,
+      /JSON\.stringify\([\s\S]*?replaceAll\("<", "\\\\u003c"\)/,
+    );
   });
 });
 

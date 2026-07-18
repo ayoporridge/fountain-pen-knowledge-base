@@ -11,9 +11,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
+import { cache } from "react";
 import { LocalGraph } from "@/components/LocalGraph";
-import { BrandMuseum } from "@/components/library/BrandMuseum";
-import { ModelArchive } from "@/components/library/ModelArchive";
+import { EncyclopediaShell } from "@/components/library/EncyclopediaShell";
 import { SourceCards } from "@/components/library/SourceCards";
 import { MarkdownRenderer } from "@/components/MarkdownRenderer";
 import { Recommendations } from "@/components/Recommendations";
@@ -21,13 +21,15 @@ import { RelatedEntities } from "@/components/RelatedEntities";
 import { getEntitiesForConcept } from "@/lib/concept-engine";
 import { TYPE_ICONS, TYPE_LABELS } from "@/lib/constants";
 import { queryAll, queryOne } from "@/lib/db";
-import { getCanonicalEntityPath } from "@/lib/entity-redirects";
 import {
-  getEntityReferences,
-  getModelSpec,
-  getPrimaryProductImage,
-  type ModelSpecRecord,
-} from "@/lib/library";
+  getPublishedEntityPage,
+  type PublishedEntityType,
+  type PublishedPageData,
+  PublishedPageInvariantError,
+} from "@/lib/entity-page";
+import { getCanonicalEntityPath } from "@/lib/entity-redirects";
+import { getEntityReferences, getPrimaryProductImage } from "@/lib/library";
+import { renderMarkdownDocument } from "@/lib/markdown";
 import { getPublicMediaUrl } from "@/lib/media-url";
 import {
   getPublicEntityBySlug,
@@ -38,6 +40,135 @@ import { toPlainTextSummary } from "@/lib/text";
 
 interface EntityPageProps {
   params: Promise<{ type: string; slug: string }>;
+}
+
+function isPublishedEntityType(type: string): type is PublishedEntityType {
+  return type === "brand" || type === "pen";
+}
+
+const loadPublishedEntityPage = cache(
+  async (type: PublishedEntityType, slug: string) => {
+    try {
+      return await getPublishedEntityPage(type, slug);
+    } catch (error) {
+      if (error instanceof PublishedPageInvariantError) {
+        console.error("Published encyclopedia page failed closed", {
+          code: error.code,
+          entityType: error.entityType,
+          slug: error.slug,
+        });
+        return null;
+      }
+      throw error;
+    }
+  },
+);
+
+function publishedMetadata(data: PublishedPageData): Metadata {
+  const canonical = `/${data.type}/${data.slug}`;
+  const image = {
+    url: data.primaryMedia.imageUrl,
+    alt: `${data.name}：${data.primaryMedia.title}`,
+  };
+  return {
+    title: data.name,
+    description: data.summary,
+    alternates: { canonical },
+    openGraph: {
+      title: data.name,
+      description: data.summary,
+      siteName: "钢笔知识图谱",
+      type: "website",
+      url: canonical,
+      images: [image],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: data.name,
+      description: data.summary,
+      images: [data.primaryMedia.imageUrl],
+    },
+  };
+}
+
+async function PublishedEntityPage({ data }: { data: PublishedPageData }) {
+  const document = await renderMarkdownDocument(data.story.bodyMd);
+  const canonicalUrl = `https://fountain-pen-graph.vercel.app/${data.type}/${data.slug}`;
+  const parent =
+    data.type === "pen"
+      ? {
+          name: data.canonicalBrand.name,
+          url: `https://fountain-pen-graph.vercel.app/brand/${data.canonicalBrand.slug}`,
+        }
+      : {
+          name: "品牌",
+          url: "https://fountain-pen-graph.vercel.app/browse?type=brand",
+        };
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "首页",
+        item: "https://fountain-pen-graph.vercel.app/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: parent.name,
+        item: parent.url,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: data.name,
+        item: canonicalUrl,
+      },
+    ],
+  };
+  const entityJsonLd = {
+    "@context": "https://schema.org",
+    "@type": data.type === "pen" ? "Product" : "Organization",
+    name: data.name,
+    url: canonicalUrl,
+    description: data.summary,
+    image: new URL(
+      data.primaryMedia.imageUrl,
+      "https://fountain-pen-graph.vercel.app",
+    ).toString(),
+    ...(data.type === "pen"
+      ? {
+          brand: { "@type": "Brand", name: data.canonicalBrand.name },
+          additionalProperty: data.specs.map((spec) => ({
+            "@type": "PropertyValue",
+            name: spec.label,
+            value: String(spec.value),
+          })),
+        }
+      : {}),
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: serialized JSON-LD is angle-bracket escaped
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd).replaceAll("<", "\\u003c"),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: serialized JSON-LD is angle-bracket escaped
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(entityJsonLd).replaceAll("<", "\\u003c"),
+        }}
+      />
+      <EncyclopediaShell data={data} document={document} />
+    </>
+  );
 }
 
 function preparePublicBody(body: string) {
@@ -65,6 +196,11 @@ export async function generateMetadata({
   const slug = decodeURIComponent(rawSlug);
   const canonicalPath = getCanonicalEntityPath(type, slug);
   if (canonicalPath) permanentRedirect(canonicalPath);
+  if (isPublishedEntityType(type)) {
+    const data = await loadPublishedEntityPage(type, slug);
+    if (!data) notFound();
+    return publishedMetadata(data);
+  }
   const entity = await getPublicEntityBySlug(type, slug);
   if (!entity) notFound();
 
@@ -304,6 +440,12 @@ export default async function EntityPage({ params }: EntityPageProps) {
   const canonicalPath = getCanonicalEntityPath(type, slug);
   if (canonicalPath) permanentRedirect(canonicalPath);
 
+  if (isPublishedEntityType(type)) {
+    const data = await loadPublishedEntityPage(type, slug);
+    if (!data) notFound();
+    return <PublishedEntityPage data={data} />;
+  }
+
   const entity = await getPublicEntityBySlug(type, slug);
   if (!entity) notFound();
 
@@ -374,60 +516,18 @@ export default async function EntityPage({ params }: EntityPageProps) {
     }
   }
 
-  const [
-    sidebarSources,
-    productImage,
-    evidenceCounts,
-    approvedSpec,
-    brandParent,
-  ] = await Promise.all([
+  const [sidebarSources, productImage, evidenceCounts] = await Promise.all([
     getEntityReferences(String(entity.id), 12),
     getPrimaryProductImage(String(entity.id)),
     queryOne(
-      `SELECT
-         (SELECT COUNT(DISTINCT LOWER(TRIM(si.url)))
-          FROM entity_references er
-          JOIN source_items si ON si.id = er.source_item_id
-          WHERE er.entity_id = ?
-            AND er.review_status = 'approved'
-            AND si.review_status = 'approved') as source_count,
-         (SELECT COUNT(*)
-          FROM model_specs ms
-          WHERE ms.entity_id = ?
-            AND ms.review_status = 'approved'
-            AND EXISTS (
-              SELECT 1
-              FROM citations c
-              LEFT JOIN claims cl ON cl.id = c.claim_id
-              JOIN source_items si
-                ON si.id = COALESCE(c.source_item_id, cl.source_item_id)
-              WHERE c.target_type = 'model_spec'
-                AND c.target_id = ms.id
-                AND si.review_status = 'approved'
-                AND (c.claim_id IS NULL OR cl.review_status = 'approved')
-            )) as approved_specs`,
-      [entity.id, entity.id],
-    ) as Promise<{
-      source_count: number;
-      approved_specs: number;
-    } | null>,
-    entityType === "pen"
-      ? getModelSpec(String(entity.id))
-      : Promise.resolve(undefined),
-    entityType === "pen"
-      ? (queryOne(
-          `SELECT b.id, b.type, b.slug, b.name
-           FROM entity_links relation
-           JOIN public_entities b ON b.id = relation.target_id
-           WHERE relation.source_id = ?
-             AND relation.link_type = 'made_by'
-             AND b.type = 'brand'
-           LIMIT 1`,
-          [entity.id],
-        ) as Promise<
-          { id: string; type: string; slug: string; name: string } | undefined
-        >)
-      : Promise.resolve(undefined),
+      `SELECT COUNT(DISTINCT LOWER(TRIM(si.url))) as source_count
+       FROM entity_references er
+       JOIN source_items si ON si.id = er.source_item_id
+       WHERE er.entity_id = ?
+         AND er.review_status = 'approved'
+         AND si.review_status = 'approved'`,
+      [entity.id],
+    ) as Promise<{ source_count: number } | null>,
   ]);
   const heroImageUrl = productImage
     ? getPublicMediaUrl({
@@ -442,7 +542,6 @@ export default async function EntityPage({ params }: EntityPageProps) {
     Number(evidenceCounts?.source_count || 0) > 0
       ? `参考来源 ${Number(evidenceCounts?.source_count || 0)}`
       : null,
-    Number(evidenceCounts?.approved_specs || 0) > 0 ? "规格已核对" : null,
   ].filter((badge): badge is string => Boolean(badge));
   const bodyTextLength = entity.body_md ? String(entity.body_md).length : 0;
   const publicBody = entity.body_md
@@ -454,29 +553,6 @@ export default async function EntityPage({ params }: EntityPageProps) {
     /^https?:\/\//i.test(String(entity.source_url))
       ? String(entity.source_url)
       : null;
-  const penSourceBody =
-    entityType === "pen" && directSourceUrl && bodyTextLength >= 1200
-      ? String(entity.body_md)
-      : null;
-  const approvedSpecLabels: Record<string, string> = {
-    series_name: "系列",
-    release_year: "发布年份",
-    origin_country: "产地",
-    nib: "笔尖",
-    fill_system: "上墨方式",
-    material: "材质",
-    dimensions: "尺寸",
-    weight: "重量",
-  };
-  const approvedSpecEntries: Array<[string, string]> = [];
-  if (approvedSpec) {
-    for (const key of Object.keys(approvedSpecLabels)) {
-      const value = cleanPublicText(
-        (approvedSpec as ModelSpecRecord)[key as keyof ModelSpecRecord],
-      );
-      if (value) approvedSpecEntries.push([key, value]);
-    }
-  }
   const sourceGroups = sidebarSources.reduce<
     Record<string, typeof sidebarSources>
   >((groups, source) => {
@@ -495,32 +571,17 @@ export default async function EntityPage({ params }: EntityPageProps) {
   }, {});
 
   const Icon = TYPE_ICONS[entityType] || PenNib;
-  const hasGraph = ["brand", "pen"].includes(entityType) || links.length > 0;
+  const hasGraph = links.length > 0;
   const sectionNavItems = [
-    entityType === "brand"
-      ? { href: "#models", label: "全部型号" }
-      : entityType === "pen"
-        ? { href: "#archive", label: "档案" }
-        : entity.body_md
-          ? { href: "#body", label: "正文" }
-          : null,
-    penSourceBody ? { href: "#source-material", label: "来源资料" } : null,
-    entityType === "brand" ? { href: "#timeline", label: "时间线" } : null,
+    entity.body_md ? { href: "#body", label: "正文" } : null,
     hasGraph ? { href: "#graph", label: "图谱" } : null,
-    ["brand", "pen"].includes(entityType) || sidebarSources.length > 0
-      ? { href: "#sources", label: "来源" }
-      : null,
+    sidebarSources.length > 0 ? { href: "#sources", label: "来源" } : null,
   ].filter(Boolean) as Array<{ href: string; label: string }>;
   const canonicalUrl = `https://fountain-pen-graph.vercel.app/${entityType}/${entitySlug}`;
-  const typeCrumb = brandParent
-    ? {
-        name: brandParent.name,
-        href: `/${brandParent.type}/${brandParent.slug}`,
-      }
-    : {
-        name: TYPE_LABELS[entityType] || entityType,
-        href: `/browse?type=${entityType}`,
-      };
+  const typeCrumb = {
+    name: TYPE_LABELS[entityType] || entityType,
+    href: `/browse?type=${entityType}`,
+  };
   const breadcrumbJsonLd = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -547,38 +608,18 @@ export default async function EntityPage({ params }: EntityPageProps) {
   };
   const entityJsonLd = {
     "@context": "https://schema.org",
-    "@type":
-      entityType === "pen"
-        ? "Product"
-        : entityType === "brand"
-          ? "Organization"
-          : entityType === "article"
-            ? "Article"
-            : "DefinedTerm",
+    "@type": entityType === "article" ? "Article" : "DefinedTerm",
     name: String(entity.name),
     url: canonicalUrl,
-    description:
-      !["pen", "brand"].includes(entityType) && entity.summary
-        ? cleanPublicText(toPlainTextSummary(String(entity.summary), 180))
-        : `${String(entity.name)}的分类、来源与关联资料。`,
+    description: entity.summary
+      ? cleanPublicText(toPlainTextSummary(String(entity.summary), 180))
+      : `${String(entity.name)}的分类、来源与关联资料。`,
     image: hasEntityHeroImage
       ? new URL(
           String(heroImageUrl),
           "https://fountain-pen-graph.vercel.app",
         ).toString()
       : undefined,
-    ...(entityType === "pen" && brandParent
-      ? { brand: { "@type": "Brand", name: brandParent.name } }
-      : {}),
-    ...(approvedSpecEntries.length > 0
-      ? {
-          additionalProperty: approvedSpecEntries.map(([key, value]) => ({
-            "@type": "PropertyValue",
-            name: approvedSpecLabels[key] || key,
-            value: cleanPublicText(value),
-          })),
-        }
-      : {}),
   };
 
   return (
@@ -655,8 +696,7 @@ export default async function EntityPage({ params }: EntityPageProps) {
           </div>
         </div>
 
-        {!["pen", "brand"].includes(entityType) &&
-          entity.summary &&
+        {entity.summary &&
           (() => {
             const plainSummary = cleanPublicText(
               toPlainTextSummary(String(entity.summary)),
@@ -691,36 +731,6 @@ export default async function EntityPage({ params }: EntityPageProps) {
               </span>
             ))}
           </div>
-        )}
-
-        {entityType === "pen" && approvedSpecEntries.length > 0 && (
-          <section className="mt-6" aria-labelledby="approved-specs-title">
-            <h2
-              id="approved-specs-title"
-              className="mb-3 text-sm font-semibold text-ink"
-            >
-              规格速览
-            </h2>
-            <dl className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-              {approvedSpecEntries.map(([key, value]) => (
-                <div
-                  key={key}
-                  className="rounded-lg border px-3 py-2"
-                  style={{
-                    borderColor: "var(--color-border-light)",
-                    backgroundColor: "var(--color-surface-raised)",
-                  }}
-                >
-                  <dt className="text-xs text-ink-muted">
-                    {approvedSpecLabels[key] || "规格"}
-                  </dt>
-                  <dd className="mt-1 text-sm font-semibold text-ink">
-                    {cleanPublicText(value)}
-                  </dd>
-                </div>
-              ))}
-            </dl>
-          </section>
         )}
       </div>
 
@@ -819,20 +829,8 @@ export default async function EntityPage({ params }: EntityPageProps) {
             />
           )}
 
-          {entityType === "brand" && (
-            <BrandMuseum entityId={String(entity.id)} />
-          )}
-
-          {entityType === "pen" && (
-            <ModelArchive
-              entityId={String(entity.id)}
-              sourceBody={penSourceBody}
-              sourceUrl={directSourceUrl}
-            />
-          )}
-
           {/* Body */}
-          {publicBody && !["brand", "pen"].includes(entityType) && (
+          {publicBody && (
             <section id="body" className="mb-10 manuscript-border p-6 sm:p-8">
               {(entityType === "article" || bodyTextLength > 4000) && (
                 <div
@@ -883,33 +881,32 @@ export default async function EntityPage({ params }: EntityPageProps) {
 
         {/* Sidebar */}
         <div className="lg:col-span-1">
-          {!["pen", "brand"].includes(entityType) &&
-            sidebarSources.length > 0 && (
-              <section id="sources" className="mb-6">
-                <h3
-                  className="mb-3 text-sm font-semibold"
-                  style={{ color: "var(--color-ink)" }}
-                >
-                  来源分级
-                </h3>
-                <div className="space-y-4">
-                  {["官方", "经销商", "媒体与资料", "社区", "其他资料"].map(
-                    (label) => {
-                      const sources = sourceGroups[label];
-                      if (!sources?.length) return null;
-                      return (
-                        <div key={label}>
-                          <h4 className="mb-1 text-xs font-medium text-ink-muted">
-                            {label} · {sources.length}
-                          </h4>
-                          <SourceCards sources={sources} variant="compact" />
-                        </div>
-                      );
-                    },
-                  )}
-                </div>
-              </section>
-            )}
+          {sidebarSources.length > 0 && (
+            <section id="sources" className="mb-6">
+              <h3
+                className="mb-3 text-sm font-semibold"
+                style={{ color: "var(--color-ink)" }}
+              >
+                来源分级
+              </h3>
+              <div className="space-y-4">
+                {["官方", "经销商", "媒体与资料", "社区", "其他资料"].map(
+                  (label) => {
+                    const sources = sourceGroups[label];
+                    if (!sources?.length) return null;
+                    return (
+                      <div key={label}>
+                        <h4 className="mb-1 text-xs font-medium text-ink-muted">
+                          {label} · {sources.length}
+                        </h4>
+                        <SourceCards sources={sources} variant="compact" />
+                      </div>
+                    );
+                  },
+                )}
+              </div>
+            </section>
+          )}
 
           {/* Tags */}
           {tags.length > 0 && (
