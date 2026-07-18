@@ -71,7 +71,8 @@ type ManagedPhase19Fixture = Phase19Fixture & {
   readonly children: Set<ChildProcess>;
   readonly childStopPromises: Map<ChildProcess, Promise<void>>;
   readonly registrationGate: Phase19FixtureRegistrationGate;
-  readonly realCatalogSnapshot: CatalogSnapshot;
+  readonly stopChild: (child: ChildProcess) => Promise<void>;
+  readonly assertRealCatalogInvariant: () => void;
   readonly previousEnvironment: Record<FixtureEnvKey, string | undefined>;
   cleanupPromise?: Promise<void>;
 };
@@ -227,6 +228,7 @@ function releaseChildRegistration(
   child: ChildProcess,
 ): void {
   fixture.children.delete(child);
+  fixture.childStopPromises.delete(child);
   detachedFixtureChildren.delete(child);
 }
 
@@ -237,8 +239,12 @@ function stopRegisteredChild(
   const existing = fixture.childStopPromises.get(child);
   if (existing) return existing;
   const stopping = (async () => {
-    await stopChild(child);
-    releaseChildRegistration(fixture, child);
+    try {
+      await fixture.stopChild(child);
+      releaseChildRegistration(fixture, child);
+    } finally {
+      fixture.childStopPromises.delete(child);
+    }
   })();
   fixture.childStopPromises.set(child, stopping);
   return stopping;
@@ -366,27 +372,36 @@ export async function cleanupPhase19Fixture(
   if (managed.cleanupPromise) return managed.cleanupPromise;
 
   managed.registrationGate.close();
-  managed.cleanupPromise = (async () => {
+  const cleanupAttempt = (async () => {
     const cleanupErrors = await drainRegisteredChildren(managed);
-    try {
-      managed.client.close();
-    } catch (error) {
-      cleanupErrors.push(error);
-    }
-    try {
-      if (!ownedRoots.has(managed.tempRoot)) {
-        throw new Error("Phase 19 cleanup refused a non-owned temp root.");
+    if (managed.children.size === 0) {
+      let clientClosed = false;
+      try {
+        managed.client.close();
+        clientClosed = true;
+      } catch (error) {
+        cleanupErrors.push(error);
       }
-      fs.rmSync(managed.tempRoot, { recursive: true, force: true });
-    } catch (error) {
-      cleanupErrors.push(error);
-    } finally {
-      ownedRoots.delete(managed.tempRoot);
-      activeFixtures.delete(managed);
-      restoreEnvironment(managed.previousEnvironment);
+      if (clientClosed) {
+        let rootRemoved = false;
+        try {
+          if (!ownedRoots.has(managed.tempRoot)) {
+            throw new Error("Phase 19 cleanup refused a non-owned temp root.");
+          }
+          fs.rmSync(managed.tempRoot, { recursive: true, force: true });
+          rootRemoved = true;
+        } catch (error) {
+          cleanupErrors.push(error);
+        }
+        if (rootRemoved) {
+          ownedRoots.delete(managed.tempRoot);
+          activeFixtures.delete(managed);
+          restoreEnvironment(managed.previousEnvironment);
+        }
+      }
     }
     try {
-      snapshotRealCatalogInvariant(managed.realCatalogSnapshot);
+      managed.assertRealCatalogInvariant();
     } catch (error) {
       cleanupErrors.push(error);
     }
@@ -397,7 +412,19 @@ export async function cleanupPhase19Fixture(
       );
     }
   })();
-  return managed.cleanupPromise;
+  managed.cleanupPromise = cleanupAttempt;
+  try {
+    await cleanupAttempt;
+  } catch (error) {
+    if (
+      managed.cleanupPromise === cleanupAttempt &&
+      activeFixtures.has(managed) &&
+      ownedRoots.has(managed.tempRoot)
+    ) {
+      managed.cleanupPromise = undefined;
+    }
+    throw error;
+  }
 }
 
 export async function createPhase19Fixture(
@@ -488,7 +515,10 @@ export async function createPhase19Fixture(
     children,
     childStopPromises,
     registrationGate,
-    realCatalogSnapshot,
+    stopChild,
+    assertRealCatalogInvariant: () => {
+      snapshotRealCatalogInvariant(realCatalogSnapshot);
+    },
     previousEnvironment,
     registerChild(
       command: string,
@@ -1092,7 +1122,11 @@ export async function cleanupActivePhase19Fixtures(): Promise<void> {
       failures.push(error);
     }
   }
+  const retainedFixtureRoots = new Set(
+    [...activeFixtures].map((fixture) => fixture.tempRoot),
+  );
   for (const ownedRoot of [...ownedRoots]) {
+    if (retainedFixtureRoots.has(ownedRoot)) continue;
     try {
       fs.rmSync(ownedRoot, { recursive: true, force: true });
       ownedRoots.delete(ownedRoot);
@@ -1102,6 +1136,115 @@ export async function cleanupActivePhase19Fixtures(): Promise<void> {
   }
   if (failures.length > 0) {
     throw new AggregateError(failures, "Active Phase 19 fixture cleanup failed.");
+  }
+}
+
+/** Hermetic forced-survivor oracle: no catalog or OS process is opened. */
+export async function assertPhase19FixtureCleanupSurvivorContract(): Promise<void> {
+  if (activeFixtures.size > 0) {
+    throw new Error("Phase 19 survivor contract requires no active fixture.");
+  }
+
+  const previousEnvironment = snapshotEnvironment();
+  const tempRoot = fs.realpathSync.native(
+    fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-phase19-survivor-contract-")),
+  );
+  const databaseUrl = `file:${path.join(tempRoot, "fixture.db")}`;
+  const env = sanitizedFixtureEnvironment(databaseUrl);
+  const child = {} as ChildProcess;
+  const children = new Set<ChildProcess>([child]);
+  let allowStop = false;
+  let closeCalls = 0;
+  let stopAttempts = 0;
+  const fixture = {
+    tempRoot,
+    databasePath: path.join(tempRoot, "fixture.db"),
+    databaseUrl,
+    client: {
+      close(): void {
+        closeCalls += 1;
+      },
+    } as unknown as Client,
+    env,
+    children,
+    childStopPromises: new Map<ChildProcess, Promise<void>>(),
+    registrationGate: createPhase19FixtureRegistrationGate(),
+    stopChild: async (): Promise<void> => {
+      stopAttempts += 1;
+      if (!allowStop) {
+        throw new Error("Hermetic Phase 19 child survived final stop.");
+      }
+    },
+    assertRealCatalogInvariant: () => undefined,
+    previousEnvironment,
+    registerChild(): ChildProcess {
+      throw new Error("Hermetic survivor oracle does not spawn children.");
+    },
+    releaseChild: () => undefined,
+  } satisfies ManagedPhase19Fixture;
+
+  const expectFailure = async (cleanup: () => Promise<void>): Promise<void> => {
+    try {
+      await cleanup();
+    } catch {
+      return;
+    }
+    throw new Error("Forced survivor cleanup unexpectedly succeeded.");
+  };
+  const assertRetained = (context: string): void => {
+    const safeEnvironment =
+      process.env.TURSO_DATABASE_URL === "" &&
+      process.env.TURSO_AUTH_TOKEN === "" &&
+      process.env.FPKG_DATABASE_URL === databaseUrl &&
+      process.env.PUBLICATION_GATE_FIXTURE === "1";
+    if (!(
+      fs.existsSync(tempRoot) &&
+      children.has(child) &&
+      activeFixtures.has(fixture) &&
+      ownedRoots.has(tempRoot) &&
+      fixture.registrationGate.closed &&
+      closeCalls === 0 &&
+      safeEnvironment
+    )) {
+      throw new Error(
+        `${context} did not retain survivor ownership and safe state.`,
+      );
+    }
+  };
+
+  applyFixtureEnvironment(env);
+  ownedRoots.add(tempRoot);
+  knownFixtures.add(fixture);
+  activeFixtures.add(fixture);
+  fixtureChildOwners.set(child, fixture);
+
+  try {
+    await expectFailure(() => cleanupPhase19Fixture(fixture));
+    assertRetained("Direct cleanup");
+    await expectFailure(cleanupActivePhase19Fixtures);
+    assertRetained("Global cleanup");
+
+    allowStop = true;
+    await cleanupPhase19Fixture(fixture);
+    await cleanupPhase19Fixture(fixture);
+    if (
+      fs.existsSync(tempRoot) ||
+      children.size !== 0 ||
+      activeFixtures.has(fixture) ||
+      ownedRoots.has(tempRoot) ||
+      closeCalls !== 1 ||
+      stopAttempts !== 3 ||
+      !FIXTURE_ENV_KEYS.every(
+        (key) => process.env[key] === previousEnvironment[key],
+      )
+    ) {
+      throw new Error("Survivor retry did not perform one safe teardown.");
+    }
+  } finally {
+    activeFixtures.delete(fixture);
+    ownedRoots.delete(tempRoot);
+    restoreEnvironment(previousEnvironment);
+    fs.rmSync(tempRoot, { recursive: true, force: true });
   }
 }
 
