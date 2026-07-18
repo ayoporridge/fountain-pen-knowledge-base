@@ -2,17 +2,17 @@
 gsd_state_version: 1.0
 milestone: v1.2
 milestone_name: — 内容百科化与型号扩容（当前）
-current_phase: 20
-current_phase_name: 百科页面 Renderer
+current_phase: 21
+current_phase_name: Taxonomy 与身份归一
 status: executing
-stopped_at: Completed 19-05-PLAN.md; awaiting Phase 19 verification
-last_updated: "2026-07-18T15:53:30.899Z"
+stopped_at: Phase 20-04 recorded gaps_found; Phase 21 execution started under the user-directed content-track exception
+last_updated: "2026-07-18T17:17:15.602Z"
 last_activity: 2026-07-18
-last_activity_desc: Phase 20 execution started
+last_activity_desc: Phase 21 execution started
 progress:
   total_phases: 16
   completed_phases: 9
-  total_plans: 23
+  total_plans: 29
   completed_plans: 22
   percent: 56
 ---
@@ -24,14 +24,14 @@ progress:
 See: `.planning/PROJECT.md`（updated 2026-07-15）
 
 **Core value:** 通过可信、完整且彼此关联的内容，让用户持续漫游钢笔知识网络，而不是打开只有标题和关系的空壳页。
-**Current focus:** Phase 20 — 百科页面 Renderer
+**Current focus:** Phase 21 — Taxonomy 与身份归一
 
 ## Current Position
 
-Phase: 20 (百科页面 Renderer) — EXECUTING
-Plan: 4 of 4
-Status: Ready to execute
-Last activity: 2026-07-18 — Phase 20 execution started
+Phase: 21 (Taxonomy 与身份归一) — EXECUTING
+Plan: 1 of 6
+Status: Executing Phase 21
+Last activity: 2026-07-18 — Phase 21 execution started
 
 Progress: [█████░░░░░] 50%
 
@@ -106,7 +106,7 @@ Progress: [█████░░░░░] 50%
 
 ### Pending Todos
 
-None.
+- Phase 20-04 synthetic model browser fixture remains `gaps_found`; it is non-blocking for Phase 21 but must be closed before production release.
 
 ### Blockers/Concerns
 
@@ -116,10 +116,10 @@ None.
 
 ## Next Action
 
-由 Phase 19 verifier 评估 composite evidence 与 monolithic debt；不自动重跑 wrapper。若 debt 被判定为阻断，则登记 validation gap，内容主线可另行推进。
+执行 Phase 21 Plan 01：在一次性测试数据库中新增 taxonomy identity substrate，并把 publication contract 从 `sha256:v2` 完整迁移到仅允许新审核授权的 `sha256:v3`。
 
 ## Session Continuity
 
-Last session: 2026-07-18T13:42:26.227Z
-Stopped at: Completed 19-05-PLAN.md; awaiting Phase 19 verification
+Last session: 2026-07-19T01:17:15+08:00
+Stopped at: Phase 21 Plan 01 ready to execute; Phase 20-04 gap preserved as a production-release blocker
 Resume file: None
