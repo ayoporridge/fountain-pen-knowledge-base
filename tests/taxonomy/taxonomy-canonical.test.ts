@@ -31,7 +31,7 @@ const IDS = {
   pilotMr: "pilotmr00001",
   elabo: "elabopen0001",
   majohnA1: "majohna10001",
-  moonmanA1: "moonmana10001",
+  moonmanA1: "moonmana1001",
   asvineP36: "asvinep36001",
   skb: "skbpen000001",
 } as const;
@@ -606,9 +606,9 @@ function writeOwnedCopyMarker(databasePath: string): void {
 
 function runApplyCli(
   args: string[],
-  env: NodeJS.ProcessEnv = {},
-): ReturnType<typeof spawnSync> {
-  return spawnSync(
+  env: Partial<NodeJS.ProcessEnv> = {},
+): { status: number | null; stdout: string; stderr: string } {
+  const result = spawnSync(
     path.join(process.cwd(), "node_modules", ".bin", "tsx"),
     [APPLY_CLI, ...args],
     {
@@ -616,14 +616,19 @@ function runApplyCli(
       encoding: "utf8",
       env: {
         ...process.env,
-        NODE_ENV: "test",
         TURSO_DATABASE_URL: "",
         TURSO_AUTH_TOKEN: "",
         ...env,
+        NODE_ENV: env.NODE_ENV ?? "test",
       },
       timeout: 20_000,
     },
   );
+  return {
+    status: result.status,
+    stdout: typeof result.stdout === "string" ? result.stdout : "",
+    stderr: typeof result.stderr === "string" ? result.stderr : "",
+  };
 }
 
 test("apply CLI defaults to dry run and requires an owned copy", async () => {
