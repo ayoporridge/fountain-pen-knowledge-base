@@ -1,0 +1,64 @@
+{
+  "checkedAt": "2026-07-19",
+  "retire": [
+    {
+      "localPath": "public/images/library/warm-pen-atlas/montblanc-brand-cover.jpg",
+      "reason": "AI-style composite without verifiable model identity or reusable source provenance; do not use as Montblanc brand or model evidence."
+    }
+  ],
+  "assets": [
+    {
+      "owner": "brand:CJM8uLY0LmIX",
+      "role": "primary",
+      "title": "Montblanc Haus in Hamburg-Lurup",
+      "depicts": "Montblanc Haus exterior, opened 2022",
+      "scope": "brand-current-location",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Montblanc-Haus_in_Hamburg-Lurup_(1).jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d7/Montblanc-Haus_in_Hamburg-Lurup_%281%29.jpg",
+      "author": "Minderbinder",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+      "attribution": "Photo: Minderbinder, CC BY 4.0, via Wikimedia Commons; cropped if applicable",
+      "targetLocalPath": "public/images/entities/montblanc/montblanc-haus-brand-hero.jpg",
+      "reviewStatus": "approved",
+      "notes": "Brand hero only; never use as a Montblanc 149 product image."
+    },
+    {
+      "owner": "pen:1fojl5ZRSeua",
+      "role": "primary",
+      "title": "Late-1980s Montblanc 149",
+      "depicts": "A Montblanc 149 photographed in 2017; Commons description identifies it as a late-1980s example",
+      "scope": "historical-variant:late-1980s",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Diplomat_(31905100214).jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/1/19/Diplomat_%2831905100214%29.jpg",
+      "author": "M Dreibelbis",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "attribution": "Photo: M Dreibelbis, CC BY 2.0, via Wikimedia Commons; cropped if applicable",
+      "targetLocalPath": "public/images/entities/montblanc/montblanc-149-late-1980s.jpg",
+      "reviewStatus": "approved",
+      "notes": "May be the model-page hero only with an always-visible late-1980s caption; must not be labelled as the current SKU."
+    },
+    {
+      "owner": "pen:1fojl5ZRSeua",
+      "role": "gallery",
+      "title": "Montblanc 149 nib",
+      "depicts": "Fountain pen nib on a Montblanc 149",
+      "scope": "model-nib-detail:2015-sample",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Montblanc_149-nib.jpg",
+      "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c6/Montblanc_149-nib.jpg",
+      "author": "HalloweenHJB",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+      "attribution": "Photo: HalloweenHJB, CC BY-SA 4.0, via Wikimedia Commons; cropped if applicable",
+      "targetLocalPath": "public/images/entities/montblanc/montblanc-149-nib.jpg",
+      "reviewStatus": "approved",
+      "notes": "Nib-detail gallery image. Any adapted output must remain under CC BY-SA 4.0."
+    }
+  ],
+  "downloadStatus": {
+    "status": "pending",
+    "lastAttempt": "2026-07-19",
+    "reason": "Wikimedia upload host returned HTTP 429 in the current environment; source pages, license and exact originals were independently verified. Do not substitute an AI-generated product image."
+  }
+}
