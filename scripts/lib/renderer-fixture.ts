@@ -408,16 +408,17 @@ async function seedEntity(client: Client, options: SeedEntityOptions): Promise<v
 
   await client.execute({
     sql: `INSERT INTO media_assets (
-      id, entity_id, title, asset_type, image_url, thumbnail_url, author,
+      id, entity_id, title, asset_type, image_url, thumbnail_url, local_path, author,
       license, attribution_text, source_url, source_item_id, review_status, usage_status
-    ) VALUES (?, ?, ?, 'image', ?, ?, 'Renderer fixture', 'CC0',
+    ) VALUES (?, ?, ?, 'image', ?, ?, ?, 'Renderer fixture', 'CC0',
       'Renderer fixture · CC0', ?, ?, 'approved', 'primary')`,
     args: [
       `${prefix}-media-primary`,
       options.id,
       `${options.name} primary image`,
-      `/renderer/${options.slug}.jpg`,
+      `https://renderer.invalid/remote/${options.slug}.jpg`,
       `/renderer/${options.slug}-thumb.jpg`,
+      `public/renderer/${options.slug}.jpg`,
       `https://renderer.invalid/media/${options.slug}`,
       QUALIFIED_PRIMARY_ITEM,
     ],
@@ -437,7 +438,6 @@ async function approveAndPublish(client: Client, entityId: string): Promise<void
   await publishEntity(client, {
     entityId,
     reviewer: "renderer-fixture",
-    notes: "Renderer fixture publication",
   });
 }
 

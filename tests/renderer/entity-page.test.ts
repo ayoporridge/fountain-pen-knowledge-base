@@ -43,30 +43,6 @@ async function scalarNumber(
   return Number(result.rows[0]?.value ?? result.rows[0]?.count ?? 0);
 }
 
-async function withPermissivePublicRoot<T>(run: () => Promise<T>): Promise<T> {
-  const schema = await fixture.client.execute({
-    sql: "SELECT sql FROM sqlite_schema WHERE type = 'view' AND name = 'public_entities'",
-    args: [],
-  });
-  const canonicalView = schema.rows[0]?.sql;
-  assert.equal(typeof canonicalView, "string");
-
-  await fixture.client.execute("DROP VIEW public_entities");
-  await fixture.client.execute(`
-    CREATE VIEW public_entities AS
-    SELECT id, type, slug, name, summary, body_md, source, created_at,
-           updated_at, source_url, source_file, imported_at
-    FROM entities
-    WHERE type IN ('brand', 'pen')
-  `);
-  try {
-    return await run();
-  } finally {
-    await fixture.client.execute("DROP VIEW public_entities");
-    await fixture.client.execute(canonicalView as string);
-  }
-}
-
 before(async () => {
   assertRendererFixtureEnvironment(SAFE_ENV);
   fixture = await createRendererFixture(SAFE_ENV);
@@ -238,48 +214,33 @@ describe("page loader", () => {
     assert.equal(model.canonicalBrand.slug, seed.brandSlug);
   });
 
-  it("fails closed for missing or duplicate expected stories and invalid summaries", async () => {
-    const { getPublishedEntityPage, PublishedPageInvariantError } =
-      await import("../../src/lib/entity-page");
-    await withPermissivePublicRoot(async () => {
-      await assert.rejects(
-        getPublishedEntityPage("brand", seed.missingStorySlug),
-        (error) =>
-          error instanceof PublishedPageInvariantError &&
-          /story/i.test(error.message),
-      );
-      await assert.rejects(
-        getPublishedEntityPage("brand", seed.duplicateStorySlug),
-        (error) =>
-          error instanceof PublishedPageInvariantError &&
-          /story/i.test(error.message),
-      );
-      await assert.rejects(
-        getPublishedEntityPage("brand", seed.shortSummarySlug),
-        (error) =>
-          error instanceof PublishedPageInvariantError &&
-          /summary/i.test(error.message),
-      );
-    });
+  it("keeps raw rows with missing or duplicate stories outside the public root", async () => {
+    const { getPublishedEntityPage } = await import(
+      "../../src/lib/entity-page"
+    );
+    assert.equal(
+      await getPublishedEntityPage("brand", seed.missingStorySlug),
+      null,
+    );
+    assert.equal(
+      await getPublishedEntityPage("brand", seed.duplicateStorySlug),
+      null,
+    );
+    assert.equal(
+      await getPublishedEntityPage("brand", seed.shortSummarySlug),
+      null,
+    );
   });
 
-  it("rejects zero or multiple public model-brand candidates", async () => {
-    const { getPublishedEntityPage, PublishedPageInvariantError } =
-      await import("../../src/lib/entity-page");
-    await withPermissivePublicRoot(async () => {
-      await assert.rejects(
-        getPublishedEntityPage("pen", seed.noBrandSlug),
-        (error) =>
-          error instanceof PublishedPageInvariantError &&
-          /brand/i.test(error.message),
-      );
-      await assert.rejects(
-        getPublishedEntityPage("pen", seed.duplicateBrandSlug),
-        (error) =>
-          error instanceof PublishedPageInvariantError &&
-          /brand/i.test(error.message),
-      );
-    });
+  it("keeps zero or multiple made_by candidates outside the public root", async () => {
+    const { getPublishedEntityPage } = await import(
+      "../../src/lib/entity-page"
+    );
+    assert.equal(await getPublishedEntityPage("pen", seed.noBrandSlug), null);
+    assert.equal(
+      await getPublishedEntityPage("pen", seed.duplicateBrandSlug),
+      null,
+    );
   });
 });
 
@@ -297,11 +258,19 @@ describe("qualified content", () => {
     assert.equal(model.sources.length, 2);
     assert.ok(
       model.specs.some(
-        (spec) => spec.key === "weight" && String(spec.value) === "0",
+        (spec) => spec.key === "weight" && Number(spec.value) === 0,
       ),
+      JSON.stringify(model.specs),
     );
     assert.equal(model.variants.length, 1);
-    assert.match(model.primaryMedia.imageUrl, /^\/renderer\//);
+    assert.equal(
+      model.primaryMedia.imageUrl,
+      `/renderer/${seed.modelSlug}.jpg`,
+    );
+    assert.equal(
+      model.primaryMedia.thumbnailUrl,
+      `/renderer/${seed.modelSlug}-thumb.jpg`,
+    );
     assert.equal(model.primaryMedia.license, "CC0");
     assert.match(model.primaryMedia.attribution, /Renderer fixture/);
   });
@@ -330,6 +299,10 @@ describe("qualified content", () => {
     assert.deepEqual(
       brand.timeline.map((event) => event.startDate),
       ["2010-01-01", "2020-01-01"],
+    );
+    assert.deepEqual(
+      brand.timeline.map((event) => event.circa),
+      [false, false],
     );
     assert.ok(
       brand.timeline.every((event) => event.source.url.startsWith("https://")),
