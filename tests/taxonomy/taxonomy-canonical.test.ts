@@ -1,5 +1,8 @@
 import assert from "node:assert/strict";
+import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
 import test from "node:test";
 import type { Client } from "@libsql/client";
 import {
@@ -115,7 +118,7 @@ function syntheticResolvedPlan(): TaxonomyPlan {
     ],
   });
   replaceDecision(plan, 1, {
-    sourceRowKey: "测试::Falcon",
+    sourceRowKey: "海外::Falcon",
     title: "Falcon",
     region: "海外",
     primaryAction: "alias",
@@ -134,7 +137,7 @@ function syntheticResolvedPlan(): TaxonomyPlan {
     ],
   });
   replaceDecision(plan, 2, {
-    sourceRowKey: "测试::Moonman A1 merge",
+    sourceRowKey: "历史品牌::Moonman A1 merge",
     title: "Moonman A1 merge",
     region: "历史品牌",
     primaryAction: "merge",
@@ -153,7 +156,7 @@ function syntheticResolvedPlan(): TaxonomyPlan {
     ],
   });
   replaceDecision(plan, 3, {
-    sourceRowKey: "测试::Asvine P36 rename",
+    sourceRowKey: "中国大陆::Asvine P36 rename",
     title: "Asvine P36 rename",
     region: "中国大陆",
     primaryAction: "rename",
@@ -171,7 +174,7 @@ function syntheticResolvedPlan(): TaxonomyPlan {
     ],
   });
   replaceDecision(plan, 4, {
-    sourceRowKey: "测试::SKB identity gate retire",
+    sourceRowKey: "台湾::SKB identity gate retire",
     title: "SKB identity gate retire",
     region: "台湾",
     primaryAction: "retire",
@@ -508,7 +511,7 @@ test("locked split identity action is delegated with zero writes", async () => {
   await withCanonicalFixture(async ({ client }) => {
     const plan = syntheticResolvedPlan();
     const decision = plan.matrix.find(
-      (row) => row.sourceRowKey === "测试::Falcon",
+      (row) => row.sourceRowKey === "海外::Falcon",
     );
     assert.ok(decision);
     decision.atomicActions = [
@@ -551,7 +554,7 @@ test("transaction rollback leaves no batch marker or partial rename", async () =
     assert.deepEqual(resolved.blockers, []);
     await client.execute(`CREATE TRIGGER taxonomy_fixture_injected_failure
       BEFORE INSERT ON taxonomy_actions
-      WHEN NEW.source_row_key = '测试::Moonman A1 merge'
+      WHEN NEW.source_row_key = '历史品牌::Moonman A1 merge'
       BEGIN
         SELECT RAISE(ABORT, 'taxonomy fixture injected failure');
       END`);
@@ -573,6 +576,182 @@ test("transaction rollback leaves no batch marker or partial rename", async () =
         IDS.pilotMr,
       ]),
       "百乐-pilot-贵妃-cocoon",
+    );
+  });
+});
+
+const APPLY_CLI = path.join(process.cwd(), "scripts", "apply-taxonomy-v1.2.ts");
+const CHECKED_IN_MANIFEST = path.join(
+  process.cwd(),
+  "data",
+  "taxonomy",
+  "v1.2-phase21.json",
+);
+
+function writeOwnedCopyMarker(databasePath: string): void {
+  const canonicalPath = fs.realpathSync.native(databasePath);
+  const stats = fs.statSync(canonicalPath);
+  fs.writeFileSync(
+    `${canonicalPath}.taxonomy-owned-copy.json`,
+    `${JSON.stringify({
+      schemaVersion: 1,
+      kind: "taxonomy-fixture",
+      databasePath: canonicalPath,
+      device: String(stats.dev),
+      inode: String(stats.ino),
+    })}\n`,
+    { flag: "wx" },
+  );
+}
+
+function runApplyCli(
+  args: string[],
+  env: NodeJS.ProcessEnv = {},
+): ReturnType<typeof spawnSync> {
+  return spawnSync(
+    path.join(process.cwd(), "node_modules", ".bin", "tsx"),
+    [APPLY_CLI, ...args],
+    {
+      cwd: process.cwd(),
+      encoding: "utf8",
+      env: {
+        ...process.env,
+        NODE_ENV: "test",
+        TURSO_DATABASE_URL: "",
+        TURSO_AUTH_TOKEN: "",
+        ...env,
+      },
+      timeout: 20_000,
+    },
+  );
+}
+
+test("apply CLI defaults to dry run and requires an owned copy", async () => {
+  const fixture = await createTaxonomyFixture({
+    NODE_ENV: "test",
+    TAXONOMY_FIXTURE: "1",
+  });
+  try {
+    writeOwnedCopyMarker(fixture.databasePath);
+    const dryRun = runApplyCli([
+      "--database",
+      fixture.databasePath,
+      "--manifest",
+      CHECKED_IN_MANIFEST,
+    ]);
+    assert.equal(dryRun.status, 0, dryRun.stderr);
+    const report = JSON.parse(dryRun.stdout) as {
+      mode: string;
+      sourceRowCount: number;
+      actionCount: number;
+      delegatedCount: number;
+    };
+    assert.deepEqual(report, {
+      mode: "dry-run",
+      sourceRowCount: 101,
+      actionCount: 0,
+      delegatedCount: 8,
+    });
+    assert.equal(
+      await scalar(fixture.client, "SELECT COUNT(*) FROM taxonomy_batches"),
+      "0",
+    );
+
+    const noAck = runApplyCli([
+      "--database",
+      fixture.databasePath,
+      "--manifest",
+      CHECKED_IN_MANIFEST,
+      "--apply",
+    ]);
+    assert.notEqual(noAck.status, 0);
+    assert.match(noAck.stderr, /ack-owned-copy/i);
+    const remote = runApplyCli([
+      "--database",
+      "libsql://example.invalid/catalog",
+      "--manifest",
+      CHECKED_IN_MANIFEST,
+    ]);
+    assert.notEqual(remote.status, 0);
+    assert.match(remote.stderr, /local|remote/i);
+    const inheritedCredentials = runApplyCli(
+      ["--database", fixture.databasePath, "--manifest", CHECKED_IN_MANIFEST],
+      { TURSO_DATABASE_URL: "libsql://example.invalid/catalog" },
+    );
+    assert.notEqual(inheritedCredentials.status, 0);
+    assert.match(inheritedCredentials.stderr, /credential|remote/i);
+  } finally {
+    await cleanupTaxonomyFixture(fixture);
+  }
+});
+
+test("apply CLI owned copy is checksum-idempotent", async () => {
+  await withCanonicalFixture(async (fixture) => {
+    const manifestPath = path.join(fixture.tempRoot, "resolved-manifest.json");
+    const changedManifestPath = path.join(
+      fixture.tempRoot,
+      "changed-manifest.json",
+    );
+    const plan = syntheticResolvedPlan();
+    fs.writeFileSync(manifestPath, `${JSON.stringify(plan)}\n`);
+    writeOwnedCopyMarker(fixture.databasePath);
+
+    const first = runApplyCli([
+      "--database",
+      fixture.databasePath,
+      "--manifest",
+      manifestPath,
+      "--apply",
+      "--ack-owned-copy",
+    ]);
+    assert.equal(first.status, 0, first.stderr);
+    const firstReport = JSON.parse(first.stdout) as {
+      mode: string;
+      replay: string;
+      actionCounts: Record<string, number>;
+    };
+    assert.equal(firstReport.mode, "apply");
+    assert.equal(firstReport.replay, "applied");
+    assert.deepEqual(firstReport.actionCounts, {
+      alias: 1,
+      merge: 1,
+      rename: 2,
+      retire: 1,
+    });
+
+    const second = runApplyCli([
+      "--database",
+      fixture.databasePath,
+      "--manifest",
+      manifestPath,
+      "--apply",
+      "--ack-owned-copy",
+    ]);
+    assert.equal(second.status, 0, second.stderr);
+    assert.equal(
+      (JSON.parse(second.stdout) as { replay: string }).replay,
+      "noop",
+    );
+
+    const changedPlan = structuredClone(plan);
+    changedPlan.source.inventorySnapshotChecksum = `sha256:${"b".repeat(64)}`;
+    fs.writeFileSync(changedManifestPath, `${JSON.stringify(changedPlan)}\n`);
+    const changed = runApplyCli([
+      "--database",
+      fixture.databasePath,
+      "--manifest",
+      changedManifestPath,
+      "--apply",
+      "--ack-owned-copy",
+    ]);
+    assert.notEqual(changed.status, 0);
+    assert.match(changed.stderr, /checksum|blocker/i);
+    assert.equal(
+      await scalar(
+        fixture.client,
+        "SELECT COUNT(*) FROM taxonomy_batches WHERE status = 'applied'",
+      ),
+      "1",
     );
   });
 });
