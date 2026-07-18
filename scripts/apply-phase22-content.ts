@@ -7,6 +7,7 @@ import {
   curatedId,
   loadCuratedEntityPack,
   packId,
+  type CuratedEntityPack,
   type CuratedSource,
   type LoadedCuratedEntityPack,
   type SpecFieldKey,
@@ -863,15 +864,16 @@ async function preserveBlockedDraft(
   return computePublicationContentHash(client, pack.entityId);
 }
 
-export async function applyPhase22MontblancContent(
+export async function applyCuratedContentPacks(
   client: Client,
   options: ApplyPhase22Options,
+  curatedPacks: CuratedEntityPack[],
 ): Promise<ApplyPhase22Result> {
   await assertOwnedCatalog(client, options);
   const reviewer = options.reviewer.trim();
   if (!reviewer) throw new Error("Phase 22 reviewer must not be empty.");
   const workspaceRoot = fs.realpathSync.native(options.workspaceRoot);
-  const packs = phase22MontblancPacks.map((pack) =>
+  const packs = curatedPacks.map((pack) =>
     loadCuratedEntityPack(workspaceRoot, pack),
   );
   for (const pack of packs) validatePack(workspaceRoot, pack);
@@ -932,6 +934,13 @@ export async function applyPhase22MontblancContent(
   }
   assertCatalogSnapshotUnchanged(options.protectedCatalogSnapshot);
   return { entities };
+}
+
+export async function applyPhase22MontblancContent(
+  client: Client,
+  options: ApplyPhase22Options,
+): Promise<ApplyPhase22Result> {
+  return applyCuratedContentPacks(client, options, phase22MontblancPacks);
 }
 
 function cliValue(name: string): string | null {
