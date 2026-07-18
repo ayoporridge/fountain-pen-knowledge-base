@@ -1071,6 +1071,16 @@ class ArtifactPublicationInterrupted extends Error {
   }
 }
 
+class ArtifactProbeHarnessInterrupted extends Error {
+  readonly exitCode: number;
+
+  constructor(readonly signal: "SIGINT" | "SIGTERM") {
+    super(`Artifact probe harness interrupted by ${signal}.`);
+    this.name = "ArtifactProbeHarnessInterrupted";
+    this.exitCode = signal === "SIGINT" ? 130 : 143;
+  }
+}
+
 async function installCanonicalArtifactSet(
   finalOutDir: string,
   artifacts: ReadonlyMap<string, Buffer>,
@@ -1303,6 +1313,13 @@ type ArtifactSignalProbeReport = {
   restoredHashes?: string[];
 };
 
+type ArtifactParentSignalProbeReport = {
+  phase: "ready" | "cleaned";
+  childPid: number;
+  tempRoot: string;
+  signal: "SIGINT" | "SIGTERM";
+};
+
 function artifactSignalProbeBytes(label: string): Map<string, Buffer> {
   return new Map(
     ARTIFACT_FILES.map((file, index) => [
@@ -1316,9 +1333,13 @@ async function runArtifactSignalProbe(
   signal: "SIGINT" | "SIGTERM",
   window: ArtifactPublicationWindow,
   reportFile: string,
+  tempRoot: string,
 ): Promise<void> {
-  const tempRoot = fs.realpathSync.native(
-    fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-artifact-signal-probe-")),
+  assertCondition(
+    fs.existsSync(tempRoot) &&
+      fs.statSync(tempRoot).isDirectory() &&
+      isStrictArtifactProbeRoot(tempRoot),
+    "Artifact signal probe temp root is not strictly owned.",
   );
   const finalOutDir = path.join(tempRoot, "artifacts");
   const originalArtifacts = artifactSignalProbeBytes("original");
@@ -1406,7 +1427,118 @@ async function readArtifactSignalProbeReport(
   );
 }
 
-async function assertArtifactPublicationSignalSafety(): Promise<void> {
+type ArtifactProbeProcessScope = {
+  child?: ChildProcess;
+  reportFile: string;
+  tempRoot?: string;
+  cleanup?: Promise<void>;
+};
+
+type ArtifactProbeWait = <T>(pending: Promise<T>) => Promise<T>;
+
+function isStrictArtifactProbeReport(reportFile: string): boolean {
+  const resolved = path.resolve(reportFile);
+  const temporaryDirectory = fs.realpathSync.native(os.tmpdir());
+  const reportDirectory = fs.realpathSync.native(path.dirname(resolved));
+  const name = path.basename(resolved);
+  return (
+    reportDirectory === temporaryDirectory &&
+    name.startsWith("fpkg-artifact-") &&
+    name.endsWith(".json") &&
+    (!fs.existsSync(resolved) || !fs.lstatSync(resolved).isSymbolicLink())
+  );
+}
+
+async function cleanupArtifactProbeProcess(
+  scope: ArtifactProbeProcessScope,
+  signal: "SIGINT" | "SIGTERM",
+): Promise<void> {
+  if (scope.cleanup) return scope.cleanup;
+  scope.cleanup = (async () => {
+    if (scope.child && !hasExited(scope.child)) {
+      scope.child.kill(signal);
+      if (!(await waitForChildExit(scope.child, 8_000))) {
+        scope.child.kill("SIGKILL");
+        assertCondition(
+          await waitForChildExit(scope.child, 2_000),
+          `Owned artifact probe child ${scope.child.pid ?? "unknown"} did not exit.`,
+        );
+      }
+    }
+    assertCondition(
+      !scope.child || hasExited(scope.child),
+      `Owned artifact probe child ${scope.child?.pid ?? "unknown"} was not reaped.`,
+    );
+    if (!scope.tempRoot && fs.existsSync(scope.reportFile)) {
+      try {
+        const report = JSON.parse(
+          fs.readFileSync(scope.reportFile, "utf8"),
+        ) as { tempRoot?: string };
+        scope.tempRoot = report.tempRoot;
+      } catch {
+        // A missing/incomplete report never broadens cleanup ownership.
+      }
+    }
+    if (scope.tempRoot && fs.existsSync(scope.tempRoot)) {
+      assertCondition(
+        isStrictArtifactProbeRoot(scope.tempRoot),
+        `Refusing to clean non-owned artifact probe root: ${scope.tempRoot}.`,
+      );
+      fs.rmSync(scope.tempRoot, { recursive: true, force: true });
+    }
+    assertCondition(
+      isStrictArtifactProbeReport(scope.reportFile),
+      `Refusing to clean non-owned artifact probe report: ${scope.reportFile}.`,
+    );
+    fs.rmSync(scope.reportFile, { force: true });
+  })();
+  return scope.cleanup;
+}
+
+async function withSignalManagedArtifactProbe<T>(
+  scope: ArtifactProbeProcessScope,
+  run: (wait: ArtifactProbeWait) => Promise<T>,
+): Promise<T> {
+  let receivedSignal: "SIGINT" | "SIGTERM" | null = null;
+  let rejectInterruption:
+    | ((error: ArtifactProbeHarnessInterrupted) => void)
+    | null = null;
+  const interruption = new Promise<never>((_resolve, reject) => {
+    rejectInterruption = reject;
+  });
+  const absorb = (signal: "SIGINT" | "SIGTERM") => {
+    if (receivedSignal) return;
+    receivedSignal = signal;
+    rejectInterruption?.(new ArtifactProbeHarnessInterrupted(signal));
+  };
+  const onSigint = () => absorb("SIGINT");
+  const onSigterm = () => absorb("SIGTERM");
+  const wait: ArtifactProbeWait = (pending) =>
+    Promise.race([pending, interruption]);
+  process.on("SIGINT", onSigint);
+  process.on("SIGTERM", onSigterm);
+  try {
+    return await run(wait);
+  } finally {
+    try {
+      await cleanupArtifactProbeProcess(
+        scope,
+        receivedSignal ?? "SIGTERM",
+      );
+    } finally {
+      process.off("SIGINT", onSigint);
+      process.off("SIGTERM", onSigterm);
+    }
+  }
+}
+
+async function assertArtifactPublicationSignalSafety(
+  parentCheckpoint?: (
+    child: ChildProcess,
+    ready: ArtifactSignalProbeReport,
+  ) => Promise<void>,
+  skipParentContract = false,
+): Promise<void> {
   const require = createRequire(import.meta.url);
   const tsxCli = require.resolve("tsx/cli");
   for (const signal of ["SIGINT", "SIGTERM"] as const) {
@@ -1416,76 +1548,218 @@ async function assertArtifactPublicationSignalSafety(): Promise<void> {
         `fpkg-artifact-${signal.toLowerCase()}-${window}-${process.pid}-${Date.now()}.json`,
       );
       const output: string[] = [];
-      let tempRoot = "";
-      const child = spawn(
-        process.execPath,
-        [
-          tsxCli,
-          SCRIPT_PATH,
-          "--artifact-signal-probe",
-          "--signal",
-          signal,
-          "--window",
-          window,
-          "--report",
-          reportFile,
-        ],
-        {
-          cwd: ROOT,
-          env: {
-            ...process.env,
-            TURSO_DATABASE_URL: "",
-            TURSO_AUTH_TOKEN: "",
-            FPKG_DATABASE_URL: "",
-            PUBLICATION_GATE_FIXTURE: "",
-          },
-          stdio: ["ignore", "pipe", "pipe"],
-        },
-      );
-      child.stdout?.on("data", (chunk) => output.push(String(chunk)));
-      child.stderr?.on("data", (chunk) => output.push(String(chunk)));
+      const scope: ArtifactProbeProcessScope = { reportFile };
       try {
-        const ready = await readArtifactSignalProbeReport(
-          reportFile,
-          "ready",
-          10_000,
-        );
-        tempRoot = ready.tempRoot;
-        assertCondition(
-          fs.existsSync(ready.finalOutDir),
-          `${signal} ${window} did not reach the requested publication window.`,
-        );
-        child.kill(signal);
-        assertCondition(
-          await waitForChildExit(child, 8_000),
-          `${signal} ${window} publication probe did not exit.`,
-        );
-        const cleaned = await readArtifactSignalProbeReport(
-          reportFile,
-          "cleaned",
-          1_000,
-        );
-        assertCondition(
-          child.signalCode === null &&
-            child.exitCode === (signal === "SIGINT" ? 130 : 143) &&
-            !fs.existsSync(cleaned.tempRoot) &&
-            cleaned.restoredHashes?.length === ARTIFACT_FILES.length,
-          `${signal} ${window} did not restore the complete artifact set and clean its owned root.`,
-        );
+        await withSignalManagedArtifactProbe(scope, async (wait) => {
+          const tempRoot = fs.realpathSync.native(
+            fs.mkdtempSync(
+              path.join(os.tmpdir(), "fpkg-artifact-signal-probe-"),
+            ),
+          );
+          scope.tempRoot = tempRoot;
+          const child = spawn(
+            process.execPath,
+            [
+              tsxCli,
+              SCRIPT_PATH,
+              "--artifact-signal-probe",
+              "--signal",
+              signal,
+              "--window",
+              window,
+              "--report",
+              reportFile,
+              "--temp-root",
+              tempRoot,
+            ],
+            {
+              cwd: ROOT,
+              env: {
+                ...process.env,
+                TURSO_DATABASE_URL: "",
+                TURSO_AUTH_TOKEN: "",
+                FPKG_DATABASE_URL: "",
+                PUBLICATION_GATE_FIXTURE: "",
+              },
+              stdio: ["ignore", "pipe", "pipe"],
+            },
+          );
+          scope.child = child;
+          child.stdout?.on("data", (chunk) => output.push(String(chunk)));
+          child.stderr?.on("data", (chunk) => output.push(String(chunk)));
+          const ready = await wait(
+            readArtifactSignalProbeReport(reportFile, "ready", 10_000),
+          );
+          assertCondition(
+            ready.tempRoot === tempRoot && fs.existsSync(ready.finalOutDir),
+            `${signal} ${window} did not reach the requested owned publication window.`,
+          );
+          if (
+            parentCheckpoint &&
+            signal === "SIGINT" &&
+            window === "after-backup"
+          ) {
+            await wait(parentCheckpoint(child, ready));
+          }
+          child.kill(signal);
+          assertCondition(
+            await wait(waitForChildExit(child, 8_000)),
+            `${signal} ${window} publication probe did not exit.`,
+          );
+          const cleaned = await wait(
+            readArtifactSignalProbeReport(reportFile, "cleaned", 1_000),
+          );
+          assertCondition(
+            child.signalCode === null &&
+              child.exitCode === (signal === "SIGINT" ? 130 : 143) &&
+              !fs.existsSync(cleaned.tempRoot) &&
+              cleaned.restoredHashes?.length === ARTIFACT_FILES.length,
+            `${signal} ${window} did not restore the complete artifact set and clean its owned root.`,
+          );
+        });
       } catch (error) {
-        await stopChild(child);
+        if (error instanceof ArtifactProbeHarnessInterrupted) throw error;
         throw new Error(
           `Artifact publication ${signal} ${window} probe failed: ${
             error instanceof Error ? error.message : String(error)
           }. ${output.join("")}`,
           { cause: error },
         );
-      } finally {
-        if (tempRoot && fs.existsSync(tempRoot)) {
-          fs.rmSync(tempRoot, { recursive: true, force: true });
-        }
-        fs.rmSync(reportFile, { force: true });
       }
+    }
+  }
+  if (!skipParentContract) await assertArtifactParentHarnessSignalSafety();
+}
+
+function isStrictArtifactProbeRoot(tempRoot: string): boolean {
+  const resolved = path.resolve(tempRoot);
+  const temporaryDirectory = fs.realpathSync.native(os.tmpdir());
+  return (
+    path.dirname(resolved) === temporaryDirectory &&
+    path.basename(resolved).startsWith("fpkg-artifact-signal-probe-") &&
+    (!fs.existsSync(resolved) || !fs.lstatSync(resolved).isSymbolicLink())
+  );
+}
+
+async function runArtifactParentSignalTarget(
+  signal: "SIGINT" | "SIGTERM",
+  reportFile: string,
+): Promise<void> {
+  let checkpoint: ArtifactParentSignalProbeReport | null = null;
+  try {
+    await assertArtifactPublicationSignalSafety(
+      async (child, ready) => {
+        assertCondition(child.pid, "Artifact parent signal target child has no PID.");
+        checkpoint = {
+          phase: "ready",
+          childPid: child.pid,
+          tempRoot: ready.tempRoot,
+          signal,
+        };
+        fs.writeFileSync(reportFile, JSON.stringify(checkpoint));
+        await new Promise<void>((resolve) => {
+          const timer = setInterval(() => undefined, 1_000);
+          const release = () => {
+            clearInterval(timer);
+            process.off("SIGINT", release);
+            process.off("SIGTERM", release);
+            resolve();
+          };
+          process.once("SIGINT", release);
+          process.once("SIGTERM", release);
+        });
+      },
+      true,
+    );
+  } catch (error) {
+    if (!(error instanceof ArtifactProbeHarnessInterrupted) || !checkpoint) {
+      throw error;
+    }
+    assertCondition(
+      !processIsAlive(checkpoint.childPid) &&
+        !fs.existsSync(checkpoint.tempRoot),
+      `${signal} parent signal target did not clean its owned child/root.`,
+    );
+    fs.writeFileSync(
+      reportFile,
+      JSON.stringify({ ...checkpoint, phase: "cleaned" }),
+    );
+    throw error;
+  }
+}
+
+async function assertArtifactParentHarnessSignalSafety(): Promise<void> {
+  const require = createRequire(import.meta.url);
+  const tsxCli = require.resolve("tsx/cli");
+  for (const signal of ["SIGINT", "SIGTERM"] as const) {
+    const reportFile = path.join(
+      os.tmpdir(),
+      `fpkg-artifact-parent-${signal.toLowerCase()}-${process.pid}-${Date.now()}.json`,
+    );
+    const output: string[] = [];
+    const scope: ArtifactProbeProcessScope = { reportFile };
+    try {
+      await withSignalManagedArtifactProbe(scope, async (wait) => {
+        const target = spawn(
+          process.execPath,
+          [
+            tsxCli,
+            SCRIPT_PATH,
+            "--artifact-parent-signal-target",
+            "--signal",
+            signal,
+            "--report",
+            reportFile,
+          ],
+          {
+            cwd: ROOT,
+            env: {
+              ...process.env,
+              TURSO_DATABASE_URL: "",
+              TURSO_AUTH_TOKEN: "",
+              FPKG_DATABASE_URL: "",
+              PUBLICATION_GATE_FIXTURE: "",
+            },
+            stdio: ["ignore", "pipe", "pipe"],
+          },
+        );
+        scope.child = target;
+        target.stdout?.on("data", (chunk) => output.push(String(chunk)));
+        target.stderr?.on("data", (chunk) => output.push(String(chunk)));
+        const report = (await wait(
+          readArtifactSignalProbeReport(reportFile, "ready", 10_000),
+        )) as ArtifactParentSignalProbeReport;
+        scope.tempRoot = report.tempRoot;
+        assertCondition(
+          report.signal === signal &&
+            processIsAlive(report.childPid) &&
+            isStrictArtifactProbeRoot(report.tempRoot),
+          `${signal} parent probe did not expose its strictly owned child/root.`,
+        );
+        target.kill(signal);
+        assertCondition(
+          await wait(waitForChildExit(target, 8_000)),
+          `${signal} parent artifact harness did not exit.`,
+        );
+        const cleaned = (await wait(
+          readArtifactSignalProbeReport(reportFile, "cleaned", 1_000),
+        )) as ArtifactParentSignalProbeReport;
+        assertCondition(
+          target.signalCode === null &&
+            target.exitCode === (signal === "SIGINT" ? 130 : 143) &&
+            !processIsAlive(cleaned.childPid) &&
+            !fs.existsSync(cleaned.tempRoot),
+          `${signal} parent artifact harness did not clean and reap its child/root.`,
+        );
+      });
+    } catch (error) {
+      if (error instanceof ArtifactProbeHarnessInterrupted) throw error;
+      throw new Error(
+        `Artifact parent harness ${signal} probe failed: ${
+          error instanceof Error ? error.message : String(error)
+        }. ${output.join("")}`,
+        { cause: error },
+      );
     }
   }
 }
@@ -1593,7 +1867,7 @@ async function runArtifactsLimitContract(): Promise<void> {
   await assertArtifactPublicationSignalSafety();
 
   console.log(
-    "Audit artifact contract passed: repeat and limit=1 bytes, hashes, summary, verdict, and exit semantics are identical; SIGINT/SIGTERM restore the complete artifact set at backup/install windows; only terminal preview is limited.",
+    "Audit artifact contract passed: repeat and limit=1 bytes, hashes, summary, verdict, and exit semantics are identical; SIGINT/SIGTERM restore the complete artifact set at backup/install windows and the parent harness reaps its owned child/root; only terminal preview is limited.",
   );
 }
 
@@ -3144,21 +3418,38 @@ async function runSignalProbe(reportFile: string): Promise<void> {
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2).filter((arg) => arg !== "--");
+  if (args[0] === "--artifact-parent-signal-target") {
+    const signalIndex = args.indexOf("--signal");
+    const reportIndex = args.indexOf("--report");
+    const signal = args[signalIndex + 1];
+    const reportFile = args[reportIndex + 1];
+    assertCondition(
+      args.length === 5 &&
+        (signal === "SIGINT" || signal === "SIGTERM") &&
+        reportFile,
+      "--artifact-parent-signal-target requires --signal SIGINT|SIGTERM --report <path>.",
+    );
+    await runArtifactParentSignalTarget(signal, reportFile);
+    return;
+  }
   if (args[0] === "--artifact-signal-probe") {
     const signalIndex = args.indexOf("--signal");
     const windowIndex = args.indexOf("--window");
     const reportIndex = args.indexOf("--report");
+    const tempRootIndex = args.indexOf("--temp-root");
     const signal = args[signalIndex + 1];
     const window = args[windowIndex + 1];
     const reportFile = args[reportIndex + 1];
+    const tempRoot = args[tempRootIndex + 1];
     assertCondition(
-      args.length === 7 &&
+      args.length === 9 &&
         (signal === "SIGINT" || signal === "SIGTERM") &&
         (window === "after-backup" || window === "after-first-install") &&
-        reportFile,
-      "--artifact-signal-probe requires --signal SIGINT|SIGTERM --window after-backup|after-first-install --report <path>.",
+        reportFile &&
+        tempRoot,
+      "--artifact-signal-probe requires --signal SIGINT|SIGTERM --window after-backup|after-first-install --report <path> --temp-root <owned-path>.",
     );
-    await runArtifactSignalProbe(signal, window, reportFile);
+    await runArtifactSignalProbe(signal, window, reportFile, tempRoot);
     return;
   }
   if (args[0] === "--signal-probe") {
@@ -3247,5 +3538,8 @@ async function main(): Promise<void> {
 main().catch((error) => {
   console.error(error instanceof Error ? error.message : String(error));
   process.exitCode =
-    error instanceof ArtifactPublicationInterrupted ? error.exitCode : 1;
+    error instanceof ArtifactPublicationInterrupted ||
+    error instanceof ArtifactProbeHarnessInterrupted
+      ? error.exitCode
+      : 1;
 });
