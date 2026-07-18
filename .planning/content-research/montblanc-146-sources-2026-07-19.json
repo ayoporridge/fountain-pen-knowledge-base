@@ -1,0 +1,909 @@
+{
+  "$schema": "fountain-pen-content-research/v1",
+  "schemaVersion": 1,
+  "entity": {
+    "id": "91c7e6azUmK8",
+    "type": "pen",
+    "slug": "万宝龙-montblanc-大班146",
+    "canonicalName": "万宝龙 Montblanc 大班 146／Meisterstück LeGrand",
+    "brandEntityId": "CJM8uLY0LmIX"
+  },
+  "research": {
+    "retrievedAt": "2026-07-19",
+    "primarySourceKey": "mb-legrand-mb132460",
+    "publishableContentFile": ".planning/content-research/montblanc-146-publishable-content-2026-07-19.md",
+    "boundary": "现行官方商品页的规格只适用于明确标出的 LeGrand SKU；历史 146 的材料、尺寸、笔尖与活塞结构必须按代际处理。",
+    "officialIndependenceNote": "多个 Montblanc 页面同属 montblanc-official independenceGroup，只能作为同一官方来源体系内的互补证据，不能计算为多方独立确认。"
+  },
+  "sources": [
+    {
+      "key": "mb-legrand-mb132460",
+      "registryKey": "montblanc-official",
+      "registryName": "Montblanc 官方网站",
+      "sourceType": "official_product",
+      "tier": "primary",
+      "independenceGroup": "montblanc-official",
+      "title": "Meisterstück Gold-Coated LeGrand Fountain Pen",
+      "url": "https://www.montblanc.com/en-co/meisterstuck-gold-coated-legrand-fountain-pen-MB132460.html",
+      "author": "Montblanc",
+      "retrievedAt": "2026-07-19",
+      "summary": "现行 LeGrand MB132460／M 的官方材质、笔尖、尺寸、重量和商品识别号。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {
+        "kind": "stable-product-id-and-section",
+        "value": "Ident No. MB132460; Details > Features, Writing Modes, Dimensions",
+        "retrievedAt": "2026-07-19"
+      }
+    },
+    {
+      "key": "mb-legrand-mb132461",
+      "registryKey": "montblanc-official",
+      "registryName": "Montblanc 官方网站",
+      "sourceType": "official_product",
+      "tier": "primary",
+      "independenceGroup": "montblanc-official",
+      "title": "Meisterstück Gold-Coated LeGrand Fountain Pen, B",
+      "url": "https://www.montblanc.com/en-us/meisterstuck-legrand-fountain-pen-MB132461.html",
+      "author": "Montblanc",
+      "retrievedAt": "2026-07-19",
+      "summary": "现行 LeGrand MB132461／B 的官方重量，用于证明同系列不同笔尖 SKU 的重量可能略有差异。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {
+        "kind": "stable-product-id-and-section",
+        "value": "Ident No. MB132461; Details & Composition > Size B > Physical Weight 25.86 g",
+        "retrievedAt": "2026-07-19"
+      }
+    },
+    {
+      "key": "mb-writing-instrument-care",
+      "registryKey": "montblanc-official",
+      "registryName": "Montblanc 官方网站",
+      "sourceType": "official_service",
+      "tier": "primary",
+      "independenceGroup": "montblanc-official",
+      "title": "Writing Instrument Care Services",
+      "url": "https://www.montblanc.com/en-co/customer-service-rna/care-services/writing-instruments.html",
+      "author": "Montblanc",
+      "retrievedAt": "2026-07-19",
+      "summary": "官方说明 LeGrand 与 149 使用活塞、清洗频率、笔尖范围、六周换尖和付费真伪鉴定流程。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {
+        "kind": "stable-url-and-headings",
+        "value": "Care and storage; How do I fill my fountain pen?; Nib exchange; Authenticity evaluation",
+        "retrievedAt": "2026-07-19"
+      }
+    },
+    {
+      "key": "mb-service-guide-2024",
+      "registryKey": "montblanc-official",
+      "registryName": "Montblanc 官方网站",
+      "sourceType": "official_pdf",
+      "tier": "primary",
+      "independenceGroup": "montblanc-official",
+      "title": "Montblanc Writing Instruments Service Guide 2024",
+      "url": "https://www.montblanc.com/on/demandware.static/-/Library-Sites-WWSharedLibrary/default/documents/ServiceGuide_WI_online_2024_GB.pdf",
+      "author": "Montblanc",
+      "publishedAt": "2024",
+      "retrievedAt": "2026-07-19",
+      "summary": "官方活塞上墨图示、清洗、旅行、存放与笔尖更换说明。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {
+        "kind": "pdf-filename-hash-and-pages",
+        "value": "ServiceGuide_WI_online_2024_GB.pdf; PDF pages 3, 8, 10-11; printed pages 6-7, 17-18, 20-23",
+        "sha256": "25659b68a037cab3716ba994dd0d0dbf2956b8ba7a20ff23649fcd8474d00089",
+        "byteSize": 2345553,
+        "pageCount": 16,
+        "retrievedAt": "2026-07-19"
+      }
+    },
+    {
+      "key": "mb-meisterstuck-100-years",
+      "registryKey": "montblanc-official",
+      "registryName": "Montblanc 官方网站",
+      "sourceType": "official_history",
+      "tier": "primary",
+      "independenceGroup": "montblanc-official",
+      "title": "Meisterstück 100 Years",
+      "url": "https://www.montblanc.com/en-gb/discover/edit/meisterstuck-100-years.html",
+      "author": "Montblanc",
+      "retrievedAt": "2026-07-19",
+      "summary": "官方 Meisterstück 历史专题，明确 142、144、146 于 1949 年形成三款系列，并区分早期 celluloid 与当代 precious resin。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {
+        "kind": "stable-url-and-timeline-section",
+        "value": "1949 narrative: trio 142, 144 and 146; materials section: ebonite/celluloid to present precious resin",
+        "retrievedAt": "2026-07-19"
+      }
+    },
+    {
+      "key": "mb-149-mb132114",
+      "registryKey": "montblanc-official",
+      "registryName": "Montblanc 官方网站",
+      "sourceType": "official_product",
+      "tier": "primary",
+      "independenceGroup": "montblanc-official",
+      "title": "Meisterstück Gold-Coated 149 Fountain Pen, B",
+      "url": "https://www.montblanc.com/en-us/meisterstuck-gold-coated-149-fountain-pen-%28b%29-MB132114.html",
+      "author": "Montblanc",
+      "retrievedAt": "2026-07-19",
+      "summary": "现行 149 MB132114／B 的官方笔尖、尺寸和重量，仅用于同代比较。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {
+        "kind": "stable-product-id-and-section",
+        "value": "Ident No. MB132114; Details > Nib Description, Dimensions, Physical Weight",
+        "retrievedAt": "2026-07-19"
+      }
+    },
+    {
+      "key": "vintage-montblanc-146g",
+      "registryKey": "vintage-montblanc-pens",
+      "registryName": "Vintage Montblanc Pens",
+      "sourceType": "specialist_collection_research",
+      "tier": "specialist_secondary",
+      "independenceGroup": "vintage-montblanc-pens",
+      "title": "No. 146 G",
+      "url": "https://www.vintagemontblancpens.com/no-146-g",
+      "author": "Vintage Montblanc Pens",
+      "retrievedAt": "2026-07-19",
+      "summary": "以目录和实物样本梳理 1949—1959 celluloid 146、1960 年代停产、1970 年代树脂复产，以及墨窗、笔尖、长度和活塞变化。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {
+        "kind": "stable-url-and-page-headings",
+        "value": "No. 146 G; paragraphs beginning 'The celluloid 146 was made between 1949-59' and 'Production of the 146 was suspended'",
+        "retrievedAt": "2026-07-19"
+      }
+    },
+    {
+      "key": "handoverthatpen-146",
+      "registryKey": "hand-over-that-pen",
+      "registryName": "Hand Over That Pen",
+      "sourceType": "independent_multi_reviewer",
+      "tier": "independent_experience",
+      "independenceGroup": "handoverthatpen",
+      "title": "Review: Montblanc LeGrand 146 (0.4mm Cursive Italic)",
+      "url": "https://www.handoverthatpen.com/2017/03/10/review-montblanc-legrand-146/",
+      "author": "Katherine, Pam and Franz",
+      "publishedAt": "2017-03-10",
+      "retrievedAt": "2026-07-19",
+      "summary": "三位不同手型对同一支改尖 146 的握持记录；只用于说明套帽、平衡和手型体验存在差异。其历史段落的 1948 说法不作为主时间线。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {
+        "kind": "dated-url-and-section",
+        "value": "2017/03/10; Write It Up (20-minute writing experience), lines attributed separately to Katherine, Pam and Franz",
+        "retrievedAt": "2026-07-19"
+      }
+    },
+    {
+      "key": "commons-montblanc-146-platinum",
+      "registryKey": "wikimedia-commons",
+      "registryName": "Wikimedia Commons",
+      "sourceType": "licensed_media",
+      "tier": "media_primary",
+      "independenceGroup": "wikimedia-mdreibelbis",
+      "title": "Montblanc Meisterstuck with platinum trim (26295588064).jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Montblanc_Meisterstuck_with_platinum_trim_(26295588064).jpg",
+      "author": "M Dreibelbis",
+      "publishedAt": "2016-05-08",
+      "retrievedAt": "2026-07-19",
+      "summary": "作者标注为 Montblanc 146、双色 EF 笔尖、铂金饰件的实拍；CC BY 2.0，FlickreviewR 2 已复核原 Flickr 授权。",
+      "allowedUse": "store_full",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "archiveLocator": {
+        "kind": "wikimedia-permanent-revision",
+        "value": "https://commons.wikimedia.org/w/index.php?title=File:Montblanc_Meisterstuck_with_platinum_trim_(26295588064).jpg&oldid=1230391965",
+        "originalFlickrUrl": "https://www.flickr.com/photos/68704638@N04/26295588064/",
+        "retrievedAt": "2026-07-19"
+      }
+    }
+  ],
+  "variants": [
+    {
+      "key": "early-celluloid-1949-1959",
+      "name": "早期 celluloid 146／146G",
+      "releaseYear": "1949",
+      "validThrough": "1959",
+      "productionState": "historical",
+      "notes": "收藏研究记录黑色、绿色条纹和灰色条纹版本，并展示早期伸缩活塞与较长墨窗；具体单笔仍需结合多处零件和维修史判断。",
+      "sourceKey": "vintage-montblanc-146g"
+    },
+    {
+      "key": "resin-return-1970s",
+      "name": "1970 年代树脂复产 146",
+      "releaseYear": "约 1970 年代",
+      "productionState": "historical",
+      "notes": "停产约十年后恢复，笔身材料、墨窗、笔尖与活塞结构相较早期 celluloid 版本发生变化；转折年份仅作近似范围。",
+      "sourceKey": "vintage-montblanc-146g"
+    },
+    {
+      "key": "current-gold-legrand-mb132460",
+      "name": "现行常规黑色金色饰件 LeGrand／M",
+      "releaseYear": "current",
+      "productionState": "current",
+      "notes": "MB132460／M 是本文现行规格锚点；规格不得推广到所有笔尖 SKU 或历史 146。",
+      "sourceKey": "mb-legrand-mb132460"
+    },
+    {
+      "key": "pictured-platinum-trim-sample",
+      "name": "铂金饰件 146 实拍样本",
+      "releaseYear": "unknown",
+      "productionState": "sample_only",
+      "notes": "Commons 图像作者标注为双色 EF 笔尖的 146；只用于展示 146 外观，不代表 MB132460 金色饰件 SKU，也不用于推导年代。",
+      "sourceKey": "commons-montblanc-146-platinum"
+    }
+  ],
+  "scopes": [
+    {
+      "key": "model-history",
+      "scopeKey": "model-family-1949-present",
+      "validFrom": "1949",
+      "productionState": "historical-and-current",
+      "editionScope": "146 model family and current LeGrand naming continuity"
+    },
+    {
+      "key": "early-celluloid",
+      "scopeKey": "early-celluloid-1949-1959",
+      "validFrom": "1949",
+      "validThrough": "1959",
+      "variantKey": "early-celluloid-1949-1959",
+      "productionState": "historical",
+      "materialScope": "celluloid; specialist-source era classification"
+    },
+    {
+      "key": "production-hiatus",
+      "scopeKey": "production-hiatus-1960s",
+      "validFrom": "approximately 1960",
+      "validThrough": "approximately 1969",
+      "productionState": "suspended",
+      "editionScope": "approximate specialist-source interval"
+    },
+    {
+      "key": "resin-return",
+      "scopeKey": "resin-return-1970s",
+      "validFrom": "approximately 1970",
+      "variantKey": "resin-return-1970s",
+      "productionState": "historical",
+      "materialScope": "resin; not the same specification as current MB132460"
+    },
+    {
+      "key": "current-legrand-m",
+      "scopeKey": "current-gold-legrand-mb132460-m",
+      "variantKey": "current-gold-legrand-mb132460",
+      "market": "Montblanc en-CO listing; product identity globally anchored by Ident No.",
+      "productionState": "current",
+      "nibScope": "M",
+      "materialScope": "black precious resin; gold-coated fittings",
+      "editionScope": "standard current product MB132460"
+    },
+    {
+      "key": "current-legrand-b",
+      "scopeKey": "current-gold-legrand-mb132461-b",
+      "market": "Montblanc en-US listing",
+      "productionState": "current",
+      "nibScope": "B",
+      "editionScope": "comparison SKU MB132461; weight evidence only"
+    },
+    {
+      "key": "current-service",
+      "scopeKey": "current-service-guidance",
+      "market": "global guidance; regional terms may differ",
+      "productionState": "current",
+      "editionScope": "LeGrand filling, care, nib exchange and authenticity service"
+    },
+    {
+      "key": "current-149-comparison",
+      "scopeKey": "current-149-mb132114-b",
+      "market": "Montblanc en-US listing",
+      "productionState": "current",
+      "editionScope": "149 comparison only; not a 146 variant"
+    },
+    {
+      "key": "ergonomic-sample",
+      "scopeKey": "single-modified-146-three-reviewers-2017",
+      "productionState": "experience_sample",
+      "editionScope": "one modified 146 used by three named reviewers; not population-level performance evidence"
+    },
+    {
+      "key": "media-sample",
+      "scopeKey": "platinum-trim-146-photo-2016",
+      "variantKey": "pictured-platinum-trim-sample",
+      "productionState": "sample_only",
+      "editionScope": "visual identity and license only"
+    }
+  ],
+  "claims": [
+    {
+      "key": "146-introduced-1949",
+      "predicate": "model_introduction_year",
+      "objectText": "Montblanc 官方历史专题把 142、144 和 146 三款的推出节点写为 1949 年。",
+      "factClass": "core",
+      "confidence": 0.99,
+      "sourceKey": "mb-meisterstuck-100-years",
+      "locator": "1949 historical narrative naming the trio 142, 144 and 146.",
+      "evidence": [
+        {
+          "key": "official-1949",
+          "sourceKey": "mb-meisterstuck-100-years",
+          "scopeKey": "model-history",
+          "locator": "History narrative: in 1949 Montblanc introduced the trio 142, 144 and 146."
+        },
+        {
+          "key": "specialist-1949-start",
+          "sourceKey": "vintage-montblanc-146g",
+          "scopeKey": "early-celluloid",
+          "locator": "Opening historical paragraph dates celluloid 146 production to 1949-59."
+        }
+      ]
+    },
+    {
+      "key": "146-legrand-naming-boundary",
+      "predicate": "current_name_and_historical_identifier",
+      "objectText": "146 是历史型号编号和通行名称；现行官方商品选择项使用 LeGrand，二者可建立连续性，但现行规格不能反向覆盖全部历史 146。",
+      "factClass": "scope_boundary",
+      "confidence": 0.96,
+      "sourceKey": "mb-legrand-mb132460",
+      "locator": "Current product selector says LeGrand; official history separately names 146 in 1949.",
+      "evidence": [
+        {
+          "key": "current-legrand-selector",
+          "sourceKey": "mb-legrand-mb132460",
+          "scopeKey": "current-legrand-m",
+          "locator": "Product model selector and description identify Meisterstück LeGrand; product title does not display 146."
+        },
+        {
+          "key": "historical-146-identifier",
+          "sourceKey": "mb-meisterstuck-100-years",
+          "scopeKey": "model-history",
+          "locator": "1949 narrative explicitly uses model number 146."
+        }
+      ]
+    },
+    {
+      "key": "current-mb132460-configuration",
+      "predicate": "current_product_configuration",
+      "objectText": "MB132460／M 使用黑色 precious resin、镀金饰件、Au585／14K 双色金笔尖，官网列 145.8 × 15.5 mm 和 25.42 g。",
+      "factClass": "core",
+      "confidence": 0.99,
+      "sourceKey": "mb-legrand-mb132460",
+      "locator": "Ident MB132460; Features, Writing Modes and Dimensions.",
+      "evidence": [
+        {
+          "key": "official-current-configuration",
+          "sourceKey": "mb-legrand-mb132460",
+          "scopeKey": "current-legrand-m",
+          "locator": "Details for MB132460, selected size M; barrel, cap, clip, nib and dimensions fields."
+        }
+      ]
+    },
+    {
+      "key": "current-weight-is-sku-specific",
+      "predicate": "physical_weight_scope",
+      "objectText": "现行 M 尖 MB132460 标为 25.42 g，B 尖 MB132461 标为 25.86 g；重量应绑定具体 SKU。",
+      "factClass": "scope_boundary",
+      "confidence": 0.99,
+      "sourceKey": "mb-legrand-mb132460",
+      "locator": "Physical Weight fields on MB132460 and MB132461.",
+      "evidence": [
+        {
+          "key": "m-weight-25-42",
+          "sourceKey": "mb-legrand-mb132460",
+          "scopeKey": "current-legrand-m",
+          "locator": "Selected M; Physical Weight 25.42 g."
+        },
+        {
+          "key": "b-weight-25-86",
+          "sourceKey": "mb-legrand-mb132461",
+          "scopeKey": "current-legrand-b",
+          "locator": "Selected B; Physical Weight 25.86 g."
+        }
+      ]
+    },
+    {
+      "key": "current-legrand-piston",
+      "predicate": "fill_system",
+      "objectText": "当前官方保养体系把 LeGrand 与 149 列为使用活塞上墨的较大款式。",
+      "factClass": "core",
+      "confidence": 0.99,
+      "sourceKey": "mb-writing-instrument-care",
+      "locator": "How do I fill my fountain pen? section contrasts LeGrand/149 piston with Classique cartridge/converter.",
+      "evidence": [
+        {
+          "key": "official-legrand-piston",
+          "sourceKey": "mb-writing-instrument-care",
+          "scopeKey": "current-service",
+          "locator": "Le Grand and 149 described as larger piston-filling fountain pens."
+        },
+        {
+          "key": "official-piston-diagram",
+          "sourceKey": "mb-service-guide-2024",
+          "scopeKey": "current-service",
+          "locator": "PDF page 3, printed pages 6-7: Fountain Pen with Piston Mechanism."
+        }
+      ]
+    },
+    {
+      "key": "current-nib-range",
+      "predicate": "available_nib_widths",
+      "objectText": "现行 LeGrand 可选 EF、F、M、B、BB、OM、OB、OBB；OBBB 是 149 的另询项，不属于 146 常规清单。",
+      "factClass": "core",
+      "confidence": 0.98,
+      "sourceKey": "mb-writing-instrument-care",
+      "locator": "Nib exchange section and 149-only OBBB note; current LeGrand product selector.",
+      "evidence": [
+        {
+          "key": "official-eight-nibs",
+          "sourceKey": "mb-writing-instrument-care",
+          "scopeKey": "current-service",
+          "locator": "Current nib selection lists EF, F, M, OM, OB, OBB, B and BB; OBBB only for Meisterstück 149."
+        },
+        {
+          "key": "legrand-product-selector-nibs",
+          "sourceKey": "mb-legrand-mb132460",
+          "scopeKey": "current-legrand-m",
+          "locator": "LeGrand size selector offers EF, F, M, B, BB, OM, OB and OBB."
+        }
+      ]
+    },
+    {
+      "key": "current-146-149-objective-differences",
+      "predicate": "comparison_with_149",
+      "objectText": "现行锚点中，LeGrand／146 为 Au585／14K、145.8 × 15.5 mm、25.42 g；149 为 Au750／18K、147.3 × 17.3 mm、32 g。",
+      "factClass": "comparison",
+      "confidence": 0.99,
+      "sourceKey": "mb-legrand-mb132460",
+      "locator": "Current official MB132460/M and MB132114/B product fields.",
+      "evidence": [
+        {
+          "key": "legrand-current-comparison-side",
+          "sourceKey": "mb-legrand-mb132460",
+          "scopeKey": "current-legrand-m",
+          "locator": "Nib, dimensions and physical weight for MB132460/M."
+        },
+        {
+          "key": "149-current-comparison-side",
+          "sourceKey": "mb-149-mb132114",
+          "scopeKey": "current-149-comparison",
+          "locator": "Au750/18K nib, dimensions 147.3 × 17.3 mm and physical weight 32 g for MB132114/B."
+        }
+      ]
+    },
+    {
+      "key": "historical-generation-changes",
+      "predicate": "historical_generation_changes",
+      "objectText": "收藏研究把早期 146 归为 1949—1959 celluloid 生产，记录 1960 年代停产、1970 年代树脂复产，以及墨窗、笔尖、长度和活塞的渐进变化。",
+      "factClass": "historical_secondary",
+      "confidence": 0.86,
+      "sourceKey": "vintage-montblanc-146g",
+      "locator": "No. 146 G chronological discussion and photographed examples.",
+      "evidence": [
+        {
+          "key": "specialist-celluloid-era",
+          "sourceKey": "vintage-montblanc-146g",
+          "scopeKey": "early-celluloid",
+          "locator": "Celluloid production 1949-59; early ink-window and feed observations."
+        },
+        {
+          "key": "specialist-hiatus-return",
+          "sourceKey": "vintage-montblanc-146g",
+          "scopeKey": "production-hiatus",
+          "locator": "Production suspended during the 1960s for one decade and resumed in the 1970s with resin."
+        },
+        {
+          "key": "specialist-component-changes",
+          "sourceKey": "vintage-montblanc-146g",
+          "scopeKey": "resin-return",
+          "locator": "Illustrated discussion of changing ink window, nibs, length and telescopic piston."
+        }
+      ]
+    },
+    {
+      "key": "ergonomics-vary-by-hand-and-posting",
+      "predicate": "ergonomic_experience_pattern",
+      "objectText": "同一支 146 的三位评测者对套帽、平衡和无帽长度给出不同结论，握持体验不能由尺寸数据代替。",
+      "factClass": "experience_pattern",
+      "confidence": 0.85,
+      "sourceKey": "handoverthatpen-146",
+      "locator": "Write It Up, separate comments by Katherine, Pam and Franz.",
+      "evidence": [
+        {
+          "key": "three-reviewer-ergonomics",
+          "sourceKey": "handoverthatpen-146",
+          "scopeKey": "ergonomic-sample",
+          "locator": "Katherine prefers unposted; Pam prefers posted; Franz finds unposted too small for his hand."
+        }
+      ]
+    },
+    {
+      "key": "official-maintenance-guidance",
+      "predicate": "current_maintenance",
+      "objectText": "官方建议约每三个月以不含化学剂的温水清洗；永久性墨水约每两至三周清洗，乘机时装满墨并笔尖向上。",
+      "factClass": "service",
+      "confidence": 0.98,
+      "sourceKey": "mb-service-guide-2024",
+      "locator": "Care Recommendations; Fountain Pen; piston diagram; current care FAQ for permanent ink.",
+      "evidence": [
+        {
+          "key": "service-guide-cleaning",
+          "sourceKey": "mb-service-guide-2024",
+          "scopeKey": "current-service",
+          "locator": "PDF page 8, printed pages 16-18: approximately every three months, lukewarm water without chemicals, no water in cap, full on flights and nib up."
+        },
+        {
+          "key": "care-page-permanent-ink",
+          "sourceKey": "mb-writing-instrument-care",
+          "scopeKey": "current-service",
+          "locator": "Permanent ink care answer: clean every two to three weeks."
+        },
+        {
+          "key": "piston-return-drops",
+          "sourceKey": "mb-service-guide-2024",
+          "scopeKey": "current-service",
+          "locator": "PDF page 3, printed pages 6-7 piston-filling diagram: return 4-6 drops."
+        }
+      ]
+    },
+    {
+      "key": "official-authenticity-service",
+      "predicate": "authenticity_evaluation",
+      "objectText": "Montblanc 当前提供付费真伪鉴定；精品店或授权零售商可送总部，真品可获鉴定证书。",
+      "factClass": "service",
+      "confidence": 0.98,
+      "sourceKey": "mb-writing-instrument-care",
+      "locator": "Authenticity evaluation FAQ.",
+      "evidence": [
+        {
+          "key": "official-authenticity-flow",
+          "sourceKey": "mb-writing-instrument-care",
+          "scopeKey": "current-service",
+          "locator": "Authenticity evaluation describes paid submission via boutique/authorized retailer and certificate for genuine products."
+        }
+      ]
+    },
+    {
+      "key": "licensed-photo-is-146-not-149",
+      "predicate": "media_identity_and_license",
+      "objectText": "Commons 文件说明明确把图中钢笔标为带双色 EF 笔尖的 Montblanc 146；授权为 CC BY 2.0。",
+      "factClass": "media",
+      "confidence": 0.99,
+      "sourceKey": "commons-montblanc-146-platinum",
+      "locator": "Commons Summary and Licensing sections; permanent revision oldid 1230391965.",
+      "evidence": [
+        {
+          "key": "commons-identity-license",
+          "sourceKey": "commons-montblanc-146-platinum",
+          "scopeKey": "media-sample",
+          "locator": "Description: 'The seminal Montblanc 146 with a two tone EF nib'; author M Dreibelbis; CC BY 2.0 verified by FlickreviewR 2."
+        }
+      ]
+    }
+  ],
+  "spec": {
+    "brandEntityId": "CJM8uLY0LmIX",
+    "values": {
+      "brand_entity_id": "CJM8uLY0LmIX",
+      "model_identifier": "146",
+      "series_name": "Meisterstück；现行官方型号名 LeGrand",
+      "release_year": "1949",
+      "fill_system": "内置活塞；现行 LeGrand 官方保养体系",
+      "current_reference_sku": "MB132460／M",
+      "nib": "现行锚点：Au585／14K 金，镀铑嵌饰",
+      "nib_sizes": "现行 LeGrand：EF、F、M、B、BB、OM、OB、OBB",
+      "material": "现行锚点：黑色 precious resin（品牌用语）",
+      "trim": "现行锚点：镀金饰件和带独立序列号的镀金笔夹",
+      "dimensions": "现行 MB132460：145.8 × 15.5 mm；官网未清楚标注两轴含义",
+      "weight": "现行 MB132460／M：25.42 g；MB132461／B：25.86 g",
+      "ink_capacity_ml": null,
+      "status": "现行 LeGrand 在售；2026-07-19 检索",
+      "historical_scope": "1949—1959 celluloid、1960 年代停产期、1970 年代树脂复产与当代 LeGrand 必须分代"
+    },
+    "evidence": [
+      {
+        "key": "brand-official",
+        "fieldKey": "brand_entity_id",
+        "sourceKey": "mb-legrand-mb132460",
+        "scopeKey": "current-legrand-m",
+        "locator": "Montblanc official product breadcrumb and product identity."
+      },
+      {
+        "key": "model-identifier-official-history",
+        "fieldKey": "model_identifier",
+        "sourceKey": "mb-meisterstuck-100-years",
+        "scopeKey": "model-history",
+        "locator": "Official 1949 narrative explicitly names 146."
+      },
+      {
+        "key": "series-current-official",
+        "fieldKey": "series_name",
+        "sourceKey": "mb-legrand-mb132460",
+        "scopeKey": "current-legrand-m",
+        "locator": "Current model selector and description use Meisterstück LeGrand."
+      },
+      {
+        "key": "release-official-1949",
+        "fieldKey": "release_year",
+        "sourceKey": "mb-meisterstuck-100-years",
+        "scopeKey": "model-history",
+        "locator": "1949 narrative naming the 142, 144 and 146 trio."
+      },
+      {
+        "key": "release-specialist-corroboration",
+        "fieldKey": "release_year",
+        "sourceKey": "vintage-montblanc-146g",
+        "scopeKey": "early-celluloid",
+        "locator": "Celluloid 146 production dated 1949-59."
+      },
+      {
+        "key": "fill-official-care",
+        "fieldKey": "fill_system",
+        "sourceKey": "mb-writing-instrument-care",
+        "scopeKey": "current-service",
+        "locator": "LeGrand grouped with 149 as piston-filling fountain pens."
+      },
+      {
+        "key": "sku-official",
+        "fieldKey": "current_reference_sku",
+        "sourceKey": "mb-legrand-mb132460",
+        "scopeKey": "current-legrand-m",
+        "locator": "Ident No. MB132460; selected size M."
+      },
+      {
+        "key": "nib-product",
+        "fieldKey": "nib",
+        "sourceKey": "mb-legrand-mb132460",
+        "scopeKey": "current-legrand-m",
+        "locator": "Nib Description: handcrafted Au585/14K gold nib with rhodium-coated inlay."
+      },
+      {
+        "key": "nib-sizes-product",
+        "fieldKey": "nib_sizes",
+        "sourceKey": "mb-legrand-mb132460",
+        "scopeKey": "current-legrand-m",
+        "locator": "LeGrand size selector: EF, F, M, B, BB, OM, OB, OBB."
+      },
+      {
+        "key": "nib-sizes-service",
+        "fieldKey": "nib_sizes",
+        "sourceKey": "mb-writing-instrument-care",
+        "scopeKey": "current-service",
+        "locator": "Current eight-width service selection and 149-only OBBB qualification."
+      },
+      {
+        "key": "material-product",
+        "fieldKey": "material",
+        "sourceKey": "mb-legrand-mb132460",
+        "scopeKey": "current-legrand-m",
+        "locator": "Barrel and cap descriptions: black precious resin."
+      },
+      {
+        "key": "trim-product",
+        "fieldKey": "trim",
+        "sourceKey": "mb-legrand-mb132460",
+        "scopeKey": "current-legrand-m",
+        "locator": "Gold-coated details and gold-coated clip with individual serial number."
+      },
+      {
+        "key": "dimensions-product",
+        "fieldKey": "dimensions",
+        "sourceKey": "mb-legrand-mb132460",
+        "scopeKey": "current-legrand-m",
+        "locator": "Dimensions field: 145.8 mm * 15.5 mm; axes not labelled on page."
+      },
+      {
+        "key": "weight-m-product",
+        "fieldKey": "weight",
+        "sourceKey": "mb-legrand-mb132460",
+        "scopeKey": "current-legrand-m",
+        "locator": "Physical Weight: 25.42 g for MB132460/M."
+      },
+      {
+        "key": "weight-b-product",
+        "fieldKey": "weight",
+        "sourceKey": "mb-legrand-mb132461",
+        "scopeKey": "current-legrand-b",
+        "locator": "Physical Weight: 25.86 g for MB132461/B."
+      },
+      {
+        "key": "ink-capacity-not-published",
+        "fieldKey": "ink_capacity_ml",
+        "sourceKey": "mb-legrand-mb132460",
+        "scopeKey": "current-legrand-m",
+        "locator": "Official product details, current care page and 2024 service guide contain no numeric 146/LeGrand ink-capacity field.",
+        "qualifies": false,
+        "researchStatus": "not_found_in_official_current_sources"
+      },
+      {
+        "key": "status-current-product",
+        "fieldKey": "status",
+        "sourceKey": "mb-legrand-mb132460",
+        "scopeKey": "current-legrand-m",
+        "locator": "Live official LeGrand product listing retrieved 2026-07-19."
+      },
+      {
+        "key": "history-official-material-boundary",
+        "fieldKey": "historical_scope",
+        "sourceKey": "mb-meisterstuck-100-years",
+        "scopeKey": "model-history",
+        "locator": "Official history distinguishes earlier ebonite/celluloid and current precious resin."
+      },
+      {
+        "key": "history-specialist-generations",
+        "fieldKey": "historical_scope",
+        "sourceKey": "vintage-montblanc-146g",
+        "scopeKey": "early-celluloid",
+        "locator": "Specialist chronology of celluloid era, production suspension, resin return and component changes."
+      }
+    ]
+  },
+  "conflicts": [
+    {
+      "key": "introduction-1948-vs-1949",
+      "fieldKey": "release_year",
+      "scopeKey": "model-history",
+      "conflictKind": "field",
+      "status": "resolved",
+      "resolutionNote": "采用 Montblanc 当前官方历史专题的 1949，并由独立收藏研究的 1949—1959 区间旁证。Hand Over That Pen 的历史段引用 Andreas Lambrou 后写作 mid-1948，保留为披露冲突；该来源仅用于三人握持体验。",
+      "members": [
+        {
+          "citationKey": "official-1949",
+          "sourceKey": "mb-meisterstuck-100-years",
+          "assertedValue": "1949"
+        },
+        {
+          "citationKey": "specialist-1949-start",
+          "sourceKey": "vintage-montblanc-146g",
+          "assertedValue": "1949"
+        },
+        {
+          "citationKey": "handover-history-1948",
+          "sourceKey": "handoverthatpen-146",
+          "assertedValue": "mid-1948",
+          "qualifies": false
+        }
+      ]
+    },
+    {
+      "key": "146-vs-legrand-name",
+      "fieldKey": "series_name",
+      "scopeKey": "model-history",
+      "conflictKind": "scope",
+      "status": "contextualized",
+      "resolutionNote": "历史层使用 146，现行商品层使用 LeGrand；标题并列两者用于检索，但不宣称当前页面仍以 146 作为商品标题。",
+      "members": [
+        {
+          "citationKey": "historical-146-identifier",
+          "sourceKey": "mb-meisterstuck-100-years",
+          "assertedValue": "146"
+        },
+        {
+          "citationKey": "current-legrand-selector",
+          "sourceKey": "mb-legrand-mb132460",
+          "assertedValue": "LeGrand"
+        }
+      ]
+    },
+    {
+      "key": "current-weight-by-nib-sku",
+      "fieldKey": "weight",
+      "scopeKey": "current-legrand-m",
+      "conflictKind": "variant",
+      "status": "resolved",
+      "resolutionNote": "不是互相矛盾的统一规格：25.42 g 绑定 MB132460／M，25.86 g 绑定 MB132461／B；页面与正文均保留 SKU。",
+      "members": [
+        {
+          "citationKey": "m-weight-25-42",
+          "sourceKey": "mb-legrand-mb132460",
+          "assertedValue": "25.42 g"
+        },
+        {
+          "citationKey": "b-weight-25-86",
+          "sourceKey": "mb-legrand-mb132461",
+          "assertedValue": "25.86 g"
+        }
+      ]
+    }
+  ],
+  "timeline": [
+    {
+      "key": "146-introduction",
+      "title": "146 进入 Meisterstück 三款系列",
+      "eventType": "model_released",
+      "startDate": "1949-01-01",
+      "circa": true,
+      "description": "Montblanc 官方专题将 142、144、146 的推出节点写为 1949 年。",
+      "sourceKey": "mb-meisterstuck-100-years"
+    },
+    {
+      "key": "celluloid-era-end",
+      "title": "早期 celluloid 生产区间结束",
+      "eventType": "production_change",
+      "startDate": "1959-01-01",
+      "circa": true,
+      "description": "独立收藏研究把 celluloid 146 区间写为 1949—1959 年。",
+      "sourceKey": "vintage-montblanc-146g"
+    },
+    {
+      "key": "production-hiatus-1960s",
+      "title": "1960 年代约十年停产",
+      "eventType": "production_suspended",
+      "startDate": "1960-01-01",
+      "circa": true,
+      "description": "收藏研究的近似区间，不应解释为某一全球统一停产日。",
+      "sourceKey": "vintage-montblanc-146g"
+    },
+    {
+      "key": "resin-production-return",
+      "title": "1970 年代以树脂版本复产",
+      "eventType": "production_resumed",
+      "startDate": "1970-01-01",
+      "circa": true,
+      "description": "墨窗、笔尖和活塞等结构继续渐进变化。",
+      "sourceKey": "vintage-montblanc-146g"
+    }
+  ],
+  "media": [
+    {
+      "key": "montblanc-146-platinum-primary",
+      "title": "Montblanc 146 铂金饰件、双色 EF 笔尖实拍",
+      "sourceKey": "commons-montblanc-146-platinum",
+      "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/5b/Montblanc_Meisterstuck_with_platinum_trim_%2826295588064%29.jpg",
+      "localPath": "/images/entities/montblanc/montblanc-146-platinum-trim.jpg",
+      "repositoryPath": "public/images/entities/montblanc/montblanc-146-platinum-trim.jpg",
+      "author": "M Dreibelbis",
+      "license": "cc-by-2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+      "attributionText": "Photo: M Dreibelbis, CC BY 2.0, via Wikimedia Commons; resized and recompressed.",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Montblanc_Meisterstuck_with_platinum_trim_(26295588064).jpg",
+      "identityNote": "Commons description explicitly identifies a Montblanc 146 with two-tone EF nib. This is a platinum-trim sample, not the gold-coated MB132460 current specification anchor and not a 149.",
+      "usageStatus": "primary",
+      "upstreamMetadata": {
+        "width": 2888,
+        "height": 1720,
+        "byteSize": 2127581,
+        "mimeType": "image/jpeg",
+        "sha1": "6d5e5eabd29896f253b95a12b23d2b5ac7b7882f",
+        "publishedAt": "2016-05-08",
+        "licenseReviewedAt": "2018-06-16",
+        "licenseReviewer": "FlickreviewR 2"
+      },
+      "localDerivative": {
+        "width": 2400,
+        "height": 1429,
+        "byteSize": 389597,
+        "mimeType": "image/jpeg",
+        "sha256": "4520e349884f3dc9d87806d875c90499960cd453a1650864ecf7ffb85b57e257",
+        "transform": "Aspect ratio preserved; resized to 2400 px width and recompressed as progressive JPEG; no crop and no content alteration."
+      },
+      "archiveLocator": "https://commons.wikimedia.org/w/index.php?title=File:Montblanc_Meisterstuck_with_platinum_trim_(26295588064).jpg&oldid=1230391965"
+    }
+  ],
+  "editorialGuardrails": [
+    "不得把 MB132460／M 的 25.42 g、145.8 × 15.5 mm、precious resin 或 Au585／14K 规格推广到 1949 年以来的所有 146。",
+    "不得把当前商品页仍称作 146；应写现行型号名 LeGrand，并把 146 作为历史编号和通行检索名。",
+    "不得把 Au585／14K 与 Au750／18K 直接解释为固定的软硬、弹性或书写品质高低。",
+    "不得填入非官方墨水容量数字；当前官方资料未找到数值。",
+    "Vintage Montblanc Pens 的年代和部件变化是 specialist secondary evidence，过渡区间使用约数，不能靠单一零件精确断年。",
+    "Hand Over That Pen 只支持三位使用者的体验差异，其改尖样本不能代表出厂笔尖表现；该页的 mid-1948 历史说法不作为主时间线。",
+    "本地图是铂金饰件 146 样本，图注必须保留与 MB132460 金色饰件现行规格锚点的区别；不得标成 149。",
+    "多个 Montblanc 官方页面同属一个 independenceGroup，不能写成多家独立来源一致确认。"
+  ],
+  "openQuestions": [
+    {
+      "key": "official-ink-capacity",
+      "question": "万宝龙是否在可核验的当前官方技术资料中公布 LeGrand／146 的墨水容量？",
+      "status": "open",
+      "impact": "保持 ink_capacity_ml 为 null，不采用零售商或个人测量。"
+    },
+    {
+      "key": "official-dimension-axis-labels",
+      "question": "官方 145.8 × 15.5 mm 两条轴的正式字段名是什么？",
+      "status": "open",
+      "impact": "只原样记录两项尺寸，不自行写成长和最大直径。"
+    },
+    {
+      "key": "primary-catalog-transition-dates",
+      "question": "能否从同期官方目录或服务文档进一步收紧 1960 年代停产和 1970 年代复产的具体区间？",
+      "status": "open",
+      "impact": "当前仅使用 specialist secondary 的近似年代，不伪造精确年份。"
+    }
+  ]
+}
