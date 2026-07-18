@@ -1059,12 +1059,24 @@ function writeFileExclusivelyAndSync(filePath: string, bytes: Buffer): void {
   }
 }
 
-function publishCanonicalArtifactSet(
+type ArtifactPublicationWindow = "after-backup" | "after-first-install";
+
+class ArtifactPublicationInterrupted extends Error {
+  readonly exitCode: number;
+
+  constructor(readonly signal: "SIGINT" | "SIGTERM") {
+    super(`Canonical artifact publication interrupted by ${signal}.`);
+    this.name = "ArtifactPublicationInterrupted";
+    this.exitCode = signal === "SIGINT" ? 130 : 143;
+  }
+}
+
+async function installCanonicalArtifactSet(
   finalOutDir: string,
   artifacts: ReadonlyMap<string, Buffer>,
   validateInstalledSet: () => void,
-): void {
-  assertCanonicalFinalOutDir(finalOutDir);
+  pauseAtWindow?: (window: ArtifactPublicationWindow) => Promise<void>,
+): Promise<void> {
   fs.mkdirSync(finalOutDir, { recursive: true });
   assertCondition(
     fs.statSync(finalOutDir).isDirectory() &&
@@ -1076,6 +1088,28 @@ function publishCanonicalArtifactSet(
   const backups = new Map<string, string>();
   const installed = new Set<string>();
   let completed = false;
+  let rejectInterruption: ((error: ArtifactPublicationInterrupted) => void) | null =
+    null;
+  const interruption = new Promise<never>((_resolve, reject) => {
+    rejectInterruption = reject;
+  });
+  const onSigint = () =>
+    rejectInterruption?.(new ArtifactPublicationInterrupted("SIGINT"));
+  const onSigterm = () =>
+    rejectInterruption?.(new ArtifactPublicationInterrupted("SIGTERM"));
+  const yieldAtWindow = async (
+    window: ArtifactPublicationWindow,
+  ): Promise<void> => {
+    await Promise.race([
+      (async () => {
+        await pauseAtWindow?.(window);
+        await new Promise<void>((resolve) => setImmediate(resolve));
+      })(),
+      interruption,
+    ]);
+  };
+  process.on("SIGINT", onSigint);
+  process.on("SIGTERM", onSigterm);
   try {
     for (const file of ARTIFACT_FILES) {
       const bytes = artifacts.get(file);
@@ -1098,9 +1132,15 @@ function publishCanonicalArtifactSet(
       fs.renameSync(target, backup);
       backups.set(target, backup);
     }
+    await yieldAtWindow("after-backup");
+    let installCount = 0;
     for (const [target, temp] of temporary) {
       fs.renameSync(temp, target);
       installed.add(target);
+      installCount += 1;
+      if (installCount === 1) {
+        await yieldAtWindow("after-first-install");
+      }
     }
     assertArtifactBuffersEqual(
       artifacts,
@@ -1110,23 +1150,41 @@ function publishCanonicalArtifactSet(
     validateInstalledSet();
     completed = true;
   } finally {
-    if (!completed) {
-      for (const target of installed) {
-        if (fs.existsSync(target)) fs.rmSync(target, { force: true });
+    try {
+      if (!completed) {
+        for (const target of installed) {
+          if (fs.existsSync(target)) fs.rmSync(target, { force: true });
+        }
+        for (const [target, backup] of [...backups].reverse()) {
+          if (fs.existsSync(backup)) fs.renameSync(backup, target);
+        }
       }
-      for (const [target, backup] of [...backups].reverse()) {
-        if (fs.existsSync(backup)) fs.renameSync(backup, target);
+      for (const temp of temporary.values()) {
+        if (fs.existsSync(temp)) fs.rmSync(temp, { force: true });
       }
-    }
-    for (const temp of temporary.values()) {
-      if (fs.existsSync(temp)) fs.rmSync(temp, { force: true });
-    }
-    if (completed) {
-      for (const backup of backups.values()) {
-        if (fs.existsSync(backup)) fs.rmSync(backup, { force: true });
+      if (completed) {
+        for (const backup of backups.values()) {
+          if (fs.existsSync(backup)) fs.rmSync(backup, { force: true });
+        }
       }
+    } finally {
+      process.off("SIGINT", onSigint);
+      process.off("SIGTERM", onSigterm);
     }
   }
+}
+
+async function publishCanonicalArtifactSet(
+  finalOutDir: string,
+  artifacts: ReadonlyMap<string, Buffer>,
+  validateInstalledSet: () => void,
+): Promise<void> {
+  assertCanonicalFinalOutDir(finalOutDir);
+  await installCanonicalArtifactSet(
+    finalOutDir,
+    artifacts,
+    validateInstalledSet,
+  );
 }
 
 async function runRealArtifactsContract(
@@ -1211,7 +1269,7 @@ async function runRealArtifactsContract(
     });
 
     assertSourceStillLocked(sourceBefore);
-    publishCanonicalArtifactSet(finalOutDir, unlimitedArtifacts, () => {
+    await publishCanonicalArtifactSet(finalOutDir, unlimitedArtifacts, () => {
       assertSourceStillLocked(sourceBefore);
     });
     assertArtifactBuffersEqual(
@@ -1234,6 +1292,202 @@ async function seedArtifactFixture(client: Client): Promise<void> {
     args: [CSV_FORMULA_NAME],
   });
   await client.execute("PRAGMA wal_checkpoint(TRUNCATE)");
+}
+
+type ArtifactSignalProbeReport = {
+  phase: "ready" | "cleaned";
+  tempRoot: string;
+  finalOutDir: string;
+  signal: "SIGINT" | "SIGTERM";
+  window: ArtifactPublicationWindow;
+  restoredHashes?: string[];
+};
+
+function artifactSignalProbeBytes(label: string): Map<string, Buffer> {
+  return new Map(
+    ARTIFACT_FILES.map((file, index) => [
+      file,
+      Buffer.from(`${label}:${index}:${file}\n`, "utf8"),
+    ]),
+  );
+}
+
+async function runArtifactSignalProbe(
+  signal: "SIGINT" | "SIGTERM",
+  window: ArtifactPublicationWindow,
+  reportFile: string,
+): Promise<void> {
+  const tempRoot = fs.realpathSync.native(
+    fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-artifact-signal-probe-")),
+  );
+  const finalOutDir = path.join(tempRoot, "artifacts");
+  const originalArtifacts = artifactSignalProbeBytes("original");
+  const replacementArtifacts = artifactSignalProbeBytes("replacement");
+  fs.mkdirSync(finalOutDir, { recursive: true });
+  for (const [file, bytes] of originalArtifacts) {
+    fs.writeFileSync(path.join(finalOutDir, file), bytes);
+  }
+  try {
+    await installCanonicalArtifactSet(
+      finalOutDir,
+      replacementArtifacts,
+      () => undefined,
+      async (currentWindow) => {
+        if (currentWindow !== window) return;
+        const report: ArtifactSignalProbeReport = {
+          phase: "ready",
+          tempRoot,
+          finalOutDir,
+          signal,
+          window,
+        };
+        fs.writeFileSync(reportFile, JSON.stringify(report));
+        await new Promise<void>((resolve) => {
+          const timer = setInterval(() => undefined, 1_000);
+          const release = () => {
+            clearInterval(timer);
+            process.off("SIGINT", release);
+            process.off("SIGTERM", release);
+            resolve();
+          };
+          process.once("SIGINT", release);
+          process.once("SIGTERM", release);
+        });
+      },
+    );
+    throw new Error("Artifact signal probe completed without a signal.");
+  } catch (error) {
+    if (!(error instanceof ArtifactPublicationInterrupted)) throw error;
+    assertArtifactBuffersEqual(
+      originalArtifacts,
+      readArtifacts(finalOutDir),
+      `${signal} ${window} restored artifact set`,
+    );
+    const residue = fs
+      .readdirSync(finalOutDir)
+      .filter((entry) => entry.endsWith(".tmp") || entry.endsWith(".backup"));
+    assertCondition(
+      residue.length === 0,
+      `${signal} ${window} left publication residue: ${residue.join(", ")}.`,
+    );
+    const cleanedReport: ArtifactSignalProbeReport = {
+      phase: "cleaned",
+      tempRoot,
+      finalOutDir,
+      signal,
+      window,
+      restoredHashes: artifactHashes(originalArtifacts),
+    };
+    fs.rmSync(tempRoot, { recursive: true, force: true });
+    fs.writeFileSync(reportFile, JSON.stringify(cleanedReport));
+    throw error;
+  }
+}
+
+async function readArtifactSignalProbeReport(
+  reportFile: string,
+  expectedPhase: ArtifactSignalProbeReport["phase"],
+  timeoutMs: number,
+): Promise<ArtifactSignalProbeReport> {
+  const deadline = Date.now() + timeoutMs;
+  while (Date.now() < deadline) {
+    try {
+      const report = JSON.parse(
+        fs.readFileSync(reportFile, "utf8"),
+      ) as ArtifactSignalProbeReport;
+      if (report.phase === expectedPhase) return report;
+    } catch {
+      // The child may still be replacing the small report atomically enough for JSON parsing.
+    }
+    await new Promise((resolve) => setTimeout(resolve, 25));
+  }
+  throw new Error(
+    `Timed out waiting for artifact signal probe phase ${expectedPhase}.`,
+  );
+}
+
+async function assertArtifactPublicationSignalSafety(): Promise<void> {
+  const require = createRequire(import.meta.url);
+  const tsxCli = require.resolve("tsx/cli");
+  for (const signal of ["SIGINT", "SIGTERM"] as const) {
+    for (const window of ["after-backup", "after-first-install"] as const) {
+      const reportFile = path.join(
+        os.tmpdir(),
+        `fpkg-artifact-${signal.toLowerCase()}-${window}-${process.pid}-${Date.now()}.json`,
+      );
+      const output: string[] = [];
+      let tempRoot = "";
+      const child = spawn(
+        process.execPath,
+        [
+          tsxCli,
+          SCRIPT_PATH,
+          "--artifact-signal-probe",
+          "--signal",
+          signal,
+          "--window",
+          window,
+          "--report",
+          reportFile,
+        ],
+        {
+          cwd: ROOT,
+          env: {
+            ...process.env,
+            TURSO_DATABASE_URL: "",
+            TURSO_AUTH_TOKEN: "",
+            FPKG_DATABASE_URL: "",
+            PUBLICATION_GATE_FIXTURE: "",
+          },
+          stdio: ["ignore", "pipe", "pipe"],
+        },
+      );
+      child.stdout?.on("data", (chunk) => output.push(String(chunk)));
+      child.stderr?.on("data", (chunk) => output.push(String(chunk)));
+      try {
+        const ready = await readArtifactSignalProbeReport(
+          reportFile,
+          "ready",
+          10_000,
+        );
+        tempRoot = ready.tempRoot;
+        assertCondition(
+          fs.existsSync(ready.finalOutDir),
+          `${signal} ${window} did not reach the requested publication window.`,
+        );
+        child.kill(signal);
+        assertCondition(
+          await waitForChildExit(child, 8_000),
+          `${signal} ${window} publication probe did not exit.`,
+        );
+        const cleaned = await readArtifactSignalProbeReport(
+          reportFile,
+          "cleaned",
+          1_000,
+        );
+        assertCondition(
+          child.signalCode === null &&
+            child.exitCode === (signal === "SIGINT" ? 130 : 143) &&
+            !fs.existsSync(cleaned.tempRoot) &&
+            cleaned.restoredHashes?.length === ARTIFACT_FILES.length,
+          `${signal} ${window} did not restore the complete artifact set and clean its owned root.`,
+        );
+      } catch (error) {
+        await stopChild(child);
+        throw new Error(
+          `Artifact publication ${signal} ${window} probe failed: ${
+            error instanceof Error ? error.message : String(error)
+          }. ${output.join("")}`,
+          { cause: error },
+        );
+      } finally {
+        if (tempRoot && fs.existsSync(tempRoot)) {
+          fs.rmSync(tempRoot, { recursive: true, force: true });
+        }
+        fs.rmSync(reportFile, { force: true });
+      }
+    }
+  }
 }
 
 async function runArtifactsLimitContract(): Promise<void> {
@@ -1336,8 +1590,10 @@ async function runArtifactsLimitContract(): Promise<void> {
     );
   });
 
+  await assertArtifactPublicationSignalSafety();
+
   console.log(
-    "Audit artifact contract passed: repeat and limit=1 bytes, hashes, summary, verdict, and exit semantics are identical; only terminal preview is limited.",
+    "Audit artifact contract passed: repeat and limit=1 bytes, hashes, summary, verdict, and exit semantics are identical; SIGINT/SIGTERM restore the complete artifact set at backup/install windows; only terminal preview is limited.",
   );
 }
 
@@ -2888,6 +3144,23 @@ async function runSignalProbe(reportFile: string): Promise<void> {
 
 async function main(): Promise<void> {
   const args = process.argv.slice(2).filter((arg) => arg !== "--");
+  if (args[0] === "--artifact-signal-probe") {
+    const signalIndex = args.indexOf("--signal");
+    const windowIndex = args.indexOf("--window");
+    const reportIndex = args.indexOf("--report");
+    const signal = args[signalIndex + 1];
+    const window = args[windowIndex + 1];
+    const reportFile = args[reportIndex + 1];
+    assertCondition(
+      args.length === 7 &&
+        (signal === "SIGINT" || signal === "SIGTERM") &&
+        (window === "after-backup" || window === "after-first-install") &&
+        reportFile,
+      "--artifact-signal-probe requires --signal SIGINT|SIGTERM --window after-backup|after-first-install --report <path>.",
+    );
+    await runArtifactSignalProbe(signal, window, reportFile);
+    return;
+  }
   if (args[0] === "--signal-probe") {
     const reportIndex = args.indexOf("--report");
     const reportFile = reportIndex >= 0 ? args[reportIndex + 1] : undefined;
@@ -2973,5 +3246,6 @@ async function main(): Promise<void> {
 
 main().catch((error) => {
   console.error(error instanceof Error ? error.message : String(error));
-  process.exitCode = 1;
+  process.exitCode =
+    error instanceof ArtifactPublicationInterrupted ? error.exitCode : 1;
 });
