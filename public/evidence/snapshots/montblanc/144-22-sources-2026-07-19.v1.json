@@ -1,0 +1,93 @@
+{
+  "schema": "fountain-pen-evidence-snapshot/v1",
+  "kind": "project_evidence_snapshot",
+  "entities": [
+    {
+      "id": "Eh5c49pldpwk",
+      "slug": "万宝龙-montblanc-144",
+      "name": "万宝龙 Montblanc 144 (Vintage)"
+    },
+    {
+      "id": "nOIr_Up5WcyJ",
+      "slug": "万宝龙-montblanc-学生龙22",
+      "name": "万宝龙 Montblanc 学生龙22 (Vintage)",
+      "identity_note": "The Chinese inventory name is retained only as a search alias. No primary evidence establishes Student as an official Montblanc model name."
+    }
+  ],
+  "retrieved_at": "2026-07-19",
+  "archive_status": {
+    "external_source_archives_complete": false,
+    "note": "This snapshot preserves source metadata, paraphrased findings and research locators only. It is not a copy of the source pages and stores no copyrighted source text or images."
+  },
+  "rights": {
+    "allowed_use": "summary_only",
+    "raw_documents_stored": false,
+    "source_images_stored": false
+  },
+  "research_manifest": {
+    "path": ".planning/content-research/montblanc-144-22-sources-2026-07-19.json",
+    "commit": "2b2d01153037040e5b8791f31c395b8e64c8a1a2"
+  },
+  "sources": [
+    {
+      "key": "mb-meisterstuck-100",
+      "url": "https://www.montblanc.com/en-gb/discover/edit/meisterstuck-100-years.html",
+      "research_record": "sources[source_id=mb-meisterstuck-100]"
+    },
+    {
+      "key": "vintage-mb-no-144",
+      "url": "https://www.vintagemontblancpens.com/no-144",
+      "research_record": "sources[source_id=vintage-mb-no-144]"
+    },
+    {
+      "key": "fountainpen-de-144-periods",
+      "url": "https://www.fountainpen.de/faq-en/0d1435-in-which-periods-were-the-montblanc-meisterstueck-144-and.htm",
+      "research_record": "sources[source_id=fountainpen-de-144-periods]"
+    },
+    {
+      "key": "fountainpen-de-144-guide",
+      "url": "https://www.fountainpen.de/c-montblanc-meisterstueck-144.htm",
+      "research_record": "sources[source_id=fountainpen-de-144-guide]"
+    },
+    {
+      "key": "mishkas-144-1990s",
+      "url": "https://mishkaspens.com/vintage-pens/vintage-fountain-pens/mont-blanc-144-fountain-pen-1990s-model/",
+      "research_record": "sources[source_id=mishkas-144-1990s]"
+    },
+    {
+      "key": "andrew-lensky-144-generations",
+      "url": "https://lenskiy.org/2023/10/montblanc-meisterstuck-144-gen-2/",
+      "research_record": "sources[source_id=andrew-lensky-144-generations]"
+    },
+    {
+      "key": "schreibkultur-144-classique",
+      "url": "https://schreibkultur.net/montblanc-meisterstueck-144-classique/",
+      "research_record": "sources[source_id=schreibkultur-144-classique]"
+    },
+    {
+      "key": "mb-current-classique",
+      "url": "https://www.montblanc.com/en-us/meisterstuck-classique-fountain-pen-MB132581VG.html",
+      "research_record": "sources[source_id=mb-current-classique]"
+    },
+    {
+      "key": "chris-raper-classic-pens",
+      "url": "https://chrisraper.org.uk/blog/montblanc-classic-pens/",
+      "research_record": "sources[source_id=chris-raper-classic-pens]"
+    },
+    {
+      "key": "fountainpen-de-no-22",
+      "url": "https://www.fountainpen.de/old-60-22.htm",
+      "research_record": "sources[source_id=fountainpen-de-no-22]"
+    },
+    {
+      "key": "peyton-street-no-22",
+      "url": "https://www.peytonstreetpens.com/montblanc-22-fountain-pen-1960s-black-piston-fill-14k-broad-nib-excellent-works-well.html",
+      "research_record": "sources[source_id=peyton-street-no-22]"
+    },
+    {
+      "key": "penboard-mb-1960s",
+      "url": "https://www.penboard.de/shop/hlist/MB/VI60/0/setla%3Dit",
+      "research_record": "sources[source_id=penboard-mb-1960s]"
+    }
+  ]
+}

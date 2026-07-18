@@ -162,6 +162,12 @@ function sourceMetadata(source: PublishedSource): string {
   return [source.sourceName, source.archiveLocator].filter(Boolean).join(" · ");
 }
 
+function archiveLinkLabel(source: PublishedSource): string {
+  return source.archiveLocator?.startsWith("project-evidence-snapshot:")
+    ? "查看证据快照"
+    : "查看存档";
+}
+
 function QualifiedSources({ sources }: { sources: PublishedSource[] }) {
   if (sources.length === 0) return null;
   return (
@@ -190,10 +196,10 @@ function QualifiedSources({ sources }: { sources: PublishedSource[] }) {
                 href={source.archiveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label={`${source.title}存档（在新窗口打开）`}
+                aria-label={`${source.title}${archiveLinkLabel(source)}（在新窗口打开）`}
                 className="encyclopedia-source-link mt-2 text-sm ink-underline"
               >
-                查看存档
+                {archiveLinkLabel(source)}
               </a>
             ) : null}
           </li>

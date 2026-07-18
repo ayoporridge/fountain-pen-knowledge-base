@@ -20,6 +20,7 @@ import {
   computePublicationContentHash,
   publishEntity,
   recordEntityContentReview,
+  setEntityPublicationStatus,
 } from "../src/lib/publication";
 
 export interface ApplyPhase22Options {
@@ -35,7 +36,7 @@ export interface ApplyPhase22Options {
 export interface ApplyPhase22Result {
   entities: Array<{
     entityId: string;
-    outcome: "published" | "noop";
+    outcome: "published" | "blocked" | "noop";
     contentHash: string;
   }>;
 }
@@ -104,6 +105,8 @@ function localPublicFile(workspaceRoot: string, localPath: string): string {
 }
 
 function validatePack(workspaceRoot: string, pack: LoadedCuratedEntityPack): void {
+  const publicationIntent = pack.publicationIntent ?? "publish";
+  const publicationBlockers = pack.publicationBlockers ?? [];
   const summaryLength = Array.from(pack.summary).length;
   const minimumBody = pack.expectedType === "brand" ? 1_200 : 2_000;
   if (summaryLength < 60 || summaryLength > 160) {
@@ -120,6 +123,20 @@ function validatePack(workspaceRoot: string, pack: LoadedCuratedEntityPack): voi
     if (!source.archiveUrl?.trim() || !source.archiveLocator?.trim()) {
       throw new Error(`${pack.key} source ${source.key} lacks honest archive evidence.`);
     }
+    if (source.archiveUrl.includes(".planning/")) {
+      throw new Error(`${pack.key} source ${source.key} exposes an internal planning path.`);
+    }
+    if (source.archiveUrl.startsWith("/")) {
+      const archiveFile = path.join(workspaceRoot, "public", source.archiveUrl.slice(1));
+      if (!fs.existsSync(archiveFile) || !fs.statSync(archiveFile).isFile()) {
+        throw new Error(`${pack.key} source ${source.key} evidence snapshot is missing.`);
+      }
+    } else {
+      const archiveUrl = new URL(source.archiveUrl);
+      if (!(archiveUrl.protocol === "https:" || archiveUrl.protocol === "http:")) {
+        throw new Error(`${pack.key} source ${source.key} has an unsafe archive URL.`);
+      }
+    }
   }
   for (const claim of pack.claims) {
     if (!sourceKeys.has(claim.sourceKey) || claim.evidence.length === 0) {
@@ -127,8 +144,21 @@ function validatePack(workspaceRoot: string, pack: LoadedCuratedEntityPack): voi
     }
   }
   const primaryMedia = pack.media.filter((media) => media.usageStatus === "primary");
-  if (primaryMedia.length !== 1) {
+  if (publicationIntent === "publish" && primaryMedia.length !== 1) {
     throw new Error(`${pack.key} must declare exactly one primary image.`);
+  }
+  if (publicationIntent === "publish" && publicationBlockers.length > 0) {
+    throw new Error(`${pack.key} cannot publish with declared blockers.`);
+  }
+  if (publicationIntent === "blocked-draft" && publicationBlockers.length === 0) {
+    throw new Error(`${pack.key} blocked draft must declare at least one blocker.`);
+  }
+  if (
+    publicationIntent === "blocked-draft" &&
+    publicationBlockers.includes("missing_approved_primary_media") &&
+    primaryMedia.length !== 0
+  ) {
+    throw new Error(`${pack.key} declares missing primary media but also supplies one.`);
   }
   for (const media of pack.media) {
     if (!sourceKeys.has(media.sourceKey)) {
@@ -731,15 +761,21 @@ async function preflightEntityIdentity(client: Client, packs: LoadedCuratedEntit
       throw new Error(`Phase 22 canonical identity mismatch: ${pack.entityId}`);
     }
   }
-  const pen = packs.find((pack) => pack.expectedType === "pen");
-  const brand = packs.find((pack) => pack.expectedType === "brand");
-  if (!pen || !brand) throw new Error("Phase 22 requires one brand and one pen pack.");
-  const madeBy = await client.execute({
-    sql: `SELECT target_id FROM entity_links WHERE source_id = ? AND link_type = 'made_by'`,
-    args: [pen.entityId],
-  });
-  if (madeBy.rows.length !== 1 || String(madeBy.rows[0]?.target_id) !== brand.entityId) {
-    throw new Error("Phase 22 canonical made_by link is missing or ambiguous.");
+  const pens = packs.filter((pack) => pack.expectedType === "pen");
+  const brands = packs.filter((pack) => pack.expectedType === "brand");
+  if (pens.length === 0 || brands.length !== 1) {
+    throw new Error("Phase 22 requires exactly one brand and at least one pen pack.");
+  }
+  const brand = brands[0];
+  if (!brand) throw new Error("Phase 22 brand pack is missing.");
+  for (const pen of pens) {
+    const madeBy = await client.execute({
+      sql: `SELECT target_id FROM entity_links WHERE source_id = ? AND link_type = 'made_by'`,
+      args: [pen.entityId],
+    });
+    if (madeBy.rows.length !== 1 || String(madeBy.rows[0]?.target_id) !== brand.entityId) {
+      throw new Error(`Phase 22 canonical made_by link is missing or ambiguous: ${pen.entityId}`);
+    }
   }
 }
 
@@ -750,9 +786,11 @@ async function alreadyApplied(
   for (const pack of packs) {
     const row = await client.execute({
       sql: `
-        SELECT entity.source, readiness.blocker_count, readiness.publishable,
+        SELECT entity.source, publication.status, readiness.blocker_count,
+               readiness.blockers_json, readiness.publishable,
                CASE WHEN public.id IS NULL THEN 0 ELSE 1 END AS is_public
         FROM entities entity
+        JOIN entity_publications publication ON publication.entity_id = entity.id
         LEFT JOIN public_entity_readiness readiness
           ON readiness.entity_id = entity.id AND readiness.contract_version = 3
         LEFT JOIN public_entities public ON public.id = entity.id
@@ -761,17 +799,68 @@ async function alreadyApplied(
       args: [pack.entityId],
     });
     const current = row.rows[0];
+    if (!current || String(current.source ?? "") !== pack.sourceMarker) {
+      return false;
+    }
+    const publicationIntent = pack.publicationIntent ?? "publish";
+    if (publicationIntent === "publish") {
+      if (
+        String(current.status) !== "published" ||
+        Number(current.blocker_count) !== 0 ||
+        Number(current.publishable) !== 1 ||
+        Number(current.is_public) !== 1
+      ) {
+        return false;
+      }
+      continue;
+    }
+    const blockers = new Set<string>(
+      JSON.parse(String(current.blockers_json ?? "[]")) as string[],
+    );
     if (
-      !current ||
-      String(current.source ?? "") !== pack.sourceMarker ||
-      Number(current.blocker_count) !== 0 ||
-      Number(current.publishable) !== 1 ||
-      Number(current.is_public) !== 1
+      String(current.status) !== "draft" ||
+      Number(current.is_public) !== 0 ||
+      !(pack.publicationBlockers ?? []).every((blocker) => blockers.has(blocker))
     ) {
       return false;
     }
   }
   return true;
+}
+
+async function preserveBlockedDraft(
+  client: Client,
+  pack: LoadedCuratedEntityPack,
+): Promise<string> {
+  await setEntityPublicationStatus(client, pack.entityId, "draft");
+  const readiness = await client.execute({
+    sql: `
+      SELECT blockers_json
+      FROM public_entity_readiness
+      WHERE entity_id = ? AND contract_version = 3
+    `,
+    args: [pack.entityId],
+  });
+  const blockersJson = String(readiness.rows[0]?.blockers_json ?? "[]");
+  const blockers = new Set<string>(JSON.parse(blockersJson) as string[]);
+  for (const blocker of pack.publicationBlockers ?? []) {
+    if (!blockers.has(blocker)) {
+      throw new Error(`Phase 22 expected blocker is missing for ${pack.entityId}: ${blocker}`);
+    }
+  }
+  await client.execute({
+    sql: `
+      UPDATE entity_publications
+      SET blockers_json = ?, review_notes = ?, updated_at = datetime('now')
+      WHERE entity_id = ? AND status = 'draft'
+    `,
+    args: [
+      blockersJson,
+      `${pack.sourceMarker}; blocked draft: ${(pack.publicationBlockers ?? []).join(", ")}`,
+      pack.entityId,
+    ],
+  });
+  return computePublicationContentHash(client, pack.entityId);
 }
 
 export async function applyPhase22MontblancContent(
@@ -814,6 +903,14 @@ export async function applyPhase22MontblancContent(
 
   const entities: ApplyPhase22Result["entities"] = [];
   for (const pack of packs) {
+    if ((pack.publicationIntent ?? "publish") === "blocked-draft") {
+      entities.push({
+        entityId: pack.entityId,
+        outcome: "blocked",
+        contentHash: await preserveBlockedDraft(client, pack),
+      });
+      continue;
+    }
     for (const reviewKind of ["fact", "language", "media"] as const) {
       await recordEntityContentReview(client, {
         entityId: pack.entityId,

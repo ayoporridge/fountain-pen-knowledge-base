@@ -179,9 +179,32 @@ describe("server markup encyclopedia shell", () => {
     assert.match(html, /src="\/media\/renderer-model\.jpg"/);
     assert.match(html, /Fixture Photographer \/ CC BY 4\.0/);
     assert.match(html, /Renderer 官方资料/);
+    assert.match(html, /查看存档/);
     assert.match(html, /href="\/brand\/renderer-brand"/);
     assert.match(html, /href="#身份与产品线"/);
     assert.match(html, /href="#书写体验"/);
+  });
+
+  it("labels project-owned evidence honestly instead of calling it an external archive", async () => {
+    const data = modelPage({
+      sources: [
+        {
+          title: "Renderer 证据快照",
+          url: "https://example.com/source",
+          sourceName: "Project evidence",
+          archiveUrl: "/evidence/snapshots/renderer.json",
+          archiveLocator:
+            "project-evidence-snapshot:/evidence/snapshots/renderer.json#source",
+        },
+      ],
+    });
+    const document = await renderMarkdownDocument(data.story.bodyMd);
+    const html = renderToStaticMarkup(
+      createElement(EncyclopediaShell, { data, document }),
+    );
+
+    assert.match(html, /查看证据快照/);
+    assert.doesNotMatch(html, />查看存档</);
   });
 
   it("omits absent optional modules and their navigation targets", async () => {

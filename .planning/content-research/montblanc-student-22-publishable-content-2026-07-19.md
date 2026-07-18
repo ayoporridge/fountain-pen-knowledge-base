@@ -2,7 +2,7 @@
 
 ## summary
 
-Montblanc No. 22 是约 1960—1970 年生产的细身、短尺寸活塞钢笔，配 14K 金尖、蓝色墨窗、按压帽和两道帽环。中文二手市场常叫它“学生龙”，但现有目录研究把 22 明确放在当年的 Medium 中档系列，而不是 Economy 经济系列，也未找到万宝龙使用“Student”作为正式型号名的证据。
+Montblanc No. 22 是约 1960—1970 年生产的细身短尺寸活塞钢笔，配 14K 金尖、蓝色墨窗、按压帽和两道帽环。中文二手市场常叫它“学生龙”，但现有目录研究把它列在当年的 Medium 中档系列，并未找到万宝龙以“Student”作为正式型号名的证据。
 
 ## model_specs
 
@@ -117,4 +117,3 @@ No. 22 的短而细、按压开帽和内置活塞，适合把它当作日常随�
   https://www.penboard.de/shop/hlist/MB/VI60/0/setla%3Dit
 - Montblanc：Writing Instruments Service Guide 2024，温水清洗与通用保养边界  
   https://www.montblanc.com/on/demandware.static/-/Library-Sites-WWSharedLibrary/default/documents/ServiceGuide_WI_online_2024_GB.pdf
-

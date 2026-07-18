@@ -1,0 +1,66 @@
+{
+  "schema": "fountain-pen-evidence-snapshot/v1",
+  "kind": "project_evidence_snapshot",
+  "entity": {
+    "id": "91c7e6azUmK8",
+    "slug": "万宝龙-montblanc-大班146",
+    "name": "万宝龙 Montblanc 大班 146／Meisterstück LeGrand"
+  },
+  "retrieved_at": "2026-07-19",
+  "archive_status": {
+    "external_source_archives_complete": false,
+    "note": "This snapshot preserves source metadata, paraphrased findings and exact research locators. It does not claim to be a copy of the source pages and stores no copyrighted source text or images. The Wikimedia media source uses its own permanent revision instead."
+  },
+  "rights": {
+    "allowed_use": "summary_only",
+    "raw_documents_stored": false,
+    "source_images_stored": false
+  },
+  "research_manifest": {
+    "path": ".planning/content-research/montblanc-146-sources-2026-07-19.json",
+    "commit": "5002ab6baf5ab688e5e2051ee0a757f406e29adf"
+  },
+  "sources": [
+    {
+      "key": "mb-meisterstuck-100-years",
+      "url": "https://www.montblanc.com/en-gb/discover/edit/meisterstuck-100-years.html",
+      "research_record": "sources[key=mb-meisterstuck-100-years]"
+    },
+    {
+      "key": "mb-legrand-mb132460",
+      "url": "https://www.montblanc.com/en-co/meisterstuck-gold-coated-legrand-fountain-pen-MB132460.html",
+      "research_record": "sources[key=mb-legrand-mb132460]"
+    },
+    {
+      "key": "mb-legrand-mb132461",
+      "url": "https://www.montblanc.com/en-us/meisterstuck-legrand-fountain-pen-MB132461.html",
+      "research_record": "sources[key=mb-legrand-mb132461]"
+    },
+    {
+      "key": "mb-writing-instrument-care",
+      "url": "https://www.montblanc.com/en-co/customer-service-rna/care-services/writing-instruments.html",
+      "research_record": "sources[key=mb-writing-instrument-care]"
+    },
+    {
+      "key": "mb-149-mb132114",
+      "url": "https://www.montblanc.com/en-us/meisterstuck-gold-coated-149-fountain-pen-%28b%29-MB132114.html",
+      "research_record": "sources[key=mb-149-mb132114]"
+    },
+    {
+      "key": "vintage-montblanc-146g",
+      "url": "https://www.vintagemontblancpens.com/no-146-g",
+      "research_record": "sources[key=vintage-montblanc-146g]"
+    },
+    {
+      "key": "handoverthatpen-146",
+      "url": "https://www.handoverthatpen.com/2017/03/10/review-montblanc-legrand-146/",
+      "research_record": "sources[key=handoverthatpen-146]"
+    },
+    {
+      "key": "commons-montblanc-146-platinum",
+      "url": "https://commons.wikimedia.org/wiki/File:Montblanc_Meisterstuck_with_platinum_trim_(26295588064).jpg",
+      "research_record": "sources[key=commons-montblanc-146-platinum]",
+      "external_archive": "https://commons.wikimedia.org/w/index.php?title=File:Montblanc_Meisterstuck_with_platinum_trim_(26295588064).jpg&oldid=1230391965"
+    }
+  ]
+}

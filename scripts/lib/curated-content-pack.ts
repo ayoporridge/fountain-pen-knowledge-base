@@ -151,12 +151,16 @@ export interface CuratedConflict {
   members: Array<{ citationKey: string; assertedValue: string }>;
 }
 
+export type CuratedPublicationBlocker = "missing_approved_primary_media";
+
 export interface CuratedEntityPack {
   key: string;
   entityId: string;
   expectedType: "brand" | "pen";
   expectedSlug: string;
   canonicalName: string;
+  publicationIntent?: "publish" | "blocked-draft";
+  publicationBlockers?: CuratedPublicationBlocker[];
   markdownFile: string;
   storyTitle: string;
   primarySourceKey: string;
