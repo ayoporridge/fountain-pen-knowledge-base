@@ -176,6 +176,7 @@ END;
 CREATE TRIGGER entity_content_review_legacy_update_guard
 BEFORE UPDATE ON entity_content_reviews
 WHEN substr(OLD.content_hash, 1, 10) != 'sha256:v3:'
+  OR substr(NEW.content_hash, 1, 10) != 'sha256:v3:'
 BEGIN
   SELECT RAISE(ABORT, 'publication_guard: legacy review history is immutable');
 END;

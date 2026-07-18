@@ -16,6 +16,9 @@ const ROOT = process.cwd();
 const CANONICAL_MIGRATIONS = path.join(ROOT, "migrations");
 const MIGRATION_032 = "032_taxonomy_identity.sql";
 const V2_HASH = `sha256:v2:${"2".repeat(64)}`;
+const FORGED_V2_HASH = `sha256:v2:${"3".repeat(64)}`;
+const V3_REVOKED_HASH = `sha256:v3:${"4".repeat(64)}`;
+const V3_APPROVED_HASH = `sha256:v3:${"5".repeat(64)}`;
 
 type Fixture = {
   client: Client;
@@ -437,6 +440,49 @@ test("taxonomy substrate and migration replay preserve revoked v2 compatibility"
         ) VALUES ('new-v2-review', 'pen-v2', 'fact', ?, 'pending')`,
         args: [V2_HASH],
       }),
+    );
+    await fixture.client.execute({
+      sql: `INSERT INTO entity_content_reviews (
+        id, entity_id, review_kind, content_hash, status
+      ) VALUES ('runtime-v3-revoked', 'pen-v2', 'fact', ?, 'revoked')`,
+      args: [V3_REVOKED_HASH],
+    });
+    await fixture.client.execute({
+      sql: `INSERT INTO entity_content_reviews (
+        id, entity_id, review_kind, content_hash, status, reviewer, reviewed_at
+      ) VALUES ('runtime-v3-approved', 'pen-v2', 'language', ?, 'approved',
+        'fixture-reviewer', '2026-07-19T00:00:00Z')`,
+      args: [V3_APPROVED_HASH],
+    });
+    for (const reviewId of ["runtime-v3-revoked", "runtime-v3-approved"]) {
+      await assert.rejects(
+        fixture.client.execute({
+          sql: `UPDATE entity_content_reviews
+                SET content_hash = ?, status = 'revoked'
+                WHERE id = ?`,
+          args: [FORGED_V2_HASH, reviewId],
+        }),
+      );
+    }
+    assert.deepEqual(
+      await sqlRows(
+        fixture.client,
+        `SELECT id, content_hash, status FROM entity_content_reviews
+         WHERE id IN ('runtime-v3-revoked', 'runtime-v3-approved')
+         ORDER BY id`,
+      ),
+      [
+        {
+          id: "runtime-v3-approved",
+          content_hash: V3_APPROVED_HASH,
+          status: "approved",
+        },
+        {
+          id: "runtime-v3-revoked",
+          content_hash: V3_REVOKED_HASH,
+          status: "revoked",
+        },
+      ],
     );
   });
 });
