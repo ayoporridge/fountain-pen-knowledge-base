@@ -3,7 +3,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
-import { createClient, type Client } from "@libsql/client";
+import { createClient, type Client, type InArgs } from "@libsql/client";
 import { migrateDatabase } from "../../src/lib/db";
 import {
   computePublicationContentHash,
@@ -28,7 +28,10 @@ async function sqlRows(
   sql: string,
   args: unknown[] = [],
 ): Promise<Record<string, unknown>[]> {
-  return (await client.execute({ sql, args })).rows as Record<string, unknown>[];
+  return (await client.execute({ sql, args: args as InArgs })).rows as Record<
+    string,
+    unknown
+  >[];
 }
 
 async function sqlOne(

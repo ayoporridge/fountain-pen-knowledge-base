@@ -346,6 +346,35 @@ const PUBLICATION_SCHEMA_MANIFEST_V2 = [
   ["trigger", "publication_published_snapshot_immutable"],
 ] as const;
 
+const PUBLICATION_SCHEMA_MANIFEST_V3 = [
+  ...PUBLICATION_SCHEMA_MANIFEST_V2,
+  ["table", "taxonomy_batches"],
+  ["table", "taxonomy_actions"],
+  ["table", "entity_lineage"],
+  ["table", "entity_redirects"],
+  ["index", "idx_taxonomy_actions_batch"],
+  ["index", "idx_entity_lineage_source"],
+  ["index", "idx_entity_lineage_target"],
+  ["index", "idx_entity_redirects_target"],
+  ["index", "idx_entity_aliases_reviewed"],
+  ["index", "idx_model_variants_parent"],
+  ["trigger", "entity_alias_validity_insert_guard"],
+  ["trigger", "entity_alias_validity_update_guard"],
+  ["trigger", "model_variant_parent_insert_guard"],
+  ["trigger", "model_variant_parent_update_guard"],
+  ["trigger", "publication_entity_alias_insert"],
+  ["trigger", "publication_entity_alias_update"],
+  ["trigger", "publication_entity_alias_delete"],
+  ["trigger", "publication_entity_tag_insert"],
+  ["trigger", "publication_entity_tag_update"],
+  ["trigger", "publication_entity_tag_delete"],
+  ["trigger", "publication_entity_alias_id_immutable"],
+  ["trigger", "taxonomy_batch_id_immutable"],
+  ["trigger", "taxonomy_action_id_immutable"],
+  ["trigger", "entity_lineage_id_immutable"],
+  ["trigger", "entity_redirect_id_immutable"],
+] as const;
+
 function migrationFiles(migrationsDir = MIGRATIONS_DIR): string[] {
   if (!fs.existsSync(migrationsDir)) {
     throw new Error(`Migrations directory not found: ${migrationsDir}`);
@@ -503,11 +532,15 @@ export async function assertDatabaseReady(
   }
 
   if (files.includes("030_publication_gate.sql")) {
-    const publicationContract = files.includes("031_evidence_readiness_v2.sql")
-      ? 2
-      : 1;
+    const publicationContract = files.includes("032_taxonomy_identity.sql")
+      ? 3
+      : files.includes("031_evidence_readiness_v2.sql")
+        ? 2
+        : 1;
     const publicationManifest =
-      publicationContract === 2
+      publicationContract === 3
+        ? PUBLICATION_SCHEMA_MANIFEST_V3
+        : publicationContract === 2
         ? PUBLICATION_SCHEMA_MANIFEST_V2
         : PUBLICATION_SCHEMA_MANIFEST_V1;
     const names = publicationManifest.map(([, name]) => name);
@@ -525,8 +558,76 @@ export async function assertDatabaseReady(
 
     if (missingObjects.length > 0) {
       throw new Error(
-        `Database publication schema is incomplete (${missingObjects.join(", ")}). Rehearse migration ${publicationContract === 2 ? "031" : "030"} on an isolated database before deployment.`,
+        `Database publication schema is incomplete (${missingObjects.join(", ")}). Rehearse migration ${publicationContract === 3 ? "032" : publicationContract === 2 ? "031" : "030"} on an isolated database before deployment.`,
       );
+    }
+
+    if (publicationContract === 3) {
+      const aliasColumns = new Set(
+        (await db.execute("PRAGMA table_info(entity_aliases)")).rows.map((row) =>
+          String(row.name),
+        ),
+      );
+      const variantColumns = new Set(
+        (await db.execute("PRAGMA table_info(model_variants)")).rows.map((row) =>
+          String(row.name),
+        ),
+      );
+      const missingColumns = [
+        ...[
+          "alias_kind",
+          "market",
+          "valid_from",
+          "valid_to",
+          "source_item_id",
+          "review_status",
+        ]
+          .filter((name) => !aliasColumns.has(name))
+          .map((name) => `entity_aliases.${name}`),
+        ...["variant_kind", "parent_variant_id", "product_code", "market"]
+          .filter((name) => !variantColumns.has(name))
+          .map((name) => `model_variants.${name}`),
+      ];
+      if (missingColumns.length > 0) {
+        throw new Error(
+          `Database taxonomy schema is incomplete (${missingColumns.join(", ")}). Rehearse migration 032 on an isolated database before deployment.`,
+        );
+      }
+
+      const contractRows = await db.execute({
+        sql: `SELECT name, lower(sql) AS sql
+              FROM sqlite_schema
+              WHERE name IN (
+                'entity_publications', 'entity_content_reviews',
+                'public_entity_readiness', 'public_entities',
+                'publication_publish_transition_guard'
+              )`,
+        args: [],
+      });
+      const contractSql = new Map(
+        contractRows.rows.map((row) => [String(row.name), String(row.sql)]),
+      );
+      const validContract =
+        contractSql.get("entity_publications")?.includes("sha256:v3:") &&
+        contractSql
+          .get("entity_publications")
+          ?.includes("reviewed_contract_version = 3") &&
+        contractSql.get("entity_content_reviews")?.includes("sha256:v3:") &&
+        contractSql.get("public_entity_readiness")?.includes("  3,") &&
+        contractSql
+          .get("public_entities")
+          ?.includes("reviewed_contract_version = 3") &&
+        contractSql
+          .get("publication_publish_transition_guard")
+          ?.includes("sha256:v3:") &&
+        contractSql
+          .get("publication_publish_transition_guard")
+          ?.includes("reviewed_contract_version != 3");
+      if (!validContract) {
+        throw new Error(
+          "Database publication contract is not the required v3 authorization schema. Rehearse migration 032 on an isolated database before deployment.",
+        );
+      }
     }
   }
 }
