@@ -1,0 +1,730 @@
+{
+  "$schema": "content-research-source-pack-v1",
+  "schemaVersion": 1,
+  "research": {
+    "retrievedAt": "2026-07-19",
+    "primarySourceKey": "mb-starwalker-collection",
+    "publishableContentFile": ".planning/content-research/montblanc-starwalker-publishable-content-2026-07-19.md",
+    "boundary": "StarWalker 作为 2003 年建立、2019 年重设计的 canonical family。现行规格只锚定明确 SKU；Precious Resin、Doué、Metal、Extreme 与主题颜色是 variants，不拆成独立 canonical model。",
+    "officialIndependenceNote": "Montblanc 商品、collection、服务页与 Richemont 年报同属集团官方来源体系；各页面提供互补的一手证据，但不计作多家独立确认。",
+    "mediaDecision": "未落盘图片。唯一主体明确的 Commons 候选是 2016 StarWalker 圆珠笔，不是钢笔；其页面以 Public Domain Mark 标示且明确提示部分司法辖区状态未定，因此保留为 rejected candidate。"
+  },
+  "entity": {
+    "id": null,
+    "inventoryStatus": "missing_new_entity_research",
+    "type": "pen",
+    "canonicalLevel": "family",
+    "slug": null,
+    "canonicalName": "万宝龙 Montblanc StarWalker",
+    "brandEntityId": "CJM8uLY0LmIX",
+    "canonicalNameStatus": "proposed",
+    "aliases": [
+      {"alias": "Montblanc StarWalker", "language": "en", "scope": "official family name", "sourceKey": "mb-starwalker-collection"},
+      {"alias": "Montblanc Starwalker", "language": "en", "scope": "official site case variation and search alias", "sourceKey": "mb-starwalker-collection"},
+      {"alias": "StarWalker", "language": "en", "scope": "official family shorthand", "sourceKey": "richemont-ar-2004"},
+      {"alias": "Starwalker", "language": "en", "scope": "case-insensitive market/search alias", "sourceKey": "mb-starwalker-collection"},
+      {"alias": "万宝龙 StarWalker", "language": "zh", "scope": "Chinese search alias", "sourceKey": "mb-starwalker-collection"}
+    ]
+  },
+  "variants": [
+    {
+      "key": "original-2003-generation",
+      "name": "2003 原始 StarWalker generation",
+      "releaseYear": 2003,
+      "productionState": "historical_generation",
+      "notes": "年报图注为镀铂金、14K 金尖、橡胶化菱形切线表面、透明穹罩悬浮星。",
+      "sourceKey": "richemont-ar-2004"
+    },
+    {
+      "key": "redesigned-2019-generation",
+      "name": "2019 重设计 StarWalker generation",
+      "releaseYear": 2019,
+      "productionState": "current_design_foundation",
+      "notes": "Richemont 称 newly designed StarWalker relaunch；标准款蓝色半透明 subdome 表现地球。",
+      "sourceKey": "richemont-fy2020"
+    },
+    {
+      "key": "current-precious-resin",
+      "name": "Precious Resin",
+      "releaseYear": null,
+      "productionState": "current_family_variant",
+      "notes": "树脂帽杆；规格按 MB132532/F 等具体 SKU 记录。",
+      "sourceKey": "mb-starwalker-resin-mb132532"
+    },
+    {
+      "key": "current-doue",
+      "name": "Doué",
+      "releaseYear": null,
+      "productionState": "current_family_variant",
+      "notes": "通常为金属帽与树脂杆组合；不能用一个 SKU 的重量代表所有 Doué。",
+      "sourceKey": "mb-starwalker-doue-mb132534"
+    },
+    {
+      "key": "current-metal",
+      "name": "Metal",
+      "releaseYear": null,
+      "productionState": "current_family_variant",
+      "notes": "帽杆金属；本文重量锚定 Extreme Metal MB133770/M。",
+      "sourceKey": "mb-starwalker-extreme-metal-mb133770"
+    },
+    {
+      "key": "current-extreme",
+      "name": "StarWalker Extreme",
+      "releaseYear": null,
+      "productionState": "current_family_variant",
+      "notes": "2026 当前分 Precious Resin、Doué、Metal，采用 Extreme 纹样和橙色穹罩。",
+      "sourceKey": "mb-starwalker-extreme-overview"
+    },
+    {
+      "key": "current-theme-colours",
+      "name": "Blue Planet／PolarGreen／SpaceBlue 等主题颜色",
+      "releaseYear": null,
+      "productionState": "current_or_recent_family_variants",
+      "notes": "颜色、纹样和帽顶技术属于 variant 层，不拆 canonical family。",
+      "sourceKey": "mb-starwalker-collection"
+    }
+  ],
+  "relatedModels": [
+    {
+      "key": "meisterstuck-classique",
+      "name": "Meisterstück Classique／145",
+      "relationship": "同为墨囊／上墨器；传统设计、具体 MB132466/EF 更轻更细",
+      "sourceKey": "mb-classique-mb132466"
+    },
+    {
+      "key": "meisterstuck-legrand",
+      "name": "Meisterstück LeGrand／146",
+      "relationship": "传统设计且为内置活塞；不可把 StarWalker 的 Piston Converter 混成同一结构",
+      "sourceKey": "mb-legrand-mb132460"
+    }
+  ],
+  "sources": [
+    {
+      "key": "mb-starwalker-collection",
+      "registryKey": "montblanc-official",
+      "registryName": "Montblanc 官方网站",
+      "sourceType": "official_collection",
+      "tier": "primary",
+      "independenceGroup": "montblanc-richemont-official",
+      "title": "StarWalker Collection",
+      "url": "https://www.montblanc.com/en-us/writing-instruments/collection/starwalker?page=1",
+      "author": "Montblanc",
+      "retrievedAt": "2026-07-19",
+      "summary": "当前家族、书写模式、产品线、2003 intro 与页面内部 2019 FAQ 冲突。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {"kind": "stable-url-and-headings", "value": "Collection intro; filters Product Line Metal/Doué; product grid; FAQ release question", "retrievedAt": "2026-07-19"}
+    },
+    {
+      "key": "richemont-ar-2004",
+      "registryKey": "richemont-official",
+      "registryName": "Richemont 官方年报",
+      "sourceType": "official_annual_report",
+      "tier": "primary",
+      "independenceGroup": "montblanc-richemont-official",
+      "title": "Richemont Annual Report 2004",
+      "url": "https://www.richemont.com/media/q0gpdpyc/annual-report-2004.pdf",
+      "author": "Compagnie Financière Richemont SA",
+      "retrievedAt": "2026-07-19",
+      "summary": "确认 2003 年推出 StarWalker，并给出原始钢笔图注。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {"kind": "verified-pdf-sha256-and-page", "value": "98 pages; 1,467,348 bytes; SHA256 17d441d86e026d08bd3ebded16c5039533dc9d24f6773138d899d7d93e828729; PDF page 21 and financial review page 42", "retrievedAt": "2026-07-19"}
+    },
+    {
+      "key": "richemont-fy2020",
+      "registryKey": "richemont-official",
+      "registryName": "Richemont 官方业务报告",
+      "sourceType": "official_business_review",
+      "tier": "primary",
+      "independenceGroup": "montblanc-richemont-official",
+      "title": "Richemont FY2020 Business Review",
+      "url": "https://www.richemont.com/media/smnew23u/ar_fy2020_business_review_d83jnf67asb34a.pdf",
+      "author": "Compagnie Financière Richemont SA",
+      "retrievedAt": "2026-07-19",
+      "summary": "明确 2019 活动是 newly designed StarWalker 的 relaunch。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {"kind": "verified-pdf-sha256-and-page", "value": "26 pages; 4,310,239 bytes; SHA256 72a8dfa964bbbdc04d2662d8d904eebd127838a37155f6c41a4bc444ded3eba1; PDF page 20", "retrievedAt": "2026-07-19"}
+    },
+    {
+      "key": "mb-starwalker-resin-mb132532",
+      "registryKey": "montblanc-official",
+      "registryName": "Montblanc 官方网站",
+      "sourceType": "official_product",
+      "tier": "primary",
+      "independenceGroup": "montblanc-richemont-official",
+      "title": "StarWalker Precious Resin Fountain Pen Piston Converter",
+      "url": "https://www.montblanc.com/en-co/starwalker-precious-resin-fountain-pen-piston-converter-MB132532.html",
+      "author": "Montblanc",
+      "retrievedAt": "2026-07-19",
+      "summary": "黑色 Precious Resin MB132532/F 的材质、14K 笔尖、尺寸与重量。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {"kind": "stable-product-id-and-section", "value": "Ident MB132532; Features, Writing Modes, Dimensions; size F", "retrievedAt": "2026-07-19"}
+    },
+    {
+      "key": "mb-starwalker-doue-mb132534",
+      "registryKey": "montblanc-official",
+      "registryName": "Montblanc 官方网站",
+      "sourceType": "official_product",
+      "tier": "primary",
+      "independenceGroup": "montblanc-richemont-official",
+      "title": "StarWalker Doué Fountain Pen Piston Converter (F)",
+      "url": "https://www.montblanc.com/en-us/starwalker-doue-fountain-pen-piston-converter-%28f%29-MB132534.html",
+      "author": "Montblanc",
+      "retrievedAt": "2026-07-19",
+      "summary": "标准 Doué MB132534/F 的金属帽、树脂杆、尺寸、重量和 14K 笔尖。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {"kind": "stable-product-id-and-section", "value": "Ident MB132534; Features, Writing Modes, Dimensions; size F", "retrievedAt": "2026-07-19"}
+    },
+    {
+      "key": "mb-starwalker-extreme-overview",
+      "registryKey": "montblanc-official",
+      "registryName": "Montblanc 官方网站",
+      "sourceType": "official_collection_editorial",
+      "tier": "primary",
+      "independenceGroup": "montblanc-richemont-official",
+      "title": "StarWalker Extreme",
+      "url": "https://www.montblanc.com/en-us/discover/edit/starwalker-extreme.html",
+      "author": "Montblanc",
+      "retrievedAt": "2026-07-19",
+      "summary": "Extreme 的 Resin、Doué、Metal 分类、纹样与橙色帽顶穹罩。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {"kind": "stable-url-and-headings", "value": "DOUÉ; PRECIOUS RESIN; METAL; shape; dome; complete collection", "retrievedAt": "2026-07-19"}
+    },
+    {
+      "key": "mb-starwalker-extreme-resin-mb133762",
+      "registryKey": "montblanc-official",
+      "registryName": "Montblanc 官方网站",
+      "sourceType": "official_product",
+      "tier": "primary",
+      "independenceGroup": "montblanc-richemont-official",
+      "title": "StarWalker Extreme Precious Resin Fountain Pen",
+      "url": "https://www.montblanc.com/en-us/starwalker-extreme-precious-resin-fountain-pen-MB133762.html",
+      "author": "Montblanc",
+      "retrievedAt": "2026-07-19",
+      "summary": "MB133762/M 树脂帽杆、28.3 g、135.7 × 14.9 mm。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {"kind": "stable-product-id-and-section", "value": "Ident MB133762; Features, Writing Modes, Dimensions; size M", "retrievedAt": "2026-07-19"}
+    },
+    {
+      "key": "mb-starwalker-extreme-doue-mb133766",
+      "registryKey": "montblanc-official",
+      "registryName": "Montblanc 官方网站",
+      "sourceType": "official_product",
+      "tier": "primary",
+      "independenceGroup": "montblanc-richemont-official",
+      "title": "StarWalker Extreme Doué Fountain Pen",
+      "url": "https://www.montblanc.com/en-us/starwalker-extreme-doue-fountain-pen-MB133766.html",
+      "author": "Montblanc",
+      "retrievedAt": "2026-07-19",
+      "summary": "MB133766/M 金属帽树脂杆、37.25 g、135.7 × 14.9 mm。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {"kind": "stable-product-id-and-section", "value": "Ident MB133766; Features, Writing Modes, Dimensions; size M", "retrievedAt": "2026-07-19"}
+    },
+    {
+      "key": "mb-starwalker-extreme-metal-mb133770",
+      "registryKey": "montblanc-official",
+      "registryName": "Montblanc 官方网站",
+      "sourceType": "official_product",
+      "tier": "primary",
+      "independenceGroup": "montblanc-richemont-official",
+      "title": "StarWalker Extreme Metal Fountain Pen",
+      "url": "https://www.montblanc.com/en-us/starwalker-extreme-metal-fountain-pen-MB133770.html",
+      "author": "Montblanc",
+      "retrievedAt": "2026-07-19",
+      "summary": "MB133770/M 金属帽杆、47.3 g、135.7 × 14.9 mm。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {"kind": "stable-product-id-and-section", "value": "Ident MB133770; Features, Writing Modes, Dimensions; size M", "retrievedAt": "2026-07-19"}
+    },
+    {
+      "key": "mb-writing-care",
+      "registryKey": "montblanc-official",
+      "registryName": "Montblanc 官方网站",
+      "sourceType": "official_service",
+      "tier": "primary",
+      "independenceGroup": "montblanc-richemont-official",
+      "title": "Writing Instrument Care Services",
+      "url": "https://www.montblanc.com/en-co/customer-service-rna/care-services/writing-instruments.html",
+      "author": "Montblanc",
+      "retrievedAt": "2026-07-19",
+      "summary": "StarWalker 墨囊／随附上墨器、清洗、套帽警告、换尖和真伪鉴定。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {"kind": "stable-url-and-headings", "value": "Care & Use; Fountain Pen; Nibs; Authenticity Service", "retrievedAt": "2026-07-19"}
+    },
+    {
+      "key": "mb-service-guide-2024",
+      "registryKey": "montblanc-official",
+      "registryName": "Montblanc 官方服务指南",
+      "sourceType": "official_service_pdf",
+      "tier": "primary",
+      "independenceGroup": "montblanc-richemont-official",
+      "title": "Writing Instruments Service Guide 2024",
+      "url": "https://www.montblanc.com/on/demandware.static/-/Library-Sites-WWSharedLibrary/default/documents/ServiceGuide_WI_online_2024_GB.pdf",
+      "author": "Montblanc",
+      "retrievedAt": "2026-07-19",
+      "summary": "墨囊／上墨器图示和温水清洗要求。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {"kind": "verified-pdf-sha256-and-page", "value": "16 pages; 2,345,553 bytes; SHA256 25659b68a037cab3716ba994dd0d0dbf2956b8ba7a20ff23649fcd8474d00089; PDF pages 3-4 and 8", "retrievedAt": "2026-07-19"}
+    },
+    {
+      "key": "mb-classique-mb132466",
+      "registryKey": "montblanc-official",
+      "registryName": "Montblanc 官方网站",
+      "sourceType": "official_product",
+      "tier": "primary",
+      "independenceGroup": "montblanc-richemont-official",
+      "title": "Meisterstück Classique MB132466/EF",
+      "url": "https://www.montblanc.com/en-us/meisterstuck-classique-fountain-pen-MB132466.html",
+      "author": "Montblanc",
+      "retrievedAt": "2026-07-19",
+      "summary": "Classique 当前对比锚点：140 × 13.7 mm、21.73 g、Au585/14K。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {"kind": "stable-product-id-and-section", "value": "Ident MB132466; Features, Writing Modes, Dimensions; selected EF", "retrievedAt": "2026-07-19"}
+    },
+    {
+      "key": "mb-legrand-mb132460",
+      "registryKey": "montblanc-official",
+      "registryName": "Montblanc 官方网站",
+      "sourceType": "official_product",
+      "tier": "primary",
+      "independenceGroup": "montblanc-richemont-official",
+      "title": "Meisterstück LeGrand MB132460/M",
+      "url": "https://www.montblanc.com/en-co/meisterstuck-gold-coated-legrand-fountain-pen-MB132460.html",
+      "author": "Montblanc",
+      "retrievedAt": "2026-07-19",
+      "summary": "LeGrand 当前对比锚点：145.8 × 15.5 mm、25.42 g、Au585/14K；服务页确认内置活塞。",
+      "allowedUse": "summary_only",
+      "archiveLocator": {"kind": "stable-product-id-and-section", "value": "Ident MB132460; Features, Writing Modes, Dimensions; selected M", "retrievedAt": "2026-07-19"}
+    },
+    {
+      "key": "pen-boutique-spaceblue",
+      "registryKey": "pen-boutique",
+      "registryName": "Pen Boutique",
+      "sourceType": "retailer_editorial",
+      "tier": "retailer_secondary",
+      "independenceGroup": "pen-boutique",
+      "title": "Montblanc Starwalker Space Blue — Tactile Taste",
+      "url": "https://www.penboutique.com/blogs/blog/montblanc-starwalker-space-blue-tactile-taste",
+      "author": "Pen Boutique",
+      "retrievedAt": "2026-07-19",
+      "summary": "SpaceBlue 样本的 Resin/Doué/Metal 重量感、金属前节和尾端螺纹套帽。",
+      "allowedUse": "sample_experience_only",
+      "archiveLocator": {"kind": "stable-url-and-paragraphs", "value": "Material combinations and weight paragraphs; threaded posting; serial-number paragraph", "retrievedAt": "2026-07-19"}
+    },
+    {
+      "key": "peyton-starwalker-old",
+      "registryKey": "peyton-street-pens",
+      "registryName": "Peyton Street Pens",
+      "sourceType": "specialist_used_listing",
+      "tier": "specialist_secondary",
+      "independenceGroup": "peyton-street-pens",
+      "title": "Montblanc Starwalker Fountain Pen — Black Precious Resin, Fine 14K",
+      "url": "https://www.peytonstreetpens.com/montblanc-starwalker-fountain-pen-black-precious-resin-pt-trim-fine-14k-nib-excellent-in-box-works-well.html",
+      "author": "Peyton Street Pens",
+      "retrievedAt": "2026-07-19",
+      "summary": "一个旧黑树脂样本被记录为仅墨囊，且尾端有套帽螺纹。",
+      "allowedUse": "sample_specific_only",
+      "archiveLocator": {"kind": "stable-url-and-product-description", "value": "Product Description: filling system, colour, threaded barrel end, nib and condition", "retrievedAt": "2026-07-19"}
+    },
+    {
+      "key": "fpn-starwalker-2006",
+      "registryKey": "fountain-pen-network",
+      "registryName": "Fountain Pen Network",
+      "sourceType": "dated_forum_review",
+      "tier": "forum_secondary",
+      "independenceGroup": "fountain-pen-network",
+      "title": "Mont Blanc Starwalker",
+      "url": "https://www.fountainpennetwork.com/forum/topic/16782-mont-blanc-starwalker/",
+      "author": "Fountain Pen Network user Dawn",
+      "retrievedAt": "2026-07-19",
+      "summary": "2006 单支用户样本：旋盖、尾端旋入套帽、14K M 尖、仅墨囊。",
+      "allowedUse": "dated_sample_only",
+      "archiveLocator": {"kind": "stable-thread-and-post-date", "value": "Thread topic 16782; post dated 2006-09-27; cap/filling paragraphs", "retrievedAt": "2026-07-19"}
+    },
+    {
+      "key": "fountainpen-de-starwalker-fakes",
+      "registryKey": "fountainpen-de",
+      "registryName": "fountainpen.de",
+      "sourceType": "collector_comparison_pdf",
+      "tier": "specialist_secondary",
+      "independenceGroup": "fountainpen-de",
+      "title": "Starwalker Resin Fineliner / Rollerball — Original vs Copy",
+      "url": "https://www.fountainpen.de/fakes/Starwalker-Resin-Fineliner.pdf",
+      "author": "fountainpen.de",
+      "retrievedAt": "2026-07-19",
+      "summary": "早期 fineliner/rollerball 仿品与真品对照；整体外观可能难以区分，具体标记仅限当时样本。",
+      "allowedUse": "historical_risk_guidance_only",
+      "archiveLocator": {"kind": "verified-pdf-sha256-and-page", "value": "6 pages; 317,919 bytes; SHA256 b399a26efb206de45cbe810f70b3d404cb3c4e4936f9041c066b41e169e06d41; PDF pages 1-5", "retrievedAt": "2026-07-19"}
+    },
+    {
+      "key": "commons-starwalker-ballpoint",
+      "registryKey": "wikimedia-commons",
+      "registryName": "Wikimedia Commons",
+      "sourceType": "media_metadata",
+      "tier": "media_metadata",
+      "independenceGroup": "johnson-watch-flickr",
+      "title": "Montblanc-Starwalker-ballpoint-pen.jpg",
+      "url": "https://commons.wikimedia.org/wiki/File:Montblanc-Starwalker-ballpoint-pen.jpg",
+      "author": "Johnson Watch",
+      "retrievedAt": "2026-07-19",
+      "summary": "主体明确的 StarWalker 圆珠笔，但不是钢笔，且 PDM 页面提示国际法域状态不确定。",
+      "allowedUse": "metadata_only_rejected",
+      "archiveLocator": {"kind": "permanent-commons-revision", "value": "https://commons.wikimedia.org/w/index.php?title=File:Montblanc-Starwalker-ballpoint-pen.jpg&oldid=1150572572; 2000×1328; 114,289 bytes; SHA1 21b0f14c6bf2ebe89dbdec3f2694ada57b00a3ad", "retrievedAt": "2026-07-19"}
+    }
+  ],
+  "scopes": [
+    {"key": "family-2003-launch", "variantKey": "original-2003-generation", "productionState": "launch", "editionScope": "family introduction"},
+    {"key": "original-2003-caption", "variantKey": "original-2003-generation", "productionState": "historical", "editionScope": "pictured original fountain pen only"},
+    {"key": "family-2019-relaunch", "variantKey": "redesigned-2019-generation", "productionState": "redesign", "editionScope": "newly designed family relaunch"},
+    {"key": "current-family-2026", "variantKey": null, "productionState": "current_collection", "editionScope": "all writing modes and current product lines"},
+    {"key": "current-standard-resin-f", "variantKey": "current-precious-resin", "productionState": "current_official_listing", "nibScope": "F", "editionScope": "MB132532"},
+    {"key": "current-standard-doue-f", "variantKey": "current-doue", "productionState": "current_official_listing", "nibScope": "F", "editionScope": "MB132534"},
+    {"key": "current-extreme-family", "variantKey": "current-extreme", "productionState": "current_collection", "editionScope": "Extreme Resin/Doué/Metal"},
+    {"key": "current-extreme-resin-m", "variantKey": "current-extreme", "productionState": "current_official_listing", "nibScope": "M", "editionScope": "MB133762"},
+    {"key": "current-extreme-doue-m", "variantKey": "current-extreme", "productionState": "current_official_listing", "nibScope": "M", "editionScope": "MB133766"},
+    {"key": "current-extreme-metal-m", "variantKey": "current-extreme", "productionState": "current_official_listing", "nibScope": "M", "editionScope": "MB133770"},
+    {"key": "current-care", "variantKey": null, "productionState": "current_service", "editionScope": "StarWalker fountain pens unless service text states general"},
+    {"key": "current-classique-ef", "variantKey": null, "productionState": "current_comparison", "nibScope": "EF", "editionScope": "MB132466"},
+    {"key": "current-legrand-m", "variantKey": null, "productionState": "current_comparison", "nibScope": "M", "editionScope": "MB132460"},
+    {"key": "retailer-spaceblue-samples", "variantKey": "current-theme-colours", "productionState": "2023_retail_samples", "editionScope": "SpaceBlue resin, Doué and metal samples"},
+    {"key": "old-resin-fountain-sample", "variantKey": "original-2003-generation", "productionState": "used_sample", "editionScope": "one black precious resin 14K F sample"},
+    {"key": "user-sample-2006", "variantKey": "original-2003-generation", "productionState": "dated_user_sample", "editionScope": "one 2006 M-nib pen"},
+    {"key": "old-fake-comparison", "variantKey": "original-2003-generation", "productionState": "historical_risk_sample", "editionScope": "early resin fineliner/rollerball original and copy"},
+    {"key": "media-candidate-ballpoint", "variantKey": null, "productionState": "2016_photo", "editionScope": "ballpoint only; rejected for article"}
+  ],
+  "claims": [
+    {
+      "key": "canonical-family-not-colour-sku",
+      "predicate": "canonical_scope",
+      "objectText": "StarWalker 是跨书写模式、材质和主题配色的 family；颜色 SKU 不拆 canonical model。",
+      "factClass": "scope_boundary",
+      "confidence": 0.99,
+      "sourceKey": "mb-starwalker-collection",
+      "locator": "Collection grid and product line filters.",
+      "evidence": [{"key": "collection-variants", "sourceKey": "mb-starwalker-collection", "scopeKey": "current-family-2026", "locator": "40-item collection, multiple writing modes and Metal/Doué product lines."}]
+    },
+    {
+      "key": "launch-2003",
+      "predicate": "release_year",
+      "objectText": "StarWalker family 于 2003 年推出。",
+      "factClass": "core_history",
+      "confidence": 1.0,
+      "sourceKey": "richemont-ar-2004",
+      "locator": "PDF page 21: introduced new developments in 2003, the new StarWalker pen collection.",
+      "evidence": [{"key": "annual-report-launch", "sourceKey": "richemont-ar-2004", "scopeKey": "family-2003-launch", "locator": "PDF page 21."}]
+    },
+    {
+      "key": "original-2003-design",
+      "predicate": "original_design",
+      "objectText": "原始年报样本为镀铂金、14K、橡胶化菱形切线表面及透明穹罩悬浮星。",
+      "factClass": "historical_sample",
+      "confidence": 0.99,
+      "sourceKey": "richemont-ar-2004",
+      "locator": "PDF page 21 product caption.",
+      "evidence": [{"key": "original-caption", "sourceKey": "richemont-ar-2004", "scopeKey": "original-2003-caption", "locator": "Platinum plated StarWalker fountain pen caption."}]
+    },
+    {
+      "key": "redesign-2019",
+      "predicate": "redesign_year",
+      "objectText": "2019 年是 newly designed StarWalker 的 relaunch，不是 family 首次诞生。",
+      "factClass": "core_history",
+      "confidence": 1.0,
+      "sourceKey": "richemont-fy2020",
+      "locator": "PDF page 20: relaunch of the newly designed StarWalker.",
+      "evidence": [{"key": "fy2020-relaunch", "sourceKey": "richemont-fy2020", "scopeKey": "family-2019-relaunch", "locator": "PDF page 20."}]
+    },
+    {
+      "key": "dome-colour-variant-boundary",
+      "predicate": "design_signature",
+      "objectText": "2019 标准设计使用蓝色半透明 subdome；Extreme 使用橙色，其他主题可变。",
+      "factClass": "variant_boundary",
+      "confidence": 0.99,
+      "sourceKey": "mb-starwalker-collection",
+      "locator": "Collection description and Extreme dome section.",
+      "evidence": [
+        {"key": "standard-blue-dome", "sourceKey": "mb-starwalker-resin-mb132532", "scopeKey": "current-standard-resin-f", "locator": "Product description: blue translucent dome."},
+        {"key": "extreme-orange-dome", "sourceKey": "mb-starwalker-extreme-overview", "scopeKey": "current-extreme-family", "locator": "PRECIOUS RESIN and dome sections: blaze orange."}
+      ]
+    },
+    {
+      "key": "current-standard-configuration",
+      "predicate": "current_reference_configuration",
+      "objectText": "MB132532/F 为黑树脂帽杆、镀铂金饰件、Au585/14K 镀铑金尖、135.7 × 14.9 mm、33.41 g。",
+      "factClass": "core",
+      "confidence": 0.99,
+      "sourceKey": "mb-starwalker-resin-mb132532",
+      "locator": "Ident, Features, Writing Modes and Dimensions.",
+      "evidence": [{"key": "standard-product", "sourceKey": "mb-starwalker-resin-mb132532", "scopeKey": "current-standard-resin-f", "locator": "MB132532/F details."}]
+    },
+    {
+      "key": "current-fill-cartridge-converter",
+      "predicate": "fill_system",
+      "objectText": "当前 StarWalker 钢笔用墨囊或随附活塞上墨器；不是内置活塞。",
+      "factClass": "core",
+      "confidence": 1.0,
+      "sourceKey": "mb-writing-care",
+      "locator": "Fountain Pen section.",
+      "evidence": [
+        {"key": "care-fill", "sourceKey": "mb-writing-care", "scopeKey": "current-care", "locator": "Classique and StarWalker can use cartridges or included converter."},
+        {"key": "product-piston-converter-name", "sourceKey": "mb-starwalker-resin-mb132532", "scopeKey": "current-standard-resin-f", "locator": "Product title Piston Converter."}
+      ]
+    },
+    {
+      "key": "weight-varies-by-material-and-sku",
+      "predicate": "variant_weights",
+      "objectText": "同为 135.7 × 14.9 mm，当前明确 SKU 从 28.3 g 至 47.3 g；材质名不能替代 SKU 重量。",
+      "factClass": "comparison",
+      "confidence": 1.0,
+      "sourceKey": "mb-starwalker-extreme-resin-mb133762",
+      "locator": "Five official product Dimensions sections.",
+      "evidence": [
+        {"key": "standard-resin-weight", "sourceKey": "mb-starwalker-resin-mb132532", "scopeKey": "current-standard-resin-f", "locator": "33.41 g."},
+        {"key": "standard-doue-weight", "sourceKey": "mb-starwalker-doue-mb132534", "scopeKey": "current-standard-doue-f", "locator": "42.88 g."},
+        {"key": "extreme-resin-weight", "sourceKey": "mb-starwalker-extreme-resin-mb133762", "scopeKey": "current-extreme-resin-m", "locator": "28.3 g."},
+        {"key": "extreme-doue-weight", "sourceKey": "mb-starwalker-extreme-doue-mb133766", "scopeKey": "current-extreme-doue-m", "locator": "37.25 g."},
+        {"key": "extreme-metal-weight", "sourceKey": "mb-starwalker-extreme-metal-mb133770", "scopeKey": "current-extreme-metal-m", "locator": "47.3 g."}
+      ]
+    },
+    {
+      "key": "threaded-posting-vs-care-warning",
+      "predicate": "cap_posting",
+      "objectText": "部分现行样本有尾端螺纹可旋入套帽，但官方通用保养仍建议不要把帽装在笔尾。",
+      "factClass": "qualified_use",
+      "confidence": 0.94,
+      "sourceKey": "pen-boutique-spaceblue",
+      "locator": "Threaded posting paragraph and official Care & Use warning.",
+      "evidence": [
+        {"key": "retailer-threaded-post", "sourceKey": "pen-boutique-spaceblue", "scopeKey": "retailer-spaceblue-samples", "locator": "Fountain/fineliner threaded rear posting."},
+        {"key": "official-no-post", "sourceKey": "mb-writing-care", "scopeKey": "current-care", "locator": "Strong recommendation not to attach cap to rear end."}
+      ]
+    },
+    {
+      "key": "meisterstuck-comparison",
+      "predicate": "family_comparison",
+      "objectText": "StarWalker 与 Classique 都用墨囊／上墨器；LeGrand 用内置活塞。具体 StarWalker 锚点比具体 Classique/LeGrand 锚点更重。",
+      "factClass": "comparison",
+      "confidence": 0.99,
+      "sourceKey": "mb-writing-care",
+      "locator": "Official care fill-system distinction and three product dimension fields.",
+      "evidence": [
+        {"key": "starwalker-anchor", "sourceKey": "mb-starwalker-resin-mb132532", "scopeKey": "current-standard-resin-f", "locator": "135.7 × 14.9 mm, 33.41 g."},
+        {"key": "classique-anchor", "sourceKey": "mb-classique-mb132466", "scopeKey": "current-classique-ef", "locator": "140 × 13.7 mm, 21.73 g."},
+        {"key": "legrand-anchor", "sourceKey": "mb-legrand-mb132460", "scopeKey": "current-legrand-m", "locator": "145.8 × 15.5 mm, 25.42 g."},
+        {"key": "fill-difference", "sourceKey": "mb-writing-care", "scopeKey": "current-care", "locator": "LeGrand piston versus StarWalker cartridge/converter."}
+      ]
+    },
+    {
+      "key": "old-samples-cartridge-only",
+      "predicate": "historical_fill_boundary",
+      "objectText": "至少两个旧样本资料记录为仅墨囊、原厂上墨器不适配；不能把当前 converter 规则回填所有旧笔。",
+      "factClass": "historical_sample",
+      "confidence": 0.9,
+      "sourceKey": "peyton-starwalker-old",
+      "locator": "Used listing filling-system line and 2006 forum review.",
+      "evidence": [
+        {"key": "dealer-old-cartridge", "sourceKey": "peyton-starwalker-old", "scopeKey": "old-resin-fountain-sample", "locator": "Cartridge Fountain Pen; no Montblanc converter fits this model."},
+        {"key": "user-2006-cartridge", "sourceKey": "fpn-starwalker-2006", "scopeKey": "user-sample-2006", "locator": "Cartridge filler paragraph."}
+      ]
+    },
+    {
+      "key": "official-cleaning",
+      "predicate": "maintenance",
+      "objectText": "官方建议约每三个月以无添加温水清洗；永久墨水两至三周。",
+      "factClass": "service",
+      "confidence": 0.99,
+      "sourceKey": "mb-writing-care",
+      "locator": "Cleaning and Refilling; permanent ink paragraphs.",
+      "evidence": [
+        {"key": "care-cleaning", "sourceKey": "mb-writing-care", "scopeKey": "current-care", "locator": "Once every three months; permanent ink 2-3 weeks."},
+        {"key": "guide-cleaning", "sourceKey": "mb-service-guide-2024", "scopeKey": "current-care", "locator": "PDF page 8: lukewarm water, no chemicals."}
+      ]
+    },
+    {
+      "key": "fake-exterior-can-be-close",
+      "predicate": "counterfeit_risk",
+      "objectText": "早期 StarWalker 仿品可在整体外观上非常接近；旧标记规则不能推广到当前版本。",
+      "factClass": "risk_guidance",
+      "confidence": 0.91,
+      "sourceKey": "fountainpen-de-starwalker-fakes",
+      "locator": "PDF pages 1-5.",
+      "evidence": [{"key": "fake-comparison", "sourceKey": "fountainpen-de-starwalker-fakes", "scopeKey": "old-fake-comparison", "locator": "Exterior difficult to distinguish; later clip and serial comparison."}]
+    },
+    {
+      "key": "official-authenticity-service",
+      "predicate": "authenticity_service",
+      "objectText": "万宝龙提供经精品店／授权零售商送总部的付费鉴定，真品可获证书。",
+      "factClass": "service",
+      "confidence": 1.0,
+      "sourceKey": "mb-writing-care",
+      "locator": "Authenticity Service.",
+      "evidence": [{"key": "official-auth", "sourceKey": "mb-writing-care", "scopeKey": "current-care", "locator": "Headquarters evaluation, chargeable, certificate if genuine."}]
+    },
+    {
+      "key": "no-selected-media",
+      "predicate": "media_decision",
+      "objectText": "未选用 Commons StarWalker 图，因为候选是圆珠笔且 PDM 在部分法域状态未定。",
+      "factClass": "media",
+      "confidence": 1.0,
+      "sourceKey": "commons-starwalker-ballpoint",
+      "locator": "File identity and Licensing caveat.",
+      "evidence": [{"key": "commons-rejected", "sourceKey": "commons-starwalker-ballpoint", "scopeKey": "media-candidate-ballpoint", "locator": "File name/description says ballpoint; licensing section explains PDM caveat."}]
+    }
+  ],
+  "spec": {
+    "brandEntityId": "CJM8uLY0LmIX",
+    "values": {
+      "brand_entity_id": "CJM8uLY0LmIX",
+      "canonical_level": "family",
+      "model_identifier": "StarWalker",
+      "aliases": "Montblanc StarWalker; StarWalker; Starwalker; 万宝龙 StarWalker",
+      "release_year": 2003,
+      "redesign_year": 2019,
+      "family_writing_modes": "fountain pen; fineliner; ballpoint",
+      "current_fill_system": "ink cartridges or included piston converter; not integrated piston",
+      "current_reference_sku": "MB132532/F black Precious Resin",
+      "current_nib": "Au585/14K gold, rhodium-coated",
+      "current_nib_sizes": "F and M on current standard black selector; availability is SKU-specific",
+      "current_material": "MB132532/F: black precious resin cap and barrel, platinum-coated fittings",
+      "current_dimensions": "MB132532/F: 135.7 × 14.9 mm; axes not labelled",
+      "current_weight": "MB132532/F: 33.41 g",
+      "cap_mechanism": "screw cap and threaded rear posting supported by current retailer samples; official general care advises against posting",
+      "current_design_signature": "standard redesigned family blue translucent subdome; Extreme orange and other themes vary",
+      "variant_taxonomy": "Precious Resin, Doué, Metal and Extreme are variants under one StarWalker family",
+      "historical_fill_boundary": "some old samples are cartridge-only; inspect exact pen",
+      "ink_capacity_ml": null,
+      "status": "current official family listing retrieved 2026-07-19"
+    },
+    "evidence": [
+      {"key": "brand", "fieldKey": "brand_entity_id", "sourceKey": "mb-starwalker-collection", "scopeKey": "current-family-2026", "locator": "Official Montblanc collection identity."},
+      {"key": "canonical-level", "fieldKey": "canonical_level", "sourceKey": "mb-starwalker-collection", "scopeKey": "current-family-2026", "locator": "One collection spans modes and product lines."},
+      {"key": "model", "fieldKey": "model_identifier", "sourceKey": "richemont-ar-2004", "scopeKey": "family-2003-launch", "locator": "new StarWalker pen collection."},
+      {"key": "aliases", "fieldKey": "aliases", "sourceKey": "mb-starwalker-collection", "scopeKey": "current-family-2026", "locator": "StarWalker family title and case variations."},
+      {"key": "release", "fieldKey": "release_year", "sourceKey": "richemont-ar-2004", "scopeKey": "family-2003-launch", "locator": "PDF page 21."},
+      {"key": "redesign", "fieldKey": "redesign_year", "sourceKey": "richemont-fy2020", "scopeKey": "family-2019-relaunch", "locator": "PDF page 20."},
+      {"key": "modes", "fieldKey": "family_writing_modes", "sourceKey": "mb-starwalker-collection", "scopeKey": "current-family-2026", "locator": "Current product grid."},
+      {"key": "fill", "fieldKey": "current_fill_system", "sourceKey": "mb-writing-care", "scopeKey": "current-care", "locator": "StarWalker cartridges or included converter."},
+      {"key": "sku", "fieldKey": "current_reference_sku", "sourceKey": "mb-starwalker-resin-mb132532", "scopeKey": "current-standard-resin-f", "locator": "Ident MB132532; F."},
+      {"key": "nib", "fieldKey": "current_nib", "sourceKey": "mb-starwalker-resin-mb132532", "scopeKey": "current-standard-resin-f", "locator": "Au585/14K rhodium-coated."},
+      {"key": "nib-sizes", "fieldKey": "current_nib_sizes", "sourceKey": "mb-starwalker-resin-mb132532", "scopeKey": "current-standard-resin-f", "locator": "Current selector F and M."},
+      {"key": "material", "fieldKey": "current_material", "sourceKey": "mb-starwalker-resin-mb132532", "scopeKey": "current-standard-resin-f", "locator": "Features."},
+      {"key": "dimensions", "fieldKey": "current_dimensions", "sourceKey": "mb-starwalker-resin-mb132532", "scopeKey": "current-standard-resin-f", "locator": "135.7 × 14.9 mm."},
+      {"key": "weight", "fieldKey": "current_weight", "sourceKey": "mb-starwalker-resin-mb132532", "scopeKey": "current-standard-resin-f", "locator": "33.41 g."},
+      {"key": "cap", "fieldKey": "cap_mechanism", "sourceKey": "pen-boutique-spaceblue", "scopeKey": "retailer-spaceblue-samples", "locator": "Threaded posting paragraph."},
+      {"key": "design", "fieldKey": "current_design_signature", "sourceKey": "mb-starwalker-extreme-overview", "scopeKey": "current-extreme-family", "locator": "Dome and variant sections."},
+      {"key": "taxonomy", "fieldKey": "variant_taxonomy", "sourceKey": "mb-starwalker-collection", "scopeKey": "current-family-2026", "locator": "Product line filters and product grid."},
+      {"key": "historical-fill", "fieldKey": "historical_fill_boundary", "sourceKey": "peyton-starwalker-old", "scopeKey": "old-resin-fountain-sample", "locator": "Cartridge-only sample."},
+      {"key": "capacity", "fieldKey": "ink_capacity_ml", "sourceKey": "mb-writing-care", "scopeKey": "current-care", "locator": "No numeric StarWalker converter/cartridge capacity found in current official product, care or 2024 guide.", "qualifies": false, "researchStatus": "not_found_in_current_official_sources"},
+      {"key": "status", "fieldKey": "status", "sourceKey": "mb-starwalker-collection", "scopeKey": "current-family-2026", "locator": "Live current collection and product grid."}
+    ]
+  },
+  "conflicts": [
+    {
+      "key": "official-2003-vs-2019-launch-copy",
+      "fieldKey": "release_year",
+      "scopeKey": "family-2003-launch",
+      "conflictKind": "official_internal_copy",
+      "status": "resolved",
+      "resolutionNote": "2004 年报确认 2003 首发，FY2020 报告确认 2019 是 relaunch；当前 FAQ 的 launched in 2019 按重设计发布理解。",
+      "members": [
+        {"citationKey": "collection-intro-2003", "sourceKey": "mb-starwalker-collection", "assertedValue": "since launch in 2003"},
+        {"citationKey": "collection-faq-2019", "sourceKey": "mb-starwalker-collection", "assertedValue": "launched in 2019", "qualifies": false},
+        {"citationKey": "annual-report-2003", "sourceKey": "richemont-ar-2004", "assertedValue": "introduced in 2003"},
+        {"citationKey": "fy2020-relaunch", "sourceKey": "richemont-fy2020", "assertedValue": "relaunch of newly designed StarWalker"}
+      ]
+    },
+    {
+      "key": "blue-dome-not-universal",
+      "fieldKey": "current_design_signature",
+      "scopeKey": "current-family-2026",
+      "conflictKind": "variant_scope",
+      "status": "contextualized",
+      "resolutionNote": "蓝色 subdome 是 2019 标准语言；Extreme 橙色及其他主题帽顶按 variant 记录，不用蓝色作全家族验真条件。",
+      "members": [
+        {"citationKey": "standard-blue", "sourceKey": "mb-starwalker-resin-mb132532", "assertedValue": "blue translucent dome"},
+        {"citationKey": "extreme-orange", "sourceKey": "mb-starwalker-extreme-overview", "assertedValue": "blaze orange dome"}
+      ]
+    },
+    {
+      "key": "current-converter-vs-old-cartridge-only",
+      "fieldKey": "current_fill_system",
+      "scopeKey": "current-care",
+      "conflictKind": "generation_scope",
+      "status": "contextualized",
+      "resolutionNote": "当前官方规则是墨囊／随附上墨器；旧商家与 2006 样本记录仅墨囊。中古逐支核对，不互相覆盖。",
+      "members": [
+        {"citationKey": "current-converter", "sourceKey": "mb-writing-care", "assertedValue": "cartridges or included converter"},
+        {"citationKey": "old-dealer-cartridge", "sourceKey": "peyton-starwalker-old", "assertedValue": "cartridge only for this sample"},
+        {"citationKey": "old-user-cartridge", "sourceKey": "fpn-starwalker-2006", "assertedValue": "cartridge only for 2006 sample"}
+      ]
+    },
+    {
+      "key": "threaded-posting-vs-official-warning",
+      "fieldKey": "cap_mechanism",
+      "scopeKey": "retailer-spaceblue-samples",
+      "conflictKind": "use_guidance",
+      "status": "contextualized",
+      "resolutionNote": "尾端螺纹是可观察结构，但官方通用保养建议不套帽；正文不把套帽写成官方必需用法。",
+      "members": [
+        {"citationKey": "threaded-post", "sourceKey": "pen-boutique-spaceblue", "assertedValue": "cap screws onto rear threads"},
+        {"citationKey": "care-no-post", "sourceKey": "mb-writing-care", "assertedValue": "strongly recommend not attaching cap to rear"}
+      ]
+    },
+    {
+      "key": "same-family-resin-weight-differs",
+      "fieldKey": "current_weight",
+      "scopeKey": "current-family-2026",
+      "conflictKind": "sku_scope",
+      "status": "resolved",
+      "resolutionNote": "标准 Precious Resin MB132532/F 为 33.41 g，Extreme Resin MB133762/M 为 28.3 g；均保留为各自 SKU，不设 family-level 单一重量。",
+      "members": [
+        {"citationKey": "standard-resin", "sourceKey": "mb-starwalker-resin-mb132532", "assertedValue": "33.41 g"},
+        {"citationKey": "extreme-resin", "sourceKey": "mb-starwalker-extreme-resin-mb133762", "assertedValue": "28.3 g"}
+      ]
+    },
+    {
+      "key": "commons-pdm-structured-license-mismatch",
+      "fieldKey": "media",
+      "scopeKey": "media-candidate-ballpoint",
+      "conflictKind": "licensing_and_identity",
+      "status": "rejected",
+      "resolutionNote": "文件页主体是圆珠笔；主许可段为 Public Domain Mark 并提示部分法域状态未定，结构化数据又出现 CC BY-SA 4.0。为避免写作模式和许可歧义，不下载、不发布。",
+      "members": [
+        {"citationKey": "commons-main-license", "sourceKey": "commons-starwalker-ballpoint", "assertedValue": "Public Domain Mark with jurisdiction caveat"},
+        {"citationKey": "commons-structured-license", "sourceKey": "commons-starwalker-ballpoint", "assertedValue": "structured data lists CC BY-SA 4.0", "qualifies": false}
+      ]
+    }
+  ],
+  "media": [
+    {
+      "key": "commons-starwalker-ballpoint-rejected",
+      "title": "Montblanc StarWalker ballpoint pen",
+      "sourceKey": "commons-starwalker-ballpoint",
+      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Montblanc-Starwalker-ballpoint-pen.jpg",
+      "author": "Johnson Watch",
+      "license": "public-domain-mark-with-jurisdiction-caveat",
+      "usageStatus": "rejected",
+      "localPath": null,
+      "identityNote": "File name and Commons description identify a StarWalker ballpoint, not a fountain pen or a specific current SKU.",
+      "rejectionReason": "Writing-mode mismatch and Commons PDM caveat; no legally unambiguous exact fountain-pen image found in the bounded search.",
+      "upstreamMetadata": {"width": 2000, "height": 1328, "byteSize": 114289, "mimeType": "image/jpeg", "sha1": "21b0f14c6bf2ebe89dbdec3f2694ada57b00a3ad", "publishedAt": "2016-12-18"},
+      "archiveLocator": "https://commons.wikimedia.org/w/index.php?title=File:Montblanc-Starwalker-ballpoint-pen.jpg&oldid=1150572572"
+    }
+  ],
+  "editorialGuardrails": [
+    "StarWalker 必须作为 family canonical；Precious Resin、Doué、Metal、Extreme、Blue Planet、PolarGreen、SpaceBlue 等保留为 variants。",
+    "release_year 写 2003；2019 写 redesign/relaunch，不写 family 首次推出。",
+    "不得把 collection FAQ 的 launched in 2019 单独当作首发年；同页 intro、2004 年报和 FY2020 relaunch 已解释冲突。",
+    "不得把蓝色 subdome 当作所有当前 StarWalker 的硬性特征；Extreme 为橙色，其他主题可变。",
+    "任何尺寸、重量、笔尖、材质只挂到具体 SKU；不得把 MB132532/F 的 33.41 g 推广到全部 Precious Resin。",
+    "商品名 Piston Converter 指可拆上墨器，不得写成 LeGrand/149 式内置活塞。",
+    "当前墨囊／上墨器规则不得回填所有旧笔；至少两个旧样本记录为仅墨囊。",
+    "不得把 StarWalker 自动写成八种常规笔尖齐全；当前标准选择器为 F/M，Extreme 页面可能仅 M。",
+    "不得用旧仿品 PDF 的 clip 字样、序列号位置或单一外观标记判定所有年代真伪。",
+    "不得使用 Commons 圆珠笔候选图；该图写作模式不符且 PDM 法域状态存在页面自述歧义。"
+  ],
+  "openQuestions": [
+    {"key": "2019-full-design-change-list", "question": "是否有 Montblanc 同期技术目录完整列出 2019 重设计的全部结构变化？", "status": "open", "impact": "正文只写官方已证实的 relaunch 与帽顶意象，不自行补完几何变化。"},
+    {"key": "historical-converter-transition", "question": "StarWalker 钢笔从仅墨囊转为原厂随附上墨器的准确年份和 SKU 边界是什么？", "status": "open", "impact": "中古逐支核对，不设统一切换年。"},
+    {"key": "official-dimension-axis-labels", "question": "官网 135.7 × 14.9 mm 两条轴的正式字段名是什么？", "status": "open", "impact": "只原样记录数字，不自行写成长和最大直径。"},
+    {"key": "official-ink-capacity", "question": "当前官方是否公布 StarWalker 上墨器或墨囊的毫升容量？", "status": "open", "impact": "ink_capacity_ml 保持 null。"},
+    {"key": "license-clean-fountain-photo", "question": "是否能找到主体明确、许可无争议的 StarWalker 钢笔照片？", "status": "open", "impact": "当前不落盘图片，避免用圆珠笔冒充钢笔。"}
+  ]
+}
