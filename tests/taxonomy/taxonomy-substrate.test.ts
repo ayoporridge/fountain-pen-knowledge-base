@@ -702,10 +702,10 @@ test("approved alias source ownership invalidates publication fail closed", asyn
     );
     assert.equal(published.status, "published");
     const sourceItems = (
-      (await readPublicationContentPayload(
-        fixture.client,
-        "pen-v2",
-      )) as Record<string, unknown>
+      (await readPublicationContentPayload(fixture.client, "pen-v2")) as Record<
+        string,
+        unknown
+      >
     ).sourceItems as Record<string, unknown>[];
     assert.ok(sourceItems.some((item) => item.id === "alias-source-approved"));
     assert.ok(!sourceItems.some((item) => item.id === "alias-source-pending"));
