@@ -6,9 +6,9 @@ current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
 stopped_at: Phase 21 Plan 03 complete; Plan 04 locked split migration executing while sourced content drafts proceed in parallel
-last_updated: "2026-07-18T18:33:46.515Z"
+last_updated: "2026-07-19T04:15:45+08:00"
 last_activity: 2026-07-19
-last_activity_desc: Phase 21 Plan 03 completed; Montblanc 149 and Majohn A1 publishable drafts committed
+last_activity_desc: Quick 260719-56l completed; Montblanc 146 publishable and 144/No.22 sourced drafts integrated
 progress:
   total_phases: 16
   completed_phases: 10
@@ -31,7 +31,7 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 Phase: 21 (Taxonomy 与身份归一) — EXECUTING
 Plan: 4 of 6
 Status: In progress
-Last activity: 2026-07-19 — Phase 21 Plan 03 completed; sourced Montblanc 149 and Majohn A1 drafts committed
+Last activity: 2026-07-19 — Quick 260719-56l completed; Montblanc 146 publishable and 144/No.22 sourced drafts integrated
 
 Progress: [█████░░░░░] 50%
 
@@ -114,9 +114,15 @@ Progress: [█████░░░░░] 50%
 - 53 篇 Richard’s Pens 长文的 allowed use 与 223 个缺严格公开型号图条目的媒体获取成本，需在 Phase 23 逐条形成终态
 - taxonomy 净量未在 Phase 21 重算前，P0/P1 不使用“新增页数”作为进度指标
 
+### Quick Tasks Completed
+
+| # | Description | Date | Commit | Directory |
+|---|-------------|------|--------|-----------|
+| 260719-56l | 接入 Montblanc 146、144、No.22，并按主图证据区分公开与阻断草稿 | 2026-07-19 | 9e17e06 | [260719-56l-montblanc-146-144-no-22](./quick/260719-56l-montblanc-146-144-no-22-146-144-no-22-ll/) |
+
 ## Next Action
 
-执行 Phase 21 Plan 04：按锁定 ID 拆分 Waterman、Opus 88、Leonardo、Aurora 混合页，并迁移其明确归属的引用、媒体和品牌关系；歧义内容保持 fail-closed。同时准备 Phase 22 将 Montblanc 149 正文、逐字段证据和授权主图写入 owned catalog copy。
+继续 Phase 23 内容清账：先纠正 Montblanc Writers Edition 与 Patron of Art 两条集合级记录的错误“型号”身份，检索并拆出可核实的具体版本；并继续为 144 与 No.22 寻找授权明确的精确型号主图。生产写入与浏览器验收仍留到最终发布批次。
 
 ## Session Continuity
 
