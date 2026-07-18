@@ -54,6 +54,17 @@ interface ImageContainer {
   img: HastNode;
 }
 
+export type StoryHeading = {
+  id: string;
+  label: string;
+  level: 2 | 3;
+};
+
+export type RenderedMarkdownDocument = {
+  html: string;
+  headings: StoryHeading[];
+};
+
 function isElementNode(node: HastNode, tagName?: string): node is HastElement {
   return (
     node.type === "element" &&
@@ -536,8 +547,45 @@ function normalizeResidualBoldHtml(html: string): string {
 function rehypeSanitizeUrls() {
   return (tree: HastNode) => {
     const seenImageSources = new Set<string>();
-    visitElements(tree, (node): undefined => {
+    visitElements(tree, (node): false | undefined => {
       const properties = ensureProperties(node);
+
+      if (
+        new Set([
+          "script",
+          "iframe",
+          "object",
+          "embed",
+          "form",
+          "input",
+          "button",
+          "textarea",
+          "select",
+          "option",
+          "meta",
+          "link",
+          "base",
+        ]).has(node.tagName)
+      ) {
+        node.tagName = "span";
+        node.properties = { hidden: true, ariaHidden: true };
+        node.children = [];
+        return false;
+      }
+
+      for (const propertyName of Object.keys(properties)) {
+        if (/^on/i.test(propertyName)) {
+          delete properties[propertyName];
+        }
+      }
+      if (
+        properties.style &&
+        /(?:expression\s*\(|javascript\s*:|behavior\s*:)/i.test(
+          String(properties.style),
+        )
+      ) {
+        delete properties.style;
+      }
 
       if (node.tagName === "a" && properties.href) {
         const href = String(properties.href);
@@ -682,6 +730,44 @@ function rehypeNormalizeHeadings() {
         headings[i].node.tagName = `h${newLevel}`;
       }
     }
+  };
+}
+
+function readableNodeText(node: HastNode): string {
+  if (node.type === "text") return String(node.value || "");
+  return (node.children || []).map(readableNodeText).join("");
+}
+
+function headingSlug(label: string, fallbackIndex: number): string {
+  const slug = label
+    .normalize("NFKC")
+    .trim()
+    .toLocaleLowerCase("zh-CN")
+    .replace(/[^\p{L}\p{N}]+/gu, "-")
+    .replace(/^-+|-+$/g, "");
+  return slug || `section-${fallbackIndex + 1}`;
+}
+
+function rehypeCollectHeadingIds(headings: StoryHeading[]) {
+  return (tree: HastNode) => {
+    const counts = new Map<string, number>();
+    visitElements(tree, (node): undefined => {
+      if (node.tagName !== "h2" && node.tagName !== "h3") return undefined;
+
+      const label = readableNodeText(node).replace(/\s+/g, " ").trim();
+      if (!label) return undefined;
+      const baseId = headingSlug(label, headings.length);
+      const occurrence = (counts.get(baseId) || 0) + 1;
+      counts.set(baseId, occurrence);
+      const id = occurrence === 1 ? baseId : `${baseId}-${occurrence}`;
+      ensureProperties(node).id = id;
+      headings.push({
+        id,
+        label,
+        level: node.tagName === "h2" ? 2 : 3,
+      });
+      return undefined;
+    });
   };
 }
 
@@ -903,10 +989,10 @@ function rehypeImageRows() {
 /**
  * Render markdown with wiki-link support.
  */
-export async function renderMarkdown(
+export async function renderMarkdownDocument(
   md: string,
   resolveHref?: (slug: string) => Promise<string | null> | string | null,
-): Promise<string> {
+): Promise<RenderedMarkdownDocument> {
   let resolvedMap: Map<string, string> | null = null;
 
   if (resolveHref) {
@@ -970,6 +1056,7 @@ export async function renderMarkdown(
     (_, html) => `<strong>${html}</strong>`,
   );
 
+  const headings: StoryHeading[] = [];
   const result = await remark()
     .use(remarkGfm)
     .use(remarkWikiLink, {
@@ -988,9 +1075,20 @@ export async function renderMarkdown(
     .use(rehypeImageRows)
     .use(rehypeImageFigures)
     .use(rehypeNormalizeHeadings)
+    .use(() => rehypeCollectHeadingIds(headings))
     .use(rehypeSanitizeUrls)
     .use(rehypeStringify)
     .process(processed);
 
-  return normalizeResidualBoldHtml(result.toString());
+  return {
+    html: normalizeResidualBoldHtml(result.toString()),
+    headings,
+  };
+}
+
+export async function renderMarkdown(
+  md: string,
+  resolveHref?: (slug: string) => Promise<string | null> | string | null,
+): Promise<string> {
+  return (await renderMarkdownDocument(md, resolveHref)).html;
 }
