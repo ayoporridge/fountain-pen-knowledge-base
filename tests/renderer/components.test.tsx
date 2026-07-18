@@ -12,7 +12,7 @@ import { renderMarkdownDocument } from "@/lib/markdown";
 Object.assign(globalThis, { React });
 
 const SUMMARY =
-  "这是一段独立于正文的完整中文内容提要，用来说明型号身份、设计重点、书写特征与购买边界，并确保首屏直接提供可判断的信息。";
+  "这是一段独立于正文的完整中文内容提要，用来说明型号身份、设计重点、书写特征与购买边界，并确保首屏也直接提供可判断的信息。";
 
 function modelPage(overrides: Partial<ModelPageData> = {}): ModelPageData {
   return {
@@ -141,10 +141,13 @@ describe("same-AST heading document", () => {
 describe("Markdown threat boundary", () => {
   it("removes executable raw HTML", async () => {
     const document = await renderMarkdownDocument(
-      '## 安全正文\n\n<script>alert(\'raw HTML\')</script><iframe src="https://evil.example"></iframe><p onclick="alert(1)">保留文字</p>',
+      '## 安全正文\n\n<script>alert(\'raw HTML\')</script><style>body{display:none}</style><iframe src="https://evil.example"></iframe><svg onload="alert(2)"><a href="javascript:alert(3)">危险图形</a></svg><p onclick="alert(1)">保留文字</p>',
     );
 
-    assert.doesNotMatch(document.html, /<script|<iframe|onclick=/i);
+    assert.doesNotMatch(
+      document.html,
+      /<script|<style|<iframe|<svg|onclick=|onload=/i,
+    );
     assert.doesNotMatch(document.html, /alert\(['"]raw HTML/i);
     assert.match(document.html, /保留文字/);
   });

@@ -26,6 +26,25 @@ const LEGACY_IMAGE_BADGES = new Map([
   ["/images/ref/pendoctor/rx.png", "答"],
 ]);
 
+const BLOCKED_RAW_HTML_TAGS = new Set([
+  "script",
+  "style",
+  "iframe",
+  "object",
+  "embed",
+  "form",
+  "input",
+  "button",
+  "textarea",
+  "select",
+  "option",
+  "meta",
+  "link",
+  "base",
+  "svg",
+  "math",
+]);
+
 type HastPropertyValue =
   | string
   | number
@@ -550,23 +569,7 @@ function rehypeSanitizeUrls() {
     visitElements(tree, (node): false | undefined => {
       const properties = ensureProperties(node);
 
-      if (
-        new Set([
-          "script",
-          "iframe",
-          "object",
-          "embed",
-          "form",
-          "input",
-          "button",
-          "textarea",
-          "select",
-          "option",
-          "meta",
-          "link",
-          "base",
-        ]).has(node.tagName)
-      ) {
+      if (BLOCKED_RAW_HTML_TAGS.has(node.tagName)) {
         node.tagName = "span";
         node.properties = { hidden: true, ariaHidden: true };
         node.children = [];
