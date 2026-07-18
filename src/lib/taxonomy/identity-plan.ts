@@ -10,6 +10,7 @@ export type PrimaryAction =
   | "alias"
   | "retire";
 export type ExecutionState = "apply" | "gated" | "defer";
+export type TaxonomyReconciliationScope = "non_split" | "locked_split" | "full";
 export type VariantDisposition =
   | "none"
   | "alias_only"
@@ -117,6 +118,8 @@ export interface TaxonomyPlan {
 }
 
 export interface TaxonomyReconciliation {
+  scope: TaxonomyReconciliationScope;
+  sourceRowKeys: string[];
   priorityCounts: Record<"P0" | "P1" | "P2" | "P3", number>;
   statusCounts: Record<"A" | "BM" | "BM/A" | "G/M" | "M" | "S" | "S/M", number>;
   primaryActionCounts: Record<PrimaryAction, number>;
@@ -199,6 +202,15 @@ const LOCKED_OUTPUTS = new Map([
   ["意大利::Aurora 88", ["5CcEDOz9jiUg", "aurora-88", "CJXe8UpnkHLJ"]],
   ["意大利::Aurora Optima", ["5waoVLPHU2Pt", "aurora-optima", "CJXe8UpnkHLJ"]],
 ] as const);
+const LOCKED_SPLIT_SOURCE_ROW_KEYS: ReadonlySet<string> = new Set(
+  LOCKED_OUTPUTS.keys(),
+);
+const LOCKED_SPLIT_DONOR_IDS = new Set([
+  "gwKClNnwt3V3",
+  "dTCUDu03vrI6",
+  "s0HAxT1gsHxh",
+  "G9ptvLpfyzNQ",
+]);
 const LOCKED_ROUTES: TaxonomyPlan["lockedRoutes"] = [
   {
     sourcePath: "/pen/威迪文-waterman-查尔斯顿-hemisphere",
@@ -787,9 +799,12 @@ export function loadTaxonomyPlan(raw?: unknown): TaxonomyPlan {
   return parsePlan(input);
 }
 
-function applyAtomicActions(plan: TaxonomyPlan): string[] {
+function applyAtomicActions(
+  plan: TaxonomyPlan,
+  decisions: readonly TaxonomyDecision[],
+): string[] {
   const penIds = new Set(plan.stableSets.before.penIds);
-  for (const decision of plan.matrix) {
+  for (const decision of decisions) {
     for (const action of decision.atomicActions) {
       if (action.kind === "split_retain_as") {
         if (
@@ -826,20 +841,49 @@ function applyAtomicActions(plan: TaxonomyPlan): string[] {
   return [...penIds];
 }
 
+function decisionsForScope(
+  plan: TaxonomyPlan,
+  scope: TaxonomyReconciliationScope,
+): TaxonomyDecision[] {
+  if (scope === "full") return plan.matrix;
+  return plan.matrix.filter((decision) =>
+    scope === "locked_split"
+      ? LOCKED_SPLIT_SOURCE_ROW_KEYS.has(decision.sourceRowKey)
+      : !LOCKED_SPLIT_SOURCE_ROW_KEYS.has(decision.sourceRowKey),
+  );
+}
+
+function payloadAssignmentsForScope(
+  plan: TaxonomyPlan,
+  scope: TaxonomyReconciliationScope,
+): PayloadAssignment[] {
+  if (scope === "full") return plan.payloadAssignments;
+  return plan.payloadAssignments.filter((assignment) =>
+    scope === "locked_split"
+      ? LOCKED_SPLIT_DONOR_IDS.has(assignment.donorId)
+      : !LOCKED_SPLIT_DONOR_IDS.has(assignment.donorId),
+  );
+}
+
 export function reconcileTaxonomyPlan(
   plan: TaxonomyPlan,
-  options: { requireResolvedPayloads?: boolean } = {},
+  options: { scope?: TaxonomyReconciliationScope } = {},
 ): TaxonomyReconciliation {
-  const unresolvedPayloadSlots = plan.payloadAssignments.filter(
+  const scope = options.scope ?? "full";
+  if (!(["non_split", "locked_split", "full"] as const).includes(scope)) {
+    throw new Error(`unknown taxonomy reconciliation scope: ${String(scope)}`);
+  }
+  const decisions = decisionsForScope(plan, scope);
+  const unresolvedPayloadSlots = payloadAssignmentsForScope(plan, scope).filter(
     (item) => item.slotKey && item.requiresOwnedCopyResolution,
   ).length;
-  if (options.requireResolvedPayloads && unresolvedPayloadSlots > 0) {
+  if (unresolvedPayloadSlots > 0) {
     throw new Error(
-      `${unresolvedPayloadSlots} payload slots are unresolved; resolve exact IDs from the Phase 21 owned copy before apply`,
+      `${unresolvedPayloadSlots} payload slots are unresolved in ${scope} scope; resolve exact IDs from the Phase 21 owned copy before apply`,
     );
   }
-  const declaredAfterPens = applyAtomicActions(plan);
-  if (!sameSet(declaredAfterPens, plan.stableSets.after.penIds)) {
+  const fullDeclaredAfterPens = applyAtomicActions(plan, plan.matrix);
+  if (!sameSet(fullDeclaredAfterPens, plan.stableSets.after.penIds)) {
     throw new Error(
       "atomic actions do not reconcile with stable after pen IDs",
     );
@@ -851,43 +895,52 @@ export function reconcileTaxonomyPlan(
       "brand stable sets changed without an explicit atomic action",
     );
   }
-  const net = {
-    brand:
-      plan.stableSets.after.brandIds.length -
-      plan.stableSets.before.brandIds.length,
-    pen:
-      plan.stableSets.after.penIds.length -
-      plan.stableSets.before.penIds.length,
-    page:
-      plan.stableSets.after.pageIds.length -
-      plan.stableSets.before.pageIds.length,
-  };
+  const declaredAfterPens =
+    scope === "full"
+      ? fullDeclaredAfterPens
+      : applyAtomicActions(plan, decisions);
   const declaredNet = {
     brand: 0,
     pen: declaredAfterPens.length - plan.stableSets.before.penIds.length,
     page:
-      plan.stableSets.after.brandIds.length +
+      plan.stableSets.before.brandIds.length +
       declaredAfterPens.length -
       plan.stableSets.before.pageIds.length,
   };
+  const net =
+    scope === "full"
+      ? {
+          brand:
+            plan.stableSets.after.brandIds.length -
+            plan.stableSets.before.brandIds.length,
+          pen:
+            plan.stableSets.after.penIds.length -
+            plan.stableSets.before.penIds.length,
+          page:
+            plan.stableSets.after.pageIds.length -
+            plan.stableSets.before.pageIds.length,
+        }
+      : declaredNet;
   if (stableJson(net) !== stableJson(declaredNet)) {
     throw new Error("declared atomic net does not match stable-set net");
   }
   return {
+    scope,
+    sourceRowKeys: decisions.map((decision) => decision.sourceRowKey),
     priorityCounts: countValues(
-      plan.matrix.map((item) => item.priority),
+      decisions.map((item) => item.priority),
       PRIORITIES,
     ),
     statusCounts: countValues(
-      plan.matrix.map((item) => item.status),
+      decisions.map((item) => item.status),
       STATUSES,
     ),
     primaryActionCounts: countValues(
-      plan.matrix.map((item) => item.primaryAction),
+      decisions.map((item) => item.primaryAction),
       ACTIONS,
     ),
     executionStateCounts: countValues(
-      plan.matrix.map((item) => item.executionState),
+      decisions.map((item) => item.executionState),
       EXECUTION_STATES,
     ),
     net,

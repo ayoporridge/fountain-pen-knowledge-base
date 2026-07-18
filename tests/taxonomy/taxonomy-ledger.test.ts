@@ -34,6 +34,16 @@ const MATRIX_REGIONS = new Set([
   "中国大陆",
   "印度与其他独立品牌",
 ]);
+const LOCKED_SPLIT_SOURCE_ROW_KEYS = [
+  "意大利::Aurora 88",
+  "意大利::Aurora Optima",
+  "意大利::Leonardo Furore",
+  "意大利::Leonardo Momento Magico",
+  "法国、英国与美国::Waterman Hémisphère",
+  "法国、英国与美国::Waterman Charleston",
+  "台湾::Opus 88 Demo",
+  "台湾::Opus 88 Koloro",
+] as const;
 
 function expectedSourceRowKeys(): string[] {
   let region = "";
@@ -69,6 +79,19 @@ function stableJson(value: unknown): string {
 
 function checksumMatrix(matrix: unknown): string {
   return `sha256:${createHash("sha256").update(stableJson(matrix)).digest("hex")}`;
+}
+
+function loadResolvedPayloadPlan() {
+  const raw = JSON.parse(fs.readFileSync(MANIFEST_PATH, "utf8")) as {
+    payloadAssignments: Array<Record<string, unknown>>;
+  };
+  for (const [index, assignment] of raw.payloadAssignments.entries()) {
+    if (!assignment.requiresOwnedCopyResolution) continue;
+    assignment.itemId = `owned-copy-resolution-${index + 1}`;
+    assignment.slotKey = null;
+    assignment.requiresOwnedCopyResolution = false;
+  }
+  return loadTaxonomyPlan(raw);
 }
 
 test("taxonomy fixture safety", async () => {
@@ -176,7 +199,7 @@ test("taxonomy fixture safety", async () => {
 });
 
 test("109-row manifest preserves the exact reviewed denominator", () => {
-  const plan = loadTaxonomyPlan();
+  const plan = loadResolvedPayloadPlan();
   const report = reconcileTaxonomyPlan(plan);
   const expectedKeys = expectedSourceRowKeys();
 
@@ -207,7 +230,7 @@ test("109-row manifest preserves the exact reviewed denominator", () => {
 });
 
 test("net action reconciliation uses exact stable ID sets and locked identities", () => {
-  const plan = loadTaxonomyPlan();
+  const plan = loadResolvedPayloadPlan();
   const report = reconcileTaxonomyPlan(plan);
 
   assert.deepEqual(report.net, { brand: 0, pen: 4, page: 4 });
@@ -284,16 +307,78 @@ test("net action reconciliation uses exact stable ID sets and locked identities"
         (item.disposition === "supported_output" && item.targetId),
     ),
   );
-  assert.ok(
-    plan.payloadAssignments.some(
-      (item) => item.slotKey && item.requiresOwnedCopyResolution,
-    ),
-    "unexposed Phase 19 row IDs must remain explicit unresolved slots",
+});
+
+test("payload reconciliation scopes isolate the complete locked split unit", () => {
+  const plan = loadTaxonomyPlan();
+
+  assert.throws(
+    () => reconcileTaxonomyPlan(plan),
+    /8 payload slots.*full scope.*owned copy/i,
   );
   assert.throws(
-    () => reconcileTaxonomyPlan(plan, { requireResolvedPayloads: true }),
-    /owned copy|payload.*unresolved/i,
+    () => reconcileTaxonomyPlan(plan, { scope: "locked_split" }),
+    /8 payload slots.*locked_split scope.*owned copy/i,
   );
+
+  const nonSplit = reconcileTaxonomyPlan(plan, { scope: "non_split" });
+  assert.equal(nonSplit.scope, "non_split");
+  assert.equal(nonSplit.sourceRowKeys.length, 101);
+  assert.equal(nonSplit.unresolvedPayloadSlots, 0);
+  assert.deepEqual(
+    nonSplit.sourceRowKeys.filter((key) =>
+      LOCKED_SPLIT_SOURCE_ROW_KEYS.includes(
+        key as (typeof LOCKED_SPLIT_SOURCE_ROW_KEYS)[number],
+      ),
+    ),
+    [],
+  );
+
+  const unresolvedNonSplit = structuredClone(plan);
+  const nonSplitDonorId = "nonSplit0001";
+  unresolvedNonSplit.payloadAssignments.push({
+    donorId: nonSplitDonorId,
+    surface: "review",
+    ordinal: 1,
+    itemId: null,
+    slotKey: `phase19-slot:${nonSplitDonorId}:review:1:non-split`,
+    evidenceChecksum: `sha256:${"0".repeat(64)}`,
+    requiresOwnedCopyResolution: true,
+    disposition: "pending_conflict",
+    targetId: null,
+  });
+  assert.throws(
+    () => reconcileTaxonomyPlan(unresolvedNonSplit, { scope: "non_split" }),
+    /1 payload slot.*non_split scope/i,
+  );
+
+  const resolved = loadResolvedPayloadPlan();
+  const partiallyResolved = structuredClone(resolved);
+  const unresolvedAssignment = plan.payloadAssignments.find(
+    (assignment) => assignment.requiresOwnedCopyResolution,
+  );
+  assert.ok(unresolvedAssignment);
+  const restoredIndex = partiallyResolved.payloadAssignments.findIndex(
+    (assignment) =>
+      assignment.donorId === unresolvedAssignment.donorId &&
+      assignment.surface === unresolvedAssignment.surface &&
+      assignment.ordinal === unresolvedAssignment.ordinal,
+  );
+  assert.notEqual(restoredIndex, -1);
+  partiallyResolved.payloadAssignments[restoredIndex] = unresolvedAssignment;
+  assert.throws(
+    () => reconcileTaxonomyPlan(partiallyResolved, { scope: "locked_split" }),
+    /1 payload slot.*locked_split scope/i,
+  );
+
+  const lockedSplit = reconcileTaxonomyPlan(resolved, {
+    scope: "locked_split",
+  });
+  assert.deepEqual(
+    new Set(lockedSplit.sourceRowKeys),
+    new Set(LOCKED_SPLIT_SOURCE_ROW_KEYS),
+  );
+  assert.doesNotThrow(() => reconcileTaxonomyPlan(resolved));
 });
 
 test("checksum and strict decoder fail closed without counting the addendum", () => {
