@@ -201,9 +201,9 @@ describe("evidence modules", () => {
         models: data.models,
       }),
     );
-    const modelLinks = [...html.matchAll(/href="\/pen\/(renderer-model-\d+)"/g)].map(
-      (match) => match[1],
-    );
+    const modelLinks = [
+      ...html.matchAll(/href="\/pen\/(renderer-model-\d+)"/g),
+    ].map((match) => match[1]);
 
     assert.match(html, /全部型号（15）/);
     assert.equal(modelLinks.length, 15);

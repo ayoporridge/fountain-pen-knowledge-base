@@ -1,107 +1,60 @@
-import { Clock, PenNib } from "@phosphor-icons/react/dist/ssr";
 import Link from "next/link";
-import {
-  getBrandPublicModels,
-  getEntityAliases,
-  getEntityExternalIds,
-  getEntityReferences,
-  getTimelineForEntity,
-} from "@/lib/library";
-import { IdentifierPanel } from "./IdentifierPanel";
-import { SourceCards } from "./SourceCards";
-import { Timeline } from "./Timeline";
+import type { BrandPageData } from "@/lib/entity-page";
 
-export async function BrandMuseum({ entityId }: { entityId: string }) {
-  const [timeline, brandModels, sources, aliases, externalIds] =
-    await Promise.all([
-      getTimelineForEntity(entityId, 10),
-      getBrandPublicModels(entityId),
-      getEntityReferences(entityId, 6),
-      getEntityAliases(entityId),
-      getEntityExternalIds(entityId),
-    ]);
-  const { models, count: modelCount } = brandModels;
+type BrandMuseumProps = Pick<BrandPageData, "timeline" | "models">;
 
+export function BrandMuseum({ timeline, models }: BrandMuseumProps) {
   return (
-    <section className="mb-10 space-y-6">
-      <div
-        id="models"
-        className="library-panel p-5"
-        style={{
-          borderColor: "var(--color-border)",
-          backgroundColor: "var(--color-surface-raised)",
-        }}
-      >
-        <div className="library-section-heading mb-3">
-          <div className="library-section-icon" aria-hidden="true">
-            <PenNib size={18} style={{ color: "var(--color-accent)" }} />
-          </div>
-          <h2 className="text-lg font-semibold">全部型号（{modelCount}）</h2>
-        </div>
-        {models.length > 0 ? (
-          <div className="grid gap-2 sm:grid-cols-2">
-            {models.map((model) => (
-              <Link
-                key={model.slug}
-                href={`/${model.type}/${model.slug}`}
-                className="rounded-lg border p-3 transition-colors hover:bg-[var(--color-surface-dim)]"
-                style={{
-                  borderColor: "var(--color-border-light)",
-                  color: "var(--color-ink)",
-                }}
+    <div className="encyclopedia-brand-facts space-y-8">
+      <section id="timeline" className="scroll-mt-24">
+        <h2 className="mb-4 text-xl font-semibold text-ink">品牌时间线</h2>
+        <ol className="space-y-3">
+          {timeline.map((event) => (
+            <li
+              key={`${event.startDate}:${event.title}`}
+              className="library-panel p-4"
+            >
+              <p className="font-semibold text-ink">
+                {event.circa ? "约 " : ""}
+                {event.startDate}
+                {event.endDate ? `—${event.endDate}` : ""} · {event.title}
+              </p>
+              {event.description ? (
+                <p className="mt-2 text-sm leading-6 text-ink-light">
+                  {event.description}
+                </p>
+              ) : null}
+              <a
+                href={event.source.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 inline-flex min-h-11 items-center text-sm ink-underline"
               >
-                <div className="text-sm font-medium">{model.name}</div>
-              </Link>
-            ))}
-          </div>
-        ) : (
-          <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
-            当前没有已发布型号。
-          </p>
-        )}
-      </div>
+                来源：{event.source.title}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </section>
 
-      <div
-        id="timeline"
-        className="library-panel p-5"
-        style={{
-          borderColor: "var(--color-border)",
-          backgroundColor: "var(--color-surface-raised)",
-        }}
-      >
-        <div className="library-section-heading mb-4">
-          <div className="library-section-icon" aria-hidden="true">
-            <Clock size={18} style={{ color: "var(--color-accent)" }} />
-          </div>
-          <h2 className="text-lg font-semibold">品牌时间线</h2>
-        </div>
-        <Timeline events={timeline} />
-      </div>
-
-      <IdentifierPanel aliases={aliases} externalIds={externalIds} />
-
-      <div
-        id="sources"
-        className="library-panel p-5"
-        style={{
-          borderColor: "var(--color-border)",
-          backgroundColor: "var(--color-surface-raised)",
-        }}
-      >
-        <h2
-          className="mb-3 text-sm font-medium"
-          style={{ color: "var(--color-ink-muted)" }}
-        >
-          来源
+      <section id="models" className="scroll-mt-24">
+        <h2 className="mb-4 text-xl font-semibold text-ink">
+          全部型号（{models.length}）
         </h2>
-        {sources.length > 0 ? (
-          <SourceCards sources={sources} variant="compact" />
-        ) : (
-          <p className="text-sm" style={{ color: "var(--color-ink-muted)" }}>
-            暂无可公开展示的来源资料。
-          </p>
-        )}
-      </div>
-    </section>
+        <ul className="grid list-none gap-2 p-0 sm:grid-cols-2">
+          {models.map((model) => (
+            <li key={`${model.type}:${model.slug}`}>
+              <Link
+                href={`/${model.type}/${model.slug}`}
+                className="flex min-h-11 items-center rounded-lg border px-3 py-2 text-ink"
+                style={{ borderColor: "var(--color-border-light)" }}
+              >
+                {model.name}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
   );
 }

@@ -1,11 +1,8 @@
 import Link from "next/link";
+import { BrandMuseum } from "@/components/library/BrandMuseum";
+import { ModelArchive } from "@/components/library/ModelArchive";
 import { MarkdownHtml } from "@/components/MarkdownHtml";
-import type {
-  BrandPageData,
-  ModelPageData,
-  PublishedPageData,
-  PublishedSource,
-} from "@/lib/entity-page";
+import type { PublishedPageData, PublishedSource } from "@/lib/entity-page";
 import type { RenderedMarkdownDocument, StoryHeading } from "@/lib/markdown";
 
 type ShellProps = {
@@ -192,126 +189,6 @@ function QualifiedSources({ sources }: { sources: PublishedSource[] }) {
   );
 }
 
-function BrandFacts({ data }: { data: BrandPageData }) {
-  return (
-    <div className="encyclopedia-brand-facts space-y-8">
-      <section id="timeline" className="scroll-mt-24">
-        <h2 className="mb-4 text-xl font-semibold text-ink">品牌时间线</h2>
-        <ol className="space-y-3">
-          {data.timeline.map((event) => (
-            <li
-              key={`${event.startDate}:${event.title}`}
-              className="library-panel p-4"
-            >
-              <p className="font-semibold text-ink">
-                {event.circa ? "约 " : ""}
-                {event.startDate}
-                {event.endDate ? `—${event.endDate}` : ""} · {event.title}
-              </p>
-              {event.description ? (
-                <p className="mt-2 text-sm leading-6 text-ink-light">
-                  {event.description}
-                </p>
-              ) : null}
-              <a
-                href={event.source.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-2 inline-flex min-h-11 items-center text-sm ink-underline"
-              >
-                来源：{event.source.title}
-              </a>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section id="models" className="scroll-mt-24">
-        <h2 className="mb-4 text-xl font-semibold text-ink">
-          全部型号（{data.models.length}）
-        </h2>
-        <ul className="grid list-none gap-2 p-0 sm:grid-cols-2">
-          {data.models.map((model) => (
-            <li key={model.slug}>
-              <Link
-                href={`/pen/${model.slug}`}
-                className="flex min-h-11 items-center rounded-lg border px-3 py-2 text-ink"
-                style={{ borderColor: "var(--color-border-light)" }}
-              >
-                {model.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
-    </div>
-  );
-}
-
-function ModelFacts({ data }: { data: ModelPageData }) {
-  return (
-    <div className="encyclopedia-model-facts space-y-8">
-      <section id="specs" className="scroll-mt-24">
-        <h2 className="mb-4 text-xl font-semibold text-ink">型号档案</h2>
-        <dl className="grid gap-3 sm:grid-cols-2">
-          {data.specs.map((spec) => (
-            <div key={spec.key} className="library-panel p-4">
-              <dt className="text-sm text-ink-muted">{spec.label}</dt>
-              <dd className="mt-1 font-semibold text-ink">
-                {String(spec.value)}
-              </dd>
-              <dd className="mt-2 text-sm text-ink-muted">
-                <a
-                  href={spec.source.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex min-h-11 items-center ink-underline"
-                >
-                  来源：{spec.source.title}
-                </a>
-                {spec.source.locator ? ` · ${spec.source.locator}` : ""}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </section>
-
-      {data.variants.length > 0 ? (
-        <section id="variants" className="scroll-mt-24">
-          <h2 className="mb-4 text-xl font-semibold text-ink">
-            版本与年代边界
-          </h2>
-          <ul className="space-y-3">
-            {data.variants.map((variant) => (
-              <li key={variant.name} className="library-panel p-4">
-                <p className="font-semibold text-ink">{variant.name}</p>
-                {variant.releaseYear ? (
-                  <p className="mt-1 text-sm text-ink-muted">
-                    发布年份：{variant.releaseYear}
-                  </p>
-                ) : null}
-                {variant.notes ? (
-                  <p className="mt-2 text-sm leading-6 text-ink-light">
-                    {variant.notes}
-                  </p>
-                ) : null}
-                <a
-                  href={variant.source.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-2 inline-flex min-h-11 items-center text-sm ink-underline"
-                >
-                  来源：{variant.source.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </section>
-      ) : null}
-    </div>
-  );
-}
-
 function CanonicalRelations({ data }: { data: PublishedPageData }) {
   if (data.type !== "pen") return null;
   return (
@@ -361,9 +238,9 @@ function navigationItems(
         ]
       : [
           { href: "#brand", label: "品牌" },
-          { href: "#specs", label: "型号档案" },
+          { href: "#specs", label: "核心规格" },
           ...(data.variants.length > 0
-            ? [{ href: "#variants", label: "版本与年代边界" }]
+            ? [{ href: "#variants", label: "版本差异" }]
             : []),
           { href: "#sources", label: "来源" },
         ];
@@ -381,9 +258,9 @@ export function EncyclopediaShell({ data, document }: ShellProps) {
       <div className="encyclopedia-content space-y-10">
         <StoryArticle data={data} document={document} />
         {data.type === "brand" ? (
-          <BrandFacts data={data} />
+          <BrandMuseum timeline={data.timeline} models={data.models} />
         ) : (
-          <ModelFacts data={data} />
+          <ModelArchive specs={data.specs} variants={data.variants} />
         )}
         <QualifiedSources sources={data.sources} />
         <ExploreMore data={data} />
