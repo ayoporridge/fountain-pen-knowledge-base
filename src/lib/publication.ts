@@ -7,7 +7,7 @@ import type {
   Transaction,
 } from "@libsql/client";
 
-export const PUBLICATION_CONTRACT_VERSION = 2 as const;
+export const PUBLICATION_CONTRACT_VERSION = 3 as const;
 const PUBLICATION_HASH_PREFIX = `sha256:v${PUBLICATION_CONTRACT_VERSION}:`;
 
 export interface PublicationDatabase {
@@ -160,7 +160,7 @@ async function rowsForIds(
 }
 
 /**
- * Read every contract-v2 publication-critical input with fixed keys and
+ * Read every contract-v3 publication-critical input with fixed keys and
  * explicit nulls. Created/updated timestamps and entity_content_reviews are
  * excluded: the former are transport metadata, while the latter point to this
  * payload's hash and would create a review/hash self-reference.
@@ -215,7 +215,8 @@ export async function readPublicationContentPayload(
     db,
     `
       SELECT id, model_entity_id, variant_name, release_year, notes,
-             source_item_id, review_status
+             source_item_id, review_status, variant_kind, parent_variant_id,
+             product_code, market
       FROM model_variants
       WHERE model_entity_id = ?
     `,
@@ -339,14 +340,38 @@ export async function readPublicationContentPayload(
     `,
     [entityId],
   );
-  const madeByRows = await rows(
+  const aliasRows = await rows(
+    db,
+    `
+      SELECT id, entity_id, alias, language, alias_kind, market, valid_from,
+             valid_to, source_item_id, review_status
+      FROM entity_aliases
+      WHERE entity_id = ? AND review_status = 'approved'
+    `,
+    [entityId],
+  );
+  const tagRows = await rows(
+    db,
+    `
+      SELECT tag_id
+      FROM entity_tags
+      WHERE entity_id = ?
+    `,
+    [entityId],
+  );
+  const taxonomyLinkRows = await rows(
     db,
     `
       SELECT id, source_id, target_id, link_type, reason
       FROM entity_links
-      WHERE source_id = ? AND link_type = 'made_by'
+      WHERE (source_id = ? OR target_id = ?)
+        AND link_type IN (
+          'made_by',
+          'member_of_series',
+          'marketed_under_licensed_brand'
+        )
     `,
-    [entityId],
+    [entityId, entityId],
   );
 
   const sourceItemRows = await rows(
@@ -428,6 +453,10 @@ export async function readPublicationContentPayload(
       notes: normalizeText(row.notes),
       sourceItemId: normalizeText(row.source_item_id),
       reviewStatus: normalizeText(row.review_status),
+      variantKind: normalizeText(row.variant_kind),
+      parentVariantId: normalizeText(row.parent_variant_id),
+      productCode: normalizeText(row.product_code),
+      market: normalizeText(row.market),
     })),
     claims: claimRows.map((row) => ({
       id: normalizeText(row.id),
@@ -568,7 +597,20 @@ export async function readPublicationContentPayload(
       reviewStatus: normalizeText(row.review_status),
       usageStatus: normalizeText(row.usage_status),
     })),
-    madeBy: madeByRows.map((row) => ({
+    aliases: aliasRows.map((row) => ({
+      id: normalizeText(row.id),
+      entityId: normalizeText(row.entity_id),
+      alias: normalizeText(row.alias),
+      language: normalizeText(row.language),
+      aliasKind: normalizeText(row.alias_kind),
+      market: normalizeText(row.market),
+      validFrom: normalizeText(row.valid_from),
+      validTo: normalizeText(row.valid_to),
+      sourceItemId: normalizeText(row.source_item_id),
+      reviewStatus: normalizeText(row.review_status),
+    })),
+    canonicalTagIds: tagRows.map((row) => normalizeText(row.tag_id)),
+    taxonomyLinks: taxonomyLinkRows.map((row) => ({
       id: normalizeText(row.id),
       sourceId: normalizeText(row.source_id),
       targetId: normalizeText(row.target_id),

@@ -3,8 +3,8 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import test from "node:test";
-import { createClient, type Client, type InArgs } from "@libsql/client";
-import { migrateDatabase } from "../../src/lib/db";
+import { type Client, createClient, type InArgs } from "@libsql/client";
+import { assertDatabaseReady, migrateDatabase } from "../../src/lib/db";
 import {
   computePublicationContentHash,
   publishEntity,
@@ -48,7 +48,10 @@ function copyMigrationsThrough031(target: string): void {
   fs.mkdirSync(target, { recursive: true });
   for (const file of fs.readdirSync(CANONICAL_MIGRATIONS).sort()) {
     if (!/^\d{3}_.+\.sql$/.test(file) || file >= MIGRATION_032) continue;
-    fs.copyFileSync(path.join(CANONICAL_MIGRATIONS, file), path.join(target, file));
+    fs.copyFileSync(
+      path.join(CANONICAL_MIGRATIONS, file),
+      path.join(target, file),
+    );
   }
 }
 
@@ -66,7 +69,9 @@ async function apply032(fixture: Fixture) {
     path.join(CANONICAL_MIGRATIONS, MIGRATION_032),
     path.join(fixture.migrationDir, MIGRATION_032),
   );
-  return migrateDatabase(fixture.client, { migrationsDir: fixture.migrationDir });
+  return migrateDatabase(fixture.client, {
+    migrationsDir: fixture.migrationDir,
+  });
 }
 
 async function withFixture(
@@ -192,7 +197,10 @@ async function seedEntityEvidence(
   });
 }
 
-async function installV2Snapshot(client: Client, entityId: string): Promise<void> {
+async function installV2Snapshot(
+  client: Client,
+  entityId: string,
+): Promise<void> {
   const publication = await sqlOne(
     client,
     "SELECT content_revision FROM entity_publications WHERE entity_id = ?",
@@ -320,6 +328,9 @@ test("taxonomy substrate and migration replay preserve revoked v2 compatibility"
     });
     assert.deepEqual(second.applied, []);
     assert.ok(second.skipped.includes(MIGRATION_032));
+    await assertDatabaseReady(fixture.client, {
+      migrationsDir: fixture.migrationDir,
+    });
 
     const objects = await sqlRows(
       fixture.client,
@@ -384,7 +395,9 @@ test("taxonomy substrate and migration replay preserve revoked v2 compatibility"
        FROM entity_content_reviews ORDER BY id`,
     );
     assert.deepEqual(
-      afterReviews.map(({ status: _status, content_hash: _hash, ...row }) => row),
+      afterReviews.map(
+        ({ status: _status, content_hash: _hash, ...row }) => row,
+      ),
       beforeReviews,
     );
     assert.ok(afterReviews.every((row) => row.status === "revoked"));
@@ -393,6 +406,14 @@ test("taxonomy substrate and migration replay preserve revoked v2 compatibility"
       fixture.client.execute({
         sql: `UPDATE entity_content_reviews SET status = 'approved' WHERE id = ?`,
         args: [String(afterReviews[0].id)],
+      }),
+    );
+    await assert.rejects(
+      fixture.client.execute({
+        sql: `UPDATE entity_publications
+              SET approved_content_hash = ?, reviewed_contract_version = 2
+              WHERE entity_id = 'pen-v2'`,
+        args: [V2_HASH],
       }),
     );
     await assert.rejects(
@@ -426,7 +447,10 @@ test("schema authorization scan permits v2 only in revoked-history clause", asyn
     assert.match(String(v2References[0].sql), /status\s*=\s*'revoked'/);
     for (const row of rows) {
       if (row.name === "entity_content_reviews") continue;
-      assert.doesNotMatch(String(row.sql), /sha256:v2:|contract_version\s*(?:=|!=)\s*2/);
+      assert.doesNotMatch(
+        String(row.sql),
+        /sha256:v2:|contract_version\s*(?:=|!=)\s*2/,
+      );
     }
   });
 });
@@ -516,7 +540,9 @@ test("taxonomy substrate constraints and immutable identity reject malformed sta
         SET parent_variant_id = 'variant-other' WHERE id = 'variant-color'`),
     );
     await assert.rejects(
-      fixture.client.execute(`UPDATE entities SET id = 'pen-v2-mutated' WHERE id = 'pen-v2'`),
+      fixture.client.execute(
+        `UPDATE entities SET id = 'pen-v2-mutated' WHERE id = 'pen-v2'`,
+      ),
     );
   });
 });
@@ -533,6 +559,11 @@ test("taxonomy hash and review revocation fail closed without automatic republis
       "pen-v2",
     )) as Record<string, unknown>;
     assert.equal(payload.version, 3);
+    assert.ok(
+      (payload.taxonomyLinks as Record<string, unknown>[]).some(
+        (link) => link.linkType === "made_by",
+      ),
+    );
 
     const before = await sqlOne(
       fixture.client,
@@ -545,14 +576,44 @@ test("taxonomy hash and review revocation fail closed without automatic republis
       'regional_name', 'US', 'source-primary', 'approved')`);
     const after = await sqlOne(
       fixture.client,
-      `SELECT status, content_revision, approved_content_hash
+      `SELECT status, content_revision, approved_content_hash,
+              reviewed_content_revision
        FROM entity_publications WHERE entity_id = 'pen-v2'`,
     );
     assert.equal(after.status, "in_review");
-    assert.equal(Number(after.content_revision), Number(before.content_revision) + 1);
-    assert.equal(after.approved_content_hash, null);
-    const aliasHash = await computePublicationContentHash(fixture.client, "pen-v2");
+    assert.equal(
+      Number(after.content_revision),
+      Number(before.content_revision) + 1,
+    );
+    assert.equal(after.approved_content_hash, originalHash);
+    assert.notEqual(after.reviewed_content_revision, after.content_revision);
+    const aliasHash = await computePublicationContentHash(
+      fixture.client,
+      "pen-v2",
+    );
     assert.notEqual(aliasHash, originalHash);
+    assert.deepEqual(
+      (
+        (await readPublicationContentPayload(
+          fixture.client,
+          "pen-v2",
+        )) as Record<string, unknown>
+      ).aliases,
+      [
+        {
+          alias: "Pen approved alias",
+          aliasKind: "regional_name",
+          entityId: "pen-v2",
+          id: "hash-alias",
+          language: "en",
+          market: "US",
+          reviewStatus: "approved",
+          sourceItemId: "source-primary",
+          validFrom: null,
+          validTo: null,
+        },
+      ],
+    );
     assert.equal(
       Number(
         (
@@ -590,6 +651,26 @@ test("taxonomy hash and review revocation fail closed without automatic republis
       hashBeforeInternal,
     );
 
+    await fixture.client.execute(
+      "DELETE FROM entity_aliases WHERE id = 'hash-alias'",
+    );
+    assert.equal(
+      await computePublicationContentHash(fixture.client, "pen-v2"),
+      originalHash,
+    );
+    assert.equal(
+      Number(
+        (
+          await sqlOne(
+            fixture.client,
+            `SELECT count(*) AS count FROM entity_content_reviews
+             WHERE entity_id = 'pen-v2' AND status = 'approved'`,
+          )
+        ).count,
+      ),
+      0,
+    );
+
     await republishV3(fixture.client, "pen-v2");
     await fixture.client.execute(`INSERT INTO tags (
       id, name, slug, dimension, level
@@ -605,6 +686,15 @@ test("taxonomy hash and review revocation fail closed without automatic republis
         )
       ).status,
       "in_review",
+    );
+    assert.deepEqual(
+      (
+        (await readPublicationContentPayload(
+          fixture.client,
+          "pen-v2",
+        )) as Record<string, unknown>
+      ).canonicalTagIds,
+      ["tag-taxonomy"],
     );
 
     await republishV3(fixture.client, "pen-v2");
@@ -622,6 +712,48 @@ test("taxonomy hash and review revocation fail closed without automatic republis
         )
       ).status,
       "in_review",
+    );
+    assert.ok(
+      (
+        (
+          (await readPublicationContentPayload(
+            fixture.client,
+            "pen-v2",
+          )) as Record<string, unknown>
+        ).taxonomyLinks as Record<string, unknown>[]
+      ).some((link) => link.linkType === "member_of_series"),
+    );
+
+    await republishV3(fixture.client, "pen-v2");
+    const unrelatedRevision = Number(
+      (
+        await sqlOne(
+          fixture.client,
+          "SELECT content_revision FROM entity_publications WHERE entity_id = 'pen-v2'",
+        )
+      ).content_revision,
+    );
+    const unrelatedHash = await computePublicationContentHash(
+      fixture.client,
+      "pen-v2",
+    );
+    await fixture.client.execute(`INSERT INTO entity_links (
+      id, source_id, target_id, link_type, reason
+    ) VALUES ('pen-v2-unrelated', 'pen-v2', 'series-entity', 'related', 'internal')`);
+    assert.equal(
+      Number(
+        (
+          await sqlOne(
+            fixture.client,
+            "SELECT content_revision FROM entity_publications WHERE entity_id = 'pen-v2'",
+          )
+        ).content_revision,
+      ),
+      unrelatedRevision,
+    );
+    assert.equal(
+      await computePublicationContentHash(fixture.client, "pen-v2"),
+      unrelatedHash,
     );
 
     await republishV3(fixture.client, "pen-v2");
@@ -649,6 +781,22 @@ test("taxonomy hash and review revocation fail closed without automatic republis
         ).count,
       ),
       0,
+    );
+    assert.ok(
+      (
+        (
+          (await readPublicationContentPayload(
+            fixture.client,
+            "pen-v2",
+          )) as Record<string, unknown>
+        ).modelVariants as Record<string, unknown>[]
+      ).some(
+        (variant) =>
+          variant.id === "hash-edition" &&
+          variant.variantKind === "edition_group" &&
+          variant.productCode === "SKU-1" &&
+          variant.market === "JP",
+      ),
     );
   });
 });
