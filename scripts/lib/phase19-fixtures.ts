@@ -69,10 +69,36 @@ export interface CreatePhase19FixtureOptions {
 
 type ManagedPhase19Fixture = Phase19Fixture & {
   readonly children: Set<ChildProcess>;
+  readonly childStopPromises: Map<ChildProcess, Promise<void>>;
+  readonly registrationGate: Phase19FixtureRegistrationGate;
   readonly realCatalogSnapshot: CatalogSnapshot;
   readonly previousEnvironment: Record<FixtureEnvKey, string | undefined>;
   cleanupPromise?: Promise<void>;
 };
+
+export interface Phase19FixtureRegistrationGate {
+  readonly closed: boolean;
+  close(): void;
+  assertOpen(): void;
+}
+
+/** Hermetic contract seam for testing registration/cleanup interleavings. */
+export function createPhase19FixtureRegistrationGate(): Phase19FixtureRegistrationGate {
+  let closed = false;
+  return {
+    get closed(): boolean {
+      return closed;
+    },
+    close(): void {
+      closed = true;
+    },
+    assertOpen(): void {
+      if (closed) {
+        throw new Error("Phase 19 child registration is closed for cleanup.");
+      }
+    },
+  };
+}
 
 const activeFixtures = new Set<ManagedPhase19Fixture>();
 const knownFixtures = new WeakSet<ManagedPhase19Fixture>();
@@ -204,6 +230,48 @@ function releaseChildRegistration(
   detachedFixtureChildren.delete(child);
 }
 
+function stopRegisteredChild(
+  fixture: ManagedPhase19Fixture,
+  child: ChildProcess,
+): Promise<void> {
+  const existing = fixture.childStopPromises.get(child);
+  if (existing) return existing;
+  const stopping = (async () => {
+    await stopChild(child);
+    releaseChildRegistration(fixture, child);
+  })();
+  fixture.childStopPromises.set(child, stopping);
+  return stopping;
+}
+
+async function drainRegisteredChildren(
+  fixture: ManagedPhase19Fixture,
+): Promise<unknown[]> {
+  const failures: unknown[] = [];
+  const attempted = new Set<ChildProcess>();
+  while (true) {
+    const batch = [...fixture.children].filter(
+      (child) => !attempted.has(child),
+    );
+    if (batch.length === 0) break;
+    for (const child of batch) attempted.add(child);
+    const results = await Promise.allSettled(
+      batch.map((child) => stopRegisteredChild(fixture, child)),
+    );
+    for (const result of results) {
+      if (result.status === "rejected") failures.push(result.reason);
+    }
+  }
+  if (fixture.children.size > 0) {
+    failures.push(
+      new Error(
+        `Phase 19 fixture cleanup left ${fixture.children.size} registered child process(es).`,
+      ),
+    );
+  }
+  return failures;
+}
+
 function releaseConfirmedChild(
   fixture: ManagedPhase19Fixture,
   child: ChildProcess,
@@ -297,18 +365,9 @@ export async function cleanupPhase19Fixture(
   const managed = managedFixture(fixture);
   if (managed.cleanupPromise) return managed.cleanupPromise;
 
+  managed.registrationGate.close();
   managed.cleanupPromise = (async () => {
-    const cleanupErrors: unknown[] = [];
-    const children = [...managed.children];
-    const childCleanupResults = await Promise.allSettled(
-      children.map(async (child) => {
-        await stopChild(child);
-        releaseChildRegistration(managed, child);
-      }),
-    );
-    for (const result of childCleanupResults) {
-      if (result.status === "rejected") cleanupErrors.push(result.reason);
-    }
+    const cleanupErrors = await drainRegisteredChildren(managed);
     try {
       managed.client.close();
     } catch (error) {
@@ -418,6 +477,8 @@ export async function createPhase19Fixture(
     throw error;
   }
   const children = new Set<ChildProcess>();
+  const childStopPromises = new Map<ChildProcess, Promise<void>>();
+  const registrationGate = createPhase19FixtureRegistrationGate();
   const fixture: ManagedPhase19Fixture = {
     tempRoot,
     databasePath,
@@ -425,6 +486,8 @@ export async function createPhase19Fixture(
     client,
     env,
     children,
+    childStopPromises,
+    registrationGate,
     realCatalogSnapshot,
     previousEnvironment,
     registerChild(
@@ -432,6 +495,7 @@ export async function createPhase19Fixture(
       args: readonly string[],
       options: SpawnOptions = {},
     ): ChildProcess {
+      registrationGate.assertOpen();
       const child = spawn(command, [...args], {
         ...options,
         env: {
@@ -453,6 +517,12 @@ export async function createPhase19Fixture(
           releaseChildRegistration(fixture, child);
         }
       });
+      try {
+        registrationGate.assertOpen();
+      } catch (error) {
+        void stopRegisteredChild(fixture, child).catch(() => undefined);
+        throw error;
+      }
       return child;
     },
     releaseChild(child: ChildProcess): void {
