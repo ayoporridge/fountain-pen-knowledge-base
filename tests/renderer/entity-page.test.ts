@@ -289,6 +289,34 @@ describe("qualified content", () => {
     }
   });
 
+  it("fails closed for junk local paths paired with remote-only media", async () => {
+    const poisoned = await fixture.client.execute({
+      sql: `SELECT local_path, image_url
+            FROM media_assets
+            WHERE id = 'renderer-model-media-remote'`,
+      args: [],
+    });
+    assert.equal(poisoned.rows[0]?.local_path, "renderer-not-a-public-path");
+    assert.equal(
+      poisoned.rows[0]?.image_url,
+      "https://remote.invalid/renderer.jpg",
+    );
+
+    const { getPublishedEntityPage } = await import(
+      "../../src/lib/entity-page"
+    );
+    const model = await getPublishedEntityPage("pen", seed.modelSlug);
+    assert.ok(model && model.type === "pen");
+    assert.equal(
+      model.primaryMedia.imageUrl.startsWith("/api/image-proxy"),
+      false,
+    );
+    assert.equal(
+      model.primaryMedia.title.includes(seed.forbiddenSentinels[8]),
+      false,
+    );
+  });
+
   it("keeps two qualified sourced timeline nodes in stable order", async () => {
     const { getPublishedEntityPage } = await import(
       "../../src/lib/entity-page"

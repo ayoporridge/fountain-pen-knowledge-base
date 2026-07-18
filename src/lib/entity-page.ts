@@ -266,6 +266,14 @@ const PAGE_QUERY = `
       AND nullif(trim(media.attribution_text), '') IS NOT NULL
       AND (media.source_item_id IS NULL OR qualified_source.source_item_id IS NOT NULL)
       AND ${publicMediaFilter("media")}
+      AND (
+        (media.local_path GLOB '/*' AND media.local_path NOT GLOB '//*')
+        OR media.local_path GLOB 'public/*'
+        OR (media.thumbnail_url GLOB '/*' AND media.thumbnail_url NOT GLOB '//*')
+        OR media.thumbnail_url GLOB 'public/*'
+        OR (media.image_url GLOB '/*' AND media.image_url NOT GLOB '//*')
+        OR media.image_url GLOB 'public/*'
+      )
   ),
   brand_model_rows AS (
     SELECT public_pen.type, public_pen.slug, public_pen.name, public_pen.summary
@@ -484,7 +492,7 @@ function decodePrimaryMedia(
   type: PublishedEntityType,
   slug: string,
 ): PublishedPrimaryMedia {
-  const id = requiredString(media, "id", type, slug);
+  requiredString(media, "id", type, slug);
   const localPath = nullableString(media, "localPath", type, slug);
   const imageUrl = nullableString(media, "imageUrl", type, slug);
   const thumbnailUrl = nullableString(media, "thumbnailUrl", type, slug);
@@ -500,13 +508,12 @@ function decodePrimaryMedia(
   }
 
   const publicUrl = getPublicMediaUrl({
-    id,
     localPath,
     imageUrl,
     thumbnailUrl,
   });
   if (publicUrl === null) {
-    malformed(type, slug, "primary media has no public URL");
+    malformed(type, slug, "primary media has no stable on-site URL");
   }
 
   const publicThumbnail = getPublicMediaUrl({ thumbnailUrl });

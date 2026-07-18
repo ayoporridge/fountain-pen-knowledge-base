@@ -546,6 +546,7 @@ export async function seedRendererFixture(
       id: "renderer-model-media-gallery",
       title: FORBIDDEN_SENTINELS[7],
       image: "/renderer/gallery.jpg",
+      localPath: null,
       attribution: "Renderer fixture · CC0",
       usage: "gallery",
     },
@@ -553,6 +554,7 @@ export async function seedRendererFixture(
       id: "renderer-model-media-remote",
       title: FORBIDDEN_SENTINELS[8],
       image: "https://remote.invalid/renderer.jpg",
+      localPath: "renderer-not-a-public-path",
       attribution: "Renderer fixture · CC0",
       usage: "primary",
     },
@@ -560,17 +562,27 @@ export async function seedRendererFixture(
       id: "renderer-model-media-no-attribution",
       title: FORBIDDEN_SENTINELS[9],
       image: "/renderer/no-attribution.jpg",
+      localPath: null,
       attribution: null,
       usage: "primary",
     },
   ] as const) {
     await client.execute({
       sql: `INSERT INTO media_assets (
-        id, entity_id, title, asset_type, image_url, author, license,
+        id, entity_id, title, asset_type, image_url, local_path, author, license,
         attribution_text, source_url, source_item_id, review_status, usage_status
-      ) VALUES (?, ?, ?, 'image', ?, 'Renderer fixture', 'CC0', ?,
+      ) VALUES (?, ?, ?, 'image', ?, ?, 'Renderer fixture', 'CC0', ?,
         'https://renderer.invalid/media/negative', ?, 'approved', ?)`,
-      args: [media.id, modelId, media.title, media.image, media.attribution, QUALIFIED_PRIMARY_ITEM, media.usage],
+      args: [
+        media.id,
+        modelId,
+        media.title,
+        media.image,
+        media.localPath,
+        media.attribution,
+        QUALIFIED_PRIMARY_ITEM,
+        media.usage,
+      ],
     });
   }
 
