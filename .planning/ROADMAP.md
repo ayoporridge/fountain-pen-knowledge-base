@@ -255,13 +255,14 @@ v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史
   4. SKB/Penton/SIKIB、Wing Sung/JunLai 630 等身份争议在证据充分前保持 draft，且不错误挂靠品牌
   5. taxonomy 批次完成后，109 项矩阵明确给出 create、merge、split、rename、alias、retire 的净数量，不再把处理项数当作新增页数
 
-**Plans**: 5 plans
+**Plans**: 6 plans
 
 - [ ] 21-01-PLAN.md — Identity substrate, publication hash coverage and review invalidation
 - [ ] 21-02-PLAN.md — Guarded disposable fixture and exact 109-row net-action ledger
 - [ ] 21-03-PLAN.md — Canonical alias, rename, merge and retire transaction
 - [ ] 21-04-PLAN.md — Split, variant hierarchy and complete reference/media/relation migration
-- [ ] 21-05-PLAN.md — Full owned-copy audit, public redirects and canonical taxonomy UI acceptance
+- [ ] 21-05-PLAN.md — Full owned-copy audit and checked-in public redirect generation
+- [ ] 21-06-PLAN.md — Canonical identity DTO/UI and isolated temporary-fixture browser acceptance
 **UI hint**: yes
 
 ### Phase 22: Montblanc 149 A 档样板

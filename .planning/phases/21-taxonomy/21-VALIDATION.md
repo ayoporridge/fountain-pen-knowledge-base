@@ -10,14 +10,14 @@ revised: 2026-07-19
 
 # Phase 21 — Validation Strategy
 
-> Phase 21 uses focused `tsx --test` contracts through Waves 1–4, then one Phase 21-owned full owned-copy gate plus one focused desktop/mobile taxonomy E2E attempt in Wave 5. The approved `21-UI-SPEC.md` and locked `21-SPLIT-IDENTITY-LOCK.md` are acceptance inputs. It never SQLite-opens the protected catalog, writes Turso, deploys, runs broad E2E, or expands Phase 19's negative-case/lifecycle framework.
+> Phase 21 uses focused `tsx --test` contracts through Waves 1–4, one owned-copy audit plus checked-in redirect generation in Wave 5, then DTO/UI and one focused desktop/mobile temporary-fixture attempt in Wave 6. The approved `21-UI-SPEC.md` and locked `21-SPLIT-IDENTITY-LOCK.md` are acceptance inputs. It never SQLite-opens the protected catalog, writes Turso, deploys, runs broad E2E, or expands Phase 19's negative-case/lifecycle framework.
 
 ## Execution Boundaries
 
 - Synthetic work requires `TAXONOMY_FIXTURE=1` and a fixture-owned local database.
 - The real 305 source is handled only by `copyCheckpointedCatalogToDisposableCopy`; main/WAL/SHM are fingerprinted before/after and are never SQLite-opened in place.
-- All migration/application/audit/server work runs on the returned caller-owned copy. Production/remote application is a later phase.
-- Migration 032 is a one-time atomic publication contract upgrade to `sha256:v3`: existing affected v2 brand/pen snapshots are revision-incremented, old approvals revoked and public authorization removed even if no later taxonomy mutation occurs. `public_entities` accepts v3 only.
+- Real-inventory migration/application/audit work runs only on the checkpoint helper's returned caller-owned copy; Wave 6 server/browser work uses a separate synthetic fixture-owned database. Production/remote application is a later phase.
+- Migration 032 is a one-time atomic publication contract upgrade to `sha256:v3`: existing governed v2 brand/pen snapshots are revision-incremented, old approvals revoked and public authorization removed even if no later taxonomy mutation occurs. Legacy v2 review rows survive only as immutable revoked history; rebuilt publication snapshots, reviews, readiness views and guards authorize v3/contract 3 only.
 - Every affected/new entity remains `draft|in_review`; donors/generic sources are `retired`. Old reviews/hashes are neither moved nor used to republish.
 - The four split/generic cases in `21-SPLIT-IDENTITY-LOCK.md` cannot be gated/deferred or reinterpreted; exact IDs/slugs/actions/routes and payload single-assignment are full-set assertions.
 - `20-04-SUMMARY.md` remains `gaps_found`. Its synthetic model-media rewrite defect is non-blocking for Phase 21, but the missing model screenshots, boundary run and human hero approval remain a production-release blocker that Phase 21 evidence must preserve.
@@ -26,12 +26,13 @@ revised: 2026-07-19
 
 | Wave | Harness | Scope |
 |---:|---|---|
-| 1 | `tests/taxonomy/taxonomy-substrate.test.ts` | migration 032, v2→v3 forced deauthorization without later mutation, schema readiness, canonical hash/invalidation/review revocation |
+| 1 | `tests/taxonomy/taxonomy-substrate.test.ts` | migration 032 SQLite table/view/trigger rebuild, v2→v3 forced deauthorization, legacy revoked-history survival, schema authorization scan and hash invalidation |
 | 2 | `tests/taxonomy/taxonomy-ledger.test.ts` | guarded fixture, exact 109 manifest, locked split identities/payload assignment, checksum and set-based net reconciliation |
 | 3 | `tests/taxonomy/taxonomy-canonical.test.ts` | alias/rename/merge/retire, demote-first transaction and owned-copy CLI |
 | 4 | `tests/taxonomy/taxonomy-structural.test.ts` | split/variant/full reference-media-relation topology and rollback |
-| 5 data | `tests/taxonomy/taxonomy-contract.test.ts` + `scripts/check-taxonomy-contract.ts --source=... --owned-copy` | full-set artifacts and protected-source invariant |
-| 5 UI | the same contract test + focused `tests/e2e/taxonomy.spec.ts` | exact locked redirects/404s, approved server identity/metadata/hierarchy, temporary build seam and desktop/mobile behavior |
+| 5 audit | `tests/taxonomy/taxonomy-contract.test.ts` + `scripts/check-taxonomy-contract.ts` | full-set artifacts, protected-source invariant and explicitly generated checked-in redirect module |
+| 6 contract | `tests/taxonomy/taxonomy-ui-contract.test.ts` | read-only redirect composition, identity DTO, metadata and approved server HTML contract |
+| 6 browser | `scripts/check-taxonomy-ui.ts` + focused `tests/e2e/taxonomy.spec.ts` | exact locked redirects/404s, temporary build seam, cleanup and desktop/mobile behavior |
 
 ## Sampling Policy
 
@@ -39,13 +40,14 @@ revised: 2026-07-19
 - Each task runs only its named focused test file/pattern while iterating.
 - The owned-copy audit computes canonical artifacts and verdict from the complete result before any `--limit` display slicing.
 - Playwright runs only the taxonomy spec, desktop then mobile, with one worker. `pnpm test:e2e`, Phase 19 wrapper and Phase 20 renderer runner are prohibited.
-- Wave 5 permits at most one protected-source checkpoint-copy/audit run (8-minute stop bound) and one browser attempt (one build/server/worker, both viewports, 10-minute stop bound). Failure is recorded after owned cleanup; it is not retried or expanded into generalized negative-case automation.
+- Wave 5 permits at most one protected-source checkpoint-copy/audit run with an 8-minute stop bound and contains no browser/server mode.
+- Wave 6 permits one browser attempt—one build/server/worker, both viewports—with a 10-minute stop bound. Failure is recorded after owned cleanup; it is not retried or expanded into generalized negative-case automation.
 
-## 11/11 Task Verification Map
+## 12/12 Task Verification Map
 
 | Task ID | Plan | Wave | Requirements | Threats | Automated Gate | Exists | Status |
 |---|---:|---:|---|---|---|---|---|
-| 21-01-01 | 01 | 1 | TAX-03/05/06, EXP-05 | T-21-01 | `tsx --test` substrate/migration replay/v2 forced-deauthorization/immutability selectors | ❌ W0 | pending |
+| 21-01-01 | 01 | 1 | TAX-03/05/06, EXP-05 | T-21-01 | substrate/migration replay/v2 compatibility/schema authorization scan/immutability selectors | ❌ W0 | pending |
 | 21-01-02 | 01 | 1 | TAX-03/05/06, EXP-05 | T-21-02/03 | v3 taxonomy hash/review-revocation selectors + typecheck | ❌ W0 | pending |
 | 21-02-01 | 02 | 2 | TAX-01..06 | T-21-07 | fixture-safety selector | ❌ W0 | pending |
 | 21-02-02 | 02 | 2 | TAX-01..05, EXP-01/05 | T-21-05/06/08 | 109-row/net/checksum selectors + typecheck | ❌ W0 | pending |
@@ -54,8 +56,9 @@ revised: 2026-07-19
 | 21-04-01 | 04 | 4 | TAX-02/03/04, EXP-05 | T-21-13 | mixed split/variant/ambiguous assignment selectors | ❌ W0 | pending |
 | 21-04-02 | 04 | 4 | TAX-05/06 | T-21-14/15/16 | dependency/polymorphic/JSON/media/made_by selectors | ❌ W0 | pending |
 | 21-05-01 | 05 | 5 | TAX-01..06, EXP-01/05 | T-21-17/20 | full contract test + protected-source owned-copy command | ❌ W0 | pending |
-| 21-05-02 | 05 | 5 | TAX-01..06, EXP-05 | T-21-18/19/21 | redirect/identity DTO contract + generation check + typecheck | ❌ W0 | pending |
-| 21-05-03 | 05 | 5 | TAX-01..06, EXP-01/05 | T-21-18..21 | focused taxonomy desktop/mobile runner + exact-file Biome | ❌ W0 | pending |
+| 21-05-02 | 05 | 5 | TAX-01/02/04/06 | T-21-18/20 | locked redirect generation/check + typecheck | ❌ W0 | pending |
+| 21-06-01 | 06 | 6 | TAX-01..06, EXP-05 | T-21-19/21 | runtime redirect/identity DTO/server HTML selectors + typecheck | ❌ W0 | pending |
+| 21-06-02 | 06 | 6 | TAX-01..06, EXP-01/05 | T-21-19/21/22 | one focused temporary-fixture desktop/mobile runner + clean artifact diff + exact-file Biome | ❌ W0 | pending |
 
 Status semantics: `❌ W0` means the owning plan task creates the test/artifact before production behavior; it is not an executed result.
 
@@ -90,11 +93,11 @@ Tests seed unique sentinels for attributes/tags/concepts/aliases/external IDs, s
 
 ## Phase Completion Gates
 
-- All 11 task rows have current passing evidence.
-- Migration 032 forces every affected pre-existing v2 brand/pen snapshot out of the public set without requiring a later mutation; v2 can never authorize the v3 gate and only fresh complete v3 reviews can republish.
+- All 12 task rows have current passing evidence.
+- Migration 032 forces every governed pre-existing v2 brand/pen snapshot out of the public set without a later mutation; legacy v2 reviews remain revoked history, and a `sqlite_schema` scan plus direct-SQL regressions prove no active CHECK/view/trigger/gate authorizes v2 or contract 2.
 - Full 109 manifest and the official addendum reconcile with deterministic artifacts.
 - Full dependency, semantic-orphan, reverse-link and one-maker checks are green.
 - Protected source fingerprints are identical and no remote/production operation occurred.
-- Focused redirect/server HTML/desktop/mobile checks are green.
-- Fixture redirect JSON and `distDir` live only in owned temporary paths; after `finally`, the sentinel/residue is absent, the checked-in redirect artifact hash is unchanged and its scoped git diff is clean.
+- Wave 5 generated redirect bytes/hash match the full audit; Wave 6 consumes that file read-only and focused redirect/server HTML/desktop/mobile checks are green.
+- Fixture redirect JSON and `distDir` live only in owned temporary paths; after `finally`, sentinel/residue is absent, the checked-in redirect artifact hash is unchanged and its scoped git diff is clean.
 - `21-VERIFICATION-EVIDENCE.md` records the open Phase 20-04 debt as non-blocking for Phase 21 and blocking for final production release.
