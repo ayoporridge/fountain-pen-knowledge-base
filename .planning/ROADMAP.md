@@ -278,7 +278,7 @@ v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史
   3. 页面不依赖 deprecated story、needs_source spec 或 pending claim 获得资格；内容 hash、审核、readiness 和 publication 结果可被确定性复验
   4. 桌面与手机真实浏览器都能完整阅读正文、规格、版本、来源、图片和关系入口，且 Montblanc 149 回归 fixture 通过
 
-**Plans**: TBD
+**Plans**: 1 plan（22-01 数据/内容闭环完成；desktop/mobile 验收按时间盒并入 Phase 26）
 **UI hint**: yes
 
 ### Phase 23: 现有 305 条库存清账
@@ -361,7 +361,7 @@ v1.1 的 Phase 11–17 已完成分类资料馆的全量修复，并作为历史
 | 19. 真实审计与证据契约 | v1.2 | 5/5 | Complete   | 2026-07-18 |
 | 20. 百科页面 Renderer | v1.2 | 3/4 | In Progress|  |
 | 21. Taxonomy 与身份归一 | v1.2 | 3/6 | In Progress|  |
-| 22. Montblanc 149 A 档样板 | v1.2 | 0/TBD | Not started | - |
+| 22. Montblanc 149 A 档样板 | v1.2 | 1/1 | Partial | 2026-07-19 |
 | 23. 现有 305 条库存清账 | v1.2 | 0/TBD | Not started | - |
 | 24. P0 13 项扩容 | v1.2 | 0/TBD | Not started | - |
 | 25. P1 54 项分批扩容 | v1.2 | 0/TBD | Not started | - |
