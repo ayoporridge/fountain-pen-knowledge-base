@@ -35,6 +35,20 @@ type ProbeReport = {
   readonly childPid: number | null;
 };
 
+type CatchableSignal = "SIGINT" | "SIGTERM";
+type LifecycleProbeStage = "construction" | "runtime";
+
+type LifecycleScopeReport = {
+  readonly probeRoot: string;
+  readonly childPid: number;
+  readonly descendantPid: number | null;
+};
+
+type LifecycleProbeScope = {
+  createOwnedRoot(prefix: string): string;
+  registerChild(child: ChildProcess): ChildProcess;
+};
+
 const FORBIDDEN_E2E_BASE_URL_MESSAGE =
   "Phase 19 regression forbids non-empty E2E_BASE_URL; browser checks must use the owned local server.";
 
@@ -108,6 +122,104 @@ async function waitForProcessGroupExit(
     await new Promise((resolve) => setTimeout(resolve, 25));
   }
   return !processGroupIsAlive(pid);
+}
+
+async function waitForProcessExit(
+  pid: number,
+  timeoutMs: number,
+): Promise<boolean> {
+  const deadline = Date.now() + timeoutMs;
+  while (Date.now() < deadline) {
+    if (!processIsAlive(pid)) return true;
+    await new Promise((resolve) => setTimeout(resolve, 25));
+  }
+  return !processIsAlive(pid);
+}
+
+async function forwardSignalToDetachedProcessGroup(
+  child: ChildProcess,
+  signal: CatchableSignal,
+): Promise<void> {
+  if (!child.pid || !processGroupIsAlive(child.pid)) return;
+  try {
+    process.kill(-child.pid, signal);
+  } catch {
+    child.kill(signal);
+  }
+  if (await waitForProcessGroupExit(child.pid, 15_000)) return;
+  await stopDetachedProcessGroup(child);
+}
+
+async function withLifecycleProbeScope<T>(
+  run: (scope: LifecycleProbeScope) => Promise<T>,
+  verifyCleanup: () => void = () => undefined,
+): Promise<T> {
+  const children = new Set<ChildProcess>();
+  let ownedRoot: string | null = null;
+  let cleanupPromise: Promise<void> | null = null;
+  let signalCleanupStarted = false;
+
+  const cleanup = (signal?: CatchableSignal): Promise<void> => {
+    cleanupPromise ??= (async () => {
+      for (const child of children) {
+        if (signal) {
+          await forwardSignalToDetachedProcessGroup(child, signal);
+        } else {
+          await stopDetachedProcessGroup(child);
+        }
+      }
+      children.clear();
+      if (ownedRoot && fs.existsSync(ownedRoot)) {
+        fs.rmSync(ownedRoot, { recursive: true, force: true });
+      }
+      verifyCleanup();
+    })();
+    return cleanupPromise;
+  };
+
+  const handlers = new Map<CatchableSignal, () => void>();
+  for (const [signal, exitCode] of [
+    ["SIGINT", 130],
+    ["SIGTERM", 143],
+  ] as const) {
+    const handler = () => {
+      if (signalCleanupStarted) return;
+      signalCleanupStarted = true;
+      void cleanup(signal).then(
+        () => process.exit(exitCode),
+        () => process.exit(1),
+      );
+    };
+    handlers.set(signal, handler);
+    process.once(signal, handler);
+  }
+
+  const scope: LifecycleProbeScope = {
+    createOwnedRoot(prefix): string {
+      assertCondition(!ownedRoot, "Lifecycle probe scope already owns a root.");
+      ownedRoot = fs.realpathSync.native(
+        fs.mkdtempSync(path.join(os.tmpdir(), prefix)),
+      );
+      return ownedRoot;
+    },
+    registerChild(child): ChildProcess {
+      assertCondition(child.pid, "Lifecycle probe child has no PID.");
+      children.add(child);
+      return child;
+    },
+  };
+
+  try {
+    return await run(scope);
+  } finally {
+    try {
+      await cleanup();
+    } finally {
+      for (const [signal, handler] of handlers) {
+        process.removeListener(signal, handler);
+      }
+    }
+  }
 }
 
 async function assertCanonicalMigration031(client: Client): Promise<void> {
@@ -265,6 +377,7 @@ async function waitForFile(filePath: string, timeoutMs: number): Promise<void> {
 }
 
 async function spawnProbe(
+  scope: LifecycleProbeScope,
   args: readonly string[],
   reportFile: string,
 ): Promise<ChildProcess> {
@@ -280,8 +393,10 @@ async function spawnProbe(
       PUBLICATION_GATE_FIXTURE: "",
       E2E_BASE_URL: "",
     },
+    detached: true,
     stdio: ["ignore", "ignore", "ignore"],
   });
+  scope.registerChild(child);
   await waitForFile(reportFile, 10_000);
   return child;
 }
@@ -294,7 +409,10 @@ function regressionTempRoots(): string[] {
     .sort();
 }
 
-async function runHostileBaseUrlProbe(probeRoot: string): Promise<void> {
+async function runHostileBaseUrlProbe(
+  scope: LifecycleProbeScope,
+  probeRoot: string,
+): Promise<void> {
   const require = createRequire(import.meta.url);
   const tsxCli = require.resolve("tsx/cli");
   const reportFile = path.join(probeRoot, "hostile-base-url.json");
@@ -312,9 +430,11 @@ async function runHostileBaseUrlProbe(probeRoot: string): Promise<void> {
         PUBLICATION_GATE_FIXTURE: "",
         E2E_BASE_URL: "https://phase19-must-not-connect.invalid",
       },
+      detached: true,
       stdio: ["ignore", "ignore", "pipe"],
     },
   );
+  scope.registerChild(child);
   let stderr = "";
   child.stderr?.on("data", (chunk) => {
     stderr += String(chunk);
@@ -345,19 +465,126 @@ async function assertProbeExit(
   );
 }
 
+async function runLifecycleParentSignalProbe(
+  stage: LifecycleProbeStage,
+  reportFile: string,
+): Promise<void> {
+  await withLifecycleProbeScope(async (scope) => {
+    const probeRoot = scope.createOwnedRoot(
+      `fpkg-phase19-lifecycle-${stage}-`,
+    );
+    const descendantReport = path.join(probeRoot, "descendant.pid");
+    const childProgram =
+      stage === "runtime"
+        ? [
+            'const { spawn } = require("node:child_process");',
+            'const fs = require("node:fs");',
+            'const child = spawn(process.execPath, ["-e", "setInterval(() => {}, 1000)"], { stdio: "ignore" });',
+            `fs.writeFileSync(${JSON.stringify(descendantReport)}, String(child.pid));`,
+            "setInterval(() => {}, 1000);",
+          ].join("\n")
+        : "setInterval(() => {}, 1000);";
+    const child = scope.registerChild(
+      spawn(process.execPath, ["-e", childProgram], {
+        cwd: ROOT,
+        detached: true,
+        stdio: "ignore",
+      }),
+    );
+    assertCondition(child.pid, "Hermetic lifecycle probe child has no PID.");
+    let descendantPid: number | null = null;
+    if (stage === "runtime") {
+      await waitForFile(descendantReport, 10_000);
+      descendantPid = Number(fs.readFileSync(descendantReport, "utf8"));
+      assertCondition(
+        Number.isInteger(descendantPid) && processIsAlive(descendantPid),
+        "Hermetic lifecycle runtime descendant did not start.",
+      );
+    }
+    fs.writeFileSync(
+      reportFile,
+      JSON.stringify({
+        probeRoot,
+        childPid: child.pid,
+        descendantPid,
+      } satisfies LifecycleScopeReport),
+      { encoding: "utf8", flag: "wx", mode: 0o600 },
+    );
+    await new Promise<never>(() => undefined);
+  });
+}
+
+async function assertScopedLifecycleSignalCleanup(
+  scope: LifecycleProbeScope,
+  probeRoot: string,
+): Promise<void> {
+  for (const stage of ["construction", "runtime"] as const) {
+    for (const [signal, expectedExitCode] of [
+      ["SIGINT", 130],
+      ["SIGTERM", 143],
+    ] as const) {
+      const reportFile = path.join(
+        probeRoot,
+        `outer-${stage}-${signal}.json`,
+      );
+      const probe = await spawnProbe(
+        scope,
+        ["--lifecycle-parent-signal-probe", stage, "--report", reportFile],
+        reportFile,
+      );
+      const report = JSON.parse(
+        fs.readFileSync(reportFile, "utf8"),
+      ) as LifecycleScopeReport;
+      assertCondition(
+        fs.existsSync(report.probeRoot) && processIsAlive(report.childPid),
+        `${stage} ${signal} outer lifecycle probe did not become active.`,
+      );
+      if (stage === "runtime") {
+        assertCondition(
+          report.descendantPid && processIsAlive(report.descendantPid),
+          `${stage} ${signal} outer lifecycle descendant did not become active.`,
+        );
+      }
+      probe.kill(signal);
+      await assertProbeExit(probe, expectedExitCode);
+      assertCondition(
+        (await waitForProcessExit(report.childPid, 5_000)) &&
+          (!report.descendantPid ||
+            (await waitForProcessExit(report.descendantPid, 5_000))) &&
+          !fs.existsSync(report.probeRoot),
+        `${stage} ${signal} outer lifecycle cleanup leaked a root, child, or descendant.`,
+      );
+    }
+  }
+  console.log(
+    "PASS Phase 19 regression: top-level construction/runtime SIGINT/SIGTERM cleanup",
+  );
+}
+
+async function runLifecycleScopeContractOnly(): Promise<void> {
+  await withLifecycleProbeScope(async (scope) => {
+    const probeRoot = scope.createOwnedRoot(
+      "fpkg-phase19-regression-scope-contract-",
+    );
+    await assertScopedLifecycleSignalCleanup(scope, probeRoot);
+  });
+}
+
 async function runLifecycleProbes(): Promise<void> {
   const realBefore = assertPhase19LockedRealCatalog(
     snapshotRealCatalogInvariant(),
   );
-  const probeRoot = fs.realpathSync.native(
-    fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-phase19-regression-probes-")),
-  );
-  try {
-    await runHostileBaseUrlProbe(probeRoot);
+  await withLifecycleProbeScope(async (scope) => {
+    const probeRoot = scope.createOwnedRoot(
+      "fpkg-phase19-regression-probes-",
+    );
+    await assertScopedLifecycleSignalCleanup(scope, probeRoot);
+    await runHostileBaseUrlProbe(scope, probeRoot);
 
     const failureReport = path.join(probeRoot, "failure.json");
     const failureChildReport = `${failureReport}.child`;
     const failure = await spawnProbe(
+      scope,
       ["--failure-probe", "--report", failureReport],
       failureReport,
     );
@@ -386,6 +613,7 @@ async function runLifecycleProbes(): Promise<void> {
         `${signal}-construction.json`,
       );
       const constructionProbe = await spawnProbe(
+        scope,
         [
           "--construction-signal-probe",
           signal,
@@ -406,6 +634,7 @@ async function runLifecycleProbes(): Promise<void> {
 
       const reportFile = path.join(probeRoot, `${signal}.json`);
       const probe = await spawnProbe(
+        scope,
         ["--signal-probe", signal, "--report", reportFile],
         reportFile,
       );
@@ -429,12 +658,11 @@ async function runLifecycleProbes(): Promise<void> {
     console.log(
       "PASS Phase 19 regression: child failure, SIGINT, and SIGTERM cleanup",
     );
-  } finally {
-    fs.rmSync(probeRoot, { recursive: true, force: true });
+  }, () => {
     assertPhase19LockedRealCatalog(
       snapshotRealCatalogInvariant(realBefore),
     );
-  }
+  });
 }
 
 function reportPath(args: readonly string[]): string {
@@ -447,6 +675,18 @@ function reportPath(args: readonly string[]): string {
 async function main(): Promise<void> {
   const args = process.argv.slice(2).filter((arg) => arg !== "--");
   assertNoExternalE2EBaseUrl();
+  if (args[0] === "--lifecycle-parent-signal-probe") {
+    assertCondition(
+      args[1] === "construction" || args[1] === "runtime",
+      "--lifecycle-parent-signal-probe requires construction or runtime.",
+    );
+    await runLifecycleParentSignalProbe(args[1], reportPath(args));
+    return;
+  }
+  if (args.length === 1 && args[0] === "--lifecycle-scope-contract") {
+    await runLifecycleScopeContractOnly();
+    return;
+  }
   if (args[0] === "--failure-probe") {
     const reportFile = reportPath(args);
     const childReport = `${reportFile}.child`;
