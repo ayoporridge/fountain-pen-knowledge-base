@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Monteverde 品牌与 Ritma 型号边界示意图，非产品照片</title>
+  <desc id="desc">本站原创 factual SVG。它说明 Monteverde 品牌页仅链接已核对的 Ritma 钢笔；材料、颜色、笔尖与非钢笔书写模式不是独立基础型号。</desc>
+  <rect width="1600" height="900" fill="#f4f0e8"/>
+  <rect x="92" y="84" width="1416" height="732" rx="34" fill="#143b44"/>
+  <text x="160" y="188" fill="#f8f0dc" font-family="Georgia, serif" font-size="72">Monteverde</text>
+  <text x="164" y="240" fill="#b9d3cd" font-family="Arial, sans-serif" font-size="28" letter-spacing="3">品牌入口，不等于统一制造地</text>
+  <path d="M390 430h318l92 70-92 70H390l-92-70z" fill="#d5a95a"/>
+  <path d="M390 452h318" stroke="#143b44" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="338" cy="500" r="22" fill="#143b44"/>
+  <path d="M818 500h256" stroke="#b9d3cd" stroke-width="7" stroke-linecap="round"/>
+  <path d="M1074 500l-38-28m38 28-38 28" stroke="#b9d3cd" stroke-width="7" stroke-linecap="round"/>
+  <rect x="1112" y="417" width="260" height="166" rx="22" fill="#f8f0dc"/>
+  <text x="1150" y="484" fill="#143b44" font-family="Georgia, serif" font-size="44">Ritma</text>
+  <text x="1150" y="530" fill="#526b66" font-family="Arial, sans-serif" font-size="23">已核对的钢笔型号</text>
+  <text x="164" y="692" fill="#f8f0dc" font-family="Arial, sans-serif" font-size="30">阳极氧化金属、Walnut、笔幅、钢尖／钛尖：</text>
+  <text x="164" y="738" fill="#f8f0dc" font-family="Arial, sans-serif" font-size="30">属于版本与 SKU 边界，不各自伪装成基础型号。</text>
+  <text x="164" y="786" fill="#b9d3cd" font-family="Arial, sans-serif" font-size="20">本站原创 factual SVG；示意图，非产品照片，不表示比例、颜色、库存、Logo 或具体产品版本。</text>
+</svg>
