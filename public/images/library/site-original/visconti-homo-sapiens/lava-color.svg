@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Visconti Homo Sapiens Lava Color factual diagram</title>
+  <desc id="desc">Editorial diagram of coloured lava resin, magnetic cap and Double Reservoir Power Filler. Schematic, not a product photo.</desc>
+  <defs><linearGradient id="lava" x1="0" x2="1"><stop offset="0" stop-color="#0e6570"/><stop offset=".48" stop-color="#d07843"/><stop offset="1" stop-color="#6d4e9d"/></linearGradient></defs>
+  <rect width="1600" height="900" fill="#111827"/><rect x="70" y="70" width="1460" height="760" rx="42" fill="#1f2937" stroke="#8ed4d2" stroke-width="5"/>
+  <text x="130" y="180" fill="#e7faf7" font-family="sans-serif" font-size="58" font-weight="700">HOMO SAPIENS · LAVA COLOR</text>
+  <text x="132" y="245" fill="#b9d8d5" font-family="sans-serif" font-size="30">约 2020 · coloured lava + resin · magnetic cap · Double Reservoir</text>
+  <rect x="170" y="390" width="920" height="95" rx="48" fill="url(#lava)" stroke="#b8e8e3" stroke-width="12"/><rect x="1010" y="365" width="260" height="145" rx="30" fill="#486b79" stroke="#b8e8e3" stroke-width="12"/><circle cx="1295" cy="438" r="52" fill="#b8e8e3"/>
+  <path d="M310 610h850" stroke="#8ed4d2" stroke-width="8"/><path d="M310 585v50M500 585v50M690 585v50M880 585v50M1070 585v50" stroke="#8ed4d2" stroke-width="6"/>
+  <text x="175" y="710" fill="#e7faf7" font-family="sans-serif" font-size="32">彩色材料按 KP15-08 色号记录；常见当前页为 14K 自制尖</text>
+  <text x="175" y="770" fill="#b9d8d5" font-family="sans-serif" font-size="26">FACTUAL SVG · 示意图，非产品照片 · 不按比例、不表示真实颜色或 Logo</text>
+</svg>

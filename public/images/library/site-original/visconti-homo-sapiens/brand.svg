@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Visconti brand and Homo Sapiens navigation factual diagram</title>
+  <desc id="desc">Editorial navigation map from Visconti 1988 to five concrete Homo Sapiens siblings. Schematic, not a product photo.</desc>
+  <rect width="1600" height="900" fill="#1a1320"/><rect x="70" y="70" width="1460" height="760" rx="42" fill="#2a1d2e" stroke="#d69d6c" stroke-width="5"/>
+  <text x="130" y="180" fill="#f7e3d1" font-family="sans-serif" font-size="62" font-weight="700">VISCONTI · HOMO SAPIENS NAVIGATION</text>
+  <text x="132" y="245" fill="#d6b6a5" font-family="sans-serif" font-size="30">1988 brand anchor · five concrete siblings · factual map, not product photography</text>
+  <circle cx="250" cy="460" r="105" fill="#704b39" stroke="#d69d6c" stroke-width="8"/><text x="195" y="455" fill="#fff0dc" font-family="sans-serif" font-size="30">Visconti</text><text x="203" y="500" fill="#f0c9a2" font-family="sans-serif" font-size="24">1988</text>
+  <path d="M355 460H520M355 460L520 340M355 460L520 580" stroke="#d69d6c" stroke-width="6" fill="none"/>
+  <g font-family="sans-serif" font-size="27" fill="#fff0dc"><rect x="540" y="300" width="260" height="72" rx="24" fill="#6f4a2e"/><text x="570" y="345">Lava Bronze</text><rect x="840" y="300" width="260" height="72" rx="24" fill="#27303b"/><text x="870" y="345">Lava Dark Age</text><rect x="1140" y="300" width="260" height="72" rx="24" fill="#2e6c75"/><text x="1170" y="345">Lava Color</text><rect x="690" y="570" width="260" height="72" rx="24" fill="#718b8d"/><text x="720" y="615">Crystal Dream</text><rect x="990" y="570" width="260" height="72" rx="24" fill="#394454"/><text x="1020" y="615">Dark Crystal</text></g>
+  <text x="160" y="740" fill="#f7e3d1" font-family="sans-serif" font-size="30">型号页分别记录材料、笔帽、储墨、尖材、年份与维护</text><text x="160" y="790" fill="#d6b6a5" font-family="sans-serif" font-size="25">FACTUAL SVG · 示意图，非产品照片 · 不按比例、不表示真实颜色或 Logo</text>
+</svg>
