@@ -5,10 +5,10 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
-stopped_at: Quick 260719-b4i complete; next sourced content wave ready
-last_updated: "2026-07-19T15:48:00+08:00"
+stopped_at: Quick 260719-4a2 complete; next parallel research wave ready
+last_updated: "2026-07-19T16:20:00+08:00"
 last_activity: 2026-07-19
-last_activity_desc: Pilot Custom 823 duplicate merged, Waterman Hémisphère normalized, Aurora generic retired and Aurora 88 added
+last_activity_desc: LAMY 2000 and Platinum #3776 Century sourced, normalized and checkpoint-published
 progress:
   total_phases: 16
   completed_phases: 10
@@ -132,10 +132,11 @@ Progress: [█████░░░░░] 50%
 | 260719-9m2 | 发布 Sailor KOP 四个具体型号并收窄长刀研 SKU 边界 | 2026-07-19 | ec33d9b | [260719-9m2-sailor-kop-models](./quick/260719-9m2-sailor-kop-models/) |
 | 260719-a1p | 发布 Parker Frontier、Victory 与拆分后的 Premier 两代 | 2026-07-19 | b5de87d | [260719-a1p-parker-frontier-premier-victory](./quick/260719-a1p-parker-frontier-premier-victory/) |
 | 260719-b4i | 修复 Pilot 823 duplicate、Waterman 混名与 Aurora 泛型号并补 Aurora 88 | 2026-07-19 | 6bda355 | [260719-b4i-identity-cleanup](./quick/260719-b4i-identity-cleanup/) |
+| 260719-4a2 | 补齐 LAMY 品牌／2000 与 Platinum 品牌／#3776 Century，规范 slug 和版本边界 | 2026-07-19 | pending | [260719-4a2-lamy-platinum-content](./quick/260719-4a2-lamy-platinum-content/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：下一批补 LAMY 2000、Platinum #3776 Century 等 identity 清楚的高价值型号，再继续 Parker／Sailor／Pelikan raw 队列并研究缺失的重要品牌。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
+继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：并行研究 Pilot Capless／Platinum Preppy／LAMY aion 等下一批 identity 清楚的高价值型号，再继续 Parker／Sailor／Pelikan raw 队列并研究缺失的重要品牌。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
 
 ## Session Continuity
 
