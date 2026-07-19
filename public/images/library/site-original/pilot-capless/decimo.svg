@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pilot Capless Decimo 事实卡</title>
+  <desc id="desc">FCT-15SR 细轻按动钢笔、铝制涂装、18K 尖与 21 g；示意图，非产品照片。</desc>
+  <rect width="1600" height="900" fill="#f4f0f5"/><rect x="70" y="70" width="1460" height="760" rx="36" fill="#fff" stroke="#473c52" stroke-width="4"/>
+  <text x="120" y="170" font-family="Arial,sans-serif" font-size="56" font-weight="700" fill="#473c52">CAPLESS DECIMO</text>
+  <text x="122" y="225" font-family="Arial,sans-serif" font-size="28" fill="#746979">FCT-15SR · slim / light · 18K</text>
+  <rect x="230" y="350" width="760" height="56" rx="28" fill="#8c6e92"/><rect x="890" y="338" width="25" height="80" rx="12" fill="#cfb16c"/><circle cx="1010" cy="378" r="18" fill="#b8adb9"/>
+  <text x="180" y="500" font-family="Arial,sans-serif" font-size="32" font-weight="700" fill="#473c52">细轻分支</text><text x="180" y="545" font-family="Arial,sans-serif" font-size="26" fill="#746979">铝制涂装 · 按动出尖 · CON-40</text><text x="180" y="590" font-family="Arial,sans-serif" font-size="26" fill="#746979">约 139.5 mm · 12 mm · 21 g</text>
+  <line x1="1190" y1="320" x2="1190" y2="620" stroke="#bf5962" stroke-width="5"/><text x="1240" y="410" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#473c52">不是普通 Capless</text><text x="1240" y="460" font-family="Arial,sans-serif" font-size="24" fill="#746979">FCT-1500RR 为区域代码</text><text x="1240" y="505" font-family="Arial,sans-serif" font-size="24" fill="#746979">clip 仍需试握</text>
+  <text x="120" y="740" font-family="Arial,sans-serif" font-size="24" fill="#b34747">示意图，非产品照片 · 不表现真实比例、颜色、Logo 或具体 FCT 配色</text>
+</svg>

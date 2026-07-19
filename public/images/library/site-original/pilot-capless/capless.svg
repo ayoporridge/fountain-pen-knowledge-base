@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pilot Capless 事实卡</title>
+  <desc id="desc">全尺寸按动 Capless、18K 尖、前端夹子和 CON-40；示意图，非产品照片。</desc>
+  <rect width="1600" height="900" fill="#eef3f3"/><rect x="70" y="70" width="1460" height="760" rx="36" fill="#fff" stroke="#243638" stroke-width="4"/>
+  <text x="120" y="170" font-family="Arial,sans-serif" font-size="56" font-weight="700" fill="#243638">PILOT CAPLESS</text>
+  <text x="122" y="225" font-family="Arial,sans-serif" font-size="28" fill="#627174">Capless / Vanishing Point · full-size retractable fountain pen</text>
+  <rect x="190" y="355" width="850" height="64" rx="32" fill="#263b45"/><rect x="900" y="342" width="26" height="90" rx="13" fill="#c6a25b"/><circle cx="1070" cy="387" r="21" fill="#9dabb0"/>
+  <text x="180" y="510" font-family="Arial,sans-serif" font-size="32" font-weight="700" fill="#243638">18K gold nib</text><text x="180" y="555" font-family="Arial,sans-serif" font-size="26" fill="#627174">按动出尖 · 前端 clip · CON-40</text>
+  <text x="180" y="600" font-family="Arial,sans-serif" font-size="26" fill="#627174">典型约 140 mm · 13.4 mm · 30 g</text>
+  <line x1="1190" y1="320" x2="1190" y2="620" stroke="#c04b4b" stroke-width="5"/>
+  <text x="1240" y="410" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#243638">边界</text><text x="1240" y="460" font-family="Arial,sans-serif" font-size="24" fill="#627174">Decimo / LS 分立</text><text x="1240" y="505" font-family="Arial,sans-serif" font-size="24" fill="#627174">FCS-1 特殊合金</text>
+  <text x="120" y="740" font-family="Arial,sans-serif" font-size="24" fill="#b34747">示意图，非产品照片 · 不表现真实比例、颜色、Logo 或具体 SKU</text>
+</svg>
