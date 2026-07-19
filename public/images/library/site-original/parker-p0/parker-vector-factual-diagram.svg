@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-labelledby="title description">
+  <title id="title">Classic Parker Vector lineage diagram</title>
+  <desc id="description">An original editorial timeline showing the RB-1, FP-1 and Vector lineage, with Vector XL separated. This is not a product photograph.</desc>
+  <rect width="1600" height="1000" fill="#f1eadc"/>
+  <rect x="70" y="65" width="1460" height="870" rx="34" fill="#fffdf8" stroke="#28352f" stroke-width="4"/>
+  <text x="120" y="150" font-family="ui-sans-serif, system-ui, sans-serif" font-size="56" font-weight="700" fill="#28352f">CLASSIC PARKER VECTOR · LINEAGE</text>
+  <text x="120" y="202" font-family="ui-sans-serif, system-ui, sans-serif" font-size="28" fill="#68756f">Text-only factual timeline · no product likeness</text>
+  <path d="M180 420 H1370" stroke="#28352f" stroke-width="10"/>
+  <path d="M420 420 V660 H690" fill="none" stroke="#a3533a" stroke-width="7" stroke-dasharray="16 14"/>
+  <circle cx="250" cy="420" r="30" fill="#73877e"/>
+  <circle cx="640" cy="420" r="36" fill="#bf774f"/>
+  <circle cx="1050" cy="420" r="42" fill="#2d6654"/>
+  <circle cx="1370" cy="420" r="28" fill="#73877e"/>
+  <text x="250" y="350" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="32" font-weight="700" fill="#28352f">RB-1</text>
+  <text x="250" y="475" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="23" fill="#68756f">rollerball precursor</text>
+  <text x="640" y="340" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="34" font-weight="700" fill="#873f2c">FP-1 · FEB 1984</text>
+  <text x="640" y="485" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="23" fill="#68756f">fountain pen added</text>
+  <text x="1050" y="330" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="38" font-weight="700" fill="#2d6654">VECTOR · 1984</text>
+  <text x="1050" y="495" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="23" fill="#68756f">name adopted; later revisions follow</text>
+  <text x="1370" y="350" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="28" font-weight="700" fill="#28352f">LATER</text>
+  <text x="1370" y="475" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="23" fill="#68756f">many variants</text>
+  <rect x="690" y="600" width="690" height="175" rx="24" fill="#f3ded5" stroke="#a3533a" stroke-width="4"/>
+  <text x="730" y="665" font-family="ui-sans-serif, system-ui, sans-serif" font-size="32" font-weight="700" fill="#873f2c">VECTOR XL · SEPARATE MODEL PAGE</text>
+  <text x="730" y="715" font-family="ui-sans-serif, system-ui, sans-serif" font-size="25" fill="#873f2c">No XL dimensions, weight or SKUs on this page.</text>
+  <rect x="120" y="850" width="1360" height="52" rx="14" fill="#28352f"/>
+  <text x="800" y="886" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="25" font-weight="700" fill="#fffdf8">示意图，非产品照片 · DIAGRAM, NOT A PRODUCT PHOTO</text>
+</svg>
