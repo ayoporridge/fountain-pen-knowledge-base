@@ -5,8 +5,8 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
-stopped_at: Quick 260719-7qk complete; next sourced content wave ready
-last_updated: "2026-07-19T12:31:00+08:00"
+stopped_at: Quick 260719-8rj complete; next sourced content wave ready
+last_updated: "2026-07-19T12:58:00+08:00"
 last_activity: 2026-07-19
 last_activity_desc: Parker 25, T-1, 50 Falcon and 100 integrated with sourced identity and Parker 100 alias fix
 progress:
@@ -31,7 +31,7 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 Phase: 21 (Taxonomy 与身份归一) — EXECUTING
 Plan: 4 of 6
 Status: In progress
-Last activity: 2026-07-19 — Sailor KOP published and Naginata-Togi reclassified as nib taxonomy
+Last activity: 2026-07-19 — Pelikan M200 and Twist P457 published with canonical slugs
 
 Progress: [█████░░░░░] 50%
 
@@ -128,10 +128,11 @@ Progress: [█████░░░░░] 50%
 | 260719-c1p | 补齐 Sailor 2026 三款、Parker Duofold 四代与 Pelikan M1005／M400／M605／M815 | 2026-07-19 | 6ade8a4 / 74a0672 / c1f5088 / 79e07f5 | [260719-c1p-sailor-parker-pelikan](./quick/260719-c1p-sailor-2026-parker-duofold-pelikan-souveran/) |
 | 260719-fco | 补齐 Parker 25、T-1、50 Falcon、100，并迁移 Parker 100 错误品牌别名 | 2026-07-19 | d7de980 / c26f3ed | [260719-fco-parker-25-t1-50-falcon-100](./quick/260719-fco-parker-25-t1-50-falcon-100-sailor-king-o/) |
 | 260719-7qk | 发布 Sailor King of Pens 导航层并将长刀研重分类为 nib | 2026-07-19 | 0f97614 | [260719-7qk-sailor-kop-naginata](./quick/260719-7qk-sailor-kop-naginata/) |
+| 260719-8rj | 补齐 Pelikan M200 与 Twist P457，并规范化旧中文 slug | 2026-07-19 | 89c6b21 | [260719-8rj-pelikan-m200-p457](./quick/260719-8rj-pelikan-m200-p457/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：下一批补 KOP 具体 11-6001／11-7002／10-9618 与 10-7121 型号页，收窄 Professional Gear／1911 系列导航节点，再补 Pelikan M200／Twist P457；随后处理 Parker Frontier／Premier／Victory 与其余 raw／缺失重要型号。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
+继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：下一批补 KOP 具体 11-6001／11-7002／10-9618 与 10-7121 型号页，收窄 Professional Gear／1911 系列导航节点，再处理 Parker Frontier／Premier／Victory 与其余 raw／缺失重要型号。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
 
 ## Session Continuity
 
