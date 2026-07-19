@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">TWSBI VAC700R 事实卡</title><desc id="desc">本站原创示意图，非产品照片。列出真空上墨、止墨阀和常规与满填条件。</desc>
+  <rect width="1600" height="900" fill="#f5f0e8"/><rect x="100" y="92" width="1400" height="716" rx="36" fill="#fffdf8" stroke="#543d57" stroke-width="8"/>
+  <text x="180" y="205" font-family="Arial, sans-serif" font-size="72" font-weight="700" fill="#543d57">TWSBI VAC700R</text><text x="184" y="262" font-family="Arial, sans-serif" font-size="28" fill="#725c74">事实卡 · 容量按操作条件分开</text>
+  <path d="M270 494h880l92 73-92 73H270z" fill="#c9d7de" stroke="#543d57" stroke-width="10"/><path d="M190 494h95v146h-95l-76-73z" fill="#eef6f8" stroke="#543d57" stroke-width="10"/><path d="M1150 494h120l78 73-78 73h-120z" fill="#82668a" stroke="#543d57" stroke-width="10"/><circle cx="1070" cy="567" r="23" fill="#f4b864" stroke="#543d57" stroke-width="9"/><path d="M1085 476v-55" stroke="#543d57" stroke-width="13" stroke-linecap="round"/>
+  <g font-family="Arial, sans-serif" fill="#543d57"><text x="180" y="735" font-size="33" font-weight="700">真空上墨 · 止墨阀</text><text x="690" y="735" font-size="33" font-weight="700">常规约 1.5 ml · 满填约 2.3 ml</text></g>
+  <text x="180" y="778" font-family="Arial, sans-serif" font-size="24" fill="#725c74">示意图，非产品照片；不代表真实比例、颜色、Logo、Iris、Kyanite、库存或内部机械截面。</text>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">TWSBI GO 事实卡</title><desc id="desc">本站原创示意图，非产品照片。列出弹簧活塞、约十七克及官方和独立容量口径。</desc>
+  <rect width="1600" height="900" fill="#eef3f1"/><rect x="100" y="92" width="1400" height="716" rx="36" fill="#fff" stroke="#24545a" stroke-width="8"/>
+  <text x="180" y="205" font-family="Arial, sans-serif" font-size="72" font-weight="700" fill="#24545a">TWSBI GO</text><text x="184" y="262" font-family="Arial, sans-serif" font-size="28" fill="#4e6d70">事实卡 · Clear 的来源口径并列</text>
+  <path d="M315 500h690l80 67-80 67H315z" fill="#b8e0df" stroke="#24545a" stroke-width="10"/><path d="M230 500h96v134h-96l-70-67z" fill="#f4faf8" stroke="#24545a" stroke-width="10"/><path d="M1000 500h145l72 67-72 67h-145z" fill="#7cc4c4" stroke="#24545a" stroke-width="10"/><path d="M1068 500v134" stroke="#edfafa" stroke-width="16"/><path d="M480 470c24-55 48 55 72 0s48 55 72 0" fill="none" stroke="#24545a" stroke-width="13"/>
+  <g font-family="Arial, sans-serif" fill="#24545a"><text x="180" y="735" font-size="33" font-weight="700">弹簧活塞 · snap cap</text><text x="665" y="735" font-size="33" font-weight="700">约 17 g · 1.4 / 1.61 ml</text></g>
+  <text x="180" y="778" font-family="Arial, sans-serif" font-size="24" fill="#4e6d70">示意图，非产品照片；容量来自不同来源和测量口径，不代表所有颜色或批次。</text>
+</svg>
