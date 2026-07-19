@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Esterbrook 当代型号导航示意图</title>
+  <desc id="desc">本站原创 factual SVG。以文字和简化线条区分现代 Estie、Model J、JR，非产品照片。</desc>
+  <rect width="1600" height="900" fill="#f4efe6"/>
+  <rect x="100" y="100" width="1400" height="700" rx="40" fill="#fffaf2" stroke="#513c2f" stroke-width="6"/>
+  <text x="180" y="210" font-family="Georgia, serif" font-size="76" fill="#513c2f">Esterbrook 当代型号导航</text>
+  <text x="180" y="274" font-family="Arial, sans-serif" font-size="32" fill="#6d5848">把现代 Estie、Model J 与 JR 分开阅读</text>
+  <g fill="none" stroke="#513c2f" stroke-width="18" stroke-linecap="round">
+    <path d="M210 440h310l42 42-42 42H210z"/>
+    <path d="M665 410h380l54 72-54 72H665z"/>
+    <path d="M1190 452h160l30 30-30 30h-160z"/>
+  </g>
+  <g font-family="Arial, sans-serif" fill="#513c2f">
+    <text x="245" y="620" font-size="42">JR</text><text x="195" y="670" font-size="28">口袋尺寸</text>
+    <text x="770" y="620" font-size="42">Estie</text><text x="698" y="670" font-size="28">标准 / Oversized</text>
+    <text x="1175" y="620" font-size="42">Model J</text><text x="1158" y="670" font-size="28">现代再设计</text>
+  </g>
+  <text x="180" y="748" font-family="Arial, sans-serif" font-size="26" fill="#6d5848">示意图，非产品照片；不表示实物比例、颜色、笔尖、刻字、库存或具体版本。</text>
+</svg>

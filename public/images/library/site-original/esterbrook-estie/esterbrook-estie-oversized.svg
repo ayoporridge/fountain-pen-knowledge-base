@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Esterbrook Estie Oversized 身份与使用边界示意图</title>
+  <desc id="desc">本站原创 factual SVG。说明 Estie Oversized 的大尺寸、非戴帽书写取向、JoWo #6 与可选 MV adaptor，非产品照片。</desc>
+  <rect width="1600" height="900" fill="#172b31"/>
+  <rect x="100" y="100" width="1400" height="700" rx="40" fill="#edf1ea"/>
+  <text x="170" y="205" font-family="Georgia, serif" font-size="70" fill="#172b31">Estie Oversized</text>
+  <text x="173" y="260" font-family="Arial, sans-serif" font-size="30" fill="#43616b">现代 Estie 的加大尺寸，不等于某一种颜色或限量版</text>
+  <g fill="none" stroke="#172b31" stroke-width="22" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M230 456h600l72 72-72 72H230z"/>
+    <path d="M320 456h150v144H320z"/>
+    <path d="M890 502h170l54 26-54 26H890z"/>
+  </g>
+  <g font-family="Arial, sans-serif" fill="#172b31">
+    <text x="220" y="710" font-size="38">优先确认：握位粗细与不戴帽习惯</text>
+    <text x="220" y="758" font-size="30">JoWo #6；部分版本为 button piston，不能泛化</text>
+    <text x="915" y="420" font-size="32">MV Adaptor</text>
+    <text x="915" y="462" font-size="26">适配 Estie / OS Estie</text>
+  </g>
+  <text x="170" y="845" font-family="Arial, sans-serif" font-size="26" fill="#43616b">示意图，非产品照片；不表示实物比例、颜色、笔尖、刻字、库存或具体版本。</text>
+</svg>
