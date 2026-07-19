@@ -6,9 +6,9 @@ current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
 stopped_at: Quick 260719-44p complete; next parallel research wave ready
-last_updated: "2026-07-19T21:15:00+08:00"
+last_updated: "2026-07-19T22:05:00+08:00"
 last_activity: 2026-07-19
-last_activity_desc: Pilot Capless family split and Platinum Preppy/Plaisir/Prefounte checkpoint-published
+last_activity_desc: Parker Vector XL、Pelikan Toledo/Pura/P200-P205 与 Hero/Paidi identity split checkpoint-published
 progress:
   total_phases: 16
   completed_phases: 10
@@ -143,10 +143,13 @@ Progress: [█████░░░░░] 50%
 | 260719-50p | 补齐 Waterman Carène／Expert 并规范旧中文 slug | 2026-07-19 | 18424c4 | [260719-50p-waterman-carene-expert](./quick/260719-50p-waterman-carene-expert/) |
 | 260719-51p | 补齐 Pelikan Model 100、100N 与 Pelikano 历史家族 | 2026-07-19 | c64f307 | [260719-51p-pelikan-historic](./quick/260719-51p-pelikan-historic/) |
 | 260719-52p | 升级 LAMY 2000 与 Platinum #3776 Century 核心页面及 sibling 边界 | 2026-07-19 | c64f307 | [260719-52p-lamy-platinum-core](./quick/260719-52p-lamy-platinum-core/) |
+| 260719-53p | 拆分 Parker Vector 与 Vector XL，补齐当前 XL 与历史 slim 边界 | 2026-07-19 | d193db4 | [260719-53p-parker-vector-xl](./quick/260719-53p-parker-vector-xl/) |
+| 260719-54p | 补齐 Pelikan Toledo、Pura P40 与 P200/P205 cartridge 型号 | 2026-07-19 | 6334c1b | [260719-54p-pelikan-toledo-pura](./quick/260719-54p-pelikan-toledo-pura/) |
+| 260719-55p | 拆分 Hero/Paidi 一体尖混名并发布 849、850、Century 1 | 2026-07-19 | 6334c1b | [260719-55p-hero-paidi](./quick/260719-55p-hero-paidi/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：下一批处理 Pelikan Toledo／Pura／P200／P205、Hero/Paidi 与 SKB/Penton 身份拆分，再继续各品牌 raw 队列与缺失重要品牌。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
+继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：当前收口 Sheaffer Craftsman／Touchdown P0，并继续研究 Opus 88、Leonardo、SKB/Penton 与其余 raw 型号及缺失重要品牌。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
 
 ## Session Continuity
 
