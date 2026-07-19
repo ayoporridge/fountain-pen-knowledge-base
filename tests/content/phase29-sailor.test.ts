@@ -94,6 +94,10 @@ test("Phase 29 publishes only Sailor and canonical 11-1219 from an owned checkpo
     for (const row of publicRows.rows) {
       assert.ok(Number(row.summary_length) >= 60);
       assert.ok(Number(row.summary_length) <= 160);
+      assert.doesNotMatch(
+        String(row.body_md),
+        /\b(?:canonical|made_by|market_sku|slug|retired)\b|数据库|仓库/i,
+      );
     }
     assert.match(String(publicRows.rows[0]?.body_md), /旧英文.*不是.*完整镜像/);
     assert.match(String(publicRows.rows[0]?.body_md), /数量会随着后续研究增加/);

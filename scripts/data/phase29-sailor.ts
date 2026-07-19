@@ -871,7 +871,7 @@ export const phase29SailorPacks: CuratedEntityPack[] = [
         key: "1219-regional-identity",
         predicate: "model_identity",
         objectText:
-          "商品代码 11-1219 在日本官网名为 Profit Standard、英文官网名为 1911 S；本站合并为同一 canonical 型号。",
+          "商品代码 11-1219 在日本官网名为 Profit Standard、英文官网名为 1911 S；本站按同一型号处理。",
         factClass: "core",
         confidence: 0.99,
         sourceKey: "sailor-1219-jp",
@@ -1075,7 +1075,7 @@ export const phase29SailorPacks: CuratedEntityPack[] = [
         price_range:
           "日本官网 2026-07-19 快照：EF/F/MF/M/B 为 ¥44,000；Z/MS 为 ¥46,200",
         status:
-          "日本官网当前商品页可见；Ivory、Black、Maroon 三色，11-1219 canonical",
+          "日本官网当前商品页可见；Ivory、Black、Maroon 三色，均属于 11-1219",
       },
       evidence: [
         {

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Profit 18 规格事实卡</title>
+  <desc id="desc">本站原创的非写实规格示意图，不是产品照片，不含品牌标志或笔尖刻字。</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4f1ec"/>
+      <stop offset="1" stop-color="#ded8cf"/>
+    </linearGradient>
+    <radialGradient id="pearl">
+      <stop offset="0" stop-color="#fff" stop-opacity=".9"/>
+      <stop offset=".45" stop-color="#ddc7e8" stop-opacity=".45"/>
+      <stop offset="1" stop-color="#8f6aa3" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#121925" flood-opacity=".22"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="#171d2a"/>
+  <circle cx="1430" cy="120" r="330" fill="url(#pearl)"/>
+  <circle cx="160" cy="785" r="300" fill="url(#pearl)" opacity=".7"/>
+  <g filter="url(#shadow)">
+    <rect x="120" y="90" width="1360" height="720" rx="42" fill="url(#paper)"/>
+  </g>
+  <text x="190" y="190" fill="#20232a" font-family="ui-sans-serif, system-ui, sans-serif" font-size="68" font-weight="700">PROFIT 18</text>
+  <text x="190" y="242" fill="#656170" font-family="ui-sans-serif, system-ui, sans-serif" font-size="26" letter-spacing="4">FACT SHEET · NOT A PRODUCT PHOTO</text>
+  <line x1="190" y1="285" x2="1410" y2="285" stroke="#aaa2b2" stroke-width="3"/>
+  <g transform="translate(190 355)" fill="none" stroke="#8f6f3d" stroke-linejoin="round">
+    <path d="M70 240 L140 18 L210 240 L168 214 L140 252 L112 214 Z" stroke-width="9"/>
+    <circle cx="140" cy="150" r="13" stroke-width="7"/>
+    <path d="M140 163 V238" stroke-width="7"/>
+  </g>
+  <text x="500" y="405" fill="#20232a" font-family="ui-sans-serif, system-ui, sans-serif" font-size="34" font-weight="650">大型 18K 金尖</text>
+  <text x="500" y="462" fill="#4d4e58" font-family="ui-sans-serif, system-ui, sans-serif" font-size="27">EF · F · MF · M · B · Z · MS</text>
+  <text x="500" y="535" fill="#20232a" font-family="ui-sans-serif, system-ui, sans-serif" font-size="34" font-weight="650">PMMA · 珠光粒子 · Gold IP</text>
+  <text x="500" y="592" fill="#4d4e58" font-family="ui-sans-serif, system-ui, sans-serif" font-size="27">φ18 × 141 mm · 21.6 g</text>
+  <g transform="translate(500 650)">
+    <circle cx="24" cy="24" r="24" fill="#17191d" stroke="#af99bd" stroke-width="3"/>
+    <circle cx="94" cy="24" r="24" fill="#8c283b" stroke="#ddb7d0" stroke-width="3"/>
+    <circle cx="164" cy="24" r="24" fill="#24537a" stroke="#acd3e5" stroke-width="3"/>
+    <circle cx="234" cy="24" r="24" fill="#2b604d" stroke="#b6d6c7" stroke-width="3"/>
+    <text x="292" y="34" fill="#4d4e58" font-family="ui-sans-serif, system-ui, sans-serif" font-size="25">Shining Black · Red · Blue · Green</text>
+  </g>
+  <text x="190" y="760" fill="#656170" font-family="ui-sans-serif, system-ui, sans-serif" font-size="23">本站原创事实示意 · 无 logo · 无刻字 · 比例、光泽与色泽不代表实物</text>
+</svg>

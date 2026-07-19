@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sailor Professional Gear 21K 全尺寸规格事实卡</title>
+  <desc id="desc">本站原创的非写实规格示意图，不是产品照片，不含 Sailor 标志、锚形商标或笔尖刻字。</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4f0e7"/>
+      <stop offset="1" stop-color="#ddd4c4"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#111a20" flood-opacity=".22"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="#14212a"/>
+  <circle cx="1450" cy="105" r="320" fill="#b29a64" opacity=".14"/>
+  <circle cx="110" cy="810" r="250" fill="#7691a2" opacity=".12"/>
+  <g filter="url(#shadow)">
+    <rect x="120" y="90" width="1360" height="720" rx="42" fill="url(#paper)"/>
+  </g>
+  <text x="190" y="190" fill="#17232b" font-family="ui-sans-serif, system-ui, sans-serif" font-size="58" font-weight="700">PROFESSIONAL GEAR 21K</text>
+  <text x="190" y="242" fill="#5e6b72" font-family="ui-sans-serif, system-ui, sans-serif" font-size="26" letter-spacing="3">FULL SIZE · FACT SHEET · NOT A PRODUCT PHOTO</text>
+  <line x1="190" y1="285" x2="1410" y2="285" stroke="#a79777" stroke-width="3"/>
+  <g transform="translate(190 350)" fill="none" stroke="#8e7441" stroke-linejoin="round">
+    <path d="M70 240 L140 18 L210 240 L168 214 L140 252 L112 214 Z" stroke-width="9"/>
+    <circle cx="140" cy="150" r="13" stroke-width="7"/>
+    <path d="M140 163 V238" stroke-width="7"/>
+  </g>
+  <text x="500" y="400" fill="#17232b" font-family="ui-sans-serif, system-ui, sans-serif" font-size="34" font-weight="650">21K 大型双色金尖</text>
+  <text x="500" y="457" fill="#46545d" font-family="ui-sans-serif, system-ui, sans-serif" font-size="27">EF · F · MF · M · B · Z · MS</text>
+  <text x="500" y="530" fill="#17232b" font-family="ui-sans-serif, system-ui, sans-serif" font-size="34" font-weight="650">Black PMMA · 墨囊／上墨器</text>
+  <text x="500" y="587" fill="#46545d" font-family="ui-sans-serif, system-ui, sans-serif" font-size="27">φ18 × 129 mm · 21.6 g</text>
+  <g transform="translate(500 650)">
+    <rect width="360" height="58" rx="29" fill="#a67a2f" opacity=".9"/>
+    <text x="180" y="38" text-anchor="middle" fill="#fffaf0" font-family="ui-sans-serif, system-ui, sans-serif" font-size="23">11-2036 · GOLD IP</text>
+    <rect x="390" width="430" height="58" rx="29" fill="#69747b" opacity=".95"/>
+    <text x="605" y="38" text-anchor="middle" fill="#f8fafb" font-family="ui-sans-serif, system-ui, sans-serif" font-size="23">11-2037 · NICKEL CHROME</text>
+  </g>
+  <text x="190" y="760" fill="#5e6b72" font-family="ui-sans-serif, system-ui, sans-serif" font-size="23">本站原创事实示意 · 无 logo · 无刻字 · 轮廓、比例与色泽不代表实物</text>
+</svg>
