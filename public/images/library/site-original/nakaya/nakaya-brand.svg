@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Nakaya 型号命名事实图</title><desc id="desc">原创示意图：笔形、长度、漆面与具体装饰款应分开识别，非实物照片。</desc>
+  <rect width="1200" height="630" fill="#15100d"/><path d="M76 500H1124" stroke="#b99a5a" stroke-width="2" opacity=".65"/>
+  <text x="76" y="112" fill="#f2eadc" font-family="serif" font-size="54">Nakaya：把名称拆回四层</text>
+  <text x="78" y="154" fill="#c9bfae" font-family="sans-serif" font-size="22">本站原创 factual SVG；示意图，非产品照片，不代表颜色、比例、Logo、刻字或库存。</text>
+  <g font-family="sans-serif"><rect x="78" y="230" width="230" height="150" rx="18" fill="#30241c" stroke="#b99a5a"/><text x="104" y="280" fill="#e8d9be" font-size="28">笔形</text><text x="104" y="326" fill="#fff8ea" font-size="24">Cigar / Writer</text>
+  <rect x="342" y="230" width="230" height="150" rx="18" fill="#30241c" stroke="#b99a5a"/><text x="368" y="280" fill="#e8d9be" font-size="28">长度</text><text x="368" y="326" fill="#fff8ea" font-size="24">Piccolo / Portable</text>
+  <rect x="606" y="230" width="230" height="150" rx="18" fill="#30241c" stroke="#b99a5a"/><text x="632" y="280" fill="#e8d9be" font-size="28">漆面</text><text x="632" y="326" fill="#fff8ea" font-size="24">Kuro-tamenuri</text>
+  <rect x="870" y="230" width="252" height="150" rx="18" fill="#30241c" stroke="#b99a5a"/><text x="896" y="280" fill="#e8d9be" font-size="28">装饰</text><text x="896" y="326" fill="#fff8ea" font-size="24">Housoge / Chinkin</text></g>
+  <text x="78" y="454" fill="#e8d9be" font-family="sans-serif" font-size="26">完整型号 = 基础笔形 + 长度 + 漆面/装饰；订单笔尖与价格另向当期订单确认。</text>
+  <text x="78" y="550" fill="#c9bfae" font-family="sans-serif" font-size="22">已资料化：Cigar Piccolo Housoge · Cigar Portable Kuro-tamenuri · Writer Portable Kuro-tamenuri</text>
+</svg>
