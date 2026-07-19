@@ -141,10 +141,12 @@ Progress: [█████░░░░░] 50%
 | 260719-48p | 拆清 Waterman Hémisphère／Charleston，发布 Aurora Optima 并退役 Aurora 泛型号 | 2026-07-19 | cf059f8 | [260719-48p-waterman-aurora](./quick/260719-48p-waterman-aurora/) |
 | 260719-49p | 将 Visconti Homo Sapiens 泛型号拆为五个来源化 sibling 并收口品牌导航 | 2026-07-19 | 66f4cd8 | [260719-49p-visconti-homo-sapiens](./quick/260719-49p-visconti-homo-sapiens/) |
 | 260719-50p | 补齐 Waterman Carène／Expert 并规范旧中文 slug | 2026-07-19 | 18424c4 | [260719-50p-waterman-carene-expert](./quick/260719-50p-waterman-carene-expert/) |
+| 260719-51p | 补齐 Pelikan Model 100、100N 与 Pelikano 历史家族 | 2026-07-19 | c64f307 | [260719-51p-pelikan-historic](./quick/260719-51p-pelikan-historic/) |
+| 260719-52p | 升级 LAMY 2000 与 Platinum #3776 Century 核心页面及 sibling 边界 | 2026-07-19 | c64f307 | [260719-52p-lamy-platinum-core](./quick/260719-52p-lamy-platinum-core/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：下一批收口 Pelikan Model 100／100N／Pelikano 与 LAMY 2000／Platinum #3776 Century，再继续各品牌 raw 队列与缺失重要品牌。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
+继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：下一批处理 Pelikan Toledo／Pura／P200／P205、Hero/Paidi 与 SKB/Penton 身份拆分，再继续各品牌 raw 队列与缺失重要品牌。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
 
 ## Session Continuity
 
