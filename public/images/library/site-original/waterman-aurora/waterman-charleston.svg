@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Waterman Charleston factual diagram</title>
+  <desc id="desc">Editorial diagram for historical Charleston, cartridge converter and Art Deco lineage.</desc>
+  <rect width="1600" height="900" fill="#33251d"/>
+  <rect x="70" y="70" width="1460" height="760" rx="36" fill="#5c3e2e" stroke="#e1b873" stroke-width="4"/>
+  <text x="120" y="165" fill="#fff9ec" font-family="Arial, sans-serif" font-size="72" font-weight="700">WATERMAN CHARLESTON</text>
+  <text x="120" y="225" fill="#e1b873" font-family="Arial, sans-serif" font-size="32">CA. 2001–02 · HISTORICAL · ART-DECO LINEAGE</text>
+  <g transform="translate(150 350)">
+    <rect x="0" y="72" width="820" height="116" rx="58" fill="#e6d1b1" stroke="#fff9ec" stroke-width="4"/>
+    <rect x="700" y="72" width="120" height="116" rx="18" fill="#c9a86a" stroke="#fff9ec" stroke-width="4"/>
+    <path d="M820 130 L965 130 L1050 100 L1135 130 L1050 160 L965 130" fill="#e1b873"/>
+    <circle cx="1135" cy="130" r="17" fill="#fff9ec"/>
+  </g>
+  <g fill="#fff9ec" font-family="Arial, sans-serif" font-size="30">
+    <text x="150" y="650">Resin / plastic · cartridge / converter · common 18K reports</text>
+    <text x="150" y="710">Not Hémisphère: thicker body, independent historical collection</text>
+    <text x="150" y="770" fill="#f0d7a4">Current Waterman catalog absence is recorded, not converted into “current” status</text>
+    <text x="150" y="810" fill="#d5b98d" font-size="25">Fountain Pen Graph editorial · 示意图，非产品照片、非比例图</text>
+  </g>
+</svg>

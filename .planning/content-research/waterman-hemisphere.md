@@ -42,6 +42,18 @@ Charleston 是独立的 Waterman 系列，不能因为两者都使用金属笔�
 
 这条证据链也解释了为什么旧混名不能继续公开：名字相似不等于页面应该共享事实。
 
+## 当前目录与历史 Charleston 的分界
+
+Waterman 官方当前 Hémisphère collection 仍把它作为细长日用路线，页面中能看到多个钢笔商品和不锈钢尖选项。官方历史页把 Hémisphère 放在 1994 年节点；这比数据库旧的“Charleston / Hemisphere”混名更可靠。当前商品号、颜色和饰件随地区变化，所以正文只把 Hémisphère 作为系列 canonical，不把一个地区商品号写成全球唯一规格。
+
+Charleston 应该从 Hémisphère 的别名中移出。专业档案把 Charleston 放在 Newell 2001 年收购后的早期设计语境，外形借鉴 1939/40 Waterman Hundred Year Pen 的 Art-Deco 线索；它通常更厚、使用树脂或塑料笔身、cartridge/converter 和金尖。官方 2021 目录和当前 collection 已不再列 Charleston，因此本图谱把它作为独立历史页，而不是现行 Hémisphère 的颜色或旧名。旧卖家把两者并列写在一个标题里，多半是把品牌和系列混在一起，不是官方同义词。
+
+## 使用、维护与购买
+
+Hémisphère 的墨囊／converter 路线适合办公室、随身短写和频繁换色；不应拿 Charleston 的厚体量或 18K 尖语境来解释当前 Hémisphère。换墨时用清水吸排，避免把颜料墨或长时间未清洗的高染料墨留在细长握位和导墨器里。二手购买要拍完整商品号、笔尖刻字、笔帽内侧、握位接口和笔夹饰件；“Waterman 细长钢笔”可能还包括其他时期的 Expert、Allure 或已停产系列。
+
+若页面只写 Waterman 而没有 Hémisphère、Carène、Expert 等系列名，应先回到品牌页选择具体系列。Hémisphère 当前页保留其 1994 起点和不锈钢尖边界；Charleston 则另页记录约 2001–02 起的历史档案、市场／批次金尖差异和当前目录缺席状态。这样品牌反向链接会完整，但不会把两个不同结构的系列压成一张模板卡。
+
 ## 图片与来源说明
 
 本站原创 Hémisphère 事实图只表现细长日用定位、不锈钢尖、墨囊／converter 和 Charleston 分离边界，**示意图，非产品照片**；不复制 Waterman 官方摄影，不表现真实比例、颜色、Logo 或商品号。官方产品页和 2021 目录负责身份，专业资料只用于说明系列边界和维护语境。
