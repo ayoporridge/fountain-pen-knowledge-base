@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pelikan Pelikano generations</title>
+  <desc id="desc">Editorial factual diagram for Pelikano family, not a product photograph.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0c3c56"/><stop offset="1" stop-color="#266b61"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#000" flood-opacity=".28"/></filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect x="72" y="68" width="1456" height="764" rx="38" fill="#f7f0df" filter="url(#shadow)"/>
+  <text x="132" y="160" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#143b4c">PELikan Pelikano · 1960—至今</text>
+  <text x="132" y="204" font-family="Arial, sans-serif" font-size="22" fill="#5f7072">学生钢笔家族｜墨囊、握位与代际变化</text>
+  <path d="M165 346 H1440" stroke="#b8c3b2" stroke-width="8" stroke-linecap="round"/>
+  <g font-family="Arial, sans-serif" fill="#143b4c">
+    <circle cx="235" cy="346" r="22" fill="#2d7696"/><text x="198" y="416" font-size="24" font-weight="700">1960</text><text x="158" y="452" font-size="18">Model 1</text><text x="153" y="478" font-size="18">蓝银墨囊</text>
+    <circle cx="485" cy="346" r="22" fill="#2d7696"/><text x="448" y="416" font-size="24" font-weight="700">1965</text><text x="410" y="452" font-size="18">Model 2</text><text x="389" y="478" font-size="18">旋转墨窗</text>
+    <circle cx="735" cy="346" r="22" fill="#3d8b74"/><text x="698" y="416" font-size="24" font-weight="700">1979</text><text x="662" y="452" font-size="18">Model 5</text><text x="645" y="478" font-size="18">新钢尖</text>
+    <circle cx="985" cy="346" r="22" fill="#d28a59"/><text x="948" y="416" font-size="24" font-weight="700">2000</text><text x="911" y="452" font-size="18">P450</text><text x="884" y="478" font-size="18">透明哑光</text>
+    <circle cx="1235" cy="346" r="22" fill="#895f9e"/><text x="1198" y="416" font-size="24" font-weight="700">2024</text><text x="1162" y="452" font-size="18">Structure</text><text x="1135" y="478" font-size="18">新纹理</text>
+  </g>
+  <g transform="translate(180 574)">
+    <rect width="500" height="170" rx="20" fill="#e4f0ed"/>
+    <text x="32" y="52" font-family="Arial, sans-serif" font-size="25" font-weight="700" fill="#205c65">墨囊路线</text>
+    <rect x="38" y="86" width="100" height="38" rx="19" fill="#277796"/><text x="61" y="111" font-family="Arial, sans-serif" font-size="17" fill="#fff">墨囊</text>
+    <path d="M160 105 h76" stroke="#277796" stroke-width="6"/><path d="M236 105 l-16 -10 v20z" fill="#277796"/>
+    <rect x="258" y="86" width="190" height="38" rx="19" fill="#3d8b74"/><text x="281" y="111" font-family="Arial, sans-serif" font-size="17" fill="#fff">右手／左手版本</text>
+    <text x="32" y="148" font-family="Arial, sans-serif" font-size="18" fill="#5f7072">少数旧版日本市场使用转换器</text>
+  </g>
+  <g transform="translate(750 574)">
+    <rect width="670" height="170" rx="20" fill="#f2e7d9"/>
+    <text x="32" y="52" font-family="Arial, sans-serif" font-size="25" font-weight="700" fill="#8a5134">识别不要只看颜色</text>
+    <text x="32" y="92" font-family="Arial, sans-serif" font-size="18" fill="#5f7072">看握位凹槽 · 尖露出长度 · 墨窗 · 帽材 · 代际编号</text>
+    <text x="32" y="124" font-family="Arial, sans-serif" font-size="18" fill="#5f7072">P450、P480、P481 与 Structure 不是同一 SKU</text>
+    <text x="32" y="154" font-family="Arial, sans-serif" font-size="18" fill="#5f7072">F / M / L / A 依代际与市场核对</text>
+  </g>
+  <text x="132" y="792" font-family="Arial, sans-serif" font-size="17" fill="#7a6f61">示意图，非产品照片 · Fountain Pen Graph editorial factual SVG · 不按比例、不代表实物颜色或商标</text>
+</svg>

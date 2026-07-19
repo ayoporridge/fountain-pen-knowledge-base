@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pelikan Model 100 chronology and piston facts</title>
+  <desc id="desc">Editorial factual diagram for Pelikan Model 100, not a product photograph.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#101b2d"/><stop offset="1" stop-color="#233f4c"/></linearGradient>
+    <linearGradient id="jade" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b5dbb3"/><stop offset="1" stop-color="#2c7869"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#000" flood-opacity=".28"/></filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect x="72" y="68" width="1456" height="764" rx="38" fill="#f7f0e2" filter="url(#shadow)"/>
+  <text x="132" y="160" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#14283d">PELikan 100 · 1929—1944</text>
+  <text x="132" y="204" font-family="Arial, sans-serif" font-size="22" fill="#516574">历史型号事实卡｜活塞、材料与尖材过渡</text>
+  <path d="M170 346 H1430" stroke="#c4b99e" stroke-width="8" stroke-linecap="round"/>
+  <g font-family="Arial, sans-serif" fill="#14283d">
+    <circle cx="235" cy="346" r="22" fill="#2d776a"/><text x="198" y="416" font-size="24" font-weight="700">1929</text><text x="168" y="452" font-size="18">首支 Pelikan</text><text x="174" y="478" font-size="18">差动活塞</text>
+    <circle cx="490" cy="346" r="22" fill="#2d776a"/><text x="452" y="416" font-size="24" font-weight="700">1931</text><text x="409" y="452" font-size="18">分体笔杆</text><text x="405" y="478" font-size="18">硬橡胶握位</text>
+    <circle cx="760" cy="346" r="22" fill="#c27f4e"/><text x="720" y="416" font-size="24" font-weight="700">1938</text><text x="684" y="452" font-size="18">PD 钯尖</text><text x="680" y="478" font-size="18">两雏鸟标志</text>
+    <circle cx="1018" cy="346" r="22" fill="#8e9ca7"/><text x="978" y="416" font-size="24" font-weight="700">1939</text><text x="952" y="452" font-size="18">CN 钢尖</text><text x="934" y="478" font-size="18">战争供应线索</text>
+    <circle cx="1282" cy="346" r="22" fill="#5a6571"/><text x="1242" y="416" font-size="24" font-weight="700">1944</text><text x="1230" y="452" font-size="18">德国停产</text><text x="1192" y="478" font-size="18">与 100N 分开</text>
+  </g>
+  <g transform="translate(180 574)">
+    <rect width="510" height="170" rx="20" fill="#e5f0e7"/>
+    <text x="32" y="52" font-family="Arial, sans-serif" font-size="25" font-weight="700" fill="#245d54">上墨结构</text>
+    <path d="M45 102 h300" stroke="#2d776a" stroke-width="28" stroke-linecap="round"/>
+    <path d="M341 102 l95 -30 v60z" fill="#2d776a"/><circle cx="80" cy="102" r="34" fill="none" stroke="#f7f0e2" stroke-width="7"/>
+    <text x="32" y="145" font-family="Arial, sans-serif" font-size="18" fill="#516574">瓶装墨水｜差动活塞｜约 1.5 ml 档案值</text>
+  </g>
+  <g transform="translate(760 574)">
+    <rect width="660" height="170" rx="20" fill="#f2e8d8"/>
+    <text x="32" y="52" font-family="Arial, sans-serif" font-size="25" font-weight="700" fill="#7a4b2d">尖材不是等级标签</text>
+    <rect x="34" y="82" width="148" height="42" rx="21" fill="#d0a568"/><text x="58" y="110" font-family="Arial, sans-serif" font-size="18" fill="#fff">14 ct 金</text>
+    <rect x="206" y="82" width="148" height="42" rx="21" fill="#b8865a"/><text x="257" y="110" font-family="Arial, sans-serif" font-size="18" fill="#fff">PD</text>
+    <rect x="378" y="82" width="148" height="42" rx="21" fill="#7f8b94"/><text x="432" y="110" font-family="Arial, sans-serif" font-size="18" fill="#fff">CN</text>
+    <text x="32" y="145" font-family="Arial, sans-serif" font-size="18" fill="#516574">同一型号跨年代有不同材料与零件组合</text>
+  </g>
+  <text x="132" y="792" font-family="Arial, sans-serif" font-size="17" fill="#7a6f61">示意图，非产品照片 · Fountain Pen Graph editorial factual SVG · 不按比例、不代表实物颜色或商标</text>
+</svg>

@@ -2,63 +2,70 @@
 
 ## summary
 
-Platinum #3776 Century 源自 1978 年 #3776，2011 年经全面刷新成为 Century；普通树脂款配 14K 大型尖、墨囊／上墨器与 Slip & Seal。
+Platinum #3776 Century 源自 1978 年以富士山海拔命名的 #3776，2011 年完成全面刷新；本页只记录普通树脂 PNB-15000 的 14K 尖、墨囊／Converter-800A 和 Slip & Seal，2026 Ver.2.0 与 Travia 不回填。
 
 ## model_specs
 
 ```json
-{"brand_entity_id":"e51tJpejEkXY","series_name":"Platinum #3776 Century","release_year":"1978（#3776）；2011（Century 刷新）","origin_country":"日本；Platinum 官方产品体系","nib":"14K 金大型 14-26；UEF/EF/F/SF/M/B/C，具体尖号按 SKU","fill_system":"Platinum 墨囊／Converter-800A 上墨器","material":"普通 PNB-13000/PNB-15000 为 AS 树脂；赛璐珞、木材和限定材料另立 variant","dimensions":"普通 PNB-15000 约全长 139.5 mm、最大径 15.4 mm、20.5 g；按版本核对","status":"普通树脂款现行；赛璐珞、Ver.2.0、Travia 与其他限定版不混写"}
+{"brand_entity_id":"e51tJpejEkXY","series_name":"Platinum #3776 Century","release_year":"1978（原始 #3776）；2011（Century 刷新）","origin_country":"日本；Platinum 官方产品体系","nib":"大型 14K 金 14-26；UEF/EF/F/SF/M/B/C，具体尖号按 PNB SKU","fill_system":"Platinum 墨囊／Converter-800A 上墨器","material":"普通 PNB-13000/PNB-15000 为 AS 树脂；赛璐珞、木材、Ver.2.0 和 Travia 另立 sibling","dimensions":"普通 PNB-15000 官方约全长 139.5 mm、最大径 15.4 mm、标准重量 20.5 g；新版按各 SKU 核对","status":"普通树脂款现行；PNB-450 Ver.2.0 与 PFL-600 Travia 为 2026 独立 sibling，不混写"}
 ```
 
 ## body_md
 
-## 3776 这个名字从哪里来
+## 3776 的两层时间线
 
-“3776”不是随意取的数字，而是富士山海拔高度的品牌记忆。Platinum 官方把 #3776 的开发放在 1978 年，2011 年又经过约五年准备，刷新为 #3776 Century。两层时间必须分开：1978 是原始 #3776 路线的起点，2011 才是 Century 这个现代家族名称和结构刷新出现的时间。把 2011 写成“3776 诞生”会抹掉历史，也会让老款、现代树脂款和后来的 Ver.2.0 混在一起。
+“3776”指富士山海拔 3,776 米，是 Platinum 对理想日本钢笔的一次明确命名。官方资料把原始 #3776 的开发放在 1978 年，并提到作家、编剧和钢笔爱好者梅田晴夫参与了“理想的万年笔”方向；经过约五年的重新设计，2011 年才出现今天熟悉的 #3776 Century。两层年份不能互换：1978 是家族的起点，2011 是 Century 现代结构和名称的起点。老款 #3776、普通树脂 Century、赛璐珞款和 2026 版本可以互相链接，但不能共享一套规格。
 
-普通 #3776 Century 的产品逻辑很清楚：一支中大型树脂笔身，一枚 14K 大型金尖，Platinum 自有墨囊或 Converter-800A，以及一只旋紧后帮助减少干墨的 Slip & Seal 笔帽。日本当前 PNB-15000 页面给出全长约 139.5 mm、最大径约 15.4 mm、标准重量约 20.5 g，并列出黑色、Chenonceau White、Laurel Green、Chartres Blue、Bourgogne 等颜色。海外 PNB-13000 与零售目录可能使用不同编号或颜色，规格需以具体市场页面为准。
+本页 canonical identity 是日本官方当前的普通树脂 PNB-15000 语境，海外市场也可能把类似产品标为 PNB-13000。日本产品页给出全长约 139.5 mm、最大径 15.4 mm、标准重量 20.5 g；本体为 AS 树脂，配大型 14K（14-26）金尖、Platinum 原厂墨囊和 Converter-800A。现行普通色包括 Black in Black、Chenonceau White、Laurel Green、Chartres Blue 和 Bourgogne，颜色代码和尖号商品代码以具体市场页为准。
 
-## 尖号决定它是不是同一支“笔”
+## 尖号：14K 不是一个单一写感
 
-14K 大型 14-26 尖是 Century 的核心，但 UEF、EF、F、SF、M、B、C 的实际用途差异很大。UEF 和 EF 更适合小字、窄行距和需要控制墨量的人；F、SF 与 M 是更常见的日用选择；B、C 则把线条和墨色推得更宽。品牌官方确认这些尖号存在，却不会替你保证每一支的反馈和湿度。专业评测常把 Chartres Blue 的写感描述成带铅笔感、线条清楚稳定；另一些作者觉得短握位和明显反馈挑人。这些是可引用的实测体验，不应改写成“所有 Century 都硬”或“所有 F 都滑”。
+普通款 14-26 尖可选 UEF、EF、F、SF、M、B、C。UEF 和 EF 面向小字和窄行距，F 与 SF 适合日记和批注，M、B、C 会给出更宽的线条和更明显的墨色。日系“F”不能直接等同欧洲 F；纸张吸墨、墨水流动和单支调校都会改变最终线宽。官方只确认尖号类别和金材质，不替每一支笔承诺相同的反馈、湿度或启动表现。
 
-选择尖号时，纸张和握笔压力比网络形容词更有用。日系 F 往往比欧洲同号细，但每支金尖仍会有调校差异。开盒后先用普通纸和可信墨水测试启动、齿缝、干湿和转弯；若出现明显刮纸或偏斜，优先走卖家售后，不要用力掰尖。页面把尖号、来源和作者体验分层，读者才能把“铅笔感”理解成风格而不是故障。
+The Pen Addict 对 Chartres Blue 的专业评测把普通 14K 尖的触感描述为“铅笔式反馈”：线条清楚，笔尖在纸面上有可听见但可控的回应。这个描述是作者的实测体验，不是故障诊断，也不代表每个尖号和每张纸都会一样。想要极滑的人应先试写；喜欢方向感和较清晰的笔尖反馈的人可能会把它当成优势。开盒后用普通纸测试启动、转弯、反向、轻压和供墨，若出现明显刮纸或偏斜，优先走卖家调校或退换，不要自行掰动金尖。
 
-## Slip & Seal 是帮助，不是免维护
+## Slip & Seal 到底保证了什么
 
-普通 Century 的 Slip & Seal 是螺旋笔帽内部的密封结构：笔帽拧紧后，内部部件把尖座包住，降低空气交换。官方手册给出的目标是约两年防止干墨，但同时说明温度、湿度、墨水和使用方式会使实际结果不同。它适合不每天使用、希望隔一段时间拿起就能写的人，却不等于可以把墨水留在笔里永久不管。长期停笔仍要考虑墨水成分、笔帽是否真正拧紧和尖座是否已经残墨。
+普通 Century 的旋紧笔帽内有 Slip & Seal 结构。拧帽的最后一段行程会让内帽和握位形成更紧的封闭，减少空气交换，目标是让墨水在闲置时不容易变干。Platinum 的官方页面把它描述为螺旋帽钢笔的气密方案；传统手册与产品宣传常用“约两年”来表达测试目标。这里的“两年”是设计和实验语境，不是对所有温度、墨水、残墨量或存放方式的无条件保修。帽子没有拧到底、笔尖座残留高浓度墨水，都会影响结果。
 
-清洗时先取下墨囊或吸出 converter，再用清水或约 38°C 温水冲洗握位和笔尖，反复排到水色变淡，完全干燥后再换墨。官方建议使用原厂墨水，避免高温、化学清洁剂和硬擦树脂。长期不用时把墨囊取出；空墨囊在笔内放太久可能变硬，拆卸反而更麻烦。特殊赛璐珞、屋久杉、象嵌款有的并不带 Slip & Seal，不能因为它们也叫 3776 Century 就自动套用普通树脂款的护理结论。
+清洗时先取下墨囊或把 Converter-800A 中的墨水排空，使用清水或温和的室温水反复吸排，直到水色变淡，再让握位和笔尖完全干燥。官方手册不建议高温、酒精、硬刷或不必要的拆解；长期不用时，取出墨囊、冲洗并把笔帽拧紧保存。Slip & Seal 是减少干墨的结构，不是“永远免维护”的许可。若墨水结晶、converter 旋转变涩或笔帽螺纹卡顿，应先停止用力旋转并咨询维修，而不是把内帽当作可随意拆开的零件。
 
-## 普通款、特别版和 Ver.2.0 的边界
+## 普通 PNB-15000 与 2026 Ver.2.0 的边界
 
-本页 canonical identity 指普通树脂 PNB-13000／PNB-15000 语境。赛璐珞 BTB-10000S、BTB-15000SR、Kawaguchi 和其他高阶限定款，材料、重量、价格与帽盖结构可能不同；它们应作为 variant 或 sibling 记录。官方 2026 资料中的 #3776 CENTURY Ver.2.0 是独立透明示范款，笔身后部和气密结构经过重新设计，官方加速试验目标写到三年以上，不能回填到普通款的“两年”字段。新系列 Travia 也不能因为名字带 3776 就并入这支普通 Century。
+2026 年 Platinum 发布 PNB-450 #3776 CENTURY Ver.2.0 Prism Crystal。这不是普通树脂款的悄悄换代，而是独立产品：官方资料给出 139.5 × 15.4 mm、20.0 g、14K 14-26，发布日为 2026 年 2 月 5 日，首批世界限定 2,000 支。它重新设计了 Slip & Seal，官方加速试验把目标从约两年延长到三年以上；同时改动天冠内部、握位覆盖、首轴密封、墨窗内面和笔尖刻印。普通 PNB-15000 仍应保留 20.5 g 与约两年的历史规格，不能因为尺寸相同就套用 Ver.2.0 的密封年限。
 
-颜色名称同样要谨慎。Chartres Blue 与 Bourgogne 是常见树脂色；白色、绿色、透明示范和赛璐珞会改变材料与光泽。零售商有时把“14K”“金夹”“限定”写在标题里，却不写完整产品号。购买前要核对笔尖刻字、笔帽内侧、颜色编号、是否附 Converter-800A 和墨囊，要求卖家提供真实照片，而不是用另一种 3776 的宣传图代替。
+2026 年 3 月发布的 #3776 CENTURY Travia 又是另一个 sibling。官方英文资料把它列为 PFL-600 Onyx Black，配 FLAF（Float Like A Feather）14K 镀钌尖，长约 142 mm、最大径 15 mm、平均 29.3 g；笔身和笔帽为树脂，握位、平衡件和装饰采用黑色镀层金属，随附 Converter-700A。它采用长身和平衡件来改变重心，FLAF 的弯曲响应也与普通 Century F/SF 不同。首批特别套装为 2,000 组，带创始人自传修订版。Travia 的 29.3 g、FLAF、Converter-700A 和黑色金属不能回填普通 PNB-15000。
 
-## 它适合谁
+普通款还与赛璐珞、屋久杉、金泽箔、象嵌、Music 和其他高阶 #3776 产品共用品牌名称。日本官方普通 PNB-15000 页面甚至把赛璐珞和金箔款列在“同品牌其他产品”中，这正好说明它们是导航关系而不是同一 SKU。部分特殊材料款不搭载普通 Century 的 Slip & Seal，材料、重量、价格、尖号和维护都要按自己的商品号记录。看到卖家标题写“3776 Century celluloid”时，应先核对 BTB/PTB 编号和真实照片，不要套用 PNB-15000 的 20.5 g。
 
-Century 适合想进入日系金尖、又希望保留可替换墨囊和较低维护复杂度的人。它不像 Pilot Custom 823 那样用真空活塞追求大容量，也不像 LAMY 2000 那样用半包尖和工业设计表达；它的卖点是 14K 尖、清楚的反馈、长期闲置时相对安心的帽盖，以及大量颜色和尖号选择。若你每天只写几行、偶尔换墨或希望一支笔放在办公桌上很久，Slip & Seal 会有实际价值；若你追求极滑触感、短握位不适或需要透明大墨仓，应该先试写再买。
+## 颜色、配件和购买检查
 
-价格和库存会随市场变化，不能用旧索引里的“400–800”或某一款赛璐珞的翻倍价格概括全家族。网页把当前官方规格、零售容量参考、专业作者写感和限定版边界分别列出，才足够支撑选购。#3776 Century 的意义不是一条万能推荐，而是一条从 1978 原始 #3776、2011 Century 到今天不同尖号和材料的可追溯路径。
+Chartres Blue、Bourgogne 和 Laurel Green 常有半透明效果，灯光下能看到部分内部结构；Black in Black 和 Chenonceau White 的视觉密度则不同。颜色名不等于材料名：普通色仍可能是 AS 树脂，赛璐珞颜色则属于完全不同的产品线。购买前应确认笔尖刻字、颜色编号、笔帽顶、笔夹、是否附 Converter-800A 和蓝黑墨囊；仅凭一张金色夹子或红色桶身照片，无法判断是普通 PNB-15000、早期 #3776 还是赛璐珞版本。
 
-实际使用时，还可以把它拆成三个问题。第一是密封：笔帽有没有真正拧到底，笔尖座是否干净，笔内是否已经装了会结晶的墨水。第二是供墨：原厂墨囊、Converter-800A 和不同品牌墨水的流量不完全相同，换墨后应该重新观察启动和湿度。第三是握持：Century 的握位偏短，手指靠近螺纹的人可能会碰到帽口，习惯较长握位的人最好先试写。它不是一支靠复杂机械结构提供“高级感”的笔，长期满意度更多来自尖号、纸张和密封习惯的匹配。
+普通 Century 的旋帽约需接近两圈操作，长短握位的选择也会影响手感。喜欢把手指放在螺纹后方的人可能很快适应；习惯较长握位的人则应先试写。笔身约 20.5 g，适合想要轻量金尖和可换墨囊的用户，不会像真空活塞笔那样一次装入很大容量。它与 LAMY 2000 的半包尖活塞、Pilot Custom 823 的真空上墨构成不同取向：Century 的核心是日系反馈、14K 尖、多色选择和闲置时相对稳妥的密封。
 
-二手市场还要特别防止名称污染。卖家可能把“3776”“Century”“Music”“Soft Fine”“赛璐珞”放在同一标题里，却没有给出 PNB 或 BTB 代码。照片中如果只有金色夹子和黑色树脂，不能证明它是普通 PNB-15000；尖面刻字、帽顶、笔身材料和盒卡需要同时出现。老款 #3776、现代 Century、限定版和 Ver.2.0 即使可以互相链接，也不应共享一个重量、一个 Slip & Seal 说明或一张主图。
+## 如何把评价写得诚实
 
-这也是品牌反向链接必须完整的原因。Platinum 品牌页应列出 #3776 Century 的普通树脂、赛璐珞和新版 sibling，但每个链接都要带清楚的名字和状态。型号页则回答“我现在看到的是哪一个 SKU、有什么尖、如何清洗、和旁边那支 3776 有什么不同”。如果资料暂时只能证明一个系列，却不能证明某个颜色或限量编号，就保留 draft 或 variant 备注，而不是用近似商品照和模板正文填空。
+“不干”“顺滑”“铅笔感”都应该带范围。官方可以证明 PNB-15000 的结构、尺寸、尖号、配件和 Slip & Seal 设计目标；专业评测可以补充某支 Chartres Blue 的写感；零售商可以帮助确认当前颜色、包装和兼容 converter，但不能替代制造商的历史。把“约两年”写成无条件保鲜、把 Ver.2.0 的三年以上写回旧款，或者把 Travia 的 FLAF 写成普通 F，都属于版本身份错误。
+
+二手记录还应标出尖号、笔帽密封、树脂划痕和是否装过颜料墨。若笔帽内有干墨，不要用金属工具抠 Slip & Seal；先按官方建议冲洗，无法恢复时交给熟悉 Platinum 结构的维修者。清洗后完全排空再长期保存，尤其避免把防水颜料墨留在普通 converter 里。喜欢可控反馈和细线的人可以从 F/EF 开始，喜欢柔和变化但不想要真正软尖的人可看 SF；但任何尖号都应以试写和卖家售后为最后判断。
+
+## 品牌反向链接和图片边界
+
+Platinum 品牌页应把普通树脂 PNB-15000、赛璐珞、PNB-450 Ver.2.0、PFL-600 Travia 和 Music 等列成清楚的型号链接，让读者知道自己要去哪里比较。型号页则必须回答当前页面对应的商品号、尖号、填充、维护和相邻版本差异。本页只保留普通树脂事实，不使用 Ver.2.0 或 Travia 的产品照作为主图，也不使用赛璐珞的纹理去暗示 PNB-15000 的材料。
 
 ## 图片与来源说明
 
-本站原创 #3776 Century 事实卡表现 1978→2011 时间线、14K 大型尖、树脂笔身、Converter-800A 与 Slip & Seal 的关系，**示意图，非产品照片**；不表现真实比例、颜色、Logo、具体限定版或 Ver.2.0 的外观。
+本站原创 #3776 Century factual SVG 表现 1978 原始 #3776、2011 Century、普通 PNB-15000 以及 2026 Ver.2.0／Travia 的版本关系；**示意图，非产品照片**，不表现真实比例、颜色、Logo、具体限定版或任何可购买 SKU 的外观。
 
 ## 来源
 
+- [Platinum 日本官方 PNB-15000 产品页](https://www.platinum-pen.co.jp/products/fountain-pen/1464/)
 - [Platinum #3776 Century 官方品牌页](https://www.platinum-pen.co.jp/brands/3776-century/)
-- [Platinum PNB-15000 官方产品页](https://www.platinum-pen.co.jp/products/fountain-pen/1464/)
-- [Platinum 官方 Century 手册](https://www.platinum-pen.co.jp/cms/wp-content/uploads/2020/01/century.pdf)
-- [Platinum 100 周年与 #3776 时间线](https://www.platinum-pen.co.jp/common/img/pdf/decade_special_page%28english%29.pdf)
-- [Platinum #3776 Century Ver.2.0 官方资料](https://www.platinum-pen.co.jp/common/img/pdf/demonstrator_en.pdf)
-- [Goulet Pens：#3776 Century 系列](https://www.gouletpens.com/collections/platinum-3776-century-fountain-pens)
-- [Pen Addict：Chartres Blue 评测](https://www.penaddict.com/blog/2015/12/14/platinum-3776-century-chartres-blue-fountain-pen-review)
-- [Penchantink：#3776 Century 评测](https://penchantink.co.uk/a-turn-with-the-century/)
+- [Platinum 官方 Slip & Seal 机构说明](https://www.platinum-pen.co.jp/en/slipseal/)
+- [Platinum Century 官方护理手册](https://www.platinum-pen.co.jp/cms/wp-content/uploads/2020/01/century.pdf)
+- [Platinum #3776 Century Ver.2.0 官方资料（2026）](https://www.platinum-pen.co.jp/common/pdf/demonstrator_en.pdf)
+- [Platinum #3776 Century Travia 官方资料（2026）](https://www.platinum-pen.co.jp/common/pdf/travia_en.pdf)
+- [Goulet Pens：#3776 Century Bourgogne 产品页](https://www.gouletpens.com/collections/platinum-3776-century-fountain-pens/products/platinum-3776-century-fountain-pen-bourgogne)
+- [The Pen Addict：Chartres Blue 14K 尖评测](https://www.penaddict.com/blog/2015/12/14/platinum-3776-century-chartres-blue-fountain-pen-review)
+- [Platinum 官方 2020 Laurel Green／Bourgogne 规格公告](https://www.platinum-pen.co.jp/en/news/detail/?pid=9500)

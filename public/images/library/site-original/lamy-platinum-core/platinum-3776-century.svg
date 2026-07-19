@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Platinum #3776 Century 普通款与新版边界事实卡</title>
+  <desc id="desc">普通 PNB-15000、2026 Ver.2.0 与 Travia 的年代、上墨和密封结构边界；示意图，非产品照片。</desc>
+  <rect width="1600" height="900" fill="#eef1f7"/>
+  <rect x="64" y="64" width="1472" height="772" rx="34" fill="#ffffff" stroke="#2d3a54" stroke-width="4"/>
+  <text x="120" y="156" font-family="Arial, sans-serif" font-size="52" font-weight="700" fill="#293751">#3776 CENTURY</text>
+  <text x="122" y="207" font-family="Arial, sans-serif" font-size="28" fill="#5a687e">1978 #3776 → 2011 Century · 14K 14-26</text>
+  <line x1="164" y1="328" x2="1438" y2="328" stroke="#334d80" stroke-width="5"/>
+  <circle cx="270" cy="328" r="20" fill="#bd5151"/><circle cx="800" cy="328" r="20" fill="#bd5151"/><circle cx="1330" cy="328" r="20" fill="#bd5151"/>
+  <text x="180" y="414" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#293751">1978</text>
+  <text x="180" y="456" font-family="Arial, sans-serif" font-size="24" fill="#5a687e">原始 #3776</text>
+  <text x="710" y="414" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#293751">2011</text>
+  <text x="710" y="456" font-family="Arial, sans-serif" font-size="24" fill="#5a687e">普通 Century · Slip &amp; Seal</text>
+  <text x="1240" y="414" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#293751">2026</text>
+  <text x="1240" y="456" font-family="Arial, sans-serif" font-size="24" fill="#5a687e">Ver.2.0 / Travia sibling</text>
+  <rect x="230" y="548" width="990" height="54" rx="27" fill="#35558e"/>
+  <text x="120" y="684" font-family="Arial, sans-serif" font-size="25" fill="#293751">普通 PNB-15000：139.5 mm · 20.5 g · 墨囊／Converter-800A · 目标约 2 年</text>
+  <text x="120" y="728" font-family="Arial, sans-serif" font-size="25" fill="#293751">PNB-450 Ver.2.0 与 PFL-600 Travia 的材料、重量、尖和密封数据另立记录</text>
+  <text x="120" y="782" font-family="Arial, sans-serif" font-size="24" fill="#a74343">本站原创 factual SVG · 示意图，非产品照片；不表现真实比例、颜色、Logo 或限定版</text>
+</svg>

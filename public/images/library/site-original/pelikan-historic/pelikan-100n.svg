@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pelikan Model 100N chronology and version boundaries</title>
+  <desc id="desc">Editorial factual diagram for Pelikan Model 100N, not a product photograph.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#161a2b"/><stop offset="1" stop-color="#4c3341"/></linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#000" flood-opacity=".28"/></filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect x="72" y="68" width="1456" height="764" rx="38" fill="#f6eee2" filter="url(#shadow)"/>
+  <text x="132" y="160" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#22263d">PELikan 100N · 1937—1954</text>
+  <text x="132" y="204" font-family="Arial, sans-serif" font-size="22" fill="#6d6870">N = New｜更大容量、略大笔尖、出口先行</text>
+  <path d="M170 346 H1430" stroke="#c7b99e" stroke-width="8" stroke-linecap="round"/>
+  <g font-family="Arial, sans-serif" fill="#22263d">
+    <circle cx="235" cy="346" r="22" fill="#b76c53"/><text x="195" y="416" font-size="24" font-weight="700">1937</text><text x="160" y="452" font-size="18">出口先行</text><text x="155" y="478" font-size="18">100N 发布</text>
+    <circle cx="500" cy="346" r="22" fill="#b76c53"/><text x="460" y="416" font-size="24" font-weight="700">1938</text><text x="428" y="452" font-size="18">德国上市</text><text x="422" y="478" font-size="18">PD 钯尖</text>
+    <circle cx="760" cy="346" r="22" fill="#7f8b94"/><text x="720" y="416" font-size="24" font-weight="700">1939</text><text x="685" y="452" font-size="18">CN 钢尖</text><text x="664" y="478" font-size="18">供应变体</text>
+    <circle cx="1018" cy="346" r="22" fill="#507d72"/><text x="978" y="416" font-size="24" font-weight="700">1949</text><text x="940" y="452" font-size="18">握位改款</text><text x="928" y="478" font-size="18">金尖恢复</text>
+    <circle cx="1282" cy="346" r="22" fill="#5a6571"/><text x="1242" y="416" font-size="24" font-weight="700">1954</text><text x="1215" y="452" font-size="18">正式停产</text><text x="1185" y="478" font-size="18">1.75 ml 档案值</text>
+  </g>
+  <g transform="translate(180 574)">
+    <rect width="520" height="170" rx="20" fill="#e5efeb"/>
+    <text x="32" y="52" font-family="Arial, sans-serif" font-size="25" font-weight="700" fill="#285e56">100 与 100N</text>
+    <rect x="42" y="86" width="172" height="36" rx="18" fill="#829a8b"/><text x="85" y="110" font-family="Arial, sans-serif" font-size="17" fill="#fff">100 · 117 mm</text>
+    <rect x="248" y="86" width="208" height="36" rx="18" fill="#b76c53"/><text x="280" y="110" font-family="Arial, sans-serif" font-size="17" fill="#fff">100N · 122 mm</text>
+    <text x="32" y="146" font-family="Arial, sans-serif" font-size="18" fill="#6d6870">不可用同一页的规格互相回填</text>
+  </g>
+  <g transform="translate(770 574)">
+    <rect width="650" height="170" rx="20" fill="#f2e5d6"/>
+    <text x="32" y="52" font-family="Arial, sans-serif" font-size="25" font-weight="700" fill="#7d4936">版本线索</text>
+    <text x="32" y="91" font-family="Arial, sans-serif" font-size="18" fill="#6d6870">帽环：普通／fluted／Gdansk 一环</text>
+    <text x="32" y="121" font-family="Arial, sans-serif" font-size="18" fill="#6d6870">尖材：14 ct／PD／CN／出口 18 ct</text>
+    <text x="32" y="151" font-family="Arial, sans-serif" font-size="18" fill="#6d6870">握位：1937–49 与 1949–54 两段线索</text>
+  </g>
+  <text x="132" y="792" font-family="Arial, sans-serif" font-size="17" fill="#7a6f61">示意图，非产品照片 · Fountain Pen Graph editorial factual SVG · 不按比例、不代表实物颜色或商标</text>
+</svg>
