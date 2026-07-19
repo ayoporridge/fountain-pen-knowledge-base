@@ -5,10 +5,10 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
-stopped_at: Quick 260719-9m2 complete; next sourced content wave ready
-last_updated: "2026-07-19T13:32:00+08:00"
+stopped_at: Quick 260719-a1p complete; next sourced content wave ready
+last_updated: "2026-07-19T14:23:00+08:00"
 last_activity: 2026-07-19
-last_activity_desc: Sailor KOP 11-6001／11-7002／10-9618／10-7121 published with concrete SKU boundaries
+last_activity_desc: Parker Frontier, Victory and split vintage／modern Premier published with generation boundaries
 progress:
   total_phases: 16
   completed_phases: 10
@@ -31,7 +31,7 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 Phase: 21 (Taxonomy 与身份归一) — EXECUTING
 Plan: 4 of 6
 Status: In progress
-Last activity: 2026-07-19 — Sailor KOP four concrete models published with canonical SKU slugs
+Last activity: 2026-07-19 — Parker Frontier, Victory and two Premier generations published
 
 Progress: [█████░░░░░] 50%
 
@@ -130,10 +130,11 @@ Progress: [█████░░░░░] 50%
 | 260719-7qk | 发布 Sailor King of Pens 导航层并将长刀研重分类为 nib | 2026-07-19 | 0f97614 | [260719-7qk-sailor-kop-naginata](./quick/260719-7qk-sailor-kop-naginata/) |
 | 260719-8rj | 补齐 Pelikan M200 与 Twist P457，并规范化旧中文 slug | 2026-07-19 | 89c6b21 | [260719-8rj-pelikan-m200-p457](./quick/260719-8rj-pelikan-m200-p457/) |
 | 260719-9m2 | 发布 Sailor KOP 四个具体型号并收窄长刀研 SKU 边界 | 2026-07-19 | ec33d9b | [260719-9m2-sailor-kop-models](./quick/260719-9m2-sailor-kop-models/) |
+| 260719-a1p | 发布 Parker Frontier、Victory 与拆分后的 Premier 两代 | 2026-07-19 | b5de87d | [260719-a1p-parker-frontier-premier-victory](./quick/260719-a1p-parker-frontier-premier-victory/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：下一批处理 Parker Frontier、Premier（vintage／modern 分开）与 Victory，随后回到 Pilot Custom 823、Waterman Hémisphère／Charleston、Aurora 品牌与其余 raw／缺失重要型号。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
+继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：下一批先修 Pilot Custom 823 duplicate、Waterman Charleston／Hémisphère 混名与 Aurora generic 伪型号，再补 LAMY 2000、Platinum #3776 Century 等 identity 清楚的高价值型号，之后继续 Parker／Sailor／Pelikan raw 队列。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
 
 ## Session Continuity
 
