@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f3e9da"/>
+  <text x="100" y="120" fill="#4b3527" font-family="sans-serif" font-size="62" font-weight="700">OPUS 88 KOLORO</text>
+  <text x="102" y="175" fill="#80644f" font-family="sans-serif" font-size="28">扁平端盖 · 双色树脂 · #5 / Opus #10</text>
+  <path d="M210 470h930l150 70-150 70H210l-110-70z" fill="#b67c59" stroke="#4b3527" stroke-width="12"/>
+  <path d="M210 470h930l150 70-150 70H210l-110-70z" fill="#d6d2c5" fill-opacity=".4"/>
+  <path d="M1160 440v200" stroke="#4b3527" stroke-width="12"/>
+  <g fill="#4b3527" font-family="sans-serif" font-size="32"><text x="190" y="360">双色/实心树脂</text><text x="890" y="360">约 142 mm / 20 g</text><text x="1180" y="700">#5</text><text x="180" y="760">约 4 ml 参考值；雾面内腔与不可倒插是部分版本观察</text></g>
+  <text x="800" y="840" fill="#80644f" font-family="sans-serif" font-size="26" text-anchor="middle">示意图，非实物照片；Kolora 仅为旧拼写 alias</text>
+</svg>

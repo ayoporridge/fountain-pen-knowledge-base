@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f2eee7"/>
+  <text x="90" y="120" fill="#28333a" font-family="sans-serif" font-size="62" font-weight="700">OPUS 88 · 型号导航</text>
+  <text x="92" y="180" fill="#59666c" font-family="sans-serif" font-size="28">原创事实卡｜非产品照片｜不按比例</text>
+  <g stroke="#28333a" stroke-width="10" fill="none">
+    <path d="M160 420h300l55 40-55 40H160l-55-40z" fill="#b9dce0"/>
+    <path d="M560 420h300l55 40-55 40H560l-55-40z" fill="#d5bd91"/>
+    <path d="M960 420h300l55 40-55 40H960l-55-40z" fill="#b8b4a9"/>
+    <path d="M1360 420h130l45 40-45 40h-130l-45-40z" fill="#c7a36b"/>
+  </g>
+  <g fill="#28333a" font-family="sans-serif" font-size="34" text-anchor="middle">
+    <text x="310" y="390">Demonstrator</text><text x="710" y="390">Koloro</text><text x="1110" y="390">Jazz</text><text x="1430" y="390">Opera</text>
+    <text x="310" y="570" font-size="26">#6 / #12</text><text x="710" y="570" font-size="26">#5 / #10</text><text x="1110" y="570" font-size="26">大号 #6</text><text x="1430" y="570" font-size="26">Bock 250</text>
+  </g>
+  <path d="M120 720H1480" stroke="#8f6d4d" stroke-width="5" stroke-dasharray="16 16"/>
+  <text x="800" y="790" fill="#59666c" font-family="sans-serif" font-size="30" text-anchor="middle">共同主题：Japanese-style eyedropper + 尾部 shut-off valve；各型号仍须分开核对</text>
+</svg>
