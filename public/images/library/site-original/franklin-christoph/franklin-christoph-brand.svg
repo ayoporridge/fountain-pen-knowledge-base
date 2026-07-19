@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Franklin-Christoph 型号导航事实图</title><desc id="desc">示意图，非产品照片。区分 Model 20 Marietta、pocket 20 与尚未建立的其他笔形。</desc>
+  <rect width="1600" height="900" fill="#10232b"/><rect x="90" y="80" width="1420" height="740" rx="38" fill="#f6f0e4"/>
+  <text x="150" y="180" font-family="Georgia, serif" font-size="65" fill="#183a46">Franklin-Christoph</text><text x="150" y="240" font-family="Arial, sans-serif" font-size="28" fill="#49636a">型号导航事实图 · 示意图，非产品照片</text>
+  <path d="M180 415H810" stroke="#b16a42" stroke-width="38" stroke-linecap="round"/><path d="M810 415H1150" stroke="#d8b28d" stroke-width="54" stroke-linecap="round"/><path d="M1150 415H1300" stroke="#b16a42" stroke-width="38" stroke-linecap="round"/>
+  <text x="150" y="535" font-family="Arial, sans-serif" font-size="35" fill="#183a46">Model 20 Marietta：全尺寸笔形</text><text x="150" y="585" font-family="Arial, sans-serif" font-size="28" fill="#49636a">当前已核对的公开型号页</text>
+  <text x="150" y="685" font-family="Arial, sans-serif" font-size="28" fill="#6d573e">颜色、树脂、笔尖与小批次 ≠ 自动成为新型号</text>
+  <text x="930" y="535" font-family="Arial, sans-serif" font-size="31" fill="#183a46">pocket 20：独立短笔形</text><text x="930" y="585" font-family="Arial, sans-serif" font-size="25" fill="#49636a">另页核对，不以相近图替代</text>
+</svg>

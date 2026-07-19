@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Franklin-Christoph Model 20 Marietta 事实图</title><desc id="desc">示意图，非产品照片。展示 Marietta 全尺寸、三种上墨路径及与 pocket 20 的边界。</desc>
+  <rect width="1600" height="900" fill="#16282c"/><rect x="90" y="80" width="1420" height="740" rx="38" fill="#f8f1e5"/>
+  <text x="150" y="180" font-family="Georgia, serif" font-size="58" fill="#173c46">Model 20 Marietta</text><text x="150" y="235" font-family="Arial, sans-serif" font-size="27" fill="#4a646a">全尺寸 slip-cap · 示意图，非产品照片</text>
+  <path d="M190 430H940" stroke="#a66e55" stroke-width="42" stroke-linecap="round"/><path d="M930 430H1200" stroke="#d1ae89" stroke-width="62" stroke-linecap="round"/><path d="M1200 430H1340" stroke="#a66e55" stroke-width="42" stroke-linecap="round"/>
+  <line x1="190" y1="515" x2="1340" y2="515" stroke="#8b9a94" stroke-width="3"/><line x1="190" y1="490" x2="190" y2="540" stroke="#8b9a94" stroke-width="3"/><line x1="1340" y1="490" x2="1340" y2="540" stroke="#8b9a94" stroke-width="3"/>
+  <text x="500" y="575" font-family="Arial, sans-serif" font-size="31" fill="#173c46">带帽约 138.43 mm · 含 converter 未注墨约 19.28 g</text>
+  <text x="160" y="690" font-family="Arial, sans-serif" font-size="30" fill="#173c46">短国际墨囊</text><text x="590" y="690" font-family="Arial, sans-serif" font-size="30" fill="#173c46">international converter</text><text x="1110" y="690" font-family="Arial, sans-serif" font-size="30" fill="#173c46">eyedropper*</text>
+  <text x="160" y="750" font-family="Arial, sans-serif" font-size="25" fill="#6b5a4a">*需先确认当前结构与密封状态；不是 pocket 20 的参数。</text>
+</svg>
