@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title description">
+  <title id="title">Pelikan Twist P457 使用边界示意图</title>
+  <desc id="description">本站原创事实示意图，非产品照片：强调 P457 扭转三角握位、钢尖、Pelikan 墨囊与颜色版本，不表现真实比例、颜色或 Pelikan 商标。</desc>
+  <rect width="1600" height="900" rx="40" fill="#fff5e8"/>
+  <text x="100" y="120" font-family="Georgia,serif" font-size="58" font-weight="700" fill="#3e3a49">Pelikan Twist P457</text>
+  <text x="104" y="172" font-family="sans-serif" font-size="26" fill="#7e6e64">学生／日用路线 · 扭转握位 · 墨囊 · 颜色与包装是 variant</text>
+  <g font-family="sans-serif">
+    <path d="M160 470 L330 330 L500 470 L330 610 Z" fill="#8dc4d6" stroke="#477b8b" stroke-width="6"/>
+    <path d="M245 400 L415 540" stroke="#f9f0dd" stroke-width="26" stroke-linecap="round"/>
+    <text x="180" y="710" font-size="28" fill="#3e3a49">扭转三角截面</text>
+    <text x="160" y="758" font-size="22" fill="#756762">软握位帮助定位</text>
+    <rect x="650" y="300" width="260" height="190" rx="30" fill="#f5c667"/>
+    <text x="715" y="380" font-size="34" fill="#3e3a49" font-weight="700">Steel nib</text>
+    <text x="710" y="430" font-size="24" fill="#6e5a3f">常见 M</text>
+    <rect x="1010" y="300" width="360" height="190" rx="30" fill="#d6e0f2"/>
+    <text x="1070" y="380" font-size="34" fill="#3e3a49" font-weight="700">Cartridge</text>
+    <text x="1070" y="430" font-size="24" fill="#5f6c86">Pelikan 标准墨囊</text>
+    <path d="M650 590 H1370" stroke="#c19162" stroke-width="4"/>
+    <text x="650" y="660" font-size="29" fill="#3e3a49">2019 Color Edition · 2022 目录套装 · 后续颜色</text>
+    <text x="650" y="710" font-size="23" fill="#756762">颜色／包装不能替代具体 item number</text>
+  </g>
+  <text x="100" y="855" font-family="sans-serif" font-size="22" fill="#9b7860">示意图，非产品照片 · Fountain Pen Graph editorial studio · 2026</text>
+</svg>

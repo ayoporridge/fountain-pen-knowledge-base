@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title description">
+  <title id="title">Pelikan M200 年代与活塞边界示意图</title>
+  <desc id="description">本站原创事实示意图，非产品照片：区分 M200 1985–1997 Old Style、1997 后改款、钢尖与活塞系统，不表现真实比例、颜色或 Pelikan 商标。</desc>
+  <rect width="1600" height="900" rx="40" fill="#f3f0e7"/>
+  <text x="100" y="120" font-family="Georgia,serif" font-size="58" font-weight="700" fill="#283832">Pelikan Classic M200</text>
+  <text x="104" y="172" font-family="sans-serif" font-size="26" fill="#60756c">瓶装活塞笔 · 1985 起 · 年代改款要看帽顶、帽环与旋钮环</text>
+  <g font-family="sans-serif" fill="#283832">
+    <rect x="110" y="260" width="620" height="360" rx="28" fill="#d9e4d7" stroke="#769184" stroke-width="4"/>
+    <text x="160" y="350" font-size="38" font-weight="700">1985–1997 Old Style</text>
+    <text x="160" y="416" font-size="26">derby 帽顶 · 常见两道帽环</text>
+    <text x="160" y="465" font-size="26">无活塞旋钮装饰环 · 镀金钢尖</text>
+    <text x="160" y="530" font-size="24" fill="#516a60">老徽标与低量颜色仍需结合其他证据</text>
+    <rect x="870" y="260" width="620" height="360" rx="28" fill="#e6d6b6" stroke="#ad8b55" stroke-width="4"/>
+    <text x="920" y="350" font-size="38" font-weight="700">1997 后 Classic M200</text>
+    <text x="920" y="416" font-size="26">crown 帽顶 · 常见单帽环</text>
+    <text x="920" y="465" font-size="26">旋钮环 · 镀金不锈钢尖</text>
+    <text x="920" y="530" font-size="24" fill="#765e38">徽标变化仍不能单独代替货号</text>
+  </g>
+  <path d="M170 720 H1430" stroke="#8a9e91" stroke-width="4"/>
+  <circle cx="370" cy="720" r="18" fill="#456659"/><circle cx="800" cy="720" r="18" fill="#456659"/><circle cx="1230" cy="720" r="18" fill="#456659"/>
+  <text x="340" y="790" font-family="sans-serif" font-size="27" fill="#40574d">活塞填充</text>
+  <text x="740" y="790" font-family="sans-serif" font-size="27" fill="#40574d">钢尖／可换尖单元</text>
+  <text x="1160" y="790" font-family="sans-serif" font-size="27" fill="#40574d">约 1.2–1.3 ml 参考值</text>
+  <text x="100" y="855" font-family="sans-serif" font-size="22" fill="#8b7761">示意图，非产品照片 · Fountain Pen Graph editorial studio · 2026</text>
+</svg>
