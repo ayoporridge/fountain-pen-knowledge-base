@@ -22,13 +22,13 @@ Parker 官方历史把 George Safford Parker 在 1888 年取得的首项钢笔�
 
 1941 年上市的 vintage Parker “51” 是二十世纪中期的独立产品家族，经历 Vacumatic、Aero-metric、Special、Demi、少量 cartridge 与后期结构变化。Parker 官方把其历史跨度概括到 1941–1978，而美国主线通常按 1941–1972 记录。两个范围回答的问题不同，不能压缩成一个模糊的“生产到七十年代”。
 
-2021 年推出的现代 Parker 51 是以经典外形为灵感的 reimagined / modern take。它采用墨囊／上墨器、旋帽，并区分钢尖 Core 与 18K 金尖 Deluxe。本站将两代 51 保持为独立 canonical 页面：外观上的包覆式握位不会让现代版自动拥有 vintage 的管状笔尖、collector 或原上墨结构。
+2021 年推出的现代 Parker 51 是以经典外形为灵感的 reimagined / modern take。它采用墨囊／上墨器、旋帽，并区分钢尖 Core 与 18K 金尖 Deluxe。本站将两代 51 分成两个独立型号页：外观上的包覆式握位不会让现代版自动拥有 vintage 的管状笔尖、collector 或原上墨结构。
 
 ### Jotter 与今天的产品目录
 
-1954 年推出的 Jotter 是 Parker 圆珠笔史的重要节点，也说明品牌不只生产钢笔。当前官方目录仍可见 Duofold、Sonnet、Ingenuity、IM、Urban、Jotter、Vector XL 等不同路线；实际在售组合会按地区调整。本页只列公开且已有完整内容与证据的型号，不把 raw inventory 中只有名称的草稿提前显示。
+1954 年推出的 Jotter 是 Parker 圆珠笔史的重要节点，也说明品牌不只生产钢笔。当前官方目录仍可见 Duofold、Sonnet、Ingenuity、IM、Urban、Jotter、Vector XL 等不同路线；实际在售组合会按地区调整。本页只列已有完整内容与证据的公开型号，不把只有名称、尚未补完的草稿提前显示。
 
-品牌页的型号集合由公开实体的 reverse `made_by` 关系实时生成。这样 vintage Parker 51 与 2021 Parker 51 会同时出现，未来公开 Vector、Sonnet 或其他 Parker 型号时也会自动加入，而不需要在正文维护一张容易过期的手写清单。
+已经公开的 Parker 型号会自动汇总到品牌页，因此 vintage Parker 51 与 2021 Parker 51 会同时出现；后续补完 Vector、Sonnet 或其他型号时，也会直接加入这份列表，不需要在正文维护一张容易过期的手写清单。
 
 ### 2000 年以后与 Newell Brands
 

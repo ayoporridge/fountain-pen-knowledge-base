@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Parker Striped Duofold 1940–1948 上墨分支示意图</title>
+  <desc id="desc">本站原创分支图，区分纵条纹 Duofold 的 Vacumatic 与 button filler 两类上墨机构，并标出有资料记录的过渡件。示意图，非产品照片。</desc>
+  <rect width="1200" height="760" fill="#101c2a"/>
+  <g opacity="0.92">
+    <rect x="0" y="0" width="60" height="760" fill="#284e70"/>
+    <rect x="60" y="0" width="60" height="760" fill="#b8c7d1"/>
+    <rect x="120" y="0" width="60" height="760" fill="#82454e"/>
+    <rect x="180" y="0" width="60" height="760" fill="#c8ab66"/>
+  </g>
+  <rect x="188" y="48" width="952" height="664" rx="34" fill="#f8f4e9"/>
+  <text x="246" y="120" fill="#192a3b" font-family="system-ui, sans-serif" font-size="40" font-weight="700">Striped Duofold · 1940–1948</text>
+  <text x="246" y="162" fill="#50606d" font-family="system-ui, sans-serif" font-size="21">“Duovac” 只适合 Vacumatic filler 分支 · 非全系同义词</text>
+  <rect x="246" y="220" width="836" height="84" rx="20" fill="#dce5eb"/>
+  <text x="294" y="273" fill="#192a3b" font-family="system-ui, sans-serif" font-size="26" font-weight="700">同一纵条纹家族，不等于同一种上墨机构</text>
+  <path d="M664 304V366M664 366H442V410M664 366H888V410" fill="none" stroke="#192a3b" stroke-width="6"/>
+  <rect x="278" y="410" width="328" height="174" rx="24" fill="#d8e8f4" stroke="#284e70" stroke-width="3"/>
+  <text x="334" y="464" fill="#183a57" font-family="system-ui, sans-serif" font-size="27" font-weight="700">Vacumatic filler</text>
+  <text x="332" y="504" fill="#39566b" font-family="system-ui, sans-serif" font-size="19">1940–42 aluminium Speedline</text>
+  <text x="332" y="538" fill="#39566b" font-family="system-ui, sans-serif" font-size="19">1942–48 plastic plunger</text>
+  <text x="332" y="570" fill="#39566b" font-family="system-ui, sans-serif" font-size="18">这一分支常被称作 Duovac</text>
+  <rect x="722" y="410" width="328" height="174" rx="24" fill="#f3dfc0" stroke="#9c6324" stroke-width="3"/>
+  <text x="786" y="464" fill="#704216" font-family="system-ui, sans-serif" font-size="27" font-weight="700">Button filler</text>
+  <text x="790" y="506" fill="#7d5b37" font-family="system-ui, sans-serif" font-size="19">pressure bar + rubber sac</text>
+  <text x="776" y="542" fill="#7d5b37" font-family="system-ui, sans-serif" font-size="19">目录语境可见 Sac / Sacless</text>
+  <text x="790" y="574" fill="#7d5b37" font-family="system-ui, sans-serif" font-size="18">不能简称为 Vacumatic</text>
+  <rect x="246" y="624" width="836" height="54" rx="15" fill="#ead7dd"/>
+  <text x="278" y="659" fill="#6a3443" font-family="system-ui, sans-serif" font-size="19">1942 过渡件可能混用 Vacumatic imprint、clip、cap band；需整笔核验。</text>
+</svg>

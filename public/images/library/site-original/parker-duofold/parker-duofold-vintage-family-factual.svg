@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Parker Duofold 1921–1938 家族边界示意图</title>
+  <desc id="desc">本站原创时间线，说明早期 Duofold 家族、材料转换、Streamlined 改型以及 1939 Geometric 之前的范围边界。示意图，非产品照片。</desc>
+  <rect width="1200" height="760" fill="#f6efe4"/>
+  <rect x="64" y="64" width="1072" height="632" rx="34" fill="#fffaf3" stroke="#3c302b" stroke-width="3"/>
+  <text x="104" y="132" fill="#3c302b" font-family="system-ui, sans-serif" font-size="38" font-weight="700">Parker Duofold：1921–1938 经典家族</text>
+  <text x="104" y="176" fill="#6b5b52" font-family="system-ui, sans-serif" font-size="22">时间与材料边界示意 · 非产品照片</text>
+  <line x1="138" y1="356" x2="1062" y2="356" stroke="#3c302b" stroke-width="6"/>
+  <circle cx="190" cy="356" r="24" fill="#b9442d"/>
+  <circle cx="472" cy="356" r="24" fill="#cf7a24"/>
+  <circle cx="748" cy="356" r="24" fill="#3c7181"/>
+  <circle cx="1010" cy="356" r="24" fill="#303c50"/>
+  <text x="142" y="300" fill="#3c302b" font-family="system-ui, sans-serif" font-size="28" font-weight="700">1921</text>
+  <text x="122" y="420" fill="#3c302b" font-family="system-ui, sans-serif" font-size="21">Big Red / Senior</text>
+  <text x="122" y="450" fill="#6b5b52" font-family="system-ui, sans-serif" font-size="18">红色硬橡胶 · button filler</text>
+  <text x="424" y="300" fill="#3c302b" font-family="system-ui, sans-serif" font-size="28" font-weight="700">1926+</text>
+  <text x="400" y="420" fill="#3c302b" font-family="system-ui, sans-serif" font-size="21">Permanite</text>
+  <text x="378" y="450" fill="#6b5b52" font-family="system-ui, sans-serif" font-size="18">颜色扩展 · 版本不可混规格</text>
+  <text x="700" y="300" fill="#3c302b" font-family="system-ui, sans-serif" font-size="28" font-weight="700">1929+</text>
+  <text x="680" y="420" fill="#3c302b" font-family="system-ui, sans-serif" font-size="21">Streamlined</text>
+  <text x="650" y="450" fill="#6b5b52" font-family="system-ui, sans-serif" font-size="18">两端收束 · 多尺寸继续分化</text>
+  <text x="946" y="300" fill="#3c302b" font-family="system-ui, sans-serif" font-size="28" font-weight="700">1933–38</text>
+  <text x="914" y="420" fill="#3c302b" font-family="system-ui, sans-serif" font-size="21">收尾期</text>
+  <text x="880" y="450" fill="#6b5b52" font-family="system-ui, sans-serif" font-size="18">美国停产后库存／海外延续</text>
+  <rect x="104" y="526" width="992" height="108" rx="20" fill="#efe3d5"/>
+  <text x="136" y="570" fill="#3c302b" font-family="system-ui, sans-serif" font-size="22" font-weight="700">下一页不是“同一规格改花纹”</text>
+  <text x="136" y="606" fill="#6b5b52" font-family="system-ui, sans-serif" font-size="20">1939 Geometric、1940 Striped 与 1987/88 Centennial 分别建立独立型号页。</text>
+</svg>
