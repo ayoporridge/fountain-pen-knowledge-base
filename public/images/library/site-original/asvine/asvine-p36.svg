@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Asvine P36 身份与结构事实图</title>
+  <desc id="desc">本站原创示意图，非产品照片。示意 Asvine P36 的透明笔身、钛配件和活塞上墨边界，不代表真实比例、颜色、纹理、笔尖或配置。</desc>
+  <rect width="1200" height="675" fill="#161d2c"/>
+  <text x="85" y="112" fill="#e8ddb9" font-family="Georgia, serif" font-size="49">Asvine P36：活塞，不是真空</text>
+  <line x1="176" y1="300" x2="931" y2="300" stroke="#d4b472" stroke-width="34" stroke-linecap="round"/>
+  <rect x="302" y="270" width="412" height="60" rx="30" fill="#d7f4f2" fill-opacity="0.38" stroke="#c5ece9" stroke-width="3"/>
+  <path d="M920 266h91l42 34-42 34h-91z" fill="#abb5bb" stroke="#d4b472" stroke-width="4"/>
+  <path d="M135 266h74l-31 34 31 34h-74z" fill="#abb5bb" stroke="#d4b472" stroke-width="4"/>
+  <line x1="700" y1="252" x2="700" y2="348" stroke="#f1e2bd" stroke-width="8"/>
+  <text x="116" y="416" fill="#efe8d3" font-family="Arial, sans-serif" font-size="32">透明 acrylic 笔身／钛配件／活塞上墨</text>
+  <text x="116" y="470" fill="#b9cccf" font-family="Arial, sans-serif" font-size="27">Bock 250 只对应已引证的 pen-only 销售 SKU，不外推全线</text>
+  <text x="116" y="553" fill="#c7d2d5" font-family="Arial, sans-serif" font-size="22">本站原创事实图｜示意图，非产品照片｜不表示真实尺寸、颜色、Logo、笔尖或库存</text>
+</svg>

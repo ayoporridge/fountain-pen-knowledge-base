@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Asvine 型号导航事实图</title>
+  <desc id="desc">本站原创示意图，非产品照片。图中区分 Asvine P36 的透明笔身、钛配件与活塞上墨，不表示真实尺寸、颜色、Logo 或具体 SKU。</desc>
+  <rect width="1200" height="675" fill="#102228"/>
+  <rect x="80" y="88" width="1040" height="500" rx="28" fill="#17363d" stroke="#80b5b1" stroke-width="3"/>
+  <text x="120" y="160" fill="#f0e7cc" font-family="Georgia, serif" font-size="52">Asvine：先按上墨结构识别型号</text>
+  <line x1="142" y1="267" x2="855" y2="267" stroke="#efc76b" stroke-width="32" stroke-linecap="round"/>
+  <rect x="205" y="239" width="370" height="56" rx="28" fill="#d7eef0" fill-opacity="0.46" stroke="#d7eef0" stroke-width="3"/>
+  <path d="M875 235h74l37 32-37 32h-74z" fill="#b6c6c7" stroke="#efc76b" stroke-width="3"/>
+  <path d="M125 239h75l-28 28 28 28h-75z" fill="#b6c6c7" stroke="#efc76b" stroke-width="3"/>
+  <text x="130" y="375" fill="#f0e7cc" font-family="Arial, sans-serif" font-size="34">P36：透明 acrylic + 钛配件 + 活塞上墨</text>
+  <text x="130" y="430" fill="#b9d8d3" font-family="Arial, sans-serif" font-size="28">P36 不与 V126/V200 的真空上墨结构互换</text>
+  <text x="130" y="517" fill="#d9e8e5" font-family="Arial, sans-serif" font-size="23">本站原创事实图｜示意图，非产品照片｜非实物比例或在售 SKU</text>
+</svg>
