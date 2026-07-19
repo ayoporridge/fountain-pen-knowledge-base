@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Pelikan Souverän M1005 Stresemann 2019 身份与规格卡</title>
+  <desc id="desc">用灰黑条纹和数据格展示 2019 特别版的身份、尺寸、重量、墨量、笔尖与官方产品号边界；本站原创事实图，非产品照片，不按比例。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#17191c"/>
+      <stop offset="1" stop-color="#30343a"/>
+    </linearGradient>
+    <pattern id="stripes" width="22" height="22" patternUnits="userSpaceOnUse" patternTransform="rotate(18)">
+      <rect width="10" height="22" fill="#7d838a"/>
+      <rect x="10" width="12" height="22" fill="#34383d"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="675" rx="24" fill="url(#bg)"/>
+  <rect x="42" y="42" width="1116" height="591" rx="20" fill="#202328" stroke="#8f969d" stroke-width="2"/>
+  <rect x="42" y="42" width="276" height="591" rx="20" fill="url(#stripes)"/>
+  <rect x="76" y="82" width="208" height="44" rx="22" fill="#111317" stroke="#d4d7da"/>
+  <text x="180" y="111" fill="#f5f5f3" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="17" text-anchor="middle" letter-spacing="2">2019 特别版</text>
+  <text x="78" y="208" fill="#ffffff" font-family="Georgia, 'Noto Serif SC', serif" font-size="45" font-weight="700">M1005</text>
+  <text x="78" y="252" fill="#f1f2ef" font-family="Georgia, 'Noto Serif SC', serif" font-size="27">Stresemann</text>
+  <line x1="78" y1="285" x2="278" y2="285" stroke="#d7dadd" stroke-width="2"/>
+  <text x="78" y="330" fill="#ffffff" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="20">灰黑条纹</text>
+  <text x="78" y="364" fill="#ffffff" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="20">银色饰件</text>
+  <text x="78" y="398" fill="#ffffff" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="20">全镀铑 18K 金尖</text>
+  <rect x="344" y="82" width="764" height="112" rx="16" fill="#292d32" stroke="#4c5259"/>
+  <text x="378" y="126" fill="#aeb4ba" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="18">页面边界</text>
+  <text x="378" y="165" fill="#ffffff" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="26" font-weight="700">只对应 2019 灰条纹版</text>
+  <text x="777" y="165" fill="#c7cbd0" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="20">不含 2011 透明款、2013 黑色款</text>
+  <g font-family="Arial, 'Noto Sans SC', sans-serif">
+    <rect x="344" y="222" width="230" height="150" rx="16" fill="#f2f0e9"/>
+    <text x="372" y="264" fill="#64686b" font-size="17">闭帽长度</text>
+    <text x="372" y="321" fill="#1e2226" font-size="42" font-weight="700">146 mm</text>
+    <text x="372" y="350" fill="#666b70" font-size="15">收藏档案值</text>
+    <rect x="596" y="222" width="230" height="150" rx="16" fill="#f2f0e9"/>
+    <text x="624" y="264" fill="#64686b" font-size="17">直径</text>
+    <text x="624" y="321" fill="#1e2226" font-size="42" font-weight="700">14.1 mm</text>
+    <text x="624" y="350" fill="#666b70" font-size="15">收藏档案值</text>
+    <rect x="848" y="222" width="260" height="150" rx="16" fill="#f2f0e9"/>
+    <text x="876" y="264" fill="#64686b" font-size="17">重量</text>
+    <text x="876" y="321" fill="#1e2226" font-size="42" font-weight="700">34.1 g</text>
+    <text x="876" y="350" fill="#666b70" font-size="15">仅适用于 2019 版本</text>
+  </g>
+  <rect x="344" y="398" width="764" height="126" rx="16" fill="#15171a" stroke="#4c5259"/>
+  <text x="380" y="433" fill="#aeb4ba" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="17">上墨、笔尖与产品号</text>
+  <text x="380" y="470" fill="#ffffff" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="23">内置活塞 · 约 1.35 ml</text>
+  <text x="763" y="470" fill="#ffffff" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="23">18K/750 · EF / F / M / B</text>
+  <text x="380" y="505" fill="#c7cbd0" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="16">MAM：EF / F / M / B 各两条套装记录；810487 仅对应 M 尖带盒</text>
+  <line x1="344" y1="552" x2="1108" y2="552" stroke="#4c5259"/>
+  <text x="344" y="588" fill="#c1c5c8" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="16">版本范围：2019 年 1 月公布，延期至同年 6 月；供应部件问题并非笔尖。</text>
+  <text x="600" y="616" fill="#92979c" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="13" text-anchor="middle">本站原创事实图 · 非产品照片 · 不按比例</text>
+</svg>

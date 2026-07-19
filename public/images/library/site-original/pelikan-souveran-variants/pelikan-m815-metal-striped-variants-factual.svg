@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Pelikan Souverän M815 Metal Striped 2018 与 2025 版本卡</title>
+  <desc id="desc">分栏对照 2018 Black 和 2025 Blue 的年份、重量、尺寸及各自的测量来源差异，并强调不能归并成一个家族重量。</desc>
+  <defs>
+    <linearGradient id="left" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#111418"/>
+      <stop offset="1" stop-color="#363c43"/>
+    </linearGradient>
+    <linearGradient id="right" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0c304e"/>
+      <stop offset="1" stop-color="#1e6593"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" rx="24" fill="#e5e8e8"/>
+  <rect x="36" y="36" width="552" height="603" rx="22" fill="url(#left)"/>
+  <rect x="612" y="36" width="552" height="603" rx="22" fill="url(#right)"/>
+  <g font-family="Arial, 'Noto Sans SC', sans-serif">
+    <text x="72" y="92" fill="#bbc2c8" font-size="17" letter-spacing="2">METAL STRIPED</text>
+    <text x="72" y="143" fill="#ffffff" font-family="Georgia, 'Noto Serif SC', serif" font-size="40" font-weight="700">2018 Black</text>
+    <line x1="72" y1="170" x2="552" y2="170" stroke="#7d858d"/>
+    <text x="72" y="222" fill="#c9ced2" font-size="18">收藏档案标称重量</text>
+    <text x="72" y="297" fill="#ffffff" font-size="68" font-weight="700">38 g</text>
+    <text x="72" y="347" fill="#d7dbde" font-size="21">141 mm · 13 mm · 约 1.35 ml</text>
+    <text x="72" y="397" fill="#d7dbde" font-size="21">黑色树脂 · 银色饰件 · 18ct 金尖</text>
+    <rect x="72" y="445" width="480" height="105" rx="14" fill="#ffffff" fill-opacity="0.1" stroke="#7d858d"/>
+    <text x="98" y="484" fill="#c9ced2" font-size="16">2018 实笔评测另测得约 37.1 g</text>
+    <text x="98" y="519" fill="#ffffff" font-size="18">保留测量差异，不用于推定 2025 Blue</text>
+    <text x="648" y="92" fill="#bcd9ed" font-size="17" letter-spacing="2">METAL STRIPED</text>
+    <text x="648" y="143" fill="#ffffff" font-family="Georgia, 'Noto Serif SC', serif" font-size="40" font-weight="700">2025 Blue</text>
+    <line x1="648" y1="170" x2="1128" y2="170" stroke="#6ca2c4"/>
+    <text x="648" y="222" fill="#c8e0f0" font-size="18">现行官方产品页重量</text>
+    <text x="648" y="297" fill="#ffffff" font-size="68" font-weight="700">36 g</text>
+    <text x="648" y="347" fill="#e4f0f7" font-size="21">闭帽 14.1 cm · 差动活塞</text>
+    <text x="648" y="397" fill="#e4f0f7" font-size="21">黄铜基材 · 18K 全镀铑尖 · EF/F/M/B</text>
+    <rect x="648" y="445" width="480" height="105" rx="14" fill="#ffffff" fill-opacity="0.1" stroke="#6ca2c4"/>
+    <text x="674" y="484" fill="#c8e0f0" font-size="16">公布期资料曾写 37.13 g</text>
+    <text x="674" y="519" fill="#ffffff" font-size="18">本页以现行官方产品页的 36 g 为准</text>
+  </g>
+  <rect x="300" y="577" width="600" height="45" rx="22" fill="#f7f8f7" stroke="#9fa6a8"/>
+  <text x="600" y="606" fill="#303538" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="16" font-weight="700" text-anchor="middle">两版分别保留测量来源差异；不能归并成一个 M815 重量</text>
+  <text x="600" y="657" fill="#687174" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="13" text-anchor="middle">本站原创事实图 · 非产品照片 · 不按比例</text>
+</svg>

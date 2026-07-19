@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Pelikan Souverän M605 八个版本事实卡</title>
+  <desc id="desc">按年份分列 2003 Solid Dark Blue、2012 Black、2012 Blue Striated、2013 Marine Blue Transparent、2017 White-Transparent、2019 Stresemann、2021 Green-White 与 2022 Tortoiseshell-Black；示意图不是产品照片。</desc>
+  <rect width="1200" height="675" rx="24" fill="#e7eef0"/>
+  <rect x="34" y="34" width="1132" height="607" rx="22" fill="#f9fbfb" stroke="#a6b7bb" stroke-width="2"/>
+  <text x="68" y="91" fill="#173b43" font-family="Georgia, 'Noto Serif SC', serif" font-size="39" font-weight="700">M605 · 八个已核实版本</text>
+  <text x="68" y="122" fill="#516b70" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="18">银色／镀钯色饰件是家族线索；颜色、材料和笔尖必须按年份核对</text>
+
+  <g font-family="Arial, 'Noto Sans SC', sans-serif">
+    <g transform="translate(68 151)">
+      <rect width="250" height="142" rx="16" fill="#dce8ee" stroke="#a6b8bd"/>
+      <rect width="250" height="7" rx="4" fill="#214f78"/>
+      <text x="18" y="39" fill="#173b43" font-size="22" font-weight="700">2003</text>
+      <text x="18" y="68" fill="#173b43" font-size="17" font-weight="700">Solid Dark Blue</text>
+      <text x="18" y="96" fill="#48636a" font-size="15">深蓝笔杆＋深蓝笔帽</text>
+      <text x="18" y="121" fill="#48636a" font-size="15">出口版 · 14C 双色记录</text>
+    </g>
+    <g transform="translate(340 151)">
+      <rect width="250" height="142" rx="16" fill="#e4e7e7" stroke="#a6b8bd"/>
+      <rect width="250" height="7" rx="4" fill="#242a2b"/>
+      <text x="18" y="39" fill="#173b43" font-size="22" font-weight="700">2012</text>
+      <text x="18" y="68" fill="#173b43" font-size="17" font-weight="700">Black</text>
+      <text x="18" y="96" fill="#48636a" font-size="15">黑色笔杆＋黑色笔帽</text>
+      <text x="18" y="121" fill="#48636a" font-size="15">14K 铑饰 · EF / F / M / B</text>
+    </g>
+    <g transform="translate(612 151)">
+      <rect width="250" height="142" rx="16" fill="#dbe7ed" stroke="#a6b8bd"/>
+      <rect width="250" height="7" rx="4" fill="#3b6f8f"/>
+      <text x="18" y="39" fill="#173b43" font-size="22" font-weight="700">2012</text>
+      <text x="18" y="68" fill="#173b43" font-size="17" font-weight="700">Blue Striated</text>
+      <text x="18" y="96" fill="#48636a" font-size="15">蓝条纹笔杆＋黑色笔帽</text>
+      <text x="18" y="121" fill="#48636a" font-size="15">14K 铑饰 · EF / F / M / B</text>
+    </g>
+    <g transform="translate(884 151)">
+      <rect width="250" height="142" rx="16" fill="#d5edf1" stroke="#a6b8bd"/>
+      <rect width="250" height="7" rx="4" fill="#4aa2b7"/>
+      <text x="18" y="39" fill="#173b43" font-size="22" font-weight="700">2013</text>
+      <text x="18" y="68" fill="#173b43" font-size="17" font-weight="700">Marine Blue Transparent</text>
+      <text x="18" y="96" fill="#48636a" font-size="15">透明海蓝笔杆＋透明笔帽</text>
+      <text x="18" y="121" fill="#48636a" font-size="15">单色镀铑尖 · 年报确认</text>
+    </g>
+
+    <g transform="translate(68 315)">
+      <rect width="250" height="142" rx="16" fill="#eef2ef" stroke="#a6b8bd"/>
+      <rect width="250" height="7" rx="4" fill="#bbc7c8"/>
+      <text x="18" y="39" fill="#173b43" font-size="22" font-weight="700">2017</text>
+      <text x="18" y="68" fill="#173b43" font-size="17" font-weight="700">White-Transparent</text>
+      <text x="18" y="96" fill="#48636a" font-size="15">透明笔杆＋白色树脂</text>
+      <text x="18" y="121" fill="#48636a" font-size="15">全镀铑 14C · EF / F / M / B</text>
+    </g>
+    <g transform="translate(340 315)">
+      <rect width="250" height="142" rx="16" fill="#e1e4e4" stroke="#a6b8bd"/>
+      <rect width="250" height="7" rx="4" fill="#64696b"/>
+      <text x="18" y="39" fill="#173b43" font-size="22" font-weight="700">2019–现行</text>
+      <text x="18" y="68" fill="#173b43" font-size="17" font-weight="700">Stresemann</text>
+      <text x="18" y="96" fill="#48636a" font-size="15">anthracite 条纹＋黑树脂</text>
+      <text x="18" y="121" fill="#48636a" font-size="15">全镀铑 14C · EF / F / M / B</text>
+    </g>
+    <g transform="translate(612 315)">
+      <rect width="250" height="142" rx="16" fill="#e2eee5" stroke="#a6b8bd"/>
+      <rect width="250" height="7" rx="4" fill="#4e7b59"/>
+      <text x="18" y="39" fill="#173b43" font-size="22" font-weight="700">2021</text>
+      <text x="18" y="68" fill="#173b43" font-size="17" font-weight="700">Green-White</text>
+      <text x="18" y="96" fill="#48636a" font-size="15">绿白条纹＋白色树脂</text>
+      <text x="18" y="121" fill="#48636a" font-size="15">全镀铑 14C · EF / F / M / B</text>
+    </g>
+    <g transform="translate(884 315)">
+      <rect width="250" height="142" rx="16" fill="#dfe3e4" stroke="#a6b8bd"/>
+      <rect width="250" height="7" rx="4" fill="#2b3335"/>
+      <text x="18" y="39" fill="#173b43" font-size="22" font-weight="700">2022</text>
+      <text x="18" y="68" fill="#173b43" font-size="17" font-weight="700">Tortoiseshell-Black</text>
+      <text x="18" y="96" fill="#48636a" font-size="15">灰黑珠光条纹＋黑树脂</text>
+      <text x="18" y="121" fill="#48636a" font-size="15">全镀铑 14C · 官方 16.4 g</text>
+    </g>
+  </g>
+
+  <rect x="68" y="485" width="1066" height="82" rx="15" fill="#173b43"/>
+  <text x="92" y="518" fill="#cde0e3" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="15">常见误标</text>
+  <text x="92" y="548" fill="#ffffff" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="20" font-weight="700">2012 浅龟纹白帽金饰款属于 M600 Tortoiseshell-White，不是 M605。</text>
+  <text x="600" y="612" fill="#70868b" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="14" text-anchor="middle">本站原创事实图 · 非产品照片 · 非色差证据 · 不按比例</text>
+</svg>

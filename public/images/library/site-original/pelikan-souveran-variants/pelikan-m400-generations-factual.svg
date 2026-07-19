@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Pelikan Souverän M400 两代边界对照</title>
+  <desc id="desc">并列对照 1982 至 1997 Old Style 与 1997 年 9 月后版本的供墨、笔尖、饰环和参考规格；颜色不能单独断代。本图为本站原创事实图，非产品照片，不按比例。</desc>
+  <rect width="1200" height="675" rx="24" fill="#f3efe2"/>
+  <path d="M0 0H1200V132H0Z" fill="#173f35"/>
+  <text x="58" y="62" fill="#fbfaf5" font-family="Georgia, 'Noto Serif SC', serif" font-size="38" font-weight="700">M400</text>
+  <text x="58" y="104" fill="#dbe8df" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="24">颜色不能单独断代；供墨、饰环、刻字与笔尖要交叉核对</text>
+  <line x1="600" y1="162" x2="600" y2="575" stroke="#ad9f7a" stroke-width="3"/>
+  <g font-family="Arial, 'Noto Sans SC', sans-serif">
+    <rect x="54" y="162" width="494" height="413" rx="20" fill="#fffdf6" stroke="#c7b98f" stroke-width="2"/>
+    <text x="86" y="214" fill="#173f35" font-size="29" font-weight="700">旧版（Old Style）</text>
+    <text x="86" y="248" fill="#6c634c" font-size="19">1982–1997</text>
+    <circle cx="104" cy="292" r="7" fill="#b18a38"/>
+    <text x="126" y="299" fill="#2d302d" font-size="20">塑料供墨；14ct 单色金尖</text>
+    <circle cx="104" cy="340" r="7" fill="#b18a38"/>
+    <text x="126" y="347" fill="#2d302d" font-size="20">单帽环；握位无后加饰环</text>
+    <circle cx="104" cy="388" r="7" fill="#b18a38"/>
+    <text x="126" y="395" fill="#2d302d" font-size="20">帽顶蚀刻双雏鸟；帽环刻字会变化</text>
+    <rect x="86" y="434" width="430" height="104" rx="12" fill="#e9e2cf"/>
+    <text x="110" y="471" fill="#625a45" font-size="16">收藏平台参考</text>
+    <text x="110" y="510" fill="#173f35" font-size="24" font-weight="700">125 mm · 14.0 g · 1.40 ml</text>
+    <rect x="652" y="162" width="494" height="413" rx="20" fill="#fffdf6" stroke="#c7b98f" stroke-width="2"/>
+    <text x="684" y="214" fill="#173f35" font-size="29" font-weight="700">新版（New Style）</text>
+    <text x="684" y="248" fill="#6c634c" font-size="19">1997 年 9 月后</text>
+    <circle cx="702" cy="292" r="7" fill="#b18a38"/>
+    <text x="724" y="299" fill="#2d302d" font-size="20">14K/585 双色金尖</text>
+    <circle cx="702" cy="340" r="7" fill="#b18a38"/>
+    <text x="724" y="347" fill="#2d302d" font-size="20">握位饰环；尾钮双环；帽口双环</text>
+    <circle cx="702" cy="388" r="7" fill="#b18a38"/>
+    <text x="724" y="395" fill="#2d302d" font-size="20">印刷徽记后续由双雏鸟改为单雏鸟</text>
+    <rect x="684" y="434" width="430" height="104" rx="12" fill="#dfe9e2"/>
+    <text x="708" y="471" fill="#526159" font-size="16">2025 官方目录现行值</text>
+    <text x="708" y="510" fill="#173f35" font-size="24" font-weight="700">127 mm · 14.9 g · 1.30 ml</text>
+  </g>
+  <rect x="54" y="596" width="1092" height="43" rx="10" fill="#173f35"/>
+  <text x="600" y="623" fill="#f7f5ed" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="15" text-anchor="middle">本站原创事实图 · 至少交叉核对两三处结构特征 · 非产品照片 · 不按比例</text>
+</svg>
