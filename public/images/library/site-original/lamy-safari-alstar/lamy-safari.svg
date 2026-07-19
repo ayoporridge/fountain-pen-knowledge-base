@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">LAMY Safari 事实卡</title><desc id="desc">本站原创示意图，非产品照片。列出 ASA 塑料、144 毫米、16 克、钢尖与 T10/Z28。</desc>
+  <rect width="1600" height="900" fill="#f4f0e8"/><rect x="100" y="92" width="1400" height="716" rx="36" fill="#fffdf8" stroke="#1f352b" stroke-width="8"/>
+  <text x="180" y="205" font-family="Arial, sans-serif" font-size="72" font-weight="700" fill="#1f352b">LAMY Safari</text><text x="184" y="262" font-family="Arial, sans-serif" font-size="28" fill="#4b5b52">事实卡 · 当前 green SKU 为规格锚点</text>
+  <path d="M260 505h740l120 72-120 72H260z" fill="#5d995d" stroke="#1f352b" stroke-width="10"/><path d="M220 505h72v144h-72l-82-72z" fill="#d9d8d0" stroke="#1f352b" stroke-width="10"/><path d="M1000 505h188l78 72-78 72h-188z" fill="#4c744e" stroke="#1f352b" stroke-width="10"/><path d="M1070 505v144" stroke="#d6e6d2" stroke-width="16"/><path d="M388 505v144" stroke="#d6e6d2" stroke-width="14"/><path d="M594 490l98-48 20 48" fill="none" stroke="#1f352b" stroke-width="18" stroke-linecap="round"/>
+  <g font-family="Arial, sans-serif" fill="#1f352b"><text x="180" y="735" font-size="35" font-weight="700">ASA 塑料</text><text x="570" y="735" font-size="35" font-weight="700">约 144 mm · 16 g</text><text x="1060" y="735" font-size="35" font-weight="700">钢尖 · T10 / Z28</text></g>
+  <text x="180" y="776" font-family="Arial, sans-serif" font-size="24" fill="#4b5b52">示意图，非产品照片；不代表真实颜色、比例、Logo、刻字、库存或尖号。</text>
+</svg>

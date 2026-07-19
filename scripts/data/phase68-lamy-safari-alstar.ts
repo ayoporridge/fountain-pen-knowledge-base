@@ -1,0 +1,62 @@
+import type { CuratedEntityPack, CuratedSource, SpecFieldKey } from "../lib/curated-content-pack";
+import { PHASE42_LAMY_BRAND_ID } from "./phase42-lamy-platinum";
+
+export const PHASE68_LAMY_BRAND_ID = PHASE42_LAMY_BRAND_ID;
+export const PHASE68_SAFARI_RAW_SLUG = "凌美-lamy-safari-狩猎者";
+export const PHASE68_ALSTAR_RAW_SLUG = "凌美-lamy-al-star-恒星";
+export const PHASE68_SAFARI_SLUG = "lamy-safari";
+export const PHASE68_ALSTAR_SLUG = "lamy-al-star";
+
+const RETRIEVED = "2026-07-20";
+
+function live(input: Omit<CuratedSource, "retrievedAt" | "allowedUse" | "homepageUrl" | "archiveUrl" | "archiveLocator" | "independenceGroup">): CuratedSource {
+  return { ...input, homepageUrl: input.url, retrievedAt: RETRIEVED, allowedUse: "summary_only", archiveUrl: input.url, archiveLocator: `live-source-not-frozen;retrieved=${RETRIEVED};external_archive=false;locator=${input.summary}`, independenceGroup: input.registryKey };
+}
+
+function diagram(key: string, title: string, localPath: string, summary: string): CuratedSource {
+  return { key, registryKey: "fountain-pen-graph-editorial", registryName: "Fountain Pen Graph editorial studio", sourceType: "user_submission", tier: "primary", independenceGroup: "fountain-pen-graph-editorial", title, url: localPath, homepageUrl: "/", itemType: "image", author: "Fountain Pen Graph editorial", retrievedAt: RETRIEVED, allowedUse: "store_full", license: "site-original", summary, archiveUrl: localPath, archiveLocator: `project-public-asset:${localPath};site-original=true;factual-svg=true;product-photo=false;logo=false;to-scale=false;colour-proof=false;dimensions=1600x900` };
+}
+
+const SOURCES = {
+  safari: live({ key: "phase68-lamy-safari-official", registryKey: "lamy-official-phase68", registryName: "LAMY official product", sourceType: "official", tier: "primary", title: "LAMY safari fountain pen", url: "https://www.lamy.com/en-us/p/lamy-safari-fountain-pen/52925296607566", summary: "官方 green Safari SKU 列耐冲击 ASA 塑料、抛光钢尖、T10、Z28、EF/F/M/B/LH、约 12×12×144 mm 与 16 g；颜色和市场库存按 SKU 分开。" }),
+  safariHistory: live({ key: "phase68-lamy-safari-special-editions", registryKey: "lamy-catalogue-phase68", registryName: "LAMY official catalogue archive", sourceType: "official", tier: "contemporary_archive", title: "LAMY safari and AL-star Special Editions 2022", url: "https://www.lamy.com/fileadmin/user_upload/EN_2022_LAMY_SpecialEditions_safari_AL-star.pdf", summary: "官方特别版资料把 Safari 和 AL-star 分列，说明颜色、透明款与特别版是系列内 SKU，不是互相替代的同一笔身。" }),
+  safariReview: live({ key: "phase68-lamy-safari-penaddict", registryKey: "pen-addict-phase68-safari", registryName: "The Pen Addict", sourceType: "blog", tier: "professional_secondary", title: "The Pen Addict: LAMY Safari review", url: "https://www.penaddict.com/blog/2008/11/24/review-lamy-safari.html", summary: "独立评测记录 Safari 三角握位、钢尖与日用定位；握位是否舒适属于样本和个人握法判断，不能写成对所有人的保证。" }),
+  alstar: live({ key: "phase68-lamy-alstar-official", registryKey: "lamy-official-phase68", registryName: "LAMY official product", sourceType: "official", tier: "primary", title: "LAMY AL-star fountain pen", url: "https://www.lamy.com/en-us/p/lamy-al-star-fountain-pen/52925299720526", summary: "官方 dark dusk AL-star SKU 列彩色阳极氧化铝笔身、透明塑料人体工学握位、抛光钢尖、T10、Z28、EF/F/M/B/LH、约 13×13×139 mm 与 24 g。" }),
+  alstarHistory: live({ key: "phase68-lamy-safari-special-editions", registryKey: "lamy-catalogue-phase68", registryName: "LAMY official catalogue archive", sourceType: "official", tier: "contemporary_archive", title: "LAMY safari and AL-star Special Editions 2022", url: "https://www.lamy.com/fileadmin/user_upload/EN_2022_LAMY_SpecialEditions_safari_AL-star.pdf", summary: "官方特别版资料把 Safari 和 AL-star 分列，说明颜色、透明款与特别版是系列内 SKU，不是互相替代的同一笔身。" }),
+  alstarReview: live({ key: "phase68-lamy-alstar-edjelley", registryKey: "ed-jelley-phase68", registryName: "Ed Jelley", sourceType: "blog", tier: "professional_secondary", title: "Ed Jelley: LAMY AL-star review", url: "https://edjelley.com/2014/02/24/lamy-al-star-fountain-pen-review/", summary: "独立评测以具体 AL-star 样本讨论金属笔身、三角握位与日常携带；样本的手感和旧规格不能覆盖当前特定 SKU。" }),
+  care: live({ key: "phase68-lamy-care", registryKey: "lamy-care-phase68", registryName: "LAMY care guidance", sourceType: "official", tier: "contemporary_archive", title: "LAMY care and handling FAQ", url: "https://www.lamyshop.se/en/pages/faq", summary: "LAMY 护理说明建议换墨前后用清水冲洗、充分干燥，并避免洗洁精、酒精、沸水和化学清洁剂；具体零件拆装以售后说明为准。" }),
+  safariSvg: diagram("phase68-lamy-safari-svg", "LAMY Safari 事实卡", "/images/library/site-original/lamy-safari-alstar/lamy-safari.svg", "本站原创事实图，显示 Safari 的 ASA 塑料、16 g 官方 SKU 与 T10/Z28 路线。"),
+  alstarSvg: diagram("phase68-lamy-alstar-svg", "LAMY AL-star 事实卡", "/images/library/site-original/lamy-safari-alstar/lamy-alstar.svg", "本站原创事实图，显示 AL-star 阳极氧化铝、透明握位、24 g 官方 SKU 与 T10/Z28 路线。"),
+};
+
+function evidence(fieldKey: SpecFieldKey, key: string, sourceKey: string, scopeKey: string, locator: string) {
+  return { fieldKey, key, sourceKey, scopeKey, locator, qualifies: true };
+}
+
+function pen(input: { key: "safari" | "alstar"; id: string; slug: string; name: string; title: string; markdownFile: string; primary: CuratedSource; archive: CuratedSource; secondary: CuratedSource; svg: CuratedSource; aliases: string[]; release: string; nib: string; material: string; dimensions: string; weight: string; status: string; summary: string; boundary: string; variants: CuratedEntityPack["variants"] }): CuratedEntityPack {
+  const scopeKey = `phase68-${input.key}-scope`;
+  return {
+    key: `phase68-lamy-${input.key}-v1`, entityId: input.id, expectedType: "pen", expectedSlug: input.slug, canonicalName: input.name, publicationIntent: "publish", publicationBlockers: [], markdownFile: input.markdownFile, storyTitle: input.title, primarySourceKey: input.primary.key, depthTier: "A",
+    aliases: input.aliases.map((alias, index) => ({ alias, language: /[\u4e00-\u9fff]/.test(alias) ? "zh" : "en", sourceKey: index === 0 ? input.primary.key : input.secondary.key })),
+    sources: [input.primary, input.archive, input.secondary, SOURCES.care, input.svg],
+    scopes: [{ key: scopeKey, scopeKey, productionState: "current", editionScope: "当前具体 SKU 为规格锚点；颜色、透明款、特别版、尖号和市场库存均为型号下的 variant，不与另一款 LAMY 笔身合并" }],
+    claims: [
+      { key: `phase68-${input.key}-identity`, predicate: "model_identity", objectText: input.summary, factClass: "core", confidence: 0.99, sourceKey: input.primary.key, locator: input.primary.summary, evidence: [{ key: `phase68-${input.key}-identity-evidence`, sourceKey: input.primary.key, scopeKey, locator: input.primary.summary }] },
+      { key: `phase68-${input.key}-boundary`, predicate: "version_boundary", objectText: input.boundary, factClass: "core", confidence: 0.99, sourceKey: input.secondary.key, locator: input.secondary.summary, evidence: [{ key: `phase68-${input.key}-secondary-boundary`, sourceKey: input.secondary.key, scopeKey, locator: input.secondary.summary }, { key: `phase68-${input.key}-official-boundary`, sourceKey: input.archive.key, scopeKey, locator: input.archive.summary }] },
+      { key: `phase68-${input.key}-care`, predicate: "maintenance_boundary", objectText: "使用 T10 墨囊或 Z28 converter 时，换墨前后以室温清水冲洗笔尖、笔舌与握位并充分晾干；不用酒精、沸水、强清洁剂、金属抛光剂或硬物撬尖。摔碰、持续断墨或接口异常时停止强拆，交由品牌或专业维修判断。", factClass: "core", confidence: 0.99, sourceKey: SOURCES.care.key, locator: SOURCES.care.summary, evidence: [{ key: `phase68-${input.key}-care-evidence`, sourceKey: SOURCES.care.key, scopeKey, locator: SOURCES.care.summary }] },
+    ],
+    variants: input.variants,
+    spec: { brandEntityId: PHASE68_LAMY_BRAND_ID, values: { series_name: input.name, release_year: input.release, origin_country: "德国 LAMY 产品线；具体制造、市场和批次信息以当期官方目录、包装与实物为准", nib: input.nib, fill_system: "LAMY T10 墨囊或 Z28 converter", material: input.material, dimensions: input.dimensions, weight: input.weight, status: input.status }, evidence: [
+      evidence("brand_entity_id", `phase68-${input.key}-brand`, input.primary.key, scopeKey, "official LAMY maker context"), evidence("series_name", `phase68-${input.key}-series`, input.primary.key, scopeKey, "official current product title"), evidence("release_year", `phase68-${input.key}-release`, input.archive.key, scopeKey, "official product-line archive; exact initial launch must not be inferred from SKU"), evidence("origin_country", `phase68-${input.key}-origin`, input.primary.key, scopeKey, "official LAMY product context; no factory inference"), evidence("nib", `phase68-${input.key}-nib`, input.primary.key, scopeKey, "official current SKU nib choices"), evidence("fill_system", `phase68-${input.key}-fill`, input.primary.key, scopeKey, "official current SKU filling system"), evidence("material", `phase68-${input.key}-material`, input.primary.key, scopeKey, "official current SKU material"), evidence("dimensions", `phase68-${input.key}-dimensions`, input.primary.key, scopeKey, "official current SKU dimensions"), evidence("weight", `phase68-${input.key}-weight`, input.primary.key, scopeKey, "official current SKU weight"), evidence("status", `phase68-${input.key}-status`, input.archive.key, scopeKey, "official special-edition archive and SKU boundary"),
+    ] },
+    media: [{ key: `phase68-${input.key}-media`, title: `${input.name} 事实卡（非产品照片）`, sourceKey: input.svg.key, localPath: input.svg.url, author: "Fountain Pen Graph editorial", license: "site-original", attributionText: "Fountain Pen Graph 本站原创 factual SVG；示意图，非产品照片，不代表真实比例、颜色、Logo、刻字、库存、特别版或具体笔尖配置。", sourceUrl: input.svg.url, usageStatus: "primary" }],
+    timeline: [{ key: `phase68-${input.key}-current-sku`, title: `${input.name} 的当前官方 SKU 资料窗口`, eventType: "model_released", startDate: "2026", circa: true, description: "当前官方产品页可见，页面抓取年份不被写成该型号首发年份。", sourceKey: input.primary.key }],
+  };
+}
+
+export function createPhase68LamySafariAlstarPacks(ids: { safari: string; alstar: string }): CuratedEntityPack[] {
+  return [
+    pen({ key: "safari", id: ids.safari, slug: PHASE68_SAFARI_SLUG, name: "LAMY Safari", title: "LAMY Safari：ASA 塑料、三角握位与颜色不等于新型号", markdownFile: ".planning/content-research/lamy-safari.md", primary: SOURCES.safari, archive: SOURCES.safariHistory, secondary: SOURCES.safariReview, svg: SOURCES.safariSvg, aliases: ["LAMY Safari", "Lamy safari", "凌美 Safari", "凌美狩猎者"], release: "1980 年代推出；当前规格以具体 SKU 为准", nib: "抛光不锈钢尖；当前 green SKU 列 EF/F/M/B/LH", material: "耐冲击 ASA 塑料笔身；墨窗、弹簧夹与防滚平面", dimensions: "当前 green SKU 约 12×12×144 mm", weight: "当前 green SKU 约 16 g", status: "现行日用系列；颜色、透明 Vista、特别版与地区库存按 SKU 分开", summary: "LAMY Safari 是 1980 年代推出的注塑 ASA 日用钢笔；当前 green SKU 约 144 mm、16 g，配钢尖、T10 墨囊或 Z28 converter。", boundary: "Safari 的塑料笔身、非透明握位与约 16 g 的当期 green SKU 是本页锚点；Vista、季节色和特别版是 Safari variant，AL-star 的阳极铝和透明握位、Studio 的金属圆筒、2000 的活塞金尖都不是 Safari 规格。", variants: [{ key: "phase68-safari-green-current", name: "Safari green fountain pen", releaseYear: "当前 SKU", productCode: "52925296607566", notes: "约 12×12×144 mm、16 g；EF/F/M/B/LH 与 T10/Z28，作为本页规格锚点。", sourceKey: SOURCES.safari.key }, { key: "phase68-safari-special-colours", name: "Safari 特别色、透明与市场色", releaseYear: "按年份／地区", notes: "官方特别版资料证明颜色和系列版本树；库存、具体尺寸、包装和可选尖号不回填到 green SKU。", sourceKey: SOURCES.safariHistory.key, variantKind: "edition_group" } ] }),
+    pen({ key: "alstar", id: ids.alstar, slug: PHASE68_ALSTAR_SLUG, name: "LAMY AL-star", title: "LAMY AL-star：阳极氧化铝不是 Safari 的颜色变体", markdownFile: ".planning/content-research/lamy-al-star.md", primary: SOURCES.alstar, archive: SOURCES.alstarHistory, secondary: SOURCES.alstarReview, svg: SOURCES.alstarSvg, aliases: ["LAMY AL-star", "LAMY AL Star", "Lamy Al-Star", "凌美 AL-star", "凌美恒星"], release: "现行系列；首发年份待官方档案核实", nib: "抛光不锈钢尖；当前 dark dusk SKU 列 EF/F/M/B/LH", material: "彩色阳极氧化铝笔身；透明塑料人体工学握位与金属笔夹", dimensions: "当前 dark dusk SKU 约 13×13×139 mm", weight: "当前 dark dusk SKU 约 24 g", status: "现行日用系列；颜色和特别版按市场 SKU 分开", summary: "LAMY AL-star 是阳极氧化铝笔身、透明握位的日用钢笔；当前 dark dusk SKU 约 139 mm、24 g，使用钢尖、T10 墨囊或 Z28 converter。", boundary: "AL-star 与 Safari 共享钢尖和 T10/Z28 路线，却是不同笔身：本页只承载阳极氧化铝、透明握位和约 24 g 的 dark dusk SKU；Safari 的 ASA 塑料、Lx 的金属细节、Studio 的圆柱金属握位都不混入。", variants: [{ key: "phase68-alstar-dark-dusk-current", name: "AL-star dark dusk fountain pen", releaseYear: "当前 SKU", productCode: "52925299720526", notes: "约 13×13×139 mm、24 g；阳极氧化铝、透明握位、EF/F/M/B/LH 与 T10/Z28。", sourceKey: SOURCES.alstar.key }, { key: "phase68-alstar-special-colours", name: "AL-star 特别色与地区色", releaseYear: "按年份／地区", notes: "官方特别版资料只证明颜色 SKU 的存在和系列边界；不要把特别版库存、尺寸或照片套给 dark dusk。", sourceKey: SOURCES.alstarHistory.key, variantKind: "edition_group" } ] }),
+  ];
+}
