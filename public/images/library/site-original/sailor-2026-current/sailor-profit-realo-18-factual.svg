@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sailor Profit Realo 18 11-1853 规格事实卡</title>
+  <desc id="desc">本站原创资料卡，列出 2026 年发售日、18K 大型尖、约 1.5cc 尾栓回转吸入、150.5 毫米长度以及与旧 Realo 的边界。示意图，不是产品照片。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1519"/>
+      <stop offset="1" stop-color="#21372f"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5ba7a0"/>
+      <stop offset="1" stop-color="#1e5a59"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000" flood-opacity="0.32"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <path d="M0 720C300 590 520 820 820 690S1320 550 1600 690V900H0Z" fill="#3c766f" opacity="0.17"/>
+  <g filter="url(#shadow)">
+    <rect x="96" y="82" width="1408" height="736" rx="42" fill="#f4f2ea"/>
+  </g>
+  <rect x="96" y="82" width="18" height="736" rx="9" fill="#3d817a"/>
+  <text x="164" y="170" fill="#17362f" font-family="system-ui, sans-serif" font-size="32" font-weight="700" letter-spacing="2">2026 换代产品</text>
+  <text x="164" y="242" fill="#0b1815" font-family="system-ui, sans-serif" font-size="60" font-weight="760">Profit Realo 18</text>
+  <text x="164" y="294" fill="#287068" font-family="ui-monospace, monospace" font-size="28" font-weight="700">11-1853 · TRANSPARENT BLACK</text>
+  <line x1="164" y1="338" x2="1436" y2="338" stroke="#d1d0c5" stroke-width="2"/>
+  <g font-family="system-ui, sans-serif">
+    <text x="164" y="404" fill="#55645e" font-size="22" font-weight="650">日本发售</text>
+    <text x="164" y="454" fill="#122b25" font-size="38" font-weight="760">2026-05-30</text>
+    <text x="520" y="404" fill="#55645e" font-size="22" font-weight="650">笔尖</text>
+    <text x="520" y="454" fill="#122b25" font-size="38" font-weight="760">18K · 大型</text>
+    <text x="840" y="404" fill="#55645e" font-size="22" font-weight="650">储墨</text>
+    <text x="840" y="454" fill="#122b25" font-size="38" font-weight="760">约 1.5cc</text>
+    <text x="1162" y="404" fill="#55645e" font-size="22" font-weight="650">重量</text>
+    <text x="1162" y="454" fill="#122b25" font-size="38" font-weight="760">26.3 g</text>
+  </g>
+  <g transform="translate(164 514)">
+    <rect width="1272" height="142" rx="28" fill="#e3e9e5"/>
+    <rect x="42" y="32" width="318" height="78" rx="39" fill="#16352f"/>
+    <rect x="82" y="48" width="198" height="46" rx="23" fill="url(#ink)"/>
+    <path d="M298 54l32 17-32 17" fill="none" stroke="#c4ded8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="400" y="63" fill="#17362f" font-family="system-ui, sans-serif" font-size="28" font-weight="700">尾栓回转吸入</text>
+    <text x="400" y="99" fill="#586963" font-family="system-ui, sans-serif" font-size="20">不使用墨囊 / 上墨器 · 握位与笔杆可分离</text>
+    <text x="1208" y="66" text-anchor="end" fill="#17362f" font-family="system-ui, sans-serif" font-size="30" font-weight="760">φ18 × 150.5 mm</text>
+    <text x="1208" y="101" text-anchor="end" fill="#586963" font-family="system-ui, sans-serif" font-size="20">官网尺寸（含笔夹）</text>
+  </g>
+  <g font-family="system-ui, sans-serif">
+    <text x="164" y="714" fill="#287068" font-size="24" font-weight="750">代际边界</text>
+    <text x="164" y="754" fill="#263b35" font-size="25">旧 11-3924：21K / 1cc / 141 mm　·　Professional Gear Realo 11-3926：另一平顶家族</text>
+    <text x="1436" y="790" text-anchor="end" fill="#66756f" font-size="19">本站原创事实图 · 示意图，非产品照片 · 不代表实物透明度、色泽或刻字</text>
+  </g>
+</svg>
