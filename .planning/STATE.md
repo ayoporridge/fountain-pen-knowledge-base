@@ -135,10 +135,11 @@ Progress: [█████░░░░░] 50%
 | 260719-4a2 | 补齐 LAMY 品牌／2000 与 Platinum 品牌／#3776 Century，规范 slug 和版本边界 | 2026-07-19 | ede730f | [260719-4a2-lamy-platinum-content](./quick/260719-4a2-lamy-platinum-content/) |
 | 260719-43p | 拆分 Pilot Capless／Decimo／LS 混合身份并补全三支按动型号 | 2026-07-19 | d39bc30 | [260719-43p-pilot-capless-split](./quick/260719-43p-pilot-capless-split/) |
 | 260719-44p | 补齐 Platinum Preppy、Plaisir、Prefounte 三条低价产品线 | 2026-07-19 | b712a00 | [260719-44p-platinum-low-price](./quick/260719-44p-platinum-low-price/) |
+| 260719-45p | 补齐 LAMY aion 与 cp1，并区分 aquamarine 与 cp1 twin/tri 边界 | 2026-07-19 | 12faa01 | [260719-45p-lamy-aion-cp1](./quick/260719-45p-lamy-aion-cp1/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：下一批补 LAMY aion／cp1／accent 与其官方变体边界，再继续 Parker／Sailor／Pelikan raw 队列并研究缺失的重要品牌。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
+继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：下一批处理 Montblanc 145／StarWalker 身份与正文，再继续 Parker／Sailor／Pelikan raw 队列并研究缺失的重要品牌。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
 
 ## Session Continuity
 
