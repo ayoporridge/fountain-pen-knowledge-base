@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Montblanc Meisterstück 145 Classique fact card</title>
+  <desc id="desc">Editorial diagram distinguishing current Classique MB132466 from 144, 146 and 149.</desc>
+  <rect width="1600" height="900" fill="#111827"/>
+  <rect x="70" y="70" width="1460" height="760" rx="36" fill="#1f2937" stroke="#d1a85c" stroke-width="4"/>
+  <text x="120" y="170" fill="#f9fafb" font-family="Arial, sans-serif" font-size="66" font-weight="700">MEISTERSTÜCK 145 / CLASSIQUE</text>
+  <text x="120" y="235" fill="#d1a85c" font-family="Arial, sans-serif" font-size="30">MB132466 · AU585 / 14K · CARTRIDGE / CONVERTER</text>
+  <g transform="translate(150 360)">
+    <rect x="0" y="70" width="760" height="110" rx="55" fill="#0b0f15" stroke="#e5e7eb" stroke-width="4"/>
+    <rect x="610" y="70" width="150" height="110" rx="18" fill="#0b0f15" stroke="#d1a85c" stroke-width="4"/>
+    <path d="M760 125 L930 125 L1020 95 L1110 125 L1020 155 L930 125" fill="#d1a85c"/>
+    <circle cx="1110" cy="125" r="16" fill="#f9fafb"/>
+  </g>
+  <g fill="#f9fafb" font-family="Arial, sans-serif" font-size="30">
+    <text x="150" y="650">旋入式笔帽</text>
+    <text x="470" y="650">140 × 13.7 mm</text>
+    <text x="850" y="650">21.73 g（当前 EF 锚点）</text>
+    <text x="150" y="710" fill="#cbd5e1">144 = 扣帽前代 · 146/149 = 内置活塞、更大体量</text>
+    <text x="150" y="770" fill="#94a3b8" font-size="25">Fountain Pen Graph editorial · 示意图，非产品照片、非比例图</text>
+  </g>
+</svg>

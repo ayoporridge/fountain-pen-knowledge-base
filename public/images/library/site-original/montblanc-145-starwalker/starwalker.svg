@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Montblanc StarWalker family fact card</title>
+  <desc id="desc">Editorial diagram distinguishing 2003 launch, 2019 redesign and material variants.</desc>
+  <rect width="1600" height="900" fill="#07111f"/>
+  <rect x="70" y="70" width="1460" height="760" rx="36" fill="#0f2741" stroke="#6dd5fa" stroke-width="4"/>
+  <text x="120" y="165" fill="#f8fafc" font-family="Arial, sans-serif" font-size="72" font-weight="700">STARWALKER</text>
+  <text x="120" y="225" fill="#6dd5fa" font-family="Arial, sans-serif" font-size="32">2003 FIRST LAUNCH · 2019 REDESIGN · FAMILY CANONICAL</text>
+  <g transform="translate(150 330)">
+    <rect x="0" y="80" width="710" height="120" rx="60" fill="#111827" stroke="#d1d5db" stroke-width="4"/>
+    <rect x="600" y="80" width="160" height="120" rx="22" fill="#d4d4d8" stroke="#f8fafc" stroke-width="4"/>
+    <path d="M760 140 L930 140 L1025 105 L1120 140 L1025 175 L930 140" fill="#d4d4d8"/>
+    <circle cx="1120" cy="140" r="18" fill="#6dd5fa"/>
+  </g>
+  <g fill="#f8fafc" font-family="Arial, sans-serif" font-size="30">
+    <text x="150" y="650">Precious Resin · Doué · Metal · Extreme</text>
+    <text x="150" y="710">标准 MB132532/F：135.7 × 14.9 mm · 33.41 g</text>
+    <text x="150" y="770" fill="#cbd5e1">墨囊或可拆卸 piston converter；不同 SKU 重量不互相回填</text>
+    <text x="150" y="810" fill="#94a3b8" font-size="25">Fountain Pen Graph editorial · 示意图，非产品照片、非比例图</text>
+  </g>
+</svg>
