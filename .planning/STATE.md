@@ -5,10 +5,10 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
-stopped_at: Quick 260719-44p complete; next parallel research wave ready
-last_updated: "2026-07-20T03:25:00+08:00"
-last_activity: 2026-07-19
-last_activity_desc: Pilot Custom P0 与 Sheaffer historic families checkpoint-published
+stopped_at: Quick 260720-64p complete; continuing raw-model content batches
+last_updated: "2026-07-20T05:10:00+08:00"
+last_activity: 2026-07-20
+last_activity_desc: Jinhao 159/X159 与 Diplomat/ONLINE checkpoint-published
 progress:
   total_phases: 16
   completed_phases: 10
@@ -153,10 +153,12 @@ Progress: [█████░░░░░] 50%
 | 260720-61p | 发布台湾 SKB、RS-301N、ES-520 并退役混合 SKB/Penton F10/F21 | 2026-07-20 | 6a6ba3d | [260720-61p-taiwan-skb](./quick/260720-61p-taiwan-skb/) |
 | 260720-60p | 发布 Pilot Custom 845、742、743、912、Elite 95S 并规范旧 slug | 2026-07-20 | ac7d99f | [260720-60p-pilot-custom-p0](./quick/260720-60p-pilot-custom-p0/) |
 | 260720-62p | 发布 Sheaffer Balance、Snorkel、PFM、Tuckaway、Targa 并退役帝国元首混名 | 2026-07-20 | 0a781e1 | [260720-62p-sheaffer-historic](./quick/260720-62p-sheaffer-historic/) |
+| 260720-63p | 拆分 Jinhao 159／X159，退役无法安全指向的混合旧路由 | 2026-07-20 | 9e5bf5a | [260720-63p-jinhao-159-x159](./quick/260720-63p-jinhao-159-x159/) |
+| 260720-64p | 发布 Diplomat／Aero 与 ONLINE Schreibgeräte／Campus，并修正品牌与型号关系 | 2026-07-20 | 2b885e5 | [260720-64p-diplomat-online](./quick/260720-64p-diplomat-online/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：当前制作 Jinhao 159/X159 与 Diplomat/ONLINE 内容包，并滚动研究日本独立品牌及其余 raw 型号。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
+继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：Jinhao 159/X159 与 Diplomat/ONLINE 已发布，下一批收口 Nakaya、Asvine P36、Sailor J2、LAMY Safari/AL-star、Esterbrook Estie 与 TWSBI raw 型号。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
 
 ## Session Continuity
 
