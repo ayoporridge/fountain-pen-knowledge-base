@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Platinum #3776 Century 事实卡</title>
+  <desc id="desc">1978 原始 #3776、2011 Century、14K 尖、Slip &amp; Seal；示意图，非产品照片。</desc>
+  <rect width="1600" height="900" fill="#eef1f6"/>
+  <rect x="70" y="70" width="1460" height="760" rx="36" fill="#fff" stroke="#2c3a54" stroke-width="4"/>
+  <text x="120" y="170" font-family="Arial, sans-serif" font-size="54" font-weight="700" fill="#2c3a54">#3776 CENTURY</text>
+  <text x="122" y="225" font-family="Arial, sans-serif" font-size="28" fill="#5e697b">富士山 3776 m · 1978 → 2011</text>
+  <line x1="160" y1="350" x2="1440" y2="350" stroke="#2c3a54" stroke-width="5"/>
+  <circle cx="260" cy="350" r="20" fill="#be4d4d"/><circle cx="800" cy="350" r="20" fill="#be4d4d"/><circle cx="1340" cy="350" r="20" fill="#be4d4d"/>
+  <text x="170" y="435" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#2c3a54">1978</text><text x="170" y="480" font-family="Arial, sans-serif" font-size="25" fill="#5e697b">原始 #3776 开发</text>
+  <text x="710" y="435" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#2c3a54">2011</text><text x="710" y="480" font-family="Arial, sans-serif" font-size="25" fill="#5e697b">Century 全面刷新</text>
+  <text x="1240" y="435" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#2c3a54">普通款</text><text x="1240" y="480" font-family="Arial, sans-serif" font-size="25" fill="#5e697b">14K · 树脂 · C/C</text>
+  <rect x="360" y="570" width="880" height="54" rx="27" fill="#304f86"/><rect x="1180" y="570" width="60" height="54" rx="18" fill="#d2a43b"/>
+  <text x="120" y="720" font-family="Arial, sans-serif" font-size="26" fill="#2c3a54">Slip &amp; Seal：普通款官方目标约 2 年；Ver.2.0、Travia 与特殊材料另立边界。</text>
+  <text x="120" y="770" font-family="Arial, sans-serif" font-size="24" fill="#b54545">示意图，非产品照片 · 不表现真实比例、颜色、Logo 或具体 SKU</text>
+</svg>

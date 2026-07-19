@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">LAMY 2000 事实卡</title>
+  <desc id="desc">标准 Makrolon 活塞款、半包 14K 尖与 2000 M 边界；示意图，非产品照片。</desc>
+  <rect width="1600" height="900" fill="#e9eef0"/>
+  <rect x="70" y="70" width="1460" height="760" rx="36" fill="#fdfefe" stroke="#25343b" stroke-width="4"/>
+  <text x="120" y="170" font-family="Arial, sans-serif" font-size="58" font-weight="700" fill="#25343b">LAMY 2000</text>
+  <text x="122" y="225" font-family="Arial, sans-serif" font-size="28" fill="#59636b">1966 · Gerd A. Müller · piston fountain pen</text>
+  <rect x="180" y="340" width="760" height="72" rx="36" fill="#222a2d"/><rect x="930" y="340" width="80" height="72" rx="20" fill="#aeb5b7"/><circle cx="1025" cy="376" r="18" fill="#8f9a9f"/>
+  <text x="180" y="490" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#25343b">标准黑色款</text>
+  <text x="180" y="535" font-family="Arial, sans-serif" font-size="26" fill="#59636b">Makrolon / 玻纤增强聚碳酸酯 · 拉丝不锈钢部件</text>
+  <text x="180" y="580" font-family="Arial, sans-serif" font-size="26" fill="#59636b">活塞上墨 · 部分镀铂 14K 金半包尖 · 约 26 g</text>
+  <line x1="1120" y1="310" x2="1120" y2="610" stroke="#d94f4f" stroke-width="5"/>
+  <text x="1180" y="390" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#25343b">2000 M</text>
+  <text x="1180" y="440" font-family="Arial, sans-serif" font-size="25" fill="#59636b">全不锈钢家族变体</text>
+  <text x="1180" y="485" font-family="Arial, sans-serif" font-size="25" fill="#59636b">约 54 g · 不与标准款合并</text>
+  <text x="120" y="720" font-family="Arial, sans-serif" font-size="25" fill="#b54545">示意图，非产品照片 · 不表现真实比例、颜色、Logo 或刻字</text>
+</svg>

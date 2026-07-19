@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">LAMY 品牌导航事实卡</title>
+  <desc id="desc">1930 海德堡、工业设计、2000、Safari、AL-star 与 Studio 的导航示意图；示意图，非产品照片。</desc>
+  <rect width="1600" height="900" fill="#f4f1ea"/>
+  <rect x="70" y="70" width="1460" height="760" rx="36" fill="#fffdf8" stroke="#1d2730" stroke-width="4"/>
+  <text x="120" y="170" font-family="Arial, sans-serif" font-size="58" font-weight="700" fill="#1d2730">LAMY</text>
+  <text x="122" y="225" font-family="Arial, sans-serif" font-size="28" fill="#59636b">1930 · Heidelberg · Made in Germany</text>
+  <line x1="140" y1="350" x2="1460" y2="350" stroke="#1d2730" stroke-width="5"/>
+  <circle cx="220" cy="350" r="18" fill="#d94f4f"/><circle cx="560" cy="350" r="18" fill="#d94f4f"/><circle cx="900" cy="350" r="18" fill="#d94f4f"/><circle cx="1240" cy="350" r="18" fill="#d94f4f"/>
+  <text x="150" y="430" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#1d2730">品牌起点</text><text x="150" y="475" font-family="Arial, sans-serif" font-size="25" fill="#59636b">海德堡制造体系</text>
+  <text x="490" y="430" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#1d2730">LAMY 2000</text><text x="490" y="475" font-family="Arial, sans-serif" font-size="25" fill="#59636b">1966 · Gerd A. Müller</text>
+  <text x="830" y="430" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#1d2730">Safari / AL-star</text><text x="830" y="475" font-family="Arial, sans-serif" font-size="25" fill="#59636b">钢尖 · 墨囊 / 上墨器</text>
+  <text x="1170" y="430" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#1d2730">Studio / cp1</text><text x="1170" y="475" font-family="Arial, sans-serif" font-size="25" fill="#59636b">金属 · 设计分支</text>
+  <text x="120" y="690" font-family="Arial, sans-serif" font-size="28" fill="#1d2730">品牌导航：具体尖号、材料、上墨与版本进入各型号页；本图不代表任何实物比例。</text>
+  <text x="120" y="755" font-family="Arial, sans-serif" font-size="24" fill="#b54545">示意图，非产品照片 · Fountain Pen Graph editorial</text>
+</svg>

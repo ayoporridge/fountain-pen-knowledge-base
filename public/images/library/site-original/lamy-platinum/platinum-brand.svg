@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Platinum 品牌导航事实卡</title>
+  <desc id="desc">1919 品牌起点与 #3776 Century、Preppy、Procyon、Izumo 分支；示意图，非产品照片。</desc>
+  <rect width="1600" height="900" fill="#f5f0ea"/>
+  <rect x="70" y="70" width="1460" height="760" rx="36" fill="#fffdfb" stroke="#30353a" stroke-width="4"/>
+  <text x="120" y="170" font-family="Arial, sans-serif" font-size="56" font-weight="700" fill="#30353a">PLATINUM</text>
+  <text x="122" y="225" font-family="Arial, sans-serif" font-size="28" fill="#626a70">1919 · 日本 · 墨囊与钢笔技术</text>
+  <line x1="180" y1="360" x2="1420" y2="360" stroke="#30353a" stroke-width="5"/>
+  <circle cx="220" cy="360" r="18" fill="#bb4b42"/><circle cx="620" cy="360" r="18" fill="#bb4b42"/><circle cx="1020" cy="360" r="18" fill="#bb4b42"/><circle cx="1420" cy="360" r="18" fill="#bb4b42"/>
+  <text x="150" y="455" font-family="Arial, sans-serif" font-size="31" font-weight="700" fill="#30353a">Preppy / Plaisir</text><text x="150" y="500" font-family="Arial, sans-serif" font-size="24" fill="#626a70">低门槛钢尖</text>
+  <text x="535" y="455" font-family="Arial, sans-serif" font-size="31" font-weight="700" fill="#30353a">#3776 Century</text><text x="535" y="500" font-family="Arial, sans-serif" font-size="24" fill="#626a70">14K · Slip &amp; Seal</text>
+  <text x="960" y="455" font-family="Arial, sans-serif" font-size="31" font-weight="700" fill="#30353a">Procyon</text><text x="960" y="500" font-family="Arial, sans-serif" font-size="24" fill="#626a70">金属日用路线</text>
+  <text x="1300" y="455" font-family="Arial, sans-serif" font-size="31" font-weight="700" fill="#30353a">Izumo</text><text x="1300" y="500" font-family="Arial, sans-serif" font-size="24" fill="#626a70">工艺与材料</text>
+  <text x="120" y="700" font-family="Arial, sans-serif" font-size="28" fill="#30353a">品牌页只做系列导航；尖号、材料、气密结构和版本进入具体型号页。</text>
+  <text x="120" y="760" font-family="Arial, sans-serif" font-size="24" fill="#b54545">示意图，非产品照片 · Fountain Pen Graph editorial</text>
+</svg>
