@@ -6,9 +6,9 @@ current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
 stopped_at: Quick 260719-44p complete; next parallel research wave ready
-last_updated: "2026-07-19T22:40:00+08:00"
+last_updated: "2026-07-19T23:35:00+08:00"
 last_activity: 2026-07-19
-last_activity_desc: Sheaffer Craftsman/Touchdown P0 identity split checkpoint-published
+last_activity_desc: Opus 88/Leonardo split、Sheaffer P0 checkpoint-published
 progress:
   total_phases: 16
   completed_phases: 10
@@ -147,10 +147,11 @@ Progress: [█████░░░░░] 50%
 | 260719-54p | 补齐 Pelikan Toledo、Pura P40 与 P200/P205 cartridge 型号 | 2026-07-19 | 6334c1b | [260719-54p-pelikan-toledo-pura](./quick/260719-54p-pelikan-toledo-pura/) |
 | 260719-55p | 拆分 Hero/Paidi 一体尖混名并发布 849、850、Century 1 | 2026-07-19 | 6334c1b | [260719-55p-hero-paidi](./quick/260719-55p-hero-paidi/) |
 | 260719-56p | 拆分 Sheaffer Craftsman 与 Touchdown TM，发布四个 P0 型号页 | 2026-07-19 | f69ac50 | [260719-56p-sheaffer-p0](./quick/260719-56p-sheaffer-p0/) |
+| 260719-57p | 拆分 Opus 88 Demo/Koloro 与 Leonardo Furore/Momento Magico | 2026-07-19 | 73313c4 | [260719-57p-opus88-leonardo](./quick/260719-57p-opus88-leonardo/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：当前收口 Sheaffer Craftsman／Touchdown P0，并继续研究 Opus 88、Leonardo、SKB/Penton 与其余 raw 型号及缺失重要品牌。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
+继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：当前串行验证 Faber-Castell 与 BENU/Nahvalur 两个内容包，随后继续 SKB/Penton 与其余 raw 型号及缺失重要品牌。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
 
 ## Session Continuity
 
