@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Waterman Expert factual card</title>
+  <desc id="desc">Editorial diagram showing Waterman Expert generations, steel and gold nib options, and cartridge converter filling. Schematic, not a product photograph.</desc>
+  <rect width="1600" height="900" fill="#f7f3ec"/>
+  <rect x="120" y="300" width="1360" height="12" rx="6" fill="#c1a66d"/>
+  <g font-family="Arial, sans-serif" fill="#263747">
+    <text x="140" y="130" font-size="54" font-weight="700">EXPERT</text>
+    <text x="142" y="185" font-size="26">1990–92 · business-size Waterman line</text>
+    <text x="180" y="270" font-size="26">Gen I · light plastic</text>
+    <text x="670" y="270" font-size="26">Gen II · lacquered brass</text>
+    <text x="1150" y="270" font-size="26">Expert III</text>
+    <text x="170" y="690" font-size="26">steel / dimensional nib</text>
+    <text x="660" y="690" font-size="26">steel, heavier body</text>
+    <text x="1120" y="690" font-size="26">steel or catalogue 18K SKU</text>
+    <text x="180" y="800" font-size="28">Waterman cartridge / converter</text>
+    <text x="1030" y="845" font-size="24" fill="#6c7276">本站原创事实图 · 示意图，非产品照片</text>
+  </g>
+  <g transform="translate(130 345)">
+    <rect width="370" height="180" rx="55" fill="#2c5b73"/>
+    <rect x="330" y="35" width="80" height="110" rx="20" fill="#c9a568"/>
+    <path d="M410 74 L505 90 L410 106 Z" fill="#d5b573"/>
+  </g>
+  <g transform="translate(650 345)">
+    <rect width="380" height="180" rx="55" fill="#8a4c3c"/>
+    <rect x="330" y="35" width="88" height="110" rx="20" fill="#b88a52"/>
+    <path d="M418 74 L515 90 L418 106 Z" fill="#d5b573"/>
+  </g>
+  <g transform="translate(1150 345)">
+    <rect width="330" height="180" rx="55" fill="#253b47"/>
+    <rect x="285" y="35" width="76" height="110" rx="20" fill="#b8c5c5"/>
+    <path d="M361 74 L455 90 L361 106 Z" fill="#e6d29f"/>
+  </g>
+</svg>
