@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title description">
+  <title id="title">Pelikan P200 P205 cartridge 边界事实示意图</title>
+  <desc id="description">本站原创 factual SVG，区分 P200 金色饰件、P205 银色饰件与 cartridge feed 和 M200 piston；示意图，非产品照片，不表示真实比例。</desc>
+  <rect width="1600" height="900" rx="42" fill="#f5f1e9"/>
+  <text x="92" y="112" font-family="Georgia,serif" font-size="58" font-weight="700" fill="#303a39">Pelikan P200 / P205</text>
+  <text x="96" y="164" font-family="sans-serif" font-size="26" fill="#6f7772">Classic 200 外观 · cartridge 机制 · 2014 起</text>
+  <g font-family="sans-serif" fill="#303a39">
+    <rect x="96" y="244" width="430" height="286" rx="26" fill="#ead6ad" stroke="#aa7c36" stroke-width="5"/>
+    <text x="146" y="326" font-size="38" font-weight="700">P200</text>
+    <text x="146" y="376" font-size="27">黑色高光树脂</text>
+    <text x="146" y="422" font-size="27">gold-plated trim</text>
+    <text x="146" y="468" font-size="24" fill="#76582d">钢尖 · cartridge</text>
+    <rect x="585" y="244" width="430" height="286" rx="26" fill="#dfe3e2" stroke="#73817f" stroke-width="5"/>
+    <text x="635" y="326" font-size="38" font-weight="700">P205</text>
+    <text x="635" y="376" font-size="27">黑色高光树脂</text>
+    <text x="635" y="422" font-size="27">silver chrome trim</text>
+    <text x="635" y="468" font-size="24" fill="#56625f">钢尖 · cartridge</text>
+    <rect x="1074" y="244" width="430" height="286" rx="26" fill="#d8e4d8" stroke="#6d9275" stroke-width="5"/>
+    <text x="1124" y="326" font-size="38" font-weight="700">共同边界</text>
+    <text x="1124" y="376" font-size="26">2014 起 · 126 mm · 12 g</text>
+    <text x="1124" y="422" font-size="26">约 1.4 ml giant cartridge</text>
+    <text x="1124" y="468" font-size="24" fill="#4f6e55">feed tip 需刺穿墨囊</text>
+  </g>
+  <path d="M126 684 H1474" stroke="#89988f" stroke-width="5"/>
+  <circle cx="330" cy="684" r="18" fill="#4e6c59"/><circle cx="800" cy="684" r="18" fill="#4e6c59"/><circle cx="1270" cy="684" r="18" fill="#4e6c59"/>
+  <text x="214" y="748" font-family="sans-serif" font-size="27" fill="#465d50">墨囊 / converter</text>
+  <text x="687" y="748" font-family="sans-serif" font-size="27" fill="#465d50">nib unit 不同于 piston</text>
+  <text x="1190" y="748" font-family="sans-serif" font-size="27" fill="#465d50">M200 ≠ P200</text>
+  <text x="96" y="846" font-family="sans-serif" font-size="22" fill="#897a64">示意图，非产品照片 · Fountain Pen Graph editorial studio · 2026</text>
+</svg>

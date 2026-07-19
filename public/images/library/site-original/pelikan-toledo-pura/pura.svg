@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title description">
+  <title id="title">Pelikan Pura P40 材料与供墨事实示意图</title>
+  <desc id="description">本站原创 factual SVG，标出 Pura P40 的铝制笔身、钢尖、墨囊或转换器以及 2008、2011、2020 版本边界；示意图，非产品照片。</desc>
+  <rect width="1600" height="900" rx="42" fill="#eef1ef"/>
+  <text x="96" y="112" font-family="Georgia,serif" font-size="60" font-weight="700" fill="#2b3b3c">Pelikan Pura / P40</text>
+  <text x="100" y="164" font-family="sans-serif" font-size="26" fill="#647578">aluminium body · steel nib · cartridge / converter</text>
+  <g font-family="sans-serif" fill="#2b3b3c">
+    <rect x="100" y="244" width="560" height="330" rx="28" fill="#c7ced0" stroke="#647477" stroke-width="5"/>
+    <text x="150" y="326" font-size="38" font-weight="700">铝制外壳</text>
+    <text x="150" y="380" font-size="27">哑光银 + 亮面区域</text>
+    <text x="150" y="426" font-size="27">闭帽约 140 mm · 33 g</text>
+    <text x="150" y="476" font-size="25" fill="#4f6264">不是 sterling silver，也不是树脂 M200</text>
+    <rect x="744" y="244" width="756" height="330" rx="28" fill="#dbe6dc" stroke="#6f8f79" stroke-width="5"/>
+    <text x="794" y="326" font-size="38" font-weight="700">P40 供墨</text>
+    <text x="794" y="380" font-size="27">钢尖 · standard cartridge</text>
+    <text x="794" y="426" font-size="27">可使用 ink converter</text>
+    <text x="794" y="476" font-size="25" fill="#4c6955">约 2 × 0.8 ml cartridge 参考值</text>
+    <path d="M1110 506 v-112" stroke="#4d6c5a" stroke-width="12" stroke-linecap="round"/>
+    <path d="M1110 394 l-25 30 h50 z" fill="#4d6c5a"/>
+    <circle cx="1245" cy="444" r="42" fill="#89aa95"/>
+    <text x="1216" y="454" font-size="22" fill="#fff">P</text>
+    <circle cx="1375" cy="444" r="42" fill="#a8b8bf"/>
+    <text x="1348" y="454" font-size="22">K/R</text>
+  </g>
+  <path d="M134 700 H1466" stroke="#849892" stroke-width="5"/>
+  <circle cx="350" cy="700" r="18" fill="#547867"/><circle cx="800" cy="700" r="18" fill="#547867"/><circle cx="1250" cy="700" r="18" fill="#547867"/>
+  <text x="248" y="762" font-family="sans-serif" font-size="27" fill="#496457">2008 Blue-Silver / Silver</text>
+  <text x="716" y="762" font-family="sans-serif" font-size="27" fill="#496457">2011 Black-Silver</text>
+  <text x="1190" y="762" font-family="sans-serif" font-size="27" fill="#496457">2020 Mocha 复产</text>
+  <text x="100" y="846" font-family="sans-serif" font-size="22" fill="#7b8888">示意图，非产品照片 · Fountain Pen Graph editorial studio · 2026</text>
+</svg>

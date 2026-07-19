@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title description">
+  <title id="title">Pelikan Toledo M700 M710 M900 M910 事实示意图</title>
+  <desc id="description">本站原创 factual SVG，区分 M700/M710 小尺寸、M900/M910 大尺寸以及金色和银色套雕；示意图，非产品照片，不表示真实比例或金属颜色。</desc>
+  <rect width="1600" height="900" rx="42" fill="#f4f0e7"/>
+  <text x="92" y="112" font-family="Georgia,serif" font-size="58" font-weight="700" fill="#273833">Pelikan Toledo</text>
+  <text x="96" y="164" font-family="sans-serif" font-size="26" fill="#66766e">damascening overlay · differential piston · family boundary</text>
+  <g font-family="sans-serif" fill="#273833">
+    <rect x="90" y="230" width="675" height="390" rx="28" fill="#e8d6a7" stroke="#a67b32" stroke-width="5"/>
+    <text x="140" y="312" font-size="40" font-weight="700">M700 / M710</text>
+    <text x="140" y="362" font-size="28">小尺寸：约 125 mm · 12 mm</text>
+    <text x="140" y="408" font-size="28">约 21.6–23.4 g · 1.30/1.40 ml</text>
+    <rect x="140" y="455" width="240" height="64" rx="14" fill="#b18435"/>
+    <rect x="400" y="455" width="240" height="64" rx="14" fill="#bec3c0"/>
+    <text x="182" y="496" font-size="24" fill="#fff">金色 M700</text>
+    <text x="446" y="496" font-size="24">银色 M710</text>
+    <text x="140" y="566" font-size="23" fill="#70562f">Old Style 与 2009–2011 特别色按年份核对</text>
+    <rect x="835" y="230" width="675" height="390" rx="28" fill="#d6dbe0" stroke="#6b7882" stroke-width="5"/>
+    <text x="885" y="312" font-size="40" font-weight="700">M900 / M910</text>
+    <text x="885" y="362" font-size="28">大尺寸：约 141 mm · 13 mm</text>
+    <text x="885" y="408" font-size="28">约 38.6–39.0 g · 1.35 ml</text>
+    <rect x="885" y="455" width="240" height="64" rx="14" fill="#b18435"/>
+    <rect x="1145" y="455" width="240" height="64" rx="14" fill="#bec3c0"/>
+    <text x="927" y="496" font-size="24" fill="#fff">金色 M900</text>
+    <text x="1191" y="496" font-size="24">银色 M910</text>
+    <text x="885" y="566" font-size="23" fill="#53616a">M900 Old Style 首批可见 20 ct；后续多为 18 ct</text>
+  </g>
+  <path d="M126 714 H1474" stroke="#84948b" stroke-width="5"/>
+  <circle cx="302" cy="714" r="18" fill="#475f55"/><circle cx="800" cy="714" r="18" fill="#475f55"/><circle cx="1298" cy="714" r="18" fill="#475f55"/>
+  <text x="224" y="776" font-family="sans-serif" font-size="26" fill="#40574d">overlay ≠ 实心金</text>
+  <text x="698" y="776" font-family="sans-serif" font-size="26" fill="#40574d">黑色树脂帽 / 握位</text>
+  <text x="1184" y="776" font-family="sans-serif" font-size="26" fill="#40574d">活塞，不是墨囊</text>
+  <text x="96" y="846" font-family="sans-serif" font-size="22" fill="#8b7761">示意图，非产品照片 · Fountain Pen Graph editorial studio · 2026</text>
+</svg>
