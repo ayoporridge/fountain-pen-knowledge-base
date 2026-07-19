@@ -6,9 +6,9 @@ current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
 stopped_at: Quick 260719-44p complete; next parallel research wave ready
-last_updated: "2026-07-20T00:55:00+08:00"
+last_updated: "2026-07-20T02:10:00+08:00"
 last_activity: 2026-07-19
-last_activity_desc: Faber-Castell core 与 BENU/Nahvalur 内容批次 checkpoint-published
+last_activity_desc: Taiwan SKB 内容与混合 Penton 条目清理 checkpoint-published
 progress:
   total_phases: 16
   completed_phases: 10
@@ -150,10 +150,11 @@ Progress: [█████░░░░░] 50%
 | 260719-57p | 拆分 Opus 88 Demo/Koloro 与 Leonardo Furore/Momento Magico | 2026-07-19 | 73313c4 | [260719-57p-opus88-leonardo](./quick/260719-57p-opus88-leonardo/) |
 | 260719-58p | 发布 Faber-Castell 品牌与 Ambition、e-motion、Ondoro、NEO Slim、LOOM、Graf Classic | 2026-07-20 | 5900f6c | [260719-58p-faber-castell-core](./quick/260719-58p-faber-castell-core/) |
 | 260719-59p | 新增 BENU、Nahvalur 品牌并发布 Briolette、True Unicorn、Original Plus、Schuylkill | 2026-07-20 | 721b15b | [260719-59p-benu-nahvalur](./quick/260719-59p-benu-nahvalur/) |
+| 260720-61p | 发布台湾 SKB、RS-301N、ES-520 并退役混合 SKB/Penton F10/F21 | 2026-07-20 | 6a6ba3d | [260720-61p-taiwan-skb](./quick/260720-61p-taiwan-skb/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：滚动研究 SKB/Penton、Pilot/Pelikan raw 型号及其余缺失重要品牌，研究完成后直接进入内容批次。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
+继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：当前串行验证 Pilot P0 与 Sheaffer P0 静态内容包，并滚动研究中国重要品牌及其余 raw 型号。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
 
 ## Session Continuity
 
