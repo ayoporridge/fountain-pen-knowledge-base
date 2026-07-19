@@ -250,6 +250,34 @@ test("Phase 35 publishes sourced Pelikan M1005, M400, real M605 and versioned M8
     );
     assert.match(m1005Body, /810487[\s\S]*M 尖[\s\S]*带笔盒/);
 
+    const m1005SkuBoundary = await client.execute({
+      sql: `SELECT claim.object_text, source.summary
+              FROM claims claim
+              JOIN claim_evidence evidence ON evidence.claim_id = claim.id
+              JOIN citations citation ON citation.id = evidence.citation_id
+              JOIN source_items source ON source.id = citation.source_item_id
+             WHERE claim.subject_entity_id = ?
+               AND claim.predicate = 'edition_product_codes'
+               AND source.url = ?`,
+      args: [
+        PHASE35_M1005_STRESEMANN_2019_ID,
+        "https://mam.pelikan.com/mam/de/pelikan/products?product_filter%5BtaxonomyNode%5D=1543",
+      ],
+    });
+    assert.equal(m1005SkuBoundary.rows.length, 1);
+    assert.match(
+      String(m1005SkuBoundary.rows[0]?.object_text),
+      /具体市场或包装差异不由该总表外推/,
+    );
+    assert.match(
+      String(m1005SkuBoundary.rows[0]?.summary),
+      /具体市场或包装差异不由该总表外推/,
+    );
+    assert.doesNotMatch(
+      `${String(m1005SkuBoundary.rows[0]?.object_text)} ${String(m1005SkuBoundary.rows[0]?.summary)}`,
+      /一支笔／带盒套装/,
+    );
+
     const m400Body = bodyById.get(PHASE35_M400_ID) ?? "";
     assert.match(m400Body, /1982–1997 Old Style[\s\S]*1997 年 9 月后/);
     assert.match(m400Body, /12\.7 cm[\s\S]*14\.9 g[\s\S]*1\.3 ml/);

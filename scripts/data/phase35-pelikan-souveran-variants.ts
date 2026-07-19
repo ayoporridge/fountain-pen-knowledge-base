@@ -108,7 +108,7 @@ const SOURCES = {
     homepageUrl: "https://www.pelikan-passion.com/",
     author: "Pelikan",
     summary:
-      "Pelikan 官方 MAM 产品总表：M1005 Stresemann 的 EF、F、M、B 各有两条产品记录（一支笔／带盒套装），共八个产品号。",
+      "Pelikan 官方 MAM 产品总表：M1005 Stresemann 的 EF、F、M、B 各有两条产品记录，共八个产品号；具体市场或包装差异不由该总表外推。",
     locator:
       "eight M1005 Stresemann records: EF 810425/810463; F 810432/810470; M 810449/810487; B 810456/810494",
   }),
@@ -738,7 +738,7 @@ const M1005_PACK: CuratedEntityPack = {
       key: "official-sku-matrix",
       predicate: "edition_product_codes",
       objectText:
-        "Pelikan MAM 为 M1005 Stresemann 的 EF、F、M、B 各保留两条产品记录（一支笔／带盒套装）；810487 只是 M 尖带盒产品号，不是整款唯一编号。",
+        "Pelikan MAM 为 M1005 Stresemann 的 EF、F、M、B 各保留两条产品记录；具体市场或包装差异不由该总表外推，810487 只是 M 尖带盒产品号，不是整款唯一编号。",
       factClass: "core",
       confidence: 0.99,
       sourceKey: "phase35-pelikan-official-m1005-mam-overview",

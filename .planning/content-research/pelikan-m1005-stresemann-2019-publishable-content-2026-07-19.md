@@ -48,7 +48,7 @@ Pelikan Collectibles 对 2019 Stresemann 列出：闭帽 **146 mm**、直径 **1
 
 Pelikan MAM 并不只有一个笼统的“M1005 Stresemann”条目。官方产品总表中，EF、F、M、B 各有两个记录：EF 对应 **810425 / 810463**，F 对应 **810432 / 810470**，M 对应 **810449 / 810487**，B 对应 **810456 / 810494**。本页引用的 810487，标题明确写的是 M 尖、带笔盒的产品记录；它只能证明这一具体套装存在，不能当成整款 M1005 Stresemann 的唯一产品号。
 
-二手交易中，盒标、笔尖和整笔身份应分开核对。盒上出现 810487，预期应与 M 尖带盒套装相符；实物若是 EF、F 或 B，可能来自换盒、换尖或卖家记录错误，需要继续询问，不能只凭不匹配就直接判断真伪。反过来，没有 810487 也不能否定这支笔，因为官方档案本身保留了多个尖号与包装产品记录。产品号是包装层面的线索，2019 年份、灰黑条纹、银色饰件和全镀铑 18K 尖才共同界定这一特别版。
+二手交易中，盒标、笔尖和整笔身份应分开核对。盒上出现 810487，预期应与 M 尖带盒套装相符；实物若是 EF、F 或 B，可能来自换盒、换尖或卖家记录错误，需要继续询问，不能只凭不匹配就直接判断真伪。反过来，没有 810487 也不能否定这支笔，因为官方档案本身保留了多个尖号与产品记录。产品号是包装层面的线索，2019 年份、灰黑条纹、银色饰件和全镀铑 18K 尖才共同界定这一特别版。
 
 ## 外观识别要看一整套组合
 
@@ -72,7 +72,7 @@ The Pelikan’s Perch 的现代 Souverän 选购指南还提醒，1997 年以后
 
 ## 来源
 
-- [Pelikan MAM：M1005 Stresemann 四个尖号／八条包装产品记录](https://mam.pelikan.com/mam/de/pelikan/products?product_filter%5BtaxonomyNode%5D=1543)
+- [Pelikan MAM：M1005 Stresemann 四个尖号／八条产品记录](https://mam.pelikan.com/mam/de/pelikan/products?product_filter%5BtaxonomyNode%5D=1543)
 - [Pelikan MAM：Füllhalter M1005 Stresemann M im Etui，产品号 810487](https://mam.pelikan.com/mam/de/pelikan/products/810487)
 - [Pelikan Fine Writing Instruments 2019](https://mam.pelikan.com/en/pelikan/media/812352/download)
 - [Pelikan Collectibles：Pelikan M1005 Stresemann (2019)](https://www.pelikan-collectibles.de/de/Pelikan/Modelle/Souveraen-Serien/M1000-Basis/M1005/M1005-Stresemann/index.html)
