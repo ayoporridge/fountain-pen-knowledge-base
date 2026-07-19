@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sheaffer P0 identity map</title>
+  <desc id="desc">A site-original identity map separating Sheaffer model families and filling technologies.</desc>
+  <rect width="1600" height="900" fill="#f1f3f2"/>
+  <rect x="70" y="70" width="1460" height="760" rx="28" fill="#ffffff" stroke="#263238" stroke-width="4"/>
+  <text x="120" y="155" font-family="sans-serif" font-size="56" font-weight="700" fill="#263238">SHEAFFER · P0 IDENTITY MAP</text>
+  <text x="120" y="210" font-family="sans-serif" font-size="28" fill="#546e7a">technology lineage is not a model number</text>
+  <circle cx="800" cy="430" r="86" fill="#263238"/><text x="744" y="440" font-family="sans-serif" font-size="30" fill="#fff">Sheaffer</text>
+  <path d="M720 380 L390 280 M720 470 L390 600 M880 380 L1210 280 M880 470 L1210 600" stroke="#8d4a2f" stroke-width="8"/>
+  <rect x="180" y="225" width="430" height="100" rx="22" fill="#dec39e"/><text x="245" y="285" font-family="sans-serif" font-size="28" fill="#263238">Balance · lever / Vacuum-Fil</text>
+  <rect x="180" y="550" width="430" height="100" rx="22" fill="#b9d1ba"/><text x="220" y="610" font-family="sans-serif" font-size="28" fill="#263238">Craftsman Tip-Dip · Touchdown</text>
+  <rect x="990" y="225" width="430" height="100" rx="22" fill="#bfcbd0"/><text x="1040" y="285" font-family="sans-serif" font-size="28" fill="#263238">Craftsman 33T · lever</text>
+  <rect x="990" y="550" width="430" height="100" rx="22" fill="#9db9c5"/><text x="1090" y="610" font-family="sans-serif" font-size="28" fill="#263238">Touchdown TM · thin model</text>
+  <text x="180" y="735" font-family="sans-serif" font-size="27" fill="#455a64">Snorkel / PFM 另立：伸缩管与嵌入式尖不是本页的泛称。</text>
+  <text x="180" y="780" font-family="sans-serif" font-size="27" fill="#455a64">本站原创 factual SVG · 示意图，非产品照片，不表示比例或真实颜色。</text>
+</svg>

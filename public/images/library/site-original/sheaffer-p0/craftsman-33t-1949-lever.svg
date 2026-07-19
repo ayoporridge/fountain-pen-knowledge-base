@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sheaffer Craftsman 33T 1949 lever factual diagram</title>
+  <desc id="desc">A factual SVG showing the 33T lever-fill identity in the late 1940s catalog.</desc>
+  <rect width="1600" height="900" fill="#edf2f3"/>
+  <rect x="70" y="70" width="1460" height="760" rx="28" fill="#ffffff" stroke="#263238" stroke-width="4"/>
+  <text x="120" y="155" font-family="sans-serif" font-size="52" font-weight="700" fill="#263238">CRAFTSMAN 33T · LEVER</text>
+  <text x="120" y="210" font-family="sans-serif" font-size="28" fill="#546e7a">Late-1940s catalog identity · the T suffix marks lever fill</text>
+  <rect x="220" y="370" width="930" height="80" rx="40" fill="#28343a"/>
+  <rect x="950" y="350" width="230" height="120" rx="60" fill="#b6bec0" stroke="#6d7b80" stroke-width="6"/>
+  <path d="M440 450 l-20 160 q-4 28 22 28 q26 0 22-28 l-5-160" fill="none" stroke="#c2a264" stroke-width="18"/>
+  <path d="M1120 410 h120" stroke="#c2a264" stroke-width="10"/>
+  <text x="190" y="615" font-family="sans-serif" font-size="32" fill="#263238">catalog facts</text>
+  <text x="190" y="670" font-family="sans-serif" font-size="27" fill="#455a64">1948 catalog: Craftsman · 33T · $3.50 · lever-fill only</text>
+  <text x="190" y="715" font-family="sans-serif" font-size="27" fill="#455a64">open 14K No. 33 nib · gold-filled clip · 1/32-inch cap band</text>
+  <text x="190" y="760" font-family="sans-serif" font-size="27" fill="#455a64">Black / Burnt Umber Brown / Persian Blue catalog colors</text>
+  <text x="1200" y="625" font-family="sans-serif" font-size="26" fill="#8d4a2f">BOUNDARY</text>
+  <text x="1200" y="675" font-family="sans-serif" font-size="24" fill="#455a64">not Touchdown</text>
+  <text x="1200" y="715" font-family="sans-serif" font-size="24" fill="#455a64">not a price code</text>
+  <text x="1200" y="755" font-family="sans-serif" font-size="24" fill="#455a64">示意图 · 非产品照片</text>
+</svg>

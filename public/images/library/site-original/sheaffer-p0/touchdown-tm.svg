@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sheaffer Touchdown TM factual diagram</title>
+  <desc id="desc">A site-original factual diagram distinguishing a thin model Touchdown from the earlier fat Touchdown and later Snorkel.</desc>
+  <rect width="1600" height="900" fill="#eaf0f2"/>
+  <rect x="70" y="70" width="1460" height="760" rx="28" fill="#ffffff" stroke="#263238" stroke-width="4"/>
+  <text x="120" y="155" font-family="sans-serif" font-size="56" font-weight="700" fill="#263238">TOUCHDOWN · TM</text>
+  <text x="120" y="210" font-family="sans-serif" font-size="28" fill="#546e7a">Thin Model family · 1950–1952 · pneumatic Touchdown without snorkel tube</text>
+  <path d="M230 410 h840" stroke="#2c5864" stroke-width="56" stroke-linecap="round"/>
+  <path d="M1065 410 h170" stroke="#b7c0c2" stroke-width="96" stroke-linecap="round"/>
+  <path d="M250 535 h820" stroke="#b7c0c2" stroke-width="16" stroke-dasharray="24 20"/>
+  <circle cx="230" cy="410" r="28" fill="#263238"/><circle cx="1235" cy="410" r="28" fill="#263238"/>
+  <text x="200" y="620" font-family="sans-serif" font-size="32" fill="#263238">谱系位置</text>
+  <text x="200" y="675" font-family="sans-serif" font-size="27" fill="#455a64">1949 fat Touchdown → 1950 TM 细身 → 1952 Snorkel</text>
+  <text x="200" y="720" font-family="sans-serif" font-size="27" fill="#455a64">pull plunger / press once；气压压缩囊体，非活塞墨囊</text>
+  <text x="200" y="765" font-family="sans-serif" font-size="27" fill="#455a64">TM 是家族与轮廓边界，不是某一支 Sentinel / Valiant 的 model no</text>
+  <text x="1130" y="620" font-family="sans-serif" font-size="26" fill="#8d4a2f">识别</text>
+  <text x="1130" y="670" font-family="sans-serif" font-size="24" fill="#455a64">无 snorkel 伸缩管</text>
+  <text x="1130" y="715" font-family="sans-serif" font-size="24" fill="#455a64">透明握位环</text>
+  <text x="1130" y="760" font-family="sans-serif" font-size="24" fill="#455a64">示意图 · 非产品照片</text>
+</svg>

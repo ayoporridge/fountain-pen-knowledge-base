@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sheaffer Craftsman Balance factual diagram</title>
+  <desc id="desc">A site-original diagram separating the Balance Craftsman identity from price marks and later Touchdown versions.</desc>
+  <rect width="1600" height="900" fill="#f4f0e8"/>
+  <rect x="70" y="70" width="1460" height="760" rx="28" fill="#fffdf8" stroke="#263238" stroke-width="4"/>
+  <text x="120" y="155" font-family="sans-serif" font-size="54" font-weight="700" fill="#263238">CRAFTSMAN · BALANCE</text>
+  <text x="120" y="210" font-family="sans-serif" font-size="28" fill="#546e7a">1930s–1940s Balance-era identity · factual map, not a product photograph</text>
+  <path d="M260 425 C390 330 540 330 670 425 C800 520 950 520 1080 425 C1200 340 1310 350 1380 420" fill="none" stroke="#9b6a42" stroke-width="34" stroke-linecap="round"/>
+  <path d="M260 425 C390 520 540 520 670 425 C800 330 950 330 1080 425 C1200 510 1310 500 1380 420" fill="none" stroke="#d7b98e" stroke-width="7" stroke-dasharray="20 18"/>
+  <circle cx="285" cy="425" r="26" fill="#263238"/><circle cx="1350" cy="425" r="26" fill="#263238"/>
+  <text x="160" y="620" font-family="sans-serif" font-size="32" fill="#263238">识别锚点</text>
+  <text x="160" y="675" font-family="sans-serif" font-size="27" fill="#455a64">开放式 No. 3 → No. 33 尖；杠杆或 Vacuum-Fil</text>
+  <text x="160" y="720" font-family="sans-serif" font-size="27" fill="#455a64">Balance 流线外形；350 / 500 / 875 / 1000 是价格或尺寸线索，非本页 model no</text>
+  <text x="160" y="765" font-family="sans-serif" font-size="27" fill="#455a64">不并入 1949 33T、Tip-Dip 或 TM Touchdown</text>
+  <text x="1120" y="625" font-family="sans-serif" font-size="26" fill="#8d4a2f">ARCHIVAL SCOPE</text>
+  <text x="1120" y="675" font-family="sans-serif" font-size="24" fill="#455a64">约 1938–1947</text>
+  <text x="1120" y="715" font-family="sans-serif" font-size="24" fill="#455a64">颜色与材料按批次核对</text>
+  <text x="1120" y="755" font-family="sans-serif" font-size="24" fill="#455a64">示意图 · 非产品照片</text>
+</svg>

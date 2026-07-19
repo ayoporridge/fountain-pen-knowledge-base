@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sheaffer Craftsman Tip-Dip Touchdown factual diagram</title>
+  <desc id="desc">A factual SVG showing the Tip-Dip opening, protected sac and chrome ring cap boundary.</desc>
+  <rect width="1600" height="900" fill="#f3f1ec"/>
+  <rect x="70" y="70" width="1460" height="760" rx="28" fill="#fffdf9" stroke="#263238" stroke-width="4"/>
+  <text x="120" y="155" font-family="sans-serif" font-size="50" font-weight="700" fill="#263238">CRAFTSMAN · TIP-DIP TOUCHDOWN</text>
+  <text x="120" y="210" font-family="sans-serif" font-size="28" fill="#546e7a">1952–1960s entry model · Touchdown retained, Tip-Dip nib unit added</text>
+  <rect x="280" y="370" width="780" height="90" rx="45" fill="#6f8b72"/>
+  <rect x="970" y="350" width="300" height="130" rx="18" fill="#c9ced0" stroke="#6d7b80" stroke-width="8"/>
+  <path d="M280 415 l-150 0" stroke="#263238" stroke-width="10"/>
+  <circle cx="130" cy="415" r="30" fill="#263238"/>
+  <path d="M175 415 h80" stroke="#8d4a2f" stroke-width="12" stroke-dasharray="14 12"/>
+  <text x="90" y="535" font-family="sans-serif" font-size="26" fill="#8d4a2f">TIP-DIP opening</text>
+  <text x="250" y="620" font-family="sans-serif" font-size="32" fill="#263238">识别与使用</text>
+  <text x="250" y="675" font-family="sans-serif" font-size="27" fill="#455a64">中心开口让墨水直接进入囊体；无需把整段握位浸入墨水</text>
+  <text x="250" y="720" font-family="sans-serif" font-size="27" fill="#455a64">可换开放式不锈钢尖；Craftsman 的镀铬线纹帽与 Cadet 不同</text>
+  <text x="250" y="765" font-family="sans-serif" font-size="27" fill="#455a64">约 5⅛ 英寸闭帽、5⅞ 英寸加帽；示意图，不代表真实比例</text>
+  <text x="1160" y="600" font-family="sans-serif" font-size="26" fill="#8d4a2f">NOT SNORKEL</text>
+  <text x="1160" y="650" font-family="sans-serif" font-size="24" fill="#455a64">没有伸缩管</text>
+  <text x="1160" y="700" font-family="sans-serif" font-size="24" fill="#455a64">仍是 Touchdown</text>
+  <text x="1160" y="750" font-family="sans-serif" font-size="24" fill="#455a64">示意图 · 非产品照片</text>
+</svg>
