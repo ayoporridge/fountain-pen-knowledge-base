@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pilot Custom 823 factual diagram</title>
+  <desc id="desc">Editorial diagram for FKK-3MRP vacuum plunger, No.15 nib and regional variants.</desc>
+  <rect width="1600" height="900" fill="#13233a"/>
+  <rect x="70" y="70" width="1460" height="760" rx="36" fill="#1e3a5f" stroke="#f4c95d" stroke-width="4"/>
+  <text x="120" y="165" fill="#fff" font-family="Arial, sans-serif" font-size="72" font-weight="700">CUSTOM 823</text>
+  <text x="120" y="225" fill="#f4c95d" font-family="Arial, sans-serif" font-size="32">FKK-3MRP · VACUUM PLUNGER · 14K No.15</text>
+  <g transform="translate(150 340)">
+    <rect x="0" y="75" width="760" height="125" rx="62" fill="#a86f43" fill-opacity=".84" stroke="#f4c95d" stroke-width="4"/>
+    <rect x="610" y="75" width="150" height="125" rx="20" fill="#17212f" stroke="#d8dee9" stroke-width="4"/>
+    <path d="M760 137 L920 137 L1020 100 L1120 137 L1020 174 L920 137" fill="#f4c95d"/>
+    <circle cx="1120" cy="137" r="18" fill="#fff"/>
+  </g>
+  <g fill="#fff" font-family="Arial, sans-serif" font-size="30">
+    <text x="150" y="650">148.4 mm · 15.7 mm · 29.5 g（日本当前目录）</text>
+    <text x="150" y="710">日本透明／透明黑／棕色 · 美国 smoke／amber：市场 variants</text>
+    <text x="150" y="770" fill="#c8d4e6">不可用 cartridge/converter；尾端供墨与气压风险按官方支持页维护</text>
+    <text x="150" y="810" fill="#9fb3cc" font-size="25">Fountain Pen Graph editorial · 示意图，非产品照片、非比例图</text>
+  </g>
+</svg>
