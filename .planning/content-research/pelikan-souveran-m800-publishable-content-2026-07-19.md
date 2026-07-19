@@ -31,9 +31,9 @@
 
 ## body_md
 
-### 先确认 canonical M800 是哪一支
+### 先确认 M800 是哪一支
 
-本条目对应 **Pelikan Souverän M800**，canonical slug 为 `pelikan-souveran-m800`。它不是旧资料中另建的 `百利金-pelikan-m800`，后者应继续保持 retired，并重定向到本页；也不是 M805 或 M815。中文商品标题里的“百利金 M800”“Pelikan M800”和不带变音符号的“Souveran M800”都作为别名归到同一条公开身份。
+本条目对应 **Pelikan Souverän M800**。旧资料里曾有一页重复的“百利金 Pelikan M800”，现在只保留为跳转入口；它也不是 M805 或 M815。中文商品标题里的“百利金 M800”“Pelikan M800”和不带变音符号的“Souveran M800”都指向本页。
 
 Pelikan Collectibles 与 The Pelikan's Perch 都把 M800 的推出放在 1987 年。早期款常被称为 Old Style，笔帽环、顶徽和尾端金属件在后续年份有变化。年份判断要结合笔帽环刻字、顶徽、笔尖刻印和具体配色，不能只看绿条纹，也不能把每一支 1987—1997 年的 M800 当成完全相同版本。
 
@@ -77,7 +77,7 @@ Commons 主图由 Hige-hige-Japan 于 2015 年拍摄，画面是一支绿色条�
 
 M815 是 Pelikan 历史上多次复用的特殊编号，不是一条永久、单向升级于 M805 的产品层级。The Pelikan's Perch 的 M8xx 年表列出 1995 年 Wall Street 与 2018 年 Metal Striped；Pelikan Collectibles 还记录 2018 黑色金属条纹和 2025 蓝色条纹特别版。不同 M815 的饰面、金属结构、重量和发行语境并不相同。
 
-因此，本页只把 M815 作为 M8xx 平台上需要逐版核验的独立身份边界，不把其 38 克金属条纹规格写入 M800。仓库中已有的 `百利金-pelikan-m815` 也继续保留自己的研究条目，不并入 canonical M800。
+因此，本页只把 M815 作为 M8xx 平台上需要逐版核验的独立型号，不把其 38 克金属条纹规格写入 M800。M815 会保留自己的型号页，不并入 M800。
 
 ### 清洗、质保与维修边界
 

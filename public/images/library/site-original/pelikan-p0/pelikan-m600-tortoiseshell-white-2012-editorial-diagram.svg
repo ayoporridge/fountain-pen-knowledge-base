@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pelikan Souverän M600 Tortoiseshell-White 2012 editorial identity diagram</title>
+  <desc id="desc">A site-original non-photographic editorial diagram distinguishing the 2012 M600 Tortoiseshell-White from later M605 white editions and separating family-level approximate measurements from a conflicting generic historical M600 table. It is not a product photo, material proof, exact measurement of the 2012 colorway, mechanical drawing, or scale reference.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4f0df"/>
+      <stop offset="1" stop-color="#ded8bd"/>
+    </linearGradient>
+    <pattern id="tortoise" width="62" height="80" patternUnits="userSpaceOnUse" patternTransform="skewX(-12)">
+      <rect width="62" height="80" fill="#d4c66c"/>
+      <path d="M0 10h62v17H0zM0 52h62v12H0z" fill="#82955a"/>
+      <path d="M9 0h13v80H9zM42 0h9v80h-9z" fill="#f1e8a7" opacity=".75"/>
+    </pattern>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="15" stdDeviation="18" flood-color="#514a31" flood-opacity=".24"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#paper)"/>
+  <path d="M0 0h430L0 430z" fill="#697b50" opacity=".18"/>
+  <path d="M1600 900h-470l470-470z" fill="#b59a50" opacity=".15"/>
+
+  <text x="90" y="105" fill="#64764a" font-family="ui-sans-serif, system-ui, sans-serif" font-size="27" letter-spacing="7">IDENTITY / YEAR / BOUNDARY</text>
+  <text x="90" y="180" fill="#302d24" font-family="ui-serif, Georgia, serif" font-size="58">M600 Tortoiseshell-White</text>
+  <text x="93" y="232" fill="#8a6d2f" font-family="ui-sans-serif, system-ui, sans-serif" font-size="33" font-weight="700">2012 · gold trim · 14ct nib</text>
+
+  <g transform="translate(95 316)" filter="url(#shadow)">
+    <rect x="0" y="56" width="1170" height="134" rx="67" fill="#f7f4e9" stroke="#a7883f" stroke-width="4"/>
+    <rect x="175" y="69" width="630" height="108" rx="50" fill="url(#tortoise)"/>
+    <rect x="807" y="69" width="210" height="108" rx="49" fill="#f9f7ef"/>
+    <path d="M1034 62h158c51 0 92 41 92 92v36h-250z" fill="#f9f7ef" stroke="#a7883f" stroke-width="4"/>
+    <path d="M1198 70c65 46 70 129 13 188" fill="none" stroke="#a7883f" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="106" cy="123" r="52" fill="#f9f7ef" stroke="#a7883f" stroke-width="4"/>
+    <path d="M53 123h105M106 71v104" stroke="#a7883f" stroke-width="4"/>
+  </g>
+
+  <g font-family="ui-sans-serif, system-ui, sans-serif">
+    <g transform="translate(90 590)">
+      <rect width="820" height="170" rx="22" fill="#fbf9f0" stroke="#b6aa7a"/>
+      <text x="28" y="43" fill="#64764a" font-size="21" font-weight="700">2012 身份锚点</text>
+      <text x="28" y="78" fill="#302d24" font-size="26">浅色 tortoise-striped 笔杆 · 白色笔帽 · 金色饰件</text>
+      <text x="28" y="113" fill="#776f58" font-size="19">白色 M6xx 家族近似：134.1 mm · Ø12.45 mm · 15.9 g · 1.30 ml</text>
+      <text x="28" y="145" fill="#9a6f31" font-size="18">通用历史 M600 表另列 133 mm / 18 g；两组均非 2012 配色精确值</text>
+    </g>
+    <g transform="translate(940 590)">
+      <rect width="570" height="170" rx="22" fill="#3f4935"/>
+      <text x="28" y="43" fill="#f0df9b" font-size="21" font-weight="700">不是这些 M605</text>
+      <text x="28" y="79" fill="#f7f4e9" font-size="22">2017 White-Transparent · 2021 Green-White</text>
+      <text x="28" y="112" fill="#f7f4e9" font-size="22">2022 Black Tortoise</text>
+    </g>
+  </g>
+
+  <text x="90" y="805" fill="#776f58" font-family="ui-sans-serif, system-ui, sans-serif" font-size="20">材料边界：现有证据不足以写成 celluloid；图中纹样与数字不证明材质、比例、实物色差或该配色精确尺寸。</text>
+  <line x1="90" y1="838" x2="1510" y2="838" stroke="#b6aa7a"/>
+  <text x="90" y="874" fill="#776f58" font-family="ui-sans-serif, system-ui, sans-serif" font-size="19">Fountain Pen Graph editorial studio · factual SVG · 2026-07-19</text>
+  <text x="1510" y="874" text-anchor="end" fill="#8a6d2f" font-family="ui-sans-serif, system-ui, sans-serif" font-size="19" font-weight="700">NOT A PRODUCT PHOTO</text>
+</svg>

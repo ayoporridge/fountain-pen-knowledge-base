@@ -813,7 +813,7 @@ export const phase27PelikanPacks: CuratedEntityPack[] = [
         key: "m815-reused-special-number",
         predicate: "related_model_number_boundary",
         objectText:
-          "M815 是在不同特别版本中复用的编号，不是固定高阶 M805，也不并入 canonical M800。",
+          "M815 是在不同特别版本中复用的编号，不是固定高阶 M805，也不并入 M800。",
         factClass: "core",
         confidence: 0.97,
         sourceKey: "pelikans-perch-m800-history",
@@ -892,7 +892,7 @@ export const phase27PelikanPacks: CuratedEntityPack[] = [
     spec: {
       brandEntityId: "VXUULuCOLOB1",
       values: {
-        series_name: "Souverän 800（canonical M800；不含 M805／M815）",
+        series_name: "Souverän 800（M800；不含 M805／M815）",
         release_year: "1987",
         origin_country: "德国（现行标准款制造与组装）",
         nib: "现行 18K/750 双色金尖、镀铑装饰；EF、F、M、B；早期 14C/585 不仅见于 1987",

@@ -76,6 +76,10 @@ export const RECLASSIFIED_ARTICLE_PATHS: Record<string, string> =
 
 const CANONICAL_ENTITY_PATHS: Record<string, string> = {
   "pen/百乐-pilot-custom-823": "/pen/pilot-custom-823",
+  "pen/百利金-pelikan-m1000": "/pen/pelikan-souveran-m1000",
+  "pen/百利金-pelikan-m600": "/pen/pelikan-souveran-m600",
+  "pen/百利金-pelikan-m605白乌龟":
+    "/pen/pelikan-souveran-m600-tortoiseshell-white-2012",
   "pen/百利金-pelikan-m800": "/pen/pelikan-souveran-m800",
   "pen/the-parker-51": "/pen/parker-51-vintage",
   "pen/派克-parker-51-经典-vintage": "/pen/parker-51-vintage",

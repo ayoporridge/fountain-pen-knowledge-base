@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pelikan Souverän M600 editorial specification diagram</title>
+  <desc id="desc">A site-original non-photographic editorial diagram showing the 13.3 to 13.4 cm range retained from two current official Pelikan sources, plus M600 reference dimensions and nib options. It is not a product photo, mechanical drawing, or scale reference.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#10261f"/>
+      <stop offset="1" stop-color="#07110f"/>
+    </linearGradient>
+    <pattern id="stripe" width="34" height="34" patternUnits="userSpaceOnUse" patternTransform="skewX(-14)">
+      <rect width="17" height="34" fill="#4b8566"/>
+      <rect x="17" width="17" height="34" fill="#173d2f"/>
+    </pattern>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#000" flood-opacity=".35"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="1370" cy="125" r="260" fill="#d8b76a" opacity=".08"/>
+  <circle cx="140" cy="810" r="330" fill="#4b8566" opacity=".08"/>
+
+  <text x="90" y="108" fill="#d8b76a" font-family="ui-sans-serif, system-ui, sans-serif" font-size="28" letter-spacing="7">EDITORIAL SPECIFICATION INDEX</text>
+  <text x="90" y="184" fill="#f4f0e4" font-family="ui-serif, Georgia, serif" font-size="64">Souverän M600</text>
+  <text x="94" y="230" fill="#a8beb4" font-family="ui-sans-serif, system-ui, sans-serif" font-size="25">现行平台资料卡 · 非产品照片 · 非机械图 · 不按比例</text>
+
+  <g transform="translate(105 330)" filter="url(#shadow)">
+    <rect x="0" y="60" width="1120" height="126" rx="63" fill="#0b1714" stroke="#d8b76a" stroke-width="4"/>
+    <rect x="160" y="72" width="625" height="102" rx="48" fill="url(#stripe)"/>
+    <rect x="786" y="72" width="205" height="102" rx="46" fill="#111714"/>
+    <path d="M1008 78h154c46 0 84 37 84 83v24H1008z" fill="#0a0e0c" stroke="#d8b76a" stroke-width="4"/>
+    <path d="M1172 83c62 44 67 123 14 179" fill="none" stroke="#d8b76a" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="102" cy="123" r="50" fill="#0a0e0c" stroke="#d8b76a" stroke-width="4"/>
+    <path d="M52 123h100" stroke="#d8b76a" stroke-width="4"/>
+    <path d="M101 73v100" stroke="#d8b76a" stroke-width="4"/>
+  </g>
+
+  <g font-family="ui-sans-serif, system-ui, sans-serif">
+    <g transform="translate(90 650)">
+      <rect width="270" height="122" rx="22" fill="#142b23" stroke="#315f4c"/>
+      <text x="24" y="43" fill="#a8beb4" font-size="19">闭帽长度 · 官方资料范围</text>
+      <text x="24" y="91" fill="#f4f0e4" font-size="34" font-weight="700">13.3–13.4 cm</text>
+    </g>
+    <g transform="translate(382 650)">
+      <rect width="270" height="122" rx="22" fill="#142b23" stroke="#315f4c"/>
+      <text x="24" y="43" fill="#a8beb4" font-size="19">直径</text>
+      <text x="24" y="91" fill="#f4f0e4" font-size="42" font-weight="700">12.4 mm</text>
+    </g>
+    <g transform="translate(674 650)">
+      <rect width="230" height="122" rx="22" fill="#142b23" stroke="#315f4c"/>
+      <text x="24" y="43" fill="#a8beb4" font-size="19">重量</text>
+      <text x="24" y="91" fill="#f4f0e4" font-size="42" font-weight="700">16.4 g</text>
+    </g>
+    <g transform="translate(926 650)">
+      <rect width="230" height="122" rx="22" fill="#142b23" stroke="#315f4c"/>
+      <text x="24" y="43" fill="#a8beb4" font-size="19">墨量</text>
+      <text x="24" y="91" fill="#f4f0e4" font-size="42" font-weight="700">1.30 ml</text>
+    </g>
+    <g transform="translate(1178 650)">
+      <rect width="332" height="122" rx="22" fill="#2b2518" stroke="#8e773e"/>
+      <text x="24" y="43" fill="#d8b76a" font-size="19">现行标准笔尖</text>
+      <text x="24" y="84" fill="#f4f0e4" font-size="31" font-weight="700">14K/585 · EF/F/M/B</text>
+    </g>
+  </g>
+
+  <line x1="90" y1="824" x2="1510" y2="824" stroke="#315f4c"/>
+  <text x="90" y="858" fill="#789589" font-family="ui-sans-serif, system-ui, sans-serif" font-size="19">Fountain Pen Graph editorial studio · factual SVG · 2026-07-19</text>
+  <text x="1510" y="858" text-anchor="end" fill="#d8b76a" font-family="ui-sans-serif, system-ui, sans-serif" font-size="19" font-weight="700">NOT A PRODUCT PHOTO</text>
+</svg>

@@ -93,6 +93,10 @@ test("Phase 27 publishes Pelikan and canonical M800 from an owned checkpoint cop
     for (const row of publicRows.rows) {
       assert.ok(Number(row.summary_length) >= 60);
       assert.ok(Number(row.summary_length) <= 160);
+      assert.doesNotMatch(
+        String(row.body_md),
+        /\b(?:canonical|made_by|market_sku|slug|retired)\b|数据库|仓库/i,
+      );
     }
     assert.match(
       String(publicRows.rows[0]?.body_md),
@@ -292,7 +296,7 @@ test("Phase 27 publishes Pelikan and canonical M800 from an owned checkpoint cop
     );
     assert.match(
       claimByPredicate.get("related_model_number_boundary") ?? "",
-      /M815.*复用.*不是固定高阶 M805.*不并入 canonical M800/,
+      /M815.*复用.*不是固定高阶 M805.*不并入 M800/,
     );
 
     const spec = await client.execute({
@@ -305,7 +309,7 @@ test("Phase 27 publishes Pelikan and canonical M800 from an owned checkpoint cop
     assert.equal(spec.rows.length, 1);
     assert.equal(
       String(spec.rows[0]?.series_name),
-      "Souverän 800（canonical M800；不含 M805／M815）",
+      "Souverän 800（M800；不含 M805／M815）",
     );
     assert.equal(String(spec.rows[0]?.release_year), "1987");
     assert.match(String(spec.rows[0]?.origin_country), /德国.*制造与组装/);
