@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title description">
+  <title id="title">Sailor King of Pens KOP 材质与身份边界示意图</title>
+  <desc id="description">本站原创事实示意图，非产品照片：区分 KOP Ebonite、Urushi、ST Resin、KOP Kai 与 Professional Gear KOP，不表现真实比例、色泽、商标或刻字。</desc>
+  <rect width="1600" height="900" rx="40" fill="#f5efe5"/>
+  <text x="100" y="118" fill="#2b2520" font-family="Georgia, serif" font-size="54" font-weight="700">King of Pens / KOP</text>
+  <text x="104" y="168" fill="#725f50" font-family="sans-serif" font-size="26">一组大型笔身与大型 21K 尖路线，不是单一 SKU</text>
+  <g font-family="sans-serif" font-size="30" fill="#2b2520">
+    <rect x="100" y="250" width="270" height="420" rx="24" fill="#2b2520"/>
+    <text x="135" y="330" fill="#f5efe5">Ebonite</text><text x="135" y="378" fill="#d8c6b4" font-size="22">11-7002 / 11-9704</text><text x="135" y="500" fill="#f5efe5" font-size="23">硬橡胶</text><text x="135" y="548" fill="#d8c6b4" font-size="20">材质与饰件依货号</text>
+    <rect x="420" y="250" width="270" height="420" rx="24" fill="#7e403b"/>
+    <text x="455" y="330" fill="#fff6ea">Urushi</text><text x="455" y="378" fill="#f0c5a4" font-size="22">10-9175 等</text><text x="455" y="500" fill="#fff6ea" font-size="23">漆艺＋硬橡胶底</text><text x="455" y="548" fill="#f0c5a4" font-size="20">颜色不跨 SKU 外推</text>
+    <rect x="740" y="250" width="270" height="420" rx="24" fill="#d5c5ad"/>
+    <text x="775" y="330">ST Resin</text><text x="775" y="378" fill="#5a4c42" font-size="22">11-6001 / 11-9639</text><text x="775" y="500" fill="#5a4c42" font-size="23">PMMA 树脂</text><text x="775" y="548" fill="#7d6754" font-size="20">Gold / Rhodium</text>
+    <rect x="1060" y="250" width="190" height="420" rx="24" fill="#b9a892"/>
+    <text x="1094" y="330">KOP</text><text x="1094" y="378" fill="#4d4036" font-size="22">Kai</text><text x="1094" y="500" fill="#4d4036" font-size="23">10-9962</text><text x="1094" y="548" fill="#6d5848" font-size="20">独立 SKU</text>
+    <rect x="1300" y="250" width="200" height="420" rx="24" fill="#5b6870"/>
+    <text x="1332" y="330" fill="#f6f1e8">Pro Gear</text><text x="1332" y="378" fill="#d8e0e3" font-size="22">KOP</text><text x="1332" y="500" fill="#f6f1e8" font-size="23">平顶路线</text><text x="1332" y="548" fill="#d8e0e3" font-size="20">10-9618</text>
+  </g>
+  <path d="M100 755 H1500" stroke="#b69b80" stroke-width="3"/>
+  <text x="100" y="815" fill="#725f50" font-family="sans-serif" font-size="25">21K 大型尖与墨囊／上墨器是家族线索；尺寸、重量、颜色必须回到具体官方货号。</text>
+  <text x="100" y="855" fill="#9a8068" font-family="sans-serif" font-size="22">示意图，非产品照片 · Fountain Pen Graph editorial studio · 2026</text>
+</svg>
