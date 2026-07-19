@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Parker Vector classic 与 Vector XL 资料边界</title>
+  <desc id="desc">原创事实图，以两条资料路径区分经典 slim Vector 与 Vector XL，不绘制钢笔。</desc>
+  <rect width="1600" height="900" fill="#f7f3eb"/>
+  <rect x="70" y="70" width="1460" height="760" rx="28" fill="#fffdf8" stroke="#273746" stroke-width="4"/>
+  <text x="110" y="145" fill="#273746" font-family="sans-serif" font-size="42" font-weight="700">Parker Vector：名称相近，资料分开</text>
+  <text x="110" y="192" fill="#53636d" font-family="sans-serif" font-size="24">Fountain Pen Graph editorial factual SVG · 示意图，非产品照片</text>
+  <path d="M800 270V730" stroke="#c9bfae" stroke-width="4" stroke-dasharray="12 14"/>
+  <rect x="130" y="250" width="575" height="430" rx="22" fill="#edf4f8" stroke="#47758f" stroke-width="4"/>
+  <text x="175" y="320" fill="#1f536b" font-family="sans-serif" font-size="34" font-weight="700">Classic slim Vector</text>
+  <text x="175" y="380" fill="#273746" font-family="sans-serif" font-size="27">1984 · RB-1 → FP-1 → Vector</text>
+  <text x="175" y="430" fill="#273746" font-family="sans-serif" font-size="27">细杆家族 · 钢笔尖</text>
+  <text x="175" y="480" fill="#273746" font-family="sans-serif" font-size="27">塑料 Standard / 金属 Flighter</text>
+  <text x="175" y="560" fill="#7c3f2c" font-family="sans-serif" font-size="24">不承载 135/157 mm、11.5 mm、20 g</text>
+  <text x="175" y="610" fill="#7c3f2c" font-family="sans-serif" font-size="24">不承载 XL 商品代码</text>
+  <rect x="895" y="250" width="575" height="430" rx="22" fill="#f7efe6" stroke="#a96d44" stroke-width="4"/>
+  <text x="940" y="320" fill="#814b2b" font-family="sans-serif" font-size="34" font-weight="700">Vector XL</text>
+  <text x="940" y="380" fill="#273746" font-family="sans-serif" font-size="27">2022 官方目录已单列</text>
+  <text x="940" y="430" fill="#273746" font-family="sans-serif" font-size="27">大直径 · large steel nib</text>
+  <text x="940" y="480" fill="#273746" font-family="sans-serif" font-size="27">Teal 2159746 · M</text>
+  <text x="940" y="530" fill="#273746" font-family="sans-serif" font-size="27">135 / 157 mm · 11.5 mm · 20 g</text>
+  <text x="940" y="590" fill="#7c3f2c" font-family="sans-serif" font-size="24">converter 兼容，需另购</text>
+  <text x="940" y="640" fill="#7c3f2c" font-family="sans-serif" font-size="24">数值只绑定 2159746</text>
+  <text x="110" y="770" fill="#53636d" font-family="sans-serif" font-size="22">本图不表现真实笔身、笔夹、颜色、Logo、刻字、比例或真伪。</text>
+</svg>

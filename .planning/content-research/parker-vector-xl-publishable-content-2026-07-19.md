@@ -2,7 +2,7 @@
 
 ## summary
 
-Parker Vector XL 是 Parker 2022 官方目录已单列的现代旁支，不是经典 Vector 的同义词；精确全球首发日未核实。Teal 2159746 为 M 不锈钢尖，闭合 135 mm、插帽 157 mm、最大径 11.5 mm、20 g，converter 需另购。
+Parker Vector XL 是 2022 官方目录已单列、2024 EMEA 目录继续列出的现代旁支，不是经典 Vector 同义词；全球首发日未核实。Teal 2159746 为 M 不锈钢尖，135/157 mm、最大径 11.5 mm、20 g，converter 需另购。
 
 ## model_specs
 
@@ -64,6 +64,14 @@ Teal 2159746 的目录描述是 Teal / Green Lacquer CT，Parker 当前 PDP 还�
 
 现行 Grey Lacquer GT 是更新的 SKU，金色 PVD 笔尖与灰色漆面不属于 2159746。每种 finish 都应按自己的商品代码核对，不能拿新款广告图的材料覆盖旧 Teal。
 
+## 2024 目录与 2003 历史页要分层使用
+
+Parker 2024 A4 EMEA 目录列出 Vector XL 的多组 fountain-pen 行：2159744 Black Lacquer CT FP M、2159748 Lilac Lacquer CT FP M、2159771Z Teal Lacquer CT FP F，以及 2159746 Teal Lacquer CT FP M。它们说明同一 XL 家族可以有不同 finish、包装和 F/M SKU；不能因为 2159746 有一组尺寸，就把 135/157 mm 或 20 g 复制给全部版本。对购买者来说，商品代码、包装类型和尖号应一起核对。
+
+PenHero 的 Vector 页面在 2003 更新，资料对象是经典 Vector 家族，而且把 fountain pen、rollerball、ballpoint、pencil 分段讨论。它可以帮助说明 Vector 家族的历史书写模式，却不能证明 Vector XL 的尺寸、上墨器或尖号。尤其是页面里的 pushbutton ballpoint 不是 fountain pen 的 filling system；本文不把任何 2003 ballpoint 资料写进 XL 的规格，也不把圆珠笔的按键、refill 或重量当成钢笔维护建议。XL 的硬规格只来自 Parker 目录、当前 XL 系列页和 2159746 的商品资料。
+
+换句话说，`FP` 是这页的第一道筛选条件，`F` 或 `M` 才是尖号字段。2024 目录同页的 `BP`、`RB` 只说明 Parker 还销售其他模式，不表示 XL fountain pen 可以安装这些 refill。若二手卖家只给出“Vector XL”而没有 FP、商品代码或盒标，应把它当成待核验身份，而不是自动套用 2159746。
+
 ## 使用、清洗与收纳
 
 新笔第一次使用前可用清水冲洗握位，排除制造和包装残留；装入墨囊后等待墨水到达笔尖，不要用力压尖催墨。用 converter 换色时反复吸排常温清水，直到出水基本清澈，再自然干燥。
@@ -82,6 +90,8 @@ Teal 2159746 的目录描述是 Teal / Green Lacquer CT，Parker 当前 PDP 还�
 
 - [Parker Vector XL Fountain Pen](https://www.parkerpen.com/writing-types/collections/vector-xl/vector-xl-fountain-pen/SP_1417056.html)
 - [Parker 2022 Trade Catalogue](https://www.parkerromania.ro/cataloage1/Parker/ParkerCatalog2022.pdf)
+- [Parker 2024 A4 EMEA Trade Catalogue](https://www.parkervip.com/media/Parker_Catalog_2024_A4_EMEA_2023_LR.pdf) — Vector XL 的 FP/F/M 商品行
 - [Pen Heaven — Parker Vector XL Teal Fountain Pen（SKU 2159746）](https://www.penheaven.com/parker-vector-xl-teal-fountain-pen) — Key Features：M 钢尖；闭合 135 mm、插帽 157 mm、直径 11.5 mm、重量 20 g；converter sold separately
 - [Parker Pens Penography — Vector（经典款边界）](https://parkerpens.net/vector.html)
+- [PenHero — Parker Vector 1981–Present](https://penhero.com/PenGallery/Parker/ParkerVector.htm) — 2003 更新的家族史；ballpoint 等其他模式不作为 XL fountain-pen 规格
 - [Parker Fountain Pen Care Guide](https://www.parkerpen.com/fountain-pen-care-guides.html)

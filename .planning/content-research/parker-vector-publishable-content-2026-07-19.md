@@ -2,7 +2,7 @@
 
 ## summary
 
-经典 Parker Vector 源自 1984 年 FP-1，并在同年开始使用 Vector 名称；它是轻量细杆、钢尖、墨囊／上墨器的长期入门家族。Vector XL 是后来单列的另一条产品线，其粗杆、尺寸与 SKU 不再混入本页。
+经典 Parker Vector 源自 1984 年 FP-1，并在同年使用 Vector 名称；它是细杆、钢尖、墨囊／上墨器的长期家族。2024 EMEA 目录仍列 Vector fountain-pen SKU。Vector XL 是独立大直径产品线。
 
 ## model_specs
 
@@ -52,6 +52,14 @@ Parker 2022 trade catalogue 已把 Vector XL 与 2159746 单列，这是可核�
 
 收到旧笔后先检查笔尖是否歪斜、握位是否开裂、笔帽是否能可靠闭合、笔杆螺纹是否受损。不要因为笔杆上有公司广告或图案就自动称为官方限量版；Vector 长期用于 promotional printing，图案来源和授权要另外举证。
 
+## PenHero 的 2003 更新页：其他书写模式不能冒充钢笔
+
+PenHero 的档案标题是 “Parker Vector 1981–Present”，作者 Jim Mamoulides 在 2003 年更新页面。它是一份横跨多个书写模式的历史资料：同一页既讲 FP-1、fountain pen 的不锈钢尖和长墨囊，也讲 capped rollerball、pushbutton ballpoint 与 pushbutton pencil。页面说的是家族存在过多种写法，并不是说每一支 Vector 都有这些部件。
+
+因此，本文只把 PenHero 中明确落在 fountain pen 的句子用于钢笔身份、钢尖、细长轮廓和墨囊／converter 观察。ballpoint 的按键机构、滚珠笔的 refill、铅笔的机制都不属于本页的上墨系统，不能拿来推断钢笔笔尖或维护方式。特别是“页面 2003 更新”是资料版本时间，不是某个 ballpoint SKU 的钢笔发行年份；它也不能把一支圆珠笔的尺寸转写成 fountain pen 规格。
+
+2024 目录进一步把边界变成可核验的商品行：S0029690 是 Stainless Steel CT fountain pen F，1870805 是 Stainless Steel CT fountain pen M，S0881041 是 Black CT fountain pen M。目录同时列出 BP、RB 等缩写，所以建档时必须先看 `FP` 再看 `F/M`，不能因为商品名都叫 Vector 就把书写模式合并。这里的 SKU 只证明目录所列的 EMEA 商品行，不替代对二手笔实物刻字、包装和笔尖的检查。
+
 ## 书写与选购
 
 Vector 的钢尖通常偏硬，但“硬”不等于粗糙或低质。尖铱状态、纸墨、握角与长期磨损比价格标签更能决定一支旧笔的写感。细杆用户应留意握位直径和台阶；需要插帽的人还要检查笔帽是否稳定、重心是否舒服。
@@ -75,4 +83,6 @@ Vector 的钢尖通常偏硬，但“硬”不等于粗糙或低质。尖铱状�
 - [Parker Pens Penography — Vector](https://parkerpens.net/vector.html)
 - [Parker 2021 Trade Catalogue](https://assets.parkerpen.com/is/content/NewellRubbermaid/DASH/S7_int/Fine_Writing/2021/prkr_trdctlg_2021.pdf)
 - [Parker 2022 Trade Catalogue](https://www.parkerromania.ro/cataloage1/Parker/ParkerCatalog2022.pdf)
+- [Parker 2024 A4 EMEA Trade Catalogue](https://www.parkervip.com/media/Parker_Catalog_2024_A4_EMEA_2023_LR.pdf) — Vector fountain-pen SKU 与 FP/F/M 图例
+- [PenHero — Parker Vector 1981–Present](https://penhero.com/PenGallery/Parker/ParkerVector.htm) — 2003 更新的历史页；ballpoint、rollerball、pencil 段落不作为 fountain-pen 规格
 - [Parker Fountain Pen Care Guide](https://www.parkerpen.com/fountain-pen-care-guides.html)
