@@ -137,10 +137,11 @@ Progress: [█████░░░░░] 50%
 | 260719-44p | 补齐 Platinum Preppy、Plaisir、Prefounte 三条低价产品线 | 2026-07-19 | b712a00 | [260719-44p-platinum-low-price](./quick/260719-44p-platinum-low-price/) |
 | 260719-45p | 补齐 LAMY aion 与 cp1，并区分 aquamarine 与 cp1 twin/tri 边界 | 2026-07-19 | 12faa01 | [260719-45p-lamy-aion-cp1](./quick/260719-45p-lamy-aion-cp1/) |
 | 260719-46p | 补齐 Montblanc 145／Classique 与 StarWalker family 及版本边界 | 2026-07-19 | 3edf89b | [260719-46p-montblanc-145-starwalker](./quick/260719-46p-montblanc-145-starwalker/) |
+| 260719-47p | 升级 Pilot Custom 823 来源化正文并收口 duplicate／永久跳转 | 2026-07-19 | a5b7694 | [260719-47p-pilot-custom-823](./quick/260719-47p-pilot-custom-823/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：下一批处理 Waterman／Aurora 的剩余身份与代表型号，再继续 Parker／Sailor／Pelikan raw 队列并研究缺失的重要品牌。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
+继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：下一批处理 Waterman Hemisphere／Charleston 与 Aurora Optima／88 的剩余身份和来源化正文，再继续 Parker／Sailor／Pelikan raw 队列并研究缺失的重要品牌。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
 
 ## Session Continuity
 
