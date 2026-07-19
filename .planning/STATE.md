@@ -132,7 +132,7 @@ Progress: [█████░░░░░] 50%
 | 260719-9m2 | 发布 Sailor KOP 四个具体型号并收窄长刀研 SKU 边界 | 2026-07-19 | ec33d9b | [260719-9m2-sailor-kop-models](./quick/260719-9m2-sailor-kop-models/) |
 | 260719-a1p | 发布 Parker Frontier、Victory 与拆分后的 Premier 两代 | 2026-07-19 | b5de87d | [260719-a1p-parker-frontier-premier-victory](./quick/260719-a1p-parker-frontier-premier-victory/) |
 | 260719-b4i | 修复 Pilot 823 duplicate、Waterman 混名与 Aurora 泛型号并补 Aurora 88 | 2026-07-19 | 6bda355 | [260719-b4i-identity-cleanup](./quick/260719-b4i-identity-cleanup/) |
-| 260719-4a2 | 补齐 LAMY 品牌／2000 与 Platinum 品牌／#3776 Century，规范 slug 和版本边界 | 2026-07-19 | pending | [260719-4a2-lamy-platinum-content](./quick/260719-4a2-lamy-platinum-content/) |
+| 260719-4a2 | 补齐 LAMY 品牌／2000 与 Platinum 品牌／#3776 Century，规范 slug 和版本边界 | 2026-07-19 | ede730f | [260719-4a2-lamy-platinum-content](./quick/260719-4a2-lamy-platinum-content/) |
 
 ## Next Action
 
