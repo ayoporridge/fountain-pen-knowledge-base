@@ -5,15 +5,15 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
-stopped_at: Quick 260719-b0o complete; next sourced content wave ready
-last_updated: "2026-07-19T09:11:13+08:00"
+stopped_at: Quick 260719-c1p complete; next sourced content wave ready
+last_updated: "2026-07-19T11:02:05+08:00"
 last_activity: 2026-07-19
-last_activity_desc: Parker Ingenuity Urban Vector, Sailor Pro Gear Profit 14/18, and Pelikan M1000 M600 White Tortoise sourced packs integrated
+last_activity_desc: Eleven Sailor 2026, Parker Duofold and Pelikan Souveran variant pages integrated with sourced identity fixes
 progress:
   total_phases: 16
   completed_phases: 10
-  total_plans: 34
-  completed_plans: 31
+  total_plans: 35
+  completed_plans: 32
   percent: 91
 ---
 
@@ -31,7 +31,7 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 Phase: 21 (Taxonomy 与身份归一) — EXECUTING
 Plan: 4 of 6
 Status: In progress
-Last activity: 2026-07-19 — ten Parker, Sailor and Pelikan P0 model pages integrated with sourced identity fixes
+Last activity: 2026-07-19 — eleven Sailor 2026, Parker Duofold and Pelikan Souverän model pages integrated with sourced identity fixes
 
 Progress: [█████░░░░░] 50%
 
@@ -125,10 +125,11 @@ Progress: [█████░░░░░] 50%
 | 260719-9d2 | 补齐 Parker 品牌并拆分 vintage 与 2021 两代 Parker 51 | 2026-07-19 | d2088fb | [260719-9d2-parker-vintage-parker-51-2021-parker-51](./quick/260719-9d2-parker-vintage-parker-51-2021-parker-51-/) |
 | 260719-9gh | 补齐 Sailor 品牌与 canonical 1911 Standard／Profit Standard 11-1219 | 2026-07-19 | dabebc1 | [260719-9gh-sailor-canonical-1911-standard-profit-st](./quick/260719-9gh-sailor-canonical-1911-standard-profit-st/) |
 | 260719-b0o | 补齐 Parker Ingenuity／Urban／Vector、Sailor Pro Gear／Profit 14／18、Pelikan M1000／M600／2012 White Tortoise | 2026-07-19 | cb6504b / 13edbd6 / 490fd6d | [260719-b0o-p0-parker-sailor-pelikan](./quick/260719-b0o-p0-parker-ingenuity-urban-vector-vector-/) |
+| 260719-c1p | 补齐 Sailor 2026 三款、Parker Duofold 四代与 Pelikan M1005／M400／M605／M815 | 2026-07-19 | 6ade8a4 / 74a0672 / c1f5088 / 79e07f5 | [260719-c1p-sailor-parker-pelikan](./quick/260719-c1p-sailor-2026-parker-duofold-pelikan-souveran/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：下一批优先补 Sailor Professional Gear Slim 21 `11-2151`、Profit Realo 18 `11-1853` 与 Professional Gear Anchor；并行拆清 Parker vintage／Geometric／Striped／modern Centennial 四条 Duofold 身份，以及 Pelikan M1005 Stresemann、M400、真正 M605 与 M815。随后处理 Sailor taxonomy-only 类型修正、KOP 分型、Pelikan M200／Twist P457 与 Parker 25／T1／50／100／Frontier／Premier／Victory。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
+继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：下一批优先补 Parker 25／T1／50 Falcon／100，拆分 Sailor King of Pens 并把 Professional Gear／1911 系列改为导航节点、将长刀研从钢笔型号改为 nib／concept，同时补 Pelikan M200／Twist P457。随后处理 Parker Frontier／Premier／Victory 与其余 raw／缺失重要型号。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
 
 ## Session Continuity
 
