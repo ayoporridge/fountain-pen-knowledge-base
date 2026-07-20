@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sailor Professional Gear 常规全尺寸 21K 的规格示意图</title>
+  <desc id="desc">原创信息图，标注 11-2036 Gold IP、11-2037 nickel chrome、21K 大型双色笔尖、卡水或转换器、129 毫米和 21.6 克。示意图，非产品照片。</desc>
+  <rect width="1600" height="900" fill="#f5f0e8"/>
+  <rect x="78" y="74" width="1444" height="752" rx="28" fill="#fffdfa" stroke="#263238" stroke-width="4"/>
+  <text x="130" y="160" fill="#263238" font-family="Georgia, serif" font-size="52">Professional Gear · 常规全尺寸 21K</text>
+  <text x="132" y="212" fill="#56615d" font-family="sans-serif" font-size="26">Sailor 11-2036 / 11-2037 ｜ 示意图，非产品照片</text>
+  <g transform="translate(160 360)">
+    <rect x="0" y="70" width="860" height="120" rx="60" fill="#262d31"/>
+    <rect x="185" y="56" width="12" height="148" rx="6" fill="#c8a25d"/>
+    <rect x="675" y="56" width="12" height="148" rx="6" fill="#b8bec0"/>
+    <path d="M860 90 C930 100 965 130 1015 130 C965 130 930 160 860 170 Z" fill="#d4d0b5" stroke="#263238" stroke-width="3"/>
+    <path d="M900 130 L1015 130" stroke="#a57f40" stroke-width="8"/>
+    <text x="0" y="255" fill="#263238" font-family="sans-serif" font-size="27">抽象轮廓仅用于区分资料卡，不表示比例、颜色、纹理、笔尖刻字或真实工艺。</text>
+  </g>
+  <g fill="#263238" font-family="sans-serif">
+    <text x="1150" y="346" font-size="32">两种饰件变体</text>
+    <text x="1150" y="402" font-size="27">11-2036　Gold IP</text>
+    <text x="1150" y="450" font-size="27">11-2037　nickel chrome</text>
+    <text x="1150" y="544" font-size="32">共同规格</text>
+    <text x="1150" y="596" font-size="27">21K 大型双色笔尖</text>
+    <text x="1150" y="644" font-size="27">卡水／转换器两用</text>
+    <text x="1150" y="692" font-size="27">φ18 × 129 mm · 21.6 g</text>
+  </g>
+  <text x="130" y="770" fill="#56615d" font-family="sans-serif" font-size="24">资料范围：常规全尺寸 11-2036／11-2037；不代替 Slim、Realo、King、Anchor、限量版或特殊研磨的规格。</text>
+</svg>
