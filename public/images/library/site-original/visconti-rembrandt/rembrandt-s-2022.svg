@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Visconti Rembrandt-S 2022 事实图</title>
+  <desc id="desc">本站原创示意图，非产品照片：2022 Rembrandt-S 的 ruthenium、较大镀钌钢尖、converter/cartridge 与独立目录尺寸。</desc>
+  <rect width="1600" height="900" fill="#101418"/>
+  <rect x="90" y="72" width="1420" height="756" rx="32" fill="#20272d" stroke="#8f9ca7" stroke-width="3"/>
+  <text x="150" y="168" fill="#e4ebef" font-family="Georgia, serif" font-size="64">REMBRANDT-S</text>
+  <text x="152" y="215" fill="#bcc7d0" font-family="Arial, sans-serif" font-size="28">2022 separate revision｜示意图，非产品照片</text>
+  <g transform="translate(170 294)">
+    <rect x="0" y="114" width="730" height="104" rx="52" fill="#26323b" stroke="#a9b5bf" stroke-width="7"/>
+    <rect x="563" y="97" width="150" height="138" rx="40" fill="#34424d" stroke="#a9b5bf" stroke-width="7"/>
+    <path d="M-116 140 L0 114 L0 218 Z" fill="#9eaab3" stroke="#c5d0d7" stroke-width="6"/>
+    <line x1="405" y1="119" x2="405" y2="213" stroke="#77838d" stroke-width="13"/>
+    <text x="45" y="295" fill="#aebac2" font-family="Arial, sans-serif" font-size="25">图形不表现真实树脂纹理、比例、Logo 或笔尖形状</text>
+  </g>
+  <g font-family="Arial, sans-serif">
+    <text x="1018" y="332" fill="#e5edf1" font-size="36">2022 Rembrandt-S</text>
+    <text x="1018" y="394" fill="#c2cdd5" font-size="29">acrylic resin + brass</text>
+    <text x="1018" y="444" fill="#c2cdd5" font-size="29">ruthenium 金属处理</text>
+    <text x="1018" y="494" fill="#c2cdd5" font-size="29">较大镀钌钢尖 · 按 SKU 核验</text>
+    <text x="1018" y="544" fill="#c2cdd5" font-size="29">converter / cartridge</text>
+    <text x="1018" y="594" fill="#8fa7b6" font-size="24">不是 2009 原始款的色变，也不是 Mirage 或 Homo Sapiens</text>
+  </g>
+  <rect x="150" y="704" width="1300" height="72" rx="18" fill="#151b20"/>
+  <text x="194" y="751" fill="#d7e0e6" font-family="Arial, sans-serif" font-size="29">2023 catalogue archive：合盖 139.8 mm × 15.4 mm · 31.3 g　｜　独立页面与图片</text>
+</svg>

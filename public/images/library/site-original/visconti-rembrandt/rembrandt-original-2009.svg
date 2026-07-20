@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Visconti Rembrandt 原始款 2009 事实图</title>
+  <desc id="desc">本站原创示意图，非产品照片：2009 原始 Rembrandt 的 A66/A10 钢尖、palladium、磁吸帽与 converter/cartridge 边界。</desc>
+  <rect width="1600" height="900" fill="#151719"/>
+  <rect x="90" y="72" width="1420" height="756" rx="32" fill="#25292c" stroke="#ceb079" stroke-width="3"/>
+  <text x="150" y="168" fill="#f1e2c6" font-family="Georgia, serif" font-size="64">REMBRANDT · ORIGINAL</text>
+  <text x="152" y="215" fill="#c7c7c3" font-family="Arial, sans-serif" font-size="28">2009 regular catalogue｜示意图，非产品照片</text>
+  <g transform="translate(168 296)">
+    <rect x="0" y="122" width="720" height="88" rx="44" fill="#373a3b" stroke="#d2d6d7" stroke-width="6"/>
+    <rect x="572" y="112" width="138" height="108" rx="34" fill="#595d5f" stroke="#d2d6d7" stroke-width="6"/>
+    <path d="M-92 151 L0 122 L0 210 Z" fill="#bac1c4" stroke="#d2d6d7" stroke-width="5"/>
+    <line x1="386" y1="126" x2="386" y2="206" stroke="#d7be86" stroke-width="8"/>
+    <text x="54" y="286" fill="#bbc2c5" font-family="Arial, sans-serif" font-size="25">图形不表现真实树脂纹理、比例、Logo 或笔尖形状</text>
+  </g>
+  <g font-family="Arial, sans-serif">
+    <text x="1020" y="334" fill="#f1e2c6" font-size="36">2009 原始款</text>
+    <text x="1020" y="396" fill="#cfd5d7" font-size="29">acrylic resin + brass</text>
+    <text x="1020" y="446" fill="#cfd5d7" font-size="29">palladium 金属处理 · magnetic cap</text>
+    <text x="1020" y="496" fill="#cfd5d7" font-size="29">converter / cartridge</text>
+    <text x="1020" y="546" fill="#d9bd83" font-size="29">A66 small steel nib 或 A10 large steel nib</text>
+    <text x="1020" y="596" fill="#aeb5b9" font-size="24">尖面、SKU 和年份必须逐支核验</text>
+  </g>
+  <rect x="150" y="704" width="1300" height="72" rx="18" fill="#171a1d"/>
+  <text x="194" y="751" fill="#ded0bb" font-family="Arial, sans-serif" font-size="29">2024 regular catalogue：合盖 139.5 mm × 13.5 mm · 36.5 g　｜　不等于 2022 Rembrandt-S</text>
+</svg>

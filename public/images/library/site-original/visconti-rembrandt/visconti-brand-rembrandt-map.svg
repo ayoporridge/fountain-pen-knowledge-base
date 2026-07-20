@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Visconti Rembrandt 型号边界事实图</title>
+  <desc id="desc">本站原创示意图，非产品照片：1988 品牌时间锚点、2009 原始 Rembrandt、2022 Rembrandt-S 与相邻独立产品线。</desc>
+  <rect width="1600" height="900" fill="#16191d"/>
+  <rect x="92" y="74" width="1416" height="752" rx="30" fill="#22282e" stroke="#bd9a5b" stroke-width="3"/>
+  <text x="150" y="172" fill="#f4ead7" font-family="Georgia, serif" font-size="64">VISCONTI · REMBRANDT</text>
+  <text x="150" y="220" fill="#c8bca8" font-family="Arial, sans-serif" font-size="26">型号导航事实图｜示意图，非产品照片</text>
+  <line x1="216" y1="468" x2="1384" y2="468" stroke="#bd9a5b" stroke-width="5"/>
+  <g font-family="Arial, sans-serif">
+    <circle cx="270" cy="468" r="18" fill="#d3b477"/><text x="224" y="402" fill="#f3e6cf" font-size="34">1988</text><text x="174" y="526" fill="#c8bca8" font-size="24">现代品牌时间锚点</text>
+    <circle cx="650" cy="468" r="22" fill="#f0d39a"/><text x="592" y="398" fill="#f3e6cf" font-size="40">2009</text><text x="495" y="530" fill="#f3e6cf" font-size="31">原始 Rembrandt</text><text x="490" y="568" fill="#c8bca8" font-size="23">palladium · A66 / A10</text>
+    <circle cx="1050" cy="468" r="22" fill="#9ba5af"/><text x="990" y="398" fill="#f3e6cf" font-size="40">2022</text><text x="938" y="530" fill="#f3e6cf" font-size="31">Rembrandt-S</text><text x="925" y="568" fill="#c8bca8" font-size="23">ruthenium · 独立改款</text>
+  </g>
+  <rect x="158" y="646" width="1284" height="104" rx="18" fill="#171c21" stroke="#4f5b66" stroke-width="2"/>
+  <text x="205" y="692" fill="#e3d4bc" font-family="Arial, sans-serif" font-size="30">不吸收：Van Gogh（18 facets）　·　Mirage（另一树脂线）　·　Homo Sapiens（熔岩 / Power Filler）</text>
+  <text x="205" y="728" fill="#aeb7bf" font-family="Arial, sans-serif" font-size="22">每条线都应有独立页面、规格与图片；相互链接，不相互冒充。</text>
+</svg>
