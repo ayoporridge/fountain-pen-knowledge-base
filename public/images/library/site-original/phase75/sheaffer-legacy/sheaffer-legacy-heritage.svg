@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sheaffer Legacy Heritage 身份边界示意图</title>
+  <desc id="desc">本站原创 factual SVG；示意图，非产品照片。图中说明 Legacy Heritage 的 2003 年第三代定位、18K 钯金镀层嵌入尖和 cartridge/converter 供墨，并排除 PFM、早期 Legacy 与当前 steel-nib revival。</desc>
+  <rect width="1600" height="900" fill="#eef1ed"/>
+  <rect x="78" y="60" width="1444" height="780" rx="36" fill="#fffefb" stroke="#234a52" stroke-width="4"/>
+  <text x="142" y="148" font-family="Georgia, serif" font-size="54" fill="#203942">Legacy Heritage：第三代 Legacy 的三个识别点</text>
+  <g font-family="Arial, sans-serif">
+    <rect x="140" y="232" width="385" height="230" rx="25" fill="#dce9e3"/><text x="182" y="297" font-size="31" font-weight="700" fill="#203942">2003 起</text><text x="182" y="344" font-size="26" fill="#203942">第三代 Legacy</text><text x="182" y="391" font-size="23" fill="#39545a">不是 1995/1999</text><text x="182" y="425" font-size="23" fill="#39545a">Touchdown 两代</text>
+    <rect x="608" y="232" width="385" height="230" rx="25" fill="#e9dfcf"/><text x="650" y="297" font-size="31" font-weight="700" fill="#5f4326">18K gold</text><text x="650" y="344" font-size="26" fill="#5f4326">palladium-plated</text><text x="650" y="391" font-size="23" fill="#735a41">inlaid nib</text><text x="650" y="425" font-size="23" fill="#735a41">笔幅按 SKU 核对</text>
+    <rect x="1075" y="232" width="385" height="230" rx="25" fill="#dbe7ee"/><text x="1117" y="297" font-size="31" font-weight="700" fill="#244e66">cartridge /</text><text x="1117" y="344" font-size="31" font-weight="700" fill="#244e66">converter</text><text x="1117" y="391" font-size="23" fill="#3b6074">不是内置活塞</text><text x="1117" y="425" font-size="23" fill="#3b6074">不是 Snorkel</text>
+  </g>
+  <path d="M271 568 H1292" stroke="#234a52" stroke-width="18" stroke-linecap="round"/>
+  <path d="M332 523 H1217" stroke="#c9ac79" stroke-width="28" stroke-linecap="round"/>
+  <path d="M684 520 C752 482, 862 482, 932 520" fill="none" stroke="#82745f" stroke-width="10"/>
+  <text x="144" y="658" font-family="Arial, sans-serif" font-size="27" fill="#203942">二手检查：笔尖刻印、尾端、C/C、903x/904x 饰面、按压帽卡位与嵌入尖交界。</text>
+  <text x="144" y="707" font-family="Arial, sans-serif" font-size="25" fill="#4b6268">2014 black/palladium 样本：137.8 mm 闭帽、147.0 mm 插帽、38 g；仅为单支测量。</text>
+  <text x="96" y="812" font-family="Arial, sans-serif" font-size="19" fill="#4b6268">Fountain Pen Graph 原创 factual SVG｜示意图，非产品照片｜不代表真实比例、颜色、Logo、刻字、笔尖、材质或具体 SKU</text>
+</svg>
