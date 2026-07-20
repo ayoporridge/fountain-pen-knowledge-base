@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Otto Hutt design07 材料边界事实卡</title>
+  <desc id="desc">本站原创示意图：design07 银质与黑漆两条材料路线及样本规格边界，不是产品照片或比例图。</desc>
+  <rect width="1600" height="900" fill="#102127"/>
+  <rect x="72" y="68" width="1456" height="764" rx="28" fill="#173038" stroke="#d4b36a" stroke-width="3"/>
+  <text x="136" y="170" fill="#f4ecd9" font-family="Georgia, serif" font-size="62">Otto Hutt design07</text>
+  <text x="140" y="220" fill="#a8c5c9" font-family="Arial, sans-serif" font-size="25">材料路线与样本规格边界 · 本站原创示意，非产品照片</text>
+  <line x1="800" y1="280" x2="800" y2="680" stroke="#d4b36a" stroke-width="2"/>
+  <text x="164" y="320" fill="#e4d7bc" font-family="Arial, sans-serif" font-size="31" font-weight="700">SILVER · 银质款</text>
+  <path d="M190 420h430l42 38v74l-42 38H190l-42-38v-74z" fill="#c7c8c5" stroke="#f8f3df" stroke-width="7"/>
+  <path d="M218 430h372M218 458h372M218 486h372M218 514h372M218 542h372" stroke="#89918f" stroke-width="5"/>
+  <text x="164" y="630" fill="#f4ecd9" font-family="Arial, sans-serif" font-size="27">sterling silver 笔杆与笔帽</text>
+  <text x="164" y="674" fill="#a8c5c9" font-family="Arial, sans-serif" font-size="24">金笔尖；18K、尺寸、重量以具体 SKU／样本为准</text>
+  <text x="864" y="320" fill="#e4d7bc" font-family="Arial, sans-serif" font-size="31" font-weight="700">LACQUER · 黑漆款</text>
+  <path d="M890 420h430l42 38v74l-42 38H890l-42-38v-74z" fill="#202529" stroke="#d6d0b8" stroke-width="7"/>
+  <path d="M918 430h372M918 458h372M918 486h372M918 514h372M918 542h372" stroke="#5e676c" stroke-width="5"/>
+  <text x="864" y="630" fill="#f4ecd9" font-family="Arial, sans-serif" font-size="27">实心黄铜镀铂；两层半透明黑漆 + 七层透明漆</text>
+  <text x="864" y="674" fill="#a8c5c9" font-family="Arial, sans-serif" font-size="24">thread guilloché；不把银质样本重量回填到这一版本</text>
+  <text x="140" y="768" fill="#d4b36a" font-family="Arial, sans-serif" font-size="22">Fountain Pen Graph · factual SVG · product-photo=false · to-scale=false · colour-proof=false</text>
+</svg>
