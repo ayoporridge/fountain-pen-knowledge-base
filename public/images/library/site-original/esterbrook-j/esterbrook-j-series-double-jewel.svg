@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Esterbrook Double Jewel J、LJ、SJ 历史体型关系示意图</title>
+  <desc id="desc">本站原创 factual SVG。以简化线条标出 J、LJ、SJ 的相对长度与纤细程度，不是产品照片。</desc>
+  <rect width="1600" height="900" fill="#f3eee4"/>
+  <rect x="95" y="90" width="1410" height="720" rx="42" fill="#fffaf1" stroke="#49382c" stroke-width="6"/>
+  <text x="175" y="190" font-family="Georgia, serif" font-size="66" fill="#49382c">Esterbrook J / LJ / SJ（历史 Double Jewel）</text>
+  <text x="175" y="248" font-family="Arial, sans-serif" font-size="30" fill="#6e5949">先分体型与结构，再判断具体实物</text>
+  <g fill="none" stroke="#49382c" stroke-width="16" stroke-linejoin="round">
+    <path d="M205 410h375l48 52-48 52H205z"/>
+    <path d="M695 426h375l35 36-35 36H695z"/>
+    <path d="M1190 438h265l28 24-28 24h-265z"/>
+  </g>
+  <g font-family="Arial, sans-serif" fill="#49382c" text-anchor="middle">
+    <text x="416" y="590" font-size="48">J</text><text x="416" y="635" font-size="28">full size</text><text x="416" y="675" font-size="25">约 12.7 cm（盖帽参考）</text>
+    <text x="884" y="590" font-size="48">LJ</text><text x="884" y="635" font-size="28">Long Slender</text><text x="884" y="675" font-size="25">与 J 同长、较细</text>
+    <text x="1335" y="590" font-size="48">SJ</text><text x="1335" y="635" font-size="28">Short Slender</text><text x="1335" y="675" font-size="25">较短、同为细杆</text>
+  </g>
+  <text x="175" y="760" font-family="Arial, sans-serif" font-size="25" fill="#6e5949">示意图，非产品照片；不表示实物比例、颜色、笔尖、刻字、生产年份、保存状态或任何现代 Model J / Estie / JR。</text>
+</svg>
