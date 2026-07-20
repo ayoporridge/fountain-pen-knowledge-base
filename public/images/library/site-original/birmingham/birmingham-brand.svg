@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Birmingham Pen Company 品牌事实卡</title><desc id="desc">宾夕法尼亚小批量工作室与 Alumina Model-C 的导航示意，非产品照片。</desc>
+  <rect width="1600" height="900" fill="#10222d"/><path d="M0 680H1600" stroke="#c99a4c" stroke-width="3"/>
+  <text x="100" y="160" fill="#f4eadb" font-family="Georgia,serif" font-size="64">Birmingham Pen Company</text><text x="105" y="224" fill="#c99a4c" font-family="Arial,sans-serif" font-size="28" letter-spacing="4">PENNSYLVANIA · SMALL BATCH</text>
+  <circle cx="250" cy="470" r="110" fill="none" stroke="#77a9ba" stroke-width="9"/><path d="M250 350v240M130 470h240" stroke="#77a9ba" stroke-width="9"/><text x="420" y="445" fill="#f4eadb" font-family="Arial,sans-serif" font-size="38">品牌名称取自</text><text x="420" y="500" fill="#f4eadb" font-family="Arial,sans-serif" font-size="38">Pittsburgh “Little Birmingham”</text>
+  <path d="M100 715 C360 620 570 620 800 715 S1240 810 1500 710" fill="none" stroke="#77a9ba" stroke-width="8"/><circle cx="800" cy="715" r="24" fill="#c99a4c"/><text x="690" y="790" fill="#f4eadb" font-family="Arial,sans-serif" font-size="32">已建立型号：Alumina Model-C</text>
+  <text x="100" y="850" fill="#9ab4bd" font-family="Arial,sans-serif" font-size="24">本站原创事实示意图 · 非产品照片 · 不代表库存、材质批次或真实比例</text>
+</svg>
