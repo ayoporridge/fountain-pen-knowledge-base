@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Montegrappa 型号关系示意图</title>
+  <desc id="desc">本站原创事实图，以 Montegrappa 品牌为中心，显示 Elmo 01、Elmo 02、Elmo 02 Plus 为独立型号；不是产品照片。</desc>
+  <rect width="1200" height="630" fill="#102827"/>
+  <text x="72" y="90" fill="#f3e8d0" font-family="Georgia, serif" font-size="48">Montegrappa：按型号读，不按相似外形合并</text>
+  <text x="72" y="132" fill="#bed0c5" font-family="Arial, sans-serif" font-size="22">品牌页是导航；颜色、笔尖、同系列圆珠笔不自动成为同一钢笔型号</text>
+  <rect x="420" y="205" width="360" height="110" rx="20" fill="#e5b65d"/>
+  <text x="600" y="252" text-anchor="middle" fill="#132928" font-family="Georgia, serif" font-size="35">Montegrappa</text>
+  <text x="600" y="285" text-anchor="middle" fill="#132928" font-family="Arial, sans-serif" font-size="20">意大利书写工具品牌</text>
+  <path d="M 478 315 L 215 415 M 600 315 L 600 415 M 722 315 L 985 415" stroke="#e5b65d" stroke-width="5" fill="none"/>
+  <rect x="65" y="415" width="300" height="125" rx="18" fill="#f3e8d0"/>
+  <text x="215" y="464" text-anchor="middle" fill="#102827" font-family="Georgia, serif" font-size="31">Elmo 01</text>
+  <text x="215" y="503" text-anchor="middle" fill="#38504b" font-family="Arial, sans-serif" font-size="19">树脂・钢尖・墨囊／转换器</text>
+  <rect x="450" y="415" width="300" height="125" rx="18" fill="#d4e1d3"/>
+  <text x="600" y="464" text-anchor="middle" fill="#102827" font-family="Georgia, serif" font-size="31">Elmo 02</text>
+  <text x="600" y="503" text-anchor="middle" fill="#38504b" font-family="Arial, sans-serif" font-size="19">独立型号；另查具体 SKU</text>
+  <rect x="835" y="415" width="300" height="125" rx="18" fill="#d4e1d3"/>
+  <text x="985" y="464" text-anchor="middle" fill="#102827" font-family="Georgia, serif" font-size="31">Elmo 02 Plus</text>
+  <text x="985" y="503" text-anchor="middle" fill="#38504b" font-family="Arial, sans-serif" font-size="19">活塞支系；不与 01 混写</text>
+  <text x="72" y="594" fill="#bed0c5" font-family="Arial, sans-serif" font-size="19">示意图，非产品照片；不代表比例、颜色、纹理、库存、笔尖或具体版本。</text>
+</svg>
