@@ -80,6 +80,7 @@ export const RECLASSIFIED_ARTICLE_PATHS: Record<string, string> =
       "pen/万宝龙-montblanc-patron-of-art-888",
       "/article/montblanc-patron-of-art",
     ],
+    ["pen/wancher万佳-dream-pen", "/article/wancher-dream-pen"],
   ]);
 
 const CANONICAL_ENTITY_PATHS: Record<string, string> = {
