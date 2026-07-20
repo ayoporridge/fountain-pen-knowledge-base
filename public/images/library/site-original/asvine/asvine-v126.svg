@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Asvine V126 真空上墨与止墨阀事实图</title>
+  <desc id="desc">本站原创示意图，非产品照片。说明 Asvine V126 的真空上墨和尾端止墨阀，不代表真实比例、颜色、笔尖或具体 SKU。</desc>
+  <rect width="1200" height="675" fill="#161d2c"/>
+  <text x="84" y="110" fill="#e8ddb9" font-family="Georgia, serif" font-size="49">Asvine V126：真空上墨，要理解止墨阀</text>
+  <line x1="178" y1="302" x2="867" y2="302" stroke="#d4b472" stroke-width="34" stroke-linecap="round"/>
+  <rect x="310" y="272" width="410" height="60" rx="30" fill="#b7dddc" fill-opacity="0.38" stroke="#d9f0ed" stroke-width="3"/>
+  <path d="M858 266h103l36 36-36 36H858z" fill="#aebac0" stroke="#d4b472" stroke-width="4"/>
+  <path d="M139 266h70l-31 36 31 36h-70z" fill="#aebac0" stroke="#d4b472" stroke-width="4"/>
+  <line x1="819" y1="243" x2="819" y2="361" stroke="#f4e5be" stroke-width="8"/>
+  <text x="116" y="420" fill="#efe8d3" font-family="Arial, sans-serif" font-size="32">树脂笔身／钢尖／真空填充／尾端止墨阀</text>
+  <text x="116" y="474" fill="#b9cccf" font-family="Arial, sans-serif" font-size="27">与 P36 的活塞、V200 的具体部件和 SKU 不互相替代</text>
+  <text x="116" y="555" fill="#c7d2d5" font-family="Arial, sans-serif" font-size="22">本站原创事实图｜示意图，非产品照片｜不表示真实尺寸、颜色、Logo、笔尖或库存</text>
+</svg>
