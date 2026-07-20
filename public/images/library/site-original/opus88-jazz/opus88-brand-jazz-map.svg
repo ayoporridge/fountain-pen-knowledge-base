@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Opus 88 Jazz 与相邻型号的结构边界</title>
+  <desc id="desc">本站原创事实示意图，非产品照片。用文字和抽象笔形区分 Jazz、Demo、Koloro、Omar 与 Opera。</desc>
+  <rect width="1600" height="900" fill="#f3efe6"/>
+  <path d="M96 118h1408" stroke="#24333a" stroke-width="3"/>
+  <text x="96" y="86" fill="#24333a" font-family="serif" font-size="47">Opus 88：从笔形与结构认型号</text>
+  <text x="96" y="160" fill="#597078" font-family="sans-serif" font-size="24">同为 Japanese-style eyedropper，不等于同一型号、同一笔尖或同一规格</text>
+  <g font-family="sans-serif">
+    <g transform="translate(110 245)">
+      <rect width="260" height="385" rx="18" fill="#d7e4e1" stroke="#274a4d" stroke-width="3"/>
+      <path d="M41 167h175l23 25-23 25H41l-25-25z" fill="#6ea6a6" stroke="#274a4d" stroke-width="4"/>
+      <path d="M61 177h135" stroke="#eaf2eb" stroke-width="8"/>
+      <text x="28" y="60" fill="#24333a" font-size="31" font-weight="700">Demonstrator / Demo</text>
+      <text x="28" y="95" fill="#42595f" font-size="22">透明或半透明、大号</text>
+      <text x="28" y="287" fill="#42595f" font-size="22">常见 #6 / Opus #12</text>
+      <text x="28" y="322" fill="#42595f" font-size="22">不是 Jazz 的照片替代品</text>
+    </g>
+    <g transform="translate(405 245)">
+      <rect width="260" height="385" rx="18" fill="#e2d6c2" stroke="#665239" stroke-width="3"/>
+      <path d="M36 166h188v52H36z" fill="#806544" stroke="#665239" stroke-width="4"/>
+      <path d="M82 166v52M177 166v52" stroke="#c79c62" stroke-width="8"/>
+      <text x="28" y="60" fill="#3f3427" font-size="31" font-weight="700">Koloro</text>
+      <text x="28" y="95" fill="#665239" font-size="22">扁平端盖、双色路线</text>
+      <text x="28" y="287" fill="#665239" font-size="22">常见 #5 / Opus #10</text>
+      <text x="28" y="322" fill="#665239" font-size="22">不与 Demo、Jazz 混写</text>
+    </g>
+    <g transform="translate(700 215)">
+      <rect width="320" height="445" rx="18" fill="#d6e0e7" stroke="#314f62" stroke-width="4"/>
+      <path d="M37 197c12-47 42-68 97-68h50c55 0 85 21 98 68l-27 31H64z" fill="#5d8ca7" stroke="#314f62" stroke-width="5"/>
+      <path d="M65 228h190" stroke="#e7f0f2" stroke-width="8"/>
+      <path d="M141 129v99M177 129v99" stroke="#b8d1dd" stroke-width="4"/>
+      <text x="30" y="64" fill="#263e4d" font-size="38" font-weight="700">Jazz</text>
+      <text x="30" y="103" fill="#314f62" font-size="25">全尺寸、雪茄形</text>
+      <text x="30" y="300" fill="#314f62" font-size="24">常见 #6 JoWo steel</text>
+      <text x="30" y="337" fill="#314f62" font-size="24">手动滴入 + 尾部止墨阀</text>
+      <text x="30" y="382" fill="#314f62" font-size="21">容量资料未统一：保留来源区间</text>
+    </g>
+    <g transform="translate(1055 245)">
+      <rect width="205" height="385" rx="18" fill="#ead7ca" stroke="#704432" stroke-width="3"/>
+      <path d="M24 179h156l17 13-17 13H24l-17-13z" fill="#a05e49" stroke="#704432" stroke-width="4"/>
+      <text x="25" y="60" fill="#4c2d22" font-size="31" font-weight="700">Omar</text>
+      <text x="25" y="95" fill="#704432" font-size="22">另一个大号笔形</text>
+      <text x="25" y="287" fill="#704432" font-size="22">不拿容量代填 Jazz</text>
+    </g>
+    <g transform="translate(1295 245)">
+      <rect width="205" height="385" rx="18" fill="#ded7e8" stroke="#51416c" stroke-width="3"/>
+      <path d="M22 180h161l15 12-15 12H22l-15-12z" fill="#766298" stroke="#51416c" stroke-width="4"/>
+      <text x="25" y="60" fill="#362c4a" font-size="31" font-weight="700">Opera</text>
+      <text x="25" y="95" fill="#51416c" font-size="22">另一条笔尖资料线</text>
+      <text x="25" y="287" fill="#51416c" font-size="22">不混入 Jazz 配置</text>
+    </g>
+  </g>
+  <text x="96" y="800" fill="#24333a" font-family="sans-serif" font-size="25">示意图，非产品照片。并非真实比例、颜色、Logo、刻字、库存或具体 SKU。</text>
+  <text x="96" y="840" fill="#597078" font-family="sans-serif" font-size="22">Fountain Pen Graph editorial · factual navigation diagram</text>
+</svg>

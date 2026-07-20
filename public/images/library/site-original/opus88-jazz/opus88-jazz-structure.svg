@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Opus 88 Jazz 的结构和资料边界</title>
+  <desc id="desc">本站原创事实示意图，非产品照片。展示抽象雪茄形笔、尾阀和容量来源未统一的提醒。</desc>
+  <rect width="1600" height="900" fill="#f5f0e6"/>
+  <text x="94" y="92" fill="#263f4d" font-family="serif" font-size="50">Opus 88 Jazz：大墨仓不是一个可硬背的数字</text>
+  <text x="94" y="134" fill="#597078" font-family="sans-serif" font-size="24">2021 首发期／常见零售版本的结构参考；每支二手笔仍要看实物</text>
+  <g transform="translate(125 290)">
+    <path d="M50 160c25-87 86-127 211-127h465c126 0 187 40 212 127l-62 68H112z" fill="#6f99ae" stroke="#2f5365" stroke-width="8"/>
+    <path d="M111 228h764" stroke="#dceaf0" stroke-width="10"/>
+    <path d="M260 33v195M716 33v195" stroke="#b5d0dc" stroke-width="5"/>
+    <path d="M80 193h-54l-21 35 21 35h54" fill="#c8dce3" stroke="#2f5365" stroke-width="8"/>
+    <path d="M876 174h79l26 54-26 54h-79" fill="#526d77" stroke="#2f5365" stroke-width="8"/>
+    <circle cx="930" cy="228" r="19" fill="#d7b76d" stroke="#2f5365" stroke-width="6"/>
+    <text x="190" y="295" fill="#263f4d" font-family="sans-serif" font-size="27">抽象雪茄形笔身</text>
+    <text x="782" y="295" fill="#263f4d" font-family="sans-serif" font-size="27">尾部止墨阀</text>
+    <path d="M930 310v90h255" fill="none" stroke="#2f5365" stroke-width="4"/>
+    <text x="1200" y="390" fill="#263f4d" font-family="sans-serif" font-size="25">控制墨仓到笔舌的通道</text>
+    <text x="1200" y="426" fill="#597078" font-family="sans-serif" font-size="22">不是抽墨活塞</text>
+  </g>
+  <g transform="translate(120 600)" font-family="sans-serif">
+    <rect width="380" height="170" rx="18" fill="#dae5e3" stroke="#3c6770" stroke-width="3"/>
+    <text x="28" y="50" fill="#263f4d" font-size="29" font-weight="700">结构与笔尖</text>
+    <text x="28" y="91" fill="#3c6770" font-size="23">Japanese-style eyedropper</text>
+    <text x="28" y="128" fill="#3c6770" font-size="23">常见 #6 JoWo steel，按实物确认</text>
+    <rect x="440" width="400" height="170" rx="18" fill="#e8ddd0" stroke="#735845" stroke-width="3"/>
+    <text x="468" y="50" fill="#4f392d" font-size="29" font-weight="700">尺寸参考</text>
+    <text x="468" y="91" fill="#735845" font-size="23">合盖约 151.2 mm · 最大径约 15.2 mm</text>
+    <text x="468" y="128" fill="#735845" font-size="23">约 28 g；套帽约 174 mm</text>
+    <rect x="880" width="510" height="170" rx="18" fill="#e6d9d8" stroke="#774f50" stroke-width="3"/>
+    <text x="908" y="50" fill="#542f31" font-size="29" font-weight="700">容量资料未统一</text>
+    <text x="908" y="91" fill="#774f50" font-size="23">公开评测有“接近 2 ml”与“约 3 ml”</text>
+    <text x="908" y="128" fill="#774f50" font-size="23">结论：大容量墨仓，不伪造单一精确值</text>
+  </g>
+  <text x="94" y="845" fill="#263f4d" font-family="sans-serif" font-size="24">示意图，非产品照片。并非真实比例、颜色、Logo、刻字、材料质感、库存或具体版本。</text>
+</svg>
