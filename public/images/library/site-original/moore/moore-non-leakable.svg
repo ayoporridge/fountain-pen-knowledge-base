@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Moore’s Non-Leakable 结构事实卡</title>
+  <desc id="desc">收尖、滑套与旋帽密封的概念性原创示意图，不是产品照片、比例图或维修说明。</desc>
+  <rect width="1600" height="900" fill="#f4efe6"/>
+  <text x="112" y="134" fill="#332a24" font-family="Georgia, serif" font-size="58">MOORE’S NON-LEAKABLE</text>
+  <text x="116" y="182" fill="#77675c" font-family="Arial, sans-serif" font-size="26">收尖 safety pen 的概念结构，不代表任何单一年代或编号</text>
+  <rect x="148" y="318" width="972" height="174" rx="87" fill="#352c29"/>
+  <rect x="286" y="290" width="518" height="230" rx="48" fill="#6d5849"/>
+  <rect x="1004" y="340" width="252" height="130" rx="48" fill="#b28c5e"/>
+  <path d="M1260 405 L1414 365 L1414 445 Z" fill="#cdbb9a" stroke="#6f5f4c" stroke-width="5"/>
+  <line x1="550" y1="274" x2="550" y2="596" stroke="#a17a54" stroke-width="5" stroke-dasharray="13 13"/>
+  <line x1="1110" y1="270" x2="1110" y2="604" stroke="#a17a54" stroke-width="5" stroke-dasharray="13 13"/>
+  <path d="M486 264 L550 210 L614 264" fill="none" stroke="#8d725b" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="420" y="650" fill="#332a24" font-family="Arial, sans-serif" font-size="31">滑套带动笔尖伸出／退回</text>
+  <text x="1018" y="650" fill="#332a24" font-family="Arial, sans-serif" font-size="31">旋帽协助密封</text>
+  <rect x="120" y="724" width="1360" height="106" rx="22" fill="#fffdf8" stroke="#bca78f" stroke-width="3"/>
+  <text x="158" y="770" fill="#4b4038" font-family="Arial, sans-serif" font-size="28">维护边界：古董笔先检查密封、螺纹、笔尖与笔帽匹配；开合时握笔杆，不握滑套。</text>
+  <text x="158" y="810" fill="#77675c" font-family="Arial, sans-serif" font-size="23">本站原创 factual SVG · 非产品照片 · 非拆解图 · 非维修操作指引</text>
+</svg>

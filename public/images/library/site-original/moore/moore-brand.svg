@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Moore 品牌年代导航事实卡</title>
+  <desc id="desc">American Fountain Pen Company、Moore Pen Company 与 Non-Leakable 历史关系的原创示意图，不是产品照片。</desc>
+  <rect width="1600" height="900" fill="#f5f0e7"/>
+  <rect x="96" y="92" width="1408" height="716" rx="34" fill="#fffdf8" stroke="#4b4038" stroke-width="4"/>
+  <text x="160" y="188" fill="#332a24" font-family="Georgia, serif" font-size="62">MOORE · 历史品牌导航</text>
+  <text x="164" y="240" fill="#77675c" font-family="Arial, sans-serif" font-size="27">American Fountain Pen Company → Moore Pen Company</text>
+  <line x1="226" y1="448" x2="1374" y2="448" stroke="#8d725b" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="360" cy="448" r="25" fill="#5e3d2f"/>
+  <circle cx="810" cy="448" r="25" fill="#5e3d2f"/>
+  <circle cx="1240" cy="448" r="25" fill="#5e3d2f"/>
+  <text x="294" y="382" fill="#332a24" font-family="Arial, sans-serif" font-size="31">约 1898–1899</text>
+  <text x="666" y="382" fill="#332a24" font-family="Arial, sans-serif" font-size="31">1917</text>
+  <text x="1120" y="382" fill="#332a24" font-family="Arial, sans-serif" font-size="31">1920 年代末</text>
+  <text x="226" y="528" fill="#332a24" font-family="Arial, sans-serif" font-size="30">Non-Leakable 安全笔</text>
+  <text x="226" y="572" fill="#77675c" font-family="Arial, sans-serif" font-size="24">Boston 商品化窗口</text>
+  <text x="670" y="528" fill="#332a24" font-family="Arial, sans-serif" font-size="30">公司改称 Moore Pen</text>
+  <text x="670" y="572" fill="#77675c" font-family="Arial, sans-serif" font-size="24">安全笔与后续产品并存</text>
+  <text x="1105" y="528" fill="#332a24" font-family="Arial, sans-serif" font-size="30">安全笔生产终期</text>
+  <text x="1105" y="572" fill="#77675c" font-family="Arial, sans-serif" font-size="24">不是逐支停产日期</text>
+  <rect x="164" y="664" width="1272" height="82" rx="18" fill="#eee2d2"/>
+  <text x="204" y="716" fill="#4b4038" font-family="Arial, sans-serif" font-size="27">事实卡：公司名、年代与结构需分开判断；不以它替代具体型号、实物或维修鉴定。</text>
+</svg>
