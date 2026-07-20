@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Montegrappa Elmo 02 身份与规格边界示意图</title>
+  <desc id="desc">本站原创事实图，说明 Elmo 02 的官方当前尺寸、重量和墨囊转换器结构；不是产品照片。</desc>
+  <rect width="1200" height="630" fill="#1d2c27"/>
+  <text x="72" y="92" fill="#f4ead4" font-family="Georgia, serif" font-size="50">Montegrappa Elmo 02</text>
+  <text x="72" y="135" fill="#c6d3bd" font-family="Arial, sans-serif" font-size="22">更粗的 C/C 平台；不是 Elmo 01 的颜色，也不是 Elmo 02 Plus 的活塞</text>
+  <rect x="88" y="252" width="620" height="66" rx="33" fill="#d9b26b"/>
+  <polygon points="708,252 838,285 708,318" fill="#dedbd1"/>
+  <rect x="215" y="262" width="60" height="46" rx="12" fill="#563d28"/>
+  <line x1="335" y1="262" x2="335" y2="308" stroke="#563d28" stroke-width="10"/>
+  <text x="398" y="374" text-anchor="middle" fill="#c6d3bd" font-family="Arial, sans-serif" font-size="20">轮廓仅提示分类，不代表真实比例或商品外观</text>
+  <g fill="#f4ead4" font-family="Arial, sans-serif" font-size="26">
+    <text x="800" y="255">官方当前商品页（指定 SKU）</text>
+    <text x="800" y="312">树脂・不锈钢与黄铜细节・钢尖</text>
+    <text x="800" y="369">墨囊／转换器・随附 2 支墨囊与转换器</text>
+    <text x="800" y="426">142 mm・17 mm・30 g</text>
+    <text x="800" y="483">EF / F / M / B / ST1 / ST5</text>
+  </g>
+  <rect x="72" y="538" width="1056" height="54" rx="12" fill="#365047"/>
+  <text x="600" y="572" text-anchor="middle" fill="#c6d3bd" font-family="Arial, sans-serif" font-size="19">示意图，非产品照片；不可用 Elmo 01 或 Elmo 02 Plus 的图片、重量、笔尖或供墨替代。</text>
+</svg>
