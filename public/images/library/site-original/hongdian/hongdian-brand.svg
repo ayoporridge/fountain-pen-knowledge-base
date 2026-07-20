@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-labelledby="title desc">
+  <title id="title">HongDian 型号边界事实图</title>
+  <desc id="desc">示意图，非产品照片。说明 N7 Grey Rabbit、N7 Peacock、N12 与 N23 不应混作同一型号。</desc>
+  <rect width="1280" height="720" fill="#f4efe6"/>
+  <text x="80" y="100" font-family="serif" font-size="52" fill="#28241e">HongDian：先辨型号，再读规格</text>
+  <text x="80" y="145" font-family="sans-serif" font-size="24" fill="#655d52">示意图，非产品照片</text>
+  <g font-family="sans-serif" font-size="30" fill="#28241e">
+    <rect x="90" y="225" width="250" height="170" rx="20" fill="#d6d2cc"/><text x="120" y="285">N7 Grey Rabbit</text><text x="120" y="335" font-size="22">活塞 · 灰色 · 兔子帽顶</text>
+    <rect x="400" y="225" width="250" height="170" rx="20" fill="#b9c9d8"/><text x="430" y="285">N7 Peacock</text><text x="430" y="335" font-size="22">同属 N7，主题不同</text>
+    <rect x="710" y="225" width="200" height="170" rx="20" fill="#d9c4a1"/><text x="745" y="285">N12</text><text x="745" y="335" font-size="22">另一编号型号</text>
+    <rect x="970" y="225" width="200" height="170" rx="20" fill="#d6b5a8"/><text x="1005" y="285">N23</text><text x="1005" y="335" font-size="22">墨囊／转换器</text>
+  </g>
+  <text x="90" y="525" font-family="sans-serif" font-size="31" fill="#4d453a">同品牌、同主题或外观相似，都不足以共享图片、规格或重定向。</text>
+</svg>
