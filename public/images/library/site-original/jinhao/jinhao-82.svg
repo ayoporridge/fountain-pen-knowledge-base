@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Jinhao 82 结构事实图</title>
+  <desc id="desc">本站原创示意图，非产品照片。说明 Jinhao 82 的小尺寸旋帽、树脂或 acrylic 笔身、钢尖和转换器路线。</desc>
+  <rect width="1200" height="675" fill="#161d2c"/>
+  <text x="84" y="110" fill="#e8ddb9" font-family="Georgia, serif" font-size="49">Jinhao 82：小尺寸旋帽，不以相似外形定义</text>
+  <line x1="250" y1="304" x2="846" y2="304" stroke="#d4b472" stroke-width="31" stroke-linecap="round"/>
+  <rect x="390" y="276" width="255" height="56" rx="28" fill="#b7dddc" fill-opacity="0.38" stroke="#d9f0ed" stroke-width="3"/>
+  <path d="M837 270h91l35 34-35 34h-91z" fill="#aebac0" stroke="#d4b472" stroke-width="4"/>
+  <text x="116" y="426" fill="#efe8d3" font-family="Arial, sans-serif" font-size="32">树脂／acrylic 笔身／钢尖／墨囊或转换器</text>
+  <text x="116" y="480" fill="#b9cccf" font-family="Arial, sans-serif" font-size="27">颜色、饰件、尖号与随附配件都按具体 SKU 核对</text>
+  <text x="116" y="555" fill="#c7d2d5" font-family="Arial, sans-serif" font-size="22">本站原创事实图｜示意图，非产品照片｜不表示真实尺寸、颜色、Logo、笔尖或库存</text>
+</svg>
