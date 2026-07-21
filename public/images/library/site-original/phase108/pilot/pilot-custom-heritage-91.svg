@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pilot Custom Heritage 91 cartridge 与 converter 结构示意</title>
+  <desc id="desc">本站原创事实示意图，以分解布局表示 No.5 笔尖、握位和可拆换 Pilot cartridge、CON-40、CON-70N 路线。非产品照片，不按比例。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#102238"/>
+      <stop offset="1" stop-color="#27445d"/>
+    </linearGradient>
+    <linearGradient id="silver" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#a8b7c5"/>
+      <stop offset="0.5" stop-color="#f3f7fa"/>
+      <stop offset="1" stop-color="#8396a8"/>
+    </linearGradient>
+    <filter id="shadow"><feDropShadow dx="0" dy="16" stdDeviation="18" flood-opacity="0.28"/></filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="1390" cy="130" r="210" fill="#5aa7c7" opacity="0.12"/>
+  <text x="100" y="105" fill="#eaf4fa" font-size="44" font-family="system-ui,sans-serif" font-weight="700">CUSTOM HERITAGE 91 · 供墨边界</text>
+  <text x="100" y="153" fill="#b8cfdd" font-size="25" font-family="system-ui,sans-serif">FKVHN-12SR · 14K No.5 · cartridge / CON-40 / CON-70N</text>
+
+  <g transform="translate(120 245)" filter="url(#shadow)">
+    <path d="M0 116 L112 38 L205 116 L112 270 Z" fill="url(#silver)" stroke="#eaf4fa" stroke-width="5"/>
+    <path d="M112 38 L112 245" stroke="#637b90" stroke-width="4"/>
+    <circle cx="112" cy="122" r="12" fill="#102238"/>
+    <text x="18" y="315" fill="#eaf4fa" font-size="27" font-family="system-ui,sans-serif" font-weight="650">14K No.5</text>
+    <text x="2" y="350" fill="#b8cfdd" font-size="21" font-family="system-ui,sans-serif">铑色笔尖示意</text>
+  </g>
+
+  <g transform="translate(430 270)">
+    <rect x="0" y="75" width="360" height="118" rx="58" fill="#17202b" stroke="#d8e4ec" stroke-width="5"/>
+    <rect x="42" y="97" width="248" height="74" rx="34" fill="#23384a" stroke="#6f8799" stroke-width="3"/>
+    <path d="M360 96 L515 122 L515 146 L360 172 Z" fill="#111820" stroke="#d8e4ec" stroke-width="5"/>
+    <text x="84" y="245" fill="#eaf4fa" font-size="28" font-family="system-ui,sans-serif" font-weight="650">握位与可拔插接口</text>
+    <path d="M512 134 H610" stroke="#74d4e8" stroke-width="6" stroke-dasharray="12 12"/>
+    <path d="M590 114 L620 134 L590 154" fill="none" stroke="#74d4e8" stroke-width="6"/>
+  </g>
+
+  <g transform="translate(1050 230)" font-family="system-ui,sans-serif">
+    <rect x="0" y="0" width="390" height="390" rx="32" fill="#f4f7f9"/>
+    <text x="32" y="52" fill="#183044" font-size="26" font-weight="700">三种可拆换路线</text>
+    <g transform="translate(40 90)">
+      <rect x="0" y="0" width="285" height="54" rx="25" fill="#446f89"/>
+      <rect x="285" y="13" width="48" height="28" rx="8" fill="#bed0db"/>
+      <text x="18" y="36" fill="#fff" font-size="21">Pilot cartridge</text>
+      <rect x="0" y="92" width="235" height="54" rx="25" fill="#78a8be"/>
+      <rect x="235" y="105" width="48" height="28" rx="8" fill="#bed0db"/>
+      <text x="18" y="128" fill="#102238" font-size="21">CON-40</text>
+      <rect x="0" y="184" width="320" height="54" rx="25" fill="#a7c8d7"/>
+      <rect x="320" y="197" width="28" height="28" rx="7" fill="#dce7ed"/>
+      <text x="18" y="220" fill="#102238" font-size="21">CON-70N</text>
+    </g>
+    <text x="32" y="360" fill="#4b5e6d" font-size="20">可替换部件 ≠ 内置 piston</text>
+  </g>
+
+  <g transform="translate(100 700)" font-family="system-ui,sans-serif">
+    <rect width="1400" height="118" rx="26" fill="#0b1724" opacity="0.92"/>
+    <text x="38" y="48" fill="#ffffff" font-size="28" font-weight="700">本站原创示意图，非产品照片</text>
+    <text x="38" y="86" fill="#b8cfdd" font-size="21">结构关系用于区分供墨系统；非比例、非颜色／表面复刻，不含 Pilot Logo，也不代表任何具体 SKU 外观。</text>
+  </g>
+</svg>

@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pilot Custom Heritage 92 内置 piston 与墨仓结构示意</title>
+  <desc id="desc">本站原创事实示意图，以剖面式长轴布局表示 No.5 笔尖、透明固定墨仓、活塞和尾端旋钮。非产品照片，不按比例。</desc>
+  <defs>
+    <linearGradient id="night" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#241a3c"/>
+      <stop offset="1" stop-color="#49366b"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#3fc4b3" stop-opacity="0.78"/>
+      <stop offset="1" stop-color="#19756f" stop-opacity="0.9"/>
+    </linearGradient>
+    <pattern id="grid" width="36" height="36" patternUnits="userSpaceOnUse">
+      <path d="M36 0H0V36" fill="none" stroke="#fff" stroke-opacity="0.05"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="url(#night)"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+  <text x="92" y="103" fill="#f5f0ff" font-size="44" font-family="system-ui,sans-serif" font-weight="700">CUSTOM HERITAGE 92 · 内置吸墨路径</text>
+  <text x="92" y="152" fill="#d4c6e8" font-size="25" font-family="system-ui,sans-serif">FKVH-15SRS · 14K No.5 · fixed reservoir + piston</text>
+
+  <g transform="translate(95 290)">
+    <path d="M0 122 L104 35 L198 122 L104 270 Z" fill="#e7e0ef" stroke="#fff" stroke-width="5"/>
+    <path d="M104 35V246" stroke="#796b8d" stroke-width="4"/>
+    <circle cx="104" cy="124" r="12" fill="#33244f"/>
+    <path d="M198 104 L300 104 L340 86 L340 158 L300 140 L198 140 Z" fill="#151122" stroke="#eee6f7" stroke-width="5"/>
+    <text x="5" y="322" fill="#f5f0ff" font-size="25" font-family="system-ui,sans-serif" font-weight="650">14K No.5 + feed</text>
+  </g>
+
+  <g transform="translate(420 268)" font-family="system-ui,sans-serif">
+    <rect x="0" y="58" width="760" height="168" rx="82" fill="#e8f7f5" fill-opacity="0.24" stroke="#f5f0ff" stroke-width="6"/>
+    <rect x="30" y="80" width="540" height="124" rx="58" fill="url(#ink)"/>
+    <path d="M570 74 V210" stroke="#f8cf6a" stroke-width="16"/>
+    <path d="M592 74 V210" stroke="#7b658e" stroke-width="5"/>
+    <line x1="592" y1="142" x2="690" y2="142" stroke="#f8cf6a" stroke-width="7"/>
+    <circle cx="705" cy="142" r="24" fill="#f8cf6a"/>
+    <rect x="736" y="40" width="150" height="204" rx="48" fill="#20172f" stroke="#f5f0ff" stroke-width="6"/>
+    <path d="M780 80 C845 105 845 180 780 204" fill="none" stroke="#b599d1" stroke-width="8"/>
+    <path d="M814 77 L846 99 L815 118" fill="none" stroke="#f8cf6a" stroke-width="6"/>
+    <text x="130" y="275" fill="#f5f0ff" font-size="28" font-weight="700">透明固定墨仓</text>
+    <text x="540" y="275" fill="#f8cf6a" font-size="28" font-weight="700">piston</text>
+    <text x="742" y="275" fill="#f5f0ff" font-size="28" font-weight="700">尾端旋钮</text>
+  </g>
+
+  <g transform="translate(1220 280)" font-family="system-ui,sans-serif">
+    <rect width="285" height="300" rx="34" fill="#f6f2fa"/>
+    <text x="26" y="53" fill="#35244e" font-size="25" font-weight="700">吸墨动作</text>
+    <circle cx="55" cy="105" r="22" fill="#4cbbae"/>
+    <text x="92" y="113" fill="#35244e" font-size="21">活塞下移</text>
+    <path d="M55 137V180" stroke="#74538f" stroke-width="5"/>
+    <path d="M42 166L55 184L68 166" fill="none" stroke="#74538f" stroke-width="5"/>
+    <circle cx="55" cy="218" r="22" fill="#f0be55"/>
+    <text x="92" y="226" fill="#35244e" font-size="21">浸尖后回转</text>
+    <text x="26" y="272" fill="#6c5a7d" font-size="18">不能装 cartridge / converter</text>
+  </g>
+
+  <g transform="translate(92 704)" font-family="system-ui,sans-serif">
+    <rect width="1416" height="116" rx="26" fill="#171020" opacity="0.94"/>
+    <text x="38" y="47" fill="#ffffff" font-size="28" font-weight="700">本站原创示意图，非产品照片</text>
+    <text x="38" y="85" fill="#d4c6e8" font-size="21">剖面只说明尾栓、内置 piston 与固定墨仓；非比例、非颜色／表面复刻，不含 Pilot Logo，不代表透明度或具体 SKU。</text>
+  </g>
+</svg>
