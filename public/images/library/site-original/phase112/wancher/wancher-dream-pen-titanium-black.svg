@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Wancher Dream Pen Titanium Black 双时态事实边界</title>
+  <desc id="desc">本站原创事实示意图，区分 2026 当前 titanium black PVD JoWo steel listing 与 2024 affiliate disclosed reviewed sample，并标示笔尖配置冲突。</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#111827"/>
+      <stop offset="1" stop-color="#291d32"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#202631"/>
+      <stop offset="0.45" stop-color="#606979"/>
+      <stop offset="0.55" stop-color="#171b22"/>
+      <stop offset="1" stop-color="#313846"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#000" flood-opacity=".35"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#background)"/>
+  <circle cx="1410" cy="120" r="260" fill="#7c3aed" opacity=".08"/>
+  <circle cx="170" cy="780" r="320" fill="#38bdf8" opacity=".06"/>
+  <text x="100" y="98" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="44" font-weight="700">Wancher Dream Pen Titanium Black</text>
+  <text x="100" y="142" fill="#aab4c4" font-family="system-ui, sans-serif" font-size="22">current listing 与 2024 reviewed sample：证据并列，规格不混合</text>
+
+  <g filter="url(#shadow)">
+    <rect x="90" y="205" width="610" height="465" rx="34" fill="#151c28" stroke="#38bdf8" stroke-width="3"/>
+    <rect x="900" y="205" width="610" height="465" rx="34" fill="#201824" stroke="#f59e0b" stroke-width="3"/>
+  </g>
+
+  <text x="140" y="270" fill="#7dd3fc" font-family="system-ui, sans-serif" font-size="24" font-weight="700">CURRENT OFFICIAL · 2026-07-21</text>
+  <text x="950" y="270" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="24" font-weight="700">REVIEWED SAMPLE · 2024</text>
+
+  <g transform="translate(145 310)">
+    <rect x="0" y="64" width="425" height="72" rx="36" fill="url(#metal)" stroke="#94a3b8" stroke-width="2"/>
+    <rect x="410" y="72" width="92" height="56" rx="25" fill="#0c1017" stroke="#64748b" stroke-width="2"/>
+    <path d="M502 78 L572 100 L502 122 Z" fill="#aeb7c4" stroke="#dce3eb" stroke-width="2"/>
+    <path d="M523 85 L548 100 L523 115" fill="none" stroke="#111827" stroke-width="4"/>
+    <text x="0" y="190" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="25">Titanium body · black PVD</text>
+    <text x="0" y="235" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="25">#6 JoWo matte-black steel nib</text>
+    <text x="0" y="280" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="25">European International C/C</text>
+    <text x="0" y="325" fill="#e2e8f0" font-family="system-ui, sans-serif" font-size="25">feed options · sold out snapshot</text>
+  </g>
+
+  <g transform="translate(950 310)">
+    <path d="M0 70 H440" stroke="#f59e0b" stroke-width="20" stroke-linecap="round" opacity=".6"/>
+    <circle cx="440" cy="70" r="27" fill="#f59e0b" opacity=".8"/>
+    <path d="M190 20 V120 M190 20 l-14 20 M190 20 l14 20 M190 120 l-14 -20 M190 120 l14 -20" stroke="#fde68a" stroke-width="4"/>
+    <text x="0" y="175" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="25">154 mm · 66.4 g</text>
+    <text x="0" y="220" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="25">non-posting · author found it heavy</text>
+    <text x="0" y="265" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="25">personal writing experience</text>
+    <text x="0" y="310" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="25">apparent original titanium nib</text>
+    <text x="0" y="355" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="21">affiliate relationship disclosed</text>
+  </g>
+
+  <g>
+    <path d="M705 438 H895" stroke="#ef4444" stroke-width="5" stroke-dasharray="13 12"/>
+    <circle cx="800" cy="438" r="48" fill="#351b23" stroke="#ef4444" stroke-width="3"/>
+    <text x="800" y="449" text-anchor="middle" fill="#fecaca" font-family="system-ui, sans-serif" font-size="30" font-weight="700">≠</text>
+    <text x="800" y="520" text-anchor="middle" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="18">unresolved nib</text>
+    <text x="800" y="547" text-anchor="middle" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="18">temporal conflict</text>
+  </g>
+
+  <rect x="100" y="718" width="1400" height="108" rx="24" fill="#0b1018" stroke="#475569"/>
+  <text x="800" y="762" text-anchor="middle" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="24" font-weight="650">本站原创事实示意图 · 非产品照片</text>
+  <text x="800" y="800" text-anchor="middle" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="19">非比例、非颜色／PVD 表面复刻；不含 Wancher logo；不能替代官网图、实物称量与笔尖核对</text>
+</svg>
