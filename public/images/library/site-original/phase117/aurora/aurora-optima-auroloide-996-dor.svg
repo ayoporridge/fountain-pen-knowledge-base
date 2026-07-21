@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Aurora Optima Auroloide 996-DOR evidence boundary</title>
+  <desc id="desc">Editorial factual diagram separating exact current 996-DOR facts from the dated 2016 blue Auroloide sample and Optima 366 limited evidence. Non-photo, non-logo, not to scale, not colour proof, not finish proof.</desc>
+  <rect width="1600" height="900" fill="#edf2ee"/>
+  <text x="90" y="105" font-family="serif" font-size="52" fill="#173737">996-DOR：exact current 先于样本经验</text>
+  <rect x="90" y="180" width="900" height="500" rx="28" fill="#fff" stroke="#28726d" stroke-width="5"/>
+  <text x="150" y="255" font-family="sans-serif" font-size="31" fill="#1e5d59">Aurora official exact listing · 2026-07-21</text>
+  <g font-family="sans-serif" font-size="30" fill="#263a3a">
+    <text x="155" y="340">SKU 996-DOR</text><text x="155" y="400">Auroloide</text>
+    <text x="155" y="460">14K white gold · EF / F / M / B</text>
+    <text x="155" y="520">hidden-reserve piston</text><text x="155" y="580">screw cap</text>
+  </g>
+  <rect x="1050" y="180" width="460" height="220" rx="28" fill="#d9e5ef" stroke="#58788f"/>
+  <text x="1100" y="245" font-family="sans-serif" font-size="27">2016 blue sample</text>
+  <text x="1100" y="305" font-family="sans-serif" font-size="22">手感 / 尺寸 / 重量 / 颜色</text>
+  <text x="1100" y="350" font-family="sans-serif" font-size="22">不泛化到全部 Auroloide</text>
+  <rect x="1050" y="460" width="460" height="220" rx="28" fill="#eadde4" stroke="#8b4f65"/>
+  <text x="1100" y="525" font-family="sans-serif" font-size="27">Optima 366 limited</text>
+  <text x="1100" y="585" font-family="sans-serif" font-size="22">996-LW · numbered · 18K</text>
+  <text x="1100" y="630" font-family="sans-serif" font-size="22">不回填 regular 996-DOR</text>
+  <text x="800" y="805" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#596568">本站原创信息图 · 非产品照片 / 非 Logo / 非比例 / 非色准 / 非饰面证明</text>
+</svg>

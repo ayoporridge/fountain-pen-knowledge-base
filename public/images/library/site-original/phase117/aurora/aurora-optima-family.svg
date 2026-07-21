@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Aurora Optima chronology and sibling navigation</title>
+  <desc id="desc">Editorial factual diagram separating pre-war Optima, circa 1992 modern line, current 996-DOR and 997-CN siblings, and the numbered Optima 366 limited edition. Non-photo, non-logo, not to scale, not colour proof, not finish proof.</desc>
+  <rect width="1600" height="900" fill="#f4efe4"/>
+  <text x="100" y="110" font-family="serif" font-size="54" fill="#172a2d">Aurora Optima：同名，不同证据层</text>
+  <line x1="170" y1="430" x2="1430" y2="430" stroke="#34545a" stroke-width="8"/>
+  <g font-family="sans-serif" text-anchor="middle">
+    <circle cx="240" cy="430" r="28" fill="#aa6f47"/><text x="240" y="350" font-size="28">1938–45</text><text x="240" y="505" font-size="24">战前收藏对象</text>
+    <circle cx="620" cy="430" r="28" fill="#557d80"/><text x="620" y="350" font-size="28">约 1992</text><text x="620" y="505" font-size="24">modern line</text>
+    <circle cx="1010" cy="430" r="28" fill="#24736c"/><text x="1010" y="330" font-size="28">current exact siblings</text><text x="1010" y="500" font-size="24">996-DOR · 997-CN</text>
+    <circle cx="1370" cy="430" r="28" fill="#8b4f65"/><text x="1370" y="350" font-size="28">366 limited</text><text x="1370" y="505" font-size="24">996-LW · 18K · 编号</text>
+  </g>
+  <rect x="110" y="650" width="1380" height="130" rx="24" fill="#fff" stroke="#9a8d79"/>
+  <text x="800" y="710" text-anchor="middle" font-family="sans-serif" font-size="25" fill="#26383b">系列页只导航：战前规格不回填 modern；limited 18K 不回填 regular SKU</text>
+  <text x="800" y="755" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#596568">本站原创信息图 · 非产品照片 / 非 Logo / 非比例 / 非色准 / 非饰面证明</text>
+</svg>

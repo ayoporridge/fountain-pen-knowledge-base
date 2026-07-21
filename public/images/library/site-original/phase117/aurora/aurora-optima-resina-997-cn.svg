@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Aurora Optima Resina 997-CN exact facts and exclusions</title>
+  <desc id="desc">Editorial factual diagram listing exact current 997-CN facts and fields excluded because they come only from sibling, dated sample, or limited-edition evidence. Non-photo, non-logo, not to scale, not colour proof, not finish proof.</desc>
+  <rect width="1600" height="900" fill="#f1f0ed"/>
+  <text x="90" y="105" font-family="serif" font-size="52" fill="#252d32">997-CN：已证明与未证明分栏</text>
+  <rect x="90" y="180" width="680" height="540" rx="28" fill="#fff" stroke="#3e7368" stroke-width="5"/>
+  <text x="150" y="255" font-family="sans-serif" font-size="32" fill="#2d6259">exact current 支持</text>
+  <g font-family="sans-serif" font-size="31" fill="#283638">
+    <text x="150" y="350">SKU 997-CN</text><text x="150" y="415">black resin</text>
+    <text x="150" y="480">chrome trim</text><text x="150" y="545">piston</text>
+    <text x="150" y="610">EF / F / M / B</text>
+  </g>
+  <rect x="830" y="180" width="680" height="540" rx="28" fill="#fff8f4" stroke="#a46a55" stroke-width="5"/>
+  <text x="890" y="255" font-family="sans-serif" font-size="32" fill="#8c513e">无 exact locator，不写入</text>
+  <g font-family="sans-serif" font-size="28" fill="#4a3b36">
+    <text x="890" y="345">14K / hidden reserve / screw cap</text>
+    <text x="890" y="410">127 mm / 21.55 g</text>
+    <text x="890" y="475">cleaning / hand feel</text>
+    <text x="890" y="540">2016 blue Auroloide sample</text>
+    <text x="890" y="605">366 limited 的 18K</text>
+  </g>
+  <text x="800" y="805" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#596568">本站原创信息图 · 非产品照片 / 非 Logo / 非比例 / 非色准 / 非饰面证明</text>
+</svg>
