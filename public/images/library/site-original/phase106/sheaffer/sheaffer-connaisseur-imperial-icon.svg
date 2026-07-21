@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sheaffer Connaisseur、Imperial 与 Icon 事实边界图</title>
+  <desc id="desc">本站原创示意图，分三栏概括 Connaisseur、Imperial 与 Icon 9108 的来源范围。非产品照片，不按比例，不是颜色或 SKU 复刻。</desc>
+  <rect width="1600" height="900" fill="#f5f0e7"/>
+  <rect x="52" y="52" width="1496" height="796" rx="34" fill="#fffdf8" stroke="#262421" stroke-width="4"/>
+  <text x="100" y="125" fill="#262421" font-family="Georgia, serif" font-size="46" font-weight="700">Three Sheaffer identities, three evidence scopes</text>
+  <text x="100" y="170" fill="#625d55" font-family="Arial, sans-serif" font-size="24">本站原创事实示意图 · 非产品照片 · 非比例 / 颜色 / Logo / SKU 实物复刻</text>
+
+  <g transform="translate(100 225)">
+    <rect width="430" height="520" rx="28" fill="#edf3ef" stroke="#28483a" stroke-width="3"/>
+    <text x="32" y="66" fill="#28483a" font-family="Georgia, serif" font-size="38" font-weight="700">Connaisseur</text>
+    <text x="32" y="105" fill="#496b5d" font-family="Arial, sans-serif" font-size="22">1986 起 · historical family</text>
+    <path d="M90 175 H345 M125 160 V190 M310 160 V190" stroke="#28483a" stroke-width="16" stroke-linecap="round"/>
+    <path d="M215 146 L242 175 L215 204 L188 175 Z" fill="#d8b45b" stroke="#28483a" stroke-width="4"/>
+    <text x="32" y="260" fill="#262421" font-family="Arial, sans-serif" font-size="25" font-weight="700">开放式尖</text>
+    <text x="32" y="298" fill="#403d38" font-family="Arial, sans-serif" font-size="21">standard / Grande 分开</text>
+    <text x="32" y="335" fill="#403d38" font-family="Arial, sans-serif" font-size="21">18K 陈述只绑定有 locator 的版本</text>
+    <text x="32" y="372" fill="#403d38" font-family="Arial, sans-serif" font-size="21">cartridge / converter 语境</text>
+    <line x1="32" y1="410" x2="398" y2="410" stroke="#9fb3a8" stroke-width="2"/>
+    <text x="32" y="450" fill="#28483a" font-family="Arial, sans-serif" font-size="20">不是 Targa / Imperial / Legacy</text>
+    <text x="32" y="482" fill="#28483a" font-family="Arial, sans-serif" font-size="20">旧 raw route 仅规范为同一 ID</text>
+  </g>
+
+  <g transform="translate(585 225)">
+    <rect width="430" height="520" rx="28" fill="#f5eee4" stroke="#6a4525" stroke-width="3"/>
+    <text x="32" y="66" fill="#6a4525" font-family="Georgia, serif" font-size="38" font-weight="700">Imperial</text>
+    <text x="32" y="105" fill="#8a633e" font-family="Arial, sans-serif" font-size="22">1961 起 · historical family</text>
+    <rect x="75" y="148" width="70" height="68" rx="8" fill="#c9a474" stroke="#6a4525" stroke-width="4"/>
+    <rect x="180" y="148" width="70" height="68" rx="8" fill="#bfc5c7" stroke="#6a4525" stroke-width="4"/>
+    <rect x="285" y="148" width="70" height="68" rx="8" fill="#d8b45b" stroke="#6a4525" stroke-width="4"/>
+    <text x="96" y="194" fill="#262421" font-family="Arial, sans-serif" font-size="24" font-weight="700">IV</text>
+    <text x="199" y="194" fill="#262421" font-family="Arial, sans-serif" font-size="24" font-weight="700">VI</text>
+    <text x="299" y="194" fill="#262421" font-family="Arial, sans-serif" font-size="24" font-weight="700">VIII</text>
+    <text x="32" y="268" fill="#262421" font-family="Arial, sans-serif" font-size="25" font-weight="700">子型各自绑定资料行</text>
+    <text x="32" y="306" fill="#403d38" font-family="Arial, sans-serif" font-size="21">塑料 / stainless / gold-filled 帽</text>
+    <text x="32" y="343" fill="#403d38" font-family="Arial, sans-serif" font-size="21">Touchdown 与 cartridge 并存</text>
+    <text x="32" y="380" fill="#403d38" font-family="Arial, sans-serif" font-size="21">笔尖不能全族统一为 14K inlaid</text>
+    <line x1="32" y1="410" x2="398" y2="410" stroke="#cbb69f" stroke-width="2"/>
+    <text x="32" y="450" fill="#6a4525" font-family="Arial, sans-serif" font-size="20">不吸收 PFM / Dolphin / Targa / Legacy</text>
+    <text x="32" y="482" fill="#6a4525" font-family="Arial, sans-serif" font-size="20">“帝国元首”继续 hard-404</text>
+  </g>
+
+  <g transform="translate(1070 225)">
+    <rect width="430" height="520" rx="28" fill="#eceff5" stroke="#283b61" stroke-width="3"/>
+    <text x="32" y="66" fill="#283b61" font-family="Georgia, serif" font-size="38" font-weight="700">Icon</text>
+    <text x="32" y="105" fill="#4e6082" font-family="Arial, sans-serif" font-size="22">9108 · current market SKU</text>
+    <path d="M80 178 C150 120 280 120 350 178 C280 236 150 236 80 178 Z" fill="#34373d" stroke="#283b61" stroke-width="4"/>
+    <path d="M125 158 C185 126 245 126 305 158" fill="none" stroke="#d8b45b" stroke-width="9" stroke-linecap="round"/>
+    <text x="32" y="268" fill="#262421" font-family="Arial, sans-serif" font-size="25" font-weight="700">官方 9108 页面范围</text>
+    <text x="32" y="306" fill="#403d38" font-family="Arial, sans-serif" font-size="21">Matte Black · Medium</text>
+    <text x="32" y="343" fill="#403d38" font-family="Arial, sans-serif" font-size="21">polished stainless-steel nib</text>
+    <text x="32" y="380" fill="#403d38" font-family="Arial, sans-serif" font-size="21">converter + two Classic cartridges</text>
+    <line x1="32" y1="410" x2="398" y2="410" stroke="#aab3c5" stroke-width="2"/>
+    <text x="32" y="450" fill="#283b61" font-family="Arial, sans-serif" font-size="20">Art Deco / wraparound clip 是设计描述</text>
+    <text x="32" y="482" fill="#283b61" font-family="Arial, sans-serif" font-size="20">不推导 flex 等级或其他 SKU</text>
+  </g>
+
+  <text x="100" y="805" fill="#625d55" font-family="Arial, sans-serif" font-size="20">用途：帮助读者先选正确页面与证据范围；实物识别仍需完整照片、刻印、供墨结构和对应来源。</text>
+</svg>
