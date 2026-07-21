@@ -72,6 +72,7 @@ export const RECLASSIFIED_ARTICLE_PATHS: Record<string, string> =
       `pen/${slug}`,
       `/article/${slug}`,
     ]),
+    ["pen/aurora-88", "/article/aurora-88"],
     [
       "pen/万宝龙-montblanc-大文豪系列-writers-edition",
       "/article/montblanc-writers-edition",

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Aurora 88 家族时间线与当代型号导航</title>
+  <desc id="desc">原创事实图，从 1947 Marcello Nizzoli 历史锚点连接到当代 Ottantotto 分类，再导航至 exact Resina 800；不是产品照片或规格比例图。</desc>
+  <rect width="1600" height="900" fill="#f4efe5"/>
+  <rect x="84" y="76" width="1432" height="748" rx="36" fill="#fffaf0" stroke="#332c26" stroke-width="4"/>
+  <text x="130" y="154" font-family="system-ui,sans-serif" font-size="48" font-weight="700" fill="#24201d">Aurora 88：家族，不是一张跨代规格表</text>
+  <text x="130" y="205" font-family="system-ui,sans-serif" font-size="25" fill="#655b51">历史锚点 → 当代分类 → exact product；每层只承载自己的证据</text>
+  <line x1="250" y1="470" x2="1350" y2="470" stroke="#97744a" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="300" cy="470" r="52" fill="#7b2431"/>
+  <circle cx="800" cy="470" r="52" fill="#b1782d"/>
+  <circle cx="1300" cy="470" r="52" fill="#285a63"/>
+  <text x="230" y="360" font-family="system-ui,sans-serif" font-size="42" font-weight="700" fill="#7b2431">1947</text>
+  <text x="168" y="610" font-family="system-ui,sans-serif" font-size="29" font-weight="650" fill="#24201d">Marcello Nizzoli</text>
+  <text x="166" y="650" font-family="system-ui,sans-serif" font-size="23" fill="#655b51">官方历史：88 诞生并延续</text>
+  <text x="672" y="360" font-family="system-ui,sans-serif" font-size="42" font-weight="700" fill="#9b621d">Ottantotto</text>
+  <text x="681" y="610" font-family="system-ui,sans-serif" font-size="29" font-weight="650" fill="#24201d">当前系列分类</text>
+  <text x="618" y="650" font-family="system-ui,sans-serif" font-size="23" fill="#655b51">Resina、Millerighe 等导航</text>
+  <text x="1234" y="360" font-family="system-ui,sans-serif" font-size="42" font-weight="700" fill="#285a63">800</text>
+  <text x="1170" y="610" font-family="system-ui,sans-serif" font-size="29" font-weight="650" fill="#24201d">Resina exact SKU</text>
+  <text x="1150" y="650" font-family="system-ui,sans-serif" font-size="23" fill="#655b51">具体字段进入独立 pen 页</text>
+  <rect x="128" y="712" width="1344" height="70" rx="18" fill="#e8ddca"/>
+  <text x="800" y="758" text-anchor="middle" font-family="system-ui,sans-serif" font-size="25" fill="#3d352e">示意图非产品照片；不证明跨代共享笔尖、材料、尺寸、颜色或供墨容量</text>
+</svg>

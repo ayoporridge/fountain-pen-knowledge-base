@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Aurora Ottantotto Resina 800 当前证据与 2007 样本边界</title>
+  <desc id="desc">原创证据边界图，左侧列当前 exact listing，中央列 FAQ 系列层级，右侧列 2007 800/C chrome-trim 样本；不表现真实产品。</desc>
+  <rect width="1600" height="900" fill="#11232a"/>
+  <text x="90" y="112" font-family="system-ui,sans-serif" font-size="48" font-weight="700" fill="#f6ead8">Aurora 800：三层证据不能合并</text>
+  <text x="90" y="160" font-family="system-ui,sans-serif" font-size="24" fill="#b9c6c8">CURRENT EXACT / FAMILY FAQ / DATED SAMPLE</text>
+  <g transform="translate(75 225)">
+    <rect width="440" height="570" rx="32" fill="#e9f2ec"/>
+    <text x="36" y="70" font-family="system-ui,sans-serif" font-size="30" font-weight="700" fill="#24543e">2026-07-21 exact 800</text>
+    <text x="36" y="132" font-family="system-ui,sans-serif" font-size="25" fill="#193b2d">✓ black resin</text>
+    <text x="36" y="180" font-family="system-ui,sans-serif" font-size="25" fill="#193b2d">✓ gold-coloured trim</text>
+    <text x="36" y="228" font-family="system-ui,sans-serif" font-size="25" fill="#193b2d">✓ piston</text>
+    <text x="36" y="276" font-family="system-ui,sans-serif" font-size="25" fill="#193b2d">✓ EF / F / M / B</text>
+    <line x1="36" y1="322" x2="404" y2="322" stroke="#82a895" stroke-width="3"/>
+    <text x="36" y="374" font-family="system-ui,sans-serif" font-size="23" fill="#416c59">Availability = dated snapshot</text>
+    <text x="36" y="420" font-family="system-ui,sans-serif" font-size="23" fill="#416c59">Price / future stock excluded</text>
+    <text x="36" y="512" font-family="system-ui,sans-serif" font-size="20" fill="#5e766b">Exact listing directly qualifies</text>
+  </g>
+  <g transform="translate(580 225)">
+    <rect width="440" height="570" rx="32" fill="#fff3d8"/>
+    <text x="36" y="70" font-family="system-ui,sans-serif" font-size="30" font-weight="700" fill="#875c14">Aurora FAQ scope</text>
+    <text x="36" y="132" font-family="system-ui,sans-serif" font-size="25" fill="#67470f">△ 14K for 88 / high-end</text>
+    <text x="36" y="180" font-family="system-ui,sans-serif" font-size="25" fill="#67470f">△ hidden reserve</text>
+    <text x="36" y="228" font-family="system-ui,sans-serif" font-size="25" fill="#67470f">△ high-end piston context</text>
+    <line x1="36" y1="274" x2="404" y2="274" stroke="#cfaa65" stroke-width="3"/>
+    <text x="36" y="334" font-family="system-ui,sans-serif" font-size="23" fill="#805e20">Keep as qualified family claim</text>
+    <text x="36" y="380" font-family="system-ui,sans-serif" font-size="23" fill="#805e20">No exact nib-material upgrade</text>
+    <text x="36" y="426" font-family="system-ui,sans-serif" font-size="23" fill="#805e20">No exact capacity inference</text>
+    <text x="36" y="512" font-family="system-ui,sans-serif" font-size="20" fill="#8a744d">Useful context, different grain</text>
+  </g>
+  <g transform="translate(1085 225)">
+    <rect width="440" height="570" rx="32" fill="#f7e4e3"/>
+    <text x="36" y="70" font-family="system-ui,sans-serif" font-size="30" font-weight="700" fill="#8b3030">2007 800/C sample</text>
+    <text x="36" y="132" font-family="system-ui,sans-serif" font-size="25" fill="#6d2828">× chrome trim</text>
+    <text x="36" y="180" font-family="system-ui,sans-serif" font-size="25" fill="#6d2828">× claimed 1.8 ml</text>
+    <text x="36" y="228" font-family="system-ui,sans-serif" font-size="25" fill="#6d2828">× measurements</text>
+    <text x="36" y="276" font-family="system-ui,sans-serif" font-size="25" fill="#6d2828">× feel / writing experience</text>
+    <line x1="36" y1="322" x2="404" y2="322" stroke="#cf8585" stroke-width="3"/>
+    <text x="36" y="374" font-family="system-ui,sans-serif" font-size="23" fill="#854242">Sample narrative only</text>
+    <text x="36" y="420" font-family="system-ui,sans-serif" font-size="23" fill="#854242">Rejected as current spec</text>
+    <text x="36" y="512" font-family="system-ui,sans-serif" font-size="20" fill="#927070">403 limitation retained in locator</text>
+  </g>
+</svg>
