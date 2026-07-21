@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pilot Elabo 金属轴 FE-25SR 事实示意</title>
+  <desc id="desc">黄铜金属轴、33克、CON-70N兼容与软尖压力边界的本站原创示意。</desc>
+  <rect width="1600" height="900" fill="#111827"/><rect x="62" y="62" width="1476" height="776" rx="36" fill="#1f2937" stroke="#94a3b8" stroke-width="3"/>
+  <text x="112" y="145" fill="#f8fafc" font-size="54" font-family="sans-serif" font-weight="700">ELABO METAL · FE-25SR</text>
+  <text x="114" y="192" fill="#cbd5e1" font-size="25" font-family="sans-serif">黄铜轴帽不是树脂版的颜色变化</text>
+  <g transform="translate(120 285)"><rect width="930" height="116" rx="58" fill="#a7a9ac"/><rect x="540" width="390" height="116" rx="58" fill="#d4d4d8"/><path d="M930 58h190l-85-34v68z" fill="#d6b76b"/><path d="M972 58h95" stroke="#374151" stroke-width="4"/><rect x="80" y="44" width="350" height="28" rx="14" fill="#374151" opacity=".5"/></g>
+  <g font-family="sans-serif"><rect x="114" y="510" width="410" height="190" rx="24" fill="#0f766e"/><text x="150" y="570" fill="white" font-size="31" font-weight="700">METAL BODY</text><text x="150" y="620" fill="#ccfbf1" font-size="27">黄铜轴帽 · 约 33 g</text><text x="150" y="662" fill="#ccfbf1" font-size="27">CON-40 / CON-70N</text>
+  <rect x="595" y="510" width="390" height="190" rx="24" fill="#7c2d12"/><text x="631" y="570" fill="white" font-size="31" font-weight="700">14K SOFT NIB</text><text x="631" y="620" fill="#ffedd5" font-size="26">SEF · SF · SM · SB</text><text x="631" y="662" fill="#ffedd5" font-size="24">soft ≠ traditional flex</text>
+  <path d="M1060 605h360" stroke="#fbbf24" stroke-width="10"/><path d="M1060 605l70-45v90z" fill="#fbbf24"/><text x="1080" y="555" fill="#fde68a" font-size="25">轻压书写</text><text x="1200" y="680" fill="#fca5a5" font-size="24">避免过压撑尖</text>
+  <text x="112" y="784" fill="#94a3b8" font-size="22">本站原创示意图，非产品照片；非比例、颜色或表面复刻；不含 Pilot Logo。</text></g>
+</svg>
