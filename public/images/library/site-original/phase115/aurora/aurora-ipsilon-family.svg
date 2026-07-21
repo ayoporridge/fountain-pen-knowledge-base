@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Aurora Ipsilon sibling family navigation</title>
+  <desc id="desc">Editorial information diagram. Demo, Resin, Italia and Quadra are sibling lines, not a shared specification. Not a product photo, logo, scale, colour or finish proof.</desc>
+  <rect width="1600" height="900" fill="#f4efe5"/>
+  <text x="100" y="115" font-family="serif" font-size="58" fill="#24352f">IPSILON IS A FAMILY</text>
+  <text x="100" y="170" font-family="sans-serif" font-size="25" fill="#5b665f">sibling navigation · specifications stay with each line</text>
+  <circle cx="800" cy="430" r="128" fill="#263f38"/>
+  <text x="800" y="420" text-anchor="middle" font-family="serif" font-size="44" fill="#fff">Ipsilon</text>
+  <text x="800" y="466" text-anchor="middle" font-family="sans-serif" font-size="22" fill="#dce7df">family article</text>
+  <g stroke="#8a7656" stroke-width="5" fill="none"><path d="M690 370L430 270"/><path d="M910 370L1170 270"/><path d="M690 490L430 625"/><path d="M910 490L1170 625"/></g>
+  <g font-family="sans-serif" text-anchor="middle">
+    <rect x="235" y="190" width="390" height="150" rx="28" fill="#d7e7e1"/><text x="430" y="250" font-size="32" fill="#24352f">Demo Colors</text><text x="430" y="292" font-size="20" fill="#46554f">six colours · two trim/nib groups</text>
+    <rect x="975" y="190" width="390" height="150" rx="28" fill="#ead9c4"/><text x="1170" y="250" font-size="32" fill="#4d3927">Resin B11-N</text><text x="1170" y="292" font-size="20" fill="#654d39">exact current SKU</text>
+    <rect x="235" y="575" width="390" height="150" rx="28" fill="#e4dfcf"/><text x="430" y="635" font-size="32" fill="#4d493d">Italia / Stagioni</text><text x="430" y="677" font-size="20" fill="#666052">mentioned, no entity in this batch</text>
+    <rect x="975" y="575" width="390" height="150" rx="28" fill="#ddd9e6"/><text x="1170" y="635" font-size="32" fill="#453f55">Quadra</text><text x="1170" y="677" font-size="20" fill="#625b72">mentioned, no entity in this batch</text>
+  </g>
+  <text x="100" y="825" font-family="sans-serif" font-size="22" fill="#68645c">SITE-ORIGINAL EDITORIAL DIAGRAM · NON-PHOTO · NON-LOGO · NON-SCALE · NON-COLOUR/FINISH PROOF</text>
+</svg>
