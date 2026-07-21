@@ -31,7 +31,7 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 Phase: 21 (Taxonomy 与身份归一) — EXECUTING
 Plan: 4 of 6
 Status: In progress
-Last activity: 2026-07-19 — Pilot, Waterman and Aurora identity cleanup published
+Last activity: 2026-07-21 — Completed quick task 260722-adq: publish Wancher PuChiCo as a partial corpus batch
 
 Progress: [█████░░░░░] 50%
 
@@ -160,6 +160,7 @@ Progress: [█████░░░░░] 50%
 | 260721-gk5 | 原位发布 Pilot Custom Heritage 91／92，并严格区分 cartridge/converter 与内置 piston | 2026-07-21 | 5224b2a | [260721-gk5-phase-108-pilot-custom-heritage-91-92](./quick/260721-gk5-phase-108-pilot-custom-heritage-91-92-ra/) |
 | 260721-h68 | 原位发布 Pilot Cavalier、Prera、Kakuno、Cocoon，并收紧历史 converter 与地区 sibling 边界 | 2026-07-21 | bda12e9 | [260721-h68-phase-109-pilot-daily-raw](./quick/260721-h68-phase-109-pilot-raw-bm2fnj2-fp0t-cavalie/) |
 | 260721-hoh | 新增 Pilot Justus 95、Silvern、Grance，并按 post-topology current hash 恢复品牌发布 | 2026-07-21 | 6ade2f1 | [260721-hoh-phase-110-pilot-current-premium](./quick/260721-hoh-phase-110-pilot-canonical-justus-95-silv/) |
+| 260722-adq | 发布 Wancher PuChiCo 单一 canonical 型号与 11 个颜色 variants，隔离两篇专业样本证据 | 2026-07-21 | 9160b24 | [260722-adq-publish-the-missing-wancher-puchico-mode](./quick/260722-adq-publish-the-missing-wancher-puchico-mode/) |
 
 ## Next Action
 
