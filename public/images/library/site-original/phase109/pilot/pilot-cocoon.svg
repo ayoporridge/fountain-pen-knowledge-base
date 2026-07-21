@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+<title id="title">Pilot Cocoon 日本 FCO 与地区边界示意</title><desc id="desc">本站原创示意图，非产品照片；展示日本 Cocoon 金属曲线、FCO scope 和地区供墨边界。</desc>
+<rect width="1600" height="900" fill="#eef1f7"/><text x="90" y="105" font-size="54" font-family="sans-serif" fill="#26324b">Cocoon｜先锁定日本 FCO，再谈相邻名称</text>
+<text x="90" y="160" font-size="24" font-family="sans-serif" fill="#657089">本站原创示意图，非产品照片｜非比例、非颜色／表面复刻｜不含 Pilot Logo</text>
+<path d="M120 390 Q250 270 520 270 H900 Q1130 285 1230 390 Q1130 495 900 510 H520 Q250 510 120 390 Z" fill="#8492a8" stroke="#26324b" stroke-width="6"/><path d="M120 390 L45 330 L70 390 L45 450 Z" fill="#d8dbe2"/>
+<rect x="500" y="285" width="250" height="210" rx="100" fill="#43526d" opacity=".75"/><text x="415" y="610" font-size="30" font-family="sans-serif" fill="#26324b">FCO-3SR｜黄铜轴帽｜138 mm｜24 g｜CON-40</text>
+<g font-family="sans-serif"><rect x="1260" y="250" width="270" height="330" rx="28" fill="#fff"/><text x="1300" y="315" font-size="30" fill="#26324b">JAPAN</text><text x="1300" y="365" font-size="25" fill="#26324b">Cocoon FCO</text><line x1="1300" y1="410" x2="1490" y2="410" stroke="#c06b52" stroke-width="5"/><text x="1300" y="460" font-size="25" fill="#7a4534">REGIONAL</text><text x="1300" y="505" font-size="22" fill="#7a4534">Metropolitan / MR</text><text x="1300" y="545" font-size="20" fill="#7a4534">sibling，不泛化供墨</text></g>
+<text x="90" y="820" font-size="24" font-family="sans-serif" fill="#7a4534">2013 样本的 CON-50 与价格属于历史；欧洲 standard-international 不能写入日本 current spec。</text></svg>

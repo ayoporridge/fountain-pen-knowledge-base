@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+<title id="title">Pilot Cavalier 细杆与供墨边界示意</title><desc id="desc">本站原创示意图，非产品照片；展示细杆黄铜结构、F 尖与现行 CON-40 边界。</desc>
+<rect width="1600" height="900" fill="#f4efe6"/><text x="90" y="105" font-size="54" font-family="sans-serif" fill="#17243c">Cavalier｜细杆不是缩小的粗笔</text>
+<text x="90" y="160" font-size="24" font-family="sans-serif" fill="#566172">本站原创示意图，非产品照片｜非比例、非颜色／表面复刻｜不含 Pilot Logo</text>
+<rect x="155" y="330" width="980" height="116" rx="58" fill="#2e3b50"/><rect x="870" y="345" width="280" height="86" rx="43" fill="#b98755"/>
+<path d="M155 330 L72 388 L155 446 Z" fill="#c8ccd2"/><line x1="72" y1="388" x2="155" y2="388" stroke="#555" stroke-width="4"/>
+<line x1="240" y1="650" x2="1040" y2="650" stroke="#17243c" stroke-width="4"/><line x1="240" y1="626" x2="240" y2="674" stroke="#17243c" stroke-width="4"/><line x1="1040" y1="626" x2="1040" y2="674" stroke="#17243c" stroke-width="4"/>
+<text x="520" y="710" font-size="28" font-family="sans-serif" fill="#17243c">全长 134.4 mm｜最大径 9.8 mm｜16.5 g</text>
+<rect x="1190" y="280" width="300" height="260" rx="28" fill="#fff" stroke="#b98755" stroke-width="5"/><text x="1230" y="340" font-size="31" font-family="sans-serif" fill="#17243c">CURRENT</text><text x="1230" y="400" font-size="27" font-family="sans-serif" fill="#17243c">F 钢尖</text><text x="1230" y="447" font-size="27" font-family="sans-serif" fill="#17243c">黄铜轴帽</text><text x="1230" y="494" font-size="27" font-family="sans-serif" fill="#17243c">CON-40</text>
+<text x="90" y="820" font-size="24" font-family="sans-serif" fill="#7a4534">2011 repaired used sample 的 CON-20 与写感只属历史样本，不覆盖 current spec。</text></svg>

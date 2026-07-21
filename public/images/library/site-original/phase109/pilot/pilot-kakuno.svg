@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+<title id="title">Pilot Kakuno 握持与笑脸方向示意</title><desc id="desc">本站原创示意图，非产品照片；展示三面握位、笑脸朝上和 cartridge/converter 结构。</desc>
+<rect width="1600" height="900" fill="#fff3d8"/><text x="90" y="105" font-size="54" font-family="sans-serif" fill="#342d54">Kakuno｜把正确方向画在笔尖上</text>
+<text x="90" y="160" font-size="24" font-family="sans-serif" fill="#6e6483">本站原创示意图，非产品照片｜非比例、非颜色／表面复刻｜不含 Pilot Logo</text>
+<polygon points="160,360 420,230 720,360 420,490" fill="#f2a65a" stroke="#342d54" stroke-width="6"/><path d="M720 360 L930 250 L1040 360 L930 470 Z" fill="#d7d9e1" stroke="#342d54" stroke-width="6"/>
+<circle cx="920" cy="345" r="10" fill="#342d54"/><circle cx="960" cy="345" r="10" fill="#342d54"/><path d="M912 385 Q940 410 968 385" fill="none" stroke="#342d54" stroke-width="7"/>
+<path d="M940 190 V270" stroke="#d43f52" stroke-width="10"/><path d="M910 225 L940 185 L970 225" fill="none" stroke="#d43f52" stroke-width="10"/>
+<text x="815" y="555" font-size="30" font-family="sans-serif" fill="#342d54">笑脸朝上 = nib orientation feature</text><text x="815" y="602" font-size="25" font-family="sans-serif" fill="#7a4534">不是独立部件实体，不新增 link</text>
+<g font-family="sans-serif"><rect x="1160" y="270" width="330" height="290" rx="30" fill="#fff"/><text x="1200" y="330" font-size="31" fill="#342d54">CURRENT</text><text x="1200" y="390" font-size="26" fill="#342d54">EF / F / M</text><text x="1200" y="438" font-size="26" fill="#342d54">树脂｜11 g</text><text x="1200" y="486" font-size="26" fill="#342d54">CON-40 / CON-70N</text></g>
+<text x="90" y="820" font-size="24" font-family="sans-serif" fill="#7a4534">独立评测的顺滑、耐用、握感只对应具名样本；说明书承担方向、安装与安全边界。</text></svg>
