@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Wancher Dream Pen True Urushi Aka Tamenuri evidence boundary</title>
+  <desc id="desc">本站原创证据边界示意图，区分 2026 current brand claims、2019 production-order evidence 与 2018 non-Aka prototypes；非产品照片、非比例、非色漆或漆层复刻。</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7f1e7"/>
+      <stop offset="1" stop-color="#e8ddcf"/>
+    </linearGradient>
+    <linearGradient id="aka" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#241817"/>
+      <stop offset="0.52" stop-color="#5b201b"/>
+      <stop offset="1" stop-color="#a54835"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#2a1e1a" flood-opacity=".16"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#paper)"/>
+  <path d="M0 138 C270 96 472 174 744 126 S1264 76 1600 132" fill="none" stroke="#b7a894" stroke-width="2" opacity=".55"/>
+  <text x="110" y="100" font-family="Georgia, serif" font-size="42" fill="#261c18">Aka Tamenuri：三层证据，不是一张合成规格表</text>
+  <text x="112" y="145" font-family="system-ui, sans-serif" font-size="20" fill="#6d5b51">Wancher Dream Pen True Urushi Aka Tamenuri · Phase 113 · retrieved 2026-07-21</text>
+
+  <g transform="translate(110 218)" filter="url(#shadow)">
+    <rect width="1380" height="176" rx="24" fill="#fffaf4" stroke="#8b5a43" stroke-width="3"/>
+    <rect width="18" height="176" rx="9" fill="url(#aka)"/>
+    <circle cx="88" cy="58" r="29" fill="#87372a"/>
+    <text x="88" y="67" text-anchor="middle" font-family="system-ui, sans-serif" font-size="25" font-weight="700" fill="#fff">1</text>
+    <text x="142" y="58" font-family="system-ui, sans-serif" font-size="28" font-weight="700" fill="#34221d">2026 current official listing</text>
+    <text x="142" y="99" font-family="system-ui, sans-serif" font-size="21" fill="#4b3831">ebonite + urushi · European International C/C · #6 JoWo steel / Wancher 18K</text>
+    <text x="142" y="134" font-family="system-ui, sans-serif" font-size="21" fill="#4b3831">plastic / ebonite feed · clip options</text>
+    <text x="986" y="82" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#87372a">QUALIFIED BRAND CLAIM</text>
+    <text x="986" y="116" font-family="system-ui, sans-serif" font-size="19" fill="#59433a">Wancher 表示：Wajima hand-work，流程至少三个月</text>
+    <text x="986" y="145" font-family="system-ui, sans-serif" font-size="17" fill="#806b61">价格 / 库存 / add-to-cart 不进入 stable specs</text>
+  </g>
+
+  <g transform="translate(110 430)" filter="url(#shadow)">
+    <rect width="1380" height="176" rx="24" fill="#fffaf4" stroke="#65735e" stroke-width="3"/>
+    <rect width="18" height="176" rx="9" fill="#65735e"/>
+    <circle cx="88" cy="58" r="29" fill="#65735e"/>
+    <text x="88" y="67" text-anchor="middle" font-family="system-ui, sans-serif" font-size="25" font-weight="700" fill="#fff">2</text>
+    <text x="142" y="58" font-family="system-ui, sans-serif" font-size="28" font-weight="700" fill="#293127">2019 independent production-order evidence</text>
+    <text x="142" y="99" font-family="system-ui, sans-serif" font-size="21" fill="#394336">作者与父亲自费订购 · 父亲选择 Aka-Tamenuri · no affiliate links</text>
+    <text x="142" y="134" font-family="system-ui, sans-serif" font-size="21" fill="#394336">随单证书命名 Taya Shikkiten：只证明该 reviewed order context</text>
+    <path d="M958 50 h370 v82 h-370 z" fill="#eef2e9" stroke="#87927e" stroke-dasharray="9 7"/>
+    <text x="1143" y="82" text-anchor="middle" font-family="system-ui, sans-serif" font-size="19" font-weight="700" fill="#4b5945">AUTHOR HYPOTHESIS</text>
+    <text x="1143" y="112" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" fill="#4b5945">“可能较少漆层” ≠ 确定层数或普遍事实</text>
+  </g>
+
+  <g transform="translate(110 642)" filter="url(#shadow)">
+    <rect width="1380" height="154" rx="24" fill="#fffaf4" stroke="#596773" stroke-width="3"/>
+    <rect width="18" height="154" rx="9" fill="#596773"/>
+    <circle cx="88" cy="55" r="29" fill="#596773"/>
+    <text x="88" y="64" text-anchor="middle" font-family="system-ui, sans-serif" font-size="25" font-weight="700" fill="#fff">3</text>
+    <text x="142" y="56" font-family="system-ui, sans-serif" font-size="28" font-weight="700" fill="#29323a">2018 historical family context</text>
+    <text x="142" y="97" font-family="system-ui, sans-serif" font-size="21" fill="#37434c">Pencilcase Blog：loaned black prototype</text>
+    <text x="142" y="129" font-family="system-ui, sans-serif" font-size="21" fill="#37434c">Ed Jelley：Wancher-supplied black prototype</text>
+    <text x="850" y="91" font-family="system-ui, sans-serif" font-size="20" font-weight="700" fill="#596773">BOTH NON-AKA</text>
+    <text x="850" y="124" font-family="system-ui, sans-serif" font-size="19" fill="#53616b">尺寸、重量、steel nib、finish、写感不迁移到 current Aka</text>
+  </g>
+
+  <text x="800" y="854" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" fill="#6d5b51">本站原创事实示意 · 非产品照片 · 非比例 · 非色漆、漆层、表面或商标复刻</text>
+</svg>
