@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pilot Justus 95 H/S 张力控制事实示意</title>
+  <desc id="desc">本站原创示意图，非产品照片。解释控制片位置与软硬书写感，不承诺传统 flex。</desc>
+  <rect width="1600" height="900" fill="#151719"/>
+  <path d="M0 710Q420 580 790 700T1600 650V900H0Z" fill="#29241d"/>
+  <text x="100" y="105" fill="#f0d9a7" font-family="sans-serif" font-size="52" font-weight="700">JUSTUS 95 · H / S</text>
+  <text x="102" y="154" fill="#b8b0a1" font-family="sans-serif" font-size="24">FJ-3MR / FJ-3MRR · 14K F / FM / M · CON-70N</text>
+  <g transform="translate(145 255)">
+    <path d="M0 150h730l165-74 145 74-145 74-165-74H0Z" fill="#e5d3ac" stroke="#fff2cf" stroke-width="5"/>
+    <path d="M500 82h250v136H500Z" fill="#8a6c35" opacity=".78"/>
+    <path d="M545 90v120M590 90v120M635 90v120M680 90v120" stroke="#e9c66c" stroke-width="9"/>
+    <circle cx="305" cy="150" r="104" fill="#202428" stroke="#c79b45" stroke-width="18"/>
+    <text x="267" y="169" fill="#f4e7c5" font-family="sans-serif" font-size="56" font-weight="700">H/S</text>
+    <path d="M760 112h168v76H760Z" fill="#a04e3b"/>
+    <text x="782" y="160" fill="#fff" font-family="sans-serif" font-size="24">控制片</text>
+  </g>
+  <g font-family="sans-serif">
+    <rect x="120" y="665" width="410" height="105" rx="20" fill="#27323b"/>
+    <text x="155" y="711" fill="#d9ecfa" font-size="28">H：支撑更多，书写感较硬</text>
+    <text x="155" y="748" fill="#d9ecfa" font-size="22">改变张力，不等于固定线宽变化</text>
+    <rect x="585" y="665" width="410" height="105" rx="20" fill="#47302b"/>
+    <text x="620" y="711" fill="#ffe5db" font-size="28">S：支撑减少，书写感较软</text>
+    <text x="620" y="748" fill="#ffe5db" font-size="22">样本感受不能泛化为全系列保证</text>
+    <rect x="1050" y="665" width="430" height="105" rx="20" fill="#4d1f28" stroke="#e46673" stroke-width="3"/>
+    <text x="1085" y="711" fill="#ffe7e9" font-size="28">不是传统 flex 保证</text>
+    <text x="1085" y="748" fill="#ffe7e9" font-size="22">勿以旋钮作为任意压尖许可</text>
+    <text x="100" y="845" fill="#aaa39a" font-size="20">本站原创示意图，非产品照片 · 非比例、颜色或表面复刻 · 不含 Pilot Logo</text>
+  </g>
+</svg>

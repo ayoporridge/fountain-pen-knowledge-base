@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pilot Grance FGRC-12SR 当前家族时间边界</title>
+  <desc id="desc">本站原创示意图，非产品照片。现行 No.3/CON-40 与旧 sterling、marbled families 分界。</desc>
+  <rect width="1600" height="900" fill="#f8f0e5"/>
+  <path d="M0 0h1600v185H0Z" fill="#182b36"/>
+  <text x="90" y="92" fill="#fff4de" font-family="sans-serif" font-size="52" font-weight="700">GRANCE · CURRENT / HISTORICAL</text>
+  <text x="92" y="142" fill="#b8cad3" font-family="sans-serif" font-size="24">先看完整产品号，再谈同名家族</text>
+  <path d="M800 225v550" stroke="#b59b78" stroke-width="8" stroke-dasharray="18 16"/>
+  <g font-family="sans-serif">
+    <circle cx="400" cy="470" r="230" fill="#dbe8e5" stroke="#3b716b" stroke-width="8"/>
+    <text x="275" y="330" fill="#285b56" font-size="35" font-weight="700">CURRENT</text>
+    <text x="250" y="392" fill="#244944" font-size="31">FGRC-12SR</text>
+    <path d="M250 455h300" stroke="#a78b48" stroke-width="16"/>
+    <path d="M470 420l90 35-90 35-55-35Z" fill="#d0ae55"/>
+    <text x="258" y="535" fill="#244944" font-size="27">14K No.3 · EF/F/FM/M</text>
+    <text x="285" y="580" fill="#244944" font-size="27">CON-40 · 黄铜轴帽</text>
+    <text x="245" y="625" fill="#244944" font-size="23">珠光三色 / 黑 / 深蓝</text>
+    <rect x="900" y="260" width="590" height="420" rx="30" fill="#fff" stroke="#b9a88e" stroke-width="4"/>
+    <text x="950" y="330" fill="#6e5137" font-size="35" font-weight="700">HISTORICAL FAMILY</text>
+    <path d="M950 385h480" stroke="#d6c4aa" stroke-width="3"/>
+    <text x="960" y="455" fill="#66523f" font-size="30">sterling</text><text x="960" y="510" fill="#66523f" font-size="30">marbled</text><text x="960" y="565" fill="#66523f" font-size="30">其它早期 Grance</text>
+    <text x="960" y="625" fill="#9a463a" font-size="25" font-weight="700">不作为 FGRC-12SR alias / variant</text>
+    <path d="M720 468h160" stroke="#9a463a" stroke-width="6" marker-end="url(#none)"/>
+    <text x="685" y="515" fill="#9a463a" font-size="21">时间与材料边界</text>
+  </g>
+  <rect x="155" y="735" width="1290" height="76" rx="18" fill="#253c48"/>
+  <text x="205" y="782" fill="#e9f1f4" font-family="sans-serif" font-size="24">2018 Pen Addict 与 2019 Well-Appointed Desk：free review samples，只证明各自握持、套帽与写感</text>
+  <text x="90" y="858" fill="#756550" font-family="sans-serif" font-size="20">本站原创示意图，非产品照片 · 非比例、颜色或表面复刻 · 不含 Pilot Logo</text>
+</svg>

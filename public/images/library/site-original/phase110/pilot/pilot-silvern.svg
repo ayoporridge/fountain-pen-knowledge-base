@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pilot Silvern 当前标准纹样与 Jaguar 特殊样本边界</title>
+  <desc id="desc">本站原创示意图，非产品照片。区分 FK-5MS 标准纹样和 2024 loaned Jaguar 样本。</desc>
+  <defs><linearGradient id="silver" x1="0" x2="1"><stop stop-color="#737c86"/><stop offset=".45" stop-color="#f1f4f6"/><stop offset="1" stop-color="#838b93"/></linearGradient><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M0 0l32 32M32 0L0 32" stroke="#626b73" stroke-width="3"/></pattern></defs>
+  <rect width="1600" height="900" fill="#eef1f2"/>
+  <text x="90" y="105" fill="#24323b" font-family="serif" font-size="58" font-weight="700">SILVERN</text>
+  <text x="92" y="151" fill="#52616a" font-family="sans-serif" font-size="23">FK-5MS · sterling silver · 18K inset nib · CON-40</text>
+  <g transform="translate(90 220)">
+    <rect width="930" height="420" rx="36" fill="#fff" stroke="#9ca7ae" stroke-width="3"/>
+    <path d="M115 210Q145 85 230 85h420q105 0 158 125-53 125-158 125H230q-85 0-115-125Z" fill="url(#silver)" stroke="#5f6970" stroke-width="5"/>
+    <path d="M270 105h330v210H270Z" fill="url(#grid)" opacity=".75"/>
+    <path d="M705 145l105 65-105 65-60-65Z" fill="#c9a85f" stroke="#5d4b27" stroke-width="4"/>
+    <text x="95" y="386" fill="#34434c" font-family="sans-serif" font-size="24">银壳与嵌入式尖是结构事实；图案仅作边界提示</text>
+  </g>
+  <g transform="translate(1070 220)" font-family="sans-serif">
+    <rect width="430" height="420" rx="36" fill="#1e2930"/>
+    <text x="38" y="62" fill="#e8eef1" font-size="29" font-weight="700">CURRENT STANDARD</text>
+    <text x="42" y="133" fill="#d6dde1" font-size="28">格子 · KO</text><path d="M280 112h100v35h-100Z" fill="url(#grid)"/>
+    <text x="42" y="207" fill="#d6dde1" font-size="28">つむぎ · TU</text><path d="M280 184q50-35 100 0t-100 42t100 0" fill="none" stroke="#d0d5d8" stroke-width="9"/>
+    <text x="42" y="281" fill="#d6dde1" font-size="28">石だたみ · ID</text><circle cx="305" cy="265" r="16" fill="#d0d5d8"/><circle cx="353" cy="265" r="16" fill="#d0d5d8"/>
+    <path d="M35 320h360" stroke="#81909a"/>
+    <text x="40" y="360" fill="#ffce78" font-size="23">F / M，仅以上三组进入 current variants</text>
+  </g>
+  <rect x="190" y="690" width="1220" height="105" rx="52" fill="#733b34"/>
+  <text x="245" y="736" fill="#fff3ec" font-family="sans-serif" font-size="28" font-weight="700">2024 Jaguar：Chatterly Luxuries loaned review sample</text>
+  <text x="245" y="773" fill="#ffd9cd" font-family="sans-serif" font-size="22">Jaguar / Dragon / Turtle / Pokémon 不并入 2026 standard variants</text>
+  <text x="92" y="852" fill="#596970" font-family="sans-serif" font-size="20">本站原创示意图，非产品照片 · 非比例、颜色或表面复刻 · 不含 Pilot Logo</text>
+</svg>
