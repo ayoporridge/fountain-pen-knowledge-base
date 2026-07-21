@@ -5,10 +5,10 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
-stopped_at: Quick 260720-64p complete; continuing raw-model content batches
-last_updated: "2026-07-20T05:10:00+08:00"
-last_activity: 2026-07-20
-last_activity_desc: Jinhao 159/X159 与 Diplomat/ONLINE checkpoint-published
+stopped_at: Quick 260721-da2 complete; continuing raw-model content batches
+last_updated: "2026-07-21T10:30:00+08:00"
+last_activity: 2026-07-21
+last_activity_desc: Sheaffer Connaisseur、Imperial 与 Icon checkpoint-published
 progress:
   total_phases: 16
   completed_phases: 10
@@ -155,6 +155,7 @@ Progress: [█████░░░░░] 50%
 | 260720-62p | 发布 Sheaffer Balance、Snorkel、PFM、Tuckaway、Targa 并退役帝国元首混名 | 2026-07-20 | 0a781e1 | [260720-62p-sheaffer-historic](./quick/260720-62p-sheaffer-historic/) |
 | 260720-63p | 拆分 Jinhao 159／X159，退役无法安全指向的混合旧路由 | 2026-07-20 | 9e5bf5a | [260720-63p-jinhao-159-x159](./quick/260720-63p-jinhao-159-x159/) |
 | 260720-64p | 发布 Diplomat／Aero 与 ONLINE Schreibgeräte／Campus，并修正品牌与型号关系 | 2026-07-20 | 2b885e5 | [260720-64p-diplomat-online](./quick/260720-64p-diplomat-online/) |
+| 260721-da2 | 发布 Sheaffer Connaisseur、Imperial 与现行 Icon，并保持既有家族边界 | 2026-07-21 | f7ee09e | [260721-da2-sheaffer-connaisseur-imperial-icon](./quick/260721-da2-phase-106-sheaffer-connaisseur-imperial-/) |
 
 ## Next Action
 
