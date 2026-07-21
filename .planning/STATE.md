@@ -156,10 +156,11 @@ Progress: [█████░░░░░] 50%
 | 260720-63p | 拆分 Jinhao 159／X159，退役无法安全指向的混合旧路由 | 2026-07-20 | 9e5bf5a | [260720-63p-jinhao-159-x159](./quick/260720-63p-jinhao-159-x159/) |
 | 260720-64p | 发布 Diplomat／Aero 与 ONLINE Schreibgeräte／Campus，并修正品牌与型号关系 | 2026-07-20 | 2b885e5 | [260720-64p-diplomat-online](./quick/260720-64p-diplomat-online/) |
 | 260721-da2 | 发布 Sheaffer Connaisseur、Imperial 与现行 Icon，并保持既有家族边界 | 2026-07-21 | f7ee09e | [260721-da2-sheaffer-connaisseur-imperial-icon](./quick/260721-da2-phase-106-sheaffer-connaisseur-imperial-/) |
+| 260721-fxu | 补齐 Wancher 品牌与 Dream Pen True Ebonite Matte Black，并保持系列导航及双时态证据边界 | 2026-07-21 | ee5758c | [260721-fxu-phase-107-wancher-dream-pen-true-ebonite](./quick/260721-fxu-phase-107-wancher-dream-pen-true-ebonite/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：Jinhao 159/X159 与 Diplomat/ONLINE 已发布，下一批收口 Nakaya、Asvine P36、Sailor J2、LAMY Safari/AL-star、Esterbrook Estie 与 TWSBI raw 型号。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
+继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：Wancher True Ebonite Matte Black 已完成，Titanium Black 因缺少独立实测仍保留待证实；下一批优先复用已有研究与 raw 包，收口 Nakaya、Asvine P36、Sailor J2、LAMY Safari/AL-star、Esterbrook Estie 与 TWSBI raw 型号。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
 
 ## Session Continuity
 
