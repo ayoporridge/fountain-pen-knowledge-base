@@ -159,10 +159,11 @@ Progress: [█████░░░░░] 50%
 | 260721-fxu | 补齐 Wancher 品牌与 Dream Pen True Ebonite Matte Black，并保持系列导航及双时态证据边界 | 2026-07-21 | ee5758c | [260721-fxu-phase-107-wancher-dream-pen-true-ebonite](./quick/260721-fxu-phase-107-wancher-dream-pen-true-ebonite/) |
 | 260721-gk5 | 原位发布 Pilot Custom Heritage 91／92，并严格区分 cartridge/converter 与内置 piston | 2026-07-21 | 5224b2a | [260721-gk5-phase-108-pilot-custom-heritage-91-92](./quick/260721-gk5-phase-108-pilot-custom-heritage-91-92-ra/) |
 | 260721-h68 | 原位发布 Pilot Cavalier、Prera、Kakuno、Cocoon，并收紧历史 converter 与地区 sibling 边界 | 2026-07-21 | bda12e9 | [260721-h68-phase-109-pilot-daily-raw](./quick/260721-h68-phase-109-pilot-raw-bm2fnj2-fp0t-cavalie/) |
+| 260721-hoh | 新增 Pilot Justus 95、Silvern、Grance，并按 post-topology current hash 恢复品牌发布 | 2026-07-21 | 6ade2f1 | [260721-hoh-phase-110-pilot-current-premium](./quick/260721-hoh-phase-110-pilot-canonical-justus-95-silv/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：Pilot Cavalier／Prera／Kakuno／Cocoon 已完成；Wancher Titanium Black 因缺少独立实测仍保留待证实。下一批优先处理 Pilot Justus 95／Elabo／Silvern／Custom NS／Lightive／Grance 等当前目录缺口，再衔接 Nakaya、Asvine P36、Sailor J2、LAMY Safari/AL-star、Esterbrook Estie 与 TWSBI raw 型号。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
+继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：Pilot Justus 95／Silvern／Grance 已完成；Wancher Titanium Black 因缺少独立实测仍保留待证实。下一批处理 Pilot Elabo 金属／树脂 sibling、Custom NS 与 Lightive，再衔接 Nakaya、Asvine P36、Sailor J2、LAMY Safari/AL-star、Esterbrook Estie 与 TWSBI raw 型号。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
 
 ## Session Continuity
 
