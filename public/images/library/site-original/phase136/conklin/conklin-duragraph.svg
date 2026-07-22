@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Conklin Duragraph evidence boundary</title>
+  <desc id="desc">Site-original factual diagram separating current family specifications, exact SKU material, and dated review samples. Non-photo, non-logo, not to scale, non-colour-proof, non-material-proof.</desc>
+  <rect width="1600" height="900" fill="#f4efe5"/>
+  <rect x="70" y="70" width="1460" height="760" rx="34" fill="#fffaf0" stroke="#342d28" stroke-width="5"/>
+  <text x="120" y="150" font-family="serif" font-size="54" fill="#342d28">Conklin Duragraph</text>
+  <text x="120" y="198" font-family="sans-serif" font-size="24" fill="#6b5c50">CURRENT FAMILY ≠ EXACT SKU ≠ DATED REVIEW SAMPLE</text>
+  <g font-family="sans-serif">
+    <rect x="120" y="260" width="410" height="390" rx="24" fill="#e5f0ea" stroke="#476553" stroke-width="4"/>
+    <text x="160" y="325" font-size="32" font-weight="700" fill="#294537">Current family · 2026-07-22</text>
+    <text x="160" y="385" font-size="25" fill="#294537">5.5 in capped · 4.75 in open</text>
+    <text x="160" y="428" font-size="25" fill="#294537">6.85 in posted · 0.55 in diameter</text>
+    <text x="160" y="471" font-size="25" fill="#294537">International cartridge / converter</text>
+    <text x="160" y="514" font-size="25" fill="#294537">JoWo stainless steel nib</text>
+    <text x="160" y="557" font-size="25" fill="#294537">EF · F · M · B · Stub · Flex</text>
+    <text x="160" y="612" font-size="22" fill="#526b5b">Price, stock and future options excluded</text>
+    <rect x="595" y="260" width="410" height="390" rx="24" fill="#efe7d8" stroke="#745d3f" stroke-width="4"/>
+    <text x="635" y="325" font-size="32" font-weight="700" fill="#503b25">Exact SKU material</text>
+    <text x="635" y="385" font-size="25" fill="#503b25">Abalone Nights · resin</text>
+    <text x="635" y="428" font-size="25" fill="#503b25">Red Nights · resin</text>
+    <text x="635" y="471" font-size="25" fill="#503b25">Metal PVD Brass · metal body</text>
+    <text x="635" y="526" font-size="24" fill="#503b25">No universal material or weight</text>
+    <text x="635" y="569" font-size="24" fill="#503b25">without the exact product page</text>
+    <text x="635" y="612" font-size="22" fill="#796449">Colours are finishes, not cloned models</text>
+    <rect x="1070" y="260" width="410" height="390" rx="24" fill="#e9e5ef" stroke="#5e526f" stroke-width="4"/>
+    <text x="1110" y="325" font-size="32" font-weight="700" fill="#41364e">Review samples</text>
+    <text x="1110" y="385" font-size="25" fill="#41364e">2018 Cracked Ice · Stub</text>
+    <text x="1110" y="428" font-size="25" fill="#41364e">2014 Cracked Ice · Fine</text>
+    <text x="1110" y="483" font-size="24" fill="#41364e">Posting, balance, feedback and</text>
+    <text x="1110" y="526" font-size="24" fill="#41364e">26 g belong to those samples</text>
+    <text x="1110" y="581" font-size="22" fill="#685b76">Not current universal specifications</text>
+  </g>
+  <line x1="330" y1="705" x2="1270" y2="705" stroke="#342d28" stroke-width="5"/>
+  <circle cx="330" cy="705" r="15" fill="#476553"/>
+  <circle cx="800" cy="705" r="15" fill="#745d3f"/>
+  <circle cx="1270" cy="705" r="15" fill="#5e526f"/>
+  <text x="800" y="775" text-anchor="middle" font-family="sans-serif" font-size="23" fill="#6b5c50">SITE-ORIGINAL FACTUAL SVG · NON-PHOTO · NON-LOGO · NOT-TO-SCALE · NON-COLOUR-PROOF</text>
+</svg>
