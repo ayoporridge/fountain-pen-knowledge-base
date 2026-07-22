@@ -165,10 +165,11 @@ Progress: [█████░░░░░] 50%
 | 260722-ba3 | 发布 Platinum Procyon PNS-5000 单一 canonical 型号，分离现行四色、首发历史色、PNS-8000 与两支实测样本 | 2026-07-22 | 3b8fb2f | [260722-ba3-publish-the-missing-platinum-procyon-pns](./quick/260722-ba3-publish-the-missing-platinum-procyon-pns/) |
 | 260722-bxs | 原位规范并发布 Platinum President PTB-20000P，保留旧路由与 maker 关系并隔离历史／样笔证据 | 2026-07-22 | 3f71b38 | [260722-bxs-reclassify-platinum-president-ptb-20000p](./quick/260722-bxs-reclassify-platinum-president-ptb-20000p/) |
 | 260722-clt | 将 Platinum Izumo 泛型号原位改为系列导航，并发布具体 PIZ-80000N、修正 maker 拓扑 | 2026-07-22 | 1c462cc | [260722-clt-reclassify-platinum-izumo-and-publish-piz-80000n](./quick/260722-clt-reclassify-platinum-izumo-and-publish-piz-80000n/) |
+| 260722-dg6 | 将 Platinum 富士旬景混合条目改为系列导航，并发布 Shungyo、Kumpoo、Rokka、Shiun、Kinshu 五个精确型号 | 2026-07-22 | 0b5d93f | [260722-dg6-reclassify-platinum-fuji-shunkei-and-publish-five-editions](./quick/260722-dg6-reclassify-platinum-fuji-shunkei-and-publish-five-editions/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：Platinum Procyon、President、Izumo 系列与 PIZ-80000N 已完成 checkpoint 内容包；下一批先审理 raw `富士旬景PNB-13000` 的混名身份（Fuji Shunkei 限定系列与标准 #3776 Century PNB-13000 不得合并），再衔接其余真正未覆盖品牌／型号。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行，full corpus goal 继续 active。
+继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：Platinum Procyon、President、Izumo/PIZ 与 Fuji Shunkei 五款已完成 checkpoint 内容包。下一批先审理 raw `Er9lACPas9qm`“小流星／PQ200”的地区命名、与 Preppy 的产品关系、可证 SKU 与 maker topology，再决定原位 canonicalize、重分类或拆分；随后处理 raw `7dEIl-3axPwa`“莳绘系列”的集合身份及其它真正未覆盖品牌／型号。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行，full corpus goal 继续 active。
 
 ## Session Continuity
 
