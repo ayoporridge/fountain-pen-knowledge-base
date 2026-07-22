@@ -5,10 +5,10 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
-stopped_at: Quick 260722-h08 complete; continuing full-corpus content batches
-last_updated: "2026-07-22T13:45:00+08:00"
+stopped_at: Quick 260722-h6w complete; continuing full-corpus content batches
+last_updated: "2026-07-22T14:25:00+08:00"
 last_activity: 2026-07-22
-last_activity_desc: Pilot Capless Fermo FCF-2MR exact historical model checkpoint-published
+last_activity_desc: Waterman Exception SAP_2214314 exact current-series model checkpoint-published
 progress:
   total_phases: 16
   completed_phases: 10
@@ -31,7 +31,7 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 Phase: 21 (Taxonomy 与身份归一) — EXECUTING
 Plan: 4 of 6
 Status: In progress
-Last activity: 2026-07-22 — Completed quick task 260722-h08: added exact Pilot Capless Fermo FCF-2MR historical model pack
+Last activity: 2026-07-22 — Completed quick task 260722-h6w: added exact Waterman Exception series pack anchored to SAP_2214314 Blue CT
 
 Progress: [█████░░░░░] 50%
 
@@ -170,10 +170,11 @@ Progress: [█████░░░░░] 50%
 | 260722-f11 | 将 Platinum 莳绘混合型号改为工艺导航，并发布 PNB-30000B、PNB-35000H、PTL-20000H 三条 exact 产品线 | 2026-07-22 | 59c1e1e | [260722-f11-reclassify-platinum-maki-e-and-publish-three-exact-lines](./quick/260722-f11-reclassify-platinum-maki-e-and-publish-three-exact-lines/) |
 | 260722-frg | 原位规范 Pilot 78G／FP-78G，将 88G 改为 MR 导览并发布 MR1、MR2、MR3 三条 exact 产品线 | 2026-07-22 | e335c74 | [260722-frg-pilot-78g-78g-88g](./quick/260722-frg-pilot-78g-78g-88g/) |
 | 260722-gc6 | 补齐 Wancher Dream Pen True Urushi Black 与 Byakudan-nuri 两个具体 SKU，并隔离 prototype／sold-out 时态 | 2026-07-22 | 1a8f638 | [260722-gc6-wancher-dream-pen-true-urushi-black-byak](./quick/260722-gc6-wancher-dream-pen-true-urushi-black-byak/) |
+| 260722-h6w | 补齐 Waterman Exception，以 SAP_2214314 Blue CT 为锚点并隔离 Slim、主题版与旧款样本 | 2026-07-22 | c186cbd | [260722-h6w-waterman-exception](./quick/260722-h6w-waterman-exception-allure-owned-checkpoi/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：Platinum、Pilot 与 Wancher 的近期 checkpoint 包已扩展到 True Urushi Black 和 Byakudan-nuri。下一批继续从现有脚本／research 与 raw inventory 的差集选择真正未覆盖的 Wancher SKU 或其它品牌型号，避免重复建实体；再按官网／目录／可靠专业资料、自然中文、准确图片、身份关系与定向回归推进。生产迁移与全量页面验收留到内容批次完成后执行，full corpus goal 继续 active。
+继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：Waterman Exception 已以 SAP_2214314 为 current exact anchor，Allure 保持 Phase83 既有实体。下一批继续从现有脚本／research 与 raw inventory 的差集选择真正未覆盖的品牌型号，避免重复建实体；再按官网／目录／可靠专业资料、自然中文、准确图片、身份关系与定向回归推进。生产迁移与全量页面验收留到内容批次完成后执行，full corpus goal 继续 active。
 
 ## Session Continuity
 
