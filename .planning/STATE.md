@@ -5,10 +5,10 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
-stopped_at: Quick 260722-h6w complete; continuing full-corpus content batches
-last_updated: "2026-07-22T14:25:00+08:00"
+stopped_at: Quick 260722-hyb complete; continuing full-corpus content batches
+last_updated: "2026-07-22T13:08:00+08:00"
 last_activity: 2026-07-22
-last_activity_desc: Waterman Exception SAP_2214314 exact current-series model checkpoint-published
+last_activity_desc: Wancher Dream Pen True Ebonite Silk Black exact SKU checkpoint-published
 progress:
   total_phases: 16
   completed_phases: 10
@@ -31,7 +31,7 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 Phase: 21 (Taxonomy 与身份归一) — EXECUTING
 Plan: 4 of 6
 Status: In progress
-Last activity: 2026-07-22 — Completed quick task 260722-h6w: added exact Waterman Exception series pack anchored to SAP_2214314 Blue CT
+Last activity: 2026-07-22 — Completed quick task 260722-hyb: added exact Wancher Dream Pen True Ebonite Silk Black with current/sample/AS-IS boundaries
 
 Progress: [█████░░░░░] 50%
 
@@ -173,10 +173,11 @@ Progress: [█████░░░░░] 50%
 | 260722-h6w | 补齐 Waterman Exception，以 SAP_2214314 Blue CT 为锚点并隔离 Slim、主题版与旧款样本 | 2026-07-22 | c186cbd | [260722-h6w-waterman-exception](./quick/260722-h6w-waterman-exception-allure-owned-checkpoi/) |
 | 260722-hel | 原位规范并发布 LAMY studio 与 LAMY dialog，修正 Dialog 3 命名、设计者与版本边界 | 2026-07-22 | dcea82b | [260722-hel-lamy-studio-dialog](./quick/260722-hel-lamy-studio-lamy-dialog-dialog-3-owned-c/) |
 | 260722-hr0 | 原位规范并发布 LAMY logo，分离全球 current presence、区域 Logo 005 FP 与评测样本 | 2026-07-22 | 4afc52a | [260722-hr0-lamy-logo](./quick/260722-hr0-lamy-logo-raw-identity-canonicalization-/) |
+| 260722-hyb | 发布 Wancher Dream Pen True Ebonite Silk Black，分离当前抛光款、2018 获赠样笔、AS IS 瑕疵与 Matte Black sibling | 2026-07-22 | 60cff1f | [260722-hyb-wancher-silk-black](./quick/260722-hyb-wancher-dream-pen-true-ebonite-silk-blac/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：研究卡列出的五个 LAMY raw 已全部有可重放内容包，Logo 当前状态也按全球分类与区域配置完成修正。下一批回到现有 Pilot／Wancher research 与脚本差集，选择真正未覆盖的具体 SKU 或其它品牌型号，避免重复建实体；再按官网／目录／可靠专业资料、自然中文、准确图片、身份关系与定向回归推进。生产迁移与全量页面验收留到内容批次完成后执行，full corpus goal 继续 active。
+继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：Wancher True Ebonite Silk Black 已作为独立 SKU 补齐，Dream Pen series、Matte Black 与既有具体 SKU 均未重放。下一批继续核对现有 Pilot／Wancher research 与脚本差集，选择真正未覆盖的具体 SKU 或其它品牌型号，避免重复建实体；再按官网／目录／可靠专业资料、自然中文、准确图片、身份关系与定向回归推进。生产迁移与全量页面验收留到内容批次完成后执行，full corpus goal 继续 active。
 
 ## Session Continuity
 
