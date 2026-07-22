@@ -5,10 +5,10 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
-stopped_at: Quick 260721-da2 complete; continuing raw-model content batches
-last_updated: "2026-07-21T10:30:00+08:00"
-last_activity: 2026-07-21
-last_activity_desc: Sheaffer Connaisseur、Imperial 与 Icon checkpoint-published
+stopped_at: Quick 260722-ba3 complete; continuing full-corpus content batches
+last_updated: "2026-07-22T08:35:00+08:00"
+last_activity: 2026-07-22
+last_activity_desc: Platinum Procyon PNS-5000 checkpoint-published as a partial corpus batch
 progress:
   total_phases: 16
   completed_phases: 10
@@ -31,7 +31,7 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 Phase: 21 (Taxonomy 与身份归一) — EXECUTING
 Plan: 4 of 6
 Status: In progress
-Last activity: 2026-07-21 — Completed quick task 260722-awm: publish Wancher Shizuku as a partial corpus batch
+Last activity: 2026-07-22 — Completed quick task 260722-ba3: publish Platinum Procyon PNS-5000 as a partial corpus batch
 
 Progress: [█████░░░░░] 50%
 
@@ -162,10 +162,11 @@ Progress: [█████░░░░░] 50%
 | 260721-hoh | 新增 Pilot Justus 95、Silvern、Grance，并按 post-topology current hash 恢复品牌发布 | 2026-07-21 | 6ade2f1 | [260721-hoh-phase-110-pilot-current-premium](./quick/260721-hoh-phase-110-pilot-canonical-justus-95-silv/) |
 | 260722-adq | 发布 Wancher PuChiCo 单一 canonical 型号与 11 个颜色 variants，隔离两篇专业样本证据 | 2026-07-21 | 9160b24 | [260722-adq-publish-the-missing-wancher-puchico-mode](./quick/260722-adq-publish-the-missing-wancher-puchico-mode/) |
 | 260722-awm | 发布 Wancher Shizuku 玻璃尖钢笔单一 canonical 型号与 14 个官网 variants，隔离 Solis 与 2019 Earth 样本 | 2026-07-21 | 7ddd49b | [260722-awm-publish-the-missing-wancher-shizuku-glas](./quick/260722-awm-publish-the-missing-wancher-shizuku-glas/) |
+| 260722-ba3 | 发布 Platinum Procyon PNS-5000 单一 canonical 型号，分离现行四色、首发历史色、PNS-8000 与两支实测样本 | 2026-07-22 | 3b8fb2f | [260722-ba3-publish-the-missing-platinum-procyon-pns](./quick/260722-ba3-publish-the-missing-platinum-procyon-pns/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：Pilot Justus 95／Silvern／Grance 已完成；Wancher Titanium Black 因缺少独立实测仍保留待证实。下一批处理 Pilot Elabo 金属／树脂 sibling、Custom NS 与 Lightive，再衔接 Nakaya、Asvine P36、Sailor J2、LAMY Safari/AL-star、Esterbrook Estie 与 TWSBI raw 型号。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行。
+继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：Pilot、Wancher 与 Platinum Procyon 的本轮缺口已按来源化内容包推进；下一批优先处理官网当前身份清楚且尚无可重放包的 Platinum President PTB-20000P，再衔接其余真正未覆盖的品牌／型号。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行，full corpus goal 继续 active。
 
 ## Session Continuity
 
