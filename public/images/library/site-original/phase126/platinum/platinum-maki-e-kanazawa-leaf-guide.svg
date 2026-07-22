@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Platinum 莳绘与金泽箔产品线识别图</title>
+  <desc id="desc">site-original factual diagram; non-photo, non-logo, not-to-scale, not-colour-proof, not-finish-proof. It separates PNB-30000B, PNB-35000H and PTL-20000H.</desc>
+  <rect width="1600" height="900" fill="#171512"/>
+  <text x="110" y="120" fill="#f4ead6" font-family="system-ui,sans-serif" font-size="56" font-weight="700">Platinum 莳绘与金泽箔导览</text>
+  <text x="112" y="172" fill="#bfb4a2" font-family="system-ui,sans-serif" font-size="25">先看货号，再谈工艺、笔尖和图案</text>
+  <g font-family="system-ui,sans-serif">
+    <rect x="95" y="245" width="430" height="400" rx="30" fill="#2a211d" stroke="#c78d62" stroke-width="3"/>
+    <text x="135" y="315" fill="#f4ead6" font-size="32" font-weight="700">PNB-30000B</text>
+    <text x="135" y="365" fill="#dfb38e" font-size="25">#3776 · 大型 14K · F/M/B</text>
+    <text x="135" y="420" fill="#ded5c8" font-size="25">本漆平莳绘</text>
+    <text x="135" y="478" fill="#ded5c8" font-size="23">#40 桜</text><text x="135" y="520" fill="#ded5c8" font-size="23">#84 山水</text>
+    <text x="135" y="590" fill="#a89d8e" font-size="20">139.5 mm · 18.5 g</text>
+    <rect x="585" y="245" width="430" height="400" rx="30" fill="#242419" stroke="#d8bd68" stroke-width="3"/>
+    <text x="625" y="315" fill="#f4ead6" font-size="32" font-weight="700">PNB-35000H</text>
+    <text x="625" y="365" fill="#e0ca7e" font-size="25">#3776 · 大型 14K · F/M/B</text>
+    <text x="625" y="420" fill="#ded5c8" font-size="25">金泽箔もみちらし + 近代莳绘</text>
+    <text x="625" y="478" fill="#ded5c8" font-size="23">#3 风神雷神 · #55 松虎</text><text x="625" y="520" fill="#ded5c8" font-size="23">#57 昇龙</text>
+    <text x="625" y="590" fill="#a89d8e" font-size="20">139.5 mm · 18.8 g</text>
+    <rect x="1075" y="245" width="430" height="400" rx="30" fill="#1b2525" stroke="#7ab7ae" stroke-width="3"/>
+    <text x="1115" y="315" fill="#f4ead6" font-size="32" font-weight="700">PTL-20000H</text>
+    <text x="1115" y="365" fill="#91c9c0" font-size="25">纤细 18K · F/M</text>
+    <text x="1115" y="420" fill="#ded5c8" font-size="25">金泽箔 / Gold leaf</text>
+    <text x="1115" y="478" fill="#ded5c8" font-size="22">#24 · #46 · #52</text><text x="1115" y="520" fill="#ded5c8" font-size="22">#58 · #87</text>
+    <text x="1115" y="590" fill="#a89d8e" font-size="20">139 mm · 16.7 g</text>
+    <text x="100" y="760" fill="#f0d39a" font-size="25" font-weight="650">不是一个“14K/18K 莳绘型号”</text>
+    <text x="100" y="810" fill="#a89d8e" font-size="20">本站原创事实示意 · 非产品照片/商标/比例图/色样/表面工艺证明</text>
+  </g>
+</svg>

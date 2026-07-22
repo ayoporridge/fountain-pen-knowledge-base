@@ -105,7 +105,7 @@ function localPublicFile(workspaceRoot: string, localPath: string): string {
   return path.join(workspaceRoot, "public", relative);
 }
 
-function validatePack(workspaceRoot: string, pack: LoadedCuratedEntityPack): void {
+export function validatePack(workspaceRoot: string, pack: LoadedCuratedEntityPack): void {
   const publicationIntent = pack.publicationIntent ?? "publish";
   const publicationBlockers = pack.publicationBlockers ?? [];
   const summaryLength = Array.from(pack.summary).length;
@@ -197,7 +197,7 @@ function validatePack(workspaceRoot: string, pack: LoadedCuratedEntityPack): voi
   }
 }
 
-function uniqueSources(packs: LoadedCuratedEntityPack[]): CuratedSource[] {
+export function uniqueSources(packs: LoadedCuratedEntityPack[]): CuratedSource[] {
   const sources = new Map<string, CuratedSource>();
   for (const pack of packs) {
     for (const source of pack.sources) {
@@ -218,7 +218,7 @@ function reliability(source: CuratedSource): string {
   return "medium";
 }
 
-async function upsertSources(
+export async function upsertSources(
   transaction: Transaction,
   sources: CuratedSource[],
 ): Promise<Map<string, string>> {
@@ -384,7 +384,7 @@ function sourceItem(
   return id;
 }
 
-async function insertPack(
+export async function insertPack(
   transaction: Transaction,
   pack: LoadedCuratedEntityPack,
   sourceItemIds: Map<string, string>,
