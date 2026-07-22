@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Wancher True Ebonite Silk Black 事实边界图</title>
+  <desc id="desc">本站原创非产品照片示意图，区分当前抛光商品、2018 获赠样笔与 AS IS 瑕疵品。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#15181d"/>
+      <stop offset="1" stop-color="#292f38"/>
+    </linearGradient>
+    <style>
+      .k{font:700 26px system-ui,sans-serif;letter-spacing:2px;fill:#dbb875}.h{font:700 50px system-ui,sans-serif;fill:#f6f0e4}.t{font:600 29px system-ui,sans-serif;fill:#f6f0e4}.b{font:400 23px system-ui,sans-serif;fill:#d1d5db}.s{font:500 20px system-ui,sans-serif;fill:#9da5b1}.card{fill:#20252d;stroke:#5e6876;stroke-width:2}.line{stroke:#dbb875;stroke-width:4;stroke-linecap:round}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <text x="92" y="105" class="k">FACT BOUNDARY · SITE ORIGINAL</text>
+  <text x="92" y="174" class="h">True Ebonite · Silk Black</text>
+  <line x1="94" y1="210" x2="1506" y2="210" class="line"/>
+  <g transform="translate(92 270)">
+    <rect class="card" width="430" height="410" rx="26"/>
+    <text x="34" y="62" class="t">CURRENT LISTING</text>
+    <text x="34" y="112" class="b">Ebonite · repeated polish</text>
+    <text x="34" y="153" class="b">European International C/C</text>
+    <text x="34" y="194" class="b">Current nib / feed menu</text>
+    <text x="34" y="235" class="b">Clipless / chrome / gold clip</text>
+    <line x1="34" y1="278" x2="396" y2="278" stroke="#5e6876"/>
+    <text x="34" y="324" class="s">Stock is a 2026-07-22 snapshot.</text>
+    <text x="34" y="360" class="s">Not a colour or finish proof.</text>
+  </g>
+  <g transform="translate(585 270)">
+    <rect class="card" width="430" height="410" rx="26"/>
+    <text x="34" y="62" class="t">2018 REVIEW SAMPLE</text>
+    <text x="34" y="112" class="b">Polished black · clipless</text>
+    <text x="34" y="153" class="b">Block threads · non-posting</text>
+    <text x="34" y="194" class="b">Steel JoWo F + ebonite feed</text>
+    <text x="34" y="235" class="b">One supplied sample only</text>
+    <line x1="34" y1="278" x2="396" y2="278" stroke="#5e6876"/>
+    <text x="34" y="324" class="s">Experience is not a current spec.</text>
+    <text x="34" y="360" class="s">No prototype dimensions copied.</text>
+  </g>
+  <g transform="translate(1078 270)">
+    <rect class="card" width="430" height="410" rx="26"/>
+    <text x="34" y="62" class="t">AS IS BOUNDARY</text>
+    <text x="34" y="112" class="b">Nicks · scrapes · streaks</text>
+    <text x="34" y="153" class="b">Different pictured pieces</text>
+    <text x="34" y="194" class="b">Special return conditions</text>
+    <text x="34" y="235" class="b">Inspect the exact pen</text>
+    <line x1="34" y1="278" x2="396" y2="278" stroke="#5e6876"/>
+    <text x="34" y="324" class="s">Defects are not model features.</text>
+    <text x="34" y="360" class="s">Old menus do not replace current.</text>
+  </g>
+  <text x="92" y="770" class="t">Sibling boundary</text>
+  <text x="92" y="816" class="b">Silk Black = repeated polish · Matte Black = matte sandblast</text>
+  <text x="1508" y="846" text-anchor="end" class="s">Non-photo · not to scale · no logo · no finish replica</text>
+</svg>
