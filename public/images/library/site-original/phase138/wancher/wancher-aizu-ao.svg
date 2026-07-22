@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Wancher Dream Pen Aizu Urushi Ao 事实边界图</title>
+  <desc id="desc">本站原创非产品照片示意图，区分 ABS 胎、会津漆深蓝路线、当前配置和被拒绝的玉虫涂推断。</desc>
+  <defs><linearGradient id="ao" x1="0" x2="1"><stop offset="0" stop-color="#101c32"/><stop offset=".5" stop-color="#163a68"/><stop offset="1" stop-color="#285a82"/></linearGradient></defs>
+  <rect width="1600" height="900" fill="#f0ece4"/>
+  <text x="105" y="125" font-family="serif" font-size="58" fill="#2e2924">Aizu Urushi · Ao</text>
+  <rect x="140" y="270" width="1090" height="170" rx="85" fill="url(#ao)"/><path d="M1230 310 L1480 355 L1230 400 Z" fill="#c5a261"/>
+  <g font-family="sans-serif" fill="#2e2924" font-size="27"><text x="125" y="535">exact SKU：Dream Pen / ABS base / Aizu Urushi</text><text x="125" y="590">current：European international C/C · nib / feed options</text><text x="125" y="645">Ao = deep-blue lacquer route, not a fixed colour value</text><text x="125" y="700">rejected inference：Tamamushi-nuri / silver powder</text><text x="125" y="755">地域背景不替具体商品配置背书</text></g>
+  <text x="105" y="835" font-family="sans-serif" font-size="23" fill="#705f50">site-original · non-photo · non-logo · not-to-scale · non-colour-proof · 1600×900</text>
+</svg>

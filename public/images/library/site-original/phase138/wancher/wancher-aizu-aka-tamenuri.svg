@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Wancher Dream Pen Aizu Urushi Aka Tamenuri 事实边界图</title>
+  <desc id="desc">本站原创非产品照片示意图，区分 ABS 胎、会津漆赤溜涂、当前配置和逐支色差。</desc>
+  <defs><linearGradient id="aka" x1="0" x2="1"><stop offset="0" stop-color="#321311"/><stop offset=".52" stop-color="#6f1d18"/><stop offset="1" stop-color="#bb4a37"/></linearGradient></defs>
+  <rect width="1600" height="900" fill="#f2eadf"/>
+  <text x="105" y="125" font-family="serif" font-size="54" fill="#30251e">Aizu Urushi · Aka Tamenuri</text>
+  <rect x="140" y="270" width="1090" height="170" rx="85" fill="url(#aka)"/><path d="M1230 310 L1480 355 L1230 400 Z" fill="#c8a05b"/>
+  <g font-family="sans-serif" fill="#30251e" font-size="27"><text x="125" y="535">exact SKU：Dream Pen / ABS base / Aizu Urushi</text><text x="125" y="590">current：European international C/C · four nib families</text><text x="125" y="645">red base + transparent / black / red layer choices</text><text x="125" y="700">humidity, season and handwork → piece-to-piece variation</text><text x="125" y="755">不是 True Urushi Aka Tamenuri 的别名</text></g>
+  <text x="105" y="835" font-family="sans-serif" font-size="23" fill="#705f50">site-original · non-photo · non-logo · not-to-scale · non-colour-proof · 1600×900</text>
+</svg>
