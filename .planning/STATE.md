@@ -5,10 +5,10 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
-stopped_at: Quick 260722-clt complete; continuing full-corpus content batches
-last_updated: "2026-07-22T09:40:00+08:00"
+stopped_at: Quick 260722-ecd complete; continuing full-corpus content batches
+last_updated: "2026-07-22T10:46:35+08:00"
 last_activity: 2026-07-22
-last_activity_desc: Platinum Izumo family reclassified and PIZ-80000N checkpoint-published as a partial corpus batch
+last_activity_desc: Platinum Small Meteor PQ-200 canonicalized and checkpoint-published without merging Preppy
 progress:
   total_phases: 16
   completed_phases: 10
@@ -31,7 +31,7 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 Phase: 21 (Taxonomy 与身份归一) — EXECUTING
 Plan: 4 of 6
 Status: In progress
-Last activity: 2026-07-22 — Completed quick task 260722-clt: reclassify Platinum Izumo family and publish PIZ-80000N as a partial corpus batch
+Last activity: 2026-07-22 — Completed quick task 260722-ecd: canonicalize Platinum Small Meteor PQ-200 without merging Preppy
 
 Progress: [█████░░░░░] 50%
 
@@ -166,10 +166,11 @@ Progress: [█████░░░░░] 50%
 | 260722-bxs | 原位规范并发布 Platinum President PTB-20000P，保留旧路由与 maker 关系并隔离历史／样笔证据 | 2026-07-22 | 3f71b38 | [260722-bxs-reclassify-platinum-president-ptb-20000p](./quick/260722-bxs-reclassify-platinum-president-ptb-20000p/) |
 | 260722-clt | 将 Platinum Izumo 泛型号原位改为系列导航，并发布具体 PIZ-80000N、修正 maker 拓扑 | 2026-07-22 | 1c462cc | [260722-clt-reclassify-platinum-izumo-and-publish-piz-80000n](./quick/260722-clt-reclassify-platinum-izumo-and-publish-piz-80000n/) |
 | 260722-dg6 | 将 Platinum 富士旬景混合条目改为系列导航，并发布 Shungyo、Kumpoo、Rokka、Shiun、Kinshu 五个精确型号 | 2026-07-22 | 0b5d93f | [260722-dg6-reclassify-platinum-fuji-shunkei-and-publish-five-editions](./quick/260722-dg6-reclassify-platinum-fuji-shunkei-and-publish-five-editions/) |
+| 260722-ecd | 原位规范 Platinum Small Meteor PQ-200，移除错误 Preppy alias，并保留地区型号与时态边界 | 2026-07-22 | 46ea8e7 | [260722-ecd-canonicalize-platinum-small-meteor-pq-200](./quick/260722-ecd-canonicalize-platinum-small-meteor-pq-200/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：Platinum Procyon、President、Izumo/PIZ 与 Fuji Shunkei 五款已完成 checkpoint 内容包。下一批先审理 raw `Er9lACPas9qm`“小流星／PQ200”的地区命名、与 Preppy 的产品关系、可证 SKU 与 maker topology，再决定原位 canonicalize、重分类或拆分；随后处理 raw `7dEIl-3axPwa`“莳绘系列”的集合身份及其它真正未覆盖品牌／型号。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行，full corpus goal 继续 active。
+继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：Platinum Procyon、President、Izumo/PIZ、Fuji Shunkei 五款与 Small Meteor PQ-200 已完成 checkpoint 内容包。下一批先审理 raw `7dEIl-3axPwa`“莳绘系列”的集合身份、混合 SKU、可证具体型号与 maker topology，再决定系列导航及需拆出的 exact products；随后处理其它真正未覆盖品牌／型号。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行，full corpus goal 继续 active。
 
 ## Session Continuity
 
