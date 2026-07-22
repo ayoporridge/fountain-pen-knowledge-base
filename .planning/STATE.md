@@ -5,7 +5,7 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
-stopped_at: Quick 260722-i2m complete; continuing full-corpus content batches
+stopped_at: Quick 260722-ije complete; switching to multi-model brand batches
 last_updated: "2026-07-22T13:19:00+08:00"
 last_activity: 2026-07-22
 last_activity_desc: Wancher Dream Pen True Ebonite Marble Green exact SKU checkpoint-published
@@ -31,7 +31,7 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 Phase: 21 (Taxonomy 与身份归一) — EXECUTING
 Plan: 4 of 6
 Status: In progress
-Last activity: 2026-07-22 — Completed quick task 260722-i2m: added exact Wancher Dream Pen True Ebonite Marble Green with current/family/retailer boundaries
+Last activity: 2026-07-22 — Completed quick task 260722-ije: published modern Conklin Duragraph with current/SKU/review evidence boundaries
 
 Progress: [█████░░░░░] 50%
 
@@ -175,10 +175,11 @@ Progress: [█████░░░░░] 50%
 | 260722-hr0 | 原位规范并发布 LAMY logo，分离全球 current presence、区域 Logo 005 FP 与评测样本 | 2026-07-22 | 4afc52a | [260722-hr0-lamy-logo](./quick/260722-hr0-lamy-logo-raw-identity-canonicalization-/) |
 | 260722-hyb | 发布 Wancher Dream Pen True Ebonite Silk Black，分离当前抛光款、2018 获赠样笔、AS IS 瑕疵与 Matte Black sibling | 2026-07-22 | 60cff1f | [260722-hyb-wancher-silk-black](./quick/260722-hyb-wancher-dream-pen-true-ebonite-silk-blac/) |
 | 260722-i2m | 发布 Wancher Dream Pen True Ebonite Marble Green，分离当前配置、家族工艺、零售库存并排除 Mine 同名款 | 2026-07-22 | cac4335 | [260722-i2m-wancher-marble-green](./quick/260722-i2m-wancher-dream-pen-true-ebonite-marble-gree/) |
+| 260722-ije | 发布现代 Conklin Duragraph，分离当前家族规格、具体 SKU 材质与两支历史评测样本 | 2026-07-22 | df2c976 | [260722-ije-conklin-duragraph](./quick/260722-ije-conklin-duragraph-owned-checkpoint-copy/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：Wancher True Ebonite Silk Black 与 Marble Green 已作为独立 SKU 补齐，Dream Pen series、Matte Black 与 Mine Marble Green 均未重放或混并。下一批继续从现有 research／脚本差集选择真正未覆盖且满足专业二级来源门槛的具体 SKU；证据不足的 Aizu Metallic Nashiji 继续 defer。生产迁移与全量页面验收留到内容批次完成后执行，full corpus goal 继续 active。
+继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点。Conklin Duragraph 已作为最后一个已启动的单型号包收尾；从下一批起改为同品牌 5–10 个真实缺口共享脚本、checkpoint 与定向回归，优先处理 Conklin 当代 All American、Mark Twain Crescent Filler、Endura Deco Crest 等。普通颜色保留为 variants，不复制实体。生产迁移与全量页面验收留到内容批次完成后执行，full corpus goal 继续 active。
 
 ## Session Continuity
 
