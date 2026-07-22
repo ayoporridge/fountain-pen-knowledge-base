@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">LAMY logo identity and regional configuration diagram</title>
+  <desc id="desc">Site-original factual diagram showing a slim cylindrical fountain pen, spring-loaded clip, two stainless-steel finish scopes and T10 or Z26/Z27 filling. It is not a product photograph and is not to scale.</desc>
+  <rect width="1600" height="900" fill="#f1eee8"/>
+  <rect x="72" y="66" width="1456" height="768" rx="34" fill="#fffdf8" stroke="#272b2f" stroke-width="4"/>
+  <text x="124" y="145" font-family="system-ui,sans-serif" font-size="54" font-weight="700" fill="#202327">LAMY logo</text>
+  <text x="124" y="194" font-family="system-ui,sans-serif" font-size="25" fill="#5c6268">细圆杆钢笔 · current global category presence / regional exact configuration</text>
+  <g transform="translate(150 275)">
+    <rect x="0" y="96" width="930" height="92" rx="45" fill="#c7c9c8" stroke="#292d30" stroke-width="5"/>
+    <path d="M930 96h90l118 46-118 46h-90z" fill="#d8dad9" stroke="#292d30" stroke-width="5"/>
+    <path d="M1138 142l85-25-39 25 39 25z" fill="#bca76f" stroke="#292d30" stroke-width="4"/>
+    <rect x="44" y="82" width="275" height="120" rx="58" fill="#e1e2df" stroke="#292d30" stroke-width="5"/>
+    <path d="M100 80c12-65 180-65 194 0" fill="none" stroke="#34383b" stroke-width="14" stroke-linecap="round"/>
+    <path d="M154 104v78m27-78v78m27-78v78m27-78v78" stroke="#777c7f" stroke-width="6" opacity=".78"/>
+    <text x="20" y="252" font-family="system-ui,sans-serif" font-size="25" font-weight="650" fill="#25292c">spring-loaded clip</text>
+    <text x="390" y="252" font-family="system-ui,sans-serif" font-size="25" fill="#4f5559">slim cylindrical metal body</text>
+  </g>
+  <g font-family="system-ui,sans-serif">
+    <rect x="132" y="615" width="400" height="145" rx="24" fill="#e7e2d9" stroke="#34383b" stroke-width="3"/>
+    <text x="166" y="662" font-size="27" font-weight="700" fill="#262a2d">Finish variants</text>
+    <text x="166" y="707" font-size="24" fill="#4d5357">brushed stainless steel</text>
+    <text x="166" y="741" font-size="24" fill="#4d5357">cyclical matt stainless steel</text>
+    <rect x="600" y="615" width="400" height="145" rx="24" fill="#e7e2d9" stroke="#34383b" stroke-width="3"/>
+    <text x="634" y="662" font-size="27" font-weight="700" fill="#262a2d">Regional official scope</text>
+    <text x="634" y="707" font-size="24" fill="#4d5357">polished steel nib</text>
+    <text x="634" y="741" font-size="24" fill="#4d5357">T10 · Z26 / Z27</text>
+    <rect x="1068" y="615" width="400" height="145" rx="24" fill="#e7e2d9" stroke="#34383b" stroke-width="3"/>
+    <text x="1102" y="662" font-size="27" font-weight="700" fill="#262a2d">Excluded siblings</text>
+    <text x="1102" y="707" font-size="24" fill="#4d5357">ballpoint · M+ · Lx</text>
+    <text x="1102" y="741" font-size="24" fill="#4d5357">cp1 · studio · safari</text>
+  </g>
+  <text x="800" y="808" text-anchor="middle" font-family="system-ui,sans-serif" font-size="20" fill="#6b7074">site-original factual SVG · non-photo · non-logo · not to scale · not colour/finish proof</text>
+</svg>
