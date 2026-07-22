@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pilot Capless Fermo FCF-2MR fact boundary diagram</title>
+  <desc id="desc">Site-original non-photographic diagram showing the Fermo rotary retractable mechanism, 2006 identity, and supply-status boundary. Not to scale and not a colour or finish proof.</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8edf3"/><stop offset="1" stop-color="#cdd6e2"/></linearGradient><linearGradient id="body" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#172a47"/><stop offset=".55" stop-color="#334f76"/><stop offset="1" stop-color="#16253d"/></linearGradient></defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <text x="96" y="112" font-family="Georgia,serif" font-size="54" fill="#17253a">Pilot Capless Fermo</text>
+  <text x="98" y="162" font-family="Arial,sans-serif" font-size="24" fill="#536174">FCF-2MR · 2006 · rotary retractable branch</text>
+  <g transform="translate(116 280)">
+    <path d="M40 70h980l126 58-126 58H40c-30 0-40-25-40-58s10-58 40-58z" fill="url(#body)" stroke="#101b2b" stroke-width="8"/>
+    <path d="M1146 128l104-25-62 50z" fill="#d4b46a" stroke="#6f572b" stroke-width="5"/>
+    <rect x="36" y="58" width="190" height="140" rx="64" fill="#223a5c" stroke="#101b2b" stroke-width="8"/>
+    <path d="M72 78v100M112 72v112M152 72v112M192 78v100" stroke="#6e82a0" stroke-width="8"/>
+    <path d="M112 28c-58 0-104 46-104 104" fill="none" stroke="#a54b45" stroke-width="12" stroke-linecap="round"/>
+    <path d="M5 131l8-30 22 22" fill="#a54b45"/>
+    <text x="38" y="242" font-family="Arial,sans-serif" font-size="22" fill="#4b596c">rotate tail control → extend / retract nib</text>
+  </g>
+  <g font-family="Arial,sans-serif">
+    <rect x="104" y="604" width="420" height="180" rx="24" fill="#fff" opacity=".92"/>
+    <text x="138" y="650" font-size="25" font-weight="700" fill="#17253a">Official identity</text><text x="138" y="694" font-size="22" fill="#47566a">FCF-2MR / FCF2MR · Fermo</text><text x="138" y="732" font-size="22" fill="#47566a">2006 · rotary Capless branch</text><text x="138" y="770" font-size="22" fill="#47566a">not 1963 original / Decimo / LS</text>
+    <rect x="590" y="604" width="410" height="180" rx="24" fill="#fff" opacity=".92"/>
+    <text x="624" y="650" font-size="25" font-weight="700" fill="#17253a">Supply-time boundary</text><text x="624" y="694" font-size="22" fill="#47566a">listed in 2024 official price table</text><text x="624" y="732" font-size="22" fill="#47566a">absent from 2025-10 table</text><text x="624" y="770" font-size="22" fill="#47566a">current status pending; no retirement claim</text>
+    <rect x="1066" y="604" width="420" height="180" rx="24" fill="#fff" opacity=".92"/>
+    <text x="1100" y="650" font-size="25" font-weight="700" fill="#17253a">Diagram limits</text><text x="1100" y="694" font-size="22" fill="#47566a">non-photo · non-logo</text><text x="1100" y="732" font-size="22" fill="#47566a">not-to-scale · not-colour-proof</text><text x="1100" y="770" font-size="22" fill="#47566a">not-finish-proof · no cutaway claim</text>
+  </g>
+</svg>
