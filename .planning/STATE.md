@@ -176,10 +176,11 @@ Progress: [█████░░░░░] 50%
 | 260722-hyb | 发布 Wancher Dream Pen True Ebonite Silk Black，分离当前抛光款、2018 获赠样笔、AS IS 瑕疵与 Matte Black sibling | 2026-07-22 | 60cff1f | [260722-hyb-wancher-silk-black](./quick/260722-hyb-wancher-dream-pen-true-ebonite-silk-blac/) |
 | 260722-i2m | 发布 Wancher Dream Pen True Ebonite Marble Green，分离当前配置、家族工艺、零售库存并排除 Mine 同名款 | 2026-07-22 | cac4335 | [260722-i2m-wancher-marble-green](./quick/260722-i2m-wancher-dream-pen-true-ebonite-marble-gree/) |
 | 260722-ije | 发布现代 Conklin Duragraph，分离当前家族规格、具体 SKU 材质与两支历史评测样本 | 2026-07-22 | df2c976 | [260722-ije-conklin-duragraph](./quick/260722-ije-conklin-duragraph-owned-checkpoint-copy/) |
+| 260722-itm | 批量发布 Conklin All American、Mark Twain Crescent Filler、Endura Deco Crest、1898 Misto，并拒绝错误尺寸与冲突商品文案 | 2026-07-22 | 6386940 | [260722-itm-conklin-contemporary](./quick/260722-itm-conklin-all-american-mark-twain-crescent/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点。Conklin Duragraph 已作为最后一个已启动的单型号包收尾；从下一批起改为同品牌 5–10 个真实缺口共享脚本、checkpoint 与定向回归，优先处理 Conklin 当代 All American、Mark Twain Crescent Filler、Endura Deco Crest 等。普通颜色保留为 variants，不复制实体。生产迁移与全量页面验收留到内容批次完成后执行，full corpus goal 继续 active。
+继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点。Conklin 已验证同品牌多型号共享脚本、checkpoint 与定向回归的批处理路径；下一批优先从现有 research 与可重放 raw 包中选择 4–8 个真实缺口，继续按品牌批量处理，普通颜色保留为 variants。生产迁移与全量页面验收留到内容批次完成后执行，full corpus goal 继续 active。
 
 ## Session Continuity
 
