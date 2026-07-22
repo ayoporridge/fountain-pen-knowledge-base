@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pilot 88G MR3 FP-MR3 Retro Pop variant map</title>
+  <desc id="desc">site-original factual SVG; non-photo; non-logo; not-to-scale; not-colour-proof; not-finish-proof. FP-MR3 has DT WV FL MB EP HT coded Retro Pop variants, metal body, F M nibs and China CON-40 compatibility.</desc>
+  <rect width="1600" height="900" fill="#ece8ee"/>
+  <rect x="75" y="65" width="1450" height="770" rx="36" fill="#fffdfb" stroke="#353044" stroke-width="6"/>
+  <text x="125" y="150" font-family="serif" font-size="54" fill="#241f33">Pilot 88G MR3 Retro Pop · FP-MR3</text>
+  <text x="125" y="205" font-family="sans-serif" font-size="24" fill="#615a73">METAL BODY · F / M · PILOT CARTRIDGES / CON-40 (CHINA)</text>
+  <g font-family="sans-serif" font-size="30" fill="#241f33">
+    <rect x="130" y="285" width="400" height="180" rx="26" fill="#b9d8e5"/><text x="170" y="355">DT · light-blue dots</text><circle cx="210" cy="410" r="11" fill="#5f91a8"/><circle cx="260" cy="410" r="11" fill="#5f91a8"/>
+    <rect x="600" y="285" width="400" height="180" rx="26" fill="#db827c"/><text x="640" y="355">WV · red wave</text><path d="M640 410q70-60 140 0t140 0" fill="none" stroke="#8e413e" stroke-width="9"/>
+    <rect x="1070" y="285" width="400" height="180" rx="26" fill="#eab372"/><text x="1110" y="355">FL · orange flower</text><circle cx="1190" cy="410" r="30" fill="none" stroke="#a9682f" stroke-width="9"/>
+    <rect x="130" y="515" width="400" height="180" rx="26" fill="#bcd5bd"/><text x="170" y="585">MB · light-green marble</text><path d="M170 640q80-50 160 0t160 0" fill="none" stroke="#668d69" stroke-width="9"/>
+    <rect x="600" y="515" width="400" height="180" rx="26" fill="#c2a7d4"/><text x="640" y="585">EP · violet ellipse</text><ellipse cx="750" cy="640" rx="55" ry="24" fill="none" stroke="#76558f" stroke-width="9"/>
+    <rect x="1070" y="515" width="400" height="180" rx="26" fill="#b9bbc0"/><text x="1110" y="585">HT · grey houndstooth</text><path d="M1110 630h55v35h55v-35h55" fill="none" stroke="#62656b" stroke-width="9"/>
+  </g>
+  <text x="130" y="785" font-family="sans-serif" font-size="22" fill="#70697e">Diagram maps product codes only; it is not a colour, pattern or finish proof.</text>
+</svg>

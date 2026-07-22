@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pilot 88G MR2 FP-MR2 Animal variant map</title>
+  <desc id="desc">site-original factual SVG; non-photo; non-logo; not-to-scale; not-colour-proof; not-finish-proof. FP-MR2 has LZD LPD WTG CDL PTN coded animal-pattern variants, metal body, F M nibs and China CON-40 compatibility.</desc>
+  <rect width="1600" height="900" fill="#eee9df"/>
+  <rect x="75" y="65" width="1450" height="770" rx="36" fill="#fffdf8" stroke="#3b352d" stroke-width="6"/>
+  <text x="125" y="150" font-family="serif" font-size="54" fill="#29251f">Pilot 88G MR2 Animal · FP-MR2</text>
+  <text x="125" y="205" font-family="sans-serif" font-size="24" fill="#655e54">METAL BODY · F / M · PILOT CARTRIDGES / CON-40 (CHINA)</text>
+  <g font-family="sans-serif" fill="#29251f">
+    <rect x="130" y="300" width="250" height="290" rx="28" fill="#b6a47e"/><text x="170" y="375" font-size="38">LZD</text><text x="170" y="435" font-size="27">Lizard</text><path d="M170 500q45-70 90 0t90 0" fill="none" stroke="#66583c" stroke-width="8"/>
+    <rect x="405" y="300" width="250" height="290" rx="28" fill="#a9849e"/><text x="445" y="375" font-size="38">LPD</text><text x="445" y="435" font-size="27">Leopard</text><circle cx="475" cy="510" r="18" fill="none" stroke="#60465a" stroke-width="7"/><circle cx="545" cy="510" r="18" fill="none" stroke="#60465a" stroke-width="7"/>
+    <rect x="680" y="300" width="250" height="290" rx="28" fill="#ece9df"/><text x="720" y="375" font-size="38">WTG</text><text x="720" y="435" font-size="27">White Tiger</text><path d="M720 485l170 55M720 535l170-55" stroke="#74716a" stroke-width="8"/>
+    <rect x="955" y="300" width="250" height="290" rx="28" fill="#42413e"/><text x="995" y="375" font-size="38" fill="#fff">CDL</text><text x="995" y="435" font-size="27" fill="#fff">Crocodile</text><path d="M995 495h170M995 535h170" stroke="#8e8b83" stroke-width="8"/>
+    <rect x="1230" y="300" width="250" height="290" rx="28" fill="#c9cbd0"/><text x="1270" y="375" font-size="38">PTN</text><text x="1270" y="435" font-size="27">Python</text><path d="M1270 500l45-35 45 35 45-35 35 28" fill="none" stroke="#747983" stroke-width="8"/>
+  </g>
+  <text x="130" y="680" font-family="sans-serif" font-size="26" fill="#655e54">Animal names describe printed patterns, not animal materials.</text>
+  <text x="130" y="785" font-family="sans-serif" font-size="22" fill="#746e64">Verify FP-MR2 + nib + code; European DIN versions require separate compatibility checks.</text>
+</svg>

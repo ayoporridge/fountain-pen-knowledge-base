@@ -83,12 +83,14 @@ export const RECLASSIFIED_ARTICLE_PATHS: Record<string, string> =
       "/article/montblanc-patron-of-art",
     ],
     ["pen/wancher万佳-dream-pen", "/article/wancher-dream-pen"],
+    ["pen/百乐-pilot-88g", "/article/pilot-88g-mr-guide"],
     ["pen/白金-platinum-出云-izumo", "/article/platinum-izumo"],
     ["pen/白金-platinum-富士旬景pnb-13000", "/article/platinum-fuji-shunkei"],
     ["pen/白金-platinum-莳绘系列", "/article/platinum-maki-e-kanazawa-leaf"],
   ]);
 
 const CANONICAL_ENTITY_PATHS: Record<string, string> = {
+  "pen/百乐-pilot-78g-78g": "/pen/pilot-78g-fp-78g",
   "pen/百乐-pilot-custom-823": "/pen/pilot-custom-823",
   "pen/百利金-pelikan-m1000": "/pen/pelikan-souveran-m1000",
   "pen/百利金-pelikan-m600": "/pen/pelikan-souveran-m600",

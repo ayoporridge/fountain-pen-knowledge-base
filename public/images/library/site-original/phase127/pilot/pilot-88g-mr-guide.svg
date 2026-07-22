@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pilot 88G and MR family product-line guide</title>
+  <desc id="desc">site-original factual SVG; non-photo; non-logo; not-to-scale; not-colour-proof; not-finish-proof. China 88G navigation separates FP-MR1 Classic, FP-MR2 Animal and FP-MR3 Retro Pop; region-specific cartridge systems require separate checks.</desc>
+  <rect width="1600" height="900" fill="#e8edf1"/>
+  <rect x="80" y="70" width="1440" height="760" rx="36" fill="#fffdf9" stroke="#24364a" stroke-width="6"/>
+  <text x="130" y="160" font-family="serif" font-size="58" fill="#17283c">Pilot 88G / MR family guide</text>
+  <text x="130" y="215" font-family="sans-serif" font-size="24" fill="#53677c">ONE REGIONAL FAMILY · THREE EXACT PRODUCT NUMBERS</text>
+  <g font-family="sans-serif" fill="#17283c">
+    <rect x="130" y="315" width="400" height="300" rx="30" fill="#d9dde1"/><text x="175" y="400" font-size="44">FP-MR1</text><text x="175" y="465" font-size="31">Classic</text><text x="175" y="525" font-size="24">5 listed codes</text>
+    <rect x="600" y="315" width="400" height="300" rx="30" fill="#d8c9b1"/><text x="645" y="400" font-size="44">FP-MR2</text><text x="645" y="465" font-size="31">Animal</text><text x="645" y="525" font-size="24">5 listed codes</text>
+    <rect x="1070" y="315" width="400" height="300" rx="30" fill="#d4c6dd"/><text x="1115" y="400" font-size="44">FP-MR3</text><text x="1115" y="465" font-size="31">Retro Pop</text><text x="1115" y="525" font-size="24">6 listed codes</text>
+  </g>
+  <path d="M530 465h70M1000 465h70" stroke="#6b7d91" stroke-width="6" stroke-dasharray="14 14"/>
+  <text x="130" y="700" font-family="sans-serif" font-size="27" fill="#435970">China pages: metal body · F/M · Pilot cartridges / CON-40</text>
+  <text x="130" y="752" font-family="sans-serif" font-size="24" fill="#7b4f42">European DIN compatibility is region-scoped; verify the package before buying a converter.</text>
+  <text x="130" y="795" font-family="sans-serif" font-size="21" fill="#68798a">Family map only; not a colour, pattern, finish, dimension or scale proof.</text>
+</svg>

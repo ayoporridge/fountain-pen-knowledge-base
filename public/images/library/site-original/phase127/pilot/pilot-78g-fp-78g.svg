@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pilot FP-78G current product boundary map</title>
+  <desc id="desc">site-original factual SVG; non-photo; non-logo; not-to-scale; not-colour-proof; not-finish-proof. Current China FP-78G has EF F M B nib options, ten colour codes, resin body and included CON-40; historical 78G sample facts remain separate.</desc>
+  <rect width="1600" height="900" fill="#f5f0e6"/>
+  <rect x="80" y="70" width="1440" height="760" rx="36" fill="#fffdf8" stroke="#27364b" stroke-width="6"/>
+  <text x="130" y="155" font-family="serif" font-size="55" fill="#18253a">Pilot FP-78G</text>
+  <text x="130" y="210" font-family="sans-serif" font-size="25" fill="#536176">CURRENT CHINA PRODUCT BOUNDARY · 2026-07-22 CHECK</text>
+  <line x1="130" y1="248" x2="1470" y2="248" stroke="#c9b99c" stroke-width="3"/>
+  <g font-family="sans-serif" fill="#18253a">
+    <text x="150" y="330" font-size="28">NIB OPTIONS</text><text x="150" y="385" font-size="43">EF · F · M · B</text>
+    <text x="150" y="485" font-size="28">BODY / FILL</text><text x="150" y="540" font-size="38">resin · Pilot cartridges · CON-40 included</text>
+    <text x="150" y="640" font-size="28">COLOUR CODES</text><text x="150" y="695" font-size="35">B · R · L · G · OL · LGY · PP · PG · NC · W</text>
+  </g>
+  <rect x="1050" y="300" width="360" height="375" rx="26" fill="#e5edf3" stroke="#61768d" stroke-width="3"/>
+  <text x="1100" y="370" font-family="sans-serif" font-size="28" fill="#18253a">HISTORICAL WALL</text>
+  <text x="1100" y="430" font-family="sans-serif" font-size="25" fill="#31445b">2013 original 78G</text>
+  <text x="1100" y="480" font-family="sans-serif" font-size="25" fill="#31445b">sample colours / F-M-B</text>
+  <text x="1100" y="530" font-family="sans-serif" font-size="25" fill="#31445b">old converter evidence</text>
+  <line x1="1100" y1="570" x2="1360" y2="570" stroke="#a85b4b" stroke-width="5"/>
+  <text x="1100" y="625" font-family="sans-serif" font-size="23" fill="#793c31">not current specs</text>
+  <text x="130" y="785" font-family="sans-serif" font-size="22" fill="#687589">Verify FP-78G, nib width, colour code and actual converter on the package.</text>
+</svg>
