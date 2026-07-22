@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Platinum Izumo PIZ-80000N evidence boundaries</title>
+  <desc id="desc">A site-original factual boundary diagram: non-photo, non-logo, not-to-scale, not-colour-proof, not-finish-proof.</desc>
+  <rect width="1600" height="900" fill="#151a1f"/>
+  <text x="90" y="105" font-family="system-ui,sans-serif" font-size="50" font-weight="700" fill="#f7f0df">PIZ-80000N · EXACT PRODUCT BOUNDARIES</text>
+  <text x="90" y="150" font-family="system-ui,sans-serif" font-size="24" fill="#b9c2c9">Current product facts stay separate from dated documents and sample observations.</text>
+  <g font-family="system-ui,sans-serif">
+    <rect x="90" y="210" width="680" height="250" rx="26" fill="#243747" stroke="#7fb1d1" stroke-width="3"/>
+    <text x="130" y="265" font-size="31" font-weight="700" fill="#dff3ff">CURRENT PRODUCT · 2026-07-22</text>
+    <text x="130" y="320" font-size="29" fill="#fff">#91 Ginsen Yakumo</text>
+    <text x="130" y="365" font-size="29" fill="#fff">#92 Togi Yakumo · polished/togidashi only</text>
+    <text x="130" y="410" font-size="23" fill="#cde6f5">18K (18-21) F/M/B · ebonite · 154×18 mm · 33 g</text>
+    <rect x="830" y="210" width="680" height="250" rx="26" fill="#3c3023" stroke="#d8ae68" stroke-width="3"/>
+    <text x="870" y="265" font-size="31" font-weight="700" fill="#ffe5b5">DATED / INSTRUCTION DOCUMENTS</text>
+    <text x="870" y="325" font-size="27" fill="#fff">2019–2020 catalog · corroboration only</text>
+    <text x="870" y="375" font-size="27" fill="#fff">Izumo manual · ~3 month nib rinse</text>
+    <text x="870" y="420" font-size="23" fill="#f3d9aa">No current availability, durability or general lacquer-care inference</text>
+    <rect x="90" y="510" width="680" height="210" rx="26" fill="#3e2630" stroke="#d889a6" stroke-width="3"/>
+    <text x="130" y="565" font-size="31" font-weight="700" fill="#ffd9e7">LEIGH REYES · 2013 SAMPLE</text>
+    <text x="130" y="620" font-size="27" fill="#fff">Older Yakumonuri · Fine · President engraving</text>
+    <text x="130" y="670" font-size="23" fill="#f4c6d6">Ambiguous: never guessed as #91 or #92</text>
+    <rect x="830" y="510" width="680" height="210" rx="26" fill="#253a31" stroke="#7ec29e" stroke-width="3"/>
+    <text x="870" y="565" font-size="31" font-weight="700" fill="#d6ffe7">FPN COLUMELA · 2017 COMMUNITY</text>
+    <text x="870" y="620" font-size="27" fill="#fff">Exact Ginsen sample · M · cartridge/converter</text>
+    <text x="870" y="670" font-size="23" fill="#c6edd7">Large size, feel and line remain user-generated sample observations</text>
+  </g>
+  <text x="90" y="805" font-family="system-ui,sans-serif" font-size="21" fill="#bac3ca">site-original · factual SVG · non-photo · non-logo · not-to-scale · not-colour-proof · not-finish-proof</text>
+</svg>

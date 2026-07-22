@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Platinum Izumo 11-family navigation snapshot</title>
+  <desc id="desc">A site-original factual navigation diagram: non-photo, non-logo, not-to-scale, not-colour-proof, not-finish-proof.</desc>
+  <rect width="1600" height="900" fill="#f3efe6"/>
+  <rect x="70" y="60" width="1460" height="780" rx="36" fill="#fffdf8" stroke="#3c342c" stroke-width="4"/>
+  <text x="120" y="135" font-family="system-ui,sans-serif" font-size="48" font-weight="700" fill="#24201c">PLATINUM IZUMO · 11-FAMILY NAVIGATION</text>
+  <text x="120" y="182" font-family="system-ui,sans-serif" font-size="24" fill="#6b5b4b">2026-07-22 lineup cards · duplicate images deduplicated · navigation only</text>
+  <g font-family="system-ui,sans-serif" font-size="27" fill="#26211d">
+    <text x="130" y="260">01  PIZ-600000 Takisansui</text>
+    <text x="130" y="315">02  PIZ-500000 Hama no Matsu limited</text>
+    <text x="130" y="370">03  PIZ-300000 Hama no Matsu limited</text>
+    <text x="130" y="425">04  PIZ-300000 Urokomon</text>
+    <text x="130" y="480">05  PIZ-300000A Aurora</text>
+    <text x="130" y="535">06  PBA-120000G Takeami</text>
+    <text x="830" y="260">07  PBA-120000Y Takeami</text>
+    <text x="830" y="315">08  PIZ-100000 Yakumo Byakudan</text>
+    <text x="830" y="370">09  PIZ-80000N Ginsen/Togi Yakumo</text>
+    <text x="830" y="425">10  PIZ-50000T Tagayasan</text>
+    <text x="830" y="480">11  PIZ-55000 Tamenuri</text>
+  </g>
+  <rect x="120" y="610" width="1360" height="125" rx="20" fill="#322c26"/>
+  <text x="160" y="665" font-family="system-ui,sans-serif" font-size="30" font-weight="700" fill="#f4dfb2">NO SHARED SPEC TABLE</text>
+  <text x="160" y="710" font-family="system-ui,sans-serif" font-size="23" fill="#fff8e8">Sibling labels are not entities, variants, specs or graph links. 2025 Precious Wood news remains a dated announcement.</text>
+  <text x="120" y="795" font-family="system-ui,sans-serif" font-size="20" fill="#6b5b4b">site-original · factual SVG · non-photo · non-logo · not-to-scale · not-colour-proof · not-finish-proof</text>
+</svg>
