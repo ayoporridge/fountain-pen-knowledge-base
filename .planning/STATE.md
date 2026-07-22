@@ -5,10 +5,10 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
-stopped_at: Quick 260722-ba3 complete; continuing full-corpus content batches
-last_updated: "2026-07-22T08:35:00+08:00"
+stopped_at: Quick 260722-bxs complete; continuing full-corpus content batches
+last_updated: "2026-07-22T09:05:00+08:00"
 last_activity: 2026-07-22
-last_activity_desc: Platinum Procyon PNS-5000 checkpoint-published as a partial corpus batch
+last_activity_desc: Platinum President PTB-20000P same-ID checkpoint-published as a partial corpus batch
 progress:
   total_phases: 16
   completed_phases: 10
@@ -31,7 +31,7 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 Phase: 21 (Taxonomy 与身份归一) — EXECUTING
 Plan: 4 of 6
 Status: In progress
-Last activity: 2026-07-22 — Completed quick task 260722-ba3: publish Platinum Procyon PNS-5000 as a partial corpus batch
+Last activity: 2026-07-22 — Completed quick task 260722-bxs: reclassify and publish Platinum President PTB-20000P as a partial corpus batch
 
 Progress: [█████░░░░░] 50%
 
@@ -163,10 +163,11 @@ Progress: [█████░░░░░] 50%
 | 260722-adq | 发布 Wancher PuChiCo 单一 canonical 型号与 11 个颜色 variants，隔离两篇专业样本证据 | 2026-07-21 | 9160b24 | [260722-adq-publish-the-missing-wancher-puchico-mode](./quick/260722-adq-publish-the-missing-wancher-puchico-mode/) |
 | 260722-awm | 发布 Wancher Shizuku 玻璃尖钢笔单一 canonical 型号与 14 个官网 variants，隔离 Solis 与 2019 Earth 样本 | 2026-07-21 | 7ddd49b | [260722-awm-publish-the-missing-wancher-shizuku-glas](./quick/260722-awm-publish-the-missing-wancher-shizuku-glas/) |
 | 260722-ba3 | 发布 Platinum Procyon PNS-5000 单一 canonical 型号，分离现行四色、首发历史色、PNS-8000 与两支实测样本 | 2026-07-22 | 3b8fb2f | [260722-ba3-publish-the-missing-platinum-procyon-pns](./quick/260722-ba3-publish-the-missing-platinum-procyon-pns/) |
+| 260722-bxs | 原位规范并发布 Platinum President PTB-20000P，保留旧路由与 maker 关系并隔离历史／样笔证据 | 2026-07-22 | 3f71b38 | [260722-bxs-reclassify-platinum-president-ptb-20000p](./quick/260722-bxs-reclassify-platinum-president-ptb-20000p/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：Pilot、Wancher 与 Platinum Procyon 的本轮缺口已按来源化内容包推进；下一批优先处理官网当前身份清楚且尚无可重放包的 Platinum President PTB-20000P，再衔接其余真正未覆盖的品牌／型号。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行，full corpus goal 继续 active。
+继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：Platinum Procyon 与 President 已完成 checkpoint 内容包；下一批处理被错误建成单一 pen 的 Platinum Izumo 泛节点，先重分类为系列导航并补具体 PIZ-80000N，再衔接其余真正未覆盖品牌／型号。每批坚持官网／目录／可靠专业资料优先、自然中文、精确型号图与完整品牌反向链接；不扩建通用验收框架。生产迁移与全量页面验收留到内容批次完成后执行，full corpus goal 继续 active。
 
 ## Session Continuity
 
