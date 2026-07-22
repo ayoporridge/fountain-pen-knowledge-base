@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Wancher Shizuku evidence scope map</title>
+  <desc id="desc">Site-original factual editorial diagram, non-photo, non-logo, not-to-scale, not-colour-proof, not-finish-proof.</desc>
+  <rect width="1600" height="900" fill="#f5f1e8"/>
+  <text x="80" y="80" font-family="sans-serif" font-size="38" fill="#17324d">Shizuku Glass Nib Fountain Pen · one canonical model</text>
+  <text x="80" y="120" font-family="sans-serif" font-size="18" fill="#51606d">site-original · factual · non-photo · non-logo · not-to-scale · not-colour-proof · not-finish-proof</text>
+  <rect x="70" y="170" width="430" height="650" rx="24" fill="#dbeaf0" stroke="#17324d" stroke-width="3"/>
+  <text x="105" y="225" font-family="sans-serif" font-size="28" fill="#17324d">Family mechanism</text>
+  <path d="M160 320 L270 260 L380 320 L270 380 Z" fill="#8dc5d2" stroke="#17324d" stroke-width="4"/>
+  <text x="190" y="330" font-family="sans-serif" font-size="22" fill="#17324d">glass nib</text>
+  <path d="M270 400 V520" stroke="#17324d" stroke-width="6" marker-end="url(#arrow)"/>
+  <rect x="170" y="535" width="200" height="90" rx="20" fill="#fff" stroke="#17324d" stroke-width="4"/>
+  <text x="205" y="588" font-family="sans-serif" font-size="24" fill="#17324d">converter</text>
+  <text x="105" y="700" font-family="sans-serif" font-size="20" fill="#17324d">handmade glass nib</text>
+  <text x="105" y="735" font-family="sans-serif" font-size="20" fill="#17324d">Duralumin / anodization context</text>
+  <text x="105" y="770" font-family="sans-serif" font-size="18" fill="#51606d">family facts ≠ every-card exact specs</text>
+  <rect x="530" y="170" width="500" height="650" rx="24" fill="#fff" stroke="#6d5a3a" stroke-width="3"/>
+  <text x="565" y="225" font-family="sans-serif" font-size="28" fill="#4c3c25">14 official cards · retrieved 2026-07-22</text>
+  <g font-family="sans-serif" font-size="21" fill="#4c3c25">
+    <text x="580" y="300">Black Eye</text><text x="800" y="300">Orion Nebula</text>
+    <text x="580" y="360">Eclipse</text><text x="800" y="360">Solis</text>
+    <text x="580" y="420">Blue Moon</text><text x="800" y="420">Adrastea</text>
+    <text x="580" y="480">Mars</text><text x="800" y="480">Pluto</text>
+    <text x="580" y="540">Andromeda</text><text x="800" y="540">Gaia</text>
+    <text x="580" y="600">Saturn</text><text x="800" y="600">Jupiter</text>
+    <text x="580" y="660">Earth</text><text x="800" y="660">Venus</text>
+  </g>
+  <text x="565" y="735" font-family="sans-serif" font-size="18" fill="#6d5a3a">name-deduplicated · AS IS/outlet excluded</text>
+  <text x="565" y="770" font-family="sans-serif" font-size="18" fill="#6d5a3a">availability / sold-out = mutable snapshot</text>
+  <rect x="1060" y="170" width="470" height="305" rx="24" fill="#e5ead7" stroke="#40532f" stroke-width="3"/>
+  <text x="1095" y="225" font-family="sans-serif" font-size="28" fill="#40532f">Solis exact · current</text>
+  <text x="1095" y="275" font-family="sans-serif" font-size="20" fill="#40532f">Duralumin · screw cap</text>
+  <text x="1095" y="310" font-family="sans-serif" font-size="20" fill="#40532f">clear / black glass nib · EF / F / M</text>
+  <text x="1095" y="345" font-family="sans-serif" font-size="20" fill="#40532f">154 mm capped · 128 mm uncapped</text>
+  <text x="1095" y="380" font-family="sans-serif" font-size="20" fill="#40532f">12 mm ring · approx. 25 g</text>
+  <text x="1095" y="415" font-family="sans-serif" font-size="20" fill="#40532f">international converter · Solis only</text>
+  <rect x="1060" y="505" width="470" height="315" rx="24" fill="#f0dede" stroke="#753a3a" stroke-width="3"/>
+  <text x="1095" y="560" font-family="sans-serif" font-size="28" fill="#753a3a">Earth sample · 2019 exclusion</text>
+  <text x="1095" y="610" font-family="sans-serif" font-size="20" fill="#753a3a">Susan M. Pigott · Wancher supplied free</text>
+  <text x="1095" y="645" font-family="sans-serif" font-size="20" fill="#753a3a">137 / 120 mm · 26.5 / 18 g</text>
+  <text x="1095" y="680" font-family="sans-serif" font-size="20" fill="#753a3a">non-posting · 10 mm grip · feel / flow</text>
+  <text x="1095" y="730" font-family="sans-serif" font-size="18" fill="#753a3a">sample/history only · not Solis/current specs</text>
+  <text x="1095" y="765" font-family="sans-serif" font-size="18" fill="#753a3a">2019 preorder list ≠ 2026 variant source</text>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#17324d"/></marker></defs>
+</svg>
