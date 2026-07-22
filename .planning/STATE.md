@@ -6,7 +6,7 @@ current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
 stopped_at: Quick 260722-ije complete; switching to multi-model brand batches
-last_updated: "2026-07-22T13:19:00+08:00"
+last_updated: "2026-07-22T14:00:00+08:00"
 last_activity: 2026-07-22
 last_activity_desc: Wancher Dream Pen True Ebonite Marble Green exact SKU checkpoint-published
 progress:
@@ -177,10 +177,11 @@ Progress: [█████░░░░░] 50%
 | 260722-i2m | 发布 Wancher Dream Pen True Ebonite Marble Green，分离当前配置、家族工艺、零售库存并排除 Mine 同名款 | 2026-07-22 | cac4335 | [260722-i2m-wancher-marble-green](./quick/260722-i2m-wancher-dream-pen-true-ebonite-marble-gree/) |
 | 260722-ije | 发布现代 Conklin Duragraph，分离当前家族规格、具体 SKU 材质与两支历史评测样本 | 2026-07-22 | df2c976 | [260722-ije-conklin-duragraph](./quick/260722-ije-conklin-duragraph-owned-checkpoint-copy/) |
 | 260722-itm | 批量发布 Conklin All American、Mark Twain Crescent Filler、Endura Deco Crest、1898 Misto，并拒绝错误尺寸与冲突商品文案 | 2026-07-22 | 6386940 | [260722-itm-conklin-contemporary](./quick/260722-itm-conklin-all-american-mark-twain-crescent/) |
+| 260722-j4w | 批量发布 Wancher Aizu／Echizen／Kyoto 六个地域漆艺具体型号，并保持工艺、材质与同名 SKU 边界 | 2026-07-22 | 53756e2 | [260722-j4w-wancher-regional-urushi](./quick/260722-j4w-wancher-aizu-echizen-kyoto-urushi-batch/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点。Conklin 已验证同品牌多型号共享脚本、checkpoint 与定向回归的批处理路径；下一批优先从现有 research 与可重放 raw 包中选择 4–8 个真实缺口，继续按品牌批量处理，普通颜色保留为 variants。生产迁移与全量页面验收留到内容批次完成后执行，full corpus goal 继续 active。
+继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点。以既有审计、research 与可重放内容包推导剩余差集；优先将同品牌、同证据结构的 8–15 个真实缺口合并为一个 CuratedEntityPack 批次，共享 owned checkpoint 与定向回归。身份争议项保持小批处理。生产迁移与全量页面验收留到内容封板后执行，full corpus goal 继续 active。
 
 ## Session Continuity
 
