@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Platinum Small Meteor PQ-200 identity and evidence map</title>
+  <desc id="desc">A site-original factual diagram separating PQ-200 Small Meteor from Preppy, showing documented F and EF chronology, octagonal clipless body, ink paths, and evidence boundaries. non-photo, non-logo, not-to-scale, not-colour-proof, not-finish-proof.</desc>
+  <rect width="1600" height="900" fill="#f4f0e8"/>
+  <rect x="70" y="70" width="1460" height="760" rx="34" fill="#fffdf8" stroke="#243746" stroke-width="4"/>
+  <text x="120" y="145" font-family="system-ui, sans-serif" font-size="48" font-weight="700" fill="#172a3a">Small Meteor PQ-200 · 身份与证据边界</text>
+  <text x="120" y="190" font-family="system-ui, sans-serif" font-size="22" fill="#586874">SITE-ORIGINAL FACTUAL SVG · NON-PHOTO · NON-LOGO · NOT TO SCALE · NOT COLOUR/FINISH PROOF</text>
+
+  <rect x="120" y="245" width="390" height="220" rx="24" fill="#e8f1f5" stroke="#2d6680" stroke-width="3"/>
+  <text x="155" y="300" font-family="system-ui, sans-serif" font-size="31" font-weight="700" fill="#244f64">Canonical</text>
+  <text x="155" y="348" font-family="system-ui, sans-serif" font-size="29" fill="#172a3a">PQ-200 小流星</text>
+  <text x="155" y="390" font-family="system-ui, sans-serif" font-size="23" fill="#334d5b">Small / Little Meteor</text>
+  <text x="155" y="425" font-family="system-ui, sans-serif" font-size="23" fill="#334d5b">2019 · Shanghai Platinum</text>
+
+  <path d="M510 355 H650" stroke="#9b5b3c" stroke-width="5" marker-end="url(#arrow)"/>
+  <rect x="650" y="245" width="360" height="220" rx="24" fill="#fff0e7" stroke="#9b5b3c" stroke-width="3"/>
+  <text x="685" y="300" font-family="system-ui, sans-serif" font-size="31" font-weight="700" fill="#7b442d">Not an alias</text>
+  <text x="685" y="350" font-family="system-ui, sans-serif" font-size="30" fill="#5a3020">Platinum Preppy</text>
+  <text x="685" y="393" font-family="system-ui, sans-serif" font-size="22" fill="#68483b">PPQ / PSQ sibling line</text>
+  <text x="685" y="428" font-family="system-ui, sans-serif" font-size="22" fill="#68483b">related system ≠ same SKU</text>
+
+  <rect x="1050" y="245" width="420" height="220" rx="24" fill="#f1edf8" stroke="#65518c" stroke-width="3"/>
+  <text x="1085" y="300" font-family="system-ui, sans-serif" font-size="31" font-weight="700" fill="#574379">Sibling boundary</text>
+  <text x="1085" y="350" font-family="system-ui, sans-serif" font-size="24" fill="#403655">PQ-300 · PQ-800 · PQ-1500</text>
+  <text x="1085" y="390" font-family="system-ui, sans-serif" font-size="22" fill="#554b66">collabs / themed editions</text>
+  <text x="1085" y="428" font-family="system-ui, sans-serif" font-size="22" fill="#554b66">not target variants</text>
+
+  <rect x="120" y="520" width="420" height="235" rx="24" fill="#edf6eb" stroke="#557b4d" stroke-width="3"/>
+  <text x="155" y="575" font-family="system-ui, sans-serif" font-size="30" font-weight="700" fill="#45683e">Documented nib time</text>
+  <circle cx="180" cy="635" r="13" fill="#557b4d"/>
+  <text x="215" y="643" font-family="system-ui, sans-serif" font-size="25" fill="#294128">2019 · F</text>
+  <circle cx="180" cy="695" r="13" fill="#557b4d"/>
+  <text x="215" y="703" font-family="system-ui, sans-serif" font-size="25" fill="#294128">2020 · EF reported</text>
+
+  <rect x="590" y="520" width="420" height="235" rx="24" fill="#f9f2df" stroke="#9b7a32" stroke-width="3"/>
+  <text x="625" y="575" font-family="system-ui, sans-serif" font-size="30" font-weight="700" fill="#765c22">Product cues</text>
+  <text x="625" y="630" font-family="system-ui, sans-serif" font-size="25" fill="#4e432c">octagonal · clipless · snap cap</text>
+  <text x="625" y="675" font-family="system-ui, sans-serif" font-size="25" fill="#4e432c">star-mark steel nib · ABS / PC</text>
+  <text x="625" y="720" font-family="system-ui, sans-serif" font-size="22" fill="#655b48">regional documents; no colour proof</text>
+
+  <rect x="1060" y="520" width="410" height="235" rx="24" fill="#eaf1f7" stroke="#4c6f91" stroke-width="3"/>
+  <text x="1095" y="575" font-family="system-ui, sans-serif" font-size="30" font-weight="700" fill="#3c5b77">Ink &amp; source limits</text>
+  <text x="1095" y="630" font-family="system-ui, sans-serif" font-size="24" fill="#31485d">Platinum cartridge</text>
+  <text x="1095" y="670" font-family="system-ui, sans-serif" font-size="24" fill="#31485d">compatible converter</text>
+  <text x="1095" y="712" font-family="system-ui, sans-serif" font-size="21" fill="#506173">13 g / 0.38 mm = retailer only</text>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#9b5b3c"/>
+    </marker>
+  </defs>
+</svg>
