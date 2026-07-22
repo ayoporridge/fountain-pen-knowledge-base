@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Platinum Fuji Shunkei five-edition identity map</title>
+  <desc id="desc">site-original factual SVG; non-photo; non-logo; not-to-scale; not-colour-proof; not-finish-proof.</desc>
+  <rect width="1600" height="900" fill="#f6f1e7"/>
+  <text x="100" y="112" font-family="sans-serif" font-size="48" font-weight="700" fill="#29251f">Fuji Shunkei · 2017—2021</text>
+  <text x="100" y="164" font-family="sans-serif" font-size="25" fill="#665e52">五款独立品番；系列导航不共享尖号、限量或附件</text>
+  <path d="M160 390H1440" stroke="#c9bda9" stroke-width="8"/>
+  <g font-family="sans-serif" text-anchor="middle">
+    <g transform="translate(210 390)"><circle r="72" fill="#a8403a"/><text y="-105" font-size="26" font-weight="700">2017 · Shungyo</text><text y="112" font-size="22">PNB-25000SY</text><text y="145" font-size="19">3,776 · SF/F/M/B/C</text></g>
+    <g transform="translate(505 390)"><circle r="72" fill="#51a9aa"/><text y="-105" font-size="26" font-weight="700">2018 · Kumpoo</text><text y="112" font-size="22">PNB-25000SK</text><text y="145" font-size="19">2,500 · UEF/F/SM</text></g>
+    <g transform="translate(800 390)"><circle r="72" fill="#d9e4e6" stroke="#6f7e82" stroke-width="4"/><text y="-105" font-size="26" font-weight="700">2019 · Rokka</text><text y="112" font-size="22">PNB-30000SR</text><text y="145" font-size="19">2,500 · EF/F/SM</text></g>
+    <g transform="translate(1095 390)"><circle r="72" fill="#8b70a5"/><text y="-105" font-size="26" font-weight="700">2020 · Shiun</text><text y="112" font-size="22">PNB-35000SS</text><text y="145" font-size="19">3,776 · EF/F/M/B</text></g>
+    <g transform="translate(1390 390)"><circle r="72" fill="#be493b" stroke="#b48a37" stroke-width="8"/><text y="-105" font-size="26" font-weight="700">2021 · Kinshu</text><text y="112" font-size="22">PNB-36000SK</text><text y="145" font-size="19">actual orders · EF/F/M/B</text></g>
+  </g>
+  <rect x="100" y="645" width="1400" height="130" rx="22" fill="#fffaf1" stroke="#6f6252" stroke-width="3"/>
+  <text x="140" y="700" font-family="sans-serif" font-size="28" font-weight="700" fill="#3c342b">身份围栏</text>
+  <text x="140" y="744" font-family="sans-serif" font-size="23" fill="#554b40">PNB-13000 = 普通 #3776 Century；Fuji Unkei = 2023 起的后继系列；两者都不是第六款富士旬景。</text>
+  <text x="100" y="842" font-family="sans-serif" font-size="18" fill="#776e62">site-original · factual SVG · non-photo · non-logo · not-to-scale · not-colour-proof · not-finish-proof</text>
+</svg>

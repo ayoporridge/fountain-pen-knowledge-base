@@ -84,6 +84,7 @@ export const RECLASSIFIED_ARTICLE_PATHS: Record<string, string> =
     ],
     ["pen/wancher万佳-dream-pen", "/article/wancher-dream-pen"],
     ["pen/白金-platinum-出云-izumo", "/article/platinum-izumo"],
+    ["pen/白金-platinum-富士旬景pnb-13000", "/article/platinum-fuji-shunkei"],
   ]);
 
 const CANONICAL_ENTITY_PATHS: Record<string, string> = {
