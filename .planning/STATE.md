@@ -171,10 +171,11 @@ Progress: [█████░░░░░] 50%
 | 260722-frg | 原位规范 Pilot 78G／FP-78G，将 88G 改为 MR 导览并发布 MR1、MR2、MR3 三条 exact 产品线 | 2026-07-22 | e335c74 | [260722-frg-pilot-78g-78g-88g](./quick/260722-frg-pilot-78g-78g-88g/) |
 | 260722-gc6 | 补齐 Wancher Dream Pen True Urushi Black 与 Byakudan-nuri 两个具体 SKU，并隔离 prototype／sold-out 时态 | 2026-07-22 | 1a8f638 | [260722-gc6-wancher-dream-pen-true-urushi-black-byak](./quick/260722-gc6-wancher-dream-pen-true-urushi-black-byak/) |
 | 260722-h6w | 补齐 Waterman Exception，以 SAP_2214314 Blue CT 为锚点并隔离 Slim、主题版与旧款样本 | 2026-07-22 | c186cbd | [260722-h6w-waterman-exception](./quick/260722-h6w-waterman-exception-allure-owned-checkpoi/) |
+| 260722-hel | 原位规范并发布 LAMY studio 与 LAMY dialog，修正 Dialog 3 命名、设计者与版本边界 | 2026-07-22 | dcea82b | [260722-hel-lamy-studio-dialog](./quick/260722-hel-lamy-studio-lamy-dialog-dialog-3-owned-c/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：Waterman Exception 已以 SAP_2214314 为 current exact anchor，Allure 保持 Phase83 既有实体。下一批继续从现有脚本／research 与 raw inventory 的差集选择真正未覆盖的品牌型号，避免重复建实体；再按官网／目录／可靠专业资料、自然中文、准确图片、身份关系与定向回归推进。生产迁移与全量页面验收留到内容批次完成后执行，full corpus goal 继续 active。
+继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点：LAMY studio 与 dialog 已在 raw 实体上原位规范化，Safari／AL-star 和 dialog cc 均保持既有边界。下一批继续从现有脚本／research 与 raw inventory 的差集选择真正未覆盖的品牌型号，避免重复建实体；再按官网／目录／可靠专业资料、自然中文、准确图片、身份关系与定向回归推进。生产迁移与全量页面验收留到内容批次完成后执行，full corpus goal 继续 active。
 
 ## Session Continuity
 
