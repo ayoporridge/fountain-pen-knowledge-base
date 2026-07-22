@@ -2,7 +2,7 @@
 
 ## summary
 
-LAMY 是 1930 年在海德堡起家的德国书写工具品牌，坚持在本地开发生产；品牌页应把 2000、Safari、AL-star、Studio 等型号分开导航。
+LAMY 是 1930 年在海德堡起家的德国书写工具品牌，坚持在本地开发生产；品牌页把 2000、Safari、AL-star、Studio、imporium、abc 等型号分开导航。
 
 ## body_md
 
@@ -10,7 +10,7 @@ LAMY 是 1930 年在海德堡起家的德国书写工具品牌，坚持在本地
 
 LAMY 在中文零售页面里经常被压缩成“凌美钢笔”，但它其实是一套很完整的产品系统。品牌入口应该回答的是“这家公司怎样做笔、有哪些设计路线、下一步该点哪个型号”，而不是把 Safari、AL-star、Studio 和 2000 的规格混在一起。LAMY 官方公司页把品牌定位为德国海德堡制造商，强调自 1930 年以来的本地生产和“Made in Germany”；这能证明品牌的生产语境，却不能把每一支笔都直接写成同一工厂、同一材料或同一年代。
 
-从品牌页进入，最清楚的路径是按用途和结构浏览。Safari 与 AL-star 属于可替换钢尖、墨囊／上墨器的日用线；Studio 用更正式的金属外壳承载同一套耗材逻辑；2000 则是 Gerd A. Müller 设计的独立经典，包含活塞钢笔、圆珠笔、滚珠笔和机械铅笔等家族成员。Dialog、Scala、cp1、aion、accent 等又把 LAMY 带到旋转出尖、细长金属和设计师合作的方向。品牌页列出这些入口，型号页再写自己的尖、材料、上墨和版本，读者才不会误把家族产品当成一支“万能 LAMY”。
+从品牌页进入，最清楚的路径是按用途和结构浏览。Safari 与 AL-star 属于可替换钢尖、墨囊／上墨器的日用线；abc 为儿童习字系统；logo、cp1 与 aion 分别承担细圆杆、极简金属和较粗工业设计路线；Studio 用更正式的金属外壳承载同一套耗材逻辑；imporium 则用 14K 金尖、螺纹帽和更高重量进入旗舰路线。2000 是 Gerd A. Müller 设计的独立活塞经典，Dialog 又把 LAMY 带到旋转伸缩尖。品牌页列出这些入口，型号页再写自己的尖、材料、上墨和版本，读者才不会误把家族产品当成一支“万能 LAMY”。
 
 ## 海德堡制造与设计方法
 
@@ -40,4 +40,3 @@ LAMY 的兼容耗材是品牌体验的一部分，但也不能把所有型号写
 - [LAMY 设计](https://www.lamy.com/en-us/company/design)
 - [LAMY 企业文化与 1930 年起点](https://www.lamy.com/en-gb/company/corporate-culture)
 - [Gentleman Stationer：LAMY 2000 评测](https://www.gentlemanstationer.com/blog/2017/4/5/pen-review-lamy-2000)
-

@@ -32,11 +32,11 @@ Kaweco 德文官方年表明确写到：1994 年，h&m gutberlet gmbh 取得“K
 
 如果从 Sport 家族进入，先问四个问题：笔身是什么材料、供墨方式是什么、笔尖／握位组件是哪一种、笔帽是否需要插到尾端才能舒适书写。Classic、AL、Brass、Steel 与 Piston 的差异会直接改变重量、重心、容量和维护方式。只写“Kaweco Sport 约十克”会误导买到 Brass Sport 的人；只写“Sport 使用墨囊”也会误导 Piston Sport 的使用者。
 
-Sport 之外，Liliput 把便携推到更细更短，Student 是较常规的全尺寸复古日用笔，Perkeo 更偏入门与教学，Special 则采用细长的八角杆。品牌页的主图是一张获得 CC BY-SA 4.0 授权的组合照片：上方是 Kaweco Special FP 钢笔，下方是同系列圆珠笔，旁边另有包装铁盒。它只用于展示品牌的另一种设计语言，不能把画面中所有物件都当成钢笔规格，也不表示 Special 就是 Classic Sport。
+Sport 之外，Liliput 把便携推到更细更短，Supra 用可拆中接把口袋与全长两种比例放进同一支笔；Student 是较常规的全尺寸复古日用笔，Perkeo 更偏入门与教学，DIA2 以黑色 PMMA、多零件结构和复古轮廓形成另一条全尺寸路线，Special 则采用细长的八角杆。品牌页的主图是一张获得 CC BY-SA 4.0 授权的组合照片：上方是 Kaweco Special FP 钢笔，下方是同系列圆珠笔，旁边另有包装铁盒。它只用于展示品牌的另一种设计语言，不能把画面中所有物件都当成钢笔规格，也不表示 Special 就是 Classic Sport。
 
 ### 选购时先选使用方式，再选颜色
 
-需要塞进小笔袋、旅行本或外套口袋，同时能接受写字前插帽，Sport 家族最合适。想要轻、价格相对低、先确认自己是否适应这种比例，可从 Classic Sport 看起；确认喜欢后再考虑 AL、Brass 或 Steel 的重量变化。若不想依赖插帽，Student、Perkeo 等常规长度型号可能更省事。若追求极短直杆，才需要看 Liliput。
+需要塞进小笔袋、旅行本或外套口袋，同时能接受写字前插帽，Sport 家族最合适。想要轻、价格相对低、先确认自己是否适应这种比例，可从 Classic Sport 看起；确认喜欢后再考虑 AL、Brass 或 Steel 的重量变化。若不想依赖插帽，Student、Perkeo、DIA2 等常规长度型号可能更省事。若追求极短直杆，可看 Liliput；希望在短笔与全长之间切换并接受螺纹拆装，再看 Supra。
 
 还要留意“可换笔尖”不等于所有 Kaweco 笔尖组件通用。塑料 Classic Sport 使用带塑料握位的前端总成，官方适配范围明确列为 Classic、Frosted 与 Skyline；这不足以推定整套前端与金属 Sport 通用。墨囊、上墨器、夹子和包装也可能单独销售；下单前应以具体型号和当期商品页为准。
 
