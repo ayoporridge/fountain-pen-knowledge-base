@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Conklin Mark Twain Crescent Filler 事实边界图</title>
+  <desc id="desc">本站原创非产品照片示意图，展示现代新月压囊结构、锁环与历史及评测边界。</desc>
+  <rect width="1600" height="900" fill="#f2eee5"/>
+  <text x="100" y="120" font-family="serif" font-size="54" fill="#29251f">Mark Twain Crescent Filler</text>
+  <text x="100" y="175" font-family="sans-serif" font-size="24" fill="#655b4d">MODERN MECHANISM / HISTORICAL NAME / SAMPLE SCOPE</text>
+  <path d="M170 430 H1270" stroke="#3d3a35" stroke-width="78" stroke-linecap="round"/>
+  <path d="M1270 390 L1470 430 L1270 470 Z" fill="#b69a55"/>
+  <path d="M600 410 Q680 285 760 410" fill="none" stroke="#b25d42" stroke-width="42" stroke-linecap="round"/>
+  <rect x="520" y="360" width="55" height="140" rx="16" fill="#cfb87c"/>
+  <g font-family="sans-serif" fill="#29251f" font-size="26">
+    <text x="475" y="570">lock ring</text><text x="630" y="280">crescent presses internal sac</text>
+    <text x="110" y="690">当前：JoWo steel · bottled ink · five colour SKUs</text>
+    <text x="110" y="735">拒绝：7.25 × 2 × 2.75 in 包装式字段</text>
+  </g>
+  <text x="100" y="825" font-family="sans-serif" font-size="23" fill="#655b4d">site-original · non-photo · non-logo · not-to-scale · non-colour-proof · mechanism schematic · 1600×900</text>
+</svg>
