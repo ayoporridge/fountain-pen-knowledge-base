@@ -5,10 +5,10 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
-stopped_at: Quick 260722-gc6 complete; continuing full-corpus content batches
-last_updated: "2026-07-22T12:15:00+08:00"
+stopped_at: Quick 260722-gp5 complete; continuing full-corpus content batches
+last_updated: "2026-07-22T13:05:00+08:00"
 last_activity: 2026-07-22
-last_activity_desc: Wancher Dream Pen True Urushi Black and Byakudan-nuri exact SKU packs checkpoint-published
+last_activity_desc: Wancher Dream Pen Tokiwa-iro and Bokashi Lunar Eclipse exact SKU packs checkpoint-published
 progress:
   total_phases: 16
   completed_phases: 10
@@ -31,7 +31,7 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 Phase: 21 (Taxonomy 与身份归一) — EXECUTING
 Plan: 4 of 6
 Status: In progress
-Last activity: 2026-07-22 — Completed quick task 260722-gc6: added exact Wancher True Urushi Black and Byakudan-nuri SKU packs
+Last activity: 2026-07-22 — Completed quick task 260722-gp5: added exact Wancher Tokiwa-iro and Bokashi Lunar Eclipse SKU packs
 
 Progress: [█████░░░░░] 50%
 
