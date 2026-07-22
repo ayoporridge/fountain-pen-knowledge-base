@@ -178,6 +178,7 @@ Progress: [█████░░░░░] 50%
 | 260722-ije | 发布现代 Conklin Duragraph，分离当前家族规格、具体 SKU 材质与两支历史评测样本 | 2026-07-22 | df2c976 | [260722-ije-conklin-duragraph](./quick/260722-ije-conklin-duragraph-owned-checkpoint-copy/) |
 | 260722-itm | 批量发布 Conklin All American、Mark Twain Crescent Filler、Endura Deco Crest、1898 Misto，并拒绝错误尺寸与冲突商品文案 | 2026-07-22 | 6386940 | [260722-itm-conklin-contemporary](./quick/260722-itm-conklin-all-american-mark-twain-crescent/) |
 | 260722-j4w | 批量发布 Wancher Aizu／Echizen／Kyoto 六个地域漆艺具体型号，并保持工艺、材质与同名 SKU 边界 | 2026-07-22 | 53756e2 | [260722-j4w-wancher-regional-urushi](./quick/260722-j4w-wancher-aizu-echizen-kyoto-urushi-batch/) |
+| 260722-juw | 批量发布 Faber-Castell、LAMY、Kaweco、Schneider 与 Caran d’Ache 九个现行型号，共十四个可重放发布包 | 2026-07-22 | c2f5d85 | [260722-juw-german-swiss-current](./quick/260722-juw-faber-castell-essentio-hexo-grip-lamy-im/) |
 
 ## Next Action
 
