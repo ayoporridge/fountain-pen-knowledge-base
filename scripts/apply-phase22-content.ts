@@ -277,7 +277,14 @@ export async function upsertSources(
 
   const sourceItemIds = new Map<string, string>();
   for (const source of sources) {
-    const sourceItemId = curatedId("source-item", source.key);
+    const sourceRegistryId = curatedId("source-registry", source.registryKey);
+    const existing = await transaction.execute({
+      sql: "SELECT id FROM source_items WHERE source_id = ? AND url = ?",
+      args: [sourceRegistryId, source.url],
+    });
+    const sourceItemId = existing.rows.length === 1
+      ? String(existing.rows[0]?.id)
+      : curatedId("source-item", source.key);
     sourceItemIds.set(source.key, sourceItemId);
     await transaction.execute({
       sql: `
@@ -308,7 +315,7 @@ export async function upsertSources(
       `,
       args: [
         sourceItemId,
-        curatedId("source-registry", source.registryKey),
+        sourceRegistryId,
         source.title,
         source.url,
         source.itemType ?? "web_page",

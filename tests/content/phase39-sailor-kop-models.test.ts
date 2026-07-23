@@ -4,6 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { createClient } from "@libsql/client";
+import { applyPhase37SailorKopNaginataContent } from "../../scripts/apply-phase37-sailor-kop-naginata-content";
 import { applyPhase39SailorKopModelsContent } from "../../scripts/apply-phase39-sailor-kop-models-content";
 import {
   PHASE39_KING_PROFIT_EBONITE_ID,
@@ -63,6 +64,7 @@ test("Phase 39 publishes four exact Sailor KOP model pages on an owned copy", as
   } as const;
   try {
     await migrateDatabase(client);
+    await applyPhase37SailorKopNaginataContent(client, options);
     await applyPhase39SailorKopModelsContent(client, options);
     const rows = await client.execute({
       sql: "SELECT id, type, slug, length(summary) AS summary_length, length(body_md) AS body_length FROM entities WHERE id IN (?, ?, ?, ?) ORDER BY id",
