@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Waldmann Tuscany factual diagram</title>
+  <desc id="desc">Diagram of Tuscany black lacquer barrel, pinstripe guilloche cap and steel/gold nib variants; non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#f0f2f3"/><rect x="90" y="82" width="1420" height="736" rx="32" fill="#fff" stroke="#263238" stroke-width="4"/>
+  <text x="140" y="168" font-family="Georgia,serif" font-size="54" fill="#263238">Tuscany</text><text x="140" y="218" font-family="Arial,sans-serif" font-size="25" fill="#546e7a">托斯卡纳柏树灵感 · 黑色多层漆 · 线纹帽盖</text>
+  <rect x="180" y="344" width="900" height="76" rx="38" fill="#191919" stroke="#c5a46d" stroke-width="3"/><path d="M260 344v76m52-76v76m52-76v76m52-76v76m52-76v76m52-76v76m52-76v76m52-76v76m52-76v76m52-76v76m52-76v76m52-76v76m52-76v76m52-76v76m52-76v76" stroke="#c5a46d" stroke-width="3" opacity=".9"/>
+  <text x="630" y="490" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" fill="#263238">示意：闭盖约 141 mm、直径约 11.7 mm（官方 fact sheet）</text>
+  <rect x="210" y="580" width="430" height="104" rx="18" fill="#cfd8dc" stroke="#607d8b" stroke-width="3"/><text x="425" y="644" text-anchor="middle" font-family="Arial,sans-serif" font-size="30" fill="#263238">钢尖</text><text x="425" y="675" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#263238">EF / F / M / B · converter + 6 cartridges</text>
+  <rect x="940" y="580" width="430" height="104" rx="18" fill="#c5a46d" stroke="#795548" stroke-width="3"/><text x="1155" y="644" text-anchor="middle" font-family="Arial,sans-serif" font-size="30" fill="#3e2723">18K gold</text><text x="1155" y="675" text-anchor="middle" font-family="Arial,sans-serif" font-size="18" fill="#3e2723">EF / F / M / B · iridium-tipped bicolor</text>
+  <text x="140" y="770" font-family="Arial,sans-serif" font-size="19" fill="#546e7a">本站原创 factual SVG；非产品照片、非 logo、not-to-scale、non-colour-proof。</text>
+</svg>
