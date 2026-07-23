@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title description">
+  <title id="title">Parker Urban post-2016 generation and SKU map</title>
+  <desc id="description">Original editorial factual diagram. non-photo; non-logo; not-to-scale; non-colour-proof. It marks the post-2016 generation and confines 1931593 facts to that SKU.</desc>
+  <rect width="1600" height="900" fill="#e9eef0"/>
+  <rect x="55" y="45" width="1490" height="810" rx="32" fill="#fbfcfc" stroke="#20282c" stroke-width="4"/>
+  <text x="105" y="125" font-family="ui-sans-serif, system-ui, sans-serif" font-size="52" font-weight="700" fill="#20282c">PARKER URBAN · 代际与 SKU 图</text>
+  <text x="105" y="170" font-family="ui-sans-serif, system-ui, sans-serif" font-size="25" fill="#657279">post-2016 current generation；不是外形重绘</text>
+  <line x1="170" y1="305" x2="1430" y2="305" stroke="#20282c" stroke-width="8"/>
+  <circle cx="350" cy="305" r="21" fill="#8c979d"/>
+  <circle cx="800" cy="305" r="30" fill="#a77f37"/>
+  <circle cx="1260" cy="305" r="22" fill="#2f5d59"/>
+  <text x="350" y="260" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="29" font-weight="700" fill="#657279">PRE-2016</text>
+  <text x="800" y="250" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="32" font-weight="700" fill="#815f20">LATE 2016 REDESIGN</text>
+  <text x="1260" y="260" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="29" font-weight="700" fill="#2f5d59">CURRENT PDP</text>
+  <rect x="120" y="405" width="1360" height="290" rx="26" fill="#20282c"/>
+  <text x="170" y="480" font-family="ui-sans-serif, system-ui, sans-serif" font-size="35" font-weight="700" fill="#fbfcfc">MUTED BLACK GT · SKU 1931593</text>
+  <text x="170" y="535" font-family="ui-sans-serif, system-ui, sans-serif" font-size="28" fill="#fbfcfc">F · stainless-steel nib</text>
+  <text x="170" y="580" font-family="ui-sans-serif, system-ui, sans-serif" font-size="28" fill="#fbfcfc">lacquer-on-brass cap · GT trim</text>
+  <text x="170" y="625" font-family="ui-sans-serif, system-ui, sans-serif" font-size="28" fill="#fbfcfc">QUINK cartridge / converter</text>
+  <text x="1000" y="535" font-family="ui-sans-serif, system-ui, sans-serif" font-size="25" fill="#d9c18f">SKU facts stay local</text>
+  <text x="1000" y="575" font-family="ui-sans-serif, system-ui, sans-serif" font-size="25" fill="#d9c18f">不外推到所有 Urban</text>
+  <rect x="105" y="775" width="1390" height="48" rx="12" fill="#20282c"/>
+  <text x="800" y="808" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="23" font-weight="700" fill="#fbfcfc">示意图，非产品照片 · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+</svg>

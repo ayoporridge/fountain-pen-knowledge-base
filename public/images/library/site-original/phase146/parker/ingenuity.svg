@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title description">
+  <title id="title">Parker Ingenuity 2023+ fountain pen identity map</title>
+  <desc id="description">Original editorial factual diagram. non-photo; non-logo; not-to-scale; non-colour-proof. It separates the 2023+ fountain pen from the older 5TH writing system and keeps SKU evidence local to each SKU.</desc>
+  <rect width="1600" height="900" fill="#f5efe4"/>
+  <rect x="55" y="45" width="1490" height="810" rx="32" fill="#fffaf2" stroke="#29261f" stroke-width="4"/>
+  <text x="105" y="125" font-family="ui-sans-serif, system-ui, sans-serif" font-size="52" font-weight="700" fill="#29261f">PARKER INGENUITY · SKU 边界图</text>
+  <text x="105" y="170" font-family="ui-sans-serif, system-ui, sans-serif" font-size="25" fill="#766f66">2023+ fountain pen 与 2011 5TH 是不同书写系统</text>
+  <rect x="105" y="225" width="625" height="255" rx="24" fill="#27483f"/>
+  <text x="145" y="295" font-family="ui-sans-serif, system-ui, sans-serif" font-size="34" font-weight="700" fill="#fffaf2">2023+ FOUNTAIN PEN</text>
+  <text x="145" y="350" font-family="ui-sans-serif, system-ui, sans-serif" font-size="27" fill="#fffaf2">large stainless-steel nib</text>
+  <text x="145" y="395" font-family="ui-sans-serif, system-ui, sans-serif" font-size="27" fill="#fffaf2">Parker cartridge / converter</text>
+  <text x="145" y="440" font-family="ui-sans-serif, system-ui, sans-serif" font-size="23" fill="#c8ddd5">SKU 决定尖号、finish 与包装</text>
+  <rect x="870" y="225" width="625" height="255" rx="24" fill="#ead9c9" stroke="#a4523c" stroke-width="4"/>
+  <text x="910" y="295" font-family="ui-sans-serif, system-ui, sans-serif" font-size="33" font-weight="700" fill="#783728">2011 5TH TECHNOLOGY</text>
+  <text x="910" y="350" font-family="ui-sans-serif, system-ui, sans-serif" font-size="27" fill="#783728">dedicated refill writing system</text>
+  <text x="910" y="395" font-family="ui-sans-serif, system-ui, sans-serif" font-size="27" fill="#783728">不是本页的 fountain pen</text>
+  <text x="910" y="440" font-family="ui-sans-serif, system-ui, sans-serif" font-size="23" font-weight="700" fill="#a4523c">身份分开，不能互套规格</text>
+  <text x="782" y="365" font-family="ui-sans-serif, system-ui, sans-serif" font-size="42" font-weight="700" fill="#a4523c">≠</text>
+  <rect x="105" y="545" width="1390" height="190" rx="24" fill="#e9e4d9"/>
+  <text x="145" y="605" font-family="ui-sans-serif, system-ui, sans-serif" font-size="30" font-weight="700" fill="#29261f">SKU 记录留在 SKU 层</text>
+  <text x="145" y="650" font-family="ui-sans-serif, system-ui, sans-serif" font-size="26" fill="#29261f">2213726 Grey GT：美国 PDP F；2026 EMEA catalogue M</text>
+  <text x="145" y="690" font-family="ui-sans-serif, system-ui, sans-serif" font-size="26" fill="#29261f">2182006 Black GT：M · 140 / 165 mm · Ø13.7 mm · 45 g</text>
+  <rect x="105" y="775" width="1390" height="48" rx="12" fill="#29261f"/>
+  <text x="800" y="808" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="23" font-weight="700" fill="#fffaf2">示意图，非产品照片 · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+</svg>
