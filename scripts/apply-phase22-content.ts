@@ -237,6 +237,8 @@ export async function upsertSources(
     )
       ? first.independenceGroup
       : null;
+    // Registry and source-item rows are shared evidence. A replayed pack must
+    // not rewrite a snapshot owned by another pack and demote its publications.
     await transaction.execute({
       sql: `
         INSERT INTO source_registry (
@@ -244,30 +246,7 @@ export async function upsertSources(
           attribution, homepage_url, fetch_method, notes, last_checked_at,
           default_source_tier, default_independence_group
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'manual', ?, ?, ?, ?)
-        ON CONFLICT(id) DO UPDATE SET
-          name = excluded.name,
-          source_type = excluded.source_type,
-          allowed_use = excluded.allowed_use,
-          reliability = excluded.reliability,
-          license = excluded.license,
-          attribution = excluded.attribution,
-          homepage_url = excluded.homepage_url,
-          notes = excluded.notes,
-          last_checked_at = excluded.last_checked_at,
-          default_source_tier = excluded.default_source_tier,
-          default_independence_group = excluded.default_independence_group,
-          updated_at = datetime('now')
-        WHERE source_registry.name IS NOT excluded.name
-           OR source_registry.source_type IS NOT excluded.source_type
-           OR source_registry.allowed_use IS NOT excluded.allowed_use
-           OR source_registry.reliability IS NOT excluded.reliability
-           OR source_registry.license IS NOT excluded.license
-           OR source_registry.attribution IS NOT excluded.attribution
-           OR source_registry.homepage_url IS NOT excluded.homepage_url
-           OR source_registry.notes IS NOT excluded.notes
-           OR source_registry.last_checked_at IS NOT excluded.last_checked_at
-           OR source_registry.default_source_tier IS NOT excluded.default_source_tier
-           OR source_registry.default_independence_group IS NOT excluded.default_independence_group
+        ON CONFLICT(id) DO NOTHING
       `,
       args: [
         curatedId("source-registry", registryKey),
@@ -305,40 +284,7 @@ export async function upsertSources(
           allowed_use, review_status, source_tier, independence_group,
           archive_url, archive_locator
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'approved', ?, ?, ?, ?)
-        ON CONFLICT(id) DO UPDATE SET
-          source_id = excluded.source_id,
-          title = excluded.title,
-          url = excluded.url,
-          item_type = excluded.item_type,
-          license = excluded.license,
-          author = excluded.author,
-          published_at = excluded.published_at,
-          retrieved_at = excluded.retrieved_at,
-          summary = excluded.summary,
-          raw_metadata_json = excluded.raw_metadata_json,
-          allowed_use = excluded.allowed_use,
-          review_status = excluded.review_status,
-          source_tier = excluded.source_tier,
-          independence_group = excluded.independence_group,
-          archive_url = excluded.archive_url,
-          archive_locator = excluded.archive_locator,
-          updated_at = datetime('now')
-        WHERE source_items.source_id IS NOT excluded.source_id
-           OR source_items.title IS NOT excluded.title
-           OR source_items.url IS NOT excluded.url
-           OR source_items.item_type IS NOT excluded.item_type
-           OR source_items.license IS NOT excluded.license
-           OR source_items.author IS NOT excluded.author
-           OR source_items.published_at IS NOT excluded.published_at
-           OR source_items.retrieved_at IS NOT excluded.retrieved_at
-           OR source_items.summary IS NOT excluded.summary
-           OR source_items.raw_metadata_json IS NOT excluded.raw_metadata_json
-           OR source_items.allowed_use IS NOT excluded.allowed_use
-           OR source_items.review_status IS NOT excluded.review_status
-           OR source_items.source_tier IS NOT excluded.source_tier
-           OR source_items.independence_group IS NOT excluded.independence_group
-           OR source_items.archive_url IS NOT excluded.archive_url
-           OR source_items.archive_locator IS NOT excluded.archive_locator
+        ON CONFLICT(id) DO NOTHING
       `,
       args: [
         sourceItemId,

@@ -10,6 +10,10 @@ import {
   type ApplyPhase90Options,
   applyPhase90JinhaoContent,
 } from "../../scripts/apply-phase90-jinhao-82-9019-content";
+import {
+  PHASE48_AURORA_BRAND_ID,
+  PHASE48_AURORA_OPTIMA_ID,
+} from "../../scripts/data/phase48-waterman-aurora";
 import { PHASE63_JINHAO_BRAND_ID } from "../../scripts/data/phase63-jinhao-split";
 import {
   PHASE90_JINHAO_82_ID,
@@ -59,6 +63,20 @@ test("Phase 90 publishes Jinhao 82 and 9019 on an owned checkpoint and replays a
     await migrateDatabase(client);
     await applyPhase41IdentityCleanupContent(client, options);
     await applyPhase48WatermanAuroraContent(client, options);
+    const auroraBefore = await client.execute({
+      sql: `SELECT entity_id,status,approved_content_hash,
+                   CASE WHEN public_entities.id IS NULL THEN 0 ELSE 1 END AS is_public
+            FROM entity_publications
+            LEFT JOIN public_entities ON public_entities.id=entity_publications.entity_id
+            WHERE entity_id IN (?,?) ORDER BY entity_id`,
+      args: [PHASE48_AURORA_BRAND_ID, PHASE48_AURORA_OPTIMA_ID],
+    });
+    assert.equal(auroraBefore.rows.length, 2);
+    assert.ok(
+      auroraBefore.rows.every(
+        (row) => row.status === "published" && Number(row.is_public) === 1,
+      ),
+    );
     await assert.rejects(
       applyPhase90JinhaoContent(client, {
         ...options,
@@ -83,6 +101,15 @@ test("Phase 90 publishes Jinhao 82 and 9019 on an owned checkpoint and replays a
       first.entities.map((entity) => entity.outcome),
       ["published", "published", "published"],
     );
+    const auroraAfter = await client.execute({
+      sql: `SELECT entity_id,status,approved_content_hash,
+                   CASE WHEN public_entities.id IS NULL THEN 0 ELSE 1 END AS is_public
+            FROM entity_publications
+            LEFT JOIN public_entities ON public_entities.id=entity_publications.entity_id
+            WHERE entity_id IN (?,?) ORDER BY entity_id`,
+      args: [PHASE48_AURORA_BRAND_ID, PHASE48_AURORA_OPTIMA_ID],
+    });
+    assert.deepEqual(auroraAfter.rows, auroraBefore.rows);
 
     const pages = await client.execute({
       sql: "SELECT id,type,slug,length(summary) AS summary_length,length(body_md) AS body_length FROM public_entities WHERE id IN (?,?,?) ORDER BY id",
