@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">SKB RS-301N 黄铜袖珍钢笔事实图</title>
+  <desc id="desc">SKB RS-301N 的编辑结构示意图，不是产品照片、比例图或颜色证明。</desc>
+  <rect width="1600" height="900" fill="#f4eee3"/>
+  <g fill="none" stroke="#27353b" stroke-width="18" stroke-linecap="round">
+    <path d="M300 470h620l170-62h180l-55 62 55 62h-180l-170-62H300" fill="#b68b54"/>
+    <path d="M1085 408h170l130 62-130 62h-170" fill="#d2a978"/>
+    <path d="M300 470l-125-32v64z" fill="#272f33"/>
+  </g>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" fill="#27353b">
+    <text x="130" y="150" font-size="48" font-weight="700">SKB RS-301N</text>
+    <text x="130" y="210" font-size="30">黄铜 · M 尖 · 专用黄铜吸墨器</text>
+    <text x="130" y="720" font-size="28">闭盖总长约 12 cm · 台湾制造</text>
+    <text x="130" y="770" font-size="24">长度为官方商品页的约值；不推算开盖或倒插长度</text>
+    <text x="130" y="825" font-size="22">non-photo · non-logo · not-to-scale · non-colour-proof</text>
+  </g>
+</svg>

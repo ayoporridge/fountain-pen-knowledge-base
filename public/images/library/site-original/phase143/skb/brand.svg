@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">SKB 文明钢笔品牌导航事实图</title>
+  <desc id="desc">台湾 SKB 文明钢笔品牌与 RS-301N、ES-520 型号导航的编辑事实图，不是产品照片或标志。</desc>
+  <rect width="1600" height="900" fill="#f4eee3"/>
+  <g fill="none" stroke="#27353b" stroke-width="14">
+    <rect x="180" y="280" width="440" height="220" rx="28" fill="#b68b54"/>
+    <rect x="990" y="170" width="360" height="150" rx="24" fill="#7f929a"/>
+    <rect x="990" y="510" width="360" height="150" rx="24" fill="#d1d9d7"/>
+    <path d="M620 390h370M620 390l250-145M620 390l250 195"/>
+  </g>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" fill="#27353b" text-anchor="middle">
+    <text x="400" y="370" font-size="42" font-weight="700">SKB 文明钢笔</text>
+    <text x="400" y="430" font-size="28">台湾 1955 起的制笔品牌</text>
+    <text x="1170" y="255" font-size="32" font-weight="700">RS-301N</text>
+    <text x="1170" y="295" font-size="23">黄铜袖珍钢笔</text>
+    <text x="1170" y="595" font-size="32" font-weight="700">ES-520</text>
+    <text x="1170" y="635" font-size="23">黑琵永续书法尖</text>
+    <text x="800" y="805" font-size="22">non-photo · non-logo · not-to-scale · non-colour-proof</text>
+  </g>
+</svg>
