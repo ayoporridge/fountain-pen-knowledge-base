@@ -5,7 +5,8 @@ import { PHASE47_PILOT_823_ID, phase47PilotCustom823Packs } from "./phase47-pilo
 import { PHASE52_PLATINUM_3776_ID, phase52LamyPlatinumCorePacks } from "./phase52-lamy-platinum-core";
 import { PHASE60_CUSTOM_912_ID, phase60PilotP0Packs } from "./phase60-pilot-p0";
 import { phase26PilotPacks } from "./phase26-pilot";
-import { PHASE42_PLATINUM_BRAND_ID, phase42LamyPlatinumPacks } from "./phase42-lamy-platinum";
+import { PHASE42_PLATINUM_BRAND_ID } from "./phase42-lamy-platinum";
+import { phase78PlatinumCuridasPacks } from "./phase78-platinum-curidas";
 
 const RETRIEVED = "2026-07-20";
 
@@ -108,6 +109,6 @@ const custom912 = revise({ pack: base(phase60PilotP0Packs, PHASE60_CUSTOM_912_ID
 export const phase84PlatinumPilotP0V3Packs: CuratedEntityPack[] = [century, preppy, prefounte, plaisir, capless, custom823, custom912];
 
 export const phase84PlatinumPilotP0V3BrandPacks: CuratedEntityPack[] = [
-  base(phase42LamyPlatinumPacks, PHASE42_PLATINUM_BRAND_ID, "Platinum brand"),
+  base(phase78PlatinumCuridasPacks, PHASE42_PLATINUM_BRAND_ID, "Platinum brand"),
   base(phase26PilotPacks, "Zt-PbXkE7UHM", "Pilot brand"),
 ];
