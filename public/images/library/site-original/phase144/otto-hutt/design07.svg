@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Otto Hutt design07 factual diagram</title>
+  <desc id="desc">Diagram distinguishing sterling silver and lacquered brass design07 variants with large gold nib; non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#eceff1"/>
+  <rect x="90" y="82" width="1420" height="736" rx="32" fill="#ffffff" stroke="#263238" stroke-width="4"/>
+  <text x="140" y="168" font-family="Georgia,serif" font-size="54" fill="#263238">design07</text>
+  <text x="140" y="218" font-family="Arial,sans-serif" font-size="25" fill="#546e7a">旗舰定位 · 两种笔身路线 · 大型 18K 金尖</text>
+  <rect x="180" y="320" width="520" height="190" rx="24" fill="#d7dde0" stroke="#607d8b" stroke-width="3"/>
+  <rect x="900" y="320" width="520" height="190" rx="24" fill="#4b4b4b" stroke="#263238" stroke-width="3"/>
+  <text x="440" y="382" text-anchor="middle" font-family="Arial,sans-serif" font-size="35" fill="#263238">Silver</text>
+  <text x="440" y="426" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" fill="#263238">925 sterling silver · thread guilloché</text>
+  <text x="1160" y="382" text-anchor="middle" font-family="Arial,sans-serif" font-size="35" fill="#fff">Lacquer</text>
+  <text x="1160" y="426" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" fill="#fff">solid brass · platinum · 2 + 7 coats</text>
+  <path d="M620 650 H980" stroke="#b08d57" stroke-width="24" stroke-linecap="round"/><circle cx="800" cy="650" r="34" fill="#d4af37"/>
+  <text x="800" y="720" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" fill="#263238">large gold nib; fountain pen and rollerball are separate forms</text>
+  <text x="140" y="770" font-family="Arial,sans-serif" font-size="19" fill="#546e7a">本站原创 factual SVG；非产品照片、非 logo、not-to-scale、non-colour-proof。</text>
+</svg>

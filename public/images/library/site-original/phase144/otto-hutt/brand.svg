@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Otto Hutt brand navigation factual diagram</title>
+  <desc id="desc">Editorial factual diagram of Otto Hutt history and design04/design07 navigation; non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#f5f1e8"/>
+  <rect x="84" y="82" width="1432" height="736" rx="34" fill="#fffdf8" stroke="#263238" stroke-width="4"/>
+  <text x="132" y="172" font-family="Georgia,serif" font-size="58" fill="#263238">OTTO HUTT</text>
+  <text x="132" y="224" font-family="Arial,sans-serif" font-size="26" fill="#546e7a">德国制造的书写工具品牌 · 事实导航图</text>
+  <line x1="160" y1="360" x2="1440" y2="360" stroke="#b0bec5" stroke-width="6"/>
+  <circle cx="224" cy="360" r="42" fill="#607d8b"/><text x="224" y="370" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" fill="#fff">1920</text>
+  <circle cx="560" cy="360" r="42" fill="#607d8b"/><text x="560" y="370" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" fill="#fff">1965</text>
+  <circle cx="896" cy="360" r="42" fill="#607d8b"/><text x="896" y="370" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" fill="#fff">2016</text>
+  <circle cx="1232" cy="360" r="42" fill="#607d8b"/><text x="1232" y="370" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" fill="#fff">2018</text>
+  <text x="224" y="438" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" fill="#263238">Karl Hutt 建立公司</text>
+  <text x="560" y="438" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" fill="#263238">品牌以 Otto 命名</text>
+  <text x="896" y="438" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" fill="#263238">公司名回到 Otto Hutt GmbH</text>
+  <text x="1232" y="438" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" fill="#263238">品牌重新定位</text>
+  <rect x="260" y="570" width="420" height="122" rx="18" fill="#d7ccc0" stroke="#6d4c41" stroke-width="3"/>
+  <rect x="920" y="570" width="420" height="122" rx="18" fill="#cfd8dc" stroke="#455a64" stroke-width="3"/>
+  <text x="470" y="638" text-anchor="middle" font-family="Arial,sans-serif" font-size="36" fill="#3e2723">design04</text>
+  <text x="470" y="675" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" fill="#3e2723">线性设计 · 黄铜/银 · 钢尖或 18K</text>
+  <text x="1130" y="638" text-anchor="middle" font-family="Arial,sans-serif" font-size="36" fill="#263238">design07</text>
+  <text x="1130" y="675" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" fill="#263238">银或漆面 · 大型 18K 金尖</text>
+  <text x="132" y="770" font-family="Arial,sans-serif" font-size="19" fill="#546e7a">本站原创 factual SVG；非产品照片、非 logo、not-to-scale、non-colour-proof。</text>
+</svg>

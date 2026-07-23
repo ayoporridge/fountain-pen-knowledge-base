@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Otto Hutt design04 factual diagram</title>
+  <desc id="desc">Diagram of design04 linear body, guilloche variants and nib choices; non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#f2eee8"/>
+  <rect x="90" y="82" width="1420" height="736" rx="32" fill="#fffdf8" stroke="#3e2723" stroke-width="4"/>
+  <text x="140" y="168" font-family="Georgia,serif" font-size="54" fill="#3e2723">design04</text>
+  <text x="140" y="218" font-family="Arial,sans-serif" font-size="25" fill="#6d4c41">直线美学 · 手工完成 · 多种 finish 作为变体</text>
+  <rect x="178" y="340" width="900" height="82" rx="41" fill="#263238"/>
+  <rect x="1034" y="340" width="220" height="82" rx="41" fill="#b0bec5"/>
+  <circle cx="320" cy="381" r="28" fill="#eceff1"/><circle cx="438" cy="381" r="28" fill="#d7ccc8"/><circle cx="556" cy="381" r="28" fill="#90a4ae"/>
+  <text x="710" y="475" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" fill="#3e2723">示意：笔身、帽与直线轮廓（不表示比例）</text>
+  <path d="M210 570 H610" stroke="#6d4c41" stroke-width="12" stroke-dasharray="18 16"/><text x="410" y="620" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" fill="#3e2723">checked guilloché / lacquer</text>
+  <path d="M810 570 H1210" stroke="#455a64" stroke-width="12"/><text x="1010" y="620" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" fill="#263238">PVD steel or 18 ct gold nib</text>
+  <text x="140" y="754" font-family="Arial,sans-serif" font-size="19" fill="#546e7a">本站原创 factual SVG；非产品照片、非 logo、not-to-scale、non-colour-proof。</text>
+</svg>
