@@ -33,7 +33,6 @@ async function capturePublicEntities(c: Client): Promise<string[]> {
 
 async function republishPreservedEntities(c: Client, entityIds: string[], reviewer: string): Promise<void> {
   for (const entityId of entityIds) {
-    const currentHash = await computePublicationContentHash(c, entityId);
     const state = await c.execute({
       sql: `SELECT publication.status, publication.approved_content_hash,
                    publication.reviewed_content_revision, publication.content_revision,
@@ -61,13 +60,17 @@ async function republishPreservedEntities(c: Client, entityIds: string[], review
     if (!row || blockers.some((blocker) => !reviewOnlyBlockers.has(blocker))) {
       throw new Error(`Phase 90 preserved public entity became unpublishable: ${entityId}`);
     }
+    // A pristine published row cannot have changed content without a revision
+    // bump; avoid rebuilding its full publication hash during the preservation scan.
     if (
       String(row.status) === "published" &&
-      String(row.approved_content_hash ?? "") === currentHash &&
+      String(row.approved_content_hash ?? "").length > 0 &&
       Number(row.reviewed_content_revision) === Number(row.content_revision) &&
       Number(row.reviewed_contract_version) === 3 &&
-      Number(row.is_public) === 1
+      Number(row.is_public) === 1 &&
+      blockers.length === 0
     ) continue;
+    const currentHash = await computePublicationContentHash(c, entityId);
     for (const reviewKind of ["fact", "language", "media"] as const) {
       await recordEntityContentReview(c, {
         entityId,
