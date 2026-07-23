@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Franklin-Christoph Model 20 Marietta factual diagram</title>
+  <desc id="desc">A factual editorial diagram of the Model 20 Marietta slip-cap fountain pen, not a product photograph.</desc>
+  <rect width="1600" height="900" fill="#f4efe7"/>
+  <g fill="none" stroke="#24323a" stroke-width="18" stroke-linecap="round">
+    <path d="M260 458h690l170-84h180l-52 84 52 84h-180l-170-84H260" fill="#687b82"/>
+    <path d="M1100 374h200l120 84-120 84h-200" fill="#a8b5b4"/>
+    <path d="M260 458l-128-32v64z" fill="#d8b26a"/>
+    <path d="M950 410v96"/>
+    <path d="M1060 420v76" stroke="#d8b26a"/>
+  </g>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" fill="#24323a">
+    <text x="120" y="150" font-size="48" font-weight="700">Model 20 Marietta</text>
+    <text x="120" y="210" font-size="30">滑盖、凹入式笔尖、#6 可换笔尖单元</text>
+    <text x="120" y="720" font-size="28">138.43 mm capped · 150 mm posted · 约 3.5 ml eyedropper</text>
+    <text x="120" y="770" font-size="24">Franklin-Christoph 官方规格范围；示意图不按比例</text>
+    <text x="120" y="825" font-size="22">non-photo · non-logo · not-to-scale · non-colour-proof</text>
+  </g>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Birmingham Pen Company Alumina Model-C factual diagram</title>
+  <desc id="desc">A factual editorial diagram of the Alumina Model-C machined aluminum fountain pen, not a product photograph.</desc>
+  <rect width="1600" height="900" fill="#eceff1"/>
+  <g fill="none" stroke="#24323a" stroke-width="18" stroke-linecap="round">
+    <path d="M260 458h720l180-78h170l-54 78 54 78h-170l-180-78H260" fill="#9aa4a8"/>
+    <path d="M1100 380h170l120 78-120 78h-170" fill="#c6cdd0"/>
+    <path d="M260 458l-130-34v68z" fill="#d2a94e"/>
+    <path d="M1030 402v112"/>
+    <path d="M1150 418v80" stroke="#d2a94e"/>
+  </g>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" fill="#24323a">
+    <text x="120" y="150" font-size="48" font-weight="700">Alumina Model-C</text>
+    <text x="120" y="210" font-size="30">CNC 铝合金、German #6、转换器上墨</text>
+    <text x="120" y="720" font-size="28">141.8 mm capped · 154.2 mm posted · 31 g total</text>
+    <text x="120" y="770" font-size="24">铝材会留下使用痕迹；官方不建议 eyedropper 改造</text>
+    <text x="120" y="825" font-size="22">non-photo · non-logo · not-to-scale · non-colour-proof</text>
+  </g>
+</svg>
