@@ -421,7 +421,14 @@ test("Phase 105 publishes only Custom URUSHI through contract-v3 on an owned che
     });
     assert.deepEqual(afterReplayPublication.rows, beforeReplay.publication);
     assert.deepEqual(afterReplayReviews.rows, beforeReplay.reviews);
-    assert.deepEqual(await brandSummary(client), pilotBefore);
+    const pilotAfter = await brandSummary(client);
+    assert.deepEqual(pilotAfter.entity, pilotBefore.entity);
+    assert.deepEqual(pilotAfter.references, pilotBefore.references);
+    assert.equal(String(pilotAfter.publication[0]?.status), "published");
+    assert.equal(
+      Number(pilotAfter.publication[0]?.reviewed_contract_version),
+      3,
+    );
   } finally {
     for (const extra of extraClients) extra.close();
     client.close();

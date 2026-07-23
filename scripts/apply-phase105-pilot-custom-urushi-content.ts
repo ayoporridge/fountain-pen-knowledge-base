@@ -254,6 +254,25 @@ async function deleteOwnedPayload(tx: Transaction): Promise<void> {
   }
 }
 
+async function republishPilotBrandAfterMakerLink(
+  client: Client,
+  reviewer: string,
+): Promise<void> {
+  for (const reviewKind of ["fact", "language", "media"] as const) {
+    await recordEntityContentReview(client, {
+      entityId: PHASE105_PILOT_ID,
+      reviewKind,
+      reviewer,
+      status: "approved",
+      notes: "Phase 105 re-approves the unchanged Pilot brand after adding the exact Custom URUSHI maker relation.",
+    });
+  }
+  await publishEntity(client, {
+    entityId: PHASE105_PILOT_ID,
+    reviewer,
+  });
+}
+
 async function installPack(tx: Transaction, pack: LoadedCuratedEntityPack): Promise<void> {
   const existing = await tx.execute({
     sql: "SELECT id FROM entities WHERE id=?",
@@ -633,6 +652,8 @@ export async function applyPhase105PilotCustomUrushiContent(
     if (!transaction.closed) await transaction.rollback();
     throw error;
   }
+
+  await republishPilotBrandAfterMakerLink(client, options.reviewer);
 
   for (const reviewKind of ["fact", "language", "media"] as const) {
     await recordEntityContentReview(client, {
