@@ -312,6 +312,22 @@ export async function upsertSources(
           archive_url = excluded.archive_url,
           archive_locator = excluded.archive_locator,
           updated_at = datetime('now')
+        WHERE source_items.source_id IS NOT excluded.source_id
+           OR source_items.title IS NOT excluded.title
+           OR source_items.url IS NOT excluded.url
+           OR source_items.item_type IS NOT excluded.item_type
+           OR source_items.license IS NOT excluded.license
+           OR source_items.author IS NOT excluded.author
+           OR source_items.published_at IS NOT excluded.published_at
+           OR source_items.retrieved_at IS NOT excluded.retrieved_at
+           OR source_items.summary IS NOT excluded.summary
+           OR source_items.raw_metadata_json IS NOT excluded.raw_metadata_json
+           OR source_items.allowed_use IS NOT excluded.allowed_use
+           OR source_items.review_status IS NOT excluded.review_status
+           OR source_items.source_tier IS NOT excluded.source_tier
+           OR source_items.independence_group IS NOT excluded.independence_group
+           OR source_items.archive_url IS NOT excluded.archive_url
+           OR source_items.archive_locator IS NOT excluded.archive_locator
       `,
       args: [
         sourceItemId,

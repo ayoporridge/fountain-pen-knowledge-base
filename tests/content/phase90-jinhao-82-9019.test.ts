@@ -4,6 +4,8 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { createClient } from "@libsql/client";
+import { applyPhase41IdentityCleanupContent } from "../../scripts/apply-phase41-identity-cleanup-content";
+import { applyPhase48WatermanAuroraContent } from "../../scripts/apply-phase48-waterman-aurora-content";
 import {
   type ApplyPhase90Options,
   applyPhase90JinhaoContent,
@@ -55,6 +57,8 @@ test("Phase 90 publishes Jinhao 82 and 9019 on an owned checkpoint and replays a
 
   try {
     await migrateDatabase(client);
+    await applyPhase41IdentityCleanupContent(client, options);
+    await applyPhase48WatermanAuroraContent(client, options);
     await assert.rejects(
       applyPhase90JinhaoContent(client, {
         ...options,
