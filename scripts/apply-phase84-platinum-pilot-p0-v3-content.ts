@@ -92,6 +92,19 @@ async function republishBrandAfterModelUpdates(client: Client, brandId: string, 
   await publishEntity(client, { entityId: brandId, reviewer });
 }
 
+async function republishPenAfterBrandUpdates(client: Client, penId: string, reviewer: string): Promise<void> {
+  const current = await client.execute({
+    sql: "SELECT publication.status, readiness.publishable, readiness.blocker_count, CASE WHEN public.id IS NULL THEN 0 ELSE 1 END AS is_public FROM entity_publications publication LEFT JOIN public_entity_readiness readiness ON readiness.entity_id = publication.entity_id AND readiness.contract_version = 3 LEFT JOIN public_entities public ON public.id = publication.entity_id WHERE publication.entity_id = ?",
+    args: [penId],
+  });
+  if (current.rows.length !== 1) throw new Error(`Phase 84 pen publication state is missing: ${penId}.`);
+  if (String(current.rows[0]?.status) === "published" && Number(current.rows[0]?.publishable) === 1 && Number(current.rows[0]?.blocker_count) === 0 && Number(current.rows[0]?.is_public) === 1) return;
+  for (const reviewKind of ["fact", "language", "media"] as const) {
+    await recordEntityContentReview(client, { entityId: penId, reviewKind, reviewer, status: "approved", notes: "Phase 84 re-approves the unchanged model page after its brand topology update." });
+  }
+  await publishEntity(client, { entityId: penId, reviewer });
+}
+
 async function currentPhase84Replay(client: Client, workspaceRoot: string): Promise<ApplyPhase84Result | null> {
   const packs = phase84PlatinumPilotP0V3Packs.map((pack) => loadCuratedEntityPack(workspaceRoot, pack));
   const entities: ApplyPhase84Result["entities"] = [];
@@ -118,9 +131,10 @@ export async function applyPhase84PlatinumPilotP0V3Content(client: Client, optio
     if (!brand) throw new Error(`Phase 84 brand publication pack is missing: ${brandId}.`);
     const pens = phase84PlatinumPilotP0V3Packs.filter((pack) => pack.spec?.brandEntityId === brandId);
     const result = await applyCuratedContentPacks(client, options, structuredClone([brand, ...pens]));
-    await republishBrandAfterModelUpdates(client, brandId, options.reviewer);
     entities.push(...result.entities.filter((entity) => TARGETS.some((target) => target.id === entity.entityId)));
   }
+  for (const brandId of ["e51tJpejEkXY", "Zt-PbXkE7UHM"]) await republishBrandAfterModelUpdates(client, brandId, options.reviewer);
+  for (const pen of phase84PlatinumPilotP0V3Packs) await republishPenAfterBrandUpdates(client, pen.entityId, options.reviewer);
   assertCatalogSnapshotUnchanged(options.protectedCatalogSnapshot);
   return { entities };
 }

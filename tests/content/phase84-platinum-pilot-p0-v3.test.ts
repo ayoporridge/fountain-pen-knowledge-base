@@ -133,6 +133,13 @@ test("Phase 84 upgrades existing Platinum/Pilot pages without creating duplicate
         /示意图，非产品照片/,
       );
     }
+    const publicationStates = await client.execute({
+      sql: "SELECT entity_id, status FROM entity_publications WHERE entity_id IN (?, ?, ?, ?, ?, ?, ?) ORDER BY entity_id",
+      args: TARGETS.map(([id]) => id),
+    });
+    assert.ok(
+      publicationStates.rows.every((row) => String(row.status) === "published"),
+    );
     const duplicateIds = await client.execute({
       sql: "SELECT id, count(*) AS total FROM entities WHERE id IN (?, ?, ?, ?, ?, ?, ?) GROUP BY id",
       args: TARGETS.map(([id]) => id),
