@@ -4,7 +4,6 @@ import { PHASE44_PLAISIR_ID, PHASE44_PREFOUNTE_ID, PHASE44_PREPPY_ID, phase44Pla
 import { PHASE47_PILOT_823_ID, phase47PilotCustom823Packs } from "./phase47-pilot-custom-823";
 import { PHASE52_PLATINUM_3776_ID, phase52LamyPlatinumCorePacks } from "./phase52-lamy-platinum-core";
 import { PHASE60_CUSTOM_912_ID, phase60PilotP0Packs } from "./phase60-pilot-p0";
-import { phase26PilotPacks } from "./phase26-pilot";
 import { PHASE42_PLATINUM_BRAND_ID } from "./phase42-lamy-platinum";
 import { phase78PlatinumCuridasPacks } from "./phase78-platinum-curidas";
 
@@ -110,5 +109,5 @@ export const phase84PlatinumPilotP0V3Packs: CuratedEntityPack[] = [century, prep
 
 export const phase84PlatinumPilotP0V3BrandPacks: CuratedEntityPack[] = [
   base(phase78PlatinumCuridasPacks, PHASE42_PLATINUM_BRAND_ID, "Platinum brand"),
-  base(phase26PilotPacks, "Zt-PbXkE7UHM", "Pilot brand"),
+  base(phase43PilotCaplessPacks, "Zt-PbXkE7UHM", "Pilot brand"),
 ];

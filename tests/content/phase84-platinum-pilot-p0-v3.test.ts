@@ -149,6 +149,15 @@ test("Phase 84 upgrades existing Platinum/Pilot pages without creating duplicate
       String(platinumBrand.rows[0]?.source),
       /^curated-content:phase78-platinum-brand-v1:/,
     );
+    const pilotBrand = await client.execute({
+      sql: "SELECT source FROM entities WHERE id = ?",
+      args: ["Zt-PbXkE7UHM"],
+    });
+    assert.equal(pilotBrand.rows.length, 1);
+    assert.match(
+      String(pilotBrand.rows[0]?.source),
+      /^curated-content:phase43-pilot-brand-v1:/,
+    );
     const duplicateIds = await client.execute({
       sql: "SELECT id, count(*) AS total FROM entities WHERE id IN (?, ?, ?, ?, ?, ?, ?) GROUP BY id",
       args: TARGETS.map(([id]) => id),
