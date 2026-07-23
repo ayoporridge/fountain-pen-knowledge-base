@@ -4,6 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { createClient } from "@libsql/client";
+import { applyPhase44PlatinumLowPriceContent } from "../../scripts/apply-phase44-platinum-low-price-content";
 import { applyPhase78PlatinumCuridasContent } from "../../scripts/apply-phase78-platinum-curidas-content";
 import {
   PHASE78_CURIDAS_ID,
@@ -57,6 +58,7 @@ test("Phase 78 publishes the exact current Platinum Curidas PKN-7000 from an own
   } as const;
   try {
     await migrateDatabase(client);
+    await applyPhase44PlatinumLowPriceContent(client, options);
     await assert.rejects(
       applyPhase78PlatinumCuridasContent(client, {
         ...options,
@@ -83,15 +85,26 @@ test("Phase 78 publishes the exact current Platinum Curidas PKN-7000 from an own
     assert.equal(String(brand?.type), "brand");
     assert.equal(String(curidas?.type), "pen");
     assert.equal(String(curidas?.slug), PHASE78_CURIDAS_SLUG);
+    const preppy = await client.execute({
+      sql: "SELECT id FROM public_entities WHERE id = ?",
+      args: ["s44PLATPREP"],
+    });
+    assert.deepEqual(preppy.rows, [{ id: "s44PLATPREP" }]);
     assert.ok(Array.from(String(brand?.body_md ?? "")).length >= 1_200);
     assert.ok(Array.from(String(curidas?.summary ?? "")).length >= 60);
     assert.ok(Array.from(String(curidas?.body_md ?? "")).length >= 2_000);
     const body = String(curidas?.body_md);
     assert.match(body, /PKN-7000/);
-    assert.match(body, /2020 年 2 月[\s\S]*3 月 20 日[\s\S]*1965 年 Platinum Knock/);
+    assert.match(
+      body,
+      /2020 年 2 月[\s\S]*3 月 20 日[\s\S]*1965 年 Platinum Knock/,
+    );
     assert.match(body, /ST-2 不锈钢尖[\s\S]*EF、F、M/);
     assert.match(body, /153 mm[\s\S]*13\.8 mm[\s\S]*24\.0 g/);
-    assert.match(body, /Converter-700A 或 Converter-800A[\s\S]*2020 年的“暂停”不是今天的停产结论/);
+    assert.match(
+      body,
+      /Converter-700A 或 Converter-800A[\s\S]*2020 年的“暂停”不是今天的停产结论/,
+    );
     assert.match(body, /Pilot Capless[\s\S]*Preppy[\s\S]*示意图，非产品照片/);
     assert.doesNotMatch(body, /数据库|仓库|canonical|made_by|market_sku/i);
     assert.doesNotMatch(body, /Curidas[^。\n]{0,80}(?:已|已经|目前)?停产/);
@@ -139,9 +152,15 @@ test("Phase 78 publishes the exact current Platinum Curidas PKN-7000 from an own
       args: [PHASE78_CURIDAS_ID],
     });
     assert.equal(asset.rows.length, 1);
-    assert.match(String(asset.rows[0]?.local_path), /platinum-curidas-pkn7000\.svg$/);
     assert.match(
-      fs.readFileSync(path.join(ROOT, "public", String(asset.rows[0]?.local_path).slice(1)), "utf8"),
+      String(asset.rows[0]?.local_path),
+      /platinum-curidas-pkn7000\.svg$/,
+    );
+    assert.match(
+      fs.readFileSync(
+        path.join(ROOT, "public", String(asset.rows[0]?.local_path).slice(1)),
+        "utf8",
+      ),
       /示意图，非产品照片/,
     );
     const replay = await applyPhase78PlatinumCuridasContent(client, options);

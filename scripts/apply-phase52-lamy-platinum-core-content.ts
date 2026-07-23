@@ -3,6 +3,11 @@ import fs from "node:fs";
 import path from "node:path";
 import type { Client } from "@libsql/client";
 import { assertCatalogSnapshotUnchanged } from "../src/lib/audit/read-only-catalog";
+import {
+  computePublicationContentHash,
+  publishEntity,
+  recordEntityContentReview,
+} from "../src/lib/publication";
 import { applyCuratedContentPacks, type ApplyPhase22Options, type ApplyPhase22Result } from "./apply-phase22-content";
 import {
   PHASE52_LAMY_2000_ID,
@@ -215,11 +220,70 @@ async function ensureTopology(client: Client): Promise<void> {
   }
 }
 
+async function capturePublicPlatinumModels(client: Client): Promise<string[]> {
+  const rows = await client.execute({
+    sql: `SELECT pen.id
+            FROM public_entities pen
+            JOIN entity_links maker
+              ON maker.source_id = pen.id
+             AND maker.target_id = ?
+             AND maker.link_type = 'made_by'
+           WHERE pen.type = 'pen'
+           ORDER BY pen.id`,
+    args: [PHASE52_PLATINUM_BRAND_ID],
+  });
+  return rows.rows.map((row) => String(row.id));
+}
+
+async function republishModelsAfterCoreUpdate(
+  client: Client,
+  modelIds: string[],
+  reviewer: string,
+): Promise<void> {
+  for (const entityId of modelIds) {
+    const currentHash = await computePublicationContentHash(client, entityId);
+    const state = await client.execute({
+      sql: `SELECT publication.status, publication.approved_content_hash,
+                   publication.reviewed_content_revision, publication.content_revision,
+                   publication.reviewed_contract_version, readiness.publishable,
+                   readiness.blocker_count, CASE WHEN public.id IS NULL THEN 0 ELSE 1 END AS is_public
+              FROM entity_publications publication
+              LEFT JOIN public_entity_readiness readiness
+                ON readiness.entity_id = publication.entity_id AND readiness.contract_version = 3
+              LEFT JOIN public_entities public ON public.id = publication.entity_id
+             WHERE publication.entity_id = ?`,
+      args: [entityId],
+    });
+    const row = state.rows[0];
+    if (
+      row &&
+      String(row.status) === "published" &&
+      String(row.approved_content_hash ?? "") === currentHash &&
+      Number(row.reviewed_content_revision) === Number(row.content_revision) &&
+      Number(row.reviewed_contract_version) === 3 &&
+      Number(row.publishable) === 1 &&
+      Number(row.blocker_count) === 0 &&
+      Number(row.is_public) === 1
+    ) continue;
+    for (const reviewKind of ["fact", "language", "media"] as const) {
+      await recordEntityContentReview(client, {
+        entityId,
+        reviewKind,
+        reviewer,
+        status: "approved",
+        notes: "Phase 52 re-approves unchanged public Platinum model content after core taxonomy updates.",
+      });
+    }
+    await publishEntity(client, { entityId, reviewer });
+  }
+}
+
 export async function applyPhase52LamyPlatinumCoreContent(
   client: Client,
   options: ApplyPhase52Options,
 ): Promise<ApplyPhase52Result> {
   await assertOwned(client, options);
+  const publicPlatinumModelsBefore = await capturePublicPlatinumModels(client);
   await ensureTopology(client);
   const packs = structuredClone(phase52LamyPlatinumCorePacks);
   const lamyIds = new Set([PHASE52_LAMY_BRAND_ID, PHASE52_LAMY_2000_ID]);
@@ -229,6 +293,7 @@ export async function applyPhase52LamyPlatinumCoreContent(
     const result = await applyCuratedContentPacks(client, options, group);
     entities.push(...result.entities);
   }
+  await republishModelsAfterCoreUpdate(client, publicPlatinumModelsBefore, options.reviewer);
   assertCatalogSnapshotUnchanged(options.protectedCatalogSnapshot);
   return { entities };
 }

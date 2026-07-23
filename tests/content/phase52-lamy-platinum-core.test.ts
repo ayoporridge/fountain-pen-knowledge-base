@@ -4,6 +4,7 @@ import os from "node:os";
 import path from "node:path";
 import test from "node:test";
 import { createClient } from "@libsql/client";
+import { applyPhase44PlatinumLowPriceContent } from "../../scripts/apply-phase44-platinum-low-price-content";
 import { applyPhase52LamyPlatinumCoreContent } from "../../scripts/apply-phase52-lamy-platinum-core-content";
 import {
   PHASE52_LAMY_2000_ID,
@@ -57,6 +58,7 @@ test("Phase 52 publishes canonical LAMY 2000 and Platinum #3776 Century with sib
   } as const;
   try {
     await migrateDatabase(client);
+    await applyPhase44PlatinumLowPriceContent(client, options);
     const result = await applyPhase52LamyPlatinumCoreContent(client, options);
     assert.deepEqual(
       result.entities.map((entity) => entity.outcome),
@@ -74,6 +76,14 @@ test("Phase 52 publishes canonical LAMY 2000 and Platinum #3776 Century with sib
         ],
       ),
       4,
+    );
+    assert.equal(
+      await scalar(
+        client,
+        "SELECT count(*) AS value FROM public_entities WHERE id = ?",
+        ["s44PLATPREP"],
+      ),
+      1,
     );
     for (const [id, slug, brandId] of [
       [PHASE52_LAMY_2000_ID, "lamy-2000", PHASE52_LAMY_BRAND_ID],
