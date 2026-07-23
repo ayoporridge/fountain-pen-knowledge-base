@@ -26,5 +26,9 @@
 | Phase 107 Wancher True Ebonite Matte Black | passed，保留 Phase104 系列导航 |
 | Phase 112 Wancher Titanium Black | passed（含 replay/authority 负例） |
 | Phase 113 Wancher True Urushi Aka Tamenuri | passed（含 replay/authority 负例） |
+| Phase 114–117 Aurora 88/Ipsilon/Optima、Montegrappa Zero | passed |
+| Phase 119–123 Wancher PuChiCo/Shizuku、Platinum Procyon/President/Izumo | passed |
+| Phase 124–126 Platinum Fuji Shunkei、Small Meteor、Maki-e Kanazawa Leaf | passed |
+| Phase 127 Pilot 78G/88G/MR | passed |
 
 这些包使用原有 canonical IDs，不重复建实体。真实 `data/fpkg.db` 仍保持未迁移状态。
