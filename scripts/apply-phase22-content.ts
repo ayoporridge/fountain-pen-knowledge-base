@@ -836,6 +836,17 @@ async function alreadyApplied(
   return true;
 }
 
+export async function isCuratedContentPackSetApplied(
+  client: Client,
+  workspaceRoot: string,
+  curatedPacks: CuratedEntityPack[],
+): Promise<boolean> {
+  const packs = curatedPacks.map((pack) =>
+    loadCuratedEntityPack(fs.realpathSync.native(workspaceRoot), pack),
+  );
+  return alreadyApplied(client, packs);
+}
+
 async function preserveBlockedDraft(
   client: Client,
   pack: LoadedCuratedEntityPack,

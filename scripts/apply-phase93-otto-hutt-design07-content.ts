@@ -4,7 +4,12 @@ import path from "node:path";
 import { pathToFileURL } from "node:url";
 import type { Client } from "@libsql/client";
 import { assertCatalogSnapshotUnchanged, snapshotCatalogFiles } from "../src/lib/audit/read-only-catalog";
-import { applyCuratedContentPacks, type ApplyPhase22Options, type ApplyPhase22Result } from "./apply-phase22-content";
+import {
+  applyCuratedContentPacks,
+  isCuratedContentPackSetApplied,
+  type ApplyPhase22Options,
+  type ApplyPhase22Result,
+} from "./apply-phase22-content";
 import { applyPhase92OttoHuttDesign04Content } from "./apply-phase92-otto-hutt-design04-content";
 import { PHASE92_OTTO_HUTT_ID, PHASE92_OTTO_HUTT_SLUG } from "./data/phase92-otto-hutt-design04";
 import { PHASE93_DESIGN07_ID, PHASE93_DESIGN07_SLUG, phase93OttoHuttDesign07Packs } from "./data/phase93-otto-hutt-design07";
@@ -41,7 +46,7 @@ async function topology(client: Client): Promise<void> {
     if (Number(maker.rows[0]?.value ?? 0) !== 1 || Number(reverse.rows[0]?.value ?? 0) !== 1) throw new Error("Phase 93 Otto Hutt topology is incomplete."); await tx.commit();
   } catch (error) { if (!tx.closed) await tx.rollback(); throw error; }
 }
-export async function applyPhase93OttoHuttDesign07Content(client: Client, options: ApplyPhase93Options): Promise<ApplyPhase93Result> { await assertOwned(client, options); await applyPhase92OttoHuttDesign04Content(client, options); await topology(client); const result = await applyCuratedContentPacks(client, options, structuredClone(phase93OttoHuttDesign07Packs)); assertCatalogSnapshotUnchanged(options.protectedCatalogSnapshot); return result; }
+export async function applyPhase93OttoHuttDesign07Content(client: Client, options: ApplyPhase93Options): Promise<ApplyPhase93Result> { await assertOwned(client, options); const packs = structuredClone(phase93OttoHuttDesign07Packs); const alreadyApplied = await isCuratedContentPackSetApplied(client, options.workspaceRoot, packs); if (!alreadyApplied) await applyPhase92OttoHuttDesign04Content(client, options); await topology(client); const result = await applyCuratedContentPacks(client, options, packs); assertCatalogSnapshotUnchanged(options.protectedCatalogSnapshot); return result; }
 function value(name: string): string | null { const index = process.argv.indexOf(name); return index === -1 ? null : process.argv[index + 1] ?? null; }
 async function main(): Promise<void> { const database = value("--database"), ownedRoot = value("--owned-root"), protectedCatalog = value("--protected-catalog"); if (!database || !ownedRoot || !protectedCatalog) throw new Error("Usage: tsx scripts/apply-phase93-otto-hutt-design07-content.ts --database <owned-copy> --owned-root <root> --protected-catalog <real-db>"); const { createClient } = await import("@libsql/client"); const client = createClient({ url: `file:${path.resolve(database)}` }); try { process.stdout.write(`${JSON.stringify(await applyPhase93OttoHuttDesign07Content(client, { workspaceRoot: process.cwd(), reviewer: value("--reviewer") ?? "phase93-otto-hutt-design07", databasePath: path.resolve(database), ownedRoot: path.resolve(ownedRoot), protectedCatalogPath: path.resolve(protectedCatalog), protectedCatalogSnapshot: snapshotCatalogFiles(path.resolve(protectedCatalog)), env: { ...process.env, TURSO_DATABASE_URL: "", TURSO_AUTH_TOKEN: "", FPKG_DATABASE_URL: "" } }), null, 2)}\n`); } finally { client.close(); } }
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) void main().catch((error) => { console.error(error instanceof Error ? error.message : String(error)); process.exitCode = 1; });
