@@ -257,6 +257,17 @@ export async function upsertSources(
           default_source_tier = excluded.default_source_tier,
           default_independence_group = excluded.default_independence_group,
           updated_at = datetime('now')
+        WHERE source_registry.name IS NOT excluded.name
+           OR source_registry.source_type IS NOT excluded.source_type
+           OR source_registry.allowed_use IS NOT excluded.allowed_use
+           OR source_registry.reliability IS NOT excluded.reliability
+           OR source_registry.license IS NOT excluded.license
+           OR source_registry.attribution IS NOT excluded.attribution
+           OR source_registry.homepage_url IS NOT excluded.homepage_url
+           OR source_registry.notes IS NOT excluded.notes
+           OR source_registry.last_checked_at IS NOT excluded.last_checked_at
+           OR source_registry.default_source_tier IS NOT excluded.default_source_tier
+           OR source_registry.default_independence_group IS NOT excluded.default_independence_group
       `,
       args: [
         curatedId("source-registry", registryKey),
