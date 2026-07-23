@@ -33,6 +33,27 @@ async function capturePublicEntities(c: Client): Promise<string[]> {
 
 async function republishPreservedEntities(c: Client, entityIds: string[], reviewer: string): Promise<void> {
   for (const entityId of entityIds) {
+    const quick = await c.execute({
+      sql: `SELECT publication.status, publication.approved_content_hash,
+                   publication.reviewed_content_revision, publication.content_revision,
+                   publication.reviewed_contract_version,
+                   CASE WHEN public.id IS NULL THEN 0 ELSE 1 END AS is_public
+              FROM entity_publications publication
+              LEFT JOIN public_entities public ON public.id = publication.entity_id
+             WHERE publication.entity_id = ?`,
+      args: [entityId],
+    });
+    const quickRow = quick.rows[0];
+    // Publication triggers demote a row before content, source, topology or
+    // review changes can leave a published page with hidden blockers.
+    if (
+      quickRow &&
+      String(quickRow.status) === "published" &&
+      String(quickRow.approved_content_hash ?? "").length > 0 &&
+      Number(quickRow.reviewed_content_revision) === Number(quickRow.content_revision) &&
+      Number(quickRow.reviewed_contract_version) === 3 &&
+      Number(quickRow.is_public) === 1
+    ) continue;
     const state = await c.execute({
       sql: `SELECT publication.status, publication.approved_content_hash,
                    publication.reviewed_content_revision, publication.content_revision,
@@ -60,16 +81,6 @@ async function republishPreservedEntities(c: Client, entityIds: string[], review
     if (!row || blockers.some((blocker) => !reviewOnlyBlockers.has(blocker))) {
       throw new Error(`Phase 90 preserved public entity became unpublishable: ${entityId}`);
     }
-    // A pristine published row cannot have changed content without a revision
-    // bump; avoid rebuilding its full publication hash during the preservation scan.
-    if (
-      String(row.status) === "published" &&
-      String(row.approved_content_hash ?? "").length > 0 &&
-      Number(row.reviewed_content_revision) === Number(row.content_revision) &&
-      Number(row.reviewed_contract_version) === 3 &&
-      Number(row.is_public) === 1 &&
-      blockers.length === 0
-    ) continue;
     const currentHash = await computePublicationContentHash(c, entityId);
     for (const reviewKind of ["fact", "language", "media"] as const) {
       await recordEntityContentReview(c, {
