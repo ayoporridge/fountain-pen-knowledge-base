@@ -23,5 +23,8 @@
 | Phase 109 Pilot Cavalier/Prera/Kakuno/Cocoon | passed |
 | Phase 110 Pilot Justus 95、Silver、Grance | passed（含 collision/authority 负例） |
 | Phase 111 Pilot Elabo Metal/Resin、Custom NS、Lightive | passed（含 collision/authority 负例） |
+| Phase 107 Wancher True Ebonite Matte Black | passed，保留 Phase104 系列导航 |
+| Phase 112 Wancher Titanium Black | passed（含 replay/authority 负例） |
+| Phase 113 Wancher True Urushi Aka Tamenuri | passed（含 replay/authority 负例） |
 
 这些包使用原有 canonical IDs，不重复建实体。真实 `data/fpkg.db` 仍保持未迁移状态。
