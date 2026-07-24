@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f7f0eb"/>
+  <g fill="none" stroke="#5c4543" stroke-width="7">
+    <path d="M240 470h1120" stroke-dasharray="18 16"/>
+    <circle cx="330" cy="470" r="125" fill="#d9c7bd"/>
+    <circle cx="800" cy="470" r="125" fill="#ead9a2"/>
+    <circle cx="1270" cy="470" r="125" fill="#c4d4d3"/>
+  </g>
+  <g font-family="Arial, sans-serif" fill="#5c4543" text-anchor="middle">
+    <text x="800" y="125" font-size="52" font-weight="700">Stratford／“莎士比亚”来源边界</text>
+    <text x="330" y="430" font-size="34" font-weight="700">Cross</text>
+    <text x="330" y="480" font-size="25">官方品牌层</text>
+    <text x="330" y="520" font-size="20">1846 起的历史</text>
+    <text x="800" y="430" font-size="34" font-weight="700">STRATFORD</text>
+    <text x="800" y="480" font-size="25">渠道英文名</text>
+    <text x="800" y="520" font-size="20">官网未确认独立系列</text>
+    <text x="1270" y="430" font-size="36" font-weight="700">莎士比亚</text>
+    <text x="1270" y="480" font-size="25">中国渠道称呼</text>
+    <text x="1270" y="520" font-size="20">颜色/规格需逐 SKU 核对</text>
+    <text x="800" y="800" font-size="23">本站原创 factual SVG · 非产品照片 · 不证明联名、生产地或内部机构</text>
+  </g>
+</svg>

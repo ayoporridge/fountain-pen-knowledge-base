@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f5f1e8"/>
+  <g fill="none" stroke="#31454a" stroke-width="7">
+    <path d="M180 460H1420" stroke-dasharray="18 16"/>
+    <circle cx="300" cy="460" r="122" fill="#d6b66e"/>
+    <circle cx="800" cy="460" r="122" fill="#c7d7d8"/>
+    <circle cx="1300" cy="460" r="122" fill="#aebfc7"/>
+  </g>
+  <g font-family="Arial, sans-serif" fill="#31454a" text-anchor="middle">
+    <text x="800" y="120" font-size="54" font-weight="700">Cross 品牌层级</text>
+    <text x="300" y="425" font-size="40" font-weight="700">1846</text>
+    <text x="300" y="475" font-size="26">A.T. Cross</text>
+    <text x="300" y="515" font-size="21">美国 Providence</text>
+    <text x="800" y="425" font-size="38" font-weight="700">Peerless</text>
+    <text x="800" y="475" font-size="25">官方历史中的早期钢笔名</text>
+    <text x="800" y="515" font-size="21">不是所有现代型号的同义词</text>
+    <text x="1300" y="425" font-size="36" font-weight="700">Bailey Light</text>
+    <text x="1300" y="475" font-size="25">轻量树脂 · 钢尖</text>
+    <text x="1300" y="515" font-size="21">Cross 现代系列入口</text>
+    <text x="800" y="790" font-size="24">本站原创 factual SVG · 非产品照片 · not to scale · 不证明商标/库存</text>
+  </g>
+</svg>

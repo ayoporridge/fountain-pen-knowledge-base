@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f2f5f4"/>
+  <g fill="none" stroke="#2f4a50" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M220 470h870l210-28 85 28-85 28-210-28" fill="#d8e1dc"/>
+    <path d="M220 470l-90-35v70z" fill="#b7c6c9"/>
+    <path d="M470 433v74M930 433v74"/>
+    <path d="M1210 442v56M1285 442v56"/>
+    <path d="M1260 420v-92" stroke="#ba9554"/>
+    <path d="M1200 330h120" stroke="#ba9554"/>
+    <path d="M1450 260v390" stroke="#7c9699" stroke-dasharray="14 14"/>
+  </g>
+  <g font-family="Arial, sans-serif" fill="#2f4a50">
+    <text x="800" y="125" text-anchor="middle" font-size="54" font-weight="700">Bailey Light：轻量树脂路线</text>
+    <text x="300" y="650" font-size="29">高光树脂笔身</text>
+    <text x="760" y="650" font-size="29">click-off 帽 · 不锈钢尖</text>
+    <text x="1090" y="700" font-size="27">EF / F / M</text>
+    <text x="150" y="760" font-size="27">8921 墨囊</text>
+    <text x="530" y="760" font-size="27">可选 8751 转换器</text>
+    <text x="800" y="825" text-anchor="middle" font-size="23">本站原创 factual SVG · 非产品照片 · 不按比例 · 颜色/尺寸按 SKU</text>
+  </g>
+</svg>
