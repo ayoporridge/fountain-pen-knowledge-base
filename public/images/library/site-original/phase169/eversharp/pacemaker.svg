@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f5f0e7"/>
+  <g transform="translate(150 325)" stroke="#263b42" stroke-width="7">
+    <path d="M0 120 Q40 60 120 58 L830 58 Q910 65 990 120 L900 175 L85 175 Q25 160 0 120Z" fill="#d6b04d"/>
+    <path d="M990 120l180-32q85 0 170 32-85 32-170 32z" fill="#c4d1cd"/>
+    <rect x="470" y="61" width="200" height="110" rx="22" fill="#9bbab3" stroke="#263b42" stroke-width="5" opacity=".9"/>
+    <path d="M100 64v110M190 60v115M280 59v116" stroke="#f0d77e" stroke-width="6"/>
+  </g>
+  <g font-family="Arial, sans-serif" fill="#263b42" text-anchor="middle">
+    <text x="800" y="145" font-size="50" font-weight="700">The Eversharp Pacemaker</text>
+    <text x="800" y="220" font-size="28">约 1938—1941 · 杠杆上墨 · 观察窗段 · 14K 尖线索</text>
+    <text x="800" y="625" font-size="29">regular / slender · Jet Black · Green / Gold / Blue / Red Satin</text>
+    <text x="800" y="770" font-size="24">本站原创 factual SVG · 非产品照片 · not to scale · 颜色与尺寸按实物核对</text>
+  </g>
+</svg>

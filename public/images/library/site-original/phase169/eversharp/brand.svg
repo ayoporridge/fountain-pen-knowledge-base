@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f4efe5"/>
+  <g fill="none" stroke="#263b42" stroke-width="6">
+    <path d="M180 450h1240" stroke-dasharray="18 16"/>
+    <circle cx="270" cy="450" r="112" fill="#d5e2de"/><circle cx="760" cy="450" r="112" fill="#e8d7ae"/><circle cx="1260" cy="450" r="112" fill="#c7d4dc"/>
+    <path d="M382 450h266M872 450h276"/>
+  </g>
+  <g font-family="Arial, sans-serif" fill="#263b42" text-anchor="middle">
+    <text x="270" y="420" font-size="38" font-weight="700">WAHL</text><text x="270" y="468" font-size="26">1917</text><text x="270" y="510" font-size="22">进入钢笔业务</text>
+    <text x="760" y="420" font-size="38" font-weight="700">EVERSHARP</text><text x="760" y="468" font-size="26">1936—1948</text><text x="760" y="510" font-size="22">Coronet · Pacemaker · Envoy</text>
+    <text x="1260" y="420" font-size="34" font-weight="700">PARKER / REVIVAL</text><text x="1260" y="468" font-size="26">1957 / 2012</text><text x="1260" y="510" font-size="22">产权节点与现代复兴分开</text>
+    <text x="800" y="110" font-size="46" font-weight="700">Eversharp 历史导航</text>
+    <text x="800" y="800" font-size="25">本站原创 factual SVG · 非产品照片 · not to scale · 不证明颜色、尺寸或库存</text>
+  </g>
+</svg>

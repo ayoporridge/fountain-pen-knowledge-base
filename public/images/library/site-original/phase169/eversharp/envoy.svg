@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f5f0e6"/>
+  <g transform="translate(170 330)" stroke="#263b42" stroke-width="7" fill="#caa766">
+    <path d="M0 110 Q30 68 100 62 L820 62 Q900 68 965 110 L900 158 L75 158 Q25 150 0 110Z"/>
+    <path d="M950 110 Q1010 76 1080 92 L1190 110 Q1220 116 1190 132 L1080 150 Q1010 160 950 128Z" fill="#e7d8b3"/>
+    <path d="M170 70v82M205 65v87M240 64v88M275 63v89M310 63v89M345 63v89M380 63v89M415 63v89" stroke="#705433" stroke-width="4"/>
+  </g>
+  <g font-family="Arial, sans-serif" fill="#263b42" text-anchor="middle">
+    <text x="800" y="150" font-size="50" font-weight="700">The Eversharp Envoy</text>
+    <text x="800" y="225" font-size="28">约 1948 · 1/10 14K Y.G.F. 线索 · 杠杆上墨</text>
+    <text x="800" y="620" font-size="30">金填帽杆 / 流线外形 / Skyline-family feed 语境</text>
+    <text x="800" y="770" font-size="24">本站原创 factual SVG · 非产品照片 · not to scale · 金色不等于实金</text>
+  </g>
+</svg>

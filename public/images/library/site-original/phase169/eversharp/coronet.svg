@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f2eee5"/>
+  <g transform="translate(220 320)" fill="#8b9294" stroke="#263b42" stroke-width="8">
+    <path d="M0 120 L90 40 L920 40 L1040 120 L920 200 L90 200Z"/>
+    <path d="M110 55l70 130M230 45l70 150M350 45l70 150M470 45l70 150M590 45l70 150M710 45l70 150M830 45l70 150" fill="none" stroke="#d2ad62" stroke-width="12"/>
+    <path d="M1040 120h190l90 28-90 28h-190" fill="#d2ad62"/>
+  </g>
+  <g font-family="Arial, sans-serif" fill="#263b42" text-anchor="middle">
+    <text x="800" y="145" font-size="50" font-weight="700">The Eversharp Coronet</text>
+    <text x="800" y="220" font-size="28">1936 年末 · Art Deco · Safety Ink Shut-Off 线索</text>
+    <text x="800" y="625" font-size="29">安全 shut-off ≠ 永不漏墨 · 目录 / 广告 / 实物需交叉核对</text>
+    <text x="800" y="770" font-size="24">本站原创 factual SVG · 非产品照片 · not to scale · 不证明金含量或密封状态</text>
+  </g>
+</svg>
