@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">HongDian N12 structure and model boundary</title>
+  <desc id="desc">HongDian N12 acrylic body, metal clip and piston-filling boundary; non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#f3f0eb"/>
+  <rect x="65" y="65" width="1470" height="770" rx="38" fill="#fffdf8" stroke="#7c5b4a" stroke-width="4"/>
+  <text x="125" y="155" font-family="Georgia,serif" font-size="60" fill="#292522">HONGDIAN N12</text>
+  <text x="128" y="205" font-family="Arial,sans-serif" font-size="28" fill="#6b625d">acrylic piston filler · EF/F market options · exact colour is SKU-scoped</text>
+  <g transform="translate(150 325)">
+    <rect x="0" y="115" width="870" height="92" rx="46" fill="#8aa7b5" fill-opacity=".82" stroke="#375968" stroke-width="4"/>
+    <path d="M870 115 H1080 Q1125 115 1160 161 Q1125 207 1080 207 H870 Z" fill="#b7c9d0" stroke="#375968" stroke-width="4"/>
+    <rect x="390" y="95" width="22" height="132" rx="10" fill="#bb8e45"/>
+    <rect x="1070" y="108" width="155" height="106" rx="24" fill="#b9b4ae" stroke="#706a63" stroke-width="4"/>
+    <path d="M1225 161 L1350 120 L1350 202 Z" fill="#c3a36a" stroke="#765f3d" stroke-width="4"/>
+    <text x="40" y="285" font-family="Arial,sans-serif" font-size="28" fill="#292522">marbled acrylic body</text>
+    <text x="375" y="285" font-family="Arial,sans-serif" font-size="28" fill="#292522">metal clip</text>
+    <text x="1010" y="285" font-family="Arial,sans-serif" font-size="28" fill="#292522">piston knob</text>
+  </g>
+  <g transform="translate(150 680)" font-family="Arial,sans-serif" font-size="29" fill="#292522">
+    <text x="0" y="0">bottled-ink piston route</text>
+    <text x="500" y="0">EF / F options on current listing</text>
+    <text x="0" y="58">N7 Rabbit and N23 Year of the Rabbit remain separate identities</text>
+    <text x="0" y="116">14.5 g is a product-page reference, not every batch</text>
+  </g>
+  <text x="125" y="790" font-family="Arial,sans-serif" font-size="22" fill="#81776b">Fountain Pen Graph original factual SVG · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+</svg>
