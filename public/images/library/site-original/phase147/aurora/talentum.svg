@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Aurora Talentum 版本边界事实图</title>
+  <desc id="desc">Aurora Talentum 的树脂笔身、镀铬帽、钌色帽与 14K 金尖路线示意；非产品照片、非比例图、非颜色证明。</desc>
+  <rect width="1600" height="900" fill="#f4f0e8"/>
+  <rect x="70" y="70" width="1460" height="760" rx="40" fill="#fffdf8" stroke="#b28a52" stroke-width="4"/>
+  <text x="130" y="155" font-family="Georgia,serif" font-size="58" fill="#2c2925">AURORA TALENTUM</text>
+  <text x="132" y="205" font-family="Arial,sans-serif" font-size="28" fill="#6b6258">2000–2002 design context · exact SKU and nib finish remain variant-scoped</text>
+  <g transform="translate(145 330)">
+    <rect x="0" y="125" width="840" height="88" rx="44" fill="#24272b"/>
+    <rect x="720" y="105" width="210" height="128" rx="26" fill="#c9cdd0"/>
+    <rect x="896" y="122" width="110" height="94" rx="20" fill="#d9a84b"/>
+    <path d="M1004 170 L1118 132 L1118 208 Z" fill="#d7b15a"/>
+    <line x1="175" y1="95" x2="175" y2="245" stroke="#b28a52" stroke-width="8"/>
+    <text x="20" y="290" font-family="Arial,sans-serif" font-size="27" fill="#2c2925">black resin barrel</text>
+    <text x="705" y="290" font-family="Arial,sans-serif" font-size="27" fill="#2c2925">cap finish</text>
+    <text x="900" y="290" font-family="Arial,sans-serif" font-size="27" fill="#2c2925">14K nib route</text>
+  </g>
+  <g transform="translate(145 650)" font-family="Arial,sans-serif" font-size="29" fill="#2c2925">
+    <text x="0" y="0">D10/D30/D70 · chrome cap</text>
+    <text x="520" y="0">D10-RN/D30-RN/D70-RN · ruthenium cap</text>
+    <text x="0" y="58">Big and Dedalo are separate catalog variants</text>
+    <text x="830" y="58">158-C compatibility must be checked on the exact pen</text>
+  </g>
+  <text x="130" y="790" font-family="Arial,sans-serif" font-size="22" fill="#81776b">Fountain Pen Graph original factual SVG · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+</svg>
