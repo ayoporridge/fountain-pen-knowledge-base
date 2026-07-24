@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Namiki Rising Dragon identity checks</title>
+  <desc id="desc">Factual editorial diagram showing 95th anniversary, Nobori Ryu and certificate verification.</desc>
+  <rect width="1600" height="900" fill="#071f19"/>
+  <text x="110" y="145" fill="#bbf7d0" font-family="sans-serif" font-size="62" font-weight="700">RISING DRAGON</text>
+  <text x="114" y="198" fill="#86efac" font-family="sans-serif" font-size="28">Pilot 95th anniversary · Nobori Ryu · limited work</text>
+  <g font-family="sans-serif" text-anchor="middle">
+    <circle cx="330" cy="470" r="150" fill="#b91c1c" stroke="#facc15" stroke-width="7"/>
+    <text x="330" y="450" fill="#fff7ed" font-size="42" font-weight="700">95th</text>
+    <text x="330" y="505" fill="#fef08a" font-size="25">anniversary</text>
+    <rect x="610" y="320" width="360" height="300" rx="30" fill="#14532d" stroke="#4ade80" stroke-width="4"/>
+    <text x="790" y="425" fill="#dcfce7" font-size="38" font-weight="700">NOBORI RYU</text>
+    <text x="790" y="485" fill="#bbf7d0" font-size="25">rising dragon theme</text>
+    <text x="790" y="535" fill="#bbf7d0" font-size="25">raised lacquer / gold / silver</text>
+    <rect x="1080" y="320" width="350" height="300" rx="30" fill="#292524" stroke="#facc15" stroke-width="4"/>
+    <text x="1255" y="425" fill="#fef3c7" font-size="35" font-weight="700">VERIFY</text>
+    <text x="1255" y="485" fill="#fde68a" font-size="25">number + box</text>
+    <text x="1255" y="535" fill="#fde68a" font-size="25">nib + condition</text>
+  </g>
+  <text x="110" y="785" fill="#86efac" font-family="sans-serif" font-size="23">原创 factual SVG · 非产品照片 · 不证明限量数字、尖号或真伪</text>
+</svg>

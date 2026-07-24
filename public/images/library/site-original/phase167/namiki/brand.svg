@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Namiki collection map</title>
+  <desc id="desc">Factual editorial diagram showing Namiki, Emperor, Yukari Royale and Rising Dragon as separate navigation levels.</desc>
+  <rect width="1600" height="900" fill="#f4efe7"/>
+  <rect x="90" y="90" width="1420" height="720" rx="36" fill="#1f2937"/>
+  <text x="150" y="190" fill="#fef3c7" font-family="sans-serif" font-size="62" font-weight="700">NAMIKI</text>
+  <text x="152" y="246" fill="#d1d5db" font-family="sans-serif" font-size="27">Pilot lacquer / maki-e fountain-pen navigation</text>
+  <g font-family="sans-serif" font-size="30" text-anchor="middle">
+    <rect x="170" y="340" width="350" height="250" rx="24" fill="#7f1d1d"/>
+    <text x="345" y="425" fill="#fff7ed" font-weight="700">EMPEROR</text>
+    <text x="345" y="478" fill="#fecaca" font-size="24">No.50 · ebonite</text>
+    <text x="345" y="520" fill="#fecaca" font-size="24">collection / themes</text>
+    <rect x="625" y="340" width="350" height="250" rx="24" fill="#9a3412"/>
+    <text x="800" y="425" fill="#fff7ed" font-weight="700">YUKARI ROYALE</text>
+    <text x="800" y="478" fill="#fed7aa" font-size="24">Urushi · No.20 context</text>
+    <text x="800" y="520" fill="#fed7aa" font-size="24">colour / artwork variants</text>
+    <rect x="1080" y="340" width="350" height="250" rx="24" fill="#14532d"/>
+    <text x="1255" y="425" fill="#dcfce7" font-weight="700">RISING DRAGON</text>
+    <text x="1255" y="478" fill="#bbf7d0" font-size="24">95th anniversary</text>
+    <text x="1255" y="520" fill="#bbf7d0" font-size="24">verify number / certificate</text>
+  </g>
+  <path d="M520 465h105M975 465h105" stroke="#fbbf24" stroke-width="8" marker-end="url(#arrow)"/>
+  <defs><marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0 12 6 0 12z" fill="#fbbf24"/></marker></defs>
+  <text x="150" y="735" fill="#d1d5db" font-family="sans-serif" font-size="23">原创 factual SVG · 非产品照片 · 不代表真实比例、颜色、库存或具体作品</text>
+</svg>

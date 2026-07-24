@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Namiki Yukari Royale facts</title>
+  <desc id="desc">Factual editorial diagram showing Urushi, No.20 context, colours and cartridge converter.</desc>
+  <rect width="1600" height="900" fill="#fff7ed"/>
+  <text x="110" y="145" fill="#7c2d12" font-family="sans-serif" font-size="62" font-weight="700">YUKARI ROYALE</text>
+  <text x="114" y="198" fill="#9a3412" font-family="sans-serif" font-size="28">separate collection · verify each artwork SKU</text>
+  <g font-family="sans-serif" text-anchor="middle">
+    <rect x="140" y="330" width="300" height="220" rx="24" fill="#111827"/>
+    <text x="290" y="410" fill="#fef3c7" font-size="34" font-weight="700">URUSHI</text>
+    <text x="290" y="465" fill="#fed7aa" font-size="25">black / vermilion</text>
+    <rect x="500" y="330" width="300" height="220" rx="24" fill="#9f1239"/>
+    <text x="650" y="410" fill="#fff1f2" font-size="34" font-weight="700">No.20</text>
+    <text x="650" y="465" fill="#fecdd3" font-size="25">18K nib context</text>
+    <rect x="860" y="330" width="300" height="220" rx="24" fill="#c2410c"/>
+    <text x="1010" y="410" fill="#fff7ed" font-size="32" font-weight="700">ARTWORK</text>
+    <text x="1010" y="465" fill="#fed7aa" font-size="25">colour / theme ≠ same SKU</text>
+    <rect x="1220" y="330" width="260" height="220" rx="24" fill="#155e75"/>
+    <text x="1350" y="410" fill="#cffafe" font-size="31" font-weight="700">C · C</text>
+    <text x="1350" y="465" fill="#a5f3fc" font-size="25">cartridge / converter</text>
+  </g>
+  <path d="M120 650h1360" stroke="#fdba74" stroke-width="5"/>
+  <text x="110" y="735" fill="#7c2d12" font-family="sans-serif" font-size="25">尺寸、重量、尖幅和主题作品应回到具体商品页核对</text>
+  <text x="110" y="790" fill="#9a3412" font-family="sans-serif" font-size="23">原创 factual SVG · 非产品照片 · 不代表真实比例、颜色、价格或库存</text>
+</svg>
