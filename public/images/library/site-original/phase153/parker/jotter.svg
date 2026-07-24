@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Parker Jotter 钢笔身份边界事实示意图</title>
+  <desc id="desc">1954 Jotter 家族设计、2019 钢笔扩展与 2030947 官方样本的关系图；非产品照片。</desc>
+  <rect width="1600" height="900" fill="#f4f0e8"/>
+  <text x="100" y="110" font-family="sans-serif" font-size="48" font-weight="700" fill="#1e293b">JOTTER · FOUNTAIN PEN</text>
+  <text x="100" y="160" font-family="sans-serif" font-size="24" fill="#475569">factual identity map · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+  <g font-family="sans-serif">
+    <rect x="120" y="270" width="370" height="260" rx="24" fill="#dbeafe" stroke="#2563eb" stroke-width="4"/>
+    <text x="160" y="335" font-size="32" font-weight="700" fill="#1e3a8a">1954</text>
+    <text x="160" y="390" font-size="28" fill="#1e293b">Jotter 家族</text>
+    <text x="160" y="440" font-size="22" fill="#334155">箭形夹 · 日用设计</text>
+    <text x="160" y="480" font-size="22" fill="#334155">原始圆珠笔传统</text>
+    <rect x="610" y="270" width="370" height="260" rx="24" fill="#fef3c7" stroke="#d97706" stroke-width="4"/>
+    <text x="650" y="335" font-size="32" font-weight="700" fill="#92400e">2019</text>
+    <text x="650" y="390" font-size="28" fill="#1e293b">Jotter Originals</text>
+    <text x="650" y="440" font-size="22" fill="#334155">新增 Fountain Pen</text>
+    <text x="650" y="480" font-size="22" fill="#334155">与 Rollerball / Gel 分开</text>
+    <rect x="1100" y="270" width="370" height="260" rx="24" fill="#dcfce7" stroke="#16a34a" stroke-width="4"/>
+    <text x="1140" y="335" font-size="32" font-weight="700" fill="#166534">2030947</text>
+    <text x="1140" y="390" font-size="28" fill="#1e293b">Bond Street Black</text>
+    <text x="1140" y="440" font-size="22" fill="#334155">Medium · stainless steel</text>
+    <text x="1140" y="480" font-size="22" fill="#334155">两支蓝色墨囊</text>
+    <path d="M490 400h120M980 400h120" stroke="#64748b" stroke-width="6" marker-end="url(#arrow)"/>
+    <text x="100" y="690" font-size="28" font-weight="700" fill="#1e293b">边界</text>
+    <text x="100" y="740" font-size="23" fill="#334155">共享 Jotter 外观语言 ≠ 共享圆珠笔按动机构；本图不把其他颜色或 writing mode 当成同一 SKU。</text>
+  </g>
+  <defs><marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#64748b"/></marker></defs>
+</svg>

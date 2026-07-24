@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Parker IM 系列与 SKU 边界事实示意图</title>
+  <desc id="desc">IM 系列、官方 SKU、finish 与尖号变化的关系图；非产品照片。</desc>
+  <rect width="1600" height="900" fill="#f7f4ee"/>
+  <text x="100" y="105" font-family="sans-serif" font-size="48" font-weight="700" fill="#1e293b">PARKER IM · SKU BOUNDARY</text>
+  <text x="100" y="155" font-family="sans-serif" font-size="24" fill="#475569">factual diagram · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+  <g font-family="sans-serif">
+    <rect x="110" y="260" width="350" height="290" rx="24" fill="#dbeafe" stroke="#2563eb" stroke-width="4"/>
+    <text x="150" y="325" font-size="34" font-weight="700" fill="#1e3a8a">IM Fountain Pen</text>
+    <text x="150" y="385" font-size="24" fill="#334155">现代锥形轮廓</text>
+    <text x="150" y="430" font-size="24" fill="#334155">Parker 箭形夹</text>
+    <text x="150" y="475" font-size="24" fill="#334155">cartridge / converter</text>
+    <rect x="610" y="220" width="380" height="170" rx="22" fill="#fee2e2" stroke="#dc2626" stroke-width="4"/>
+    <text x="650" y="285" font-size="30" font-weight="700" fill="#991b1b">1931644</text>
+    <text x="650" y="335" font-size="23" fill="#334155">黑漆 CT · Fine · 钢尖</text>
+    <rect x="610" y="450" width="380" height="170" rx="22" fill="#fef3c7" stroke="#d97706" stroke-width="4"/>
+    <text x="650" y="515" font-size="30" font-weight="700" fill="#92400e">2213776</text>
+    <text x="650" y="565" font-size="23" fill="#334155">灰漆 GT · 地区新 SKU</text>
+    <rect x="1140" y="300" width="350" height="290" rx="24" fill="#dcfce7" stroke="#16a34a" stroke-width="4"/>
+    <text x="1180" y="365" font-size="32" font-weight="700" fill="#166534">版本记录</text>
+    <text x="1180" y="420" font-size="23" fill="#334155">finish / trim</text>
+    <text x="1180" y="460" font-size="23" fill="#334155">Fine / Medium</text>
+    <text x="1180" y="500" font-size="23" fill="#334155">地区与年份</text>
+    <text x="1180" y="540" font-size="23" fill="#334155">不能互相继承</text>
+    <path d="M460 390h140M460 430h140M990 305h140M990 535h140" stroke="#64748b" stroke-width="6" marker-end="url(#arrow)"/>
+    <text x="110" y="725" font-size="26" font-weight="700" fill="#1e293b">阅读提示</text>
+    <text x="110" y="775" font-size="22" fill="#334155">同一系列不等于同一规格；本图仅表达身份与证据边界，不表达尺寸、比例或库存。</text>
+  </g>
+  <defs><marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#64748b"/></marker></defs>
+</svg>

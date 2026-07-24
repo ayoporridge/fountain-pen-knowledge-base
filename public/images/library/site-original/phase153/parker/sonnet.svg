@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Parker Sonnet 钢尖与 18K 金尖版本边界事实示意图</title>
+  <desc id="desc">1994 系列起点、1931505 钢尖样本与 1931489 Ciselé 金尖样本关系图；非产品照片。</desc>
+  <rect width="1600" height="900" fill="#f4f1eb"/>
+  <text x="100" y="105" font-family="sans-serif" font-size="48" font-weight="700" fill="#1e293b">PARKER SONNET · VARIANT MAP</text>
+  <text x="100" y="155" font-family="sans-serif" font-size="24" fill="#475569">factual diagram · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+  <g font-family="sans-serif">
+    <rect x="100" y="270" width="350" height="260" rx="24" fill="#dbeafe" stroke="#2563eb" stroke-width="4"/>
+    <text x="145" y="340" font-size="36" font-weight="700" fill="#1e3a8a">1994</text>
+    <text x="145" y="395" font-size="28" fill="#1e293b">Sonnet 系列起点</text>
+    <text x="145" y="445" font-size="23" fill="#334155">长期系列身份</text>
+    <text x="145" y="485" font-size="23" fill="#334155">不等于单一 SKU</text>
+    <rect x="610" y="220" width="370" height="180" rx="22" fill="#e0e7ff" stroke="#4f46e5" stroke-width="4"/>
+    <text x="650" y="285" font-size="32" font-weight="700" fill="#3730a3">1931505</text>
+    <text x="650" y="335" font-size="23" fill="#334155">Stainless Steel GT</text>
+    <text x="650" y="370" font-size="23" fill="#334155">不锈钢尖 · Medium</text>
+    <rect x="610" y="470" width="370" height="180" rx="22" fill="#fef3c7" stroke="#d97706" stroke-width="4"/>
+    <text x="650" y="535" font-size="32" font-weight="700" fill="#92400e">1931489</text>
+    <text x="650" y="585" font-size="23" fill="#334155">Ciselé · sterling silver</text>
+    <text x="650" y="620" font-size="23" fill="#334155">18K Gold · Fine 页面</text>
+    <rect x="1140" y="290" width="360" height="320" rx="24" fill="#dcfce7" stroke="#16a34a" stroke-width="4"/>
+    <text x="1180" y="360" font-size="32" font-weight="700" fill="#166534">版本维度</text>
+    <text x="1180" y="415" font-size="24" fill="#334155">尖材：钢／18K 金</text>
+    <text x="1180" y="460" font-size="24" fill="#334155">帽材：钢／雕刻银</text>
+    <text x="1180" y="505" font-size="24" fill="#334155">finish：漆面／Ciselé</text>
+    <text x="1180" y="550" font-size="24" fill="#334155">SKU 逐项核对</text>
+    <path d="M450 400h150M450 440h150M980 315h150M980 560h150" stroke="#64748b" stroke-width="6" marker-end="url(#arrow)"/>
+    <text x="100" y="735" font-size="26" font-weight="700" fill="#1e293b">边界</text>
+    <text x="100" y="785" font-size="22" fill="#334155">Sonnet 共享系列叙事与上墨路径；尖材、表面、尺寸和附件必须按具体 item number 分开。</text>
+  </g>
+  <defs><marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#64748b"/></marker></defs>
+</svg>
