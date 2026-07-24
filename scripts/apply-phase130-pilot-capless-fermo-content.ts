@@ -49,8 +49,14 @@ const PROTECTED_IDS = [
   PHASE130_DECIMO_ID,
   PHASE130_LS_ID,
 ] as const;
+const PHASE130_CAPLESS_BASELINE_MARKERS = [
+  // Phase 84 is the checked-in successor that rewrites the full-size Capless
+  // copy without changing its canonical identity.
+  "curated-content:phase84-pilot-capless-v3:",
+  "curated-content:phase43-pilot-capless-v1:",
+] as const;
 const BASELINE = [
-  [PHASE130_CAPLESS_ID, "pen", "pilot-capless", "curated-content:phase43-pilot-capless-v1:"],
+  [PHASE130_CAPLESS_ID, "pen", "pilot-capless", PHASE130_CAPLESS_BASELINE_MARKERS],
   [PHASE130_DECIMO_ID, "pen", "pilot-capless-decimo", "curated-content:phase43-pilot-capless-decimo-v1:"],
   [PHASE130_LS_ID, "pen", "pilot-capless-ls", "curated-content:phase43-pilot-capless-ls-v1:"],
 ] as const;
@@ -181,10 +187,13 @@ async function baseline(client: Client) {
         [id],
       )
     )[0];
+    const source = String(row?.source ?? "");
+    const markerValues = typeof marker === "string" ? [marker] : marker;
+    const markerMatches = markerValues.some((candidate) => source.startsWith(candidate));
     if (
       row?.type !== type ||
       row?.slug !== slug ||
-      !String(row?.source).startsWith(marker) ||
+      !markerMatches ||
       row?.status !== "published" ||
       Number(row?.is_public) !== 1
     )

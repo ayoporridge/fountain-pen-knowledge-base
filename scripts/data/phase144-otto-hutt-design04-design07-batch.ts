@@ -2,9 +2,11 @@ import type { CuratedEntityPack, CuratedSource, SpecFieldKey } from "../lib/cura
 
 const RETRIEVED = "2026-07-23";
 export const PHASE144_IDS = {
-  brand: "phase144-otto-hutt-brand",
-  design04: "phase144-otto-hutt-design04",
-  design07: "phase144-otto-hutt-design07",
+  // Reuse the canonical Phase 92–94 Otto Hutt nodes; Phase 144 is a
+  // sourced refresh of design04/design07, not a second identity set.
+  brand: "phase92-brand-otto-hutt",
+  design04: "phase92-pen-otto-hutt-design04",
+  design07: "phase93-pen-otto-hutt-design07",
 } as const;
 export const PHASE144_SLUGS = {
   brand: "otto-hutt",
