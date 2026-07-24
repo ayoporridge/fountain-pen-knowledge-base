@@ -541,6 +541,19 @@ export function runReadinessAudit(
     WHERE entity.type IN ('brand', 'pen')
     ORDER BY entity.type, entity.slug, entity.id
   `);
+  const readinessContractVersions = new Set(
+    readinessRows.map((row) => Number(row.contract_version)),
+  );
+  const [readinessContractVersion] = [...readinessContractVersions];
+  if (
+    readinessContractVersions.size !== 1 ||
+    readinessContractVersion === undefined ||
+    readinessContractVersion < 1
+  ) {
+    throw new Error(
+      `Readiness audit requires one current contract version; found ${[...readinessContractVersions].sort((left, right) => left - right).join(", ") || "none"}.`,
+    );
+  }
   assertExactSet(
     readinessRows.map((row) => row.entity_id),
     inventoryIds,
@@ -565,16 +578,19 @@ export function runReadinessAudit(
     }
   }
 
-  const blockerRows = db.all<BlockerRow>(`
+  const blockerRows = db.all<BlockerRow>(
+    `
     SELECT blocker.entity_id, blocker.blocker_code, blocker.subject_type,
            blocker.subject_id, blocker.detail_key
     FROM publication_blockers blocker
     JOIN entities entity ON entity.id = blocker.entity_id
     WHERE entity.type IN ('brand', 'pen')
-      AND blocker.contract_version = 2
+      AND blocker.contract_version = ?
     ORDER BY blocker.entity_id, blocker.blocker_code, blocker.subject_type,
              blocker.subject_id, blocker.detail_key
-  `);
+  `,
+    [readinessContractVersion],
+  );
   const blockers = groupedRows(blockerRows, (row) => row.entity_id);
 
   const stories = countPairMap(
@@ -776,8 +792,13 @@ export function runReadinessAudit(
   const rows: InventoryAuditRow[] = inventory.map((entity) => {
     const publication = publications.get(entity.id);
     const readinessRow = readiness.get(entity.id);
-    if (!readinessRow || Number(readinessRow.contract_version) !== 2) {
-      throw new Error(`Contract-v2 readiness row missing for ${entity.id}.`);
+    if (
+      !readinessRow ||
+      Number(readinessRow.contract_version) !== readinessContractVersion
+    ) {
+      throw new Error(
+        `Current-contract readiness row missing for ${entity.id}.`,
+      );
     }
     const blockerDetails = (blockers.get(entity.id) ?? []).map((blocker) => ({
       blocker_code: blocker.blocker_code,
