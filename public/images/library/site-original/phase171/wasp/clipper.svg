@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#eef3f2"/>
+  <g transform="translate(170 320)" stroke="#38474b" stroke-width="8">
+    <path d="M0 120 Q38 58 120 58 L840 58 Q915 68 990 120 L910 180 L90 180 Q25 160 0 120Z" fill="#b4a16f"/>
+    <path d="M990 120l175-34q80 0 155 34-75 34-155 34z" fill="#c6d6d5"/>
+    <path d="M400 62v112M440 62v112M480 62v112M520 62v112M560 62v112" stroke="#e2d9b7" stroke-width="8"/>
+    <path d="M1080 82v76" stroke="#38474b" stroke-width="9"/>
+  </g>
+  <g font-family="Arial, sans-serif" fill="#38474b" text-anchor="middle">
+    <text x="800" y="145" font-size="52" font-weight="700">The WASP Clipper</text>
+    <text x="800" y="220" font-size="29">约 1937—1940 · Vacuum-Fil / lever · 透明 celluloid 观察窗</text>
+    <text x="800" y="620" font-size="30">12K 尖语境 · 帽顶与盲帽代际 · sample 约 126 mm 闭帽</text>
+    <text x="800" y="770" font-size="24">本站原创 factual SVG · 非产品照片 · not to scale · 不证明单支原装或修复状态</text>
+  </g>
+</svg>

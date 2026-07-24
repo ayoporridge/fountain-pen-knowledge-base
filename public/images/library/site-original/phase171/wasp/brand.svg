@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f3efe4"/>
+  <g fill="none" stroke="#38474b" stroke-width="7">
+    <path d="M190 450h1220" stroke-dasharray="18 16"/>
+    <circle cx="310" cy="450" r="118" fill="#d6c18d"/><circle cx="800" cy="450" r="118" fill="#cbd9d5"/><circle cx="1290" cy="450" r="118" fill="#b9ccd3"/>
+  </g>
+  <g font-family="Arial, sans-serif" fill="#38474b" text-anchor="middle">
+    <text x="800" y="135" font-size="52" font-weight="700">WASP 历史导航</text>
+    <text x="310" y="420" font-size="38" font-weight="700">1934</text><text x="310" y="470" font-size="27">Sheaffer 副品牌</text><text x="310" y="510" font-size="21">W. A. Sheaffer Pen</text>
+    <text x="800" y="420" font-size="36" font-weight="700">Addipoint</text><text x="800" y="470" font-size="25">可换尖 · lever / Vacuum-Fil</text><text x="800" y="510" font-size="21">约 1934—1940</text>
+    <text x="1290" y="420" font-size="36" font-weight="700">Clipper</text><text x="1290" y="470" font-size="25">观察窗 · Vacuum-Fil</text><text x="1290" y="510" font-size="21">约 1937—1940</text>
+    <text x="800" y="790" font-size="24">本站原创 factual SVG · 非产品照片 · not to scale · 不证明公司法人与单支原装状态</text>
+  </g>
+</svg>
