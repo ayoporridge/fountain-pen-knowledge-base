@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Chilton Golden Quill factual diagram</title>
+  <desc id="desc">Editorial non-photo diagram showing Golden Quill 1939 short production window, pneumatic sealing and sample verification.</desc>
+  <rect width="1600" height="900" fill="#edf0e9"/>
+  <rect x="70" y="70" width="1460" height="760" rx="32" fill="#fbfff8" stroke="#63704d" stroke-width="4"/>
+  <text x="120" y="150" font-family="sans-serif" font-size="46" font-weight="700" fill="#35452b">The Chilton Golden Quill</text>
+  <text x="120" y="200" font-family="sans-serif" font-size="25" fill="#64715c">约 1939 · 短生产窗口 · factual SVG，非产品照片</text>
+  <g transform="translate(150 330)">
+    <path d="M0 110h600" stroke="#4f5d3f" stroke-width="30" stroke-linecap="round"/>
+    <path d="M570 85l100 25-100 25z" fill="#d2a95d" stroke="#35452b" stroke-width="6"/>
+    <path d="M135 82h210" stroke="#d2a95d" stroke-width="10"/>
+    <text x="85" y="220" font-family="sans-serif" font-size="28" fill="#35452b">晚期高档样本 · 尖与帽按实物</text>
+  </g>
+  <g transform="translate(1000 290)">
+    <rect x="0" y="90" width="330" height="105" rx="18" fill="#a2b68e" stroke="#35452b" stroke-width="6"/>
+    <path d="M165 90v-70M165 195v70" stroke="#35452b" stroke-width="8"/>
+    <path d="M165 20l-16 25h32zM165 265l-16-25h32z" fill="#35452b"/>
+    <text x="0" y="325" font-family="sans-serif" font-size="25" fill="#35452b">pneumatic seal / sac 参考</text>
+    <circle cx="165" cy="470" r="90" fill="none" stroke="#d2a95d" stroke-width="16"/>
+    <path d="M165 400v140M95 470h140" stroke="#35452b" stroke-width="6"/>
+    <text x="40" y="625" font-family="sans-serif" font-size="25" fill="#35452b">1939 · &lt; 2 年 · 区域销售</text>
+  </g>
+  <g font-family="sans-serif" font-size="24" fill="#35452b">
+    <text x="135" y="710">检查：尾端密封 · 笔尖刻字 · 帽口 · 区域/来源证据 · 不把现代同名品混入历史页</text>
+    <text x="135" y="760" fill="#8b4b36">原创示意，不表示真实比例、颜色、金含量、库存或单支可写状态。</text>
+  </g>
+</svg>
