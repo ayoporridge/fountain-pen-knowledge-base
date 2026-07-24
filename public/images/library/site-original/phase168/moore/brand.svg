@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Moore historical model navigation</title>
+  <desc id="desc">Editorial diagram separating American Fountain Pen Company, Moore Pen Company, safety pens and Fingertip.</desc>
+  <rect width="1600" height="900" fill="#f3f4f6"/>
+  <rect x="90" y="90" width="1420" height="720" rx="34" fill="#172033"/>
+  <text x="150" y="180" fill="#fef3c7" font-family="sans-serif" font-size="64" font-weight="700">MOORE</text>
+  <text x="153" y="235" fill="#cbd5e1" font-family="sans-serif" font-size="27">Boston history · names and mechanisms stay separate</text>
+  <path d="M260 420h1080" stroke="#f59e0b" stroke-width="6"/>
+  <g font-family="sans-serif" text-anchor="middle">
+    <circle cx="340" cy="420" r="115" fill="#334155" stroke="#fbbf24" stroke-width="4"/>
+    <text x="340" y="400" fill="#fef3c7" font-size="25" font-weight="700">1899</text>
+    <text x="340" y="445" fill="#e2e8f0" font-size="22">American Fountain</text>
+    <text x="340" y="475" fill="#e2e8f0" font-size="22">Pen Company</text>
+    <circle cx="800" cy="420" r="115" fill="#334155" stroke="#fbbf24" stroke-width="4"/>
+    <text x="800" y="400" fill="#fef3c7" font-size="25" font-weight="700">1917</text>
+    <text x="800" y="445" fill="#e2e8f0" font-size="22">Moore Pen</text>
+    <text x="800" y="475" fill="#e2e8f0" font-size="22">Company</text>
+    <circle cx="1260" cy="420" r="115" fill="#7f1d1d" stroke="#fbbf24" stroke-width="4"/>
+    <text x="1260" y="400" fill="#fff7ed" font-size="25" font-weight="700">1946–1950</text>
+    <text x="1260" y="445" fill="#fecaca" font-size="22">Fingertip</text>
+    <text x="1260" y="475" fill="#fecaca" font-size="22">inlaid nib</text>
+  </g>
+  <g font-family="sans-serif" text-anchor="middle">
+    <rect x="180" y="610" width="430" height="105" rx="18" fill="#92400e"/>
+    <text x="395" y="673" fill="#fffbeb" font-size="28" font-weight="700">Non-Leakable · retracting nib</text>
+    <rect x="710" y="610" width="300" height="105" rx="18" fill="#166534"/>
+    <text x="860" y="673" fill="#dcfce7" font-size="28" font-weight="700">lever-fillers</text>
+    <rect x="1110" y="610" width="300" height="105" rx="18" fill="#9f1239"/>
+    <text x="1260" y="673" fill="#fff1f2" font-size="28" font-weight="700">Fingertip</text>
+  </g>
+  <text x="150" y="770" fill="#cbd5e1" font-family="sans-serif" font-size="23">原创 factual SVG · 非产品照片 · 不代表真实比例、颜色、编号、库存或公司所有权</text>
+</svg>
