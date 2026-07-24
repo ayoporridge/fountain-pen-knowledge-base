@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Chilton Wing-flow factual diagram</title>
+  <desc id="desc">Editorial non-photo diagram showing wrap-around nib, pneumatic filling path, inlay and size-code checkpoints.</desc>
+  <rect width="1600" height="900" fill="#edf2f0"/>
+  <rect x="70" y="70" width="1460" height="760" rx="32" fill="#fbfffd" stroke="#3e6b65" stroke-width="4"/>
+  <text x="120" y="155" font-family="sans-serif" font-size="46" font-weight="700" fill="#243f3b">The Chilton Wing-flow</text>
+  <text x="120" y="205" font-family="sans-serif" font-size="25" fill="#55706b">约 1935 · wrap-around point · factual SVG，非产品照片</text>
+  <g transform="translate(160 310)">
+    <path d="M40 160h520" stroke="#243f3b" stroke-width="28" stroke-linecap="round"/>
+    <path d="M120 130q80-105 160 0v70q-80 105-160 0z" fill="#d4b274" stroke="#243f3b" stroke-width="7"/>
+    <path d="M120 145q80 75 160 0M120 185q80-75 160 0" fill="none" stroke="#8a5c35" stroke-width="7"/>
+    <path d="M530 130q120 30 0 60" fill="none" stroke="#4b9b8d" stroke-width="16"/>
+    <text x="80" y="315" font-family="sans-serif" font-size="27" fill="#243f3b">环抱式尖：先查断裂与替换</text>
+  </g>
+  <g transform="translate(950 300)">
+    <rect x="0" y="90" width="360" height="105" rx="20" fill="#7baaa0" stroke="#243f3b" stroke-width="6"/>
+    <path d="M180 90v-70M180 195v70" stroke="#243f3b" stroke-width="8"/>
+    <path d="M180 20l-16 25h32zM180 265l-16-25h32z" fill="#243f3b"/>
+    <text x="0" y="325" font-family="sans-serif" font-size="25" fill="#243f3b">pneumatic filler：尾端拉杆与密封</text>
+    <rect x="25" y="430" width="310" height="85" rx="16" fill="#d4b274" stroke="#243f3b" stroke-width="5"/>
+    <path d="M55 472h250" stroke="#8a5c35" stroke-width="12" stroke-dasharray="18 12"/>
+    <text x="25" y="570" font-family="sans-serif" font-size="25" fill="#243f3b">gold-filled / white-gold inlay</text>
+  </g>
+  <g font-family="sans-serif" font-size="24" fill="#243f3b">
+    <text x="135" y="710">检查：尾端代码 · 5/5S/7/7½/8½ 尺寸线索 · 镶嵌裂纹 · 帽口收缩</text>
+    <text x="135" y="760" fill="#8b4b36">原创示意，不表示真实比例、颜色、专利图样或某一支存世笔。</text>
+  </g>
+</svg>

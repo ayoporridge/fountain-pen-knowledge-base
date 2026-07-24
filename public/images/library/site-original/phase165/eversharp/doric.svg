@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Eversharp Doric factual diagram</title>
+  <desc id="desc">Editorial non-photo diagram showing faceted Doric body, first and second generation cap-band boundary, adjustable nib and repair checks.</desc>
+  <rect width="1600" height="900" fill="#f4efe7"/>
+  <rect x="70" y="70" width="1460" height="760" rx="32" fill="#fffaf2" stroke="#9b6b43" stroke-width="4"/>
+  <text x="120" y="155" font-family="sans-serif" font-size="46" font-weight="700" fill="#30251c">Eversharp Doric</text>
+  <text x="120" y="205" font-family="sans-serif" font-size="25" fill="#6c5747">多面赛璐珞 · 1931 家族 · factual SVG，非产品照片</text>
+  <g transform="translate(150 310)">
+    <polygon points="80,90 520,45 650,130 210,180" fill="#765b72" stroke="#30251c" stroke-width="5"/>
+    <polygon points="80,90 210,180 210,255 80,165" fill="#57435a" stroke="#30251c" stroke-width="5"/>
+    <polygon points="210,180 650,130 650,205 210,255" fill="#927b92" stroke="#30251c" stroke-width="5"/>
+    <polygon points="650,130 760,90 830,145 650,205" fill="#c19672" stroke="#30251c" stroke-width="5"/>
+    <text x="195" y="325" font-family="sans-serif" font-size="27" fill="#30251c">faceted celluloid body</text>
+  </g>
+  <g transform="translate(980 280)">
+    <path d="M30 100h230l50 65-50 65H30z" fill="#b7a074" stroke="#30251c" stroke-width="5"/>
+    <path d="M45 100v130" stroke="#30251c" stroke-width="10"/>
+    <text x="10" y="285" font-family="sans-serif" font-size="25" fill="#30251c">帽环包边：代际识别线索</text>
+    <path d="M0 360h310" stroke="#9b6b43" stroke-width="5" stroke-dasharray="12 12"/>
+    <path d="M55 460q65-70 130 0l-20 75H75z" fill="#d9b36d" stroke="#30251c" stroke-width="5"/>
+    <path d="M120 470v-95" stroke="#30251c" stroke-width="6"/>
+    <text x="0" y="590" font-family="sans-serif" font-size="25" fill="#30251c">可调尖：并非全系标准</text>
+  </g>
+  <g font-family="sans-serif" font-size="24" fill="#30251c">
+    <text x="135" y="710">检查：帽口裂纹 · 墨囊/活塞密封 · 尖面刻印 · Safety Ink Shut-Off 版本</text>
+    <text x="135" y="760" fill="#8b4b36">原创示意，不表示真实颜色、比例、刻字、库存或单支实物状态。</text>
+  </g>
+</svg>
