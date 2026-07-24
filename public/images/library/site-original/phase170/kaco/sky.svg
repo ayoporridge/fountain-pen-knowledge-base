@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#f2f5f2"/>
+  <g transform="translate(190 325)" stroke="#24434f" stroke-width="8">
+    <path d="M0 120 Q45 55 125 55 L920 55 Q1000 70 1075 120 L980 180 L95 180 Q25 160 0 120Z" fill="#b8d5d8"/>
+    <path d="M1075 120l180-35q80 0 155 35-75 35-155 35z" fill="#d6c067"/>
+    <path d="M290 60l28 115M338 58l28 118M386 57l28 119" stroke="#24434f" stroke-width="5" fill="none"/>
+    <path d="M108 62h135l20 55-20 55H108l-20-55z" fill="#dcebed" stroke="#24434f" stroke-width="5"/>
+  </g>
+  <g font-family="Arial, sans-serif" fill="#24434f" text-anchor="middle">
+    <text x="800" y="145" font-size="52" font-weight="700">KACO SKY 百锋</text>
+    <text x="800" y="220" font-size="29">约 2016 · PC 塑料 · 不锈钢 EF 明尖 · 欧规耗材</text>
+    <text x="800" y="620" font-size="30">三角握位 / 墨囊与吸墨器 / 第一代边界</text>
+    <text x="800" y="770" font-size="24">本站原创 factual SVG · 非产品照片 · not to scale · 不证明单支重量和库存</text>
+  </g>
+</svg>

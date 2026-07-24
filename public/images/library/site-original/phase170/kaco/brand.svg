@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <rect width="1600" height="900" fill="#edf3f5"/>
+  <g fill="none" stroke="#24434f" stroke-width="7">
+    <path d="M210 450h1180" stroke-dasharray="16 16"/>
+    <circle cx="340" cy="450" r="120" fill="#c4dfe4"/>
+    <circle cx="800" cy="450" r="120" fill="#e4d4a4"/>
+    <circle cx="1260" cy="450" r="120" fill="#d1ded2"/>
+  </g>
+  <g font-family="Arial, sans-serif" fill="#24434f" text-anchor="middle">
+    <text x="800" y="135" font-size="52" font-weight="700">KACO 型号导航</text>
+    <text x="340" y="420" font-size="38" font-weight="700">2016</text><text x="340" y="470" font-size="28">SKY 百锋发布</text><text x="340" y="510" font-size="21">中国市场</text>
+    <text x="800" y="420" font-size="38" font-weight="700">SKY / SKY II</text><text x="800" y="470" font-size="25">同设计 · 不同代际</text><text x="800" y="510" font-size="21">PC / Makrolon 需分开</text>
+    <text x="1260" y="420" font-size="36" font-weight="700">MASTER 14K</text><text x="1260" y="470" font-size="25">独立金尖历史款</text><text x="1260" y="510" font-size="21">不与普通 Master 混用</text>
+    <text x="800" y="790" font-size="24">本站原创 factual SVG · 非产品照片 · not to scale · 不证明颜色、库存或包装</text>
+  </g>
+</svg>
