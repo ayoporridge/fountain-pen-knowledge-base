@@ -1,0 +1,81 @@
+import { createHash } from "node:crypto";
+import fs from "node:fs";
+import path from "node:path";
+import { pathToFileURL } from "node:url";
+import { createClient, type Client, type Transaction } from "@libsql/client";
+import { assertCatalogSnapshotUnchanged, snapshotCatalogFiles } from "../src/lib/audit/read-only-catalog";
+import type { ApplyPhase22Options } from "./apply-phase22-content";
+import { upsertSources } from "./apply-phase22-content";
+import { MARKDOWN, phase150NibConcepts, type NibConceptDefinition } from "./data/phase150-nib-concepts";
+
+export type ApplyPhase150Options = ApplyPhase22Options;
+type ReviewedNib = NibConceptDefinition & { summary: string; bodyMd: string; sourceMarker: string };
+const SECTION_KEYS = phase150NibConcepts.map((definition) => definition.sectionKey);
+
+function id(prefix: string, value: string): string { return `${prefix}-${createHash("sha256").update(value).digest("hex").slice(0, 24)}`; }
+function inside(candidate: string, root: string): boolean { const relative = path.relative(root, candidate); return relative !== "" && !relative.startsWith("..") && !path.isAbsolute(relative); }
+function assertNoRemote(env: NodeJS.ProcessEnv): void { for (const key of ["TURSO_DATABASE_URL", "TURSO_AUTH_TOKEN", "FPKG_DATABASE_URL"] as const) if (env[key]?.trim()) throw new Error(`Phase 150 refuses inherited remote database selection: ${key}.`); }
+
+async function assertAuthority(client: Client, options: ApplyPhase150Options): Promise<void> {
+  assertNoRemote(options.env ?? process.env); assertCatalogSnapshotUnchanged(options.protectedCatalogSnapshot);
+  const root = fs.realpathSync.native(options.ownedRoot); const database = fs.realpathSync.native(options.databasePath); const protectedPath = fs.realpathSync.native(options.protectedCatalogPath);
+  if (!fs.statSync(root).isDirectory() || !fs.statSync(database).isFile() || fs.lstatSync(options.databasePath).isSymbolicLink() || !inside(database, root)) throw new Error("Phase 150 requires an owned, non-symlink catalog copy.");
+  const own = fs.statSync(database, { bigint: true }); const real = fs.statSync(protectedPath, { bigint: true });
+  if (database === protectedPath || (own.dev === real.dev && own.ino === real.ino)) throw new Error("Phase 150 refuses the protected catalog or hard-link alias.");
+  const listed = await client.execute("PRAGMA database_list"); const main = listed.rows.find((row) => String(row.name) === "main");
+  if (!main?.file || fs.realpathSync.native(String(main.file)) !== database) throw new Error("Phase 150 client is not bound to the authorized owned copy.");
+  const migration = await client.execute({ sql: "SELECT 1 FROM migrations WHERE name=? AND checksum IS NOT NULL", args: ["032_taxonomy_identity.sql"] });
+  if (migration.rows.length !== 1) throw new Error("Phase 150 owned copy must be migrated through 032.");
+}
+
+function escapeRegExp(value: string): string { return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+function readReviewed(workspaceRoot: string, definition: NibConceptDefinition): ReviewedNib {
+  const markdown = fs.readFileSync(path.resolve(workspaceRoot, MARKDOWN), "utf8").replace(/\r\n?/g, "\n");
+  const boundary = SECTION_KEYS.map(escapeRegExp).join("|");
+  const section = markdown.match(new RegExp(`^## ${escapeRegExp(definition.sectionKey)}\\s*\\n([\\s\\S]*?)(?=^## (?:${boundary}|来源)\\s*$)`, "m"))?.[1];
+  const summary = section?.match(/^### summary\s*\n+([\s\S]*?)(?=^### body_md)/m)?.[1]?.trim();
+  const bodyMd = section?.match(/^### body_md\s*\n+([\s\S]*)$/m)?.[1]?.trim();
+  if (!summary || !bodyMd || Array.from(summary).length < 60 || Array.from(summary).length > 180 || Array.from(bodyMd).length < 900) throw new Error(`Phase 150 reviewed copy is incomplete: ${definition.sectionKey}`);
+  const digest = createHash("sha256").update(JSON.stringify({ key: definition.key, summary, bodyMd, sources: definition.sources.map((source) => [source.key, source.url]) })).digest("hex");
+  return { ...definition, summary, bodyMd, sourceMarker: `curated-content:phase150-nib-concepts-v1:${digest}` };
+}
+
+function validate(workspaceRoot: string, definition: ReviewedNib): void {
+  if (definition.sources.length < 3 || definition.sources.filter((source) => source.sourceType !== "user_submission").length < 2) throw new Error(`${definition.key} lacks independent non-editorial sources.`);
+  for (const source of definition.sources) {
+    if (!source.archiveUrl?.trim() || !source.archiveLocator?.trim()) throw new Error(`${definition.key} source ${source.key} lacks archive evidence.`);
+    if (source.archiveUrl.startsWith("/")) { const file = path.join(workspaceRoot, "public", source.archiveUrl.slice(1)); if (!fs.existsSync(file) || !fs.statSync(file).isFile()) throw new Error(`${definition.key} media source is missing.`); }
+    else if (!/^https?:$/.test(new URL(source.archiveUrl).protocol)) throw new Error(`${definition.key} source ${source.key} has an unsafe URL.`);
+  }
+}
+async function rows(client: Client | Transaction, sql: string, args: unknown[] = []) { return (await client.execute({ sql, args: args as never[] })).rows.map((row) => ({ ...row })); }
+async function preflight(client: Client, definitions: ReviewedNib[]): Promise<void> { for (const definition of definitions) { const row = (await rows(client, "SELECT type,slug,name FROM entities WHERE id=?", [definition.entityId]))[0]; if (row?.type !== "concept" || row.slug !== definition.expectedSlug || row.name !== definition.expectedName) throw new Error(`Phase 150 canonical nib identity mismatch: ${definition.entityId}`); } }
+async function alreadyApplied(client: Client, definitions: ReviewedNib[]): Promise<boolean> { for (const definition of definitions) { const entity = (await rows(client, "SELECT source,body_md FROM entities WHERE id=?", [definition.entityId]))[0]; const media = await rows(client, "SELECT id FROM media_assets WHERE entity_id=? AND id=? AND usage_status='primary' AND review_status='approved'", [definition.entityId, id("phase150-media", definition.entityId)]); const refs = (await rows(client, "SELECT count(*) AS count FROM entity_references WHERE entity_id=? AND id LIKE 'phase150-reference-%' AND review_status='approved'", [definition.entityId]))[0]; if (String(entity?.source) !== definition.sourceMarker || String(entity?.body_md) !== definition.bodyMd || media.length !== 1 || Number(refs?.count ?? 0) < 2) return false; } return true; }
+
+async function insertNib(tx: Transaction, definition: ReviewedNib, sourceItemIds: Map<string, string>): Promise<void> {
+  await tx.execute({ sql: "DELETE FROM entity_references WHERE entity_id=? AND id LIKE 'phase150-reference-%'", args: [definition.entityId] });
+  await tx.execute({ sql: "DELETE FROM media_assets WHERE entity_id=?", args: [definition.entityId] });
+  const updated = await tx.execute({ sql: "UPDATE entities SET summary=?,body_md=?,source=?,updated_at=datetime('now') WHERE id=? AND type='concept' AND slug=?", args: [definition.summary, definition.bodyMd, definition.sourceMarker, definition.entityId, definition.expectedSlug] });
+  if (updated.rowsAffected !== 1) throw new Error(`Phase 150 failed to update ${definition.entityId}.`);
+  for (const source of definition.sources) {
+    const sourceItemId = sourceItemIds.get(source.key); if (!sourceItemId) throw new Error(`Phase 150 source mapping missing: ${source.key}`);
+    if (source.sourceType === "user_submission") continue;
+    await tx.execute({ sql: "INSERT INTO entity_references (id,entity_id,source_item_id,relation_type,note,review_status) VALUES (?,?,?,?,?,'approved')", args: [id("phase150-reference", `${definition.entityId}:${source.key}`), definition.entityId, sourceItemId, source.tier === "professional_secondary" ? "reference" : "review", source.summary] });
+  }
+  const diagram = definition.sources.find((source) => source.sourceType === "user_submission"); if (!diagram) throw new Error(`Phase 150 diagram source missing: ${definition.key}`);
+  const diagramItemId = sourceItemIds.get(diagram.key); if (!diagramItemId) throw new Error(`Phase 150 diagram source mapping missing: ${diagram.key}`);
+  await tx.execute({ sql: "INSERT INTO media_assets (id,entity_id,title,asset_type,local_path,author,license,attribution_text,source_url,source_item_id,review_status,usage_status) VALUES (?,?,?,'diagram',?,'Fountain Pen Graph editorial','site-original',?,?,?,'approved','primary')", args: [id("phase150-media", definition.entityId), definition.entityId, definition.imageTitle, definition.imagePath, "本站原创事实示意图，非产品照片；不代表真实比例、颜色、库存或具体型号。", definition.imagePath, diagramItemId] });
+}
+
+export async function applyPhase150NibConceptsContent(client: Client, options: ApplyPhase150Options) {
+  await assertAuthority(client, options); const workspaceRoot = fs.realpathSync.native(options.workspaceRoot); const definitions = phase150NibConcepts.map((definition) => readReviewed(workspaceRoot, definition)); definitions.forEach((definition) => validate(workspaceRoot, definition)); await preflight(client, definitions);
+  if (await alreadyApplied(client, definitions)) return { entities: definitions.map((definition) => ({ entityId: definition.entityId, outcome: "noop" as const })) };
+  const tx = await client.transaction("write");
+  try { const allSources = [...new Map(definitions.flatMap((definition) => definition.sources).map((source) => [source.key, source])).values()]; const sourceItemIds = await upsertSources(tx, allSources); for (const definition of definitions) await insertNib(tx, definition, sourceItemIds); await tx.commit(); }
+  catch (error) { if (!tx.closed) await tx.rollback(); throw error; }
+  assertCatalogSnapshotUnchanged(options.protectedCatalogSnapshot); return { entities: definitions.map((definition) => ({ entityId: definition.entityId, outcome: "updated" as const })) };
+}
+
+function value(name: string): string | null { const index = process.argv.indexOf(name); return index === -1 ? null : process.argv[index + 1] ?? null; }
+async function main(): Promise<void> { const database = value("--database"); const ownedRoot = value("--owned-root"); const protectedCatalog = value("--protected-catalog"); if (!database || !ownedRoot || !protectedCatalog) throw new Error("Usage: tsx scripts/apply-phase150-nib-concepts-content.ts --database <owned-copy> --owned-root <root> --protected-catalog <real-db>"); const resolvedDatabase = path.resolve(database); const resolvedProtected = path.resolve(protectedCatalog); const client = createClient({ url: `file:${resolvedDatabase}` }); try { const result = await applyPhase150NibConceptsContent(client, { workspaceRoot: process.cwd(), reviewer: value("--reviewer") ?? "phase150-nib-concepts", databasePath: resolvedDatabase, ownedRoot: path.resolve(ownedRoot), protectedCatalogPath: resolvedProtected, protectedCatalogSnapshot: snapshotCatalogFiles(resolvedProtected), env: { ...process.env, TURSO_DATABASE_URL: "", TURSO_AUTH_TOKEN: "", FPKG_DATABASE_URL: "" } }); process.stdout.write(`${JSON.stringify(result, null, 2)}\n`); } finally { client.close(); } }
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) void main().catch((error) => { console.error(error instanceof Error ? error.message : String(error)); process.exitCode = 1; });
