@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">滴入式上墨结构事实示意图</title>
+  <desc id="desc">原创示意图：滴管把墨水直接加入拆下的中空笔杆，重新旋紧握位并检查密封。</desc>
+  <rect width="1600" height="900" fill="#f1ede7"/>
+  <path d="M380 330h760a90 90 0 0 1 90 90v30a90 90 0 0 1-90 90H380z" fill="#d6b7a2" stroke="#493a35" stroke-width="12"/>
+  <path d="M690 300v260" stroke="#493a35" stroke-width="12" stroke-dasharray="18 14"/>
+  <path d="M1190 255v90" stroke="#493a35" stroke-width="18"/>
+  <path d="M1160 255h60l-10-70h-40z" fill="#8a7770" stroke="#493a35" stroke-width="10"/>
+  <path d="M1190 345c0 0-30 54 0 70 30-16 0-70 0-70" fill="#4f8c8b"/>
+  <line x1="1220" y1="410" x2="1360" y2="410" stroke="#4f8c8b" stroke-width="12"/>
+  <polygon points="1360,410 1300,375 1300,445" fill="#4f8c8b"/>
+  <text x="430" y="270" font-size="42" fill="#493a35" font-family="sans-serif">中空笔杆 = 墨仓</text>
+  <text x="1010" y="180" font-size="40" fill="#493a35" font-family="sans-serif">滴管直接加墨</text>
+  <text x="400" y="690" font-size="38" fill="#4f8c8b" font-family="sans-serif">旋紧螺纹并检查密封，避免漏墨</text>
+  <text x="220" y="820" font-size="28" fill="#6b625b" font-family="sans-serif">本站原创 factual SVG；非产品照片；not-to-scale；non-colour-proof；non-logo</text>
+</svg>
