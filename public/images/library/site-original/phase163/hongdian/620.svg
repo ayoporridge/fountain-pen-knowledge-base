@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">HongDian 620 Cocktail structure diagram</title>
+  <desc id="desc">Editorial factual diagram of a metal cocktail-series pen with converter, extra-fine and small fude nib options. Not a product photograph and not to scale.</desc>
+  <rect width="1600" height="900" fill="#edf4f2"/>
+  <rect x="88" y="92" width="1424" height="716" rx="32" fill="#fcfffe" stroke="#2e5e62" stroke-width="5"/>
+  <text x="150" y="180" fill="#173e42" font-family="sans-serif" font-size="54" font-weight="700">HongDian 620</text>
+  <text x="154" y="232" fill="#4b7779" font-family="sans-serif" font-size="28">Cocktail 系列 · 金属笔身 · EF／Fude · 墨囊／converter</text>
+  <g transform="translate(185 365)">
+    <rect x="0" y="92" width="590" height="126" rx="60" fill="#9baeb0" stroke="#425d60" stroke-width="8"/>
+    <path d="M55 104v102M125 104v102M195 104v102M265 104v102M335 104v102M405 104v102M475 104v102" stroke="#e4f1ef" stroke-width="7" opacity=".75"/>
+    <rect x="555" y="80" width="145" height="150" rx="46" fill="#c8d5d4" stroke="#425d60" stroke-width="8"/>
+    <path d="M700 128 L810 155 L700 182 Z" fill="#7c8e91" stroke="#2e4648" stroke-width="7"/>
+    <text x="130" y="290" fill="#173e42" font-family="sans-serif" font-size="28">silver-tone metal body</text>
+    <text x="555" y="290" fill="#173e42" font-family="sans-serif" font-size="28">snap cap</text>
+    <text x="770" y="290" fill="#173e42" font-family="sans-serif" font-size="28">EF／Fude options</text>
+  </g>
+  <g transform="translate(1080 510)">
+    <rect x="0" y="0" width="250" height="70" rx="35" fill="#e6f4f1" stroke="#4b7779" stroke-width="6"/>
+    <rect x="25" y="17" width="150" height="36" rx="18" fill="#9dc8c4"/>
+    <circle cx="205" cy="35" r="22" fill="#4b7779"/>
+    <text x="0" y="120" fill="#173e42" font-family="sans-serif" font-size="27">converter（示意）</text>
+  </g>
+  <text x="150" y="746" fill="#4b7779" font-family="sans-serif" font-size="24">本站原创 factual SVG；非产品照片／非比例图／不证明颜色、库存或具体批次</text>
+</svg>

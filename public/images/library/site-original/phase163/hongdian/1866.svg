@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">HongDian 1866 structure diagram</title>
+  <desc id="desc">Editorial factual diagram of a wooden barrel, metal cap, soft steel nib and converter. Not a product photograph and not to scale.</desc>
+  <rect width="1600" height="900" fill="#f4eee6"/>
+  <rect x="88" y="92" width="1424" height="716" rx="32" fill="#fffaf2" stroke="#6f4b35" stroke-width="5"/>
+  <text x="150" y="180" fill="#35271e" font-family="sans-serif" font-size="54" font-weight="700">HongDian 1866</text>
+  <text x="154" y="232" fill="#805d46" font-family="sans-serif" font-size="28">木质笔身 · 金属旋帽 · Fine soft 钢尖 · converter</text>
+  <g transform="translate(210 360)">
+    <rect x="0" y="100" width="560" height="118" rx="58" fill="#9b6041" stroke="#4f3528" stroke-width="8"/>
+    <path d="M60 106v106M130 106v106M200 106v106M270 106v106M340 106v106M410 106v106M480 106v106" stroke="#d09b68" stroke-width="8" opacity=".7"/>
+    <rect x="530" y="90" width="160" height="138" rx="42" fill="#4f5961" stroke="#28333b" stroke-width="8"/>
+    <path d="M690 110 L805 150 L690 190 Z" fill="#c6a45d" stroke="#57472b" stroke-width="7"/>
+    <path d="M805 150 L860 150" stroke="#57472b" stroke-width="7"/>
+    <text x="160" y="285" fill="#35271e" font-family="sans-serif" font-size="28">wood barrel</text>
+    <text x="530" y="285" fill="#35271e" font-family="sans-serif" font-size="28">metal cap</text>
+    <text x="730" y="285" fill="#35271e" font-family="sans-serif" font-size="28">soft steel nib</text>
+  </g>
+  <g transform="translate(1050 520)">
+    <rect x="0" y="0" width="260" height="70" rx="35" fill="#e4f1f3" stroke="#577b82" stroke-width="6"/>
+    <rect x="25" y="17" width="160" height="36" rx="18" fill="#a8d6dc"/>
+    <circle cx="215" cy="35" r="22" fill="#577b82"/>
+    <text x="0" y="120" fill="#35271e" font-family="sans-serif" font-size="27">converter（示意）</text>
+  </g>
+  <text x="150" y="746" fill="#805d46" font-family="sans-serif" font-size="24">本站原创 factual SVG；非产品照片／非比例图／不证明颜色、木种、库存或具体批次</text>
+</svg>

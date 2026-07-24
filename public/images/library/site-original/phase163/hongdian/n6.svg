@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">HongDian N6 structure diagram</title>
+  <desc id="desc">Editorial factual diagram of a metal engraved cap, resin barrel, black steel nib and piston reservoir. Not a product photograph and not to scale.</desc>
+  <rect width="1600" height="900" fill="#eef1f2"/>
+  <rect x="88" y="92" width="1424" height="716" rx="32" fill="#fbfcfc" stroke="#26343b" stroke-width="5"/>
+  <text x="150" y="180" fill="#172329" font-family="sans-serif" font-size="54" font-weight="700">HongDian N6</text>
+  <text x="154" y="232" fill="#536a72" font-family="sans-serif" font-size="28">金属雕刻帽 · 树脂笔杆 · 黑色钢尖 · 内置活塞</text>
+  <g transform="translate(190 360)">
+    <rect x="0" y="90" width="560" height="130" rx="62" fill="#202a2f" stroke="#0f1518" stroke-width="8"/>
+    <rect x="45" y="104" width="410" height="102" rx="50" fill="#31434a" stroke="#8b9da2" stroke-width="3"/>
+    <path d="M35 120 l80 -22 M80 208 l80 -22 M160 208 l80 -22 M240 208 l80 -22 M320 208 l80 -22" stroke="#b2c0c2" stroke-width="6" opacity=".65"/>
+    <rect x="525" y="76" width="145" height="158" rx="44" fill="#8d969a" stroke="#39484e" stroke-width="8"/>
+    <path d="M670 100 L795 155 L670 210 Z" fill="#273239" stroke="#0d1215" stroke-width="7"/>
+    <path d="M795 155 L850 155" stroke="#0d1215" stroke-width="7"/>
+    <text x="65" y="290" fill="#172329" font-family="sans-serif" font-size="28">resin barrel + visible ink reservoir</text>
+    <text x="510" y="290" fill="#172329" font-family="sans-serif" font-size="28">engraved metal cap</text>
+    <text x="730" y="290" fill="#172329" font-family="sans-serif" font-size="28">black PVD steel nib</text>
+  </g>
+  <g transform="translate(1120 525)">
+    <circle cx="60" cy="35" r="42" fill="#596e75"/>
+    <path d="M60 5v60M30 35h60" stroke="#dce7e8" stroke-width="7"/>
+    <text x="125" y="45" fill="#172329" font-family="sans-serif" font-size="28">piston filler</text>
+  </g>
+  <text x="150" y="746" fill="#536a72" font-family="sans-serif" font-size="24">本站原创 factual SVG；非产品照片／非比例图／不证明颜色、库存或具体批次</text>
+</svg>
