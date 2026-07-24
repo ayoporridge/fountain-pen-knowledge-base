@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">PenBBS 469 structure diagram</title>
+  <desc id="desc">Editorial factual diagram of a double-ended pen with two independent eyedropper chambers and F/M nibs. Not a product photograph and not to scale.</desc>
+  <rect width="1600" height="900" fill="#f0eef6"/>
+  <rect x="88" y="92" width="1424" height="716" rx="32" fill="#fcfbff" stroke="#51486d" stroke-width="5"/>
+  <text x="150" y="180" fill="#302b45" font-family="sans-serif" font-size="54" font-weight="700">PenBBS 469</text>
+  <text x="154" y="232" fill="#6b6285" font-family="sans-serif" font-size="28">双端 · 双腔 · eyedropper · F／M</text>
+  <g transform="translate(160 360)">
+    <rect x="0" y="98" width="330" height="120" rx="58" fill="#a8c4d8" stroke="#4e6681" stroke-width="8"/>
+    <rect x="330" y="98" width="28" height="120" fill="#51486d"/>
+    <rect x="358" y="98" width="330" height="120" rx="58" fill="#bfacd2" stroke="#654f7b" stroke-width="8"/>
+    <path d="M74 108v100M140 108v100M216 108v100M432 108v100M508 108v100M584 108v100" stroke="#f2eff8" stroke-width="7" opacity=".8"/>
+    <rect x="-18" y="76" width="122" height="164" rx="44" fill="#6e7488" stroke="#35394c" stroke-width="8"/>
+    <rect x="584" y="76" width="122" height="164" rx="44" fill="#6e7488" stroke="#35394c" stroke-width="8"/>
+    <path d="M-18 150 L-100 150" stroke="#35394c" stroke-width="8"/><path d="M706 150 L788 150" stroke="#35394c" stroke-width="8"/>
+    <path d="M-100 150 L-142 128 L-142 172 Z" fill="#7c8796" stroke="#35394c" stroke-width="6"/>
+    <path d="M788 150 L830 128 L830 172 Z" fill="#7c8796" stroke="#35394c" stroke-width="6"/>
+    <text x="80" y="290" fill="#302b45" font-family="sans-serif" font-size="28">左腔 + F 尖</text>
+    <text x="410" y="290" fill="#302b45" font-family="sans-serif" font-size="28">中隔</text>
+    <text x="525" y="330" fill="#302b45" font-family="sans-serif" font-size="28">右腔 + M 尖</text>
+  </g>
+  <g transform="translate(1040 510)">
+    <circle cx="55" cy="35" r="38" fill="#d5c8e1" stroke="#6b6285" stroke-width="5"/>
+    <path d="M55 12v46M32 35h46" stroke="#51486d" stroke-width="7"/>
+    <text x="115" y="45" fill="#302b45" font-family="sans-serif" font-size="28">eyedropper（示意）</text>
+  </g>
+  <text x="150" y="746" fill="#6b6285" font-family="sans-serif" font-size="24">本站原创 factual SVG；非产品照片／非比例图／不证明颜色、库存、滚珠头或具体批次</text>
+</svg>
