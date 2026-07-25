@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">HongDian T1 钛合金钢笔事实示意图</title>
+  <desc id="desc">钛合金笔杆与笔帽、旋帽、低位供墨和软弹钢尖的非比例示意图，不是产品照片。</desc>
+  <defs><linearGradient id="ti" x1="0" x2="1"><stop offset="0" stop-color="#87929b"/><stop offset=".45" stop-color="#d6dde1"/><stop offset=".7" stop-color="#9da8af"/><stop offset="1" stop-color="#65717a"/></linearGradient><filter id="shadow" x="-10%" y="-30%" width="120%" height="160%"><feDropShadow dx="0" dy="13" stdDeviation="12" flood-color="#25323b" flood-opacity=".2"/></filter></defs>
+  <rect width="1600" height="900" fill="#f5f7f8"/><path d="M90 700h1420" stroke="#d2d9dc" stroke-width="3"/>
+  <g filter="url(#shadow)" transform="translate(120 260)">
+    <path d="M175 190 Q175 155 211 150 H1025 Q1060 155 1060 190 V300 Q1060 335 1025 340 H211 Q175 335 175 300Z" fill="url(#ti)" stroke="#46545d" stroke-width="5"/>
+    <path d="M175 190 L72 214 V276 L175 300Z" fill="#a9b3b9" stroke="#46545d" stroke-width="5"/><path d="M72 214 L15 245 L72 276" fill="#cfd6da" stroke="#46545d" stroke-width="5"/><path d="M15 245 L-27 260 L15 275Z" fill="#d2a44d" stroke="#775d25" stroke-width="4"/>
+    <path d="M1025 150 L1160 165 Q1195 172 1195 195 V295 Q1195 318 1160 325 L1025 340Z" fill="url(#ti)" stroke="#46545d" stroke-width="5"/><path d="M1025 177L1170 190M1025 201L1170 214M1025 225L1170 238M1025 249L1170 262M1025 273L1170 286" stroke="#e2e7e9" stroke-width="4" opacity=".6"/>
+    <rect x="260" y="195" width="420" height="100" rx="48" fill="#e8edf0" opacity=".2" stroke="#eef2f4" stroke-dasharray="12 9" stroke-width="3"/><path d="M680 245h190" stroke="#6d7c84" stroke-width="7"/><rect x="870" y="190" width="40" height="110" rx="8" fill="#9eaab0" stroke="#46545d" stroke-width="4"/><path d="M950 185v120" stroke="#e4e9eb" stroke-width="5"/><path d="M982 156v-50M1007 156v-50" stroke="#4d5b64" stroke-width="5"/>
+  </g>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#30404a">
+    <text x="120" y="105" font-size="42" font-weight="700">HongDian T1／Ti1866：钛合金日用钢笔</text><text x="122" y="155" font-size="22" fill="#60717b">钛合金杆帽 · 低位供墨 · 软弹钢尖 · factual SVG · 非产品照片</text>
+    <g font-size="27" font-weight="600"><text x="70" y="610">软弹／刀锋钢尖</text><path d="M175 590 L105 522" stroke="#5b707c" stroke-width="3" fill="none"/><text x="500" y="460">钛合金笔杆与拉丝握位</text><path d="M650 475 L650 560" stroke="#5b707c" stroke-width="3" fill="none"/><text x="1000" y="610">转换器与低位供墨</text><path d="M1080 590 L1000 520" stroke="#5b707c" stroke-width="3" fill="none"/><text x="1250" y="460">旋帽，可后插</text><path d="M1300 480 L1300 520" stroke="#5b707c" stroke-width="3" fill="none"/></g>
+    <text x="120" y="820" font-size="22" fill="#60717b">T1 与 1866 的关系是结构／材料参照，不证明零件完全通用；不代表真实比例、尖号、颜色、库存或内部剖面。</text>
+  </g>
+</svg>
