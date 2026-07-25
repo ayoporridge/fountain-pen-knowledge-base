@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Postal Pen Company 品牌与透明储墨路线</title>
+  <desc id="desc">原创编辑示意图，画出邮购、透明 barrel、bulb filler 和高容量路线，不是产品照片。</desc>
+  <rect width="960" height="540" rx="28" fill="#e8eef0"/>
+  <rect x="56" y="56" width="848" height="428" rx="24" fill="#fffdf6" stroke="#23363b" stroke-width="4"/>
+  <text x="88" y="118" font-family="serif" font-size="38" font-weight="700" fill="#23363b">Postal Pen Company, Inc.</text>
+  <text x="88" y="153" font-family="sans-serif" font-size="19" fill="#587078">纽约 · 约 1925—1928 · 邮购与透明高容量</text>
+  <rect x="100" y="220" width="196" height="96" rx="14" fill="#d7e7ea" stroke="#587078" stroke-width="3"/>
+  <text x="144" y="278" font-family="sans-serif" font-size="24" fill="#23363b">邮购</text>
+  <path d="M296 268h112" stroke="#587078" stroke-width="8" stroke-linecap="round"/>
+  <path d="M408 268l-23-16m23 16-23 16" stroke="#587078" stroke-width="5" fill="none"/>
+  <rect x="436" y="202" width="260" height="130" rx="18" fill="#e9f5f3" stroke="#6b9a97" stroke-width="3"/>
+  <text x="486" y="255" font-family="sans-serif" font-size="25" fill="#23363b">透明 barrel</text>
+  <text x="481" y="289" font-family="sans-serif" font-size="18" fill="#587078">可见墨水与 breather tube</text>
+  <path d="M696 268h120" stroke="#6b9a97" stroke-width="8" stroke-linecap="round"/>
+  <path d="M816 268l-23-16m23 16-23 16" stroke="#6b9a97" stroke-width="5" fill="none"/>
+  <text x="742" y="365" font-family="sans-serif" font-size="23" fill="#23363b">bulb filler</text>
+  <text x="88" y="428" font-family="sans-serif" font-size="18" fill="#587078">原创 factual SVG · 非产品照片 · 不代表真实比例、容量、刻字或完整目录</text>
+</svg>
