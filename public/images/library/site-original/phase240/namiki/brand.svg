@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Namiki collection navigation</title>
+  <desc id="desc">Factual editorial diagram for Namiki collections and the exact Nippon Art Mt. Fuji and Wave product.</desc>
+  <rect width="1600" height="900" fill="#151b22"/>
+  <rect x="70" y="70" width="1460" height="760" rx="36" fill="#202a34" stroke="#c49a53" stroke-width="4"/>
+  <text x="120" y="150" fill="#f3e9d2" font-family="Georgia,serif" font-size="58">Namiki / 并木</text>
+  <text x="122" y="198" fill="#b9c3cb" font-family="Arial,sans-serif" font-size="25">collection → exact product boundary</text>
+  <g font-family="Arial,sans-serif">
+    <rect x="120" y="270" width="350" height="150" rx="22" fill="#34485b" stroke="#d4b276" stroke-width="3"/>
+    <text x="155" y="325" fill="#fff5dd" font-size="32">EMPEROR</text>
+    <text x="155" y="370" fill="#c8d3dc" font-size="22">No.50 / flagship scale</text>
+    <rect x="510" y="270" width="350" height="150" rx="22" fill="#34485b" stroke="#d4b276" stroke-width="3"/>
+    <text x="545" y="325" fill="#fff5dd" font-size="32">YUKARI ROYALE</text>
+    <text x="545" y="370" fill="#c8d3dc" font-size="22">separate collection</text>
+    <rect x="900" y="270" width="270" height="150" rx="22" fill="#34485b" stroke="#d4b276" stroke-width="3"/>
+    <text x="935" y="325" fill="#fff5dd" font-size="30">RISING DRAGON</text>
+    <text x="935" y="370" fill="#c8d3dc" font-size="22">95th anniversary</text>
+    <rect x="1210" y="270" width="270" height="150" rx="22" fill="#4d382d" stroke="#d4b276" stroke-width="3"/>
+    <text x="1240" y="325" fill="#fff5dd" font-size="30">NIPPON ART</text>
+    <text x="1240" y="370" fill="#e5c7a0" font-size="22">collection</text>
+  </g>
+  <path d="M1345 420v105" stroke="#d4b276" stroke-width="4"/>
+  <path d="M1345 525l-16-24m16 24 16-24" stroke="#d4b276" stroke-width="4" fill="none"/>
+  <rect x="1030" y="555" width="450" height="145" rx="24" fill="#11161b" stroke="#e7bb67" stroke-width="4"/>
+  <text x="1070" y="610" fill="#ffe8b3" font-family="Arial,sans-serif" font-size="29">Mt. Fuji and Wave</text>
+  <text x="1070" y="652" fill="#f0d49b" font-family="monospace" font-size="27">FN-35SM-FN · Hira Maki-e</text>
+  <text x="1070" y="685" fill="#c8d3dc" font-family="Arial,sans-serif" font-size="21">No.5 14K · F / M / B · Kokkokai</text>
+  <text x="120" y="770" fill="#b9c3cb" font-family="Arial,sans-serif" font-size="22">non-photo · non-logo · not-to-scale · non-colour-proof</text>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Namiki Mt. Fuji and Wave facts</title>
+  <desc id="desc">Editorial fact diagram for Namiki Nippon Art Mt. Fuji and Wave, product number FN-35SM-FN.</desc>
+  <rect width="1600" height="900" fill="#11161b"/>
+  <rect x="70" y="70" width="1460" height="760" rx="38" fill="#1e2933" stroke="#d4b276" stroke-width="4"/>
+  <text x="125" y="150" fill="#fff1ce" font-family="Georgia,serif" font-size="54">Mt. Fuji and Wave</text>
+  <text x="128" y="198" fill="#e5c7a0" font-family="monospace" font-size="30">FN-35SM-FN</text>
+  <path d="M140 570 C270 470 355 485 450 550 C545 615 635 590 735 515 C835 440 925 455 1020 530 C1115 605 1215 595 1310 500 C1380 430 1440 450 1490 490" fill="none" stroke="#6e9eb4" stroke-width="24"/>
+  <path d="M220 535 L390 300 L560 535 Z" fill="#394957" stroke="#d4b276" stroke-width="5"/>
+  <path d="M350 360 L390 300 L430 360" fill="#ede6da"/>
+  <text x="180" y="660" fill="#c8d3dc" font-family="Arial,sans-serif" font-size="25">NIPPON ART collection · traditional motif on black lacquer context</text>
+  <g font-family="Arial,sans-serif">
+    <rect x="950" y="245" width="470" height="95" rx="18" fill="#3a2c25" stroke="#e7bb67" stroke-width="3"/>
+    <text x="985" y="302" fill="#ffe8b3" font-size="31">Hira Maki-e</text>
+    <rect x="950" y="370" width="470" height="95" rx="18" fill="#3a2c25" stroke="#e7bb67" stroke-width="3"/>
+    <text x="985" y="427" fill="#ffe8b3" font-size="31">No.5 14K · F / M / B</text>
+    <rect x="950" y="495" width="470" height="95" rx="18" fill="#3a2c25" stroke="#e7bb67" stroke-width="3"/>
+    <text x="985" y="552" fill="#ffe8b3" font-size="31">Artisan: Kokkokai</text>
+  </g>
+  <text x="125" y="755" fill="#b9c3cb" font-family="Arial,sans-serif" font-size="22">body material · dimensions · weight · filling · price: verify exact sample / market</text>
+  <text x="125" y="792" fill="#b9c3cb" font-family="Arial,sans-serif" font-size="21">non-photo · non-logo · not-to-scale · non-colour-proof</text>
+</svg>
