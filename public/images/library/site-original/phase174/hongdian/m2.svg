@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">HongDian M2 结构示意</title>
+  <desc id="desc">本站原创事实示意图，展示短身铝制笔、螺旋帽、夹子、converter 和细尖的关系，不代表产品照片或比例。</desc>
+  <rect width="1600" height="900" fill="#f5f1e8"/>
+  <rect x="80" y="82" width="1440" height="736" rx="40" fill="#fffdf8" stroke="#2f4a4a" stroke-width="4"/>
+  <text x="130" y="170" font-family="sans-serif" font-size="46" font-weight="700" fill="#263c3c">HongDian M2 · pocket pen boundary</text>
+  <text x="132" y="218" font-family="sans-serif" font-size="24" fill="#5d6b69">本站原创 factual SVG｜非产品照片｜not to scale｜不证明颜色与库存</text>
+  <g transform="translate(180 390)">
+    <rect x="210" y="84" width="770" height="130" rx="65" fill="#8d9898" stroke="#263c3c" stroke-width="8"/>
+    <rect x="260" y="104" width="680" height="90" rx="45" fill="#aeb8b6" opacity=".75"/>
+    <path d="M260 106h-115c-42 0-76 34-76 76s34 76 76 76h115" fill="#667775" stroke="#263c3c" stroke-width="8"/>
+    <path d="M970 84h116l86 65-86 65H970z" fill="#d0d7d1" stroke="#263c3c" stroke-width="8"/>
+    <path d="M1100 94l55 55-55 55" fill="none" stroke="#b78b57" stroke-width="12"/>
+    <path d="M530 80c38-130 78-130 112 0" fill="none" stroke="#263c3c" stroke-width="12"/>
+    <path d="M530 79c40-105 80-105 112 0" fill="none" stroke="#b78b57" stroke-width="6"/>
+    <path d="M335 75v-42c0-20 16-36 36-36s36 16 36 36v42" fill="none" stroke="#263c3c" stroke-width="10"/>
+    <circle cx="1155" cy="149" r="11" fill="#b78b57"/>
+  </g>
+  <g font-family="sans-serif" font-size="28" fill="#263c3c">
+    <text x="250" y="675">短身铝制笔身</text>
+    <text x="620" y="300">弹簧夹</text>
+    <text x="980" y="675">螺旋帽</text>
+    <text x="1220" y="380">EF／F 等尖号</text>
+    <text x="490" y="760">converter：可用瓶装墨水；容量与兼容性按 SKU 核对</text>
+  </g>
+  <g stroke="#b78b57" stroke-width="4" fill="none">
+    <path d="M360 650v-75"/><path d="M670 330v70"/><path d="M1060 650v-75"/><path d="M1250 400v70"/>
+  </g>
+</svg>
