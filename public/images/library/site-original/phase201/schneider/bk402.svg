@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Schneider BK402 事实示意图</title>
+  <desc id="desc">Schneider BK402 入门塑料钢笔、F 尖和墨囊路线的非比例示意图，不是产品照片。</desc>
+  <defs><linearGradient id="body" x1="0" x2="1"><stop offset="0" stop-color="#e9edf2"/><stop offset=".55" stop-color="#fff"/><stop offset="1" stop-color="#ccd5de"/></linearGradient><filter id="shadow" x="-10%" y="-30%" width="120%" height="160%"><feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#334554" flood-opacity=".18"/></filter></defs>
+  <rect width="1600" height="900" fill="#f8fafb"/><path d="M90 700h1420" stroke="#d7dfe5" stroke-width="3"/>
+  <g filter="url(#shadow)" transform="translate(120 260)">
+    <path d="M180 190 Q180 155 216 150 H1040 Q1075 155 1075 190 V300 Q1075 335 1040 340 H216 Q180 335 180 300Z" fill="url(#body)" stroke="#607685" stroke-width="5"/>
+    <path d="M180 190 L75 215 V275 L180 300Z" fill="#d4dce2" stroke="#607685" stroke-width="5"/><path d="M75 215 L20 245 L75 275" fill="#c5d0d9" stroke="#607685" stroke-width="5"/><path d="M20 245 L-25 260 L20 275Z" fill="#9daab5" stroke="#536d7b" stroke-width="4"/>
+    <path d="M1040 150 L1160 165 Q1195 172 1195 195 V295 Q1195 318 1160 325 L1040 340Z" fill="#dae3ea" stroke="#607685" stroke-width="5"/><path d="M1040 177L1170 190M1040 201L1170 214M1040 225L1170 238M1040 249L1170 262M1040 273L1170 286" stroke="#718897" stroke-width="5"/>
+    <rect x="260" y="195" width="460" height="100" rx="48" fill="#b7c8d4" opacity=".24" stroke="#8095a3" stroke-dasharray="12 9" stroke-width="3"/><path d="M720 245H920" stroke="#718897" stroke-width="6"/><path d="M920 187h40v116h-40z" fill="#c7d4dd" stroke="#607685" stroke-width="4"/><rect x="962" y="204" width="40" height="82" rx="20" fill="#b3c2cc" stroke="#607685" stroke-width="4"/>
+  </g>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#314451">
+    <text x="120" y="105" font-size="42" font-weight="700">Schneider BK402（部分市场称 670）</text><text x="122" y="155" font-size="22" fill="#607685">F 钢尖 · 塑料笔身 · 墨囊路线 · factual SVG · 非产品照片</text>
+    <g font-size="27" font-weight="600"><text x="75" y="610">F 钢尖（约 0.5 mm 语境）</text><path d="M180 590 L110 522" stroke="#607685" stroke-width="3" fill="none"/><text x="540" y="460">塑料笔身与握位</text><path d="M670 475 L670 560" stroke="#607685" stroke-width="3" fill="none"/><text x="1040" y="610">墨囊／接口区域</text><path d="M1120 590 L1050 520" stroke="#607685" stroke-width="3" fill="none"/><text x="1240" y="460">多色市场版本</text><path d="M1290 480 L1290 520" stroke="#607685" stroke-width="3" fill="none"/></g>
+    <g transform="translate(210 760)"><circle cx="0" cy="0" r="21" fill="#242a34"/><circle cx="70" cy="0" r="21" fill="#c74343"/><circle cx="140" cy="0" r="21" fill="#3b70ae"/><circle cx="210" cy="0" r="21" fill="#5b9a6b"/><circle cx="280" cy="0" r="21" fill="#e5c53e"/><circle cx="350" cy="0" r="21" fill="#e28eb4"/><text x="400" y="8" font-size="23" fill="#607685">黑／红／蓝／绿／黄／粉等颜色；不证明同一批次</text></g>
+    <text x="120" y="845" font-size="21" fill="#607685">不代表真实比例、尺寸、重量、刻字、密封结构、产地批次或库存；BK406、BK400、Zippi 为相邻型号。</text>
+  </g>
+</svg>
