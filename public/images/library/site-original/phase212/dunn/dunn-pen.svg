@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">The Dunn-Pen factual diagram</title>
+  <desc id="desc">Original editorial diagram showing the Dunn pump filler, red pump handle, transparent barrel and two-piece cap boundary. Not a product photograph and not to scale.</desc>
+  <rect width="1600" height="900" fill="#e8e3d8"/>
+  <rect x="70" y="70" width="1460" height="760" rx="34" fill="#fffdf8" stroke="#413a34" stroke-width="4"/>
+  <text x="130" y="170" fill="#282522" font-family="sans-serif" font-size="60" font-weight="700">THE DUNN-PEN</text>
+  <text x="134" y="225" fill="#71675e" font-family="sans-serif" font-size="28">1921–约 1925 · pump filler · Little Red Pump-Handle · 历史结构示意</text>
+  <g transform="translate(150 320)">
+    <path d="M90 180 H1080 C1145 180 1190 195 1230 230 L1310 285 L1230 340 C1190 375 1145 390 1080 390 H90 Z" fill="#1f2428" stroke="#403b36" stroke-width="10"/>
+    <path d="M90 180 H370 V390 H90 Z" fill="#282d31"/>
+    <path d="M390 180 H940 V390 H390 Z" fill="#69827e" opacity=".72"/>
+    <path d="M960 180 H1080 C1145 180 1190 195 1230 230 L1310 285 L1230 340 C1190 375 1145 390 1080 390 H960 Z" fill="#242a2f"/>
+    <path d="M1230 244 L1380 285 L1230 326 L1194 285 Z" fill="#bd4f42" stroke="#403b36" stroke-width="8"/>
+    <rect x="58" y="184" width="60" height="202" rx="20" fill="#c25b4c" stroke="#403b36" stroke-width="8"/>
+    <path d="M88 215 V355" stroke="#f0b09a" stroke-width="8"/>
+    <path d="M500 182 V388" stroke="#dce9df" stroke-width="8" opacity=".6"/>
+    <path d="M650 182 V388" stroke="#dce9df" stroke-width="8" opacity=".6"/>
+    <path d="M790 182 V388" stroke="#dce9df" stroke-width="8" opacity=".6"/>
+    <rect x="550" y="370" width="180" height="30" rx="8" fill="#b89d68" stroke="#403b36" stroke-width="6"/>
+    <path d="M640 400 V500 M640 500 C590 535 690 535 640 570" fill="none" stroke="#756144" stroke-width="16"/>
+    <text x="460" y="292" fill="#f1eee7" font-family="sans-serif" font-size="36" font-weight="700">透明 barrel · 活塞泵</text>
+  </g>
+  <g fill="#403b36" font-family="sans-serif" font-size="30">
+    <text x="175" y="760">红／橙泵杆与 cork seal 按版本检查</text>
+    <text x="785" y="760">Dreadnaught 两件式帽盖不是所有 Dunn 标配</text>
+    <text x="1230" y="760">示意图，非产品照片</text>
+  </g>
+</svg>
