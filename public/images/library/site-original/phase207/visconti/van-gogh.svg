@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Visconti Van Gogh 事实示意图</title>
+  <desc id="desc">原创非比例示意图，表现十八面树脂杆帽、画作配色、钢尖和卡水转换器路线。</desc>
+  <defs>
+    <linearGradient id="barrel" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#183e73"/><stop offset=".46" stop-color="#e7b44d"/><stop offset="1" stop-color="#5b8e6d"/></linearGradient>
+  </defs>
+  <rect width="1200" height="520" rx="28" fill="#f1eee6"/>
+  <rect x="66" y="64" width="1068" height="392" rx="24" fill="#fffdf7" stroke="#24364b" stroke-width="4"/>
+  <g transform="translate(130 210)">
+    <path d="M0 48 L28 18 H662 L694 48 V104 L662 134 H28 L0 104Z" fill="url(#barrel)" stroke="#24364b" stroke-width="5"/>
+    <g fill="none" stroke="#f6d76c" stroke-width="5" opacity=".8">
+      <path d="M52 25 L52 127"/><path d="M112 25 L112 127"/><path d="M172 25 L172 127"/><path d="M232 25 L232 127"/><path d="M292 25 L292 127"/><path d="M352 25 L352 127"/><path d="M412 25 L412 127"/><path d="M472 25 L472 127"/><path d="M532 25 L532 127"/><path d="M592 25 L592 127"/>
+    </g>
+    <path d="M694 18 H796 L830 48 V104 L796 134 H694Z" fill="#b9a99d" stroke="#24364b" stroke-width="5"/>
+    <path d="M830 56 H1002 Q1030 56 1030 76 Q1030 96 1002 96 H830" fill="#bcae9f" stroke="#24364b" stroke-width="5"/>
+    <path d="M1028 76 L1096 46" stroke="#24364b" stroke-width="7" stroke-linecap="round"/>
+    <path d="M0 58 H-54 Q-75 58 -75 76 Q-75 94 -54 94 H0" fill="#d1c6bb" stroke="#24364b" stroke-width="5"/>
+    <path d="M-75 76 H-164" stroke="#24364b" stroke-width="5"/>
+    <path d="M-164 76 L-226 42 L-226 110 Z" fill="#c9a14c" stroke="#24364b" stroke-width="5"/>
+  </g>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Noto Sans CJK SC',sans-serif" fill="#24364b">
+    <text x="118" y="126" font-size="31" font-weight="700">Visconti Van Gogh</text>
+    <text x="118" y="166" font-size="20">十八面树脂杆帽 · 画作配色 · 钢尖 · 卡水／转换器 · 磁吸帽</text>
+    <text x="120" y="418" font-size="18">钢尖（EF／F／M／B）</text>
+    <text x="545" y="418" font-size="18">亚克力树脂与 18 面结构</text>
+    <text x="925" y="418" font-size="18">磁吸帽与夹子</text>
+  </g>
+</svg>
