@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" role="img" aria-labelledby="title desc">
+  <title id="title">TangMoon brand navigation diagram</title>
+  <desc id="desc">Editorial diagram connecting TangMoon design, nib choices and the E5 magnetic-cap model. Not a product photograph and not to scale.</desc>
+  <rect width="800" height="420" rx="28" fill="#f3efe7"/>
+  <circle cx="400" cy="205" r="82" fill="#273c43"/>
+  <text x="400" y="195" text-anchor="middle" font-family="sans-serif" font-size="32" font-weight="700" fill="#f5e6bb">唐月</text>
+  <text x="400" y="232" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#c9e0d2">TangMoon</text>
+  <path d="M318 178L164 105M318 232L164 315M482 178L636 105M482 232L636 315" stroke="#b18147" stroke-width="5"/>
+  <rect x="72" y="60" width="184" height="78" rx="16" fill="#d9eadc"/><text x="164" y="94" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#273c43">主题设计</text><text x="164" y="120" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#4d6a68">按型号核对</text>
+  <rect x="72" y="276" width="184" height="78" rx="16" fill="#e7d7c1"/><text x="164" y="310" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#273c43">多种钢尖</text><text x="164" y="336" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#4d6a68">样本不等于全目录</text>
+  <rect x="544" y="60" width="184" height="78" rx="16" fill="#dce8f0"/><text x="636" y="94" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#273c43">磁吸路线</text><text x="636" y="120" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#4d6a68">E5 代表样本</text>
+  <rect x="544" y="276" width="184" height="78" rx="16" fill="#f0d6c8"/><text x="636" y="310" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#273c43">独立核验</text><text x="636" y="336" text-anchor="middle" font-family="sans-serif" font-size="15" fill="#4d6a68">型号／批次边界</text>
+  <text x="72" y="392" font-family="sans-serif" font-size="16" fill="#5f746f">原创事实示意｜非产品实拍，不代表真实尺寸、材料、颜色或完整目录</text>
+</svg>

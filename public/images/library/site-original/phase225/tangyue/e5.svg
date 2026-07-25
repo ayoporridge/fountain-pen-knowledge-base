@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" role="img" aria-labelledby="title desc">
+  <title id="title">TangMoon E5 magnetic-cap diagram</title>
+  <desc id="desc">Editorial diagram of a fountain pen with a magnetic cap, separated to show the cap and barrel. Not a product photograph and not to scale.</desc>
+  <rect width="800" height="420" rx="28" fill="#eef2ed"/>
+  <text x="72" y="76" font-family="sans-serif" font-size="38" font-weight="700" fill="#273c43">唐月 E5</text>
+  <text x="72" y="118" font-family="sans-serif" font-size="22" fill="#5a7770">磁吸笔帽｜主题设计｜按批次核对</text>
+  <path d="M176 238h340" stroke="#b67f4b" stroke-width="48" stroke-linecap="round"/>
+  <path d="M516 238l-92-32v64z" fill="#d7b45f"/>
+  <rect x="584" y="205" width="122" height="66" rx="28" fill="#304953"/>
+  <path d="M560 238h24" stroke="#b67f4b" stroke-width="6" stroke-dasharray="8 8"/>
+  <path d="M580 196v84" stroke="#d8a74f" stroke-width="5"/><path d="M574 205l12 0M574 271l12 0" stroke="#d8a74f" stroke-width="4"/>
+  <text x="646" y="310" text-anchor="middle" font-family="sans-serif" font-size="18" fill="#304953">帽体定位</text>
+  <text x="72" y="365" font-family="sans-serif" font-size="18" fill="#5a7770">原创结构示意｜展示开合关系，不代表真实磁铁位置、长度、材质或上墨结构</text>
+</svg>
