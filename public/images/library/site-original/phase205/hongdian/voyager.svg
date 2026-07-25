@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">HongDian 1843 Voyager 事实示意图</title>
+  <desc id="desc">原创非比例示意图，标出波纹金属杆帽、旋帽、钢尖和墨囊转换器路线。</desc>
+  <rect width="1200" height="520" rx="28" fill="#f3f0e8"/>
+  <rect x="70" y="70" width="1060" height="380" rx="24" fill="#fbfaf6" stroke="#27313b" stroke-width="4"/>
+  <g transform="translate(120 210)">
+    <path d="M0 48 Q12 18 44 18 H676 Q708 18 720 48 V102 Q708 132 676 132 H44 Q12 132 0 102Z" fill="#7b8790" stroke="#27313b" stroke-width="5"/>
+    <g fill="none" stroke="#d6dde0" stroke-width="8" opacity=".8">
+      <path d="M70 24 q30 48 0 102"/><path d="M125 24 q30 48 0 102"/><path d="M180 24 q30 48 0 102"/><path d="M235 24 q30 48 0 102"/><path d="M290 24 q30 48 0 102"/><path d="M345 24 q30 48 0 102"/><path d="M400 24 q30 48 0 102"/><path d="M455 24 q30 48 0 102"/><path d="M510 24 q30 48 0 102"/><path d="M565 24 q30 48 0 102"/><path d="M620 24 q30 48 0 102"/>
+    </g>
+    <path d="M720 18 H810 Q836 18 842 48 V102 Q836 132 810 132 H720Z" fill="#c7cdd0" stroke="#27313b" stroke-width="5"/>
+    <path d="M842 54 L1025 54 Q1050 54 1050 75 Q1050 96 1025 96 H842" fill="#aab4ba" stroke="#27313b" stroke-width="5"/>
+    <path d="M1050 75 L1115 46" fill="none" stroke="#27313b" stroke-width="7" stroke-linecap="round"/>
+    <path d="M-10 58 H-62 Q-80 58 -80 75 Q-80 92 -62 92 H-10" fill="#bec7cc" stroke="#27313b" stroke-width="5"/>
+    <path d="M-80 75 H-178" stroke="#27313b" stroke-width="5"/>
+    <path d="M-178 75 L-238 42 L-238 108 Z" fill="#d0a24b" stroke="#27313b" stroke-width="5"/>
+    <path d="M-208 75 H-245" stroke="#27313b" stroke-width="4"/>
+  </g>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Noto Sans CJK SC',sans-serif" fill="#27313b">
+    <text x="120" y="135" font-size="30" font-weight="700">HongDian 1843 Voyager／远航者</text>
+    <text x="120" y="175" font-size="20">波纹金属杆帽 · 旋帽 · 钢尖 · 卡水／转换器路线</text>
+    <text x="180" y="405" font-size="18">钢尖（EF／F 样本）</text>
+    <text x="680" y="405" font-size="18">波纹杆身与帽盖</text>
+    <text x="895" y="405" font-size="18">旋帽与夹子</text>
+  </g>
+</svg>
