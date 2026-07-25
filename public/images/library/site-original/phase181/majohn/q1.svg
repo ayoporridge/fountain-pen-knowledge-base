@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" role="img" aria-labelledby="title desc">
+  <title id="title">Majohn Q1 结构示意</title>
+  <desc id="desc">本站原创的 Majohn Q1 直灌示意图，非产品照片，不按比例。</desc>
+  <rect width="1000" height="360" rx="28" fill="#eef5f5"/>
+  <g stroke="#285a60" stroke-width="8" stroke-linejoin="round">
+    <path d="M120 180h150l44-34h260l62 34-62 34H314l-44-34H120z" fill="#9ed2d2" fill-opacity=".82"/>
+    <path d="M636 146h180l50 34-50 34H636z" fill="#c9e8e8" fill-opacity=".78"/>
+    <path d="M866 164l70 16-70 16z" fill="#d6a84b"/>
+    <circle cx="300" cy="180" r="12" fill="#285a60"/>
+  </g>
+  <text x="120" y="78" font-family="sans-serif" font-size="34" fill="#173b40">Majohn Q1 · 直灌与粗握位</text>
+  <text x="120" y="300" font-family="sans-serif" font-size="22" fill="#285a60">factual schematic · eyedropper · O-ring · not to scale</text>
+</svg>

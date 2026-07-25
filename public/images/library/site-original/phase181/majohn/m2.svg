@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" role="img" aria-labelledby="title desc">
+  <title id="title">Majohn M2 结构示意</title>
+  <desc id="desc">本站原创的 Majohn M2 透明直灌示意图，非产品照片，不按比例。</desc>
+  <rect width="1000" height="360" rx="28" fill="#f3f0fb"/>
+  <g stroke="#4f4a78" stroke-width="8" stroke-linejoin="round">
+    <path d="M100 180h180l46-28h390l84 28-84 28H326l-46-28H100z" fill="#b9b5e5" fill-opacity=".7"/>
+    <path d="M716 152h120l62 28-62 28H716z" fill="#dddafa" fill-opacity=".8"/>
+    <path d="M898 168l64 12-64 12z" fill="#d3a546"/>
+    <path d="M304 160v40" stroke="#7b74ae" stroke-dasharray="8 8"/>
+  </g>
+  <text x="100" y="78" font-family="sans-serif" font-size="34" fill="#302d58">Majohn M2 · 透明大墨仓</text>
+  <text x="100" y="300" font-family="sans-serif" font-size="22" fill="#4f4a78">factual schematic · eyedropper · capacity varies by sample</text>
+</svg>
