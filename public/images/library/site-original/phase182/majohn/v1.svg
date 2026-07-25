@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" role="img" aria-labelledby="title desc">
+  <title id="title">Majohn V1 结构示意</title>
+  <desc id="desc">本站原创的 Majohn V1 真空上墨与长护帽示意图，非产品照片，不按比例。</desc>
+  <rect width="1000" height="360" rx="28" fill="#edf5f8"/>
+  <g stroke="#315d70" stroke-width="8" stroke-linejoin="round">
+    <path d="M110 180h160l42-26h330l60 26-60 26H312l-42-26H110z" fill="#9fcad6" fill-opacity=".82"/>
+    <path d="M702 130h180l58 50-58 50H702z" fill="#c7e0e6" fill-opacity=".78"/>
+    <path d="M302 148v64" stroke="#5f9bb0" stroke-dasharray="10 8"/>
+    <path d="M890 165l64 15-64 15z" fill="#c99b3e"/>
+  </g>
+  <text x="110" y="78" font-family="sans-serif" font-size="34" fill="#244957">Majohn V1 · 真空上墨与长护帽</text>
+  <text x="110" y="300" font-family="sans-serif" font-size="22" fill="#315d70">factual schematic · vacuum filler · cap is not a posting sleeve</text>
+</svg>

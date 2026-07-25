@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" role="img" aria-labelledby="title desc">
+  <title id="title">Majohn 丸彩 Wancai 结构示意</title>
+  <desc id="desc">本站原创的 Majohn 丸彩短粗直灌示意图，非产品照片，不按比例。</desc>
+  <rect width="1000" height="360" rx="28" fill="#f5eef9"/>
+  <g stroke="#73527d" stroke-width="8" stroke-linejoin="round">
+    <path d="M165 180h125l40-30h245l48 30-48 30H330l-40-30H165z" fill="#d3a8dc" fill-opacity=".78"/>
+    <path d="M623 150h130l52 30-52 30H623z" fill="#edd6ef"/>
+    <path d="M805 167l65 13-65 13z" fill="#c8963f"/>
+    <circle cx="375" cy="180" r="13" fill="#8f6899"/>
+  </g>
+  <text x="165" y="78" font-family="sans-serif" font-size="34" fill="#573f61">Majohn Wancai · 小而胖的直灌笔</text>
+  <text x="165" y="300" font-family="sans-serif" font-size="22" fill="#73527d">factual schematic · pocket pen · eyedropper · post the cap to write</text>
+</svg>

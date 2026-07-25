@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" role="img" aria-labelledby="title desc">
+  <title id="title">Majohn V60 结构示意</title>
+  <desc id="desc">本站原创的 Majohn V60 三角截面活塞示意图，非产品照片，不按比例。</desc>
+  <rect width="1000" height="360" rx="28" fill="#f8f2e8"/>
+  <g stroke="#6b553e" stroke-width="8" stroke-linejoin="round">
+    <path d="M100 180l68-38h520l88 38-88 38H168z" fill="#d9c09b" fill-opacity=".78"/>
+    <path d="M776 142h104l72 38-72 38H776z" fill="#eee0c7"/>
+    <path d="M876 166l76 14-76 14z" fill="#bc8730"/>
+    <path d="M360 142v76M410 142v76" stroke="#b08c5c" stroke-dasharray="10 8"/>
+  </g>
+  <text x="100" y="78" font-family="sans-serif" font-size="34" fill="#55402f">Majohn V60 · 三角截面与活塞</text>
+  <text x="100" y="300" font-family="sans-serif" font-size="22" fill="#6b553e">factual schematic · piston filler · triangular section · not to scale</text>
+</svg>
