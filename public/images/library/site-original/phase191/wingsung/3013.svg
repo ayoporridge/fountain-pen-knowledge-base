@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">WingSung 3013 factual diagram</title>
+  <desc id="desc">Editorial non-photographic diagram of a transparent demonstrator pen with a rear plunger.</desc>
+  <rect width="1600" height="900" fill="#eef5f7"/>
+  <path d="M190 455h760c84 0 132-23 203-70l139-91 80 69-130 108c-75 61-150 84-260 84H190z" fill="#a8d5d7" fill-opacity=".82" stroke="#2d6972" stroke-width="12"/>
+  <path d="M190 455h-42c-34 0-60 27-60 60s26 60 60 60h42z" fill="#d0d6dc" stroke="#43505b" stroke-width="12"/>
+  <path d="M1070 324l171-104 80 69-172 105z" fill="#d0d6dc" stroke="#43505b" stroke-width="10"/>
+  <path d="M1300 225v-92" stroke="#2d6972" stroke-width="18" stroke-linecap="round"/>
+  <path d="M1300 133h120" stroke="#2d6972" stroke-width="12" stroke-linecap="round"/>
+  <path d="M1150 645h300" stroke="#2d6972" stroke-width="18" stroke-linecap="round"/>
+  <path d="M1150 645v96M1450 645v96" stroke="#43505b" stroke-width="12"/>
+  <text x="1140" y="805" font-family="sans-serif" font-size="34" fill="#234951">rear plunger / valve</text>
+  <text x="190" y="180" font-family="sans-serif" font-size="52" font-weight="700" fill="#234951">WINGSUNG 3013</text>
+  <text x="190" y="235" font-family="sans-serif" font-size="28" fill="#43616a">factual diagram · transparent demonstrator · not to scale</text>
+</svg>
