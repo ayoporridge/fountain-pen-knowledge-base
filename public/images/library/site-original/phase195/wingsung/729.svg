@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">WingSung 729 factual diagram</title>
+  <desc id="desc">Editorial non-photographic diagram of a dual-ended pen with fountain and ballpoint ends.</desc>
+  <rect width="1600" height="900" fill="#f1eee7"/>
+  <path d="M260 430h900c105 0 166 23 243 74l126 84-76 77-145-92c-68-44-133-62-236-62H260z" fill="#6c7280" stroke="#363d4a" stroke-width="13"/>
+  <path d="M260 430h-74c-39 0-70 31-70 69s31 69 70 69h74z" fill="#cfd8dc" stroke="#4f5b63" stroke-width="13"/>
+  <path d="M1155 504l132 84 76-77-130-84z" fill="#cfd8dc" stroke="#4f5b63" stroke-width="11"/>
+  <path d="M1358 511l130-88" stroke="#4f5b63" stroke-width="18" stroke-linecap="round"/>
+  <path d="M1488 423l72 0" stroke="#4f5b63" stroke-width="12" stroke-linecap="round"/>
+  <path d="M830 430v138" stroke="#d8b865" stroke-width="12"/>
+  <path d="M792 458h76M792 492h76M792 526h76" stroke="#d8b865" stroke-width="8"/>
+  <text x="210" y="180" font-family="sans-serif" font-size="52" font-weight="700" fill="#363d4a">WINGSUNG 729</text>
+  <text x="210" y="235" font-family="sans-serif" font-size="28" fill="#616b77">fountain pen + rotating ballpoint · dual-ended diagram · not to scale</text>
+  <text x="715" y="790" font-family="sans-serif" font-size="32" fill="#363d4a">editorial identification cues, not a product photograph</text>
+</svg>
