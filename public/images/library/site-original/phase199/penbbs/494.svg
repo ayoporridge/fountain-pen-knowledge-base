@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">PenBBS 494 结构示意图</title>
+  <desc id="desc">透明树脂笔杆、小型活塞、钢尖、螺纹帽盖与 O-ring 的非比例事实示意图；不是产品照片。</desc>
+  <defs>
+    <linearGradient id="body" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#d9edf1" stop-opacity=".65"/>
+      <stop offset=".48" stop-color="#fff" stop-opacity=".86"/>
+      <stop offset="1" stop-color="#a5c9d4" stop-opacity=".62"/>
+    </linearGradient>
+    <linearGradient id="cap" x1="0" x2="1"><stop offset="0" stop-color="#c5dce1" stop-opacity=".52"/><stop offset="1" stop-color="#6c9baa" stop-opacity=".58"/></linearGradient>
+    <filter id="shadow" x="-10%" y="-20%" width="120%" height="150%"><feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#173b45" flood-opacity=".18"/></filter>
+  </defs>
+  <rect width="1600" height="900" fill="#f6faf9"/>
+  <path d="M90 700h1420" stroke="#c6d6d7" stroke-width="3"/>
+  <g filter="url(#shadow)" transform="translate(120 260)">
+    <path d="M180 190 Q180 155 215 150 L1050 150 Q1085 155 1085 190 L1085 300 Q1085 335 1050 340 L215 340 Q180 335 180 300Z" fill="url(#body)" stroke="#56818b" stroke-width="5"/>
+    <path d="M180 190 L80 215 L80 275 L180 300Z" fill="#a8c8cf" fill-opacity=".72" stroke="#56818b" stroke-width="5"/>
+    <path d="M80 215 L20 245 L80 275" fill="#daeef1" stroke="#56818b" stroke-width="5"/>
+    <path d="M20 245 L-25 260 L20 275Z" fill="#d7a84f" stroke="#866a2d" stroke-width="4"/>
+    <path d="M1050 150 L1170 166 Q1200 172 1200 195 L1200 295 Q1200 318 1170 324 L1050 340Z" fill="url(#cap)" stroke="#56818b" stroke-width="5"/>
+    <path d="M1050 162 L1170 177 M1050 181 L1172 196 M1050 200 L1172 215 M1050 219 L1172 234 M1050 238 L1172 253 M1050 257 L1172 272 M1050 276 L1172 291 M1050 295 L1172 310" stroke="#3e6974" stroke-width="4" opacity=".72"/>
+    <ellipse cx="1045" cy="245" rx="16" ry="88" fill="#263f48" opacity=".75"/>
+    <rect x="235" y="198" width="620" height="94" rx="42" fill="#7db2bd" opacity=".15" stroke="#6f9da7" stroke-dasharray="12 10" stroke-width="3"/>
+    <rect x="865" y="188" width="42" height="115" rx="8" fill="#8daeb5" opacity=".48" stroke="#4d7c86" stroke-width="4"/>
+    <path d="M904 245 H1005" stroke="#4d7c86" stroke-width="7"/>
+    <circle cx="1008" cy="245" r="16" fill="#d7a84f" stroke="#866a2d" stroke-width="4"/>
+    <path d="M935 180v130" stroke="#9cbcc1" stroke-width="3" stroke-dasharray="7 8"/>
+  </g>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#173b45">
+    <text x="120" y="105" font-size="42" font-weight="700">PenBBS 494：透明活塞钢笔结构示意</text>
+    <text x="122" y="155" font-size="22" fill="#4b6870">本站原创 factual SVG · 非产品照片 · not to scale</text>
+    <g font-size="26" font-weight="600">
+      <text x="85" y="610">钢尖／笔舌</text><path d="M170 590 L135 522" stroke="#416a74" stroke-width="3" fill="none"/>
+      <text x="480" y="460">透明树脂笔杆与可见墨腔</text><path d="M675 475 L675 560" stroke="#416a74" stroke-width="3" fill="none"/>
+      <text x="1030" y="610">小型活塞与尾旋钮</text><path d="M1080 590 L1040 520" stroke="#416a74" stroke-width="3" fill="none"/>
+      <text x="1260" y="460">帽口 O-ring</text><path d="M1300 480 L1260 520" stroke="#416a74" stroke-width="3" fill="none"/>
+      <text x="1250" y="650">多圈旋盖，可后插</text><path d="M1330 635 L1320 570" stroke="#416a74" stroke-width="3" fill="none"/>
+    </g>
+    <text x="120" y="820" font-size="22" fill="#4b6870">图示仅表达部件关系；不证明真实比例、颜色、刻字、材料配方、密封圈批次或库存。</text>
+  </g>
+</svg>
