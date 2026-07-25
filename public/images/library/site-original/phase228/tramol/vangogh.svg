@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Tramol 梵高系列钢笔结构边界示意</title>
+  <desc id="desc">原创事实示意图，非产品照片，不代表真实比例、颜色、材质、笔尖或上墨接口。</desc>
+  <rect width="960" height="540" fill="#e9f1ee"/>
+  <rect x="60" y="95" width="840" height="350" rx="34" fill="#fffdf9" stroke="#355b5c" stroke-width="4"/>
+  <path d="M160 270h470" stroke="#31556b" stroke-width="48" stroke-linecap="round"/>
+  <path d="M630 270l120-34v68z" fill="#c7a36a"/>
+  <circle cx="750" cy="270" r="16" fill="#4d6574"/>
+  <text x="160" y="190" font-family="sans-serif" font-size="28" fill="#29484a">艺术主题与礼盒版本</text>
+  <text x="160" y="380" font-family="sans-serif" font-size="24" fill="#29484a">笔尖／上墨／尺寸：按包装与实物核对</text>
+  <text x="480" y="475" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#5a6a67">本站原创 factual SVG；结构示意，非产品照片</text>
+</svg>

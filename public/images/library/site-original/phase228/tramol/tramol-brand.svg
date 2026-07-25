@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Tramol 品牌与梵高系列导航示意</title>
+  <desc id="desc">原创事实示意图，非产品照片，不代表真实比例、颜色、材料、接口或目录。</desc>
+  <rect width="960" height="540" fill="#f5f0e8"/>
+  <rect x="48" y="48" width="864" height="444" rx="28" fill="#fffdf8" stroke="#5b4a3c" stroke-width="4"/>
+  <circle cx="250" cy="270" r="105" fill="#31556b" opacity=".92"/>
+  <text x="250" y="258" text-anchor="middle" font-family="sans-serif" font-size="42" fill="#fff">Tramol</text>
+  <text x="250" y="302" text-anchor="middle" font-family="sans-serif" font-size="20" fill="#e9d9bb">品牌／商标</text>
+  <path d="M360 270h92" stroke="#8c6b4c" stroke-width="6" marker-end="url(#arrow)"/>
+  <rect x="470" y="145" width="350" height="90" rx="16" fill="#e7c98b"/>
+  <text x="645" y="195" text-anchor="middle" font-family="sans-serif" font-size="28" fill="#3f2d20">Master Series</text>
+  <rect x="470" y="270" width="350" height="90" rx="16" fill="#9bb5a6"/>
+  <text x="645" y="320" text-anchor="middle" font-family="sans-serif" font-size="28" fill="#203b32">梵高主题钢笔</text>
+  <rect x="470" y="395" width="350" height="62" rx="16" fill="#d9b7a6"/>
+  <text x="645" y="434" text-anchor="middle" font-family="sans-serif" font-size="22" fill="#4a2e2a">颜色／礼盒／墨水组合</text>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8c6b4c"/></marker></defs>
+</svg>
