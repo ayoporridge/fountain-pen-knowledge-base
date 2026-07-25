@@ -63,22 +63,32 @@ async function ensureIdentityCleanup(client: Client): Promise<void> {
     await tx.commit();
   } catch (error) { if (!tx.closed) await tx.rollback(); throw error; }
 }
-async function ensureAurora88Topology(client: Client): Promise<void> {
+async function ensureAurora88Topology(client: Client): Promise<boolean> {
   const tx = await client.transaction("write");
   try {
     const existing = await tx.execute({ sql: "SELECT id, type, slug FROM entities WHERE id = ? OR slug = ?", args: [PHASE41_AURORA_88_ID, "aurora-88"] });
+    if (existing.rows.length === 1 && String(existing.rows[0]?.type) === "article" && String(existing.rows[0]?.slug) === "aurora-88") {
+      await tx.commit();
+      return false;
+    }
     if (existing.rows.length === 0) await tx.execute({ sql: "INSERT INTO entities (id, type, slug, name) VALUES (?, 'pen', ?, ?)", args: [PHASE41_AURORA_88_ID, "aurora-88", "奥罗拉 Aurora 88"] });
     else if (existing.rows.length !== 1 || String(existing.rows[0]?.id) !== PHASE41_AURORA_88_ID || String(existing.rows[0]?.type) !== "pen" || String(existing.rows[0]?.slug) !== "aurora-88") throw new Error("Phase 41 Aurora 88 identity collision.");
     await tx.execute({ sql: "DELETE FROM entity_links WHERE source_id = ? AND link_type = 'made_by' AND target_id <> ?", args: [PHASE41_AURORA_88_ID, PHASE41_AURORA_BRAND_ID] });
     await tx.execute({ sql: "INSERT OR IGNORE INTO entity_links (id, source_id, target_id, link_type, reason) VALUES (?, ?, ?, 'made_by', ?)", args: [stableId("phase41-link", `${PHASE41_AURORA_88_ID}:made_by:${PHASE41_AURORA_BRAND_ID}`), PHASE41_AURORA_88_ID, PHASE41_AURORA_BRAND_ID, "Phase 41 canonical Aurora 88 maker"] });
     await tx.commit();
+    return true;
   } catch (error) { if (!tx.closed) await tx.rollback(); throw error; }
 }
 export async function applyPhase41IdentityCleanupContent(client: Client, options: ApplyPhase41Options): Promise<ApplyPhase41Result> {
-  await assertOwned(client, options); await ensureIdentityCleanup(client); await ensureAurora88Topology(client);
+  await assertOwned(client, options); await ensureIdentityCleanup(client); const publishAurora88Pen = await ensureAurora88Topology(client);
   const packs = structuredClone(phase41IdentityCleanupPacks);
   const pilotIds = new Set([PHASE41_PILOT_BRAND_ID, PHASE41_PILOT_823_ID]); const watermanIds = new Set([PHASE41_WATERMAN_BRAND_ID, PHASE41_WATERMAN_HEMISPHERE_ID]); const auroraIds = new Set([PHASE41_AURORA_BRAND_ID, PHASE41_AURORA_88_ID]);
-  const batches = [packs.filter((pack) => pilotIds.has(pack.entityId)), packs.filter((pack) => watermanIds.has(pack.entityId)), packs.filter((pack) => auroraIds.has(pack.entityId))];
+  const batches = [packs.filter((pack) => pilotIds.has(pack.entityId)), packs.filter((pack) => watermanIds.has(pack.entityId))];
+  if (publishAurora88Pen) batches.push(packs.filter((pack) => auroraIds.has(pack.entityId)));
+  else {
+    const brandPublication = await client.execute({ sql: "SELECT status FROM entity_publications WHERE entity_id = ?", args: [PHASE41_AURORA_BRAND_ID] });
+    if (String(brandPublication.rows[0]?.status ?? "") !== "published") throw new Error("Phase 41 cannot skip Aurora 88 pen pack while the Aurora brand is unpublished.");
+  }
   const entities: ApplyPhase41Result["entities"] = [];
   for (const batch of batches) { const result = await applyCuratedContentPacks(client, options, batch); entities.push(...result.entities); }
   assertCatalogSnapshotUnchanged(options.protectedCatalogSnapshot); return { entities };

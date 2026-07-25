@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">KACO Edge 事实示意图</title>
+  <desc id="desc">原创示意图：Makrolon 杆帽、刀锋形夹子、钢尖与国际墨囊转换器路线；非产品照片。</desc>
+  <rect width="1600" height="900" fill="#f3f0ea"/>
+  <rect x="92" y="92" width="1416" height="716" rx="42" fill="#15191d"/>
+  <path d="M260 462h780c44 0 80 36 80 80s-36 80-80 80H260c-44 0-80-36-80-80s36-80 80-80Z" fill="#30363b" stroke="#a6adb1" stroke-width="8"/>
+  <path d="M1018 466h215c38 0 68 31 68 68v16c0 38-30 68-68 68h-215Z" fill="#20252a" stroke="#bfc5c8" stroke-width="8"/>
+  <path d="M1160 432l170-110 38 18-130 144" fill="none" stroke="#d7b36a" stroke-width="18" stroke-linecap="round"/>
+  <path d="M1298 538l105-70 56 30-106 84Z" fill="#d7b36a" stroke="#f1ddad" stroke-width="7"/>
+  <path d="M1380 554l110 0-26 42h-112Z" fill="#cfd5d8" stroke="#717a80" stroke-width="7"/>
+  <circle cx="1174" cy="538" r="13" fill="#d7b36a"/>
+  <path d="M232 512h80M232 552h80" stroke="#747d82" stroke-width="6" stroke-linecap="round"/>
+  <text x="180" y="220" fill="#f5f0e8" font-family="Arial, sans-serif" font-size="52" font-weight="700">KACO EDGE</text>
+  <text x="180" y="285" fill="#d7b36a" font-family="Arial, sans-serif" font-size="30">Makrolon · blade clip · steel nib</text>
+  <text x="180" y="720" fill="#f3f0ea" font-family="Arial, sans-serif" font-size="28">cartridge / converter route · factual diagram · not a product photo</text>
+</svg>
