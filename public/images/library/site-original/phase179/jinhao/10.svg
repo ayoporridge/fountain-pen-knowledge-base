@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">Jinhao 10 structure facts</title>
+  <desc id="desc">Factual schematic, not a product photograph: push button, shutter, steel nib and converter.</desc>
+  <rect width="1200" height="700" fill="#f3f5f6"/>
+  <g fill="none" stroke="#242424" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path fill="#6f8aa0" d="M180 330h610l85 40-85 40H180c-26 0-48-18-48-40s22-40 48-40Z"/>
+    <path fill="#b4c3ca" d="M790 330h165c32 0 58 18 58 40s-26 40-58 40H790l85-40Z"/>
+    <path fill="#bac5cc" d="M1010 325h85v90h-85l-32-28v-34Z"/>
+    <path fill="#d2a848" d="M1087 330h50v70h-50l-20-35Z"/>
+    <rect fill="#263a4c" x="720" y="272" width="65" height="58" rx="20"/>
+    <path stroke-dasharray="12 12" d="M752 230v-75M1035 245v-90M1088 500v-95"/>
+  </g>
+  <g font-family="sans-serif" font-size="30" fill="#242424">
+    <text x="90" y="105" font-size="46" font-weight="700">Jinhao 10</text>
+    <text x="680" y="125">按键</text>
+    <text x="945" y="125">遮门／钢尖</text>
+    <text x="1025" y="550">converter</text>
+    <text x="300" y="590">金属或涂层笔身</text>
+    <text x="90" y="650" font-size="24">本站原创事实图｜示意图，非产品照片｜not to scale</text>
+  </g>
+</svg>

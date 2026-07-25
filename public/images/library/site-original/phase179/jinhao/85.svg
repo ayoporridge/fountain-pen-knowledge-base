@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">Jinhao 85 structure facts</title>
+  <desc id="desc">Factual schematic, not a product photograph: metal body, hooded nib, threaded cap and converter.</desc>
+  <rect width="1200" height="700" fill="#f4f0e8"/>
+  <g fill="none" stroke="#252525" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path fill="#8e989d" d="M150 330h625l88 40-88 40H150c-25 0-44-18-44-40s19-40 44-40Z"/>
+    <path fill="#d7dde0" d="M775 330h155c34 0 60 18 60 40s-26 40-60 40H775l88-40Z"/>
+    <path fill="#d8c281" d="M980 292h90v156h-90l-35-40v-76Z"/>
+    <path fill="#b7c3c8" d="M110 348h90v44h-90Z"/>
+    <path fill="#c6cdd0" d="M1080 330h55v70h-55l-22-35Z"/>
+    <path stroke-dasharray="12 12" d="M1015 235v-90M1080 235v-90M420 545v-90"/>
+  </g>
+  <g font-family="sans-serif" font-size="30" fill="#252525">
+    <text x="90" y="105" font-size="46" font-weight="700">Jinhao 85</text>
+    <text x="900" y="125">金属螺纹帽</text>
+    <text x="300" y="590">金属笔身／涂层或 flighter 版本</text>
+    <text x="40" y="440">护尖钢尖</text>
+    <text x="1020" y="505">converter</text>
+    <text x="90" y="650" font-size="24">本站原创事实图｜示意图，非产品照片｜not to scale</text>
+  </g>
+</svg>

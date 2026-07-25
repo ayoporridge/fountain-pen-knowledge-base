@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">Jinhao 992 structure facts</title>
+  <desc id="desc">Factual schematic, not a product photograph: resin body, threaded cap, steel nib and converter.</desc>
+  <rect width="1200" height="700" fill="#f7f3ec"/>
+  <g fill="none" stroke="#262626" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path fill="#a7cbd0" d="M170 335h600l80 35-80 35H170c-26 0-48-16-48-35s22-35 48-35Z"/>
+    <path fill="#d9e8e4" d="M770 335h170c35 0 62 16 62 35s-27 35-62 35H770l80-35Z"/>
+    <path fill="#d6d0bd" d="M1000 300h80v140h-80l-30-35v-70Z"/>
+    <path fill="#d3a34c" d="M1045 330h78v50h-78l-26-25Z"/>
+    <path fill="#d3d8db" d="M126 352h42v36h-42Z"/>
+    <path stroke-dasharray="12 12" d="M880 245v-95M1080 245v-95M425 540v-90"/>
+  </g>
+  <g font-family="sans-serif" font-size="30" fill="#262626">
+    <text x="90" y="105" font-size="46" font-weight="700">Jinhao 992</text>
+    <text x="820" y="125">螺纹帽与金属夹</text>
+    <text x="320" y="585">透明／半透明树脂笔身</text>
+    <text x="80" y="430">钢尖</text>
+    <text x="1020" y="490">converter</text>
+    <text x="90" y="650" font-size="24">本站原创事实图｜示意图，非产品照片｜not to scale</text>
+  </g>
+</svg>
