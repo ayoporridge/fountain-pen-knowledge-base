@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">金星双尖条目核验示意</title>
+  <desc id="desc">原创事实示意图，非产品照片；双尖结构、型号和上墨方式均需实物核对。</desc>
+  <rect width="960" height="540" fill="#e9eef0"/>
+  <rect x="54" y="56" width="852" height="428" rx="26" fill="#fffdf8" stroke="#405963" stroke-width="4"/>
+  <path d="M195 270h450" stroke="#6e7f83" stroke-width="46" stroke-linecap="round"/>
+  <path d="M645 270l110-32v64z" fill="#b68a4d"/>
+  <path d="M195 270l-110-32v64z" fill="#b68a4d"/>
+  <text x="480" y="150" text-anchor="middle" font-family="sans-serif" font-size="30" fill="#2e474f">“双尖”是待核实的历史称呼</text>
+  <text x="480" y="390" text-anchor="middle" font-family="sans-serif" font-size="24" fill="#2e474f">刻字 · 帽尾 · 上墨 · 维修状态</text>
+  <text x="480" y="437" text-anchor="middle" font-family="sans-serif" font-size="19" fill="#66777a">本站原创 factual SVG；非实物照片，不代表真实结构</text>
+</svg>
