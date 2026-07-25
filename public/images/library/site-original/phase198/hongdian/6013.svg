@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">HongDian 6013 文武黑将结构示意</title>
+  <desc id="desc">黑色金属杆、树纹握位、钢尖和 converter 的非比例原创示意图；不是产品照片。</desc>
+  <defs>
+    <linearGradient id="body" x1="0" x2="1"><stop offset="0" stop-color="#11151a"/><stop offset="0.5" stop-color="#3b4148"/><stop offset="1" stop-color="#0b0d10"/></linearGradient>
+    <linearGradient id="steel" x1="0" x2="1"><stop offset="0" stop-color="#69737d"/><stop offset="0.5" stop-color="#e7ecef"/><stop offset="1" stop-color="#6a747d"/></linearGradient>
+  </defs>
+  <rect width="1200" height="420" rx="28" fill="#eef0f2"/>
+  <path d="M132 213 C161 171 210 153 273 153 H850 C910 153 957 176 986 213 C957 250 910 273 850 273 H273 C210 273 161 255 132 213Z" fill="url(#body)" stroke="#07090b" stroke-width="8"/>
+  <path d="M285 158 L350 268 M319 155 L384 271 M353 154 L418 272 M387 154 L452 272 M421 154 L486 272" stroke="#818991" stroke-width="6" opacity=".55"/>
+  <path d="M846 157 H947 C980 158 1011 181 1028 213 C1011 245 980 268 947 269 H846Z" fill="url(#steel)" stroke="#555f68" stroke-width="7"/>
+  <path d="M470 191 H612 L691 213 L612 235 H470Z" fill="url(#steel)" stroke="#555f68" stroke-width="7"/>
+  <rect x="700" y="192" width="150" height="42" rx="8" fill="#a2b2bb" stroke="#5b6872" stroke-width="6"/>
+  <circle cx="262" cy="213" r="7" fill="#d6b269"/>
+  <text x="96" y="80" fill="#15191d" font-family="system-ui, sans-serif" font-size="34" font-weight="700">HongDian 6013</text>
+  <text x="96" y="335" fill="#4c555c" font-family="system-ui, sans-serif" font-size="23">文武黑将 · 金属杆 / 树纹握位 / converter · 非比例原创示意</text>
+  <text x="96" y="370" fill="#77818a" font-family="system-ui, sans-serif" font-size="18">不证明真实涂层、比例、重量、尖号、盖型或生产批次</text>
+</svg>
