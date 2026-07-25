@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Conway Stewart history and collection navigation</title>
+  <desc id="desc">Editorial factual diagram for Conway Stewart brand history, modern revival, and Series 100.</desc>
+  <rect width="1600" height="900" fill="#111821"/>
+  <rect x="70" y="70" width="1460" height="760" rx="36" fill="#1d2a35" stroke="#d8b06c" stroke-width="4"/>
+  <text x="126" y="155" fill="#fff1c9" font-family="Georgia,serif" font-size="55">Conway Stewart</text>
+  <text x="130" y="205" fill="#dec18a" font-family="monospace" font-size="28">British writing instruments · timeline + collection</text>
+  <g font-family="Arial,sans-serif">
+    <rect x="145" y="300" width="260" height="105" rx="18" fill="#3f5665" stroke="#a4ccd5" stroke-width="3"/>
+    <text x="217" y="364" fill="#effcff" font-size="34">1905 · London</text>
+    <path d="M405 352 H535" stroke="#dfb76b" stroke-width="5"/>
+    <path d="M520 340 L540 352 L520 364" fill="none" stroke="#dfb76b" stroke-width="5"/>
+    <rect x="545" y="300" width="260" height="105" rx="18" fill="#3f5665" stroke="#a4ccd5" stroke-width="3"/>
+    <text x="606" y="364" fill="#effcff" font-size="34">1954 · Series 100</text>
+    <path d="M805 352 H935" stroke="#dfb76b" stroke-width="5"/>
+    <path d="M920 340 L940 352 L920 364" fill="none" stroke="#dfb76b" stroke-width="5"/>
+    <rect x="945" y="300" width="300" height="105" rx="18" fill="#604832" stroke="#e8c47a" stroke-width="3"/>
+    <text x="1010" y="364" fill="#fff1c9" font-size="34">2014+ revival</text>
+    <rect x="1285" y="300" width="175" height="105" rx="18" fill="#3f5665" stroke="#a4ccd5" stroke-width="3"/>
+    <text x="1325" y="364" fill="#effcff" font-size="34">UK</text>
+  </g>
+  <text x="145" y="500" fill="#e1e9ed" font-family="Arial,sans-serif" font-size="28">当前 collection</text>
+  <g font-family="Arial,sans-serif" font-size="27">
+    <rect x="145" y="545" width="250" height="78" rx="15" fill="#334854" stroke="#8bb9c2" stroke-width="2"/>
+    <text x="205" y="595" fill="#edfbff">Churchill</text>
+    <rect x="425" y="545" width="250" height="78" rx="15" fill="#334854" stroke="#8bb9c2" stroke-width="2"/>
+    <text x="507" y="595" fill="#edfbff">Duro</text>
+    <rect x="705" y="545" width="250" height="78" rx="15" fill="#6a4a32" stroke="#e8c47a" stroke-width="3"/>
+    <text x="770" y="595" fill="#fff1c9">Series 100</text>
+    <rect x="985" y="545" width="250" height="78" rx="15" fill="#334854" stroke="#8bb9c2" stroke-width="2"/>
+    <text x="1065" y="595" fill="#edfbff">Winston</text>
+    <rect x="1265" y="545" width="195" height="78" rx="15" fill="#334854" stroke="#8bb9c2" stroke-width="2"/>
+    <text x="1312" y="595" fill="#edfbff">58 / 100</text>
+  </g>
+  <text x="145" y="720" fill="#c8d4da" font-family="Arial,sans-serif" font-size="23">历史公司、现代复兴、钢笔与其他书写工具按来源分开</text>
+  <text x="145" y="775" fill="#abb9c3" font-family="Arial,sans-serif" font-size="21">non-photo · non-logo · not-to-scale · non-colour-proof</text>
+</svg>

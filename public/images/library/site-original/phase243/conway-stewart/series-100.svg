@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Conway Stewart Series 100 facts</title>
+  <desc id="desc">Editorial factual diagram for the modern Series 100 Classic Black fountain pen.</desc>
+  <rect width="1600" height="900" fill="#121820"/>
+  <rect x="70" y="70" width="1460" height="760" rx="36" fill="#202b35" stroke="#d5ae6a" stroke-width="4"/>
+  <text x="125" y="152" fill="#fff0c4" font-family="Georgia,serif" font-size="54">Series 100</text>
+  <text x="128" y="201" fill="#e0bd80" font-family="monospace" font-size="28">1954 family · current Classic Black</text>
+  <path d="M160 500 C245 448 320 448 405 500 L900 500 C973 500 1017 475 1075 433 L1182 433 C1235 433 1275 452 1312 480 L1415 480" fill="none" stroke="#d2d9dc" stroke-width="46" stroke-linecap="round"/>
+  <path d="M160 500 C245 448 320 448 405 500" fill="none" stroke="#292d31" stroke-width="49" stroke-linecap="round"/>
+  <path d="M1305 480 L1428 462 L1482 480 L1428 498 Z" fill="#d8ba78" stroke="#f5df9f" stroke-width="4"/>
+  <path d="M399 476 L420 515 M414 474 L435 513 M452 484 L471 520 M467 482 L486 518" stroke="#d4ae69" stroke-width="8"/>
+  <text x="176" y="590" fill="#ced9de" font-family="Arial,sans-serif" font-size="23">示意轮廓：轻微收腰、高位夹与金色环饰；不是商品照片</text>
+  <g font-family="Arial,sans-serif">
+    <rect x="930" y="250" width="480" height="76" rx="15" fill="#3d3028" stroke="#e8c176" stroke-width="3"/>
+    <text x="970" y="300" fill="#fff0c4" font-size="28">18ct gold nib · C/C</text>
+    <rect x="930" y="348" width="480" height="76" rx="15" fill="#3d3028" stroke="#e8c176" stroke-width="3"/>
+    <text x="970" y="398" fill="#fff0c4" font-size="28">137.5 mm · 22 g</text>
+    <rect x="930" y="446" width="480" height="76" rx="15" fill="#3d3028" stroke="#e8c176" stroke-width="3"/>
+    <text x="970" y="496" fill="#fff0c4" font-size="28">acrylic · 9ct gold rings</text>
+  </g>
+  <text x="125" y="720" fill="#becbd1" font-family="Arial,sans-serif" font-size="22">Classic Black、Green、Amber、Honey Noire 等是 finish / edition variant</text>
+  <text x="125" y="775" fill="#abb9c3" font-family="Arial,sans-serif" font-size="21">non-photo · non-logo · not-to-scale · non-colour-proof</text>
+</svg>
