@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">SKB RS-501i 铝合金 EF 钢笔事实图</title>
+  <desc id="desc">SKB RS-501i 的编辑结构示意图，标注 EF、铝合金、约 13.3 cm、RI-60 与 #301A；不是产品照片、比例图或颜色证明。</desc>
+  <rect width="1600" height="900" fill="#f4eee3"/>
+  <g fill="none" stroke="#27353b" stroke-width="18" stroke-linecap="round">
+    <path d="M250 470h650l190-58h180l-55 58 55 58h-180l-190-58H250" fill="#9fb6b8"/>
+    <path d="M1090 412h170l130 58-130 58h-170" fill="#d4a66c"/>
+    <path d="M250 470l-130-32v64z" fill="#27353b"/>
+    <path d="M685 407v126" stroke="#d4a66c" stroke-width="10"/>
+  </g>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" fill="#27353b">
+    <text x="120" y="145" font-size="48" font-weight="700">SKB RS-501i</text>
+    <text x="120" y="205" font-size="30">铝合金 · EF · RI-60 / #301A</text>
+    <text x="120" y="720" font-size="28">总长约 ±13.3 cm · 台湾产地</text>
+    <text x="120" y="770" font-size="24">国旗、旅行郵件、環島臺灣等主题沿用同一型号代码</text>
+    <text x="120" y="825" font-size="22">non-photo · non-logo · not-to-scale · non-colour-proof</text>
+  </g>
+</svg>
