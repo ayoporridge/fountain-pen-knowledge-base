@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pilot Custom Heritage SE facts</title>
+  <desc id="desc">Editorial factual diagram for Pilot Custom Heritage SE FKVH-3MR.</desc>
+  <rect width="1600" height="900" fill="#111820"/>
+  <rect x="72" y="72" width="1456" height="756" rx="36" fill="#202d37" stroke="#d4ac63" stroke-width="4"/>
+  <text x="126" y="152" fill="#fff0c2" font-family="Georgia,serif" font-size="54">Custom Heritage SE</text>
+  <text x="130" y="202" fill="#e4c48b" font-family="monospace" font-size="30">FKVH-3MR · No.5 14K · F / M</text>
+  <path d="M180 520 C260 472 330 472 410 520 L850 520 C910 520 955 488 1005 450 L1110 450 C1150 450 1183 465 1215 492 L1330 492" fill="none" stroke="#d6e1e4" stroke-width="44" stroke-linecap="round"/>
+  <path d="M180 520 C260 472 330 472 410 520" fill="none" stroke="#926b4f" stroke-width="48" stroke-linecap="round"/>
+  <path d="M1330 492 L1430 475 L1490 492 L1430 509 Z" fill="#d9c18c" stroke="#f4e2ad" stroke-width="4"/>
+  <text x="195" y="600" fill="#d0dbe1" font-family="Arial,sans-serif" font-size="22">示意轮廓：树脂轴帽与平顶 Heritage 比例不是实物复刻</text>
+  <g font-family="Arial,sans-serif">
+    <rect x="950" y="250" width="450" height="78" rx="15" fill="#3b2f28" stroke="#e9c476" stroke-width="3"/>
+    <text x="990" y="301" fill="#fff0c2" font-size="29">135 mm · 22 g</text>
+    <rect x="950" y="350" width="450" height="78" rx="15" fill="#3b2f28" stroke="#e9c476" stroke-width="3"/>
+    <text x="990" y="401" fill="#fff0c2" font-size="29">CON-40 / CON-70N</text>
+    <rect x="950" y="450" width="450" height="78" rx="15" fill="#3b2f28" stroke="#e9c476" stroke-width="3"/>
+    <text x="990" y="501" fill="#fff0c2" font-size="29">5 colors × F / M</text>
+  </g>
+  <text x="130" y="724" fill="#bdc8cf" font-family="Arial,sans-serif" font-size="22">MAB / MAR / MAL / MAO / MAG 尾缀：每支大理石纹样可能不同</text>
+  <text x="130" y="776" fill="#aebbc4" font-family="Arial,sans-serif" font-size="21">non-photo · non-logo · not-to-scale · non-colour-proof</text>
+</svg>
