@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" role="img" aria-labelledby="title desc">
+  <title id="title">Majohn F9 蛇纹与蜘蛛纹样示意</title>
+  <desc id="desc">本站原创的 Majohn F9 主题笔 factual schematic，展示蛇纹和蜘蛛纹样的识别方向；非产品照片，不按比例。</desc>
+  <rect width="1000" height="360" rx="28" fill="#f4eee8"/>
+  <g stroke="#3b2a31" stroke-width="8" stroke-linejoin="round">
+    <path d="M112 180l68-34h510l92 34-92 34H180z" fill="#8d3b45"/>
+    <path d="M180 146h510v68H180z" fill="#7a2636" fill-opacity=".68"/>
+    <path d="M690 146h112l84 34-84 34H690z" fill="#d8b17c"/>
+    <path d="M802 154l92 26-92 26z" fill="#d0a252"/>
+    <g fill="none" stroke="#edc7a0" stroke-width="5">
+      <path d="M260 154c28 20 28 46 0 52m38-52c28 20 28 46 0 52m38-52c28 20 28 46 0 52"/>
+      <path d="M475 163l16-18m-16 18l-16-18m16 18l18 8m-18-8l-18 8m18-8v-22"/>
+    </g>
+  </g>
+  <text x="100" y="78" font-family="sans-serif" font-size="34" fill="#4b3036">Majohn F9 · Snake / Spider 主题变体</text>
+  <text x="100" y="300" font-family="sans-serif" font-size="22" fill="#66454c">factual schematic · steel nib · variant names from retailer · not to scale</text>
+</svg>
