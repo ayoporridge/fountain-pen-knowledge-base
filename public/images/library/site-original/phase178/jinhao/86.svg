@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Jinhao 86 结构示意</title>
+  <desc id="desc">本站原创事实示意图，展示 86 的树脂笔身、金属帽、护尖、螺纹帽和 converter 关系，不代表产品照片或比例。</desc>
+  <rect width="1600" height="900" fill="#eef1ee"/>
+  <rect x="80" y="82" width="1440" height="736" rx="40" fill="#fff" stroke="#44564d" stroke-width="4"/>
+  <text x="130" y="170" font-family="sans-serif" font-size="52" font-weight="700" fill="#32443b">Jinhao 86 · resin / hooded-nib boundary</text>
+  <text x="132" y="218" font-family="sans-serif" font-size="24" fill="#708079">本站原创 factual SVG｜非产品照片｜not to scale｜不证明颜色与库存</text>
+  <g transform="translate(170 390)">
+    <rect x="190" y="85" width="820" height="132" rx="66" fill="#6d8b85" stroke="#32443b" stroke-width="8"/>
+    <rect x="250" y="105" width="690" height="92" rx="46" fill="#9bb6ab" opacity=".78"/>
+    <path d="M250 85h-118c-42 0-76 34-76 66s34 66 76 66h118" fill="#87a39a" stroke="#32443b" stroke-width="8"/>
+    <path d="M1010 85h130l95 66-95 66h-130z" fill="#bdc6c0" stroke="#32443b" stroke-width="8"/>
+    <path d="M1140 96l54 55-54 55" fill="none" stroke="#b1843c" stroke-width="12"/>
+    <path d="M320 76v-45c0-20 16-36 36-36s36 16 36 36v45" fill="none" stroke="#32443b" stroke-width="10"/>
+    <path d="M140 86h100M140 112h100M140 138h100M140 164h100M140 190h100" stroke="#b1843c" stroke-width="5"/>
+  </g>
+  <g font-family="sans-serif" font-size="30" fill="#32443b">
+    <text x="245" y="675">树脂笔身／金属帽</text>
+    <text x="575" y="300">螺纹帽，可插帽</text>
+    <text x="1040" y="675">EF 护尖约 0.38–0.5 mm</text>
+    <text x="485" y="760">twist converter：兼容性与密封按 SKU 核对</text>
+  </g>
+  <g stroke="#b1843c" stroke-width="4" fill="none">
+    <path d="M360 650v-74"/><path d="M720 330v64"/><path d="M1150 650v-74"/>
+  </g>
+</svg>
