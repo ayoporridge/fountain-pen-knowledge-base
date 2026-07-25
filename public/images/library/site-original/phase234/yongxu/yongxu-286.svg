@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">YongXu 286 button-filler identity diagram</title>
+  <desc id="desc">Factual editorial diagram, not a product photo and not to scale.</desc>
+  <rect width="1600" height="900" fill="#f7f4ed"/>
+  <rect x="70" y="70" width="1460" height="760" rx="38" fill="#fffdf8" stroke="#2f3b36" stroke-width="4"/>
+  <text x="120" y="150" fill="#25332e" font-family="sans-serif" font-size="46" font-weight="700">YongXu 286</text>
+  <text x="120" y="200" fill="#58645f" font-family="sans-serif" font-size="28">按钮上墨 · 现代复古树脂型号 · 示意图，非产品照片</text>
+  <g transform="translate(160 350)">
+    <rect x="0" y="80" width="910" height="116" rx="58" fill="#8aa9a0" stroke="#25332e" stroke-width="6"/>
+    <rect x="880" y="58" width="210" height="160" rx="38" fill="#c4a66a" stroke="#25332e" stroke-width="6"/>
+    <rect x="1070" y="85" width="90" height="106" rx="30" fill="#596862" stroke="#25332e" stroke-width="6"/>
+    <circle cx="1130" cy="138" r="18" fill="#f7f4ed" stroke="#25332e" stroke-width="5"/>
+    <line x1="95" y1="80" x2="95" y2="196" stroke="#dceae4" stroke-width="10" opacity=".75"/>
+    <line x1="190" y1="80" x2="190" y2="196" stroke="#dceae4" stroke-width="10" opacity=".55"/>
+    <line x1="285" y1="80" x2="285" y2="196" stroke="#dceae4" stroke-width="10" opacity=".4"/>
+    <path d="M1160 138 H1270" stroke="#c4573f" stroke-width="10" stroke-linecap="round"/>
+    <text x="80" y="275" fill="#25332e" font-family="sans-serif" font-size="30">树脂／亚克力笔身（颜色随批次）</text>
+    <text x="900" y="275" fill="#25332e" font-family="sans-serif" font-size="30">按钮与压力条</text>
+  </g>
+  <g transform="translate(150 675)">
+    <rect width="1260" height="92" rx="22" fill="#e8eee9"/>
+    <text x="32" y="58" fill="#34413b" font-family="sans-serif" font-size="27">笔尖可能是钢尖或特定样本金尖；不要把单支配置外推为全系标准。</text>
+  </g>
+  <text x="120" y="805" fill="#6c7771" font-family="sans-serif" font-size="23">Fountain Pen Graph editorial · factual SVG · non-photo · not-to-scale · no logo/colour/stock proof</text>
+</svg>
