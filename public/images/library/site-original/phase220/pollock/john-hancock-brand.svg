@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Pollock Pen Co. 与 John Hancock 墨囊笔关系示意</title>
+  <desc id="desc">原创编辑示意图，画出 Pollock Pen Co. 品牌、John Hancock 商品名和早期铜管墨囊技术三层关系，不是产品照片。</desc>
+  <rect width="960" height="540" rx="28" fill="#f4efe5"/>
+  <rect x="54" y="54" width="852" height="432" rx="24" fill="#fffaf0" stroke="#27231f" stroke-width="4"/>
+  <text x="86" y="116" font-family="serif" font-size="38" font-weight="700" fill="#27231f">Pollock Pen Co.</text>
+  <text x="86" y="154" font-family="sans-serif" font-size="19" fill="#62584f">Boston 小型制笔公司 · 证据范围有限</text>
+  <path d="M118 220h270" stroke="#9a6b3e" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="118" cy="220" r="18" fill="#9a6b3e"/><circle cx="388" cy="220" r="18" fill="#9a6b3e"/>
+  <text x="86" y="278" font-family="sans-serif" font-size="24" fill="#27231f">商品名：John Hancock</text>
+  <text x="86" y="314" font-family="sans-serif" font-size="19" fill="#62584f">不是人物本人，也不是独立制造者</text>
+  <rect x="500" y="178" width="318" height="166" rx="18" fill="#e7d9c8" stroke="#9a6b3e" stroke-width="3"/>
+  <text x="532" y="225" font-family="sans-serif" font-size="25" font-weight="700" fill="#27231f">早期技术线索</text>
+  <text x="532" y="263" font-family="sans-serif" font-size="20" fill="#27231f">薄铜管墨囊</text>
+  <text x="532" y="294" font-family="sans-serif" font-size="20" fill="#27231f">穿刺式供墨</text>
+  <text x="532" y="325" font-family="sans-serif" font-size="17" fill="#62584f">约 1920 年代窗口</text>
+  <text x="86" y="414" font-family="sans-serif" font-size="18" fill="#62584f">原创 factual SVG · 非产品照片 · 不代表真实比例、刻字或完整目录</text>
+</svg>
