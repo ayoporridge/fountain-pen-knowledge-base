@@ -378,7 +378,7 @@ async function runLibraryContract(db: AuditReadClient): Promise<void> {
       OR (ma.asset_type = 'image' AND (
         ma.source_url IS NULL
         OR ma.source_item_id IS NULL
-        OR (ma.image_url IS NULL AND ma.thumbnail_url IS NULL)
+        OR (ma.image_url IS NULL AND ma.thumbnail_url IS NULL AND ma.local_path IS NULL)
       ))
   `);
   if (badMediaLinks > 0) {
