@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">HongDian Black Forest family boundary diagram</title>
+  <desc id="desc">Editorial factual diagram showing three separate evidence boundaries: slim Forest 1850/1851, larger 1860 Max, and raw brass 1861. Not a product photo, not to scale, not colour proof.</desc>
+  <rect width="1600" height="900" fill="#f5f1e8"/>
+  <rect x="70" y="65" width="1460" height="770" rx="32" fill="#fffdf8" stroke="#2f3b35" stroke-width="4"/>
+  <text x="120" y="145" fill="#1f2925" font-family="sans-serif" font-size="42" font-weight="700">HongDian 黑森林家族：三个独立的型号边界</text>
+  <text x="120" y="190" fill="#53635b" font-family="sans-serif" font-size="24">示意图，非产品照片；不按比例，不作颜色、Logo、库存或包装证明</text>
+  <g font-family="sans-serif">
+    <rect x="120" y="260" width="405" height="450" rx="22" fill="#1e2426"/>
+    <rect x="175" y="360" width="295" height="36" rx="18" fill="#0d1112"/>
+    <rect x="460" y="355" width="78" height="46" rx="18" fill="#59635f" transform="rotate(90 499 378)"/>
+    <text x="150" y="300" fill="#f9f5ec" font-size="32" font-weight="700">1850 / 1851 Forest</text>
+    <text x="150" y="335" fill="#c8d0ca" font-size="21">细身、黑色 PVD 样本</text>
+    <text x="150" y="505" fill="#f9f5ec" font-size="24">约 138 mm · 11 mm · 31 g</text>
+    <text x="150" y="545" fill="#c8d0ca" font-size="21">数字只属于来源中的样本</text>
+    <text x="150" y="630" fill="#f9f5ec" font-size="22">按压帽 · 钢尖</text>
+    <text x="150" y="667" fill="#c8d0ca" font-size="21">具体尖号与颜色逐支核对</text>
+  </g>
+  <g font-family="sans-serif">
+    <rect x="598" y="260" width="405" height="450" rx="22" fill="#252a2b"/>
+    <rect x="655" y="350" width="315" height="58" rx="29" fill="#090c0d"/>
+    <rect x="940" y="341" width="84" height="76" rx="20" fill="#606a65" transform="rotate(90 982 379)"/>
+    <text x="628" y="300" fill="#f9f5ec" font-size="32" font-weight="700">1860 Black Forest Max</text>
+    <text x="628" y="335" fill="#c8d0ca" font-size="21">更粗、更重的独立路线</text>
+    <text x="628" y="505" fill="#f9f5ec" font-size="24">约 139 mm · 14 mm · 37 g</text>
+    <text x="628" y="545" fill="#c8d0ca" font-size="21">零售样本与社区对照</text>
+    <text x="628" y="630" fill="#f9f5ec" font-size="22">旋帽 · #6 钢尖样本</text>
+    <text x="628" y="667" fill="#c8d0ca" font-size="21">不要把 “Pro” 自动等同 Max</text>
+  </g>
+  <g font-family="sans-serif">
+    <rect x="1076" y="260" width="405" height="450" rx="22" fill="#c28a45"/>
+    <rect x="1132" y="350" width="315" height="58" rx="29" fill="#b87935" stroke="#f3d6a5" stroke-width="4"/>
+    <rect x="1417" y="341" width="84" height="76" rx="20" fill="#ab6b2f" transform="rotate(90 1459 379)"/>
+    <text x="1105" y="300" fill="#2c2012" font-size="32" font-weight="700">1861 raw brass</text>
+    <text x="1105" y="335" fill="#5b3a1e" font-size="21">裸黄铜、表面会形成包浆</text>
+    <text x="1105" y="505" fill="#2c2012" font-size="24">HD-1861BS-1 · EF/F/M/B 选项</text>
+    <text x="1105" y="545" fill="#5b3a1e" font-size="21">TTpen 的具体销售 SKU</text>
+    <text x="1105" y="630" fill="#2c2012" font-size="22">墨囊／转换器 · 温和擦拭</text>
+    <text x="1105" y="667" fill="#5b3a1e" font-size="21">不能借用 PVD 黑色笔的保养结论</text>
+  </g>
+  <line x1="525" y1="485" x2="598" y2="485" stroke="#87958d" stroke-width="4" stroke-dasharray="12 12"/>
+  <line x1="1003" y1="485" x2="1076" y2="485" stroke="#87958d" stroke-width="4" stroke-dasharray="12 12"/>
+  <text x="120" y="790" fill="#53635b" font-family="sans-serif" font-size="22">来源边界：Budapest Pen Show · Rokomari · TTpen · Reddit r/fountainpens；不同页面的尺寸重量不跨型号移植。</text>
+  <text x="120" y="818" fill="#53635b" font-family="sans-serif" font-size="20">site-original · factual diagram · product-photo=false · not-to-scale · non-colour-proof · non-logo</text>
+</svg>

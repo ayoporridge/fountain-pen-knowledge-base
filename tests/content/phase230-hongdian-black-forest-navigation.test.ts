@@ -1,0 +1,50 @@
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import test from "node:test";
+import { createClient } from "@libsql/client";
+import { applyPhase230HongdianBlackForestNavigationContent, PHASE230_BLACK_FOREST_ID, PHASE230_BLACK_FOREST_SLUG } from "../../scripts/apply-phase230-hongdian-black-forest-navigation-content";
+import { copyCheckpointedCatalogToDisposableCopy, snapshotCatalogFiles } from "../../src/lib/audit/read-only-catalog";
+import { migrateDatabase } from "../../src/lib/db";
+import { getReclassifiedArticlePath } from "../../src/lib/entity-redirects";
+
+test("Phase 230 turns the mixed Black Forest shell into a sourced family navigation article", { timeout: 900_000 }, async () => {
+  const real = path.join(process.cwd(), "data", "fpkg.db");
+  const protectedSnapshot = snapshotCatalogFiles(real);
+  const ownedRoot = fs.realpathSync.native(fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-phase230-")));
+  const copy = copyCheckpointedCatalogToDisposableCopy(real, path.join(ownedRoot, "catalog.db"), ownedRoot, { expectedSourceSnapshot: protectedSnapshot });
+  const client = createClient({ url: `file:${copy.destinationPath}` });
+  const options = { workspaceRoot: process.cwd(), reviewer: "phase230-test", databasePath: copy.destinationPath, ownedRoot, protectedCatalogPath: real, protectedCatalogSnapshot: protectedSnapshot, env: { ...process.env, TURSO_DATABASE_URL: "", TURSO_AUTH_TOKEN: "", FPKG_DATABASE_URL: "" } } as const;
+  try {
+    await migrateDatabase(client);
+    await assert.rejects(() => applyPhase230HongdianBlackForestNavigationContent(client, { ...options, env: { ...options.env, FPKG_DATABASE_URL: "libsql://remote" } }), /refuses remote database selection/);
+    const first = await applyPhase230HongdianBlackForestNavigationContent(client, options);
+    assert.deepEqual(first.entities, [{ entityId: PHASE230_BLACK_FOREST_ID, outcome: "published" }]);
+    const entity = await client.execute({ sql: "SELECT type,slug,name,body_md,source FROM entities WHERE id=?", args: [PHASE230_BLACK_FOREST_ID] });
+    assert.equal(entity.rows.length, 1);
+    assert.equal(String(entity.rows[0]?.type), "article");
+    assert.equal(String(entity.rows[0]?.slug), PHASE230_BLACK_FOREST_SLUG);
+    assert.ok(Array.from(String(entity.rows[0]?.body_md ?? "")).length >= 1_800);
+    assert.match(String(entity.rows[0]?.source), /^curated:phase230:/);
+    assert.match(String(entity.rows[0]?.body_md), /1850|1851/);
+    assert.match(String(entity.rows[0]?.body_md), /1860/);
+    assert.match(String(entity.rows[0]?.body_md), /1861/);
+    assert.doesNotMatch(String(entity.rows[0]?.body_md), /canonical|made_by|数据库|仓库/i);
+    const refs = await client.execute({ sql: "SELECT count(*) AS value FROM entity_references WHERE entity_id=? AND review_status='approved' AND id LIKE 'phase230-reference-%'", args: [PHASE230_BLACK_FOREST_ID] });
+    assert.equal(Number(refs.rows[0]?.value), 5);
+    const media = await client.execute({ sql: "SELECT count(*) AS value FROM media_assets WHERE entity_id=? AND usage_status='primary' AND review_status='approved'", args: [PHASE230_BLACK_FOREST_ID] });
+    assert.equal(Number(media.rows[0]?.value), 1);
+    const links = await client.execute({ sql: "SELECT count(*) AS value FROM entity_links WHERE source_id=? OR target_id=?", args: [PHASE230_BLACK_FOREST_ID, PHASE230_BLACK_FOREST_ID] });
+    assert.equal(Number(links.rows[0]?.value), 0);
+    const publication = await client.execute({ sql: "SELECT count(*) AS value FROM entity_publications WHERE entity_id=?", args: [PHASE230_BLACK_FOREST_ID] });
+    assert.equal(Number(publication.rows[0]?.value), 0);
+    const action = await client.execute({ sql: "SELECT action_kind,status FROM taxonomy_actions WHERE source_entity_id=? AND action_kind='rename'", args: [PHASE230_BLACK_FOREST_ID] });
+    assert.equal(action.rows.length, 1);
+    assert.equal(String(action.rows[0]?.status), "applied");
+    assert.equal(getReclassifiedArticlePath("pen", "弘典-hongdian-黑森林-黑森林pro"), "/article/hongdian-black-forest-family");
+    const replay = await applyPhase230HongdianBlackForestNavigationContent(client, options);
+    assert.deepEqual(replay.entities, [{ entityId: PHASE230_BLACK_FOREST_ID, outcome: "noop" }]);
+  } finally { client.close(); fs.rmSync(ownedRoot, { recursive: true, force: true }); }
+  assert.deepEqual(snapshotCatalogFiles(real), protectedSnapshot);
+});
