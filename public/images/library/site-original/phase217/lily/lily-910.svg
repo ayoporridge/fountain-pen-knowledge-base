@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Lily 910 mechanism diagram</title>
+  <desc id="desc">Factual editorial diagram of the Lily 910 steel body, gold-plated steel nib, release mechanism, exposed nib and aerometric filler. Not a product photograph and not to scale.</desc>
+  <rect width="1600" height="900" fill="#f0f2f1"/>
+  <rect x="90" y="90" width="1420" height="720" rx="36" fill="#fffefa" stroke="#59646b" stroke-width="6"/>
+  <text x="150" y="180" fill="#2f393e" font-family="sans-serif" font-size="58" font-weight="700">铃兰 Lily 910</text>
+  <text x="154" y="232" fill="#718087" font-family="sans-serif" font-size="28">无帽笔尖 · aerometric · 无前端 shutter</text>
+  <g transform="translate(180 350)">
+    <rect x="0" y="95" width="760" height="112" rx="56" fill="#bfc8cb" stroke="#475259" stroke-width="8"/>
+    <rect x="720" y="103" width="145" height="96" rx="28" fill="#cad1d3" stroke="#475259" stroke-width="8"/>
+    <circle cx="895" cy="151" r="34" fill="#7d8790" stroke="#394249" stroke-width="8"/>
+    <path d="M0 151h-110" stroke="#475259" stroke-width="12"/>
+    <path d="M-110 151l66-38v76z" fill="#d2b66b" stroke="#705a2e" stroke-width="8"/>
+    <text x="20" y="282" fill="#2f393e" font-family="sans-serif" font-size="28">抛光钢制笔身</text>
+    <text x="735" y="282" fill="#2f393e" font-family="sans-serif" font-size="28">尾部释放机构</text>
+    <text x="-5" y="335" fill="#2f393e" font-family="sans-serif" font-size="27">镀金钢尖持续暴露；没有前端封闭片</text>
+  </g>
+  <g transform="translate(1070 520)">
+    <rect x="0" y="0" width="300" height="75" rx="37" fill="#d7e8e6" stroke="#5b7b79" stroke-width="6"/>
+    <rect x="26" y="18" width="174" height="39" rx="19" fill="#a4cfca"/>
+    <circle cx="251" cy="38" r="23" fill="#5b7b79"/>
+    <text x="0" y="126" fill="#2f393e" font-family="sans-serif" font-size="26">笔尖单元内置 aerometric</text>
+  </g>
+  <text x="150" y="745" fill="#718087" font-family="sans-serif" font-size="24">本站原创 factual SVG；非产品照片／非比例图／不证明真实比例、颜色、内部状态或年份</text>
+</svg>

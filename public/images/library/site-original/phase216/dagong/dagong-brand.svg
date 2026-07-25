@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Dagong brand and Dagong 56 editorial diagram</title>
+  <desc id="desc">Factual navigation diagram connecting the historical Dagong marque to the Wuhan Pen Factory and the documented 56 model. Not a product photograph and not to scale.</desc>
+  <rect width="1600" height="900" fill="#edf2f0"/>
+  <rect x="90" y="90" width="1420" height="720" rx="36" fill="#fffdf8" stroke="#3f5e5a" stroke-width="6"/>
+  <text x="150" y="180" fill="#243b3a" font-family="sans-serif" font-size="58" font-weight="700">大公 Dagong</text>
+  <text x="154" y="232" fill="#52706b" font-family="sans-serif" font-size="28">历史钢笔品牌导航（资料边界示意）</text>
+  <g stroke="#52706b" stroke-width="10" fill="none">
+    <path d="M505 445H690"/>
+    <path d="M1000 445H1125"/>
+  </g>
+  <g>
+    <rect x="170" y="330" width="335" height="230" rx="26" fill="#d7e8e3" stroke="#3f5e5a" stroke-width="6"/>
+    <text x="231" y="425" fill="#243b3a" font-family="sans-serif" font-size="35" font-weight="700">Dagong</text>
+    <text x="205" y="475" fill="#3f5e5a" font-family="sans-serif" font-size="27">大公品牌名</text>
+    <text x="205" y="520" fill="#3f5e5a" font-family="sans-serif" font-size="22">历史钢笔资料中的商标</text>
+  </g>
+  <g>
+    <rect x="690" y="330" width="310" height="230" rx="26" fill="#eadcc1" stroke="#846e43" stroke-width="6"/>
+    <text x="736" y="422" fill="#4d4028" font-family="sans-serif" font-size="31" font-weight="700">武汉金笔厂</text>
+    <text x="752" y="474" fill="#6b5835" font-family="sans-serif" font-size="27">Wuhan Pen Factory</text>
+    <text x="750" y="520" fill="#6b5835" font-family="sans-serif" font-size="22">湖北武汉 · 资料所见</text>
+  </g>
+  <g>
+    <rect x="1125" y="330" width="285" height="230" rx="26" fill="#d8e2ef" stroke="#4b6684" stroke-width="6"/>
+    <text x="1193" y="425" fill="#2f4763" font-family="sans-serif" font-size="38" font-weight="700">56</text>
+    <text x="1170" y="476" fill="#46617e" font-family="sans-serif" font-size="27">1980年代</text>
+    <text x="1158" y="520" fill="#46617e" font-family="sans-serif" font-size="22">已确认型号</text>
+  </g>
+  <text x="150" y="735" fill="#52706b" font-family="sans-serif" font-size="24">本站原创 factual SVG；非产品照片／非比例图／不代表 Logo、完整厂史、颜色或生产批次</text>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Lily brand and Lily 910 editorial diagram</title>
+  <desc id="desc">Factual navigation diagram connecting the Lily historical marque to the documented 910 capless model. Not a product photograph and not to scale.</desc>
+  <rect width="1600" height="900" fill="#f3f0e9"/>
+  <rect x="90" y="90" width="1420" height="720" rx="36" fill="#fffdf8" stroke="#596b61" stroke-width="6"/>
+  <text x="150" y="180" fill="#2f4038" font-family="sans-serif" font-size="58" font-weight="700">铃兰 Lily</text>
+  <text x="154" y="232" fill="#6b7d71" font-family="sans-serif" font-size="28">历史品牌与型号边界</text>
+  <path d="M520 445H710M1010 445H1120" stroke="#6b7d71" stroke-width="10" fill="none"/>
+  <rect x="170" y="330" width="350" height="230" rx="26" fill="#dbe9df" stroke="#596b61" stroke-width="6"/>
+  <text x="270" y="425" fill="#2f4038" font-family="sans-serif" font-size="40" font-weight="700">Lily</text>
+  <text x="220" y="478" fill="#4e6558" font-family="sans-serif" font-size="27">铃兰品牌名</text>
+  <text x="220" y="520" fill="#4e6558" font-family="sans-serif" font-size="22">制造者与年代未定</text>
+  <rect x="710" y="330" width="300" height="230" rx="26" fill="#eee1c4" stroke="#8b7549" stroke-width="6"/>
+  <text x="782" y="425" fill="#594929" font-family="sans-serif" font-size="42" font-weight="700">910</text>
+  <text x="746" y="478" fill="#705e3a" font-family="sans-serif" font-size="26">已确认型号</text>
+  <text x="746" y="520" fill="#705e3a" font-family="sans-serif" font-size="22">无帽 · aerometric</text>
+  <rect x="1120" y="330" width="290" height="230" rx="26" fill="#d9e2ef" stroke="#566d8a" stroke-width="6"/>
+  <text x="1180" y="425" fill="#354b68" font-family="sans-serif" font-size="35" font-weight="700">资料边界</text>
+  <text x="1160" y="478" fill="#4f6682" font-family="sans-serif" font-size="24">非 Pilot Capless</text>
+  <text x="1160" y="520" fill="#4f6682" font-family="sans-serif" font-size="22">不推断完整目录</text>
+  <text x="150" y="745" fill="#6b7d71" font-family="sans-serif" font-size="24">本站原创 factual SVG；非产品照片／非比例图／不代表 Logo、工厂、颜色或生产批次</text>
+</svg>
