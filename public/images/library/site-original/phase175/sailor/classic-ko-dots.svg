@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sailor Classic Ko Dot's 结构示意</title>
+  <desc id="desc">本站原创事实示意图，展示 Classic Ko Dot's 的蒔絵装饰、21K MF 尖、PMMA 笔体、converter 与桐箱关系，不代表产品照片或比例。</desc>
+  <rect width="1600" height="900" fill="#f2eee9"/>
+  <rect x="82" y="84" width="1436" height="732" rx="42" fill="#fffdfa" stroke="#4d2d2b" stroke-width="4"/>
+  <text x="132" y="172" font-family="sans-serif" font-size="44" font-weight="700" fill="#4d2d2b">Sailor Classic Ko · Dot's</text>
+  <text x="134" y="218" font-family="sans-serif" font-size="24" fill="#776765">10-8069-310｜本站原创 factual SVG｜非产品照片｜not to scale</text>
+  <g transform="translate(180 382)">
+    <rect x="205" y="95" width="780" height="126" rx="63" fill="#171717" stroke="#4d2d2b" stroke-width="8"/>
+    <path d="M265 99h690" stroke="#b58b3a" stroke-width="8" opacity=".9"/>
+    <path d="M475 112c35-100 70-100 104 0M610 112c35-100 70-100 104 0M745 112c35-100 70-100 104 0" fill="none" stroke="#b58b3a" stroke-width="7"/>
+    <path d="M240 95h-112c-46 0-83 37-83 63s37 63 83 63h112" fill="#2c2c2c" stroke="#4d2d2b" stroke-width="8"/>
+    <path d="M985 95h126l98 63-98 63H985z" fill="#1f1f1f" stroke="#4d2d2b" stroke-width="8"/>
+    <path d="M1120 107l52 51-52 51" fill="none" stroke="#d1ad57" stroke-width="12"/>
+    <path d="M330 88v-49c0-20 16-36 36-36s36 16 36 36v49" fill="none" stroke="#4d2d2b" stroke-width="10"/>
+    <path d="M1123 158h100" stroke="#d1ad57" stroke-width="6"/>
+  </g>
+  <g transform="translate(1120 585)">
+    <rect width="265" height="120" rx="12" fill="#c79755" stroke="#4d2d2b" stroke-width="5"/>
+    <path d="M22 22h220v76H22z" fill="#dcb978" opacity=".7"/>
+    <text x="55" y="72" font-family="sans-serif" font-size="28" fill="#4d2d2b">桐箱</text>
+  </g>
+  <g font-family="sans-serif" font-size="28" fill="#4d2d2b">
+    <text x="250" y="675">PMMA 笔体＋黑金蒔絵</text>
+    <text x="590" y="300">夹子</text>
+    <text x="1040" y="675">21K MF 尖</text>
+    <text x="1160" y="755">converter／cartridge</text>
+    <text x="1190" y="545">包装</text>
+  </g>
+  <g stroke="#b58b3a" stroke-width="4" fill="none">
+    <path d="M390 650v-76"/><path d="M635 330v62"/><path d="M1090 650v-75"/><path d="M1240 565v-40"/>
+  </g>
+</svg>
