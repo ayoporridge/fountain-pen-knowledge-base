@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Nakaya model naming map</title>
+  <desc id="desc">Factual editorial diagram: shape, length, line style and finish are separate naming layers. non-photo; non-logo; not-to-scale; non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#f7f2eb"/>
+  <rect x="72" y="62" width="1456" height="776" rx="30" fill="#fffdf9" stroke="#2b2522" stroke-width="4"/>
+  <text x="120" y="140" font-family="sans-serif" font-size="48" font-weight="700" fill="#251f1d">Nakaya：型号名称的四层</text>
+  <text x="120" y="185" font-family="sans-serif" font-size="24" fill="#5b514b">示意图只解释命名边界，不代表实物比例、颜色、刻字或库存</text>
+  <g font-family="sans-serif">
+    <rect x="120" y="250" width="300" height="160" rx="20" fill="#e5d8cb" stroke="#6d584b" stroke-width="3"/>
+    <text x="270" y="304" text-anchor="middle" font-size="28" font-weight="700" fill="#2d211b">笔形</text>
+    <text x="270" y="350" text-anchor="middle" font-size="25" fill="#2d211b">Cigar / Writer</text>
+    <text x="270" y="382" text-anchor="middle" font-size="20" fill="#5b514b">无夹 / 带笔夹</text>
+    <rect x="480" y="250" width="300" height="160" rx="20" fill="#dce8e5" stroke="#476b64" stroke-width="3"/>
+    <text x="630" y="304" text-anchor="middle" font-size="28" font-weight="700" fill="#183b35">长度</text>
+    <text x="630" y="350" text-anchor="middle" font-size="25" fill="#183b35">Long / Portable / Piccolo</text>
+    <text x="630" y="382" text-anchor="middle" font-size="20" fill="#476b64">约 170 / 150 / 130 mm</text>
+    <rect x="840" y="250" width="300" height="160" rx="20" fill="#e6e0ef" stroke="#675985" stroke-width="3"/>
+    <text x="990" y="304" text-anchor="middle" font-size="28" font-weight="700" fill="#382b55">线条</text>
+    <text x="990" y="350" text-anchor="middle" font-size="25" fill="#382b55">Decapod ST / TW</text>
+    <text x="990" y="382" text-anchor="middle" font-size="20" fill="#675985">直线 / 扭转</text>
+    <rect x="1200" y="250" width="260" height="160" rx="20" fill="#f1dfd8" stroke="#985548" stroke-width="3"/>
+    <text x="1330" y="304" text-anchor="middle" font-size="28" font-weight="700" fill="#632f27">漆面</text>
+    <text x="1330" y="350" text-anchor="middle" font-size="25" fill="#632f27">Kuro-tame</text>
+    <text x="1330" y="382" text-anchor="middle" font-size="20" fill="#985548">黑色 / 朱色层次</text>
+  </g>
+  <path d="M270 440 C270 535 690 480 690 590" fill="none" stroke="#8b776b" stroke-width="4" marker-end="url(#arrow)"/>
+  <path d="M630 440 C630 520 770 505 770 590" fill="none" stroke="#668a82" stroke-width="4" marker-end="url(#arrow)"/>
+  <path d="M990 440 C990 520 850 505 850 590" fill="none" stroke="#776b98" stroke-width="4" marker-end="url(#arrow)"/>
+  <path d="M1330 440 C1330 535 930 480 930 590" fill="none" stroke="#ad6254" stroke-width="4" marker-end="url(#arrow)"/>
+  <rect x="420" y="590" width="760" height="128" rx="24" fill="#2f2926"/>
+  <text x="800" y="646" text-anchor="middle" font-family="sans-serif" font-size="31" font-weight="700" fill="#fffdf9">Writer Decapod ST Kuro-tame</text>
+  <text x="800" y="684" text-anchor="middle" font-family="sans-serif" font-size="22" fill="#eaded6">一个具体产品名 = 笔形 + 多面体模型 + 线条版本 + 漆面</text>
+  <text x="120" y="790" font-family="sans-serif" font-size="19" fill="#6b5e56">Fountain Pen Graph editorial · factual SVG · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#5b514b"/></marker>
+  </defs>
+</svg>

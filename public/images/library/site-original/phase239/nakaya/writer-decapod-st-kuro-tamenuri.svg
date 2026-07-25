@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Nakaya Writer Decapod ST Kuro-tame factual diagram</title>
+  <desc id="desc">Factual editorial diagram of the Writer clip, polyhedral straight lines and layered lacquer. non-photo; non-logo; not-to-scale; non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#211d1b"/>
+  <rect x="72" y="64" width="1456" height="772" rx="28" fill="#f8f3ed" stroke="#c8a79a" stroke-width="4"/>
+  <text x="120" y="140" font-family="sans-serif" font-size="45" font-weight="700" fill="#281f1d">Writer Decapod ST Kuro-tame</text>
+  <text x="120" y="182" font-family="sans-serif" font-size="24" fill="#6a5951">产品号 02019-WST-11 · 结构边界示意 · 不作比例或颜色校样</text>
+  <g transform="translate(150 330)">
+    <polygon points="0,80 640,0 930,45 290,128" fill="#271f1d" stroke="#9b5749" stroke-width="8"/>
+    <polygon points="0,80 290,128 290,220 0,160" fill="#7d4036" stroke="#9b5749" stroke-width="8"/>
+    <polygon points="290,128 930,45 930,130 290,220" fill="#b06450" stroke="#9b5749" stroke-width="8"/>
+    <path d="M80 72 L650 0 M150 90 L720 20 M220 108 L790 30 M290 125 L860 42 M360 116 L930 45" stroke="#e4baa2" stroke-width="7" opacity=".95"/>
+    <path d="M925 46 L1040 20 L1110 56 L995 84 Z" fill="#b9a8a0" stroke="#75625a" stroke-width="6"/>
+    <path d="M1010 22 L1010 125" stroke="#786963" stroke-width="8"/>
+    <text x="555" y="300" text-anchor="middle" font-family="sans-serif" font-size="25" fill="#473b36">多面体笔身 · ST 直线 · Kuro-tame 层次</text>
+    <text x="1050" y="170" text-anchor="middle" font-family="sans-serif" font-size="22" fill="#473b36">Writer 笔夹</text>
+  </g>
+  <g font-family="sans-serif">
+    <rect x="160" y="690" width="330" height="78" rx="16" fill="#eadfd8"/>
+    <text x="325" y="738" text-anchor="middle" font-size="23" fill="#472c27">150.0 mm · 15.0 mm</text>
+    <rect x="560" y="690" width="330" height="78" rx="16" fill="#e4ece9"/>
+    <text x="725" y="738" text-anchor="middle" font-size="23" fill="#234c43">Ebonite · 24.0 g</text>
+    <rect x="960" y="690" width="430" height="78" rx="16" fill="#e7e1ef"/>
+    <text x="1175" y="738" text-anchor="middle" font-size="23" fill="#41305b">四线螺纹：线条不对齐不影响功能</text>
+  </g>
+  <text x="120" y="812" font-family="sans-serif" font-size="18" fill="#6a5951">Fountain Pen Graph editorial · factual SVG · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+</svg>
