@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">HongDian 516 结构示意</title>
+  <desc id="desc">本站原创事实示意图，展示 516 的不锈钢笔身、按压帽、Fine 尖和 converter 关系，不代表产品照片或比例。</desc>
+  <rect width="1600" height="900" fill="#eef1f0"/>
+  <rect x="80" y="82" width="1440" height="736" rx="40" fill="#fff" stroke="#334c51" stroke-width="4"/>
+  <text x="130" y="170" font-family="sans-serif" font-size="48" font-weight="700" fill="#263e43">HongDian 516 · structure boundary</text>
+  <text x="132" y="218" font-family="sans-serif" font-size="24" fill="#667779">本站原创 factual SVG｜非产品照片｜not to scale｜不证明颜色与库存</text>
+  <g transform="translate(170 390)">
+    <rect x="190" y="85" width="820" height="132" rx="66" fill="#a7b0b2" stroke="#263e43" stroke-width="8"/>
+    <rect x="250" y="105" width="690" height="92" rx="46" fill="#d7dcda" opacity=".8"/>
+    <path d="M250 85h-118c-42 0-76 34-76 66s34 66 76 66h118" fill="#c5cdcc" stroke="#263e43" stroke-width="8"/>
+    <path d="M1010 85h130l95 66-95 66h-130z" fill="#dce1df" stroke="#263e43" stroke-width="8"/>
+    <path d="M1140 96l54 55-54 55" fill="none" stroke="#bd8b46" stroke-width="12"/>
+    <path d="M320 76v-45c0-20 16-36 36-36s36 16 36 36v45" fill="none" stroke="#263e43" stroke-width="10"/>
+  </g>
+  <g font-family="sans-serif" font-size="29" fill="#263e43">
+    <text x="255" y="675">不锈钢笔身</text>
+    <text x="610" y="300">按压帽</text>
+    <text x="1080" y="675">Fine 约 0.4 mm</text>
+    <text x="490" y="760">converter：瓶装墨水路线；墨囊兼容性按 SKU 核对</text>
+  </g>
+  <g stroke="#bd8b46" stroke-width="4" fill="none">
+    <path d="M350 650v-74"/><path d="M680 330v64"/><path d="M1150 650v-74"/>
+  </g>
+</svg>
