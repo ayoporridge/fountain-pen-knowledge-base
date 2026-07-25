@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Noodler's Nib Creaper 结构示意</title>
+  <desc id="desc">原创示意图，展示小型活塞、墨窗与可调校柔性钢尖，不是产品照片。</desc>
+  <rect width="1200" height="720" fill="#eee9df"/>
+  <rect x="70" y="70" width="1060" height="580" rx="34" fill="#fffdf8" stroke="#2f3534" stroke-width="5"/>
+  <text x="110" y="145" font-family="sans-serif" font-size="48" font-weight="700" fill="#2f3534">Nib Creaper / Standard Flex</text>
+  <text x="112" y="190" font-family="sans-serif" font-size="24" fill="#65706d">活塞 · 墨窗 · friction-fit nib/feed · 非产品照片</text>
+  <g transform="translate(155 315)">
+    <rect x="0" y="80" width="660" height="86" rx="43" fill="#79a8a2" stroke="#2f514e" stroke-width="6"/>
+    <rect x="90" y="92" width="115" height="62" rx="15" fill="#d7eee9" stroke="#2f514e" stroke-width="4"/>
+    <text x="147" y="132" text-anchor="middle" font-family="sans-serif" font-size="19" fill="#2f514e">墨窗</text>
+    <rect x="570" y="92" width="100" height="62" rx="15" fill="#b9d1cb" stroke="#2f514e" stroke-width="4"/>
+    <text x="620" y="132" text-anchor="middle" font-family="sans-serif" font-size="18" fill="#2f514e">活塞</text>
+    <path d="M660 123h170l90-33v66l-90-33z" fill="#a7adb0" stroke="#353b3b" stroke-width="6"/>
+    <path d="M835 123l46-10M835 123l46 10" stroke="#353b3b" stroke-width="5"/>
+    <text x="820" y="35" font-family="sans-serif" font-size="20" fill="#39403e">钢制柔性尖</text>
+    <text x="820" y="222" font-family="sans-serif" font-size="20" fill="#39403e">friction-fit nib/feed</text>
+  </g>
+  <path d="M180 555h840" stroke="#b55b3e" stroke-width="4" stroke-dasharray="14 12"/>
+  <text x="600" y="600" text-anchor="middle" font-family="sans-serif" font-size="21" fill="#65706d">图示不代表真实尺寸、树脂配方、内腔或生产批次</text>
+</svg>

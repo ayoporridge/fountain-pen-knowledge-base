@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Noodler's 钢笔产品线边界示意</title>
+  <desc id="desc">原创示意图，展示 Standard Flex、Ahab、Konrad 和 Neponset 的导航关系，不是产品照片。</desc>
+  <rect width="1200" height="720" fill="#f7f1e7"/>
+  <rect x="70" y="70" width="1060" height="580" rx="34" fill="#fffaf2" stroke="#362c28" stroke-width="5"/>
+  <text x="110" y="145" font-family="sans-serif" font-size="48" font-weight="700" fill="#362c28">Noodler's writing instruments</text>
+  <text x="112" y="190" font-family="sans-serif" font-size="24" fill="#6e5b4f">品牌导航示意 · 非产品照片 · 不按比例</text>
+  <path d="M600 235v55M600 290H300M600 290h300M300 290v55M600 290v55M900 290v55" fill="none" stroke="#b55b3e" stroke-width="6"/>
+  <g font-family="sans-serif" text-anchor="middle">
+    <rect x="430" y="210" width="340" height="70" rx="18" fill="#2d6a66"/>
+    <text x="600" y="255" font-size="30" font-weight="700" fill="#fffaf2">可调校钢笔目录</text>
+    <rect x="145" y="345" width="310" height="155" rx="20" fill="#d9b86c" stroke="#6b4d2e" stroke-width="4"/>
+    <text x="300" y="400" font-size="31" font-weight="700" fill="#362c28">Standard Flex</text>
+    <text x="300" y="442" font-size="24" fill="#362c28">Nib Creaper / Creaper</text>
+    <text x="300" y="476" font-size="18" fill="#362c28">活塞 · 柔性钢尖</text>
+    <rect x="445" y="345" width="310" height="155" rx="20" fill="#87a9b8" stroke="#33515e" stroke-width="4"/>
+    <text x="600" y="415" font-size="34" font-weight="700" fill="#152b35">Ahab</text>
+    <text x="600" y="460" font-size="21" fill="#152b35">独立型号线</text>
+    <rect x="745" y="345" width="310" height="155" rx="20" fill="#b98ab4" stroke="#593e58" stroke-width="4"/>
+    <text x="900" y="415" font-size="34" font-weight="700" fill="#342134">Konrad</text>
+    <text x="900" y="460" font-size="21" fill="#342134">独立型号线</text>
+    <text x="600" y="575" font-size="21" fill="#6e5b4f">同属品牌导航，不共享型号身份、规格或实物图</text>
+  </g>
+</svg>
