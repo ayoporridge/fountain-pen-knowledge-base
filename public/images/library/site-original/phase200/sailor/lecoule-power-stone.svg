@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sailor Lecoule Power Stone 11-0311 事实示意图</title>
+  <desc id="desc">短款 PMMA 树脂钢笔、MF 尖、墨囊或上墨器，以及五种宝石色变体的非比例示意图，不是产品照片。</desc>
+  <defs>
+    <linearGradient id="pen" x1="0" x2="1"><stop offset="0" stop-color="#e7d9e9"/><stop offset=".5" stop-color="#d6ecf2"/><stop offset="1" stop-color="#a7bddc"/></linearGradient>
+    <filter id="shadow" x="-10%" y="-30%" width="120%" height="160%"><feDropShadow dx="0" dy="13" stdDeviation="12" flood-color="#23334d" flood-opacity=".18"/></filter>
+  </defs>
+  <rect width="1600" height="900" fill="#fbfaf8"/>
+  <path d="M90 700h1420" stroke="#d9d3cc" stroke-width="3"/>
+  <g filter="url(#shadow)" transform="translate(120 260)">
+    <path d="M160 190 Q160 154 197 150 H985 Q1020 154 1020 190 V300 Q1020 336 985 340 H197 Q160 336 160 300Z" fill="url(#pen)" stroke="#61728a" stroke-width="5"/>
+    <path d="M160 190 L70 214 V276 L160 300Z" fill="#e9edf4" stroke="#61728a" stroke-width="5"/>
+    <path d="M70 214 L15 245 L70 276" fill="#f0c55e" stroke="#94732a" stroke-width="5"/>
+    <path d="M15 245 L-25 260 L15 275Z" fill="#c3ccd6" stroke="#667b88" stroke-width="4"/>
+    <rect x="240" y="195" width="330" height="100" rx="48" fill="#ffffff" opacity=".22" stroke="#8aa1b8" stroke-dasharray="12 9" stroke-width="3"/>
+    <path d="M570 245h188" stroke="#657c8e" stroke-width="6"/>
+    <path d="M758 188 h220 q42 0 42 57 v0 q0 57-42 57 H758Z" fill="#d4e3ec" opacity=".68" stroke="#61728a" stroke-width="5"/>
+    <path d="M940 185v120" stroke="#61728a" stroke-width="4" stroke-dasharray="9 8"/>
+    <path d="M975 150 v-46" stroke="#657c8e" stroke-width="5"/><path d="M1000 150 v-46" stroke="#657c8e" stroke-width="5"/>
+  </g>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#26364f">
+    <text x="120" y="104" font-size="42" font-weight="700">Sailor Lecoule Power Stone Color（11-0311）</text>
+    <text x="122" y="154" font-size="22" fill="#5e6e7c">MF 钢尖 · PMMA／AS 树脂 · 墨囊／上墨器 · 事实示意，非产品照片</text>
+    <g font-size="26" font-weight="600">
+      <text x="60" y="610">不锈钢 MF 尖</text><path d="M160 590 L95 522" stroke="#526d80" stroke-width="3" fill="none"/>
+      <text x="480" y="460">PMMA 笔身／AS 握位</text><path d="M650 475 L650 560" stroke="#526d80" stroke-width="3" fill="none"/>
+      <text x="1040" y="610">短款 φ17×123 mm；约 12.4 g</text><path d="M1120 590 L1080 520" stroke="#526d80" stroke-width="3" fill="none"/>
+      <text x="1190" y="460">镍铬镀层夹／五色主题</text><path d="M1290 480 L1250 520" stroke="#526d80" stroke-width="3" fill="none"/>
+    </g>
+    <g transform="translate(180 755)">
+      <circle cx="0" cy="0" r="22" fill="#f4eee3" stroke="#87909a" stroke-width="3"/><circle cx="75" cy="0" r="22" fill="#272938" stroke="#87909a" stroke-width="3"/><circle cx="150" cy="0" r="22" fill="#971d32" stroke="#87909a" stroke-width="3"/><circle cx="225" cy="0" r="22" fill="#eaa1bd" stroke="#87909a" stroke-width="3"/><circle cx="300" cy="0" r="22" fill="#3c649d" stroke="#87909a" stroke-width="3"/>
+      <text x="350" y="9" font-size="23" fill="#5e6e7c">Pearl · Morion · Garnet · Rose Quartz · Lapis Lazuli（末三位 310/320/330/331/340）</text>
+    </g>
+    <text x="120" y="845" font-size="21" fill="#5e6e7c">不代表真实颜色、闪粉分布、比例、刻字、包装或库存；11-0313 Clear 是相邻型号。</text>
+  </g>
+</svg>
