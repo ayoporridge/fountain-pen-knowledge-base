@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 360" role="img" aria-labelledby="title desc">
+  <title id="title">Sailor 1911 与 Profit 系列导航示意</title>
+  <desc id="desc">本站原创 factual schematic，展示 1911/Profit 的产品号分支、Standard、Large 与 Realo 的边界；非产品照片，不按比例。</desc>
+  <rect width="1000" height="360" rx="28" fill="#f1f4f5"/>
+  <g stroke="#243746" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M120 180h170"/>
+    <path d="M290 180l120-78M290 180l120 0M290 180l120 78"/>
+    <path d="M410 102h170M410 180h170M410 258h170"/>
+  </g>
+  <g font-family="sans-serif" fill="#243746">
+    <text x="90" y="90" font-size="34">Sailor Profit / 1911</text>
+    <text x="108" y="187" font-size="24">产品号</text>
+    <text x="430" y="110" font-size="24">Standard · 11-1219</text>
+    <text x="430" y="188" font-size="24">Large · 11-2021 / 11-2024</text>
+    <text x="430" y="266" font-size="24">Realo · 活塞路线</text>
+    <text x="90" y="315" font-size="21" fill="#536b7c">regional names · nib / filling / SKU boundaries · not to scale</text>
+  </g>
+</svg>

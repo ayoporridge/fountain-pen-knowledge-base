@@ -83,6 +83,7 @@ export const RECLASSIFIED_ARTICLE_PATHS: Record<string, string> =
       "/article/montblanc-patron-of-art",
     ],
     ["pen/wancher万佳-dream-pen", "/article/wancher-dream-pen"],
+    ["pen/写乐-sailor-1911-profit系列", "/article/sailor-1911-profit"],
     ["pen/百乐-pilot-88g", "/article/pilot-88g-mr-guide"],
     ["pen/白金-platinum-出云-izumo", "/article/platinum-izumo"],
     ["pen/白金-platinum-富士旬景pnb-13000", "/article/platinum-fuji-shunkei"],
