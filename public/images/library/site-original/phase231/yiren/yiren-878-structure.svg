@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">依人 Yiren 878 结构示意图</title>
+  <desc id="desc">本站原创事实示意图，非产品照片，不表示真实比例、颜色、Logo、刻字、库存或具体批次。</desc>
+  <rect width="1200" height="720" fill="#f5f1e8"/>
+  <rect x="54" y="54" width="1092" height="612" rx="28" fill="#fffdf8" stroke="#2d3436" stroke-width="3"/>
+  <text x="90" y="120" font-family="system-ui, sans-serif" font-size="34" font-weight="700" fill="#28323a">Yiren 878</text>
+  <text x="90" y="158" font-family="system-ui, sans-serif" font-size="20" fill="#5e6b73">全金属 · 按压帽 · 墨囊／转换器（事实示意）</text>
+  <g transform="translate(120 290) rotate(-3)">
+    <rect x="0" y="72" width="820" height="78" rx="38" fill="#657078" stroke="#27323a" stroke-width="4"/>
+    <rect x="0" y="72" width="820" height="78" rx="38" fill="none" stroke="#aeb6b9" stroke-width="3" stroke-dasharray="10 12" opacity=".65"/>
+    <path d="M160 74 L205 148 M235 74 L280 148 M310 74 L355 148" stroke="#b6bec0" stroke-width="4" opacity=".65"/>
+    <rect x="820" y="82" width="74" height="58" rx="14" fill="#4b565d" stroke="#27323a" stroke-width="4"/>
+    <path d="M894 111 h74" stroke="#27323a" stroke-width="8"/>
+    <path d="M968 111 l56 -18 l-12 18 l12 18 z" fill="#d4dadb" stroke="#27323a" stroke-width="4"/>
+    <path d="M1024 111 l72 -8 l-15 8 l15 8 z" fill="#7b8a90" stroke="#27323a" stroke-width="3"/>
+    <path d="M-18 80 h80" stroke="#27323a" stroke-width="6"/>
+    <path d="M-18 142 h80" stroke="#27323a" stroke-width="6"/>
+  </g>
+  <g font-family="system-ui, sans-serif" fill="#28323a">
+    <text x="178" y="510" font-size="24" font-weight="700">全金属笔身</text>
+    <text x="178" y="542" font-size="18">重量与表面以具体 SKU 为准</text>
+    <text x="535" y="510" font-size="24" font-weight="700">按压式笔帽</text>
+    <text x="535" y="542" font-size="18">商品样本描述为卡环固定</text>
+    <text x="830" y="510" font-size="24" font-weight="700">F / 0.5 mm</text>
+    <text x="830" y="542" font-size="18">不锈钢尖；不外推所有批次</text>
+  </g>
+  <text x="90" y="620" font-family="system-ui, sans-serif" font-size="17" fill="#6b777d">本站原创 factual SVG · 非产品照片 · 非真实比例 · 非颜色证明 · 不含 Logo 或库存暗示</text>
+</svg>
