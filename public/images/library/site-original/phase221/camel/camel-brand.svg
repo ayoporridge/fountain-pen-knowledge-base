@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Camel Pen Company 品牌与干墨路线示意</title>
+  <desc id="desc">原创编辑示意图，画出 Camel Pen Company、Joseph Wustman 语境和干墨颗粒加水路线，不是产品照片。</desc>
+  <rect width="960" height="540" rx="28" fill="#f1e4d3"/>
+  <rect x="56" y="56" width="848" height="428" rx="24" fill="#fff9ed" stroke="#332820" stroke-width="4"/>
+  <text x="88" y="118" font-family="serif" font-size="39" font-weight="700" fill="#332820">Camel Pen Company</text>
+  <text x="88" y="153" font-family="sans-serif" font-size="19" fill="#705948">New Jersey · 约 1935—1938 · 证据范围有限</text>
+  <circle cx="180" cy="254" r="56" fill="#b66a39"/>
+  <circle cx="180" cy="254" r="18" fill="#f6d28f"/>
+  <text x="105" y="345" font-family="sans-serif" font-size="22" fill="#332820">干墨颗粒</text>
+  <path d="M236 254h180" stroke="#b66a39" stroke-width="9" stroke-linecap="round"/>
+  <path d="M416 254l-24-16m24 16-24 16" stroke="#b66a39" stroke-width="6" fill="none"/>
+  <rect x="476" y="200" width="156" height="110" rx="18" fill="#d7e8ea" stroke="#5c7f85" stroke-width="3"/>
+  <text x="514" y="247" font-family="sans-serif" font-size="24" fill="#334a4f">加水</text>
+  <text x="497" y="280" font-family="sans-serif" font-size="17" fill="#334a4f">形成可写墨水</text>
+  <path d="M632 254h178" stroke="#5c7f85" stroke-width="9" stroke-linecap="round"/>
+  <path d="M810 254l-24-16m24 16-24 16" stroke="#5c7f85" stroke-width="6" fill="none"/>
+  <text x="668" y="345" font-family="sans-serif" font-size="22" fill="#332820">笔身／feed</text>
+  <text x="88" y="426" font-family="sans-serif" font-size="18" fill="#705948">原创 factual SVG · 非产品照片 · 不代表真实比例、广告或完整型号表</text>
+</svg>
