@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" role="img" aria-labelledby="title desc">
+  <title id="title">DareWorks Liuguang DM003-F diagram</title>
+  <desc id="desc">Editorial diagram of a metal traditional fountain pen with an F nib and four color swatches. Not a product photograph and not to scale.</desc>
+  <rect width="800" height="420" rx="28" fill="#eef1ee"/>
+  <text x="72" y="76" font-family="sans-serif" font-size="36" font-weight="700" fill="#2d3445">流光 DM003-F</text>
+  <text x="72" y="118" font-family="sans-serif" font-size="21" fill="#68746f">传统笔系列｜F 尖｜颜色与配件按 SKU 核对</text>
+  <path d="M166 238h354" stroke="#6c747c" stroke-width="48" stroke-linecap="round"/>
+  <path d="M520 238l-98-31v62z" fill="#c7a56a"/>
+  <path d="M588 238h108" stroke="#2d3445" stroke-width="16" stroke-linecap="round"/>
+  <circle cx="580" cy="327" r="13" fill="#8d9498"/><circle cx="622" cy="327" r="13" fill="#a87857"/><circle cx="664" cy="327" r="13" fill="#4e7162"/><circle cx="706" cy="327" r="13" fill="#3f526c"/>
+  <text x="72" y="365" font-family="sans-serif" font-size="18" fill="#68746f">原创结构示意｜非产品实拍，不代表真实 PVD 层、尺寸、重量、接口或颜色</text>
+</svg>
