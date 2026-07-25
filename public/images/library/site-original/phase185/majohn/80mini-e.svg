@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Majohn 80mini-E 短杆比例示意</title>
+  <desc id="desc">本站原创的非比例产品示意图，标注短杆、笔帽和家族证据边界，不是产品照片。</desc>
+  <rect width="1200" height="520" fill="#f5f0e8"/>
+  <rect x="54" y="54" width="1092" height="412" rx="28" fill="#fffdf8" stroke="#2f3437" stroke-width="4"/>
+  <text x="92" y="116" font-family="Noto Sans CJK SC, sans-serif" font-size="34" fill="#2f3437">Majohn 80mini-E</text>
+  <text x="92" y="158" font-family="Noto Sans CJK SC, sans-serif" font-size="22" fill="#6d6258">短杆便携路线｜原创事实示意，不代表比例、颜色、重量或工厂规格</text>
+  <g transform="translate(120 230)">
+    <rect x="0" y="38" width="690" height="76" rx="38" fill="#354a50"/>
+    <rect x="690" y="38" width="114" height="76" rx="18" fill="#b58b54"/>
+    <path d="M804 38 L940 76 L804 114 Z" fill="#d7d0c6" stroke="#354a50" stroke-width="5"/>
+    <circle cx="120" cy="76" r="8" fill="#d7d0c6"/>
+    <text x="15" y="165" font-family="Noto Sans CJK SC, sans-serif" font-size="22" fill="#354a50">短杆笔身</text>
+    <text x="665" y="165" font-family="Noto Sans CJK SC, sans-serif" font-size="22" fill="#705736">金属饰件</text>
+    <text x="870" y="165" font-family="Noto Sans CJK SC, sans-serif" font-size="22" fill="#354a50">尖端</text>
+  </g>
+  <g transform="translate(120 390)" font-family="Noto Sans CJK SC, sans-serif" font-size="20" fill="#6d6258">
+    <text x="0" y="0">已核验：零售标题含 “80 Mini-E Short (Moonman)”</text>
+    <text x="0" y="32">家族旁证：约 100 mm 合盖、短墨囊/转换器、细尖体验；精确 E 规格请按 SKU 复核</text>
+  </g>
+</svg>
