@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">Jinhao 313 结构事实示意图</title><desc id="desc">本站原创示意图，展示塑料笔身、钢尖与 cartridge converter，不按比例。</desc>
+  <rect width="1200" height="420" fill="#f5efe5"/><g stroke="#252525" stroke-width="5" fill="none"><path d="M170 210h700l90-35 95 35-95 35-90-35H170z" fill="#d5e4ef"/><path d="M870 175v70"/><path d="M955 175v70"/><path d="M170 190v40"/><path d="M1050 198h60v24h-60"/></g>
+  <text x="70" y="70" font-family="sans-serif" font-size="34" fill="#252525">JINHAO 313</text><text x="70" y="112" font-family="sans-serif" font-size="22" fill="#555">塑料笔身 · 钢尖 · cartridge/converter</text><text x="175" y="305" font-family="sans-serif" font-size="22" fill="#555">笔身</text><text x="875" y="305" font-family="sans-serif" font-size="22" fill="#555">握位 / 尖</text><text x="945" y="370" font-family="sans-serif" font-size="18" fill="#777">factual SVG · not to scale · not a product photo</text>
+</svg>
