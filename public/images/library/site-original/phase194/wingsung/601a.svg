@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">WingSung 601A factual diagram</title>
+  <desc id="desc">Editorial non-photographic diagram of a streamlined pen with ink window, metal cap and open conical nib.</desc>
+  <rect width="1600" height="900" fill="#e9eef2"/>
+  <path d="M205 480h825c100 0 164-22 248-76l157-102 90 73-160 119c-91 68-168 97-283 97H205z" fill="#2a5e76" stroke="#1f3b4b" stroke-width="13"/>
+  <path d="M205 480h-51c-39 0-70 31-70 69s31 69 70 69h51z" fill="#e4eef2" stroke="#4d6673" stroke-width="13"/>
+  <path d="M480 480h120v65H480z" fill="#98bdc8" fill-opacity=".65" stroke="#e1f4f6" stroke-width="5"/>
+  <path d="M1090 318l179-117 98 79-176 128z" fill="#b9c2c7" stroke="#4d6673" stroke-width="11"/>
+  <path d="M1291 263l113-75M1308 281l114-75M1327 298l113-75" stroke="#eef3f5" stroke-width="8"/>
+  <path d="M1430 182l112-43" stroke="#4d6673" stroke-width="17" stroke-linecap="round"/>
+  <path d="M1430 182l112-43" stroke="#d9b45d" stroke-width="5" stroke-linecap="round"/>
+  <text x="190" y="185" font-family="sans-serif" font-size="52" font-weight="700" fill="#1f3b4b">WINGSUNG 601A</text>
+  <text x="190" y="240" font-family="sans-serif" font-size="28" fill="#456171">ink window / spring-loaded filler / open Triumph-style nib · not to scale</text>
+  <text x="705" y="795" font-family="sans-serif" font-size="32" fill="#1f3b4b">editorial identification cues, not a product photograph</text>
+</svg>
