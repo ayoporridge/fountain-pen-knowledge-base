@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Waterman Exception factual diagram</title>
+  <desc id="desc">Editorial diagram for Waterman Exception 2214314; not a product photograph, logo, scale drawing, or colour proof.</desc>
+  <rect width="1600" height="900" fill="#f2f0ea"/>
+  <g fill="none" stroke="#26384a" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M250 455h840l125-66 115 66-115 66-125-66H250z" fill="#173b5b"/>
+    <path d="M1090 389v132M1140 413v84M1180 424v62"/>
+    <path d="M190 455l60-34v68z" fill="#8f9aa5"/>
+    <path d="M1210 455l110-46 75 46-75 46z" fill="#161b21"/>
+    <path d="M245 420v70M300 420v70"/>
+    <path d="M132 180h490M132 214h300"/>
+    <path d="M132 635h490M132 669h280"/>
+  </g>
+  <g font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC',sans-serif" fill="#26384a">
+    <text x="130" y="120" font-size="50" font-weight="700">Waterman Exception</text>
+    <text x="130" y="165" font-size="28">2214314 · Fountain Pen · 18K rhodium-coated nib</text>
+    <text x="140" y="270" font-size="32" font-weight="700">规格锚点</text>
+    <text x="140" y="318" font-size="27">方形漆面黄铜帽身 · 黑色树脂握位</text>
+    <text x="140" y="360" font-size="27">Waterman globe · Fine / Medium 按 SKU</text>
+    <text x="140" y="402" font-size="27">墨胆 / 转换器 · 法国手工装配</text>
+    <text x="140" y="720" font-size="30" font-weight="700">版本边界</text>
+    <text x="140" y="766" font-size="26">Slim / Night &amp; Day / 主题款 = variants</text>
+    <text x="140" y="806" font-size="26">非产品照片 · 非 Logo · 非比例图 · 非颜色校样</text>
+  </g>
+  <g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" fill="#a54d36" font-size="24">
+    <text x="1040" y="770">NON-PHOTO</text>
+    <text x="1040" y="805">NON-LOGO</text>
+    <text x="1040" y="840">NOT-TO-SCALE · NON-COLOUR-PROOF</text>
+  </g>
+</svg>
