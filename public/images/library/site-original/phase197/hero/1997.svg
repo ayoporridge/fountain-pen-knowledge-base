@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" role="img" aria-labelledby="title desc">
+  <title id="title">Hero 1997 型 18K 金笔纪念示意</title>
+  <desc id="desc">大尺寸金色纪念笔尖、红色笔身与礼盒边界的非比例原创示意图；不是产品照片。</desc>
+  <defs>
+    <linearGradient id="red" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#8a1f2b"/><stop offset="0.5" stop-color="#c33c46"/><stop offset="1" stop-color="#5b111a"/></linearGradient>
+    <linearGradient id="gold" x1="0" x2="1"><stop offset="0" stop-color="#9d6b16"/><stop offset="0.45" stop-color="#ffe49a"/><stop offset="1" stop-color="#b17b1e"/></linearGradient>
+  </defs>
+  <rect width="1200" height="420" rx="28" fill="#f4eee2"/>
+  <rect x="88" y="95" width="1024" height="230" rx="18" fill="#64131e" opacity=".12" stroke="#b58b48" stroke-width="3"/>
+  <path d="M154 213 C187 164 235 151 300 151 H742 C800 151 846 169 878 213 C846 257 800 275 742 275 H300 C235 275 187 262 154 213Z" fill="url(#red)" stroke="#45101a" stroke-width="8"/>
+  <path d="M731 157 H835 C870 158 903 178 922 213 C903 248 870 268 835 269 H731Z" fill="url(#gold)" stroke="#8b5e15" stroke-width="7"/>
+  <path d="M449 171 H665 L749 213 L665 255 H449 L531 213Z" fill="url(#gold)" stroke="#8b5e15" stroke-width="7"/>
+  <path d="M532 213 L617 190 L698 213 L617 236Z" fill="#fff1bd" stroke="#9c6b1c" stroke-width="5"/>
+  <path d="M575 207 l28 -12 28 12 -28 12z M634 225 l25 -11 25 11 -25 11z" fill="#c38c25" opacity=".8"/>
+  <text x="104" y="70" fill="#5b111a" font-family="system-ui, sans-serif" font-size="34" font-weight="700">Hero 1997 · 18K commemorative</text>
+  <text x="104" y="356" fill="#5f5144" font-family="system-ui, sans-serif" font-size="23">香港回归事件 / 纪念金尖 / 手工调校线索 · 非比例原创示意</text>
+  <text x="104" y="388" fill="#817263" font-family="system-ui, sans-serif" font-size="18">不证明真实图案、编号、纯度、尺寸、颜色或礼盒配置</text>
+</svg>
