@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Paili brand and Paili 002 boundary diagram</title>
+  <desc id="desc">Factual editorial diagram connecting Paili to model 002 while keeping Paili 013 and Wing Sung 3013 as a separate research boundary. Not a product photograph and not to scale.</desc>
+  <rect width="1600" height="900" fill="#f2f0ea"/>
+  <rect x="90" y="90" width="1420" height="720" rx="36" fill="#fffdf8" stroke="#596a70" stroke-width="6"/>
+  <text x="150" y="180" fill="#2e3e44" font-family="sans-serif" font-size="58" font-weight="700">派利 Paili</text>
+  <text x="154" y="232" fill="#718087" font-family="sans-serif" font-size="28">品牌导航与型号边界</text>
+  <path d="M520 445H700" stroke="#61747a" stroke-width="10" fill="none"/>
+  <rect x="170" y="330" width="350" height="230" rx="26" fill="#dbe8e7" stroke="#596a70" stroke-width="6"/>
+  <text x="260" y="425" fill="#2e3e44" font-family="sans-serif" font-size="40" font-weight="700">Paili</text>
+  <text x="220" y="478" fill="#4f666d" font-family="sans-serif" font-size="27">派利品牌</text>
+  <text x="220" y="520" fill="#4f666d" font-family="sans-serif" font-size="22">资料和渠道较分散</text>
+  <rect x="700" y="330" width="300" height="230" rx="26" fill="#efe1be" stroke="#8b7446" stroke-width="6"/>
+  <text x="785" y="425" fill="#59492d" font-family="sans-serif" font-size="42" font-weight="700">002</text>
+  <text x="745" y="478" fill="#705c37" font-family="sans-serif" font-size="26">透明 · EF</text>
+  <text x="745" y="520" fill="#705c37" font-family="sans-serif" font-size="22">converter type</text>
+  <rect x="1080" y="300" width="330" height="290" rx="26" fill="#e4e7ef" stroke="#62718a" stroke-width="6"/>
+  <text x="1144" y="395" fill="#3d4d69" font-family="sans-serif" font-size="30" font-weight="700">013 / 3013</text>
+  <text x="1132" y="450" fill="#52627c" font-family="sans-serif" font-size="24">另一条产品线</text>
+  <text x="1125" y="495" fill="#52627c" font-family="sans-serif" font-size="22">真空／推杆资料</text>
+  <text x="1125" y="535" fill="#52627c" font-family="sans-serif" font-size="22">不可移植到 002</text>
+  <text x="150" y="745" fill="#718087" font-family="sans-serif" font-size="24">本站原创 factual SVG；非产品照片／非比例图／不代表 Logo、工厂、颜色或完整目录</text>
+</svg>
