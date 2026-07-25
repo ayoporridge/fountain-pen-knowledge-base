@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">The Wahl Pen factual diagram</title>
+  <desc id="desc">Original editorial diagram showing Boston, Tempoint and early Wahl Pen lineage, hard rubber, roller clip and lever boundaries. Not a product photograph and not to scale.</desc>
+  <rect width="1600" height="900" fill="#e9e5dc"/>
+  <rect x="70" y="70" width="1460" height="760" rx="34" fill="#fffdf8" stroke="#3d3934" stroke-width="4"/>
+  <text x="130" y="170" fill="#282522" font-family="sans-serif" font-size="60" font-weight="700">THE WAHL PEN</text>
+  <text x="134" y="225" fill="#71675e" font-family="sans-serif" font-size="28">1917–1920s · Boston / Tempoint legacy · early Wahl lineage</text>
+  <g font-family="sans-serif" font-size="34" font-weight="700" text-anchor="middle">
+    <rect x="150" y="325" width="300" height="130" rx="24" fill="#d8c2a5" stroke="#4a443e" stroke-width="6"/>
+    <text x="300" y="400" fill="#403933">Boston</text>
+    <rect x="650" y="325" width="300" height="130" rx="24" fill="#bd8d69" stroke="#4a443e" stroke-width="6"/>
+    <text x="800" y="400" fill="#fff7ed">Tempoint</text>
+    <rect x="1150" y="325" width="300" height="130" rx="24" fill="#403f55" stroke="#4a443e" stroke-width="6"/>
+    <text x="1300" y="400" fill="#f4efe5">Wahl Pen</text>
+  </g>
+  <g stroke="#75634f" stroke-width="8" fill="none">
+    <path d="M450 390 H650"/>
+    <path d="M950 390 H1150"/>
+    <path d="M620 370 l30 20 -30 20"/>
+    <path d="M1120 370 l30 20 -30 20"/>
+  </g>
+  <g transform="translate(210 570)">
+    <path d="M60 90 H820 C870 90 900 105 930 135 L990 180 L930 225 C900 255 870 270 820 270 H60 Z" fill="#2e303e" stroke="#403a35" stroke-width="9"/>
+    <path d="M60 90 H350 V270 H60 Z" fill="#3a3d50"/>
+    <path d="M360 90 H580 V270 H360 Z" fill="#6f443b" opacity=".92"/>
+    <path d="M390 90 V270 M430 90 V270 M470 90 V270" stroke="#ba8b6d" stroke-width="7" opacity=".6"/>
+    <circle cx="110" cy="180" r="25" fill="#c5a15c" stroke="#403a35" stroke-width="7"/>
+    <path d="M110 180 C150 160 165 180 190 160" fill="none" stroke="#d7c29a" stroke-width="10"/>
+    <rect x="590" y="255" width="170" height="24" rx="8" fill="#b79b67" stroke="#403a35" stroke-width="6"/>
+    <path d="M675 278 V355" stroke="#6c5941" stroke-width="15"/>
+  </g>
+  <g fill="#403b36" font-family="sans-serif" font-size="29">
+    <text x="205" y="795">硬橡胶／chasing · roller clip · lever filler</text>
+    <text x="1010" y="795">Tempoint、Wahl、Signature 尖按单支核对</text>
+  </g>
+</svg>
