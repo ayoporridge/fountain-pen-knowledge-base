@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">WingSung 840 factual diagram</title>
+  <desc id="desc">Editorial non-photographic diagram of a red lacquer barrel, gold cap and Triumph-style nib.</desc>
+  <rect width="1600" height="900" fill="#f5efe7"/>
+  <path d="M230 478h805c102 0 169-22 254-76l148-95 91 74-151 115c-93 71-174 101-291 101H230z" fill="#9f3e37" stroke="#552523" stroke-width="13"/>
+  <path d="M230 478h-55c-39 0-69 30-69 67s30 67 69 67h55z" fill="#c8a86a" stroke="#735a30" stroke-width="13"/>
+  <path d="M1092 316l190-125 88 72-184 131z" fill="#d3af63" stroke="#76572a" stroke-width="11"/>
+  <path d="M1285 263l121-78" stroke="#f0d692" stroke-width="10"/>
+  <path d="M1305 247l121-78" stroke="#f0d692" stroke-width="10"/>
+  <path d="M1380 180l143-61" stroke="#72562b" stroke-width="18" stroke-linecap="round"/>
+  <path d="M1380 180l143-61" stroke="#f0d692" stroke-width="5" stroke-linecap="round"/>
+  <path d="M815 615v91M930 615v91" stroke="#552523" stroke-width="8"/>
+  <path d="M790 706h170" stroke="#552523" stroke-width="9"/>
+  <text x="200" y="185" font-family="sans-serif" font-size="52" font-weight="700" fill="#552523">WINGSUNG 840</text>
+  <text x="200" y="240" font-family="sans-serif" font-size="28" fill="#76514d">red lacquer / gold cap / Triumph-style nib · not to scale</text>
+  <text x="760" y="785" font-family="sans-serif" font-size="32" fill="#552523">identification cues, not a product photograph</text>
+</svg>
