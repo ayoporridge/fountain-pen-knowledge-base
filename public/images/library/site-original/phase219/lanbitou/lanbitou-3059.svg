@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Lanbitou 3059 mechanism diagram</title>
+  <desc id="desc">Factual editorial diagram of a Lanbitou 3059 transparent piston pen with visible ink, piston knob, faceted grip and sample nib boundary. Not a product photograph and not to scale.</desc>
+  <rect width="1600" height="900" fill="#eef2f0"/>
+  <rect x="90" y="90" width="1420" height="720" rx="36" fill="#fffefa" stroke="#5b6a67" stroke-width="6"/>
+  <text x="150" y="180" fill="#30403b" font-family="sans-serif" font-size="58" font-weight="700">烂笔头 Lanbitou 3059</text>
+  <text x="154" y="232" fill="#728078" font-family="sans-serif" font-size="28">透明笔身 · 活塞 · 多面握区 · 尖幅按样本核对</text>
+  <g transform="translate(150 350)">
+    <rect x="0" y="90" width="720" height="112" rx="56" fill="#b5d6d3" fill-opacity=".7" stroke="#4e7474" stroke-width="8"/>
+    <path d="M75 95v102M145 95v102M215 95v102M285 95v102M355 95v102M425 95v102M495 95v102M565 95v102" stroke="#77a8a5" stroke-width="7" opacity=".65"/>
+    <rect x="610" y="78" width="150" height="136" rx="34" fill="#d4dce0" stroke="#536268" stroke-width="8"/>
+    <circle cx="838" cy="146" r="36" fill="#8b989b" stroke="#485458" stroke-width="8"/>
+    <path d="M760 146h42" stroke="#485458" stroke-width="12"/>
+    <path d="M0 146h-105" stroke="#4e7474" stroke-width="12"/>
+    <path d="M-105 146l70-38v76z" fill="#bec8ca" stroke="#4d595e" stroke-width="8"/>
+    <text x="60" y="278" fill="#30403b" font-family="sans-serif" font-size="28">透明活塞笔身</text>
+    <text x="610" y="278" fill="#30403b" font-family="sans-serif" font-size="27">活塞旋钮</text>
+    <text x="-5" y="335" fill="#30403b" font-family="sans-serif" font-size="26">笔尖：hooded／Lamy-style／1.5 stub 等样本需按 SKU 核对</text>
+  </g>
+  <g transform="translate(1070 515)">
+    <rect x="0" y="0" width="300" height="75" rx="37" fill="#d8e8e4" stroke="#5b7b75" stroke-width="6"/>
+    <rect x="26" y="18" width="174" height="39" rx="19" fill="#a4cec5"/>
+    <circle cx="251" cy="38" r="23" fill="#5b7b75"/>
+    <text x="0" y="126" fill="#30403b" font-family="sans-serif" font-size="26">大容量：资料未统一给出毫升值</text>
+  </g>
+  <text x="150" y="745" fill="#728078" font-family="sans-serif" font-size="24">本站原创 factual SVG；非产品照片／非比例图／不证明重量、容量、颜色、Logo 或具体批次</text>
+</svg>

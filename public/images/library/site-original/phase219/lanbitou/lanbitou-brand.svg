@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Lanbitou brand and 3059 editorial diagram</title>
+  <desc id="desc">Factual editorial diagram connecting Lanbitou to the 3059 transparent piston model and separating comparison language from TWSBI Eco identity. Not a product photograph and not to scale.</desc>
+  <rect width="1600" height="900" fill="#f2f1ec"/>
+  <rect x="90" y="90" width="1420" height="720" rx="36" fill="#fffdf8" stroke="#5f6c68" stroke-width="6"/>
+  <text x="150" y="180" fill="#31403c" font-family="sans-serif" font-size="58" font-weight="700">烂笔头 Lanbitou</text>
+  <text x="154" y="232" fill="#75807a" font-family="sans-serif" font-size="28">低价透明活塞路线（资料边界）</text>
+  <path d="M520 445H700" stroke="#677770" stroke-width="10" fill="none"/>
+  <rect x="170" y="330" width="350" height="230" rx="26" fill="#dce9df" stroke="#5f6c68" stroke-width="6"/>
+  <text x="245" y="425" fill="#31403c" font-family="sans-serif" font-size="38" font-weight="700">Lanbitou</text>
+  <text x="225" y="478" fill="#50645a" font-family="sans-serif" font-size="27">品牌资料分散</text>
+  <text x="225" y="520" fill="#50645a" font-family="sans-serif" font-size="22">评测与渠道为主</text>
+  <rect x="700" y="330" width="300" height="230" rx="26" fill="#e8dfc6" stroke="#89754d" stroke-width="6"/>
+  <text x="780" y="425" fill="#594a30" font-family="sans-serif" font-size="42" font-weight="700">3059</text>
+  <text x="746" y="478" fill="#6e5c3b" font-family="sans-serif" font-size="26">透明 · 活塞</text>
+  <text x="746" y="520" fill="#6e5c3b" font-family="sans-serif" font-size="22">低价试错路线</text>
+  <rect x="1080" y="300" width="330" height="290" rx="26" fill="#e4e8ef" stroke="#62728a" stroke-width="6"/>
+  <text x="1152" y="395" fill="#3d4d69" font-family="sans-serif" font-size="32" font-weight="700">TWSBI Eco</text>
+  <text x="1135" y="450" fill="#52637e" font-family="sans-serif" font-size="24">评测比较对象</text>
+  <text x="1128" y="495" fill="#52637e" font-family="sans-serif" font-size="22">不是品牌关系</text>
+  <text x="1128" y="535" fill="#52637e" font-family="sans-serif" font-size="22">不共享规格</text>
+  <text x="150" y="745" fill="#75807a" font-family="sans-serif" font-size="24">本站原创 factual SVG；非产品照片／非比例图／不代表 Logo、模具、颜色或完整目录</text>
+</svg>
