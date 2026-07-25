@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Jinhao 911 结构示意</title>
+  <desc id="desc">本站原创事实示意图，展示 911 的金属笔身、护尖、按压帽和 converter 关系，不代表产品照片或比例。</desc>
+  <rect width="1600" height="900" fill="#eeeef1"/>
+  <rect x="80" y="82" width="1440" height="736" rx="40" fill="#fff" stroke="#3f4650" stroke-width="4"/>
+  <text x="130" y="170" font-family="sans-serif" font-size="52" font-weight="700" fill="#303842">Jinhao 911 · hooded-nib boundary</text>
+  <text x="132" y="218" font-family="sans-serif" font-size="24" fill="#747b83">本站原创 factual SVG｜非产品照片｜not to scale｜不证明颜色与库存</text>
+  <g transform="translate(170 390)">
+    <rect x="190" y="85" width="820" height="132" rx="66" fill="#20252b" stroke="#303842" stroke-width="8"/>
+    <rect x="250" y="105" width="690" height="92" rx="46" fill="#333a40" opacity=".8"/>
+    <path d="M250 85h-118c-42 0-76 34-76 66s34 66 76 66h118" fill="#252b30" stroke="#303842" stroke-width="8"/>
+    <path d="M1010 85h130l95 66-95 66h-130z" fill="#30363c" stroke="#303842" stroke-width="8"/>
+    <path d="M1140 96l54 55-54 55" fill="none" stroke="#b88639" stroke-width="12"/>
+    <path d="M320 76v-45c0-20 16-36 36-36s36 16 36 36v45" fill="none" stroke="#303842" stroke-width="10"/>
+    <path d="M175 92h65v118h-65z" fill="#b9c0c5" stroke="#303842" stroke-width="6"/>
+    <path d="M175 130h65M175 166h65" stroke="#b88639" stroke-width="5"/>
+  </g>
+  <g font-family="sans-serif" font-size="30" fill="#303842">
+    <text x="235" y="675">黑色哑光金属笔身</text>
+    <text x="555" y="300">按压帽</text>
+    <text x="1030" y="675">EF 护尖约 0.38 mm</text>
+    <text x="485" y="760">converter／墨囊：套装附件按 SKU 核对</text>
+  </g>
+  <g stroke="#b88639" stroke-width="4" fill="none">
+    <path d="M350 650v-74"/><path d="M670 330v64"/><path d="M1140 650v-74"/>
+  </g>
+</svg>
