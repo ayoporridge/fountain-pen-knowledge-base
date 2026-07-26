@@ -20,8 +20,8 @@ const LOCKED_POST_INCIDENT_FINGERPRINT = {
     optional: false,
     size: "51404800",
     inode: "73526207",
-    mtimeNs: "1785102487131848686",
-    sha256: "3ab04f9142d0ae376ac3cf4b9aa56e10f1f3dea544a709654afbb532893f08b2",
+    mtimeNs: "1785102997509212103",
+    sha256: "a040a7efe5e6f5e5b97870c57f8426e73bcdefc47169f893720a892b237b3e45",
   },
   wal: {
     optional: true,
