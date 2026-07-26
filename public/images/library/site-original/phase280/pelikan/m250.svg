@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pelikan M250 identity boundary diagram</title>
+  <desc id="desc">Fountain Pen Graph original factual SVG. It is not a product photograph, not a Pelikan logo, not to scale, and not a colour proof.</desc>
+  <rect width="1600" height="900" fill="#f5f0e7"/>
+  <rect x="92" y="92" width="1416" height="716" rx="36" fill="#fffdf9" stroke="#7b5944" stroke-width="5"/>
+  <text x="150" y="185" font-family="sans-serif" font-size="58" font-weight="700" fill="#3d3029">Pelikan M250</text>
+  <text x="150" y="245" font-family="sans-serif" font-size="30" fill="#725d4c">Classic 200 小尺寸 · 14 ct／585 金尖 · 内置活塞</text>
+  <g transform="translate(160 330)">
+    <rect x="90" y="82" width="920" height="106" rx="53" fill="#3f5e49" stroke="#2e4235" stroke-width="6"/>
+    <rect x="940" y="68" width="180" height="134" rx="22" fill="#d3a54d" stroke="#8b692f" stroke-width="6"/>
+    <rect x="1120" y="84" width="170" height="102" rx="45" fill="#3f5e49" stroke="#2e4235" stroke-width="6"/>
+    <line x1="80" y1="58" x2="1270" y2="58" stroke="#a67b34" stroke-width="12"/>
+    <line x1="80" y1="214" x2="1270" y2="214" stroke="#a67b34" stroke-width="12"/>
+    <text x="120" y="285" font-family="sans-serif" font-size="28" fill="#3d3029">树脂笔杆／透明墨窗（版本不同）</text>
+    <text x="920" y="285" font-family="sans-serif" font-size="28" fill="#3d3029">金色饰件</text>
+  </g>
+  <g font-family="sans-serif" font-size="30" fill="#3d3029">
+    <text x="180" y="710">1985–1997：Old Style 档案窗口</text>
+    <text x="780" y="710">1997 后：改款／约 2000 年代初退出</text>
+    <text x="180" y="758">M200＝镀金钢尖；M205＝银色饰件；P200/P205＝墨囊</text>
+  </g>
+  <text x="150" y="850" font-family="sans-serif" font-size="22" fill="#6e6258">本站原创 factual SVG｜非产品照片｜非品牌 Logo｜非比例图｜非颜色校样</text>
+</svg>
