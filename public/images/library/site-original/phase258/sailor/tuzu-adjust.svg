@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sailor TUZU ADJUST factual diagram</title>
+  <desc id="desc">A non-photo, non-logo, not-to-scale, non-colour-proof diagram of the rotating nib and natural fit grip.</desc>
+  <rect width="1600" height="900" fill="#f5f1e8"/>
+  <g fill="none" stroke="#263238" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+    <path fill="#7d8f98" d="M180 486h880c100 0 190 22 280 72l110 62-42 66-132-35c-90-24-168-36-260-36H180z"/>
+    <path fill="#c5d2d5" d="M1030 486h142l106 66-34 72-214-38z"/>
+    <path fill="#d5a85d" d="M1030 486l-24-56 70-28 62 84z"/>
+    <path fill="#b5c5cb" d="M118 553h230l28 80H118z"/>
+    <path stroke="#a33b34" d="M1000 402c-52 42-76 88-76 137s24 95 76 137"/>
+    <path stroke="#a33b34" d="M1065 402c-52 42-76 88-76 137s24 95 76 137"/>
+    <path stroke="#a33b34" d="M1065 402l-38 32m38-32-7 49"/>
+    <path stroke="#a33b34" d="M1000 676l38-32m-38 32 7-49"/>
+    <path stroke="#263238" stroke-dasharray="18 18" d="M1080 300h310"/>
+  </g>
+  <g fill="#263238" font-family="Arial, sans-serif">
+    <text x="100" y="120" font-size="48" font-weight="700">Sailor TUZU ADJUST</text>
+    <text x="100" y="175" font-size="28">Rotating Nib Feature · Natural Fit Grip · cartridge / converter</text>
+    <text x="1110" y="350" font-size="32">10° 调节刻度</text>
+    <text x="1110" y="410" font-size="26">前端角度按握笔习惯微调</text>
+    <text x="170" y="735" font-size="32">不锈钢尖 F / M / B</text>
+    <text x="170" y="785" font-size="26">示意结构，不表示真实尺寸或颜色</text>
+    <text x="100" y="850" font-size="24">non-photo · non-logo · not-to-scale · non-colour-proof</text>
+  </g>
+</svg>
