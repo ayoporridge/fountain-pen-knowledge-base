@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pelikan M101N identity diagram</title>
+  <desc id="desc">Factual editorial diagram: M101N is a modern special and limited edition family inspired by the historical 1937 Model 100N, using piston filling and 14K or a documented 18K Jubilee nib by variant. Not a product photograph, logo, scale drawing, or colour proof.</desc>
+  <rect width="1600" height="900" fill="#f4efe8"/>
+  <text x="100" y="135" font-family="sans-serif" font-size="64" font-weight="700" fill="#222">Pelikan M101N</text>
+  <text x="100" y="205" font-family="sans-serif" font-size="30" fill="#555">modern special / limited editions · 100N-inspired silhouette · piston filling</text>
+  <rect x="210" y="360" width="940" height="92" rx="46" fill="#8b4d3e"/>
+  <rect x="1060" y="345" width="205" height="122" rx="28" fill="#c9a85a" stroke="#8d6a2d" stroke-width="8"/>
+  <path d="M1265 406 L1450 350 L1450 462 Z" fill="#c9a85a" stroke="#8d6a2d" stroke-width="8"/>
+  <circle cx="1110" cy="406" r="15" fill="#f0d98b"/>
+  <line x1="650" y1="330" x2="650" y2="255" stroke="#555" stroke-width="4"/>
+  <text x="400" y="235" font-family="sans-serif" font-size="30" fill="#222">modern 100N-inspired form</text>
+  <line x1="1140" y1="510" x2="1140" y2="585" stroke="#555" stroke-width="4"/>
+  <text x="865" y="640" font-family="sans-serif" font-size="30" fill="#222">14K standard / documented 18K Jubilee nib</text>
+  <line x1="430" y1="510" x2="430" y2="585" stroke="#555" stroke-width="4"/>
+  <text x="205" y="640" font-family="sans-serif" font-size="30" fill="#222">differential piston · 1.25 ml archive capacity</text>
+  <text x="100" y="800" font-family="sans-serif" font-size="25" fill="#6b6256">本站原创 factual SVG｜非产品照片｜非品牌 Logo｜非比例图｜非颜色校样</text>
+</svg>
