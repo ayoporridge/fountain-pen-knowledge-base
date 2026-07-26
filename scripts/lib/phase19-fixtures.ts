@@ -698,7 +698,9 @@ export async function seedQualifiedPublicationFixture(
       options.entityType,
       ids.entityId,
       text("Café qualification fixture"),
-      text("Qualified summary\nwith evidence"),
+      text(
+        "Café qualification fixture with a complete public-facing summary for contract checks.",
+      ),
       text("Qualified body\nwith canonical text"),
       "phase19-contract-fixture",
       `https://example.invalid/entities/${ids.entityId}`,

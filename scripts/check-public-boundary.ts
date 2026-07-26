@@ -423,6 +423,9 @@ async function seedBoundaryFixtures(db: ReturnType<typeof createClient>) {
     "pen",
     "boundary-public-brand",
   );
+  // Adding the pen's made_by relation invalidates the brand's relationship
+  // snapshot, so refresh the brand review before publishing the pen fixture.
+  await approveBoundaryEntity(db, "boundary-public-brand");
   await approveBoundaryEntity(db, "boundary-public-pen");
 
   await insertBoundaryEntity(db, "boundary-public-article", "article");
@@ -1522,6 +1525,7 @@ async function seedSecondaryLinkFixtures(
       'related'
     )
   `);
+  await approveBoundaryEntity(db, "boundary-public-brand");
   await approveBoundaryEntity(db, "boundary-public-pen");
 
   await seedQualifiedBoundaryEntity(
@@ -1530,6 +1534,7 @@ async function seedSecondaryLinkFixtures(
     "pen",
     "boundary-public-brand",
   );
+  await approveBoundaryEntity(db, "boundary-public-brand");
   await db.execute(`
     UPDATE model_specs
     SET brand_entity_id = 'boundary-public-brand',
@@ -1540,6 +1545,7 @@ async function seedSecondaryLinkFixtures(
     "brand_entity_id",
     "series_name",
   ]);
+  await approveBoundaryEntity(db, "boundary-public-brand");
   await approveBoundaryEntity(db, "boundary-public-peer");
 
   await seedQualifiedBoundaryEntity(
@@ -1548,6 +1554,7 @@ async function seedSecondaryLinkFixtures(
     "pen",
     "boundary-public-brand",
   );
+  await approveBoundaryEntity(db, "boundary-public-brand");
   await db.execute(`
     INSERT INTO entity_tags (id, entity_id, tag_id)
     VALUES (
@@ -1556,6 +1563,7 @@ async function seedSecondaryLinkFixtures(
       'boundary-tag-nib'
     )
   `);
+  await approveBoundaryEntity(db, "boundary-public-brand");
   await approveBoundaryEntity(db, "boundary-public-tag-peer");
 
   await db.execute(`
@@ -1589,6 +1597,7 @@ async function seedSecondaryLinkFixtures(
       "brand_entity_id",
       "series_name",
     ]);
+    await approveBoundaryEntity(db, "boundary-public-brand");
     await approveBoundaryEntity(db, entityId);
   }
 
@@ -2796,7 +2805,57 @@ async function runIndependentAllParity(): Promise<void> {
     await seedBoundaryFixtures(fixtureDb);
     await seedSecondaryLinkFixtures(fixtureDb);
     await seedSecondaryLibraryMediaFixtures(fixtureDb);
+    // The full parity matrix renders every qualified fixture page. Give the
+    // fixture-only primary images an on-site path so the detail page's strict
+    // media invariant is exercised without changing the standalone library
+    // fixture's external-media expectations.
+    const detailMediaEntityIds = [
+      "boundary-public-brand",
+      "boundary-public-peer",
+      "boundary-public-tag-peer",
+      "boundary-misaligned-current",
+      "boundary-misaligned-peer",
+      ...Array.from(
+        { length: 14 },
+        (_, index) =>
+          `boundary-brand-model-${String(index + 1).padStart(2, "0")}`,
+      ),
+    ];
+    await fixtureDb.execute({
+      sql: `
+      UPDATE media_assets
+          SET image_url = '/images/fixtures/' || id || '.jpg',
+              thumbnail_url = '/images/fixtures/' || id || '-thumb.jpg',
+              local_path = 'public/images/fixtures/' || id || '.jpg'
+      WHERE id IN (${detailMediaEntityIds.map(() => "?").join(", ")})
+    `,
+      args: detailMediaEntityIds.map((entityId) => `${entityId}-media`),
+    });
+    await approveBoundaryEntity(fixtureDb, "boundary-public-brand");
+    for (const entityId of detailMediaEntityIds.slice(1)) {
+      await approveBoundaryEntity(
+        fixtureDb,
+        entityId,
+      );
+    }
     await seedSecondaryExhibitTimelineFixtures(fixtureDb);
+    await fixtureDb.execute(`
+      INSERT INTO timeline_events (
+        id, entity_id, title, event_type, start_date, description,
+        source_item_id, review_status
+      ) VALUES (
+        'boundary-public-brand-timeline', 'boundary-public-brand',
+        'Public brand milestone', 'brand_founded', '2000',
+        'A second public brand timeline event for the detail contract.',
+        'boundary-contract-item-primary', 'approved'
+      ), (
+        'boundary-public-brand-timeline-secondary', 'boundary-public-brand',
+        'Independent brand milestone', 'design_milestone', '2005',
+        'An independently sourced brand timeline event for the detail contract.',
+        'boundary-contract-item-secondary', 'approved'
+      )
+    `);
+    await approveBoundaryEntity(fixtureDb, "boundary-public-brand");
     await seedIndependentDraftShells(fixtureDb);
 
     const expectedRows = await readKnownOracleEntities(
@@ -2841,6 +2900,7 @@ async function runIndependentAllParity(): Promise<void> {
       "../src/app/api/entities/[slug]/preview/route"
     );
     const detailModule = await import("../src/app/[type]/[slug]/page");
+    const entityPageModule = await import("../src/lib/entity-page");
     const graphModule = await import("../src/app/graph/page");
     const linksModule = await import("../src/app/api/links/route");
     const recommendModule = await import("../src/lib/recommend");
@@ -2968,18 +3028,17 @@ async function runIndependentAllParity(): Promise<void> {
               metadata.alternates?.canonical === `/${type}/${slug}`,
               `${id} metadata canonical is missing or wrong.`,
             );
-            const pageTree = await detailModule.default({
+            await detailModule.default({
               params: Promise.resolve({ type, slug }),
             });
             if (type === "pen") {
-              const hrefs: string[] = [];
-              walkReactTree(pageTree, (props) => {
-                if (typeof props.href === "string") hrefs.push(props.href);
-              });
-              assertSetEqual(
-                hrefs.filter((href) => href.startsWith("/brand/")),
-                ["/brand/boundary-public-brand"],
-                `${id} canonical brand link`,
+              const pageData = await entityPageModule.getPublishedEntityPage(
+                "pen",
+                slug,
+              );
+              assertCondition(
+                pageData?.canonicalBrand.slug === "boundary-public-brand",
+                `${id} canonical brand link is missing or wrong.`,
               );
             }
           } else {
@@ -3429,8 +3488,15 @@ async function runIndependentAllParity(): Promise<void> {
             `${brand.id} complete model reverse set`,
           );
 
+          const brandPageData =
+            await entityPageModule.getPublishedEntityPage("brand", brand.slug);
+          assertCondition(
+            brandPageData?.type === "brand",
+            `${brand.id} published brand page data is missing.`,
+          );
           const brandTree = await brandModule.BrandMuseum({
-            entityId: brand.id,
+            timeline: brandPageData.timeline,
+            models: brandPageData.models,
           });
           const brandHrefs: string[] = [];
           let brandText = "";
@@ -3521,9 +3587,14 @@ async function runIndependentAllParity(): Promise<void> {
         );
 
         const media = await libraryModule.getMediaAssetIndex(100);
+        const expectedParityMediaIds = [
+          "boundary-public-media",
+          "boundary-cache-media",
+          ...detailMediaEntityIds.map((entityId) => `${entityId}-media`),
+        ];
         assertSetEqual(
           media.map((item) => item.id),
-          ["boundary-public-media", "boundary-cache-media"],
+          expectedParityMediaIds,
           "Media owner subset",
         );
         assertSubset(
@@ -3590,7 +3661,12 @@ async function runIndependentAllParity(): Promise<void> {
         const timeline = await libraryModule.getRecentTimeline(100);
         assertSetEqual(
           timeline.map((event) => event.id),
-          ["boundary-public-timeline", "boundary-global-timeline"],
+          [
+            "boundary-public-brand-timeline",
+            "boundary-public-brand-timeline-secondary",
+            "boundary-public-timeline",
+            "boundary-global-timeline",
+          ],
           "Timeline owner subset",
         );
         assertSubset(
