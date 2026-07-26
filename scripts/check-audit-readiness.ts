@@ -47,6 +47,7 @@ const ARTIFACT_PROBE_SCRIPT_PATH = path.resolve(process.argv[1] ?? SCRIPT_PATH);
 const MIGRATIONS_DIR = path.join(ROOT, "migrations");
 const MIGRATION_030 = "030_publication_gate.sql";
 const MIGRATION_031 = "031_evidence_readiness_v2.sql";
+const MIGRATION_032 = "032_taxonomy_identity.sql";
 const MIGRATIONS_THROUGH_030 = [
   "001_init.sql",
   "002_schema.sql",
@@ -497,10 +498,10 @@ async function runBackupMigrationContract(): Promise<void> {
         `Source migration provenance is not exact 030: ${JSON.stringify(provenance)}.`,
       );
       assertCondition(
-        provenance.audit_schema_max_migration === 31 &&
-          provenance.audit_schema_migration_name === MIGRATION_031 &&
+        provenance.audit_schema_max_migration === 32 &&
+          provenance.audit_schema_migration_name === MIGRATION_032 &&
           provenance.audit_schema_migration_checksum ===
-            sha256File(path.join(MIGRATIONS_DIR, MIGRATION_031)) &&
+            sha256File(path.join(MIGRATIONS_DIR, MIGRATION_032)) &&
           provenance.audit_database_kind ===
             "owned_disposable_migrated_copy",
         `Audit migration provenance is not exact 031: ${JSON.stringify(provenance)}.`,
@@ -522,7 +523,7 @@ async function runBackupMigrationContract(): Promise<void> {
   });
 
   console.log(
-    "Audit checkpointed-copy migration passed: source provenance is exact migration 030, readiness runs only on the owned canonical 031 copy, and source main/WAL/SHM remain unchanged.",
+    "Audit checkpointed-copy migration passed: source provenance is exact migration 030, readiness runs only on the owned canonical latest copy, and source main/WAL/SHM remain unchanged.",
   );
 }
 
