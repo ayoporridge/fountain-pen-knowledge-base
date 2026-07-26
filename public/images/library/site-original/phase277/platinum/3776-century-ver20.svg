@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Platinum #3776 Century Ver.2.0 Prism Crystal factual diagram</title>
+  <desc id="desc">Editorial factual diagram for PNB-450; non-product photo, not to scale, no logo or color proof.</desc>
+  <rect width="1600" height="900" fill="#f7f5f0"/>
+  <rect x="90" y="90" width="1420" height="720" rx="36" fill="#fffdf8" stroke="#2d4d59" stroke-width="4"/>
+  <text x="150" y="180" fill="#2d4d59" font-family="sans-serif" font-size="42" font-weight="700">#3776 CENTURY Ver.2.0</text>
+  <text x="150" y="235" fill="#55656a" font-family="sans-serif" font-size="27">PNB-450 · #6 Prism Crystal · 2,000 支限量</text>
+  <g transform="translate(180 300)">
+    <rect x="0" y="90" width="880" height="90" rx="45" fill="#dbeaf0" stroke="#2d4d59" stroke-width="5"/>
+    <rect x="250" y="70" width="315" height="130" rx="20" fill="#eef8fb" stroke="#2d4d59" stroke-width="5"/>
+    <rect x="590" y="80" width="235" height="110" rx="20" fill="#d4e6eb" stroke="#2d4d59" stroke-width="5"/>
+    <path d="M825 90 L930 115 L930 155 L825 180 Z" fill="#b7ccd2" stroke="#2d4d59" stroke-width="5"/>
+    <circle cx="145" cy="135" r="18" fill="#d2a84f"/>
+    <circle cx="880" cy="135" r="18" fill="#d2a84f"/>
+    <text x="35" y="250" fill="#2d4d59" font-family="sans-serif" font-size="25">139.5 mm · Ø 15.4 mm · 20.0 g</text>
+  </g>
+  <g font-family="sans-serif" fill="#2d4d59" font-size="28">
+    <text x="180" y="635">14K 14-26 大型尖：F / M / B</text>
+    <text x="180" y="685">Converter-800A + 蓝黑墨囊</text>
+    <text x="850" y="635">改良 Slip &amp; Seal</text>
+    <text x="850" y="685">50°C / 40% RH · 九周加速测试</text>
+    <text x="850" y="735">结果可能因真实环境而异</text>
+  </g>
+  <text x="150" y="770" fill="#a04b38" font-family="sans-serif" font-size="24">示意图，非产品照片 · 非品牌 Logo · 非比例图 · 非颜色校样</text>
+</svg>
