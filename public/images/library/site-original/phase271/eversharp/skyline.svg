@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Eversharp Skyline factual diagram</title>
+  <desc id="desc">Non-photo, non-logo, not-to-scale, non-colour-proof diagram of the historical Eversharp Skyline fountain pen.</desc>
+  <rect width="1600" height="900" fill="#edf1f4"/>
+  <rect x="70" y="70" width="1460" height="760" rx="32" fill="#fbfcfd" stroke="#27323b" stroke-width="4"/>
+  <text x="130" y="150" fill="#27323b" font-family="Georgia,serif" font-size="58" font-weight="700">Eversharp Skyline</text>
+  <text x="132" y="198" fill="#65727c" font-family="Arial,sans-serif" font-size="24">FACTUAL DIAGRAM · NON-PHOTO · NON-LOGO · NOT-TO-SCALE · NON-COLOUR-PROOF</text>
+  <path d="M170 420 C250 350 340 350 470 385 L1080 385 Q1190 385 1270 420 L1080 455 L470 455 C340 490 250 490 170 420Z" fill="#8ea5b4" stroke="#27323b" stroke-width="7"/>
+  <path d="M1210 385 Q1320 335 1425 420 Q1320 505 1210 455Z" fill="#b5c5cc" stroke="#27323b" stroke-width="7"/>
+  <path d="M510 385 L560 455" stroke="#bd9a54" stroke-width="12"/>
+  <path d="M680 385 L730 455" stroke="#bd9a54" stroke-width="12"/>
+  <path d="M850 385 L900 455" stroke="#bd9a54" stroke-width="12"/>
+  <path d="M1090 350 Q1170 320 1240 360" fill="none" stroke="#bd9a54" stroke-width="14" stroke-linecap="round"/>
+  <text x="170" y="560" fill="#27323b" font-family="Arial,sans-serif" font-size="30">1941 spring launch · original production about 1941–1948</text>
+  <text x="170" y="615" fill="#27323b" font-family="Arial,sans-serif" font-size="30">lever filler + rubber sac · Demi / Standard / Executive</text>
+  <text x="170" y="670" fill="#27323b" font-family="Arial,sans-serif" font-size="30">Modern Stripe, celluloid, gold-filled and precious-metal variants</text>
+  <path d="M320 745 L560 745" stroke="#637783" stroke-width="8"/><path d="M320 730 L320 760 M560 730 L560 760" stroke="#637783" stroke-width="8"/>
+  <text x="600" y="755" fill="#27323b" font-family="Arial,sans-serif" font-size="28">approx. size tiers, not a measuring scale</text>
+</svg>
