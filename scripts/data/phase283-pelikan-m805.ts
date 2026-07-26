@@ -1,0 +1,57 @@
+import type { CuratedEntityPack, CuratedSource, SpecFieldKey } from "../lib/curated-content-pack";
+import { phase35PelikanSouveranVariantPacks } from "./phase35-pelikan-souveran-variants";
+
+const RETRIEVED = "2026-07-27";
+export const PHASE283_PELIKAN_ID = "VXUULuCOLOB1";
+export const PHASE283_M805_ID = "phase283-pelikan-m805";
+export const PHASE283_M805_SLUG = "pelikan-souveran-m805";
+const MODEL_SCOPE = "phase283-pelikan-souveran-m805";
+
+function source(input: { key: string; title: string; url: string; registryKey: string; registryName: string; sourceType: CuratedSource["sourceType"]; tier: CuratedSource["tier"]; group: string; summary: string; locator: string; itemType?: string }): CuratedSource {
+  return { key: input.key, registryKey: input.registryKey, registryName: input.registryName, sourceType: input.sourceType, tier: input.tier, independenceGroup: input.group, title: input.title, url: input.url, homepageUrl: new URL(input.url).origin, itemType: input.itemType ?? "web_page", author: input.registryName, retrievedAt: RETRIEVED, allowedUse: "summary_only", summary: input.summary, archiveUrl: input.url, archiveLocator: `live-source-not-frozen;retrieved=${RETRIEVED};external_archive=false;locator=${input.locator}` };
+}
+
+const blackBlue = source({ key: "phase283-pelikan-m805-black-blue", title: "Pelikan M805 Black-Blue official product record", url: "https://mam.pelikan.com/mam/en/pelikan/products/933432", registryKey: "pelikan-mam-phase283", registryName: "Pelikan official product archive", sourceType: "official", tier: "primary", group: "pelikan-mam-phase283", summary: "官方 MAM 资料列 M805 的差动活塞、18K 全铑金尖、EF/F/M/B、钯色饰件、条纹 cellulose acetate 与德国制造。", locator: "M805 Black-Blue product information and USP" });
+const black = source({ key: "phase283-pelikan-m805-black", title: "Pelikan M805 Black official product record", url: "https://mam.pelikan.com/mam/en/pelikan/products/925420", registryKey: "pelikan-mam-phase283", registryName: "Pelikan official product archive", sourceType: "official", tier: "primary", group: "pelikan-mam-phase283", summary: "官方黑色 M805 资料列高等级树脂、18K 全铑金尖、活塞、钯色饰件与德国制造。", locator: "M805 Black product information and nib field" });
+const archive = source({ key: "phase283-pelikan-m800-m805-archive", title: "Pelikan Collectibles：M800 & M805 Souverän", url: "https://www.pelikan-collectibles.com/en/Pelikan/Models/Souveraen-Series/M800-Basis/index.html", registryKey: "pelikan-collectibles-phase283", registryName: "Pelikan Collectibles", sourceType: "official", tier: "contemporary_archive", group: "pelikan-collectibles-phase283", summary: "专业档案记录 M805 约 2002 年起、141 mm、13 mm、29.3 g、1.35 ml，并列黑色、蓝条纹、深蓝、Stresemann 与特别版。", locator: "M805 chronology, measurements and variant table" });
+const index = source({ key: "phase283-pelikan-souveran-index", title: "Pelikan Collectibles：Souverän series index", url: "https://www.pelikan-collectibles.com/en/Pelikan/Models/Souveraen-Series/index.html", registryKey: "pelikan-collectibles-phase283", registryName: "Pelikan Collectibles", sourceType: "official", tier: "contemporary_archive", group: "pelikan-collectibles-phase283", summary: "官方档案索引把 M805 放入 M800 Basis，并与 M405、M605、M1000 等尺寸平台分开。", locator: "Souverän family index and M800 Basis boundary" });
+const perch = source({ key: "phase283-pelikan-timeline", title: "The Pelikan's Perch：Pelikan timeline", url: "https://thepelikansperch.com/database/timeline/", registryKey: "the-pelikans-perch-phase283", registryName: "The Pelikan's Perch", sourceType: "blog", tier: "professional_secondary", group: "the-pelikans-perch-phase283", summary: "专业资料用于交叉核对 Souverän 大尺寸家族与 M800/M805 关系；不替代官方 SKU 规格。", locator: "Pelikan model timeline and Souverän family boundary" });
+const care = source({ key: "phase283-pelikan-care-faq", title: "Pelikan FAQ：活塞钢笔上墨与清洗", url: "https://www.pelikan.com/int/products/writing/145-international/services/541-faq.html", registryKey: "pelikan-official-care-phase283", registryName: "Pelikan official site", sourceType: "official", tier: "primary", group: "pelikan-official-care-phase283", summary: "官方 FAQ 说明 Pelikan 活塞笔从瓶中吸墨、排空与清水清洁的基本路径。", locator: "Fine writing instruments FAQ: piston filling and cleaning" });
+const svg: CuratedSource = { key: "phase283-pelikan-m805-svg", registryKey: "fountain-pen-graph-editorial-phase283", registryName: "Fountain Pen Graph editorial studio", sourceType: "user_submission", tier: "primary", independenceGroup: "fountain-pen-graph-editorial-phase283", title: "Pelikan Souverän M805 identity boundary factual SVG", url: "/images/library/site-original/phase283/pelikan/m805.svg", homepageUrl: "/", itemType: "image", author: "Fountain Pen Graph editorial", retrievedAt: RETRIEVED, allowedUse: "store_full", license: "site-original", summary: "本站原创 factual SVG；非产品照片、非品牌 Logo、非比例图、非颜色校样。", archiveUrl: "/images/library/site-original/phase283/pelikan/m805.svg", archiveLocator: "project-public-asset:/images/library/site-original/phase283/pelikan/m805.svg;site-original=true;factual-svg=true;product-photo=false;logo=false;to-scale=false;colour-proof=false;dimensions=1600x900" };
+
+const brand = structuredClone(phase35PelikanSouveranVariantPacks[0]);
+if (!brand || brand.entityId !== PHASE283_PELIKAN_ID) throw new Error("Phase 283 Pelikan brand pack missing.");
+brand.key = "phase283-pelikan-brand-v1";
+function claim(key: string, predicate: string, objectText: string, sourceKey: string, locator: string, factClass: "core" | "editorial" = "core"): CuratedEntityPack["claims"][number] { return { key, predicate, objectText, factClass, confidence: factClass === "core" ? 0.97 : 0.93, sourceKey, locator, evidence: [{ key: `${key}-evidence`, sourceKey, locator, scopeKey: MODEL_SCOPE }] }; }
+function ev(key: string, fieldKey: SpecFieldKey, sourceKey: string, locator: string) { return { key, fieldKey, sourceKey, scopeKey: MODEL_SCOPE, locator, qualifies: true }; }
+
+const model: CuratedEntityPack = {
+  key: "phase283-pelikan-m805-v1", entityId: PHASE283_M805_ID, expectedType: "pen", expectedSlug: PHASE283_M805_SLUG, canonicalName: "Pelikan Souverän M805", publicationIntent: "publish", publicationBlockers: [], markdownFile: ".planning/content-research/pelikan-m805-phase283-publishable-content-2026-07-27.md", storyTitle: "Pelikan Souverän M805：M800 尺寸的银色饰件 18K 金尖活塞笔", primarySourceKey: blackBlue.key, depthTier: "A",
+  aliases: [{ alias: "Pelikan Souverän M805", language: "en", sourceKey: blackBlue.key }, { alias: "Pelikan M805", language: "en", sourceKey: archive.key }, { alias: "百利金 M805", language: "zh", sourceKey: black.key }],
+  sources: [blackBlue, black, archive, index, perch, care, svg],
+  scopes: [{ key: MODEL_SCOPE, scopeKey: MODEL_SCOPE, market: "Pelikan Souverän M805 historical and current SKU records", productionState: "current", nibScope: "18K/750 completely rhodium-plated gold nib; EF/F/M/B according to SKU", materialScope: "high-grade resin or striped cellulose acetate; silver/palladium-coloured trim", editionScope: "M805 Black, Blue-striped, Dark Blue, Stresemann and documented special editions; M800/M605/M405 excluded" }],
+  claims: [
+    claim("m805-identity", "model_identity", "M805 是 M800 尺寸平台的银色／钯色饰件 Souverän sibling，使用差动活塞与 18K/750 全铑金尖，不是 M800 的金色饰件别名。", blackBlue.key, "official M805 product identity"),
+    claim("m805-history", "production_history", "档案将 M805 基础路线记为约 2002 年起，并按黑色、蓝条纹、深蓝、Stresemann 与透明／蓝色特别版分开记录。", archive.key, "M805 chronology and variant entries"),
+    claim("m805-nib", "nib", "M805 官方 SKU 提供 18K/750 全铑镀金尖，EF/F/M/B 尖幅随产品记录而定；不能把 M800 金色尖或 M605 尖面直接泛化。", blackBlue.key, "18K rhodium-plated nib and nib widths"),
+    claim("m805-fill", "filling_system", "M805 使用 Pelikan 差动活塞，从瓶中吸入钢笔墨；它不是 P200/P205 等墨囊笔。", care.key, "piston filling FAQ"),
+    claim("m805-material", "material_finish", "银色／钯色饰件与高等级树脂或条纹 cellulose acetate 构成 M805 视觉路线；具体版本的条纹、透明度和帽色必须按 SKU 区分。", blackBlue.key, "M805 casing and trim USP"),
+    claim("m805-size", "physical_specification", "档案参考值约闭合 141 mm、直径 13 mm、29.3 g、容量 1.35 ml；不同年代与装墨状态不能当成统一公差。", archive.key, "M805 measurement table"),
+    claim("m805-secondary-history", "model_family_boundary", "M805 与 M800 同属大尺寸平台但饰件不同；M605 是 M600 尺寸，M405 是 M400 尺寸，均不能并入 M805。", perch.key, "professional timeline and Souverän family boundary"),
+    claim("m805-care", "maintenance_guidance", "换墨前排空旧墨，以冷至温清水缓慢吸排；活塞卡滞、裂纹或渗墨时停止强拧并交由专业维修者。", care.key, "official care path", "editorial"),
+    claim("m805-buying", "selection_guidance", "购买时核对大尺寸、银色／钯色饰件、18K/750 尖刻、帽色、条纹、尾钮、墨窗和货号；换过的 M800 尖不能证明整笔是 M805。", archive.key, "variant identification and buying boundary", "editorial"),
+  ],
+  variants: [
+    { key: "m805-black", name: "Black", notes: "黑色高等级树脂与银色／钯色饰件，档案记为约 2002 起。", sourceKey: archive.key, variantKind: "color", market: "global" },
+    { key: "m805-blue-striped", name: "Blue-striped", notes: "蓝条纹笔杆、黑帽与银色饰件，档案记为约 2003 起。", sourceKey: archive.key, variantKind: "color", market: "global" },
+    { key: "m805-dark-blue", name: "Dark Blue", notes: "深蓝版本，档案记为 2003。", sourceKey: archive.key, variantKind: "color", market: "global" },
+    { key: "m805-stresemann", name: "Stresemann", notes: "约 2015 起的灰黑条纹路线，使用银色饰件与全铑金尖。", sourceKey: archive.key, variantKind: "edition_group", market: "global" },
+    { key: "m805-ocean-swirl", name: "Ocean Swirl", notes: "2017 特别版窗口，蓝绿色纹理与银色饰件；不等同普通蓝条纹。", sourceKey: archive.key, variantKind: "edition_group", market: "global" },
+    { key: "m805-blue-dunes", name: "Blue Dunes", notes: "2019 特别版窗口，半透明蓝色路线；货号与尖幅按 SKU 核对。", sourceKey: archive.key, variantKind: "edition_group", market: "global" },
+  ],
+  spec: { brandEntityId: PHASE283_PELIKAN_ID, values: { series_name: "Souverän M805", release_year: "约 2002 起；Stresemann 约 2015、Ocean Swirl 2017、Blue Dunes 2019", origin_country: "德国品牌；官方 SKU 资料列德国制造", nib: "18K/750 全铑镀金尖；EF/F/M/B 依 SKU", fill_system: "差动活塞；瓶装钢笔墨水", material: "高等级树脂／条纹 cellulose acetate；银色／钯色饰件", dimensions: "档案参考：闭合约 141 mm、直径约 13 mm、约 29.3 g、容量约 1.35 ml", status: "Souverän M800 尺寸的银色／钯色饰件路线；基础色与特别版分开记录" }, evidence: [ev("m805-brand", "brand_entity_id", blackBlue.key, "Pelikan maker identity"), ev("m805-series", "series_name", blackBlue.key, "M805 heading"), ev("m805-release", "release_year", archive.key, "M805 chronology"), ev("m805-origin", "origin_country", black.key, "Made in Germany product field"), ev("m805-nib-field", "nib", blackBlue.key, "18K/750 nib and width rows"), ev("m805-fill-field", "fill_system", blackBlue.key, "piston filling USP"), ev("m805-material-field", "material", blackBlue.key, "casing and trim material"), ev("m805-dimensions", "dimensions", archive.key, "M805 measurement table"), ev("m805-status", "status", archive.key, "variant and production boundary")] },
+  timeline: [{ key: "m805-start", title: "M805 银色饰件路线进入大尺寸 Souverän 家族", eventType: "model_released", startDate: "2002", circa: true, description: "档案将 M805 基础路线置于约 2002 年起，随后出现蓝条纹、Stresemann 与多种特别版。", sourceKey: archive.key }, { key: "m805-special", title: "M805 特别版路线扩展", eventType: "design_milestone", startDate: "2015", circa: true, description: "透明、Stresemann、Ocean Swirl 与 Blue Dunes 等版本在档案中分开记录。", sourceKey: archive.key }],
+  media: [{ key: "m805-factual-primary", title: svg.title, sourceKey: svg.key, localPath: svg.url, author: "Fountain Pen Graph editorial", license: "site-original", attributionText: "本站原创 factual SVG；非产品照片、非品牌 Logo、非比例图或颜色校样。", sourceUrl: svg.url, usageStatus: "primary" }],
+};
+
+export const phase283PelikanM805Packs: CuratedEntityPack[] = [brand, model];
