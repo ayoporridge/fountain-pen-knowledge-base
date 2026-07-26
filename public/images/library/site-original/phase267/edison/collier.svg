@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Edison Collier 结构示意</title>
+  <desc id="desc">本站原创 factual SVG：示意圆润亚克力笔身、凹形握位与 converter；非产品照片、非 Logo、非真实比例、非颜色校样。</desc>
+  <rect width="1600" height="900" fill="#efe7dc"/>
+  <rect x="100" y="100" width="1400" height="700" rx="42" fill="#fffaf2" stroke="#3e3530" stroke-width="5"/>
+  <text x="150" y="180" font-family="sans-serif" font-size="44" fill="#3e3530">Edison Collier</text>
+  <text x="150" y="230" font-family="sans-serif" font-size="25" fill="#78675d">factual diagram · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+  <g transform="translate(170 365)">
+    <path d="M30 150 Q60 40 180 20 H760 Q865 25 940 90 L1030 150 L940 210 Q865 275 760 280 H180 Q60 260 30 150 Z" fill="#477b8d" stroke="#3e3530" stroke-width="7"/>
+    <path d="M420 45 Q460 85 455 150 Q450 215 420 255" fill="#e7c5a5" stroke="#3e3530" stroke-width="6"/>
+    <path d="M480 72 Q535 50 575 70 M480 228 Q535 250 575 230" fill="none" stroke="#fffaf2" stroke-width="7" opacity=".7"/>
+    <path d="M1030 150 L1130 108 L1260 128 L1320 150 L1260 172 L1130 192 Z" fill="#d6af60" stroke="#3e3530" stroke-width="7"/>
+    <path d="M1090 122 L1190 150 L1090 178" fill="none" stroke="#fffaf2" stroke-width="5"/>
+    <text x="520" y="350" font-family="sans-serif" font-size="28" fill="#3e3530">凹形握位</text>
+    <text x="1030" y="235" font-family="sans-serif" font-size="27" fill="#3e3530">JoWo 尖单元</text>
+    <rect x="220" y="390" width="300" height="70" rx="20" fill="#d9c7b0" stroke="#3e3530" stroke-width="5"/>
+    <path d="M255 425 H480" stroke="#6d8e93" stroke-width="14"/>
+    <text x="550" y="440" font-family="sans-serif" font-size="28" fill="#3e3530">国际墨囊／转换器</text>
+  </g>
+  <text x="150" y="730" font-family="sans-serif" font-size="23" fill="#78675d">示意图不证明实际颜色、材质纹理、尺寸、尖材、库存或订购路线。</text>
+</svg>

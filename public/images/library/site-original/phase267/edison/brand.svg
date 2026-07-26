@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Edison Pen Co 品牌路线示意</title>
+  <desc id="desc">本站原创 factual SVG：示意独立工作室、车床与 Signature/Production 路线；非产品照片、非 Logo、非真实比例、非颜色校样。</desc>
+  <rect width="1600" height="900" fill="#eee6da"/>
+  <rect x="100" y="100" width="1400" height="700" rx="42" fill="#fffaf2" stroke="#3e3530" stroke-width="5"/>
+  <text x="150" y="180" font-family="sans-serif" font-size="44" fill="#3e3530">Edison Pen Co</text>
+  <text x="150" y="230" font-family="sans-serif" font-size="25" fill="#78675d">factual diagram · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+  <g transform="translate(180 360)">
+    <circle cx="160" cy="160" r="115" fill="#a9a9a9" stroke="#3e3530" stroke-width="7"/>
+    <circle cx="160" cy="160" r="45" fill="#fffaf2" stroke="#3e3530" stroke-width="7"/>
+    <path d="M160 45 V275 M45 160 H275" stroke="#3e3530" stroke-width="7"/>
+    <path d="M275 160 H540" stroke="#3e3530" stroke-width="10"/>
+    <path d="M540 160 L620 100 L720 160 L620 220 Z" fill="#477b8d" stroke="#3e3530" stroke-width="7"/>
+    <path d="M720 160 H820" stroke="#3e3530" stroke-width="8"/>
+    <path d="M820 160 C930 60 1060 60 1130 160 C1060 260 930 260 820 160 Z" fill="#d6af60" stroke="#3e3530" stroke-width="7"/>
+    <text x="10" y="355" font-family="sans-serif" font-size="28" fill="#3e3530">手动车床与小团队</text>
+    <text x="540" y="355" font-family="sans-serif" font-size="28" fill="#3e3530">笔尖与车削件</text>
+    <text x="925" y="355" font-family="sans-serif" font-size="28" fill="#3e3530">可定制材料</text>
+  </g>
+  <path d="M280 710 H1320" stroke="#3e3530" stroke-width="6"/>
+  <text x="410" y="760" font-family="sans-serif" font-size="28" fill="#3e3530">Signature Line：定制沟通</text>
+  <text x="930" y="760" font-family="sans-serif" font-size="28" fill="#3e3530">Production Line：固定供货</text>
+</svg>
