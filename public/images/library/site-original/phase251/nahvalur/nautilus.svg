@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Nahvalur Nautilus 结构事实示意图</title>
+  <desc id="desc">本站原创 factual SVG，表现 ebonite oversize 笔身、三枚舷窗式墨窗和活塞尾旋钮；非产品照片、非 Logo、非比例图、非颜色校样。</desc>
+  <!-- Non-photo, non-logo, not-to-scale, non-colour-proof. -->
+  <rect width="1600" height="900" fill="#101923"/>
+  <rect x="72" y="72" width="1456" height="756" rx="42" fill="#1b2935" stroke="#8bb4b6" stroke-width="3"/>
+  <text x="120" y="154" fill="#d8eeee" font-family="sans-serif" font-size="42" font-weight="700">NAHVALUR NAUTILUS</text>
+  <text x="120" y="204" fill="#a9c7c8" font-family="sans-serif" font-size="24">ebonite piston filler · three porthole ink windows · No.6 steel nib</text>
+  <g transform="translate(150 350)">
+    <path d="M90 110 C180 34 410 0 890 28 L1080 82 L1140 138 L1080 194 L890 248 C410 276 180 242 90 166 Z" fill="#513f43" stroke="#e4b87a" stroke-width="7"/>
+    <path d="M1076 82 L1190 104 L1260 138 L1190 172 L1076 194 L1116 138 Z" fill="#d7d9d0" stroke="#e4b87a" stroke-width="7"/>
+    <path d="M1260 138 L1370 138" stroke="#e4b87a" stroke-width="16" stroke-linecap="round"/>
+    <circle cx="440" cy="138" r="36" fill="#83b6ba" stroke="#ebcf91" stroke-width="8"/>
+    <circle cx="560" cy="138" r="36" fill="#83b6ba" stroke="#ebcf91" stroke-width="8"/>
+    <circle cx="680" cy="138" r="36" fill="#83b6ba" stroke="#ebcf91" stroke-width="8"/>
+    <path d="M90 110 L24 138 L90 166" fill="#d7d9d0" stroke="#e4b87a" stroke-width="7"/>
+  </g>
+  <g fill="#d8eeee" font-family="sans-serif" font-size="26">
+    <text x="330" y="690">three porthole windows</text>
+    <text x="990" y="382">piston knob</text>
+    <text x="1170" y="520">No.6 steel nib</text>
+    <text x="230" y="385">ebonite barrel</text>
+  </g>
+  <path d="M500 650 L560 520" stroke="#9ed2d0" stroke-width="3"/>
+  <path d="M1070 400 L1040 500" stroke="#9ed2d0" stroke-width="3"/>
+  <path d="M1260 540 L1250 490" stroke="#9ed2d0" stroke-width="3"/>
+  <text x="120" y="770" fill="#a9c7c8" font-family="sans-serif" font-size="22">示意图只表达结构关系；颜色、比例、饰件和具体 SKU 以来源页面与实物为准。</text>
+</svg>
