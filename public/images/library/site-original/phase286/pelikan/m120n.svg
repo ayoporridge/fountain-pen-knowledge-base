@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pelikan M120N identity diagram</title>
+  <desc id="desc">Factual editorial diagram: M120N is a modern special-edition reissue of the historic Pelikan 120, with piston filling and a gold-plated stainless steel nib. Not a product photograph, logo, scale drawing, or colour proof.</desc>
+  <rect width="1600" height="900" fill="#eef2f5"/>
+  <text x="100" y="135" font-family="sans-serif" font-size="64" font-weight="700" fill="#222">Pelikan M120N</text>
+  <text x="100" y="205" font-family="sans-serif" font-size="30" fill="#555">modern 120 reissue · gold-plated steel nib · piston filling</text>
+  <rect x="205" y="360" width="960" height="92" rx="46" fill="#215a78"/>
+  <rect x="1080" y="345" width="205" height="122" rx="28" fill="#c69f4d" stroke="#85631e" stroke-width="8"/>
+  <path d="M1285 406 L1460 350 L1460 462 Z" fill="#c69f4d" stroke="#85631e" stroke-width="8"/>
+  <circle cx="1130" cy="406" r="15" fill="#f4d77f"/>
+  <line x1="650" y1="330" x2="650" y2="255" stroke="#555" stroke-width="4"/>
+  <text x="410" y="235" font-family="sans-serif" font-size="30" fill="#222">modern body: archive length 130 mm</text>
+  <line x1="1140" y1="510" x2="1140" y2="585" stroke="#555" stroke-width="4"/>
+  <text x="805" y="640" font-family="sans-serif" font-size="30" fill="#222">gold-plated stainless steel nib</text>
+  <line x1="430" y1="510" x2="430" y2="585" stroke="#555" stroke-width="4"/>
+  <text x="180" y="640" font-family="sans-serif" font-size="30" fill="#222">differential piston · 1.4 ml archive capacity</text>
+  <text x="100" y="800" font-family="sans-serif" font-size="25" fill="#6b6256">本站原创 factual SVG｜非产品照片｜非品牌 Logo｜非比例图｜非颜色校样</text>
+</svg>
