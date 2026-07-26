@@ -1,0 +1,64 @@
+import type { CuratedEntityPack, CuratedSource, SpecFieldKey } from "../lib/curated-content-pack";
+import { phase243ConwayStewartSeries100Packs } from "./phase243-conway-stewart-series-100";
+
+const RETRIEVED = "2026-07-27";
+export const PHASE270_BRAND_ID = "p243ConwayStewartBrand";
+export const PHASE270_CHURCHILL_ID = "phase270-conway-stewart-churchill";
+export const PHASE270_CHURCHILL_SLUG = "conway-stewart-churchill";
+const MODEL_SCOPE = "phase270-conway-stewart-churchill";
+
+function web(input: { key: string; title: string; url: string; registryKey: string; registryName: string; sourceType: CuratedSource["sourceType"]; tier: CuratedSource["tier"]; group: string; summary: string; locator: string }): CuratedSource {
+  return { key: input.key, registryKey: input.registryKey, registryName: input.registryName, sourceType: input.sourceType, tier: input.tier, independenceGroup: input.group, title: input.title, url: input.url, homepageUrl: new URL(input.url).origin, itemType: "web_page", author: input.registryName, retrievedAt: RETRIEVED, allowedUse: "summary_only", summary: input.summary, archiveUrl: input.url, archiveLocator: `live-source-not-frozen;retrieved=${RETRIEVED};external_archive=false;locator=${input.locator}` };
+}
+
+function diagram(key: string, title: string, localPath: string): CuratedSource {
+  return { key, registryKey: "fountain-pen-graph-editorial-phase270", registryName: "Fountain Pen Graph editorial studio", sourceType: "user_submission", tier: "primary", independenceGroup: "fountain-pen-graph-editorial-phase270", title, url: localPath, homepageUrl: "/", itemType: "image", author: "Fountain Pen Graph editorial", retrievedAt: RETRIEVED, allowedUse: "store_full", license: "site-original", summary: "本站原创 factual SVG；non-photo、non-logo、not-to-scale、non-colour-proof。", archiveUrl: localPath, archiveLocator: `project-public-asset:${localPath};site-original=true;factual-svg=true;product-photo=false;logo=false;to-scale=false;colour-proof=false;dimensions=1600x900` };
+}
+
+function claim(key: string, predicate: string, objectText: string, sourceKey: string, locator: string, factClass: "core" | "editorial" = "core"): CuratedEntityPack["claims"][number] {
+  return { key, predicate, objectText, factClass, confidence: factClass === "core" ? 0.99 : 0.95, sourceKey, locator, evidence: [{ key: `${key}-evidence`, sourceKey, locator, scopeKey: MODEL_SCOPE }] };
+}
+
+function ev(entityKey: string, fieldKey: SpecFieldKey, sourceKey: string, locator: string): NonNullable<CuratedEntityPack["spec"]>["evidence"][number] {
+  return { key: `${entityKey}-${fieldKey}`, fieldKey, sourceKey, scopeKey: MODEL_SCOPE, locator, qualifies: true };
+}
+
+const collection = web({ key: "phase270-cs-churchill-collection", title: "Conway Stewart Churchill fountain pen collection", url: "https://conwaystewart.com/en-us/collections/churchill", registryKey: "conway-stewart-churchill-collection-phase270", registryName: "Conway Stewart", sourceType: "official", tier: "primary", group: "conway-stewart-official-churchill-phase270", summary: "官方 Churchill 集合页说明 Winston Churchill inspiration、18ct gold nib standard，并分列 Classic、Bracket、Honey Noire、Chased 与限量 finish。", locator: "collection heading, nib notice, filters and product grid" });
+const product = web({ key: "phase270-cs-churchill-black-silver", title: "Conway Stewart Churchill Classic Black & Silver Fountain Pen", url: "https://conwaystewart.com/en-us/products/churchill-classic-black-silver", registryKey: "conway-stewart-churchill-black-silver-phase270", registryName: "Conway Stewart", sourceType: "official", tier: "primary", group: "conway-stewart-official-churchill-product-phase270", summary: "官方代表商品页给出黑色亚克力、五枚 solid sterling silver rings、English hallmarks、18ct gold two-tone nib、C/C 两用、146/181 mm、48 g 与 hand-made-to-order。", locator: "description, nib, filling mechanism, dimensions and delivery sections" });
+const fountain = web({ key: "phase270-cs-fountain-collection", title: "Conway Stewart fountain pen collection", url: "https://conwaystewart.com/en-us/collections/fountain-pen", registryKey: "conway-stewart-fountain-collection-phase270", registryName: "Conway Stewart", sourceType: "official", tier: "primary", group: "conway-stewart-official-fountain-phase270", summary: "官方总目录将 Churchill、Churchill Heritage、Duro、Marlborough、Series 100、Winston 等分成独立钢笔系列，并与 ballpoint、rollerball、propelling pencil 分开。", locator: "fountain pen navigation" });
+const history = web({ key: "phase270-cs-history", title: "Conway Stewart official history", url: "https://conwaystewart.com/en-us/pages/history", registryKey: "conway-stewart-history-phase270", registryName: "Conway Stewart", sourceType: "official", tier: "primary", group: "conway-stewart-official-history-phase270", summary: "官方历史页将 Churchill 的 1996 纪念节点、原 Plymouth 工厂停产与 2014 年后的 Bespoke British Pens 复兴分开叙述。", locator: "history timeline and revival boundary" });
+const review = web({ key: "phase270-cs-churchill-review", title: "The Pen Addict Churchill Peppered White review", url: "https://www.penaddict.com/blog/2019/5/3/conway-stewart-churchill-peppered-white-bespoke-fountain-pen-a-review", registryKey: "pen-addict-conway-stewart-churchill-phase270", registryName: "The Pen Addict", sourceType: "blog", tier: "professional_secondary", group: "pen-addict-conway-stewart-churchill-phase270", summary: "专业评测记录 Churchill Peppered White 样本的亚克力与 sterling silver 饰件、18k two-tone fine nib、cartridge/converter、体量和书写边界。", locator: "body, nib, filling and conclusion sections" });
+const svg = diagram("phase270-cs-churchill-svg", "Conway Stewart Churchill factual diagram", "/images/library/site-original/phase270/conway-stewart/churchill.svg");
+
+const model: CuratedEntityPack = {
+  key: "phase270-conway-stewart-churchill-v1", entityId: PHASE270_CHURCHILL_ID, expectedType: "pen", expectedSlug: PHASE270_CHURCHILL_SLUG, canonicalName: "Conway Stewart Churchill", publicationIntent: "publish", publicationBlockers: [], markdownFile: ".planning/content-research/conway-stewart-churchill-phase270.md", storyTitle: "Conway Stewart Churchill：英国复兴品牌的大型金尖路线", primarySourceKey: product.key, depthTier: "A",
+  aliases: [{ alias: "Conway Stewart Churchill", language: "en", sourceKey: collection.key }, { alias: "Churchill Fountain Pen", language: "en", sourceKey: product.key }, { alias: "康威·斯图尔特 Churchill", language: "zh", sourceKey: review.key }],
+  sources: [collection, product, fountain, history, review, svg],
+  scopes: [{ key: MODEL_SCOPE, scopeKey: MODEL_SCOPE, market: "Conway Stewart current website and reviewed modern revival samples", productionState: "current", nibScope: "Churchill fountain pens are listed with 18ct gold nibs as standard; width and special grinds are selected per order.", materialScope: "Classic Black Silver reference SKU is polished black acrylic with solid sterling silver fittings; other finishes are variants.", editionScope: "Churchill fountain pen family; ballpoints, rollerballs, pencils, Churchill Heritage and Lady Churchill excluded." }],
+  claims: [
+    claim("churchill-identity", "model_identity", "Conway Stewart Churchill 是一个独立的英国大型钢笔系列；官网把它与 Churchill Heritage、Lady Churchill、Duro 和 Series 100 分开列出，不能把同名圆珠笔或铅笔当作钢笔型号。", collection.key, "Churchill collection identity"),
+    claim("churchill-history", "historical_context", "官方历史页把 Churchill 的现代系列与 1996 年纪念 Winston Churchill 的节点相连；当前商品由 Bespoke British Pens 运营，不能把现代复兴写成原公司连续无缝生产。", history.key, "Churchill and revival timeline"),
+    claim("churchill-material", "material_finish", "Classic Black Silver 代表 SKU 使用高抛黑色亚克力笔身、五枚 solid sterling silver rings 和带 English hallmarks 的宽帽环；Peppered White 等颜色与纹理属于 finish variant。", product.key, "description and silver fittings"),
+    claim("churchill-nib", "nib_specification", "官网将 Churchill fountain pens 的 18ct gold nib 列为标准；Classic Black Silver 商品页提供 18ct two-tone、Extra Fine/Fine/Medium/Broad，并可定制 Italic、Left Oblique、Right Oblique 或 Stub。", product.key, "collection nib notice and product nib options"),
+    claim("churchill-fill", "filling_system", "Classic Black Silver 使用 converter 从瓶装墨水吸墨，取下 converter 后可用 standard European ink cartridges，随笔附两支墨囊；专业评测的 Peppered White 样本也归为 cartridge/converter。", product.key, "filling mechanism"),
+    claim("churchill-size", "physical_specification", "Classic Black Silver 官方尺寸为闭盖 146 mm、帖帽 181 mm、含尖笔杆 138 mm、帽长 70 mm、笔杆直径 15 mm、帽直径 17.5 mm。", product.key, "dimensions and weight"),
+    claim("churchill-weight", "physical_specification", "Classic Black Silver 官方重量为 48 g；银饰和不同 finish 会影响实物重感，不能用 Peppered White 评测样本替代 exact SKU。", product.key, "weight field and finish boundary"),
+    claim("churchill-review-crosscheck", "professional_review_boundary", "The Pen Addict 的 Peppered White 样本独立确认 Churchill 的大型体量、亚克力与 sterling silver 饰件及 cartridge/converter 路线；其 Fine 尖写感和样本价格不应回填为所有版本的统一规格。", review.key, "independent model review boundary"),
+    claim("churchill-variants", "finish_variants", "当前 Churchill 集合同时列 Classic Black Gold/Silver、Classic Green、Honey Noire、Bracket、Chased、Burgundy、Stardust、限量合作款等；它们是颜色、饰件或 edition variant，不拆成同一基础型号。", collection.key, "collection product grid"),
+    claim("churchill-care", "maintenance_guidance", "C/C Churchill 清洗时先取下墨囊或 converter，用清水缓慢冲洗并完全干燥；亚克力、镀饰和 sterling silver 不适合酒精、研磨剂、高温或硬物摩擦，银件 hallmark 与凹痕交给专业维修。", product.key, "conservative care guidance", "editorial"),
+    claim("churchill-selection", "selection_guidance", "Churchill 体量和 48 g 级别的银饰版本适合喜欢存在感的使用者；小手或长时间速记应先试握不帖帽与帖帽两种姿态，并在订单中写明尖宽、finish、converter、编号和售后。", review.key, "size, balance and review boundary", "editorial"),
+  ],
+  variants: [
+    { key: "churchill-classic-black-silver", name: "Classic Black Silver", notes: "本页代表 SKU；黑色亚克力、solid sterling silver 饰件、18ct two-tone nib。", sourceKey: product.key, variantKind: "material", market: "global" },
+    { key: "churchill-classic-black-gold", name: "Classic Black Gold", notes: "Churchill 集合中的金色饰件路线；规格与库存按对应商品页核对。", sourceKey: collection.key, variantKind: "material", market: "global" },
+    { key: "churchill-lever-fill", name: "Classic Green / Honey Noire Lever-Fill", notes: "杠杆填充 sibling route；不能把 lever-fill 结构回填到 Classic Black Silver C/C SKU。", sourceKey: collection.key, variantKind: "edition_group", market: "global" },
+    { key: "churchill-peppered-white", name: "Peppered White", notes: "专业评测样本的亚克力 finish；评测规格与当前 Classic Black Silver 分开。", sourceKey: review.key, variantKind: "color", market: "global" },
+  ],
+  spec: { brandEntityId: PHASE270_BRAND_ID, values: { series_name: "Churchill", origin_country: "英国；现代 Conway Stewart 由 Bespoke British Pens 运营并在英国手工制作", nib: "18ct gold two-tone Conway Stewart nib standard；Extra Fine/Fine/Medium/Broad，另可定制 Italic/Oblique/Stub", fill_system: "dual filling：converter 吸瓶装墨水，或 standard European ink cartridges；随附两支墨囊", material: "Classic Black Silver 为 polished black acrylic；五枚 solid sterling silver rings 与 English hallmarks 帽环", dimensions: "闭盖 146 mm；帖帽 181 mm；含尖笔杆 138 mm；帽长 70 mm；笔杆直径 15 mm；帽直径 17.5 mm", weight: "48 g（Classic Black Silver 官方商品页）", price_range: "Classic Black Silver 官方页面检索日约 802 美元；finish、定制、税费与库存会变化" }, evidence: [ev("churchill", "brand_entity_id", history.key, "Conway Stewart brand history"), ev("churchill", "series_name", collection.key, "Churchill collection title"), ev("churchill", "origin_country", history.key, "British revival boundary"), ev("churchill", "nib", product.key, "18ct gold nib options"), ev("churchill", "fill_system", product.key, "converter and standard European cartridges"), ev("churchill", "material", product.key, "black acrylic and sterling silver fittings"), ev("churchill", "dimensions", product.key, "official dimensions"), ev("churchill", "weight", product.key, "official weight"), ev("churchill", "price_range", product.key, "mutable current price")] },
+  timeline: [{ key: "churchill-1996", title: "Churchill 系列纪念节点", eventType: "model_released", startDate: "1996", circa: false, description: "官方历史页把 1996 年写作推出 Churchill 以纪念 Winston Churchill；这是系列历史节点，不是当前 Classic Black Silver SKU 的制造日期。", sourceKey: history.key }, { key: "churchill-current", title: "现代 Churchill 目录核实", eventType: "design_milestone", startDate: RETRIEVED, circa: false, description: "当前官网集合与代表商品页核实 18ct gold nib、C/C 路线、finish 边界和手工按单制作。", sourceKey: product.key }],
+  media: [{ key: "churchill-svg", title: svg.title, sourceKey: svg.key, localPath: svg.url, author: "Fountain Pen Graph editorial", license: "site-original", attributionText: "本站原创 factual SVG；非产品实拍、非品牌 Logo、非比例图或颜色校样。", sourceUrl: svg.url, usageStatus: "primary" }],
+};
+
+const existingBrandPack = phase243ConwayStewartSeries100Packs.find((pack) => pack.entityId === PHASE270_BRAND_ID);
+if (!existingBrandPack) throw new Error("Phase 270 requires the existing Conway Stewart brand pack.");
+export const phase270ConwayStewartChurchillPacks: CuratedEntityPack[] = [existingBrandPack, model];

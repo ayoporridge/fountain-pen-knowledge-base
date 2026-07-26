@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Conway Stewart Churchill factual diagram</title>
+  <desc id="desc">Non-photo, non-logo, not-to-scale, non-colour-proof diagram of the Churchill fountain pen.</desc>
+  <rect width="1600" height="900" fill="#f6f1e8"/>
+  <rect x="70" y="70" width="1460" height="760" rx="32" fill="#fffdf8" stroke="#272522" stroke-width="4"/>
+  <text x="130" y="150" fill="#272522" font-family="Georgia,serif" font-size="58" font-weight="700">Conway Stewart Churchill</text>
+  <text x="132" y="198" fill="#655e55" font-family="Arial,sans-serif" font-size="24">FACTUAL DIAGRAM · NON-PHOTO · NON-LOGO · NOT-TO-SCALE · NON-COLOUR-PROOF</text>
+  <line x1="180" y1="410" x2="1215" y2="410" stroke="#171717" stroke-width="46" stroke-linecap="round"/>
+  <path d="M1215 410 L1370 410 L1470 360 L1470 460 L1370 410 Z" fill="#c6a75a" stroke="#171717" stroke-width="6"/>
+  <rect x="350" y="350" width="80" height="120" rx="14" fill="#c5c8c9" stroke="#171717" stroke-width="5"/>
+  <rect x="470" y="350" width="80" height="120" rx="14" fill="#c5c8c9" stroke="#171717" stroke-width="5"/>
+  <rect x="590" y="350" width="80" height="120" rx="14" fill="#c5c8c9" stroke="#171717" stroke-width="5"/>
+  <rect x="710" y="350" width="80" height="120" rx="14" fill="#c5c8c9" stroke="#171717" stroke-width="5"/>
+  <rect x="830" y="350" width="80" height="120" rx="14" fill="#c5c8c9" stroke="#171717" stroke-width="5"/>
+  <text x="180" y="530" fill="#272522" font-family="Arial,sans-serif" font-size="30">146 mm closed · 181 mm posted · 48 g reference SKU</text>
+  <text x="180" y="585" fill="#272522" font-family="Arial,sans-serif" font-size="30">18ct gold two-tone nib · EF/F/M/B · Italic / Oblique / Stub options</text>
+  <text x="180" y="640" fill="#272522" font-family="Arial,sans-serif" font-size="30">Classic Black Silver: acrylic body + sterling silver fittings</text>
+  <path d="M300 735 C420 680 540 680 660 735" fill="none" stroke="#9b6b4a" stroke-width="8"/>
+  <circle cx="300" cy="735" r="15" fill="#9b6b4a"/><circle cx="660" cy="735" r="15" fill="#9b6b4a"/>
+  <text x="720" y="745" fill="#272522" font-family="Arial,sans-serif" font-size="30">dual filling: converter ↔ standard European cartridge</text>
+  <text x="180" y="790" fill="#655e55" font-family="Arial,sans-serif" font-size="22">Churchill collection includes separate colours, lever-fill editions and limited editions; verify exact SKU.</text>
+</svg>
