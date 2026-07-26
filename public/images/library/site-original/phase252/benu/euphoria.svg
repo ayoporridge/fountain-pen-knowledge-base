@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">BENU Euphoria structure factual diagram</title>
+  <desc id="desc">Non-photo, non-logo, not-to-scale, non-colour-proof editorial diagram. It shows a faceted resin body, a number six steel nib and international cartridge or converter filling.</desc>
+  <!-- Non-photo, non-logo, not-to-scale, non-colour-proof. -->
+  <rect width="1600" height="900" fill="#fffaf2"/>
+  <g stroke="#2f3040" stroke-width="8" stroke-linejoin="round">
+    <path d="M300 450 L430 350 L1130 350 L1280 450 L1130 550 L430 550 Z" fill="#d7a2c8"/>
+    <path d="M430 350 L500 260 L1060 260 L1130 350 Z" fill="#f0c7dc"/>
+    <path d="M430 550 L500 640 L1060 640 L1130 550 Z" fill="#b87fae"/>
+    <path d="M1130 350 L1280 450 L1130 550" fill="#9e6b99"/>
+    <path d="M300 450 L190 450 L90 410 L90 490 L190 450" fill="#d9dde6"/>
+    <path d="M1280 450 L1390 450 L1470 420 L1470 480 L1390 450" fill="#d9dde6"/>
+    <path d="M615 278 L680 210 L745 278 L680 346 Z" fill="#f5d77a"/>
+    <path d="M760 278 L825 210 L890 278 L825 346 Z" fill="#f5d77a"/>
+  </g>
+  <g font-family="system-ui, sans-serif" fill="#2f3040">
+    <text x="120" y="120" font-size="54" font-weight="700">BENU Euphoria</text>
+    <text x="120" y="185" font-size="30">结构关系示意；不是产品照片</text>
+    <text x="145" y="760" font-size="34">多面树脂／亚克力类树脂</text>
+    <text x="580" y="820" font-size="34">#6 钢尖：F／M／B（尖单元按 SKU）</text>
+    <text x="1040" y="760" font-size="34">国际规格墨囊／转换器</text>
+    <text x="120" y="865" font-size="24">颜色、闪粉、发光效果和具体尖座不由此图推断</text>
+  </g>
+</svg>
