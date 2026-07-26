@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Magna Carta Mag 600 factual diagram</title>
+  <desc id="desc">Editorial non-photo diagram of a large resin Mag 600 fountain pen with 14K true flex nib, ebonite feed and cartridge converter.</desc>
+  <!-- AI-assisted editorial illustration, non-photo, non-logo, not-to-scale, non-colour-proof. -->
+  <rect width="1600" height="900" fill="#f3eee6"/>
+  <rect x="80" y="82" width="1440" height="736" rx="32" fill="#fffaf3" stroke="#54443e" stroke-width="4"/>
+  <text x="130" y="168" font-family="Georgia,serif" font-size="52" fill="#3b2f2a">Magna Carta Mag 600</text>
+  <text x="132" y="215" font-family="Arial,sans-serif" font-size="25" fill="#745f56">artisan resin · 14K True Flex · cartridge / converter · editorial facts</text>
+  <g transform="translate(170 330)">
+    <path d="M65 66h500c44 0 76 32 76 74s-32 74-76 74H65c-36 0-62-30-62-74s26-74 62-74Z" fill="#5f8f9e" fill-opacity=".82" stroke="#3b2f2a" stroke-width="6"/>
+    <rect x="565" y="66" width="74" height="148" rx="18" fill="#d6ae5b" stroke="#3b2f2a" stroke-width="6"/>
+    <path d="M639 92h145l112 48-112 48H639Z" fill="#cfd1d2" stroke="#3b2f2a" stroke-width="6"/>
+    <path d="M800 112l125 28-125 28Z" fill="#d6ae5b" stroke="#3b2f2a" stroke-width="6"/>
+    <line x1="25" y1="260" x2="900" y2="260" stroke="#745f56" stroke-width="3" stroke-dasharray="12 12"/>
+    <text x="250" y="315" font-family="Arial,sans-serif" font-size="24" fill="#3b2f2a">official SKU: 146 mm capped · section 10.70 mm · cap Ø16.40 mm</text>
+  </g>
+  <g font-family="Arial,sans-serif" font-size="24" fill="#3b2f2a">
+    <rect x="140" y="650" width="390" height="92" rx="18" fill="#d7e6ea"/><text x="179" y="706">artisan resin body</text>
+    <rect x="605" y="650" width="390" height="92" rx="18" fill="#ead9aa"/><text x="645" y="706">14K #6 True Flex</text>
+    <rect x="1070" y="650" width="360" height="92" rx="18" fill="#dfd7d0"/><text x="1105" y="706">ebonite feed + converter</text>
+  </g>
+  <text x="130" y="785" font-family="Arial,sans-serif" font-size="19" fill="#745f56">non-photo · non-logo · not-to-scale · non-colour-proof · 仅作事实示意</text>
+</svg>
