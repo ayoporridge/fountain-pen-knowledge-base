@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Opus 88 Premium Opera 身份边界示意</title>
+  <desc id="desc">本站原创 factual diagram，标出透明树脂笔身、漆面 Dot 帽、Bock Type 250 与日式滴入式止墨阀；非产品照片、非品牌 Logo、非比例图、非颜色校样。</desc>
+  <rect width="960" height="540" rx="28" fill="#e7e1d8"/>
+  <rect x="54" y="54" width="852" height="432" rx="24" fill="#fffdf8" stroke="#4a3a31" stroke-width="4"/>
+  <text x="88" y="112" font-family="serif" font-size="35" font-weight="700" fill="#4a3a31">Opus 88 Premium Opera</text>
+  <text x="88" y="144" font-family="sans-serif" font-size="18" fill="#806a5c">transparent resin · lacquered Dot cap · Bock 250 eyedropper</text>
+  <path d="M144 278 C254 230 432 230 600 278 L778 278" fill="none" stroke="#a86f55" stroke-width="46" stroke-linecap="round"/>
+  <path d="M602 250 l74 -25 l-18 25 l18 25 z" fill="#d5d9de" stroke="#4a3a31" stroke-width="3"/>
+  <path d="M778 256 l52 22 l-52 22 z" fill="#c89d74" stroke="#4a3a31" stroke-width="3"/>
+  <circle cx="224" cy="278" r="12" fill="#fff5d8" stroke="#4a3a31" stroke-width="3"/>
+  <circle cx="260" cy="278" r="12" fill="#fff5d8" stroke="#4a3a31" stroke-width="3"/>
+  <circle cx="296" cy="278" r="12" fill="#fff5d8" stroke="#4a3a31" stroke-width="3"/>
+  <text x="130" y="352" font-family="sans-serif" font-size="20" fill="#4a3a31">透明树脂笔身</text>
+  <text x="410" y="352" font-family="sans-serif" font-size="20" fill="#4a3a31">Bock Type 250 钢尖</text>
+  <text x="704" y="352" font-family="sans-serif" font-size="20" fill="#4a3a31">止墨阀</text>
+  <path d="M172 414 H788" stroke="#b9a693" stroke-width="3" stroke-dasharray="10 8"/>
+  <text x="114" y="451" font-family="sans-serif" font-size="16" fill="#806a5c">日式滴入式 · 使用附带滴管 · 不接受墨囊 · Brown/Blue/Green/Grey Dot 是颜色变体</text>
+  <text x="114" y="474" font-family="sans-serif" font-size="14" fill="#806a5c">非产品照片 · 非品牌 Logo · 非比例图 · 非颜色校样</text>
+</svg>
