@@ -5,11 +5,14 @@ import os from "node:os";
 import path from "node:path";
 import { createClient, type Client } from "@libsql/client";
 import Database from "better-sqlite3";
-import { assertDatabaseReady, resolveDatabaseConnection } from "../src/lib/db";
+import {
+  assertDatabaseReady,
+  migrateDatabase,
+  resolveDatabaseConnection,
+} from "../src/lib/db";
 import {
   assertCatalogSnapshotUnchanged,
   backupCatalogToDisposableCopy,
-  copyCheckpointedCatalogToDisposableCopy,
   openReadOnlyCatalog,
   snapshotCatalogFiles,
 } from "../src/lib/audit/read-only-catalog";
@@ -34,6 +37,7 @@ const MIGRATION_030_PATH = path.join(
   "migrations",
   "030_publication_gate.sql",
 );
+const MIGRATION_030 = "030_publication_gate.sql";
 const MIGRATION_031_PATH = path.join(
   ROOT,
   "migrations",
@@ -370,6 +374,38 @@ function prepareUpgradeSource(sourcePath: string): UpgradeSourceState {
   }
 }
 
+async function createMigration030Source(
+  sourcePath: string,
+  tempRoot: string,
+): Promise<UpgradeSourceState> {
+  createFreshSource(sourcePath);
+  const migrationsDir = path.join(tempRoot, "migrations-through-030");
+  fs.mkdirSync(migrationsDir);
+  const files = fs
+    .readdirSync(path.dirname(MIGRATION_030_PATH))
+    .filter((file) => file.endsWith(".sql") && file <= MIGRATION_030)
+    .sort();
+  assertCondition(
+    files.at(-1) === MIGRATION_030 &&
+      !files.includes("031_evidence_readiness_v2.sql") &&
+      !files.includes("032_taxonomy_identity.sql"),
+    "Upgrade source migration fixture did not stop at migration 030.",
+  );
+  for (const file of files) {
+    fs.copyFileSync(
+      path.join(path.dirname(MIGRATION_030_PATH), file),
+      path.join(migrationsDir, file),
+    );
+  }
+  const client = createClient({ url: `file:${sourcePath}` });
+  try {
+    await migrateDatabase(client, { migrationsDir });
+  } finally {
+    client.close();
+  }
+  return prepareUpgradeSource(sourcePath);
+}
+
 function runCanonicalMigration(fixture: MigrationFixture): string {
   const child = spawnSync("pnpm", ["migrate"], {
     cwd: ROOT,
@@ -404,19 +440,12 @@ async function createMigrationFixture(
   const databasePath = path.join(tempRoot, "fixture.db");
 
   try {
-    if (kind === "fresh") createFreshSource(sourcePath);
-    else {
-      copyCheckpointedCatalogToDisposableCopy(
-        REAL_CATALOG_PATH,
-        sourcePath,
-        tempRoot,
-        { expectedSourceSnapshot: realBefore },
-      );
-    }
-
     const upgradeSource = kind === "upgrade"
-      ? prepareUpgradeSource(sourcePath)
-      : { lifecycleBefore: [], legacyNonBrandBefore: [] };
+      ? await createMigration030Source(sourcePath, tempRoot)
+      : (createFreshSource(sourcePath), {
+          lifecycleBefore: [],
+          legacyNonBrandBefore: [],
+        });
     const source = openReadOnlyCatalog(sourcePath, {
       env: migrationEnvironment(`file:${databasePath}`),
     });
@@ -583,9 +612,9 @@ async function assertUpgradeLifecycle(
       `${entityId} expected ${expectedStatus} after contract upgrade, got ${String(row.status)}.`,
     );
     assertCondition(
-      Number(row.contentRevision) === old.contentRevision &&
+      Number(row.contentRevision) === old.contentRevision + 1 &&
         String(row.createdAt) === old.createdAt,
-      `${entityId} lost lifecycle identity/revision during table rebuild.`,
+      `${entityId} lost lifecycle identity or contract-v3 revision bump during table rebuild.`,
     );
     for (const field of [
       "approved_content_hash",
@@ -851,7 +880,7 @@ function publicationState(
 }
 
 function contract2Hash(sequence: number): string {
-  return `sha256:v2:${sequence.toString(16).padStart(64, "0")}`;
+  return `sha256:v3:${sequence.toString(16).padStart(64, "0")}`;
 }
 
 function setContract2ReviewSnapshot(
@@ -868,7 +897,7 @@ function setContract2ReviewSnapshot(
             blockers_json = '[]',
             approved_content_hash = ?,
             reviewed_content_revision = content_revision,
-            reviewed_contract_version = 2,
+            reviewed_contract_version = 3,
             reviewed_by = 'phase19-contract-reviewer',
             reviewed_at = '2026-07-16T00:00:00.000Z',
             published_at = '2026-07-16T00:00:01.000Z'
@@ -921,7 +950,7 @@ function publishReviewedEntity(
       `
         SELECT blocker_code AS blockerCode, detail_key AS detailKey
         FROM publication_blockers
-        WHERE entity_id = ? AND contract_version = 2
+        WHERE entity_id = ? AND contract_version = 3
         ORDER BY blocker_code, subject_type, subject_id, detail_key
       `,
     )
@@ -1051,7 +1080,7 @@ async function runSchemaContract(): Promise<void> {
               `,
             )
             .run(),
-        "CHECK constraint failed",
+        "publication_guard: legacy review insert is forbidden",
       );
       expectSqliteReject(
         () =>
@@ -1658,14 +1687,14 @@ async function runSchemaContract(): Promise<void> {
         "UNIQUE constraint failed",
       );
 
-      const contentHash = `sha256:v2:${"c".repeat(64)}`;
+      const contentHash = `sha256:v3:${"c".repeat(64)}`;
       database
         .prepare(
           `
             UPDATE entity_publications
             SET approved_content_hash = ?,
                 reviewed_content_revision = content_revision,
-                reviewed_contract_version = 2,
+                reviewed_contract_version = 3,
                 reviewed_by = 'schema-reviewer',
                 reviewed_at = '2026-07-16T00:00:00.000Z'
             WHERE entity_id = ?
@@ -1757,7 +1786,7 @@ async function runSchemaContract(): Promise<void> {
             .run(
               "approved-review-without-reviewer",
               entityId,
-              `sha256:v2:${"d".repeat(64)}`,
+              `sha256:v3:${"d".repeat(64)}`,
             ),
         "CHECK constraint failed",
       );
@@ -1766,7 +1795,7 @@ async function runSchemaContract(): Promise<void> {
           `
             SELECT publishable, blocker_count AS blockerCount
             FROM public_entity_readiness
-            WHERE entity_id = ? AND contract_version = 2
+            WHERE entity_id = ? AND contract_version = 3
           `,
         )
         .get(entityId) as
@@ -1847,7 +1876,7 @@ async function runSchemaContract(): Promise<void> {
                   published_at
                 ) VALUES (
                   'phase19-direct-insert-concept', 'published', '[]', ?,
-                  0, 0, 2, 'direct-reviewer',
+                  0, 0, 3, 'direct-reviewer',
                   '2026-07-16T00:00:00.000Z',
                   '2026-07-16T00:00:01.000Z'
                 )
@@ -2116,7 +2145,7 @@ async function runSchemaContract(): Promise<void> {
         | { contractVersion: number; blockerCount: number; publishable: number }
         | undefined;
       assertCondition(
-        Number(readyReadiness?.contractVersion) === 2 &&
+        Number(readyReadiness?.contractVersion) === 3 &&
           Number(readyReadiness?.blockerCount) === 0 &&
           Number(readyReadiness?.publishable) === 1,
         `Complete contract-v2 entity was not ready: ${JSON.stringify(readyReadiness)}`,
@@ -2699,7 +2728,7 @@ async function stageReviewSnapshot(
       SET status = 'in_review',
           approved_content_hash = ?,
           reviewed_content_revision = content_revision,
-          reviewed_contract_version = 2,
+          reviewed_contract_version = 3,
           reviewed_by = 'phase19-contract-reviewer',
           reviewed_at = '2026-07-16T00:00:00.000Z',
           published_at = NULL,
@@ -2740,7 +2769,7 @@ async function contract2Blockers(
     sql: `
       SELECT blocker_code
       FROM publication_blockers
-      WHERE entity_id = ? AND contract_version = 2
+      WHERE entity_id = ? AND contract_version = 3
       ORDER BY blocker_code, subject_type, subject_id, detail_key
     `,
     args: [entityId],
@@ -2761,7 +2790,7 @@ async function contract2BlockerDetails(
     sql: `
       SELECT blocker_code, detail_key
       FROM publication_blockers
-      WHERE entity_id = ? AND contract_version = 2
+      WHERE entity_id = ? AND contract_version = 3
       ORDER BY blocker_code, subject_type, subject_id, detail_key
     `,
     args: [entityId],
@@ -2791,7 +2820,7 @@ async function assertExactContract2Blockers(
     sql: `
       SELECT blocker_count, publishable
       FROM public_entity_readiness
-      WHERE entity_id = ? AND contract_version = 2
+      WHERE entity_id = ? AND contract_version = 3
     `,
     args: [entityId],
   });
@@ -3130,7 +3159,7 @@ async function runStaleReviewCases(): Promise<void> {
         client,
         entity.entityId,
       );
-      const staleHash = `sha256:v2:${"e".repeat(64)}`;
+      const staleHash = `sha256:v3:${"e".repeat(64)}`;
       assertCondition(
         staleHash !== currentHash,
         `${reviewKind} stale-review fixture accidentally matched current hash.`,
@@ -3342,8 +3371,8 @@ async function runHashInvalidationContract(): Promise<void> {
       });
       const contentHash = await computePublicationContentHash(client, entityId);
       assertCondition(
-        /^sha256:v2:[0-9a-f]{64}$/.test(contentHash),
-        `Canonical publication hash must use contract v2, received ${contentHash}.`,
+        /^sha256:v3:[0-9a-f]{64}$/.test(contentHash),
+        `Canonical publication hash must use contract v3, received ${contentHash}.`,
       );
       if (canonicalHash === null) canonicalHash = contentHash;
       else {
@@ -3911,6 +3940,13 @@ async function runReadinessPublishContract(): Promise<void> {
       entityType: "pen",
       brandEntityId: brand.entityId,
     });
+    // The made_by edge is part of the brand publication payload and demotes
+    // the earlier snapshot; refresh the brand before publishing the pen.
+    await recordFirstThreeCurrentReviews(client, brand.entityId);
+    await publishEntity(client, {
+      entityId: brand.entityId,
+      reviewer: "phase19-brand-republication-reviewer",
+    });
     await recordFirstThreeCurrentReviews(client, pen.entityId);
     const publishedPen = await publishEntity(client, {
       entityId: pen.entityId,
@@ -3971,7 +4007,7 @@ async function runReadinessPublishContract(): Promise<void> {
     });
     assertCondition(
       republishedPen.contentHash !== publishedPen.contentHash &&
-        publishedBrand.contentHash.startsWith("sha256:v2:") &&
+        publishedBrand.contentHash.startsWith("sha256:v3:") &&
         (await currentPublicationReviewCount(
           client,
           pen.entityId,
