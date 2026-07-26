@@ -104,6 +104,8 @@ const CANONICAL_ENTITY_PATHS: Record<string, string> = {
   "pen/百利金-pelikan-m800": "/pen/pelikan-souveran-m800",
   "pen/the-parker-51": "/pen/派克-parker-51-经典-vintage",
   "pen/parker-51-vintage": "/pen/派克-parker-51-经典-vintage",
+  "pen/waterman-allure-fountain-pen": "/pen/waterman-allure",
+  "pen/waterman-exception-fountain-pen": "/pen/waterman-exception",
   "pen/写乐-sailor-21k-pro-gear-大鱼雷": "/pen/sailor-pro-gear",
   "pen/写乐-sailor-1219标准鱼雷": "/pen/sailor-1911-standard",
   "pen/奥罗拉-aurora": "/brand/aurora",
