@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">TACCIA Shakespearean Quill 结构示意</title>
+  <desc id="desc">本站原创 factual SVG：示意羽毛、加重底座和密封 reservoir；非产品照片、非 Logo、非真实比例、非颜色校样。</desc>
+  <rect width="1600" height="900" fill="#f0e9dd"/>
+  <rect x="100" y="100" width="1400" height="700" rx="42" fill="#fffaf2" stroke="#3e3530" stroke-width="5"/>
+  <text x="150" y="180" font-family="sans-serif" font-size="42" fill="#3e3530">TACCIA Shakespearean Quill</text>
+  <text x="150" y="230" font-family="sans-serif" font-size="25" fill="#78675d">factual diagram · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+  <g transform="translate(190 325)">
+    <path d="M710 245 C560 160 450 50 530 -110 C610 5 705 30 790 20 C735 80 730 160 710 245 Z" fill="#6e8d8a" stroke="#3e3530" stroke-width="7"/>
+    <path d="M720 245 C645 170 605 60 610 -70" fill="none" stroke="#e4bd6b" stroke-width="14"/>
+    <path d="M635 55 L530 -25 M655 90 L535 30 M675 125 L560 95 M695 160 L610 160" stroke="#fffaf2" stroke-width="8" opacity=".85"/>
+    <path d="M720 245 L720 360" stroke="#3e3530" stroke-width="16"/>
+    <rect x="660" y="350" width="120" height="190" rx="30" fill="#c59b52" stroke="#3e3530" stroke-width="7"/>
+    <ellipse cx="720" cy="540" rx="180" ry="42" fill="#9b9b9b" stroke="#3e3530" stroke-width="7"/>
+    <ellipse cx="720" cy="520" rx="145" ry="28" fill="#d7b770" opacity=".65"/>
+    <path d="M770 375 C820 395 840 430 835 468" fill="none" stroke="#3e3530" stroke-width="6"/>
+    <text x="875" y="80" font-family="sans-serif" font-size="28" fill="#3e3530">真实羽毛</text>
+    <text x="875" y="125" font-family="sans-serif" font-size="24" fill="#78675d">鸵鸟／孔雀 variant</text>
+    <text x="875" y="390" font-family="sans-serif" font-size="28" fill="#3e3530">密封 reservoir + nib</text>
+    <text x="875" y="435" font-family="sans-serif" font-size="24" fill="#78675d">耗尽后整套替换</text>
+    <text x="425" y="635" font-family="sans-serif" font-size="28" fill="#3e3530">加重金属底座</text>
+  </g>
+  <text x="150" y="730" font-family="sans-serif" font-size="23" fill="#78675d">示意图不证明实际羽毛颜色、尺寸、纯度、Logo、库存或 SKU。</text>
+</svg>
