@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Esterbrook Estie standard structure factual diagram</title>
+  <desc id="desc">本站原创示意图，表达标准尺寸 Estie、JoWo #6 尖、国际规格 C/C 与缓冲式帽盖；非产品照片、非 Logo、非比例图、非颜色校样。</desc>
+  <rect width="1600" height="900" rx="42" fill="#f7f1e6"/>
+  <g fill="none" stroke="#4d3c35" stroke-width="20" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M240 450h770c150 0 240-65 320-145" stroke="#bd8e5b"/>
+    <path d="M240 450h770c150 0 240 65 320 145" stroke="#e0b47f"/>
+    <path d="M240 450h1040" stroke="#704e3a" stroke-dasharray="20 24"/>
+    <path d="M1320 305l125 145-125 145" stroke="#4d3c35"/>
+    <path d="M1320 305l-70 68 70 77 70-77z" fill="#c9a77f"/>
+    <path d="M1030 450h260" stroke="#4d3c35"/>
+    <path d="M1070 450l70-55 70 55-70 55z" fill="#d8dce0"/>
+  </g>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" fill="#4d3c35">
+    <text x="145" y="130" font-size="54" font-weight="700">Esterbrook Estie</text>
+    <text x="145" y="195" font-size="28">standard size · JoWo #6 · C/C</text>
+    <text x="300" y="355" font-size="32">acrylic body</text>
+    <text x="1125" y="225" font-size="30">JoWo #6</text>
+    <text x="1390" y="450" font-size="30">cushion cap</text>
+    <text x="1090" y="690" font-size="30">international C/C</text>
+    <text x="145" y="800" font-size="24">factual diagram · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+  </g>
+</svg>
