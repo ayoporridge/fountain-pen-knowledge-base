@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Mabie Todd Swan 历史路线示意</title>
+  <desc id="desc">原创编辑示意图，展示纽约、伦敦、英国生产和 Biro Swan 的时间关系；non-photo、non-logo、not-to-scale、non-colour-proof。</desc>
+  <rect width="960" height="540" rx="28" fill="#e6edf1"/>
+  <rect x="56" y="58" width="848" height="424" rx="24" fill="#fffdf8" stroke="#253746" stroke-width="4"/>
+  <text x="90" y="116" font-family="serif" font-size="36" font-weight="700" fill="#253746">Mabie Todd Swan</text>
+  <text x="90" y="147" font-family="sans-serif" font-size="18" fill="#526a78">跨大西洋制笔企业 · 历史产品家族 · 非比例图</text>
+  <path d="M142 278H818" fill="none" stroke="#426a7a" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="190" cy="278" r="18" fill="#d28b45"/><circle cx="372" cy="278" r="18" fill="#d28b45"/><circle cx="560" cy="278" r="18" fill="#d28b45"/><circle cx="762" cy="278" r="18" fill="#d28b45"/>
+  <text x="148" y="236" font-family="sans-serif" font-size="20" font-weight="700" fill="#253746">1860</text>
+  <text x="122" y="324" font-family="sans-serif" font-size="18" fill="#526a78">纽约起步</text>
+  <text x="332" y="236" font-family="sans-serif" font-size="20" font-weight="700" fill="#253746">1884</text>
+  <text x="296" y="324" font-family="sans-serif" font-size="18" fill="#526a78">伦敦办公室 · Swan 出现</text>
+  <text x="520" y="236" font-family="sans-serif" font-size="20" font-weight="700" fill="#253746">1907/1914</text>
+  <text x="496" y="324" font-family="sans-serif" font-size="18" fill="#526a78">英国生产与法人</text>
+  <text x="724" y="236" font-family="sans-serif" font-size="20" font-weight="700" fill="#253746">1952</text>
+  <text x="698" y="324" font-family="sans-serif" font-size="18" fill="#526a78">Biro Swan 时期</text>
+  <path d="M188 376c62-45 125-45 187 0s125 45 187 0 125-45 187 0" fill="none" stroke="#b45e4a" stroke-width="5" stroke-dasharray="12 10"/>
+  <text x="90" y="438" font-family="sans-serif" font-size="16" fill="#526a78">原创 factual SVG · 非产品照片 · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+</svg>
