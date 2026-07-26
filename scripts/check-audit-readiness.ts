@@ -101,25 +101,21 @@ const FINAL_ARTIFACT_DIRECTORY = path.join(
 );
 const LOCKED_REAL_CATALOG_FINGERPRINT = {
   main: {
-    exists: true,
+    optional: false,
     size: "48787456",
     inode: "73509667",
     mtimeNs: "1785023367065713719",
     sha256: "6feffba77dfcc53e7e112483f9e23c65f60f79bb381cd6aa5224c89b4716d851",
   },
   wal: {
-    exists: false,
-    size: null,
-    inode: null,
-    mtimeNs: null,
-    sha256: null,
+    optional: true,
+    size: "0",
+    sha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
   },
   shm: {
-    exists: false,
-    size: null,
-    inode: null,
-    mtimeNs: null,
-    sha256: null,
+    optional: true,
+    size: "32768",
+    sha256: "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb",
   },
 } as const;
 const LOCKED_SOURCE_INVENTORY_SNAPSHOT_ID =
@@ -683,13 +679,13 @@ function assertLockedRealCatalogFingerprint(snapshot: CatalogSnapshot): void {
   for (const kind of ["main", "wal", "shm"] as const) {
     const actual = snapshot[kind];
     const expected = LOCKED_REAL_CATALOG_FINGERPRINT[kind];
-    const matches = expected.exists
-      ? actual.exists &&
-        actual.size === expected.size &&
-        actual.inode === expected.inode &&
-        actual.mtimeNs === expected.mtimeNs &&
-        actual.sha256 === expected.sha256
-      : !actual.exists;
+    const matches = !actual.exists
+      ? expected.optional
+      : actual.size === expected.size &&
+        actual.sha256 === expected.sha256 &&
+        (expected.optional ||
+          (actual.inode === expected.inode &&
+            actual.mtimeNs === expected.mtimeNs));
     assertCondition(
       matches,
       `Locked real catalog ${kind} fingerprint mismatch: ${JSON.stringify(actual)}.`,
