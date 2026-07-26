@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">BENU Talisman structure factual diagram</title>
+  <desc id="desc">Non-photo, non-logo, not-to-scale, non-colour-proof editorial diagram. It shows a faceted resin body, a number six steel nib and international cartridge or converter filling.</desc>
+  <!-- Non-photo, non-logo, not-to-scale, non-colour-proof. -->
+  <rect width="1600" height="900" fill="#f8f5ff"/>
+  <g stroke="#25283a" stroke-width="8" stroke-linejoin="round">
+    <path d="M300 450 L410 330 L1160 330 L1300 450 L1160 570 L410 570 Z" fill="#8b83c7"/>
+    <path d="M410 330 L500 245 L1070 245 L1160 330 Z" fill="#b6b0ea"/>
+    <path d="M410 570 L500 655 L1070 655 L1160 570 Z" fill="#6f69a6"/>
+    <path d="M1160 330 L1300 450 L1160 570" fill="#4f4a7f"/>
+    <path d="M300 450 L190 450 L90 410 L90 490 L190 450" fill="#d8dce6"/>
+    <path d="M1300 450 L1410 450 L1490 420 L1490 480 L1410 450" fill="#d8dce6"/>
+    <path d="M610 270 L680 195 L750 270 L680 345 Z" fill="#e4bc68"/>
+    <path d="M790 270 L860 195 L930 270 L860 345 Z" fill="#e4bc68"/>
+  </g>
+  <g font-family="system-ui, sans-serif" fill="#25283a">
+    <text x="120" y="120" font-size="54" font-weight="700">BENU Talisman</text>
+    <text x="120" y="185" font-size="30">系列结构关系示意；不是产品照片</text>
+    <text x="130" y="770" font-size="34">多面树脂／主题材料按 SKU</text>
+    <text x="600" y="830" font-size="34">#6 Schmidt 钢尖：F／M／B</text>
+    <text x="1050" y="770" font-size="34">国际规格墨囊／转换器</text>
+    <text x="120" y="875" font-size="24">神话主题不是材料功效；颜色和手绘位置不由此图推断</text>
+  </g>
+</svg>
