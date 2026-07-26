@@ -1152,7 +1152,7 @@ export async function getLibraryCoverageReport(
               readiness.blockers_json AS blocker_codes_json
        FROM entities e
        JOIN public_entity_readiness readiness
-         ON readiness.entity_id = e.id AND readiness.contract_version = 2
+         ON readiness.entity_id = e.id AND readiness.contract_version = 3
        LEFT JOIN public_entities public_owner ON public_owner.id = e.id
        WHERE e.type IN ('brand', 'pen')
        ORDER BY e.type, e.name`,

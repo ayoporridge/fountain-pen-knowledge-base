@@ -3038,6 +3038,7 @@ async function runLegacyAuditsContract(): Promise<void> {
       entityType: "pen",
       brandEntityId: brand.entityId,
     });
+    await approveAndPublish(client, brand.entityId);
     await approveAndPublish(client, pen.entityId);
     const singleBlocker = await seedQualifiedPublicationFixture(client, {
       entityId: "legacy-single-blocker",
