@@ -295,8 +295,17 @@ async function runInventoryContract(): Promise<void> {
       entityType: "pen",
       brandEntityId: brand.entityId,
     });
+    // The made_by edge is part of the brand publication payload and its
+    // insertion intentionally demotes a previously published brand. Re-run
+    // the brand approval after the relationship exists so this fixture tests
+    // the intended exactly-one/public-brand disposition.
+    await approveAndPublish(client, brand.entityId);
     await approveAndPublish(client, pen.entityId);
     await seedLedgerRelationshipShells(client);
+    // The fixture ledger adds reverse navigation shells after publication;
+    // those inserts are part of the brand payload and require one final
+    // review before the read-only audit.
+    await approveAndPublish(client, brand.entityId);
     const legacyExcluded = await client.execute(`
       SELECT id, slug
       FROM entities
