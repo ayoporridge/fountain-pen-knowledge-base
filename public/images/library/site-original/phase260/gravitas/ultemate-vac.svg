@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Gravitas Ultemate Vac factual diagram</title>
+  <desc id="desc">Editorial non-photo diagram showing ULTEM body, titanium reinforcement, vacuum plunger, secondary chamber and shut-off valve.</desc>
+  <!-- AI-assisted editorial illustration, non-photo, non-logo, not-to-scale, non-colour-proof. -->
+  <rect width="1600" height="900" fill="#eee7d8"/>
+  <rect x="80" y="82" width="1440" height="736" rx="32" fill="#fbf8ef" stroke="#46505a" stroke-width="4"/>
+  <text x="130" y="168" font-family="Georgia,serif" font-size="52" fill="#26313a">Gravitas Ultemate Vac</text>
+  <text x="132" y="215" font-family="Arial,sans-serif" font-size="25" fill="#596772">ULTEM · vacuum filling · titanium reinforcement · editorial facts</text>
+  <g transform="translate(170 330)">
+    <path d="M80 65h520v150H80c-42 0-70-32-70-75s28-75 70-75Z" fill="#d8a93e" fill-opacity=".72" stroke="#26313a" stroke-width="6"/>
+    <rect x="600" y="65" width="66" height="150" rx="20" fill="#a9b2b7" stroke="#26313a" stroke-width="6"/>
+    <rect x="666" y="92" width="126" height="96" rx="48" fill="#a7c5cd" fill-opacity=".7" stroke="#26313a" stroke-width="6"/>
+    <path d="M792 92h118l104 48-104 48H792Z" fill="#b9c0c4" stroke="#26313a" stroke-width="6"/>
+    <line x1="120" y1="140" x2="980" y2="140" stroke="#26313a" stroke-width="5" stroke-dasharray="13 12"/>
+    <text x="245" y="273" font-family="Arial,sans-serif" font-size="24" fill="#26313a">真空杆 → 主墨仓 &gt;2.5 ml → 次级 chamber 约 0.7 ml</text>
+  </g>
+  <g font-family="Arial,sans-serif" font-size="24" fill="#26313a">
+    <rect x="140" y="650" width="390" height="92" rx="18" fill="#e6d29a"/><text x="176" y="706">ULTEM body + titanium</text>
+    <rect x="605" y="650" width="390" height="92" rx="18" fill="#c9dfe2"/><text x="635" y="706">shut-off valve controls feed</text>
+    <rect x="1070" y="650" width="360" height="92" rx="18" fill="#d6dadd"/><text x="1100" y="706">steel #6 EF/F/M/B</text>
+  </g>
+  <text x="130" y="785" font-family="Arial,sans-serif" font-size="19" fill="#596772">non-photo · non-logo · not-to-scale · non-colour-proof · 仅作事实示意</text>
+</svg>

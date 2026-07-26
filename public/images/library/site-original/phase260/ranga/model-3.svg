@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Ranga Model 3 factual diagram</title>
+  <desc id="desc">Editorial non-photo diagram of a hand-turned Ranga Model 3 outline, Schmidt K5 converter, and material options.</desc>
+  <!-- AI-assisted editorial illustration, non-photo, non-logo, not-to-scale, non-colour-proof. -->
+  <rect width="1600" height="900" fill="#f4efe7"/>
+  <rect x="80" y="82" width="1440" height="736" rx="32" fill="#fffaf2" stroke="#6e4e3a" stroke-width="4"/>
+  <text x="130" y="168" font-family="Georgia,serif" font-size="52" fill="#3d3029">Ranga Model 3</text>
+  <text x="132" y="215" font-family="Arial,sans-serif" font-size="25" fill="#765b4b">hand-turned acrylic / ebonite · converter route · editorial facts</text>
+  <g transform="translate(180 340)">
+    <path d="M90 70h290l62 45-62 45H90c-28 0-48-20-48-45s20-45 48-45Z" fill="#8b5a3c" stroke="#3d3029" stroke-width="6"/>
+    <path d="M380 70h260c40 0 66 20 66 45s-26 45-66 45H380l62-45Z" fill="#b7d0ca" fill-opacity=".85" stroke="#3d3029" stroke-width="6"/>
+    <path d="M706 70h60v90h-60" fill="#d4a878" stroke="#3d3029" stroke-width="6"/>
+    <path d="M766 85l140 30-140 30Z" fill="#b7b9bc" stroke="#3d3029" stroke-width="6"/>
+    <line x1="40" y1="190" x2="906" y2="190" stroke="#6e4e3a" stroke-width="3" stroke-dasharray="12 12"/>
+    <text x="240" y="252" font-family="Arial,sans-serif" font-size="25" fill="#3d3029">约 6 in capped · cap Ø16 mm · barrel Ø14 mm</text>
+  </g>
+  <g font-family="Arial,sans-serif" font-size="25" fill="#3d3029">
+    <rect x="140" y="650" width="390" height="92" rx="18" fill="#ead5c3"/><text x="175" y="706">塑料 feed + Schmidt K5</text>
+    <rect x="605" y="650" width="390" height="92" rx="18" fill="#d8e8df"/><text x="648" y="706">acrylic / ebonite 选项</text>
+    <rect x="1070" y="650" width="360" height="92" rx="18" fill="#f1dfad"/><text x="1110" y="706">颜色与 finish 是 variant</text>
+  </g>
+  <text x="130" y="785" font-family="Arial,sans-serif" font-size="19" fill="#765b4b">non-photo · non-logo · not-to-scale · non-colour-proof · 仅作事实示意</text>
+</svg>
