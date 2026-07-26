@@ -1,0 +1,74 @@
+import type { CuratedEntityPack, CuratedSource, SpecFieldKey } from "../lib/curated-content-pack";
+
+const RETRIEVED = "2026-07-27";
+export const PHASE269_YOL_BRAND_ID = "phase269-brand-yard-o-led";
+export const PHASE269_VICEROY_GRAND_ID = "phase269-yard-o-led-viceroy-grand";
+const BRAND_SCOPE = "phase269-yard-o-led-brand";
+const MODEL_SCOPE = "phase269-viceroy-grand";
+
+function web(input: { key: string; title: string; url: string; registryKey: string; registryName: string; sourceType: CuratedSource["sourceType"]; tier: CuratedSource["tier"]; group: string; summary: string; locator: string }): CuratedSource {
+  return { key: input.key, registryKey: input.registryKey, registryName: input.registryName, sourceType: input.sourceType, tier: input.tier, independenceGroup: input.group, title: input.title, url: input.url, homepageUrl: new URL(input.url).origin, itemType: "web_page", author: input.registryName, retrievedAt: RETRIEVED, allowedUse: "summary_only", summary: input.summary, archiveUrl: input.url, archiveLocator: `live-source-not-frozen;retrieved=${RETRIEVED};external_archive=false;locator=${input.locator}` };
+}
+function diagram(key: string, title: string, localPath: string): CuratedSource {
+  return { key, registryKey: "fountain-pen-graph-editorial-phase269", registryName: "Fountain Pen Graph editorial studio", sourceType: "user_submission", tier: "primary", independenceGroup: "fountain-pen-graph-editorial-phase269", title, url: localPath, homepageUrl: "/", itemType: "image", author: "Fountain Pen Graph editorial", retrievedAt: RETRIEVED, allowedUse: "store_full", license: "site-original", summary: "本站原创 factual SVG；non-photo、non-logo、not-to-scale、non-colour-proof。", archiveUrl: localPath, archiveLocator: `project-public-asset:${localPath};site-original=true;factual-svg=true;product-photo=false;logo=false;to-scale=false;colour-proof=false;dimensions=1600x900` };
+}
+function claim(key: string, predicate: string, objectText: string, sourceKey: string, locator: string, scopeKey: string, factClass: "core" | "editorial" = "core"): CuratedEntityPack["claims"][number] {
+  return { key, predicate, objectText, factClass, confidence: factClass === "core" ? 0.98 : 0.94, sourceKey, locator, evidence: [{ key: `${key}-evidence`, sourceKey, locator, scopeKey }] };
+}
+function ev(entityKey: string, fieldKey: SpecFieldKey, sourceKey: string, locator: string): NonNullable<CuratedEntityPack["spec"]>["evidence"][number] {
+  return { key: `${entityKey}-${fieldKey}`, fieldKey, sourceKey, scopeKey: MODEL_SCOPE, locator, qualifies: true };
+}
+
+const story = web({ key: "phase269-yol-story", title: "YARD-O-LED Our Story", url: "https://www.yard-o-led.com/pages/our-story", registryKey: "yard-o-led-official-story-phase269", registryName: "YARD-O-LED", sourceType: "official", tier: "primary", group: "yard-o-led-official-story-phase269", summary: "官方历史页区分 1822 年 ever-pointed pencil 专利、1934 年正式 YARD-O-LED company 和战后 Birmingham 工坊。", locator: "our story timeline" });
+const collection = web({ key: "phase269-yol-grand", title: "The Grand Fountain Pen", url: "https://www.yard-o-led.com/collections/the-grand-fountain-pen", registryKey: "yard-o-led-official-grand-phase269", registryName: "YARD-O-LED", sourceType: "official", tier: "primary", group: "yard-o-led-official-grand-phase269", summary: "官方 Grand collection 列 Viceroy Grand Victorian/Barley、925 sterling silver、Birmingham 手工、编号和 18ct gold nib。", locator: "Grand collection product descriptions" });
+const home = web({ key: "phase269-yol-home", title: "YARD-O-LED official home and craft", url: "https://www.yard-o-led.com/", registryKey: "yard-o-led-official-home-phase269", registryName: "YARD-O-LED", sourceType: "official", tier: "primary", group: "yard-o-led-official-home-phase269", summary: "官方首页说明 sterling silver、hand-chasing、逐支编号和 Birmingham 工坊。", locator: "craft and product navigation" });
+const hallmark = web({ key: "phase269-yol-hallmark", title: "YARD-O-LED silver hallmark guide", url: "https://www.yard-o-led.com/blogs/news/it-all-started-in-a-pub", registryKey: "yard-o-led-official-hallmark-phase269", registryName: "YARD-O-LED", sourceType: "official", tier: "primary", group: "yard-o-led-official-hallmark-phase269", summary: "官方文章说明 Birmingham assay mark、925 fineness、maker/date letter 与 sterling silver 鉴别。", locator: "hallmark explanation" });
+const walpole = web({ key: "phase269-yol-walpole", title: "The Walpole Yard-O-Led interview", url: "https://www.thewalpole.co.uk/news/introducing-yard-o-led-our-latest-walpole-member", registryKey: "walpole-yard-o-led-phase269", registryName: "The Walpole", sourceType: "blog", tier: "professional_secondary", group: "walpole-yard-o-led-phase269", summary: "行业采访交叉记录 Yard-O-Led 的铅笔起源、Birmingham 工坊、银器手工和 2024 年新经营者。", locator: "brand interview and craft history" });
+const mats = web({ key: "phase269-yol-mats", title: "Mat's Pens Yard-O-Led Viceroy Grand", url: "https://matspens.wordpress.com/2019/08/02/yard-o-led-viceroy-grand/", registryKey: "mats-yol-viceroy-grand-phase269", registryName: "Mat's Pens", sourceType: "blog", tier: "professional_secondary", group: "mats-yol-viceroy-grand-phase269", summary: "专业评测记录 Victorian 样本的 sterling silver、18K #6 尖、converter、尺寸和 46/64 g 重量边界。", locator: "review specifications and sample measurements" });
+const fpn = web({ key: "phase269-yol-fpn", title: "Fountain Pen Network Viceroy Grand Plain Finish", url: "https://www.fountainpennetwork.com/forum/topic/317557-yard-o-led-viceroy-grand-plain-finish/", registryKey: "fpn-yol-viceroy-grand-phase269", registryName: "Fountain Pen Network", sourceType: "forum", tier: "professional_secondary", group: "fpn-yol-viceroy-grand-phase269", summary: "独立评测记录 Viceroy Grand 的 18K 尖、国际转换器、148 mm/65 g 样本与大号使用边界。", locator: "review nib, filling system and dimensions" });
+const svgBrand = diagram("phase269-yol-brand-svg", "YARD-O-LED brand craft factual diagram", "/images/library/site-original/phase269/yard-o-led/brand.svg");
+const svgModel = diagram("phase269-yol-viceroy-svg", "YARD-O-LED Viceroy Grand factual diagram", "/images/library/site-original/phase269/yard-o-led/viceroy-grand.svg");
+
+const brand: CuratedEntityPack = {
+  key: "phase269-yol-brand-v1", entityId: PHASE269_YOL_BRAND_ID, expectedType: "brand", expectedSlug: "yard-o-led", canonicalName: "YARD-O-LED", publicationIntent: "publish", publicationBlockers: [], markdownFile: ".planning/content-research/yard-o-led-brand-phase269.md", storyTitle: "YARD-O-LED：Birmingham 银器工艺与英国书写工具传统", primarySourceKey: story.key, depthTier: "A",
+  aliases: [{ alias: "Yard-O-Led", language: "en", sourceKey: story.key }, { alias: "YARD-O-LED Pens", language: "en", sourceKey: collection.key }, { alias: "YARD-O-LED 英国银笔", language: "zh", sourceKey: walpole.key }],
+  sources: [story, collection, home, hallmark, walpole, mats, fpn, svgBrand],
+  scopes: [{ key: BRAND_SCOPE, scopeKey: BRAND_SCOPE, productionState: "current", editionScope: "YARD-O-LED 品牌历史、Birmingham silver craft、Viceroy/Grand/Pocket 与铅笔路线；具体 finish、尖材和供墨逐型号核对。" }],
+  claims: [
+    claim("yol-history", "brand_history", "官方将 1822 年写作 Sampson Mordan 的 ever-pointed propelling pencil 专利节点，并将 1934 年写作正式 YARD-O-LED company 的建立。", story.key, "1822 and 1934 history", BRAND_SCOPE),
+    claim("yol-birmingham", "brand_identity", "官方与行业采访支持战后 Birmingham 工坊、英国手工和当前银器制笔语境；不把 1822 写成同一支钢笔的生产年份。", walpole.key, "Birmingham workshop and brand lineage", BRAND_SCOPE),
+    claim("yol-material", "craftsmanship", "官方首页把 925 sterling silver、hand-chasing、engine-turning 与逐支编号列为当代工艺特征。", home.key, "craft statement", BRAND_SCOPE),
+    claim("yol-hallmark", "provenance", "官方 hallmark 指南说明 Birmingham assay mark、925 fineness、maker/date letter 可用于银质与年代核对。", hallmark.key, "hallmark explanation", BRAND_SCOPE),
+    claim("yol-navigation", "brand_model_navigation", "官方目录分列 Pocket、Viceroy、Grand、Grand Martelé、rollerball 与 propelling pencil；它们不是一个型号。", collection.key, "collection navigation", BRAND_SCOPE),
+    claim("yol-secondary", "professional_secondary_boundary", "Walpole、Mat's Pens 与 FPN 对品牌工艺和 Viceroy Grand 样本提供独立旁证，不能替代 exact SKU 规格。", walpole.key, "independent brand and model cross-reference", BRAND_SCOPE),
+    claim("yol-care", "maintenance_guidance", "银件用软布轻拭，避免研磨膏和强酸；墨囊／转换器与笔尖清洗遵循具体产品说明，凹痕和 hallmark 问题交给专业维修。", hallmark.key, "conservative care guidance", BRAND_SCOPE, "editorial"),
+  ],
+  variants: [{ key: "yol-fountain-routes", name: "Viceroy / Grand / Pocket fountain pens", notes: "尺寸和表面 finish 分开的钢笔路线，不互相回填规格。", sourceKey: collection.key, variantKind: "edition_group", market: "global" }, { key: "yol-pencil-route", name: "Propelling pencil heritage", notes: "品牌铅笔谱系，不作为 fountain pen 型号。", sourceKey: story.key, variantKind: "edition_group", market: "global" }],
+  timeline: [{ key: "yol-1822", title: "ever-pointed propelling pencil 专利节点", eventType: "brand_founded", startDate: "1822", circa: false, description: "官方品牌故事将 1822 年与 Sampson Mordan 的推进铅笔专利相连；这是谱系节点，不是钢笔首发。", sourceKey: story.key }, { key: "yol-1934", title: "YARD-O-LED company 建立", eventType: "brand_founded", startDate: "1934", circa: false, description: "官方历史页把 Brenner 与 Tuffnel 建立正式 YARD-O-LED company 的年份写为 1934。", sourceKey: story.key }, { key: "yol-current-birmingham", title: "当代 Birmingham 银器工艺路线", eventType: "design_milestone", startDate: RETRIEVED, circa: false, description: "官方当前页面核实 Birmingham workshop、925 silver、手工 chasing 与逐支编号。", sourceKey: home.key }],
+  media: [{ key: "yol-brand-svg", title: svgBrand.title, sourceKey: svgBrand.key, localPath: svgBrand.url, author: "Fountain Pen Graph editorial", license: "site-original", attributionText: "本站原创 factual SVG；非品牌 Logo、工厂照片或贵金属鉴定。", sourceUrl: svgBrand.url, usageStatus: "primary" }],
+};
+
+const model: CuratedEntityPack = {
+  key: "phase269-yol-viceroy-grand-v1", entityId: PHASE269_VICEROY_GRAND_ID, expectedType: "pen", expectedSlug: "yard-o-led-viceroy-grand", canonicalName: "YARD-O-LED Viceroy Grand", publicationIntent: "publish", publicationBlockers: [], markdownFile: ".planning/content-research/yard-o-led-viceroy-grand-phase269.md", storyTitle: "YARD-O-LED Viceroy Grand：大号 sterling silver 手工笔", primarySourceKey: collection.key, depthTier: "A",
+  aliases: [{ alias: "Viceroy Grand", language: "en", sourceKey: collection.key }, { alias: "Viceroy Grand Victorian", language: "en", sourceKey: collection.key }, { alias: "Viceroy Grand Barley", language: "en", sourceKey: collection.key }, { alias: "YARD-O-LED 大号总督银笔", language: "zh", sourceKey: mats.key }],
+  sources: [story, collection, home, hallmark, mats, fpn, svgModel],
+  scopes: [{ key: MODEL_SCOPE, scopeKey: MODEL_SCOPE, productionState: "current", editionScope: "Viceroy Grand fountain pen；Victorian、Barley、Pinstripe finish 与传统 Grand 路线，Grand Martelé 的旋帽和锤纹另作 sibling。" }],
+  claims: [
+    claim("viceroy-identity", "model_identity", "Viceroy Grand 是 YARD-O-LED 的大号 sterling silver fountain pen 路线，不与 Viceroy Standard、Pocket 或 Grand Martelé 合并。", collection.key, "Grand collection identity", MODEL_SCOPE),
+    claim("viceroy-material", "material_finish", "官方列 solid 925 sterling silver；Victorian、Barley、Pinstripe 是表面 finish，手工差异属于工艺特征。", collection.key, "silver and finish descriptions", MODEL_SCOPE),
+    claim("viceroy-nib", "nib", "官方列 18 carat gold nib；Mat's 与 FPN 样本为 YARD-O-LED 标记的 #6/Bock 18K，Fine/Medium/Broad 等按版本核对。", mats.key, "nib material and sample boundary", MODEL_SCOPE),
+    claim("viceroy-fill", "filling_system", "Viceroy Grand 使用标准国际墨囊或 converter；长墨囊、容量与配件兼容性以评测样本和当期包装为准。", mats.key, "filling system", MODEL_SCOPE),
+    claim("viceroy-size", "dimensions", "Mat's 样本约 140 mm 有帽、175 mm 帖帽；FPN 样本约 148 mm 有帽，测量差异不能抹平版本边界。", mats.key, "sample dimensions", MODEL_SCOPE),
+    claim("viceroy-weight", "weight", "Mat's 样本笔身约 46 g、帖帽约 64 g，FPN 样本约 65 g；银件、墨水和 finish 会影响实物重量。", mats.key, "sample weight", MODEL_SCOPE),
+    claim("viceroy-cap", "cap_posting", "独立评测记录帽盖可 post，但会显著增加长度和重量；大号银杆更适合先试不帖帽书写。", fpn.key, "posting and balance", MODEL_SCOPE),
+    claim("viceroy-provenance", "provenance", "英国 hallmark、925 fineness、maker/date letter 与逐支编号可作为具体银笔的材料和年代核对线索。", hallmark.key, "hallmark and numbering", MODEL_SCOPE),
+    claim("viceroy-care", "maintenance_guidance", "银件用软布轻拭，避免研磨膏；清洗墨囊／转换器时避免银布、抛光剂进入握位和导墨孔。", hallmark.key, "conservative care guidance", MODEL_SCOPE, "editorial"),
+    claim("viceroy-selection", "selection_guidance", "Victorian 适合喜欢手工 chasing，Barley 偏规律纹理；小手或长写用户应先试握，并核对 finish、尖宽、编号、hallmark、证书和售后。", mats.key, "selection guidance from sample size and finish", MODEL_SCOPE, "editorial"),
+  ],
+  variants: [{ key: "viceroy-victorian", name: "Victorian", notes: "手工 chasing 表面；同纹样会有单支差异。", sourceKey: collection.key, variantKind: "material", market: "global" }, { key: "viceroy-barley", name: "Barley", notes: "另一种银质表面 finish，不改变 Viceroy Grand 型号身份。", sourceKey: collection.key, variantKind: "material", market: "global" }, { key: "viceroy-pinstripe", name: "Pinstripe", notes: "特定渠道或 edition 的条纹表面，按订单核对。", sourceKey: mats.key, variantKind: "material", market: "global" }],
+  spec: { brandEntityId: PHASE269_YOL_BRAND_ID, values: { series_name: "Viceroy Grand", origin_country: "英国 Birmingham；官方页面确认手工工坊语境", nib: "18 carat gold；独立样本为 YARD-O-LED 标记 #6 Bock，Fine/Medium/Broad 等按版本核对", fill_system: "标准国际墨囊或 converter；长国际墨囊与容量为评测样本边界", material: "solid 925 sterling silver；Victorian、Barley、Pinstripe 为表面路线", dimensions: "评测样本约 140–150 mm 有帽、约 140 mm 无帽、约 175 mm 帖帽；按版本测量", weight: "Mat's 样本笔身约 46 g、帖帽约 64 g；FPN 样本约 65 g，不能视为统一额定重量" }, evidence: [ev("viceroy", "brand_entity_id", collection.key, "official Grand identity"), ev("viceroy", "series_name", collection.key, "Viceroy Grand title"), ev("viceroy", "origin_country", home.key, "Birmingham workshop context"), ev("viceroy", "nib", mats.key, "18K #6 sample"), ev("viceroy", "fill_system", mats.key, "international cartridge/converter"), ev("viceroy", "material", collection.key, "925 silver and finishes"), ev("viceroy", "dimensions", mats.key, "sample dimensions"), ev("viceroy", "weight", mats.key, "sample weights")] },
+  timeline: [{ key: "viceroy-current", title: "Viceroy Grand 当前目录核实", eventType: "model_released", startDate: RETRIEVED, circa: false, description: "官方 Grand collection 与独立样本核实 Viceroy Grand 的银质、尖材、finish 和供墨边界；不推断单一首发年份。", sourceKey: collection.key }, { key: "viceroy-craft", title: "Birmingham hand-chasing route", eventType: "design_milestone", startDate: RETRIEVED, circa: false, description: "官方当前页面核实逐支编号、925 silver 与 hand-chasing 的工艺语境。", sourceKey: home.key }],
+  media: [{ key: "yol-viceroy-grand-svg", title: svgModel.title, sourceKey: svgModel.key, localPath: svgModel.url, author: "Fountain Pen Graph editorial", license: "site-original", attributionText: "本站原创 factual SVG；非产品实拍，不代表 Victorian、Barley 或 Pinstripe 的真实纹样、编号、银色或重量。", sourceUrl: svgModel.url, usageStatus: "primary" }],
+};
+
+export const phase269YardOLedViceroyGrandPacks: CuratedEntityPack[] = [brand, model];

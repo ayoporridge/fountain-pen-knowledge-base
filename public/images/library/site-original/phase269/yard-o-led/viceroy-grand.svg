@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">YARD-O-LED Viceroy Grand factual diagram</title>
+  <desc id="desc">Factual editorial diagram; non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#e8e9e7"/>
+  <g fill="none" stroke="#50565b" stroke-width="18" stroke-linecap="round">
+    <path d="M250 470h180l80-45h660l150 45-150 45H510l-80-45H250z" fill="#a9adb0"/>
+    <path d="M1170 425l120-30 130 75-130 75-120-30z" fill="#c9cbcc"/>
+    <path d="M500 432v76M545 432v76M590 432v76" stroke-width="8"/>
+    <path d="M725 410v120M775 410v120" stroke-width="8"/>
+    <path d="M275 430v-90M275 340l-60-65M275 340l60-65" stroke-width="10"/>
+  </g>
+  <g fill="#50565b" font-family="sans-serif" text-anchor="middle">
+    <text x="800" y="150" font-size="44">Viceroy Grand</text>
+    <text x="800" y="205" font-size="27">925 silver · 18ct gold nib · international cartridge / converter</text>
+    <text x="390" y="650" font-size="29">Victorian / Barley / Pinstripe finishes</text>
+    <text x="1190" y="650" font-size="29">sample measurements vary by edition</text>
+    <text x="800" y="820" font-size="22">non-photo · non-logo · not-to-scale · non-colour-proof</text>
+  </g>
+</svg>

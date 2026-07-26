@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">YARD-O-LED brand craft route</title>
+  <desc id="desc">Factual editorial diagram; non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#ece9e3"/>
+  <g fill="none" stroke="#4e555a" stroke-width="10">
+    <path d="M250 650V250h250v400"/><path d="M230 250h290"/><path d="M290 340h170"/>
+    <circle cx="375" cy="500" r="72"/><path d="M375 428v144M303 500h144" stroke-width="6"/>
+    <path d="M620 500h300M880 460l70 40-70 40"/>
+    <path d="M1120 350h250M1120 500h250M1120 650h250"/>
+  </g>
+  <g fill="#4e555a" font-family="sans-serif" text-anchor="middle">
+    <text x="800" y="120" font-size="42">YARD-O-LED · Birmingham silver craft</text>
+    <text x="375" y="735" font-size="36">1822 → 1934</text><text x="375" y="780" font-size="25">propelling pencil lineage / company</text>
+    <text x="1220" y="310" font-size="32">925 sterling silver</text><text x="1220" y="460" font-size="32">hand-chasing / hallmark</text><text x="1220" y="610" font-size="32">Viceroy / Grand routes</text>
+    <text x="800" y="850" font-size="22">non-photo · non-logo · not-to-scale · non-colour-proof</text>
+  </g>
+</svg>
