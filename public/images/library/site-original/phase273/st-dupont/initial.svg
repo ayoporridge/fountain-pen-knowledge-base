@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">S.T. Dupont D-Initial 270216 边界示意</title>
+  <desc id="desc">原创编辑示意图，展示 D-Initial 的漆面、剑形夹、钢尖和书写模式边界；非产品照片、non-photo、non-logo、not-to-scale、non-colour-proof。</desc>
+  <rect width="960" height="540" rx="28" fill="#e8e7e4"/>
+  <rect x="56" y="58" width="848" height="424" rx="24" fill="#fffefa" stroke="#292a2c" stroke-width="4"/>
+  <text x="90" y="116" font-family="serif" font-size="36" font-weight="700" fill="#292a2c">D‑Initial 270216</text>
+  <text x="90" y="147" font-family="sans-serif" font-size="18" fill="#686a6c">black lacquer · matte black · steel Wings nib · factual diagram</text>
+  <path d="M148 270 C258 224 418 224 566 270 L770 270" fill="none" stroke="#202124" stroke-width="42" stroke-linecap="round"/>
+  <path d="M770 270 l50 -16 l-14 16 l14 16 z" fill="#a9adb2" stroke="#292a2c" stroke-width="3"/>
+  <path d="M560 234 l70 -28 l-18 28 l18 28 z" fill="#d2a446" stroke="#292a2c" stroke-width="3"/>
+  <text x="168" y="346" font-family="sans-serif" font-size="20" fill="#292a2c">漆面 brass 笔身</text>
+  <text x="536" y="346" font-family="sans-serif" font-size="20" fill="#292a2c">sword articulated clip</text>
+  <text x="650" y="396" font-family="sans-serif" font-size="18" fill="#686a6c">Wings black steel nib</text>
+  <path d="M200 414 H760" stroke="#a0a2a5" stroke-width="3" stroke-dasharray="10 8"/>
+  <text x="126" y="451" font-family="sans-serif" font-size="16" fill="#686a6c">fountain pen · rollerball · ballpoint 为不同书写模式；non-photo · non-logo · not-to-scale · non-colour-proof</text>
+</svg>
