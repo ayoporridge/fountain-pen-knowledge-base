@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Eboya HOUJU M structure factual diagram</title>
+  <desc id="desc">本站原创示意图，表达 HOUJU M 黑色 ebonite、14K Bock #6 nib、国际规格 cartridge/converter 和手工圆润造型；非产品照片、非 Logo、非比例图、非颜色校样。</desc>
+  <rect width="1600" height="900" rx="42" fill="#ede8df"/>
+  <g fill="none" stroke="#3c3430" stroke-width="20" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M225 450h800c120 0 220-58 290-140" stroke="#2d2724"/>
+    <path d="M225 450h800c120 0 220 58 290 140" stroke="#6b5b51"/>
+    <path d="M225 450h1050" stroke="#8a7566" stroke-dasharray="20 24"/>
+    <path d="M1315 310l125 140-125 140" stroke="#3c3430"/>
+    <path d="M1315 310l-68 70 68 70 68-70z" fill="#c7a66e"/>
+    <path d="M1090 450l90-58 90 58-90 58z" fill="#d0ad78"/>
+    <path d="M1080 450h260" stroke="#3c3430"/>
+  </g>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" fill="#3c3430">
+    <text x="145" y="130" font-size="54" font-weight="700">Eboya HOUJU M</text>
+    <text x="145" y="195" font-size="28">black ebonite · 14K Bock #6 · C/C</text>
+    <text x="300" y="355" font-size="32">traditional roundish form</text>
+    <text x="1135" y="220" font-size="30">14K Bock #6</text>
+    <text x="1380" y="450" font-size="30">M size</text>
+    <text x="1080" y="690" font-size="30">international C/C</text>
+    <text x="145" y="800" font-size="24">factual diagram · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+  </g>
+</svg>
