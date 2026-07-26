@@ -60,8 +60,14 @@ async function main(): Promise<void> {
   const result = await runReadinessAuditOnOwnedCopy(explicitDatabasePath(), {
     signalProbeReport: option("--signal-probe-report"),
   });
-  const duplicateGroups = findDuplicateGroups(result.rows);
-  const suspiciousPenArticles: SuspiciousEntity[] = result.rows
+  // Retired records remain in the catalog as lineage and redirect evidence.
+  // They are intentionally excluded from the public quality gate, while the
+  // full readiness summary below still reports their backlog explicitly.
+  const activeRows = result.rows.filter(
+    (row) => row.publication_status !== "retired",
+  );
+  const duplicateGroups = findDuplicateGroups(activeRows);
+  const suspiciousPenArticles: SuspiciousEntity[] = activeRows
     .filter(
       (row) =>
         row.entity_type === "pen" &&
@@ -77,7 +83,7 @@ async function main(): Promise<void> {
       entity,
       reasons: entity.blocker_codes.filter((code) => code.includes("story")),
     }));
-  const thinEntities: SuspiciousEntity[] = result.rows
+  const thinEntities: SuspiciousEntity[] = activeRows
     .filter((row) => !row.content_ready || !row.is_public)
     .map((entity) => ({
       entity,
@@ -85,12 +91,14 @@ async function main(): Promise<void> {
         ? [`publication_status:${entity.publication_status}`]
         : [...entity.blocker_codes],
     }));
-  const relationshipBlockers = result.rows.filter(
+  const relationshipBlockers = activeRows.filter(
     (row) => row.entity_type === "pen" && row.made_by_status !== "exactly_one",
   ).length;
   const report = {
     counts: {
       entities: result.summary.inventory_audited,
+      activeEntities: activeRows.length,
+      retiredExcluded: result.summary.inventory_audited - activeRows.length,
       duplicateGroups: duplicateGroups.length,
       suspiciousPenArticles: suspiciousPenArticles.length,
       thinEntities: thinEntities.length,
@@ -109,6 +117,8 @@ async function main(): Promise<void> {
   } else {
     console.log("Entity quality audit:");
     console.log(`  entities: ${report.counts.entities}`);
+    console.log(`  active entities: ${report.counts.activeEntities}`);
+    console.log(`  retired lineage excluded: ${report.counts.retiredExcluded}`);
     console.log(`  duplicate name groups: ${report.counts.duplicateGroups}`);
     console.log(`  suspicious pen articles: ${report.counts.suspiciousPenArticles}`);
     console.log(`  thin brand/model entities: ${report.counts.thinEntities}`);
