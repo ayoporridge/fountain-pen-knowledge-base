@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">PenBBS 500 弹簧活塞事实图</title>
+  <desc id="desc">原创非产品照片示意图，表达亚克力笔身、可脱开推杆、弹簧活塞与钢尖。</desc>
+  <!-- Non-photo, non-logo, not-to-scale, non-colour-proof. -->
+  <rect width="1600" height="900" rx="48" fill="#f4f0e8"/>
+  <rect x="95" y="92" width="1410" height="716" rx="32" fill="#fffdf8" stroke="#2d4b53" stroke-width="5"/>
+  <text x="150" y="170" fill="#173b43" font-family="sans-serif" font-size="44" font-weight="700">PenBBS 500</text>
+  <text x="150" y="220" fill="#53676a" font-family="sans-serif" font-size="26">spring-loaded piston · detachable plunger · factual diagram</text>
+  <g transform="translate(190 380)">
+    <rect x="0" y="55" width="1040" height="130" rx="65" fill="#c98fbd" stroke="#49364f" stroke-width="6" opacity=".86"/>
+    <rect x="110" y="72" width="720" height="96" rx="48" fill="#e6b7d7" opacity=".45"/>
+    <rect x="820" y="72" width="170" height="96" rx="48" fill="#b8bfc1" stroke="#49364f" stroke-width="6"/>
+    <path d="M1040 120 L1150 120 L1240 80 L1310 120 L1240 160 L1150 120" fill="#d9a33a" stroke="#49364f" stroke-width="6"/>
+    <path d="M370 25 L720 25" stroke="#365e66" stroke-width="16" stroke-linecap="round"/>
+    <path d="M440 25 q24 -50 48 0 q24 50 48 0 q24 -50 48 0 q24 50 48 0 q24 -50 48 0" fill="none" stroke="#365e66" stroke-width="8"/>
+    <circle cx="370" cy="25" r="14" fill="#365e66"/>
+    <text x="280" y="-18" fill="#365e66" font-family="sans-serif" font-size="24">可脱开推杆 / 回弹弹簧</text>
+    <text x="970" y="220" fill="#49364f" font-family="sans-serif" font-size="24">钢尖</text>
+    <text x="80" y="245" fill="#49364f" font-family="sans-serif" font-size="24">亚克力／树脂笔身</text>
+  </g>
+  <g transform="translate(180 680)">
+    <circle cx="28" cy="18" r="12" fill="#c98fbd"/>
+    <text x="55" y="28" fill="#53676a" font-family="sans-serif" font-size="24">颜色与尖型是 variant；500 不等于 355、456 或 308</text>
+  </g>
+  <text x="150" y="760" fill="#7d8c8c" font-family="sans-serif" font-size="20">本站原创 factual SVG；非产品照片、非 Logo、非比例图、非颜色校样</text>
+</svg>
