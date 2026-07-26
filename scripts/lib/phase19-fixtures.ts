@@ -17,22 +17,25 @@ const ROOT = process.cwd();
 const REAL_CATALOG_PATH = path.join(ROOT, "data", "fpkg.db");
 const LOCKED_POST_INCIDENT_FINGERPRINT = {
   main: {
-    size: "47689728",
-    inode: "73481841",
-    mtimeNs: "1785014069495648194",
-    sha256: "ad95be67e6d7b912f784382cb6e4f3b3c01a651426a587ad289d0557c30b7a05",
+    exists: true,
+    size: "48787456",
+    inode: "73509667",
+    mtimeNs: "1785023367065713719",
+    sha256: "6feffba77dfcc53e7e112483f9e23c65f60f79bb381cd6aa5224c89b4716d851",
   },
   wal: {
-    size: "0",
-    inode: "73482633",
-    mtimeNs: "1785019178908332194",
-    sha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    exists: false,
+    size: null,
+    inode: null,
+    mtimeNs: null,
+    sha256: null,
   },
   shm: {
-    size: "32768",
-    inode: "73482634",
-    mtimeNs: "1785019184159512073",
-    sha256: "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb",
+    exists: false,
+    size: null,
+    inode: null,
+    mtimeNs: null,
+    sha256: null,
   },
 } as const;
 const FIXTURE_ENV_KEYS = [
@@ -334,13 +337,14 @@ export function assertPhase19LockedRealCatalog(
   for (const kind of ["main", "wal", "shm"] as const) {
     const actual = snapshot[kind];
     const expected = LOCKED_POST_INCIDENT_FINGERPRINT[kind];
-    if (
-      !actual.exists ||
-      actual.size !== expected.size ||
-      actual.inode !== expected.inode ||
-      actual.mtimeNs !== expected.mtimeNs ||
-      actual.sha256 !== expected.sha256
-    ) {
+    const matches = expected.exists
+      ? actual.exists &&
+        actual.size === expected.size &&
+        actual.inode === expected.inode &&
+        actual.mtimeNs === expected.mtimeNs &&
+        actual.sha256 === expected.sha256
+      : !actual.exists;
+    if (!matches) {
       throw new Error(
         `Phase 19 locked ${kind} fingerprint mismatch: ${JSON.stringify(actual)}.`,
       );

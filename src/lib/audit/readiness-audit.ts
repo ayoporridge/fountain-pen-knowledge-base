@@ -709,13 +709,17 @@ export function runReadinessAudit(
   );
   const qualifiedFields = countMap(
     db.all<CountRow>(`
-      SELECT entity_id, count(*) AS value
+      SELECT required.entity_id, count(*) AS value
       FROM (
         SELECT DISTINCT entity_id, model_spec_id, field_key
         FROM publication_v2_field_evidence
       ) qualified
-      GROUP BY entity_id
-      ORDER BY entity_id
+      JOIN publication_v2_required_spec_fields required
+        ON required.entity_id = qualified.entity_id
+       AND required.model_spec_id = qualified.model_spec_id
+       AND required.field_key = qualified.field_key
+      GROUP BY required.entity_id
+      ORDER BY required.entity_id
     `),
   );
   const conflicts = new Map(
