@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">TACCIA Pinnacle factual diagram</title>
+  <desc id="desc">Non-photo, non-logo, not-to-scale, non-colour-proof diagram of an anodized aluminum fountain pen.</desc>
+  <rect width="1600" height="900" fill="#eef0f2"/>
+  <text x="80" y="92" font-family="sans-serif" font-size="42" font-weight="700" fill="#252b31">TACCIA Pinnacle</text>
+  <text x="80" y="142" font-family="sans-serif" font-size="24" fill="#5f6a73">anodized aluminum · spring-loaded clip · cartridge / converter</text>
+  <g transform="translate(120 285)">
+    <path d="M95 180 H1160 L1300 180 L1160 236 H95 C50 236 50 124 95 124 H1160 L1300 180Z" fill="#8c969e" stroke="#333d45" stroke-width="8"/>
+    <path d="M215 124 H490" stroke="#bbc3c8" stroke-width="20"/>
+    <path d="M600 124 H950" stroke="#6f7b84" stroke-width="20"/>
+    <path d="M1115 100 C1200 60 1275 72 1340 125" fill="none" stroke="#c68a3b" stroke-width="18" stroke-linecap="round"/>
+    <path d="M1285 180 h190" stroke="#a9783d" stroke-width="11"/>
+    <text x="450" y="315" font-family="sans-serif" font-size="24" fill="#252b31">anodized aluminum body</text>
+    <text x="1110" y="55" font-family="sans-serif" font-size="24" fill="#252b31">spring clip</text>
+  </g>
+  <g font-family="sans-serif" font-size="28" fill="#252b31">
+    <text x="120" y="720">EF</text><text x="330" y="720">M</text><text x="540" y="720">B</text><text x="750" y="720">Music</text><text x="1060" y="720">Japanese steel</text>
+  </g>
+  <text x="80" y="830" font-family="sans-serif" font-size="22" fill="#5f6a73">NON-PHOTO · NON-LOGO · NOT-TO-SCALE · NON-COLOUR-PROOF</text>
+</svg>

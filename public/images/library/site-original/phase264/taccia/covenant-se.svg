@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">TACCIA Covenant SE factual diagram</title>
+  <desc id="desc">Non-photo, non-logo, not-to-scale, non-colour-proof diagram of a fountain pen with a long protective sheath cap.</desc>
+  <rect width="1600" height="900" fill="#f7efe7"/>
+  <text x="80" y="92" font-family="sans-serif" font-size="42" font-weight="700" fill="#4c3030">TACCIA Covenant SE</text>
+  <text x="80" y="142" font-family="sans-serif" font-size="24" fill="#765856">long sheath cap · hand-turned resin · inner seal · cartridge / converter</text>
+  <g transform="translate(120 285)">
+    <path d="M130 180 H760 C810 180 835 138 835 95 V265 C835 222 810 180 760 180Z" fill="#b58b79" fill-opacity=".64" stroke="#60423d" stroke-width="8"/>
+    <path d="M760 180 H1240 C1300 180 1345 150 1390 180 C1345 210 1300 180 1240 180Z" fill="#d1a28d" stroke="#60423d" stroke-width="8"/>
+    <path d="M160 180 H1260" stroke="#6f3d3c" stroke-width="15"/>
+    <rect x="410" y="130" width="310" height="100" rx="20" fill="#fff" fill-opacity=".36" stroke="#8b5c52" stroke-width="6"/>
+    <path d="M100 180 h190" stroke="#c58b3e" stroke-width="10"/>
+    <text x="285" y="310" font-family="sans-serif" font-size="24" fill="#4c3030">long sheath cap protects body</text>
+    <text x="430" y="115" font-family="sans-serif" font-size="24" fill="#4c3030">inner sheath seal</text>
+    <text x="1040" y="320" font-family="sans-serif" font-size="24" fill="#4c3030">Japanese nib</text>
+  </g>
+  <g font-family="sans-serif" font-size="28" fill="#4c3030"><text x="120" y="720">steel EF/F/M/B/MS</text><text x="650" y="720">14K EF/F/MF/M/B/MS</text><text x="1230" y="720">SE only</text></g>
+  <text x="80" y="830" font-family="sans-serif" font-size="22" fill="#765856">NON-PHOTO · NON-LOGO · NOT-TO-SCALE · NON-COLOUR-PROOF</text>
+</svg>
