@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Lotus Student Premium Ebonite 边界示意</title>
+  <desc id="desc">本站原创 factual diagram，标出 premium ebonite、#6 Jowo steel nib、C/C 与旧 pocket 样本的填充边界；非产品照片、非品牌 Logo、非比例图、非颜色校样。</desc>
+  <rect width="960" height="540" rx="28" fill="#e9e1d8"/>
+  <rect x="54" y="54" width="852" height="432" rx="24" fill="#fffdf8" stroke="#3c3028" stroke-width="4"/>
+  <text x="88" y="114" font-family="serif" font-size="36" font-weight="700" fill="#3c3028">Lotus Student · 22383</text>
+  <text x="88" y="146" font-family="sans-serif" font-size="18" fill="#79685d">premium ebonite · #6 Jowo steel · factual diagram</text>
+  <path d="M150 272 C260 238 420 238 592 272 L770 272" fill="none" stroke="#24201e" stroke-width="44" stroke-linecap="round"/>
+  <path d="M770 272 l54 -18 l-17 18 l17 18 z" fill="#cbb27a" stroke="#3c3028" stroke-width="3"/>
+  <path d="M586 237 l78 -24 l-18 24 l18 24 z" fill="#b8b9ba" stroke="#3c3028" stroke-width="3"/>
+  <text x="140" y="350" font-family="sans-serif" font-size="21" fill="#3c3028">premium ebonite 笔身</text>
+  <text x="538" y="350" font-family="sans-serif" font-size="20" fill="#3c3028">#6 Jowo steel nib</text>
+  <path d="M178 412 H780" stroke="#9e9186" stroke-width="3" stroke-dasharray="10 8"/>
+  <text x="112" y="450" font-family="sans-serif" font-size="16" fill="#79685d">当前页：C/C · 140/128 mm · 11.5 mm；旧 pocket 样本另记 converter / cartridge / eyedropper</text>
+  <text x="112" y="474" font-family="sans-serif" font-size="14" fill="#79685d">非产品照片 · 非品牌 Logo · 非比例图 · 非颜色校样</text>
+</svg>
