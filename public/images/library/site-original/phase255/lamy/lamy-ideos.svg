@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">LAMY ideos 结构事实图</title>
+  <desc id="desc">本站原创示意图，表达 LAMY ideos 的水滴截面、钯色笔身、Z 53 钢尖、T 10/Z 27 供墨和 bayonet catch；非产品照片、非 Logo、非比例图、非颜色校样。</desc>
+  <rect width="1600" height="900" rx="42" fill="#f1f3f5"/>
+  <g fill="none" stroke="#27313a" stroke-width="18" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M230 450h780c110 0 205-56 288-132" stroke="#8f949b"/>
+    <path d="M230 450h780c110 0 205 56 288 132" stroke="#c2c6cb"/>
+    <path d="M230 450h1020" stroke="#69727b" stroke-dasharray="18 24"/>
+    <path d="M1310 318l120 132-120 132" stroke="#4e5962"/>
+    <path d="M1310 318l-64 56 64 76 64-76z" fill="#b6bdc4"/>
+    <path d="M1150 318l70-46 70 46-70 46z" fill="#a6adb4"/>
+    <path d="M1050 450l90-54 90 54-90 54z" fill="#d1d4d7"/>
+    <path d="M1290 450h180" stroke="#4e5962"/>
+  </g>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" fill="#27313a">
+    <text x="150" y="130" font-size="54" font-weight="700">LAMY ideos</text>
+    <text x="150" y="195" font-size="28">水滴截面 · 钯色金属 · Z 53 steel nib</text>
+    <text x="320" y="350" font-size="32">不对称 teardrop body</text>
+    <text x="1135" y="225" font-size="30">Z 53</text>
+    <text x="1385" y="450" font-size="30">bayonet catch</text>
+    <text x="1150" y="690" font-size="30">T 10 / Z 27</text>
+    <text x="150" y="800" font-size="24">factual diagram · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+  </g>
+</svg>
