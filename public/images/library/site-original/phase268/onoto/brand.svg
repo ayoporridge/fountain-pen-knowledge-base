@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Onoto brand history and routes</title>
+  <desc id="desc">Factual editorial diagram; non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#f3eee5"/>
+  <path d="M180 700h1240" stroke="#5a3c2e" stroke-width="8" opacity=".35"/>
+  <g fill="none" stroke="#5a3c2e" stroke-width="8">
+    <path d="M250 600V220h120v380"/><path d="M220 220h180l-35-55H255z"/><path d="M250 330h120"/>
+    <path d="M520 420h370"/><path d="M850 380l70 40-70 40"/>
+    <path d="M1030 420h300"/><path d="M1290 380l70 40-70 40"/>
+  </g>
+  <g fill="#5a3c2e" font-family="sans-serif" text-anchor="middle">
+    <text x="310" y="760" font-size="42">1905</text><text x="310" y="805" font-size="28">Onoto plunger tradition</text>
+    <text x="700" y="350" font-size="36">1937 Magna</text><text x="700" y="395" font-size="26">historic design milestone</text>
+    <text x="1170" y="350" font-size="36">modern Onoto</text><text x="1170" y="395" font-size="26">Magna / Heritage / editions</text>
+    <text x="800" y="110" font-size="40">Onoto Pen Co · factual route diagram</text>
+    <text x="800" y="855" font-size="22">non-photo · non-logo · not-to-scale · non-colour-proof</text>
+  </g>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Onoto Magna factual diagram</title>
+  <desc id="desc">Factual editorial diagram; non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#eee8dd"/>
+  <g fill="none" stroke="#51392d" stroke-width="16" stroke-linecap="round">
+    <path d="M260 470h160l70-38h700l130 38-130 38H490l-70-38H260z" fill="#b58b61"/>
+    <path d="M1140 432l120-32 120 70-120 70-120-32z" fill="#d4c2a2"/>
+    <path d="M500 433v74M540 433v74M580 433v74"/>
+    <path d="M720 410v120M770 410v120" stroke-width="8"/>
+    <path d="M270 430v-80M270 350l-55-60M270 350l55-60" stroke-width="10"/>
+  </g>
+  <g fill="#51392d" font-family="sans-serif" text-anchor="middle">
+    <text x="800" y="170" font-size="44">Onoto Magna</text>
+    <text x="800" y="225" font-size="28">rounded barrel · three-band cap language · edition-specific filling</text>
+    <text x="360" y="650" font-size="30">converter / standard European cartridge</text>
+    <text x="1190" y="650" font-size="30">optional plunger-filler</text>
+    <text x="800" y="820" font-size="22">non-photo · non-logo · not-to-scale · non-colour-proof</text>
+  </g>
+</svg>
