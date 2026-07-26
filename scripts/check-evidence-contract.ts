@@ -2908,16 +2908,17 @@ async function seedQaPenFixture(
     entityId: `${entityId}-brand`,
     entityType: "brand",
   });
+  const pen = await seedQualifiedPublicationFixture(client, {
+    entityId,
+    entityType: "pen",
+    brandEntityId: brand.entityId,
+  });
   await recordFirstThreeCurrentReviews(client, brand.entityId);
   await publishEntity(client, {
     entityId: brand.entityId,
     reviewer: "phase19-qa-brand-publication-reviewer",
   });
-  return seedQualifiedPublicationFixture(client, {
-    entityId,
-    entityType: "pen",
-    brandEntityId: brand.entityId,
-  });
+  return pen;
 }
 
 async function runApprovedClaimSingleVariableCases(): Promise<void> {
@@ -3290,6 +3291,11 @@ async function runMirrorAndCompletePositiveCase(): Promise<void> {
       entityId: "phase19-qa-complete-pen",
       entityType: "pen",
       brandEntityId: brand.entityId,
+    });
+    await recordFirstThreeCurrentReviews(client, brand.entityId);
+    await publishEntity(client, {
+      entityId: brand.entityId,
+      reviewer: "phase19-complete-brand-republication-reviewer",
     });
     await recordFirstThreeCurrentReviews(client, pen.entityId);
     await publishEntity(client, {
