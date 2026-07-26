@@ -17,6 +17,16 @@ export interface PublicationDatabase {
 export interface PublishEntityOptions {
   entityId: string;
   reviewer: string;
+  /** Internal callers may reuse a hash computed from the same content snapshot. */
+  contentHash?: string;
+  /** Internal batch callers may reuse a freshly verified readiness snapshot. */
+  readiness?: {
+    blockerCount: number;
+    blockersJson: string;
+    publishable: number;
+  };
+  /** Internal batch callers may assert public membership once after the batch. */
+  assertPublicMembership?: boolean;
 }
 
 export interface PublishEntityResult {
@@ -40,6 +50,8 @@ export interface RecordEntityContentReviewOptions {
   reviewer: string;
   status: ContentReviewStatus;
   notes?: string | null;
+  /** Internal callers may reuse a hash computed from the same content snapshot. */
+  contentHash?: string;
 }
 
 export interface RecordEntityContentReviewResult {
@@ -693,10 +705,9 @@ export async function recordEntityContentReview(
 
   const transaction = await db.transaction("write");
   try {
-    const contentHash = await computePublicationContentHash(
-      transaction,
-      entityId,
-    );
+    const contentHash =
+      options.contentHash?.trim() ||
+      (await computePublicationContentHash(transaction, entityId));
     const reviewedAt = new Date().toISOString();
     await transaction.execute({
       sql: `
@@ -765,10 +776,9 @@ export async function publishEntity(
     if (!Number.isSafeInteger(contentRevision) || contentRevision < 0) {
       throw new Error(`Invalid publication content revision: ${entityId}`);
     }
-    const contentHash = await computePublicationContentHash(
-      transaction,
-      entityId,
-    );
+    const contentHash =
+      options.contentHash?.trim() ||
+      (await computePublicationContentHash(transaction, entityId));
     const approvedReviewRows = await rows(
       transaction,
       `
@@ -849,16 +859,23 @@ export async function publishEntity(
       ],
     });
 
-    const readinessRows = await rows(
-      transaction,
-      `
-        SELECT blocker_count, blockers_json, publishable
-        FROM public_entity_readiness
-        WHERE entity_id = ? AND contract_version = ?
-      `,
-      [entityId, PUBLICATION_CONTRACT_VERSION],
-    );
-    const readiness = readinessRows[0];
+    const readiness = options.readiness
+      ? {
+          blocker_count: options.readiness.blockerCount,
+          blockers_json: options.readiness.blockersJson,
+          publishable: options.readiness.publishable,
+        }
+      : (
+          await rows(
+            transaction,
+            `
+              SELECT blocker_count, blockers_json, publishable
+              FROM public_entity_readiness
+              WHERE entity_id = ? AND contract_version = ?
+            `,
+            [entityId, PUBLICATION_CONTRACT_VERSION],
+          )
+        )[0];
     if (!readiness) {
       throw new Error(`Publication readiness row not found: ${entityId}`);
     }
@@ -891,13 +908,15 @@ export async function publishEntity(
     if (publicationUpdate.rowsAffected !== 1) {
       throw new Error(`Publication transition failed: ${entityId}`);
     }
-    const publicRows = await rows(
-      transaction,
-      "SELECT 1 FROM public_entities WHERE id = ?",
-      [entityId],
-    );
-    if (publicRows.length !== 1) {
-      throw new Error(`Publication membership assertion failed: ${entityId}`);
+    if (options.assertPublicMembership !== false) {
+      const publicRows = await rows(
+        transaction,
+        "SELECT 1 FROM public_entities WHERE id = ?",
+        [entityId],
+      );
+      if (publicRows.length !== 1) {
+        throw new Error(`Publication membership assertion failed: ${entityId}`);
+      }
     }
 
     await transaction.commit();

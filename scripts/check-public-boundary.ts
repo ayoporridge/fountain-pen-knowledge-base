@@ -27,7 +27,7 @@ import {
 const RETIRED_DUPLICATE_SLUGS = [
   "百乐-pilot-custom-823",
   "百利金-pelikan-m800",
-  "派克-parker-51-经典-vintage",
+  "parker-51-vintage",
   "写乐-sailor-21k-pro-gear-大鱼雷",
   "奥罗拉-aurora",
 ];
