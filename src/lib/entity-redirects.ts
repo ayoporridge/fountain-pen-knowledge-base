@@ -89,6 +89,7 @@ export const RECLASSIFIED_ARTICLE_PATHS: Record<string, string> =
     ],
     ["pen/写乐-sailor-1911-profit系列", "/article/sailor-1911-profit"],
     ["pen/百乐-pilot-88g", "/article/pilot-88g-mr-guide"],
+    ["brand/graphomatic", "/article/graphomatic"],
     ["pen/白金-platinum-出云-izumo", "/article/platinum-izumo"],
     ["pen/白金-platinum-富士旬景pnb-13000", "/article/platinum-fuji-shunkei"],
     ["pen/白金-platinum-莳绘系列", "/article/platinum-maki-e-kanazawa-leaf"],
