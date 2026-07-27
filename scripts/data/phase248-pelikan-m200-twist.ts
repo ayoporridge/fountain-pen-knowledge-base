@@ -257,6 +257,7 @@ function makePack(input: {
         fill_system: input.fill,
         material: input.material,
         dimensions: input.dimensions,
+        status: input.status,
       },
       evidence: [
         { key: `${input.key}-brand`, fieldKey: "brand_entity_id", sourceKey: input.primary.key, scopeKey, locator: "Pelikan maker identity" },
@@ -267,6 +268,7 @@ function makePack(input: {
         { key: `${input.key}-fill`, fieldKey: "fill_system", sourceKey: input.primary.key, scopeKey, locator: "official filling system field" },
         { key: `${input.key}-material`, fieldKey: "material", sourceKey: input.primary.key, scopeKey, locator: "official material and construction field" },
         { key: `${input.key}-dimensions`, fieldKey: "dimensions", sourceKey: input.primary.key, scopeKey, locator: "official dimensions or explicit family boundary" },
+        { key: `${input.key}-status`, fieldKey: "status", sourceKey: input.secondary.key, scopeKey, locator: "model production status and family boundary" },
       ],
     },
     media: [{

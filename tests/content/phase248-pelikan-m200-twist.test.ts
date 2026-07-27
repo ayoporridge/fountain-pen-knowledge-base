@@ -175,6 +175,17 @@ test("Phase 248 separates Pelikan M200 and Twist content and canonicalizes the T
       ).rows[0]?.value,
       1,
     );
+    for (const entityId of [PHASE248_M200_ID, PHASE248_TWIST_ID]) {
+      assert.equal(
+        (
+          await client.execute({
+            sql: "SELECT count(*) AS value FROM spec_field_evidence evidence JOIN model_specs spec ON spec.id=evidence.model_spec_id WHERE spec.entity_id=? AND evidence.review_status='approved'",
+            args: [entityId],
+          })
+        ).rows[0]?.value,
+        9,
+      );
+    }
     assert.deepEqual(
       (
         await applyPhase248PelikanM200TwistContent(client, options)
