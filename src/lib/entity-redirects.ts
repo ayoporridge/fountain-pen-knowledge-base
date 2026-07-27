@@ -107,14 +107,37 @@ const CANONICAL_ENTITY_PATHS: Record<string, string> = {
   "pen/waterman-allure-fountain-pen": "/pen/waterman-allure",
   "pen/waterman-exception-fountain-pen": "/pen/waterman-exception",
   "pen/pelikan-twist-p457": "/pen/pelikan-twist",
+  "pen/sheaffer-s-touchdown-tm": "/pen/touchdown-tm",
   "pen/写乐-sailor-21k-pro-gear-大鱼雷": "/pen/sailor-pro-gear",
   "pen/写乐-sailor-1219标准鱼雷": "/pen/sailor-1911-standard",
   "pen/奥罗拉-aurora": "/brand/aurora",
+  "pen/弘典-hongdian-苏木": "/pen/弘典-hongdian-1866",
+  "pen/百乐-pilot-capless-decimo": "/pen/pilot-capless-decimo",
+  "pen/维斯康蒂-visconti-homo-sapiens智人": "/brand/visconti",
+  "pen/英雄派迪-一体尖": "/pen/paidi-century-1",
   "pen/kimberly-the-pen-that-saved-eversharp":
     "/article/kimberly-pockette-ballpoint-history",
   "pen/百乐-pilot-iroshizuku色彩雫": "/browse?type=article",
   ...RECLASSIFIED_ARTICLE_PATHS,
 };
+
+/**
+ * Retired identities with no safe successor. Keep these in the route layer so
+ * the old URL is an actual HTTP 404 rather than a streamed 404 body with a
+ * 200 status from the dynamic detail page.
+ */
+export const HARD_404_ENTITY_PATHS = new Set([
+  "/brand/banju",
+  "/brand/saier",
+  "/brand/shanghai",
+  "/brand/yisihua",
+  "/nib/sailor-naginata-togi",
+  "/pen/leonardo-furore-momento-magico",
+  "/pen/opus-88-demo-kolora",
+  "/pen/sheaffer-s-craftsman",
+  "/pen/skb派顿-f10-f21",
+  "/pen/犀飞利-sheaffer-帝国元首",
+]);
 
 export function getReclassifiedArticlePath(type: string, slug: string) {
   return RECLASSIFIED_ARTICLE_PATHS[`${type}/${slug}`] || null;

@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import {
   getCanonicalEntityPath,
   getReclassifiedArticlePath,
+  HARD_404_ENTITY_PATHS,
 } from "@/lib/entity-redirects";
 
 const HIDDEN_PUBLIC_PATHS = new Set([
@@ -86,6 +87,10 @@ export async function middleware(request: NextRequest) {
       new URL(canonicalEntityPath, request.url),
       308,
     );
+  }
+
+  if (HARD_404_ENTITY_PATHS.has(normalizedPathname)) {
+    return hardNotFound();
   }
 
   if (
