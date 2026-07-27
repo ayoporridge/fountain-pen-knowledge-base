@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">Sheaffer Legacy 9064 factual identity diagram</title>
+  <desc id="desc">原创示意图：当前 Legacy 9064 的黑色亮漆、镀铬饰件、不锈钢嵌入式笔尖、按压式笔帽和 Classic converter。不是产品照片。</desc>
+  <rect width="1200" height="700" fill="#f5f1e8"/>
+  <rect x="40" y="40" width="1120" height="620" rx="28" fill="#fffdf8" stroke="#263238" stroke-width="4"/>
+  <text x="80" y="105" font-family="Georgia,serif" font-size="38" fill="#182026">Sheaffer Legacy 9064</text>
+  <text x="80" y="145" font-family="Arial,sans-serif" font-size="20" fill="#53636b">current revival · E0906453/SH36076 · Fine / Medium / Broad</text>
+  <g transform="translate(110 285) rotate(-5 470 55)">
+    <rect x="100" y="25" width="650" height="70" rx="35" fill="#17191b" stroke="#0b0d0e" stroke-width="5"/>
+    <rect x="170" y="28" width="440" height="64" rx="30" fill="#24282b" opacity=".72"/>
+    <rect x="100" y="25" width="650" height="12" rx="6" fill="#b9c0c5" opacity=".78"/>
+    <rect x="724" y="17" width="22" height="86" rx="8" fill="#aeb6bb"/>
+    <path d="M748 25 L855 45 L855 75 L748 95 Z" fill="#b6bec3" stroke="#7c878d" stroke-width="4"/>
+    <path d="M855 45 L925 55 L925 65 L855 75 Z" fill="#d4d9dc"/>
+    <path d="M925 55 L1000 59 L1000 61 L925 65 Z" fill="#9ca7ad"/>
+    <text x="255" y="70" font-family="Arial,sans-serif" font-size="22" fill="#e8ecee">GLOSSY BLACK LACQUER</text>
+    <text x="794" y="140" font-family="Arial,sans-serif" font-size="18" fill="#34434a">stainless steel inlaid nib</text>
+    <line x1="850" y1="105" x2="850" y2="130" stroke="#34434a" stroke-width="2"/>
+  </g>
+  <g font-family="Arial,sans-serif" font-size="22" fill="#1c2a30">
+    <rect x="90" y="485" width="310" height="105" rx="16" fill="#eef3f4" stroke="#8fa2a9" stroke-width="2"/>
+    <text x="115" y="520">snap-on cap</text>
+    <text x="115" y="555">chrome-plated trims</text>
+    <rect x="445" y="485" width="310" height="105" rx="16" fill="#eef3f4" stroke="#8fa2a9" stroke-width="2"/>
+    <text x="470" y="520">Classic converter</text>
+    <text x="470" y="555">two cartridges in box</text>
+    <rect x="800" y="485" width="300" height="105" rx="16" fill="#fff0dd" stroke="#c99756" stroke-width="2"/>
+    <text x="825" y="520">not Heritage 18K</text>
+    <text x="825" y="555">not PFM Snorkel</text>
+  </g>
+  <g font-family="monospace" font-size="17" fill="#6b4f2b">
+    <text x="80" y="625">non-photo · non-logo · not-to-scale · non-colour-proof</text>
+  </g>
+</svg>
