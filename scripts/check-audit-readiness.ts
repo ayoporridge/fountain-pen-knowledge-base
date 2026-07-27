@@ -103,10 +103,10 @@ const FINAL_ARTIFACT_DIRECTORY = path.join(
 const LOCKED_REAL_CATALOG_FINGERPRINT = {
   main: {
     optional: false,
-    size: "52678656",
+    size: "52752384",
     inode: "74488502",
-    mtimeNs: "1785177363299726709",
-    sha256: "9b917d0163f2ebfb9721c2ff39dbcc35f64b47e7f89e5afa7161ba60fd7f9d7c",
+    mtimeNs: "1785179218073528607",
+    sha256: "903739aa0d8b53d5c36e890d81a36aa5ed49e9503c3c11656a571b3761be5370",
   },
   wal: {
     optional: true,
