@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Monteverde Invincia identity diagram</title>
+  <desc id="desc">A factual editorial diagram showing Invincia as a Monteverde fountain-pen family with separate finish and writing-mode boundaries. This is not a product photograph or a scale drawing.</desc>
+  <rect width="1600" height="900" fill="#f4efe6"/>
+  <rect x="70" y="70" width="1460" height="760" rx="28" fill="#fffaf1" stroke="#423d35" stroke-width="4"/>
+  <text x="120" y="155" font-family="Georgia, serif" font-size="52" fill="#24211d">Monteverde Invincia</text>
+  <text x="120" y="205" font-family="Arial, sans-serif" font-size="25" fill="#675f55">身份与版本边界示意图 · 非产品照片 · 非比例图</text>
+  <g transform="translate(145 300)">
+    <rect x="0" y="0" width="470" height="260" rx="22" fill="#242a31"/>
+    <rect x="28" y="34" width="414" height="86" rx="43" fill="#a7adb4"/>
+    <rect x="76" y="53" width="230" height="48" rx="24" fill="#313a43"/>
+    <path d="M330 42h74l35 35-35 35h-74z" fill="#c4cbd0"/>
+    <path d="M410 77l42-25v50z" fill="#d4a34a"/>
+    <text x="30" y="178" font-family="Arial, sans-serif" font-size="28" fill="#fffaf1">fountain pen</text>
+    <text x="30" y="218" font-family="Arial, sans-serif" font-size="22" fill="#d8d0c3">螺纹帽 · 墨囊 / converter</text>
+  </g>
+  <g transform="translate(720 285)">
+    <rect width="690" height="150" rx="18" fill="#e7dccb" stroke="#8f7b62" stroke-width="3"/>
+    <text x="30" y="50" font-family="Arial, sans-serif" font-size="28" fill="#332b22">同一型号的表面 / 颜色 SKU</text>
+    <text x="30" y="96" font-family="Arial, sans-serif" font-size="23" fill="#4c4338">Chrome · Color Fusion · Nebula · Rose Gold Carbon Fiber · Stealth Black</text>
+    <text x="30" y="132" font-family="Arial, sans-serif" font-size="19" fill="#6c5e4f">具体库存、材质与尖幅须回到 exact SKU</text>
+  </g>
+  <g transform="translate(720 490)">
+    <rect width="325" height="180" rx="18" fill="#d9e6e1" stroke="#477266" stroke-width="3"/>
+    <text x="28" y="55" font-family="Arial, sans-serif" font-size="27" fill="#243c37">钢尖 / 尖幅</text>
+    <text x="28" y="98" font-family="Arial, sans-serif" font-size="22" fill="#365b52">JoWo #6 steel</text>
+    <text x="28" y="135" font-family="Arial, sans-serif" font-size="20" fill="#365b52">EF · F · M · B · Stub</text>
+    <text x="28" y="163" font-family="Arial, sans-serif" font-size="18" fill="#365b52">Omniflex 仍是钢尖</text>
+  </g>
+  <g transform="translate(1085 490)">
+    <rect width="325" height="180" rx="18" fill="#ead9dd" stroke="#895361" stroke-width="3"/>
+    <text x="28" y="55" font-family="Arial, sans-serif" font-size="27" fill="#492b34">边界</text>
+    <text x="28" y="98" font-family="Arial, sans-serif" font-size="21" fill="#653e48">Ritma ≠ Invincia</text>
+    <text x="28" y="133" font-family="Arial, sans-serif" font-size="19" fill="#653e48">滚珠 / 圆珠不并入钢笔</text>
+    <text x="28" y="161" font-family="Arial, sans-serif" font-size="18" fill="#653e48">不虚构统一尺寸重量</text>
+  </g>
+  <text x="120" y="765" font-family="Arial, sans-serif" font-size="20" fill="#675f55">Fountain Pen Graph editorial studio · factual SVG · product-photo=false · to-scale=false</text>
+</svg>
