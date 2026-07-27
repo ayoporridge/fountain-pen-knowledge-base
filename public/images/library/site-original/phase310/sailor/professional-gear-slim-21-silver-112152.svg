@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sailor Professional Gear Slim 21 Silver Trim 11-2152 factual identity card</title>
+  <desc id="desc">本站原创事实示意图，只呈现 11-2152 的颜色、代码与规格边界。non-photo; non-logo; not-to-scale; non-colour-proof；不是产品照片。</desc>
+  <rect width="1600" height="900" fill="#edf0f3"/>
+  <rect x="54" y="54" width="1492" height="792" rx="34" fill="#fff" stroke="#34404a" stroke-width="4"/>
+  <text x="104" y="126" fill="#34404a" font-family="Georgia, serif" font-size="45" font-weight="700">Professional Gear Slim 21</text>
+  <text x="106" y="170" fill="#65717a" font-family="Arial, sans-serif" font-size="25">Silver Trim · 11-2152 · 2026-03-14 · factual card / non-photo</text>
+  <g transform="translate(104 230)">
+    <rect width="650" height="470" rx="28" fill="#f7f8fa" stroke="#aab4bc" stroke-width="3"/>
+    <text x="38" y="62" fill="#34404a" font-family="Arial, sans-serif" font-size="30" font-weight="700">两组颜色 × 七种尖号</text>
+    <text x="38" y="110" fill="#56636c" font-family="Arial, sans-serif" font-size="22">White：11-2152-110 / 210 / 310 / 410 / 610 / 710 / 910</text>
+    <text x="38" y="150" fill="#56636c" font-family="Arial, sans-serif" font-size="22">Black：11-2152-120 / 220 / 320 / 420 / 620 / 720 / 920</text>
+    <path d="M80 252 H510" stroke="#c9d0d5" stroke-width="18" stroke-linecap="round"/>
+    <path d="M80 252 L164 222 L248 252 L164 282 Z" fill="#c8d0d5" stroke="#34404a" stroke-width="4"/>
+    <path d="M80 288 H510" stroke="#222a31" stroke-width="18" stroke-linecap="round"/>
+    <path d="M80 288 L164 258 L248 288 L164 318 Z" fill="#c8d0d5" stroke="#34404a" stroke-width="4"/>
+    <text x="38" y="392" fill="#34404a" font-family="Arial, sans-serif" font-size="24" font-weight="700">nickel chrome · PMMA · 21K 中型双色尖</text>
+    <text x="38" y="434" fill="#56636c" font-family="Arial, sans-serif" font-size="21">这里只示意白／黑两条代码路线，不复刻实物色泽。</text>
+  </g>
+  <g transform="translate(816 230)">
+    <rect width="650" height="470" rx="28" fill="#f1f4f6" stroke="#aab4bc" stroke-width="3"/>
+    <text x="38" y="62" fill="#34404a" font-family="Arial, sans-serif" font-size="30" font-weight="700">官网共同规格</text>
+    <text x="38" y="116" fill="#3e4b54" font-family="Arial, sans-serif" font-size="25">φ17 × 124 mm（含笔夹）</text>
+    <text x="38" y="160" fill="#3e4b54" font-family="Arial, sans-serif" font-size="25">16.8 g · 墨囊／上墨器两用式</text>
+    <text x="38" y="204" fill="#3e4b54" font-family="Arial, sans-serif" font-size="25">PMMA 笔盖／笔杆／大先</text>
+    <text x="38" y="248" fill="#3e4b54" font-family="Arial, sans-serif" font-size="25">PG-03B［99-1337-040］包装</text>
+    <line x1="38" y1="294" x2="610" y2="294" stroke="#c4ccd1" stroke-width="2"/>
+    <text x="38" y="348" fill="#34404a" font-family="Arial, sans-serif" font-size="25" font-weight="700">不要混入</text>
+    <text x="38" y="390" fill="#56636c" font-family="Arial, sans-serif" font-size="21">11-2151 Gold IP · 11-1221 旧 14K Slim</text>
+    <text x="38" y="428" fill="#56636c" font-family="Arial, sans-serif" font-size="21">11-1503 Slim Mini · 11-2036/2037 全尺寸</text>
+  </g>
+  <text x="104" y="780" fill="#65717a" font-family="Arial, sans-serif" font-size="20">用途：帮助读者先核对 11-2152 主代码、颜色组和银饰处理；不证明产品照片、比例、光泽或批次。</text>
+</svg>
