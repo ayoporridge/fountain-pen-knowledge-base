@@ -1,0 +1,57 @@
+import type { CuratedClaim, CuratedEntityPack, CuratedSource, CuratedSpecEvidence, SpecFieldKey } from "../lib/curated-content-pack";
+import { PHASE76_SAILOR_BRAND_ID, phase76SailorProfessionalGearPacks } from "./phase76-sailor-professional-gear";
+
+const RETRIEVED = "2026-07-28";
+export const PHASE304_SAILOR_BRAND_ID = PHASE76_SAILOR_BRAND_ID;
+export const PHASE304_1911_L_DEMO_ID = "p304Sailor1911LDemonstrator";
+export const PHASE304_1911_L_DEMO_SLUG = "sailor-1911-l-demonstrator-11-2001";
+const SCOPE = "phase304-sailor-1911-l-demonstrator-11-2001";
+
+function web(input: { key: string; title: string; url: string; registryKey: string; registryName: string; sourceType: CuratedSource["sourceType"]; tier: CuratedSource["tier"]; summary: string; locator: string }): CuratedSource { return { key: input.key, registryKey: input.registryKey, registryName: input.registryName, sourceType: input.sourceType, tier: input.tier, independenceGroup: input.registryKey, title: input.title, url: input.url, homepageUrl: new URL(input.url).origin, itemType: "web_page", author: input.registryName, retrievedAt: RETRIEVED, allowedUse: "summary_only", summary: input.summary, archiveUrl: input.url, archiveLocator: `live-source-not-frozen;retrieved=${RETRIEVED};external_archive=false;locator=${input.locator}` }; }
+function diagram(): CuratedSource { const url = "/images/library/site-original/phase304/sailor/1911-l-demonstrator-11-2001.svg"; return { key: "phase304-sailor-1911-l-demo-svg", registryKey: "fountain-pen-graph-editorial-phase304", registryName: "Fountain Pen Graph editorial studio", sourceType: "user_submission", tier: "primary", independenceGroup: "fountain-pen-graph-editorial-phase304", title: "Sailor 1911 L Demonstrator 11-2001 factual diagram", url, homepageUrl: "/", itemType: "image", author: "Fountain Pen Graph editorial", retrievedAt: RETRIEVED, allowedUse: "store_full", license: "site-original", summary: "原创事实示意图：表达 11-2001 的透明 PMMA、21K 镀金尖、旋帽和 C/C 边界；不是产品照片。", archiveUrl: url, archiveLocator: `project-public-asset:${url};site-original=true;factual-svg=true;product-photo=false;logo=false;to-scale=false;colour-proof=false;dimensions=1600x900` }; }
+function claim(key: string, predicate: string, objectText: string, sourceKey: string, locator: string, extra: Array<{ key: string; sourceKey: string; locator: string }> = []): CuratedClaim { return { key, predicate, objectText, factClass: predicate === "maintenance_boundary" ? "editorial" : "core", confidence: 0.97, sourceKey, locator, evidence: [{ key: `${key}-e`, sourceKey, scopeKey: SCOPE, locator }, ...extra.map((item) => ({ ...item, scopeKey: SCOPE }))] }; }
+function specEvidence(key: string, fieldKey: SpecFieldKey, sourceKey: string, locator: string): CuratedSpecEvidence { return { key, fieldKey, sourceKey, scopeKey: SCOPE, locator, qualifies: true }; }
+
+const S = {
+  chinaProduct: web({ key: "phase304-sailor-1911-l-demo-cn-product", title: "Sailor China 1911 L transparent gold trim 11-2001", url: "https://cn.sailor.co.jp/product/11-2001/", registryKey: "sailor-cn-11-2001-phase304", registryName: "Sailor China", sourceType: "official", tier: "primary", summary: "中文官方页将 11-2001 定为 1911 L 透明黄金款，列出 F/MF/M/B/Z/MS 货号、21K 黄金镀金、PMMA 与墨囊/墨芯式。", locator: "product title, item-code list and basic specifications" }),
+  series: web({ key: "phase304-sailor-1911-series", title: "Sailor official 1911 Series directory", url: "https://en.sailor.co.jp/topics/1911-series/", registryKey: "sailor-official-1911-series-phase304", registryName: "The Sailor Pen Co., Ltd.", sourceType: "official", tier: "primary", summary: "官方系列页将 11-2001 金饰与 11-9223 铑饰列为 1911L Demonstrator，并与 11-1223 1911 S Demonstrator、11-3924 Realo 分开。", locator: "1911L Demonstrator, Realo and Standard Demonstrator sections" }),
+  chinaSeries: web({ key: "phase304-sailor-1911-series-cn", title: "Sailor China 1911 series directory", url: "https://cn.sailor.co.jp/topics/1911-%E7%B3%BB%E5%88%97/", registryKey: "sailor-cn-1911-series-phase304", registryName: "Sailor China", sourceType: "official", tier: "primary", summary: "中文系列页核对透明 1911L 的金饰/镀铑货号、PMMA、C/C 与 21K 尖选择。", locator: "1911L Demonstrator section" }),
+  plating: web({ key: "phase304-sailor-plating", title: "Sailor plating process specification change", url: "https://en.sailor.co.jp/topics/specification-change-plating-process/", registryKey: "sailor-official-plating-phase304", registryName: "The Sailor Pen Co., Ltd.", sourceType: "official", tier: "primary", summary: "官方公告说明 1911 系列装饰从金镀层向 Gold Ion Plating 的过渡，解释旧新批次可能并存。", locator: "1911 series item-code list and implementation period" }),
+  retailer: web({ key: "phase304-sailor-1911-l-demo-retailer", title: "PenSachi Sailor 1911 Large Demonstrator 11-2001", url: "https://www.pensachi.com/products/11-2001-200", registryKey: "pensachi-sailor-11-2001-phase304", registryName: "PenSachi", sourceType: "retailer", tier: "retailer", summary: "零售页用于交叉核对 11-2001 的透明 PMMA、21K 尖、金饰、C/C、φ18/141 mm 与 21.6 g；价格和库存不作为事实。", locator: "product specification fields" }),
+  review: web({ key: "phase304-sailor-1911-l-demo-review", title: "Parka Blogs: Sailor Profit 21 Zoom nib review", url: "https://www.parkablogs.com/picture/review-sailor-profit-21-zoom-nib-fountain-pen", registryKey: "parkablogs-sailor-1911-l-demo-phase304", registryName: "Parka Blogs", sourceType: "blog", tier: "professional_secondary", summary: "独立评测观察 1911/Profit 21 大型尖的 Zoom 线宽和握角影响；仅用于书写语境，不替代 11-2001 的官方身份与尺寸。", locator: "Zoom nib writing sample and conclusion" }),
+  svg: diagram(),
+} as const;
+
+const inheritedBrand = phase76SailorProfessionalGearPacks.find((pack) => pack.entityId === PHASE304_SAILOR_BRAND_ID && pack.expectedType === "brand");
+if (!inheritedBrand) throw new Error("Phase 304 Sailor brand pack missing.");
+const brand: CuratedEntityPack = structuredClone(inheritedBrand); brand.key = "phase304-sailor-brand-v1";
+
+const model: CuratedEntityPack = {
+  key: "phase304-sailor-1911-l-demonstrator-v1", entityId: PHASE304_1911_L_DEMO_ID, expectedType: "pen", expectedSlug: PHASE304_1911_L_DEMO_SLUG, canonicalName: "写乐 Sailor 1911 L 透明黄金款（11-2001）", publicationIntent: "publish", publicationBlockers: [], markdownFile: ".planning/content-research/sailor-1911-l-demonstrator-11-2001-phase304.md", storyTitle: "Sailor 1911 L Demonstrator 金饰：11-2001 透明大尺寸钢笔", primarySourceKey: S.chinaProduct.key, depthTier: "A",
+  aliases: [
+    { alias: "Sailor 1911 L Demonstrator Gold Trim", language: "en", sourceKey: S.series.key },
+    { alias: "Sailor 1911 L Demonstrator", language: "en", sourceKey: S.series.key },
+    { alias: "Sailor Profit Large Demonstrator", language: "en", sourceKey: S.retailer.key },
+    { alias: "写乐 1911 L 透明黄金款金笔", language: "zh", sourceKey: S.chinaProduct.key },
+  ],
+  sources: [S.chinaProduct, S.series, S.chinaSeries, S.plating, S.retailer, S.review, S.svg],
+  scopes: [{ key: SCOPE, scopeKey: SCOPE, validFrom: RETRIEVED, productionState: "current", market: "Sailor official regional pages; availability varies by market", nibScope: "11-2001 21K gold-plated F/MF/M/B/Z/MS examples; exact market code controls width.", materialScope: "Transparent PMMA resin with gold-plated trim; rhodium 11-9223 excluded.", editionScope: "1911 L Demonstrator gold trim 11-2001 only; 11-9223, 11-1223, Realo and 11-2075 excluded." }],
+  claims: [
+    claim("phase304-1911-l-demo-identity", "model_identity", "11-2001 是 Sailor 1911 L Demonstrator 金饰的具体货号；它与银饰/铑饰 11-9223、14K 1911 S Demonstrator 11-1223 和活塞 Realo 分开。", S.chinaProduct.key, S.chinaProduct.summary, [{ key: "phase304-identity-series", sourceKey: S.series.key, locator: S.series.summary }]),
+    claim("phase304-1911-l-demo-nib", "nib_specification", "官方 11-2001 采用 21K 黄金镀金尖，中文产品页列出 F、MF、M、B、Z、MS 货号；尖号是同一型号的变体。", S.chinaProduct.key, "Nib and item-code list", [{ key: "phase304-nib-series", sourceKey: S.chinaSeries.key, locator: S.chinaSeries.summary }]),
+    claim("phase304-1911-l-demo-fill", "filling_system", "11-2001 是 Sailor 墨囊／转换器上墨；透明笔身便于观察墨水，但不是 Realo 的活塞系统，也不是自动 eyedropper 设计。", S.chinaProduct.key, "Type: 墨囊和墨芯式", [{ key: "phase304-fill-series", sourceKey: S.series.key, locator: S.series.summary }]),
+    claim("phase304-1911-l-demo-material", "material_and_finish", "官方材料为透明 PMMA 树脂，金色饰件采用镀金路线；后续 Gold Ion Plating 公告描述工艺过渡，不产生新的 11-2001 身份。", S.chinaProduct.key, "工艺: PMMA树脂", [{ key: "phase304-material-plating", sourceKey: S.plating.key, locator: S.plating.summary }]),
+    claim("phase304-1911-l-demo-size", "sku_dimensions", "目录交叉资料给出 11-2001 φ18×141 mm（含笔夹）、约 21.6 g；这些大型透明路线的参考值不能迁移到 11-1223 Standard。", S.retailer.key, S.retailer.summary),
+    claim("phase304-1911-l-demo-writing", "independent_writing_context", "Parka Blogs 的 Profit 21 Zoom 样本记录了握角改变线宽、粗线适合标题或绘画轮廓；这是独立样本体验，不能保证所有 11-2001 尖号一致。", S.review.key, S.review.summary),
+    claim("phase304-1911-l-demo-care", "maintenance_boundary", "换墨前后用常温清水冲洗并充分干燥，透明 PMMA 可能暂留染料色痕；避免热水、酒精和强清洁剂，不要把透明笔改作无依据的 eyedropper。", S.chinaProduct.key, "conservative transparent PMMA and converter/cartridge maintenance boundary"),
+  ],
+  variants: [
+    { key: "phase304-1911-l-demo-gold", name: "11-2001 金色镶边", notes: "透明 PMMA、21K 镀金尖；官方市场页面列 F/MF/M/B/Z/MS 货号。", sourceKey: S.chinaProduct.key, variantKind: "market_sku", productCode: "11-2001", market: "Sailor official" },
+    { key: "phase304-1911-l-demo-widths", name: "F／MF／M／B／Z／MS", notes: "尖号代码属于 11-2001 的宽度/特殊尖变体。", sourceKey: S.chinaProduct.key, variantKind: "nib" },
+  ],
+  spec: { brandEntityId: PHASE304_SAILOR_BRAND_ID, values: { series_name: "Sailor 1911 L Demonstrator Gold Trim", release_year: "当前官方 SKU；首发年份未由本次资料确认", origin_country: "日本；具体市场供应以 Sailor 授权渠道为准", nib: "21K gold with gold plating；F/MF/M/B/Z/MS", fill_system: "Sailor converter & cartridge type", material: "透明 PMMA resin；金色镀层饰件", dimensions: "φ18×141 mm（含笔夹）", weight: "21.6 g" }, evidence: [specEvidence("phase304-1911-l-demo-brand", "brand_entity_id", S.chinaProduct.key, "Sailor official product identity"), specEvidence("phase304-1911-l-demo-series", "series_name", S.series.key, "1911L Demonstrator title and 11-2001 number"), specEvidence("phase304-1911-l-demo-year", "release_year", S.series.key, "Current series page; no launch year asserted"), specEvidence("phase304-1911-l-demo-origin", "origin_country", S.chinaProduct.key, "Sailor product context"), specEvidence("phase304-1911-l-demo-nib-spec", "nib", S.chinaProduct.key, "21K gold and item-code list"), specEvidence("phase304-1911-l-demo-fill-spec", "fill_system", S.series.key, "Converter & Cartridge type"), specEvidence("phase304-1911-l-demo-material", "material", S.chinaProduct.key, "PMMA resin"), specEvidence("phase304-1911-l-demo-dimensions", "dimensions", S.retailer.key, "φ18×141 mm including clip"), specEvidence("phase304-1911-l-demo-weight", "weight", S.retailer.key, "21.6 g")] },
+  timeline: [{ key: "phase304-1911-l-demo-current", title: "11-2001 官方 SKU 核实", eventType: "design_milestone", startDate: RETRIEVED, circa: false, description: "以 Sailor 当前中文产品/系列资料记录 11-2001 的身份与透明大尺寸规格，不把检索日期当作首发年份。", sourceKey: S.chinaProduct.key }],
+  media: [{ key: "phase304-1911-l-demo-primary-media", title: "Sailor 1911 L Demonstrator 11-2001 事实图（非产品照片）", sourceKey: S.svg.key, localPath: S.svg.url, author: "Fountain Pen Graph editorial", license: "site-original", attributionText: "本站原创 factual SVG；示意图，非产品照片、非 Logo、非比例图、非颜色校样。", sourceUrl: S.svg.url, usageStatus: "primary" }],
+};
+
+export const phase304Sailor1911LDemonstratorPacks: CuratedEntityPack[] = [brand, model];
