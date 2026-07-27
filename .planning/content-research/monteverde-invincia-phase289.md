@@ -6,8 +6,6 @@ Monteverde Invincia 是 Monteverde USA 旗下独立的金属感钢笔系列。Ch
 
 ## body_md
 
-![Monteverde Invincia 身份与版本边界示意图](/images/library/site-original/phase289/monteverde/invincia.svg)
-
 *本站原创 factual SVG：示意图，非产品照片；它不代表真实比例、颜色、Logo、刻字、库存、具体尖材或生产地。*
 
 ### 先把 Invincia 与相邻 Monteverde 型号分开

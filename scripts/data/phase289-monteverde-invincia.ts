@@ -184,7 +184,7 @@ navigation.evidence = [
 ];
 
 const model: CuratedEntityPack = {
-  key: "phase289-monteverde-invincia-v1",
+  key: "phase289-monteverde-invincia-v2",
   entityId: PHASE289_INVINCIA_ID,
   expectedType: "pen",
   expectedSlug: PHASE289_INVINCIA_SLUG,
