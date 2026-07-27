@@ -10,6 +10,11 @@ import {
   type ResultSet,
   type Transaction,
 } from "@libsql/client";
+// @libsql/core resolves this transitive ESM dependency dynamically; keep it in
+// the Next standalone trace for pnpm deployments.
+import "js-base64";
+import "@libsql/isomorphic-ws";
+import "promise-limit";
 
 // Local SQLite file path (for local dev)
 const DB_PATH = path.join(process.cwd(), "data", "fpkg.db");
