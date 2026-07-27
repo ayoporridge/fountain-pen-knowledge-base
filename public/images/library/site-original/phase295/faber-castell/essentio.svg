@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc" data-factual-svg="true">
+  <title id="title">Faber-Castell Essentio material and SKU boundary diagram</title>
+  <desc id="desc">Fountain Pen Graph site-original factual SVG separating the 148420 Aluminium Rose anchor from Aluminium Black and Carbon Essentio variants. Not a product photo and not to scale.</desc>
+  <rect width="1600" height="900" fill="#f5eee8"/>
+  <path d="M180 430h1010l130 45-130 45H180z" fill="#ad746b" stroke="#402824" stroke-width="5"/>
+  <rect x="410" y="406" width="370" height="138" rx="52" fill="#72443e"/>
+  <path d="M780 430h320v90H780" fill="#d4aaa3"/>
+  <circle cx="1290" cy="475" r="78" fill="#252525" stroke="#ad746b" stroke-width="10"/>
+  <text x="110" y="140" fill="#402824" font-family="sans-serif" font-size="60" font-weight="700">Faber-Castell Essentio</text>
+  <text x="112" y="212" fill="#5b3933" font-family="sans-serif" font-size="31">148420 Rose · 148481 Aluminium Black · 148820/148821 Carbon</text>
+  <text x="112" y="700" fill="#402824" font-family="sans-serif" font-size="31">steel nib · cartridge / converter · material is SKU-scoped</text>
+  <text x="112" y="778" fill="#72544e" font-family="sans-serif" font-size="25">FACTUAL SVG · NOT A PRODUCT PHOTO · NOT TO SCALE · COLOUR NOT PROOF</text>
+</svg>
