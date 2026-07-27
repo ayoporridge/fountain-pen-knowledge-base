@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc" data-factual-svg="true" data-non-photo="true" data-non-logo="true" data-not-to-scale="true" data-non-colour-proof="true">
+  <title id="title">Noodler's Ahab 事实示意图</title>
+  <desc id="desc">展示 Ahab Flex 的 #6 钢制柔性尖、滑动活塞、可选滴入边界和产品组关系；非产品照片。</desc>
+  <rect width="1600" height="900" fill="#f7f4ec"/>
+  <rect x="72" y="72" width="1456" height="756" rx="36" fill="#fffdf8" stroke="#252525" stroke-width="4"/>
+  <text x="128" y="170" font-family="sans-serif" font-size="54" font-weight="700" fill="#252525">Noodler's Ahab</text>
+  <text x="128" y="224" font-family="sans-serif" font-size="28" fill="#6b625a">Ahab Flex · factual diagram · non-photo</text>
+  <g transform="translate(160 350)">
+    <path d="M40 80 H970" stroke="#202020" stroke-width="46" stroke-linecap="round"/>
+    <path d="M990 80 L1170 80" stroke="#b8b0a4" stroke-width="38" stroke-linecap="round"/>
+    <path d="M1170 80 L1300 80" stroke="#202020" stroke-width="46" stroke-linecap="round"/>
+    <path d="M370 80 L470 80" stroke="#c9c2b6" stroke-width="16"/>
+    <path d="M1300 80 L1370 80 L1300 112 Z" fill="#b6b6b6" stroke="#202020" stroke-width="5"/>
+    <path d="M1318 80 L1350 80" stroke="#202020" stroke-width="6"/>
+    <text x="20" y="170" font-family="sans-serif" font-size="30" fill="#252525">vegetal resin body / screw cap</text>
+    <text x="440" y="-15" font-family="sans-serif" font-size="30" fill="#252525">sliding piston</text>
+    <text x="1110" y="170" font-family="sans-serif" font-size="30" fill="#252525">#6 steel flex nib</text>
+  </g>
+  <g transform="translate(160 650)">
+    <rect width="380" height="92" rx="20" fill="#ece7dc" stroke="#252525" stroke-width="3"/>
+    <text x="28" y="58" font-family="sans-serif" font-size="27" fill="#252525">piston ≈ 2.00 ml*</text>
+    <rect x="420" width="380" height="92" rx="20" fill="#ece7dc" stroke="#252525" stroke-width="3"/>
+    <text x="448" y="58" font-family="sans-serif" font-size="27" fill="#252525">eyedropper ≈ 6.17 ml*</text>
+    <rect x="840" width="440" height="92" rx="20" fill="#f1ded5" stroke="#252525" stroke-width="3"/>
+    <text x="870" y="58" font-family="sans-serif" font-size="27" fill="#252525">慢速、轻压、先冲洗</text>
+  </g>
+  <text x="128" y="790" font-family="sans-serif" font-size="22" fill="#6b625a">*容量为具体黑色样本/零售技术字段；示意图不表示真实比例、颜色或库存。</text>
+</svg>
