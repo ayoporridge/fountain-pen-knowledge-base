@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Graf von Faber-Castell 品牌分线示意</title>
+  <desc id="desc">本站原创 factual SVG：区分普通 Faber-Castell Fine Writing 与 Graf von Faber-Castell 高端线；非产品照片、非 Logo、非真实比例、非颜色校样。</desc>
+  <rect width="1600" height="900" fill="#e9e5e1"/>
+  <rect x="100" y="100" width="1400" height="700" rx="42" fill="#fffdfb" stroke="#403633" stroke-width="5"/>
+  <text x="150" y="180" font-family="sans-serif" font-size="44" fill="#403633">Faber-Castell / Graf von Faber-Castell</text>
+  <text x="150" y="232" font-family="sans-serif" font-size="25" fill="#786b67">factual diagram · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+  <rect x="190" y="330" width="520" height="280" rx="28" fill="#d7e4ec" stroke="#403633" stroke-width="5"/>
+  <text x="245" y="405" font-family="sans-serif" font-size="34" fill="#403633">Faber-Castell</text>
+  <text x="245" y="465" font-family="sans-serif" font-size="26" fill="#403633">Fine Writing</text>
+  <text x="245" y="520" font-family="sans-serif" font-size="23" fill="#5f707c">Ambition · e-motion · LOOM</text>
+  <text x="245" y="560" font-family="sans-serif" font-size="23" fill="#5f707c">普通线／钢尖／C-C</text>
+  <path d="M760 470 H840" stroke="#403633" stroke-width="8" marker-end="url(#arrow)"/>
+  <rect x="890" y="330" width="520" height="280" rx="28" fill="#e6d2b7" stroke="#403633" stroke-width="5"/>
+  <text x="945" y="405" font-family="sans-serif" font-size="34" fill="#403633">Graf von Faber-Castell</text>
+  <text x="945" y="465" font-family="sans-serif" font-size="26" fill="#403633">独立高端线</text>
+  <text x="945" y="520" font-family="sans-serif" font-size="23" fill="#6f5f55">Classic · Intuition · Pen of the Year</text>
+  <text x="945" y="560" font-family="sans-serif" font-size="23" fill="#6f5f55">18K 双色尖／木材／铂金</text>
+  <text x="150" y="745" font-family="sans-serif" font-size="23" fill="#786b67">企业关联不等于同一品牌节点；型号关系、图片和规格按各自来源维护。</text>
+  <defs><marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0 L12 6 L0 12 z" fill="#403633"/></marker></defs>
+</svg>
