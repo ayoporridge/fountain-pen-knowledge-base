@@ -6,6 +6,8 @@ Parker 75 是为公司 75 周年而在 1963 年推出的高端钢笔，以 sterl
 
 Parker 75 的身份可以从三个互相印证的事实开始：Parker75.com 记录它在 1963 年为公司 75 周年正式推出；首发 Ciselé 采用 sterling silver 交叉网格雕刻；产品设计把 VP 的三角握位和可旋转笔尖，与 45 的 cartridge/converter 结合起来。它不是 45 的贵金属换壳，也不是后来 Sonnet 的早期名称，而是一条从 1963 年延续到 1994 年左右的独立高端家族。
 
+尺寸只能作为选购时的起点：Vintage Pens 的样本表给出约 128 mm 长、最大直径约 10.7 mm，并明确提醒制造公差和样本差异。产地也有时间边界：Parker75.com 记录早期在美国生产，1981 年 3 月生产转至法国 Meru；因此同一个 Ciselé 或漆面名称不能自动证明美国或法国版本，仍需看帽环、尖材、feed 和工厂线索。
+
 ## 结构与上墨
 
 75 的三角握位让手指自然落在三个平面上，早期握位环有刻度和零位标记，可帮助使用者把笔尖旋到自己习惯的角度。Parker75.com 的介绍和 nib guide 将这种设计比作调节镜头；实际意义是笔尖相对握位可微调，而不是把一枚普通尖无限旋转或改变书写宽度。旋转前要使用随笔附带的塑料调尖工具或合适的保护方法，避免墨水沾手和刮伤尖座。
@@ -44,3 +46,4 @@ Parker75.com Introduction、Nib Guide、Sections 和 Date Codes 提供结构、�
 - [Parker 75 Reference：Sections](https://www.parker75.com/Reference/Sections/Section.htm)
 - [Parker 75 Reference：Date Codes](https://www.parker75.com/Reference/Date_codes/Date_codes.htm)
 - [US Design Patent D205,872](https://patents.google.com/patent/USD205872)
+- [Vintage Pens：Pen Measurements](https://vintagepens.com/pen_measurements.shtml)

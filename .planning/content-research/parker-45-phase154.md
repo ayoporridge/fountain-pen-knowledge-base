@@ -12,6 +12,8 @@ Richard’s Pens 对 Parker 45 的结构描述包括细长笔身、相互呼应�
 
 45 的标准路径是 Parker 墨囊或转换器。购买二手笔时，先确认握位的接口、转换器是否为 Parker 规格，再判断笔尖型号；不要把普通国际短墨囊、Parker 75 的零件或现代 IM 的外壳直接当作兼容证据。清洗相对容易是 45 的实用优势：可拆下墨囊／转换器，用凉水冲洗握位和尖，待供墨道清澈后再装回。若笔尖总成卡住，不要用钳子硬拧，旧塑料螺纹和尖座都可能因干墨而损伤。
 
+尺寸资料把普通 45 样本的带帽长度记在约 136.3 mm、帖帽约 144.5 mm，最大直径约 11.5 mm；这只是博物馆样本的近似值，不能覆盖 Lady 或特殊 finish。Parker45Pens 还记录了美国、英国、法国、阿根廷、巴西、墨西哥和澳大利亚等生产地，因此“Parker 45”不能自动等同于美国制造；应把笔身、尖和帽环刻字一起拍清楚。
+
 ## 笔尖与版本
 
 45 的尖号变化远比“Fine／Medium”三字复杂。Richard’s Pens 和 Parker45Pens 资料记录了细、极细、中、宽、音乐、stub、italic、左斜和右斜等数字或字母代码；具体代码的金尖／钢尖、美国或英国／法国生产范围，必须按尖底刻字和来源逐支核对。一个卖家写“Parker 45 gold nib”，不足以证明是 14K 原装尖；镀金钢尖、替换尖和后配握位都可能造成误认。
@@ -39,4 +41,5 @@ Richard’s Pens 支持设计、专利关系和笔尖／版本资料；Parker45P
 - [Richard’s Pens：Parker 45](https://www.richardspens.com/ref/profiles/45.htm)
 - [Parker 45 Fountain Pens Information Site](https://parker45pens.com/)
 - [Parker 45 Models](https://parker45pens.com/models/)
+- [The Pen Museum：Parker 45](https://www.penmuseum.co.uk/parker45.htm)
 - [US Patent 3,134,362](https://patents.google.com/patent/US3134362)

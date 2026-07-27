@@ -6,6 +6,8 @@ Parker 61 是 1956 年进入市场、先后采用毛细管上墨和墨囊／上�
 
 Parker 61 的识别核心是上墨系统，而不是“像 Parker 51 的包尖外形”。Richard’s Pens、Parker Pens Penography 与 ParkerCollector 都把 61 的早期产品描述为毛细管（capillary）填充：把尾部的毛细管单元浸入瓶装墨水，依靠毛细作用吸入墨水，不需要按压囊、旋转活塞或插入墨囊。这个结构是 1956 年喷气时代产品定位的一部分，也是它在收藏和维修上最容易被误判的地方。
 
+Parker Pens Penography 把首批 Mark I 样本记为约 140 mm，Mark II 约 135 mm；Vintage Pens 的近似测量则把 Parker 61 最大直径列为约 10.9 mm。两组数字都只是参考样本，不应拿来判断某一支改装笔是否原装。资料还记载 61 于 1956 年在美国首发，1964 年起出现英国线，所以产地和市场要与 Mark、帽盖和 filler 一起核对。
+
 ## 早期 capillary 版本
 
 早期 61 通常有细长流线笔身、暗尖／箭形定位标志和独特帽盖。ParkerCollector 记录了第一年样本、不同帽材和 Lustraloy 金属帽等外观；Richard’s Pens 则按 Mark II、Mark III 等阶段说明帽长、装饰环、夹子和顶珠的变化。单独一个“彩虹帽”或金色细节不能完成断代，因为不同市场和年份会共享部分零件，后配帽也很常见。
@@ -44,3 +46,4 @@ Richard’s Pens、Parker Pens Penography 和 ParkerCollector 用于交叉核对
 - [Parker Pens Penography：Parker 61](https://parkerpens.net/parker61.html)
 - [ParkerCollector：Parker 61](https://www.parkercollector.com/parker61.html)
 - [US Patent 2,773,479](https://patents.google.com/patent/US2773479)
+- [Vintage Pens：Pen Measurements](https://vintagepens.com/pen_measurements.shtml)
