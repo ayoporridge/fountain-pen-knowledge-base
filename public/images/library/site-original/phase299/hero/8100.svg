@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" role="img" aria-labelledby="title desc" data-factual-svg="true" data-non-photo="true" data-non-logo="true" data-not-to-scale="true" data-non-colour-proof="true">
+  <title id="title">英雄 Hero 8100 型 18K 金笔资料卡</title>
+  <desc id="desc">本站原创非比例事实卡，标出官方型号、18K 命名和花丝镶嵌工艺传承；未公开结构以问号表示。</desc>
+  <rect width="960" height="420" fill="#f7f4ee"/>
+  <text x="48" y="58" font-family="sans-serif" font-size="28" font-weight="700" fill="#3c2d22">英雄 Hero 8100</text>
+  <text x="48" y="91" font-family="sans-serif" font-size="17" fill="#6e5949">官方名称：8100 型 18K 金笔 · 工艺礼赠目录条目</text>
+  <g transform="translate(88 162)">
+    <path d="M40 65 C90 34 238 34 610 65 L760 65 C793 65 818 80 818 98 C818 116 793 131 760 131 L610 131 C238 162 90 162 40 131 C16 116 4 108 4 98 C4 88 16 80 40 65Z" fill="#d9c7a7" stroke="#815f38" stroke-width="4"/>
+    <path d="M616 66 L760 66 C793 66 818 80 818 98 C818 116 793 131 760 131 L616 131" fill="#b99056" stroke="#604425" stroke-width="4"/>
+    <path d="M176 46 C210 75 210 121 176 150 M220 43 C254 75 254 121 220 153 M264 42 C298 75 298 121 264 154" fill="none" stroke="#efe0b7" stroke-width="6"/>
+    <path d="M560 63 L560 134" stroke="#5b4431" stroke-width="6" stroke-dasharray="10 8"/>
+    <text x="176" y="204" font-family="sans-serif" font-size="18" fill="#3c2d22">花丝镶嵌工艺语境（官方明确）</text>
+    <text x="605" y="184" font-family="sans-serif" font-size="17" fill="#3c2d22">18K 金笔命名</text>
+    <text x="-2" y="184" font-family="sans-serif" font-size="17" fill="#6e5949">笔尖 / 供墨：未公开</text>
+  </g>
+  <g transform="translate(88 350)">
+    <rect x="0" y="-20" width="276" height="34" rx="17" fill="#815f38"/>
+    <text x="20" y="4" font-family="sans-serif" font-size="16" fill="#fff">官方：8100 型 · 袁长君打造</text>
+    <rect x="302" y="-20" width="300" height="34" rx="17" fill="#6e5949"/>
+    <text x="323" y="4" font-family="sans-serif" font-size="16" fill="#fff">规格：按批次和实物核对</text>
+  </g>
+  <text x="48" y="402" font-family="sans-serif" font-size="13" fill="#806f61">本站原创 factual SVG｜非产品照片｜非比例｜不证明材质、颜色、Logo、尺寸或库存</text>
+</svg>
