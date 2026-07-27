@@ -54,10 +54,12 @@ Pilot 的特殊尖让 912 经常被简化成「为了 FA 买的笔」，这会�
 
 当前页面所说的主体是日本目录中的 FKVH-2MR：黑色平顶树脂笔身、银色饰件、14K No.10 镀铑笔尖，约全长 140 mm、最大径 15.7 mm、重量 20 g。它使用 Pilot 墨囊、CON-40 或 CON-70N；常规套装是否附 CON-70N 仍要看销售地区与当期包装。这些数值只属于这个型号，不能从 91 的 No.5、92 的透明活塞，或 743/823 的 No.15 系统借来补全。
 
+截至 2026 年 7 月 27 日检索的 [Pilot 日本 Web Catalog FKVH2MR-BF 商品页](https://webcatalog.pilot.co.jp/products/DispDetail.do?itemID=t000100000377&volumeName=00004)还列出黑色 FKVH2MR-BF、14K 10 号 F 尖、树脂笔轴与笔帽、CON-40/CON-70N、最大径 φ15.7 mm、全长 140 mm、重量 20 g，以及含税希望零售价 49,500 日元（税前 45,000 日元）。这是一条带检索日期的日本 SKU 快照；其他尖型、地区价格、库存和未来页面状态不能从它外推。官方页面同时列出 EF、SF、FM、SFM、M、SM、B、BB、PO、FA、WA、SU、C、MS 等同型号选项，仍应按商品号和实际尖刻印核对。
+
 目录列出的尖型有 EF、F、SF、FM、SFM、M、SM、B、BB、C、MS，以及 PO、FA、WA、SU。它们都是同一 FKVH-2MR 的原厂笔尖 option：PO 不是“912 PO”这个新笔体，FA 也不是把 912 改成 Falcon。尤其是 FA、SF、SM 这样的名称只说明官方尖型，不能承诺任何使用者都能得到花体书写幅度；纸张、墨水和手压会决定实际线条。购买前最好核对尖面刻印、盒卡 SKU 和试写结果，再去比较自己要的是线宽、反馈还是平顶笔身。
 
 ## 来源
 
 - Pilot 官方支持：Custom Heritage 912 `custom_heritage912.html`（官方维护与供墨边界，2026-07-20 访问）。
-- Pilot 日本 Web Catalog：万年笔目录（当期尖号和 SKU 的核对入口，2026-07-20 访问）。
+- Pilot 日本 Web Catalog：[FKVH2MR-BF 当前 SKU 资料](https://webcatalog.pilot.co.jp/products/DispDetail.do?itemID=t000100000377&volumeName=00004)与万年笔目录（2026-07-27 访问；当期尖号、尺寸、重量与价格只作 SKU 快照）。
 - 专业钢笔评测（只用于特殊尖体验和 742/912 系列边界的次级交叉）。

@@ -19,16 +19,18 @@ function source(input: {
   tier: CuratedSource["tier"];
   summary: string;
   locator: string;
+  retrievedAt?: string;
 }): CuratedSource {
+  const retrievedAt = input.retrievedAt ?? RETRIEVED;
   return {
     ...input,
     independenceGroup: input.registryKey,
     homepageUrl: input.url,
     author: input.registryName,
-    retrievedAt: RETRIEVED,
+    retrievedAt,
     allowedUse: "summary_only",
     archiveUrl: input.url,
-    archiveLocator: `live-source-not-frozen;retrieved=${RETRIEVED};external_archive=false;locator=${input.locator}`,
+    archiveLocator: `live-source-not-frozen;retrieved=${retrievedAt};external_archive=false;locator=${input.locator}`,
   };
 }
 
@@ -45,6 +47,7 @@ const S = {
   custom823: source({ key: "phase84-custom823-japan", title: "Pilot Custom 823 FKK-3MRP", url: "https://webcatalog.pilot.co.jp/products/DispDetail.do?itemID=t000100000364&volumeName=00004", registryKey: "pilot-fkk3mrp-phase84", registryName: "Pilot Japan Web Catalog", sourceType: "official", tier: "primary", summary: "FKK-3MRP 当前目录列 14K No.15、透明/透明黑/棕、F/M/B/S、148.4 mm、15.7 mm、29.5 g 和 INK-70 提示。", locator: "FKK-3MRP current Japan product table" }),
   custom823Review: source({ key: "phase84-custom823-review", title: "The Gentleman Stationer: Pilot Custom 823 review", url: "https://www.gentlemanstationer.com/blog/2016/8/27/pen-review-pilot-custom-823", registryKey: "gentleman-stationer-823-phase84", registryName: "The Gentleman Stationer", sourceType: "blog", tier: "professional_secondary", summary: "独立评测明确其不是普通活塞或 c/c 结构，并区分市场颜色命名。", locator: "filling-system and regional-name boundary" }),
   custom912: source({ key: "phase84-custom912-catalog", title: "Pilot Custom Heritage 912 FKVH-2MR", url: "https://webcatalog.pilot.co.jp/products/DispDetail.do?itemID=t000100000365&volumeName=00004", registryKey: "pilot-fkvh2mr-phase84", registryName: "Pilot Japan Web Catalog", sourceType: "official", tier: "primary", summary: "FKVH-2MR 为黑色平顶树脂、银色饰件、14K No.10 镀铑尖；140 mm、15.7 mm、20 g，可配 CON-40/CON-70N。", locator: "FKVH-2MR product specification and nib-option table" }),
+  custom912Current: source({ key: "phase84-custom912-current-sku-2026", title: "Pilot Web Catalog: Custom Heritage 912 FKVH2MR-BF", url: "https://webcatalog.pilot.co.jp/products/DispDetail.do?itemID=t000100000377&volumeName=00004", registryKey: "pilot-fkvh2mr-current-phase84-refresh", registryName: "Pilot Japan Web Catalog", sourceType: "official", tier: "primary", retrievedAt: "2026-07-27", summary: "2026-07-27 检索的日本官方 SKU 页列出 FKVH2MR-BF 的 14K 10号 F 尖、树脂笔轴/笔帽、CON-40/CON-70N、最大径 15.7 mm、全长 140 mm、重量 20 g 与含税建议零售价 49,500 日元。", locator: "FKVH2MR-BF current product features, nib options, filling, size, weight and price table" }),
   custom912Review: source({ key: "phase84-custom912-review", title: "The Pen Addict: Pilot Custom Heritage 912 review archive", url: "https://www.penaddict.com/", registryKey: "pen-addict-912-phase84", registryName: "The Pen Addict", sourceType: "blog", tier: "professional_secondary", summary: "独立评测档案仅用来辅助理解特殊尖试写与 742/912 的选择边界。", locator: "professional special-nib and sibling comparison observations" }),
 };
 
@@ -103,7 +106,7 @@ const capless = revise({ pack: base(phase43PilotCaplessPacks, PHASE43_CAPLESS_ID
 
 const custom823 = revise({ pack: base(phase47PilotCustom823Packs, PHASE47_PILOT_823_ID, "Custom 823"), key: "pilot-custom-823", title: "Pilot Custom 823：FKK-3MRP 真空上墨的现行日版范围", primary: S.custom823, secondary: S.custom823Review, identity: "Custom 823 FKK-3MRP 是 14K No.15 笔尖、旋帽和固定 vacuum/plunger 上墨机构的现行型号；日版目录列透明、透明黑、棕及 F/M/B/S 组合。", boundary: "它不能使用墨囊或转换器，也不是普通活塞笔；Custom 743、742、845 和 Heritage 912 不共享其真空机构或尺寸，海外颜色命名仅是市场 variant。", care: "按 Pilot 官方顺序使用 INK-70 等适配墨瓶完成真空吸墨；换色或久置依说明清洗，不拆尾端机构或自行润滑，书写供墨受限时先检查尾端位置。", specs: { series_name: "Pilot Custom 823 FKK-3MRP", nib: "14K No.15；F、M、B、S 按日本目录 SKU", fill_system: "固定 vacuum/plunger 真空上墨；不可用墨囊或转换器", material: "透明/半透明树脂机身，颜色按市场 SKU", dimensions: "148.4 mm × 15.7 mm，29.5 g", status: "FKK-3MRP 现行；地区颜色、尖号和包装为 variant" }, variants: [{ key: "phase84-custom823-fkk3mrp", name: "FKK-3MRP 日版", productCode: "FKK-3MRP", releaseYear: "现行", notes: "透明、透明黑、棕及 F/M/B/S 需按当前日版目录分列。", sourceKey: S.custom823.key, variantKind: "market_sku" }] });
 
-const custom912 = revise({ pack: base(phase60PilotP0Packs, PHASE60_CUSTOM_912_ID, "Custom Heritage 912"), key: "pilot-custom-heritage-912", title: "Pilot Custom Heritage 912：FKVH-2MR 与 15 种笔尖选项", primary: S.custom912, secondary: S.custom912Review, identity: "Custom Heritage 912 FKVH-2MR 是黑色平顶树脂、银色饰件、14K No.10 镀铑尖的独立 c/c 型号，约 140 mm × 15.7 mm、20 g；PO、FA、WA、SU 等是笔尖选项而非另一支笔。", boundary: "912 不等于 Custom 742，也不能将 743/823 的 No.15 或真空结构填入；91 的 No.5 和 92 的透明活塞则是不同型号。", care: "用 Pilot 墨囊、CON-40 或 CON-70N 按官方顺序装填；特殊尖不以极端压力测试弹性，遇到持续供墨问题不自行拔尖、磨尖或拆笔舌。", specs: { series_name: "Pilot Custom Heritage 912 FKVH-2MR", nib: "14K No.10 镀铑；EF/F/SF/FM/SFM/M/SM/B/BB/C/MS/PO/FA/WA/SU 按 SKU", fill_system: "Pilot 墨囊、CON-40 或 CON-70N", material: "黑色树脂笔身/笔帽、银色饰件、平顶外形", dimensions: "140 mm × 15.7 mm，20 g", status: "FKVH-2MR 现行；尖型为同型号原厂 option，不拆为独立笔" }, variants: [{ key: "phase84-custom912-fkvh2mr", name: "FKVH-2MR 标准款与原厂尖型", productCode: "FKVH-2MR", releaseYear: "现行", notes: "十五种尖型应按当期日版目录核对；店铺改磨不是原厂 variant。", sourceKey: S.custom912.key, variantKind: "market_sku" }] });
+const custom912 = revise({ pack: base(phase60PilotP0Packs, PHASE60_CUSTOM_912_ID, "Custom Heritage 912"), key: "pilot-custom-heritage-912", title: "Pilot Custom Heritage 912：FKVH-2MR 与 15 种笔尖选项", primary: S.custom912Current, secondary: S.custom912Review, identity: "Custom Heritage 912 FKVH-2MR 是黑色平顶树脂、银色饰件、14K No.10 镀铑尖的独立 c/c 型号，约 140 mm × 15.7 mm、20 g；PO、FA、WA、SU 等是笔尖选项而非另一支笔。", boundary: "912 不等于 Custom 742，也不能将 743/823 的 No.15 或真空结构填入；91 的 No.5 和 92 的透明活塞则是不同型号。当前 FKVH2MR-BF 价格只属于 2026-07-27 官方 SKU 快照，不外推到其他市场或未来库存。", care: "用 Pilot 墨囊、CON-40 或 CON-70N 按官方顺序装填；特殊尖不以极端压力测试弹性，遇到持续供墨问题不自行拔尖、磨尖或拆笔舌。", specs: { series_name: "Pilot Custom Heritage 912 FKVH-2MR", nib: "14K No.10 镀铑；EF/F/SF/FM/SFM/M/SM/B/BB/C/MS/PO/FA/WA/SU 按 SKU", fill_system: "Pilot 墨囊、CON-40 或 CON-70N", material: "黑色树脂笔身/笔帽、银色饰件、平顶外形", dimensions: "140 mm × 15.7 mm，20 g", price_range: "日本官方 Web Catalog 2026-07-27 快照：FKVH2MR-BF 含税 ¥49,500（税前 ¥45,000）", status: "FKVH-2MR 现行；尖型为同型号原厂 option，不拆为独立笔" }, variants: [{ key: "phase84-custom912-fkvh2mr", name: "FKVH-2MR 标准款与原厂尖型", productCode: "FKVH-2MR", releaseYear: "现行", notes: "十五种尖型应按当期日版目录核对；店铺改磨不是原厂 variant。", sourceKey: S.custom912Current.key, variantKind: "market_sku" }] });
 
 export const phase84PlatinumPilotP0V3Packs: CuratedEntityPack[] = [century, preppy, prefounte, plaisir, capless, custom823, custom912];
 

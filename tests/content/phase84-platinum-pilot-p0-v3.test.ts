@@ -133,6 +133,32 @@ test("Phase 84 upgrades existing Platinum/Pilot pages without creating duplicate
         /示意图，非产品照片/,
       );
     }
+    const custom912Spec = await client.execute({
+      sql: "SELECT dimensions, weight, price_range FROM model_specs WHERE entity_id = ? AND review_status = 'approved'",
+      args: [PHASE60_CUSTOM_912_ID],
+    });
+    assert.deepEqual(custom912Spec.rows, [
+      {
+        dimensions: "140 mm × 15.7 mm，20 g",
+        weight: null,
+        price_range:
+          "日本官方 Web Catalog 2026-07-27 快照：FKVH2MR-BF 含税 ¥49,500（税前 ¥45,000）",
+      },
+    ]);
+    const custom912SkuReference = await client.execute({
+      sql: `
+        SELECT source_items.url
+        FROM entity_references
+        JOIN source_items ON source_items.id = entity_references.source_item_id
+        WHERE entity_references.entity_id = ?
+          AND source_items.url = ?
+      `,
+      args: [
+        PHASE60_CUSTOM_912_ID,
+        "https://webcatalog.pilot.co.jp/products/DispDetail.do?itemID=t000100000377&volumeName=00004",
+      ],
+    });
+    assert.equal(custom912SkuReference.rows.length, 1);
     const publicationStates = await client.execute({
       sql: "SELECT entity_id, status FROM entity_publications WHERE entity_id IN (?, ?, ?, ?, ?, ?, ?) ORDER BY entity_id",
       args: TARGETS.map(([id]) => id),
