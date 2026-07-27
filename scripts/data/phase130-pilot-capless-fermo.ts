@@ -31,12 +31,14 @@ const history = web({ ...official, key: "phase130-pilot-capless-history", title:
 const price2024 = web({ ...official, key: "phase130-pilot-price-2024", title: "Pilot price revision list effective 2024-01-01", url: PRICE_2024_URL, publishedAt: "2024-01-01", summary: "Official price table lists キャップレス フェルモ FCF2MR at ¥22,000 before tax and ¥26,400 including tax; dated listing only.", locator: "PDF row 23: キャップレス フェルモ / FCF2MR / 22,000円 / 26,400円" });
 const price2025 = web({ ...official, key: "phase130-pilot-price-2025-10", title: "Pilot price list effective 2025-10", url: PRICE_2025_URL, publishedAt: "2025-10-01", summary: "Later official price table contains no FCF2MR match; absence is evidence for supply uncertainty, not a discontinuation announcement.", locator: "full PDF text search for フェルモ, FCF2MR and FCF-2MR returned no match; absence-only scope" });
 const review = web({ key: "phase130-ukfountainpens-fermo-review", registryKey: "ukfountainpens-phase130", registryName: "UK Fountain Pens", sourceType: "blog", tier: "professional_secondary", independenceGroup: "ukfountainpens", homepageUrl: "https://ukfountainpens.com/", author: "UK Fountain Pens", title: "Pilot Fermo: the thinking person's Vanishing Point", url: REVIEW_URL, publishedAt: "2018-06-18", summary: "Professional review of one reviewer-owned navy Fine Fermo describes its rotary sprung mechanism, 18K nib unit, metal heft, rear balance and individual writing experience.", locator: "title/date; reviewer purchase disclosure; navy Fine sample; twist/sprung mechanism; 18K nib unit; metal heft/rear balance; sample writing observations" });
+const retailerSpec = web({ key: "phase130-stationery-goods-fermo-spec", registryKey: "stationery-goods-fermo-phase130", registryName: "ステーショナリーグッズ（Yahoo!ショッピング）", sourceType: "retailer", tier: "retailer", independenceGroup: "stationery-goods-fermo", homepageUrl: "https://store.shopping.yahoo.co.jp/", author: "ステーショナリーグッズ", title: "Pilot Capless FERMO FCF-2MR 商品规格页", url: "https://store.shopping.yahoo.co.jp/stationery-goods/pilo0150.html", summary: "零售商品页明确列出 FCF-2MR 的 141 mm、12.4 mm、33.5 g、18K、F/M、黄铜涂装笔身，以及 CON-20/CON-50 与 Pilot 墨囊；页面同时标示缺货，因此只作为具体 SKU 规格边界。", locator: "商品情報／商品スペック：FCF-2MR; size 141mm; maximum diameter 12.4mm; weight 33.5g; 18K; F/M; brass lacquer; CON-20/CON-50; cartridge compatible" });
 const diagram: CuratedSource = { key: "phase130-fermo-svg", registryKey: "fountain-pen-graph-editorial-phase130", registryName: "Fountain Pen Graph editorial studio", sourceType: "user_submission", tier: "primary", independenceGroup: "fountain-pen-graph-editorial-phase130", title: "Pilot Fermo identity and supply-time boundary", url: SVG, homepageUrl: "/", itemType: "image", author: "Fountain Pen Graph editorial", retrievedAt: RETRIEVED, summary: "Site-original factual SVG showing FCF-2MR identity, rotary action and supply-status boundary.", allowedUse: "store_full", license: "site-original", archiveUrl: SVG, archiveLocator: `project-public-asset:${SVG};site-original=true;factual-svg=true;non-photo=true;non-logo=true;not-to-scale=true;not-colour-proof=true;not-finish-proof=true;dimensions=1600x900` };
 
 const identityScope = "phase130-fermo-official-history";
 const price2024Scope = "phase130-fermo-price-2024";
 const price2025Scope = "phase130-fermo-price-2025-10-absence";
 const sampleScope = "phase130-fermo-reviewer-sample-2018-06-18";
+const retailerSpecScope = "phase130-fermo-retailer-spec-2026-07-22";
 function evidence(fieldKey: SpecFieldKey, key: string, sourceKey: string, scopeKey: string, locator: string, qualifies = true) { return { fieldKey, key, sourceKey, scopeKey, locator, qualifies }; }
 
 export const phase130PilotFermoPack: CuratedEntityPack = {
@@ -58,12 +60,13 @@ export const phase130PilotFermoPack: CuratedEntityPack = {
     { alias: "FCF2MR", language: "en", sourceKey: price2024.key },
     { alias: "百乐 Capless Fermo", language: "zh", sourceKey: history.key },
   ],
-  sources: [history, price2024, price2025, review, diagram],
+  sources: [history, price2024, price2025, review, retailerSpec, diagram],
   scopes: [
     { key: identityScope, scopeKey: identityScope, validFrom: "2006", productionState: "historical", editionScope: "FCF-2MR Fermo exact historical model; rotary branch distinct from the 1963 original, Decimo and LS." },
     { key: price2024Scope, scopeKey: price2024Scope, validFrom: "2024-01-01", validTo: "2024-12-31", productionState: "historical", editionScope: "FCF2MR price-table listing and ¥22,000/¥26,400 values are dated only." },
     { key: price2025Scope, scopeKey: price2025Scope, validFrom: "2025-10-01", productionState: "unknown", editionScope: "No FCF2MR text match in the later price list; current supply and repair status require confirmation and permanent retirement is not asserted." },
     { key: sampleScope, scopeKey: sampleScope, validFrom: "2018-06-18", validTo: "2018-06-18", productionState: "historical", nibScope: "One reviewer-owned navy Fine sample with an observed 18K VP-type nib unit.", materialScope: "One metal-bodied sample described as hefty and rear-balanced.", editionScope: "Mechanism and writing observations are sample-only, not official all-production specifications." },
+    { key: retailerSpecScope, scopeKey: retailerSpecScope, validFrom: RETRIEVED, validTo: RETRIEVED, productionState: "unknown", nibScope: "Retailer listing for FCF-2MR only; F/M and 18K are product-page metadata, not proof that every historical nib batch used the same offering.", materialScope: "Retailer listing for one FCF-2MR family SKU; brass lacquered barrel/cap description is a product-page specification, not a finish catalogue.", editionScope: "Dated retailer product specification; page was out of stock and does not establish current supply or a universal batch specification." },
   ],
   claims: [
     { key: "phase130-fermo-identity", predicate: "model_identity", objectText: "Pilot Capless Fermo FCF-2MR is the separate 2006 rotary retractable-nib branch in Pilot's Capless history.", factClass: "core", confidence: 0.99, sourceKey: history.key, locator: history.archiveLocator ?? history.summary, evidence: [{ key: "phase130-fermo-identity-evidence", sourceKey: history.key, scopeKey: identityScope, locator: "2006 FCF-2MR Fermo and rotary label" }] },
@@ -72,15 +75,18 @@ export const phase130PilotFermoPack: CuratedEntityPack = {
     { key: "phase130-fermo-sample", predicate: "professional_sample_boundary", objectText: "UK Fountain Pens reports one navy Fine Fermo sample; its spring-like rotary action, 18K unit, heft, balance and writing feel remain individual observations.", factClass: "core", confidence: 0.97, sourceKey: review.key, locator: review.archiveLocator ?? review.summary, evidence: [{ key: "phase130-fermo-sample-evidence", sourceKey: review.key, scopeKey: sampleScope, locator: "reviewer purchase, exact sample configuration and observations" }] },
   ],
   variants: [],
-  spec: { brandEntityId: PHASE130_PILOT_ID, values: { series_name: "Pilot Capless Fermo FCF-2MR", release_year: "2006", origin_country: "Pilot Japan official Capless history", price_range: "¥22,000 before tax / ¥26,400 including tax in 2024 official table", status: "Historical model; current Japanese supply and repair status unconfirmed as of 2026-07-22" }, evidence: [
+  spec: { brandEntityId: PHASE130_PILOT_ID, values: { series_name: "Pilot Capless Fermo FCF-2MR", release_year: "2006", origin_country: "Pilot Japan official Capless history", nib: "18K 金笔尖；商品页列 F／M", fill_system: "Pilot CON-20 或 CON-50（商品页列为另购）；可使用 Pilot 墨囊", material: "黄铜笔身／笔盖，表面涂装（商品页规格）", dimensions: "全长 141 mm；最大径 12.4 mm（单一 FCF-2MR 商品规格）", weight: "33.5 g（单一 FCF-2MR 商品规格）", price_range: "¥22,000 before tax / ¥26,400 including tax in 2024 official table", status: "Historical model; current Japanese supply and repair status unconfirmed as of 2026-07-22" }, evidence: [
     evidence("brand_entity_id", "phase130-fermo-brand", history.key, identityScope, "Pilot official history"),
     evidence("series_name", "phase130-fermo-series", history.key, identityScope, "FCF-2MR Fermo exact historical entry"),
     evidence("release_year", "phase130-fermo-release", history.key, identityScope, "2006 entry"),
     evidence("origin_country", "phase130-fermo-origin", history.key, identityScope, "Pilot Japan official registry context; no factory inference"),
     evidence("price_range", "phase130-fermo-price", price2024.key, price2024Scope, "dated 2024 price row"),
     evidence("status", "phase130-fermo-status", price2025.key, price2025Scope, "later table absence; supply unknown, not permanent retirement"),
-    evidence("nib", "phase130-fermo-sample-nib-rejected", review.key, sampleScope, "one navy Fine 18K unit rejected as all-production official specification", false),
-    evidence("material", "phase130-fermo-sample-material-rejected", review.key, sampleScope, "one metal/hefty sample rejected as stable dimensions or weight", false),
+    evidence("nib", "phase130-fermo-retailer-nib", retailerSpec.key, retailerSpecScope, "retailer product page lists 18K and F/M"),
+    evidence("fill_system", "phase130-fermo-retailer-fill", retailerSpec.key, retailerSpecScope, "retailer product page lists CON-20/CON-50 and compatible cartridges"),
+    evidence("material", "phase130-fermo-retailer-material", retailerSpec.key, retailerSpecScope, "retailer product page lists brass and lacquered finish"),
+    evidence("dimensions", "phase130-fermo-retailer-dimensions", retailerSpec.key, retailerSpecScope, "retailer product page lists 141mm length and 12.4mm maximum diameter"),
+    evidence("weight", "phase130-fermo-retailer-weight", retailerSpec.key, retailerSpecScope, "retailer product page lists 33.5g"),
   ] },
   timeline: [
     { key: "phase130-fermo-release-event", title: "Capless Fermo FCF-2MR enters Pilot history", eventType: "model_released", startDate: "2006", circa: false, description: "Separate rotary Capless branch.", sourceKey: history.key },

@@ -126,8 +126,8 @@ test("Phase 130 publishes exact Pilot Capless Fermo FCF-2MR historical model", {
       assert.ok(Array.from(pack.summary).length >= 60);
       assert.ok(Array.from(pack.summary).length <= 160);
       assert.ok(Array.from(pack.bodyMd).length >= 2_000);
-      assert.equal(pack.sources.length, 5);
-      assert.equal(pack.scopes.length, 4);
+      assert.equal(pack.sources.length, 6);
+      assert.equal(pack.scopes.length, 5);
       assert.equal(pack.variants?.length, 0);
       assert.equal(
         pack.media.filter((media) => media.usageStatus === "primary").length,
@@ -138,14 +138,25 @@ test("Phase 130 publishes exact Pilot Capless Fermo FCF-2MR historical model", {
     assert.match(packs[0]?.bodyMd ?? "", /FCF-2MR/);
     assert.match(packs[0]?.bodyMd ?? "", /2006/);
     assert.match(packs[0]?.bodyMd ?? "", /永久停产/);
+    assert.equal(packs[0]?.spec?.values.nib, "18K 金笔尖；商品页列 F／M");
     assert.equal(
-      await scalar(
-        client,
-        `SELECT count(*) value FROM entities WHERE id IN (${PHASE130_TARGET_IDS.map(() => "?").join(",")})`,
-        [...PHASE130_TARGET_IDS],
-      ),
-      0,
+      packs[0]?.spec?.values.fill_system,
+      "Pilot CON-20 或 CON-50（商品页列为另购）；可使用 Pilot 墨囊",
     );
+    assert.equal(
+      packs[0]?.spec?.values.dimensions,
+      "全长 141 mm；最大径 12.4 mm（单一 FCF-2MR 商品规格）",
+    );
+    assert.equal(
+      packs[0]?.spec?.values.weight,
+      "33.5 g（单一 FCF-2MR 商品规格）",
+    );
+    const existingTargetCount = await scalar(
+      client,
+      `SELECT count(*) value FROM entities WHERE id IN (${PHASE130_TARGET_IDS.map(() => "?").join(",")})`,
+      [...PHASE130_TARGET_IDS],
+    );
+    assert.ok(existingTargetCount <= 1);
 
     await assert.rejects(
       applyPhase130PilotFermoContent(client, {

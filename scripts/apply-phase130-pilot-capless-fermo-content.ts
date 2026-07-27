@@ -204,7 +204,7 @@ async function baseline(client: Client) {
 async function state(
   client: Client,
   packs: LoadedCuratedEntityPack[],
-): Promise<"empty" | "terminal"> {
+): Promise<"empty" | "upgrade" | "terminal"> {
   const ids = packs.map((pack) => pack.entityId);
   const found = await rows(
     client,
@@ -215,17 +215,14 @@ async function state(
   if (found.length !== packs.length)
     throw new Error("Phase 130 target state is partial or colliding.");
   const byId = new Map(found.map((row) => [String(row.id), row]));
+  let requiresUpgrade = false;
   for (const pack of packs) {
     const row = byId.get(pack.entityId);
-    if (
-      row?.type !== "pen" ||
-      row?.slug !== pack.expectedSlug ||
-      row?.name !== pack.canonicalName ||
-      row?.source !== pack.sourceMarker
-    )
+    if (row?.type !== "pen" || row?.slug !== pack.expectedSlug || row?.name !== pack.canonicalName)
       throw new Error("Phase 130 terminal identity is partial or alternate.");
+    if (row.source !== pack.sourceMarker) requiresUpgrade = true;
   }
-  return "terminal";
+  return requiresUpgrade ? "upgrade" : "terminal";
 }
 
 async function collisionPreflight(
@@ -408,18 +405,31 @@ export async function applyPhase130PilotFermoContent(
     for (let index = 0; index < packs.length; index += 1) {
       const pack = packs[index]!;
       await tx.execute({
-        sql: "INSERT INTO entities(id,type,slug,name) VALUES(?,'pen',?,?)",
+        sql: "INSERT OR IGNORE INTO entities(id,type,slug,name) VALUES(?,'pen',?,?)",
         args: [pack.entityId, pack.expectedSlug, pack.canonicalName],
       });
-      await tx.execute({
-        sql: "INSERT INTO entity_links(id,source_id,target_id,link_type,reason) VALUES(?,?,?,'made_by',?)",
-        args: [
-          PHASE130_MADE_BY_IDS[index],
-          pack.entityId,
-          PHASE130_PILOT_ID,
-          `Phase 130 exact ${pack.canonicalName} maker relation`,
-        ],
+      const linkId = PHASE130_MADE_BY_IDS[index]!;
+      const existingLink = await tx.execute({
+        sql: "SELECT source_id,target_id,link_type FROM entity_links WHERE id=?",
+        args: [linkId],
       });
+      if (existingLink.rows.length === 0) {
+        await tx.execute({
+          sql: "INSERT INTO entity_links(id,source_id,target_id,link_type,reason) VALUES(?,?,?,'made_by',?)",
+          args: [
+            linkId,
+            pack.entityId,
+            PHASE130_PILOT_ID,
+            `Phase 130 exact ${pack.canonicalName} maker relation`,
+          ],
+        });
+      } else if (
+        String(existingLink.rows[0]?.source_id) !== pack.entityId ||
+        String(existingLink.rows[0]?.target_id) !== PHASE130_PILOT_ID ||
+        String(existingLink.rows[0]?.link_type) !== "made_by"
+      ) {
+        throw new Error(`Phase 130 maker relation collision: ${linkId}.`);
+      }
     }
     const sourceIds = await upsertSources(tx, uniqueSources(packs));
     for (const pack of packs) await insertPack(tx, pack, sourceIds);
@@ -438,11 +448,11 @@ export async function applyPhase130PilotFermoContent(
       [PHASE130_PILOT_ID],
     )
   ).map((row) => String(row.target_id));
-  if (
-    JSON.stringify(reverseAfter) !==
-    JSON.stringify(reverseBefore.concat([...PHASE130_TARGET_IDS]).sort())
-  )
-    throw new Error("Phase 130 reverse delta is not exact add-one.");
+  const expectedReverseAfter = [
+    ...new Set([...reverseBefore, ...PHASE130_TARGET_IDS]),
+  ].sort();
+  if (JSON.stringify(reverseAfter) !== JSON.stringify(expectedReverseAfter))
+    throw new Error("Phase 130 reverse delta is not exact add-one-or-existing.");
   for (const id of PROTECTED_IDS)
     if ((await entityDigest(client, id)) !== protectedBefore.get(id))
       throw new Error(`Phase 130 changed protected Pilot entity ${id}.`);

@@ -21,9 +21,9 @@ async function assertOwned(client: Client, options: ApplyPhase43Options): Promis
   const listed = await client.execute("PRAGMA database_list"); const main = listed.rows.find((row) => String(row.name) === "main"); if (!main?.file || fs.realpathSync.native(String(main.file)) !== databasePath) throw new Error("Phase 43 client is not bound to owned copy.");
   const migration = await client.execute({ sql: "SELECT 1 AS ok FROM migrations WHERE name = ? AND checksum IS NOT NULL", args: ["032_taxonomy_identity.sql"] }); if (migration.rows.length !== 1) throw new Error("Phase 43 owned copy must be migrated through 032.");
 }
-async function installRedirect(tx: Awaited<ReturnType<Client["transaction"]>>, input: { sourcePath: string; targetPath: string; actionId: string; batchId: string }): Promise<void> {
+async function installRedirect(tx: Awaited<ReturnType<Client["transaction"]>>, input: { sourcePath: string; targetPath: string; compatibleTargetPaths?: readonly string[]; actionId: string; batchId: string }): Promise<void> {
   const existing = await tx.execute({ sql: "SELECT target_path, redirect_kind FROM entity_redirects WHERE source_path = ?", args: [input.sourcePath] });
-  if (existing.rows.length > 0) { if (String(existing.rows[0]?.target_path ?? "") !== input.targetPath || String(existing.rows[0]?.redirect_kind ?? "") !== "permanent") throw new Error(`Phase 43 conflicting redirect for ${input.sourcePath}.`); return; }
+  if (existing.rows.length > 0) { const target = String(existing.rows[0]?.target_path ?? ""); const compatible = [input.targetPath, ...(input.compatibleTargetPaths ?? [])].includes(target); if (!compatible || String(existing.rows[0]?.redirect_kind ?? "") !== "permanent") throw new Error(`Phase 43 conflicting redirect for ${input.sourcePath}.`); return; }
   await tx.execute({ sql: "INSERT INTO entity_redirects (id, batch_id, action_id, source_path, target_path, redirect_kind, fallback_reason) VALUES (?, ?, ?, ?, ?, 'permanent', 'collection_identity_split')", args: [stableId("phase43-redirect", input.sourcePath), input.batchId, input.actionId, input.sourcePath, input.targetPath] });
 }
 async function retireUmbrella(client: Client): Promise<void> {
@@ -36,7 +36,7 @@ async function retireUmbrella(client: Client): Promise<void> {
     await tx.execute({ sql: "INSERT OR IGNORE INTO taxonomy_actions (id, batch_id, source_row_key, action_kind, action_checksum, source_entity_id, target_entity_id, status, note) VALUES (?, ?, ?, 'retire', ?, ?, ?, 'applied', ?)", args: [actionId, batchId, "pilot-capless-umbrella-retire", digest(`${PHASE43_PILOT_UMBRELLA_ID}\0${PHASE43_PILOT_BRAND_ID}`), PHASE43_PILOT_UMBRELLA_ID, PHASE43_PILOT_BRAND_ID, "Retire mixed Capless/Decimo umbrella identity."] });
     await tx.execute({ sql: "DELETE FROM entity_links WHERE source_id = ?", args: [PHASE43_PILOT_UMBRELLA_ID] });
     await tx.execute({ sql: "UPDATE entity_publications SET status = 'retired', blockers_json = ?, approved_content_hash = NULL, reviewed_content_revision = NULL, reviewed_contract_version = NULL, reviewed_by = NULL, reviewed_at = NULL, published_at = NULL, review_notes = ?, updated_at = datetime('now') WHERE entity_id = ? AND status <> 'retired'", args: ['["taxonomy_split"]', "Mixed Capless/Decimo umbrella retired; use concrete Capless, Decimo or Capless LS pages.", PHASE43_PILOT_UMBRELLA_ID] });
-    await installRedirect(tx, { sourcePath: `/pen/${OLD_UMBRELLA_SLUG}`, targetPath: "/brand/pilot", actionId, batchId });
+    await installRedirect(tx, { sourcePath: `/pen/${OLD_UMBRELLA_SLUG}`, targetPath: "/brand/pilot", compatibleTargetPaths: ["/pen/pilot-capless-decimo"], actionId, batchId });
     await tx.commit();
   } catch (error) { if (!tx.closed) await tx.rollback(); throw error; }
 }
@@ -60,4 +60,3 @@ export async function applyPhase43PilotCaplessContent(client: Client, options: A
   const result = await applyCuratedContentPacks(client, options, structuredClone(phase43PilotCaplessPacks));
   assertCatalogSnapshotUnchanged(options.protectedCatalogSnapshot); return result;
 }
-

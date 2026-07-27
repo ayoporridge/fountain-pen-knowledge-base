@@ -30,6 +30,8 @@ Pilot 2024 年官方价格表仍列 FCF2MR，当时税前价格为 22,000 日元
 
 在没有当前 Pilot exact product page 的情况下，本页不从普通 Capless、Decimo 或 LS 复制尺寸、重量、材料、尖号和 converter。UK Fountain Pens 2018 年文章中的海军蓝 Fermo 样笔使用可拆的标准 VP 类 18K 笔尖单元，作者订购的是 fine；文章把笔描述为金属、较重、重心偏后，并记录该个体的顺滑、流量和弹性。这些都只属于 **2018 reviewer-owned navy fine sample**。
 
+另有一份可追溯的日本零售商品页专门列出 FCF-2MR 的 SKU 规格：全长 141 mm、最大径 12.4 mm、重量 33.5 g、18K 笔尖（F／M）、黄铜涂装笔身／笔盖，并列出另购的 CON-20／CON-50 与 Pilot 墨囊兼容。页面在当前检索时标示缺货，所以这些数字应标成“商品页规格”，不能升级成所有年份、颜色或替换笔尖的永久规格；它们也不能推翻官方目录对当前供货状态的待核判断。
+
 它能证明专业作者实际使用过回转式 Fermo，并提供与普通 VP、Decimo、Dialog 3 等笔的主观比较；它不能证明所有 FCF-2MR 固定为海军蓝、F 尖、同一重量、同一重心或同样写感。尤其“笔尖单元 identical”属于作者对样笔的观察，不应被扩写成跨年代、跨地区所有 Capless unit 都有官方保证的互换性。
 
 ## 日常维护
@@ -38,7 +40,7 @@ Pilot 2024 年官方价格表仍列 FCF2MR，当时税前价格为 22,000 日元
 
 清洗时把笔尖／上墨组件按正确方向从笔身取出，以常温清水反复吸排，直到水色基本澄清后阴干。不要把金属笔身与回转机构整体浸水，不向内部加油、酒精或清洁剂，也不要自行拆解 shutter。长期不用前排空墨水并洗净；乘飞机或经历明显气压变化时保持笔尖收回并妥善放置，不能把 shutter 理解为绝对防漏保证。
 
-由于本页没有可靠的 current exact page，不把具体 converter 型号写成全期永久规格。购买旧笔时应让卖家展示随笔组件、墨囊保护套与实际装配情况，并按该个体的原厂说明或 Pilot 售后建议使用。
+虽然零售商品页列出了 CON-20／CON-50，但它不是 Pilot 当前 exact product page，不能把这组配件写成所有年份的永久保证。购买旧笔时应让卖家展示随笔组件、墨囊保护套与实际装配情况，并按该个体的原厂说明或 Pilot 售后建议使用。
 
 ## 购买与二手核验
 
@@ -51,3 +53,11 @@ Fermo 适合偏好旋转出尖、能接受金属笔身与可能偏后的重心�
 ## 图像与来源边界
 
 本站主图是原创事实示意，只标明 `FCF-2MR`、2006、回转出尖与供货时态，不复制 Pilot 或评测照片，不代表真实比例、颜色、logo、表面或具体内部结构。Pilot 历代 Capless 页面负责 2006 与回转式身份；2024 官方价格表负责当时列载，2025-10 表与当前目录的缺席只形成待核时态。UK Fountain Pens 2018 文章只负责作者自购海军蓝 F 尖样笔的机构与体验观察，所有主观写感和配置均不外推。
+
+## 来源
+
+- [PILOT：历代 Capless（1963–2019）](https://www.pilot.co.jp/media/knowledge/029.html)
+- [PILOT：2024 年 1 月价格表](https://www.pilot.co.jp/information/price-list20240101.pdf)
+- [PILOT：2025 年 10 月价格表](https://www.pilot.co.jp/information/589c64fec5794806048fe758b4073d32f2bdf102.pdf)
+- [UK Fountain Pens：Pilot Fermo](https://ukfountainpens.com/2018/06/18/pilot-fermo-the-thinking-persons-vanishing-point/)
+- [ステーショナリーグッズ：Capless FERMO FCF-2MR 商品规格](https://store.shopping.yahoo.co.jp/stationery-goods/pilo0150.html)
