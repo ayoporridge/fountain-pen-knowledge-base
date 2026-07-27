@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Sheaffer Imperial identity card</title>
+  <desc id="desc">本站原创事实示意图，概括 Sheaffer Imperial 的历史系列边界。non-photo; not-to-scale; non-colour-proof；不是颜色或 SKU 复刻。</desc>
+  <rect width="1200" height="760" fill="#f4efe5"/>
+  <rect x="44" y="44" width="1112" height="672" rx="28" fill="#fffdf8" stroke="#6a4525" stroke-width="4"/>
+  <text x="86" y="118" fill="#6a4525" font-family="Georgia, serif" font-size="50" font-weight="700">Sheaffer Imperial</text>
+  <text x="88" y="160" fill="#816345" font-family="Arial, sans-serif" font-size="24">历史家族 · 子型和饰面不可用一个规格覆盖</text>
+  <g transform="translate(92 225)">
+    <rect width="1016" height="154" rx="24" fill="#f5eee4" stroke="#c9ad8b" stroke-width="2"/>
+    <rect x="92" y="37" width="92" height="80" rx="9" fill="#c9a474" stroke="#6a4525" stroke-width="4"/>
+    <rect x="222" y="37" width="92" height="80" rx="9" fill="#bfc5c7" stroke="#6a4525" stroke-width="4"/>
+    <rect x="352" y="37" width="92" height="80" rx="9" fill="#d8b45b" stroke="#6a4525" stroke-width="4"/>
+    <text x="118" y="88" fill="#262421" font-family="Arial, sans-serif" font-size="26" font-weight="700">IV</text>
+    <text x="250" y="88" fill="#262421" font-family="Arial, sans-serif" font-size="26" font-weight="700">VI</text>
+    <text x="378" y="88" fill="#262421" font-family="Arial, sans-serif" font-size="26" font-weight="700">VIII</text>
+    <text x="536" y="72" fill="#6a4525" font-family="Arial, sans-serif" font-size="25" font-weight="700">按子型绑定资料</text>
+    <text x="536" y="110" fill="#624d38" font-family="Arial, sans-serif" font-size="20">帽材、供墨与笔尖须逐条核实</text>
+  </g>
+  <g transform="translate(92 430)">
+    <text x="0" y="0" fill="#6a4525" font-family="Arial, sans-serif" font-size="27" font-weight="700">阅读边界</text>
+    <text x="0" y="48" fill="#403d38" font-family="Arial, sans-serif" font-size="23">• Touchdown 与 cartridge 路线并存，不能仅凭“Imperial”统一判断。</text>
+    <text x="0" y="90" fill="#403d38" font-family="Arial, sans-serif" font-size="23">• 不把 PFM、Dolphin、Targa 或 Legacy 的笔尖和年份倒灌到本家族。</text>
+    <text x="0" y="132" fill="#403d38" font-family="Arial, sans-serif" font-size="23">• “帝国元首”旧混名保持停用，具体版本使用可追溯的英文或型号名称。</text>
+  </g>
+  <text x="92" y="676" fill="#6b665e" font-family="Arial, sans-serif" font-size="19">用途：帮助读者区分 Imperial 子型与其他 Sheaffer 家族；不是实物颜色或比例证明。</text>
+</svg>

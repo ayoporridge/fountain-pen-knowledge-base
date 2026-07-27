@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Sheaffer Connaisseur identity card</title>
+  <desc id="desc">本站原创事实示意图，概括 Sheaffer Connaisseur 的系列身份与资料边界。non-photo; not-to-scale; non-colour-proof；不是颜色或 SKU 复刻。</desc>
+  <rect width="1200" height="760" fill="#f4efe5"/>
+  <rect x="44" y="44" width="1112" height="672" rx="28" fill="#fffdf8" stroke="#28483a" stroke-width="4"/>
+  <text x="86" y="118" fill="#28483a" font-family="Georgia, serif" font-size="50" font-weight="700">Sheaffer Connaisseur</text>
+  <text x="88" y="160" fill="#5d6e63" font-family="Arial, sans-serif" font-size="24">独立历史系列 · 本页不吸收 Imperial、Targa 或 Legacy</text>
+  <g transform="translate(92 225)">
+    <rect width="1016" height="154" rx="24" fill="#eaf2ed" stroke="#7d9f8f" stroke-width="2"/>
+    <path d="M86 78 H622" stroke="#28483a" stroke-width="18" stroke-linecap="round"/>
+    <path d="M622 78 L704 48 L786 78 L704 108 Z" fill="#d5b15d" stroke="#28483a" stroke-width="4"/>
+    <path d="M112 58 V98 M588 58 V98" stroke="#28483a" stroke-width="8"/>
+    <text x="832" y="72" fill="#28483a" font-family="Arial, sans-serif" font-size="24" font-weight="700">开放式尖路线</text>
+    <text x="832" y="108" fill="#40584a" font-family="Arial, sans-serif" font-size="20">standard / Grande 需按资料分开</text>
+  </g>
+  <g transform="translate(92 430)">
+    <text x="0" y="0" fill="#28483a" font-family="Arial, sans-serif" font-size="27" font-weight="700">阅读边界</text>
+    <text x="0" y="48" fill="#403d38" font-family="Arial, sans-serif" font-size="23">• 18K、饰面与年代只绑定到有明确来源 locator 的版本。</text>
+    <text x="0" y="90" fill="#403d38" font-family="Arial, sans-serif" font-size="23">• 供墨描述按 cartridge / converter 语境书写，不套用 Touchdown 或 Snorkel。</text>
+    <text x="0" y="132" fill="#403d38" font-family="Arial, sans-serif" font-size="23">• 旧 raw 名称可跳转到本页，但不会把其他 Sheaffer 家族合并进来。</text>
+  </g>
+  <text x="92" y="676" fill="#6b665e" font-family="Arial, sans-serif" font-size="19">用途：先确认系列身份，再按具体饰面、笔尖和供墨来源阅读；不是实物鉴定图。</text>
+</svg>
