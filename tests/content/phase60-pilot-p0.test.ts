@@ -79,6 +79,12 @@ test("Phase 60 canonicalizes Pilot Custom/Elite P0 pages on an owned copy", asyn
     );
     for (const [id, dimensions, weight, price] of [
       [
+        PHASE60_CUSTOM_845_ID,
+        "当前 FKV-5MR-B-F SKU：最大径 φ15.9 mm；全长 147 mm",
+        "当前 FKV-5MR-B-F SKU：28 g",
+        "日本官方 Web Catalog 当前建议零售价：含税 ¥132,000（税前 ¥120,000）；FKV-5MR-B-F",
+      ],
+      [
         PHASE60_CUSTOM_742_ID,
         "当前 FKK-2000R-B SKU：最大径 φ15.7 mm；全长 145.9 mm",
         "当前 FKK-2000R-B SKU：24 g",

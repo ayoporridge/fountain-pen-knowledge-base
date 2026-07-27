@@ -2,13 +2,15 @@
 
 ## summary
 
-Pilot Custom 845 是配 14K No.15 尖与 cartridge/converter 的漆饰 Custom 型号；它不是 Custom 823 的漆面版本，也不是 Custom URUSHI。
+Pilot Custom 845 是配 18K No.15 尖与 cartridge/converter 的漆饰 Custom 型号；它不是 Custom 823 的漆面版本，也不是 Custom URUSHI。
 
 ## body_md
 
 ## 身份与范围
 
-Custom 845 是 Pilot Custom 系列中有独立产品号的漆饰型号。本页以日本官方支持资料中的 FKV-5MR 为范围：它使用 14K No.15 笔尖和 cartridge/converter（c/c）供墨。名称里的「845」不是 823 的漆面版本，也不是更大的 Custom URUSHI；后者采用另一套旗舰尺寸与笔尖，不能把其尺寸、上墨或定位移到 845。
+Custom 845 是 Pilot Custom 系列中有独立产品号的漆饰型号。本页以日本官方支持资料中的 FKV-5MR 为范围：它使用 18K No.15 笔尖和 cartridge/converter（c/c）供墨。名称里的「845」不是 823 的漆面版本，也不是更大的 Custom URUSHI；后者采用另一套旗舰尺寸与笔尖，不能把其尺寸、上墨或定位移到 845。
+
+当前日本 Pilot Web Catalog 的 FKV-5MR-B-F 商品页给出一个可复核的漆黑 F 尖 SKU：笔身与笔帽为 ebonite，表面为蝋色漆仕上げ，最大径 φ15.9 mm、全长 147 mm、重量 28 g，随附 CON-70N，并列出 CON-40／CON-70N 兼容与含税建议零售价 132,000 日元。这里的尺寸、重量和价格属于该 SKU 的当前目录范围，不外推到朱、紺青、其他尖号或地区版本。
 
 黑与朱等漆色、金色饰件及不同市场的库存是同一型号下的 variant。网页或二手市场的颜色名称并不能证明一支笔的年代、工艺层次或具体尖号；购买时应同时核对笔杆、笔尖印字和商品号。这里不把转售商为便于检索使用的「urushi」关键词当作一个新的型号。
 
@@ -20,7 +22,7 @@ No.15 是 Pilot 用来区分大号金尖规格的产品线记号，而不是「�
 
 ## 规格与版本边界
 
-可核实的核心字段是 FKV-5MR、14K No.15、c/c 与官方列出的转换器体系。漆面具有手工材料的自然差异，照片中的反光、色深和纹理不能作为真品比对唯一标准。不要把 Custom 743 的常规树脂杆、823 的真空机构或 Custom URUSHI 的 30 号尖写进本页；它们都是相邻而非可互换的产品身份。
+可核实的核心字段是 FKV-5MR、18K No.15、c/c 与官方列出的转换器体系。漆面具有手工材料的自然差异，照片中的反光、色深和纹理不能作为真品比对唯一标准。不要把 Custom 743 的常规树脂杆、823 的真空机构或 Custom URUSHI 的 30 号尖写进本页；它们都是相邻而非可互换的产品身份。
 
 当读者在不同地区看到不同的商品号、尖号或颜色，应把它们当作待核对的市场 variant。若没有同时出现 Pilot 官方目录、产品号和清晰实物信息，就不应从名称推断「限量」「旧款」或「升级版」。本页的原创示意图只帮助阅读结构关系，并不是实物照片，也不表达真实比例或漆色。
 
@@ -49,5 +51,6 @@ No.15 是 Pilot 用来区分大号金尖规格的产品线记号，而不是「�
 ## 来源
 
 - Pilot 官方支持：Custom 845 `custom845.html`（FKV-5MR、兼容供墨与维护边界，2026-07-20 访问）。
+- Pilot 日本 Web Catalog：Custom 845 FKV-5MR-B-F（笔尖、材质、尺寸、重量、供墨与价格，2026-07-27 访问）：https://webcatalog.pilot.co.jp/products/DispDetail.do?itemID=t000100000103&volumeName=00004
 - Pilot 日本 Web Catalog：万年笔目录（当前产品线与 SKU 语境，2026-07-20 访问）。
 - The Pen Addict、The Gentleman Stationer 的 Pilot Custom 长期评测（仅作使用感与系列边界的专业次级参考）。
