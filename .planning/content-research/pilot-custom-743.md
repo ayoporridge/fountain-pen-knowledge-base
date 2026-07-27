@@ -10,6 +10,8 @@ Pilot Custom 743 是采用 No.15 金尖与 cartridge/converter 的 Custom 型号
 
 Custom 743 是 Pilot Custom 系列的独立 No.15 型号。最重要的识别点是它采用 cartridge/converter 供墨；即使它与 Custom 823 同处 No.15 的大小语境，也不能把 823 的真空尾杆、墨仓容量或清洗步骤写到 743。官方支持资料中 Custom 743 的产品线和兼容转换器是判断身份的起点。
 
+当前日本 Pilot Web Catalog 的 FKK-3000R-B-M 商品页给出一个可复核的黑色 M 尖 SKU：轴、帽为树脂，最大径 φ15.7 mm、全长 149 mm、重量 25 g，随附 CON-70N，并列出 CON-40／CON-70N 兼容与含税建议零售价 60,500 日元。这里的尺寸、重量和价格属于该 SKU 的当前目录范围，不外推到其他颜色、尖号、地区或后配部件。
+
 743 也不是 Custom 845 的材料 variant。845 的漆饰和型号范围独立；743 的树脂杆、颜色、尖号与市场代码应按照本型号资料核对。一个商品标题同时写「743/823/845」常常只是搜索词堆叠，不是制造商对同一型号的定义。
 
 ## No.15、尖号与供墨
@@ -51,5 +53,6 @@ No.15 标出 Pilot 的大号金尖平台，但不替代具体尖号。F、FM、M
 ## 来源
 
 - Pilot 官方支持：Custom 743 `custom743.html`（供墨兼容、清洁和型号支持资料，2026-07-20 访问）。
+- Pilot 日本 Web Catalog：Custom 743 FKK-3000R-B-M（型号、尖号、尺寸、重量、供墨与价格，2026-07-27 访问）：https://webcatalog.pilot.co.jp/products/DispDetail.do?itemID=t000100000353&volumeName=00004
 - Pilot 日本 Web Catalog：万年笔目录（当前型号及 SKU 核对，2026-07-20 访问）。
 - 专业 Pilot Custom 试写文章（只用于握持、书写体验与 743/823 边界的交叉参考）。

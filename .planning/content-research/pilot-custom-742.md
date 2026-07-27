@@ -10,6 +10,8 @@ Pilot Custom 742 是 Pilot Custom 系列的 No.10 金尖型号，使用 cartridg
 
 Custom 742 是 Pilot Custom 系列中的独立型号，本页以官方支持资料所覆盖的 Custom 742 为范围。它的关键不是「比 74 大一点」，而是 No.10 金尖、c/c 供墨和其自身的笔身/笔帽比例。742 可以和 Custom Heritage 912 放在同一段产品线讨论，但两者不是名称、外形或全部 SKU 都相同的同一支笔。
 
+当前日本 Pilot Web Catalog 的 FKK-2000R-B 商品页给出一个可复核的黑色 F 尖 SKU：轴、帽为树脂，最大径 φ15.7 mm、全长 145.9 mm、重量 24 g，随附 CON-70N，并列出 CON-40／CON-70N 兼容与含税建议零售价 49,500 日元。这里的尺寸、重量和价格属于该 SKU 的当前目录范围，不外推到深红、限定色、其他市场或后配尖。
+
 742、743 和 823 的数字相近，最容易产生错误合并。743 属 No.15 尺寸路线；823 是真空上墨；742 不能借用它们的尖号、重量或供墨资料。官方支持页面对兼容的 CON-40、CON-70N 和 Pilot 墨囊给出了比二手商品标题更可靠的边界。
 
 ## 笔尖、上墨与书写选择
@@ -51,5 +53,6 @@ c/c 让 742 的补墨逻辑和真空、活塞笔不同：可以装 Pilot 墨囊�
 ## 来源
 
 - Pilot 官方支持：Custom 742 `custom742.html`（兼容供墨、清洗与型号边界，2026-07-20 访问）。
+- Pilot 日本 Web Catalog：Custom 742 FKK-2000R-B（型号、尖号、尺寸、重量、供墨与价格，2026-07-27 访问）：https://webcatalog.pilot.co.jp/products/DispDetail.do?itemID=t000100000331&volumeName=00004
 - Pilot 日本 Web Catalog：当前万年笔目录（型号、尖号与 SKU 核对入口，2026-07-20 访问）。
 - The Pen Addict / The Gentleman Stationer 的 Pilot Custom 评测（书写和家族对照的专业次级资料）。

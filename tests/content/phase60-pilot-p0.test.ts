@@ -77,6 +77,26 @@ test("Phase 60 canonicalizes Pilot Custom/Elite P0 pages on an owned copy", asyn
         "published",
       ],
     );
+    for (const [id, dimensions, weight, price] of [
+      [
+        PHASE60_CUSTOM_742_ID,
+        "当前 FKK-2000R-B SKU：最大径 φ15.7 mm；全长 145.9 mm",
+        "当前 FKK-2000R-B SKU：24 g",
+        "日本官方 Web Catalog 当前建议零售价：含税 ¥49,500（税前 ¥45,000）；FKK-2000R-B",
+      ],
+      [
+        PHASE60_CUSTOM_743_ID,
+        "当前 FKK-3000R-B-M SKU：最大径 φ15.7 mm；全长 149 mm",
+        "当前 FKK-3000R-B-M SKU：25 g",
+        "日本官方 Web Catalog 当前建议零售价：含税 ¥60,500（税前 ¥55,000）；FKK-3000R-B-M",
+      ],
+    ] as const) {
+      const spec = await client.execute({
+        sql: "SELECT dimensions, weight, price_range FROM model_specs WHERE entity_id = ? AND review_status = 'approved'",
+        args: [id],
+      });
+      assert.deepEqual(spec.rows, [{ dimensions, weight, price_range: price }]);
+    }
     for (const [id, slug, oldSlug] of TARGETS) {
       const entity = await client.execute({
         sql: "SELECT slug, length(summary) AS summary_length, length(body_md) AS body_length FROM entities WHERE id = ?",
