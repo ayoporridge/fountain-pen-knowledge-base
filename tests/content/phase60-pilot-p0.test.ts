@@ -96,6 +96,12 @@ test("Phase 60 canonicalizes Pilot Custom/Elite P0 pages on an owned copy", asyn
         "当前 FKK-3000R-B-M SKU：25 g",
         "日本官方 Web Catalog 当前建议零售价：含税 ¥60,500（税前 ¥55,000）；FKK-3000R-B-M",
       ],
+      [
+        PHASE60_ELITE_95S_ID,
+        "当前 FES-1MM-B-EF SKU：最大径 φ12.9 mm；全长 119 mm",
+        "当前 FES-1MM-B-EF SKU：15 g",
+        "日本官方 Web Catalog 当前建议零售价：含税 ¥33,000（税前 ¥30,000）；FES-1MM-B-EF",
+      ],
     ] as const) {
       const spec = await client.execute({
         sql: "SELECT dimensions, weight, price_range FROM model_specs WHERE entity_id = ? AND review_status = 'approved'",
@@ -103,6 +109,20 @@ test("Phase 60 canonicalizes Pilot Custom/Elite P0 pages on an owned copy", asyn
       });
       assert.deepEqual(spec.rows, [{ dimensions, weight, price_range: price }]);
     }
+    const eliteSkuReference = await client.execute({
+      sql: `
+        SELECT source_items.url
+        FROM entity_references
+        JOIN source_items ON source_items.id = entity_references.source_item_id
+        WHERE entity_references.entity_id = ?
+          AND source_items.url = ?
+      `,
+      args: [
+        PHASE60_ELITE_95S_ID,
+        "https://webcatalog.pilot.co.jp/products/DispDetail.do?itemID=t000100000203&volumeName=00004",
+      ],
+    });
+    assert.equal(eliteSkuReference.rows.length, 1);
     for (const [id, slug, oldSlug] of TARGETS) {
       const entity = await client.execute({
         sql: "SELECT slug, length(summary) AS summary_length, length(body_md) AS body_length FROM entities WHERE id = ?",

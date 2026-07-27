@@ -16,7 +16,11 @@ Elite 95S 是 Pilot 当前目录/支持资料中的现代型号，产品号 FES-
 
 Elite 95S 的现代身份由其短身/加帽后的使用姿态、官方金尖配置与 c/c 体系共同构成。它的轻巧感通常来自整体比例，而非单一的「短」。不同尖号、纸张、墨水和握持位置会让实际感受差异很大，因此不能把他人试写结论当成每支笔的固定性能。
 
-它使用 Pilot 墨囊与官方指定转换器的路径应按当期支持资料确认。c/c 的优势是能在墨囊和瓶墨之间切换；它不等于活塞笔的墨仓，也不是 823 的真空结构。购买二手笔时，转换器是否包含、是否能正常密封，比「原装」文字标签更值得实际检查。
+它使用 Pilot 墨囊与 CON-40 转换器的路径应按当期支持资料确认。c/c 的优势是能在墨囊和瓶墨之间切换；它不等于活塞笔的墨仓，也不是 823 的真空结构。购买二手笔时，转换器是否包含、是否能正常密封，比「原装」文字标签更值得实际检查。
+
+### 当前 FES-1MM-B-EF SKU 的可核对数字
+
+截至 2026 年 7 月 27 日检索的 [Pilot 日本 Web Catalog Elite 95S SKU 页](https://webcatalog.pilot.co.jp/products/DispDetail.do?itemID=t000100000203&volumeName=00004)，FES-1MM-B-EF 是黑色 EF 尖商品：14K EF 笔尖，笔轴为树脂，笔帽为铝制双重阳极氧化处理，适用转换器为 CON-40；最大径 φ12.9 mm、全长 119 mm、重量 15 g，页面列出的含税希望零售价为 33,000 日元（税前 30,000 日元）。这些数字属于这个产品号和检索日，不应被改写成所有旧 Elite 或未来库存的恒定承诺。官方同一系列入口还列出 FES-1MM 的 F、M 选项，但尖号、颜色和供应状态仍应以实际 SKU 为准。
 
 ## 现代款与历史 family 的边界
 
@@ -52,6 +56,6 @@ Elite 95S 的二手核验还需看笔尖刻印、笔帽收纳状态、杆身与�
 
 ## 来源
 
-- Pilot 日本 Web Catalog：Elite 95S / FES-1MM 当前产品资料（2026-07-20 访问）。
+- Pilot 日本 Web Catalog：[Elite 95S / FES-1MM 系列入口](https://webcatalog.pilot.co.jp/products/DispCate.do?category=%E4%B8%87%E5%B9%B4%E7%AD%86%2F%E4%B8%87%E5%B9%B4%E7%AD%86&volumeName=00004) 与 [FES-1MM-B-EF 当前 SKU 资料](https://webcatalog.pilot.co.jp/products/DispDetail.do?itemID=t000100000203&volumeName=00004)（2026-07-27 访问）。
 - Pilot 官方保修/支持目录：现代 Elite 95S 的供墨与维护语境（2026-07-20 访问）。
 - 专业钢笔资料站的 Elite 95S 长期使用文章（仅作书写体验与历史 family 边界的次级参考）。
