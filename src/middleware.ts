@@ -3,7 +3,6 @@ import {
   getCanonicalEntityPath,
   getReclassifiedArticlePath,
 } from "@/lib/entity-redirects";
-import { getPublicEntityBySlug } from "@/lib/public-visibility";
 
 const HIDDEN_PUBLIC_PATHS = new Set([
   "/api/chat",
@@ -33,16 +32,6 @@ const PUBLIC_BY_DIMENSIONS = new Set([
   "material",
   "nib",
   "origin",
-]);
-
-const ENTITY_NAMESPACES = new Set([
-  "article",
-  "brand",
-  "concept",
-  "fill_system",
-  "material",
-  "nib",
-  "pen",
 ]);
 
 function normalizePathname(pathname: string) {
@@ -107,11 +96,6 @@ export async function middleware(request: NextRequest) {
     /^\/[^/]+\/[^/]+\/edit\/?$/.test(normalizedPathname)
   ) {
     return hardNotFound();
-  }
-
-  if (segments.length === 2 && ENTITY_NAMESPACES.has(segments[0])) {
-    const entity = await getPublicEntityBySlug(segments[0], segments[1]);
-    if (!entity) return hardNotFound();
   }
 
   return NextResponse.next();
