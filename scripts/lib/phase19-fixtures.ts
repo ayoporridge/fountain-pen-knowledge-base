@@ -18,10 +18,10 @@ const REAL_CATALOG_PATH = path.join(ROOT, "data", "fpkg.db");
 const LOCKED_POST_INCIDENT_FINGERPRINT = {
   main: {
     optional: false,
-    size: "52822016",
+    size: "52899840",
     inode: "74488502",
-    mtimeNs: "1785180876492036268",
-    sha256: "a4e3e04a7884b070782d9a20e4a50e1a93262b49dec710b062e558905459a4cc",
+    mtimeNs: "1785182273595603255",
+    sha256: "4d64d1c3f31f7676bc852a13f973190b295cb8c654fb6b66023e4ad6986fe105",
   },
   wal: {
     optional: true,
