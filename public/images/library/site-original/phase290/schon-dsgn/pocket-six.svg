@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Schon DSGN Pocket Six 结构事实示意图</title>
+  <desc id="desc">本站原创示意图，表达 Pocket Six 的短杆、上帽书写、六号笔尖与短国际墨囊；不是产品照片。product-photo=false;factual-svg=true</desc>
+  <rect width="1600" height="900" fill="#f5f1e8"/>
+  <rect x="90" y="90" width="1420" height="720" rx="36" fill="#fffdf8" stroke="#1d3557" stroke-width="6"/>
+  <text x="150" y="175" font-family="sans-serif" font-size="46" font-weight="700" fill="#1d3557">SCHON DSGN · POCKET SIX</text>
+  <text x="150" y="228" font-family="sans-serif" font-size="26" fill="#52616b">factual diagram · editorial illustration · not a product photograph</text>
+  <g transform="translate(190 345)">
+    <rect x="0" y="110" width="500" height="100" rx="50" fill="#7a8fa6" stroke="#243447" stroke-width="8"/>
+    <rect x="405" y="110" width="95" height="100" rx="14" fill="#b58a52" stroke="#243447" stroke-width="8"/>
+    <path d="M500 160h230" stroke="#243447" stroke-width="8" stroke-linecap="round"/>
+    <path d="M730 160l90-32v64z" fill="#d8b36a" stroke="#243447" stroke-width="8"/>
+    <text x="55" y="270" font-family="sans-serif" font-size="27" fill="#1d3557">aluminum body / optional brass grip</text>
+    <text x="520" y="95" font-family="sans-serif" font-size="28" fill="#7b4b2a">#6 nib</text>
+  </g>
+  <g transform="translate(950 330)">
+    <rect x="0" y="105" width="260" height="110" rx="55" fill="#c6d3df" stroke="#243447" stroke-width="8"/>
+    <path d="M260 160h190" stroke="#243447" stroke-width="8" stroke-dasharray="18 14"/>
+    <rect x="450" y="80" width="170" height="160" rx="24" fill="#d6a96d" stroke="#243447" stroke-width="8"/>
+    <text x="5" y="280" font-family="sans-serif" font-size="27" fill="#1d3557">cap screws onto barrel</text>
+    <text x="460" y="280" font-family="sans-serif" font-size="27" fill="#1d3557">short international cartridge</text>
+  </g>
+  <path d="M300 690h930" stroke="#d08c60" stroke-width="5"/>
+  <text x="270" y="750" font-family="sans-serif" font-size="30" fill="#7b4b2a">capped ≈ 90 mm · posted ≈ 132–135 mm (sample ranges)</text>
+</svg>
