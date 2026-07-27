@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sailor 1911 L Demonstrator 11-9223 factual diagram</title>
+  <desc id="desc">Editorial non-photo diagram showing a transparent PMMA demonstrator, 21K rhodium-plated nib and converter-cartridge filling.</desc>
+  <defs>
+    <linearGradient id="clear" x1="0" x2="1"><stop offset="0" stop-color="#d8e5ed" stop-opacity=".35"/><stop offset=".5" stop-color="#ffffff" stop-opacity=".8"/><stop offset="1" stop-color="#9cb7c8" stop-opacity=".42"/></linearGradient>
+    <linearGradient id="silver" x1="0" x2="1"><stop offset="0" stop-color="#667582"/><stop offset=".45" stop-color="#e5edf2"/><stop offset="1" stop-color="#758694"/></linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="#edf2f5"/>
+  <rect x="60" y="60" width="1480" height="780" rx="34" fill="#fff" stroke="#b7c5ce" stroke-width="4"/>
+  <text x="120" y="145" fill="#294354" font-family="Georgia, serif" font-size="48" font-weight="700">Sailor 1911 L Demonstrator · 11-9223</text>
+  <text x="122" y="190" fill="#657783" font-family="sans-serif" font-size="25">事实示意图 · transparent PMMA · 21K rhodium-plated nib · C/C</text>
+  <g transform="translate(170 365) rotate(-7)">
+    <path d="M0 90 C20 20 110 0 190 0 H865 C932 0 975 25 1000 90 C975 155 932 180 865 180 H190 C110 180 20 160 0 90Z" fill="url(#clear)" stroke="#7899aa" stroke-width="8"/>
+    <path d="M850 18 H1015 C1065 18 1095 50 1095 90 C1095 130 1065 162 1015 162 H850Z" fill="#f4f8fa" fill-opacity=".72" stroke="#7d96a2" stroke-width="7"/>
+    <path d="M850 28 H1015 C1050 28 1070 48 1070 90 C1070 132 1050 152 1015 152 H850" fill="none" stroke="url(#silver)" stroke-width="9" stroke-dasharray="22 15"/>
+    <path d="M1088 77 L1235 90 L1088 103 Z" fill="url(#silver)" stroke="#596b79" stroke-width="5"/>
+    <path d="M1150 90 C1180 67 1210 65 1235 90 C1210 115 1180 113 1150 90Z" fill="#e9f0f3" stroke="#596b79" stroke-width="4"/>
+    <circle cx="1205" cy="90" r="9" fill="#415665"/>
+    <rect x="190" y="-18" width="18" height="216" rx="9" fill="#b8c6cf"/>
+    <path d="M80 42 H160 M70 68 H165 M64 94 H165 M70 120 H165 M80 146 H160" stroke="#b5d1dc" stroke-width="6" opacity=".9"/>
+    <path d="M300 42 H700" stroke="#ffffff" stroke-width="10" opacity=".75"/>
+  </g>
+  <g font-family="sans-serif" fill="#294354">
+    <text x="180" y="670" font-size="28" font-weight="700">Transparent PMMA · φ18×141 mm · ≈21.6 g</text>
+    <text x="180" y="710" font-size="23" fill="#657783">目录/经销商参考；图形不按比例</text>
+    <text x="1010" y="320" font-size="28" font-weight="700">21K gold + rhodium plating</text>
+    <text x="1010" y="360" font-size="23" fill="#657783">EF · F · MF · M · B · Z · MS</text>
+    <text x="1010" y="520" font-size="28" font-weight="700">Sailor C/C filling</text>
+    <text x="1010" y="560" font-size="23" fill="#657783">可观察墨水，不等于活塞系统</text>
+    <text x="180" y="785" font-size="21" fill="#6c7b84">NON-PHOTO · NON-LOGO · NOT-TO-SCALE · NON-COLOUR-PROOF</text>
+  </g>
+  <g stroke="#8299a8" stroke-width="4" fill="none"><path d="M915 355 H1000"/><path d="M940 535 H1000"/></g>
+</svg>
