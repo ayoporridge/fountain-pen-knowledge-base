@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc" data-factual-svg="true" data-product-photo="false" data-logo="false" data-to-scale="false" data-colour-proof="false">
+  <title id="title">Pilot MR Metropolitan 事实示意图</title>
+  <desc id="desc">本站原创示意图，表达漆面金属笔身、按扣帽、钢尖与 Pilot 墨囊／转换器边界；非产品照片，不代表真实比例、颜色、Logo 或刻字。</desc>
+  <rect width="1200" height="520" fill="#f6f1e8"/>
+  <g stroke="#252525" stroke-width="6" stroke-linejoin="round">
+    <path d="M160 266h132l45-32h510l68 32-68 32H337l-45-32H160z" fill="#b8b0a2"/>
+    <path d="M292 235h555l61 31-61 31H292l44-31z" fill="#222"/>
+    <path d="M324 242h500l38 24-38 24H324l-34-24z" fill="#7c8790"/>
+    <path d="M848 230h98l93 36-93 36h-98l56-36z" fill="#d6a847"/>
+    <path d="M1004 247h56l26 19-26 19h-56l25-19z" fill="#f4f1e8"/>
+    <path d="M111 230h49v72h-49z" fill="#d2cbc0"/>
+    <path d="M111 230h49"/>
+    <path d="M160 244v44"/>
+    <path d="M1047 255l42 11-42 11z" fill="#d6a847"/>
+  </g>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans CJK SC',sans-serif" fill="#252525">
+    <text x="70" y="92" font-size="34" font-weight="700">Pilot MR Metropolitan</text>
+    <text x="70" y="132" font-size="20">金属外壳 · 按扣帽 · 钢尖 · Pilot C/C</text>
+    <text x="86" y="372" font-size="22">漆面金属笔身／树脂握位</text>
+    <text x="832" y="372" font-size="22">钢尖（尖幅按 SKU）</text>
+    <text x="96" y="430" font-size="18" fill="#5c554d">示意图，非产品照片；不表现真实比例、颜色、Logo、刻字或库存。</text>
+  </g>
+</svg>
