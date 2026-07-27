@@ -1,4 +1,13 @@
 import { queryOne } from "@/lib/db";
+import {
+  HIDDEN_ARTICLE_SLUGS,
+  HIDDEN_CONCEPT_SLUGS,
+} from "@/lib/public-route-policy";
+
+export {
+  HIDDEN_ARTICLE_SLUGS,
+  HIDDEN_CONCEPT_SLUGS,
+} from "@/lib/public-route-policy";
 
 type EntityVisibilityInput = {
   type?: string | number | null;
@@ -39,44 +48,10 @@ export const HIDDEN_DUPLICATE_ENTITY_SLUGS = [
 ] as const;
 
 /**
- * Concept drafts with no reliable examples or a definition that still mixes
- * distinct mechanisms. Keep the records for editorial recovery, but do not
- * publish them as finished reference pages.
- */
-export const HIDDEN_CONCEPT_SLUGS = [
-  "italic-nib",
-  "music-nib",
-  "rotary-filler",
-] as const;
-
-/**
  * Imported pages that are incomplete, administrative, or still working notes.
  * They remain in the database for source recovery, but must not appear on any
  * public surface until an editor has restored and reviewed the full article.
  */
-export const HIDDEN_ARTICLE_SLUGS = [
-  "about-us",
-  "contact-us",
-  "demonstrator-pens",
-  "hommel-s-meteor-fountain-pen-and-its-descendants",
-  "how-to-disassemble-and-reassemble-a-parker-51",
-  "parker-ivorine-pastel-and-moire-oh-my",
-  "personalized-pens-the-malarkey-pen",
-  "pilot-iroshizuku-ink-guide",
-  "preserving-your-pens-dos-and-don-ts",
-  "privacy-policy",
-  "readme",
-  "soviet-pens",
-  "tribute-pens-and-reboots",
-  "world-war-ii-and-the-fountain-pen",
-  "万特佳",
-  "公爵-duke",
-  "半句",
-  "永续",
-  "犀飞利-sheaffer-品牌泛称",
-  "灵感提炼",
-] as const;
-
 export const INDEX_ARTICLE_MARKERS = [
   "品牌资料索引",
   "品牌索引",

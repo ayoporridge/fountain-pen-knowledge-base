@@ -4,6 +4,10 @@ import {
   getReclassifiedArticlePath,
   HARD_404_ENTITY_PATHS,
 } from "@/lib/entity-redirects";
+import {
+  HIDDEN_ARTICLE_SLUGS,
+  HIDDEN_CONCEPT_SLUGS,
+} from "@/lib/public-route-policy";
 
 const HIDDEN_PUBLIC_PATHS = new Set([
   "/api/chat",
@@ -74,6 +78,14 @@ export async function middleware(request: NextRequest) {
     segments.length === 2 &&
     segments[0] === "by" &&
     !PUBLIC_BY_DIMENSIONS.has(segments[1]);
+  const isHiddenArticlePath =
+    segments.length === 2 &&
+    segments[0] === "article" &&
+    (HIDDEN_ARTICLE_SLUGS as readonly string[]).includes(segments[1]);
+  const isHiddenConceptPath =
+    segments.length === 2 &&
+    segments[0] === "concept" &&
+    (HIDDEN_CONCEPT_SLUGS as readonly string[]).includes(segments[1]);
 
   if (reclassifiedArticlePath) {
     return NextResponse.redirect(
@@ -96,6 +108,8 @@ export async function middleware(request: NextRequest) {
   if (
     normalizedPathname === "/new" ||
     HIDDEN_PUBLIC_PATHS.has(normalizedPathname) ||
+    isHiddenArticlePath ||
+    isHiddenConceptPath ||
     hasInvalidTwoSegmentNamespace ||
     hasInvalidDimension ||
     /^\/[^/]+\/[^/]+\/edit\/?$/.test(normalizedPathname)
