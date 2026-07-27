@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Cross Century II factual diagram</title>
+  <desc id="desc">Editorial factual diagram of Cross Century II with wider body, click-off cap and cartridge/converter boundary. Not a product photo, not to scale, and not a colour proof.</desc>
+  <!-- data-factual-svg; data-non-photo; data-non-logo; data-not-to-scale; data-non-colour-proof -->
+  <rect width="1600" height="900" fill="#f5f1e8"/>
+  <rect x="90" y="92" width="1420" height="716" rx="32" fill="#fffdf8" stroke="#b8ab94" stroke-width="4"/>
+  <text x="150" y="170" font-family="sans-serif" font-size="44" font-weight="700" fill="#2d2924">Cross Century II</text>
+  <text x="150" y="222" font-family="sans-serif" font-size="25" fill="#645b50">更宽的 Century 家族钢笔 · click-off 帽 · Cross #8921 / #8756</text>
+  <g transform="translate(160 360)">
+    <rect x="110" y="90" width="860" height="92" rx="46" fill="#24252a"/>
+    <rect x="230" y="105" width="500" height="62" rx="28" fill="#131419"/>
+    <path d="M970 90 L1160 136 L970 182 Z" fill="#b7bdc6" stroke="#5b6068" stroke-width="4"/>
+    <path d="M1160 136 L1240 136" stroke="#5b6068" stroke-width="7"/>
+    <path d="M1050 105 L1100 105 L1100 167 L1050 167 Z" fill="#d4a94e"/>
+    <text x="292" y="55" font-family="sans-serif" font-size="24" fill="#3d3831">wider body than Classic Century</text>
+    <line x1="490" y1="65" x2="490" y2="90" stroke="#756b5f" stroke-width="3"/>
+    <text x="1030" y="240" font-family="sans-serif" font-size="24" fill="#3d3831">stainless-steel nib</text>
+    <line x1="1090" y1="190" x2="1090" y2="220" stroke="#756b5f" stroke-width="3"/>
+  </g>
+  <g transform="translate(180 640)">
+    <rect x="0" y="0" width="390" height="86" rx="18" fill="#e5dfd3" stroke="#9c907d" stroke-width="3"/>
+    <text x="35" y="53" font-family="sans-serif" font-size="27" fill="#3d3831">click-off cap</text>
+    <rect x="480" y="0" width="390" height="86" rx="18" fill="#e5dfd3" stroke="#9c907d" stroke-width="3"/>
+    <text x="515" y="53" font-family="sans-serif" font-size="27" fill="#3d3831">#8921 cartridge</text>
+    <rect x="960" y="0" width="390" height="86" rx="18" fill="#e5dfd3" stroke="#9c907d" stroke-width="3"/>
+    <text x="995" y="53" font-family="sans-serif" font-size="27" fill="#3d3831">optional #8756 converter</text>
+  </g>
+  <text x="150" y="775" font-family="sans-serif" font-size="20" fill="#776d61">示意图｜非产品照片｜非 Logo｜not-to-scale｜non-colour-proof</text>
+</svg>
