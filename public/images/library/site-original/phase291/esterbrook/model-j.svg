@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc" data-factual-svg="true" data-product-photo="false" data-logo="false" data-to-scale="false" data-colour-proof="false">
+  <title id="title">Esterbrook Model J factual structure diagram</title>
+  <desc id="desc">Non-photo schematic showing ebonite body, screw cap, JoWo number six nib and international cartridge converter.</desc>
+  <rect width="1600" height="900" fill="#f5f0e7"/>
+  <rect x="70" y="70" width="1460" height="760" rx="36" fill="#fbfaf7" stroke="#49392d" stroke-width="4"/>
+  <text x="120" y="155" font-family="Georgia,serif" font-size="46" fill="#2e241e">Esterbrook Model J</text>
+  <text x="120" y="205" font-family="Arial,sans-serif" font-size="24" fill="#6d5a4a">现代 ebonite 全尺寸钢笔 · factual schematic · 非产品照片</text>
+  <g transform="translate(160 350)">
+    <path d="M80 90 Q80 30 140 30 H810 Q850 30 870 75 L930 105 Q950 115 930 125 L870 155 Q850 200 810 200 H140 Q80 200 80 140Z" fill="#8b5b43" stroke="#392c26" stroke-width="6"/>
+    <path d="M860 75 L1110 75 Q1145 75 1165 108 L1210 115 Q1224 118 1210 125 L1165 132 Q1145 165 1110 165 H860Z" fill="#c28b4d" stroke="#392c26" stroke-width="6"/>
+    <path d="M1210 115 L1325 115 L1390 100 L1460 120 L1390 140 L1325 125 L1210 125Z" fill="#d3a45a" stroke="#392c26" stroke-width="6"/>
+    <path d="M860 75 H930 M860 200 H930" stroke="#e9c589" stroke-width="10"/>
+    <path d="M825 75 C850 75 850 200 825 200" fill="none" stroke="#e9c589" stroke-width="7"/>
+    <path d="M940 95 H1020 M940 145 H1020" stroke="#4b3328" stroke-width="5" stroke-dasharray="12 10"/>
+    <line x1="1040" y1="20" x2="1040" y2="-45" stroke="#49392d" stroke-width="3"/>
+    <text x="960" y="-65" font-family="Arial,sans-serif" font-size="25" fill="#49392d">螺纹帽</text>
+    <line x1="500" y1="215" x2="500" y2="280" stroke="#49392d" stroke-width="3"/>
+    <text x="390" y="320" font-family="Arial,sans-serif" font-size="25" fill="#49392d">SEM ebonite 笔身</text>
+    <line x1="1290" y1="110" x2="1290" y2="45" stroke="#49392d" stroke-width="3"/>
+    <text x="1195" y="20" font-family="Arial,sans-serif" font-size="25" fill="#49392d">JoWo #6</text>
+  </g>
+  <g font-family="Arial,sans-serif" fill="#49392d" font-size="24">
+    <text x="145" y="700">供墨：标准国际墨囊 / converter</text>
+    <text x="145" y="742">边界：现代 Model J ≠ 历史杠杆 J ≠ JR / Estie</text>
+    <text x="145" y="784">示意图不代表真实比例、颜色、刻字、库存或具体 SKU</text>
+  </g>
+</svg>
