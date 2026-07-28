@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Platinum Izumo PIZ-120000K Kurikara-Ken factual diagram</title>
+  <desc id="desc">Factual diagram for PIZ-120000K #1 Kurikara-Ken; non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#171717"/>
+  <rect x="70" y="70" width="1460" height="760" rx="34" fill="#eee8de"/>
+  <path d="M255 625 C380 350 500 265 655 525 C760 700 910 335 1090 330" fill="none" stroke="#53645d" stroke-width="38"/>
+  <path d="M280 595 C425 340 510 300 640 535" fill="none" stroke="#8a9d90" stroke-width="12"/>
+  <path d="M520 610 L1220 335" stroke="#c2a65b" stroke-width="18"/>
+  <path d="M510 610 L1220 335" stroke="#7d6a3f" stroke-width="5"/>
+  <rect x="350" y="535" width="795" height="72" rx="36" fill="#242827"/>
+  <rect x="1095" y="510" width="160" height="120" rx="54" fill="#242827"/>
+  <circle cx="375" cy="571" r="27" fill="#a98f5c"/>
+  <path d="M1250 555 L1410 555 L1455 572 L1410 589 L1250 589 Z" fill="#a98f5c"/>
+  <text x="170" y="165" font-family="Georgia, serif" font-size="54" fill="#171717">Platinum Izumo</text>
+  <text x="170" y="225" font-family="Arial, sans-serif" font-size="38" fill="#171717">PIZ-120000K · #1 Kurikara-Ken</text>
+  <text x="170" y="705" font-family="Arial, sans-serif" font-size="30" fill="#171717">Large 18K F / M / B · ebonite · Sumiko Taka Maki-e</text>
+  <text x="170" y="755" font-family="Arial, sans-serif" font-size="28" fill="#171717">154 mm (writing ~134 mm) · max 18 mm · 33.7 g</text>
+  <text x="1160" y="765" font-family="Arial, sans-serif" font-size="22" fill="#6d665e" text-anchor="middle">NON-PHOTO · NON-LOGO</text>
+  <text x="1160" y="795" font-family="Arial, sans-serif" font-size="22" fill="#6d665e" text-anchor="middle">NOT-TO-SCALE · NON-COLOUR-PROOF</text>
+</svg>
