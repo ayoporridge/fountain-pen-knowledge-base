@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Platinum Izumo PIZ-55000 Tamenuri factual diagram</title>
+  <desc id="desc">A factual, non-photo, non-logo, not-to-scale, non-colour-proof diagram of the PIZ-55000 model and its #27, #28 and #30 lacquer variants.</desc>
+  <rect width="1600" height="900" fill="#f7f2ea"/>
+  <rect x="72" y="72" width="1456" height="756" rx="28" fill="#fffdf8" stroke="#3e342d" stroke-width="4"/>
+  <text x="120" y="150" font-family="sans-serif" font-size="48" font-weight="700" fill="#2f2925">Platinum Izumo PIZ-55000</text>
+  <text x="120" y="198" font-family="sans-serif" font-size="28" fill="#6c5b50">Tamenuri 溜塗 · factual identity map</text>
+  <line x1="120" y1="238" x2="1480" y2="238" stroke="#b8a79a" stroke-width="3"/>
+  <rect x="120" y="286" width="540" height="260" rx="22" fill="#eadfce" stroke="#6f5a4c" stroke-width="3"/>
+  <text x="160" y="344" font-family="sans-serif" font-size="32" font-weight="700" fill="#382d27">同一型号</text>
+  <text x="160" y="400" font-family="sans-serif" font-size="28" fill="#382d27">硬橡胶 ebonite + Tamenuri</text>
+  <text x="160" y="450" font-family="sans-serif" font-size="28" fill="#382d27">大型 18K · F / M / B</text>
+  <text x="160" y="500" font-family="sans-serif" font-size="26" fill="#382d27">154 mm · 18 mm · 约 34.5 g</text>
+  <rect x="760" y="286" width="680" height="260" rx="22" fill="#f4e7db" stroke="#8a6755" stroke-width="3"/>
+  <text x="800" y="344" font-family="sans-serif" font-size="32" font-weight="700" fill="#382d27">产品号 PIZ-55000</text>
+  <text x="800" y="404" font-family="sans-serif" font-size="28" fill="#382d27">#27 空溜 · Soratame</text>
+  <text x="800" y="454" font-family="sans-serif" font-size="28" fill="#382d27">#28 赤溜 · Akatame</text>
+  <text x="800" y="504" font-family="sans-serif" font-size="28" fill="#382d27">#30 枇杷溜 · Biwatame</text>
+  <path d="M660 416 H760" stroke="#8b6d5b" stroke-width="5" marker-end="url(#arrow)"/>
+  <rect x="120" y="624" width="1320" height="132" rx="18" fill="#f1ede5" stroke="#aaa096" stroke-width="3"/>
+  <text x="160" y="680" font-family="sans-serif" font-size="25" fill="#403832">专用墨囊 / Platinum 转换器 · 漆面避免硬物摩擦</text>
+  <text x="160" y="724" font-family="sans-serif" font-size="23" fill="#62574f">本站原创事实 SVG；非产品照片 · 非 Logo · 非比例图 · 非颜色校样</text>
+  <defs><marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#8b6d5b"/></marker></defs>
+</svg>
