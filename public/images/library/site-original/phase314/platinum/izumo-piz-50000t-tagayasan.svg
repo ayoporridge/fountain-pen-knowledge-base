@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Platinum Izumo PIZ-50000T Tagayasan factual diagram</title>
+  <desc id="desc">Factual editorial diagram, not a product photograph.</desc>
+  <rect width="1600" height="900" fill="#201b18"/>
+  <rect x="70" y="70" width="1460" height="760" rx="28" fill="#302822" stroke="#c89d61" stroke-width="3"/>
+  <text x="120" y="150" fill="#f5e6cc" font-family="Arial, sans-serif" font-size="42" font-weight="700">PLATINUM IZUMO</text>
+  <text x="120" y="205" fill="#d5af79" font-family="Arial, sans-serif" font-size="32">PIZ-50000T · TAGAYASAN</text>
+  <text x="120" y="260" fill="#c4b6aa" font-family="Arial, sans-serif" font-size="24">Ironwood / Bombay Blackwood · 18K F/M/B · #20 Matte / #21 Gloss</text>
+  <path d="M245 450 C360 400 470 395 600 450 S850 505 980 450 S1220 395 1360 450" fill="none" stroke="#5b3828" stroke-width="96"/>
+  <path d="M245 450 C360 400 470 395 600 450 S850 505 980 450 S1220 395 1360 450" fill="none" stroke="#9a6940" stroke-width="5" opacity="0.85"/>
+  <path d="M245 430 C360 380 470 375 600 430 S850 485 980 430 S1220 375 1360 430" fill="none" stroke="#d0a579" stroke-width="3" opacity="0.5"/>
+  <ellipse cx="375" cy="450" rx="125" ry="52" fill="#352017" stroke="#d0a579" stroke-width="4"/>
+  <ellipse cx="1190" cy="450" rx="170" ry="62" fill="#2c1d16" stroke="#d0a579" stroke-width="4"/>
+  <line x1="230" y1="600" x2="1370" y2="600" stroke="#d5af79" stroke-width="3"/>
+  <line x1="230" y1="585" x2="230" y2="615" stroke="#d5af79" stroke-width="3"/>
+  <line x1="1370" y1="585" x2="1370" y2="615" stroke="#d5af79" stroke-width="3"/>
+  <text x="800" y="650" text-anchor="middle" fill="#f5e6cc" font-family="Arial, sans-serif" font-size="28">164 mm closed · max. diameter 18.2 mm · 38 g</text>
+  <text x="120" y="740" fill="#f0d29d" font-family="Arial, sans-serif" font-size="22">FACTUAL DIAGRAM · NON-PHOTO · NON-LOGO · NOT-TO-SCALE · NON-COLOUR-PROOF</text>
+  <text x="120" y="780" fill="#b9aaa0" font-family="Arial, sans-serif" font-size="20">木纹、哑光/光泽与波纹仅用于说明身份边界，不代表真实纹理、比例、色差或某一支实物。</text>
+</svg>
