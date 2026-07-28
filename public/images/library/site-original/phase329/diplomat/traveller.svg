@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Diplomat Traveller factual diagram</title>
+  <desc id="desc">本站原创事实示意图：Traveller 纤细不锈钢笔身、不锈钢尖、标准墨胆与官方尺寸样本。non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#edf3f1"/>
+  <g fill="none" stroke="#2f5c59" stroke-width="18" stroke-linecap="round">
+    <path d="M250 450h1020"/><path d="M250 390v120"/><path d="M1190 390v120"/>
+  </g>
+  <g font-family="Arial, sans-serif" fill="#2f5c59">
+    <text x="140" y="120" font-size="58" font-weight="700">Diplomat Traveller</text>
+    <text x="140" y="190" font-size="30">纤细不锈钢笔身 · cartridge / converter · 旅行取向</text>
+    <text x="140" y="690" font-size="32">闭帽 134 mm · 插帽 155 mm · 直径 10 mm · 19 g</text>
+    <text x="140" y="750" font-size="30">F / M 不锈钢尖 · 随附一支墨胆（官方样本）</text>
+    <text x="140" y="830" font-size="22" fill="#8b3e2f">NON-PHOTO · NON-LOGO · NOT-TO-SCALE · NON-COLOUR-PROOF</text>
+  </g>
+</svg>

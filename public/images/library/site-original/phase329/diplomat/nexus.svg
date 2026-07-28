@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Diplomat Nexus factual diagram</title>
+  <desc id="desc">本站原创事实示意图：Nexus 高容量 piston/pipette 上墨、密封帽与官方尺寸样本。non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#f4f0e8"/>
+  <g fill="none" stroke="#23364a" stroke-width="22" stroke-linecap="round">
+    <path d="M240 450h1030"/><path d="M1190 390v120"/><path d="M240 390v120"/>
+    <path d="M1290 360v180" stroke="#b35d3d"/><path d="M300 360v180" stroke="#b35d3d"/>
+  </g>
+  <g font-family="Arial, sans-serif" fill="#23364a">
+    <text x="140" y="120" font-size="58" font-weight="700">Diplomat Nexus</text>
+    <text x="140" y="190" font-size="30">高容量 piston / pipette 供墨 · sealing cap</text>
+    <text x="140" y="690" font-size="32">闭帽 145 mm · 直径 14 mm · 55 g（官方样本）</text>
+    <text x="140" y="750" font-size="30">EF / F / M / B 不锈钢尖 · filling kit</text>
+    <text x="140" y="830" font-size="22" fill="#8b3e2f">NON-PHOTO · NON-LOGO · NOT-TO-SCALE · NON-COLOUR-PROOF</text>
+  </g>
+</svg>
