@@ -1,0 +1,43 @@
+# Aurora Ipsilon Italia（B17-A）：蓝色树脂与三色漆环
+
+## summary
+
+Aurora Ipsilon Italia 是 Ipsilon 家族下的独立钢笔 SKU，官方标识为 B17-A。官方页明确蓝色树脂、三色漆环、镀铬饰件与意大利市场价格；专业资料补充墨囊/转换器结构。其他 B17 颜色、圆珠/roller 和 Ipsilon Resin 仍是独立版本。
+
+## body_md
+
+Aurora Ipsilon Italia（官方产品标识 B17-A）是一支以意大利统一 150 周年纪念语境为主题的 Ipsilon 钢笔。它不能被简化为普通 Ipsilon 的蓝色换壳，也不能把 B17-N、B17-R、B17-V 等其他颜色、圆珠和 roller 的规格都塞入同一页。本页只承载官方商品页所示的蓝色树脂、三色漆环、镀铬饰件以及 B17-A 这一具体钢笔入口。
+
+### 官方身份与外观
+
+Aurora 当前商品页标题为 `Ipsilon Italia - Stilografica`，产品编号为 B17-A，分类为 Ipsilon、Medio di gamma 与 Ipsilon Italia。页面摘要写明 Ipsilon Italia 钢笔采用蓝色树脂、三色漆环和镀铬饰件；颜色选项中还显示蓝、黑等市场选择，但本页的规范身份锁定在 B17-A，不把所有 B17 颜色合成一个可互换 SKU。商品页的纪念文案列出 Alfieri、Cavour、Garibaldi、Mazzini、Vittorio Emanuele II 等人物姓名，说明它试图把国家统一叙事放到帽盖装饰上；这不是人物肖像授权或限量数量证明。
+
+官方页面将 B17-A 归为钢笔并标示意大利市场价格约 €185，注明运费另计、价格仅适用于意大利市场。页面的 `Disponibile` 状态是检索日快照，不能保证所有地区都有库存，也不能用来推断 B17 系列的历史连续供货。若订单实际为 B17-N、B17-R、B17-V 或其他颜色，应该建立对应 variant 记录而不是静默改写 B17-A。
+
+### 填充、尖材与版本差异
+
+Aurora 官方 Ipsilon 配件页将 Ipsilon 列入其转换器产品范围；专业零售资料把 Ipsilon Italia 钢笔描述为国际墨囊/转换器填充，并说明通常随附转换器。官方 B17-A 商品段落没有逐项公开尖幅、尖材、尺寸、重量和容量，因此本页保留“按订单与实物核对”，不把其他 Ipsilon Resin 的钢尖或 Quadra 的 14K 金尖回填到 Italia。实际收到的尖刻字、尖幅和附件应以订单与笔身/笔尖实物为准。
+
+Ipsilon Italia 与 Ipsilon Resin 的边界尤其重要：Resin 页面是黑色树脂与可选金/铬饰件的日用款，B17-A 是蓝色树脂和三色漆环的纪念主题；两者都可能使用墨囊/转换器，但材质、图案、产品编号和价格不同。Ipsilon Quadra 使用 925 银和 quadra guilloché、14K 镀铑金尖，是另一独立型号。Ipsilon Italia 的圆珠或 roller 也不能继承本页钢笔的供墨和尖材字段。
+
+### 纪念语境与历史边界
+
+商品页把这一版本放在意大利历史与统一叙事中，并用帽盖上的人名装饰来表达主题。页面没有给出 B17-A 的准确首发年份、生产数量或每个名字对应的独立版次，因此正文只写“官方当前纪念主题”，不写成编号限量或历史档案结论。Aurora 品牌自 1919 年在都灵发展，是品牌历史背景；这一背景不能反向证明 B17-A 的每个部件都在都灵制造，也不能把 150 周年主题误写成 1861 年即已存在的钢笔型号。
+
+### 使用、维护与选购
+
+国际墨囊/转换器款适合日常换色。装入墨囊或转换器前检查握位接口是否清洁，首次吸墨后擦净尖部；换色或久置时用常温清水吸排，等待自然干燥后再装回。蓝色树脂与漆环用柔软布轻擦，避免酒精、研磨膏、强清洁剂和长时间浸泡。三色漆环是装饰层，不要用硬物刮擦或把帽夹当作防跌落装置。若漆面起皮、环件松动或接口损伤，先拍照保存订单信息，再联系 Aurora 或专业维修者。
+
+选购时，想要纪念主题和蓝色外观的人应确认产品编号 B17-A、帽盖装饰和三色环；想要黑色日用树脂，可跳转 Ipsilon Resin；想要银质方格纹饰和 14K 尖，则应看 Ipsilon Quadra。二手购买要索取产品编号、帽顶、环件和笔尖照片，不能只凭卖家标题中的 “Ipsilon Italia” 判断颜色或附件。价格约 €185 是意大利页面检索日快照，不代表全球价格或未来补货承诺。
+
+### 图片与来源边界
+
+本页主图是本站原创 factual SVG，只提示 B17-A、蓝色树脂、三色漆环、镀铬饰件和墨囊/转换器边界；它不是产品照片、不是 Aurora Logo、不是比例图，也不是颜色校样。真实蓝色、漆面反光、人物刻字、尖幅和库存必须以 Aurora 当前商品页、订单与实物为准。来源列表将官方商品页、Ipsilon 分类、Aurora 转换器页和专业零售资料分层，避免把其他 B17 颜色或 Ipsilon sibling 的图片与规格复制过来。
+
+## 来源
+
+- Aurora Ipsilon Italia 官方商品页：https://aurorapen.it/shop/ipsilon-italia-stilografica/
+- Aurora Ipsilon 官方分类页：https://aurorapen.it/categoria-prodotto/medio-di-gamma/ipsilon/
+- Aurora 官方 Converter 分类页：https://aurorapen.it/categoria-prodotto/ricambi/converter
+- Pen-House B17-A 商品资料：https://www.pen-house.net/category/AA_ROW/47545.html
+- Vecchietti Ipsilon Italia 资料：https://www.vecchietti.it/en/ipsilon-italia
