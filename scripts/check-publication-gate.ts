@@ -946,6 +946,18 @@ async function runCurrentCatalogCopyUpgrade(): Promise<void> {
   await withCatalogCopy(async ({ client }) => {
     const entitiesBefore = await entityContentRows(client);
     const deprecatedStoriesBefore = await deprecatedStoryRows(client);
+    const publicationLifecycleBefore = JSON.stringify(
+      (
+        await client.execute(`
+          SELECT entity_id, status, content_revision,
+                 approved_content_hash, reviewed_content_revision,
+                 reviewed_contract_version, reviewed_by, reviewed_at,
+                 published_at
+          FROM entity_publications
+          ORDER BY entity_id
+        `)
+      ).rows,
+    );
     const governedMigrations = [MIGRATION_030, MIGRATION_031];
     const markerBefore = await client.execute({
       sql: `SELECT name FROM migrations WHERE name IN (${governedMigrations.map(() => "?").join(", ")})`,
@@ -977,7 +989,26 @@ async function runCurrentCatalogCopyUpgrade(): Promise<void> {
       await entityContentRows(client),
       "Entity content",
     );
-    await assertDraftOnlyBrandPenBackfill(client);
+    if (expectedApplied.length > 0) {
+      await assertDraftOnlyBrandPenBackfill(client);
+    } else {
+      const publicationLifecycleAfter = JSON.stringify(
+        (
+          await client.execute(`
+            SELECT entity_id, status, content_revision,
+                   approved_content_hash, reviewed_content_revision,
+                   reviewed_contract_version, reviewed_by, reviewed_at,
+                   published_at
+            FROM entity_publications
+            ORDER BY entity_id
+          `)
+        ).rows,
+      );
+      assertCondition(
+        publicationLifecycleBefore === publicationLifecycleAfter,
+        "Already-migrated catalog copy changed publication lifecycle rows.",
+      );
+    }
     await assertIntegrityAndCriticalSchema(client);
 
     const secondRun = await migrateDatabase(client);
@@ -1584,6 +1615,7 @@ async function assertV2InvalidatingMutation(
   label: string,
   counter: { count: number },
   mutate: () => Promise<unknown>,
+  repairRelated?: () => Promise<void>,
 ): Promise<void> {
   const before = await publicationState(client, entityId);
   const beforeHash = await computePublicationContentHash(client, entityId);
@@ -1603,7 +1635,7 @@ async function assertV2InvalidatingMutation(
     after.status === "in_review" && after.approvedHash === before.approvedHash,
     `${label} did not retain the stale audit hash while demoting publication.`,
   );
-  assertCondition(afterHash !== beforeHash, `${label} did not change sha256:v2.`);
+  assertCondition(afterHash !== beforeHash, `${label} did not change sha256:v3.`);
   await assertNotPublic(client, entityId);
   await expectReject(
     () =>
@@ -1613,6 +1645,7 @@ async function assertV2InvalidatingMutation(
       }),
     "current-hash reviews missing",
   );
+  if (repairRelated) await repairRelated();
   await approveCurrentContentAndPublish(client, entityId);
 }
 
@@ -2023,6 +2056,7 @@ async function runInvalidationContract(): Promise<void> {
       entityType: "pen",
       brandEntityId: brand.entityId,
     });
+    await approveCurrentContentAndPublish(client, brand.entityId);
     await approveCurrentContentAndPublish(client, pen.entityId);
     assertCondition(
       pen.primarySpecEvidenceId &&
@@ -2055,6 +2089,9 @@ async function runInvalidationContract(): Promise<void> {
         label,
         mutations,
         () => client.execute({ sql, args: [id] }),
+        label === "made_by canonical content UPDATE"
+          ? () => approveCurrentContentAndPublish(client, brand.entityId)
+          : undefined,
       );
     }
     await assertV2InvalidatingMutation(
@@ -2206,7 +2243,7 @@ async function stageDirectReview(
     args: [
       contentHash,
       options.revisionOffset ?? 0,
-      options.contractVersion ?? 1,
+      options.contractVersion ?? 3,
       options.reviewer === undefined ? "direct-reviewer" : options.reviewer,
       options.reviewedAt === undefined
         ? "2026-07-15T02:00:00.000Z"
@@ -2307,13 +2344,11 @@ async function runLegacyPublishContract(): Promise<void> {
 
     await insertEntity(client, "fixture-stale-contract", "brand");
     await insertStory(client, "fixture-stale-contract", "brand_story");
-    await stageDirectReview(client, "fixture-stale-contract", { contractVersion: 2 });
     await expectReject(
-      () => client.execute(
-        "UPDATE entity_publications SET status = 'published' WHERE entity_id = 'fixture-stale-contract'",
-      ),
-      "publication_guard: stale contract version",
+      () => stageDirectReview(client, "fixture-stale-contract", { contractVersion: 2 }),
+      "CHECK constraint failed",
     );
+    await assertNotPublic(client, "fixture-stale-contract");
 
     await insertEntity(client, "fixture-missing-reviewer", "brand");
     await insertStory(client, "fixture-missing-reviewer", "brand_story");
@@ -2348,7 +2383,7 @@ async function runLegacyPublishContract(): Promise<void> {
           SET status = 'published',
               approved_content_hash = ?,
               reviewed_content_revision = content_revision,
-              reviewed_contract_version = 1,
+              reviewed_contract_version = 3,
               reviewed_by = 'direct-reviewer',
               reviewed_at = '2026-07-15T03:00:00.000Z',
               published_at = '2026-07-15T03:00:01.000Z'
@@ -2367,7 +2402,7 @@ async function runLegacyPublishContract(): Promise<void> {
             entity_id, status, approved_content_hash, content_revision,
             reviewed_content_revision, reviewed_contract_version,
             reviewed_by, reviewed_at, published_at
-          ) VALUES (?, 'published', ?, 0, 0, 1, 'direct-reviewer', ?, ?)
+          ) VALUES (?, 'published', ?, 0, 0, 3, 'direct-reviewer', ?, ?)
         `,
         args: [
           "fixture-published-insert",
@@ -2572,7 +2607,7 @@ async function stageDirectContract2Snapshot(
     args: [
       contentHash,
       options.revisionOffset ?? 0,
-      options.contractVersion ?? 2,
+      options.contractVersion ?? 3,
       options.reviewer === undefined ? "direct-reviewer" : options.reviewer,
       options.reviewedAt === undefined
         ? "2026-07-16T00:00:00.000Z"
@@ -2612,7 +2647,7 @@ async function v2BlockerCodes(
     sql: `
       SELECT blocker_code
       FROM publication_blockers
-      WHERE entity_id = ? AND contract_version = 2
+      WHERE entity_id = ? AND contract_version = 3
       ORDER BY blocker_code, subject_type, subject_id, detail_key
     `,
     args: [entityId],
@@ -2642,7 +2677,6 @@ async function runDirectSqlContract2Matrix(): Promise<void> {
     "no-snapshot",
     "stale-hash",
     "stale-revision",
-    "stale-contract",
     "missing-reviewer",
     "missing-reviewed-at",
     "missing-published-at",
@@ -2658,7 +2692,7 @@ async function runDirectSqlContract2Matrix(): Promise<void> {
         await recordV2FirstThreeReviews(client, entity.entityId);
         await stageDirectContract2Snapshot(client, entity.entityId, {
           revisionOffset: testCase === "stale-revision" ? -1 : 0,
-          contractVersion: testCase === "stale-contract" ? 1 : 2,
+          contractVersion: 3,
           reviewer: testCase === "missing-reviewer" ? null : undefined,
           reviewedAt: testCase === "missing-reviewed-at" ? null : undefined,
           includePublicationReview: testCase !== "missing-publication-review",
@@ -2683,9 +2717,7 @@ async function runDirectSqlContract2Matrix(): Promise<void> {
         ? "publication_guard: invalid approved content hash"
         : testCase === "stale-hash" || testCase === "stale-revision"
           ? "publication_guard: stale reviewed revision"
-          : testCase === "stale-contract"
-            ? "publication_guard: stale contract version"
-            : testCase === "missing-reviewer"
+          : testCase === "missing-reviewer"
               ? "publication_guard: reviewer is required"
               : testCase === "missing-reviewed-at"
                 ? "publication_guard: reviewed_at is required"
@@ -2737,6 +2769,7 @@ async function runDirectSqlContract2Matrix(): Promise<void> {
       entityType: "pen",
       brandEntityId: brand.entityId,
     });
+    await approveCurrentContentAndPublish(client, brand.entityId);
     await approveCurrentContentAndPublish(client, pen.entityId);
     assertCondition(
       pen.modelSpecId &&
@@ -2864,7 +2897,7 @@ async function runDirectSqlContract2Matrix(): Promise<void> {
         args: [entity.entityId],
       },
       {
-        sql: "UPDATE entity_publications SET reviewed_contract_version = 1 WHERE entity_id = ?",
+        sql: "UPDATE entity_publications SET reviewed_contract_version = NULL WHERE entity_id = ?",
         args: [entity.entityId],
       },
       {
@@ -2897,7 +2930,7 @@ async function runDirectSqlContract2Matrix(): Promise<void> {
         SET status = 'in_review',
             approved_content_hash = ?,
             reviewed_content_revision = content_revision,
-            reviewed_contract_version = 2,
+            reviewed_contract_version = 3,
             reviewed_by = 'stale-direct-reviewer',
             reviewed_at = '2026-07-16T00:00:00.000Z',
             published_at = NULL
@@ -3034,7 +3067,7 @@ async function runPublishContract(): Promise<void> {
     await stageDirectContract2Snapshot(client, brand.entityId, {
       includePublicationReview: false,
     });
-    const staleHash = `sha256:v2:${"d".repeat(64)}`;
+    const staleHash = `sha256:v3:${"d".repeat(64)}`;
     await client.execute({
       sql: `
         INSERT INTO entity_content_reviews (
@@ -3101,6 +3134,7 @@ async function runPublishContract(): Promise<void> {
       entityType: "pen",
       brandEntityId: brand.entityId,
     });
+    await approveCurrentContentAndPublish(client, brand.entityId);
     await recordV2FirstThreeReviews(client, pen.entityId);
     const publishedPen = await publishEntity(client, {
       entityId: pen.entityId,
