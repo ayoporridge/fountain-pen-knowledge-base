@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Platinum Izumo PIZ-600000 #56 Takisansui factual diagram</title>
+  <desc id="desc">Editorial factual diagram for PIZ-600000 #56 Takisansui. Not a product photograph, logo, scale drawing, or colour proof.</desc>
+  <rect width="1600" height="900" fill="#111a22"/>
+  <rect x="60" y="60" width="1480" height="780" rx="32" fill="#1d3039" stroke="#d0a96c" stroke-width="3"/>
+  <path d="M235 620 C300 520 275 390 350 260 C425 390 400 520 465 620 M465 620 C530 510 500 360 580 190 C660 360 625 510 700 620" fill="none" stroke="#9ed3dc" stroke-width="24" stroke-linecap="round" opacity=".8"/>
+  <path d="M180 650 Q470 560 740 650" fill="none" stroke="#d0a96c" stroke-width="7" opacity=".8"/>
+  <g fill="#f1dfb7" font-family="-apple-system,BlinkMacSystemFont,'Noto Sans CJK SC','Microsoft YaHei',sans-serif">
+    <text x="150" y="180" font-size="62" font-weight="700">PLATINUM IZUMO</text>
+    <text x="150" y="260" font-size="48">PIZ-600000  ·  #56 TAKISANSUI 瀑水</text>
+    <text x="150" y="350" font-size="30">Kaga Maki-e｜Hon-Urushi Taka Maki-e｜ebonite</text>
+    <text x="150" y="730" font-size="28">18K F / M / B · 154 mm · 最大径 18 mm</text>
+    <text x="150" y="780" font-size="25" fill="#d0a96c">官方目录 34.9 g · 经销商快照 34.5 g · 2023 新价 ¥750,000 未税</text>
+  </g>
+  <g fill="#d0a96c" font-family="-apple-system,BlinkMacSystemFont,'Noto Sans CJK SC','Microsoft YaHei',sans-serif" font-size="22">
+    <text x="1080" y="715">SITE-ORIGINAL FACTUAL SVG</text>
+    <text x="1080" y="750">NON-PHOTO · NON-LOGO</text>
+    <text x="1080" y="785">NOT-TO-SCALE · NON-COLOUR-PROOF</text>
+  </g>
+</svg>
