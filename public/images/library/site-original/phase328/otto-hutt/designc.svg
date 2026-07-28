@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Otto Hutt designC factual diagram</title>
+  <desc id="desc">Site-original factual diagram, non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#eeece9"/>
+  <g fill="none" stroke="#1c2226" stroke-width="4">
+    <rect x="180" y="310" width="900" height="150" rx="75" fill="#c6c6c1"/>
+    <rect x="1050" y="285" width="250" height="200" rx="85" fill="#14171b"/>
+    <path d="M1300 330h140l55 55-55 55h-140" fill="#d8b34e"/>
+    <path d="M420 310v150M500 310v150M580 310v150M660 310v150M740 310v150M820 310v150" stroke="#8a8d8d" opacity=".65"/>
+    <path d="M180 550h1120M180 520v40M1300 520v40M180 595h1120" stroke-dasharray="12 12"/>
+    <path d="M1100 255v-90M1100 165h-100M1000 165l30-25M1000 165l30 25"/>
+    <path d="M1125 235v-80M1125 155h110M1235 155l-28-20M1235 155l-28 20"/>
+  </g>
+  <g font-family="Arial, sans-serif" fill="#1c2226">
+    <text x="180" y="125" font-size="54" font-weight="700">Otto Hutt designC</text>
+    <text x="180" y="185" font-size="30">925 银主体 · 哑黑 PVD · 18K 金尖 · Pull+Twist</text>
+    <text x="180" y="665" font-size="34" font-weight="700">官方设计与套装边界</text>
+    <text x="180" y="720" font-size="29">先拉出尾部进入上墨位，再旋转形成真空吸墨</text>
+    <text x="180" y="775" font-size="26">银总重量约 34 g、金总重量约 1 g：官方材料重量快照</text>
+    <text x="1010" y="115" font-size="26">Pull</text>
+    <text x="1230" y="115" font-size="26">Twist</text>
+    <text x="1330" y="535" font-size="26">18K 标记</text>
+    <text x="1120" y="835" font-size="22">示意图 · 非产品照片 · 非 Logo · 非比例图 · 非颜色校样</text>
+  </g>
+</svg>
