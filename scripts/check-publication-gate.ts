@@ -74,6 +74,17 @@ const CRITICAL_PUBLICATION_OBJECTS = [
 // side of the compatibility oracle, not another runtime consumer.
 const LEGACY_PUBLIC_NON_BRAND_WHERE = `
   e.type NOT IN ('brand', 'pen')
+  AND (
+    NOT EXISTS (
+      SELECT 1 FROM entity_publications publication
+      WHERE publication.entity_id = e.id
+    )
+    OR EXISTS (
+      SELECT 1 FROM entity_publications publication
+      WHERE publication.entity_id = e.id
+        AND publication.status = 'published'
+    )
+  )
   AND e.slug NOT IN (
     '百乐-pilot-custom-823',
     '百利金-pelikan-m800',
