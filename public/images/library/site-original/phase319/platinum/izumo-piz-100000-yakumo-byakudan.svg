@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Platinum Izumo PIZ-100000 Yakumo Byakudan factual diagram</title>
+  <desc id="desc">Factual diagram for PIZ-100000 #19 Yakumo Byakudan; non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#201b28"/>
+  <rect x="70" y="70" width="1460" height="760" rx="34" fill="#f4eee4"/>
+  <path d="M170 280 C330 180 490 210 610 290 S900 390 1060 280 S1300 190 1430 270" fill="none" stroke="#a58caa" stroke-width="28" opacity=".5"/>
+  <path d="M160 365 C320 265 500 295 645 375 S915 470 1080 365 S1300 270 1440 350" fill="none" stroke="#c1a6c0" stroke-width="16" opacity=".7"/>
+  <rect x="225" y="520" width="890" height="72" rx="36" fill="#24202a"/>
+  <rect x="1090" y="496" width="165" height="120" rx="55" fill="#24202a"/>
+  <circle cx="250" cy="556" r="27" fill="#d5bd72"/>
+  <path d="M1250 548 L1410 548 L1455 565 L1410 582 L1250 582 Z" fill="#d5bd72"/>
+  <text x="170" y="165" font-family="Georgia, serif" font-size="54" fill="#201b28">Platinum Izumo</text>
+  <text x="170" y="225" font-family="Arial, sans-serif" font-size="38" fill="#201b28">PIZ-100000 · #19 Yakumo Byakudan</text>
+  <text x="170" y="705" font-family="Arial, sans-serif" font-size="30" fill="#201b28">Large 18K (18-21) F / M / B · ebonite · Yakumonuri</text>
+  <text x="170" y="755" font-family="Arial, sans-serif" font-size="28" fill="#201b28">154 mm · max 18 mm · 33.3 g · Converter-800A</text>
+  <text x="1160" y="765" font-family="Arial, sans-serif" font-size="22" fill="#6f6472" text-anchor="middle">NON-PHOTO · NON-LOGO</text>
+  <text x="1160" y="795" font-family="Arial, sans-serif" font-size="22" fill="#6f6472" text-anchor="middle">NOT-TO-SCALE · NON-COLOUR-PROOF</text>
+</svg>
