@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sailor Professional Gear Realo 11-3926 factual identity card</title>
+  <desc id="desc">本站原创事实示意图，只呈现 11-3926 的平顶、尾栓回转吸入、代码与规格边界。non-photo; non-logo; not-to-scale; non-colour-proof；不是产品照片。</desc>
+  <rect width="1600" height="900" fill="#ece8e2"/>
+  <rect x="54" y="54" width="1492" height="792" rx="34" fill="#fff" stroke="#463d36" stroke-width="4"/>
+  <text x="104" y="126" fill="#463d36" font-family="Georgia, serif" font-size="45" font-weight="700">Professional Gear Realo</text>
+  <text x="106" y="170" fill="#746b64" font-family="Arial, sans-serif" font-size="25">11-3926 · piston-filled · factual card / non-photo</text>
+  <g transform="translate(104 230)">
+    <rect width="650" height="470" rx="28" fill="#f7f4ef" stroke="#b7aaa0" stroke-width="3"/>
+    <text x="38" y="62" fill="#463d36" font-family="Arial, sans-serif" font-size="30" font-weight="700">两种笔身 × 当前代码</text>
+    <text x="38" y="110" fill="#5f554e" font-family="Arial, sans-serif" font-size="22">Black：11-3926-220 / 420 / 620（F / M / B）</text>
+    <text x="38" y="150" fill="#5f554e" font-family="Arial, sans-serif" font-size="22">Maroon：11-3926-232 / 432（F / M）</text>
+    <path d="M82 262 H492" stroke="#17191b" stroke-width="30" stroke-linecap="round"/>
+    <path d="M492 262 L554 238 L554 286 Z" fill="#17191b" stroke="#463d36" stroke-width="4"/>
+    <path d="M82 318 H492" stroke="#6f3d37" stroke-width="30" stroke-linecap="round"/>
+    <path d="M492 318 L554 294 L554 342 Z" fill="#6f3d37" stroke="#463d36" stroke-width="4"/>
+    <circle cx="126" cy="262" r="12" fill="#d6b36a"/>
+    <circle cx="126" cy="318" r="12" fill="#d6b36a"/>
+    <text x="38" y="404" fill="#463d36" font-family="Arial, sans-serif" font-size="24" font-weight="700">21K 大型双色尖 · PMMA · Gold IP</text>
+    <text x="38" y="444" fill="#5f554e" font-family="Arial, sans-serif" font-size="21">颜色与示意线条不证明实物色泽或批次。</text>
+  </g>
+  <g transform="translate(816 230)">
+    <rect width="650" height="470" rx="28" fill="#f4f0eb" stroke="#b7aaa0" stroke-width="3"/>
+    <text x="38" y="62" fill="#463d36" font-family="Arial, sans-serif" font-size="30" font-weight="700">官网主要规格</text>
+    <text x="38" y="116" fill="#514943" font-family="Arial, sans-serif" font-size="25">φ18 × 135 mm（含笔夹）</text>
+    <text x="38" y="160" fill="#514943" font-family="Arial, sans-serif" font-size="25">21.0 g · 轴径约 φ13 mm</text>
+    <text x="38" y="204" fill="#514943" font-family="Arial, sans-serif" font-size="25">尾栓回转吸入 · 约 1 cc</text>
+    <text x="38" y="248" fill="#514943" font-family="Arial, sans-serif" font-size="25">不能用墨囊或 converter</text>
+    <line x1="38" y1="294" x2="610" y2="294" stroke="#c9beb5" stroke-width="2"/>
+    <text x="38" y="348" fill="#463d36" font-family="Arial, sans-serif" font-size="25" font-weight="700">不要混入</text>
+    <text x="38" y="390" fill="#5f554e" font-family="Arial, sans-serif" font-size="21">11-3924 Profit Realo 18</text>
+    <text x="38" y="428" fill="#5f554e" font-family="Arial, sans-serif" font-size="21">11-2151/2152 Professional Gear Slim 21</text>
+  </g>
+  <text x="104" y="780" fill="#746b64" font-family="Arial, sans-serif" font-size="20">用途：帮助读者核对 11-3926 主代码、颜色、上墨方式和当前规格；非产品照片、非 Logo、非比例图、非颜色校样。</text>
+</svg>
