@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc" factual-svg="true" product-photo="false" logo="false" to-scale="false" colour-proof="false">
+  <title id="title">Karas Pen Co Vertex Fountain Pen family facts</title>
+  <desc id="desc">Editorial factual diagram showing clipless snap cap, three o-rings, ink window, fill options and dimensions.</desc>
+  <rect width="1200" height="720" fill="#edf1ea"/>
+  <rect x="48" y="48" width="1104" height="624" rx="32" fill="#fffefa" stroke="#29343a" stroke-width="4"/>
+  <text x="90" y="122" fill="#29343a" font-family="Arial, sans-serif" font-size="44" font-weight="700">VERTEX FOUNTAIN PEN</text>
+  <text x="92" y="164" fill="#6e7b82" font-family="Arial, sans-serif" font-size="21">Signature Series · clipless snap-cap · resin and metal routes</text>
+  <g transform="translate(112 244)">
+    <path d="M36 86 Q200 28 516 86 Q690 120 840 86" fill="none" stroke="#8fa9ae" stroke-width="70" stroke-linecap="round"/>
+    <path d="M36 86 Q200 28 516 86 Q690 120 840 86" fill="none" stroke="#29343a" stroke-width="4" stroke-linecap="round"/>
+    <rect x="690" y="45" width="105" height="82" rx="28" fill="#71929c" stroke="#29343a" stroke-width="4"/>
+    <path d="M795 55l116 31-116 31z" fill="#d6b276" stroke="#29343a" stroke-width="4"/>
+    <circle cx="558" cy="86" r="11" fill="#fffefa" stroke="#b46f43" stroke-width="5"/><circle cx="590" cy="86" r="11" fill="#fffefa" stroke="#b46f43" stroke-width="5"/><circle cx="724" cy="86" r="11" fill="#fffefa" stroke="#b46f43" stroke-width="5"/>
+    <text x="180" y="24" fill="#29343a" font-family="Arial, sans-serif" font-size="19">transparent grip / ink window</text>
+    <text x="520" y="170" fill="#29343a" font-family="Arial, sans-serif" font-size="19">three custom o-rings</text>
+    <text x="710" y="170" fill="#29343a" font-family="Arial, sans-serif" font-size="19">Bock nib</text>
+  </g>
+  <g font-family="Arial, sans-serif" fill="#29343a">
+    <rect x="112" y="470" width="328" height="112" rx="16" fill="#e1ebe5" stroke="#637b66" stroke-width="3"/><text x="138" y="514" font-size="22" font-weight="700">official geometry</text><text x="138" y="548" font-size="20">133.3 / 128.8 / 148.0 mm</text><text x="138" y="574" font-size="20">capped · uncapped · posted</text>
+    <rect x="468" y="470" width="292" height="112" rx="16" fill="#e6edef" stroke="#526f80" stroke-width="3"/><text x="494" y="514" font-size="22" font-weight="700">fill choices</text><text x="494" y="548" font-size="20">eyedropper on resin routes</text><text x="494" y="574" font-size="20">international / K5 converter</text>
+    <rect x="788" y="470" width="298" height="112" rx="16" fill="#e9e1d7" stroke="#806853" stroke-width="3"/><text x="814" y="514" font-size="22" font-weight="700">sample weights</text><text x="814" y="548" font-size="20">acrylic 15.7 g capped</text><text x="814" y="574" font-size="20">brass 33.4 g capped</text>
+  </g>
+  <text x="112" y="632" fill="#6e7b82" font-family="Arial, sans-serif" font-size="18">Material, pressure behaviour and weight are SKU-specific; this is not a product photo or scale drawing.</text>
+</svg>
