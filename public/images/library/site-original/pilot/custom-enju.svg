@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pilot Custom Enju factual diagram</title>
+  <desc id="desc">本站原创事实示意图，表达 Custom 槐 FKV-5MK 的树脂浸渍槐木、18K 15 号尖、CON-40/CON-70N 与 exact SKU 边界；non-photo、non-logo、not-to-scale、non-colour-proof。</desc>
+  <rect width="1600" height="900" fill="#f4eee4"/>
+  <text x="110" y="125" font-family="Georgia,serif" font-size="62" fill="#3b2520">Pilot Custom 槐 / Enju</text>
+  <text x="110" y="185" font-family="Arial,sans-serif" font-size="30" fill="#6b4a3d">FKV-5MK · resin-impregnated Enju wood · 18K No.15 · CON-40 / CON-70N</text>
+  <path d="M285 415h795l125 100-125 100H285l-120-100z" fill="#9b6f45" stroke="#5f4029" stroke-width="12"/>
+  <path d="M330 448c80 28 145-28 225 0s145 28 225 0 145-28 225 0 145 28 225 0" fill="none" stroke="#d9b27a" stroke-width="12" opacity=".85"/>
+  <path d="M1030 415v200M1085 415v200" stroke="#c49b61" stroke-width="13"/>
+  <path d="M215 415h95v200h-95l-80-100z" fill="#d6b37b" stroke="#80603e" stroke-width="10"/>
+  <path d="M210 515h-115" stroke="#80603e" stroke-width="13"/>
+  <text x="82" y="370" font-family="Arial,sans-serif" font-size="28" fill="#3b2520">18K No.15 F / M / B</text>
+  <text x="545" y="710" font-family="Arial,sans-serif" font-size="31" fill="#3b2520">木纹与树脂浸渍是 Enju 身份；不继承 845 漆色</text>
+  <rect x="330" y="760" width="950" height="72" rx="18" fill="#e1d0b8"/>
+  <text x="805" y="806" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" fill="#3b2520">本站原创示意图 · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+</svg>
