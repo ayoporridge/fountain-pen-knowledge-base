@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 260" role="img" aria-labelledby="title desc" data-factual-svg="true" data-product-photo="false" data-logo="false" data-to-scale="false" data-colour-proof="false">
+  <title id="title">Esterbrook Double Jewel J 结构示意图</title>
+  <desc id="desc">本站原创示意图，表达历史 J 的全尺寸轮廓、双 jewel、杠杆上墨和可旋换 Renew-Point 笔尖，不是产品照片。</desc>
+  <rect width="900" height="260" fill="#f6f1e8"/>
+  <g fill="none" stroke="#4b3a2a" stroke-width="18" stroke-linecap="round">
+    <path d="M145 130h510"/>
+    <path d="M665 91q76 39 0 78"/>
+  </g>
+  <g fill="#d0aa62" stroke="#4b3a2a" stroke-width="5">
+    <circle cx="135" cy="130" r="15"/><circle cx="680" cy="130" r="15"/>
+    <path d="M365 102v56" stroke="#d0aa62" stroke-width="10"/>
+  </g>
+  <g font-family="sans-serif" fill="#34271d" font-size="22">
+    <text x="70" y="45">Double Jewel J（全尺寸）</text>
+    <text x="70" y="225">杠杆／墨囊</text><text x="330" y="225">可旋换 Renew-Point</text><text x="680" y="225">双 jewel</text>
+  </g>
+</svg>

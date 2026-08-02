@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 260" role="img" aria-labelledby="title desc" data-factual-svg="true" data-product-photo="false" data-logo="false" data-to-scale="false" data-colour-proof="false">
+  <title id="title">Esterbrook Double Jewel LJ 结构示意图</title>
+  <desc id="desc">本站原创示意图，表达历史 LJ 的 Long Slender 细长轮廓、双 jewel、杠杆上墨和可旋换 Renew-Point，不是产品照片。</desc>
+  <rect width="900" height="260" fill="#edf3f0"/>
+  <g fill="none" stroke="#315a50" stroke-width="13" stroke-linecap="round">
+    <path d="M145 130h530"/><path d="M685 97q65 33 0 66"/>
+  </g>
+  <g fill="#d0aa62" stroke="#315a50" stroke-width="5">
+    <circle cx="135" cy="130" r="13"/><circle cx="700" cy="130" r="13"/>
+    <path d="M375 105v50" stroke="#d0aa62" stroke-width="9"/>
+  </g>
+  <g font-family="sans-serif" fill="#21433b" font-size="22">
+    <text x="70" y="45">Double Jewel LJ（Long Slender）</text>
+    <text x="70" y="225">较细笔身</text><text x="350" y="225">杠杆／墨囊＋Renew-Point</text><text x="700" y="225">双 jewel</text>
+  </g>
+</svg>

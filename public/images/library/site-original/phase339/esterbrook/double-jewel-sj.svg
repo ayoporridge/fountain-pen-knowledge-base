@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 260" role="img" aria-labelledby="title desc" data-factual-svg="true" data-product-photo="false" data-logo="false" data-to-scale="false" data-colour-proof="false">
+  <title id="title">Esterbrook Double Jewel SJ 结构示意图</title>
+  <desc id="desc">本站原创示意图，表达历史 SJ 的 Short Slender demi 尺寸、双 jewel、杠杆上墨和可旋换 Renew-Point，不是产品照片。</desc>
+  <rect width="900" height="260" fill="#f2eef6"/>
+  <g fill="none" stroke="#5a4774" stroke-width="16" stroke-linecap="round">
+    <path d="M190 130h410"/><path d="M610 94q70 36 0 72"/>
+  </g>
+  <g fill="#d0aa62" stroke="#5a4774" stroke-width="5">
+    <circle cx="180" cy="130" r="13"/><circle cx="625" cy="130" r="13"/>
+    <path d="M370 106v48" stroke="#d0aa62" stroke-width="9"/>
+  </g>
+  <g font-family="sans-serif" fill="#42345a" font-size="22">
+    <text x="70" y="45">Double Jewel SJ（Short Slender）</text>
+    <text x="70" y="225">较短、较细</text><text x="350" y="225">杠杆／墨囊＋Renew-Point</text><text x="700" y="225">双 jewel</text>
+  </g>
+</svg>
