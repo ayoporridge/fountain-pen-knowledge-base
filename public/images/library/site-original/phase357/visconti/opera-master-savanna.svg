@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <!-- non-photo; non-logo; not-to-scale; non-colour-proof -->
+  <title id="title">Visconti Opera Master Savanna factual diagram</title>
+  <desc id="desc">原创事实示意图：黄棕白渐变树脂、绿色珐琅夹、Hook Safe Lock、Power Filler Double Reservoir、A18 18K 尖、2021 年 888 支限量与目录尺寸。</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f8f1df"/>
+      <stop offset="1" stop-color="#ead8b7"/>
+    </linearGradient>
+    <linearGradient id="resin" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#d4a73e"/>
+      <stop offset="0.34" stop-color="#f2d784"/>
+      <stop offset="0.58" stop-color="#a76a2d"/>
+      <stop offset="0.82" stop-color="#f1e5bb"/>
+      <stop offset="1" stop-color="#8e512a"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#5b3b26" flood-opacity="0.22"/>
+    </filter>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0 0 L6 3 L0 6 Z" fill="#5d422e"/>
+    </marker>
+  </defs>
+  <rect width="1600" height="900" fill="url(#paper)"/>
+  <path d="M0 680 C280 570 420 760 710 660 S1190 540 1600 650 V900 H0Z" fill="#c2a266" opacity=".16"/>
+  <text x="100" y="120" font-family="Georgia, 'Noto Serif SC', serif" font-size="52" fill="#3f2b1d">VISCONTI</text>
+  <text x="100" y="184" font-family="'Noto Sans SC', sans-serif" font-size="36" font-weight="700" fill="#6d4326">OPERA MASTER SAVANNA</text>
+  <text x="100" y="232" font-family="'Noto Sans SC', sans-serif" font-size="22" fill="#765d48">原创 factual diagram · 非产品照片 · 非 Logo · 非比例图 · 非颜色校样</text>
+
+  <g filter="url(#shadow)" transform="translate(160 315) rotate(-7 570 80)">
+    <rect x="80" y="54" width="1080" height="130" rx="64" fill="url(#resin)" stroke="#805327" stroke-width="7"/>
+    <path d="M150 70 C320 150 460 30 640 115 S930 170 1110 75" fill="none" stroke="#fff4ca" stroke-width="24" opacity=".46"/>
+    <path d="M180 165 C330 78 460 170 640 80 S930 35 1080 150" fill="none" stroke="#704323" stroke-width="16" opacity=".42"/>
+    <rect x="118" y="47" width="30" height="145" rx="15" fill="#b9a37e"/>
+    <rect x="1020" y="45" width="46" height="148" rx="23" fill="#b8a17b"/>
+    <path d="M1068 77 C1120 36 1160 42 1173 65 C1183 83 1169 102 1148 104 L1118 108 L1168 169 C1177 181 1168 198 1152 200 C1138 201 1126 191 1118 179 L1060 116Z" fill="#2d735d" stroke="#173f35" stroke-width="7"/>
+    <circle cx="1090" cy="113" r="15" fill="#d6c4a2"/>
+    <path d="M85 90 L30 90 L20 122 L30 154 L85 154" fill="#b9a37e" stroke="#805327" stroke-width="7"/>
+    <path d="M1160 93 L1235 93 Q1280 93 1280 119 Q1280 145 1235 145 L1160 145" fill="#c19b5e" stroke="#805327" stroke-width="7"/>
+  </g>
+
+  <g font-family="'Noto Sans SC', sans-serif" fill="#3f2b1d">
+    <rect x="110" y="735" width="400" height="90" rx="18" fill="#fffaf0" stroke="#c8ab73" stroke-width="2"/>
+    <text x="140" y="775" font-size="26" font-weight="700">2021 · 888 支限量</text>
+    <text x="140" y="807" font-size="20">编号刻在 blind cap</text>
+    <rect x="560" y="735" width="440" height="90" rx="18" fill="#fffaf0" stroke="#c8ab73" stroke-width="2"/>
+    <text x="590" y="775" font-size="26" font-weight="700">A18 18K · EEF/F/M/B/Stub</text>
+    <text x="590" y="807" font-size="20">目录 fountain pen SKU</text>
+    <rect x="1050" y="735" width="440" height="90" rx="18" fill="#fffaf0" stroke="#c8ab73" stroke-width="2"/>
+    <text x="1080" y="775" font-size="24" font-weight="700">154.5 / 140.2 mm</text>
+    <text x="1080" y="807" font-size="20">闭帽 / 开帽 · 52.3 / 32.3 g</text>
+  </g>
+
+  <g font-family="'Noto Sans SC', sans-serif" font-size="22" fill="#5d422e">
+    <text x="120" y="285">黄 · 棕 · 白 marble acrylic resin</text>
+    <text x="1110" y="285">绿色珐琅夹 · palladium trim</text>
+    <text x="1070" y="520">Hook Safe Lock</text>
+    <text x="230" y="550">Power Filler Double Reservoir</text>
+  </g>
+  <path d="M1120 302 L1120 365" stroke="#5d422e" stroke-width="3" marker-end="url(#arrow)"/>
+  <path d="M350 565 L430 520" stroke="#5d422e" stroke-width="3"/>
+</svg>
