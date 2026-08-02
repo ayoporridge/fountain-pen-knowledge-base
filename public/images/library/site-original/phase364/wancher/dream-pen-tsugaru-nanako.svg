@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Wancher Dream Pen Tsugaru Urushi Nanako Nuri factual diagram</title>
+  <desc id="desc">Editorial diagram, not a product photo, showing ebonite, urushi and Nanako ring pattern with European cartridge converter; dimensions are not published.</desc>
+  <rect width="1600" height="900" fill="#f4eee7"/>
+  <rect x="70" y="70" width="1460" height="760" rx="34" fill="#fffaf4" stroke="#47362f" stroke-width="4"/>
+  <text x="120" y="155" font-family="sans-serif" font-size="44" font-weight="700" fill="#281e1a">Wancher Dream Pen · 津轻漆 ななこ塗</text>
+  <text x="122" y="205" font-family="sans-serif" font-size="25" fill="#6f5549">FACTUAL DIAGRAM · 非产品照片 · NON-PHOTO · NON-LOGO</text>
+  <g transform="translate(135 285)">
+    <path d="M90 110 Q120 70 190 70 H920 Q1000 70 1030 110 L1000 200 Q980 230 920 230 H190 Q120 230 100 200 Z" fill="#3b1f29" stroke="#20151a" stroke-width="8"/>
+    <path d="M80 110 Q120 70 190 70 H920" fill="none" stroke="#9e6c52" stroke-width="14" opacity=".8"/>
+    <g fill="#d5b48d" opacity=".9">
+      <circle cx="230" cy="123" r="13"/><circle cx="275" cy="178" r="12"/><circle cx="330" cy="120" r="10"/><circle cx="385" cy="180" r="14"/><circle cx="445" cy="126" r="11"/><circle cx="505" cy="175" r="13"/><circle cx="565" cy="120" r="10"/><circle cx="625" cy="182" r="12"/><circle cx="690" cy="128" r="14"/><circle cx="750" cy="178" r="11"/><circle cx="815" cy="125" r="13"/>
+    </g>
+    <path d="M1030 110 L1130 110 L1170 150 L1130 190 L1030 190 Z" fill="#8b735c" stroke="#20151a" stroke-width="8"/>
+    <path d="M1170 150 L1285 150" stroke="#20151a" stroke-width="22" stroke-linecap="round"/>
+    <path d="M1285 150 L1370 118 L1370 182 Z" fill="#d2a95d" stroke="#20151a" stroke-width="6"/>
+  </g>
+  <g font-family="sans-serif" fill="#281e1a">
+    <text x="170" y="620" font-size="29" font-weight="700">ebonite + urushi</text>
+    <text x="170" y="660" font-size="24">菜种圆环 → 取出 → 研磨显出 Nanako 图案</text>
+    <text x="930" y="620" font-size="29" font-weight="700">European C/C</text>
+    <text x="930" y="660" font-size="24">#6 JoWo stainless 或 Wancher 18K；feed 依订单</text>
+    <text x="170" y="745" font-size="25" fill="#7a2f36">尺寸、重量、具体纹理：官方页面未单列</text>
+    <text x="930" y="745" font-size="25" fill="#7a2f36">NOT-TO-SCALE · NON-COLOUR-PROOF</text>
+  </g>
+</svg>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Wancher Dream Pen Tsugaru Urushi Raden Midori-age factual diagram</title>
+  <desc id="desc">Editorial diagram, not a product photo, showing green-base Kara-nuri, raden shell inlay, ebonite and urushi; dimensions are not published.</desc>
+  <rect width="1600" height="900" fill="#e8efe8"/>
+  <rect x="70" y="70" width="1460" height="760" rx="34" fill="#fbfffb" stroke="#284a3c" stroke-width="4"/>
+  <text x="120" y="155" font-family="sans-serif" font-size="42" font-weight="700" fill="#19362b">Wancher Dream Pen · 螺鈿唐塗 緑上げ</text>
+  <text x="122" y="205" font-family="sans-serif" font-size="25" fill="#4c6f5c">FACTUAL DIAGRAM · 非产品照片 · NON-PHOTO · NON-LOGO</text>
+  <g transform="translate(135 285)">
+    <path d="M90 110 Q120 70 190 70 H920 Q1000 70 1030 110 L1000 200 Q980 230 920 230 H190 Q120 230 100 200 Z" fill="#1e5b47" stroke="#102c23" stroke-width="8"/>
+    <path d="M100 130 Q150 95 215 100 H900" fill="none" stroke="#77a35e" stroke-width="16" opacity=".9"/>
+    <g fill="#b8d6c9" stroke="#eef7e9" stroke-width="4">
+      <path d="M270 112 l25 18 -12 29 -31 -7 -5 -28z"/><path d="M365 172 l28 -11 22 22 -14 28 -31 -7z"/><path d="M470 115 l31 -4 14 27 -22 22 -29 -15z"/><path d="M610 170 l26 -18 27 19 -7 30 -33 4z"/><path d="M735 118 l30 5 8 28 -27 18 -28 -17z"/><path d="M835 173 l27 -13 24 22 -15 27 -32 -6z"/>
+    </g>
+    <path d="M1030 110 L1130 110 L1170 150 L1130 190 L1030 190 Z" fill="#8e9e87" stroke="#102c23" stroke-width="8"/>
+    <path d="M1170 150 L1285 150" stroke="#102c23" stroke-width="22" stroke-linecap="round"/>
+    <path d="M1285 150 L1370 118 L1370 182 Z" fill="#d0a765" stroke="#102c23" stroke-width="6"/>
+  </g>
+  <g font-family="sans-serif" fill="#19362b">
+    <text x="170" y="620" font-size="29" font-weight="700">ebonite + urushi + raden</text>
+    <text x="170" y="660" font-size="24">green-base Midori-age + Kara-nuri + 贝饰；薄漆层与手工痕迹</text>
+    <text x="930" y="620" font-size="29" font-weight="700">European C/C</text>
+    <text x="930" y="660" font-size="24">JoWo stainless、Wancher 18K 或 Shogun 18K 依订单</text>
+    <text x="170" y="745" font-size="25" fill="#7a2f36">尺寸、重量、贝片数量：官方页面未单列</text>
+    <text x="930" y="745" font-size="25" fill="#7a2f36">NOT-TO-SCALE · NON-COLOUR-PROOF</text>
+  </g>
+</svg>

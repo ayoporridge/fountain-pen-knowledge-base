@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Wancher Dream Pen Tsugaru Urushi Kara-nuri Shiro-age factual diagram</title>
+  <desc id="desc">Editorial diagram, not a product photo, showing white-base Kara-nuri, ebonite and urushi with European cartridge converter; dimensions are not published.</desc>
+  <rect width="1600" height="900" fill="#eef0ef"/>
+  <rect x="70" y="70" width="1460" height="760" rx="34" fill="#ffffff" stroke="#39433f" stroke-width="4"/>
+  <text x="120" y="155" font-family="sans-serif" font-size="43" font-weight="700" fill="#26302c">Wancher Dream Pen · 唐塗 白上げ</text>
+  <text x="122" y="205" font-family="sans-serif" font-size="25" fill="#66736d">FACTUAL DIAGRAM · 非产品照片 · NON-PHOTO · NON-LOGO</text>
+  <g transform="translate(135 285)">
+    <path d="M90 110 Q120 70 190 70 H920 Q1000 70 1030 110 L1000 200 Q980 230 920 230 H190 Q120 230 100 200 Z" fill="#f4f1e8" stroke="#262d2a" stroke-width="8"/>
+    <path d="M95 110 Q130 74 190 74 H920" fill="none" stroke="#b46f55" stroke-width="12" opacity=".9"/>
+    <g fill="#8d5e52" opacity=".9">
+      <circle cx="230" cy="122" r="14"/><circle cx="280" cy="179" r="11"/><circle cx="338" cy="128" r="12"/><circle cx="398" cy="176" r="14"/><circle cx="460" cy="123" r="10"/><circle cx="520" cy="178" r="13"/><circle cx="580" cy="125" r="12"/><circle cx="640" cy="176" r="11"/><circle cx="700" cy="122" r="14"/><circle cx="760" cy="180" r="12"/><circle cx="820" cy="128" r="10"/>
+    </g>
+    <path d="M1030 110 L1130 110 L1170 150 L1130 190 L1030 190 Z" fill="#b5a89b" stroke="#262d2a" stroke-width="8"/>
+    <path d="M1170 150 L1285 150" stroke="#262d2a" stroke-width="22" stroke-linecap="round"/>
+    <path d="M1285 150 L1370 118 L1370 182 Z" fill="#d0a765" stroke="#262d2a" stroke-width="6"/>
+  </g>
+  <g font-family="sans-serif" fill="#26302c">
+    <text x="170" y="620" font-size="29" font-weight="700">ebonite + urushi · white-base</text>
+    <text x="170" y="660" font-size="24">Kara-nuri 的层叠斑点；“白”是底色，不是白色树脂</text>
+    <text x="930" y="620" font-size="29" font-weight="700">European C/C</text>
+    <text x="930" y="660" font-size="24">#6 JoWo stainless 或 Wancher 18K；feed 依订单</text>
+    <text x="170" y="745" font-size="25" fill="#7a2f36">尺寸、重量、统一色卡：官方页面未单列</text>
+    <text x="930" y="745" font-size="25" fill="#7a2f36">NOT-TO-SCALE · NON-COLOUR-PROOF</text>
+  </g>
+</svg>
