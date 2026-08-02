@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sailor SHIKIORI Japanese Fairy Tales 11-1227 factual identity card</title>
+  <desc id="desc">A site-original factual diagram, not a product photo, logo, scale drawing, or colour proof.</desc>
+  <rect width="1600" height="900" fill="#f8f3f7"/>
+  <rect x="72" y="72" width="1456" height="756" rx="42" fill="#fffdfd" stroke="#6f536a" stroke-width="5"/>
+  <text x="130" y="168" fill="#4c3448" font-family="Arial, sans-serif" font-size="49" font-weight="700">SHIKIORI おとぎばなし</text>
+  <text x="130" y="228" fill="#806b7b" font-family="Arial, sans-serif" font-size="33">Sailor 11-1227 · 14K Standard MF</text>
+  <g opacity="0.9">
+    <circle cx="260" cy="425" r="118" fill="#7eacc1"/>
+    <circle cx="520" cy="425" r="118" fill="#d8a1b6"/>
+    <circle cx="780" cy="425" r="118" fill="#d0a56f"/>
+    <circle cx="1040" cy="425" r="118" fill="#a9b7d1"/>
+  </g>
+  <g fill="#fffdfd" font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="260" y="412" font-size="25" font-weight="700">301</text>
+    <text x="260" y="450" font-size="20">竜宮城</text>
+    <text x="520" y="412" font-size="25" font-weight="700">302</text>
+    <text x="520" y="450" font-size="20">織姫</text>
+    <text x="780" y="412" font-size="25" font-weight="700">303</text>
+    <text x="780" y="450" font-size="20">かぐや姫</text>
+    <text x="1040" y="412" font-size="25" font-weight="700">304</text>
+    <text x="1040" y="450" font-size="20">機織り鶴</text>
+  </g>
+  <path d="M1170 425 H1370" stroke="#c79750" stroke-width="30" stroke-linecap="round" opacity="0.8"/>
+  <path d="M1160 425 l-90 -28 26 28 -26 28z" fill="#c79750" opacity="0.9"/>
+  <line x1="250" y1="565" x2="1375" y2="565" stroke="#6f536a" stroke-width="3"/>
+  <line x1="250" y1="550" x2="250" y2="580" stroke="#6f536a" stroke-width="3"/>
+  <line x1="1375" y1="550" x2="1375" y2="580" stroke="#6f536a" stroke-width="3"/>
+  <text x="600" y="620" fill="#4c3448" font-family="Arial, sans-serif" font-size="31">φ17 × 124 mm · 16.8 g</text>
+  <text x="130" y="700" fill="#4c3448" font-family="Arial, sans-serif" font-size="31">PMMA 树脂 · Gold IP · 墨囊／转换器</text>
+  <text x="130" y="756" fill="#806b7b" font-family="Arial, sans-serif" font-size="25">四个故事场景，共享 14K 中型 MF 尖</text>
+  <text x="130" y="794" fill="#986344" font-family="Arial, sans-serif" font-size="21">SITE-ORIGINAL FACTUAL DIAGRAM · NON-PHOTO · NON-LOGO · NOT-TO-SCALE · NON-COLOUR-PROOF</text>
+</svg>
