@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <!-- Fountain Pen Graph site-original factual diagram: non-photo, non-logo, not-to-scale, non-colour-proof. -->
+  <title id="title">SCRIBO FLOW Tempo factual diagram</title>
+  <desc id="desc">A non-photo, non-logo, not-to-scale, non-colour-proof editorial diagram showing the 24-facet matte ebonite piston platform, nib options, dimensions and 88-piece first edition boundary.</desc>
+  <rect width="1600" height="900" fill="#e9eef0"/>
+  <rect x="72" y="72" width="1456" height="756" rx="34" fill="#fffefa" stroke="#25343b" stroke-width="4"/>
+  <text x="132" y="155" fill="#25343b" font-family="Arial, sans-serif" font-size="44" font-weight="700">SCRIBO FLOW Tempo</text>
+  <text x="132" y="204" fill="#62727a" font-family="Arial, sans-serif" font-size="23">24 面哑光硬橡胶 · piston · platinum trim · first edition 88 pieces</text>
+
+  <g transform="translate(132 320)">
+    <text x="0" y="-48" fill="#25343b" font-family="Arial, sans-serif" font-size="25" font-weight="700">24 面笔身（示意）</text>
+    <path d="M95 0 H745 C774 0 795 21 795 50 V84 C795 113 774 134 745 134 H95 C60 134 34 111 34 78 V56 C34 22 60 0 95 0Z" fill="#1d6f78" stroke="#25343b" stroke-width="5"/>
+    <path d="M95 0 L150 134 M205 0 L255 134 M315 0 L365 134 M425 0 L475 134 M535 0 L585 134 M645 0 L695 134" stroke="#9ed0ce" stroke-width="4" opacity="0.72"/>
+    <path d="M745 0 H830 C857 0 878 22 878 51 V83 C878 112 857 134 830 134 H745Z" fill="#bcc6c8" stroke="#25343b" stroke-width="5"/>
+    <text x="184" y="188" fill="#25343b" font-family="Arial, sans-serif" font-size="24">matte ebonite · platinum trim · ebonite feed</text>
+    <line x1="34" y1="225" x2="878" y2="225" stroke="#c36b45" stroke-width="3"/>
+    <line x1="34" y1="213" x2="34" y2="237" stroke="#c36b45" stroke-width="3"/>
+    <line x1="878" y1="213" x2="878" y2="237" stroke="#c36b45" stroke-width="3"/>
+    <text x="250" y="269" fill="#c36b45" font-family="Arial, sans-serif" font-size="26" font-weight="700">150 mm · max φ16.20 mm · 33.50 g</text>
+  </g>
+
+  <g transform="translate(1110 285)">
+    <rect x="0" y="0" width="315" height="154" rx="24" fill="#f0e1bf" stroke="#9f7840" stroke-width="4"/>
+    <text x="34" y="53" fill="#6b4b1c" font-family="Arial, sans-serif" font-size="27" font-weight="700">18K standard</text>
+    <text x="34" y="95" fill="#6b4b1c" font-family="Arial, sans-serif" font-size="21">EEF · EF · F · M · B · BB</text>
+    <text x="34" y="128" fill="#6b4b1c" font-family="Arial, sans-serif" font-size="19">BBB · Stub；按 SKU</text>
+    <rect x="0" y="190" width="315" height="154" rx="24" fill="#e5c4b7" stroke="#ad5b48" stroke-width="4"/>
+    <text x="34" y="243" fill="#68392e" font-family="Arial, sans-serif" font-size="27" font-weight="700">14K Extra-Flexible</text>
+    <text x="34" y="285" fill="#68392e" font-family="Arial, sans-serif" font-size="21">EF · F · M · B</text>
+    <text x="34" y="320" fill="#68392e" font-family="Arial, sans-serif" font-size="19">轻压试写 · 按 SKU</text>
+  </g>
+
+  <g transform="translate(145 705)">
+    <circle cx="18" cy="0" r="9" fill="#c36b45"/>
+    <text x="45" y="8" fill="#25343b" font-family="Arial, sans-serif" font-size="23">深青色黑纹理 · first edition 88 支</text>
+    <circle cx="600" cy="0" r="9" fill="#c36b45"/>
+    <text x="627" y="8" fill="#25343b" font-family="Arial, sans-serif" font-size="23">活塞容量：官方 1.42 ml</text>
+  </g>
+  <text x="132" y="785" fill="#62727a" font-family="Arial, sans-serif" font-size="18">NON-PHOTO · NON-LOGO · NOT-TO-SCALE · NON-COLOUR-PROOF · 不证明真实颜色、纹理、比例、编号或库存</text>
+</svg>
