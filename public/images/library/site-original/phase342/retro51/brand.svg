@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc" factual-svg="true" product-photo="false" logo="false" to-scale="false" colour-proof="false">
+  <title id="title">Retro 51 brand and Tornado writing modes</title>
+  <desc id="desc">Editorial factual diagram: Retro 51, Tornado launched as rollerball in 1997, later fountain pen, ballpoint and mechanical pencil.</desc>
+  <rect width="1200" height="720" fill="#f4efe7"/>
+  <rect x="54" y="54" width="1092" height="612" rx="34" fill="#fffdf8" stroke="#27333a" stroke-width="4"/>
+  <text x="92" y="132" fill="#27333a" font-family="Arial, sans-serif" font-size="48" font-weight="700">RETRO 51</text>
+  <text x="94" y="174" fill="#7b6356" font-family="Arial, sans-serif" font-size="22">brand navigation · not a product photograph</text>
+  <line x1="104" y1="268" x2="1092" y2="268" stroke="#a26e4f" stroke-width="6"/>
+  <circle cx="170" cy="268" r="18" fill="#a26e4f"/>
+  <circle cx="566" cy="268" r="18" fill="#a26e4f"/>
+  <circle cx="1010" cy="268" r="18" fill="#a26e4f"/>
+  <text x="104" y="230" fill="#27333a" font-family="Arial, sans-serif" font-size="24" font-weight="700">1997</text>
+  <text x="104" y="316" fill="#27333a" font-family="Arial, sans-serif" font-size="23">Tornado begins as rollerball</text>
+  <text x="500" y="230" fill="#27333a" font-family="Arial, sans-serif" font-size="24" font-weight="700">later family</text>
+  <text x="500" y="316" fill="#27333a" font-family="Arial, sans-serif" font-size="23">rollerball · fountain · ballpoint · pencil</text>
+  <text x="914" y="230" fill="#27333a" font-family="Arial, sans-serif" font-size="24" font-weight="700">2022</text>
+  <text x="850" y="316" fill="#27333a" font-family="Arial, sans-serif" font-size="23">25th anniversary marker</text>
+  <g font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#fffdf8">
+    <rect x="112" y="410" width="218" height="92" rx="18" fill="#496d83"/>
+    <text x="158" y="466">ROLLERBALL</text>
+    <rect x="366" y="410" width="218" height="92" rx="18" fill="#a26e4f"/>
+    <text x="416" y="466">FOUNTAIN</text>
+    <rect x="620" y="410" width="218" height="92" rx="18" fill="#6f8061"/>
+    <text x="670" y="466">BALLPOINT</text>
+    <rect x="874" y="410" width="218" height="92" rx="18" fill="#775f7a"/>
+    <text x="904" y="466">MECHANICAL</text>
+  </g>
+  <text x="112" y="586" fill="#27333a" font-family="Arial, sans-serif" font-size="20">Tornado is a family map; each mode keeps its own refill, nib and maintenance boundary.</text>
+  <text x="112" y="620" fill="#7b6356" font-family="Arial, sans-serif" font-size="18">Fountain Pen Graph editorial factual SVG · site-original · not to scale</text>
+</svg>
