@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sailor Lecoule Clear 11-0313 factual identity card</title>
+  <desc id="desc">A site-original factual diagram, not a product photo, logo, scale drawing, or colour proof.</desc>
+  <rect width="1600" height="900" fill="#f4f8fa"/>
+  <rect x="72" y="72" width="1456" height="756" rx="42" fill="#ffffff" stroke="#1d5668" stroke-width="5"/>
+  <text x="130" y="170" fill="#123d4c" font-family="Arial, sans-serif" font-size="54" font-weight="700">Lecoule Clear</text>
+  <text x="130" y="230" fill="#47717d" font-family="Arial, sans-serif" font-size="34">Sailor 11-0313 · MF 11-0313-300</text>
+  <path d="M190 430 H1050" stroke="#2e91a5" stroke-width="46" stroke-linecap="round" opacity="0.22"/>
+  <path d="M210 430 H970" stroke="#8ed1dc" stroke-width="26" stroke-linecap="round" opacity="0.75"/>
+  <path d="M1000 430 l105 -30 160 30 -160 30z" fill="#8ed1dc" opacity="0.75"/>
+  <path d="M1265 430 l100 -16 -32 16 32 16z" fill="#1d5668"/>
+  <circle cx="1235" cy="430" r="9" fill="#1d5668"/>
+  <line x1="210" y1="520" x2="1365" y2="520" stroke="#1d5668" stroke-width="3"/>
+  <line x1="210" y1="505" x2="210" y2="535" stroke="#1d5668" stroke-width="3"/>
+  <line x1="1365" y1="505" x2="1365" y2="535" stroke="#1d5668" stroke-width="3"/>
+  <text x="620" y="575" fill="#123d4c" font-family="Arial, sans-serif" font-size="31">φ17 × 123 mm · 12.4 g</text>
+  <text x="130" y="670" fill="#123d4c" font-family="Arial, sans-serif" font-size="32">透明 PMMA · 不锈钢 MF · 墨囊／转换器</text>
+  <text x="130" y="730" fill="#47717d" font-family="Arial, sans-serif" font-size="27">与 11-0311 Power Stone 分开的透明路线</text>
+  <text x="130" y="790" fill="#9b4d34" font-family="Arial, sans-serif" font-size="22">SITE-ORIGINAL FACTUAL DIAGRAM · NON-PHOTO · NON-LOGO · NOT-TO-SCALE · NON-COLOUR-PROOF</text>
+</svg>
