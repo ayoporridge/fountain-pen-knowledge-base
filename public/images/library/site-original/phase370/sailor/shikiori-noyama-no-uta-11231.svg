@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sailor SHIKIORI Noyama-no-uta 11-1231 factual identity card</title>
+  <desc id="desc">A site-original factual diagram, not a product photo, logo, scale drawing, or colour proof.</desc>
+  <rect width="1600" height="900" fill="#f6f3ee"/>
+  <rect x="72" y="72" width="1456" height="756" rx="42" fill="#fffdf9" stroke="#4b5d50" stroke-width="5"/>
+  <text x="130" y="168" fill="#293c32" font-family="Arial, sans-serif" font-size="50" font-weight="700">SHIKIORI 野山の唄</text>
+  <text x="130" y="228" fill="#617568" font-family="Arial, sans-serif" font-size="33">Sailor 11-1231 · 14K Standard MF</text>
+  <g opacity="0.9">
+    <circle cx="260" cy="425" r="118" fill="#d9a98c"/>
+    <circle cx="520" cy="425" r="118" fill="#a9bc91"/>
+    <circle cx="780" cy="425" r="118" fill="#6f8c93"/>
+    <circle cx="1040" cy="425" r="118" fill="#a58c70"/>
+  </g>
+  <g fill="#fffdf9" font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="260" y="412" font-size="25" font-weight="700">301</text>
+    <text x="260" y="450" font-size="21">春告鳥</text>
+    <text x="520" y="412" font-size="25" font-weight="700">302</text>
+    <text x="520" y="450" font-size="21">若鷹</text>
+    <text x="780" y="412" font-size="25" font-weight="700">303</text>
+    <text x="780" y="450" font-size="21">鶺鴒</text>
+    <text x="1040" y="412" font-size="25" font-weight="700">304</text>
+    <text x="1040" y="450" font-size="21">雉</text>
+  </g>
+  <path d="M1170 425 H1370" stroke="#c59b55" stroke-width="30" stroke-linecap="round" opacity="0.78"/>
+  <path d="M1160 425 l-90 -28 26 28 -26 28z" fill="#c59b55" opacity="0.85"/>
+  <line x1="250" y1="565" x2="1375" y2="565" stroke="#4b5d50" stroke-width="3"/>
+  <line x1="250" y1="550" x2="250" y2="580" stroke="#4b5d50" stroke-width="3"/>
+  <line x1="1375" y1="550" x2="1375" y2="580" stroke="#4b5d50" stroke-width="3"/>
+  <text x="600" y="620" fill="#293c32" font-family="Arial, sans-serif" font-size="31">φ17 × 124 mm · 16.8 g</text>
+  <text x="130" y="700" fill="#293c32" font-family="Arial, sans-serif" font-size="31">PMMA 树脂 · 金色 IP · 墨囊／转换器</text>
+  <text x="130" y="756" fill="#617568" font-family="Arial, sans-serif" font-size="25">四个颜色 SKU，共享 14K 中型 MF 尖</text>
+  <text x="130" y="794" fill="#986544" font-family="Arial, sans-serif" font-size="21">SITE-ORIGINAL FACTUAL DIAGRAM · NON-PHOTO · NON-LOGO · NOT-TO-SCALE · NON-COLOUR-PROOF</text>
+</svg>
