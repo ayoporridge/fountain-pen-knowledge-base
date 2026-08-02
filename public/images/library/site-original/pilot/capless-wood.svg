@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pilot Capless WOOD FC-25SK factual card</title>
+  <desc id="desc">Factual editorial diagram: retractable Capless mechanism, resin-impregnated birch barrel, 18K EF/F/M and CON-40. Non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#e7eee9"/>
+  <rect x="64" y="64" width="1472" height="772" rx="34" fill="#fbfffc" stroke="#567d68" stroke-width="4"/>
+  <text x="120" y="150" fill="#233d31" font-family="Arial, sans-serif" font-size="54" font-weight="700">Pilot Capless 木軸 / FC-25SK</text>
+  <text x="120" y="205" fill="#4d725d" font-family="Arial, sans-serif" font-size="28">Capless WOOD · FC-2500RR market code</text>
+  <g transform="translate(170 305)">
+    <rect x="130" y="70" width="800" height="112" rx="56" fill="#8b5f43" stroke="#3f2b20" stroke-width="8"/>
+    <path d="M170 94 C275 149 350 75 455 125 S640 83 760 133 S860 93 920 120" fill="none" stroke="#c59c6d" stroke-width="10" opacity=".8"/>
+    <path d="M175 160 C280 110 365 167 470 118 S645 165 760 115 S860 160 920 125" fill="none" stroke="#5a3b2b" stroke-width="9" opacity=".8"/>
+    <rect x="925" y="92" width="125" height="68" rx="16" fill="#adb3b0" stroke="#3f4a44" stroke-width="8"/>
+    <path d="M1050 125 L1160 125" stroke="#3f4a44" stroke-width="8"/>
+    <path d="M80 125 L130 125" stroke="#3f4a44" stroke-width="8"/>
+    <circle cx="1080" cy="125" r="17" fill="#d5b04e" stroke="#3f4a44" stroke-width="6"/>
+    <text x="405" y="140" fill="#fff6e9" font-family="Arial, sans-serif" font-size="30" font-weight="700">PRESS / RETRACT</text>
+  </g>
+  <g fill="#233d31" font-family="Arial, sans-serif" font-size="30">
+    <text x="150" y="590">机构 / mechanism</text><text x="520" y="590">按动伸缩 · shutter 收尖</text>
+    <text x="150" y="650">材质 / material</text><text x="520" y="650">树脂浸渍桦材轴</text>
+    <text x="150" y="710">笔尖 / filling</text><text x="520" y="710">18K · EF / F / M · CON-40</text>
+    <text x="1080" y="590">140 mm</text><text x="1080" y="650">14 mm max</text><text x="1080" y="710">26 g</text>
+  </g>
+  <text x="120" y="790" fill="#4d725d" font-family="Arial, sans-serif" font-size="21">本站原创 factual SVG · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+</svg>

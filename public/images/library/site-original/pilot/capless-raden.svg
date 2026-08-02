@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pilot Capless Raden FCN-5MP factual card</title>
+  <desc id="desc">Factual editorial diagram: brass urushi ground with raden nacre, retractable Capless shutter, 18K F/M and CON-40. Non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#17191d"/>
+  <rect x="64" y="64" width="1472" height="772" rx="34" fill="#242833" stroke="#bda36c" stroke-width="4"/>
+  <text x="120" y="150" fill="#f4e6ba" font-family="Arial, sans-serif" font-size="54" font-weight="700">Pilot Capless 螺鈿 / FCN-5MP</text>
+  <text x="120" y="205" fill="#d4c48f" font-family="Arial, sans-serif" font-size="28">Raden · Black / Minamo / Stripe · RB / RM / RS</text>
+  <g transform="translate(150 300)">
+    <rect x="100" y="75" width="900" height="115" rx="57" fill="#0d0e12" stroke="#c7aa6d" stroke-width="9"/>
+    <g fill="#d9e9e2" stroke="#ffffff" stroke-width="2" opacity=".9">
+      <ellipse cx="230" cy="104" rx="26" ry="13" transform="rotate(-20 230 104)"/><ellipse cx="310" cy="160" rx="20" ry="10" transform="rotate(24 310 160)"/><ellipse cx="420" cy="108" rx="31" ry="12" transform="rotate(16 420 108)"/><ellipse cx="540" cy="158" rx="26" ry="11" transform="rotate(-17 540 158)"/><ellipse cx="665" cy="106" rx="20" ry="10" transform="rotate(30 665 106)"/><ellipse cx="780" cy="156" rx="31" ry="12" transform="rotate(-22 780 156)"/><ellipse cx="900" cy="108" rx="25" ry="10" transform="rotate(18 900 108)"/>
+    </g>
+    <rect x="1000" y="100" width="135" height="66" rx="15" fill="#adb3b8" stroke="#c7aa6d" stroke-width="8"/>
+    <path d="M1135 133 L1240 133" stroke="#c7aa6d" stroke-width="8"/>
+    <path d="M35 133 L100 133" stroke="#c7aa6d" stroke-width="8"/>
+    <text x="390" y="142" fill="#f4e6ba" font-family="Arial, sans-serif" font-size="30" font-weight="700">R A D E N</text>
+  </g>
+  <g fill="#f4e6ba" font-family="Arial, sans-serif" font-size="30">
+    <text x="150" y="590">饰面 / finish</text><text x="500" y="590">黄铜 · 蝋色漆 · 螺鈿</text>
+    <text x="150" y="650">笔尖 / filling</text><text x="500" y="650">18K · F / M · CON-40</text>
+    <text x="150" y="710">设计 / designs</text><text x="500" y="710">RB ブラック · RM 水面 · RS ストライプ</text>
+    <text x="1120" y="590">140 mm</text><text x="1120" y="650">13.4 mm max</text><text x="1120" y="710">30 g</text>
+  </g>
+  <text x="120" y="790" fill="#d4c48f" font-family="Arial, sans-serif" font-size="21">本站原创 factual SVG · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+</svg>

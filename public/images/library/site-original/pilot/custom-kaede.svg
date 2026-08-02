@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pilot Custom Kaede FK-2000K factual card</title>
+  <desc id="desc">Factual editorial diagram: itaya maple resin-impregnated barrel and cap, 14K No.10 F/M, CON-40 and CON-70N. Non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#f4eee3"/>
+  <rect x="64" y="64" width="1472" height="772" rx="34" fill="#fffaf1" stroke="#9a6b3d" stroke-width="4"/>
+  <text x="120" y="150" fill="#3e2a1a" font-family="Arial, sans-serif" font-size="54" font-weight="700">Pilot Custom 楓 / FK-2000K</text>
+  <text x="120" y="205" fill="#7a5634" font-family="Arial, sans-serif" font-size="28">Kaede / Maple · resin-impregnated itaya maple</text>
+  <g transform="translate(170 310) rotate(-8 560 90)">
+    <rect x="100" y="60" width="980" height="100" rx="50" fill="#b78651" stroke="#6d4325" stroke-width="8"/>
+    <path d="M155 84 C270 130 345 64 450 111 S650 72 765 116 S950 80 1040 110" fill="none" stroke="#5f381f" stroke-width="10" opacity=".7"/>
+    <path d="M165 137 C270 95 370 148 470 105 S680 150 790 104 S950 145 1030 108" fill="none" stroke="#e1bd7d" stroke-width="9" opacity=".75"/>
+    <path d="M75 109 L10 109" stroke="#6d4325" stroke-width="8"/>
+    <path d="M1085 60 L1180 95 L1085 160 Z" fill="#c7c8ca" stroke="#6d4325" stroke-width="8"/>
+    <text x="395" y="124" fill="#fff4df" font-family="Arial, sans-serif" font-size="30" font-weight="700">FK-2000K</text>
+  </g>
+  <g fill="#3e2a1a" font-family="Arial, sans-serif" font-size="30">
+    <text x="150" y="590">材质 / material</text><text x="490" y="590">板屋楓（树脂浸渍）</text>
+    <text x="150" y="650">笔尖 / nib</text><text x="490" y="650">14K No.10 · F / M</text>
+    <text x="150" y="710">供墨 / filling</text><text x="490" y="710">CON-40 · CON-70N（随附）</text>
+    <text x="1000" y="590">143 mm</text><text x="1000" y="650">14.5 mm max</text><text x="1000" y="710">20 g</text>
+  </g>
+  <text x="120" y="790" fill="#8c5a33" font-family="Arial, sans-serif" font-size="21">本站原创 factual SVG · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+</svg>
