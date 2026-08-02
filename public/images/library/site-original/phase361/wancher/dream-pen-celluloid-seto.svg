@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Wancher Dream Pen Celluloid SETO factual diagram</title>
+  <desc id="desc">Non-photo, non-logo, not-to-scale, non-colour-proof diagram showing SETO acetate celluloid, blue gradients, titanium screw section, sterling silver ring, cartridge converter and official versus retail measurement boundary.</desc>
+  <rect width="1600" height="900" fill="#edf8fc"/>
+  <rect x="90" y="80" width="1420" height="740" rx="38" fill="#fffefd" stroke="#1b5b78" stroke-width="5"/>
+  <text x="150" y="165" fill="#1b5b78" font-family="sans-serif" font-size="54" font-weight="700">WANCHER DREAM PEN</text>
+  <text x="150" y="215" fill="#49616b" font-family="sans-serif" font-size="32">CELLULOID · SETO 瀬戸 · ACETATE</text>
+  <path d="M180 350 C230 280 290 260 390 260 H970 C1070 260 1130 280 1180 350 C1130 420 1070 440 970 440 H390 C290 440 230 420 180 350Z" fill="#3e8db5" stroke="#1b5b78" stroke-width="6"/>
+  <path d="M280 315 C410 270 500 310 600 350 C710 395 790 420 900 370 C980 335 1040 300 1110 320" fill="none" stroke="#a8e4ed" stroke-width="24" opacity=".9"/>
+  <path d="M310 365 C430 335 500 360 590 395" fill="none" stroke="#215b92" stroke-width="16" opacity=".75"/>
+  <path d="M1180 300 H1310 Q1360 300 1385 350 Q1360 400 1310 400 H1180Z" fill="#c8cbd0" stroke="#666a73" stroke-width="6"/>
+  <path d="M1385 330 L1480 350 L1385 370Z" fill="#d1a54b" stroke="#846622" stroke-width="5"/>
+  <rect x="1080" y="289" width="26" height="122" fill="#f5f5f6" stroke="#8f9299" stroke-width="4"/>
+  <text x="330" y="505" fill="#1b5b78" font-family="sans-serif" font-size="28" font-weight="700">Acetate Celluloid · Kyoto</text>
+  <text x="360" y="545" fill="#49616b" font-family="sans-serif" font-size="24">Seto Inland Sea blue gradients · Roll Up</text>
+  <text x="1100" y="505" fill="#1b5b78" font-family="sans-serif" font-size="28" font-weight="700">Titanium screw section</text>
+  <text x="1125" y="545" fill="#49616b" font-family="sans-serif" font-size="24">925 sterling ring · Gold / Silver</text>
+  <line x1="210" y1="660" x2="1390" y2="660" stroke="#6aaec1" stroke-width="5"/>
+  <line x1="210" y1="640" x2="210" y2="680" stroke="#6aaec1" stroke-width="5"/>
+  <line x1="1390" y1="640" x2="1390" y2="680" stroke="#6aaec1" stroke-width="5"/>
+  <text x="800" y="710" text-anchor="middle" fill="#1b5b78" font-family="sans-serif" font-size="30" font-weight="700">Official 146 / 128 mm · 21 g</text>
+  <text x="800" y="755" text-anchor="middle" fill="#49616b" font-family="sans-serif" font-size="25">Retail sample 144 / 127 mm · 22 g · C/C</text>
+  <text x="150" y="850" fill="#1b5b78" font-family="sans-serif" font-size="22">示意图，非产品照片 · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+</svg>
