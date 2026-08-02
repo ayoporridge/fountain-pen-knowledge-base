@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc" factual-svg="true" product-photo="false" logo="false" to-scale="false" colour-proof="false">
+  <title id="title">Jinhao X450 identity boundary diagram</title>
+  <desc id="desc">Editorial diagram of the Jinhao X450 metal body, snap cap, triangular guide grip, standard international converter path and replaceable number six steel nib. Not a product photograph and not to scale.</desc>
+  <rect width="1600" height="900" fill="#f7f2ea"/>
+  <rect x="70" y="70" width="1460" height="760" rx="34" fill="#fffdf9" stroke="#20242a" stroke-width="4"/>
+  <text x="120" y="150" font-family="Georgia,serif" font-size="48" fill="#20242a">Jinhao X450</text>
+  <text x="122" y="195" font-family="Arial,sans-serif" font-size="23" fill="#7a4c36">identity card · factual SVG · editorial schematic</text>
+  <g transform="translate(160 350)">
+    <path d="M50 110 L340 110 Q370 110 400 92 L1100 92 Q1140 92 1170 110 L1260 110 L1260 170 L1170 170 Q1140 188 1100 188 L400 188 Q370 170 340 170 L50 170 Z" fill="#aa5b45" stroke="#20242a" stroke-width="5"/>
+    <path d="M1100 92 L1260 110 L1260 170 L1100 188 Z" fill="#d7b16c" stroke="#20242a" stroke-width="5"/>
+    <path d="M50 110 L10 140 L50 170 Z" fill="#d1d7dd" stroke="#20242a" stroke-width="5"/>
+    <path d="M10 140 L-38 140" stroke="#20242a" stroke-width="12" stroke-linecap="round"/>
+    <path d="M320 102 L320 178 M350 98 L350 182 M380 95 L380 185" stroke="#20242a" stroke-width="5"/>
+    <circle cx="790" cy="140" r="16" fill="#f7f2ea" stroke="#20242a" stroke-width="4"/>
+    <text x="530" y="245" font-family="Arial,sans-serif" font-size="22" fill="#20242a">金属外壳 · 卡扣盖 · 树脂导向握位</text>
+  </g>
+  <g font-family="Arial,sans-serif" font-size="22" fill="#20242a">
+    <path d="M330 480 L330 650 L175 650" fill="none" stroke="#7a4c36" stroke-width="3"/>
+    <text x="120" y="700">三条凹槽的导向握位</text>
+    <path d="M1210 470 L1210 620 L1050 620" fill="none" stroke="#7a4c36" stroke-width="3"/>
+    <text x="1000" y="670">笔盖可卡扣闭合；套盖重心需看样本</text>
+    <path d="M155 490 L155 560 L90 560" fill="none" stroke="#7a4c36" stroke-width="3"/>
+    <text x="90" y="535">#6 钢尖</text>
+  </g>
+  <rect x="120" y="755" width="1360" height="45" rx="22" fill="#eadbc9"/>
+  <text x="145" y="786" font-family="Arial,sans-serif" font-size="20" fill="#20242a">示意图不代表真实比例、颜色、库存、Logo、价格或单支笔况；资料边界见型号页来源。</text>
+</svg>

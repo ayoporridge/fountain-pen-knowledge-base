@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc" factual-svg="true" product-photo="false" logo="false" to-scale="false" colour-proof="false">
+  <title id="title">Jinhao X750 identity boundary diagram</title>
+  <desc id="desc">Editorial diagram of the Jinhao X750 metal snap cap fountain pen with number six steel nib, standard international cartridge and converter paths, and postable cap. Not a product photograph and not to scale.</desc>
+  <rect width="1600" height="900" fill="#eef1f3"/>
+  <rect x="70" y="70" width="1460" height="760" rx="34" fill="#ffffff" stroke="#20242a" stroke-width="4"/>
+  <text x="120" y="150" font-family="Georgia,serif" font-size="48" fill="#20242a">Jinhao X750</text>
+  <text x="122" y="195" font-family="Arial,sans-serif" font-size="23" fill="#51606b">identity card · factual SVG · editorial schematic</text>
+  <g transform="translate(150 350)">
+    <path d="M55 110 L320 110 Q350 100 380 84 L1120 84 Q1150 84 1180 110 L1270 110 L1270 170 L1180 170 Q1150 196 1120 196 L380 196 Q350 180 320 170 L55 170 Z" fill="#7d8790" stroke="#20242a" stroke-width="5"/>
+    <path d="M1120 84 L1270 110 L1270 170 L1120 196 Z" fill="#b7c1c9" stroke="#20242a" stroke-width="5"/>
+    <path d="M55 110 L18 140 L55 170 Z" fill="#d7dde2" stroke="#20242a" stroke-width="5"/>
+    <path d="M18 140 L-30 140" stroke="#20242a" stroke-width="12" stroke-linecap="round"/>
+    <path d="M500 80 L500 200 M530 79 L530 201" stroke="#f7f2ea" stroke-width="5" opacity="0.8"/>
+    <circle cx="820" cy="140" r="16" fill="#eef1f3" stroke="#20242a" stroke-width="4"/>
+    <text x="525" y="260" font-family="Arial,sans-serif" font-size="22" fill="#20242a">金属笔身 · 卡扣盖 · 可套盖 · 树脂握位</text>
+  </g>
+  <g font-family="Arial,sans-serif" font-size="22" fill="#20242a">
+    <path d="M195 490 L195 650 L95 650" fill="none" stroke="#51606b" stroke-width="3"/>
+    <text x="90" y="700">#6 钢尖，常见 M；SKU 可有其它尖号</text>
+    <path d="M1250 470 L1250 620 L1050 620" fill="none" stroke="#51606b" stroke-width="3"/>
+    <text x="1000" y="670">标准国际墨囊／转换器</text>
+    <path d="M650 490 L650 560 L470 560" fill="none" stroke="#51606b" stroke-width="3"/>
+    <text x="390" y="535">尺寸与重量是商品／样本量测</text>
+  </g>
+  <rect x="120" y="755" width="1360" height="45" rx="22" fill="#dce5ea"/>
+  <text x="145" y="786" font-family="Arial,sans-serif" font-size="20" fill="#20242a">示意图不代表真实比例、颜色、库存、Logo、价格或单支笔况；资料边界见型号页来源。</text>
+</svg>
