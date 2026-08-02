@@ -107,6 +107,12 @@ export type CliOptions = {
   acknowledgeRemoteWrite: boolean;
   reviewer: string;
   gateOnly: boolean;
+  /**
+   * Use only indexed primary-key reads while reconciling a known-stable
+   * catalog identity. This is intentionally opt-in for the final migration;
+   * the default remains the full diff inspection above.
+   */
+  assumeStableIdentities?: boolean;
 };
 
 type ReadCatalog = {
@@ -155,6 +161,7 @@ function parseOptions(): CliOptions {
     acknowledgeRemoteWrite: process.argv.includes("--ack-remote-write"),
     reviewer: cliValue("--reviewer")?.trim() || DEFAULT_REVIEWER,
     gateOnly: process.argv.includes("--gate-only"),
+    assumeStableIdentities: process.argv.includes("--assume-stable-identities"),
   };
 }
 
@@ -255,13 +262,15 @@ function localSchema(catalog: ReadCatalog, names: string[]): CatalogSchema {
     const uniqueIndexes = indexRows
       .filter((index) => Number(index.unique) === 1 && index.origin !== "pk")
       .map((index) =>
-        (
-          catalog.all<{ name: string; seqno: number }>(
-            `PRAGMA index_info(${quoteIdentifier(String(index.name))})`,
-          ) as { name: string; seqno: number }[]
-        )
-          .sort((left, right) => Number(left.seqno) - Number(right.seqno))
-          .map((column) => String(column.name)),
+        (() => {
+          const indexColumns = (
+            catalog.all<{ name: string; seqno: number }>(
+              `PRAGMA index_info(${quoteIdentifier(String(index.name))})`,
+            ) as { name: string; seqno: number }[]
+          ).sort((left, right) => Number(left.seqno) - Number(right.seqno));
+          if (indexColumns.some((column) => column.name == null)) return [];
+          return indexColumns.map((column) => String(column.name));
+        })(),
       )
       .filter((columns) => columns.length > 0);
     tables.set(name, {
@@ -304,11 +313,12 @@ async function remoteSchema(
         client,
         `PRAGMA index_info(${quoteIdentifier(String(index.name))})`,
       )) as unknown as { name: string; seqno: number }[];
-      uniqueIndexes.push(
-        indexColumns
-          .sort((left, right) => Number(left.seqno) - Number(right.seqno))
-          .map((column) => String(column.name)),
+      const sortedColumns = indexColumns.sort(
+        (left, right) => Number(left.seqno) - Number(right.seqno),
       );
+      if (sortedColumns.some((column) => column.name == null)) continue;
+      const columns = sortedColumns.map((column) => String(column.name));
+      if (columns.length > 0) uniqueIndexes.push(columns);
     }
     tables.set(name, {
       name,
@@ -386,18 +396,25 @@ export function buildUpsertSql(table: TableSchema): string {
   }
   const insertColumns = columns.map(quoteIdentifier).join(", ");
   const placeholders = columns.map(() => "?").join(", ");
-  const conflictColumns = table.primaryKey.map(quoteIdentifier).join(", ");
+  const conflictTargets = [
+    table.primaryKey,
+    ...table.uniqueIndexes.filter((columnsValue) => columnsValue.length > 0),
+  ];
   const updates = columns
     .filter((column) => !table.primaryKey.includes(column))
     .map((column) => `${quoteIdentifier(column)} = excluded.${quoteIdentifier(column)}`);
   if (updates.length === 0) {
-    return `INSERT INTO ${quoteIdentifier(table.name)} (${insertColumns}) VALUES (${placeholders}) ON CONFLICT (${conflictColumns}) DO NOTHING`;
+    return `INSERT INTO ${quoteIdentifier(table.name)} (${insertColumns}) VALUES (${placeholders}) ${conflictTargets.map((target) => `ON CONFLICT (${target.map(quoteIdentifier).join(", ")}) DO NOTHING`).join(" ")}`;
   }
   const changed = columns
     .filter((column) => !table.primaryKey.includes(column))
     .map((column) => `${quoteIdentifier(table.name)}.${quoteIdentifier(column)} IS NOT excluded.${quoteIdentifier(column)}`)
     .join(" OR ");
-  return `INSERT INTO ${quoteIdentifier(table.name)} (${insertColumns}) VALUES (${placeholders}) ON CONFLICT (${conflictColumns}) DO UPDATE SET ${updates.join(", ")} WHERE ${changed}`;
+  const conflictClauses = conflictTargets.map(
+    (target) =>
+      `ON CONFLICT (${target.map(quoteIdentifier).join(", ")}) DO UPDATE SET ${updates.join(", ")} WHERE ${changed}`,
+  );
+  return `INSERT INTO ${quoteIdentifier(table.name)} (${insertColumns}) VALUES (${placeholders}) ${conflictClauses.join(" ")}`;
 }
 
 function formatKey(key: string): string {
@@ -462,6 +479,7 @@ function buildIdentityMappings(
   schema: CatalogSchema,
   localRowsByTable: Map<string, Row[]>,
   remoteRowsByTable: Map<string, Row[]>,
+  onlyMissingPrimaryKeys = false,
 ): IdentityMappings {
   const mappings: IdentityMappings = new Map();
   for (const tableName of topologicalOrder(schema)) {
@@ -470,6 +488,9 @@ function buildIdentityMappings(
     const localRowsValue = localRowsByTable.get(tableName) ?? [];
     const remoteRowsValue = remoteRowsByTable.get(tableName) ?? [];
     if (table.primaryKey.length === 0) continue;
+    const remotePrimaryKeys = new Set(
+      remoteRowsValue.map((row) => rowKey(row, table.primaryKey)),
+    );
     const remoteByUnique = new Map<string, Row>();
     for (const indexColumns of table.uniqueIndexes) {
       for (const row of remoteRowsValue) {
@@ -480,6 +501,7 @@ function buildIdentityMappings(
     const tableMappings = new Map<string, PrimaryKeyValues>();
     for (const localRow of localRowsValue) {
       const localPrimaryKey = rowKey(localRow, table.primaryKey);
+      const localPrimaryKeyPresent = remotePrimaryKeys.has(localPrimaryKey);
       const normalizedLocalRow = transformForeignKeysForRemote(
         table,
         localRow,
@@ -497,6 +519,9 @@ function buildIdentityMappings(
         candidates.map((candidate) => [rowKey(candidate, table.primaryKey), candidate]),
       );
       if (distinctCandidates.size > 1) {
+        if (onlyMissingPrimaryKeys && distinctCandidates.has(localPrimaryKey)) {
+          continue;
+        }
         throw new Error(
           `Ambiguous identity mapping in ${tableName} for ${localPrimaryKey}: ${[...distinctCandidates.keys()].join(", ")}`,
         );
@@ -504,6 +529,9 @@ function buildIdentityMappings(
       const remoteRow = [...distinctCandidates.values()][0];
       if (!remoteRow) continue;
       const remotePrimaryKey = table.primaryKey.map((column) => asSqlValue(remoteRow[column]));
+      if (onlyMissingPrimaryKeys && localPrimaryKeyPresent && rowKey(remoteRow, table.primaryKey) === localPrimaryKey) {
+        continue;
+      }
       if (rowKey(localRow, table.primaryKey) !== rowKey(remoteRow, table.primaryKey)) {
         tableMappings.set(localPrimaryKey, remotePrimaryKey);
       }
@@ -674,6 +702,140 @@ async function inspectCatalogs(
   };
 }
 
+async function inspectCatalogsWithStableIdentities(
+  localCatalog: ReadCatalog,
+  remoteClient: Pick<Client, "execute">,
+): Promise<{
+  inspection: SyncInspection;
+  localSchema: CatalogSchema;
+  remoteSchema: CatalogSchema;
+  localRows: Map<string, Row[]>;
+  remoteRows: Map<string, Row[]>;
+  identityMappings: IdentityMappings;
+}> {
+  const localNames = localTableNames(localCatalog);
+  const remoteNames = await remoteTableNames(remoteClient);
+  const localSchemaValue = localSchema(localCatalog, localNames);
+  const remoteSchemaValue = await remoteSchema(remoteClient, remoteNames);
+  const missingRemoteTables = localNames.filter((name) => !remoteSchemaValue.tables.has(name));
+  const extraRemoteTables = remoteNames.filter((name) => !localSchemaValue.tables.has(name));
+  const schemaMatches =
+    missingRemoteTables.length === 0 &&
+    localNames.every(
+      (name) =>
+        remoteSchemaValue.tables.has(name) &&
+        schemaCompatible(
+          localSchemaValue.tables.get(name) as TableSchema,
+          remoteSchemaValue.tables.get(name) as TableSchema,
+        ),
+    );
+  const schemaMismatches = localNames.filter(
+    (name) =>
+      remoteSchemaValue.tables.has(name) &&
+      !schemaCompatible(
+        localSchemaValue.tables.get(name) as TableSchema,
+        remoteSchemaValue.tables.get(name) as TableSchema,
+      ),
+  );
+  const foreignKeyDrift = localNames.filter(
+    (name) =>
+      remoteSchemaValue.tables.has(name) &&
+      foreignKeySignature(localSchemaValue.tables.get(name) as TableSchema) !==
+        foreignKeySignature(remoteSchemaValue.tables.get(name) as TableSchema),
+  );
+  const localRowsByTable = new Map<string, Row[]>();
+  for (const name of localNames) {
+    const table = localSchemaValue.tables.get(name);
+    if (!table) continue;
+    localRowsByTable.set(name, localRows(localCatalog, name, table.columns));
+  }
+
+  const entitiesTable = remoteSchemaValue.tables.get("entities");
+  if (!entitiesTable || entitiesTable.primaryKey.length !== 1 || entitiesTable.primaryKey[0] !== "id") {
+    throw new Error("Bounded stable-ID reconciliation requires the entities(id) primary key.");
+  }
+  // Read only primary-key and UNIQUE-index columns from each remote table.
+  // This is enough for the existing natural-key identity mapper to preserve
+  // foreign keys, while avoiding the large Markdown/JSON payload columns.
+  const remoteRowsByTable = new Map<string, Row[]>();
+  for (const name of localNames) {
+    const table = remoteSchemaValue.tables.get(name);
+    if (!table || table.primaryKey.length === 0) continue;
+    const indexedColumns = [
+      ...table.primaryKey,
+      ...table.uniqueIndexes.flat(),
+    ].filter((column, index, columns) => columns.indexOf(column) === index);
+    const selectedColumns = indexedColumns.map(quoteIdentifier).join(", ");
+    remoteRowsByTable.set(
+      name,
+      await remoteRows(
+        remoteClient,
+        `SELECT ${selectedColumns} FROM ${quoteIdentifier(name)}`,
+      ),
+    );
+  }
+  const remoteEntityIds = remoteRowsByTable.get("entities") ?? [];
+  const localEntityIds = new Set(
+    (localRowsByTable.get("entities") ?? []).map((row) => String(row.id)),
+  );
+  const remoteEntityOnly = remoteEntityIds
+    .map((row) => String(row.id))
+    .filter((id) => !localEntityIds.has(id));
+  if (remoteEntityOnly.length > 0) {
+    throw new Error(
+      `Bounded stable-ID reconciliation found ${remoteEntityOnly.length} remote entity id(s) absent from the owned source; use the full diff path after the remote quota resets.`,
+    );
+  }
+
+  // Publication rows are small and need their approved hash/revision to skip
+  // unchanged published entities. Reviews only need their primary keys here;
+  // the publication restore reads approved review keys separately.
+  const publicationTable = remoteSchemaValue.tables.get(PUBLICATION_TABLE);
+  if (publicationTable) {
+    const publicationColumns = publicationTable.columns.map((column) => quoteIdentifier(column.name)).join(", ");
+    remoteRowsByTable.set(
+      PUBLICATION_TABLE,
+      await remoteRows(
+        remoteClient,
+        `SELECT ${publicationColumns} FROM ${quoteIdentifier(PUBLICATION_TABLE)}`,
+      ),
+    );
+  }
+  const reviewTable = remoteSchemaValue.tables.get(CONTENT_REVIEW_TABLE);
+  if (reviewTable) {
+    const reviewColumns = reviewTable.primaryKey.map(quoteIdentifier).join(", ");
+    remoteRowsByTable.set(
+      CONTENT_REVIEW_TABLE,
+      await remoteRows(
+        remoteClient,
+        `SELECT ${reviewColumns} FROM ${quoteIdentifier(CONTENT_REVIEW_TABLE)}`,
+      ),
+    );
+  }
+  return {
+    inspection: {
+      schemaMatches,
+      schemaMismatches,
+      foreignKeyDrift,
+      localTables: localNames,
+      remoteTables: remoteNames,
+      missingRemoteTables,
+      extraRemoteTables,
+      diffs: [],
+    },
+    localSchema: localSchemaValue,
+    remoteSchema: remoteSchemaValue,
+    localRows: localRowsByTable,
+    remoteRows: remoteRowsByTable,
+    identityMappings: buildIdentityMappings(
+      localSchemaValue,
+      localRowsByTable,
+      remoteRowsByTable,
+      true,
+    ),
+  };
+}
+
 export function assertSafeSource(options: CliOptions): void {
   const ownedRoot = fs.realpathSync(options.ownedRoot);
   const protectedPath = fs.realpathSync(options.protectedCatalogPath);
@@ -715,9 +877,13 @@ function tableStatements(
   });
 }
 
-async function executeBatched(tx: Transaction, statements: InStatement[]): Promise<void> {
-  for (let offset = 0; offset < statements.length; offset += BATCH_SIZE) {
-    await tx.batch(statements.slice(offset, offset + BATCH_SIZE));
+async function executeBatched(
+  tx: Transaction,
+  statements: InStatement[],
+  batchSize = BATCH_SIZE,
+): Promise<void> {
+  for (let offset = 0; offset < statements.length; offset += batchSize) {
+    await tx.batch(statements.slice(offset, offset + batchSize));
   }
 }
 
@@ -727,6 +893,8 @@ async function syncDataTables(
   rowsByTable: Map<string, Row[]>,
   remoteRowsByTable: Map<string, Row[]>,
   mappings: IdentityMappings,
+  batchSize = BATCH_SIZE,
+  remoteSchemaValue?: CatalogSchema,
 ): Promise<number> {
   let rowCount = 0;
   for (const tableName of topologicalOrder(schema)) {
@@ -740,8 +908,19 @@ async function syncDataTables(
       schema,
       mappings,
     );
+    const remoteTable = remoteSchemaValue?.tables.get(tableName);
+    const upsertTable = remoteTable
+      ? {
+          ...table,
+          uniqueIndexes: table.uniqueIndexes.filter((localIndex) =>
+            remoteTable.uniqueIndexes.some(
+              (remoteIndex) => JSON.stringify(remoteIndex) === JSON.stringify(localIndex),
+            ),
+          ),
+        }
+      : table;
     const statements = tableStatements(
-      table,
+      upsertTable,
       rowsToSync,
       schema,
       mappings,
@@ -751,14 +930,14 @@ async function syncDataTables(
     // Keep each HTTP batch in its own bounded transaction. A transaction
     // spanning a large table can remain open for minutes over Turso HTTP and
     // makes an otherwise idempotent retry unnecessarily expensive.
-    for (let offset = 0; offset < statements.length; offset += BATCH_SIZE) {
+    for (let offset = 0; offset < statements.length; offset += batchSize) {
       const tx = await client.transaction("write");
       try {
-        console.log(`  batch ${tableName}: ${offset + 1}-${Math.min(offset + BATCH_SIZE, statements.length)}`);
+        console.log(`  batch ${tableName}: ${offset + 1}-${Math.min(offset + batchSize, statements.length)}`);
         await tx.execute("PRAGMA defer_foreign_keys = ON");
-        await executeBatched(tx, statements.slice(offset, offset + BATCH_SIZE));
+        await executeBatched(tx, statements.slice(offset, offset + batchSize), batchSize);
         await tx.commit();
-        rowCount += Math.min(BATCH_SIZE, statements.length - offset);
+        rowCount += Math.min(batchSize, statements.length - offset);
       } catch (error) {
         if (!tx.closed) await tx.rollback();
         throw error;
@@ -926,11 +1105,12 @@ async function resetPublicationBase(
   client: Client,
   rows: Row[],
   skipPublishedEntityIds: Set<string>,
+  batchSize = BATCH_SIZE,
 ): Promise<void> {
   const columns = publicationColumns();
   const upsertSql = `INSERT INTO entity_publications (${columns.map(quoteIdentifier).join(",")}) VALUES (${columns.map(() => "?").join(",")}) ON CONFLICT(entity_id) DO UPDATE SET ${columns.filter((column) => column !== "entity_id").map((column) => `${quoteIdentifier(column)}=excluded.${quoteIdentifier(column)}`).join(",")}`;
-  for (let offset = 0; offset < rows.length; offset += BATCH_SIZE) {
-    const chunk = rows.slice(offset, offset + BATCH_SIZE);
+  for (let offset = 0; offset < rows.length; offset += batchSize) {
+    const chunk = rows.slice(offset, offset + batchSize);
     const statements: InStatement[] = [];
     for (const row of chunk) {
       const entityId = String(row.entity_id);
@@ -950,7 +1130,7 @@ async function resetPublicationBase(
         args: insertValues as InArgs,
       });
     }
-    console.log(`  batch entity_publications: ${offset + 1}-${Math.min(offset + BATCH_SIZE, rows.length)}`);
+    console.log(`  batch entity_publications: ${offset + 1}-${Math.min(offset + batchSize, rows.length)}`);
     if (statements.length > 0) await client.batch(statements, "write");
   }
 }
@@ -962,6 +1142,7 @@ async function syncContentReviews(
   catalogSchema: CatalogSchema,
   mappings: IdentityMappings,
   remoteRowsValue: Row[],
+  batchSize = CONTENT_REVIEW_BATCH_SIZE,
 ): Promise<Set<string>> {
   const changedRows = rowsNeedingSync(
     schema,
@@ -993,10 +1174,10 @@ async function syncContentReviews(
     const remoteRow = transformRowForRemote(schema, row, catalogSchema, mappings);
     changedEntityIds.add(String(remoteRow.entity_id));
   }
-  await markPublicationsInReview(client, changedEntityIds);
-  for (let offset = 0; offset < statements.length; offset += CONTENT_REVIEW_BATCH_SIZE) {
-    const chunk = statements.slice(offset, offset + CONTENT_REVIEW_BATCH_SIZE);
-    console.log(`  batch entity_content_reviews: ${offset + 1}-${Math.min(offset + CONTENT_REVIEW_BATCH_SIZE, statements.length)}`);
+  await markPublicationsInReview(client, changedEntityIds, batchSize);
+  for (let offset = 0; offset < statements.length; offset += batchSize) {
+    const chunk = statements.slice(offset, offset + batchSize);
+    console.log(`  batch entity_content_reviews: ${offset + 1}-${Math.min(offset + batchSize, statements.length)}`);
     // Reviews do not need deferred foreign keys. Use the client's bounded
     // write batch directly so a stalled HTTP transaction cannot hold the
     // entire review phase open.
@@ -1008,11 +1189,12 @@ async function syncContentReviews(
 async function markPublicationsInReview(
   client: Client,
   entityIds: Set<string>,
+  batchSize = BATCH_SIZE,
 ): Promise<void> {
   const ids = [...entityIds];
-  for (let offset = 0; offset < ids.length; offset += BATCH_SIZE) {
-    const chunk = ids.slice(offset, offset + BATCH_SIZE);
-    console.log(`  batch publication review hold: ${offset + 1}-${Math.min(offset + BATCH_SIZE, ids.length)}`);
+  for (let offset = 0; offset < ids.length; offset += batchSize) {
+    const chunk = ids.slice(offset, offset + batchSize);
+    console.log(`  batch publication review hold: ${offset + 1}-${Math.min(offset + batchSize, ids.length)}`);
     await client.batch(
       chunk.map((entityId) => ({
         sql: "UPDATE entity_publications SET status='in_review', published_at=NULL, updated_at=datetime('now') WHERE entity_id=? AND status='published'",
@@ -1194,8 +1376,16 @@ async function main(): Promise<void> {
       console.log("Protected local catalog snapshot unchanged.");
       return;
     }
-    const inspected = await inspectCatalogs(localCatalog, remote);
-    printInspection(inspected.inspection);
+    const inspected = options.assumeStableIdentities
+      ? await inspectCatalogsWithStableIdentities(localCatalog, remote)
+      : await inspectCatalogs(localCatalog, remote);
+    if (options.assumeStableIdentities) {
+      console.log("Bounded stable-ID reconciliation: indexed entity/review reads only; remote data payloads were not scanned.");
+      console.log(`Local source rows: ${[...inspected.localRows.values()].reduce((total, rows) => total + rows.length, 0)}`);
+      console.log(`Remote entity primary keys checked: ${inspected.remoteRows.get("entities")?.length ?? 0}`);
+    } else {
+      printInspection(inspected.inspection);
+    }
     if (!inspected.inspection.schemaMatches) {
       throw new Error("Schema mismatch; run the remote migration before catalog sync.");
     }
@@ -1223,15 +1413,18 @@ async function main(): Promise<void> {
     if (!options.acknowledgeRemoteWrite) {
       throw new Error("Remote writes require both --apply and --ack-remote-write.");
     }
+    const boundedBatchSize = options.assumeStableIdentities ? 100 : BATCH_SIZE;
     const dataRows = await syncDataTables(
       remote,
       inspected.localSchema,
       localRowsByTable,
       inspected.remoteRows,
       inspected.identityMappings,
+      boundedBatchSize,
+      inspected.remoteSchema,
     );
     console.log("Sync phase: publication base");
-    await resetPublicationBase(remote, publicationRows, skipPublishedEntityIds);
+    await resetPublicationBase(remote, publicationRows, skipPublishedEntityIds, boundedBatchSize);
     const reviewSchema = inspected.localSchema.tables.get(CONTENT_REVIEW_TABLE);
     if (!reviewSchema) throw new Error("Local entity_content_reviews schema missing.");
     console.log("Sync phase: content reviews");
@@ -1242,6 +1435,7 @@ async function main(): Promise<void> {
       inspected.localSchema,
       inspected.identityMappings,
       inspected.remoteRows.get(CONTENT_REVIEW_TABLE) ?? [],
+      options.assumeStableIdentities ? 100 : CONTENT_REVIEW_BATCH_SIZE,
     );
     const effectiveSkipPublishedEntityIds = new Set(skipPublishedEntityIds);
     for (const entityId of reviewEntityIds) {

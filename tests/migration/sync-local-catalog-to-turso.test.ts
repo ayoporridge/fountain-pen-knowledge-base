@@ -27,11 +27,12 @@ test("Turso catalog sync builds guarded upserts without destructive SQL", () => 
     ],
     primaryKey: ["id"],
     foreignKeys: [],
-    uniqueIndexes: [],
+    uniqueIndexes: [["name"]],
   };
   const sql = buildUpsertSql(table);
-  assert.match(sql, /ON CONFLICT/);
-  assert.match(sql, /DO UPDATE SET/);
+  assert.equal((sql.match(/ON CONFLICT/g) ?? []).length, 2);
+  assert.match(sql, /ON CONFLICT \("id"\) DO UPDATE SET/);
+  assert.match(sql, /ON CONFLICT \("name"\) DO UPDATE SET/);
   assert.match(sql, /WHERE/);
   assert.doesNotMatch(sql, /DROP\s+TABLE/i);
 });
@@ -78,7 +79,10 @@ test("Turso catalog sync accepts only an owned checkpoint source", () => {
     const row = readOnly.get<{ count: number }>(
       "SELECT count(*) AS count FROM entities",
     );
-    assert.equal(Number(row?.count), 893);
+    // The protected catalog is intentionally allowed to grow as content packs
+    // are formally migrated; this guards against an empty or truncated copy
+    // without freezing the test to the pre-migration inventory count.
+    assert.ok(Number(row?.count) >= 893);
   } finally {
     readOnly.close();
   }
