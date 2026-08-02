@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Waterman Edson factual diagram</title>
+  <desc id="desc">Non-photo, non-logo, not-to-scale, non-colour-proof diagram showing the Edson timeline, twin-shell resin body, 18K rhodium-plated nib and cartridge converter boundary.</desc>
+  <rect width="1600" height="900" fill="#f4efe7"/>
+  <rect x="90" y="84" width="1420" height="732" rx="38" fill="#fffaf2" stroke="#1d3557" stroke-width="5"/>
+  <text x="150" y="170" fill="#1d3557" font-family="sans-serif" font-size="58" font-weight="700">WATERMAN EDSON</text>
+  <text x="150" y="218" fill="#6b6259" font-family="sans-serif" font-size="28">1990–92 之后的椭圆大体量系列 · factual diagram</text>
+  <line x1="170" y1="310" x2="1430" y2="310" stroke="#d3b55f" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="360" cy="310" r="26" fill="#1d3557"/>
+  <circle cx="820" cy="310" r="26" fill="#1d3557"/>
+  <circle cx="1260" cy="310" r="26" fill="#1d3557"/>
+  <text x="310" y="275" fill="#1d3557" font-family="sans-serif" font-size="30" font-weight="700">1990–92</text>
+  <text x="286" y="365" fill="#6b6259" font-family="sans-serif" font-size="26">Expert / Edson</text>
+  <text x="774" y="275" fill="#1d3557" font-family="sans-serif" font-size="30" font-weight="700">1994</text>
+  <text x="750" y="365" fill="#6b6259" font-family="sans-serif" font-size="26">Hémisphère</text>
+  <text x="1220" y="275" fill="#1d3557" font-family="sans-serif" font-size="30" font-weight="700">1997</text>
+  <text x="1212" y="365" fill="#6b6259" font-family="sans-serif" font-size="26">Carène</text>
+  <g transform="translate(180 430)">
+    <path d="M90 100 C120 58 170 38 250 38 H830 C910 38 960 58 990 100 C960 142 910 162 830 162 H250 C170 162 120 142 90 100Z" fill="#172f4d" stroke="#0b1c2e" stroke-width="6"/>
+    <path d="M270 58 H805 C860 58 900 72 925 100 C900 128 860 142 805 142 H270 C215 142 175 128 150 100 C175 72 215 58 270 58Z" fill="#477da6" opacity=".78"/>
+    <path d="M990 60 L1160 60 Q1190 60 1212 100 Q1190 140 1160 140 L990 140Z" fill="#c0c8cf" stroke="#7f8a95" stroke-width="6"/>
+    <path d="M1212 80 L1325 100 L1212 120Z" fill="#e1bd68" stroke="#8d6c24" stroke-width="5"/>
+    <line x1="1210" y1="72" x2="1210" y2="128" stroke="#f2f4f5" stroke-width="5"/>
+    <text x="335" y="220" fill="#1d3557" font-family="sans-serif" font-size="28" font-weight="700">twin-shell resin / SAN lacquer</text>
+    <text x="990" y="220" fill="#1d3557" font-family="sans-serif" font-size="28" font-weight="700">18K rhodium-plated</text>
+    <text x="1020" y="255" fill="#6b6259" font-family="sans-serif" font-size="24">nib · cartridge/converter</text>
+  </g>
+  <rect x="150" y="730" width="1300" height="54" rx="27" fill="#e9dfcd"/>
+  <text x="800" y="766" text-anchor="middle" fill="#6b6259" font-family="sans-serif" font-size="23">Diamond Black catalogue sample: 155 mm posted · 15 mm diameter · 43 g</text>
+  <text x="150" y="850" fill="#8a3b2f" font-family="sans-serif" font-size="22">示意图，非产品照片 · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+</svg>
