@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pilot Capless Stripe FC-3MS factual card</title>
+  <desc id="desc">Factual editorial diagram: rhodium-finished brass striped Capless FC-3MS, 18K F/M and CON-40. Non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#e8e9ec"/>
+  <rect x="64" y="64" width="1472" height="772" rx="34" fill="#fcfcfd" stroke="#656a72" stroke-width="4"/>
+  <text x="120" y="150" fill="#292d33" font-family="Arial, sans-serif" font-size="54" font-weight="700">Pilot Capless Stripe / FC-3MS</text>
+  <text x="120" y="205" fill="#656a72" font-family="Arial, sans-serif" font-size="28">Rhodium-finished brass · S-F / S-M</text>
+  <g transform="translate(160 310)">
+    <rect x="120" y="70" width="900" height="110" rx="55" fill="#b8bcc2" stroke="#575d66" stroke-width="8"/>
+    <g stroke="#eef1f4" stroke-width="12" opacity=".95">
+      <path d="M185 80 L265 170"/><path d="M285 80 L365 170"/><path d="M385 80 L465 170"/><path d="M485 80 L565 170"/><path d="M585 80 L665 170"/><path d="M685 80 L765 170"/><path d="M785 80 L865 170"/><path d="M885 80 L965 170"/>
+    </g>
+    <rect x="1020" y="95" width="130" height="60" rx="14" fill="#8f959d" stroke="#575d66" stroke-width="8"/>
+    <path d="M1150 125 L1240 125" stroke="#575d66" stroke-width="8"/><path d="M55 125 L120 125" stroke="#575d66" stroke-width="8"/>
+    <text x="430" y="140" fill="#ffffff" font-family="Arial, sans-serif" font-size="31" font-weight="700">STRIPE</text>
+  </g>
+  <g fill="#292d33" font-family="Arial, sans-serif" font-size="30">
+    <text x="150" y="590">finish</text><text x="430" y="590">黄铜 · rhodium stripe</text>
+    <text x="150" y="650">nib / filling</text><text x="430" y="650">18K · F / M · CON-40</text>
+    <text x="150" y="710">mechanism</text><text x="430" y="710">Capless knock · shutter</text>
+    <text x="1120" y="590">140 mm</text><text x="1120" y="650">13.3 mm max</text><text x="1120" y="710">32 g</text>
+  </g>
+  <text x="120" y="790" fill="#656a72" font-family="Arial, sans-serif" font-size="21">本站原创 factual SVG · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+</svg>

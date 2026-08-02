@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pilot Capless SE FCSE-3MR factual card</title>
+  <desc id="desc">Factual editorial diagram: urethane-resin marble Capless SE, five marble colours, 18K F/M and CON-40. Non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#f0e9f1"/>
+  <rect x="64" y="64" width="1472" height="772" rx="34" fill="#fffafd" stroke="#866c88" stroke-width="4"/>
+  <text x="120" y="150" fill="#453748" font-family="Arial, sans-serif" font-size="54" font-weight="700">Pilot Capless SE / FCSE-3MR</text>
+  <text x="120" y="205" fill="#866c88" font-family="Arial, sans-serif" font-size="28">Marble Black · Blue · Green · Red · Orange</text>
+  <g transform="translate(160 310)">
+    <rect x="120" y="70" width="900" height="110" rx="55" fill="#ad7c93" stroke="#674b65" stroke-width="8"/>
+    <path d="M160 120 C245 58 300 180 390 105 S550 70 610 145 S760 160 840 90 S965 112 1010 144" fill="none" stroke="#e6c8d7" stroke-width="20" opacity=".85"/>
+    <path d="M165 160 C260 115 335 175 420 138 S585 160 660 100 S810 85 920 155" fill="none" stroke="#805a7b" stroke-width="14" opacity=".8"/>
+    <rect x="1020" y="95" width="130" height="60" rx="14" fill="#a3a8b0" stroke="#674b65" stroke-width="8"/>
+    <path d="M1150 125 L1240 125" stroke="#674b65" stroke-width="8"/><path d="M55 125 L120 125" stroke="#674b65" stroke-width="8"/>
+    <text x="455" y="140" fill="#fffafd" font-family="Arial, sans-serif" font-size="31" font-weight="700">SE / MARBLE</text>
+  </g>
+  <g fill="#453748" font-family="Arial, sans-serif" font-size="30">
+    <text x="150" y="590">material</text><text x="430" y="590">urethane resin · unique marble pattern</text>
+    <text x="150" y="650">nib / filling</text><text x="430" y="650">18K · F / M · CON-40</text>
+    <text x="150" y="710">mechanism</text><text x="430" y="710">Capless knock · shutter</text>
+    <text x="1120" y="590">140 mm</text><text x="1120" y="650">14 mm max</text><text x="1120" y="710">26 g</text>
+  </g>
+  <text x="120" y="790" fill="#866c88" font-family="Arial, sans-serif" font-size="21">本站原创 factual SVG · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+</svg>

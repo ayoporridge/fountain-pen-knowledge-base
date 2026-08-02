@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pilot Capless Special Alloy FCS-1 factual card</title>
+  <desc id="desc">Factual editorial diagram: FCS-1 special alloy nib, matte silver copper deep green ash blue finishes, CON-40 and retractable Capless. Non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#ecefed"/>
+  <rect x="64" y="64" width="1472" height="772" rx="34" fill="#fcfffd" stroke="#586861" stroke-width="4"/>
+  <text x="120" y="150" fill="#293b33" font-family="Arial, sans-serif" font-size="54" font-weight="700">Pilot Capless Special Alloy / FCS-1</text>
+  <text x="120" y="205" fill="#586861" font-family="Arial, sans-serif" font-size="28">MS · MCO · MDG · MAL · special alloy nib</text>
+  <g transform="translate(160 310)">
+    <rect x="120" y="70" width="900" height="110" rx="55" fill="#6d7774" stroke="#34433b" stroke-width="8"/>
+    <path d="M155 92 H270" stroke="#dce3df" stroke-width="14"/><path d="M300 92 H400" stroke="#c59063" stroke-width="14"/><path d="M430 92 H540" stroke="#546f58" stroke-width="14"/><path d="M570 92 H680" stroke="#8297a4" stroke-width="14"/>
+    <path d="M155 148 H270" stroke="#dce3df" stroke-width="14"/><path d="M300 148 H400" stroke="#c59063" stroke-width="14"/><path d="M430 148 H540" stroke="#546f58" stroke-width="14"/><path d="M570 148 H680" stroke="#8297a4" stroke-width="14"/>
+    <rect x="1020" y="95" width="130" height="60" rx="14" fill="#a8b0ad" stroke="#34433b" stroke-width="8"/>
+    <path d="M1150 125 L1240 125" stroke="#34433b" stroke-width="8"/><path d="M55 125 L120 125" stroke="#34433b" stroke-width="8"/>
+    <text x="390" y="140" fill="#f8fbf9" font-family="Arial, sans-serif" font-size="31" font-weight="700">SPECIAL ALLOY</text>
+  </g>
+  <g fill="#293b33" font-family="Arial, sans-serif" font-size="30">
+    <text x="150" y="590">nib</text><text x="430" y="590">特殊合金 · F / M（非 18K）</text>
+    <text x="150" y="650">finish / filling</text><text x="430" y="650">MS · MCO · MDG · MAL · CON-40</text>
+    <text x="150" y="710">mechanism</text><text x="430" y="710">Capless knock · shutter</text>
+    <text x="1120" y="590">140 mm</text><text x="1120" y="650">13.4 mm max</text><text x="1120" y="710">30 g</text>
+  </g>
+  <text x="120" y="790" fill="#586861" font-family="Arial, sans-serif" font-size="21">本站原创 factual SVG · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+</svg>

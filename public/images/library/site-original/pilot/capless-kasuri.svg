@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pilot Capless Kasuri FCN-2MR factual card</title>
+  <desc id="desc">Factual editorial diagram: FCN-2MR black and blue kasuri pattern, 18K F/M, CON-40 and retractable shutter. Non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#e9eef5"/>
+  <rect x="64" y="64" width="1472" height="772" rx="34" fill="#fbfdff" stroke="#41627f" stroke-width="4"/>
+  <text x="120" y="150" fill="#21384f" font-family="Arial, sans-serif" font-size="54" font-weight="700">Pilot Capless 絣 / FCN-2MR</text>
+  <text x="120" y="205" fill="#41627f" font-family="Arial, sans-serif" font-size="28">Kasuri Black / Blue · KB / KL</text>
+  <g transform="translate(160 310)">
+    <rect x="120" y="70" width="900" height="110" rx="55" fill="#26394d" stroke="#9db6ca" stroke-width="8"/>
+    <g stroke="#d4e2ef" stroke-width="8" opacity=".9">
+      <path d="M180 82 l35 35 -30 37"/><path d="M270 163 l35 -35 -30 -38"/><path d="M390 82 l35 35 -30 37"/><path d="M480 163 l35 -35 -30 -38"/><path d="M600 82 l35 35 -30 37"/><path d="M690 163 l35 -35 -30 -38"/><path d="M810 82 l35 35 -30 37"/><path d="M900 163 l35 -35 -30 -38"/>
+    </g>
+    <rect x="1020" y="95" width="130" height="60" rx="14" fill="#9ba6af" stroke="#3b5267" stroke-width="8"/>
+    <path d="M1150 125 L1240 125" stroke="#3b5267" stroke-width="8"/><path d="M55 125 L120 125" stroke="#3b5267" stroke-width="8"/>
+    <text x="430" y="140" fill="#f7fbff" font-family="Arial, sans-serif" font-size="31" font-weight="700">PRESS / RETRACT</text>
+  </g>
+  <g fill="#21384f" font-family="Arial, sans-serif" font-size="30">
+    <text x="150" y="590">finish</text><text x="430" y="590">Kasuri Black KB · Blue KL</text>
+    <text x="150" y="650">nib / filling</text><text x="430" y="650">18K · F / M · CON-40</text>
+    <text x="150" y="710">mechanism</text><text x="430" y="710">Capless knock · shutter</text>
+    <text x="1120" y="590">140 mm</text><text x="1120" y="650">13.4 mm max</text><text x="1120" y="710">30 g</text>
+  </g>
+  <text x="120" y="790" fill="#41627f" font-family="Arial, sans-serif" font-size="21">本站原创 factual SVG · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+</svg>
