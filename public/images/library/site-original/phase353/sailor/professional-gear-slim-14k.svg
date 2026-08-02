@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <!-- Fountain Pen Graph site-original factual diagram: non-photo, non-logo, not-to-scale, non-colour-proof. -->
+  <title id="title">Sailor Professional Gear Slim 14K 11-1221 and 11-1222 factual diagram</title>
+  <desc id="desc">A non-photo, non-logo, not-to-scale, non-colour-proof editorial diagram showing the shared 14K Slim platform, gold and rhodium trim routes, dimensions and filling system.</desc>
+  <rect width="1600" height="900" fill="#f5f0e8"/>
+  <rect x="70" y="70" width="1460" height="760" rx="32" fill="#fffdf9" stroke="#28323a" stroke-width="4"/>
+  <text x="130" y="155" fill="#28323a" font-family="Arial, sans-serif" font-size="42" font-weight="700">Professional Gear Slim 14K</text>
+  <text x="130" y="202" fill="#68727a" font-family="Arial, sans-serif" font-size="23">11-1221 Gold Trim · 11-1222 Rhodium Trim · factual editorial diagram</text>
+
+  <g transform="translate(150 300)">
+    <text x="0" y="-42" fill="#28323a" font-family="Arial, sans-serif" font-size="24" font-weight="700">共享平台（示意）</text>
+    <path d="M70 0 H760 C790 0 810 18 810 45 V77 C810 104 790 122 760 122 H70 C40 122 20 104 20 77 V45 C20 18 40 0 70 0Z" fill="#9fa9af" stroke="#28323a" stroke-width="5"/>
+    <path d="M760 0 H850 C878 0 900 20 900 45 V77 C900 102 878 122 850 122 H760Z" fill="#d1d6d9" stroke="#28323a" stroke-width="5"/>
+    <path d="M20 45 H900" stroke="#e9edf0" stroke-width="5" opacity="0.8"/>
+    <path d="M225 0 V122 M675 0 V122" stroke="#28323a" stroke-width="3" opacity="0.45"/>
+    <text x="270" y="180" fill="#28323a" font-family="Arial, sans-serif" font-size="25">PMMA resin body · 14K medium nib</text>
+    <line x1="20" y1="220" x2="900" y2="220" stroke="#a26b45" stroke-width="3"/>
+    <line x1="20" y1="208" x2="20" y2="232" stroke="#a26b45" stroke-width="3"/>
+    <line x1="900" y1="208" x2="900" y2="232" stroke="#a26b45" stroke-width="3"/>
+    <text x="337" y="260" fill="#a26b45" font-family="Arial, sans-serif" font-size="26" font-weight="700">φ17 × 124 mm（含笔夹）</text>
+  </g>
+
+  <g transform="translate(1160 285)">
+    <rect x="0" y="0" width="290" height="150" rx="22" fill="#f5e0bd" stroke="#a26b45" stroke-width="4"/>
+    <text x="35" y="53" fill="#75451e" font-family="Arial, sans-serif" font-size="28" font-weight="700">11-1221</text>
+    <text x="35" y="94" fill="#75451e" font-family="Arial, sans-serif" font-size="23">Gold Trim</text>
+    <text x="35" y="127" fill="#75451e" font-family="Arial, sans-serif" font-size="18">EF/F/MF/M/B/Z/MS</text>
+    <rect x="0" y="190" width="290" height="150" rx="22" fill="#e5e7e8" stroke="#69747b" stroke-width="4"/>
+    <text x="35" y="243" fill="#28323a" font-family="Arial, sans-serif" font-size="28" font-weight="700">11-1222</text>
+    <text x="35" y="284" fill="#28323a" font-family="Arial, sans-serif" font-size="23">Rhodium Trim</text>
+    <text x="35" y="317" fill="#28323a" font-family="Arial, sans-serif" font-size="18">EF/F/MF/M/B/Z/MS</text>
+  </g>
+
+  <g transform="translate(170 690)">
+    <circle cx="20" cy="0" r="9" fill="#a26b45"/>
+    <text x="45" y="8" fill="#28323a" font-family="Arial, sans-serif" font-size="23">16.8 g · Sailor 墨囊／转换器两用</text>
+    <circle cx="590" cy="0" r="9" fill="#a26b45"/>
+    <text x="615" y="8" fill="#28323a" font-family="Arial, sans-serif" font-size="23">与 Slim 21、Slim Mini、全尺寸 Pro Gear 分开建模</text>
+  </g>
+  <text x="130" y="785" fill="#68727a" font-family="Arial, sans-serif" font-size="18">NON-PHOTO · NON-LOGO · NOT-TO-SCALE · NON-COLOUR-PROOF · 不证明真实颜色、比例、批次或库存</text>
+</svg>
