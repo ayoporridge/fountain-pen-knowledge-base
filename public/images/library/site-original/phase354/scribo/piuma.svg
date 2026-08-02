@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <!-- Fountain Pen Graph site-original factual diagram: non-photo, non-logo, not-to-scale, non-colour-proof. -->
+  <title id="title">SCRIBO Piuma factual diagram</title>
+  <desc id="desc">A non-photo, non-logo, not-to-scale, non-colour-proof editorial diagram showing the SCRIBO Piuma resin cartridge/converter platform and its two gold nib routes.</desc>
+  <rect width="1600" height="900" fill="#f3eee8"/>
+  <rect x="72" y="72" width="1456" height="756" rx="34" fill="#fffdfa" stroke="#2b3035" stroke-width="4"/>
+  <text x="132" y="155" fill="#2b3035" font-family="Arial, sans-serif" font-size="44" font-weight="700">SCRIBO Piuma</text>
+  <text x="132" y="204" fill="#6c7278" font-family="Arial, sans-serif" font-size="23">树脂笔身 · international cartridge/converter · Piuma collection</text>
+
+  <g transform="translate(132 305)">
+    <text x="0" y="-46" fill="#2b3035" font-family="Arial, sans-serif" font-size="25" font-weight="700">共享笔身平台（示意）</text>
+    <path d="M86 0 H700 C730 0 748 20 748 49 V80 C748 109 730 129 700 129 H86 C55 129 32 108 32 78 V51 C32 21 55 0 86 0Z" fill="#9f7362" stroke="#2b3035" stroke-width="5"/>
+    <path d="M700 0 H780 C809 0 830 21 830 50 V79 C830 108 809 129 780 129 H700Z" fill="#b5b9ba" stroke="#2b3035" stroke-width="5"/>
+    <path d="M32 50 H830" stroke="#ead8d0" stroke-width="4" opacity="0.7"/>
+    <path d="M230 0 V129 M560 0 V129" stroke="#2b3035" stroke-width="3" opacity="0.45"/>
+    <text x="245" y="183" fill="#2b3035" font-family="Arial, sans-serif" font-size="24">天然树脂 · 铂色饰件 · ebonite feed</text>
+    <line x1="32" y1="220" x2="830" y2="220" stroke="#a45b45" stroke-width="3"/>
+    <line x1="32" y1="208" x2="32" y2="232" stroke="#a45b45" stroke-width="3"/>
+    <line x1="830" y1="208" x2="830" y2="232" stroke="#a45b45" stroke-width="3"/>
+    <text x="280" y="263" fill="#a45b45" font-family="Arial, sans-serif" font-size="26" font-weight="700">144.5 mm · max φ15.60 mm · 30 g</text>
+  </g>
+
+  <g transform="translate(1110 285)">
+    <rect x="0" y="0" width="315" height="154" rx="24" fill="#f0e1bf" stroke="#9f7840" stroke-width="4"/>
+    <text x="34" y="53" fill="#6b4b1c" font-family="Arial, sans-serif" font-size="27" font-weight="700">18K standard</text>
+    <text x="34" y="94" fill="#6b4b1c" font-family="Arial, sans-serif" font-size="21">EEF · EF · F · M · B</text>
+    <text x="34" y="128" fill="#6b4b1c" font-family="Arial, sans-serif" font-size="19">BBB · 1.4 mm Stub</text>
+    <rect x="0" y="190" width="315" height="154" rx="24" fill="#e3c3b6" stroke="#a45b45" stroke-width="4"/>
+    <text x="34" y="243" fill="#68392e" font-family="Arial, sans-serif" font-size="27" font-weight="700">14K Extra-Flexible</text>
+    <text x="34" y="285" fill="#68392e" font-family="Arial, sans-serif" font-size="21">EF · F · M · B</text>
+    <text x="34" y="320" fill="#68392e" font-family="Arial, sans-serif" font-size="19">尖宽与库存按 SKU</text>
+  </g>
+
+  <g transform="translate(145 700)">
+    <circle cx="18" cy="0" r="9" fill="#a45b45"/>
+    <text x="45" y="8" fill="#2b3035" font-family="Arial, sans-serif" font-size="23">颜色：Lieve · Utopia · Ratio · Altrove</text>
+    <circle cx="590" cy="0" r="9" fill="#a45b45"/>
+    <text x="617" y="8" fill="#2b3035" font-family="Arial, sans-serif" font-size="23">区别于 FEEL 的 piston 平台</text>
+  </g>
+  <text x="132" y="785" fill="#6c7278" font-family="Arial, sans-serif" font-size="18">NON-PHOTO · NON-LOGO · NOT-TO-SCALE · NON-COLOUR-PROOF · 不证明真实颜色、纹理、比例、批次或库存</text>
+</svg>
