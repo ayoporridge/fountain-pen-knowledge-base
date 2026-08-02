@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <!-- Fountain Pen Graph site-original factual diagram: non-photo, non-logo, not-to-scale, non-colour-proof. -->
+  <title id="title">Aurora Ottantotto Ebanite factual diagram</title>
+  <desc id="desc">A non-photo, non-logo, not-to-scale, non-colour-proof editorial diagram showing the marbled ebonite 88 limited version, gold nib, piston and colour-count source boundary.</desc>
+  <rect width="1600" height="900" fill="#eee9e2"/>
+  <rect x="72" y="72" width="1456" height="756" rx="34" fill="#fffdfa" stroke="#31343a" stroke-width="4"/>
+  <text x="132" y="155" fill="#31343a" font-family="Arial, sans-serif" font-size="44" font-weight="700">Aurora Ottantotto Ebanite</text>
+  <text x="132" y="204" fill="#72777a" font-family="Arial, sans-serif" font-size="23">88 · marbled ebonite · 18K solid gold nib · piston · limited category</text>
+
+  <g transform="translate(132 315)">
+    <text x="0" y="-48" fill="#31343a" font-family="Arial, sans-serif" font-size="25" font-weight="700">硬橡胶 88（示意）</text>
+    <path d="M96 0 H730 C763 0 786 21 786 52 V84 C786 115 763 136 730 136 H96 C60 136 34 112 34 80 V56 C34 22 60 0 96 0Z" fill="#a06a5a" stroke="#31343a" stroke-width="5"/>
+    <path d="M105 24 C190 4 245 132 330 112 S470 4 555 26 S700 128 767 92" fill="none" stroke="#d9b59c" stroke-width="10" opacity="0.7"/>
+    <path d="M105 95 C190 76 245 204 330 184 S470 76 555 98 S700 200 767 164" fill="none" stroke="#5b3f3a" stroke-width="8" opacity="0.55"/>
+    <path d="M730 0 H820 C848 0 870 22 870 52 V84 C870 114 848 136 820 136 H730Z" fill="#c8c5c0" stroke="#31343a" stroke-width="5"/>
+    <text x="158" y="187" fill="#31343a" font-family="Arial, sans-serif" font-size="24">marbled ebonite body/cap · chrome or gold trims by SKU</text>
+    <line x1="34" y1="222" x2="870" y2="222" stroke="#b45e45" stroke-width="3"/>
+    <line x1="34" y1="210" x2="34" y2="234" stroke="#b45e45" stroke-width="3"/>
+    <line x1="870" y1="210" x2="870" y2="234" stroke="#b45e45" stroke-width="3"/>
+    <text x="160" y="267" fill="#b45e45" font-family="Arial, sans-serif" font-size="24" font-weight="700">88 家族约 133 mm 闭帽样本；Ebanite exact 尺寸待核对</text>
+  </g>
+
+  <g transform="translate(1110 285)">
+    <rect x="0" y="0" width="315" height="145" rx="22" fill="#f1dfae" stroke="#9e783c" stroke-width="4"/>
+    <text x="34" y="53" fill="#684a1d" font-family="Arial, sans-serif" font-size="27" font-weight="700">18K solid gold</text>
+    <text x="34" y="94" fill="#684a1d" font-family="Arial, sans-serif" font-size="21">rhodium / gold finish</text>
+    <text x="34" y="125" fill="#684a1d" font-family="Arial, sans-serif" font-size="19">按颜色与 SKU</text>
+    <rect x="0" y="180" width="315" height="145" rx="22" fill="#e4cbc0" stroke="#a15e50" stroke-width="4"/>
+    <text x="34" y="233" fill="#683b33" font-family="Arial, sans-serif" font-size="27" font-weight="700">piston filling</text>
+    <text x="34" y="275" fill="#683b33" font-family="Arial, sans-serif" font-size="21">Aurora FAQ high-end scope</text>
+    <text x="34" y="306" fill="#683b33" font-family="Arial, sans-serif" font-size="19">hidden reserve ≠ exact capacity</text>
+  </g>
+
+  <g transform="translate(145 708)">
+    <circle cx="18" cy="0" r="9" fill="#b45e45"/>
+    <text x="45" y="8" fill="#31343a" font-family="Arial, sans-serif" font-size="22">当前目录：蓝 · 黄 · 洋红 · cognac</text>
+    <circle cx="705" cy="0" r="9" fill="#b45e45"/>
+    <text x="732" y="8" fill="#31343a" font-family="Arial, sans-serif" font-size="22">V02 PDF：3 colours 口径，需按日期复核</text>
+  </g>
+  <text x="132" y="785" fill="#72777a" font-family="Arial, sans-serif" font-size="18">NON-PHOTO · NON-LOGO · NOT-TO-SCALE · NON-COLOUR-PROOF · 不证明真实颜色、比例、编号、限量总数或库存</text>
+</svg>
