@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc" factual-svg="true" product-photo="false" logo="false" to-scale="false" colour-proof="false">
+  <title id="title">Cleo Skribent brand and Classic route boundary</title>
+  <desc id="desc">Original factual diagram for Cleo Schreibgeräte, the Cleo Skribent brand, and its Classic Gold, Palladium and Metall routes. Not a product photograph, logo, scale drawing or colour proof.</desc>
+  <rect width="1200" height="720" fill="#f4f1ea"/>
+  <rect x="48" y="42" width="1104" height="636" rx="24" fill="#fffdf8" stroke="#292722" stroke-width="3"/>
+  <text x="88" y="100" font-family="Georgia,serif" font-size="35" font-weight="700" fill="#252c2b">Cleo Skribent：品牌与 Classic 三条路线</text>
+  <text x="88" y="134" font-family="Arial,sans-serif" font-size="17" fill="#645f58">本站原创 factual SVG；不是真实产品照片、Logo、比例图或颜色校样</text>
+  <rect x="88" y="178" width="1024" height="108" rx="18" fill="#e7e2d9" stroke="#81786d" stroke-width="2"/>
+  <text x="120" y="219" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#3b3831">Cleo Schreibgeräte · Bad Wilsnack</text>
+  <text x="120" y="255" font-family="Arial,sans-serif" font-size="17" fill="#554f48">公司／制造主体 · 1945 起的德国制笔语境</text>
+  <path d="M600 286v56" stroke="#5e5a51" stroke-width="3"/>
+  <polygon points="600,352 588,334 612,334" fill="#5e5a51"/>
+  <rect x="274" y="356" width="652" height="92" rx="18" fill="#dfe8e5" stroke="#5c7770" stroke-width="2"/>
+  <text x="600" y="397" text-anchor="middle" font-family="Arial,sans-serif" font-size="25" font-weight="700" fill="#294640">Cleo Skribent · consumer brand</text>
+  <text x="600" y="428" text-anchor="middle" font-family="Arial,sans-serif" font-size="16" fill="#405d56">Made in Germany语境；不同 collection 分开记录</text>
+  <path d="M600 448v40M265 488h670M265 488v32M600 488v32M935 488v32" stroke="#5e5a51" stroke-width="3"/>
+  <g font-family="Arial,sans-serif" text-anchor="middle">
+    <rect x="98" y="520" width="334" height="100" rx="16" fill="#f1dfbf" stroke="#a77c39" stroke-width="2"/>
+    <text x="265" y="559" font-size="22" font-weight="700" fill="#5d3e13">Classic Gold</text>
+    <text x="265" y="590" font-size="15" fill="#694f2b">precious resin · gold-plated · 14 K</text>
+    <rect x="433" y="520" width="334" height="100" rx="16" fill="#e7e8e5" stroke="#7d827d" stroke-width="2"/>
+    <text x="600" y="559" font-size="22" font-weight="700" fill="#454b48">Classic Palladium</text>
+    <text x="600" y="590" font-size="15" fill="#59605c">precious resin · palladium-plated · steel / 14 K variant</text>
+    <rect x="768" y="520" width="334" height="100" rx="16" fill="#d9d9d6" stroke="#777773" stroke-width="2"/>
+    <text x="935" y="559" font-size="22" font-weight="700" fill="#3f403d">Classic Metall</text>
+    <text x="935" y="590" font-size="15" fill="#565752">precious resin · matt chrome-plated brass cap</text>
+  </g>
+  <text x="88" y="654" font-family="Arial,sans-serif" font-size="14" fill="#81786c">每条 Classic 路线都可能有 piston 与 cartridge/converter 变体；图示不表示统一尺寸或颜色</text>
+</svg>

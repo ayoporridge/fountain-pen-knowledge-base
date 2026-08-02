@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600" viewBox="0 0 1000 600" role="img" aria-labelledby="title desc" factual-svg="true" product-photo="false" logo="false" to-scale="false" colour-proof="false">
+  <title id="title">Cleo Skribent Classic Palladium factual boundary</title>
+  <desc id="desc">Original factual diagram showing precious resin, palladium-plated fittings, steel base nib and optional 14 K variant. Not a product photograph, scale drawing, logo or colour proof.</desc>
+  <rect width="1000" height="600" fill="#f1f2f0"/>
+  <rect x="38" y="34" width="924" height="532" rx="22" fill="#fff" stroke="#303431" stroke-width="3"/>
+  <text x="72" y="88" font-family="Georgia,serif" font-size="31" font-weight="700" fill="#343936">Classic Palladium</text>
+  <text x="72" y="120" font-family="Arial,sans-serif" font-size="16" fill="#626964">precious resin · palladium-plated fittings · steel base route</text>
+  <g transform="translate(88 165)">
+    <rect x="0" y="26" width="110" height="58" rx="28" fill="#7d8581" stroke="#404744" stroke-width="3"/>
+    <rect x="95" y="18" width="440" height="74" rx="36" fill="#e4e8e5" stroke="#7e8982" stroke-width="3"/>
+    <path d="M145 28l28 54M190 21l28 68M235 21l28 68M280 21l28 68M325 21l28 68M370 21l28 68M415 25l28 60M460 28l28 54" stroke="#b8c0ba" stroke-width="4"/>
+    <rect x="526" y="18" width="140" height="74" rx="36" fill="#2b302e" stroke="#707a74" stroke-width="3"/>
+    <circle cx="600" cy="55" r="15" fill="#b9c2bd" stroke="#707a74" stroke-width="2"/>
+    <path d="M666 55h160" stroke="#3a403d" stroke-width="5"/>
+    <polygon points="826,55 800,40 800,70" fill="#3a403d"/>
+    <text x="0" y="132" font-family="Arial,sans-serif" font-size="16" fill="#59615c">示意：钯色饰件与树脂笔身</text>
+  </g>
+  <g font-family="Arial,sans-serif">
+    <rect x="90" y="382" width="370" height="122" rx="16" fill="#e5ebe7" stroke="#74847b" stroke-width="2"/>
+    <text x="116" y="420" font-size="21" font-weight="700" fill="#3e5047">基础钢尖</text>
+    <text x="116" y="452" font-size="15" fill="#52625a">stainless steel · F / M / B</text>
+    <text x="116" y="478" font-size="15" fill="#52625a">piston 或 cartridge/converter</text>
+    <rect x="540" y="382" width="370" height="122" rx="16" fill="#eee9db" stroke="#958766" stroke-width="2"/>
+    <text x="566" y="420" font-size="21" font-weight="700" fill="#54482f">14 K gold variant</text>
+    <text x="566" y="452" font-size="15" fill="#665a43">商城商品级变体，不能覆盖基础钢尖</text>
+    <text x="566" y="478" font-size="15" fill="#665a43">具体尖幅与供墨按 SKU 核对</text>
+  </g>
+  <text x="72" y="544" font-family="Arial,sans-serif" font-size="13" fill="#81786c">factual-svg=true · product-photo=false · logo=false · to-scale=false · colour-proof=false</text>
+</svg>
