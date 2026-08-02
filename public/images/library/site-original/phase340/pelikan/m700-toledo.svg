@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc" factual-svg="true" product-photo="false" logo="false" to-scale="false" colour-proof="false">
+  <title id="title">Pelikan Souverän M700 Toledo identity boundary diagram</title>
+  <desc id="desc">Original factual diagram separating the small M700 Toledo route from M710 and the larger M900/M910 family. It is not a product photograph, scale drawing, logo, or colour proof.</desc>
+  <rect width="1200" height="720" fill="#f7f3ea"/>
+  <rect x="48" y="42" width="1104" height="636" rx="24" fill="#fffdf8" stroke="#26231f" stroke-width="3"/>
+  <text x="88" y="98" font-family="Georgia,serif" font-size="34" font-weight="700" fill="#1d2927">Souverän Toledo：M700 的小尺寸身份边界</text>
+  <text x="88" y="132" font-family="Arial,sans-serif" font-size="17" fill="#625c53">本站原创事实示意图；不是产品照片、Logo、比例图或颜色校样</text>
+
+  <rect x="88" y="174" width="1024" height="194" rx="18" fill="#e9efe8" stroke="#6c806d" stroke-width="2"/>
+  <text x="118" y="214" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#253b2e">M700 Toledo · small platform</text>
+  <text x="118" y="247" font-family="Arial,sans-serif" font-size="17" fill="#35463c">约 125 mm · 约 12.0 mm · 18 ct 金尖 · 差动活塞</text>
+  <g transform="translate(120 278)">
+    <rect x="0" y="20" width="82" height="40" rx="18" fill="#b9933e" stroke="#5c4520" stroke-width="2"/>
+    <rect x="72" y="12" width="340" height="56" rx="28" fill="#d3b15b" stroke="#6c5222" stroke-width="2"/>
+    <path d="M120 20l28 40M155 14l28 52M190 14l28 52M225 14l28 52M260 14l28 52M295 14l28 52M330 18l28 44" stroke="#fff0ad" stroke-width="4" opacity=".85"/>
+    <rect x="408" y="12" width="122" height="56" rx="28" fill="#1e2424" stroke="#111515" stroke-width="2"/>
+    <circle cx="454" cy="40" r="11" fill="#e7c76e" stroke="#8c6e2a" stroke-width="2"/>
+    <path d="M530 40h110" stroke="#2a2a27" stroke-width="4"/>
+    <polygon points="640,40 620,28 620,52" fill="#2a2a27"/>
+    <text x="0" y="106" font-family="Arial,sans-serif" font-size="15" fill="#4d5b52">示意：金层套雕 + 黑色树脂帽 + 活塞</text>
+  </g>
+  <line x1="120" y1="360" x2="640" y2="360" stroke="#66756b" stroke-width="2" stroke-dasharray="8 8"/>
+  <text x="122" y="392" font-family="Arial,sans-serif" font-size="15" fill="#4d5b52">档案参考尺寸，非实物测量公差</text>
+
+  <rect x="88" y="410" width="486" height="206" rx="18" fill="#f4ead6" stroke="#aa8b55" stroke-width="2"/>
+  <text x="118" y="450" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#59451f">M700 / M710：同尺寸阶梯</text>
+  <text x="118" y="486" font-family="Arial,sans-serif" font-size="17" fill="#59451f">M700 = gold layer overlay</text>
+  <text x="118" y="516" font-family="Arial,sans-serif" font-size="17" fill="#59451f">M710 = silver / silver-coloured route</text>
+  <text x="118" y="556" font-family="Arial,sans-serif" font-size="15" fill="#6d5d40">不能只凭帽色把银色 M710 写成 M700</text>
+  <text x="118" y="584" font-family="Arial,sans-serif" font-size="15" fill="#6d5d40">Old Style 与现代表格须按年代核对</text>
+
+  <rect x="626" y="410" width="486" height="206" rx="18" fill="#ece9e5" stroke="#7c7973" stroke-width="2"/>
+  <text x="656" y="450" font-family="Arial,sans-serif" font-size="21" font-weight="700" fill="#403e39">M900 / M910：larger platform</text>
+  <text x="656" y="486" font-family="Arial,sans-serif" font-size="17" fill="#403e39">约 141 mm · 约 13 mm · 约 39 g</text>
+  <text x="656" y="522" font-family="Arial,sans-serif" font-size="17" fill="#403e39">大尺寸 Toledo，不向 M700 回填规格</text>
+  <text x="656" y="562" font-family="Arial,sans-serif" font-size="15" fill="#68645e">M910 的银色路线也不是 M700 的颜色别名</text>
+  <text x="656" y="590" font-family="Arial,sans-serif" font-size="15" fill="#68645e">泛 Toledo 页负责导航，具体页负责核对</text>
+
+  <text x="88" y="654" font-family="Arial,sans-serif" font-size="14" fill="#81786c">factual-svg=true · product-photo=false · logo=false · to-scale=false · colour-proof=false</text>
+</svg>
