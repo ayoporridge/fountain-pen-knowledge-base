@@ -23,3 +23,14 @@
 ## Boundary
 
 这些是远端历史行的可逆状态收敛，不是新的内容包，也不等于全量 goal 完成。生产部署、公开 sitemap 全量遍历和线上逐条复查仍待完成；后续新增内容仍必须先在 owned checkpoint copy 集成，再重新做本地／远端迁移。
+
+## Post-reset bounded recheck (2026-08-03)
+
+配额重置提示后只做了低成本聚合读回，没有重跑全量同步或公开 ID 扫描：
+
+- `entities=948`；`entity_publications`: `published=640`、`retired=23`、`in_review=0`；`public_entities=902`。
+- 公开类型仍为 `brand=115`、`pen=520`、`article=255`、`concept=10`、`nib=2`。
+- 公开集合内重复 published story 为 `0`；重复 approved primary media 为 `0`。
+- 本次仅读远端，未向本地 `data/fpkg.db` 或 Turso 写入任何数据。
+
+注意：Turso 面板当前仍显示本周期 `rows read=740.2M/500M`，下次重置为 `2026-09-01 08:00 CST`；因此后续远端检查继续采用有界、按主键或聚合查询，避免重复消耗配额。
