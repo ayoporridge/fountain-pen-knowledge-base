@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sailor SHIKIORI 草遊び 11-0657 factual identity card</title>
+  <desc id="desc">Four Kusa Asobi color SKUs, F stainless steel nib, cartridge converter, PMMA, 17 by 134 millimetres and 12.2 grams. Non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#f4f0e6"/>
+  <rect x="72" y="72" width="1456" height="756" rx="36" fill="#fffdf8" stroke="#335c4b" stroke-width="5"/>
+  <text x="128" y="170" font-family="Arial, sans-serif" font-size="54" font-weight="700" fill="#244d3d">SHIKIORI 草遊び</text>
+  <text x="128" y="225" font-family="Arial, sans-serif" font-size="29" fill="#6a746b">11-0657 · nature nostalgia · four F SKUs</text>
+  <g transform="translate(128 300)">
+    <g>
+      <rect width="292" height="96" rx="48" fill="#e9a9b7"/>
+      <text x="146" y="59" text-anchor="middle" font-family="Arial, sans-serif" font-size="25" fill="#3d2830">花冠 · 201</text>
+    </g>
+    <g transform="translate(330)">
+      <rect width="292" height="96" rx="48" fill="#8eb7bf"/>
+      <text x="146" y="59" text-anchor="middle" font-family="Arial, sans-serif" font-size="25" fill="#183b40">笹舟 · 202</text>
+    </g>
+    <g transform="translate(660)">
+      <rect width="292" height="96" rx="48" fill="#8e6e4c"/>
+      <text x="146" y="59" text-anchor="middle" font-family="Arial, sans-serif" font-size="25" fill="#fffdf8">橡 · 203</text>
+    </g>
+    <g transform="translate(990)">
+      <rect width="292" height="96" rx="48" fill="#e6e1d2" stroke="#9f9a8b" stroke-width="2"/>
+      <text x="146" y="59" text-anchor="middle" font-family="Arial, sans-serif" font-size="25" fill="#4b5148">雪兎 · 204</text>
+    </g>
+  </g>
+  <g transform="translate(128 490)" font-family="Arial, sans-serif" fill="#33433a">
+    <text x="0" y="0" font-size="31" font-weight="700">共同规格边界</text>
+    <text x="0" y="63" font-size="27">不锈钢 F · Gold IP · 墨囊／转换器</text>
+    <text x="0" y="112" font-size="27">PMMA · φ17 × 134 mm · 12.2 g</text>
+    <text x="0" y="176" font-size="22" fill="#6b776d">本站原创 factual SVG；颜色为示意，不是色样。</text>
+  </g>
+  <g transform="translate(1010 480)" fill="#335c4b" font-family="Arial, sans-serif">
+    <rect width="390" height="166" rx="20" fill="#e9f0e8"/>
+    <text x="30" y="48" font-size="22">NON-PHOTO</text>
+    <text x="30" y="83" font-size="22">NON-LOGO</text>
+    <text x="30" y="118" font-size="22">NOT-TO-SCALE</text>
+    <text x="30" y="153" font-size="22">NON-COLOUR-PROOF</text>
+  </g>
+  <text x="128" y="775" font-family="Arial, sans-serif" font-size="22" fill="#6a746b">Fountain Pen Graph · site-original factual diagram · verified 2026-08-03</text>
+</svg>

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sailor SHIKIORI 山水 11-2050 and 11-2051 factual identity card</title>
+  <desc id="desc">Four Sansui color SKUs, 14K MF nib, cartridge converter, PMMA, 17 by 124 millimetres and 16.8 grams, with Gold IP and rhodium plated groups. Non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#e9eef0"/>
+  <rect x="72" y="72" width="1456" height="756" rx="36" fill="#fbfcfb" stroke="#2f5362" stroke-width="5"/>
+  <text x="128" y="170" font-family="Arial, sans-serif" font-size="54" font-weight="700" fill="#294b59">SHIKIORI 山水</text>
+  <text x="128" y="225" font-family="Arial, sans-serif" font-size="29" fill="#68757a">11-2050 / 11-2051 · four 14K MF SKUs</text>
+  <g transform="translate(128 300)">
+    <g>
+      <rect width="292" height="96" rx="48" fill="#c4a873"/>
+      <text x="146" y="59" text-anchor="middle" font-family="Arial, sans-serif" font-size="25" fill="#30281b">夕燕 · 2050-301</text>
+    </g>
+    <g transform="translate(330)">
+      <rect width="292" height="96" rx="48" fill="#789696"/>
+      <text x="146" y="59" text-anchor="middle" font-family="Arial, sans-serif" font-size="25" fill="#f8fbfb">駒草 · 2050-302</text>
+    </g>
+    <g transform="translate(660)">
+      <rect width="292" height="96" rx="48" fill="#c78499"/>
+      <text x="146" y="59" text-anchor="middle" font-family="Arial, sans-serif" font-size="25" fill="#402631">撫子 · 2051-303</text>
+    </g>
+    <g transform="translate(990)">
+      <rect width="292" height="96" rx="48" fill="#606d68"/>
+      <text x="146" y="59" text-anchor="middle" font-family="Arial, sans-serif" font-size="25" fill="#f8fbfb">羚羊 · 2051-304</text>
+    </g>
+  </g>
+  <g transform="translate(128 490)" font-family="Arial, sans-serif" fill="#334b53">
+    <text x="0" y="0" font-size="31" font-weight="700">共同规格与镀层边界</text>
+    <text x="0" y="63" font-size="27">14K 中型 MF · 墨囊／转换器 · PMMA</text>
+    <text x="0" y="112" font-size="27">φ17 × 124 mm · 16.8 g</text>
+    <text x="0" y="161" font-size="24">2050：Gold IP　2051：镍铬／铑镀</text>
+    <text x="0" y="214" font-size="22" fill="#6b777b">本站原创 factual SVG；颜色为示意，不是色样。</text>
+  </g>
+  <g transform="translate(1010 480)" fill="#2f5362" font-family="Arial, sans-serif">
+    <rect width="390" height="166" rx="20" fill="#e5eef1"/>
+    <text x="30" y="48" font-size="22">NON-PHOTO</text>
+    <text x="30" y="83" font-size="22">NON-LOGO</text>
+    <text x="30" y="118" font-size="22">NOT-TO-SCALE</text>
+    <text x="30" y="153" font-size="22">NON-COLOUR-PROOF</text>
+  </g>
+  <text x="128" y="775" font-family="Arial, sans-serif" font-size="22" fill="#68757a">Fountain Pen Graph · site-original factual diagram · verified 2026-08-03</text>
+</svg>
