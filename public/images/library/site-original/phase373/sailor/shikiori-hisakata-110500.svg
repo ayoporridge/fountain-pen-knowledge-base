@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sailor SHIKIORI ひさかた 11-0500 factual identity card</title>
+  <desc id="desc">Four Hisakata F stainless steel SKUs, cartridge converter, AS resin with Uchimizu PMMA change from 2021-06-24, nickel chrome plating, 17 by 134 millimetres and 12.2 grams. Non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <rect width="1600" height="900" fill="#f6efe8"/>
+  <rect x="72" y="72" width="1456" height="756" rx="36" fill="#fffdf9" stroke="#875e62" stroke-width="5"/>
+  <text x="128" y="170" font-family="Arial, sans-serif" font-size="54" font-weight="700" fill="#70484e">SHIKIORI ひさかた</text>
+  <text x="128" y="225" font-family="Arial, sans-serif" font-size="29" fill="#817475">11-0500 · four F stainless SKUs</text>
+  <g transform="translate(128 300)">
+    <g><rect width="292" height="96" rx="48" fill="#e7a8b9"/><text x="146" y="59" text-anchor="middle" font-family="Arial, sans-serif" font-size="25" fill="#472d35">さくら · 231</text></g>
+    <g transform="translate(330)"><rect width="292" height="96" rx="48" fill="#9ed3df"/><text x="146" y="59" text-anchor="middle" font-family="Arial, sans-serif" font-size="25" fill="#23464f">うちみず · 242</text></g>
+    <g transform="translate(660)"><rect width="292" height="96" rx="48" fill="#c96d56"/><text x="146" y="59" text-anchor="middle" font-family="Arial, sans-serif" font-size="25" fill="#fffdf9">あかねぞら · 233</text></g>
+    <g transform="translate(990)"><rect width="292" height="96" rx="48" fill="#465f8d"/><text x="146" y="59" text-anchor="middle" font-family="Arial, sans-serif" font-size="25" fill="#fffdf9">ほしくず · 249</text></g>
+  </g>
+  <g transform="translate(128 490)" font-family="Arial, sans-serif" fill="#4c4041">
+    <text x="0" y="0" font-size="31" font-weight="700">共同规格与材料时间边界</text>
+    <text x="0" y="63" font-size="27">不锈钢 F · 镍铬镀层 · 墨囊／转换器</text>
+    <text x="0" y="112" font-size="27">φ17 × 134 mm · 12.2 g</text>
+    <text x="0" y="161" font-size="24">Uchimizu：2021-06-24 起官方页列为 PMMA</text>
+    <text x="0" y="214" font-size="22" fill="#817475">本站原创 factual SVG；颜色为示意，不是色样。</text>
+  </g>
+  <g transform="translate(1010 480)" fill="#70484e" font-family="Arial, sans-serif">
+    <rect width="390" height="166" rx="20" fill="#f2e4e7"/>
+    <text x="30" y="48" font-size="22">NON-PHOTO</text>
+    <text x="30" y="83" font-size="22">NON-LOGO</text>
+    <text x="30" y="118" font-size="22">NOT-TO-SCALE</text>
+    <text x="30" y="153" font-size="22">NON-COLOUR-PROOF</text>
+  </g>
+  <text x="128" y="775" font-family="Arial, sans-serif" font-size="22" fill="#817475">Fountain Pen Graph · site-original factual diagram · verified 2026-08-03</text>
+</svg>
