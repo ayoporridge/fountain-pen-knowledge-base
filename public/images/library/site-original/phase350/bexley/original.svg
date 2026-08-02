@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc" data-factual-svg="true" data-product-photo="false" data-logo="false" data-to-scale="false" data-colour-proof="false">
+  <title id="title">Bexley Original historical structure diagram</title>
+  <desc id="desc">Factual editorial diagram for the historical 1993 Bexley Original: flat-top silhouette, button filler, early 14K nib and ebonite feed. Not a product photograph and not to scale.</desc>
+  <rect width="1600" height="900" fill="#f4efe5"/>
+  <rect x="76" y="70" width="1448" height="760" rx="30" fill="#fffdf8" stroke="#8b7358" stroke-width="4"/>
+  <g font-family="-apple-system,BlinkMacSystemFont,'Noto Sans SC','Microsoft YaHei',sans-serif" fill="#30281f">
+    <text x="130" y="150" font-size="52" font-weight="700">Bexley Original · 1993</text>
+    <text x="132" y="198" font-size="25" fill="#705c48">historical route · button filler · early 14K nib / ebonite feed · non-photo · not-to-scale</text>
+  </g>
+  <g transform="translate(125 300)">
+    <path d="M92 175 L122 132 L850 132 L930 160 L930 255 L850 283 L122 283 L92 240Z" fill="#b8c9c8" stroke="#4b5f5d" stroke-width="7"/>
+    <path d="M850 132 L1045 145 L1100 166 L1100 249 L1045 270 L850 283Z" fill="#d9ddd3" stroke="#4b5f5d" stroke-width="7"/>
+    <path d="M1100 166 L1198 178 L1230 205 L1198 232 L1100 249Z" fill="#d8b45b" stroke="#6f5630" stroke-width="6"/>
+    <path d="M1198 178 L1260 191 L1290 205 L1260 219 L1198 232Z" fill="#7c8e85" stroke="#4b5f5d" stroke-width="5"/>
+    <path d="M92 175 L35 191 L0 205 L35 219 L92 240Z" fill="#c4d4d1" stroke="#4b5f5d" stroke-width="7"/>
+    <path d="M0 205 L-56 205" stroke="#4b5f5d" stroke-width="9" stroke-linecap="round"/>
+    <path d="M865 150 L865 266" stroke="#866d4b" stroke-width="5" opacity=".75"/>
+    <path d="M895 150 L895 266" stroke="#866d4b" stroke-width="5" opacity=".75"/>
+    <circle cx="1010" cy="205" r="17" fill="#9a7844" stroke="#594426" stroke-width="4"/>
+    <text x="185" y="370" font-family="sans-serif" font-size="28" fill="#30281f">flat-top, bandless silhouette</text>
+    <text x="845" y="370" font-family="sans-serif" font-size="28" fill="#30281f">14K nib · ebonite feed</text>
+    <text x="1020" y="418" font-family="sans-serif" font-size="26" fill="#30281f">button</text>
+    <path d="M1040 395 L1015 230" stroke="#705c48" stroke-width="4"/>
+  </g>
+  <g transform="translate(150 675)" font-family="sans-serif" font-size="25" fill="#30281f">
+    <rect x="0" y="0" width="360" height="78" rx="16" fill="#e9e1d2" stroke="#a58c6e" stroke-width="3"/>
+    <rect x="400" y="0" width="360" height="78" rx="16" fill="#e9e1d2" stroke="#a58c6e" stroke-width="3"/>
+    <rect x="800" y="0" width="480" height="78" rx="16" fill="#e9e1d2" stroke="#a58c6e" stroke-width="3"/>
+    <text x="70" y="49">1993 first route</text>
+    <text x="475" y="49">Parker Duofold-inspired</text>
+    <text x="855" y="49">5-1/2 in sample · not universal spec</text>
+  </g>
+  <text x="130" y="800" font-family="sans-serif" font-size="22" fill="#705c48">示意图只表达资料关系；不证明真实比例、颜色、刻字、材料配方、修复状态、库存或价格。</text>
+</svg>
