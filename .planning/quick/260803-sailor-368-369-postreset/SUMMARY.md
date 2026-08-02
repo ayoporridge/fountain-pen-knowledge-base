@@ -23,3 +23,5 @@
 `check:evidence-contract --all` 未作为本次通过证据：该测试包含 Phase 19 的旧真实库 fingerprint 锁，正式迁移后按设计报告 fingerprint mismatch；未改写该锁，也未把失败冒充通过。其他 agent 的 research、`.next-phase*` 目录和既有 quick 目录均未纳入。
 
 同步后远端历史残留由相邻 quick `260803-6k5-remote-cardinality-cleanup-for-the-four-` 收敛：最终远端为 950 entities、642 published、904 public entities；公开 story/media 重复均为 0；新两条 Sailor 型号均可读回为 published。
+
+当前 Vercel 线上读回（Fly 尚未部署）也已抽查：`/pen/sailor-professional-gear-realo`、`/pen/sailor-lecoule-clear`、`/brand/sailor` 均 HTTP 200，页面包含对应 11-3926／11-0313 与品牌导航文字，未出现 `invalid-story-card`、`invalid-primary-media-cardinality`、`not found` 或 application error 标记。
