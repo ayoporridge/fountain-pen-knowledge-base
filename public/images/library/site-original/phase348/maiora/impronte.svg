@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc" data-factual-svg="true" data-product-photo="false" data-logo="false" data-to-scale="false" data-colour-proof="false">
+  <title id="title">Maiora Impronte standard and Oversize factual diagram</title>
+  <desc id="desc">Editorial diagram comparing the Maiora Impronte standard and Oversize resin fountain pen routes with three-start threaded caps, #6 steel nibs and captured converter filling. Not a product photograph and not to scale.</desc>
+  <rect width="1600" height="900" fill="#f3eee8"/>
+  <rect x="82" y="76" width="1436" height="748" rx="34" fill="#fffdfa" stroke="#aa9c8e" stroke-width="4"/>
+  <text x="140" y="166" font-family="Georgia,serif" font-size="56" fill="#292624">Maiora Impronte</text>
+  <text x="140" y="216" font-family="Arial,sans-serif" font-size="25" fill="#6d6762">resin · three-start thread · #6 steel nib · captured converter / standard international</text>
+  <g transform="translate(140 300)">
+    <text x="0" y="24" font-family="Arial,sans-serif" font-size="30" fill="#292624">standard</text>
+    <path d="M170 100 C300 58 520 54 760 78 L1020 93 L1115 126 L1020 159 L760 180 C520 204 300 196 170 158 L100 130Z" fill="#dc7a45" stroke="#4b3430" stroke-width="8"/>
+    <path d="M612 72 L652 187 M652 75 L692 183 M692 77 L732 179" stroke="#d1a04f" stroke-width="10"/>
+    <path d="M1115 126 L1240 126" stroke="#4b3430" stroke-width="12" stroke-linecap="round"/>
+    <text x="280" y="250" font-family="Arial,sans-serif" font-size="25" fill="#4b3430">resin body</text>
+    <text x="600" y="250" font-family="Arial,sans-serif" font-size="25" fill="#4b3430">three-start cap thread</text>
+    <text x="1040" y="250" font-family="Arial,sans-serif" font-size="25" fill="#4b3430">#6 steel nib</text>
+  </g>
+  <g transform="translate(140 560)">
+    <text x="0" y="24" font-family="Arial,sans-serif" font-size="30" fill="#292624">Oversize</text>
+    <path d="M170 100 C300 42 520 35 760 64 L1020 86 L1115 126 L1020 166 L760 190 C520 220 300 207 170 158 L100 130Z" fill="#5f8795" stroke="#30434b" stroke-width="8"/>
+    <path d="M612 58 L652 197 M652 60 L692 193 M692 62 L732 189" stroke="#d7b56e" stroke-width="12"/>
+    <path d="M1115 126 L1240 126" stroke="#30434b" stroke-width="12" stroke-linecap="round"/>
+    <text x="260" y="250" font-family="Arial,sans-serif" font-size="25" fill="#30434b">wider resin barrel</text>
+    <text x="620" y="250" font-family="Arial,sans-serif" font-size="25" fill="#30434b">concave grip</text>
+    <text x="1000" y="250" font-family="Arial,sans-serif" font-size="25" fill="#30434b">#6 steel nib</text>
+  </g>
+  <g transform="translate(1260 330)" font-family="Arial,sans-serif" font-size="24" fill="#292624">
+    <rect x="0" y="0" width="210" height="76" rx="18" fill="#e8ded1" stroke="#9a8773" stroke-width="3"/>
+    <text x="30" y="48">captured converter</text>
+    <rect x="0" y="100" width="210" height="76" rx="18" fill="#e8ded1" stroke="#9a8773" stroke-width="3"/>
+    <text x="22" y="148">international fill</text>
+  </g>
+  <text x="140" y="792" font-family="Arial,sans-serif" font-size="22" fill="#6d6762">示意图不表示真实比例、颜色、Logo、库存或价格；standard／Oversize、颜色与 EF–B 尖幅为版本层。</text>
+</svg>
