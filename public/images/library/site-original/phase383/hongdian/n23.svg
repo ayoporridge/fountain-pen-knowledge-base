@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">HongDian N23 2023 Year of the Rabbit factual identity card</title>
+  <desc id="desc">Site-original factual diagram: four colour variants, EF and Long Knife M market options, metal lacquered screw cap and cartridge/converter boundary. Non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fffaf2"/>
+      <stop offset="1" stop-color="#f3e9d9"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="0" x2="1">
+      <stop offset="0" stop-color="#4d241a"/>
+      <stop offset="1" stop-color="#a35b2b"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#5a3526" flood-opacity=".16"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#paper)"/>
+  <path d="M0 690 C320 610 540 790 860 690 S1300 600 1600 700 V900 H0Z" fill="#e6d2bd" opacity=".45"/>
+  <g fill="#3d241d" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC',sans-serif">
+    <text x="92" y="105" font-size="50" font-weight="700">HongDian N23</text>
+    <text x="94" y="157" font-size="30" fill="#8b4a2e">2023 Year of the Rabbit · 型号事实卡</text>
+    <text x="94" y="210" font-size="22" fill="#6d5042">兔年主题｜金属漆面｜旋帽｜墨囊／转换器（C/C）</text>
+  </g>
+  <g transform="translate(120 300)" filter="url(#shadow)">
+    <rect x="0" y="0" width="920" height="225" rx="112" fill="#2b2020"/>
+    <rect x="210" y="42" width="570" height="141" rx="70" fill="url(#ink)" stroke="#d7a563" stroke-width="5"/>
+    <rect x="770" y="42" width="105" height="141" rx="34" fill="#7d4a2e" stroke="#d7a563" stroke-width="5"/>
+    <path d="M880 112 L920 95 L920 130 Z" fill="#d7a563"/>
+    <circle cx="410" cy="112" r="35" fill="none" stroke="#f4d69b" stroke-width="5"/>
+    <path d="M394 114 Q410 84 426 114 Q410 148 394 114 M410 82 L410 145 M375 114 H445" fill="none" stroke="#f4d69b" stroke-width="4"/>
+    <text x="256" y="205" fill="#fff4d8" font-size="20" font-family="sans-serif">示意结构：金属漆面 · 兔子主题 · 旋帽</text>
+  </g>
+  <g transform="translate(1120 270)">
+    <rect width="360" height="280" rx="28" fill="#fffdf9" stroke="#d8b99b" stroke-width="3"/>
+    <text x="30" y="55" font-size="27" font-weight="700" fill="#3d241d">市场变体</text>
+    <circle cx="55" cy="103" r="16" fill="#1e1e24"/><text x="90" y="112" font-size="24" fill="#5a4034">Black</text>
+    <circle cx="55" cy="149" r="16" fill="#447c9e"/><text x="90" y="158" font-size="24" fill="#5a4034">Blue</text>
+    <circle cx="55" cy="195" r="16" fill="#a83e31"/><text x="90" y="204" font-size="24" fill="#5a4034">Red</text>
+    <circle cx="55" cy="241" r="16" fill="#ede9db" stroke="#a9927c"/><text x="90" y="250" font-size="24" fill="#5a4034">White</text>
+  </g>
+  <g transform="translate(120 610)">
+    <rect width="1360" height="180" rx="30" fill="#fffdf9" stroke="#d8b99b" stroke-width="3"/>
+    <g fill="#3d241d" font-size="25" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC',sans-serif">
+      <text x="42" y="57" font-weight="700">资料可核对的共通边界</text>
+      <text x="42" y="104">EF · Long Knife M（渠道选项）</text>
+      <text x="42" y="145">约 141 mm 合盖 · 约 15 mm · 约 35–36 g（样本范围）</text>
+      <text x="720" y="104">墨囊／转换器两用</text>
+      <text x="720" y="145">具体尖材质、饰件、墨囊与包装按 SKU 核对</text>
+    </g>
+  </g>
+  <g fill="#7f5c4c" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC',sans-serif" font-size="18">
+    <text x="94" y="850">本站原创 factual SVG · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+    <text x="1130" y="850">仅表达身份与资料边界，不是实物照片</text>
+  </g>
+</svg>
