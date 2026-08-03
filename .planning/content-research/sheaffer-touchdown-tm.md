@@ -36,6 +36,16 @@ TM 的优点是比 Snorkel 少一层伸缩管，维修边界更直观；代价�
 
 TM 的“1950–1952”是家族的历史窗口，不是每支笔的精确制造日期；个别款式可能在目录和库存周期中重叠。价格、颜色和白点位置需要结合具体目录或实物。对卖家没有清晰照片的老笔，宁可用“Touchdown 家族，TM 待核”而不是给出漂亮但错误的型号名。
 
+### 把 TM 记录成可复核的实物
+
+整理一支 TM 时，先把闭帽、去帽和加帽长度分开记录，并注明测量是否含笔夹。接着拍笔尖正面、握位透明环、尾端拉管和帽内；如果尾端已经换过零件，记录换件而不是把现状当成出厂配置。薄身轮廓只能帮助建立候选，真正的成员判断要让尖号、帽材、白点、夹子和 Touchdown 结构彼此解释。一个缺少尾端或握位照片的商品，最多能写“疑似 TM”，不能凭卖家标题确认 Sentinel 或 Valiant。
+
+TM 与 Snorkel 的时间相邻，正是最容易被二手市场混称的地方。Snorkel 管是否存在、笔项下方是否有管口，是重要排除项，但也要考虑管子可能卡在收回位置或笔项被替换。检查时不要用针、镊子或强拉动作把未知结构“试出来”；先由维修者判断是否存在伸缩件，再决定清洗或拆解。页面把机制身份与当前维修状态分开，避免“无管”被误读成“完整 TM”。
+
+对日用者而言，TM 的 Touchdown 填充比普通 cartridge/converter 更需要建立节奏：排空、吸墨、等待囊体回弹、擦拭尖端，然后收好尾管。O-ring 失效时，反复按压只会增加漏墨和材料损伤风险。长期停放前排空并保持干燥；若笔身发黏、帽口裂或透明环已经严重变形，不要用热水和酒精处理。维修单上应写明墨囊、O-ring、柱塞和尖是否更换，这些信息比“已修复”三个字更能支持后续选购。
+
+如果你从 TM 继续浏览 Sheaffer 图谱，可以沿三条路径分开走：向前回到 1949 fat Touchdown，比较外形和气压系统；向后进入 Snorkel，观察伸缩管如何改变维护；横向进入 Tip-Dip Craftsman，比较可换尖和中心开口。它们共享品牌技术史，却不共享型号规格。这样写 TM，读者得到的是一条能落到实物的年代线，而不是一个把所有细身老 Sheaffer 都吸进去的搜索词。
+
 ## 来源
 
 - Richard’s Pens, [Sheaffer’s Touchdown TM](https://www.richardspens.com/ref/profiles/td_tm.htm)
@@ -47,4 +57,3 @@ TM 的“1950–1952”是家族的历史窗口，不是每支笔的精确制造
 - Vintage Pens, [Sheaffer Touchdown Repair](https://www.vintagepens.com/FAQrepair/Sheaffer_Touchdown_repair.shtml)
 - Vintage Pens, [Sheaffer Snorkel & PFM Repair](https://vintagepens.com/FAQrepair/Sheaffer_Snorkel_PFM_repair.shtml)
 - Peyton Street Pens, [Sentinel TM reference](https://www.peytonstreetpens.com/sheaffer-sentinel-tm-fountain-pen-touchdown-blue-medium-broad-very-nice-restored-personalized.html)
-
