@@ -43,3 +43,21 @@ Kimberly 对这支样品估算约 0.5 ml 容量，记录多次书写、长时间
 ## 如何阅读 availability
 
 十一种颜色是 2026-07-22 collection 的精确 pen-card set，不是永久目录承诺。读者在购买前仍应回到 Wancher 当前页面核对颜色、尖宽、价格与库存。页面未来新增、下架或恢复某种颜色，并不会自动创造或删除 canonical PuChiCo 型号；它只会改变检索日 variants／availability 记录。本站当前完成的是 full corpus goal 中的一次 partial batch：PuChiCo 页面与 Wancher 导航被安全补齐，不代表 Wancher 全产品或整个钢笔语料库已经完成。
+
+## 眼滴上墨不是“随便灌满”
+
+PuChiCo 的短笔身把供墨边界变得更重要。官方把它定义为 eyedropper，读者应先旋开笔杆、确认螺纹和密封面没有旧墨或纤维，再用滴管缓慢加入适量墨水；不要把墨水灌到螺纹顶端，也不要把瓶口直接倒向握位。重新旋紧时先保持笔尖朝上，擦掉接口外侧的墨水，再观察一段时间是否有渗漏。透明或浅色 acrylic 变体尤其容易把残墨、气泡和螺纹污染显出来。
+
+短笔在手中使用时需要后插笔帽，后插动作应沿轴线轻推，不能斜着用力。官方说明 cap posting 是为书写长度服务的结构选择；它不等于每种颜色的笔帽内壁都具有相同摩擦，也不等于后插后一定适合大手。Kimberly Lau 对 Black Chocolate Orange／Fine 样品的后插稳定性观察和 Sarah Read 对螺纹、笔夹的观察，都只能帮助读者知道应检查什么，不能替整条颜色路线作耐久保证。
+
+## 小型钢尖的选择与故障判断
+
+官方 collection 的 EF／F filter 是取回日可选项，实际购买仍要看 exact card、尖端标记和库存。PuChiCo 的 normal-sized iridium-point stainless-steel nib 不是玻璃尖，也不是为高压弯写设计的软尖；出现刮纸、断墨或出墨过多时，先停止加压，检查笔尖是否被后插动作碰歪、供墨是否被沉淀物堵住。不要用针去捅 feed，也不要把一次样品的 Fine 手感推断成所有 EF／F 的统一线宽。
+
+眼滴笔的气压变化会影响出墨。长途飞行、温度突然升高或笔尖朝下放置时，先把笔尖朝上并让笔内压力稳定，再打开笔帽；Sarah Read 的“随身数周未漏”和 Kimberly Lau 的“多次航班没有 burp”是两支样品的正面记录，不是官方防漏承诺。若笔杆内有明显墨水晃动、螺纹处反复湿润或笔帽积墨，应排空、清水冲洗、完全干燥后再判断密封是否需要维修。
+
+## 颜色、配件和购买记录的四层核对
+
+PuChiCo 选购时建议把记录拆成“canonical model—颜色 card—尖幅—附件”四层。颜色名称只说明 official collection 在某个日期展示了什么；尖幅需要看商品卡或实物；滴管、保护套和 Petite Charm Case 是配件信息，不应因为同一 collection 页面相邻出现就写成钢笔规格。尤其是 Mocha Beige、Duck Blue、Pink Blossom Petite Charm Case，它们在官方页面中是 case card，不是 PuChiCo 颜色 variant。
+
+二手交易应索取笔帽、螺纹、笔尖正面、笔夹和笔杆尾部照片，并询问是否改过 eyedropper 密封、是否用过染色墨水、是否有裂纹或强力后插痕。acrylic 的切削纹理和颜色差异可以是材料表现，也可能是磕碰或污染；不能只凭一张高饱和商品图判断。若需要更长、更标准的日用钢笔，应从 Wancher 导航转去 Shizuku、Dream Pen 或其他有明确上墨结构的型号，而不是把 PuChiCo 的可爱尺寸当成全系标准。

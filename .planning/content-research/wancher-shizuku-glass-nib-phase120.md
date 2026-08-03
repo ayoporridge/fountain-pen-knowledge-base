@@ -46,4 +46,22 @@ Susan M. Pigott 的 The Pen Addict 文章发表于 2019-08-30。文章清楚披�
 
 官方来源最适合确认命名、collection 卡片、系列机制和 Solis 商品页字段；它不独立评价耐用性或长期书写体验。Pigott 的文章能提供真实样品的握持、接缝、笔帽与玻璃尖感受，但只有一个受赠样品，不能代表 2025 新款，也不能证明现行十四张卡的一致性。本站原创 SVG 只做事实导航：左侧是 glass nib 到 converter 的概念机制，中间是十四张卡片快照，右侧分别列 Solis exact 与 2019 Earth exclusion；它不是商品照片、logo、比例图、色准或饰面证明。
 
-读者可以从这里继续漫游到 Wancher 品牌与既有 Dream Pen、PuChiCo 页面，但这些既有页面的正文、媒体、来源与 publication 不因 Shizuku 上线而改变。新增关系只是 Shizuku 指向 Wancher 的一条 made_by，以及品牌返回 Shizuku 的一条 reverse。对全库而言，这仍是 full corpus goal 中的一次 partial batch：它把一个缺失型号做完整，不声称所有 Wancher 或所有钢笔内容已经完成。
+读者可以从这里继续漫游到 Wancher 品牌与既有 Dream Pen、PuChiCo 页面，但这些既有页面的正文、媒体、来源与 publication 不因 Shizuku 上线而改变。图谱只新增 Shizuku 与 Wancher 的品牌归属和反向导航；对全库而言，这仍是 full corpus goal 中的一次 partial batch：它把一个缺失型号做完整，不声称所有 Wancher 或所有钢笔内容已经完成。
+
+## 玻璃尖的使用边界
+
+Shizuku 的 handmade glass nib 是书写端的材料和结构特征，不应按普通金属尖的压弯、打磨或换尖逻辑处理。玻璃尖需要让笔尖保持正确接触角度和轻压力；出现不出墨、线条变粗或局部跳笔时，先检查 converter 是否有墨、笔尖是否被纸屑污染，再用清水缓慢冲洗。不要用金属工具刮尖端，也不要为了追求更粗的线条自行磨削玻璃。Pigott 对 2019 Earth 的 feel、flow 和 no-skip 观察只能说明那支受赠样品在当时的表现。
+
+Solis 当前商品页列 clear／black glass nib 和 EF／F／M，但这个选择只属于 Solis exact scope。它不能证明十四张 collection card 都提供同样尖幅，也不能把 Earth 的历史样品写成 clear 或 black 的当前选择。购买时应把商品标题、尖端颜色、完整 card 名称和 converter 附件一起保存；若卖家只写“Shizuku glass pen”，证据不足时应保留待核状态。
+
+## Duralumin、阳极氧化与清洁
+
+官方 family 资料把 Duralumin 和 anodization 放在系列设计语境中，Solis 商品页才给出当前 exact product 的 Duralumin、screw cap、尺寸和重量。阳极氧化表面应避免钥匙、拉链和金属笔夹的长期摩擦；清洁使用室温清水和柔软无绒布，不能用酒精、研磨剂或强力超声。若笔帽螺纹出现砂感，先排空墨水、冲洗并自然干燥，不能一边带墨一边强行拧紧。
+
+Solis 的 154 mm 合帽、128 mm 不合帽、12 mm ring 和约 25 g 是商品页样本坐标；Earth 的 137／120 mm、10 mm grip 和 26.5／18 g 是 2019 样品坐标。两组数字不同，恰好说明不能用一个变体推断全系列。Shizuku 的 cap posting、ring 和重心也要按 exact card 和个人握姿试用，不能从原创 SVG 或商品渲染图推算。
+
+## 颜色卡不是持续生产清单
+
+2026-07-22 去重后的十四个名称应理解为 collection snapshot。Black Eye、Orion Nebula、Eclipse、Solis、Blue Moon、Adrastea、Mars、Pluto、Andromeda、Gaia、Saturn、Jupiter、Earth、Venus 可以作为 variants 导航，但 sold-out、AS IS、outlet、价格与库存都应留在 mutable commerce 记录。2019 preorder 中的八个名称与今天重叠时，也不能用旧文章证明当前仍有售；相反，当前 card 也不能重写 Pigott 当年的样品尺寸和价格。
+
+对买家来说，最有用的核对顺序是：先确认是 Wancher Shizuku，而不是普通 glass dip pen；再确认是不是 Solis exact listing；然后核对玻璃尖颜色和 EF／F／M、converter、笔帽螺纹以及 Duralumin 表面；最后把购买日期、卡片名称和实物照片存下来。这样既能从 Shizuku 页面继续浏览 Wancher 的材料路线，也不会把一个历史 Earth 样品误当作全系标准。
