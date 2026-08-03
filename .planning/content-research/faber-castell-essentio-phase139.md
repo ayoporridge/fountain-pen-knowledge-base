@@ -42,6 +42,26 @@ Essentio 适合想要细长金属日用笔、偏好 cartridge/converter 简单�
 
 本站主图是原创事实示意，用于表达“细长笔杆、148420、阳极氧化铝、cartridge/converter 与钢尖”的关系。**示意图，非产品照片**，不代表真实颜色、比例、Logo、笔夹光泽、尖幅、包装或库存。
 
+### Essentio 应按 exact SKU 阅读
+
+Essentio 不是一支材料固定、尺寸固定的单色笔，而是一条以铝材、Carbon 和其他表面 SKU 并列的产品线。本页以 148420 Aluminium Rose M 作为规格锚点，同时把 148481 Aluminium Black、148820 Carbon M 和 148821 Carbon F 保留为可检索的材料／尖幅边界。四个货号都叫 Essentio，不意味着重量、触感、颜色或笔夹光泽可以互相继承；购买记录应保留完整产品号，而不是只写“Essentio 黑色”。
+
+官方页面把 fountain pen、rollerball、ballpoint 和 leather 等商品放在同一产品族中，图片很容易因此混淆。判断一支笔是否属于本页，要同时看尖端、笔帽、笔夹和商品标题；只有金属细杆外观并不足以证明它是 fountain pen。Aluminium Rose、Aluminium Black 与 Carbon 的材质词也应限定到来源明确的 SKU，不能用 Carbon 的耐磨宣传补写铝材版本。
+
+### 尖幅、供墨与书写
+
+Essentio 的基础路线是 cartridge/converter。148420 页面说明随附墨囊，converter 是否另购要按地区商品确认；装墨时检查墨胆长度、转换器接口和笔帽内空间，出现断墨先清水吸排，不要把其他 Faber-Castell 系列的零件尺寸想当然地套过来。F 或 M 的选择是商品级信息，实际线宽还受纸张、墨水和尖端调校影响。The Online Pen Company 或 SBreBrown 的评测可帮助理解握位和书写，但属于单支样本。
+
+铝材和 Carbon 都能带来相对轻快的日用印象，却不是同一种触感。铝材表面、握位与笔夹应避免硬物摩擦；Carbon 版本也不代表内部密封和重量恒定。小字、会议记录或通勤可先选 F/M 与自己常用的纸张试写，别只依靠商品图上看起来相同的细尖。若希望更厚的握位或更明显的金属重量，应比较同品牌其他系列，而不是把 Essentio 的材料变体合并为“旗舰版”。
+
+### 清洁、版本和售后边界
+
+Faber-Castell 官方 FAQ 的共同原则是用清水冲洗，直到排出的水变清，再让笔尖向下沥水并自然干燥。不要用热水、酒精、漂白剂或研磨剂清洁阳极氧化铝、Carbon、塑料握位和漆面；长时间不用时倒空墨水，收纳时让笔帽保护尖端。若夹片松动、笔帽螺纹卡滞、转换器漏气或尖端受撞，保留产品号和购买凭证，先联系经销商，不要自行打磨或更换异材质零件。
+
+颜色、尖幅和附件应按照“产品线—材料／表面—尖幅—补墨配件”四层记录。官方 exact page 明确写出的差异可以进入 variants；单家店的库存、译名或折扣不能推出首发年份、停产结论或全系列统一重量。本站 SVG 只说明材料和 SKU 关系，非产品照片、非比例图，也不能替代真实颜色和笔夹反光。
+
+把 148420、148481、148820、148821 分开引用，读者仍能从同一 Essentio 家族比较，而不会因为一张黑色照片把铝材、Carbon、F 尖和 M 尖混成一页无边界的规格表。
+
 ## 来源
 
 - [Faber-Castell Essentio Aluminium Rose 148420 官方商品页](https://www.faber-castell.com/products/EssentioAluminiumfountainpenMrose/148420)

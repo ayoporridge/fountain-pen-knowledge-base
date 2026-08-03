@@ -50,6 +50,24 @@ Victory 的历史价值还在于它把英国工厂、战时材料和战后上墨
 
 本站原创 Victory 事实图只表现英国 Newhaven、Mk I–V、button filler 到 aerometric 的年代路线，**示意图，非产品照片**；不复制 Parker 或 Eversharp 官方摄影，不表现真实比例、颜色、Logo 或刻字。Parkercollector、Parker Penography 与英国收藏目录用于交叉核对 Mk 和上墨结构，具体实物仍需逐项检查。
 
+### 先确认是哪一种 Victory
+
+Parker Victory（vintage UK）指英国 Newhaven 生产语境中的历史型号，约从 1941 年延续到 1960 年代中期；它不是 Eversharp Victory，也不是后来其他市场的同名笔。Mk I–V、Standard／De Luxe、帽环和笔夹变化都会影响身份判断。二手商品只写“Victory”时，应同时查看笔身刻字、笔夹形状、帽环、尖面和产地线索，不能只凭颜色或雪茄形外观合并。
+
+### 上墨机构和年代边界
+
+Parkercollector 与 Parker Pens Penography 把 Mk I–IV 多数样本放在 button filler 语境，Mk V 则常见 aerometric。这里的“常见”是年代和样本边界，不是每一支笔的绝对规格；修复、改装或替换囊会让实物和目录不一致。按键上墨笔先确认囊管、压条和盲帽没有破裂，aerometric 版本则观察压条文字、囊体弹性和进墨是否稳定，不要把现代墨囊或转换器硬塞进老笔。
+
+开放式 Parker 尖的字幅、刻字和铱粒形状会随 Mk、市场和维修历史变化。收到笔后先用清水测试笔尖是否居中、是否有刮纸和漏墨，再决定是否需要专业调校。老树脂或塑料笔杆可能已经收缩、开裂或褪色，金属帽也可能有凹痕；这些品相问题与原始型号身份应分开记录，不能用“复古”一词掩盖维修风险。
+
+### 修复、保存与选购
+
+历史 Victory 不宜用热水、酒精或强力超声随意清洗。先排空旧墨，使用温和清水和合适的软囊，待笔杆和帽内完全干燥再收纳；若囊管粘连、按键卡滞、螺纹滑牙或尖端受撞，应交给熟悉 Parker 老款机构的维修者。二手交易要询问是否替换过墨囊、是否抛光过帽体、是否重镀或改装过笔夹，保留维修前后的照片与来源。
+
+Mk I–IV、Mk V 和 Standard／De Luxe 可以作为 Victory 的 variants，但不应为每个颜色、帽环或修复状态创建基础型号。页面主图是本站原创事实 SVG，只表达 Newhaven、Mk 边界和两类上墨，不是产品照片，也不证明具体年份、比例、刻字或品相。若卖家把 Eversharp Victory、Parker Victory UK 和现代复刻混在一个标题里，先标记身份未决，再要求完整笔身和尖面证据。
+
+从使用角度看，Victory 适合愿意接受历史材料和维护成本的人；需要稳定的现代墨胆、统一尺寸和可随时保修的日用笔，应进入 Parker 当前型号页。图谱保留这条分流，是为了让读者可以从 Parker 历史线继续漫游，同时不把老款 button filler／aerometric 语境回填到现代 Parker 的 C/C 或真空结构。
+
 ## 来源
 
 - [Parkercollector：Victory](https://parkercollector.com/victory.html)
