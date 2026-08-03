@@ -12,6 +12,8 @@
 - 统计：972 entities、119 brands、562 pens、664 published publications、926 public entities；相对真实库 950 entities、904 public，增加 22 个公开型号。
 - 批次目标实体：22/22 `published` 且 22/22 出现在 `public_entities`。
 - 当前审核：88 条（22 × fact/language/media/publication）均 `approved`；primary media 22；open conflicts 0。历史冲突 2 条均为已解决的 Sailor Hiroshima Momiji material/weight 页面冲突，未形成公开 blocker。
+- owned checkpoint 的 `scripts/audit-entity-quality.ts --database-path ...`：681 条品牌／型号 inventory audit rows（659 active、22 retired lineage），duplicate name groups 0、suspicious pen articles 0、thin brand/model entities 0、made_by relationship blockers 0。
+- `scripts/check-library-contract.ts --database-path ...`：sources 2,384、sourceItems 4,126、claims 3,674、citations 10,156、stories 709、events 843、media 977、aliases 2,327；`Library contract OK`。
 - 真实库 SHA-256 仍为 `e8985584fe66c9d0f7f4eb270ea924199f2893c7a120bdffc93c04efcf5a3c64`；本 quick 没有正式迁移本地库或写入 Turso。
 
 ## 核心限制
