@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Wancher Dream Pen Tsuikin Kanhizakura factual identity card</title>
+  <desc id="desc">Original factual diagram, not a product photograph or colour proof: ebonite and Tsuikin body, Okinawan kanhizakura motif, European International cartridge/converter and three documented nib/feed routes.</desc>
+  <metadata>site-original=true; factual-svg=true; non-photo=true; non-logo=true; not-to-scale=true; non-colour-proof=true; product-photo=false; logo=false</metadata>
+  <rect width="1600" height="900" fill="#f8f0e9"/>
+  <rect x="70" y="70" width="1460" height="760" rx="34" fill="#231b1d"/>
+  <path d="M120 665 C280 525 410 495 560 555 S845 590 990 470 S1320 400 1490 485" fill="none" stroke="#d9a8a6" stroke-width="4" opacity=".45"/>
+  <path d="M120 712 C290 600 430 585 580 632 S845 680 1000 560 S1320 500 1490 570" fill="none" stroke="#a35c67" stroke-width="2" opacity=".55"/>
+  <g transform="translate(190 360) rotate(-8)">
+    <rect x="0" y="0" width="1010" height="178" rx="88" fill="#382a2b" stroke="#cfa6a2" stroke-width="6"/>
+    <path d="M75 24 C210 92 350 82 475 27 S740 0 935 80" fill="none" stroke="#d18d93" stroke-width="15" opacity=".82"/>
+    <path d="M55 142 C205 80 348 101 495 145 S765 172 950 95" fill="none" stroke="#a96c72" stroke-width="8" opacity=".9"/>
+    <path d="M275 30 L355 150 M430 18 L510 160 M594 20 L670 158 M760 34 L832 150" stroke="#e6c58e" stroke-width="5" opacity=".92"/>
+    <g fill="#d98791" stroke="#f4c2bb" stroke-width="3">
+      <path d="M210 54 c-18-34 15-54 38-22 c24-30 55-4 35 24 c34-3 43 33 9 43 c-22 7-54-9-82-45z"/>
+      <path d="M690 95 c-14-31 16-51 38-22 c22-28 52-3 32 24 c31-2 41 30 8 40 c-22 7-50-9-78-42z"/>
+    </g>
+    <path d="M1010 45 L1160 89 L1160 89 L1010 133 Z" fill="#d7d1ca" stroke="#b9a69e" stroke-width="5"/>
+    <path d="M1160 89 L1212 89 L1212 89 L1160 89" stroke="#d5aa58" stroke-width="12"/>
+    <path d="M0 38 L-82 89 L0 140 Z" fill="#21191b" stroke="#d9a8a6" stroke-width="6"/>
+  </g>
+  <g font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC',sans-serif" fill="#f8f0e9">
+    <text x="145" y="160" font-size="42" font-weight="700">Wancher Dream Pen Tsuikin</text>
+    <text x="145" y="215" font-size="54" font-weight="700" fill="#f1b2af">Kanhizakura · 堆锦寒绯樱</text>
+    <text x="145" y="755" font-size="27">Ebonite + Tsuikin · European International C/C · compact air-tight cap</text>
+    <text x="145" y="795" font-size="24" fill="#e3c6bd">Nib routes: JoWo #6 stainless steel / Shogun 18K / Keiryu · Feed: plastic / ebonite black / ebonite red</text>
+    <text x="145" y="108" font-size="18" fill="#d9a8a6">SITE-ORIGINAL FACTUAL IDENTITY CARD</text>
+    <text x="1390" y="760" font-size="18" text-anchor="end" fill="#d9a8a6">NON-PHOTO · NON-LOGO · NOT-TO-SCALE · NON-COLOUR-PROOF</text>
+  </g>
+</svg>
