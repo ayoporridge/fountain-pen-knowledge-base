@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sailor HIROSHIMA Momiji 10-1116 factual identity card</title>
+  <desc id="desc">Site-original factual diagram for Sailor 115th Anniversary HIROSHIMA Momiji 10-1116; non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <metadata>factual-svg=true; non-photo=true; non-logo=true; not-to-scale=true; non-colour-proof=true; model=10-1116; nib=21k-mf-bicolor; material=hiroshima-maple-oil-finish; limited=1150; dimensions=1600x900</metadata>
+  <rect width="1600" height="900" fill="#f6eee8"/>
+  <rect x="60" y="60" width="1480" height="780" rx="32" fill="#fffdf8" stroke="#6b3c37" stroke-width="4"/>
+  <text x="120" y="150" font-family="sans-serif" font-size="48" font-weight="700" fill="#3f2727">HIROSHIMA Momiji · 10-1116</text>
+  <text x="120" y="205" font-family="sans-serif" font-size="27" fill="#6b4a4a">Sailor 115th Anniversary · 21K Large MF · C/C · 34.5 g · limited 1,150</text>
+  <g transform="translate(150 330)">
+    <rect x="0" y="88" width="900" height="48" rx="24" fill="#8f463d"/>
+    <path d="M160 88 L215 60 L270 88 L215 116 Z" fill="#bd7561" opacity=".9"/>
+    <path d="M360 88 L415 60 L470 88 L415 116 Z" fill="#d9a18a" opacity=".9"/>
+    <path d="M560 88 L615 60 L670 88 L615 116 Z" fill="#b85d4e" opacity=".9"/>
+    <rect x="780" y="68" width="160" height="88" rx="18" fill="#c6a74e"/>
+    <rect x="925" y="76" width="45" height="72" rx="12" fill="#e3d7a2"/>
+    <line x1="40" y1="112" x2="820" y2="112" stroke="#fff4ec" stroke-width="4" opacity=".65"/>
+    <text x="0" y="220" font-family="sans-serif" font-size="26" fill="#5c4242">schematic maple/oil-finish identity card · no product photo</text>
+  </g>
+  <g font-family="sans-serif" font-size="27" fill="#3f2727">
+    <text x="120" y="650">广岛县木枫木／油仕上 · PMMA 大先 · 金属件镀金</text>
+    <text x="120" y="700">10-1116-320（MF） · ¥220,000（日本官网） · 34.5 g</text>
+    <text x="120" y="750" fill="#806565">本站原创 factual SVG；non-photo · non-logo · not-to-scale · non-colour-proof</text>
+  </g>
+</svg>
