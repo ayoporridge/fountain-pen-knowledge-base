@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Wancher Ryukyu Tsuikin Shell Ginger factual identity card</title>
+  <desc id="desc">Factual editorial diagram, not a product photograph or colour proof.</desc>
+  <defs>
+    <linearGradient id="amber" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#4c251c" />
+      <stop offset="0.48" stop-color="#b87539" />
+      <stop offset="1" stop-color="#e0b36e" />
+    </linearGradient>
+    <linearGradient id="leaf" x1="0" x2="1">
+      <stop offset="0" stop-color="#214d35" />
+      <stop offset="1" stop-color="#78a96d" />
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="#211a1a" />
+  <rect x="70" y="70" width="1460" height="760" rx="44" fill="#302122" stroke="#d9a768" stroke-width="5" />
+  <text x="120" y="150" fill="#f6e4c2" font-family="sans-serif" font-size="48" font-weight="700">Ryukyu Tsuikin · Shell Ginger</text>
+  <text x="120" y="205" fill="#d9a768" font-family="sans-serif" font-size="30">ABS demonstrator · Tamesukashi · 月桃立体堆锦</text>
+  <path d="M235 500 C510 395 955 390 1370 500" fill="none" stroke="url(#amber)" stroke-width="118" stroke-linecap="round" opacity=".92" />
+  <path d="M235 500 C510 395 955 390 1370 500" fill="none" stroke="#f0d29d" stroke-width="6" stroke-linecap="round" opacity=".62" />
+  <path d="M760 470 C720 365 680 310 610 270 M805 466 C900 365 1000 325 1110 310 M875 468 C930 430 1020 430 1170 505" fill="none" stroke="#8cc07c" stroke-width="22" stroke-linecap="round" />
+  <ellipse cx="603" cy="267" rx="92" ry="34" transform="rotate(-28 603 267)" fill="url(#leaf)" />
+  <ellipse cx="1106" cy="308" rx="98" ry="35" transform="rotate(12 1106 308)" fill="url(#leaf)" />
+  <ellipse cx="1165" cy="505" rx="104" ry="36" transform="rotate(28 1165 505)" fill="url(#leaf)" />
+  <circle cx="753" cy="320" r="31" fill="#efb5a6" />
+  <circle cx="785" cy="304" r="19" fill="#f5d2b8" />
+  <text x="150" y="700" fill="#f6e4c2" font-family="sans-serif" font-size="28">#6 JoWo stainless · Wancher 18K · Keiryu/Kodachi</text>
+  <text x="150" y="748" fill="#f6e4c2" font-family="sans-serif" font-size="28">plastic · ebonite black · ebonite red feed · European C/C</text>
+  <text x="150" y="790" fill="#d9a768" font-family="sans-serif" font-size="22">non-photo · non-logo · not-to-scale · non-colour-proof</text>
+</svg>
