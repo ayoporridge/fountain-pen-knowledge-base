@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sailor DREAMSCAPE TRIP CELESTIAL TEMPLE 10-2650 factual identity card</title>
+  <desc id="desc">Site-original factual SVG: PMMA resin body, gold IP finish, stainless steel nib, cartridge converter, 23.5 g current product-page value, F MF M codes. Non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#152746"/>
+      <stop offset="1" stop-color="#5e7aa0"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f6d477"/>
+      <stop offset="0.5" stop-color="#c18c2d"/>
+      <stop offset="1" stop-color="#ffe39a"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#08111f" flood-opacity="0.34"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <circle cx="1320" cy="180" r="96" fill="#f4d486" opacity="0.92"/>
+  <g fill="#dce9f5" opacity="0.48">
+    <ellipse cx="260" cy="170" rx="150" ry="42"/>
+    <ellipse cx="400" cy="150" rx="180" ry="48"/>
+    <ellipse cx="1110" cy="300" rx="200" ry="50"/>
+    <ellipse cx="1260" cy="280" rx="155" ry="42"/>
+  </g>
+  <g stroke="#f8df9f" stroke-width="9" fill="none" opacity="0.78">
+    <path d="M220 610h1160"/>
+    <path d="M340 610v-108h160v108M700 610v-108h160v108M1060 610v-108h160v108"/>
+    <path d="M310 502l95-84 95 84M670 502l95-84 95 84M1030 502l95-84 95 84"/>
+  </g>
+  <g transform="translate(280 365) rotate(-9 520 90)" filter="url(#shadow)">
+    <path d="M32 91h900c32 0 52 20 52 44s-20 44-52 44H32c-25 0-42-19-42-44s17-44 42-44Z" fill="#d9e4ee" stroke="#10233e" stroke-width="8"/>
+    <path d="M45 95h665v80H45c-26 0-45-18-45-40s19-40 45-40Z" fill="#d2a0c6" opacity="0.9"/>
+    <path d="M710 95h214c36 0 60 15 60 40s-24 40-60 40H710Z" fill="#c8a0c0" opacity="0.9"/>
+    <path d="M125 95v80M170 95v80M755 95v80" stroke="url(#metal)" stroke-width="14"/>
+    <path d="M932 104l180 31-180 31Z" fill="url(#metal)" stroke="#9d6d20" stroke-width="7"/>
+    <path d="M1112 135l92-17-92 34Z" fill="#f6f3e9" stroke="#9d6d20" stroke-width="6"/>
+    <path d="M1155 124l-17 22" stroke="#9d6d20" stroke-width="5"/>
+  </g>
+  <text x="120" y="760" fill="#fff8e8" font-family="Arial, sans-serif" font-size="42" font-weight="700" letter-spacing="2">SAILOR DREAMSCAPE TRIP · VOL.1</text>
+  <text x="120" y="817" fill="#f5d98b" font-family="Arial, sans-serif" font-size="55" font-weight="700">CELESTIAL TEMPLE · 10-2650</text>
+  <text x="120" y="858" fill="#dce9f5" font-family="Arial, sans-serif" font-size="25">F 10-2650-241  ·  MF 10-2650-341  ·  M 10-2650-441  ·  stainless steel / gold IP / PMMA / C-C</text>
+  <g fill="#fff8e8" font-family="Arial, sans-serif" font-size="22">
+    <text x="120" y="72">SITE-ORIGINAL FACTUAL SVG</text>
+    <text x="120" y="104">23.5 g current product-page value · φ18×129 mm incl. clip · planned 2026-12-05</text>
+    <text x="120" y="136">non-photo · non-logo · not-to-scale · non-colour-proof</text>
+  </g>
+</svg>
