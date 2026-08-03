@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Wancher FLUX Azure factual identity card</title>
+  <desc id="desc">本站原创事实示意图：圆角三角形再生棉复合笔身、可旋转握位、平底、converter 与 JoWo/Keiryu/Shogun 尖材。non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#eef4f7"/><stop offset="1" stop-color="#d7e4eb"/></linearGradient>
+    <linearGradient id="azure" x1="0" x2="1"><stop offset="0" stop-color="#126b9b"/><stop offset=".5" stop-color="#3a9cc5"/><stop offset="1" stop-color="#083b68"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#123b59" flood-opacity=".18"/></filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#paper)"/>
+  <path d="M0 694 C300 570 570 780 900 660 S1330 580 1600 700 V900 H0Z" fill="#74b7d2" opacity=".22"/>
+  <g fill="#143951" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC',sans-serif">
+    <text x="92" y="104" font-size="54" font-weight="700">Wancher FLUX · Azure</text>
+    <text x="94" y="157" font-size="30" fill="#267a9e">再生棉复合材料 · 可旋转握位 · 平底防滚</text>
+    <text x="94" y="207" font-size="22" fill="#52798d">17.4 mm grip max · 147.3 mm cap closed · 49/38 g</text>
+  </g>
+  <g transform="translate(106 315)" filter="url(#shadow)">
+    <path d="M0 96 Q0 0 96 0 H870 Q950 0 950 96 V100 Q950 194 854 194 H96 Q0 194 0 98Z" fill="#123e61"/>
+    <path d="M245 31 L785 31 Q860 31 860 97 Q860 163 785 163 H245 Q170 163 170 97 Q170 31 245 31Z" fill="url(#azure)" stroke="#c4e8f3" stroke-width="5"/>
+    <path d="M275 46 l95 104 M382 40 l95 114 M510 40 l95 114 M640 44 l86 105" stroke="#d3eff6" stroke-width="7" opacity=".36"/>
+    <path d="M735 48 Q778 97 735 146" fill="none" stroke="#f0c879" stroke-width="14"/>
+    <path d="M792 43 L864 64 L864 130 L792 151 Z" fill="#d29b4d" opacity=".92"/>
+    <path d="M860 60 L930 76 L930 118 L860 136 Z" fill="#b7c6cc" stroke="#eff8fa" stroke-width="4"/>
+    <path d="M930 76 L958 96 L930 118" fill="#edf4f5"/>
+    <text x="245" y="188" fill="#edf9fc" font-size="20" font-family="sans-serif">示意结构：三角主体 · 黄铜握位可旋转 · 平底</text>
+  </g>
+  <g transform="translate(1118 263)">
+    <rect width="382" height="334" rx="28" fill="#fffdf7" stroke="#83b7cf" stroke-width="3"/>
+    <text x="30" y="53" font-size="27" font-weight="700" fill="#143951">官方边界</text>
+    <g fill="#376a83" font-size="22" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC',sans-serif">
+      <text x="34" y="104">Upcycled cotton</text>
+      <text x="34" y="151">European converter</text>
+      <text x="34" y="198">JoWo stainless</text>
+      <text x="34" y="245">Keiryu</text>
+      <text x="34" y="292">Shogun 18K</text>
+      <text x="34" y="319" font-size="18" fill="#6c8997">Shogun：Sailor proprietary converter</text>
+    </g>
+  </g>
+  <g transform="translate(106 636)">
+    <rect width="1394" height="144" rx="28" fill="#fffdf7" stroke="#83b7cf" stroke-width="3"/>
+    <g fill="#143951" font-size="24" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC',sans-serif">
+      <text x="42" y="52" font-weight="700">尺寸与使用提醒</text>
+      <text x="42" y="96">147.3 mm 闭帽 · 91.8 mm open/body · 25.2 mm grip · 49/38 g</text>
+      <text x="42" y="130">旋转握位改变角度，不等于自动变线；平底减少滚动，不是防摔结构</text>
+      <text x="905" y="96">RE:FLUX 回收计划</text>
+      <text x="905" y="130">详情与条件按 Wancher 当前页面确认</text>
+    </g>
+  </g>
+  <g fill="#4f768b" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC',sans-serif" font-size="18">
+    <text x="94" y="848">本站原创 factual SVG · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+    <text x="1210" y="848">仅作型号与配置边界示意</text>
+  </g>
+</svg>
