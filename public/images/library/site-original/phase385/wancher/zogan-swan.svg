@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Wancher Zogan Swan Urushi Teal factual identity card</title>
+  <desc id="desc">本站原创事实示意图：ABS 基材、Teal Aizu Urushi、珍珠母贝 Zogan 天鹅、国际墨囊／转换器和四类尖材。non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#f4f0e8"/><stop offset="1" stop-color="#d9e7e4"/></linearGradient>
+    <linearGradient id="teal" x1="0" x2="1"><stop offset="0" stop-color="#0d5964"/><stop offset=".5" stop-color="#4ca1a0"/><stop offset="1" stop-color="#123f58"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#143d43" flood-opacity=".18"/></filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#paper)"/>
+  <path d="M0 682 C270 560 560 790 880 650 S1300 580 1600 700 V900 H0Z" fill="#73b7b3" opacity=".22"/>
+  <g fill="#17383d" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC',sans-serif">
+    <text x="92" y="104" font-size="52" font-weight="700">Zogan Swan · Urushi Teal</text>
+    <text x="94" y="157" font-size="30" fill="#246b70">Dream Pen · 珍珠母贝象嵌 · 仅制作 10 支</text>
+    <text x="94" y="207" font-size="22" fill="#4e777a">ABS 基材 · Aizu Urushi · 天鹅图案 · 配置按订单 SKU</text>
+  </g>
+  <g transform="translate(102 314)" filter="url(#shadow)">
+    <rect x="0" y="0" width="910" height="194" rx="97" fill="#113f4b"/>
+    <rect x="256" y="36" width="515" height="122" rx="61" fill="url(#teal)" stroke="#b8e0dc" stroke-width="5"/>
+    <rect x="758" y="36" width="127" height="122" rx="32" fill="#d6dde0" stroke="#f5faf7" stroke-width="5"/>
+    <path d="M885 97 L926 80 L926 115 Z" fill="#f3eee5"/>
+    <path d="M470 111 C502 52 567 57 565 108 C564 148 511 152 493 130 C532 140 553 119 539 101 C526 83 496 86 470 111Z" fill="#e8f1ec" stroke="#a8d6d1" stroke-width="4"/>
+    <circle cx="528" cy="86" r="4" fill="#17383d"/>
+    <text x="265" y="184" fill="#edf7f2" font-size="20" font-family="sans-serif">示意结构：Teal 漆面 · 贝片天鹅 · 紧密气密帽</text>
+  </g>
+  <g transform="translate(1118 264)">
+    <rect width="382" height="328" rx="28" fill="#fffdf7" stroke="#8bb8b5" stroke-width="3"/>
+    <text x="30" y="53" font-size="27" font-weight="700" fill="#17383d">官方尖材选项</text>
+    <g fill="#37666a" font-size="23" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC',sans-serif">
+      <text x="34" y="105">#6 JoWo stainless</text>
+      <text x="34" y="154">Keiryu</text>
+      <text x="34" y="203">Keiryu Kodachi</text>
+      <text x="34" y="252">Shogun 18K</text>
+      <text x="34" y="298" font-size="19" fill="#6d8a8b">feed 与尖幅按 SKU 核对</text>
+    </g>
+  </g>
+  <g transform="translate(102 635)">
+    <rect width="1398" height="145" rx="28" fill="#fffdf7" stroke="#8bb8b5" stroke-width="3"/>
+    <g fill="#17383d" font-size="24" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC',sans-serif">
+      <text x="42" y="52" font-weight="700">供墨与维护边界</text>
+      <text x="42" y="96">European International cartridge／converter · 珍珠母贝避免受压</text>
+      <text x="42" y="130">Urushi 避免长时间直晒 · SVG 只表达事实关系，不证明实物颜色或比例</text>
+      <text x="850" y="96">ABS + Aizu Urushi + Zogan</text>
+      <text x="850" y="130">包装：木盒 · Pen Kimono · 证书</text>
+    </g>
+  </g>
+  <g fill="#486f72" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC',sans-serif" font-size="18">
+    <text x="94" y="848">本站原创 factual SVG · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+    <text x="1160" y="848">仅作型号与配置边界示意</text>
+  </g>
+</svg>
