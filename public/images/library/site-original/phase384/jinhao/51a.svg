@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Jinhao 51A factual identity card</title>
+  <desc id="desc">Site-original factual diagram showing Parker 51-style silhouette, cartridge converter filling, acrylic or wood body and hooded or open nib versions. Non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#f7f1e6"/><stop offset="1" stop-color="#e7d4b8"/></linearGradient>
+    <linearGradient id="wood" x1="0" x2="1"><stop offset="0" stop-color="#9b5d35"/><stop offset=".5" stop-color="#d59a59"/><stop offset="1" stop-color="#754026"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#553622" flood-opacity=".18"/></filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#paper)"/>
+  <path d="M0 690 C300 580 520 780 850 680 S1300 610 1600 720 V900 H0Z" fill="#c9ae88" opacity=".35"/>
+  <g fill="#34241e" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC',sans-serif">
+    <text x="92" y="106" font-size="52" font-weight="700">Jinhao 51A</text>
+    <text x="94" y="157" font-size="30" fill="#7d4b2e">Parker 51-style 外形 · C/C 供墨 · 版本边界</text>
+    <text x="94" y="208" font-size="22" fill="#6d5140">树脂／透明与木杆 · 金属笔帽 · hooded EF 或 open #5</text>
+  </g>
+  <g transform="translate(112 302)" filter="url(#shadow)">
+    <rect x="0" y="0" width="900" height="205" rx="102" fill="#2e2b29"/>
+    <rect x="250" y="40" width="500" height="125" rx="62" fill="url(#wood)" stroke="#e4c18c" stroke-width="5"/>
+    <rect x="742" y="40" width="125" height="125" rx="34" fill="#b7b3ae" stroke="#eee6db" stroke-width="5"/>
+    <path d="M867 102 L910 86 L910 119 Z" fill="#ddd3c7"/>
+    <path d="M276 66 Q306 104 276 143 M330 55 Q365 101 330 151 M392 49 Q420 103 392 157" fill="none" stroke="#f3d19c" stroke-width="5" opacity=".65"/>
+    <text x="260" y="191" fill="#fff4df" font-size="20" font-family="sans-serif">示意结构：金属帽 · 轻质笔身 · Parker 51-style hood</text>
+  </g>
+  <g transform="translate(1120 270)">
+    <rect width="360" height="285" rx="28" fill="#fffaf1" stroke="#c8a581" stroke-width="3"/>
+    <text x="30" y="55" font-size="27" font-weight="700" fill="#34241e">两个公开版本</text>
+    <path d="M45 105 h80 l25 18 -25 18 h-80 z" fill="#3a302b"/><text x="168" y="131" font-size="23" fill="#5e4637">hooded EF</text>
+    <path d="M45 175 h55 l42 18 -42 18 h-55 z" fill="#b68b5b"/><text x="168" y="201" font-size="23" fill="#5e4637">open #5</text>
+    <text x="30" y="250" font-size="19" fill="#82634e">尖、颜色、木种按 SKU 核对</text>
+  </g>
+  <g transform="translate(112 620)">
+    <rect width="1368" height="165" rx="28" fill="#fffaf1" stroke="#c8a581" stroke-width="3"/>
+    <g fill="#34241e" font-size="24" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC',sans-serif">
+      <text x="42" y="54" font-weight="700">公开资料共通边界</text>
+      <text x="42" y="100">墨囊／转换器 · 不写成 Parker 51 真空或气压机制</text>
+      <text x="42" y="137">约 139 mm 合盖 · 128 mm 未合盖 · 148 mm 插帽 · 约 20–22 g（样本）</text>
+      <text x="760" y="100">树脂／木杆与金属帽</text>
+      <text x="760" y="137">主图仅作身份卡，不证明实物颜色或比例</text>
+    </g>
+  </g>
+  <g fill="#795a45" font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC',sans-serif" font-size="18">
+    <text x="94" y="850">本站原创 factual SVG · non-photo · non-logo · not-to-scale · non-colour-proof</text>
+    <text x="1130" y="850">仅表达型号与版本边界</text>
+  </g>
+</svg>
