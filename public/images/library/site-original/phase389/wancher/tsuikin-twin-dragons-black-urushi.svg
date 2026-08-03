@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Wancher Dream Pen Ryukyu Tsuikin Twin Dragons Black Urushi factual identity card</title>
+  <desc id="desc">Original factual diagram, not a product photograph or colour proof: black urushi and ebonite body, twin dragon motif, European International cartridge/converter, JoWo and Wancher 18K nib routes and three documented feeds.</desc>
+  <metadata>site-original=true; factual-svg=true; non-photo=true; non-logo=true; not-to-scale=true; non-colour-proof=true; product-photo=false; logo=false</metadata>
+  <rect width="1600" height="900" fill="#0d1016"/>
+  <rect x="70" y="70" width="1460" height="760" rx="34" fill="#171922" stroke="#5f6673" stroke-width="3"/>
+  <g transform="translate(220 350) rotate(-7)">
+    <rect x="0" y="0" width="1050" height="180" rx="90" fill="#080a0e" stroke="#b5a26d" stroke-width="6"/>
+    <path d="M50 122 C180 18 315 32 430 126 S680 208 800 76 S960 28 1040 100" fill="none" stroke="#c5aa63" stroke-width="13"/>
+    <path d="M50 55 C180 160 315 148 430 45 S680-28 800 105 S960 155 1040 78" fill="none" stroke="#8292af" stroke-width="9"/>
+    <g fill="#c5aa63" stroke="#eee0ae" stroke-width="3">
+      <path d="M260 55 l30-28 18 30 34-6-5 34 30 19-32 12-8 34-27-20-31 18 3-35-30-17 32-11z"/>
+      <path d="M735 88 l28-28 19 29 34-5-5 33 30 19-32 12-8 34-27-20-31 18 3-35-30-17 32-11z"/>
+    </g>
+    <path d="M1050 45 L1200 90 L1200 90 L1050 135 Z" fill="#d2d5d8" stroke="#8f949c" stroke-width="5"/>
+    <path d="M1200 90 L1250 90" stroke="#c5aa63" stroke-width="12"/>
+    <path d="M0 42 L-90 90 L0 138 Z" fill="#07090c" stroke="#b5a26d" stroke-width="6"/>
+  </g>
+  <g font-family="-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC',sans-serif" fill="#f5f0e6">
+    <text x="145" y="160" font-size="40" font-weight="700">Wancher Dream Pen Ryukyu Tsuikin</text>
+    <text x="145" y="215" font-size="52" font-weight="700" fill="#ddc57d">Twin Dragons · Black Urushi</text>
+    <text x="145" y="755" font-size="26">Ebonite + Urushi + Tsuikin · platinum/gold powder motif · European International C/C</text>
+    <text x="145" y="795" font-size="23" fill="#c4cad5">Nib: #6 JoWo stainless steel / Wancher 18K gold · Feed: plastic / ebonite black / ebonite red</text>
+    <text x="145" y="108" font-size="18" fill="#9aa5b8">SITE-ORIGINAL FACTUAL IDENTITY CARD</text>
+    <text x="1390" y="760" font-size="18" text-anchor="end" fill="#b5a26d">NON-PHOTO · NON-LOGO · NOT-TO-SCALE · NON-COLOUR-PROOF</text>
+  </g>
+</svg>
