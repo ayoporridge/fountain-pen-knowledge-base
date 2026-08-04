@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">书乐 ShuLe 品牌与相邻型号边界事实图</title>
+  <desc id="desc">本站原创 factual SVG，区分 ShuLe 2398 代表入口与 2212 研究线索；示意图，非产品照片。</desc>
+  <rect width="1440" height="900" fill="#f3eee7"/><rect x="72" y="68" width="1296" height="764" rx="30" fill="#fffdf8" stroke="#4d4a45" stroke-width="4"/>
+  <text x="128" y="156" font-family="Georgia,serif" font-size="64" fill="#33322f">书乐 ShuLe</text><text x="130" y="208" font-family="Arial,sans-serif" font-size="27" fill="#706d67">编号相邻，不代表结构与规格相同</text>
+  <path d="M300 390 H1140" stroke="#ae8251" stroke-width="8" stroke-linecap="round"/><circle cx="480" cy="390" r="30" fill="#4d4a45"/><circle cx="960" cy="390" r="30" fill="#a98a5c"/>
+  <text x="480" y="312" text-anchor="middle" font-family="Arial,sans-serif" font-size="42" fill="#33322f">2398</text><text x="480" y="472" text-anchor="middle" font-family="Arial,sans-serif" font-size="27" fill="#55524d">已完成型号页</text>
+  <text x="960" y="312" text-anchor="middle" font-family="Arial,sans-serif" font-size="42" fill="#33322f">2212</text><text x="960" y="472" text-anchor="middle" font-family="Arial,sans-serif" font-size="27" fill="#55524d">论坛研究线索</text>
+  <rect x="248" y="570" width="944" height="116" rx="20" fill="#e1d6c4"/><text x="720" y="622" text-anchor="middle" font-family="Arial,sans-serif" font-size="28" fill="#403a32">先核对刻字、笔尖、上墨件与样本来源</text><text x="720" y="662" text-anchor="middle" font-family="Arial,sans-serif" font-size="21" fill="#62594e">2212 的讨论不能直接填入 2398 的规格表</text>
+  <text x="130" y="786" font-family="Arial,sans-serif" font-size="22" fill="#706d67">原创事实图｜示意图，非产品照片｜不表示实物比例、颜色、笔尖或兼容性</text>
+</svg>

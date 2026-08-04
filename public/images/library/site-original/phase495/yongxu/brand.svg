@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">YongXu 品牌与 286 版本边界事实图</title>
+  <desc id="desc">本站原创 factual SVG，说明 YongXu 286 的按钮上墨和多笔尖样本边界；示意图，非产品照片。</desc>
+  <rect width="1440" height="900" fill="#f1ece5"/><rect x="72" y="68" width="1296" height="764" rx="30" fill="#fffdf8" stroke="#5a4638" stroke-width="4"/>
+  <text x="128" y="156" font-family="Georgia,serif" font-size="64" fill="#3d2f28">YongXu</text><text x="130" y="208" font-family="Arial,sans-serif" font-size="27" fill="#76675d">小批量复古路线：先看样本配置，再谈全系规格</text>
+  <rect x="188" y="320" width="1064" height="112" rx="56" fill="#4d3930"/><path d="M260 376h800" stroke="#c9a46b" stroke-width="22" stroke-linecap="round"/><circle cx="1090" cy="376" r="30" fill="#e6d7b9"/>
+  <text x="720" y="292" text-anchor="middle" font-family="Arial,sans-serif" font-size="37" fill="#3d2f28">286 · button filler</text>
+  <g font-family="Arial,sans-serif" text-anchor="middle"><rect x="170" y="548" width="330" height="140" rx="18" fill="#d4b98b"/><text x="335" y="606" font-size="31" fill="#332821">Wing Sung</text><text x="335" y="648" font-size="21" fill="#58463b">钢尖样本</text><rect x="555" y="548" width="330" height="140" rx="18" fill="#c8d4d4"/><text x="720" y="606" font-size="31" fill="#334347">Moonman</text><text x="720" y="648" font-size="21" fill="#536367">钢尖样本</text><rect x="940" y="548" width="330" height="140" rx="18" fill="#805c49"/><text x="1105" y="606" font-size="31" fill="#fff3e0">14K demo</text><text x="1105" y="648" font-size="21" fill="#f1dcc4">少量样本，非标配</text></g>
+  <text x="130" y="786" font-family="Arial,sans-serif" font-size="22" fill="#76675d">原创事实图｜示意图，非产品照片｜笔尖、树脂颜色、尺寸与库存按具体 SKU 核对</text>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">依人 Yiren 品牌与型号边界事实图</title>
+  <desc id="desc">本站原创 factual SVG，区分 Yiren 878 与相邻三位数型号；示意图，非产品照片。</desc>
+  <rect width="1440" height="900" fill="#eceff0"/><rect x="72" y="68" width="1296" height="764" rx="30" fill="#fffdf8" stroke="#3f5359" stroke-width="4"/>
+  <text x="128" y="156" font-family="Georgia,serif" font-size="64" fill="#233a40">依人 Yiren</text>
+  <text x="130" y="208" font-family="Arial,sans-serif" font-size="27" fill="#637276">品牌入口不等于所有相似编号的统一规格</text>
+  <circle cx="720" cy="390" r="104" fill="#3f5359"/><text x="720" y="382" text-anchor="middle" font-family="Arial,sans-serif" font-size="34" fill="#fff">Yiren</text><text x="720" y="424" text-anchor="middle" font-family="Arial,sans-serif" font-size="26" fill="#dbe4e4">品牌层</text>
+  <path d="M644 470 L380 590 M720 494 V590 M796 470 L1060 590" fill="none" stroke="#af8146" stroke-width="8" stroke-linecap="round"/>
+  <g font-family="Arial,sans-serif" text-anchor="middle"><rect x="160" y="600" width="360" height="128" rx="18" fill="#43565b"/><text x="340" y="655" font-size="34" fill="#fff">878</text><text x="340" y="696" font-size="21" fill="#dce7e6">已完成代表入口</text><rect x="540" y="600" width="360" height="128" rx="18" fill="#d8c19d"/><text x="720" y="655" font-size="31" fill="#26383c">868 / 886</text><text x="720" y="696" font-size="21" fill="#4e5b5e">相邻编号，另行核验</text><rect x="920" y="600" width="360" height="128" rx="18" fill="#d9e2e3"/><text x="1100" y="655" font-size="29" fill="#26383c">无型号礼品笔</text><text x="1100" y="696" font-size="21" fill="#4e5b5e">不能反推品牌关系</text></g>
+  <text x="130" y="786" font-family="Arial,sans-serif" font-size="22" fill="#637276">原创事实图｜示意图，非产品照片｜不表示比例、颜色、Logo、刻字、笔尖或库存</text>
+</svg>

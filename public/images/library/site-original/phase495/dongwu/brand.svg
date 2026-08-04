@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">东吴 DongWu 品牌资料边界事实图</title>
+  <desc id="desc">本站原创 factual SVG，以 948 实物评测为代表入口，提示旧笔状态和未知上墨边界；示意图，非产品照片。</desc>
+  <rect width="1440" height="900" fill="#e9edf0"/><rect x="72" y="68" width="1296" height="764" rx="30" fill="#fffdf8" stroke="#394950" stroke-width="4"/>
+  <text x="128" y="156" font-family="Georgia,serif" font-size="64" fill="#273b42">东吴 DongWu</text><text x="130" y="208" font-family="Arial,sans-serif" font-size="27" fill="#647479">旧国产笔入口：实物状态比传奇叙述更重要</text>
+  <circle cx="720" cy="365" r="100" fill="#394950"/><text x="720" y="357" text-anchor="middle" font-family="Arial,sans-serif" font-size="36" fill="#fff">948</text><text x="720" y="400" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" fill="#d8e2e3">代表型号</text>
+  <path d="M640 442 L360 570 M720 470 V570 M800 442 L1080 570" fill="none" stroke="#b58245" stroke-width="8" stroke-linecap="round"/>
+  <g font-family="Arial,sans-serif" text-anchor="middle"><rect x="150" y="580" width="360" height="132" rx="18" fill="#c4d3d5"/><text x="330" y="636" font-size="31" fill="#273b42">刻字与帽环</text><text x="330" y="676" font-size="21" fill="#53666b">身份核验</text><rect x="540" y="580" width="360" height="132" rx="18" fill="#dfc49b"/><text x="720" y="636" font-size="31" fill="#3d3026">笔尖状态</text><text x="720" y="676" font-size="21" fill="#6d5a49">逐支检查</text><rect x="930" y="580" width="360" height="132" rx="18" fill="#d8dddd"/><text x="1110" y="636" font-size="31" fill="#273b42">上墨未知</text><text x="1110" y="676" font-size="21" fill="#53666b">不从编号外推</text></g>
+  <text x="130" y="786" font-family="Arial,sans-serif" font-size="22" fill="#647479">原创事实图｜示意图，非产品照片｜不表示年代、材质、尺寸、比例或完整产品目录</text>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title desc">
+  <title id="title">长江 ZhangJiang 品牌与转写边界事实图</title>
+  <desc id="desc">本站原创 factual SVG，区分 ZhangJiang 988 代表入口与 Changjiang／Type 28 研究线索；示意图，非产品照片。</desc>
+  <rect width="1440" height="900" fill="#edf0ed"/><rect x="72" y="68" width="1296" height="764" rx="30" fill="#fffdf8" stroke="#47554e" stroke-width="4"/>
+  <text x="128" y="156" font-family="Georgia,serif" font-size="64" fill="#2d3c35">长江 ZhangJiang</text><text x="130" y="208" font-family="Arial,sans-serif" font-size="27" fill="#6a746c">转写可用于检索，身份合并仍需同一刻字或目录证据</text>
+  <circle cx="720" cy="360" r="102" fill="#47554e"/><text x="720" y="352" text-anchor="middle" font-family="Arial,sans-serif" font-size="36" fill="#fff">988</text><text x="720" y="396" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" fill="#dbe3db">当前代表</text>
+  <path d="M640 438 L360 570 M720 468 V570 M800 438 L1080 570" fill="none" stroke="#b2874e" stroke-width="8" stroke-linecap="round"/>
+  <g font-family="Arial,sans-serif" text-anchor="middle"><rect x="150" y="580" width="360" height="132" rx="18" fill="#c7d5c8"/><text x="330" y="636" font-size="31" fill="#2d3c35">ZhangJiang</text><text x="330" y="676" font-size="21" fill="#536259">评测标题</text><rect x="540" y="580" width="360" height="132" rx="18" fill="#dfc69e"/><text x="720" y="636" font-size="31" fill="#3d3026">Changjiang</text><text x="720" y="676" font-size="21" fill="#6d5944">名录转写</text><rect x="930" y="580" width="360" height="132" rx="18" fill="#d9dddd"/><text x="1110" y="636" font-size="31" fill="#2d3c35">Type 28</text><text x="1110" y="676" font-size="21" fill="#536259">研究线索</text></g>
+  <text x="130" y="786" font-family="Arial,sans-serif" font-size="22" fill="#6a746c">原创事实图｜示意图，非产品照片｜不共享未经核实的年代、材质、尺寸、上墨或制造商结论</text>
+</svg>
