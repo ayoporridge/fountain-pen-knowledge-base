@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <rect width="1200" height="720" fill="#edf3ef"/>
+  <g fill="none" stroke="#285443" stroke-width="7">
+    <path d="M160 470h880"/>
+    <path d="M230 420v-150h220v150M490 420v-150h220v150M750 420v-150h220v150"/>
+    <path d="M280 270h120M540 270h120M800 270h120"/>
+    <circle cx="340" cy="220" r="28"/><circle cx="600" cy="220" r="28"/><circle cx="860" cy="220" r="28"/>
+  </g>
+  <g fill="#285443" font-family="Arial,'Noto Sans CJK SC',sans-serif">
+    <text x="70" y="92" font-size="48" font-weight="700">Wearever</text>
+    <text x="70" y="140" font-size="26">David Kahn · 注塑材料 · Zenith 1943</text>
+    <text x="340" y="365" font-size="30" text-anchor="middle">Zenith</text>
+    <text x="600" y="365" font-size="30" text-anchor="middle">Pacemaker</text>
+    <text x="860" y="365" font-size="30" text-anchor="middle">De Luxe</text>
+    <text x="600" y="590" font-size="24" text-anchor="middle">原创品牌导航图｜材料、战时金／钢尖与型号线索需逐支核验</text>
+    <text x="600" y="630" font-size="22" text-anchor="middle">非产品照片、非比例图；颜色与广告样本不能替代型号刻印</text>
+  </g>
+</svg>

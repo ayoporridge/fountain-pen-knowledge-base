@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <rect width="1200" height="720" fill="#f6f0e7"/>
+  <g fill="none" stroke="#4b3429" stroke-width="6">
+    <path d="M150 470h900"/>
+    <path d="M210 310h250v90H210zM500 310h210v90H500zM750 310h240v90H750z"/>
+    <path d="M335 260v50M605 260v50M870 260v50"/>
+    <path d="M270 515c80-90 180-90 260 0M550 515c80-90 180-90 260 0M830 515c55-65 110-65 165 0"/>
+  </g>
+  <g fill="#4b3429" font-family="Arial,'Noto Sans CJK SC',sans-serif">
+    <text x="70" y="92" font-size="48" font-weight="700">Chilton</text>
+    <text x="70" y="140" font-size="26">Boston → Long Island · pneumatic filler · Wing-flow</text>
+    <text x="210" y="245" font-size="30" text-anchor="middle">Chiltonian</text>
+    <text x="605" y="245" font-size="30" text-anchor="middle">Golden Quill</text>
+    <text x="870" y="245" font-size="30" text-anchor="middle">Wing-flow</text>
+    <text x="600" y="590" font-size="24" text-anchor="middle">品牌导航事实图｜结构与年代为研究边界，非产品照片、非比例图</text>
+    <text x="600" y="630" font-size="22" text-anchor="middle">专利线索 ≠ 全系规格；气压机构、包覆式尖与镶嵌须按单支核验</text>
+  </g>
+</svg>

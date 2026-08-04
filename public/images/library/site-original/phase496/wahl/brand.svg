@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <rect width="1200" height="720" fill="#f1eef4"/>
+  <g fill="none" stroke="#4e385d" stroke-width="7">
+    <path d="M170 470h860"/>
+    <path d="M250 390V270h180v120M510 390V270h180v120M770 390V270h180v120"/>
+    <path d="M300 270l40-58 40 58M560 270l40-58 40 58M820 270l40-58 40 58"/>
+    <path d="M430 330h80M690 330h80"/>
+  </g>
+  <g fill="#4e385d" font-family="Arial,'Noto Sans CJK SC',sans-serif">
+    <text x="70" y="92" font-size="48" font-weight="700">Wahl</text>
+    <text x="70" y="140" font-size="26">Boston → Tempoint → Wahl Pen · 硬橡胶 → 赛璐珞</text>
+    <text x="340" y="445" font-size="28" text-anchor="middle">Boston</text>
+    <text x="600" y="445" font-size="28" text-anchor="middle">Tempoint</text>
+    <text x="860" y="445" font-size="28" text-anchor="middle">Wahl Pen</text>
+    <text x="600" y="590" font-size="24" text-anchor="middle">品牌谱系事实图｜轮夹、尖和刻印是阶段线索，不是单独型号证明</text>
+    <text x="600" y="630" font-size="22" text-anchor="middle">原创非照片、非比例图；后期 Wahl-Eversharp 产品保持独立身份</text>
+  </g>
+</svg>

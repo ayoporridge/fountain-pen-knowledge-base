@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <rect width="1200" height="720" fill="#f0eee8"/>
+  <g fill="none" stroke="#3e4148" stroke-width="7">
+    <rect x="130" y="230" width="250" height="150" rx="35"/>
+    <rect x="475" y="230" width="250" height="150" rx="35"/>
+    <rect x="820" y="230" width="250" height="150" rx="35"/>
+    <path d="M380 305h95M725 305h95M260 380v110M605 380v110M950 380v110"/>
+    <circle cx="260" cy="515" r="24"/><circle cx="605" cy="515" r="24"/><circle cx="950" cy="515" r="24"/>
+  </g>
+  <g fill="#3e4148" font-family="Arial,'Noto Sans CJK SC',sans-serif">
+    <text x="70" y="92" font-size="48" font-weight="700">Charles H. Ingersoll</text>
+    <text x="70" y="140" font-size="26">Dollar Pen · stem-winder · 金属／赛璐珞／Bakelite</text>
+    <text x="255" y="320" font-size="28" text-anchor="middle">镍镀黄铜</text>
+    <text x="600" y="320" font-size="28" text-anchor="middle">赛璐珞</text>
+    <text x="945" y="320" font-size="28" text-anchor="middle">Bakelite</text>
+    <text x="600" y="590" font-size="24" text-anchor="middle">品牌事实图｜尾端旋转上墨与金／钢尖只按单支证据判断</text>
+    <text x="600" y="630" font-size="22" text-anchor="middle">原创非照片、非比例图；材料路线不等于统一年份或维修状态</text>
+  </g>
+</svg>

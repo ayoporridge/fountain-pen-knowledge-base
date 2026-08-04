@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <rect width="1200" height="720" fill="#eef2f4"/>
+  <g fill="none" stroke="#193b52" stroke-width="7">
+    <path d="M160 420h880"/>
+    <path d="M300 420V260h600v160"/>
+    <path d="M420 260v-75h360v75"/>
+    <path d="M520 185v-50h160v50"/>
+    <path d="M300 470h600"/>
+    <path d="M470 530h260"/>
+  </g>
+  <g fill="#193b52" font-family="Arial,'Noto Sans CJK SC',sans-serif">
+    <text x="70" y="92" font-size="48" font-weight="700">Picasso 毕加索</text>
+    <text x="70" y="140" font-size="26">上海帕弗洛 · Malaga 916 · 其它书写模式分流</text>
+    <text x="600" y="235" font-size="34" text-anchor="middle">品牌</text>
+    <text x="600" y="330" font-size="38" text-anchor="middle">916 Malaga</text>
+    <text x="600" y="395" font-size="25" text-anchor="middle">铱金笔／财务笔／美工笔选项</text>
+    <text x="600" y="590" font-size="24" text-anchor="middle">原创事实导航图｜不代表尺寸、颜色、Logo 或产品照片</text>
+    <text x="600" y="630" font-size="22" text-anchor="middle">联名礼盒是版本边界；PS-916 等市场写法须回到笔身与官方页核对</text>
+  </g>
+</svg>
