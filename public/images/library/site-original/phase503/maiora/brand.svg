@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc" data-factual-svg="true" data-product-photo="false" data-logo="false" data-to-scale="false" data-colour-proof="false">
+  <title id="title">Maiora brand and Impronte routes factual diagram</title>
+  <desc id="desc">Editorial diagram showing Maiora as the brand node with Impronte standard and Impronte Oversize as separate model routes. Not a product photograph and not to scale.</desc>
+  <rect width="1600" height="900" fill="#f2eee8"/>
+  <rect x="92" y="76" width="1416" height="748" rx="34" fill="#fffdfa" stroke="#aa9c8e" stroke-width="4"/>
+  <text x="140" y="170" font-family="Georgia,serif" font-size="58" fill="#292624">Maiora</text>
+  <text x="140" y="222" font-family="Arial,sans-serif" font-size="25" fill="#6d6762">brand context · made in Italy self-description · Impronte navigation</text>
+  <rect x="140" y="302" width="1320" height="128" rx="24" fill="#e8ded1" stroke="#9a8773" stroke-width="3"/>
+  <text x="190" y="360" font-family="Arial,sans-serif" font-size="33" fill="#292624">Maiora brand layer</text>
+  <text x="190" y="402" font-family="Arial,sans-serif" font-size="24" fill="#4b4039">hand-turned resin · metal finishing · current Italian writing-tool route</text>
+  <path d="M800 430 L800 522" stroke="#9a8773" stroke-width="5"/>
+  <path d="M800 522 L455 522 L455 580 M800 522 L1145 522 L1145 580" fill="none" stroke="#9a8773" stroke-width="5"/>
+  <rect x="180" y="580" width="550" height="126" rx="24" fill="#dc7a45" stroke="#4b3430" stroke-width="5"/>
+  <text x="230" y="635" font-family="Arial,sans-serif" font-size="34" fill="#fffdfa">Impronte standard</text>
+  <text x="230" y="678" font-family="Arial,sans-serif" font-size="23" fill="#fff4eb">standard-size model route</text>
+  <rect x="870" y="580" width="550" height="126" rx="24" fill="#5f8795" stroke="#30434b" stroke-width="5"/>
+  <text x="920" y="635" font-family="Arial,sans-serif" font-size="34" fill="#fffdfa">Impronte Oversize</text>
+  <text x="920" y="678" font-family="Arial,sans-serif" font-size="23" fill="#eef8fb">larger-size model route</text>
+  <text x="140" y="780" font-family="Arial,sans-serif" font-size="22" fill="#6d6762">示意图只表达品牌与型号层级；颜色、饰面、尖幅与尺寸须回到各自型号页核对。</text>
+</svg>
