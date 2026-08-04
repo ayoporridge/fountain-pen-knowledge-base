@@ -1,0 +1,216 @@
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import test from "node:test";
+import { createClient } from "@libsql/client";
+import { applyPhase473PilotKakunoPreraCocoonDepth } from "../../scripts/apply-phase473-pilot-kakuno-prera-cocoon-depth";
+import {
+  PHASE473_IDS,
+  phase473PilotKakunoPreraCocoonDepthPacks,
+} from "../../scripts/data/phase473-pilot-kakuno-prera-cocoon-depth";
+import {
+  assertCatalogSnapshotUnchanged,
+  copyCheckpointedCatalogToDisposableCopy,
+  snapshotCatalogFiles,
+} from "../../src/lib/audit/read-only-catalog";
+import { migrateDatabase } from "../../src/lib/db";
+import { computePublicationContentHash } from "../../src/lib/publication";
+
+const ROOT = process.cwd();
+const REAL = path.join(ROOT, "data", "fpkg.db");
+const BASE_CHECKPOINT = path.join(
+  ROOT,
+  ".planning/quick/260804-e98-phase-472-deepen-existing-waterman-allur/checkpoint-final.db",
+);
+
+test("Phase 473 deepens Pilot Kakuno, Prera and Cocoon on an owned checkpoint", {
+  timeout: 900_000,
+}, async () => {
+  const realSnapshot = snapshotCatalogFiles(REAL);
+  const baseSnapshot = snapshotCatalogFiles(BASE_CHECKPOINT);
+  const ownedRoot = fs.realpathSync.native(
+    fs.mkdtempSync(path.join(os.tmpdir(), "fpkg-phase473-pilot-")),
+  );
+  const copy = copyCheckpointedCatalogToDisposableCopy(
+    BASE_CHECKPOINT,
+    path.join(ownedRoot, "catalog.db"),
+    ownedRoot,
+    { expectedSourceSnapshot: baseSnapshot },
+  );
+  const client = createClient({ url: `file:${copy.destinationPath}` });
+  const options = {
+    workspaceRoot: ROOT,
+    reviewer: "phase473-pilot-kakuno-prera-cocoon-test",
+    databasePath: copy.destinationPath,
+    ownedRoot,
+    protectedCatalogPath: REAL,
+    protectedCatalogSnapshot: realSnapshot,
+    env: {
+      ...process.env,
+      TURSO_DATABASE_URL: "",
+      TURSO_AUTH_TOKEN: "",
+      FPKG_DATABASE_URL: "",
+    },
+  } as const;
+  try {
+    await migrateDatabase(client);
+    assert.equal(phase473PilotKakunoPreraCocoonDepthPacks.length, 3);
+    const baselineCounts = new Map<
+      string,
+      { aliases: number; refs: number; variants: number }
+    >();
+    for (const pack of phase473PilotKakunoPreraCocoonDepthPacks) {
+      const markdown = fs.readFileSync(
+        path.join(ROOT, pack.markdownFile),
+        "utf8",
+      );
+      assert.ok(
+        markdown.length >= 4_000,
+        `${pack.expectedSlug} research copy is too short`,
+      );
+      assert.ok(
+        (markdown.match(/## body_md\n([\s\S]*?)(?=\n## )/)?.[1] ?? "").length >=
+          3_200,
+        `${pack.expectedSlug} body is too short`,
+      );
+      assert.ok(
+        new Set(pack.sources.map((source) => source.independenceGroup)).size >=
+          2,
+      );
+      const baseline = (
+        await client.execute({
+          sql: `
+            SELECT
+              (SELECT count(*) FROM entity_aliases WHERE entity_id=?) AS aliases,
+              (SELECT count(*) FROM entity_references WHERE entity_id=?) AS refs,
+              (SELECT count(*) FROM model_variants WHERE model_entity_id=?) AS variants
+          `,
+          args: [pack.entityId, pack.entityId, pack.entityId],
+        })
+      ).rows[0];
+      baselineCounts.set(pack.entityId, {
+        aliases: Number(baseline?.aliases),
+        refs: Number(baseline?.refs),
+        variants: Number(baseline?.variants),
+      });
+    }
+    await assert.rejects(
+      applyPhase473PilotKakunoPreraCocoonDepth(client, {
+        ...options,
+        env: { ...options.env, TURSO_DATABASE_URL: "libsql://remote" },
+      }),
+      /refuses inherited remote database selection/,
+    );
+    const first = await applyPhase473PilotKakunoPreraCocoonDepth(
+      client,
+      options,
+    );
+    assert.deepEqual(
+      first.entities.map((item) => item.entityId),
+      Object.values(PHASE473_IDS),
+    );
+    for (const [label, modelId] of Object.entries(PHASE473_IDS)) {
+      const pack = phase473PilotKakunoPreraCocoonDepthPacks.find(
+        (item) => item.entityId === modelId,
+      );
+      assert.ok(pack);
+      const entity = (
+        await client.execute({
+          sql: "SELECT id,type,slug,body_md FROM public_entities WHERE id=?",
+          args: [modelId],
+        })
+      ).rows[0];
+      assert.equal(String(entity?.id), modelId);
+      assert.equal(String(entity?.type), pack.expectedType);
+      assert.equal(String(entity?.slug), pack.expectedSlug);
+      assert.ok(
+        String(entity?.body_md ?? "").length >= 3_000,
+        `${label} published body is too short`,
+      );
+      assert.equal(
+        String(entity?.body_md ?? "").match(/made_by|数据库|仓库/i),
+        null,
+      );
+      const refs = (
+        await client.execute({
+          sql: "SELECT count(*) AS n FROM entity_references WHERE entity_id=? AND review_status=?",
+          args: [modelId, "approved"],
+        })
+      ).rows[0];
+      assert.ok(Number(refs?.n) >= 4);
+      const counts = (
+        await client.execute({
+          sql: `
+            SELECT
+              (SELECT count(*) FROM entity_aliases WHERE entity_id=?) AS aliases,
+              (SELECT count(*) FROM entity_references WHERE entity_id=?) AS refs,
+              (SELECT count(*) FROM model_variants WHERE model_entity_id=?) AS variants
+          `,
+          args: [modelId, modelId, modelId],
+        })
+      ).rows[0];
+      const baseline = baselineCounts.get(modelId);
+      assert.ok(baseline);
+      assert.ok(Number(counts?.aliases) >= baseline.aliases);
+      assert.ok(Number(counts?.refs) >= baseline.refs);
+      assert.ok(Number(counts?.variants) >= baseline.variants);
+      const media = (
+        await client.execute({
+          sql: "SELECT count(*) AS n FROM media_assets WHERE entity_id=? AND review_status=? AND usage_status=?",
+          args: [modelId, "approved", "primary"],
+        })
+      ).rows[0];
+      assert.equal(Number(media?.n), 1);
+      assert.ok(pack.spec?.brandEntityId);
+      const maker = (
+        await client.execute({
+          sql: "SELECT count(*) AS n FROM entity_links WHERE source_id=? AND target_id=? AND link_type=?",
+          args: [modelId, pack.spec.brandEntityId, "made_by"],
+        })
+      ).rows[0];
+      assert.equal(Number(maker?.n), 1);
+      const reverse = (
+        await client.execute({
+          sql: "SELECT count(*) AS n FROM entity_links WHERE target_id=? AND link_type=?",
+          args: [modelId, "reverse"],
+        })
+      ).rows[0];
+      assert.equal(Number(reverse?.n), 1);
+      const hash = await computePublicationContentHash(client, modelId);
+      const reviews = (
+        await client.execute({
+          sql: "SELECT review_kind,status FROM entity_content_reviews WHERE entity_id=? AND content_hash=? ORDER BY review_kind",
+          args: [modelId, hash],
+        })
+      ).rows.map((row) => [String(row.review_kind), String(row.status)]);
+      assert.deepEqual(reviews, [
+        ["fact", "approved"],
+        ["language", "approved"],
+        ["media", "approved"],
+        ["publication", "approved"],
+      ]);
+      const publication = (
+        await client.execute({
+          sql: "SELECT status,reviewed_content_revision,content_revision,reviewed_contract_version,approved_content_hash FROM entity_publications WHERE entity_id=?",
+          args: [modelId],
+        })
+      ).rows[0];
+      assert.equal(String(publication?.status), "published");
+      assert.equal(
+        Number(publication?.reviewed_content_revision),
+        Number(publication?.content_revision),
+      );
+      assert.equal(Number(publication?.reviewed_contract_version), 3);
+      assert.equal(String(publication?.approved_content_hash), hash);
+    }
+    const replay = await applyPhase473PilotKakunoPreraCocoonDepth(
+      client,
+      options,
+    );
+    assert.ok(replay.entities.every((item) => item.outcome === "noop"));
+    assertCatalogSnapshotUnchanged(realSnapshot, snapshotCatalogFiles(REAL));
+  } finally {
+    client.close();
+  }
+});
