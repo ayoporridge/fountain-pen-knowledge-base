@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <rect width="1200" height="720" fill="#f1eee6"/>
+  <g fill="none" stroke="#5b4434" stroke-width="7">
+    <path d="M600 170v350M600 250H300v150M600 250h300v150"/>
+    <rect x="190" y="320" width="220" height="80" rx="30"/><rect x="490" y="520" width="220" height="90" rx="30"/><rect x="790" y="320" width="220" height="80" rx="30"/>
+    <path d="M300 400v90M900 400v90M520 565h-80M680 565h80"/>
+  </g>
+  <g fill="#5b4434" font-family="Arial,'Noto Sans CJK SC',sans-serif">
+    <text x="70" y="92" font-size="48" font-weight="700">Ranga Pens</text>
+    <text x="70" y="140" font-size="26">India · handmade turning · acrylic · ebonite · celluloid</text>
+    <text x="300" y="370" font-size="30" text-anchor="middle">Model 3</text>
+    <text x="900" y="370" font-size="30" text-anchor="middle">Model 3C / custom</text>
+    <text x="600" y="570" font-size="30" text-anchor="middle">订单层级：nib · feed · converter · finish</text>
+    <text x="600" y="650" font-size="22" text-anchor="middle">原创品牌导航图｜钢笔与 rollerball 分开；示意图，非产品照片、非统一规格</text>
+  </g>
+</svg>

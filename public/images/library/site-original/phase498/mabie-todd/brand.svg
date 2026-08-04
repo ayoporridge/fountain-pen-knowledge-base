@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <rect width="1200" height="720" fill="#eeeff2"/>
+  <g fill="none" stroke="#3e4d63" stroke-width="7">
+    <path d="M160 300h880M160 460h880"/>
+    <path d="M300 300v160M600 300v160M900 300v160"/>
+    <path d="M300 300v-75M600 300v-75M900 300v-75"/>
+  </g>
+  <g fill="#3e4d63" font-family="Arial,'Noto Sans CJK SC',sans-serif">
+    <text x="70" y="92" font-size="48" font-weight="700">Mabie Todd &amp; Co.</text>
+    <text x="70" y="140" font-size="26">New York → London → Swan · 1860—1952 company breaks</text>
+    <text x="300" y="390" font-size="30" text-anchor="middle">美国起步</text>
+    <text x="600" y="390" font-size="30" text-anchor="middle">英国制造</text>
+    <text x="900" y="390" font-size="30" text-anchor="middle">Swan family</text>
+    <text x="600" y="570" font-size="30" text-anchor="middle">档案／馆藏／单支刻字：地区与时期不可混写</text>
+    <text x="600" y="650" font-size="22" text-anchor="middle">原创历史导航图｜非 Logo、非馆藏复制、非产品照片或比例图</text>
+  </g>
+</svg>
