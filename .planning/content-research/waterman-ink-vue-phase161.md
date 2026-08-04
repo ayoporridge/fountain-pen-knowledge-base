@@ -34,6 +34,18 @@ Ink‑Vue 的难点是橡胶件和气密性。老 bulb、washer、密封圈可�
 
 Ink‑Vue 可以和同年代的 Patrician、Hundred Year Pen 并读：Patrician 偏装饰艺术旗舰，Hundred Year 偏 Lucite 与保证叙事，而 Ink‑Vue 把可见墨量和泵式机构放到产品中心。它又与后来的 Taperite、C/F 和 X‑Pen 处在不同的材料与上墨时代，不能把其 Tip‑Fill、No.5 或横压 bulb 填到其他页面。本站原创 SVG 是 factual diagram，不是产品照片，只表示透明 barrel、横压 bulb、Tip‑Fill、No.5/No.7 和 5116 版本关系，不代表真实比例、颜色或内部零件状态。
 
+### 泵式结构的记录方法
+
+Ink‑Vue 的透明 barrel 让读者看见墨水，也让维修痕迹更难隐藏。归档一支样本时，应同时拍摄 barrel 两端、bulb、washer、plug、杠杆和 feed；如果末端被胶封或改造，必须在记录里保留这一事实。标准 84、De Luxe、Lady Patricia 和 5116 的共同关键词是 Ink‑Vue，但它们并不共享同一套拆解顺序。页面把“透明墨量可见”写成产品设计特征，把“这支是否能安全吸墨”留给具体维修检查。
+
+试写前先确认 bulb 能压缩且回弹，吸墨后观察透明 barrel 是否有持续气泡、渗漏或颜色残留。换色不要用热水、酒精或现代 converter 硬套，历史泵件和 celluloid 更适合分段、常温、低压力的清洁。若一支 5116 的一体式结构无法确认 plug 状态，宁可只记录外观和待修状态，也不要为了验证“是否工作”而强行旋拧末端。
+
+收藏和日用的选择标准也应分开：收藏者会关心 No.7、颜色、帽顶徽记、原装 bulb 和透明 barrel，日用者则首先需要可靠密封、可获得的维修件和可逆的清洁方案。两套标准都不能由一张零售价格表替代。
+
+页面保留这种差异，避免把收藏价值误写成使用保证。
+
+每次新增档案都保留来源日期和版本范围。
+
 ## 来源
 
 - [Waterman Heritage](https://www.waterman.com/waterman-history.html)
