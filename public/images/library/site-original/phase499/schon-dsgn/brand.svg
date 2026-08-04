@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <rect width="1200" height="720" fill="#edf0f2"/>
+  <g fill="none" stroke="#354d61" stroke-width="7">
+    <path d="M600 170v350M600 250H300v150M600 250h300v150"/>
+    <rect x="190" y="320" width="220" height="80" rx="28"/><rect x="490" y="520" width="220" height="90" rx="28"/><rect x="790" y="320" width="220" height="80" rx="28"/>
+    <path d="M600 520v-70M500 565h-80M700 565h80"/>
+  </g>
+  <g fill="#354d61" font-family="Arial,'Noto Sans CJK SC',sans-serif">
+    <text x="70" y="92" font-size="48" font-weight="700">Schon DSGN</text>
+    <text x="70" y="140" font-size="26">Ian Schon · machined metal · pocket fountain pen</text>
+    <text x="300" y="370" font-size="30" text-anchor="middle">Pocket Six</text>
+    <text x="900" y="370" font-size="30" text-anchor="middle">other writing tools</text>
+    <text x="600" y="570" font-size="30" text-anchor="middle">short body · cap posts · #6 · short international C/C</text>
+    <text x="600" y="650" font-size="22" text-anchor="middle">原创品牌事实图｜铝／黄铜／铜为版本层；示意图，非产品照片、非标准重量</text>
+  </g>
+</svg>
