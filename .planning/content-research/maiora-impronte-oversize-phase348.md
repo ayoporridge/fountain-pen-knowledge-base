@@ -32,6 +32,18 @@ Oversize 的清洗原则与标准 Impronte 相同：标准国际卡水／转换�
 
 实际携带还要考虑笔帽长度和夹子。Oversize 套帽后的长度可能超过 150 mm，放进窄笔袋或衬衫口袋前应先确认空间；宽桶也会让普通笔环显得紧。帽盖旋合虽有三线螺纹的效率，遇到树脂粉尘或干墨时仍要先清洁，不要为了追求快速开合而加油或强行拧紧。对收藏者来说，编号版、限量色和普通库存应分别记录，编号不等于新的机械型号。
 
+## 如何比较不同 Oversize 样本
+
+Oversize 的公开数字来自不同条件：官方 catalog 给系列尺寸，SBREBrown 给 Mirror Black 样本的闭帽／开盖／套帽与分体重量，The Pen Addict 与 The Gentleman Stationer 则更重视具体树脂、握位和尖幅。比较时应先统一“是否套帽”“量测点是桶径还是握位”“是否含转换器”，再讨论轻重或平衡。145.2 mm 和 147 mm 都可以是有效资料，但不能把它们拼成一条假精确的工厂公差。
+
+## captured converter 的使用边界
+
+尾端 blind cap 让 captured converter 可以旋转，是 Oversize 书写流程中的便利结构，不等于它拥有活塞笔的独立墨仓。换色时仍应按标准国际卡水／转换器方式拆下、冲洗和自然晾干；尾端旋转遇到阻力先停下，不要用润滑油或强行拧紧来“修好”。如果一支笔经过改装，需把原装 converter、盲帽和后配件分别拍照，避免把单支改装写成全系标准。
+
+## 选色之外的购买核验
+
+Capri、Posillipo、Mirror Black 等名称首先是颜色或样本线索，不能取代 Impronte Oversize 的完整型号名。购买前确认 Standard／Oversize、#6 尖幅、树脂表面、金属件电镀和随附配件；二手笔再检查帽螺纹、尾端盲帽、夹子和尖端对齐。若主要在窄笔袋或衬衫口袋携带，先量笔袋宽度和套帽长度；喜欢细握位或轻量的人，应与标准 Impronte 试写后再决定。
+
 ## 来源
 
 - [Maiora 2022 official catalog](https://maiorapen.com/wp-content/uploads/2022/12/CATALOGO-MAIORA-.pdf)：Impronte 系列的树脂、金属件、钢尖、目录尺寸和 made in Italy 语境。
