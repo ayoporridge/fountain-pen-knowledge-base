@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Wancher 品牌与系列边界事实图</title>
+  <desc id="desc">本站原创 factual SVG，以材料和工艺分支区分 Wancher Dream Pen 及其他系列；示意图，非产品照片。</desc>
+  <rect width="1600" height="900" fill="#f4efe7"/>
+  <rect x="84" y="72" width="1432" height="756" rx="34" fill="#fffdf8" stroke="#244649" stroke-width="4"/>
+  <text x="150" y="160" font-family="Georgia, serif" font-size="64" fill="#193b3e">Wancher</text>
+  <text x="152" y="208" font-family="Arial, sans-serif" font-size="28" fill="#607071">品牌导航：系列、材料与工艺不能互相代替</text>
+  <circle cx="800" cy="350" r="112" fill="#244649"/>
+  <text x="800" y="342" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" fill="#fffdf8">Wancher</text>
+  <text x="800" y="386" text-anchor="middle" font-family="Arial, sans-serif" font-size="25" fill="#d8e6df">品牌层</text>
+  <path d="M718 432 L420 560 M800 462 V560 M882 432 L1180 560" fill="none" stroke="#b0844f" stroke-width="8" stroke-linecap="round"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <rect x="190" y="570" width="420" height="150" rx="22" fill="#242a2b"/>
+    <text x="400" y="632" font-size="32" fill="#f0d7b2">True Ebonite</text>
+    <text x="400" y="676" font-size="23" fill="#d7dedc">硬橡胶与不同表面处理</text>
+    <rect x="590" y="570" width="420" height="150" rx="22" fill="#6c4938"/>
+    <text x="800" y="632" font-size="32" fill="#ffe7c5">Urushi / Raden</text>
+    <text x="800" y="676" font-size="23" fill="#f2d8be">漆艺、螺钿与具体作品</text>
+    <rect x="990" y="570" width="420" height="150" rx="22" fill="#45545a"/>
+    <text x="1200" y="632" font-size="32" fill="#fff">Titanium / Other</text>
+    <text x="1200" y="676" font-size="23" fill="#e0e8e6">金属与其他系列路线</text>
+  </g>
+  <text x="152" y="780" font-family="Arial, sans-serif" font-size="23" fill="#607071">Fountain Pen Graph 原创 factual SVG｜示意图，非产品照片｜不表示比例、颜色、Logo、刻字、笔尖、库存或具体 SKU</text>
+</svg>
