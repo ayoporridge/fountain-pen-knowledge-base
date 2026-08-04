@@ -25,6 +25,7 @@
 
 - `TURSO_DATABASE_URL='' TURSO_AUTH_TOKEN='' FPKG_DATABASE_URL='' CI=1 pnpm build`：通过；Next 15.5.18 编译、类型检查、静态页生成和 standalone runtime 准备均通过。
 - 本地 `next start` 在 3100 端口启动后，sitemap 返回 HTTP 200，包含 954 个 URL。
+- 12 并发全 sitemap 读回：首轮 953/954 HTTP 200、0 个短响应；唯一超时为聚合页 `/library/sources`（30 秒上限）。将该页延长至 180 秒后返回 HTTP 200、6,182,808 bytes，因此本地 954 个 URL 最终全部可达。
 - 重点页面均 HTTP 200 且非空：`/pen/pilot-custom-urushi`（140892 bytes）、`/pen/diplomat-excellence-a2`（94727）、`/pen/nahvalur-schuylkill`（97712）、`/pen/delike-element`（89070）、`/brand/pilot`（109292）、`/brand/diplomat`（74988）、`/brand/nahvalur`（92366）。
 
 ## Turso 边界
