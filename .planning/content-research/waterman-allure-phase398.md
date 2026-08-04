@@ -122,3 +122,18 @@ Allure 的可靠介绍不需要给它套上夸张的“奢华”标签：它是�
 对于资料库维护者，最重要的不是把每一个颜色都写成一篇新文章，而是让系列页、型号页和版本记录彼此可回溯。Allure 型号页保留 S0037650 作为当前锚点，颜色和旧称进入 variants，品牌页通过正确的 Waterman 关系连接回来；未来新增确切商品号时，可以在同一 family 下扩充，而不必再次制造一个“Waterman Allure 钢笔”重复页面。若某个地区出现新的尖宽或材料，新增来源和适用范围即可，旧样本的尺寸与附件记录仍然有价值。
 
 最后，遇到互相矛盾的销售标题，先暂停结论。标题可能把 Allure、Graduate、Impression、Chrome 甚至 rollerball 放在同一关键词下，图片也可能是另一种写字工具。检查尖、握位和供墨接口，寻找官方商品号，再看来源更新时间和市场；无法消除矛盾时，就在页面上写明“待核”，而不是选择一个最顺眼的名称。对一支日用钢笔保持这种克制，正是避免读者买错型号、装错耗材和误解历史的最实际帮助。
+
+读当前商品页时，可以把“系列事实”和“商品事实”分成两层。系列页回答 Allure fountain pen 是否仍在目录、有哪些颜色与写字工具类型；S0037650 页面回答具体的 Fine 尖、刷纹不锈钢、法国手工装配、蓝色墨胆、礼盒和当次库存。两层不能互相替代：系列页没有给出的尺寸，不应从旧 Chrome 零售页补回当前 SKU；商品页一次缺货，也不应被改写成全系停产。页面日期、地区和商品号应一起保存，下一次复查才知道哪一个结论需要更新。
+
+Allure 的金属外观也需要按维护风险来写。刷纹不锈钢可以用柔软湿布擦去指纹，但笔夹根、帽口和握位仍可能积墨；漆面 Black CT 或旧 Pastel 则要避免溶剂和研磨，不能因为“不锈钢基材”四个字就把全系当裸金属处理。清洁时先排空墨胆或 converter，再用凉水从握位方向缓慢冲洗，待水分排尽后自然晾干；若发现漆面起泡、帽口变形或转换器漏气，应保留照片和商品号，停止反复试装。
+
+把选购建议写成可核对的顺序会比“适合入门”更有用：先确定确实是 fountain pen，再核对 SKU、颜色、尖宽、上墨器和退换政策，最后才比较尺寸与价格。对细字用户，Fine 只是 S0037650 的明确配置；对大手或长时间书写者，细身截面是否舒服必须试握。二手笔还要把笔尖刻字、握位裂纹、帽内干墨、夹根松动和盒卡列入同一份记录，避免用一张远景照同时推断材质、年份和真伪。
+
+## 来源
+
+- [Waterman Allure collection](https://www.waterman.com/pens/allure/)
+- [Allure Fountain Pen Stainless Steel, S0037650](https://www.waterman.com/pens/allure/allure/allure-fountain-pen/SAP_S0037650.html)
+- [Waterman fountain pen storage and cleaning support](https://www.waterman.com/support?cfid=fountain-pen-storage-and-cleaning-recommendations)
+- [Waterman Trade Catalogue 2021](https://assets.waterman.com/is/content/NewellRubbermaid/wtrmn_trdctlg_2021)
+- [Pen Heaven Waterman Allure Chrome](https://www.penheaven.com/waterman-allure-chrome-fountain-pen)
+- [Fountain Pen Blog：Waterman Allure](https://rupertarzeian.com/tag/waterman-allure/)
