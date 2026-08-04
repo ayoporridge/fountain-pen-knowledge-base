@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <rect width="1200" height="720" fill="#eef0f3"/>
+  <g fill="none" stroke="#25374f" stroke-width="7">
+    <path d="M600 175v330M600 250H300v150M600 250h300v150"/>
+    <rect x="190" y="315" width="220" height="90" rx="35"/><rect x="490" y="505" width="220" height="90" rx="35"/><rect x="790" y="315" width="220" height="90" rx="35"/>
+    <path d="M520 550h-80M680 550h80"/>
+  </g>
+  <g fill="#25374f" font-family="Arial,'Noto Sans CJK SC',sans-serif">
+    <text x="70" y="92" font-size="48" font-weight="700">S.T. Dupont</text>
+    <text x="70" y="140" font-size="26">1872 Paris · 1924 Faverges · writing instruments</text>
+    <text x="300" y="372" font-size="30" text-anchor="middle">fountain pen</text>
+    <text x="900" y="372" font-size="30" text-anchor="middle">rollerball / ballpoint</text>
+    <text x="600" y="555" font-size="30" text-anchor="middle">Line D Eternity</text>
+    <text x="600" y="645" font-size="22" text-anchor="middle">漆面、剑形夹、Wings nib、plunger 为型号线索；原创非照片、非比例图</text>
+  </g>
+</svg>

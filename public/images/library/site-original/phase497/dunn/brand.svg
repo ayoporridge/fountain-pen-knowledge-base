@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <rect width="1200" height="720" fill="#f2eee8"/>
+  <g fill="none" stroke="#70402c" stroke-width="8">
+    <rect x="180" y="260" width="760" height="150" rx="70"/>
+    <path d="M940 335h110M1050 270v130M1050 270l55 65-55 65"/>
+    <path d="M270 410v90M400 410v90M530 410v90"/>
+    <path d="M260 525h300"/>
+  </g>
+  <g fill="#70402c" font-family="Arial,'Noto Sans CJK SC',sans-serif">
+    <text x="70" y="92" font-size="48" font-weight="700">Dunn-Pen</text>
+    <text x="70" y="140" font-size="26">纽约 · patent pump filler · Little Red Pump-Handle</text>
+    <text x="600" y="230" font-size="34" text-anchor="middle">pump / piston / cork seal</text>
+    <text x="400" y="580" font-size="28" text-anchor="middle">透明 barrel · hard rubber · casein</text>
+    <text x="900" y="580" font-size="28" text-anchor="middle">Dreadnaught ≠ 单凭尺寸命名</text>
+    <text x="600" y="645" font-size="22" text-anchor="middle">原创品牌事实图｜示意图，非产品照片、非比例图，材料与维修状态按单支核验</text>
+  </g>
+</svg>

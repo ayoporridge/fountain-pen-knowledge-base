@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <rect width="1200" height="720" fill="#f0eee6"/>
+  <g fill="none" stroke="#4c3c2f" stroke-width="7">
+    <path d="M180 260h840M180 420h840"/>
+    <path d="M300 260v160M600 260v160M900 260v160"/>
+    <path d="M330 420l-35 80M630 420l-35 80M930 420l-35 80"/>
+    <path d="M265 500h650"/>
+  </g>
+  <g fill="#4c3c2f" font-family="Arial,'Noto Sans CJK SC',sans-serif">
+    <text x="70" y="92" font-size="48" font-weight="700">Eboya</text>
+    <text x="70" y="140" font-size="26">Nikko Ebonite · HOUJU · hand-finished ebonite</text>
+    <text x="300" y="350" font-size="34" text-anchor="middle">S</text>
+    <text x="600" y="350" font-size="34" text-anchor="middle">M</text>
+    <text x="900" y="350" font-size="34" text-anchor="middle">L</text>
+    <text x="600" y="555" font-size="30" text-anchor="middle">HOUJU M black · 14K Bock #6 narrow · C/C</text>
+    <text x="600" y="645" font-size="22" text-anchor="middle">原创品牌事实图｜不表示真实纹理、比例、颜色、库存或每支写感</text>
+  </g>
+</svg>
