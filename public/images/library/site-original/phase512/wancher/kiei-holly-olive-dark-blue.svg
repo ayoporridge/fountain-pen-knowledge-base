@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Wancher Kiei Urushi Holly Olive Dark Blue 事实边界图</title>
+  <desc id="desc">本站原创非产品照片示意图，区分深蓝色主题、天然漆、单叶变体和 nib/feed 边界。</desc>
+  <rect width="1600" height="900" fill="#101d32"/><text x="100" y="120" font-family="serif" font-size="50" fill="#dce9ff">Kiei Urushi · Holly Olive · Dark Blue</text>
+  <defs><linearGradient id="blue" x1="0" x2="1"><stop offset="0" stop-color="#10213f"/><stop offset=".5" stop-color="#1f4d78"/><stop offset="1" stop-color="#4e85ae"/></linearGradient></defs>
+  <rect x="135" y="255" width="1110" height="180" rx="90" fill="url(#blue)" stroke="#b8dcff" stroke-width="4"/><g fill="#d5eaff"><circle cx="400" cy="300" r="11"/><circle cx="510" cy="370" r="8"/><circle cx="670" cy="292" r="10"/><circle cx="770" cy="360" r="7"/></g>
+  <g fill="#d2b779" stroke="#fff1cd" stroke-width="3"><path d="M895 330c-38-45 31-80 49-23 34-48 83 18 28 40 43 29-18 78-40 31-34 37-80-11-37-48z"/><path d="M1080 390c-32-38 26-70 40-19 29-41 72 15 25 35 37 24-15 68-35 27-30 32-68-10-30-43z"/></g>
+  <g font-family="sans-serif" fill="#dce9ff" font-size="27"><text x="120" y="535">Dark Blue · ebonite · Urushi · natural leaf · gold powder</text><text x="120" y="590">官方当前公开 Leaf Design：1 Leaf</text><text x="120" y="645">#6 JoWo 或 Wancher 18K；nib/feed 组合需按订单确认</text><text x="120" y="700">Nurippanashi 自然纹理与漆面黑色圆点不自动等于瑕疵</text></g>
+  <text x="100" y="825" font-family="sans-serif" font-size="23" fill="#9db8d2">site-original · 非产品照片 · non-logo · not-to-scale · non-colour-proof · 1600×900</text>
+</svg>
