@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Yakumo-nuri Chijimi Nishikihebi factual diagram</title>
+  <desc id="desc">Original factual diagram, not a product photograph or scale drawing.</desc>
+  <rect width="1600" height="900" fill="#b28a34"/>
+  <path d="M160 500 C350 350 570 350 760 455 S1120 605 1440 390" fill="none" stroke="#e3c56c" stroke-width="48" stroke-linecap="round"/>
+  <path d="M160 500 C350 350 570 350 760 455 S1120 605 1440 390" fill="none" stroke="#5e4324" stroke-width="16" stroke-dasharray="14 27" stroke-linecap="round"/>
+  <text x="110" y="130" fill="#fff7df" font-family="sans-serif" font-size="56" font-weight="700">Yakumo-nuri Chijimi · Nishikihebi</text>
+  <text x="112" y="205" fill="#fff0c5" font-family="sans-serif" font-size="30">锦蛇主题 · Ebonite · Chijimi Urushi · Nagaya Momoko</text>
+  <text x="112" y="770" fill="#fff0c5" font-family="sans-serif" font-size="30">18K Shogun / Rhodium-plated · Sailor Standard · Plastic feed</text>
+  <text x="112" y="830" fill="#f0dca7" font-family="sans-serif" font-size="24">本站原创 factual SVG；非产品照片、不按比例、不作颜色证明。</text>
+</svg>

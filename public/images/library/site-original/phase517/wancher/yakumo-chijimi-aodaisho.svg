@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Yakumo-nuri Chijimi Aodaisho factual diagram</title>
+  <desc id="desc">Original factual diagram, not a product photograph or scale drawing.</desc>
+  <rect width="1600" height="900" fill="#264d43"/>
+  <path d="M160 500 C350 350 570 350 760 455 S1120 605 1440 390" fill="none" stroke="#89b77b" stroke-width="48" stroke-linecap="round"/>
+  <path d="M160 500 C350 350 570 350 760 455 S1120 605 1440 390" fill="none" stroke="#d6b86a" stroke-width="12" stroke-dasharray="10 32" stroke-linecap="round"/>
+  <text x="110" y="130" fill="#eff8df" font-family="sans-serif" font-size="56" font-weight="700">Yakumo-nuri Chijimi · Aodaisho</text>
+  <text x="112" y="205" fill="#d8edc6" font-family="sans-serif" font-size="30">青大将主题 · Ebonite / Titanium trim · Nagaya Momoko</text>
+  <text x="112" y="770" fill="#d8edc6" font-family="sans-serif" font-size="30">18K Shogun / Rhodium-plated · Sailor Standard · Plastic feed</text>
+  <text x="112" y="830" fill="#b5d0af" font-family="sans-serif" font-size="24">本站原创 factual SVG；非产品照片、不按比例、不作颜色证明。</text>
+</svg>
