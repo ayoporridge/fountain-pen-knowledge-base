@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Wancher Dream Pen True Maki-e Sakura factual diagram</title>
+  <desc id="desc">Editorial non-photo diagram separating ebonite, urushi, maki-e, nib, filling and signed serial boundaries.</desc>
+  <rect width="1600" height="900" fill="#f4efe7"/>
+  <rect x="70" y="70" width="1460" height="760" rx="38" fill="#fbfaf7" stroke="#2f2a25" stroke-width="4"/>
+  <text x="120" y="145" font-family="sans-serif" font-size="42" font-weight="700" fill="#2f2a25">True Maki-e · Sakura</text>
+  <text x="120" y="194" font-family="sans-serif" font-size="24" fill="#6c6258">事实示意图｜非产品照片｜不表示真实比例、颜色或库存</text>
+  <g transform="translate(160 300)">
+    <path d="M70 130 L980 130 L1120 175 L980 220 L70 220 Q30 220 30 175 Q30 130 70 130Z" fill="#261e20" stroke="#b28b43" stroke-width="8"/>
+    <path d="M980 130 L1130 175 L980 220" fill="#151217" stroke="#b28b43" stroke-width="8"/>
+    <path d="M1130 175 L1250 158 L1340 175 L1250 192Z" fill="#ded7ca" stroke="#8a6b37" stroke-width="6"/>
+    <path d="M850 144 Q900 175 850 206" fill="none" stroke="#c8a24f" stroke-width="12"/>
+    <circle cx="370" cy="160" r="11" fill="#d6b15a"/>
+    <circle cx="410" cy="190" r="9" fill="#d8d8d8"/>
+    <circle cx="455" cy="155" r="8" fill="#d6b15a"/>
+    <path d="M450 190 Q510 110 570 190 M530 190 Q590 110 650 190" fill="none" stroke="#d6b15a" stroke-width="5"/>
+    <path d="M495 150 Q540 95 585 150 M585 150 Q630 95 675 150" fill="none" stroke="#d8d8d8" stroke-width="4"/>
+  </g>
+  <g font-family="sans-serif" fill="#2f2a25">
+    <text x="210" y="620" font-size="28" font-weight="700">乌木基体 + Urushi 漆</text>
+    <text x="210" y="660" font-size="23">轮岛工匠手作 Togidashi-Taka Maki-e</text>
+    <text x="210" y="696" font-size="23">樱花图案：金粉与银粉</text>
+    <text x="900" y="620" font-size="28" font-weight="700">Wancher 18K 金尖</text>
+    <text x="900" y="660" font-size="23">Converter / 国际标准墨囊</text>
+    <text x="900" y="696" font-size="23">塑料 feed · 气密帽</text>
+    <text x="210" y="770" font-size="26" fill="#7b271f">01/04 · 02/04 · 03/04 · 04/04</text>
+    <text x="900" y="770" font-size="23">四件签名序号是同一型号的个体变体</text>
+  </g>
+  <text x="120" y="800" font-family="sans-serif" font-size="18" fill="#6c6258">Fountain Pen Graph editorial · site-original factual SVG · product-photo=false</text>
+</svg>
