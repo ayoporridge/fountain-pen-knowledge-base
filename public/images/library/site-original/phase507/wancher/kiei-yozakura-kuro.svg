@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Wancher Kiei Urushi Yozakura Kuro 事实边界图</title>
+  <desc id="desc">本站原创非产品照片示意图，区分日本硬橡胶、天然漆、真实樱花花瓣、金粉与笔尖导墨兼容限制。</desc>
+  <rect width="1600" height="900" fill="#171b22"/>
+  <text x="100" y="120" font-family="serif" font-size="52" fill="#f2e9ce">Kiei Urushi · Yozakura · Kuro</text>
+  <defs>
+    <linearGradient id="kuro" x1="0" x2="1">
+      <stop offset="0" stop-color="#0e1118"/>
+      <stop offset=".5" stop-color="#252a37"/>
+      <stop offset="1" stop-color="#4a3d48"/>
+    </linearGradient>
+  </defs>
+  <rect x="135" y="255" width="1110" height="180" rx="90" fill="url(#kuro)" stroke="#c9a45d" stroke-width="4"/>
+  <circle cx="460" cy="300" r="12" fill="#f0d58c"/><circle cx="530" cy="350" r="9" fill="#e4c472"/><circle cx="620" cy="290" r="11" fill="#f6e2a6"/>
+  <g fill="#e8a9bc" stroke="#f4d3d9" stroke-width="3"><path d="M860 330c-35-42 30-76 45-22 32-45 78 16 26 37 40 28-16 75-38 29-31 35-74-10-33-39z"/><path d="M1040 390c-32-38 25-68 39-18 28-40 69 15 23 33 35 24-14 66-34 25-28 31-65-9-28-40z"/></g>
+  <g font-family="sans-serif" fill="#f2e9ce" font-size="27">
+    <text x="120" y="535">Japanese ebonite · natural/matte Urushi · real Sakura petals · gold powder</text>
+    <text x="120" y="590">Converter / European International Standard cartridge</text>
+    <text x="120" y="645">black/red ebonite feed only compatible with JoWo #6</text>
+    <text x="120" y="700">Nurippanashi 的自然粗糙不是自动等于瑕疵</text>
+  </g>
+  <text x="100" y="825" font-family="sans-serif" font-size="23" fill="#b8ad92">site-original · non-photo · non-logo · not-to-scale · non-colour-proof · 1600×900</text>
+</svg>
