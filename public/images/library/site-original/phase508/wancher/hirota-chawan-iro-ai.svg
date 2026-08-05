@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Wancher Hirota Urushi Chawan-iro Ai 事实边界图</title>
+  <desc id="desc">本站原创非产品照片示意图，区分茶碗意象、Hirota Urushi 手工语境、一件通知与未公布的型号规格。</desc>
+  <rect width="1600" height="900" fill="#e9edf3"/>
+  <text x="100" y="120" font-family="serif" font-size="54" fill="#273342">Hirota Urushi · Chawan-iro · Ai</text>
+  <defs><linearGradient id="ai" x1="0" x2="1"><stop offset="0" stop-color="#315473"/><stop offset=".55" stop-color="#6f99ac"/><stop offset="1" stop-color="#c6d5d2"/></linearGradient></defs>
+  <path d="M230 300 Q700 520 1170 300 L1110 490 Q700 650 290 490 Z" fill="url(#ai)" stroke="#a77b48" stroke-width="5"/>
+  <ellipse cx="700" cy="305" rx="470" ry="70" fill="#e1e7e5" stroke="#a77b48" stroke-width="5"/>
+  <g font-family="sans-serif" fill="#273342" font-size="27">
+    <text x="120" y="560">Chawan-iro：茶碗纹理与渐变的品牌设计意象</text>
+    <text x="120" y="615">Hirota Yoko · Japanese Urushi hand-crafted context</text>
+    <text x="120" y="670">每种颜色一件的商品页通知 · 检索时 Sold out</text>
+    <text x="120" y="725">nib · filling · dimensions · weight：exact Ai page 未公布</text>
+  </g>
+  <text x="100" y="825" font-family="sans-serif" font-size="23" fill="#667384">site-original · non-photo · non-logo · not-to-scale · non-colour-proof · 1600×900</text>
+</svg>
