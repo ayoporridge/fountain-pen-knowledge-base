@@ -181,6 +181,7 @@ Progress: [█████░░░░░] 50%
 | 260722-juw | 批量发布 Faber-Castell、LAMY、Kaweco、Schneider 与 Caran d’Ache 九个现行型号，共十四个可重放发布包 | 2026-07-22 | c2f5d85 | [260722-juw-german-swiss-current](./quick/260722-juw-faber-castell-essentio-hexo-grip-lamy-im/) |
 | 260722-kuy | 批量发布 SCRIBO、Stipula、当代 OMAS、当代 Delta、Pineider、Santini 与 Visconti 八个意大利代表型号，共十五个可重放发布包 | 2026-07-22 | 28504f4 | [260722-kuy-italian-representative-models](./quick/260722-kuy-scribo-feel-stipula-etruria-magnifica-om/) |
 | 260806-i6e | 发布 Wancher True Urushi Shunkei Tamenuri、Uguisu-Iro 与 Purple 三个来源化 sibling 型号 | 2026-08-06 | ae260bc0 | [260806-i6e-add-three-sourced-wancher-true-urushi-si](./quick/260806-i6e-add-three-sourced-wancher-true-urushi-si/) |
+| 260806-il3 | 发布 Wancher Zogan Sakura River Urushi Red、Black 与 Green 三个来源化 sibling 型号 | 2026-08-06 | e1d9dbc9 | [260806-il3-add-three-sourced-wancher-zogan-sakura-r](./quick/260806-il3-add-three-sourced-wancher-zogan-sakura-r/) |
 
 ## Next Action
 
