@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Aizu Urushi Akebono-nuri 事实示意图</title>
+  <desc id="desc">展示红色底漆、黑色覆盖与反复研磨露出的渐层；本站原创事实示意图，非产品照片。</desc>
+  <rect width="1600" height="900" fill="#211719"/>
+  <ellipse cx="800" cy="470" rx="500" ry="190" fill="#151414"/>
+  <path d="M330 520 C520 400 660 610 820 470 S1080 370 1270 500" fill="none" stroke="#b5443b" stroke-width="70" stroke-linecap="round"/>
+  <path d="M390 500 C570 410 680 560 830 465 S1040 410 1200 480" fill="none" stroke="#e17a59" stroke-width="20" stroke-linecap="round"/>
+  <text x="120" y="145" font-family="sans-serif" font-size="58" fill="#f8d7b7">Aizu Urushi · Akebono-nuri</text>
+  <text x="120" y="235" font-family="sans-serif" font-size="34" fill="#e9b1a4">ABS｜红黑 Urushi 渐层｜JoWo / Wancher 18K</text>
+  <text x="120" y="805" font-family="sans-serif" font-size="28" fill="#d8b9b3">本站原创事实示意图｜非产品照片｜不按比例｜不作色卡、Logo、库存或价格证明</text>
+</svg>
