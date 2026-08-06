@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Yakumo-nuri Shibo Urushi Sazanami 事实示意图</title>
+  <desc id="desc">展示 Sazanami 深蓝波纹主题、Shibo Urushi 金属粉纹样、18K 与 JoWo 配置及欧规供墨；本站原创事实示意图，非产品照片。</desc>
+  <rect width="1600" height="900" fill="#eef5fb"/>
+  <path d="M140 520 C280 360 420 360 560 520 S840 680 980 520 S1260 360 1460 520" fill="none" stroke="#245b8e" stroke-width="42" stroke-linecap="round"/>
+  <path d="M140 610 C280 450 420 450 560 610 S840 770 980 610 S1260 450 1460 610" fill="none" stroke="#76a9c9" stroke-width="24" stroke-linecap="round"/>
+  <circle cx="780" cy="270" r="24" fill="#c59b54"/>
+  <circle cx="780" cy="270" r="62" fill="none" stroke="#c59b54" stroke-width="7" opacity=".8"/>
+  <text x="120" y="145" font-family="sans-serif" font-size="58" fill="#173d61">Yakumo-nuri Shibo Urushi · Sazanami</text>
+  <text x="120" y="235" font-family="sans-serif" font-size="34" fill="#365d78">深蓝雨滴波纹主题｜金属粉纹漆｜JoWo / Wancher 18K｜European International Standard</text>
+  <text x="120" y="805" font-family="sans-serif" font-size="28" fill="#49687c">本站原创事实示意图｜非产品照片｜不按比例｜不作色卡、Logo、库存或价格证明</text>
+</svg>

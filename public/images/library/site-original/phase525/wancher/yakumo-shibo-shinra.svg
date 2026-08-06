@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Yakumo-nuri Shibo Urushi Shinra 事实示意图</title>
+  <desc id="desc">展示 Shinra 深绿自然主题、Shibo Urushi 金属粉纹样、18K 与 JoWo 配置及欧规供墨；本站原创事实示意图，非产品照片。</desc>
+  <rect width="1600" height="900" fill="#edf5ee"/>
+  <path d="M210 665 C300 500 300 340 430 210 C440 380 560 390 600 540 C730 360 810 250 930 150 C900 390 1040 480 1000 665" fill="none" stroke="#2d6b4b" stroke-width="48" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M270 665 C420 560 520 560 660 665 S930 770 1120 590" fill="none" stroke="#78a36c" stroke-width="22" stroke-linecap="round"/>
+  <circle cx="1230" cy="285" r="26" fill="#c59b54"/>
+  <circle cx="1230" cy="285" r="66" fill="none" stroke="#c59b54" stroke-width="8" opacity=".8"/>
+  <text x="120" y="145" font-family="sans-serif" font-size="58" fill="#1e4e35">Yakumo-nuri Shibo Urushi · Shinra</text>
+  <text x="120" y="235" font-family="sans-serif" font-size="34" fill="#3f6e50">深绿自然主题｜金属粉纹漆｜JoWo / Wancher 18K｜European International Standard</text>
+  <text x="120" y="805" font-family="sans-serif" font-size="28" fill="#557360">本站原创事实示意图｜非产品照片｜不按比例｜不作色卡、Logo、库存或价格证明</text>
+</svg>
