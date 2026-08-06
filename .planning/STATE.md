@@ -185,6 +185,7 @@ Progress: [█████░░░░░] 50%
 | 260806-n9p | 发布 Wancher Zogan Sakura River Urushi Blue、Aka Tamenuri 与 Tamamushi-nuri 三个来源化 sibling 型号 | 2026-08-06 | 51676f25 | [260806-n9p-add-three-sourced-wancher-zogan-sakura-river-siblings](./quick/260806-n9p-add-three-sourced-wancher-zogan-sakura-river-siblings/) |
 | 260806-p4m | 发布 Wancher Zogan Momiji Urushi Red、Black 与 Aka Tamenuri 三个来源化 sibling 型号 | 2026-08-06 | 81b78ea6 | [260806-p4m-add-three-sourced-wancher-zogan-momiji-siblings](./quick/260806-p4m-add-three-sourced-wancher-zogan-momiji-siblings/) |
 | 260806-r8z | 发布 Wancher Zogan Yuki Zuki Urushi Aka Tamenuri、Blue 与 Black 三个来源化 sibling 型号 | 2026-08-06 | 5370693c | [260806-r8z-add-three-sourced-wancher-zogan-yuki-zuki-siblings](./quick/260806-r8z-add-three-sourced-wancher-zogan-yuki-zuki-siblings/) |
+| 260806-t2m | 发布 Wancher Zogan Momiji Urushi Blue、Urushi Tamamushi-nuri 与 Green Tamamushi-nuri 三个来源化 sibling 型号 | 2026-08-06 | 74c517b0 | [260806-t2m-add-three-sourced-wancher-zogan-momiji-siblings](./quick/260806-t2m-add-three-sourced-wancher-zogan-momiji-siblings/) |
 
 ## Next Action
 
