@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import {
   getCanonicalEntityPath,
+  getDatabaseCanonicalEntityPath,
   getReclassifiedArticlePath,
   HARD_404_ENTITY_PATHS,
 } from "@/lib/entity-redirects";
@@ -69,7 +70,7 @@ export async function middleware(request: NextRequest) {
     segments.length === 2
       ? getReclassifiedArticlePath(segments[0], segments[1])
       : null;
-  const canonicalEntityPath =
+  const staticCanonicalEntityPath =
     segments.length === 2
       ? getCanonicalEntityPath(segments[0], segments[1])
       : null;
@@ -95,9 +96,9 @@ export async function middleware(request: NextRequest) {
     );
   }
 
-  if (canonicalEntityPath) {
+  if (staticCanonicalEntityPath) {
     return NextResponse.redirect(
-      new URL(canonicalEntityPath, request.url),
+      new URL(staticCanonicalEntityPath, request.url),
       308,
     );
   }
@@ -124,7 +125,17 @@ export async function middleware(request: NextRequest) {
   ) {
     try {
       const entity = await getPublicEntityBySlug(segments[0], segments[1]);
-      if (!entity) return hardNotFound();
+      if (!entity) {
+        const databaseCanonicalEntityPath =
+          await getDatabaseCanonicalEntityPath(segments[0], segments[1]);
+        if (databaseCanonicalEntityPath) {
+          return NextResponse.redirect(
+            new URL(databaseCanonicalEntityPath, request.url),
+            308,
+          );
+        }
+        return hardNotFound();
+      }
     } catch (error) {
       console.error("Public entity middleware lookup failed", error);
     }

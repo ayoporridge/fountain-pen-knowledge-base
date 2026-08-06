@@ -1,3 +1,5 @@
+import { queryOne } from "@/lib/db";
+
 const FILLING_SYSTEM_ARTICLE_SLUGS = [
   "capillary-pens-the-perfect-filler",
   "cartridge-pens",
@@ -148,4 +150,19 @@ export function getReclassifiedArticlePath(type: string, slug: string) {
 
 export function getCanonicalEntityPath(type: string, slug: string) {
   return CANONICAL_ENTITY_PATHS[`${type}/${slug}`] || null;
+}
+
+export async function getDatabaseCanonicalEntityPath(
+  type: string,
+  slug: string,
+): Promise<string | null> {
+  const row = (await queryOne(
+    "SELECT target_path FROM entity_redirects WHERE source_path = ? AND redirect_kind = 'permanent'",
+    [`/${type}/${slug}`],
+  )) as { target_path?: unknown } | undefined;
+  const targetPath =
+    typeof row?.target_path === "string" ? row.target_path : "";
+  return targetPath.startsWith("/") && !targetPath.startsWith("//")
+    ? targetPath
+    : null;
 }
