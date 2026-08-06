@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">True Urushi Midori Tamenuri 緑溜塗事实示意图</title>
+  <desc id="desc">本站原创事实示意图，非产品照片；呈现 Midori Tamenuri 的身份、材料、clip 变体与护理边界。</desc>
+  <defs><linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f1f5e8"/><stop offset="1" stop-color="#eee5d6"/></linearGradient><linearGradient id="midori" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#24583e"/><stop offset=".55" stop-color="#4b8658"/><stop offset="1" stop-color="#c29856"/></linearGradient></defs>
+  <rect width="1600" height="900" fill="url(#paper)"/>
+  <rect x="70" y="60" width="1460" height="780" rx="32" fill="#fffdf8" stroke="#3a6749" stroke-width="4"/>
+  <text x="120" y="140" font-family="sans-serif" font-size="48" font-weight="700" fill="#31593e">True Urushi - Midori Tamenuri</text>
+  <text x="120" y="188" font-family="sans-serif" font-size="27" fill="#5b6e5e">緑溜塗 · product id 4685010239569 · handle true-urushi-midori-tamenuri</text>
+  <text x="120" y="245" font-family="sans-serif" font-size="26" font-weight="700" fill="#31593e">稳定事实与未知项</text>
+  <rect x="120" y="275" width="560" height="175" rx="24" fill="#e7f1e3" stroke="#5e9567" stroke-width="3"/>
+  <text x="160" y="335" font-family="sans-serif" font-size="34" font-weight="700" fill="#31593e">Ebonite + Urushi</text>
+  <text x="160" y="382" font-family="sans-serif" font-size="24" fill="#46624b">官方名称：Midori / 緑溜塗</text>
+  <text x="160" y="422" font-family="sans-serif" font-size="22" fill="#46624b">颜色配方、漆层数、重量未公布</text>
+  <g transform="translate(770 290)">
+    <rect x="0" y="58" width="545" height="76" rx="38" fill="url(#midori)"/>
+    <rect x="500" y="38" width="85" height="116" rx="20" fill="#c9c9bd" stroke="#31593e" stroke-width="4"/>
+    <circle cx="65" cy="96" r="10" fill="#e8c983"/>
+    <text x="0" y="205" font-family="sans-serif" font-size="22" fill="#46624b">圆柱笔身是关系图示，不按比例或颜色标准绘制</text>
+  </g>
+  <text x="120" y="515" font-family="sans-serif" font-size="26" font-weight="700" fill="#31593e">官方 JSON 变体（2026-08-06 快照）</text>
+  <g font-family="sans-serif" font-size="22" fill="#31593e">
+    <rect x="120" y="550" width="380" height="108" rx="18" fill="#eef6eb" stroke="#5e9567" stroke-width="2"/><text x="145" y="595">Without Clip</text><text x="145" y="632">WF-UR-DREAM-MITA · US$550</text>
+    <rect x="530" y="550" width="470" height="108" rx="18" fill="#eef6eb" stroke="#5e9567" stroke-width="2"/><text x="555" y="595">Chrome-plating Clip +$30</text><text x="555" y="632">WF-UR-DREAM-MITA-CHCL · US$580</text>
+    <rect x="1030" y="550" width="430" height="108" rx="18" fill="#eef6eb" stroke="#5e9567" stroke-width="2"/><text x="1055" y="595">Gold-plating Clip +$30</text><text x="1055" y="632">WF-UR-DREAM-MITA-GDCL · US$580</text>
+  </g>
+  <text x="120" y="730" font-family="sans-serif" font-size="24" fill="#31593e">欧规 converter / cartridge · #6 JoWo stainless steel 或 Wancher 18K gold · 三类公开 feed</text>
+  <text x="120" y="785" font-family="sans-serif" font-size="23" fill="#8c4b35">本站原创事实示意图 · 非产品照片 · 不表示真实比例、颜色、Logo、库存或价格</text>
+</svg>

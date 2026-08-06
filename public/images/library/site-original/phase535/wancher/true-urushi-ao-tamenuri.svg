@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">True Urushi Ao Tamenuri 青溜塗事实示意图</title>
+  <desc id="desc">本站原创事实示意图，非产品照片；呈现 Ao Tamenuri 的官方名称、材料、clip SKU 与供墨边界。</desc>
+  <defs><linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eef7f7"/><stop offset="1" stop-color="#f5eadc"/></linearGradient><linearGradient id="ao" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#0e4c67"/><stop offset=".55" stop-color="#287d91"/><stop offset="1" stop-color="#d19d5c"/></linearGradient></defs>
+  <rect width="1600" height="900" fill="url(#paper)"/>
+  <rect x="70" y="60" width="1460" height="780" rx="32" fill="#fffdf8" stroke="#20556c" stroke-width="4"/>
+  <text x="120" y="140" font-family="sans-serif" font-size="48" font-weight="700" fill="#20556c">True Urushi - Ao Tamenuri</text>
+  <text x="120" y="188" font-family="sans-serif" font-size="27" fill="#53666e">青溜塗 · product id 8131732013271</text>
+  <text x="120" y="245" font-family="sans-serif" font-size="26" font-weight="700" fill="#20556c">商品名不是固定色卡</text>
+  <rect x="120" y="275" width="540" height="180" rx="24" fill="#e3f3f5" stroke="#3f8ea0" stroke-width="3"/>
+  <text x="160" y="335" font-family="sans-serif" font-size="34" font-weight="700" fill="#20556c">Ao / 青溜塗</text>
+  <text x="160" y="382" font-family="sans-serif" font-size="24" fill="#405e68">官方 Material &amp; art：Ebonite, Urushi</text>
+  <text x="160" y="423" font-family="sans-serif" font-size="22" fill="#405e68">配方、层数和颜色数值未公布</text>
+  <g transform="translate(760 286)">
+    <path d="M20 102 C135 48 300 48 520 102 C300 156 135 156 20 102Z" fill="url(#ao)" stroke="#20556c" stroke-width="4"/>
+    <rect x="492" y="45" width="82" height="114" rx="20" fill="#c7cecc" stroke="#20556c" stroke-width="4"/>
+    <path d="M105 93 C180 77 245 78 318 94" fill="none" stroke="#f0d48d" stroke-width="5" opacity=".9"/>
+    <text x="0" y="205" font-family="sans-serif" font-size="22" fill="#405e68">抽象结构图，不按实物比例、不作色泽证明</text>
+  </g>
+  <text x="120" y="520" font-family="sans-serif" font-size="26" font-weight="700" fill="#20556c">Clips：三个独立市场 SKU</text>
+  <g font-family="sans-serif" font-size="22" fill="#20556c">
+    <rect x="120" y="555" width="380" height="110" rx="18" fill="#edf7f7" stroke="#3f8ea0" stroke-width="2"/><text x="145" y="600">Without Clip</text><text x="145" y="637">WF-UR-DREAM-AOTA · US$550</text>
+    <rect x="530" y="555" width="470" height="110" rx="18" fill="#edf7f7" stroke="#3f8ea0" stroke-width="2"/><text x="555" y="600">Chrome-plating Clip +$30</text><text x="555" y="637">WF-UR-DREAM-AOTA-CHCL · US$580</text>
+    <rect x="1030" y="555" width="430" height="110" rx="18" fill="#edf7f7" stroke="#3f8ea0" stroke-width="2"/><text x="1055" y="600">Gold-plating Clip +$30</text><text x="1055" y="637">WF-UR-DREAM-AOTA-GDCL · US$580</text>
+  </g>
+  <text x="120" y="735" font-family="sans-serif" font-size="24" fill="#20556c">欧规 converter / cartridge · #6 JoWo stainless steel 或 Wancher 18K gold · plastic / black ebonite / red ebonite feed</text>
+  <text x="120" y="790" font-family="sans-serif" font-size="23" fill="#8c4b35">本站原创事实示意图 · 非产品照片 · 不表示真实比例、颜色、Logo、库存或价格</text>
+</svg>

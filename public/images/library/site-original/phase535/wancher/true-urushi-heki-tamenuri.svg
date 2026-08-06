@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">True Urushi Heki Tamenuri 材料与变体事实示意图</title>
+  <desc id="desc">本站原创事实示意图，非产品照片；呈现 Heki Tamenuri 的 Ebonite、Urushi、clip 变体与欧规供墨边界。</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f6f3e9"/><stop offset="1" stop-color="#dfe8e4"/></linearGradient>
+    <linearGradient id="heki" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#0d4c50"/><stop offset=".48" stop-color="#27777a"/><stop offset="1" stop-color="#b07e3d"/></linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#paper)"/>
+  <rect x="70" y="60" width="1460" height="780" rx="32" fill="#fffdf7" stroke="#183f43" stroke-width="4"/>
+  <text x="120" y="140" font-family="sans-serif" font-size="48" font-weight="700" fill="#183f43">True Urushi - Heki Tamenuri</text>
+  <text x="120" y="188" font-family="sans-serif" font-size="24" fill="#5b625e">Wancher / product id 7562003349719 / handle true-urushi-heki-tamenuri</text>
+  <text x="120" y="245" font-family="sans-serif" font-size="26" font-weight="700" fill="#183f43">公开材料边界</text>
+  <rect x="120" y="275" width="570" height="170" rx="24" fill="#e5f2ee" stroke="#398589" stroke-width="3"/>
+  <text x="160" y="335" font-family="sans-serif" font-size="34" font-weight="700" fill="#183f43">Ebonite + Urushi</text>
+  <text x="160" y="382" font-family="sans-serif" font-size="24" fill="#425b5d">商品页 exact Material &amp; art</text>
+  <text x="160" y="420" font-family="sans-serif" font-size="22" fill="#425b5d">颜色配方、漆层数、色卡未公布</text>
+  <g transform="translate(760 286)">
+    <rect x="0" y="56" width="560" height="80" rx="40" fill="url(#heki)"/>
+    <rect x="510" y="35" width="85" height="122" rx="22" fill="#b9c1bd" stroke="#183f43" stroke-width="4"/>
+    <circle cx="65" cy="96" r="10" fill="#e7c17c"/>
+    <text x="0" y="205" font-family="sans-serif" font-size="22" fill="#425b5d">圆柱笔身仅为结构关系示意，不按比例、不作色卡</text>
+  </g>
+  <text x="120" y="515" font-family="sans-serif" font-size="26" font-weight="700" fill="#183f43">市场变体（官方 JSON 快照）</text>
+  <g font-family="sans-serif" font-size="23" fill="#183f43">
+    <rect x="120" y="550" width="380" height="105" rx="18" fill="#edf4f1" stroke="#398589" stroke-width="2"/><text x="145" y="595">Without Clip</text><text x="145" y="630">WF-UR-DREAM-HETA · US$550</text>
+    <rect x="530" y="550" width="470" height="105" rx="18" fill="#edf4f1" stroke="#398589" stroke-width="2"/><text x="555" y="595">Chrome-plating Clip +$30</text><text x="555" y="630">WF-UR-DREAM-HETA-CHCL · US$580</text>
+    <rect x="1030" y="550" width="430" height="105" rx="18" fill="#edf4f1" stroke="#398589" stroke-width="2"/><text x="1055" y="595">Gold-plating Clip +$30</text><text x="1055" y="630">WF-UR-DREAM-HETA-GDCL · US$580</text>
+  </g>
+  <text x="120" y="725" font-family="sans-serif" font-size="25" fill="#183f43">欧规 converter / cartridge · #6 JoWo stainless steel 或 Wancher 18K gold · plastic / black ebonite / red ebonite feed</text>
+  <text x="120" y="785" font-family="sans-serif" font-size="23" fill="#8c4b35">本站原创事实示意图 · 非产品照片 · 不表示真实比例、颜色、Logo、库存或价格</text>
+</svg>
