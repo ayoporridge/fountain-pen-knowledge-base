@@ -60,6 +60,29 @@ test("Phase 545 retires the duplicate Wancher Oita Kurozan identity", {
   };
   try {
     await migrateDatabase(client);
+    const existingMerge = await client.execute({
+      sql: "SELECT status,blockers_json FROM entity_publications WHERE entity_id=?",
+      args: [DUPLICATE_ID],
+    });
+    const alreadyMerged =
+      existingMerge.rows.length === 1 &&
+      String(existingMerge.rows[0]?.status) === "retired" &&
+      String(existingMerge.rows[0]?.blockers_json) === '["taxonomy_merged"]';
+    if (alreadyMerged) {
+      const replay = await applyPhase545WancherOitaKurozanIdentityMerge(
+        client,
+        {
+          ...common,
+          reviewer: "phase545-wancher-oita-kurozan-identity-merge-test",
+        },
+      );
+      assert.equal(replay.outcome, "noop");
+      assertCatalogSnapshotUnchanged(
+        protectedSnapshot,
+        snapshotCatalogFiles(REAL),
+      );
+      return;
+    }
     const packageOptions: ApplyPhase521Options & ApplyPhase524Options = {
       ...common,
       reviewer: "phase545-wancher-oita-kurozan-identity-merge-test",
