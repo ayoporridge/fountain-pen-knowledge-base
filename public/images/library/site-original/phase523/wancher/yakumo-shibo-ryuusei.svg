@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Yakumo-nuri Shibo Urushi Ryuusei factual identity card</title>
+  <desc id="desc">Fountain Pen Graph original factual SVG, not a product photo.</desc>
+  <rect width="1600" height="900" fill="#111b2c"/>
+  <path d="M0 650 C260 560 480 760 740 620 S1190 540 1600 660 V900 H0Z" fill="#263f68"/>
+  <path d="M400 585 C650 540 930 430 1340 270" fill="none" stroke="#cf5b56" stroke-width="28" stroke-linecap="round" opacity=".9"/>
+  <path d="M480 610 C720 560 940 470 1320 300" fill="none" stroke="#e4a17a" stroke-width="8" stroke-linecap="round" opacity=".8"/>
+  <circle cx="1360" cy="250" r="22" fill="#f5d3a6"/>
+  <text x="120" y="150" fill="#f4f0e6" font-size="58" font-family="Georgia,serif">Yakumo-nuri</text>
+  <text x="120" y="225" fill="#e29b8c" font-size="42" font-family="sans-serif">Shibo Urushi · Ryuusei</text>
+  <text x="120" y="760" fill="#f4f0e6" font-size="34" font-family="sans-serif">Ebonite · metal powder · evolving red streaks</text>
+  <text x="120" y="820" fill="#e29b8c" font-size="24" font-family="sans-serif">本站原创事实示意图｜非产品照片｜不表示比例、色卡、Logo、库存或价格</text>
+</svg>
