@@ -115,7 +115,6 @@ const CANONICAL_ENTITY_PATHS: Record<string, string> = {
   "pen/sheaffer-s-touchdown-tm": "/pen/touchdown-tm",
   "pen/写乐-sailor-21k-pro-gear-大鱼雷": "/pen/sailor-pro-gear",
   "pen/写乐-sailor-1219标准鱼雷": "/pen/sailor-1911-standard",
-  "pen/奥罗拉-aurora": "/brand/aurora",
   "pen/弘典-hongdian-苏木": "/pen/弘典-hongdian-1866",
   "pen/百乐-pilot-capless-decimo": "/pen/pilot-capless-decimo",
   "pen/维斯康蒂-visconti-homo-sapiens智人": "/brand/visconti",
@@ -142,6 +141,7 @@ export const HARD_404_ENTITY_PATHS = new Set([
   "/pen/sheaffer-s-craftsman",
   "/pen/skb派顿-f10-f21",
   "/pen/犀飞利-sheaffer-帝国元首",
+  "/pen/奥罗拉-aurora",
 ]);
 
 export function getReclassifiedArticlePath(type: string, slug: string) {

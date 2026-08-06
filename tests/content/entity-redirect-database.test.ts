@@ -8,6 +8,10 @@ import {
   copyCheckpointedCatalogToDisposableCopy,
   snapshotCatalogFiles,
 } from "../../src/lib/audit/read-only-catalog";
+import {
+  getCanonicalEntityPath,
+  HARD_404_ENTITY_PATHS,
+} from "../../src/lib/entity-redirects";
 
 const ROOT = process.cwd();
 const REAL = path.join(ROOT, "data", "fpkg.db");
@@ -40,6 +44,12 @@ test("database redirects resolve only permanent internal targets on an owned cop
     );
     assert.equal(
       await getDatabaseCanonicalEntityPath("pen", "does-not-exist"),
+      null,
+    );
+    assert.equal(getCanonicalEntityPath("pen", "奥罗拉-aurora"), null);
+    assert.equal(HARD_404_ENTITY_PATHS.has("/pen/奥罗拉-aurora"), true);
+    assert.equal(
+      await getDatabaseCanonicalEntityPath("pen", "奥罗拉-aurora"),
       null,
     );
     assertCatalogSnapshotUnchanged(
