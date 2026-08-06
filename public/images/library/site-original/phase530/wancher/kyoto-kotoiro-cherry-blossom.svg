@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Kyoto Kotoiro Cherry Blossom 事实示意图</title>
+  <desc id="desc">展示 Kyoto Urushi、金箔与樱花景观命名边界；本站原创事实示意图，非产品照片。</desc>
+  <rect width="1600" height="900" fill="#fde7ec"/>
+  <path d="M210 620 C410 430 560 550 760 360 S1110 300 1390 500" fill="none" stroke="#6f4434" stroke-width="28" stroke-linecap="round"/>
+  <g fill="#ee9eb7"><circle cx="430" cy="430" r="45"/><circle cx="510" cy="370" r="32"/><circle cx="980" cy="330" r="42"/><circle cx="1100" cy="410" r="34"/><circle cx="1210" cy="360" r="28"/></g>
+  <text x="120" y="145" font-family="sans-serif" font-size="58" fill="#7c4052">Kyoto Urushi Kotoiro · Cherry Blossom</text>
+  <text x="120" y="235" font-family="sans-serif" font-size="34" fill="#9b6170">Ebonite + Urushi + Gold leaf｜Daigo-ji / Kiyomizu / Omuro 设计语境</text>
+  <text x="120" y="805" font-family="sans-serif" font-size="28" fill="#986b75">本站原创事实示意图｜非产品照片｜不按比例｜不作色卡、Logo、库存或价格证明</text>
+</svg>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Kyoto Kotoiro Byodoin Temple 事实示意图</title>
+  <desc id="desc">展示平等院与 Nishichi 红色设计语境、Urushi 与金箔；本站原创事实示意图，非产品照片。</desc>
+  <rect width="1600" height="900" fill="#4b1f27"/>
+  <path d="M320 570 Q800 260 1280 570" fill="#d7a66d" stroke="#e9c88d" stroke-width="18"/>
+  <path d="M520 570 V420 H1080 V570" fill="#b8423f"/>
+  <circle cx="800" cy="330" r="60" fill="#e5c472"/>
+  <text x="120" y="145" font-family="sans-serif" font-size="58" fill="#ffe8b0">Kyoto Urushi Kotoiro · Byodoin Temple</text>
+  <text x="120" y="235" font-family="sans-serif" font-size="34" fill="#f0c3a6">Ebonite + Urushi + Gold leaf｜Nishichi 红色设计语境</text>
+  <text x="120" y="805" font-family="sans-serif" font-size="28" fill="#e1bca3">本站原创事实示意图｜非产品照片｜不按比例｜不作色卡、Logo、库存或价格证明</text>
+</svg>
