@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Yakumo-nuri Chijimi Shirohebi 事实示意图</title>
+  <desc id="desc">展示白蛇命名、收缩漆纹理、18K Shogun 与 Sailor Standard 供墨边界；本站原创事实示意图，非产品照片。</desc>
+  <rect width="1600" height="900" fill="#f4f7f8"/>
+  <path d="M180 570 C390 330 560 690 780 460 S1180 380 1410 550" fill="none" stroke="#6d8792" stroke-width="38" stroke-linecap="round"/>
+  <path d="M210 590 C430 380 570 730 800 500 S1160 420 1380 570" fill="none" stroke="#d9e4e6" stroke-width="24" stroke-linecap="round"/>
+  <circle cx="1335" cy="535" r="20" fill="#b48b5a"/>
+  <text x="130" y="150" font-family="sans-serif" font-size="58" fill="#22313a">Yakumo-nuri Chijimi · Shirohebi</text>
+  <text x="130" y="235" font-family="sans-serif" font-size="34" fill="#435862">白蛇主题｜收缩漆随机纹理｜18K Shogun / Rhodium｜Sailor Standard</text>
+  <text x="130" y="805" font-family="sans-serif" font-size="28" fill="#596b73">本站原创事实示意图｜非产品照片｜不按比例｜不作色卡、Logo、库存或价格证明</text>
+</svg>

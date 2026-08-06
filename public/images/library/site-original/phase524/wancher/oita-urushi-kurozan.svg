@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Oita Urushi Kurozan 事实示意图</title>
+  <desc id="desc">展示炭粉、黑色与朱红色 Urushi、Shikake-bera 旋涡、尖面与供墨边界；本站原创事实示意图，非产品照片。</desc>
+  <rect width="1600" height="900" fill="#eee9e4"/>
+  <path d="M170 580 C350 380 580 710 790 470 S1180 390 1420 550" fill="none" stroke="#242526" stroke-width="42" stroke-linecap="round"/>
+  <path d="M210 590 C410 430 580 730 810 500 S1170 420 1390 570" fill="none" stroke="#a74739" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="1290" cy="520" r="28" fill="#6e6a65"/>
+  <text x="130" y="150" font-family="sans-serif" font-size="58" fill="#292727">Oita Urushi · Kurozan</text>
+  <text x="130" y="235" font-family="sans-serif" font-size="34" fill="#5a4540">炭粉与黑／朱红 Urushi｜Shikake-bera 旋涡｜JoWo / Keiryu / 18K Shogun</text>
+  <text x="130" y="805" font-family="sans-serif" font-size="28" fill="#6b5d59">本站原创事实示意图｜非产品照片｜不按比例｜不作色卡、Logo、库存或价格证明</text>
+</svg>
