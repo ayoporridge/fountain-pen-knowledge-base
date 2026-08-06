@@ -96,6 +96,8 @@ export const RECLASSIFIED_ARTICLE_PATHS: Record<string, string> =
   ]);
 
 const CANONICAL_ENTITY_PATHS: Record<string, string> = {
+  "pen/wancher-oita-urushi-kurozan":
+    "/pen/wancher-oita-urushi-kurozan-fountain-pen",
   "pen/百乐-pilot-78g-78g": "/pen/pilot-78g-fp-78g",
   "pen/百乐-pilot-custom-823": "/pen/pilot-custom-823",
   "pen/百利金-pelikan-m1000": "/pen/pelikan-souveran-m1000",
