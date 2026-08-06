@@ -183,6 +183,7 @@ Progress: [█████░░░░░] 50%
 | 260806-i6e | 发布 Wancher True Urushi Shunkei Tamenuri、Uguisu-Iro 与 Purple 三个来源化 sibling 型号 | 2026-08-06 | ae260bc0 | [260806-i6e-add-three-sourced-wancher-true-urushi-si](./quick/260806-i6e-add-three-sourced-wancher-true-urushi-si/) |
 | 260806-il3 | 发布 Wancher Zogan Sakura River Urushi Red、Black 与 Green 三个来源化 sibling 型号 | 2026-08-06 | e1d9dbc9 | [260806-il3-add-three-sourced-wancher-zogan-sakura-r](./quick/260806-il3-add-three-sourced-wancher-zogan-sakura-r/) |
 | 260806-n9p | 发布 Wancher Zogan Sakura River Urushi Blue、Aka Tamenuri 与 Tamamushi-nuri 三个来源化 sibling 型号 | 2026-08-06 | 51676f25 | [260806-n9p-add-three-sourced-wancher-zogan-sakura-river-siblings](./quick/260806-n9p-add-three-sourced-wancher-zogan-sakura-river-siblings/) |
+| 260806-p4m | 发布 Wancher Zogan Momiji Urushi Red、Black 与 Aka Tamenuri 三个来源化 sibling 型号 | 2026-08-06 | 81b78ea6 | [260806-p4m-add-three-sourced-wancher-zogan-momiji-siblings](./quick/260806-p4m-add-three-sourced-wancher-zogan-momiji-siblings/) |
 
 ## Next Action
 
