@@ -31,7 +31,7 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 Phase: 21 (Taxonomy 与身份归一) — EXECUTING
 Plan: 4 of 6
 Status: In progress
-Last activity: 2026-07-22 — Completed quick task 260722-ije: published modern Conklin Duragraph with current/SKU/review evidence boundaries
+Last activity: 2026-08-06 — Completed quick task 260806-kf7: added current Pilot Prera Iro-ai SKU coverage under the existing canonical entity
 
 Progress: [█████░░░░░] 50%
 
@@ -186,6 +186,7 @@ Progress: [█████░░░░░] 50%
 | 260806-p4m | 发布 Wancher Zogan Momiji Urushi Red、Black 与 Aka Tamenuri 三个来源化 sibling 型号 | 2026-08-06 | 81b78ea6 | [260806-p4m-add-three-sourced-wancher-zogan-momiji-siblings](./quick/260806-p4m-add-three-sourced-wancher-zogan-momiji-siblings/) |
 | 260806-r8z | 发布 Wancher Zogan Yuki Zuki Urushi Aka Tamenuri、Blue 与 Black 三个来源化 sibling 型号 | 2026-08-06 | 5370693c | [260806-r8z-add-three-sourced-wancher-zogan-yuki-zuki-siblings](./quick/260806-r8z-add-three-sourced-wancher-zogan-yuki-zuki-siblings/) |
 | 260806-t2m | 发布 Wancher Zogan Momiji Urushi Blue、Urushi Tamamushi-nuri 与 Green Tamamushi-nuri 三个来源化 sibling 型号 | 2026-08-06 | 74c517b0 | [260806-t2m-add-three-sourced-wancher-zogan-momiji-siblings](./quick/260806-t2m-add-three-sourced-wancher-zogan-momiji-siblings/) |
+| 260806-kf7 | 补齐 Pilot Prera 色彩逢い Iro-ai 当前官方 SKU 变体，并增强 Prera 页面边界与定向回归 | 2026-08-06 | 23458997 | [260806-kf7-pilot-prera-iro-ai-sku-prera](./quick/260806-kf7-pilot-prera-iro-ai-sku-prera/) |
 
 ## Next Action
 
