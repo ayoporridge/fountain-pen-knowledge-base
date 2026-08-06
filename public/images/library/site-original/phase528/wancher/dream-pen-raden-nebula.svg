@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Dream Pen Raden Nebula 事实示意图</title>
+  <desc id="desc">展示 Cosmic 2022、Raden、Maki-e、Urushi 与 Wancher 18K 配置；本站原创事实示意图，非产品照片。</desc>
+  <rect width="1600" height="900" fill="#101a38"/>
+  <circle cx="860" cy="450" r="190" fill="#6a88c7" opacity=".55"/>
+  <path d="M230 560 C410 360 590 650 760 440 S1080 330 1380 520" fill="none" stroke="#e6c76f" stroke-width="28" stroke-linecap="round"/>
+  <circle cx="420" cy="360" r="16" fill="#fff2b0"/><circle cx="1180" cy="350" r="12" fill="#fff2b0"/><circle cx="1280" cy="610" r="18" fill="#fff2b0"/>
+  <text x="120" y="145" font-family="sans-serif" font-size="58" fill="#fff2c8">Dream Pen Raden · Nebula</text>
+  <text x="120" y="235" font-family="sans-serif" font-size="34" fill="#d6e0ff">Cosmic 2022｜Ebonite + Urushi + Raden + Maki-e｜Wancher 18K</text>
+  <text x="120" y="805" font-family="sans-serif" font-size="28" fill="#cbd4ee">本站原创事实示意图｜非产品照片｜不按比例｜不作色卡、Logo、库存或价格证明</text>
+</svg>

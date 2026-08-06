@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Dream Pen Raden Asteroid Belt 事实示意图</title>
+  <desc id="desc">展示 Cosmic 2022、Raden、Maki-e、Urushi 与标准塑料 feed；本站原创事实示意图，非产品照片。</desc>
+  <rect width="1600" height="900" fill="#1b2430"/>
+  <ellipse cx="820" cy="470" rx="500" ry="190" fill="none" stroke="#d8b66a" stroke-width="28" transform="rotate(-14 820 470)"/>
+  <circle cx="450" cy="460" r="22" fill="#e9c978"/><circle cx="650" cy="350" r="16" fill="#efd68e"/><circle cx="1010" cy="570" r="26" fill="#d6a94f"/><circle cx="1190" cy="390" r="18" fill="#f1da8c"/>
+  <text x="120" y="145" font-family="sans-serif" font-size="58" fill="#fff0bd">Dream Pen Raden · Asteroid Belt</text>
+  <text x="120" y="235" font-family="sans-serif" font-size="34" fill="#d9e3ec">Cosmic 2022｜Ebonite + Urushi + Raden + Maki-e｜Standard plastic feed</text>
+  <text x="120" y="805" font-family="sans-serif" font-size="28" fill="#cbd7e1">本站原创事实示意图｜非产品照片｜不按比例｜不作色卡、Logo、库存或价格证明</text>
+</svg>

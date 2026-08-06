@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Dream Pen Raden Comets 事实示意图</title>
+  <desc id="desc">展示 Cosmic 2022、Raden、Maki-e、Urushi 与两种 Wancher 18K 尖面；本站原创事实示意图，非产品照片。</desc>
+  <rect width="1600" height="900" fill="#201633"/>
+  <path d="M280 610 C460 460 610 380 830 300" fill="none" stroke="#d5b86a" stroke-width="25" stroke-linecap="round"/>
+  <path d="M720 670 C910 520 1080 450 1320 380" fill="none" stroke="#f0db9b" stroke-width="18" stroke-linecap="round"/>
+  <circle cx="850" cy="292" r="42" fill="#f4d788"/><circle cx="1340" cy="375" r="32" fill="#e2bf69"/>
+  <text x="120" y="145" font-family="sans-serif" font-size="58" fill="#ffeeb6">Dream Pen Raden · Comets</text>
+  <text x="120" y="235" font-family="sans-serif" font-size="34" fill="#ded5f4">Cosmic 2022｜Ebonite + Urushi + Raden + Maki-e｜Wancher 18K</text>
+  <text x="120" y="805" font-family="sans-serif" font-size="28" fill="#d4c9e8">本站原创事实示意图｜非产品照片｜不按比例｜不作色卡、Logo、库存或价格证明</text>
+</svg>
