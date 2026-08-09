@@ -1,0 +1,35 @@
+id                type  slug                 name                      body_chars  status     content_revision  reviewed_content_revision  reviewed_contract_version  approved_content_hash                                                       reviewed_by
+----------------  ----  -------------------  ------------------------  ----------  ---------  ----------------  -------------------------  -------------------------  --------------------------------------------------------------------------  ---------------------------
+s105PILOT_URUSHI  pen   pilot-custom-urushi  百乐 Pilot Custom URUSHI  2070        published  438               438                        3                          sha256:v3:acb48825f4d25c002358d7337b77c6c43c37fdf1eecc4667d5296a921b23bf66  phase105-offline-acceptance
+review_kind  status    content_hash                                                                total
+-----------  --------  --------------------------------------------------------------------------  -----
+fact         approved  sha256:v3:acb48825f4d25c002358d7337b77c6c43c37fdf1eecc4667d5296a921b23bf66  1
+fact         revoked   sha256:v3:1fc07c886e8c4ff6069a29f6faea3c6283d7b90521bf834d1dcd1de7314c6e7c  1
+fact         revoked   sha256:v3:29cc18ce8a9b32f064bfe2c495f81f4e34ead7e3cd3135f3e639b77bdbfd1eaf  1
+language     approved  sha256:v3:acb48825f4d25c002358d7337b77c6c43c37fdf1eecc4667d5296a921b23bf66  1
+language     revoked   sha256:v3:1fc07c886e8c4ff6069a29f6faea3c6283d7b90521bf834d1dcd1de7314c6e7c  1
+language     revoked   sha256:v3:29cc18ce8a9b32f064bfe2c495f81f4e34ead7e3cd3135f3e639b77bdbfd1eaf  1
+media        approved  sha256:v3:acb48825f4d25c002358d7337b77c6c43c37fdf1eecc4667d5296a921b23bf66  1
+media        revoked   sha256:v3:1fc07c886e8c4ff6069a29f6faea3c6283d7b90521bf834d1dcd1de7314c6e7c  1
+media        revoked   sha256:v3:29cc18ce8a9b32f064bfe2c495f81f4e34ead7e3cd3135f3e639b77bdbfd1eaf  1
+publication  approved  sha256:v3:acb48825f4d25c002358d7337b77c6c43c37fdf1eecc4667d5296a921b23bf66  1
+publication  revoked   sha256:v3:1fc07c886e8c4ff6069a29f6faea3c6283d7b90521bf834d1dcd1de7314c6e7c  1
+publication  revoked   sha256:v3:29cc18ce8a9b32f064bfe2c495f81f4e34ead7e3cd3135f3e639b77bdbfd1eaf  1
+source_refs
+-----------
+5
+id                                           series_name                     release_year                             origin_country  nib                                     fill_system                                 material                dimensions                                        weight                        price_range  status                                  review_status
+-------------------------------------------  ------------------------------  ---------------------------------------  --------------  --------------------------------------  ------------------------------------------  ----------------------  ------------------------------------------------  ----------------------------  -----------  --------------------------------------  -------------
+curated-model-spec-9dea907a693d73d2510881ce  Pilot Custom URUSHI / FKV-88SR  当前 FKV-88SR；紺青于 2024 年 11 月加入                  18K No.30 大型笔尖；具体尖宽按当期 SKU  Pilot cartridge/converter；CON-40、CON-70N  硬橡胶笔身，蝋色漆仕上  当期资料未在本包建立统一尺寸；不从 845／823 回填  当期资料未在本包建立统一克重               当前型号；漆黑、朱、紺青为颜色 variant  approved
+approved_spec_evidence
+----------------------
+9
+approved_primary_media
+----------------------
+1
+source_id         target_id     link_type
+----------------  ------------  ---------
+s105PILOT_URUSHI  Zt-PbXkE7UHM  made_by
+integrity_check
+---------------
+ok

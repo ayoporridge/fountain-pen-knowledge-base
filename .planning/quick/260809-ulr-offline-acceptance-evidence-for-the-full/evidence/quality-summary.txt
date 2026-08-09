@@ -1,0 +1,13 @@
+Command: pnpm exec tsx scripts/audit-entity-quality.ts --database-path <owned checkpoint> --limit 12
+Exit: 0
+
+Entity quality audit:
+  entities: 804
+  active entities: 781
+  retired lineage excluded: 23
+  duplicate name groups: 0
+  suspicious pen articles: 0
+  thin brand/model entities: 0
+  made_by relationship blockers: 0
+
+The 23 excluded rows are retired lineage donors; they are not public entities.

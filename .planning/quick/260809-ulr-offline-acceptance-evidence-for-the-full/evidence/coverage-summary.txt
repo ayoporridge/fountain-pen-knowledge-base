@@ -1,0 +1,9 @@
+Command: pnpm exec tsx scripts/audit-library-coverage.ts --database-path <owned checkpoint> --limit 12
+Exit: 1 (expected: the audit includes retired donor lineage in its inventory)
+
+Library coverage summary:
+  brands: 97/100 diagnostic average, 115 ready, 4 gap, total 119
+  models: 98/100 diagnostic average, 666 ready, 16 gap, total 685
+  public readiness remains 781/781 with zero public blockers.
+
+The four brand gaps and sixteen model gaps are the same retired donor lineage represented in the 23-row readiness backlog; the active quality audit reports no thin or blocked active entity.

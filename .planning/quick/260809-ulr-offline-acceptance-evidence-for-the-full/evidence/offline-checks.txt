@@ -1,0 +1,13 @@
+Offline checks run on 2026-08-09, with no Turso selection and no write to data/fpkg.db:
+
+- pnpm run build — PASS; Next.js production build, type check, 18 static pages, standalone runtime.
+- scripts/verify-markdown.ts — PASS; checked 1048, rendered 1048, issues 0.
+- scripts/check-article-content.ts — PASS; all 255 public articles.
+- scripts/check-data-contract.ts — PASS; 119 brands, 685 pens, allowed entity types.
+- scripts/check-migration-safety.ts — PASS; 1133 scripts scanned, fresh replay safe.
+- scripts/check-library-contract.ts — PASS; library contract counts and integrity checks green.
+- scripts/check-public-boundary.ts — PASS; published_blockers=0, list/per-id/aggregate/context/reverse diffs 0; 19/19 complete reverse-brand models.
+- scripts/check-publication-gate.ts — PASS; fixture isolation, migration, invalidation, direct-SQL guards, rollback and atomic publish matrix green.
+- scripts/check-evidence-contract.ts — PASS; evidence schema/hash/invalidation/readiness/publish matrix green.
+
+These are local acceptance results only. They do not establish remote migration, deployment, or online page verification.

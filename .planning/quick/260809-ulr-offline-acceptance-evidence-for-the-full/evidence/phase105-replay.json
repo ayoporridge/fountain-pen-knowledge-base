@@ -1,0 +1,9 @@
+{
+  "entities": [
+    {
+      "entityId": "s105PILOT_URUSHI",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:acb48825f4d25c002358d7337b77c6c43c37fdf1eecc4667d5296a921b23bf66"
+    }
+  ]
+}
