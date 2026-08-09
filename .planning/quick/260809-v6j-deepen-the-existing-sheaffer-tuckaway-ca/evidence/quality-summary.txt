@@ -1,0 +1,11 @@
+Phase 553 checkpoint entity quality audit
+
+entities: 804
+active entities: 781
+retired lineage excluded: 23
+duplicate name groups: 0
+suspicious pen articles: 0
+thin brand/model entities: 0
+made_by relationship blockers: 0
+
+Command: pnpm exec tsx scripts/audit-entity-quality.ts --database-path <phase553 checkpoint> --limit 3

@@ -1,0 +1,16 @@
+Phase 553 owned checkpoint readback
+
+Tuckaway entity: qVrtyA8zR6wk / pen / sheaffer-tuckaway
+Brand entity: tVXnzDSFCcPP / brand / sheaffer
+Tuckaway publication: published
+Tuckaway body chars: 6713
+Tuckaway content revision: 204 / reviewed 204
+Tuckaway contract: 3
+Tuckaway references: 8 approved
+Tuckaway spec-field evidence: 18 approved
+Tuckaway primary media: 1 approved
+Tuckaway made_by: exactly [tVXnzDSFCcPP]
+Current content reviews: fact=approved, language=approved, media=approved, publication=approved
+Integrity: PRAGMA integrity_check=ok
+
+The publication review table also contains revoked historical review rows from prior revisions; the current content hash has exactly the four approved review kinds above.

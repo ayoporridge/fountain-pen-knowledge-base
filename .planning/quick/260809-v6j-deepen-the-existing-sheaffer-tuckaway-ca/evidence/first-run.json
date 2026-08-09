@@ -1,0 +1,19 @@
+{
+  "phase": 553,
+  "database": "checkpoint/catalog-phase553.db",
+  "database_hash": "1504080c2759ae905bace8c04c4c1d3bc84c6528205e392b6058227cb00254e3",
+  "outcomes": [
+    {
+      "entityId": "tVXnzDSFCcPP",
+      "outcome": "published",
+      "contentHash": "sha256:v3:78e438ffdeb4a2426d537ae73df0ecbcf68412c623f5111f9f83a2c344addcdb"
+    },
+    {
+      "entityId": "qVrtyA8zR6wk",
+      "outcome": "published",
+      "contentHash": "sha256:v3:7c94b5ff2bfb2739af13d268092413840497027f09571f4960ae2a244535bd4b"
+    }
+  ],
+  "remote_database_selection": "rejected",
+  "real_database_hash": "acbb5710050b5c9d6e435666dda909b66055c290a4640f04faa38860ea24d09a"
+}
