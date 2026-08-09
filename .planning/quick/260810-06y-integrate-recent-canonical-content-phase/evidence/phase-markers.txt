@@ -1,0 +1,6 @@
+owned source = .planning/quick/260809-wgm-deepen-the-existing-pilot-custom-heritag/checkpoint/catalog-phase556-v2.db
+source_sha256 = 9b61cbcb8622ab6edb4955bdb80d563df03b19a0919ad8fcebc8d047d7db1971
+recent markers present before Phase 557 = phase546, phase547, phase548, phase549, phase550, phase551, phase552, phase553, phase554, phase556
+new marker after Phase 557 = phase557-benu-briolette-depth
+marker_count_each = 1
+phase_effect = no new entity; existing s59BENU_BRIO was refreshed in place

@@ -1,0 +1,26 @@
+{
+  "source_inventory_snapshot_id": "sha256:5414c48123de1401ce4372375eb1151c645ff04d5691198bb6a720049430b306",
+  "source_schema_max_migration": 35,
+  "audit_schema_max_migration": 35,
+  "audit_database_kind": "owned_disposable_migrated_copy",
+  "summary": {
+    "inventory_audited": 804,
+    "brand_inventory_audited": 119,
+    "pen_inventory_audited": 685,
+    "legacy_public_baseline": 795,
+    "content_ready": 781,
+    "published": 781,
+    "public_entities": 781,
+    "published_blockers": 0,
+    "public_blockers": 0,
+    "backlog": 23
+  },
+  "verdict": {
+    "inventory_complete": true,
+    "content_complete": false,
+    "public_clean": true,
+    "complete": false
+  },
+  "readiness_exit": 1,
+  "raw_artifacts_outside_repo": "/private/tmp/phase558-recent-canonical-integration/readiness/"
+}

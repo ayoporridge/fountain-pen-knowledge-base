@@ -1,0 +1,18 @@
+database_kind=owned_disposable_migrated_copy
+entities=1095
+public_entities=1048
+entity_publications_published=786 (includes existing retired publication rows; readiness active public count is 781)
+phase557_brand=s59BENU benu body=2750 source=curated-content:phase427-benu-brand-depth-refresh-v1:ca7e865f1c7cf106de815e88894ee80ed50aec8e75d032a7cef39412765e854a
+phase557_pen=s59BENU_BRIO benu-briolette body=5775 source=curated-content:phase557-benu-briolette-depth-v1:197fe614d95cb517a5b047fe57305311fb9e2ac214874a405ca9d42c67e6e734
+made_by=s59BENU_BRIO -> s59BENU (one forward); reverse=s59BENU -> s59BENU_BRIO (one)
+variants=3
+references=15 (official=9, reference=2, review=4)
+spec_evidence=21
+primary_media=1
+fact/language/media/publication=approved for current Phase 557 hash
+source_integrity=ok
+destination_integrity=ok
+foreign_key_check_rows=0
+source_sha256_after=9b61cbcb8622ab6edb4955bdb80d563df03b19a0919ad8fcebc8d047d7db1971
+destination_sha256=1e5ec144802ee3aaf04182ca9a418733c9866197fc85ffacaac20a285f6709fe
+real_data_fpkg_db_sha256=acbb5710050b5c9d6e435666dda909b66055c290a4640f04faa38860ea24d09a

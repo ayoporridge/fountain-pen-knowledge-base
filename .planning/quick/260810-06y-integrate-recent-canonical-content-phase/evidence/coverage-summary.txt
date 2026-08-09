@@ -1,0 +1,7 @@
+Phase 558 offline integration coverage audit (owned disposable migrated copy)
+brands total=119 ready=115 starter=0 gap=4 average_score=97 stories=115 claims=115 references=115 media=115 current_reviews=115
+models total=685 ready=666 starter=3 gap=16 average_score=98 stories=669 claims=669 references=669 media=669 model_specs=669 current_reviews=666
+brand_gaps=上海 ShangHai;半句 BanJu;塞尔 Saier;意斯华 YiSiHua (retired lineage with deprecated stories and locked review backlog)
+model_gaps=Opus88 Demo/Kolora;Leonardo Furore/Momento Magico;Sailor 21K Pro Gear/大鱼雷;Sheaffer Craftsman;Sheaffer Touchdown TM;SKB F10/F21;Aurora legacy;HongDian 苏木;Sheaffer 帝国元首;Pilot Capless/Decimo;Pilot Custom 823;Pelikan M605;Visconti Homo Sapiens;Pelikan M800;Hero Paidi 一体尖;Parker 51 vintage
+phase_effect=recent package integration changed no inventory totals and introduced no duplicate entity
+verdict=expected gap report; active public blockers remain zero

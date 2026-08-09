@@ -1,0 +1,7 @@
+Phase 558 offline integration quality audit (owned disposable migrated copy)
+source_inventory_snapshot_id=sha256:5414c48123de1401ce4372375eb1151c645ff04d5691198bb6a720049430b306
+schema_max_migration=35 (035_public_brand_lifecycle_projection.sql)
+entities=804 active=781 retired_excluded=23
+duplicate_groups=0 suspicious_pen_articles=0 thin_entities=0 broken_links=0
+published=781 public_entities=781 published_blockers=0 public_blockers=0 backlog=23
+verdict=PASS (quality blockers zero; retired lineage remains explicitly excluded)
