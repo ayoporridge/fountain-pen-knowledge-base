@@ -1,0 +1,43 @@
+--- canonical and duplicate ---
+id            type   name                   slug                   body_chars  status     content_revision  reviewed_content_revision  reviewed_contract_version  approved_content_hash
+------------  -----  ---------------------  ---------------------  ----------  ---------  ----------------  -------------------------  -------------------------  --------------------------------------------------------------------------
+Zt-PbXkE7UHM  brand  百乐 Pilot             pilot                  1736        published  1408              1408                       3                          sha256:v3:2e7588203de4fdcb09d3dec2d08291885f3d9abec17d86684522ee3302954352
+oJyaQy9bEc8V  pen    百乐 Pilot Custom 823  pilot-custom-823       8094        published  872               872                        3                          sha256:v3:9e3e65107850899da8e7c36d48cf5bf15f00adc303a849cec34913b0fca8ff2d
+xQ-15uqtdMGA  pen    百乐 Pilot Custom 823  百乐-pilot-custom-823  245         retired    2
+--- duplicate route ---
+source_path                 target_path            redirect_kind
+--------------------------  ---------------------  -------------
+/pen/百乐-pilot-custom-823  /pen/pilot-custom-823  permanent
+--- canonical public and duplicate public ---
+id            type  slug
+------------  ----  ----------------
+oJyaQy9bEc8V  pen   pilot-custom-823
+--- variants ---
+n   distinct_codes  market_sku
+--  --------------  ----------
+12  12              12
+--- specs and refs ---
+review_status  approved_spec_evidence
+-------------  ----------------------
+approved       9
+approved_refs
+-------------
+8
+--- primary media and maker ---
+approved_primary_media
+----------------------
+1
+source_id     target_id     link_type
+------------  ------------  ---------
+oJyaQy9bEc8V  Zt-PbXkE7UHM  made_by
+--- current reviews by approved hash ---
+review_kind  status
+-----------  --------
+fact         approved
+language     approved
+media        approved
+publication  approved
+--- integrity and hashes ---
+ok
+f889fb73727a650113fa171b352b40f56a508970691d6cdb9572dcef608aaae1  .planning/quick/260809-w62-replay-the-existing-pilot-custom-823-sou/checkpoint/catalog-phase555.db
+acbb5710050b5c9d6e435666dda909b66055c290a4640f04faa38860ea24d09a  data/fpkg.db
