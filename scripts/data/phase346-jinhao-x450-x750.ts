@@ -7,8 +7,8 @@ import type {
 } from "../lib/curated-content-pack";
 import {
   PHASE63_JINHAO_BRAND_ID,
-  phase63JinhaoPacks,
 } from "./phase63-jinhao-split";
+import { phase441BrandDepthRefreshPacks } from "./phase441-brand-depth-refresh";
 
 const RETRIEVED = "2026-08-02";
 export const PHASE346_X450_ID = "phase346-jinhao-x450";
@@ -449,7 +449,9 @@ const x750 = makePen({
   timelineDescription: "2011 购入样本、2013 评测和当前零售页共同构成 X750 的流通时间边界；不将这些日期写成品牌官方首发年。",
 });
 
-const baseBrand = phase63JinhaoPacks.find((pack) => pack.entityId === PHASE63_JINHAO_BRAND_ID);
+const baseBrand = phase441BrandDepthRefreshPacks.find(
+  (pack) => pack.entityId === PHASE63_JINHAO_BRAND_ID,
+);
 if (!baseBrand) throw new Error("Phase 346 requires the existing Jinhao brand pack.");
 
 export const phase346JinhaoX450X750Packs: CuratedEntityPack[] = [

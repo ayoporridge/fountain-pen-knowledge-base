@@ -180,8 +180,10 @@ test("Phase 346 publishes Jinhao X450 and X750 on an owned copy", {
         ).rows[0]?.value,
         10,
       );
-      const pack = modelId === PHASE346_X450_ID ? x450Pack : x750Pack;
+      const pack: (typeof phase346JinhaoX450X750Packs)[number] =
+        modelId === PHASE346_X450_ID ? x450Pack : x750Pack;
       const localPath = pack.media[0]?.localPath;
+      assert.ok(localPath);
       assert.equal(
         (
           await client.execute({

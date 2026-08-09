@@ -73,7 +73,7 @@ test("Turso catalog sync accepts only an owned checkpoint source", () => {
     /owned-root|hard-link alias|data\/fpkg\.db/,
   );
   const readOnly = openReadOnlyCatalog(copy.destinationPath, {
-    env: { TURSO_DATABASE_URL: "" },
+    env: { NODE_ENV: "test", TURSO_DATABASE_URL: "" },
   });
   try {
     const row = readOnly.get<{ count: number }>(
