@@ -1,0 +1,31 @@
+{
+  "artifact_contract_version": 1,
+  "provenance": {
+    "source_inventory_snapshot_id": "sha256:f5b9aa29d66d5983316c362e572a5c55259601782ad537d59d474519b4686e50",
+    "source_schema_max_migration": 35,
+    "source_schema_migration_name": "035_public_brand_lifecycle_projection.sql",
+    "source_schema_migration_checksum": "83161ef1cb379113e73340e146c90d20d2a3c3ab1195f364261d1b3c4e48d17a",
+    "audit_schema_max_migration": 35,
+    "audit_schema_migration_name": "035_public_brand_lifecycle_projection.sql",
+    "audit_schema_migration_checksum": "83161ef1cb379113e73340e146c90d20d2a3c3ab1195f364261d1b3c4e48d17a",
+    "audit_database_kind": "owned_disposable_migrated_copy"
+  },
+  "summary": {
+    "inventory_audited": 806,
+    "brand_inventory_audited": 119,
+    "pen_inventory_audited": 687,
+    "legacy_public_baseline": 797,
+    "content_ready": 783,
+    "published": 783,
+    "public_entities": 783,
+    "published_blockers": 0,
+    "public_blockers": 0,
+    "backlog": 23
+  },
+  "verdict": {
+    "inventory_complete": true,
+    "content_complete": false,
+    "public_clean": true,
+    "complete": false
+  }
+}

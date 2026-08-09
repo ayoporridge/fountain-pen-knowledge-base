@@ -1,0 +1,15 @@
+TAP version 13
+# Subtest: Phase 560 publishes Wancher Dream Pen Aluminum Contemporary on an owned checkpoint
+ok 1 - Phase 560 publishes Wancher Dream Pen Aluminum Contemporary on an owned checkpoint
+  ---
+  duration_ms: 96566.987042
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 97043.964333

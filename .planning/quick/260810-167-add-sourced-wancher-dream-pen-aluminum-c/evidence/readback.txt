@@ -1,0 +1,30 @@
+destination_sha256 705cd17176537394df867802817fa1708e96ceac1e1cbd0751f9d9ee08e1fbf3
+real_sha256 acbb5710050b5c9d6e435666dda909b66055c290a4640f04faa38860ea24d09a
+id                                                type  slug                                     name                                     body_chars  status     content_revision  reviewed_content_revision  reviewed_contract_version  publishable  blocker_count  is_public
+------------------------------------------------  ----  ---------------------------------------  ---------------------------------------  ----------  ---------  ----------------  -------------------------  -------------------------  -----------  -------------  ---------
+phase560-wancher-dream-pen-aluminum-contemporary  pen   wancher-dream-pen-aluminum-contemporary  Wancher Dream Pen Aluminum Contemporary  6860        published  108               108                        3                          1            0              1
+variants
+--------
+4
+refs
+----
+9
+claims
+------
+20
+spec_evidence
+-------------
+11
+primary_media
+-------------
+1
+source_groups
+-------------
+8
+source_id                                         target_id                                         link_type
+------------------------------------------------  ------------------------------------------------  ---------
+phase560-wancher-dream-pen-aluminum-contemporary  eOfD77nOeENN                                      made_by
+eOfD77nOeENN                                      phase560-wancher-dream-pen-aluminum-contemporary  reverse
+integrity_check
+---------------
+ok
