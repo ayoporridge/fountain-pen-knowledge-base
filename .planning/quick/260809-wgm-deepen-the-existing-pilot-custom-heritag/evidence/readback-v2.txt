@@ -1,0 +1,14 @@
+heritage91	NpJibLHczSl9	pen	pilot-custom-heritage-91	5332	curated-content:phase556-pilot-custom-heritage-91-depth-v1:2b54fb0fe499da042c47c7e2b723faad5998702f2b5d113b129a3797c7d9a2f7	published	233	233	3	1	0	1
+brand	Zt-PbXkE7UHM	pilot	2917	curated-content:phase425-pilot-brand-depth-refresh-v1:1d681d3bcfba1b76b7c0cb05139e2b1cc1c270964fb24c49908754ee8ceeb301	published	1485	1485
+reviews	fact	approved	sha256:v3:130f0b6dd34479c3abf023ef0cd7ec2235585b7bd5465f457f59fe12058f2919
+reviews	language	approved	sha256:v3:130f0b6dd34479c3abf023ef0cd7ec2235585b7bd5465f457f59fe12058f2919
+reviews	media	approved	sha256:v3:130f0b6dd34479c3abf023ef0cd7ec2235585b7bd5465f457f59fe12058f2919
+reviews	publication	approved	sha256:v3:130f0b6dd34479c3abf023ef0cd7ec2235585b7bd5465f457f59fe12058f2919
+made_by	Zt-PbXkE7UHM
+variants	1	1	FKVHN-12SR
+references	14
+claims	12
+spec_evidence	20
+primary_media	1
+ok
+real_db_sha256	acbb5710050b5c9d6e435666dda909b66055c290a4640f04faa38860ea24d09a
