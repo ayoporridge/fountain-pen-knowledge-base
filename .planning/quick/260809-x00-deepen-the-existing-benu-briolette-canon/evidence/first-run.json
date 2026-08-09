@@ -1,0 +1,14 @@
+{
+  "entities": [
+    {
+      "entityId": "s59BENU",
+      "outcome": "published",
+      "contentHash": "sha256:v3:ad03291002693bdca6f1ac24dbf53151117f7db0f1ec0bff40c965ffaaa111da"
+    },
+    {
+      "entityId": "s59BENU_BRIO",
+      "outcome": "published",
+      "contentHash": "sha256:v3:82322919f6c32e6fa4f8cc185f0e2eb15880fee58e96d825af61a39748a65055"
+    }
+  ]
+}
