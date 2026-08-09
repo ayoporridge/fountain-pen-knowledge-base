@@ -1,0 +1,14 @@
+{
+  "entities": [
+    {
+      "entityId": "vhqNYqDChhiN",
+      "outcome": "published",
+      "contentHash": "sha256:v3:c03acd87c668185348334d7c2a0a8ce5a365ea6e7f8c1ea08676f82ec5b9dd64"
+    },
+    {
+      "entityId": "laT4tRN4DMOV",
+      "outcome": "published",
+      "contentHash": "sha256:v3:ccddf194618ffe100eb484224035f9c6c0867c99fb9f5dcc9436e09d131e8a35"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+id            type   slug            name            body_chars  status     content_revision  reviewed_content_revision  reviewed_contract_version  approved_content_hash                                                       reviewed_by
+------------  -----  --------------  --------------  ----------  ---------  ----------------  -------------------------  -------------------------  --------------------------------------------------------------------------  ------------------------
+vhqNYqDChhiN  brand  parker          派克 Parker     2832        published  1553              1553                       3                          sha256:v3:c03acd87c668185348334d7c2a0a8ce5a365ea6e7f8c1ea08676f82ec5b9dd64  phase552-parker180-depth
+laT4tRN4DMOV  pen    the-parker-180  The Parker 180  4843        published  170               170                        3                          sha256:v3:ccddf194618ffe100eb484224035f9c6c0867c99fb9f5dcc9436e09d131e8a35  phase552-parker180-depth
+review_kind  status    content_hash                                                                total
+-----------  --------  --------------------------------------------------------------------------  -----
+fact         approved  sha256:v3:ccddf194618ffe100eb484224035f9c6c0867c99fb9f5dcc9436e09d131e8a35  1
+fact         revoked   sha256:v3:632668bf1cab51cb39b44208474d1cbe54d86b286a509ef7a18d0972be6e1419  1
+fact         revoked   sha256:v3:b298e7c450f565884699b866032d9edcbcd193cfd079c05d74eabb4f6b9e7e79  1
+language     approved  sha256:v3:ccddf194618ffe100eb484224035f9c6c0867c99fb9f5dcc9436e09d131e8a35  1
+language     revoked   sha256:v3:632668bf1cab51cb39b44208474d1cbe54d86b286a509ef7a18d0972be6e1419  1
+language     revoked   sha256:v3:b298e7c450f565884699b866032d9edcbcd193cfd079c05d74eabb4f6b9e7e79  1
+media        approved  sha256:v3:ccddf194618ffe100eb484224035f9c6c0867c99fb9f5dcc9436e09d131e8a35  1
+media        revoked   sha256:v3:632668bf1cab51cb39b44208474d1cbe54d86b286a509ef7a18d0972be6e1419  1
+media        revoked   sha256:v3:b298e7c450f565884699b866032d9edcbcd193cfd079c05d74eabb4f6b9e7e79  1
+publication  approved  sha256:v3:ccddf194618ffe100eb484224035f9c6c0867c99fb9f5dcc9436e09d131e8a35  1
+publication  revoked   sha256:v3:632668bf1cab51cb39b44208474d1cbe54d86b286a509ef7a18d0972be6e1419  1
+publication  revoked   sha256:v3:b298e7c450f565884699b866032d9edcbcd193cfd079c05d74eabb4f6b9e7e79  1
+approved_refs
+-------------
+8
+id                                           series_name  release_year                                        origin_country                                                                nib                                                                      fill_system                                                   material                                             status                                              review_status
+-------------------------------------------  -----------  --------------------------------------------------  ----------------------------------------------------------------------------  -----------------------------------------------------------------------  ------------------------------------------------------------  ---------------------------------------------------  --------------------------------------------------  -------------
+curated-model-spec-edc0b3e5f43cd8f3a04d3817  Parker 180   1977 年前后上市；Penography 标记历史范围 1977–1985  美国 Parker 产品线；档案另记法国 Meru、英国等生产／finish 线索，具体实物待核  扁平双面尖；常见 XF/M 或 F/B；早期 14K gold、约 1983 年起部分版本 steel  Parker cartridge/converter；细身版本的转换器按接口与长度核对  Flighter 不锈钢、镀金、漆面和图案金属 finish 按版本  历史型号；1986 前后进入 Classic 线路的边界另行记录  approved
+approved_spec_evidence
+----------------------
+8
+approved_primary_media
+----------------------
+1
+source_id     target_id     link_type
+------------  ------------  ---------
+laT4tRN4DMOV  vhqNYqDChhiN  made_by
+integrity_check
+---------------
+ok

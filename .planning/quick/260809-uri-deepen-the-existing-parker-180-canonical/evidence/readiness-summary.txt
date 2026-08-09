@@ -1,0 +1,7 @@
+Command: pnpm exec tsx scripts/audit-readiness-v2.ts --database-path <phase552 owned checkpoint> --out-dir <owned evidence/readiness> --json --limit 3
+Exit: 1 (expected: retired donor lineage remains in locked inventory)
+
+summary: inventory_audited=804, brand_inventory_audited=119, pen_inventory_audited=685, content_ready=781, published=781, public_entities=781, published_blockers=0, public_blockers=0, backlog=23.
+verdict: inventory_complete=true, content_complete=false, public_clean=true, complete=false.
+
+The 23 backlog rows are retired donor lineage and are not public blockers; no generic readiness rule was changed.
