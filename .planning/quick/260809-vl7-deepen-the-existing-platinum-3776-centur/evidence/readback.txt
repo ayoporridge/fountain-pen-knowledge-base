@@ -1,0 +1,41 @@
+--- entities/publication ---
+id                            type   slug                                            body_chars  status     content_revision  reviewed_content_revision  reviewed_contract_version  approved_content_hash
+----------------------------  -----  ----------------------------------------------  ----------  ---------  ----------------  -------------------------  -------------------------  --------------------------------------------------------------------------
+e51tJpejEkXY                  brand  platinum                                        2612        published  990               990                        3                          sha256:v3:789d4637539220949f9c675dcb339ac5fb3df2e28bab18566dff380b123ec554
+phase126-platinum-pnb-35000h  pen    platinum-3776-century-kanazawa-leaf-pnb-35000h  6016        published  209               209                        3                          sha256:v3:50aebb38d48d7b81fef43083b56c50de7cd91ed8aefa11118e418267ec0a4ad6
+--- references ---
+id                            approved_refs
+----------------------------  -------------
+e51tJpejEkXY                  6
+phase126-platinum-pnb-35000h  8
+--- specs ---
+entity_id                     review_status  approved_spec_evidence
+----------------------------  -------------  ----------------------
+phase126-platinum-pnb-35000h  approved       19
+--- variants ---
+variant_name               product_code   variant_kind
+-------------------------  -------------  ------------
+Ascending Dragon #57 昇龙  PNB-35000H#57  market_sku
+Fujin Raijin #3 风神雷神   PNB-35000H#3   market_sku
+Matsu-Tora #55 松虎        PNB-35000H#55  market_sku
+--- primary media ---
+approved_primary_media
+----------------------
+1
+--- made_by ---
+source_id                     target_id     link_type
+----------------------------  ------------  ---------
+phase126-platinum-pnb-35000h  e51tJpejEkXY  made_by
+--- current reviews by approved hash ---
+review_kind  status    content_hash
+-----------  --------  --------------------------------------------------------------------------
+fact         approved  sha256:v3:50aebb38d48d7b81fef43083b56c50de7cd91ed8aefa11118e418267ec0a4ad6
+language     approved  sha256:v3:50aebb38d48d7b81fef43083b56c50de7cd91ed8aefa11118e418267ec0a4ad6
+media        approved  sha256:v3:50aebb38d48d7b81fef43083b56c50de7cd91ed8aefa11118e418267ec0a4ad6
+publication  approved  sha256:v3:50aebb38d48d7b81fef43083b56c50de7cd91ed8aefa11118e418267ec0a4ad6
+--- integrity ---
+ok
+--- database hash ---
+1e9abc36bf8cfc64b6f2f07e6da01919bc232e0c16c6252058d34e8051fc7147  .planning/quick/260809-vl7-deepen-the-existing-platinum-3776-centur/checkpoint/catalog-phase554.db
+--- protected real hash ---
+acbb5710050b5c9d6e435666dda909b66055c290a4640f04faa38860ea24d09a  data/fpkg.db

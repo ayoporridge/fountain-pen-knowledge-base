@@ -1,0 +1,12 @@
+Entity quality audit:
+  entities: 804
+  active entities: 781
+  retired lineage excluded: 23
+  duplicate name groups: 0
+  suspicious pen articles: 0
+  thin brand/model entities: 0
+  made_by relationship blockers: 0
+
+Suspicious pen articles: none
+Duplicate name groups: none
+Thin brand/model entities: none
