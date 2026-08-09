@@ -1,0 +1,16 @@
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.onlyBuiltDependencies". See https://pnpm.io/settings for the new home of each setting.
+Library contract counts:
+  sources: 3721
+  sourceItems: 5610
+  claims: 6830
+  citations: 15603
+  stories: 833
+  events: 1144
+  diagrams: 9
+  media: 1101
+  community: 2
+  exhibits: 6
+  externalIds: 61
+  aliases: 2788
+  commonsMedia: 4
+Library contract OK

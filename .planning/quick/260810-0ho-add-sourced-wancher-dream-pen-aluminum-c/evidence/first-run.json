@@ -1,0 +1,14 @@
+{
+  "entities": [
+    {
+      "entityId": "eOfD77nOeENN",
+      "outcome": "published",
+      "contentHash": "sha256:v3:92d57de7f5d667a8235d97063cb5193326e659d5582287e300eee525d56cbe12"
+    },
+    {
+      "entityId": "phase559-wancher-dream-pen-aluminum-classic",
+      "outcome": "published",
+      "contentHash": "sha256:v3:6a69dbab172bae5b71cf9c40bf40fb80116f97fa739e0e9208407afa9bb6441f"
+    }
+  ]
+}

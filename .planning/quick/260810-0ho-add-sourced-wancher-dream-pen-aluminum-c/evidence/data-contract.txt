@@ -1,0 +1,8 @@
+[WARN] The "pnpm" field in package.json is no longer read by pnpm. The following keys were ignored: "pnpm.onlyBuiltDependencies". See https://pnpm.io/settings for the new home of each setting.
+Entity types:
+  article: 275
+  brand: 119
+  concept: 13
+  nib: 3
+  pen: 685
+Data contract OK

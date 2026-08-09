@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Wancher Dream Pen Aluminum Classic factual diagram</title>
+  <desc id="desc">Editorial factual SVG: aluminum body, Classic gold finish, JoWo stainless steel gold-plated nib, four market SKUs, and converter/cartridge boundary. Not a product photograph and not to scale.</desc>
+  <metadata>site-original; factual-diagram; non-photo; non-logo; not-to-scale; non-colour-proof; dimensions from Wancher official shop detail</metadata>
+  <defs>
+    <linearGradient id="paper" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fffaf0"/>
+      <stop offset="1" stop-color="#efe5d2"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#b57925"/>
+      <stop offset="0.48" stop-color="#f4d98a"/>
+      <stop offset="1" stop-color="#9b5b1c"/>
+    </linearGradient>
+    <linearGradient id="steel" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f7df9c"/>
+      <stop offset="0.5" stop-color="#bc8734"/>
+      <stop offset="1" stop-color="#7b4a20"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#6f522c" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#paper)"/>
+  <rect x="48" y="48" width="1504" height="804" rx="30" fill="none" stroke="#8d6a35" stroke-width="3"/>
+  <text x="100" y="122" fill="#3d2c1d" font-family="Georgia, 'Noto Serif SC', serif" font-size="46" font-weight="700">Wancher Dream Pen Aluminum Classic</text>
+  <text x="100" y="170" fill="#765a35" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="24">金色铝制 Dream Pen · 事实示意图 · exact SKU boundary</text>
+
+  <g filter="url(#shadow)" transform="translate(135 282)">
+    <path d="M105 144 C154 102 228 77 350 77 L1035 77 C1104 77 1158 105 1206 144 L1035 211 L350 211 C228 211 154 186 105 144 Z" fill="url(#gold)" stroke="#6b451e" stroke-width="5"/>
+    <path d="M1035 77 C1115 77 1193 100 1270 144 C1193 188 1115 211 1035 211 Z" fill="#c99741" stroke="#6b451e" stroke-width="5"/>
+    <path d="M350 77 L350 211" stroke="#f9e6a7" stroke-width="8" opacity="0.7"/>
+    <path d="M1035 77 L1035 211" stroke="#f9e6a7" stroke-width="6" opacity="0.7"/>
+    <path d="M1270 144 L1328 144 L1380 119 L1380 169 L1328 144 Z" fill="url(#steel)" stroke="#6b451e" stroke-width="5"/>
+    <path d="M1380 119 L1452 144 L1380 169 Z" fill="#8b6229" stroke="#6b451e" stroke-width="5"/>
+    <text x="522" y="157" fill="#fff3c4" font-family="Arial, sans-serif" font-size="29" letter-spacing="5">ALUMINUM · CLASSIC GOLD</text>
+    <text x="1328" y="106" fill="#60431d" font-family="Arial, sans-serif" font-size="18">#6 JoWo</text>
+  </g>
+
+  <g font-family="Arial, 'Noto Sans SC', sans-serif" fill="#3d2c1d">
+    <rect x="110" y="585" width="410" height="190" rx="18" fill="#fffdf7" stroke="#b58b4a" stroke-width="3"/>
+    <text x="140" y="630" font-size="28" font-weight="700">材料与外观</text>
+    <text x="140" y="670" font-size="23">Aluminum body</text>
+    <text x="140" y="705" font-size="23">Classic gold finish</text>
+    <text x="140" y="740" font-size="20" fill="#765a35">非黄金；颜色不作校样</text>
+
+    <rect x="550" y="585" width="430" height="190" rx="18" fill="#fffdf7" stroke="#b58b4a" stroke-width="3"/>
+    <text x="580" y="630" font-size="28" font-weight="700">尖与供墨</text>
+    <text x="580" y="670" font-size="23">#6 JoWo 不锈钢镀金</text>
+    <text x="580" y="705" font-size="23">EF · F · M · B</text>
+    <text x="580" y="740" font-size="21">European converter / cartridge</text>
+
+    <rect x="1010" y="585" width="480" height="190" rx="18" fill="#fffdf7" stroke="#b58b4a" stroke-width="3"/>
+    <text x="1040" y="630" font-size="28" font-weight="700">官方店铺规格</text>
+    <text x="1040" y="670" font-size="23">152.5 mm · max 15.3 mm · 41 g</text>
+    <text x="1040" y="705" font-size="20">未使用时长度 / 最大直径 / 商品重量</text>
+    <text x="1040" y="740" font-size="20" fill="#765a35">气密帽：帮助减少干墨</text>
+  </g>
+
+  <g transform="translate(108 815)" font-family="Arial, 'Noto Sans SC', sans-serif" fill="#6b4a27">
+    <text x="0" y="0" font-size="18">四个 market SKU：WF-DREAM-ALU-GL-EF · -F · -M · -B</text>
+    <text x="790" y="0" font-size="18">Contemporary = rose-gold sibling · not the same canonical model</text>
+  </g>
+
+  <g transform="translate(1190 96)" font-family="Arial, sans-serif" font-size="16" fill="#6b4a27">
+    <text x="0" y="0">NON-PHOTO</text>
+    <text x="0" y="24">NON-LOGO</text>
+    <text x="0" y="48">NOT-TO-SCALE</text>
+    <text x="0" y="72">NON-COLOUR-PROOF</text>
+  </g>
+</svg>
