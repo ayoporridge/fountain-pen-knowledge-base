@@ -1,0 +1,24 @@
+{
+  "entities": [
+    {
+      "entityId": "phase523-wancher-hirota-urushi-sabi-nuri",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:26bdbe2c32462123b0bea823508c9dec9135148135dbbfd26d581c8d1a557fab"
+    },
+    {
+      "entityId": "phase523-wancher-hirota-urushi-chawan-iro-momo",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:5df67f7aa59b8d318e82f0f7b5098931f6edd18d99ce49a2218b8b4ecc5808e3"
+    },
+    {
+      "entityId": "phase523-wancher-yakumo-nuri-shibo-ryuusei",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:7725a56fcf2b7e90773917d81ea5da1fa13afc8aa00a9d2f2a9e7b19c86810a7"
+    },
+    {
+      "entityId": "phase523-wancher-yakumo-nuri-chijimi-black",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:eca293ffdc64f373e230d327fd0ae8478e4494b17fc42faef958e03f54842c29"
+    }
+  ]
+}

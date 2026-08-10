@@ -1,0 +1,29 @@
+{
+  "entities": [
+    {
+      "entityId": "phase528-wancher-dream-raden-nebula",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:cebd6784c055ea06cf244c34415a4fcb46bf11c916a003d2e63545bcf8ddda81"
+    },
+    {
+      "entityId": "phase528-wancher-dream-raden-meteor-shower",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:c23c75860d802cb104cf8bf39d3d6a03a47b289dbc814f32d3cebff4ca5523fa"
+    },
+    {
+      "entityId": "phase528-wancher-dream-raden-comets",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:023284a5176a51202b6b468e6fb16010ac52c214131523b1df5025da5bbaf0b6"
+    },
+    {
+      "entityId": "phase528-wancher-dream-raden-asteroid-belt",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:095f2d3d2546ef8286548c10ccb8604da9cc74ac2fbf61f10260d03107902d90"
+    },
+    {
+      "entityId": "phase528-wancher-dream-raden-supernova",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:c42ad361a4929800fa42a7fa9a0dc2e43e73d17ca9c2d5ce6f52e7ee8f819f2a"
+    }
+  ]
+}

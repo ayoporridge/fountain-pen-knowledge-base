@@ -1,0 +1,14 @@
+{
+  "entities": [
+    {
+      "entityId": "phase515-wancher-raden-sourin",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:a64b5a61c4af9dcc8e2aff7bdf25da3ba81a053d16b46f37998a1a9afb0d87f8"
+    },
+    {
+      "entityId": "phase515-wancher-raden-shuryu",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:2d7d3543587bbfb5cf03d15423db1fa681e1dc640b74b17b78a4c9e9a22abdb1"
+    }
+  ]
+}

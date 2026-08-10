@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "phase527-wancher-yakumo-ryumon-amaterasu",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:501ec315454f530484488943f0ac57bd57aa575a3ae85923d1f4cf2c1699d3ca"
+    },
+    {
+      "entityId": "phase527-wancher-yakumo-ryumon-susano",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:dc2126906f61a5d427617d305c7f804db308c591dfb25c05cddbf486e3110cd7"
+    },
+    {
+      "entityId": "phase527-wancher-yakumo-ryumon-orochi",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:d7a49b025e02baa0fb3c0babddc01f19967a395dd0a90c991596159b62c24ba0"
+    }
+  ]
+}

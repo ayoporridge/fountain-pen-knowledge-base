@@ -1,0 +1,24 @@
+{
+  "entities": [
+    {
+      "entityId": "phase520-wancher-son-mai-white-lotus",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:a472f1a1f70be1fcc545ad3f51a888b2bfcc1f7a05449847aaf6df8ec2988d1c"
+    },
+    {
+      "entityId": "phase520-wancher-son-mai-crimson-lotus",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:8f65a5a97398dbf07c13efe7449a8a8b29d511e6f2ee47fb32fbc0cdb6e55f96"
+    },
+    {
+      "entityId": "phase520-wancher-son-mai-hoa-ban",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:63ccb9387485613370e5c23e2b176ed8a37b4203a6a9ac27637b73f6253bb300"
+    },
+    {
+      "entityId": "phase520-wancher-son-mai-crimson-hoa-ban",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:e973f7f161fa20c2e24edfec81b54d391775e4a517f24d3873b82ce71b06d18c"
+    }
+  ]
+}

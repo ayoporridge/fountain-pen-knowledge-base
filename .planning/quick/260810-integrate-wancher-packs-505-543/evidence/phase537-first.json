@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "phase537-wancher-true-urushi-black",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:067d9d94024ae050b14f826926e53accb04e99380a95c93158b30dfb61bfa31d"
+    },
+    {
+      "entityId": "phase537-wancher-true-urushi-red",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:e226a4e1f656c9b8f68198f4f8ecde94aa4ff9bd43d51eb74aacdb4ab39d2c71"
+    },
+    {
+      "entityId": "phase537-wancher-true-urushi-yellow",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:d02d81731000ea8d183372cff04e4279796c079fa0f969de22c17c5bbca0ee70"
+    }
+  ]
+}

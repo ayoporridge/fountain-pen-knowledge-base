@@ -1,0 +1,6 @@
+Phase 570 checkpoint SHA-256
+734d68fbdef0ad8231da8a4b3ca695af0f439b7e951779978e76c18c43259f01  .planning/quick/260810-integrate-wancher-packs-505-543/evidence/checkpoint/owned-root/catalog-phase570-wancher-packs.db
+Phase 569 source checkpoint SHA-256
+734d68fbdef0ad8231da8a4b3ca695af0f439b7e951779978e76c18c43259f01  .planning/quick/260810-integrate-phases-493-504-media-identity/evidence/checkpoint/owned-root/catalog-phase569-media-identity.db
+Real data/fpkg.db SHA-256
+acbb5710050b5c9d6e435666dda909b66055c290a4640f04faa38860ea24d09a  data/fpkg.db

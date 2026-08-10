@@ -1,0 +1,14 @@
+{
+  "entities": [
+    {
+      "entityId": "phase518-wancher-tsuno",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:788f2b8d53a4ea86e3b7e943f06aaddf25f7ca62725ebf407ab362d570a1a512"
+    },
+    {
+      "entityId": "phase518-wancher-tsuno-black",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:1a26ff15992333ebcf661a050e84c4219d09962666c1ba943ce06b93b2dd2ece"
+    }
+  ]
+}

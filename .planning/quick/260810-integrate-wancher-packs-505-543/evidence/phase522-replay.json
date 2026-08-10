@@ -1,0 +1,24 @@
+{
+  "entities": [
+    {
+      "entityId": "phase522-wancher-kyoto-urushi-hanasusuki",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:29ffe1917cb87b1ebf551a4507194e2ff618b81ebeb2f9680ded6757e27b2265"
+    },
+    {
+      "entityId": "phase522-wancher-kyoto-urushi-yukinoshita",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:1a7aca03e3a212f978f05e29a26c256f5e4a9e201653d799fe2815b2b1cad77a"
+    },
+    {
+      "entityId": "phase522-wancher-tsugaru-urushi-anzu",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:17c67fc138753bcfb2b96349dc99660521a18dad390b29f0abe3c800e7d34074"
+    },
+    {
+      "entityId": "phase522-wancher-tsugaru-urushi-kobai-iro",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:35790a897e1908b55c9d1a145e35a35f6cc4346c5d4fa0e379f86fcd220c6f6c"
+    }
+  ]
+}

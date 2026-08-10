@@ -1,0 +1,11 @@
+id                                    type  slug                                      name                                        source
+------------------------------------  ----  ----------------------------------------  ------------------------------------------  -----------------------------------------------------------------------------------------------------------------
+phase521-wancher-oita-urushi-kurozan  pen   wancher-oita-urushi-kurozan-fountain-pen  Wancher Oita Urushi - Kurozan Fountain Pen  curated-content:phase521-wancher-oita-kurozan-v1:1a20a8e49541df0a281bf13062dc22ebb9c4cc01eb8f0e95e100619b3dea17fb
+phase524-wancher-oita-urushi-kurozan  pen   wancher-oita-urushi-kurozan               Wancher Oita Urushi - Kurozan Fountain Pen  curated-content:phase524-wancher-oita-kurozan-v1:fe2e9e0618ddf21e26a5d658bd0a20d88b5f6c139e706254493efece6dd2f5b9
+entity_id                             status     blockers_json
+------------------------------------  ---------  -------------------
+phase521-wancher-oita-urushi-kurozan  published  []
+phase524-wancher-oita-urushi-kurozan  retired    ["taxonomy_merged"]
+source_id     target_id                             link_type
+------------  ------------------------------------  ---------
+eOfD77nOeENN  phase521-wancher-oita-urushi-kurozan  reverse

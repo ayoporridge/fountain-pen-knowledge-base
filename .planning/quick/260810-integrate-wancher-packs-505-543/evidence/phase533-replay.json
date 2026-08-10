@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "phase533-wancher-taka-flowers-praying-mantis",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:c7d944a61bcc2bcdd95f4a4e5b9e8804138601c0fd93323ba68c7ee2b27c1cd3"
+    },
+    {
+      "entityId": "phase533-wancher-taka-senmen-narihira",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:2dc0d7d1574e0a6ab6080abc35bcd52c34e5493eb4b33c78734c1d3890f921e9"
+    },
+    {
+      "entityId": "phase533-wancher-taka-mejiro-birds-vine",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:0244e2ef8662b6429232565a4966f2b318d534ffe41bc8b9cf2ef71d9e959247"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "entities": [
+    {
+      "entityId": "phase530-wancher-kyoto-kotoiro-cherry-blossom",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:7a503e632317ccf0e4d006a7db238928f83d4b0ddaff67c292e46753ccb521b4"
+    },
+    {
+      "entityId": "phase530-wancher-kyoto-kotoiro-fushimi-inari",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:51fd5d4a238a7c12061374df173a32af006355da34ecf145efef151d4b3be0c1"
+    },
+    {
+      "entityId": "phase530-wancher-kyoto-kotoiro-byodoin",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:f4aabad05254f3931f390d2f280731cb086f71d571c984eac238911eac9cd526"
+    },
+    {
+      "entityId": "phase530-wancher-kyoto-kotoiro-arashiyama",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:7f07f2172a13d024e7a84636b8f34b449f223dcbcd292f47299ccc8efce96bdc"
+    },
+    {
+      "entityId": "phase530-wancher-kyoto-kotoiro-kinkakuji",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:bd00b17d45946fe8d637aaa59a399cfe074b893db3f2fa3bc690234779e97a60"
+    }
+  ]
+}

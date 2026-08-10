@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "phase538-wancher-true-urushi-shunkei-tamenuri",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:073492a9ec56ae7283fdc263f8e5c2a9b5c282da589608f0e82a5bf289c06408"
+    },
+    {
+      "entityId": "phase538-wancher-true-urushi-uguisu-iro",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:fcb37dfd668277fdf703090a696e9a81e20eec8185db710a7dfcd18fd6eb0625"
+    },
+    {
+      "entityId": "phase538-wancher-true-urushi-purple",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:89fc267583ba161b1afa3cb7644f41bcd15b0f076c9966f0dd90288a05521b6c"
+    }
+  ]
+}

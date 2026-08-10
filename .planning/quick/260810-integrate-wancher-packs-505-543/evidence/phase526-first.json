@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "phase526-wancher-yakumo-byakudan-yae",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:7cf173a1dd3d5cc873a23b45b2521cfd88b4d2897ee8f6bc36160f97d08979ba"
+    },
+    {
+      "entityId": "phase526-wancher-yakumo-byakudan-black",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:e06450d67239c3bc0e52c9b3bd661e77942d3c823544bcbe82bdff561d68f444"
+    },
+    {
+      "entityId": "phase526-wancher-yakumo-byakudan-red",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:29fb64d0003fad86f65937ed921a8f4deeb4e4d4ec86fdd5defac84a2ffdc347"
+    }
+  ]
+}

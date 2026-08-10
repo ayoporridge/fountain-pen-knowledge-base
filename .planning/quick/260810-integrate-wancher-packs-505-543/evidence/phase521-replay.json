@@ -1,0 +1,24 @@
+{
+  "entities": [
+    {
+      "entityId": "phase521-wancher-oita-urushi-kurozan",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:eca74ab606b018573cf94006bfe1655a60864f3c1dcebb07ea1b3b55ada64cfa"
+    },
+    {
+      "entityId": "phase521-wancher-aizu-urushi-tamamushi-midori",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:e34e061696a01211bc2eb684e0fd69ea69f02b30ac87b5e44b5b06032e88c08a"
+    },
+    {
+      "entityId": "phase521-wancher-bokashi-nuri-oboro",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:e4e4780cfd6a0f3e9a7fe816d8586b0bd64f5dc434a36c82d41aaa114857d6aa"
+    },
+    {
+      "entityId": "phase521-wancher-bokashi-nuri-tsubomi",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:e5054e267e497f5b4b08bf8e6836221768151799d19737c8f66baff431924097"
+    }
+  ]
+}

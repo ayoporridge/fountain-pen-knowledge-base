@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "phase542-wancher-zogan-yuki-zuki-urushi-aka-tamenuri",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:84b8c88641c3355aa4c0d50633017ccdccd55254d506c580ebc56acfcb31640f"
+    },
+    {
+      "entityId": "phase542-wancher-zogan-yuki-zuki-urushi-blue",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:e6166f01a7affc3c2702355e35dd61ce87ef29310ae3be183bdb8160a45d8df0"
+    },
+    {
+      "entityId": "phase542-wancher-zogan-yuki-zuki-urushi-black",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:586ed11cc36bb1664fbc4a82feec504c10b69760894e1bd4074d48bcdedbe694"
+    }
+  ]
+}

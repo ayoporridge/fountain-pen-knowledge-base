@@ -1,0 +1,24 @@
+{
+  "entities": [
+    {
+      "entityId": "phase519-wancher-zogan-momiji-green-tamamushi",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:71391a3bbf6b7767da587ce4d78a57fffe38a6692c84519f02517299d311de7e"
+    },
+    {
+      "entityId": "phase519-wancher-kyoto-urushi-asagao",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:8a4b7a0347c1a7599b1c29711a47011ce871174d1e26c58e7a08ed88b74c1669"
+    },
+    {
+      "entityId": "phase388-pen-wancher-tsuikin-kanhizakura",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:392b6abbbe5d67e79d703192170af2510bd28781705b1fe8b18e90de15e282bd"
+    },
+    {
+      "entityId": "phase519-wancher-zogan-swan-urushi-black",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:c77ee39e775b5f14fa44b9635216febc7ec68b8d09aa786edae96c11594a94c9"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "phase541-wancher-zogan-momiji-urushi-red",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:4d4f004943bfc8460439a22cd5419f502d67af65b47ff1a7350929884cc32aff"
+    },
+    {
+      "entityId": "phase541-wancher-zogan-momiji-urushi-black",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:8e39559897277361de5de8d8eb7e098cb080219819c01f13aaceab5485c6a18e"
+    },
+    {
+      "entityId": "phase541-wancher-zogan-momiji-urushi-aka-tamenuri",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:90dacd38e13941b62290d60a447c9d004f27fec5222a75ffb2f2ef485e9569f2"
+    }
+  ]
+}

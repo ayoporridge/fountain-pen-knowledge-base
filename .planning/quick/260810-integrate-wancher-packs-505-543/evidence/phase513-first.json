@@ -1,0 +1,14 @@
+{
+  "entities": [
+    {
+      "entityId": "phase513-wancher-kiei-holly-olive-black",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:721356d6211129bbf0aa2d0077bb6d1c195659173bf4dbf9caed66605f8d031c"
+    },
+    {
+      "entityId": "phase513-wancher-kiei-yozakura-akatame",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:588b3e2c3e0fc3382a43c2e798acadb88d3f7ee14adb28b557ba0fed64b69d1c"
+    }
+  ]
+}

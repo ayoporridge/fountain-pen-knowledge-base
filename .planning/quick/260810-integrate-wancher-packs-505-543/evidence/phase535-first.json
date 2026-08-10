@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "phase535-wancher-true-urushi-heki-tamenuri",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:3859d0061d67c982afb3e1bc987cb656dc792f1562a106446248b68a5a47993b"
+    },
+    {
+      "entityId": "phase535-wancher-true-urushi-ao-tamenuri",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:076903c780bc4cd13c36d8234b8f3418dc1f6f056881e6e04f24a139d967b4ee"
+    },
+    {
+      "entityId": "phase535-wancher-true-urushi-midori-tamenuri",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:e0a259e2940f49807d3aff67ed04c291d391f43d99d63a8b54687f97e387271f"
+    }
+  ]
+}

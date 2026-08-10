@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "phase525-wancher-yakumo-shibo-sazanami",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:263f8e61b487bfaa2ae92e013224f72657f8f3d16c45515e7282067750e6c4ea"
+    },
+    {
+      "entityId": "phase525-wancher-yakumo-shibo-homura",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:4637d9ae52fccb32b32bcaf58d7393297638e6c0f1d685f0c3062cc9abe2953f"
+    },
+    {
+      "entityId": "phase525-wancher-yakumo-shibo-shinra",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:0586cd75f7ffdbf04be1f74fbfbb5c7e41255ade9092a9944ef2ffbd9cd136bb"
+    }
+  ]
+}

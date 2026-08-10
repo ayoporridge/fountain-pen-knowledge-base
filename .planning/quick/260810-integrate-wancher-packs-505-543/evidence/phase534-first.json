@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "phase534-wancher-urushi-e-dragon",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:ecea7c49718a190a4f0e67515770593396af682c220b79d00ccc2f4195ea3b5b"
+    },
+    {
+      "entityId": "phase534-wancher-urushi-e-tiger",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:3a4d12c860f9c472898f2180ef022bbf0c206e2c538db8bd895a9732f05b7607"
+    },
+    {
+      "entityId": "phase534-wancher-urushi-e-persimmon-tree",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:60b954f0a5b45e2b2f145def9d47e50b92ecb39db8943b0386a7a1e743b72c67"
+    }
+  ]
+}

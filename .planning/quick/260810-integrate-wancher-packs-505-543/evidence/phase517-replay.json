@@ -1,0 +1,24 @@
+{
+  "entities": [
+    {
+      "entityId": "phase517-wancher-yakumo-chijimi-black",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:655ab9f1a0027ddb015a14dd9d5fa9cfd9bb5270c3f06a13cb0f8b6ca7b2e150"
+    },
+    {
+      "entityId": "phase517-wancher-yakumo-chijimi-shirohebi",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:c7fead01fdc3db4944497f5f0e549fb8d90ae15c04073e9035169b8323d526b2"
+    },
+    {
+      "entityId": "phase517-wancher-yakumo-chijimi-nishikihebi",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:9102d42317f9bbff40fff18e8a7b921ff108f181a99f8663717516ac6830be36"
+    },
+    {
+      "entityId": "phase517-wancher-yakumo-chijimi-aodaisho",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:c277e98b39005d429808fbf4f2cb1767d98b80fcb4db64cb839d0b048b5fd159"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "entities": [
+    {
+      "entityId": "phase532-wancher-rising-sun-sansui",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:8497804ef386bb409715ef3747b97275ca2d1f8ac50f1866935c5cf0be85ba19"
+    },
+    {
+      "entityId": "phase532-wancher-rising-sun-dragon",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:26bafb752cdb8e93756a1750e4d2ed05b80cb4fc7af6064b0fe8c891e940a2e4"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "entities": [
+    {
+      "entityId": "phase529-wancher-aizu-urushi-aka-tamenuri",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:bfce9fdbf62fc91e2e7bb449343d554a05d0e97dbb697bdd46ebda3b8763e3c3"
+    },
+    {
+      "entityId": "phase529-wancher-aizu-urushi-akebono",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:6cf6ed95b921ee71b6562ede9d8251c0cf1216118488683a5a478a9878d12a1c"
+    },
+    {
+      "entityId": "phase529-wancher-aizu-urushi-tamamushi",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:8e60b2b9e059c08a223d0d98491b4dc81f8dc149fb8245897dc334688be8bb2a"
+    },
+    {
+      "entityId": "phase529-wancher-aizu-urushi-koma",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:5465cd69c0a733da48ca4cc696d3ac7137c07f419aa958c8c7066e49e122d2bd"
+    },
+    {
+      "entityId": "phase529-wancher-aizu-urushi-nashiji",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:eca29b9d0e067000f611c12ea57c8a47aba5775a097f0a592325d9a1fcee8995"
+    }
+  ]
+}

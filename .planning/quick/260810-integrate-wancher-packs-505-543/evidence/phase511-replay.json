@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "phase511-wancher-kiei-camellia-yellow",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:76ab950a010dbc11104f8af25369bfc2ffa6f4cef3dae7f260b9fd8b7895806a"
+    },
+    {
+      "entityId": "phase511-wancher-kiei-camellia-black",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:1f1107e71844eb322bf8394641f114e1a44a646321bf4708f3a45f0e1a7d3dba"
+    },
+    {
+      "entityId": "phase511-wancher-kiei-camellia-akatame",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:7eb4c2e1aaab66ea528f6ae6ea035e95109014864863066b23b7058e6e92c955"
+    }
+  ]
+}

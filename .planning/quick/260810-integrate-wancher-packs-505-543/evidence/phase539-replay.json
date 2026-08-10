@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "phase539-wancher-zogan-sakura-river-urushi-red",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:1096ce275c09ea9ea3edfa9f2ee31394d45e2b1950b3ffeb5f6275df26505165"
+    },
+    {
+      "entityId": "phase539-wancher-zogan-sakura-river-urushi-black",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:05bd5de5da0742f8580198656e31d2fd488a1f9b6c359f9c7807faf2ff35b7fb"
+    },
+    {
+      "entityId": "phase539-wancher-zogan-sakura-river-urushi-green",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:d9848b738a216cabbd842c8b667435cf3a4dcefb20caefe033e9a5f08cdbb875"
+    }
+  ]
+}
