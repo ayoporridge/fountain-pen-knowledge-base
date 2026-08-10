@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Caran d'Ache 849 Fountain Pen identity diagram</title>
+  <desc id="desc">A factual, non-scale diagram showing the 849 Fountain Pen's hexagonal aluminium body, plastic grip, stainless steel nib, cartridge or ink pump path, and market variant boundary.</desc>
+  <metadata>site-original; factual-diagram; non-photo; non-logo; not-to-scale; non-colour-proof</metadata>
+  <defs>
+    <linearGradient id="paper" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f7f2e9"/>
+      <stop offset="1" stop-color="#e8ded0"/>
+    </linearGradient>
+    <linearGradient id="aluminium" x1="0" x2="1">
+      <stop offset="0" stop-color="#252a30"/>
+      <stop offset="0.5" stop-color="#64727b"/>
+      <stop offset="1" stop-color="#1d2228"/>
+    </linearGradient>
+    <linearGradient id="steel" x1="0" x2="1">
+      <stop offset="0" stop-color="#b3bdc3"/>
+      <stop offset="0.5" stop-color="#f4f7f8"/>
+      <stop offset="1" stop-color="#7d8b93"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#513e33" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#paper)"/>
+  <g fill="#2e2926" font-family="Georgia, 'Noto Serif CJK SC', serif">
+    <text x="96" y="102" font-size="42" font-weight="700">849 Fountain Pen</text>
+    <text x="98" y="148" font-size="22" fill="#75695f">Caran d’Ache · factual diagram · not a product photograph</text>
+  </g>
+  <g filter="url(#shadow)" transform="translate(165 300) rotate(-3 580 80)">
+    <path d="M80 55 L160 25 L1040 25 L1110 55 L1040 135 L160 135 Z" fill="url(#aluminium)" stroke="#172027" stroke-width="5"/>
+    <path d="M160 25 L1040 25 L1110 55 L1040 70 L160 70 L80 55 Z" fill="#87959b" opacity="0.22"/>
+    <path d="M160 135 L1040 135 L1110 55 L1040 120 L160 120 L80 55 Z" fill="#0e1215" opacity="0.32"/>
+    <path d="M1040 25 L1195 47 L1195 113 L1040 135 L1080 80 Z" fill="#15191d" stroke="#172027" stroke-width="5"/>
+    <path d="M1195 47 L1280 68 L1280 92 L1195 113 Z" fill="#d9e0e2" stroke="#64727b" stroke-width="4"/>
+    <path d="M1280 68 L1398 80 L1280 92 Z" fill="url(#steel)" stroke="#66747b" stroke-width="4"/>
+    <path d="M410 25 L470 12 L470 148 L410 135 Z" fill="#21272b" opacity="0.85"/>
+    <path d="M410 12 L470 12 L470 148 L410 148 Z" fill="#181d20" opacity="0.55"/>
+    <path d="M1115 25 L1115 135" stroke="#d4dadd" stroke-width="5" opacity="0.45"/>
+    <circle cx="1092" cy="80" r="13" fill="#15191d" stroke="#b8c1c5" stroke-width="3"/>
+  </g>
+  <g stroke="#8b6252" stroke-width="3" fill="none">
+    <path d="M305 378 L205 245 L80 245"/>
+    <path d="M600 337 L600 215 L485 215"/>
+    <path d="M1040 370 L1115 220 L1285 220"/>
+    <path d="M1360 430 L1460 340 L1540 340"/>
+    <path d="M735 455 L735 620 L520 620"/>
+  </g>
+  <g font-family="'Noto Sans CJK SC', Arial, sans-serif" fill="#3b302b">
+    <text x="80" y="238" font-size="24" font-weight="700">六角铝制笔身与笔帽</text>
+    <text x="80" y="270" font-size="18">轻量、瑞士制造；颜色与表面随 SKU</text>
+    <text x="485" y="208" font-size="24" font-weight="700">塑料握位</text>
+    <text x="485" y="240" font-size="18">不把 Ecridor 黄铜规格回填</text>
+    <text x="1285" y="213" font-size="24" font-weight="700">不锈钢尖</text>
+    <text x="1285" y="245" font-size="18">EF / F / M / B 依市场页面</text>
+    <text x="1540" y="334" text-anchor="end" font-size="24" font-weight="700">笔尖与 feed</text>
+    <text x="1540" y="366" text-anchor="end" font-size="18">官方墨囊 · ink pump（转换器）</text>
+    <text x="520" y="614" font-size="24" font-weight="700">型号边界</text>
+    <text x="520" y="646" font-size="18">849 钢笔 ≠ 849 圆珠笔 ≠ Ecridor / Léman</text>
+  </g>
+  <g transform="translate(96 744)">
+    <rect width="1408" height="78" rx="18" fill="#fffaf3" stroke="#c7ad9d" stroke-width="2"/>
+    <text x="28" y="32" font-family="'Noto Sans CJK SC', Arial, sans-serif" font-size="18" fill="#604a3d">版本层：Black Code、Metal Blue、Metal Black、Metal White、Red、Fluo；</text>
+    <text x="28" y="59" font-family="'Noto Sans CJK SC', Arial, sans-serif" font-size="18" fill="#604a3d">官方商品参考号和库存随颜色、尖幅、市场与时间变化，不由示意图证明。</text>
+  </g>
+</svg>

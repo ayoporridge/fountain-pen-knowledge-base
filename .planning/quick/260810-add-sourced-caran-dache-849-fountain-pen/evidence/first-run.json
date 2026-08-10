@@ -1,0 +1,14 @@
+{
+  "entities": [
+    {
+      "entityId": "phase139-brand-caran-dache",
+      "outcome": "published",
+      "contentHash": "sha256:v3:749f3e3d8f3eb9aa5f4dae92fb2d51d5ec0363b99bb79f06535936c6e45673a9"
+    },
+    {
+      "entityId": "phase563-caran-dache-849-fountain-pen",
+      "outcome": "published",
+      "contentHash": "sha256:v3:28f428ffb124d41b10e43f8cacf742722ddeb2c42307a9d65ba0211873eb4186"
+    }
+  ]
+}

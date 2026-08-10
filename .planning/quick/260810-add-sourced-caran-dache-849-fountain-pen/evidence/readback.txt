@@ -1,0 +1,107 @@
+entity [
+  {
+    id: 'phase563-caran-dache-849-fountain-pen',
+    type: 'pen',
+    slug: 'caran-dache-849-fountain-pen',
+    name: 'Caran d’Ache 849 Fountain Pen',
+    status: 'published',
+    content_revision: 114,
+    reviewed_content_revision: 114,
+    reviewed_contract_version: 3,
+    publishable: 1,
+    blocker_count: 0,
+    is_public: 1
+  }
+]
+brand [
+  {
+    id: 'phase139-brand-caran-dache',
+    type: 'brand',
+    slug: 'caran-dache',
+    name: 'Caran d’Ache'
+  }
+]
+links [
+  {
+    id: 'phase563-made-by-caran-dache-849',
+    source_id: 'phase563-caran-dache-849-fountain-pen',
+    target_id: 'phase139-brand-caran-dache',
+    link_type: 'made_by',
+    reason: 'Phase 563 verified Caran d’Ache 849 Fountain Pen maker relation'
+  },
+  {
+    id: 'rev-phase563-made-by-caran-dache-849',
+    source_id: 'phase139-brand-caran-dache',
+    target_id: 'phase563-caran-dache-849-fountain-pen',
+    link_type: 'reverse',
+    reason: null
+  }
+]
+variants [
+  {
+    variant_name: 'Black Code M',
+    product_code: '840.496',
+    market: 'US',
+    variant_kind: 'market_sku'
+  },
+  {
+    variant_name: 'Metal Blue EF',
+    product_code: '2000109140032',
+    market: 'US',
+    variant_kind: 'market_sku'
+  },
+  {
+    variant_name: 'Metal Blue B',
+    product_code: '2000109140049',
+    market: 'US',
+    variant_kind: 'market_sku'
+  },
+  {
+    variant_name: 'Black Code F',
+    product_code: '841.496',
+    market: 'US',
+    variant_kind: 'market_sku'
+  },
+  {
+    variant_name: '849 Fountain Pen color family',
+    product_code: null,
+    market: 'global',
+    variant_kind: 'color'
+  },
+  {
+    variant_name: 'Metal Blue F',
+    product_code: '2000109140025',
+    market: 'US',
+    variant_kind: 'market_sku'
+  },
+  {
+    variant_name: 'Metal Blue M',
+    product_code: '2000109140018',
+    market: 'US',
+    variant_kind: 'market_sku'
+  }
+]
+reviews [
+  {
+    review_kind: 'fact',
+    status: 'approved',
+    reviewer: 'phase563-caran-dache-849'
+  },
+  {
+    review_kind: 'language',
+    status: 'approved',
+    reviewer: 'phase563-caran-dache-849'
+  },
+  {
+    review_kind: 'media',
+    status: 'approved',
+    reviewer: 'phase563-caran-dache-849'
+  },
+  {
+    review_kind: 'publication',
+    status: 'approved',
+    reviewer: 'phase563-caran-dache-849'
+  }
+]
+sources [ { source_count: 11 } ]
+body_chars [ { body_chars: 6450, summary_chars: 160 } ]
