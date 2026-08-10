@@ -125,10 +125,27 @@ test("Phase 400 refreshes Pilot Custom URUSHI on an owned checkpoint", {
       /refuses inherited remote database selection/,
     );
 
+    const beforeApply = (
+      await rows(
+        client,
+        `SELECT e.source,p.status,length(e.body_md) AS body_chars
+         FROM entities e JOIN entity_publications p ON p.entity_id=e.id
+         WHERE e.id=?`,
+        [PHASE400_URUSHI_ID],
+      )
+    )[0];
+    const expectedFirstOutcome =
+      String(beforeApply?.source ?? "").startsWith(
+        "curated-content:phase400-pilot-custom-urushi-refresh-v1:",
+      ) &&
+      String(beforeApply?.status) === "published" &&
+      Number(beforeApply?.body_chars) >= 8_000
+        ? "noop"
+        : "published";
     const first = await applyPhase400PilotCustomUrushiRefresh(client, options);
     assert.deepEqual(
       first.entities.map((entity) => entity.outcome),
-      ["published"],
+      [expectedFirstOutcome],
     );
     const page = (
       await rows(

@@ -1,0 +1,40 @@
+--- target ---
+id                type  slug                 name                      body_chars  source                                                                                                                    status     content_revision  reviewed_content_revision  reviewed_contract_version  publishable  blocker_count  is_public  refs  variants  primary_media
+----------------  ----  -------------------  ------------------------  ----------  ------------------------------------------------------------------------------------------------------------------------  ---------  ----------------  -------------------------  -------------------------  -----------  -------------  ---------  ----  --------  -------------
+s105PILOT_URUSHI  pen   pilot-custom-urushi  百乐 Pilot Custom URUSHI  8115        curated-content:phase400-pilot-custom-urushi-refresh-v1:5b35401c9b5fc5010cd7ac3fd12e9d25945899fbb935c1e79474c030f2d58527  published  627               627                        3                          1            0              1          12    12        1
+--- model spec ---
+brand_entity_id  series_name                     release_year                                nib                                            fill_system                                                     material                                 dimensions                  weight  price_range                                                         status
+---------------  ------------------------------  ------------------------------------------  ---------------------------------------------  --------------------------------------------------------------  ---------------------------------------  --------------------------  ------  ------------------------------------------------------------------  ----------------------------------------------------
+Zt-PbXkE7UHM     Pilot Custom URUSHI / FKV-88SR  2016（专业资料型号起点）；2024-11 紺青新增  18K No.30；当前 FM、M、B；官方称大型 soft nib  Pilot cartridge/converter；CON-40、CON-70N；当前页随附 CON-70N  切削硬橡胶（ebonite）帽与轴，蝋色漆仕上  全长 155 mm；最大径 φ20 mm  44 g    日本官方当前页：含税 ¥165,000／税前 ¥150,000；价格随地区和时间变化  当前 FKV-88SR；漆黑、朱、紺青三色组，FM/M/B 九个 SKU
+--- variants ---
+variant_name  variant_kind   product_code  market
+------------  -------------  ------------  -----------
+朱颜色组      edition_group  FKV-88SR-R    Pilot Japan
+漆黑颜色组    edition_group  FKV-88SR-B    Pilot Japan
+紺青颜色组    edition_group  FKV-88SR-L    Pilot Japan
+朱 B          market_sku     FKV-88SR-RB   Pilot Japan
+朱 FM         market_sku     FKV-88SR-RFM  Pilot Japan
+朱 M          market_sku     FKV-88SR-RM   Pilot Japan
+漆黑 B        market_sku     FKV-88SR-BB   Pilot Japan
+漆黑 FM       market_sku     FKV-88SR-BFM  Pilot Japan
+漆黑 M        market_sku     FKV-88SR-BM   Pilot Japan
+紺青 B        market_sku     FKV-88SR-LB   Pilot Japan
+紺青 FM       market_sku     FKV-88SR-LFM  Pilot Japan
+紺青 M        market_sku     FKV-88SR-LM   Pilot Japan
+--- approved refs/reviews ---
+refs  groups
+----  ------
+12    12
+review_kind  status    reviewer
+-----------  --------  ---------------------------
+fact         approved  phase576-pilot-urushi-first
+language     approved  phase576-pilot-urushi-first
+media        approved  phase576-pilot-urushi-first
+publication  approved  phase576-pilot-urushi-first
+--- topology ---
+source_id         target_id         link_type  reason
+----------------  ----------------  ---------  -------------------------------------------------
+s105PILOT_URUSHI  Zt-PbXkE7UHM      made_by    Phase 105 exact Pilot maker relation
+Zt-PbXkE7UHM      s105PILOT_URUSHI  reverse    Phase 400 Pilot brand navigation to Custom URUSHI
+--- integrity ---
+ok

@@ -1,0 +1,15 @@
+TAP version 13
+# Subtest: Phase 400 refreshes Pilot Custom URUSHI on an owned checkpoint
+ok 1 - Phase 400 refreshes Pilot Custom URUSHI on an owned checkpoint
+  ---
+  duration_ms: 19482.713375
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 19746.391375
