@@ -1,0 +1,14 @@
+id                                              type   slug                                   name                                     status     content_revision  reviewed_content_revision  reviewed_contract_version  publishable  blocker_count
+----------------------------------------------  -----  -------------------------------------  ---------------------------------------  ---------  ----------------  -------------------------  -------------------------  -----------  -------------
+eOfD77nOeENN                                    brand  wancher                                Wancher                                  published  1616              1616                       3                          1            0
+phase561-wancher-dream-pen-timeless-silk-black  pen    wancher-dream-pen-timeless-silk-black  Wancher Dream Pen Timeless - Silk Black  published  113               113                        3                          1            0
+variants
+--------
+2
+source_id                                       target_id                                       link_type
+----------------------------------------------  ----------------------------------------------  ---------
+phase561-wancher-dream-pen-timeless-silk-black  eOfD77nOeENN                                    made_by
+eOfD77nOeENN                                    phase561-wancher-dream-pen-timeless-silk-black  reverse
+body_chars
+----------
+8563

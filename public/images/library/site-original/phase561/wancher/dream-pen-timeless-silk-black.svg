@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Wancher Dream Pen Timeless Silk Black factual diagram</title>
+  <desc id="desc">Editorial factual SVG: compact ebonite body, stainless steel number 5 screw nib, Fine and Medium market SKUs, mini converter or cartridge, and separate True Ebonite Silk Black identity. Not a product photograph and not to scale.</desc>
+  <metadata>site-original; factual-diagram; non-photo; non-logo; not-to-scale; non-colour-proof; dimensions from Wancher Japan Timeless collection</metadata>
+  <defs>
+    <linearGradient id="paper" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f7f5f0"/>
+      <stop offset="1" stop-color="#d8d2c7"/>
+    </linearGradient>
+    <linearGradient id="ebonite" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#4b4e55"/>
+      <stop offset="0.48" stop-color="#11141a"/>
+      <stop offset="1" stop-color="#34343b"/>
+    </linearGradient>
+    <linearGradient id="steel" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f4f2ec"/>
+      <stop offset="0.5" stop-color="#a6a8ae"/>
+      <stop offset="1" stop-color="#5f646d"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#20242b" flood-opacity="0.24"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#paper)"/>
+  <rect x="48" y="48" width="1504" height="804" rx="30" fill="none" stroke="#77736c" stroke-width="3"/>
+  <text x="100" y="122" fill="#24252a" font-family="Georgia, 'Noto Serif SC', serif" font-size="46" font-weight="700">Wancher Dream Pen Timeless – Silk Black</text>
+  <text x="100" y="170" fill="#5d5c59" font-family="Arial, 'Noto Sans SC', sans-serif" font-size="24">紧凑乌木 Dream Pen · 事实示意图 · exact SKU boundary</text>
+
+  <g filter="url(#shadow)" transform="translate(155 282)">
+    <path d="M105 144 C154 102 228 77 350 77 L1035 77 C1104 77 1158 105 1206 144 L1035 211 L350 211 C228 211 154 186 105 144 Z" fill="url(#ebonite)" stroke="#16181e" stroke-width="5"/>
+    <path d="M1035 77 C1115 77 1193 100 1270 144 C1193 188 1115 211 1035 211 Z" fill="#24272e" stroke="#16181e" stroke-width="5"/>
+    <path d="M350 77 L350 211" stroke="#777b84" stroke-width="7" opacity="0.55"/>
+    <path d="M1035 77 L1035 211" stroke="#777b84" stroke-width="5" opacity="0.55"/>
+    <path d="M1270 144 L1328 144 L1380 119 L1380 169 L1328 144 Z" fill="url(#steel)" stroke="#41464f" stroke-width="5"/>
+    <path d="M1380 119 L1452 144 L1380 169 Z" fill="#9fa2a8" stroke="#41464f" stroke-width="5"/>
+    <text x="455" y="157" fill="#e6e4dc" font-family="Arial, sans-serif" font-size="29" letter-spacing="5">EBONITE · TIMELESS</text>
+    <text x="1323" y="106" fill="#4d5159" font-family="Arial, sans-serif" font-size="18">#5 screw</text>
+  </g>
+
+  <g font-family="Arial, 'Noto Sans SC', sans-serif" fill="#24252a">
+    <rect x="110" y="585" width="410" height="190" rx="18" fill="#fffdfa" stroke="#77736c" stroke-width="3"/>
+    <text x="140" y="630" font-size="28" font-weight="700">材质与尺寸</text>
+    <text x="140" y="670" font-size="23">Ebonite · Nikko EBONITE</text>
+    <text x="140" y="705" font-size="23">135 mm · 16 g</text>
+    <text x="140" y="740" font-size="20" fill="#5d5c59">日本官方系列页口径</text>
+
+    <rect x="550" y="585" width="430" height="190" rx="18" fill="#fffdfa" stroke="#77736c" stroke-width="3"/>
+    <text x="580" y="630" font-size="28" font-weight="700">尖与供墨</text>
+    <text x="580" y="670" font-size="23">#5 不锈钢螺纹尖</text>
+    <text x="580" y="705" font-size="23">Fine · Medium · Plastic feed</text>
+    <text x="580" y="740" font-size="21">Mini converter / cartridge</text>
+
+    <rect x="1010" y="585" width="480" height="190" rx="18" fill="#fffdfa" stroke="#77736c" stroke-width="3"/>
+    <text x="1040" y="630" font-size="28" font-weight="700">身份边界</text>
+    <text x="1040" y="670" font-size="23">WF-EB-DREAM-SKBK-JR-F / -M</text>
+    <text x="1040" y="705" font-size="20">Timeless ≠ True Ebonite Silk Black</text>
+    <text x="1040" y="740" font-size="20" fill="#5d5c59">气密内帽：帮助减少干墨</text>
+  </g>
+
+  <g transform="translate(108 815)" font-family="Arial, 'Noto Sans SC', sans-serif" fill="#55524d">
+    <text x="0" y="0" font-size="18">两个 market SKU：WF-EB-DREAM-SKBK-JR-F · WF-EB-DREAM-SKBK-JR-M</text>
+    <text x="790" y="0" font-size="18">factual SVG · not a product photo</text>
+  </g>
+
+  <g transform="translate(1190 96)" font-family="Arial, sans-serif" font-size="16" fill="#55524d">
+    <text x="0" y="0">NON-PHOTO</text>
+    <text x="0" y="24">NON-LOGO</text>
+    <text x="0" y="48">NOT-TO-SCALE</text>
+    <text x="0" y="72">NON-COLOUR-PROOF</text>
+  </g>
+</svg>
