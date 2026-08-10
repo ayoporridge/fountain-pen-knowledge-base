@@ -1,0 +1,192 @@
+{
+  "entity": {
+    "id": "phase519-wancher-kyoto-urushi-asagao",
+    "type": "pen",
+    "slug": "wancher-kyoto-urushi-kasane-iro-asagao",
+    "name": "Wancher Kyoto Urushi Kasane-iro - Asagao",
+    "source": "curated-content:phase519-wancher-asagao-v1:e8e6d6ee17723d47f43cc70becad99bab7d6c9bb9fb75602c0bd674d5dab6a69",
+    "body_length": 4134
+  },
+  "publication": {
+    "status": "published",
+    "content_revision": 274,
+    "reviewed_content_revision": 274,
+    "reviewed_contract_version": 3,
+    "approved_content_hash": "sha256:v3:8a4b7a0347c1a7599b1c29711a47011ce871174d1e26c58e7a08ed88b74c1669"
+  },
+  "readiness": {
+    "publishable": 1,
+    "blocker_count": 0
+  },
+  "public": {
+    "id": "phase519-wancher-kyoto-urushi-asagao",
+    "type": "pen",
+    "slug": "wancher-kyoto-urushi-kasane-iro-asagao",
+    "body_length": 4134
+  },
+  "variants": [
+    {
+      "variant_name": "Handcrafted surface · no fixed colour or texture standard",
+      "product_code": null,
+      "variant_kind": "edition_group"
+    },
+    {
+      "variant_name": "Black ebonite feed",
+      "product_code": null,
+      "variant_kind": "material"
+    },
+    {
+      "variant_name": "Plastic feed",
+      "product_code": null,
+      "variant_kind": "material"
+    },
+    {
+      "variant_name": "Red ebonite feed",
+      "product_code": null,
+      "variant_kind": "material"
+    },
+    {
+      "variant_name": "#6 JoWo stainless steel",
+      "product_code": null,
+      "variant_kind": "nib"
+    },
+    {
+      "variant_name": "Keiryu",
+      "product_code": null,
+      "variant_kind": "nib"
+    },
+    {
+      "variant_name": "Keiryu Kodachi",
+      "product_code": null,
+      "variant_kind": "nib"
+    },
+    {
+      "variant_name": "Shogun 18K",
+      "product_code": null,
+      "variant_kind": "nib"
+    },
+    {
+      "variant_name": "Wancher 18K gold",
+      "product_code": null,
+      "variant_kind": "nib"
+    },
+    {
+      "variant_name": "Chrome Clip",
+      "product_code": "WF-KYUR-DR-KAS-LB-CHCL",
+      "variant_kind": "variant"
+    },
+    {
+      "variant_name": "Gold Clip",
+      "product_code": "WF-KYUR-DR-KAS-LB-GDCL",
+      "variant_kind": "variant"
+    },
+    {
+      "variant_name": "No Clip",
+      "product_code": "WF-KYUR-DR-KAS-LB",
+      "variant_kind": "variant"
+    }
+  ],
+  "spec_count": {
+    "n": 1
+  },
+  "media": [
+    {
+      "usage_status": "primary",
+      "local_path": "/images/library/site-original/phase519/wancher/kyoto-urushi-asagao.svg",
+      "source_url": "/images/library/site-original/phase519/wancher/kyoto-urushi-asagao.svg"
+    }
+  ],
+  "maker": [
+    {
+      "source_id": "phase519-wancher-kyoto-urushi-asagao",
+      "target_id": "eOfD77nOeENN",
+      "link_type": "made_by"
+    }
+  ],
+  "reverse": [
+    {
+      "source_id": "eOfD77nOeENN",
+      "target_id": "phase519-wancher-kyoto-urushi-asagao",
+      "link_type": "reverse"
+    }
+  ],
+  "sources": [
+    {
+      "url": "/images/library/site-original/phase519/wancher/kyoto-urushi-asagao.svg",
+      "review_status": "approved",
+      "relation_type": "reference"
+    },
+    {
+      "url": "https://www.gov-online.go.jp/eng/publicity/book/hlj/html/202010/202010_06_en.html",
+      "review_status": "approved",
+      "relation_type": "official"
+    },
+    {
+      "url": "https://www.wancherpen.com/collections/dream-pen",
+      "review_status": "approved",
+      "relation_type": "official"
+    },
+    {
+      "url": "https://www.wancherpen.com/pages/nib-guide",
+      "review_status": "approved",
+      "relation_type": "official"
+    },
+    {
+      "url": "https://www.wancherpen.com/pages/product-care",
+      "review_status": "approved",
+      "relation_type": "official"
+    },
+    {
+      "url": "https://www.wancherpen.com/products/kyoto-urushi-asagao",
+      "review_status": "approved",
+      "relation_type": "official"
+    },
+    {
+      "url": "https://www.wancherpen.com/products/kyoto-urushi-asagao.json",
+      "review_status": "approved",
+      "relation_type": "official"
+    }
+  ],
+  "reviews": [
+    {
+      "review_kind": "fact",
+      "status": "revoked",
+      "reviewer": "phase505-544-owned-checkpoint-integration"
+    },
+    {
+      "review_kind": "fact",
+      "status": "approved",
+      "reviewer": "phase565-wancher-kyoto-urushi-asagao"
+    },
+    {
+      "review_kind": "language",
+      "status": "revoked",
+      "reviewer": "phase505-544-owned-checkpoint-integration"
+    },
+    {
+      "review_kind": "language",
+      "status": "approved",
+      "reviewer": "phase565-wancher-kyoto-urushi-asagao"
+    },
+    {
+      "review_kind": "media",
+      "status": "revoked",
+      "reviewer": "phase505-544-owned-checkpoint-integration"
+    },
+    {
+      "review_kind": "media",
+      "status": "approved",
+      "reviewer": "phase565-wancher-kyoto-urushi-asagao"
+    },
+    {
+      "review_kind": "publication",
+      "status": "revoked",
+      "reviewer": "phase505-544-owned-checkpoint-integration"
+    },
+    {
+      "review_kind": "publication",
+      "status": "approved",
+      "reviewer": "phase565-wancher-kyoto-urushi-asagao"
+    }
+  ]
+}

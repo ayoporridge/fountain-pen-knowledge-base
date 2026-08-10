@@ -1,0 +1,15 @@
+TAP version 13
+# Subtest: Phase 565 deepens Wancher Kyoto Urushi Kasane-iro Asagao on an owned checkpoint
+ok 1 - Phase 565 deepens Wancher Kyoto Urushi Kasane-iro Asagao on an owned checkpoint
+  ---
+  duration_ms: 26266.823333
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 26465.737958

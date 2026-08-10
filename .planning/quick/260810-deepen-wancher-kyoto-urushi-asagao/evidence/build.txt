@@ -1,0 +1,61 @@
+   ▲ Next.js 15.5.18
+   - Environments: .env.local
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 5.9s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/18) ...
+   Generating static pages (4/18)
+   Generating static pages (8/18)
+   Generating static pages (13/18)
+ ✓ Generating static pages (18/18)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+┌ ƒ /                                    1.08 kB         122 kB
+├ ○ /_not-found                            202 B         102 kB
+├ ƒ /[type]/[slug]                         617 B         125 kB
+├ ƒ /[type]/[slug]/edit                    202 B         102 kB
+├ ƒ /api/admin/auto-tag                    202 B         102 kB
+├ ƒ /api/admin/fix-data                    202 B         102 kB
+├ ƒ /api/admin/reclassify                  202 B         102 kB
+├ ƒ /api/browse                            202 B         102 kB
+├ ƒ /api/concepts                          202 B         102 kB
+├ ƒ /api/entities                          202 B         102 kB
+├ ƒ /api/entities/[slug]                   202 B         102 kB
+├ ƒ /api/entities/[slug]/preview           202 B         102 kB
+├ ƒ /api/entities/[slug]/tags              202 B         102 kB
+├ ƒ /api/image-proxy                       202 B         102 kB
+├ ƒ /api/links                             202 B         102 kB
+├ ƒ /api/tags                              202 B         102 kB
+├ ƒ /api/upload                            202 B         102 kB
+├ ƒ /browse                              5.43 kB         126 kB
+├ ƒ /by/[dimension]                        180 B         106 kB
+├ ○ /chat                                  202 B         102 kB
+├ ○ /compare                               202 B         102 kB
+├ ƒ /exhibits                              180 B         106 kB
+├ ƒ /exhibits/[slug]                       592 B         106 kB
+├ ƒ /graph                                 186 B         119 kB
+├ ƒ /library                               180 B         106 kB
+├ ○ /library/community                     202 B         102 kB
+├ ○ /library/coverage                      202 B         102 kB
+├ ƒ /library/diagrams                      170 B         106 kB
+├ ○ /library/media                         202 B         102 kB
+├ ƒ /library/sources                       170 B         106 kB
+├ ○ /new                                   202 B         102 kB
+├ ○ /robots.txt                            202 B         102 kB
+├ ○ /search                                202 B         102 kB
+├ ƒ /sitemap.xml                           202 B         102 kB
+└ ƒ /timeline                              180 B         106 kB
++ First Load JS shared by all             102 kB
+  ├ chunks/7c3d7adc-d05652066a554b4c.js  54.2 kB
+  ├ chunks/9241-1b5c47eaf188eb25.js        46 kB
+  └ other shared chunks (total)          1.96 kB
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
+Prepared standalone libsql native runtime: darwin-arm64
