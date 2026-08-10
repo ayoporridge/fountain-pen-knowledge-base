@@ -1,0 +1,175 @@
+{
+  "entity": {
+    "id": "phase519-wancher-zogan-swan-urushi-black",
+    "type": "pen",
+    "slug": "wancher-dream-pen-zogan-swan-urushi-black",
+    "name": "Wancher Dream Pen Zogan Swan - Urushi Black",
+    "source": "curated-content:phase519-wancher-swan-black-v1:4ad7cc0d3cdc1a350052b61196f64730c5284883e9119e1da318c9de1e45222a",
+    "body_length": 4288
+  },
+  "publication": {
+    "status": "published",
+    "content_revision": 262,
+    "reviewed_content_revision": 262,
+    "reviewed_contract_version": 3,
+    "approved_content_hash": "sha256:v3:c77ee39e775b5f14fa44b9635216febc7ec68b8d09aa786edae96c11594a94c9"
+  },
+  "readiness": {
+    "publishable": 1,
+    "blocker_count": 0
+  },
+  "public": {
+    "id": "phase519-wancher-zogan-swan-urushi-black",
+    "type": "pen",
+    "slug": "wancher-dream-pen-zogan-swan-urushi-black",
+    "body_length": 4288
+  },
+  "variant_count": {
+    "n": 8
+  },
+  "variants": [
+    {
+      "variant_name": "Handcrafted surface · no fixed colour or texture standard",
+      "product_code": null,
+      "variant_kind": "edition_group"
+    },
+    {
+      "variant_name": "Default Title",
+      "product_code": "WF-AIUR-DR-ZOBK-HKU",
+      "variant_kind": "market_sku"
+    },
+    {
+      "variant_name": "Ebonite feed",
+      "product_code": null,
+      "variant_kind": "material"
+    },
+    {
+      "variant_name": "Plastic feed",
+      "product_code": null,
+      "variant_kind": "material"
+    },
+    {
+      "variant_name": "#6 JoWo stainless steel",
+      "product_code": null,
+      "variant_kind": "nib"
+    },
+    {
+      "variant_name": "Keiryu",
+      "product_code": null,
+      "variant_kind": "nib"
+    },
+    {
+      "variant_name": "Keiryu Kodachi",
+      "product_code": null,
+      "variant_kind": "nib"
+    },
+    {
+      "variant_name": "Shogun 18K",
+      "product_code": null,
+      "variant_kind": "nib"
+    }
+  ],
+  "spec_count": {
+    "n": 1
+  },
+  "media": [
+    {
+      "usage_status": "primary",
+      "local_path": "/images/library/site-original/phase519/wancher/zogan-swan-urushi-black.svg",
+      "source_url": "/images/library/site-original/phase519/wancher/zogan-swan-urushi-black.svg"
+    }
+  ],
+  "maker": [
+    {
+      "source_id": "phase519-wancher-zogan-swan-urushi-black",
+      "target_id": "eOfD77nOeENN",
+      "link_type": "made_by"
+    }
+  ],
+  "reverse": [
+    {
+      "source_id": "eOfD77nOeENN",
+      "target_id": "phase519-wancher-zogan-swan-urushi-black",
+      "link_type": "reverse"
+    }
+  ],
+  "sources": [
+    {
+      "url": "/images/library/site-original/phase519/wancher/zogan-swan-urushi-black.svg",
+      "review_status": "approved",
+      "relation_type": "reference"
+    },
+    {
+      "url": "https://www.kyohaku.go.jp/old/eng/theme/floor1_6/past/shikko_20160726.html",
+      "review_status": "approved",
+      "relation_type": "official"
+    },
+    {
+      "url": "https://www.wancherpen.com/collections/dream-pen",
+      "review_status": "approved",
+      "relation_type": "official"
+    },
+    {
+      "url": "https://www.wancherpen.com/pages/nib-guide",
+      "review_status": "approved",
+      "relation_type": "official"
+    },
+    {
+      "url": "https://www.wancherpen.com/pages/product-care",
+      "review_status": "approved",
+      "relation_type": "official"
+    },
+    {
+      "url": "https://www.wancherpen.com/products/wancher-fountain-pen-zogan-swan-urushi-black",
+      "review_status": "approved",
+      "relation_type": "official"
+    },
+    {
+      "url": "https://www.wancherpen.com/products/wancher-fountain-pen-zogan-swan-urushi-black.json",
+      "review_status": "approved",
+      "relation_type": "official"
+    }
+  ],
+  "reviews": [
+    {
+      "review_kind": "fact",
+      "status": "revoked",
+      "reviewer": "phase505-544-owned-checkpoint-integration"
+    },
+    {
+      "review_kind": "fact",
+      "status": "approved",
+      "reviewer": "phase564-wancher-zogan-swan-urushi-black"
+    },
+    {
+      "review_kind": "language",
+      "status": "revoked",
+      "reviewer": "phase505-544-owned-checkpoint-integration"
+    },
+    {
+      "review_kind": "language",
+      "status": "approved",
+      "reviewer": "phase564-wancher-zogan-swan-urushi-black"
+    },
+    {
+      "review_kind": "media",
+      "status": "revoked",
+      "reviewer": "phase505-544-owned-checkpoint-integration"
+    },
+    {
+      "review_kind": "media",
+      "status": "approved",
+      "reviewer": "phase564-wancher-zogan-swan-urushi-black"
+    },
+    {
+      "review_kind": "publication",
+      "status": "revoked",
+      "reviewer": "phase505-544-owned-checkpoint-integration"
+    },
+    {
+      "review_kind": "publication",
+      "status": "approved",
+      "reviewer": "phase564-wancher-zogan-swan-urushi-black"
+    }
+  ]
+}
