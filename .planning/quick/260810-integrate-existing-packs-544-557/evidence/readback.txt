@@ -1,0 +1,14 @@
+id                                    type   slug                                      name                                        status     body_chars  published_stories  model_specs  qualified_primary_media  approved_refs  approved_reviews
+------------------------------------  -----  ----------------------------------------  ------------------------------------------  ---------  ----------  -----------------  -----------  -----------------------  -------------  ----------------
+4RLQzNpb6WbN                          brand  schneider                                 施耐德 Schneider                            published  1554        1                  0            1                        4              4
+phase139-schneider-ray                pen    schneider-ray                             Schneider Ray                               published  4344        1                  1            1                        5              4
+phase521-wancher-oita-urushi-kurozan  pen    wancher-oita-urushi-kurozan-fountain-pen  Wancher Oita Urushi - Kurozan Fountain Pen  published  4790        1                  1            1                        7              4
+phase524-wancher-oita-urushi-kurozan  pen    wancher-oita-urushi-kurozan               Wancher Oita Urushi - Kurozan Fountain Pen  retired    2731        1                  1            1                        8              0
+donor_id      canonical_id                          link_type  donor_slug  canonical_slug
+------------  ------------------------------------  ---------  ----------  ----------------------------------------
+eOfD77nOeENN  phase521-wancher-oita-urushi-kurozan  reverse    wancher     wancher-oita-urushi-kurozan-fountain-pen
+type     published_count
+-------  ---------------
+article  5
+brand    115
+pen      671

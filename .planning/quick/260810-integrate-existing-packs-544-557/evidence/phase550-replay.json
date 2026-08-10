@@ -1,0 +1,14 @@
+{
+  "entities": [
+    {
+      "entityId": "phase269-brand-yard-o-led",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:f532d49fb61c5cee06763fc74028e58a456d580df807d12bf52fb2fcceba4354"
+    },
+    {
+      "entityId": "phase269-yard-o-led-viceroy-grand",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:09cbfd572317f321036a952eee9e0e41d73f012442eee84999cbc4cd6ae5043f"
+    }
+  ]
+}

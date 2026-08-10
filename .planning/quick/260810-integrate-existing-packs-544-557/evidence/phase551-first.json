@@ -1,0 +1,14 @@
+{
+  "entities": [
+    {
+      "entityId": "4RLQzNpb6WbN",
+      "outcome": "published",
+      "contentHash": "sha256:v3:c5b716d024f003f325dfab6315b79ee5cfeea54a301500cec28631e4b918f88f"
+    },
+    {
+      "entityId": "phase139-schneider-ray",
+      "outcome": "published",
+      "contentHash": "sha256:v3:7f5cae1474b19f19668b85485edb70a6d1350cd618b6520b3a24b0af9facb8b0"
+    }
+  ]
+}
