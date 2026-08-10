@@ -1,0 +1,14 @@
+review_kind|status|hash_prefix
+fact|revoked|sha256:v3:9ebdee23fc8d8f
+fact|approved|sha256:v3:b2ead7c416c1f2
+language|revoked|sha256:v3:9ebdee23fc8d8f
+language|approved|sha256:v3:b2ead7c416c1f2
+media|revoked|sha256:v3:9ebdee23fc8d8f
+media|approved|sha256:v3:b2ead7c416c1f2
+publication|revoked|sha256:v3:9ebdee23fc8d8f
+publication|approved|sha256:v3:b2ead7c416c1f2
+source
+curated-content:phase579-pilot-metropolitan-depth-v1:12110672f6abdccd961e0a68d0680d5ee6f9b995a280448d400212f2c6f9f421
+source_id|target_id|link_type
+phase292-pen-pilot-metropolitan|Zt-PbXkE7UHM|made_by
+Zt-PbXkE7UHM|phase292-pen-pilot-metropolitan|reverse

@@ -1,0 +1,9 @@
+integrity_check
+ok
+foreign_key_check
+target
+id|type|slug|body_chars|status|publishable|blocker_count|is_public
+phase292-pen-pilot-metropolitan|pen|pilot-metropolitan|5269|published|1|0|1
+payload
+claims|refs|variants|scopes|conflicts|primary_media
+17|7|10|1|2|1
