@@ -1,0 +1,14 @@
+{
+  "entities": [
+    {
+      "entityId": "eOfD77nOeENN",
+      "outcome": "published",
+      "contentHash": "sha256:v3:3d496365d07328d6d5adf71893d06adcf8376baef9ccb87f8edf5fc7c2c5f0b9"
+    },
+    {
+      "entityId": "phase562-wancher-jade-fountain-pen",
+      "outcome": "published",
+      "contentHash": "sha256:v3:a5beb4b177e1d3bf11f50c4859b44fded57e404718463e11a1bf426ef248e98f"
+    }
+  ]
+}

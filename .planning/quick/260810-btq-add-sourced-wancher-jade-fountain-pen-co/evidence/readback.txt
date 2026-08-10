@@ -1,0 +1,25 @@
+id                                  type   slug                       name                       status     content_revision  reviewed_content_revision  reviewed_contract_version  publishable  blocker_count
+----------------------------------  -----  -------------------------  -------------------------  ---------  ----------------  -------------------------  -------------------------  -----------  -------------
+eOfD77nOeENN                        brand  wancher                    Wancher                    published  1659              1659                       3                          1            0
+phase562-wancher-jade-fountain-pen  pen    wancher-jade-fountain-pen  Wancher Jade Fountain Pen  published  122               122                        3                          1            0
+variants
+product_code    variant_name    variant_kind  market
+--------------  --------------  ------------  ------
+WF-SLPG-JAD-F   Fine            market_sku    global
+WF-SLPG-JAD-MF  Medium Fine     market_sku    global
+WF-SLPG-JAD-B   Broad           market_sku    global
+WF-SLPG-JAD-EF  EF              market_sku    global
+WF-SLPG-JAD-NM  Kodachi Medium  market_sku    global
+WF-SLPG-JAD-NF  Kodachi Fine    market_sku    global
+WF-SLPG-JAD-M   Medium          market_sku    global
+source_groups
+primary_archive_group_count  professional_secondary_group_count  auxiliary_group_count
+---------------------------  ----------------------------------  ---------------------
+6                            1                                   0
+links
+source_id                           target_id                           link_type
+----------------------------------  ----------------------------------  ---------
+phase562-wancher-jade-fountain-pen  eOfD77nOeENN                        made_by
+eOfD77nOeENN                        phase562-wancher-jade-fountain-pen  reverse
+body_chars
+7696

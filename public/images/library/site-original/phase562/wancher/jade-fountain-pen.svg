@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Wancher Jade Fountain Pen factual boundary diagram</title>
+  <desc id="desc">Editorial factual diagram showing the PMMA resin Jade Fountain Pen, its seven official nib SKU options, and a separate Jade Pen Pillow accessory boundary.</desc>
+  <metadata>site-original; factual-diagram; non-photo; non-logo; not-to-scale; non-colour-proof</metadata>
+  <rect width="1600" height="900" fill="#f3f7f2"/>
+  <rect x="56" y="52" width="1488" height="796" rx="32" fill="#ffffff" stroke="#254b41" stroke-width="4"/>
+  <text x="96" y="126" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#173b35">Wancher Jade Fountain Pen</text>
+  <text x="96" y="168" font-family="Arial, sans-serif" font-size="23" fill="#42635b">fact boundary diagram · site-original · non-photo</text>
+
+  <g transform="translate(120,260)">
+    <rect x="0" y="52" width="640" height="128" rx="64" fill="#a6d2aa" stroke="#254b41" stroke-width="5"/>
+    <rect x="580" y="68" width="120" height="96" rx="36" fill="#f5f0d7" stroke="#254b41" stroke-width="5"/>
+    <rect x="700" y="78" width="130" height="76" rx="30" fill="#d8d9cf" stroke="#254b41" stroke-width="5"/>
+    <path d="M830 116h145" stroke="#254b41" stroke-width="10" stroke-linecap="round"/>
+    <path d="M975 116l110 -28v56z" fill="#d5b85a" stroke="#254b41" stroke-width="5"/>
+    <text x="0" y="250" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#173b35">PMMA Resin</text>
+    <text x="0" y="286" font-family="Arial, sans-serif" font-size="23" fill="#42635b">mint green + ivory visual theme</text>
+    <text x="0" y="332" font-family="Arial, sans-serif" font-size="23" fill="#42635b">21K gold nib · plastic feed</text>
+    <text x="0" y="368" font-family="Arial, sans-serif" font-size="23" fill="#42635b">converter or cartridge</text>
+    <text x="0" y="416" font-family="Arial, sans-serif" font-size="23" fill="#42635b">128.5 mm closed · 149 mm posted (English page)</text>
+    <text x="0" y="452" font-family="Arial, sans-serif" font-size="23" fill="#42635b">22 g · measurement context retained</text>
+  </g>
+
+  <g transform="translate(960,250)">
+    <rect width="490" height="250" rx="24" fill="#eef6ee" stroke="#5d8d76" stroke-width="3"/>
+    <text x="28" y="50" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#173b35">Official market SKU options</text>
+    <text x="28" y="94" font-family="Arial, sans-serif" font-size="22" fill="#31564c">EF · F · MF · M · B</text>
+    <text x="28" y="132" font-family="Arial, sans-serif" font-size="22" fill="#31564c">Kodachi Fine · Kodachi Medium</text>
+    <text x="28" y="184" font-family="Arial, sans-serif" font-size="19" fill="#42635b">WF-SLPG-JAD-* · same model</text>
+    <text x="28" y="218" font-family="Arial, sans-serif" font-size="19" fill="#42635b">not seven separate entities</text>
+  </g>
+
+  <g transform="translate(960,550)">
+    <rect width="490" height="178" rx="24" fill="#fff8e6" stroke="#c49b43" stroke-width="3"/>
+    <text x="28" y="48" font-family="Arial, sans-serif" font-size="27" font-weight="700" fill="#684d19">Separate accessory boundary</text>
+    <text x="28" y="92" font-family="Arial, sans-serif" font-size="22" fill="#765b27">Jade Pen Pillow</text>
+    <text x="28" y="130" font-family="Arial, sans-serif" font-size="19" fill="#765b27">officially described as a separate / add-on</text>
+    <text x="28" y="158" font-family="Arial, sans-serif" font-size="19" fill="#765b27">Guatemalan jadeite accessory</text>
+  </g>
+
+  <text x="96" y="790" font-family="Arial, sans-serif" font-size="20" fill="#5c6f68">Not a product photograph · not a logo · not to scale · not a colour proof · does not prove stock or price</text>
+  <text x="96" y="820" font-family="Arial, sans-serif" font-size="18" fill="#78908a">Editorial diagram based on Wancher official product pages and product JSON; retrieved 2026-08-10.</text>
+</svg>

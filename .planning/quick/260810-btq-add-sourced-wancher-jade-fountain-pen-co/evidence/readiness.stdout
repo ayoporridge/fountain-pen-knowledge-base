@@ -1,0 +1,13 @@
+brand:admok	published	ready	publication=published;readiness=ready
+brand:asvine	published	ready	publication=published;readiness=ready
+brand:aurora	published	ready	publication=published;readiness=ready
+brand:banju	retired	blocked	publication=retired;readiness=blocked;blockers=deprecated_story_present|missing_approved_content_hash|missing_approved_core_claim|missing_approved_primary_media|missing_fact_review|missing_language_review|missing_media_review|missing_primary_or_archive_group|missing_professional_secondary_group|missing_publication_review|missing_published_story|missing_reviewed_at|missing_reviewer|pending_claim_present|stale_contract_version|stale_reviewed_revision
+brand:benu	published	ready	publication=published;readiness=ready
+brand:bexley	published	ready	publication=published;readiness=ready
+brand:birmingham-pen-company	published	ready	publication=published;readiness=ready
+brand:camel-pen-company	published	ready	publication=published;readiness=ready
+brand:caran-dache	published	ready	publication=published;readiness=ready
+brand:chilton	published	ready	publication=published;readiness=ready
+brand:cleo-skribent	published	ready	publication=published;readiness=ready
+brand:conklin	published	ready	publication=published;readiness=ready
+inventory=808 content_ready=785 published=785 published_blockers=0 backlog=23

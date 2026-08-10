@@ -1,0 +1,15 @@
+Library contract counts:
+  sources: 3749
+  sourceItems: 5638
+  claims: 6893
+  citations: 15699
+  stories: 836
+  events: 1147
+  diagrams: 9
+  media: 1104
+  community: 2
+  exhibits: 6
+  externalIds: 61
+  aliases: 2811
+  commonsMedia: 4
+Library contract OK
