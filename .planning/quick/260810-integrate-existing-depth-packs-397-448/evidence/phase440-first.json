@@ -1,0 +1,29 @@
+{
+  "entities": [
+    {
+      "entityId": "I6tjleAZx9RU",
+      "outcome": "published",
+      "contentHash": "sha256:v3:435e85a737668dd99eb41f6f9624c26071dbba749ed4c8b284f403bbe33b5371"
+    },
+    {
+      "entityId": "qpcW25Dw0fxW",
+      "outcome": "published",
+      "contentHash": "sha256:v3:fbe5762569281526a08b0a8709c3e1bdc6a30624c8a9eebf83bb6d84eea1bb91"
+    },
+    {
+      "entityId": "phase262-brand-taccia",
+      "outcome": "published",
+      "contentHash": "sha256:v3:12eb97f0f95fd57aac67c9a58174145e26b8de56f94271d29f3e9a3c6bb973c2"
+    },
+    {
+      "entityId": "u872EQEhnTzA",
+      "outcome": "published",
+      "contentHash": "sha256:v3:54f07c218954d32416125386aef93891dae9f4253a5baa4a3cdcdc4a771626ca"
+    },
+    {
+      "entityId": "6bBDoAc4ULKm",
+      "outcome": "published",
+      "contentHash": "sha256:v3:c24e7062df50199dc8711366bd4274f698e3e85c9f170e1a3b912415dda7c2b7"
+    }
+  ]
+}

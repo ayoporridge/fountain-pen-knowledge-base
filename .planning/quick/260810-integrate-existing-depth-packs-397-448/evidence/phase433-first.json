@@ -1,0 +1,29 @@
+{
+  "entities": [
+    {
+      "entityId": "phase272-brand-mabie-todd",
+      "outcome": "published",
+      "contentHash": "sha256:v3:147c30191d63749e84f1880cd1f14b6b4888849899d63a1e5241d6bea16b1ed6"
+    },
+    {
+      "entityId": "phase261-brand-magna-carta",
+      "outcome": "published",
+      "contentHash": "sha256:v3:e585f9c4b8c4904aa3b2ab80f93808376e7afb572106dfc1a7ff34245fa61628"
+    },
+    {
+      "entityId": "g5r4udSOYhI5",
+      "outcome": "published",
+      "contentHash": "sha256:v3:7c2b6d092b7bd46f6a97a957f72c67650b89c06422d0a183fcfbcd4203b0ab28"
+    },
+    {
+      "entityId": "2OpQMjam65SM",
+      "outcome": "published",
+      "contentHash": "sha256:v3:9e56d4d022dd59618e34e2c3766f07621b520be27640d82933a2878631a3409b"
+    },
+    {
+      "entityId": "phase269-brand-yard-o-led",
+      "outcome": "published",
+      "contentHash": "sha256:v3:f532d49fb61c5cee06763fc74028e58a456d580df807d12bf52fb2fcceba4354"
+    }
+  ]
+}

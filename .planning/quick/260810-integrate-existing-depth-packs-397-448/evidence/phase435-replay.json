@@ -1,0 +1,29 @@
+{
+  "entities": [
+    {
+      "entityId": "phase139-brand-caran-dache",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:749f3e3d8f3eb9aa5f4dae92fb2d51d5ec0363b99bb79f06535936c6e45673a9"
+    },
+    {
+      "entityId": "phase268-brand-onoto",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:abbb761ec850f2fcf279de967b9fab026f2955db217bc3092f79c23e8d6f53aa"
+    },
+    {
+      "entityId": "4RLQzNpb6WbN",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:7494ed143150f3c6be2bd9dd14f8b63dbeb8280ab7cd210a385732449790f7fd"
+    },
+    {
+      "entityId": "z6qsxNL0PAj8",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:e2f8b97c708eb53ec4800c23a991f97f84c25dd4a1271bf2f5ba6fbc1b6f74e3"
+    },
+    {
+      "entityId": "phase260-brand-gravitas",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:35c37ce229ee6cdb5c633c51957318622e1c8341c0458e31b257caf4e074af07"
+    }
+  ]
+}

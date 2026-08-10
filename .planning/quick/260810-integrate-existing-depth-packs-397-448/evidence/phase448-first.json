@@ -1,0 +1,24 @@
+{
+  "entities": [
+    {
+      "entityId": "CqFpmT3l4Mtm",
+      "outcome": "published",
+      "contentHash": "sha256:v3:1e047503f87bd7b80be7d363cf751a93ae1207f3a01e83c06e5b5b845542b8fb"
+    },
+    {
+      "entityId": "0CNmbxM54-GA",
+      "outcome": "published",
+      "contentHash": "sha256:v3:f24090debd3267b9c338b739c21e59f2cd5602c1974a6f4c7b64b515de9ed87c"
+    },
+    {
+      "entityId": "ixul2gTcJ06B",
+      "outcome": "published",
+      "contentHash": "sha256:v3:fc2385d7ebab54fc961f6e7d8018063f01074ea35b47fd0e8ce5204cfbe9ffcf"
+    },
+    {
+      "entityId": "UE5otlwKUfp9",
+      "outcome": "published",
+      "contentHash": "sha256:v3:035bf6b275bdd10e6d3a59b7384d74f6e63f6d303630fe428bf55b74fb483e7f"
+    }
+  ]
+}

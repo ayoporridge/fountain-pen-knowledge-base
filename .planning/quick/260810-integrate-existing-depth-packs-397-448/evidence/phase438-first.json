@@ -1,0 +1,29 @@
+{
+  "entities": [
+    {
+      "entityId": "LIfzzmbCfFPt",
+      "outcome": "published",
+      "contentHash": "sha256:v3:ce4af8990986a23ddbd0710a01fb8e6934584efb3a1c22838a975c50eb0dd302"
+    },
+    {
+      "entityId": "phase223-brand-security-pen",
+      "outcome": "published",
+      "contentHash": "sha256:v3:2deb2d22f077f4f4ae1b72997515e281ca0522aecb4619164a5491bbd07f26db"
+    },
+    {
+      "entityId": "phase348-maiora-brand",
+      "outcome": "published",
+      "contentHash": "sha256:v3:0018f7515342bb4ea27d1c98c593d2fa8c6b8fd399dda37d727a374e0a71b5f4"
+    },
+    {
+      "entityId": "kFT81caNK3tP",
+      "outcome": "published",
+      "contentHash": "sha256:v3:b606b78bcc01f3560aecfac37b28cab098aa7b3e6b4cb6eefe4ab8bec6dcc9bf"
+    },
+    {
+      "entityId": "4kID3Wqc15O6",
+      "outcome": "published",
+      "contentHash": "sha256:v3:4b217690a2f8582c1c8eae582e565b461b1ea5abf9d0081411fad57e9e647c71"
+    }
+  ]
+}
