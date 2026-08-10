@@ -1,0 +1,34 @@
+--- entities ---
+id                                        type  slug                                       body_chars  source                                                                                                             status     is_public  refs  variants  primary_media
+----------------------------------------  ----  -----------------------------------------  ----------  -----------------------------------------------------------------------------------------------------------------  ---------  ---------  ----  --------  -------------
+phase519-wancher-kyoto-urushi-asagao      pen   wancher-kyoto-urushi-kasane-iro-asagao     4134        curated-content:phase519-wancher-asagao-v1:e8e6d6ee17723d47f43cc70becad99bab7d6c9bb9fb75602c0bd674d5dab6a69        published  1          7     12        1
+phase519-wancher-zogan-swan-urushi-black  pen   wancher-dream-pen-zogan-swan-urushi-black  4288        curated-content:phase519-wancher-swan-black-v1:4ad7cc0d3cdc1a350052b61196f64730c5284883e9119e1da318c9de1e45222a    published  1          7     8         1
+phase521-wancher-oita-urushi-kurozan      pen   wancher-oita-urushi-kurozan-fountain-pen   4790        curated-content:phase521-wancher-oita-kurozan-v1:1a20a8e49541df0a281bf13062dc22ebb9c4cc01eb8f0e95e100619b3dea17fb  published  1          7     8         1
+phase524-wancher-oita-urushi-kurozan      pen   wancher-oita-urushi-kurozan                2731        curated-content:phase524-wancher-oita-kurozan-v1:fe2e9e0618ddf21e26a5d658bd0a20d88b5f6c139e706254493efece6dd2f5b9  retired    0          8     8         1
+--- approved reviews ---
+entity_id                                 review_kind  status    hash_prefix             reviewer
+----------------------------------------  -----------  --------  ----------------------  ----------------------------------------
+phase519-wancher-kyoto-urushi-asagao      fact         approved  sha256:v3:8a4b7a0347c1  phase565-wancher-kyoto-urushi-asagao
+phase519-wancher-kyoto-urushi-asagao      language     approved  sha256:v3:8a4b7a0347c1  phase565-wancher-kyoto-urushi-asagao
+phase519-wancher-kyoto-urushi-asagao      media        approved  sha256:v3:8a4b7a0347c1  phase565-wancher-kyoto-urushi-asagao
+phase519-wancher-kyoto-urushi-asagao      publication  approved  sha256:v3:8a4b7a0347c1  phase565-wancher-kyoto-urushi-asagao
+phase519-wancher-zogan-swan-urushi-black  fact         approved  sha256:v3:c77ee39e775b  phase564-wancher-zogan-swan-urushi-black
+phase519-wancher-zogan-swan-urushi-black  language     approved  sha256:v3:c77ee39e775b  phase564-wancher-zogan-swan-urushi-black
+phase519-wancher-zogan-swan-urushi-black  media        approved  sha256:v3:c77ee39e775b  phase564-wancher-zogan-swan-urushi-black
+phase519-wancher-zogan-swan-urushi-black  publication  approved  sha256:v3:c77ee39e775b  phase564-wancher-zogan-swan-urushi-black
+phase521-wancher-oita-urushi-kurozan      fact         approved  sha256:v3:eca74ab606b0  phase566-wancher-oita-urushi-kurozan
+phase521-wancher-oita-urushi-kurozan      language     approved  sha256:v3:eca74ab606b0  phase566-wancher-oita-urushi-kurozan
+phase521-wancher-oita-urushi-kurozan      media        approved  sha256:v3:eca74ab606b0  phase566-wancher-oita-urushi-kurozan
+phase521-wancher-oita-urushi-kurozan      publication  approved  sha256:v3:eca74ab606b0  phase566-wancher-oita-urushi-kurozan
+--- maker relations ---
+source_id                                 target_id     link_type  reason
+----------------------------------------  ------------  ---------  -----------------------------------------------------------------------------------------
+phase519-wancher-kyoto-urushi-asagao      eOfD77nOeENN  made_by    Phase 519 verified Wancher maker relation for Wancher Kyoto Urushi Kasane-iro - Asagao
+phase519-wancher-zogan-swan-urushi-black  eOfD77nOeENN  made_by    Phase 519 verified Wancher maker relation for Wancher Dream Pen Zogan Swan - Urushi Black
+phase521-wancher-oita-urushi-kurozan      eOfD77nOeENN  made_by    Phase 521 verified Wancher maker relation for Wancher Oita Urushi - Kurozan Fountain Pen
+--- retired duplicate ---
+entity_id                             status   blockers_json
+------------------------------------  -------  -------------------
+phase524-wancher-oita-urushi-kurozan  retired  ["taxonomy_merged"]
+--- integrity ---
+ok
