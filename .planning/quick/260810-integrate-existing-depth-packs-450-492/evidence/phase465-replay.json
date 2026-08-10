@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "BbRrESWOy_c1",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:05ba81f8b97364e85383cafff2e886694c2498042595b7f84fee7b87cd7608fb"
+    },
+    {
+      "entityId": "phase260-gravitas-ultemate-vac",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:14366b5103d7fcbbc3dea69c26f5519ede12bd05ad5a05f124b5474be337469b"
+    },
+    {
+      "entityId": "kN4e-bTwsjSG",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:38d3d582ed080312075deb972ca81ce21e17842574f827e499e05cd12fe74e86"
+    }
+  ]
+}

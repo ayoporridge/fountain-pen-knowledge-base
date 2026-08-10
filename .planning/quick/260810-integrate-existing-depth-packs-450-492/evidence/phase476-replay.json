@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "b16OmQf7Jwfr",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:07e7cde47cd79a43a3fa8c366126062806284948a05910232780b85e300e9fa1"
+    },
+    {
+      "entityId": "PbA7NulBdLC-",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:213835a1e8ebbdb222c44281c49cea3e4d4230d792762f07a93c503142d0ad45"
+    },
+    {
+      "entityId": "P7LgZR6-DDPi",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:b4277589c7190a62bb5469bb948d8fd58b2aec2d7025f8f66ec5fa1940639abe"
+    }
+  ]
+}

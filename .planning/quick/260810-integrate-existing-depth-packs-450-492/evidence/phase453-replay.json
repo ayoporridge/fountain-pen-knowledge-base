@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "s40PPREMVINT",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:ae6138774197df39dcdcfe1f8288aeb31b24a5b646eef1e0e793216d33338ea0"
+    },
+    {
+      "entityId": "s40PPREMMOD",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:2e179e6b2eb9008b9086f6f60c272b70b09436f0008a9bd0dcf5bb1fd185f7cd"
+    },
+    {
+      "entityId": "eB4bI7asypKz",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:9e46fed6da1335b5b4a1c1a3671a68607813504ef557a1e00d1aebdbecf221a5"
+    }
+  ]
+}

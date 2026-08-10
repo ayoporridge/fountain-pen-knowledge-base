@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "lOgSh4vuQsFK",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:854dd92a891a349c296b50dce0539466dce95b5b633085d8e921a0f06562eb10"
+    },
+    {
+      "entityId": "phase127-pilot-88g-mr1",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:e4b58524a9b6efaaece4dcb339d643a8864e1225acef74e56a5b0bcb4844e90a"
+    },
+    {
+      "entityId": "phase127-pilot-88g-mr2",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:9e3b928548e5974d07c29ad7483f8ab471e63b51e791f9b4847351f006f00bb3"
+    }
+  ]
+}

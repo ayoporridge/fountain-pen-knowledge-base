@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "p305Sailor1911LDemoSilver",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:0b247c32312fbfa8f0ff4047cb8efb57c2d6e39101ff7479dd3dc78f9254f2ff"
+    },
+    {
+      "entityId": "phase139-faber-castell-essentio",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:3fbba85414c95ea90458876ba697abd3d99a1e50622d36f70c948ab862854fb3"
+    },
+    {
+      "entityId": "s40PVICTORY",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:9b532b64fd66adca119c4c0b031973f917470f24ebebda05103516ba6a254f1e"
+    }
+  ]
+}

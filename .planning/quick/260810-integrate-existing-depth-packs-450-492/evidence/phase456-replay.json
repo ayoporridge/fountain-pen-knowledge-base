@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "s49VISLAVCO",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:8e94d77e38c074cd602c2c98dd89f76a21d548f73a56727c15ac1c76dd12ca0c"
+    },
+    {
+      "entityId": "s45LAMYCP1",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:8b6f713d3c9de857020681718a099e327cadefee7858a661b88dc393669947ea"
+    },
+    {
+      "entityId": "dinM62TunTr8",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:5b461d21793bd62319b66720a6f54bb4502cc4dbe06e80e40bcf7d768ea4bee3"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "phase86-pen-montegrappa-elmo-02",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:27e66e149ee3f6ca627ead9e2afdcbae6779762629bc604e16266c1886cdce57"
+    },
+    {
+      "entityId": "phase88-pen-asvine-v200",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:f2f2228f568bae5b5625f168f7f9586038a484448ec92e0f63764d70a551aeb2"
+    },
+    {
+      "entityId": "s39KOPST6001",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:3d6462d0f150961d6d82f7fef2ec792f8e72924e9be7f8561d59321cf4baaee6"
+    }
+  ]
+}

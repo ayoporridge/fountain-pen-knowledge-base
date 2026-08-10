@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "phase139-faber-castell-grip-2011",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:a1eb0a938a9a06fe03aa983351c7ddb9b0cb2073ad87d0bd2b0f140866468608"
+    },
+    {
+      "entityId": "phase139-faber-castell-hexo",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:2de0d510945d469f19db91d9db36d3198623c75cf14884146430cbde583d1af0"
+    },
+    {
+      "entityId": "WgPQyH1oYSEX",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:40a7552dcfdafd0b46566cd59d86d5c2dcc6d187a8b674bcd693150dfd06d693"
+    }
+  ]
+}

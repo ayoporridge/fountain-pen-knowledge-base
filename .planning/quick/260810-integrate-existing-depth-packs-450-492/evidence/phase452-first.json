@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "phase336-pen-aurora-ottantotto-millerighe",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:f93f0949eb8be72ab2a19f32690b7c2fa2025eee422b064581b7303d6d72d0eb"
+    },
+    {
+      "entityId": "phase338-pen-aurora-ipsilon-italia",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:28f25237600414033efbeb9a1cf69a54ab551ccd366cdaba8a0cf3a83a12b67b"
+    },
+    {
+      "entityId": "phase85-pen-montegrappa-elmo-01",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:44aa0248eb46d72c299cd503aa8bcf012744245f7048c6bfc0e7a9793eed86b9"
+    }
+  ]
+}

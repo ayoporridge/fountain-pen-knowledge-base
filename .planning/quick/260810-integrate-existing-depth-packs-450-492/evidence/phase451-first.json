@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "s56SHFTDTM",
+      "outcome": "published",
+      "contentHash": "sha256:v3:997da08500fcd4b9d22d0311a944b459387d483a98b47a637f3b2d0446f06f69"
+    },
+    {
+      "entityId": "s56SHFCRBAL",
+      "outcome": "published",
+      "contentHash": "sha256:v3:93fdae235e86e8501f799434ba78bf932909c7fca8888dad564eddd55f6e5d8e"
+    },
+    {
+      "entityId": "s56SHFCRTDTIP",
+      "outcome": "published",
+      "contentHash": "sha256:v3:4f2d464e52bef408fd11e94eada9e5e7455ce1a397ee60df7a013a0ea78eb471"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "phase138-wancher-echizen-temari",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:8720abaaf3bdd6d5c8d290b5dacd26bf0f445f84fab8737038e0cfd497996dab"
+    },
+    {
+      "entityId": "phase138-wancher-echizen-sakura-zukiyo",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:7c02c12abae3c7ca35381a2b536b2c7cc673a122c7dd2c8cfa67854de89ec19f"
+    },
+    {
+      "entityId": "phase138-wancher-kyoto-ume",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:8eb14d6164eadae4ed4a7ba13943436ad0db883e329a73fe4da4e70d7ff302c1"
+    }
+  ]
+}

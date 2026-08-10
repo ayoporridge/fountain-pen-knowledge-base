@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "phase329-pen-diplomat-traveller",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:601a4ece7ef33d8e7c6229d2e6aca0aac6c0719b55876cf36b50e7e7e1b78b93"
+    },
+    {
+      "entityId": "phase329-pen-diplomat-esteem",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:a51bc391c47d73cbaa92b4b0de3acb2688996102cd84afd429db775facd343be"
+    },
+    {
+      "entityId": "phase329-pen-diplomat-clr",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:706494146f15b06d0abbaf0b6fde753c5af74566ff61a7905dff30fa3099b4b9"
+    }
+  ]
+}

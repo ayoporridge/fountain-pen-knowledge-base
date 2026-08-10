@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "s39NAG7121",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:4dc4aac6c104650ff00a4cb45f27b40f6d2227680171d39d22e08804199af85a"
+    },
+    {
+      "entityId": "9jIF6QOt8wGr",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:ae8f36ca4424d20694d832e0592d439c38ff41fcd3e9a5bb3fbb296281bbd617"
+    },
+    {
+      "entityId": "p302Sailor1911Large",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:cbad96decc03b31fe9b3e9fb67dc45f197446b2b71409bc5f7731bc3dc1aa962"
+    }
+  ]
+}

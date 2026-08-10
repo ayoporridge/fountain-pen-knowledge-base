@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "phase139-kaweco-dia2",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:29b1f39ec4ce87ea7432b8d84206d8f194959a118602467193b63a077c5eae68"
+    },
+    {
+      "entityId": "phase348-maiora-impronte-oversize",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:849af1eb9807722275a3039053eee3ac67fb86b3288f28b1f0cc9f6a0613967f"
+    },
+    {
+      "entityId": "YeodugzY82yu",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:0dbd1a23b5498af3c3fe26b91b58e73bc35874791225bd104e0bf2d793377ec5"
+    }
+  ]
+}

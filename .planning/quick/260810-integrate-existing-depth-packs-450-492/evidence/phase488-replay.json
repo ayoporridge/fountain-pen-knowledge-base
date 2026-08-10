@@ -1,0 +1,19 @@
+{
+  "entities": [
+    {
+      "entityId": "phase311-platinum-izumo-piz-150000pw",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:4f1002837e14de55aa31370a54581f00378cbbc9d330de4c3bbd2255ca11d721"
+    },
+    {
+      "entityId": "_tLM8vJHVGyr",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:dea5db79cfeee4030114fe449d13f9e84ed6d78e1f1254393ac95b9e46d282d0"
+    },
+    {
+      "entityId": "phase139-caran-dache-leman",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:9f086965017719f7f48a647aad873e3b9479b23280a6fc42e8af6d19e95f1b9e"
+    }
+  ]
+}
