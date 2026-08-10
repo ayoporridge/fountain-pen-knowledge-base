@@ -1,0 +1,37 @@
+id                                    type  slug                                      name                                        body_length  source
+------------------------------------  ----  ----------------------------------------  ------------------------------------------  -----------  -----------------------------------------------------------------------------------------------------------------
+phase521-wancher-oita-urushi-kurozan  pen   wancher-oita-urushi-kurozan-fountain-pen  Wancher Oita Urushi - Kurozan Fountain Pen  4790         curated-content:phase521-wancher-oita-kurozan-v1:1a20a8e49541df0a281bf13062dc22ebb9c4cc01eb8f0e95e100619b3dea17fb
+entity_id                             status     content_revision  reviewed_content_revision  reviewed_contract_version  approved_content_hash
+------------------------------------  ---------  ----------------  -------------------------  -------------------------  --------------------------------------------------------------------------
+phase521-wancher-oita-urushi-kurozan  published  280               280                        3                          sha256:v3:eca74ab606b018573cf94006bfe1655a60864f3c1dcebb07ea1b3b55ada64cfa
+entity_id                             publishable  blocker_count
+------------------------------------  -----------  -------------
+phase521-wancher-oita-urushi-kurozan  1            0
+variant_kind   count
+-------------  -----
+edition_group  1
+market_sku     1
+material       2
+nib            4
+model_spec_count
+----------------
+1
+usage_status  review_status  local_path                                                              source_url
+------------  -------------  ----------------------------------------------------------------------  ----------------------------------------------------------------------
+primary       approved       /images/library/site-original/phase521/wancher/oita-urushi-kurozan.svg  /images/library/site-original/phase521/wancher/oita-urushi-kurozan.svg
+source_id                             target_id                             link_type
+------------------------------------  ------------------------------------  ---------
+phase521-wancher-oita-urushi-kurozan  eOfD77nOeENN                          made_by
+eOfD77nOeENN                          phase521-wancher-oita-urushi-kurozan  reverse
+approved_source_count
+---------------------
+7
+review_kind  status    reviewer                              reviewed_at
+-----------  --------  ------------------------------------  ------------------------
+fact         approved  phase566-wancher-oita-urushi-kurozan  2026-08-10T02:20:15.176Z
+language     approved  phase566-wancher-oita-urushi-kurozan  2026-08-10T02:20:15.249Z
+media        approved  phase566-wancher-oita-urushi-kurozan  2026-08-10T02:20:15.324Z
+publication  approved  phase566-wancher-oita-urushi-kurozan  2026-08-10T02:20:15.398Z
+entity_id                             status   blockers_json
+------------------------------------  -------  -------------------
+phase524-wancher-oita-urushi-kurozan  retired  ["taxonomy_merged"]
