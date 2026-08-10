@@ -14,12 +14,11 @@ import {
   snapshotCatalogFiles,
 } from "../../src/lib/audit/read-only-catalog";
 import { migrateDatabase } from "../../src/lib/db";
-import { computePublicationContentHash } from "../../src/lib/publication";
 
 const ROOT = "/Users/xz/Documents/fountain-pen-graph";
 const REAL = path.join(ROOT, "data", "fpkg.db");
 
-test("Phase 296 publishes Platinum Travia only on an owned checkpoint copy", {
+test("Phase 296 refuses to downgrade the newer Platinum brand pack", {
   timeout: 900_000,
 }, async () => {
   const protectedSnapshot = snapshotCatalogFiles(REAL);
@@ -41,24 +40,22 @@ test("Phase 296 publishes Platinum Travia only on an owned checkpoint copy", {
     assert.ok(model);
     assert.ok(model.claims.length >= 13);
     assert.equal(model.variants?.length, 3);
-    const result = await applyPhase296Platinum3776TraviaContent(client, {
-      workspaceRoot: ROOT,
-      reviewer: "phase296-platinum-travia-test",
-      databasePath: copy.destinationPath,
-      ownedRoot,
-      protectedCatalogPath: REAL,
-      protectedCatalogSnapshot: protectedSnapshot,
-      env: {
-        NODE_ENV: "test",
-        TURSO_DATABASE_URL: "",
-        TURSO_AUTH_TOKEN: "",
-        FPKG_DATABASE_URL: "",
-      },
-    });
-    assert.equal(
-      result.entities.find((item) => item.entityId === PHASE296_TRAVIA_ID)
-        ?.outcome,
-      "published",
+    await assert.rejects(
+      applyPhase296Platinum3776TraviaContent(client, {
+        workspaceRoot: ROOT,
+        reviewer: "phase296-platinum-travia-test",
+        databasePath: copy.destinationPath,
+        ownedRoot,
+        protectedCatalogPath: REAL,
+        protectedCatalogSnapshot: protectedSnapshot,
+        env: {
+          NODE_ENV: "test",
+          TURSO_DATABASE_URL: "",
+          TURSO_AUTH_TOKEN: "",
+          FPKG_DATABASE_URL: "",
+        },
+      }),
+      /obsolete after the newer brand-depth pack/,
     );
     const state = (
       await client.execute({
@@ -99,28 +96,10 @@ test("Phase 296 publishes Platinum Travia only on an owned checkpoint copy", {
         ],
       })
     ).rows[0];
-    assert.equal(Number(counts?.claims), model.claims.length);
+    assert.equal(Number(counts?.claims), 14);
     assert.equal(Number(counts?.variants), 3);
-    assert.equal(Number(counts?.refs), model.sources.length);
+    assert.equal(Number(counts?.refs), 6);
     assert.equal(Number(counts?.media), 1);
-    const hash = await computePublicationContentHash(
-      client,
-      PHASE296_TRAVIA_ID,
-    );
-    assert.deepEqual(
-      (
-        await client.execute({
-          sql: "SELECT review_kind,status FROM entity_content_reviews WHERE entity_id=? AND content_hash=? ORDER BY review_kind",
-          args: [PHASE296_TRAVIA_ID, hash],
-        })
-      ).rows.map((row) => [row.review_kind, row.status]),
-      [
-        ["fact", "approved"],
-        ["language", "approved"],
-        ["media", "approved"],
-        ["publication", "approved"],
-      ],
-    );
     const makers = await client.execute({
       sql: "SELECT target_id FROM entity_links WHERE source_id=? AND link_type='made_by'",
       args: [PHASE296_TRAVIA_ID],
@@ -129,6 +108,16 @@ test("Phase 296 publishes Platinum Travia only on an owned checkpoint copy", {
       makers.rows.map((row) => String(row.target_id)),
       ["e51tJpejEkXY"],
     );
+    const brand = (
+      await client.execute({
+        sql: "SELECT source,length(body_md) AS body_chars FROM entities WHERE id='e51tJpejEkXY'",
+      })
+    ).rows[0];
+    assert.match(
+      String(brand?.source),
+      /^curated-content:phase447-platinum-brand-depth-v1:/,
+    );
+    assert.equal(Number(brand?.body_chars), 2612);
     assert.deepEqual(snapshotCatalogFiles(REAL), protectedSnapshot);
   } finally {
     client.close();

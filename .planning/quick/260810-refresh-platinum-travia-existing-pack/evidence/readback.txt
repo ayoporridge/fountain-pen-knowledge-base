@@ -1,0 +1,21 @@
+--- entities ---
+id                             type   name                           slug                          body_chars  status     source                                                                                                                   
+-----------------------------  -----  -----------------------------  ----------------------------  ----------  ---------  -------------------------------------------------------------------------------------------------------------------------
+e51tJpejEkXY                   brand  白金 Platinum                  platinum                      2612        published  curated-content:phase447-platinum-brand-depth-v1:4c5e71e8a50afe7ad3984670b583a98a5bd8c5ca7e5a6949578262f4aea5ddbe        
+phase296-platinum-3776-travia  pen    Platinum #3776 CENTURY Travia  platinum-3776-century-travia  2386        published  curated-content:phase296-platinum-3776-century-travia-v1:14fca19039d2c50be61cedfa52d2c6a0193cc47f3257ff00bb805bbc5e62979d
+--- variants ---
+id                                        variant_name           variant_kind   product_code       market              
+----------------------------------------  ---------------------  -------------  -----------------  --------------------
+curated-variant-1aaeeaf138c15572aa6b3ea2  Onyx Black FLAF F      nib            5003186 / 1003012  official current SKU
+curated-variant-701de4bc011d534ad9561fc5  Onyx Black FLAF M      nib            5003187 / 1003013  official current SKU
+curated-variant-d8f75a6caabcaf7095ac7f1e  首批 2,000 套特别包装  edition_group                                         
+--- made_by ---
+source_id                      target_id     link_type  reason                                         
+-----------------------------  ------------  ---------  -----------------------------------------------
+phase296-platinum-3776-travia  e51tJpejEkXY  made_by    Phase 296 canonical Platinum maker relationship
+--- counts ---
+claims  variants  refs  media
+------  --------  ----  -----
+14      3         6     1    
+--- integrity ---
+ok

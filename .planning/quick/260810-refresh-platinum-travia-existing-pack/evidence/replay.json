@@ -1,0 +1,14 @@
+{
+  "entities": [
+    {
+      "entityId": "e51tJpejEkXY",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:1f1a9941a90f276ff3bcf2372d7b691f276b735cb8c2e2a87122679162967b01"
+    },
+    {
+      "entityId": "phase296-platinum-3776-travia",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:044cd63b330ece83c541e5200f587b388faf9829a2f6bd644ac4be06f65f548b"
+    }
+  ]
+}

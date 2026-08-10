@@ -16,6 +16,20 @@ function digest(value: string): string {
   return `phase296-${(hash >>> 0).toString(16).padStart(8, "0")}`;
 }
 
+async function assertBrandPackPrecedence(client: Client): Promise<void> {
+  const row = await client.execute({
+    sql: "SELECT source FROM entities WHERE id=? AND type='brand' AND slug='platinum'",
+    args: [PHASE42_PLATINUM_BRAND_ID],
+  });
+  const source = String(row.rows[0]?.source ?? "");
+  const match = source.match(/^curated-content:phase(\d+)-platinum-brand-depth-v1:/);
+  if (match && Number(match[1]) >= 447) {
+    throw new Error(
+      "Phase 296 Platinum brand pack is obsolete after the newer brand-depth pack; refuse to downgrade the canonical Platinum brand.",
+    );
+  }
+}
+
 async function ensureIdentityAndMaker(client: Client): Promise<void> {
   const brand = await client.execute({ sql: "SELECT type,slug FROM entities WHERE id=?", args: [PHASE42_PLATINUM_BRAND_ID] });
   if (brand.rows.length !== 1 || String(brand.rows[0]?.type) !== "brand" || String(brand.rows[0]?.slug) !== "platinum") {
@@ -45,6 +59,7 @@ export async function applyPhase296Platinum3776TraviaContent(client: Client, opt
   if (!options.reviewer.trim()) throw new Error("Phase 296 reviewer must not be empty.");
   const workspaceRoot = fs.realpathSync.native(options.workspaceRoot);
   if (!workspaceRoot.endsWith("/fountain-pen-graph")) throw new Error("Phase 296 requires the verified fountain-pen-graph workspace.");
+  await assertBrandPackPrecedence(client);
   await ensureIdentityAndMaker(client);
   const result = await applyCuratedContentPacks(client, options, phase296Platinum3776TraviaPacks);
   assertCatalogSnapshotUnchanged(options.protectedCatalogSnapshot);
