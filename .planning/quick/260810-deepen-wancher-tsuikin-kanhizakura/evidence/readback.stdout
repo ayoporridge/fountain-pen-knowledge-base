@@ -1,0 +1,38 @@
+{
+  "state": {
+    "id": "phase388-pen-wancher-tsuikin-kanhizakura",
+    "type": "pen",
+    "slug": "wancher-tsuikin-kanhizakura",
+    "name": "Wancher Dream Pen Tsuikin – Kanhizakura",
+    "source": "curated-content:phase578-wancher-tsuikin-kanhizakura-depth-v1:1df893bed129cedf8d4bc7bacdbb0df95be49de73fa9459836e20a192839d288",
+    "body_chars": 7498,
+    "status": "published",
+    "content_revision": 549,
+    "reviewed_content_revision": 549,
+    "reviewed_contract_version": 3,
+    "publishable": 1,
+    "blocker_count": 0,
+    "blockers_json": "[]",
+    "is_public": 1
+  },
+  "counts": {
+    "references": 15,
+    "claims": 26,
+    "citations": 26,
+    "sources": 15,
+    "variants": 12,
+    "scopes": 4,
+    "conflicts": 5,
+    "primary_media": 1,
+    "made_by": 1,
+    "reverse": 1
+  },
+  "body_has": {
+    "product_id": true,
+    "sku": true,
+    "price": true,
+    "material": true,
+    "maintenance": true,
+    "forbidden": false
+  }
+}
