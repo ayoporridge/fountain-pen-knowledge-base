@@ -1,0 +1,92 @@
+{
+  "brands": [
+    {
+      "id": "4RLQzNpb6WbN",
+      "slug": "schneider",
+      "name": "施耐德 Schneider",
+      "source": "curated-content:phase435-schneider-brand-depth-refresh-v1:5fb825f2806046e3530d315ee756fa01932ba72c934acfdecc20a19376acaa63",
+      "body": 2748,
+      "refs": 4,
+      "primary_media": 1,
+      "publication": "published",
+      "is_public": 1
+    },
+    {
+      "id": "phase139-brand-caran-dache",
+      "slug": "caran-dache",
+      "name": "Caran d’Ache",
+      "source": "curated-content:phase435-caran-dache-brand-depth-refresh-v1:625a30c8e84194a5d432412e1b49f1abf75f4b671dc61a951e3d5b20d0e0774f",
+      "body": 2763,
+      "refs": 5,
+      "primary_media": 1,
+      "publication": "published",
+      "is_public": 1
+    },
+    {
+      "id": "phase260-brand-gravitas",
+      "slug": "gravitas",
+      "name": "Gravitas Pens",
+      "source": "curated-content:phase435-gravitas-brand-depth-refresh-v1:7debd55e799f20673f92dc8c974c4bfbb22ccd993c06bcfe8b207ce19c2eb13b",
+      "body": 2974,
+      "refs": 6,
+      "primary_media": 1,
+      "publication": "published",
+      "is_public": 1
+    },
+    {
+      "id": "phase268-brand-onoto",
+      "slug": "onoto",
+      "name": "Onoto",
+      "source": "curated-content:phase435-onoto-brand-depth-refresh-v1:bfe6c325498615b2af33895731f9ecee7ae31aee7ccb2d84585fdf1b39f97bca",
+      "body": 2902,
+      "refs": 9,
+      "primary_media": 1,
+      "publication": "published",
+      "is_public": 1
+    },
+    {
+      "id": "z6qsxNL0PAj8",
+      "slug": "skb",
+      "name": "SKB 文明钢笔",
+      "source": "curated-content:phase435-skb-brand-depth-refresh-v1:b0bfea55301878a04daf80f6d4e75cb5673ca2f227ba11b833d4697dbec6ee27",
+      "body": 3362,
+      "refs": 8,
+      "primary_media": 1,
+      "publication": "published",
+      "is_public": 1
+    }
+  ]
+}
+{
+  "schneiderPublishedPens": [
+    {
+      "id": "MilfdAoWAAJz",
+      "slug": "施耐德-schneider-bk402",
+      "name": "施耐德 Schneider BK402",
+      "body": 2176,
+      "reverse_links": 1
+    },
+    {
+      "id": "phase139-schneider-ray",
+      "slug": "schneider-ray",
+      "name": "Schneider Ray",
+      "body": 4344,
+      "reverse_links": 1
+    }
+  ]
+}
+{
+  "phase576Pilot": {
+    "id": "s105PILOT_URUSHI",
+    "slug": "pilot-custom-urushi",
+    "source": "curated-content:phase400-pilot-custom-urushi-refresh-v1:5b35401c9b5fc5010cd7ac3fd12e9d25945899fbb935c1e79474c030f2d58527",
+    "body": 8115
+  }
+}
+{
+  "counts": {
+    "entities": 1100,
+    "public": 1053,
+    "published": 791
+  }
+}

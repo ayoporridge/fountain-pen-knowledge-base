@@ -1,0 +1,2 @@
+brand: total=119 ready=115 starter=0 gap=4 average_score=97
+pen: total=690 ready=671 starter=3 gap=16 average_score=98

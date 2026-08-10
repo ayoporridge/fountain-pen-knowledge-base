@@ -1,0 +1,5 @@
+readiness audit (without stale --verify-baseline assertion)
+inventory_audited=809 brand_inventory_audited=119 pen_inventory_audited=690
+content_ready=786 published=786 public_entities=786 published_blockers=0 public_blockers=0 backlog=23
+inventory_complete=true public_clean=true content_complete=false complete=false
+stale baseline check: expected 800, current inventory 809 (recorded in readiness.stderr)
