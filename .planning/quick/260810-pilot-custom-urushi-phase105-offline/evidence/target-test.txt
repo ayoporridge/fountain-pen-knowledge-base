@@ -1,0 +1,15 @@
+TAP version 13
+# Subtest: Phase 105 publishes only Custom URUSHI through contract-v3 on an owned checkpoint
+ok 1 - Phase 105 publishes only Custom URUSHI through contract-v3 on an owned checkpoint
+  ---
+  duration_ms: 199368.139875
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 199809.538791

@@ -1,0 +1,84 @@
+id                type  slug                 name                      summary_chars  body_chars  source
+----------------  ----  -------------------  ------------------------  -------------  ----------  ------------------------------------------------------------
+s105PILOT_URUSHI  pen   pilot-custom-urushi  百乐 Pilot Custom URUSHI  113            2070        curated-content:phase105-pilot-custom-urushi-v1:56631a2e3711
+                                                                                                  77c2941e7bfea2c473fd66ee267915b2eea9d7a6dd27c0a8d8ff
+entity_id         status     depth_tier  blockers_json  approved_content_hash                                         content_revision  reviewed_content_revision  reviewed_contract_version  reviewed_by                   reviewed_at               published_at
+----------------  ---------  ----------  -------------  ------------------------------------------------------------  ----------------  -------------------------  -------------------------  ----------------------------  ------------------------  ------------------------
+s105PILOT_URUSHI  published  A           []             sha256:v3:acb48825f4d25c002358d7337b77c6c43c37fdf1eecc4667d5  438               438                        3                          phase572-pilot-custom-urushi  2026-08-10T04:17:47.542Z  2026-08-10T04:17:56.296Z
+                                                        296a921b23bf66
+review_kind  status    reviewer                      content_hash
+-----------  --------  ----------------------------  ------------------------------------------------------------
+fact         approved  phase572-pilot-custom-urushi  sha256:v3:acb48825f4d25c002358d7337b77c6c43c37fdf1eecc4667d5
+                                                     296a921b23bf66
+
+fact         revoked   phase246-cache-test           sha256:v3:1fc07c886e8c4ff6069a29f6faea3c6283d7b90521bf834d1d
+                                                     cd1de7314c6e7c
+
+fact         revoked   phase425-integration          sha256:v3:29cc18ce8a9b32f064bfe2c495f81f4e34ead7e3cd3135f3e6
+                                                     39b77bdbfd1eaf
+
+language     approved  phase572-pilot-custom-urushi  sha256:v3:acb48825f4d25c002358d7337b77c6c43c37fdf1eecc4667d5
+                                                     296a921b23bf66
+
+language     revoked   phase246-cache-test           sha256:v3:1fc07c886e8c4ff6069a29f6faea3c6283d7b90521bf834d1d
+                                                     cd1de7314c6e7c
+
+language     revoked   phase425-integration          sha256:v3:29cc18ce8a9b32f064bfe2c495f81f4e34ead7e3cd3135f3e6
+                                                     39b77bdbfd1eaf
+
+media        approved  phase572-pilot-custom-urushi  sha256:v3:acb48825f4d25c002358d7337b77c6c43c37fdf1eecc4667d5
+                                                     296a921b23bf66
+
+media        revoked   phase246-cache-test           sha256:v3:1fc07c886e8c4ff6069a29f6faea3c6283d7b90521bf834d1d
+                                                     cd1de7314c6e7c
+
+media        revoked   phase425-integration          sha256:v3:29cc18ce8a9b32f064bfe2c495f81f4e34ead7e3cd3135f3e6
+                                                     39b77bdbfd1eaf
+
+publication  approved  phase572-pilot-custom-urushi  sha256:v3:acb48825f4d25c002358d7337b77c6c43c37fdf1eecc4667d5
+                                                     296a921b23bf66
+
+publication  revoked   phase246-cache-test           sha256:v3:1fc07c886e8c4ff6069a29f6faea3c6283d7b90521bf834d1d
+                                                     cd1de7314c6e7c
+
+publication  revoked   phase425-integration          sha256:v3:29cc18ce8a9b32f064bfe2c495f81f4e34ead7e3cd3135f3e6
+                                                     39b77bdbfd1eaf
+id                                           brand_entity_id  series_name                     release_year                             origin_country  nib                                     fill_system                                 material                dimensions                                        weight                        price_range  status                                  review_status
+-------------------------------------------  ---------------  ------------------------------  ---------------------------------------  --------------  --------------------------------------  ------------------------------------------  ----------------------  ------------------------------------------------  ----------------------------  -----------  --------------------------------------  -------------
+curated-model-spec-9dea907a693d73d2510881ce  Zt-PbXkE7UHM     Pilot Custom URUSHI / FKV-88SR  当前 FKV-88SR；紺青于 2024 年 11 月加入                  18K No.30 大型笔尖；具体尖宽按当期 SKU  Pilot cartridge/converter；CON-40、CON-70N  硬橡胶笔身，蝋色漆仕上  当期资料未在本包建立统一尺寸；不从 845／823 回填  当期资料未在本包建立统一克重               当前型号；漆黑、朱、紺青为颜色 variant  approved
+id                                        variant_name  release_year  notes                                                 product_code  market  review_status
+----------------------------------------  ------------  ------------  ----------------------------------------------------  ------------  ------  -------------
+curated-variant-575a3fe005183ca5b85e463c  朱                          官方新闻稿列为既有色；颜色不改变 FKV-88SR 型号身份。                Japan   approved
+curated-variant-000fdf9a090786f3d25ab581  漆黑                        官方新闻稿列为既有色；颜色不改变 FKV-88SR 型号身份。                Japan   approved
+curated-variant-318085b69365df7543879661  紺青          2024          2024 年 11 月加入的颜色 variant，不是新笔身平台。                   Japan   approved
+id                                      title                                         local_path                                             usage_status  review_status  source_url
+--------------------------------------  --------------------------------------------  -----------------------------------------------------  ------------  -------------  -----------------------------------------------------
+curated-media-dcd77e59caafd736216f838f  Pilot Custom URUSHI 事实示意图（非产品照片）  /images/library/site-original/pilot/custom-urushi.svg  primary       approved       /images/library/site-original/pilot/custom-urushi.svg
+source_id         target_id     link_type  reason
+----------------  ------------  ---------  ------------------------------------
+s105PILOT_URUSHI  Zt-PbXkE7UHM  made_by    Phase 105 exact Pilot maker relation
+source_item_id                                title                                                       url                                                           reference_review_status  source_review_status  archive_url                                                   archive_locator
+--------------------------------------------  ----------------------------------------------------------  ------------------------------------------------------------  -----------------------  --------------------  ------------------------------------------------------------  ------------------------------------------------------------
+curated-source-item-0425b260df46e23fe6dd1f5c  CUSTOM URUSHI FKV-88SR 使用说明与保修                       https://www.pilot.co.jp/support/warranty/jp/fountain/custom_  approved                 approved              https://www.pilot.co.jp/support/warranty/jp/fountain/custom_  live-source-not-frozen;retrieved=2026-07-20;external_archive
+                                                                                                          urushi.html                                                                                                  urushi.html                                                   =false;locator=PILOT 官方支持页绑定 FKV-88SR，说明墨囊、CON-
+                                                                                                                                                                                                                                                                                     40、CON-70N 兼容性及清洁、漆面与禁止自行维修等注意事项。
+
+curated-source-item-09af7dda896379301b4d8e7d  Ultra Luxury Options: The Pilot Custom Urushi Fountain Pen  https://www.gentlemanstationer.com/blog/2021/7/3/ultra-luxur  approved                 approved              https://www.gentlemanstationer.com/blog/2021/7/3/ultra-luxur  live-source-not-frozen;retrieved=2026-07-20;external_archive
+                                                                                                          y-options-the-pilot-custom-urushi-fountain-pen                                                               y-options-the-pilot-custom-urushi-fountain-pen                =false;locator=opening construction paragraph and cartridge-
+                                                                                                                                                                                                                                                                                     converter discussion
+
+curated-source-item-564edd3f414e797433af76e3  CUSTOM URUSHI 新色「紺青」发布                              https://www.pilot.co.jp/press_release/2024/10/23/urushi.html  approved                 approved              https://www.pilot.co.jp/press_release/2024/10/23/urushi.html  live-source-not-frozen;retrieved=2026-07-20;external_archive
+                                                                                                                                                                                                                                                                                     =false;locator=PILOT 2024 年 10 月 23 日新闻稿列出硬橡胶笔身
+                                                                                                                                                                                                                                                                                     、蝋色漆、18K No.30 大型笔尖及既有漆黑／朱和新增紺青。
+
+curated-source-item-be7828fc0fd40b58e339116f  Pilot Custom URUSHI 事实示意图                              /images/library/site-original/pilot/custom-urushi.svg         approved                 approved              /images/library/site-original/pilot/custom-urushi.svg         project-public-asset:/images/library/site-original/pilot/cus
+                                                                                                                                                                                                                                                                                     tom-urushi.svg;site-original=true;factual-svg=true;product-p
+                                                                                                                                                                                                                                                                                     hoto=false;to-scale=false;colour-proof=false;dimensions=1600
+                                                                                                                                                                                                                                                                                     x900
+
+curated-source-item-f13e27b8f44c5b0743d12680  PILOT 万年筆产品目录                                        https://webcatalog.pilot.co.jp/products/DispCate.do?category  approved                 approved              https://webcatalog.pilot.co.jp/products/DispCate.do?category  live-source-not-frozen;retrieved=2026-07-20;external_archive
+                                                                                                          =%E4%B8%87%E5%B9%B4%E7%AD%86%2F%E4%B8%87%E5%B9%B4%E7%AD%86&v                                                 =%E4%B8%87%E5%B9%B4%E7%AD%86%2F%E4%B8%87%E5%B9%B4%E7%AD%86&v  =false;locator=PILOT 官方万年笔目录将 Custom URUSHI 作为独立
+                                                                                                          olumeName=00004                                                                                              olumeName=00004                                               在售型号；用于产品家族与当前目录身份定位。
+entity_id         publishable  blocker_count  blockers_json  is_public
+----------------  -----------  -------------  -------------  ---------
+s105PILOT_URUSHI  1            0              []             1
