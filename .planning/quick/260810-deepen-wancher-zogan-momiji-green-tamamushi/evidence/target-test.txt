@@ -1,0 +1,15 @@
+TAP version 13
+# Subtest: Phase 581 deepens the canonical Green Tamamushi and retires its duplicate route
+ok 1 - Phase 581 deepens the canonical Green Tamamushi and retires its duplicate route
+  ---
+  duration_ms: 43746.192292
+  ...
+1..1
+# tests 1
+# suites 0
+# pass 1
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 44149.857625
