@@ -1,0 +1,23 @@
+{
+  "changed": false,
+  "entities": [
+    {
+      "entityId": "phase348-maiora-brand",
+      "slug": "maiora",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:647005105251d626bbb05afd369c527a282fd6a42896768e64f3ac1a4dea561c"
+    },
+    {
+      "entityId": "phase348-maiora-impronte",
+      "slug": "maiora-impronte",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:be89b43401fbcbf24c8ce9e05040f0020756bff53ce1567dee73fd26dd9e1092"
+    },
+    {
+      "entityId": "phase348-maiora-impronte-oversize",
+      "slug": "maiora-impronte-oversize",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:849af1eb9807722275a3039053eee3ac67fb86b3288f28b1f0cc9f6a0613967f"
+    }
+  ]
+}

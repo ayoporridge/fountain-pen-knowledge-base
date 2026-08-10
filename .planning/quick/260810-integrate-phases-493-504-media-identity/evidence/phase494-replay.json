@@ -1,0 +1,41 @@
+{
+  "changed": false,
+  "entities": [
+    {
+      "entityId": "b6DYMF38zz1B",
+      "slug": "esterbrook",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:82539908583db421a34295afb01734b04d94a0fd4d5b9a2ff0d420ffc87d3f8b"
+    },
+    {
+      "entityId": "eOfD77nOeENN",
+      "slug": "wancher",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:aeb7ccf699f34e59f99f33dd390eb64aec9e9269ffaf29cc3f80671c2eff1cad"
+    },
+    {
+      "entityId": "hbOcg60TD2lr",
+      "slug": "sheaffer-connaisseur",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:107af3b801b85cf7ed1d3faa41d617878bfa84a276b0ddaad6a60a737448b0ee"
+    },
+    {
+      "entityId": "phase106-sheaffer-imperial",
+      "slug": "sheaffer-imperial",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:f1238f8398dfc39525053fec250ad1d30001379ffd234260fbb18ec1662f07a3"
+    },
+    {
+      "entityId": "phase106-sheaffer-icon",
+      "slug": "sheaffer-icon",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:fa336464df9967dbeee29bec70af5a8cb5af4195c04bc9354b3369218397b393"
+    },
+    {
+      "entityId": "I6tjleAZx9RU",
+      "slug": "opus88",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:e9e5abbdd80d9f6d883ae5d639b0fa027af9711a349fd9bf814d9095cc4045d2"
+    }
+  ]
+}

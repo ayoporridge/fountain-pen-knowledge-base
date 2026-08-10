@@ -1,0 +1,38 @@
+PHASE569 MEDIA / IDENTITY READBACK (owned checkpoint only)
+--- approved primary duplicate paths ---
+--- selected target primary media ---
+entity_id                          media_id                                local_path                                                    usage_status  review_status
+---------------------------------  --------------------------------------  ------------------------------------------------------------  ------------  -------------
+6bBDoAc4ULKm                       curated-media-5afe2ffac84617361354ef7c  /images/library/site-original/phase496/chilton/brand.svg      primary       approved
+
+eOfD77nOeENN                       curated-media-7afab0739b73241b6e7274fe  /images/library/site-original/wancher/wancher-brand-family.s  primary       approved
+                                                                           vg
+
+phase260-gravitas-ultemate-vac     curated-media-0719534b33a0d1440a84560f  /images/library/site-original/phase260/gravitas/ultemate-vac  primary       approved
+                                                                           .svg
+
+phase261-brand-magna-carta         curated-media-da4192c7feb511c56accc3d3  /images/library/site-original/phase498/magna-carta/brand.svg  primary       approved
+
+phase262-brand-taccia              curated-media-08dd13b460908e60907f8eb5  /images/library/site-original/phase498/taccia/brand.svg       primary       approved
+
+phase272-brand-mabie-todd          curated-media-9198417a118a78596113fcfe  /images/library/site-original/phase498/mabie-todd/brand.svg   primary       approved
+
+phase279-opus88-premium-opera      curated-media-f6d7e5ecfd02d9ac1af5eba6  /images/library/site-original/phase279/opus88/premium-opera.  primary       approved
+                                                                           svg
+
+phase348-maiora-brand              curated-media-7bad12ce5a19213a6f26cbda  /images/library/site-original/phase503/maiora/brand.svg       primary       approved
+
+phase348-maiora-impronte           curated-media-253d3e91b609ff7910b1f787  /images/library/site-original/phase503/maiora/impronte.svg    primary       approved
+
+phase348-maiora-impronte-oversize  curated-media-8b30b38f11b255e0d1f09753  /images/library/site-original/phase503/maiora/impronte-overs  primary       approved
+                                                                           ize.svg
+--- Waterman Allure lineage/media ---
+id                           slug                          status     lineage_kind  source_entity_id    target_entity_id             source_path                        target_path           media_id                                usage_status  local_path
+---------------------------  ----------------------------  ---------  ------------  ------------------  ---------------------------  ---------------------------------  --------------------  --------------------------------------  ------------  ----------------------------------------------------------
+p244WatermanAllure           waterman-allure-fountain-pen  retired    merge         p244WatermanAllure  phase83-pen-waterman-allure  /pen/waterman-allure-fountain-pen  /pen/waterman-allure  curated-media-0af25cd3e41db964d69131c1  hidden        /images/library/site-original/phase244/waterman/allure.svg
+phase83-pen-waterman-allure  waterman-allure               published  merge         p244WatermanAllure  phase83-pen-waterman-allure                                                           curated-media-8ff31e6bb42a5ccfe10aa6fd  primary       /images/library/site-original/phase244/waterman/allure.svg
+--- retired Pelikan M800 redirect/lineage ---
+id            slug                   status     lineage_kind  source_entity_id  target_entity_id  source_path               target_path
+------------  ---------------------  ---------  ------------  ----------------  ----------------  ------------------------  --------------------------
+1UzrQA9Rrmqs  pelikan-souveran-m800  published  merge         rKSjyWghpB8Y      1UzrQA9Rrmqs
+rKSjyWghpB8Y  百利金-pelikan-m800    retired    merge         rKSjyWghpB8Y      1UzrQA9Rrmqs      /pen/百利金-pelikan-m800  /pen/pelikan-souveran-m800

@@ -1,0 +1,35 @@
+{
+  "changed": false,
+  "entities": [
+    {
+      "entityId": "pwbUeoKAp7xI",
+      "slug": "dunn",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:732378a06b8c372b2c9c7769d32ff5e172d653ca95e78c94811e67020777a788"
+    },
+    {
+      "entityId": "phase254-brand-st-dupont",
+      "slug": "st-dupont",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:99c3327c31d13efb292d8ee7c763c76052c6af7898f7894a6ef6e3bc2a3ad826"
+    },
+    {
+      "entityId": "phase257-brand-eboya",
+      "slug": "eboya",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:1651220d4899b3fc0527ab059fcb25cb894a439f8dec4be2ac226f8f7354de36"
+    },
+    {
+      "entityId": "phase259-brand-kanwrite",
+      "slug": "kanwrite",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:c604d96c3792328a462b029d2a9bc98a0f004beffa3a55b543b4d72864197eaa"
+    },
+    {
+      "entityId": "phase260-brand-gravitas",
+      "slug": "gravitas",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:168882abd94118f0a0103d314d493ad178a599aadb0673dacb6572e5bf4cfe5c"
+    }
+  ]
+}

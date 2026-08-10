@@ -1,0 +1,35 @@
+{
+  "changed": false,
+  "entities": [
+    {
+      "entityId": "phase275-brand-ensso",
+      "slug": "ensso",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:c74398074ff4503fa9bc7fc8eb1f65049c8b568bcac81b01749c14bdd59752dc"
+    },
+    {
+      "entityId": "phase276-brand-fpr",
+      "slug": "fountain-pen-revolution",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:8930dd63120aa2561b3fa522355c0b0ea842912dc4b27cc686f771ff7ec8d339"
+    },
+    {
+      "entityId": "phase290-brand-schon-dsgn",
+      "slug": "schon-dsgn",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:7f1563dfccdb056dac117dea29fd2e6f6f217b8fdc6689c3f158f9a036a24edb"
+    },
+    {
+      "entityId": "phase345-kilk-brand",
+      "slug": "kilk",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:19949f7309ef127e0c7fb0fd720d88cae856af5a1f842b27ab8c024c4be34b2e"
+    },
+    {
+      "entityId": "phase347-tibaldi-brand",
+      "slug": "tibaldi",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:e426e0dd58d295adf98cd1fe0ed56eb86a070a58519f7bce420f20aeb4f37478"
+    }
+  ]
+}

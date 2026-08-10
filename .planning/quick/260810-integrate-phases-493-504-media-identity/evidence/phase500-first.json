@@ -1,0 +1,29 @@
+{
+  "changed": false,
+  "entities": [
+    {
+      "entityId": "phase349-david-oscarson-brand",
+      "slug": "david-oscarson",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:25f3f00e51bf596707bbdf6de328dbc5f7b2d4acc50347252e461b963862c182"
+    },
+    {
+      "entityId": "phase350-bexley-brand",
+      "slug": "bexley",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:759431a5154f9770408289147005fd298dc6d6923f1411ba6e5d9fa9a8f2dc8b"
+    },
+    {
+      "entityId": "phase351-gioia-brand",
+      "slug": "gioia",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:dc4824f89c00b480ed9ddd407b46795b380dc6de20dbfe63da73cb42700279bb"
+    },
+    {
+      "entityId": "phase352-danitrio-brand",
+      "slug": "danitrio",
+      "outcome": "noop",
+      "contentHash": "sha256:v3:2fc90a644596e3910c4cc398d5b935626c68cfa51ee39e1a81795df31b96f76f"
+    }
+  ]
+}
