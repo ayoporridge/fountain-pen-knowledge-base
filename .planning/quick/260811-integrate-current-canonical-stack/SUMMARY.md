@@ -35,6 +35,9 @@ completed: 2026-08-11
   Green canonical 为 `published`、`publishable=1`、`blocker_count=0`；两条旧路径的
   permanent redirect 和 6 条 canonical `made_by` 关系均可回读。
 - `npx tsc --noEmit`、目标 Biome、tracked diff check 均通过。
+- owned checkpoint 的 library contract 通过：3,734 sources、5,614 source items、6,940
+  claims、15,787 citations、837 stories、1,151 events、1,106 media；real catalog 的 data
+  contract 也通过，未发现未知 entity type 或缺失 facet dimension。
 - 真实 `data/fpkg.db` SHA-256 前后仍为
   `acbb5710050b5c9d6e435666dda909b66055c290a4640f04faa38860ea24d09a`；owned checkpoint
   的 SHA 记录在 `evidence/owned-checkpoint.sha256`。
