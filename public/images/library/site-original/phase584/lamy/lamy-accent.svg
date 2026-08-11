@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">LAMY accent 可更换握位事实示意</title>
+  <desc id="desc">本站原创示意图，非产品照片。解释 LAMY accent 的可更换握位、当前具体配置与钢尖金尖版本边界。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#13202a"/><stop offset="1" stop-color="#273f4c"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#cbd5db"/><stop offset=".48" stop-color="#f5f7f7"/><stop offset="1" stop-color="#899ba5"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <text x="110" y="130" fill="#f6f1e6" font-size="64" font-family="ui-sans-serif,system-ui" font-weight="700">LAMY accent</text>
+  <text x="112" y="184" fill="#b7ccd7" font-size="26" font-family="ui-sans-serif,system-ui">可更换握位是身份核心 · 具体饰面与尖材逐款核对</text>
+  <g transform="translate(145 310)">
+    <rect x="0" y="74" width="790" height="116" rx="58" fill="url(#metal)"/>
+    <rect x="420" y="66" width="185" height="132" rx="62" fill="#20312e" stroke="#c69a5e" stroke-width="9"/>
+    <path d="M790 92 L1000 132 L790 172 Z" fill="#e6edf0"/>
+    <path d="M1000 132 L1074 132" stroke="#c69a5e" stroke-width="8"/>
+    <path d="M57 65 C150 10 275 18 340 59" fill="none" stroke="#e5eef1" stroke-width="16" stroke-linecap="round"/>
+    <circle cx="102" cy="53" r="12" fill="#c69a5e"/>
+  </g>
+  <g font-family="ui-sans-serif,system-ui">
+    <rect x="1110" y="300" width="365" height="100" rx="22" fill="#f6f1e6"/>
+    <text x="1148" y="343" font-size="24" fill="#17242c">握位模块</text>
+    <text x="1148" y="375" font-size="19" fill="#425a66">橡胶／木材／装饰组合按 SKU</text>
+    <rect x="1110" y="430" width="365" height="100" rx="22" fill="#f6f1e6"/>
+    <text x="1148" y="473" font-size="24" fill="#17242c">当前页面锚点</text>
+    <text x="1148" y="505" font-size="19" fill="#425a66">143 mm · 26 g · T10 / Z27</text>
+    <rect x="1110" y="560" width="365" height="100" rx="22" fill="#f6f1e6"/>
+    <text x="1148" y="603" font-size="24" fill="#17242c">版本边界</text>
+    <text x="1148" y="635" font-size="19" fill="#425a66">钢尖与 14K 版本不可互抄</text>
+    <rect x="110" y="780" width="1380" height="66" rx="18" fill="#0b151b" opacity=".86"/>
+    <text x="800" y="823" text-anchor="middle" font-size="22" fill="#f6f1e6">本站原创示意图，非产品照片 · 非比例 · 不含品牌 Logo · 不证明颜色或库存</text>
+  </g>
+</svg>

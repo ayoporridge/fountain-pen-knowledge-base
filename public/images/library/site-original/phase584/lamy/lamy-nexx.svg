@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">LAMY nexx 软握位与三角铝杆事实示意</title>
+  <desc id="desc">本站原创示意图，非产品照片。解释 LAMY nexx 的三角阳极铝笔杆、橡胶化握位、钢尖和当前 A、M、LH 选择。</desc>
+  <defs><linearGradient id="bgn" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#102c2b"/><stop offset="1" stop-color="#1d5d55"/></linearGradient><linearGradient id="al" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#91a3a2"/><stop offset=".5" stop-color="#dce4df"/><stop offset="1" stop-color="#778d89"/></linearGradient></defs>
+  <rect width="1600" height="900" fill="url(#bgn)"/>
+  <text x="110" y="130" fill="#f2f6e9" font-size="64" font-family="ui-sans-serif,system-ui" font-weight="700">LAMY nexx</text>
+  <text x="112" y="184" fill="#b9ddd3" font-size="26" font-family="ui-sans-serif,system-ui">三角阳极铝笔杆 · 软握位 · 日用可换钢尖</text>
+  <g transform="translate(130 300)">
+    <path d="M0 125 L760 70 L760 180 Z" fill="url(#al)" stroke="#d8e8e2" stroke-width="6"/>
+    <rect x="715" y="58" width="250" height="134" rx="62" fill="#283b38" stroke="#96d2c4" stroke-width="8"/>
+    <path d="M965 82 L1195 125 L965 168 Z" fill="#e8eee9"/>
+    <path d="M1195 125 H1280" stroke="#f1d59c" stroke-width="9"/>
+    <path d="M105 82 L105 168" stroke="#65bfad" stroke-width="18"/>
+  </g>
+  <g font-family="ui-sans-serif,system-ui">
+    <g transform="translate(120 560)"><path d="M0 100 L90 0 L180 100 Z" fill="none" stroke="#b9ddd3" stroke-width="8"/><text x="220" y="50" fill="#f2f6e9" font-size="25">三角截面减少滚动</text><text x="220" y="88" fill="#b9ddd3" font-size="20">不是圆杆，也不是 AL-star 的透明握位</text></g>
+    <rect x="930" y="535" width="530" height="170" rx="28" fill="#f2f6e9"/>
+    <text x="970" y="583" fill="#173b37" font-size="24">当前 lime 页面</text>
+    <text x="970" y="627" fill="#315e57" font-size="21">150 mm · 23 g · A / M / LH</text>
+    <text x="970" y="669" fill="#315e57" font-size="21">T10 墨囊 · Z28 上墨器</text>
+    <rect x="110" y="810" width="1380" height="56" rx="16" fill="#081b1a" opacity=".88"/>
+    <text x="800" y="847" text-anchor="middle" font-size="21" fill="#f2f6e9">本站原创示意图，非产品照片 · 不复制联名图案、真实帽夹、颜色或比例</text>
+  </g>
+</svg>

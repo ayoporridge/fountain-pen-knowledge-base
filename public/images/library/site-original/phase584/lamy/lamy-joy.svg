@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">LAMY joy 书法尖事实示意</title>
+  <desc id="desc">本站原创示意图，非产品照片。解释 LAMY joy 的长杆、平口书法尖及 1.1、1.5、1.9 毫米尖幅。</desc>
+  <defs><linearGradient id="bgj" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2c1520"/><stop offset="1" stop-color="#6b2634"/></linearGradient></defs>
+  <rect width="1600" height="900" fill="url(#bgj)"/>
+  <text x="110" y="130" fill="#fff4df" font-size="64" font-family="ui-sans-serif,system-ui" font-weight="700">LAMY joy</text>
+  <text x="112" y="184" fill="#efc3bb" font-size="26" font-family="ui-sans-serif,system-ui">平口尖用角度产生粗细 · 不是靠按压的柔性尖</text>
+  <g transform="translate(125 290)">
+    <path d="M0 132 C260 92 600 88 1010 122 L1240 142 L1010 162 C600 196 260 192 0 152 Z" fill="#1d2126" stroke="#e8b8a6" stroke-width="8"/>
+    <path d="M1010 122 L1260 98 L1390 142 L1260 186 L1010 162 Z" fill="#e8e3d8"/>
+    <path d="M1265 110 L1265 174" stroke="#5a2634" stroke-width="11"/>
+    <path d="M180 106 L180 178" stroke="#d94a55" stroke-width="18"/>
+  </g>
+  <g font-family="ui-sans-serif,system-ui">
+    <text x="150" y="590" fill="#fff4df" font-size="28" font-weight="650">三种标称尖幅</text>
+    <path d="M150 640 H420" stroke="#f7d7bb" stroke-width="11"/><text x="445" y="649" fill="#fff4df" font-size="25">1.1 mm</text>
+    <path d="M150 700 H500" stroke="#f7d7bb" stroke-width="16"/><text x="525" y="709" fill="#fff4df" font-size="25">1.5 mm</text>
+    <path d="M150 760 H590" stroke="#f7d7bb" stroke-width="21"/><text x="615" y="769" fill="#fff4df" font-size="25">1.9 mm</text>
+    <rect x="970" y="580" width="500" height="166" rx="26" fill="#fff4df"/>
+    <text x="1010" y="627" fill="#3b1721" font-size="24">基础款当前锚点</text>
+    <text x="1010" y="670" fill="#603140" font-size="21">178 mm · 17 g · ASA plastic</text>
+    <text x="1010" y="710" fill="#603140" font-size="21">T10 墨囊 · Z28 上墨器</text>
+    <rect x="110" y="810" width="1380" height="56" rx="16" fill="#180b10" opacity=".88"/>
+    <text x="800" y="847" text-anchor="middle" font-size="21" fill="#fff4df">本站原创示意图，非产品照片 · 不表示真实配色、笔尖造型、包装或比例</text>
+  </g>
+</svg>
