@@ -1,0 +1,49 @@
+{
+  "database": "phase582-owned-checkpoint",
+  "sitemap": {
+    "total": 1071,
+    "unique": 1071,
+    "counts": {
+      "static": 1,
+      "library": 3,
+      "browse": 1,
+      "timeline": 1,
+      "exhibits": 7,
+      "graph": 1,
+      "by": 5,
+      "pen": 670,
+      "brand": 115,
+      "article": 255,
+      "nib": 2,
+      "concept": 10
+    }
+  },
+  "articleQuality": {
+    "testsPassed": 2,
+    "testsFailed": 0
+  },
+  "httpTraversal": {
+    "pagesRequested": 1071,
+    "pagesCompletedWithinThirtySecondsUnderConcurrency": 1070,
+    "concurrentTimeout": "/library/sources",
+    "isolatedRetry": {
+      "status": 200,
+      "seconds": 0.861601,
+      "bytes": 8371419
+    },
+    "internalTargetsDiscovered": 2459,
+    "extraInternalTargetsRequested": 1636,
+    "staticImageVariantsRequested": 790,
+    "externalProxyImageVariantsDeferredToExistingMediaAudit": 3050
+  },
+  "realFindings": {
+    "publishedEntitiesWithRawModelSpecsJson": 195,
+    "pensWithRawModelSpecsJson": 180,
+    "brandsWithRawModelSpecsJson": 15,
+    "affectedPensWithStructuredModelSpecRows": 180,
+    "affectedBrandsWithStructuredModelSpecRows": 0,
+    "publicEntitiesWithSiteOriginalPrimaryMedia": 800,
+    "readerFacingLicenseSlug": "site-original"
+  },
+  "boundary": "The first external image-proxy fetch pass was stopped because CDN response time would turn an offline audit into hours. External proxy media is covered by the existing database media audit; only same-origin static assets were fetched here."
+}

@@ -1,0 +1,8 @@
+command: TURSO_DATABASE_URL= TURSO_AUTH_TOKEN= FPKG_DATABASE_URL=file:<owned-phase582-checkpoint> PUBLICATION_GATE_FIXTURE=1 pnpm build
+exit: 0
+next: 15.5.18
+compiled: successfully in 6.2s
+static-pages: 18/18
+standalone-runtime: darwin-arm64
+checkpoint-sha256: ccc1f1f7b52df83201bfcad40bd62cfff39dff88496f87640e334c6698789de7
+real-db-sha256-before-and-after: acbb5710050b5c9d6e435666dda909b66055c290a4640f04faa38860ea24d09a

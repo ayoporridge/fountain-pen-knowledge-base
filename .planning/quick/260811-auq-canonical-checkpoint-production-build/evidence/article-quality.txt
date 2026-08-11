@@ -1,0 +1,11 @@
+base-url: http://127.0.0.1:3117
+test-file: tests/e2e/article-quality.spec.ts
+project: desktop
+tests: 2
+passed: 2
+failed: 0
+duration: 4.5s
+
+Covered contracts:
+- incomplete/internal imports absent from the public archive
+- every public article returned 200 and passed heading, anchor, visible-copy, alt and figcaption checks
