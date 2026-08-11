@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Nahvalur Horizon 产品线、传统墨窗与当前库存事实图</title>
+  <desc id="desc">本站原创示意图，非产品照片。用地平线、波浪形饰环、传统墨窗和库存矩阵说明 Horizon 的珠光树脂活塞结构、Gaia 样本范围，以及 Soleil 五个当前可售和十九个 unavailable 代码。</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#291f47"/>
+      <stop offset=".56" stop-color="#315278"/>
+      <stop offset="1" stop-color="#1a6168"/>
+    </linearGradient>
+    <linearGradient id="pearl" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#c7b6e8" stop-opacity=".76"/>
+      <stop offset=".36" stop-color="#78c8c7" stop-opacity=".50"/>
+      <stop offset=".72" stop-color="#f2b7c4" stop-opacity=".63"/>
+      <stop offset="1" stop-color="#f3ddaa" stop-opacity=".74"/>
+    </linearGradient>
+    <style>
+      .sans{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC",sans-serif}
+      .mono{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace}
+      .small{font-size:23px;fill:#d0d8e4}.label{font-size:27px;fill:#f5f4fa}.big{font-size:68px;font-weight:800}.pill{font-size:22px;font-weight:700;fill:#1d3141}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sky)"/>
+  <circle cx="1252" cy="210" r="126" fill="#f3c7a5" opacity=".32"/>
+  <path d="M0 340C260 286 434 406 678 345s467-144 922-58v207H0Z" fill="#8bc1c4" opacity=".15"/>
+  <path d="M0 410C284 350 521 484 786 408s493-91 814-52v250H0Z" fill="#61a0aa" opacity=".16"/>
+  <g class="sans">
+    <text x="92" y="82" font-size="24" letter-spacing="5" fill="#c7b9e1">FOUNTAIN PEN GRAPH · FACT DIAGRAM</text>
+    <text x="92" y="148" font-size="49" font-weight="760" fill="#fbf8ff">Nahvalur Horizon</text>
+    <text x="92" y="190" class="small">珠光树脂 · 波浪形饰环 · 传统墨窗 · piston filling</text>
+
+    <rect x="92" y="240" width="1416" height="254" rx="30" fill="#141c35" fill-opacity=".82" stroke="#8fa9bf" stroke-width="2"/>
+    <rect x="132" y="292" width="912" height="150" rx="75" fill="url(#pearl)" stroke="#ecddf2" stroke-width="3"/>
+    <path d="M316 311c18 24 18 84 0 112M342 311c18 24 18 84 0 112M368 311c18 24 18 84 0 112" fill="none" stroke="#f6e6c8" stroke-width="4" opacity=".9"/>
+    <rect x="416" y="312" width="174" height="110" rx="53" fill="#d8f5ed" fill-opacity=".34" stroke="#ddf7ef" stroke-width="3"/>
+    <path d="M650 367h287" stroke="#f6eef7" stroke-width="5"/>
+    <path d="M935 342l58 25-58 25z" fill="#f3ca98"/>
+    <text x="1090" y="301" class="label">辨认顺序</text>
+    <text x="1090" y="344" class="small">1 · traditional ink window</text>
+    <text x="1090" y="382" class="small">2 · wave-shaped trim ring</text>
+    <text x="1090" y="420" class="small">3 · edition-specific pearlescent resin</text>
+    <text x="1090" y="458" class="small">不是 Nautilus 三枚舷窗</text>
+
+    <rect x="92" y="542" width="434" height="232" rx="27" fill="#202949" stroke="#9485b7" stroke-width="2"/>
+    <text x="130" y="594" class="label">Gaia · archive scope</text>
+    <text x="130" y="640" class="small">153／137／168 mm</text>
+    <text x="130" y="679" class="small">Starry Night Resins</text>
+    <text x="130" y="718" class="small">长度可作 edition 锚点</text>
+    <text x="130" y="753" font-size="20" fill="#aaafc5">37.5 g 仅为独立评测样笔</text>
+
+    <rect x="566" y="542" width="942" height="232" rx="27" fill="#eef0e9"/>
+    <text x="606" y="594" font-size="27" fill="#243747">Soleil · 2026-08-11 current matrix</text>
+    <g transform="translate(606 628)">
+      <rect width="92" height="54" rx="27" fill="#bdd6c6"/><text x="46" y="35" text-anchor="middle" class="pill">F</text>
+      <rect x="108" width="92" height="54" rx="27" fill="#bdd6c6"/><text x="154" y="35" text-anchor="middle" class="pill">M</text>
+      <rect x="216" width="92" height="54" rx="27" fill="#bdd6c6"/><text x="262" y="35" text-anchor="middle" class="pill">B</text>
+      <rect x="324" width="118" height="54" rx="27" fill="#bdd6c6"/><text x="383" y="35" text-anchor="middle" class="pill">Stub</text>
+      <rect x="458" width="138" height="54" rx="27" fill="#bdd6c6"/><text x="527" y="35" text-anchor="middle" class="pill">Double B</text>
+      <rect x="622" width="208" height="54" rx="27" fill="none" stroke="#8d8d94" stroke-width="2" stroke-dasharray="8 8"/>
+      <text x="726" y="35" text-anchor="middle" font-size="20" fill="#5d6267">EF unavailable</text>
+    </g>
+    <text x="606" y="726" font-size="24" fill="#3d5960"><tspan class="big" font-size="56" fill="#24726d">5</tspan> current Soleil SKU</text>
+    <text x="1000" y="726" font-size="24" fill="#5e6167"><tspan class="big" font-size="56" fill="#9a596c">19</tspan> unavailable full code</text>
+
+    <text x="92" y="852" class="small">Pride 2026 · Pearl · Nebula · Soleil 属于 edition scope，不拆成重复基础型号</text>
+    <text x="92" y="884" class="small">本站原创示意图／非产品照片 · 不表示真实颜色、树脂纹理、光泽、外形或比例</text>
+  </g>
+</svg>

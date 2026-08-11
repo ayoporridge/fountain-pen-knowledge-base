@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Nahvalur Eclipse 整杆按压机构与版本演进事实图</title>
+  <desc id="desc">本站原创示意图，非产品照片。用十二切面截面、整杆按压箭头、converter 与版本轨道说明 Eclipse 的 capless 身份，以及首发 Fine／Medium 到后续部分 edition 增加 Broad 的范围变化。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#11151c"/>
+      <stop offset=".57" stop-color="#1d293b"/>
+      <stop offset="1" stop-color="#173f54"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6f7d8c"/>
+      <stop offset=".27" stop-color="#d1d9df"/>
+      <stop offset=".55" stop-color="#66798d"/>
+      <stop offset=".78" stop-color="#c5d1d9"/>
+      <stop offset="1" stop-color="#506273"/>
+    </linearGradient>
+    <style>
+      .sans{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC",sans-serif}
+      .mono{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace}
+      .small{font-size:23px;fill:#c1ccd8}.label{font-size:27px;fill:#f0f4f7}.metric{font-size:34px;font-weight:760;fill:#fff}.pill{font-size:21px;font-weight:700;fill:#172a35}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="1436" cy="96" r="270" fill="#4b86a3" opacity=".12"/>
+  <g class="sans">
+    <text x="92" y="82" font-size="24" letter-spacing="5" fill="#8fb8d2">FOUNTAIN PEN GRAPH · FACT DIAGRAM</text>
+    <text x="92" y="148" font-size="49" font-weight="760" fill="#f6f8fa">Nahvalur Eclipse</text>
+    <text x="92" y="190" class="small">品牌第一支 capless · 十二切面铝杆 · 整支外壳参与按压</text>
+
+    <rect x="92" y="236" width="1416" height="290" rx="30" fill="#131e2c" stroke="#627d93" stroke-width="2"/>
+    <polygon points="212,354 230,321 264,302 302,302 336,321 354,354 354,392 336,425 302,444 264,444 230,425 212,392" fill="#263b4d" stroke="#a9bdca" stroke-width="3"/>
+    <circle cx="283" cy="373" r="38" fill="#101a25" stroke="#788fa0" stroke-width="3"/>
+    <text x="283" y="478" text-anchor="middle" class="small">12-sided section</text>
+
+    <path d="M446 322h700l70 51-70 51H446z" fill="url(#metal)" stroke="#d4dde2" stroke-width="3"/>
+    <path d="M545 342v62M614 342v62M683 342v62" stroke="#4f6070" stroke-width="3" opacity=".8"/>
+    <path d="M1034 373h112" stroke="#f5d49c" stroke-width="5"/>
+    <path d="M1146 345l62 28-62 28z" fill="#f0bc72"/>
+    <path d="M420 282h260M420 282l34-20M420 282l34 20" stroke="#92bad1" stroke-width="4" fill="none"/>
+    <path d="M1225 282H965M1225 282l-34-20M1225 282l-34 20" stroke="#92bad1" stroke-width="4" fill="none"/>
+    <text x="822" y="275" text-anchor="middle" class="label">push the body · not a tail button</text>
+    <text x="1282" y="315" class="small">nib out</text>
+    <text x="1282" y="354" class="small">150 mm closed</text>
+    <text x="1282" y="393" class="small">148 mm open</text>
+    <text x="1282" y="432" class="small">Ø13.91 mm · 34 g</text>
+    <text x="1282" y="471" class="small">removable clip</text>
+
+    <rect x="92" y="568" width="654" height="225" rx="27" fill="#e8eceb"/>
+    <text x="132" y="621" font-size="27" fill="#263c46">Filling path</text>
+    <rect x="132" y="656" width="282" height="64" rx="32" fill="#b8cbd2"/>
+    <path d="M170 688h184" stroke="#405866" stroke-width="5"/>
+    <path d="M354 670l40 18-40 18z" fill="#405866"/>
+    <text x="440" y="680" font-size="24" fill="#334b56">converter</text>
+    <text x="440" y="717" font-size="19" fill="#54676e">拆后部 → 取 nib unit → 上墨</text>
+    <text x="132" y="758" font-size="20" fill="#607079">不是 piston，也不是 vacuum filler</text>
+
+    <rect x="786" y="568" width="722" height="225" rx="27" fill="#192e42" stroke="#678ba3" stroke-width="2"/>
+    <text x="826" y="621" class="label">Version scope</text>
+    <text x="826" y="665" class="small">2024 launch</text>
+    <g transform="translate(1040 633)">
+      <rect width="88" height="52" rx="26" fill="#b9d0d8"/><text x="44" y="34" text-anchor="middle" class="pill">F</text>
+      <rect x="102" width="88" height="52" rx="26" fill="#b9d0d8"/><text x="146" y="34" text-anchor="middle" class="pill">M</text>
+    </g>
+    <path d="M826 704h594" stroke="#7996aa" stroke-width="3"/>
+    <text x="826" y="752" class="small">2025+ revised feed／back-cap</text>
+    <g transform="translate(1180 720)">
+      <rect width="74" height="46" rx="23" fill="#d5c699"/><text x="37" y="31" text-anchor="middle" class="pill">F</text>
+      <rect x="86" width="74" height="46" rx="23" fill="#d5c699"/><text x="123" y="31" text-anchor="middle" class="pill">M</text>
+      <rect x="172" width="74" height="46" rx="23" fill="#d5c699"/><text x="209" y="31" text-anchor="middle" class="pill">B</text>
+    </g>
+
+    <text x="92" y="850" class="small">Black Silver 2 current SKU · Cobalt Black 3 current SKU · Broad 只属于有证据的后续 edition</text>
+    <text x="92" y="884" class="small">本站原创示意图／非产品照片 · 不表示真实颜色、金属表面、内部专利结构、外形或比例</text>
+  </g>
+</svg>

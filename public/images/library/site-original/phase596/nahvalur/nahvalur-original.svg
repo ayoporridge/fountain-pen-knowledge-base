@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Nahvalur Original 活塞结构、历史与当前 Black SKU 事实图</title>
+  <desc id="desc">本站原创示意图，非产品照片。用时间线、活塞示意和六个当前尖幅说明 Original 从 2019 年 Narwhal 首发到 Nahvalur Original Black 的连续身份，并与真空上墨的 Original Plus 分开。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#081723"/>
+      <stop offset=".62" stop-color="#122c3d"/>
+      <stop offset="1" stop-color="#173b45"/>
+    </linearGradient>
+    <linearGradient id="barrel" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#d9e5df" stop-opacity=".16"/>
+      <stop offset=".48" stop-color="#f4f1e6" stop-opacity=".38"/>
+      <stop offset="1" stop-color="#84b5ad" stop-opacity=".12"/>
+    </linearGradient>
+    <style>
+      .sans{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC",sans-serif}
+      .mono{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace}
+      .small{font-size:23px;fill:#bccdd0}.label{font-size:27px;fill:#eef5f2}.metric{font-size:32px;font-weight:720;fill:#fff}.pill{font-size:22px;font-weight:700;fill:#10252d}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="1420" cy="126" r="280" fill="#d6a55b" opacity=".08"/>
+  <circle cx="126" cy="806" r="310" fill="#4e9b92" opacity=".10"/>
+  <g class="sans">
+    <text x="92" y="82" font-size="24" letter-spacing="5" fill="#8ec1bb">FOUNTAIN PEN GRAPH · FACT DIAGRAM</text>
+    <text x="92" y="148" font-size="49" font-weight="760" fill="#f7faf6">Nahvalur Original</text>
+    <text x="92" y="190" class="small">一个 canonical 型号 · 2019 Narwhal 首发 → 当前 Nahvalur Black</text>
+
+    <rect x="92" y="238" width="1416" height="248" rx="30" fill="#0c202c" stroke="#5e918c" stroke-width="2"/>
+    <rect x="136" y="287" width="914" height="148" rx="74" fill="url(#barrel)" stroke="#a9cbc5" stroke-width="3"/>
+    <path d="M250 308v106M384 308v106" stroke="#c9ddd8" stroke-width="3" opacity=".8"/>
+    <path d="M384 361h495" stroke="#dfeee9" stroke-width="5"/>
+    <path d="M879 319v84M909 319v84" stroke="#dfeee9" stroke-width="4"/>
+    <path d="M940 335l56 26-56 26z" fill="#d6a55b" opacity=".82"/>
+    <text x="1088" y="303" class="label">结构锚点</text>
+    <text x="1088" y="348" class="metric">internal piston</text>
+    <text x="1088" y="389" class="small">No.6 stainless steel</text>
+    <text x="1088" y="427" class="small">bottled ink only</text>
+
+    <rect x="92" y="532" width="582" height="242" rx="27" fill="#173442" stroke="#659b98" stroke-width="2"/>
+    <text x="130" y="585" class="label">2019 · Narwhal Original</text>
+    <text x="130" y="630" class="small">Poseidon Blue · Hippocampus Purple</text>
+    <text x="130" y="668" class="small">Merman Green · Yellow Tang</text>
+    <path d="M132 714h462" stroke="#82afa9" stroke-width="3"/>
+    <text x="130" y="750" class="small">旧品牌刻字是时间线，不是第二型号</text>
+
+    <rect x="714" y="532" width="794" height="242" rx="27" fill="#f0eadb"/>
+    <text x="754" y="585" font-size="27" fill="#19313a">Current · Original Black</text>
+    <text x="754" y="628" font-size="23" fill="#41545a">146.5 mm capped · 19.8 g · 6 available SKU</text>
+    <g transform="translate(754 662)">
+      <rect width="86" height="52" rx="26" fill="#d1c194"/><text x="43" y="34" text-anchor="middle" class="pill">EF</text>
+      <rect x="100" width="86" height="52" rx="26" fill="#d1c194"/><text x="143" y="34" text-anchor="middle" class="pill">F</text>
+      <rect x="200" width="86" height="52" rx="26" fill="#d1c194"/><text x="243" y="34" text-anchor="middle" class="pill">M</text>
+      <rect x="300" width="86" height="52" rx="26" fill="#d1c194"/><text x="343" y="34" text-anchor="middle" class="pill">B</text>
+      <rect x="400" width="112" height="52" rx="26" fill="#d1c194"/><text x="456" y="34" text-anchor="middle" class="pill">Stub</text>
+      <rect x="526" width="132" height="52" rx="26" fill="#d1c194"/><text x="592" y="34" text-anchor="middle" class="pill">Double B</text>
+    </g>
+    <text x="754" y="752" font-size="21" fill="#53666c" class="mono">01010050／51／52／53／54／57</text>
+
+    <rect x="492" y="804" width="616" height="52" rx="26" fill="#30291f" stroke="#d5a45e" stroke-width="2"/>
+    <text x="800" y="838" text-anchor="middle" font-size="23" fill="#ffe5b5">Original = piston · Original Plus = vacuum filling</text>
+    <text x="92" y="884" class="small">本站原创示意图／非产品照片 · 不表示真实颜色、纹理、外形、笔夹、笔尖或比例</text>
+  </g>
+</svg>

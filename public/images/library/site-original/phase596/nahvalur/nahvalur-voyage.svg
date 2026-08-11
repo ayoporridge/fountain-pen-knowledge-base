@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Nahvalur Voyage Hawaii 身份、活塞与不可后插事实图</title>
+  <desc id="desc">本站原创示意图，非产品照片。用旅行路线、连续墨窗、活塞和不可后插标记说明 Voyage 与 Nautilus 的身份区别，以及 Hawaii 五个当前可售和一个 unavailable 尖幅。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071d2e"/>
+      <stop offset=".58" stop-color="#0c4854"/>
+      <stop offset="1" stop-color="#193a5a"/>
+    </linearGradient>
+    <linearGradient id="route" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#e0b86e"/>
+      <stop offset="1" stop-color="#f2ddad"/>
+    </linearGradient>
+    <style>
+      .sans{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC",sans-serif}
+      .mono{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace}
+      .small{font-size:23px;fill:#c5d7dc}.label{font-size:27px;fill:#f5f7f2}.metric{font-size:35px;font-weight:760;fill:#fff}.pill{font-size:21px;font-weight:700;fill:#16303a}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <g opacity=".16" fill="none" stroke="#8bc6c5" stroke-width="2">
+    <circle cx="1340" cy="170" r="108"/><circle cx="1340" cy="170" r="72"/><path d="M1232 170h216M1340 62v216"/>
+    <path d="M60 644c192-96 346-12 507-79s332-147 502-87 296 116 475 34"/>
+  </g>
+  <g class="sans">
+    <text x="92" y="82" font-size="24" letter-spacing="5" fill="#8fc6c4">FOUNTAIN PEN GRAPH · FACT DIAGRAM</text>
+    <text x="92" y="148" font-size="49" font-weight="760" fill="#f8faf5">Nahvalur Voyage</text>
+    <text x="92" y="190" class="small">旅行主题 family · Hawaii current edition · Voyage ≠ Nautilus</text>
+
+    <path d="M142 264C390 180 560 338 790 269s377-96 627 14" fill="none" stroke="url(#route)" stroke-width="5" stroke-dasharray="12 14"/>
+    <circle cx="142" cy="264" r="12" fill="#f0cf8d"/><circle cx="790" cy="269" r="12" fill="#f0cf8d"/><circle cx="1417" cy="283" r="12" fill="#f0cf8d"/>
+    <text x="132" y="232" class="small">Nashville</text><text x="748" y="235" class="small">Pride 2024</text><text x="1370" y="245" class="small">Hawaii</text>
+
+    <rect x="92" y="322" width="1416" height="218" rx="30" fill="#0a2735" stroke="#6da5a4" stroke-width="2"/>
+    <rect x="136" y="369" width="900" height="124" rx="62" fill="#4c8790" fill-opacity=".22" stroke="#acd3cf" stroke-width="3"/>
+    <rect x="339" y="388" width="184" height="86" rx="42" fill="#d7f3ec" fill-opacity=".32" stroke="#d9f3ed" stroke-width="3"/>
+    <path d="M544 431h322" stroke="#d9ebe6" stroke-width="5"/>
+    <path d="M866 405l61 26-61 26z" fill="#e7bc70"/>
+    <path d="M962 387v88" stroke="#d9ebe6" stroke-width="4"/>
+    <text x="1080" y="375" class="label">Hawaii official</text>
+    <text x="1080" y="420" class="metric">149 mm · 36.85 g</text>
+    <text x="1080" y="461" class="small">continuous ink window · piston</text>
+    <text x="1080" y="499" font-size="25" font-weight="720" fill="#f3bd91">cannot be posted</text>
+
+    <rect x="92" y="584" width="752" height="206" rx="27" fill="#eae6d8"/>
+    <text x="132" y="637" font-size="27" fill="#243d45">2026-08-11 Hawaii selector</text>
+    <g transform="translate(132 674)">
+      <rect width="88" height="52" rx="26" fill="#c2d6c5"/><text x="44" y="34" text-anchor="middle" class="pill">F</text>
+      <rect x="102" width="88" height="52" rx="26" fill="#c2d6c5"/><text x="146" y="34" text-anchor="middle" class="pill">M</text>
+      <rect x="204" width="88" height="52" rx="26" fill="#c2d6c5"/><text x="248" y="34" text-anchor="middle" class="pill">B</text>
+      <rect x="306" width="116" height="52" rx="26" fill="#c2d6c5"/><text x="364" y="34" text-anchor="middle" class="pill">Stub</text>
+      <rect x="436" width="132" height="52" rx="26" fill="#c2d6c5"/><text x="502" y="34" text-anchor="middle" class="pill">Double B</text>
+    </g>
+    <text x="132" y="763" font-size="21" fill="#50636a" class="mono">03060391／92／93／94／97 · EF 03060390 unavailable</text>
+
+    <rect x="886" y="584" width="622" height="206" rx="27" fill="#132f40" stroke="#789ba2" stroke-width="2"/>
+    <text x="926" y="637" class="label">身份纠错</text>
+    <text x="926" y="681" class="small">Voyage · 传统连续墨窗</text>
+    <text x="926" y="721" class="small">Nautilus · 三枚圆形舷窗</text>
+    <path d="M928 756h490" stroke="#d5ad68" stroke-width="3"/>
+    <text x="926" y="778" font-size="18" fill="#a9bbc0">Nashville 包装／结构证据优先于混称营销文案</text>
+
+    <text x="92" y="850" class="small">Hawaii、Pride、Nashville 是 edition／collaboration scope，不是三个基础型号</text>
+    <text x="92" y="884" class="small">本站原创示意图／非产品照片 · 不表示真实颜色、树脂纹理、船桨夹、外形或比例</text>
+  </g>
+</svg>
