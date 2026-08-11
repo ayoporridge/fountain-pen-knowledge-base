@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pineider Egosphere 1056 与 1058 身份边界事实图</title>
+  <desc id="desc">本站原创示意图，非产品照片。图中以两个版本卡片、从方形到圆形的 morphing 轨迹和未知规格清单，说明 Egosphere 两条当前商品代码与历史样本的边界。</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7f2e8"/>
+      <stop offset="1" stop-color="#e9dfcf"/>
+    </linearGradient>
+    <linearGradient id="night" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#242a31"/>
+      <stop offset="1" stop-color="#11151a"/>
+    </linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#234b40"/>
+      <stop offset="1" stop-color="#102d28"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#44382c" flood-opacity="0.16"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#paper)"/>
+  <path d="M0 158H1600M0 742H1600" stroke="#9b876e" stroke-opacity="0.22"/>
+  <text x="104" y="105" font-family="ui-serif, Georgia, serif" font-size="46" fill="#2d2925">Egosphere：两个当前页面，一个设计家族</text>
+  <text x="108" y="145" font-family="ui-sans-serif, system-ui, sans-serif" font-size="22" fill="#665d53">代码与来源用于辨认；图形、颜色与比例不对应实物</text>
+
+  <g transform="translate(104 216)" filter="url(#shadow)">
+    <rect width="500" height="374" rx="28" fill="url(#night)"/>
+    <text x="38" y="58" font-family="ui-sans-serif, system-ui, sans-serif" font-size="20" letter-spacing="3" fill="#d9d1c5">BLACK EDITION</text>
+    <text x="38" y="116" font-family="ui-serif, Georgia, serif" font-size="42" fill="#fffaf2">1056</text>
+    <text x="38" y="160" font-family="ui-monospace, monospace" font-size="19" fill="#c8d6d4">S000S008445056</text>
+    <path d="M38 194H462" stroke="#77817e" stroke-opacity="0.6"/>
+    <text x="38" y="240" font-family="ui-sans-serif, system-ui, sans-serif" font-size="22" fill="#f0ece4">实心树脂 · 925 银中环</text>
+    <text x="38" y="278" font-family="ui-sans-serif, system-ui, sans-serif" font-size="22" fill="#f0ece4">铑镀层 · 压印与珐琅</text>
+    <text x="38" y="330" font-family="ui-sans-serif, system-ui, sans-serif" font-size="19" fill="#d7b96d">2026-08-11：页面可访问，缺货</text>
+  </g>
+
+  <g transform="translate(996 216)" filter="url(#shadow)">
+    <rect width="500" height="374" rx="28" fill="url(#green)"/>
+    <text x="38" y="58" font-family="ui-sans-serif, system-ui, sans-serif" font-size="20" letter-spacing="3" fill="#d1dfd6">GREEN EDITION</text>
+    <text x="38" y="116" font-family="ui-serif, Georgia, serif" font-size="42" fill="#f8fbf6">1058</text>
+    <text x="38" y="160" font-family="ui-monospace, monospace" font-size="19" fill="#c7ddd3">S000S088831060</text>
+    <path d="M38 194H462" stroke="#91a79e" stroke-opacity="0.6"/>
+    <text x="38" y="240" font-family="ui-sans-serif, system-ui, sans-serif" font-size="22" fill="#edf5f0">Ghibelline merlon 设计语汇</text>
+    <text x="38" y="278" font-family="ui-sans-serif, system-ui, sans-serif" font-size="22" fill="#edf5f0">厄尔巴岛碧玉语境</text>
+    <text x="38" y="330" font-family="ui-sans-serif, system-ui, sans-serif" font-size="19" fill="#d7c27a">官网标题误拼 Egopshere；页面缺货</text>
+  </g>
+
+  <g transform="translate(620 260) scale(0.8)">
+    <text x="126" y="0" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="18" fill="#6f6256">1999 · Luigi Trenti</text>
+    <rect x="22" y="56" width="92" height="92" rx="10" fill="none" stroke="#8b715a" stroke-width="5"/>
+    <path d="M118 102C156 102 160 102 184 102" stroke="#8b715a" stroke-width="4" stroke-linecap="round"/>
+    <path d="M184 102l-17-12v24z" fill="#8b715a"/>
+    <rect x="189" y="61" width="82" height="82" rx="24" fill="none" stroke="#8b715a" stroke-width="5"/>
+    <path d="M276 102C308 102 314 102 338 102" stroke="#8b715a" stroke-width="4" stroke-linecap="round"/>
+    <path d="M338 102l-17-12v24z" fill="#8b715a"/>
+    <circle cx="388" cy="102" r="46" fill="none" stroke="#8b715a" stroke-width="5"/>
+    <text x="205" y="188" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="21" fill="#4d443c">棱角 → 圆形</text>
+    <text x="205" y="222" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="17" fill="#766a60">morphing 帽形概念</text>
+  </g>
+
+  <g transform="translate(104 648)">
+    <rect width="1392" height="132" rx="22" fill="#fffaf1" stroke="#c7b69f"/>
+    <text x="34" y="46" font-family="ui-sans-serif, system-ui, sans-serif" font-size="19" letter-spacing="2" fill="#6e5a45">CURRENT EXACT PAGES DO NOT DISCLOSE</text>
+    <text x="34" y="91" font-family="ui-serif, Georgia, serif" font-size="30" fill="#2f2924">笔尖 · 上墨 · 尺寸 · 重量</text>
+    <path d="M620 28V104" stroke="#c7b69f"/>
+    <text x="660" y="50" font-family="ui-sans-serif, system-ui, sans-serif" font-size="19" fill="#5e544b">旧拍卖样本的 18K、piston、150×17 mm、100 支编号</text>
+    <text x="660" y="88" font-family="ui-sans-serif, system-ui, sans-serif" font-size="21" font-weight="700" fill="#9a4d36">仅作历史证据，不回填当前规格</text>
+  </g>
+
+  <text x="800" y="844" text-anchor="middle" font-family="ui-sans-serif, system-ui, sans-serif" font-size="20" fill="#594f46">本站原创示意图／非产品照片 · 不复制商标、商品外形、真实色彩、纹理或比例</text>
+</svg>
