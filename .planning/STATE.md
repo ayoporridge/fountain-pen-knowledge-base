@@ -5,10 +5,10 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
-stopped_at: Quick 260811-hoq complete; next repair is the pre-existing Wancher duplicate primary image
-last_updated: "2026-08-11T13:13:30+08:00"
+stopped_at: Quick 260811-iea complete; current public primary media duplicate groups are zero
+last_updated: "2026-08-11T13:23:07+08:00"
 last_activity: 2026-08-11
-last_activity_desc: LAMY Lx and LAMY dialog cc sourced packages verified on an owned checkpoint
+last_activity_desc: Replayed existing Phase 494 media dedup on the Phase 586 owned candidate
 progress:
   total_phases: 16
   completed_phases: 10
@@ -31,7 +31,7 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 Phase: 21 (Taxonomy 与身份归一) — EXECUTING
 Plan: 4 of 6
 Status: In progress
-Last activity: 2026-08-11 — Completed quick task 260811-hoq: added sourced LAMY Lx and LAMY dialog cc packages on an owned checkpoint
+Last activity: 2026-08-11 — Completed quick task 260811-iea: replayed existing scoped media dedup and reduced current public primary image duplicate groups to zero
 
 Progress: [█████░░░░░] 50%
 
@@ -188,10 +188,11 @@ Progress: [█████░░░░░] 50%
 | 260806-t2m | 发布 Wancher Zogan Momiji Urushi Blue、Urushi Tamamushi-nuri 与 Green Tamamushi-nuri 三个来源化 sibling 型号 | 2026-08-06 | 74c517b0 | [260806-t2m-add-three-sourced-wancher-zogan-momiji-siblings](./quick/260806-t2m-add-three-sourced-wancher-zogan-momiji-siblings/) |
 | 260806-kf7 | 补齐 Pilot Prera 色彩逢い Iro-ai 当前官方 SKU 变体，并增强 Prera 页面边界与定向回归 | 2026-08-06 | 23458997 | [260806-kf7-pilot-prera-iro-ai-sku-prera](./quick/260806-kf7-pilot-prera-iro-ai-sku-prera/) |
 | 260811-hoq | 发布 LAMY Lx 与 LAMY dialog cc 两个来源化独立型号，并通过审核—发布门与离线全量回归 | 2026-08-11 | 2568e069 | [260811-hoq-add-sourced-lamy-lx-and-lamy-dialog-cc-c](./quick/260811-hoq-add-sourced-lamy-lx-and-lamy-dialog-cc-c/) |
+| 260811-iea | 补重放既有 Phase 494 scoped media dedup，使 current public 主图路径重复组归零 | 2026-08-11 | 28756ccd | [260811-iea-replay-existing-phase-494-wancher-brand-media-dedup-on-phase](./quick/260811-iea-replay-existing-phase-494-wancher-brand-media-dedup-on-phase/) |
 
 ## Next Action
 
-先修复 Wancher 品牌页与 Dream Pen True Ebonite Matte Black 型号页复用同一主图的既有缺陷，再继续 Phase 23 的外网来源化内容制作；不重做库存盘点。以既有审计、research 与可重放内容包推导剩余差集，同品牌、同证据结构的真实缺口可共享 owned checkpoint 与定向回归。生产迁移与全量页面验收留到内容封板后执行；Turso 同步、部署与线上逐条复查留到额度恢复后执行，full corpus goal 继续 active。
+继续 Phase 23 的外网来源化内容制作，不重做库存盘点。以现有 research、wrapper 与 Phase 587 owned candidate 推导真正尚未覆盖的重要型号；优先补完整正文、身份关系与独立图片，同品牌、同证据结构的缺口共享 checkpoint 与定向回归。生产迁移与全量本地真人遍历留到内容封板后执行；Turso 同步、部署与线上逐条复查留到额度恢复后执行，full corpus goal 继续 active。
 
 ## Session Continuity
 
