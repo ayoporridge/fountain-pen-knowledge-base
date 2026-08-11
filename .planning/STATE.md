@@ -5,10 +5,10 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
-stopped_at: Quick 260811-q86 complete; Nahvalur Original Horizon Voyage and Eclipse added on the offline candidate
-last_updated: "2026-08-11T19:58:23+08:00"
+stopped_at: Quick 260811-ryz complete; Nahvalur Key West Triad and Pen of the Year 2022-2026 added on the offline candidate
+last_updated: "2026-08-11T21:34:05+08:00"
 last_activity: 2026-08-11
-last_activity_desc: Published sourced Nahvalur Original, Horizon, Voyage and Eclipse on the Phase 596 owned candidate
+last_activity_desc: Published sourced Nahvalur Key West, Triad and Pen of the Year 2022-2026 on the Phase 597 owned candidate
 progress:
   total_phases: 16
   completed_phases: 10
@@ -31,7 +31,7 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 Phase: 21 (Taxonomy 与身份归一) — EXECUTING
 Plan: 4 of 6
 Status: In progress
-Last activity: 2026-08-11 — Completed quick task 260811-q86: published Nahvalur Original, Horizon, Voyage and Eclipse offline with source, identity, media and publication-gate verification
+Last activity: 2026-08-11 — Completed quick task 260811-ryz: published Nahvalur Key West, Triad and Pen of the Year 2022–2026 offline with source, identity, media and publication-gate verification
 
 Progress: [█████░░░░░] 50%
 
@@ -198,6 +198,7 @@ Progress: [█████░░░░░] 50%
 | 260811-obl | 原位深化 Pineider Avatar UR PP2101／600，并发布 Egosphere 1056／1058 canonical 型号，隔离隐藏 SKU 与历史样本 | 2026-08-11 | 02fb726e | [260811-obl-add-sourced-pineider-antichi-materiali-s](./quick/260811-obl-add-sourced-pineider-antichi-materiali-s/) |
 | 260811-p8m | 发布 Pineider Avatar UR Demo Metal PP3401／608、PP3901／611 与独立 Glossy PP4001／602，并隔离未定价代码和官网颜色矛盾 | 2026-08-11 | f084a0d8 | [260811-p8m-add-sourced-pineider-avatar-ur-demo-meta](./quick/260811-p8m-add-sourced-pineider-avatar-ur-demo-meta/) |
 | 260811-q86 | 发布 Nahvalur Original、Horizon、Voyage、Eclipse 四个 canonical 型号，并隔离活塞／真空、edition 库存、Voyage／Nautilus 与 Eclipse 版本冲突 | 2026-08-11 | 91aa0c63 | [260811-q86-add-sourced-nahvalur-original-horizon-vo](./quick/260811-q86-add-sourced-nahvalur-original-horizon-vo/) |
+| 260811-ryz | 发布 Nahvalur Key West、Triad 与 Pen of the Year 2022–2026 七个 canonical 型号，并隔离 edition、年度限量、rollerball 与时态冲突 | 2026-08-11 | f996d249 | [260811-ryz-nahvalur-key-west-pen-of-the-year-triad-](./quick/260811-ryz-nahvalur-key-west-pen-of-the-year-triad-/) |
 
 ## Next Action
 
