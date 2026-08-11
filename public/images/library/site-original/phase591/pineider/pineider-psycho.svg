@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pineider Psycho PP4301／468 饰面与上墨冲突事实图</title>
+  <desc id="desc">本站原创示意图，非产品照片。用三列信息卡区分 Palladium、Yellow Gold 与 Rose Gold 饰面，并用证据秤表示 cartridge converter 正文与被拒绝的 piston metadata，不呈现真实钢笔或 nanofusion 纹理。</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f7f4ee"/>
+      <stop offset="1" stop-color="#e9e2d7"/>
+    </linearGradient>
+    <filter id="lift" x="-15%" y="-15%" width="130%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#473e36" flood-opacity="0.18"/>
+    </filter>
+    <style>
+      .sans { font-family: Inter, "Noto Sans SC", "PingFang SC", sans-serif; }
+      .head { font-size: 26px; font-weight: 760; }
+      .body { font-size: 22px; }
+      .tiny { font-size: 18px; }
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#paper)"/>
+  <path d="M0 0 H1600 V154 C1260 110 1040 203 748 148 C462 94 240 170 0 130 Z" fill="#293844"/>
+  <text x="82" y="78" class="sans" font-size="46" font-weight="780" fill="#ffffff">PSYCHO · PP4301／468</text>
+  <text x="84" y="120" class="sans body" fill="#c9d7df">一个 canonical family · 三种 trim scope · 一项明确上墨结论</text>
+
+  <g transform="translate(78 198)" filter="url(#lift)">
+    <rect width="450" height="328" rx="30" fill="#ffffff" stroke="#85939b" stroke-width="3"/>
+    <circle cx="58" cy="61" r="24" fill="#71838e"/>
+    <text x="98" y="70" class="sans head" fill="#263640">PALLADIUM · EXACT</text>
+    <text x="34" y="119" class="sans body" fill="#35454e">PP4301／468 · ARGENTO</text>
+    <text x="34" y="157" class="sans body" fill="#35454e">PP4301-099 · 五个 child SKU</text>
+    <line x1="34" y1="184" x2="416" y2="184" stroke="#d1d9dd" stroke-width="2"/>
+    <text x="34" y="223" class="sans body" fill="#35454e">140 mm · Ø18.5 mm · Italy</text>
+    <text x="34" y="261" class="sans body" fill="#35454e">925 silver · nanofusion</text>
+    <rect x="34" y="283" width="234" height="29" rx="14" fill="#dce5e9"/>
+    <text x="151" y="304" text-anchor="middle" class="sans tiny" font-weight="700" fill="#35454e">CURRENT PRODUCT ANCHOR</text>
+  </g>
+
+  <g transform="translate(575 198)" filter="url(#lift)">
+    <rect width="450" height="328" rx="30" fill="#fffdf7" stroke="#c79e55" stroke-width="3"/>
+    <circle cx="58" cy="61" r="24" fill="#c79e55"/>
+    <text x="98" y="70" class="sans head" fill="#5d4926">YELLOW GOLD · TRIM</text>
+    <text x="34" y="119" class="sans body" fill="#5d4926">同一 Psycho family</text>
+    <text x="34" y="157" class="sans body" fill="#5d4926">gold plating 只属于本饰面</text>
+    <line x1="34" y1="184" x2="416" y2="184" stroke="#eadab9" stroke-width="2"/>
+    <text x="34" y="223" class="sans body" fill="#5d4926">未回读完整 child SKU</text>
+    <text x="34" y="261" class="sans body" fill="#5d4926">不借用 Palladium 的 -099</text>
+    <rect x="34" y="283" width="225" height="29" rx="14" fill="#efe2c8"/>
+    <text x="146" y="304" text-anchor="middle" class="sans tiny" font-weight="700" fill="#6a542b">FAMILY-SCOPED VARIANT</text>
+  </g>
+
+  <g transform="translate(1072 198)" filter="url(#lift)">
+    <rect width="450" height="328" rx="30" fill="#fffafa" stroke="#b67a78" stroke-width="3"/>
+    <circle cx="58" cy="61" r="24" fill="#b67a78"/>
+    <text x="98" y="70" class="sans head" fill="#65403f">ROSE GOLD · TRIM</text>
+    <text x="34" y="119" class="sans body" fill="#65403f">同一 Psycho family</text>
+    <text x="34" y="157" class="sans body" fill="#65403f">rose-gold plating · Appelboom</text>
+    <line x1="34" y1="184" x2="416" y2="184" stroke="#ead0cf" stroke-width="2"/>
+    <text x="34" y="223" class="sans body" fill="#65403f">14K · cartridge / converter</text>
+    <text x="34" y="261" class="sans body" fill="#65403f">未回读完整 child SKU</text>
+    <rect x="34" y="283" width="225" height="29" rx="14" fill="#efd9d8"/>
+    <text x="146" y="304" text-anchor="middle" class="sans tiny" font-weight="700" fill="#65403f">TRIM-SCOPED RECORD</text>
+  </g>
+
+  <g transform="translate(80 574)">
+    <rect width="1440" height="226" rx="34" fill="#293844"/>
+    <text x="42" y="54" class="sans head" fill="#ffffff">EVIDENCE BALANCE · 上墨与限量范围</text>
+    <line x1="720" y1="70" x2="720" y2="188" stroke="#71818c" stroke-width="2"/>
+    <g transform="translate(42 82)">
+      <rect width="612" height="110" rx="22" fill="#d7eee4"/>
+      <text x="28" y="41" class="sans head" fill="#175843">CARTRIDGE／CONVERTER</text>
+      <text x="28" y="75" class="sans body" fill="#24493d">Pineider family article + Chatterley body + Appelboom</text>
+      <text x="28" y="101" class="sans tiny" fill="#486e61">accepted · 每个 trim／color、每种 writing mode 88</text>
+    </g>
+    <g transform="translate(786 82)">
+      <rect width="612" height="110" rx="22" fill="#f4d9d6"/>
+      <text x="28" y="41" class="sans head" fill="#8a2e2f">PISTON FILLER METADATA</text>
+      <text x="28" y="75" class="sans body" fill="#583536">Chatterley additional-information field</text>
+      <text x="28" y="101" class="sans tiny" fill="#8a5552">rejected · 与同页正文及两条独立来源冲突</text>
+    </g>
+  </g>
+
+  <text x="82" y="856" class="sans body" fill="#3c464d">本站原创示意图／非产品照片 · 不表示真实外形、饰面颜色、nanofusion 纹理、比例、笔夹、编号或机构</text>
+</svg>
