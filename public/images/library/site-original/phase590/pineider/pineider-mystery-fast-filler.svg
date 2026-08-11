@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pineider Mystery Fast Filler SPP6901／943 版本分流图</title>
+  <desc id="desc">本站原创示意图，非产品照片。以环形证据路线区分当前 SPP6901／943、Mistery 拼写别名、2019 旧 Mystery Filler 与 2024 steel／14K Demo sibling；不呈现真实笔形、透明结构、颜色或机械剖面。</desc>
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="45%" r="78%">
+      <stop offset="0" stop-color="#f3f5f2"/>
+      <stop offset="1" stop-color="#d9e2df"/>
+    </radialGradient>
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#24423f" flood-opacity="0.22"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <text x="86" y="93" fill="#183936" font-family="system-ui, sans-serif" font-size="40" font-weight="760">Mystery Fast Filler · SPP6901／943</text>
+  <text x="89" y="136" fill="#57716e" font-family="system-ui, sans-serif" font-size="22">CURRENT FACTS IN THE CENTRE · SIBLINGS STAY OUTSIDE</text>
+
+  <g transform="translate(800 465)">
+    <circle r="258" fill="none" stroke="#a5b9b4" stroke-width="2" stroke-dasharray="8 14"/>
+    <circle r="185" fill="#173f3b" filter="url(#softShadow)"/>
+    <circle r="138" fill="none" stroke="#7fc0b3" stroke-width="3"/>
+    <text y="-62" text-anchor="middle" fill="#eaf4f1" font-family="system-ui, sans-serif" font-size="20" font-weight="650">CURRENT EXACT PRODUCT</text>
+    <text y="-6" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="39" font-weight="800">SPP6901 / 943</text>
+    <text y="43" text-anchor="middle" fill="#d9ebe7" font-family="system-ui, sans-serif" font-size="24">155 mm · Ø 15.45 mm</text>
+    <text y="82" text-anchor="middle" fill="#d9ebe7" font-family="system-ui, sans-serif" font-size="22">F / EF visible · Italy</text>
+    <text y="119" text-anchor="middle" fill="#d9ebe7" font-family="system-ui, sans-serif" font-size="21">Fast piston · Twist Magnetic Lock</text>
+  </g>
+
+  <g filter="url(#softShadow)">
+    <rect x="90" y="245" width="420" height="142" rx="28" fill="#fffdf9"/>
+    <rect x="1090" y="245" width="420" height="142" rx="28" fill="#fffdf9"/>
+    <rect x="90" y="560" width="420" height="160" rx="28" fill="#fffdf9"/>
+    <rect x="1090" y="560" width="420" height="160" rx="28" fill="#fffdf9"/>
+  </g>
+
+  <path d="M510 316C610 316 620 350 660 383" fill="none" stroke="#799b95" stroke-width="4"/>
+  <path d="M1090 316C990 316 980 350 940 383" fill="none" stroke="#799b95" stroke-width="4"/>
+  <path d="M510 640C620 640 625 585 664 552" fill="none" stroke="#b38d64" stroke-width="4" stroke-dasharray="9 9"/>
+  <path d="M1090 640C980 640 975 585 936 552" fill="none" stroke="#b38d64" stroke-width="4" stroke-dasharray="9 9"/>
+
+  <text x="125" y="292" fill="#335b56" font-family="system-ui, sans-serif" font-size="21" font-weight="700">SPELLING RESOLUTION</text>
+  <text x="125" y="334" fill="#183936" font-family="system-ui, sans-serif" font-size="27">Mystery = canonical</text>
+  <text x="125" y="368" fill="#57716e" font-family="system-ui, sans-serif" font-size="21">Mistery = sourced alias</text>
+
+  <text x="1125" y="292" fill="#335b56" font-family="system-ui, sans-serif" font-size="21" font-weight="700">CURRENT NIB BOUNDARY</text>
+  <text x="1125" y="334" fill="#183936" font-family="system-ui, sans-serif" font-size="25">官网只列尖幅</text>
+  <text x="1125" y="368" fill="#57716e" font-family="system-ui, sans-serif" font-size="20">材质需 exact 子 SKU 证明</text>
+
+  <text x="125" y="610" fill="#8a6745" font-family="system-ui, sans-serif" font-size="21" font-weight="700">2019 · OLD MYSTERY FILLER</text>
+  <text x="125" y="651" fill="#4f4031" font-family="system-ui, sans-serif" font-size="23">14K · old dimensions · 888</text>
+  <text x="125" y="689" fill="#7d6b59" font-family="system-ui, sans-serif" font-size="20">历史 demonstrator，不回填 current</text>
+
+  <text x="1125" y="610" fill="#8a6745" font-family="system-ui, sans-serif" font-size="21" font-weight="700">2024 · DEMO SIBLINGS</text>
+  <text x="1125" y="651" fill="#4f4031" font-family="system-ui, sans-serif" font-size="23">steel / 14K 分列</text>
+  <text x="1125" y="689" fill="#7d6b59" font-family="system-ui, sans-serif" font-size="20">one-turn · 七部件不跨 scope</text>
+
+  <rect x="90" y="775" width="1420" height="70" rx="22" fill="#173f3b"/>
+  <text x="800" y="819" text-anchor="middle" fill="#edf5f3" font-family="system-ui, sans-serif" font-size="24" font-weight="650">本站原创示意图／非产品照片 · 不复制 logo、商品照片、真实笔形、透明结构、颜色、比例或机构剖面</text>
+</svg>
