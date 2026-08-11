@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pineider Tempi Moderni 结构与规格示意图</title>
+  <desc id="desc">PP6001/614 的圆角三角截面、155 毫米尺寸、钢尖、活塞与磁吸系统。</desc>
+  <rect width="1600" height="900" fill="#e8eef1"/>
+  <rect x="78" y="72" width="1444" height="756" rx="34" fill="#f8fbfc" stroke="#213642" stroke-width="5"/>
+  <text x="140" y="160" font-family="Georgia, serif" font-size="70" font-weight="700" fill="#1f3541">Pineider Tempi Moderni</text>
+  <text x="142" y="211" font-family="Arial, sans-serif" font-size="29" fill="#607883">PP6001／614 · 圆角三角截面的独立产品线</text>
+  <g transform="translate(160 285)">
+    <path d="M0 92 C0 30 55 0 120 0 C185 0 240 30 240 92 C240 154 185 184 120 184 C55 184 0 154 0 92Z" fill="#8ba8b5"/>
+    <text x="120" y="226" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" fill="#38515c">OGIVE</text>
+    <path d="M310 172 Q285 155 302 120 L390 14 Q420 -18 450 14 L538 120 Q555 155 530 172 Q520 184 495 184 H345 Q320 184 310 172Z" fill="#d69a5f"/>
+    <text x="420" y="226" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" fill="#684521">ROUNDED TRIANGLE</text>
+    <circle cx="720" cy="92" r="92" fill="#5d7d8a"/>
+    <text x="720" y="226" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" fill="#38515c">ROUND TAIL</text>
+    <path d="M252 92 H286" stroke="#536b75" stroke-width="8" stroke-linecap="round"/>
+    <path d="M548 92 H620" stroke="#536b75" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <rect x="1030" y="280" width="430" height="255" rx="28" fill="#213642"/>
+  <text x="1245" y="340" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#ffffff">CURRENT IDENTITY</text>
+  <text x="1245" y="398" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" fill="#b9d7e1">PP6001 / 614</text>
+  <text x="1245" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="27" fill="#ffffff">155 mm · Ø 17.3 mm</text>
+  <text x="1245" y="495" text-anchor="middle" font-family="Arial, sans-serif" font-size="25" fill="#f1c58f">UltraResin · Italy</text>
+  <rect x="160" y="620" width="390" height="90" rx="22" fill="#557481"/>
+  <text x="355" y="677" text-anchor="middle" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#ffffff">STEEL NIB · EF / F / M</text>
+  <rect x="605" y="620" width="390" height="90" rx="22" fill="#d08345"/>
+  <text x="800" y="677" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#ffffff">PISTON FILLING</text>
+  <rect x="1050" y="620" width="410" height="90" rx="22" fill="#334f5b"/>
+  <text x="1255" y="677" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#ffffff">MAGNETIC LOCK SYSTEM</text>
+  <text x="140" y="790" font-family="Arial, sans-serif" font-size="23" fill="#607883">本站原创示意图 · 非产品照片 · 不表示真实颜色、外形、纹理、比例、商标、笔尖或库存</text>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pineider Classic Palladium 身份与上墨边界示意图</title>
+  <desc id="desc">当前 PP5801/779 Palladium 活塞版与 Classic Rose Gold 墨囊上墨器资料分开。</desc>
+  <rect width="1600" height="900" fill="#ecebea"/>
+  <rect x="78" y="72" width="1444" height="756" rx="34" fill="#faf9f6" stroke="#282d31" stroke-width="5"/>
+  <text x="140" y="160" font-family="Georgia, serif" font-size="68" font-weight="700" fill="#252b2f">Pineider Classic Palladium</text>
+  <text x="142" y="211" font-family="Arial, sans-serif" font-size="29" fill="#657078">同叫 Classic，也要先看完整型号与上墨机构</text>
+  <path d="M160 300 H1450" stroke="#b7bec2" stroke-width="5"/>
+  <circle cx="290" cy="300" r="19" fill="#7c8a91"/>
+  <circle cx="550" cy="300" r="19" fill="#7c8a91"/>
+  <circle cx="810" cy="300" r="19" fill="#7c8a91"/>
+  <circle cx="1070" cy="300" r="19" fill="#7c8a91"/>
+  <circle cx="1330" cy="300" r="19" fill="#7c8a91"/>
+  <rect x="130" y="385" width="650" height="290" rx="30" fill="#293238"/>
+  <text x="455" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#ffffff">CURRENT PALLADIUM</text>
+  <text x="455" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="31" fill="#d7e3e7">PP5801 / 779</text>
+  <text x="455" y="560" text-anchor="middle" font-family="Arial, sans-serif" font-size="27" fill="#ffffff">144 mm · Ø 15.5 mm · Italy</text>
+  <text x="455" y="611" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#d4bd75">PISTON · magnetic closure</text>
+  <rect x="850" y="385" width="620" height="290" rx="30" fill="#8a514d"/>
+  <text x="1160" y="450" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#ffffff">ROSE GOLD SIBLING</text>
+  <text x="1160" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="29" fill="#ffe2db">retailer configuration</text>
+  <rect x="1025" y="550" width="210" height="58" rx="16" fill="#ffe2db"/>
+  <rect x="1235" y="564" width="66" height="30" rx="8" fill="#ffe2db"/>
+  <text x="1160" y="650" text-anchor="middle" font-family="Arial, sans-serif" font-size="27" font-weight="700" fill="#ffffff">CARTRIDGE / CONVERTER</text>
+  <text x="800" y="738" text-anchor="middle" font-family="Arial, sans-serif" font-size="29" font-weight="700" fill="#3b4449">同名 sibling 不回填 PP5801／779；包装代码、尾端和接口必须一致</text>
+  <text x="140" y="790" font-family="Arial, sans-serif" font-size="23" fill="#657078">本站原创示意图 · 非产品照片 · 不表示真实颜色、外形、纹理、比例、商标、笔尖或库存</text>
+</svg>
