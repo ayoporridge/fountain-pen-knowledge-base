@@ -1,0 +1,110 @@
+{
+  "candidate": {
+    "kind": "caller-owned checkpoint copy",
+    "verified_path": "/var/folders/3w/v6bts_5d3_x0jbx4yjnshkbc0000gn/T/fpkg-phase583-story-cleanup-FZYVOF/catalog.db",
+    "sha256": "5006a8c3dfbbb2f3fcf6037ab80e2d37aad0535b05a65eea0b9347c969153a61",
+    "protected_catalog_sha256": "acbb5710050b5c9d6e435666dda909b66055c290a4640f04faa38860ea24d09a",
+    "sqlite_integrity_check": "ok",
+    "schema_max_migration": 35,
+    "replayed_phases": [559, 560, 561, 562, 563, 564, 565, 566, 578, 579, 581, 583],
+    "phase583": {
+      "initial_public_entities_cleaned": 195,
+      "initial_pens_cleaned": 180,
+      "initial_brands_cleaned": 15,
+      "additional_entities_cleaned_after_current_stack": 6,
+      "final_replay_affected": 0,
+      "public_raw_model_specs_sections": 0
+    }
+  },
+  "readiness": {
+    "inventory_audited": 809,
+    "brands": 119,
+    "pens": 690,
+    "content_ready": 785,
+    "published": 785,
+    "public_entities": 785,
+    "published_blockers": 0,
+    "public_blockers": 0,
+    "retired_lineage": 24,
+    "public_clean": true,
+    "whole_goal_complete": false
+  },
+  "quality": {
+    "active_brand_pen_entities": 785,
+    "duplicate_name_groups": 0,
+    "suspicious_pen_articles": 0,
+    "thin_brand_model_entities": 0,
+    "made_by_relationship_blockers": 0
+  },
+  "media": {
+    "scanned": 801,
+    "healthy": 801,
+    "failed": 0,
+    "mode": "local-sqlite dry-run"
+  },
+  "library_contract": {
+    "status": "passed",
+    "sources": 3734,
+    "source_items": 5614,
+    "claims": 6940,
+    "citations": 15787,
+    "stories": 837,
+    "events": 1151,
+    "diagrams": 9,
+    "media": 1106,
+    "exhibits": 6,
+    "aliases": 2833
+  },
+  "data_contract": {
+    "status": "passed",
+    "entity_counts": {
+      "article": 275,
+      "brand": 119,
+      "concept": 13,
+      "nib": 3,
+      "pen": 690
+    }
+  },
+  "production_build": {
+    "status": "passed",
+    "next_version": "15.5.18",
+    "compiled_seconds": 8.2,
+    "static_pages_generated": "18/18",
+    "standalone_native_runtime": "darwin-arm64"
+  },
+  "route_verification": {
+    "sitemap_routes": 1071,
+    "public_article_routes_checked": 255,
+    "article_quality_tests": "2/2 passed",
+    "public_brand_pen_routes_checked": 785,
+    "brand_pen_status_h1_canonical_failures": 0,
+    "raw_model_specs_heading_failures": 0,
+    "raw_site_original_license_label_failures": 0,
+    "legal_inline_model_specs_mentions": 2,
+    "legal_non_site_original_media_pages": 13,
+    "unchanged_baseline_reused": {
+      "internal_targets_discovered": 2459,
+      "extra_internal_targets_checked": 1636,
+      "static_image_variants_checked": 790,
+      "external_proxy_variants_deferred_to_media_audit": 3050
+    }
+  },
+  "code_verification": {
+    "typescript": "passed",
+    "cleaner_unit_test": "passed",
+    "renderer_tests": "16/16 passed",
+    "cli_remote_environment_rejection": "passed",
+    "phase583_candidate_replay": "no-op"
+  },
+  "remote_boundary": {
+    "turso_requests": 0,
+    "real_database_writes": 0,
+    "remaining": [
+      "formal migration to the real catalog",
+      "Turso migration and remote readback",
+      "production deployment",
+      "human page traversal",
+      "online item-by-item verification"
+    ]
+  }
+}

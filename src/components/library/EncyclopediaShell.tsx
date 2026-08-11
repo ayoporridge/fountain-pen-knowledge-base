@@ -2,6 +2,7 @@ import Link from "next/link";
 import { BrandMuseum } from "@/components/library/BrandMuseum";
 import { ModelArchive } from "@/components/library/ModelArchive";
 import { MarkdownHtml } from "@/components/MarkdownHtml";
+import { MEDIA_LICENSE_LABELS } from "@/lib/constants";
 import type { PublishedPageData, PublishedSource } from "@/lib/entity-page";
 import type { RenderedMarkdownDocument, StoryHeading } from "@/lib/markdown";
 
@@ -87,7 +88,9 @@ function PrimaryMedia({ data }: { data: PublishedPageData }) {
       />
       <figcaption className="flex min-h-11 flex-wrap items-center gap-x-2 border-t px-4 py-3 text-sm text-ink-muted">
         <span>{media.attribution}</span>
-        <span>许可：{media.license}</span>
+        <span>
+          许可：{MEDIA_LICENSE_LABELS[media.license] ?? media.license}
+        </span>
         {media.sourceUrl ? (
           <a
             href={media.sourceUrl}

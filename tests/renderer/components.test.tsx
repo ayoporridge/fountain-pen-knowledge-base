@@ -185,6 +185,23 @@ describe("server markup encyclopedia shell", () => {
     assert.match(html, /href="#书写体验"/);
   });
 
+  it("renders the reader-facing label for project-owned media licenses", async () => {
+    const data = modelPage({
+      primaryMedia: {
+        ...modelPage().primaryMedia,
+        license: "site-original",
+        attribution: "资料馆原创事实示意图",
+      },
+    });
+    const document = await renderMarkdownDocument(data.story.bodyMd);
+    const html = renderToStaticMarkup(
+      createElement(EncyclopediaShell, { data, document }),
+    );
+
+    assert.match(html, /许可：站内原创/);
+    assert.doesNotMatch(html, /许可：site-original/);
+  });
+
   it("labels project-owned evidence honestly instead of calling it an external archive", async () => {
     const data = modelPage({
       sources: [
