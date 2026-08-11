@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pineider Avatar Anniversary PP7301／1026 身份与版本边界事实图</title>
+  <desc id="desc">本站原创示意图，非产品照片。以抽象档案卡展示 PP7301／1026、黑色与 Pineider Green 六个 child SKU、EF F M 钢尖、148 毫米尺寸、磁吸帽和墨囊上墨器；不表示真实笔形、颜色、纹理、比例或商标。</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101813"/>
+      <stop offset="1" stop-color="#283b31"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#a97d2e"/>
+      <stop offset="0.5" stop-color="#f2d38c"/>
+      <stop offset="1" stop-color="#b78b38"/>
+    </linearGradient>
+    <pattern id="grid" width="44" height="44" patternUnits="userSpaceOnUse">
+      <path d="M44 0H0V44" fill="none" stroke="#fff" stroke-opacity="0.035"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="url(#background)"/>
+  <rect width="1600" height="900" fill="url(#grid)"/>
+  <rect x="70" y="62" width="1460" height="776" rx="34" fill="#111815" fill-opacity="0.78" stroke="#dfbd70" stroke-opacity="0.58" stroke-width="2"/>
+
+  <text x="120" y="132" fill="#f1d58f" font-family="system-ui, sans-serif" font-size="26" letter-spacing="4">IDENTITY FILE · 250 ANNIVERSARY CONTEXT</text>
+  <text x="120" y="196" fill="#fffaf0" font-family="system-ui, sans-serif" font-size="55" font-weight="700">Avatar Anniversary</text>
+  <text x="120" y="244" fill="#bac8bf" font-family="system-ui, sans-serif" font-size="24">PP7301／1026 · fountain pen · anniversary is not a limited-count claim</text>
+
+  <g transform="translate(120 300)">
+    <rect width="640" height="220" rx="24" fill="#203129" stroke="#486c58"/>
+    <text x="34" y="48" fill="#d8e5dd" font-family="system-ui, sans-serif" font-size="20" letter-spacing="2">CURRENT CHILD SKU MATRIX</text>
+    <text x="34" y="92" fill="#fff" font-family="system-ui, sans-serif" font-size="31" font-weight="700">BLACK · 056</text>
+    <text x="34" y="135" fill="#d4ddd7" font-family="ui-monospace, monospace" font-size="23">SPP7301E056  ·  SPP7301F056</text>
+    <text x="34" y="174" fill="#d4ddd7" font-family="ui-monospace, monospace" font-size="23">SPP7301M056</text>
+    <circle cx="586" cy="120" r="54" fill="#090c0a" stroke="#c7a65c" stroke-width="3"/>
+  </g>
+
+  <g transform="translate(120 544)">
+    <rect width="640" height="220" rx="24" fill="#173b2f" stroke="#589176"/>
+    <text x="34" y="48" fill="#d8e5dd" font-family="system-ui, sans-serif" font-size="20" letter-spacing="2">CURRENT CHILD SKU MATRIX</text>
+    <text x="34" y="92" fill="#fff" font-family="system-ui, sans-serif" font-size="31" font-weight="700">PINEIDER GREEN · 374</text>
+    <text x="34" y="135" fill="#d4ddd7" font-family="ui-monospace, monospace" font-size="23">SPP7301E374  ·  SPP7301F374</text>
+    <text x="34" y="174" fill="#d4ddd7" font-family="ui-monospace, monospace" font-size="23">SPP7301M374</text>
+    <circle cx="586" cy="120" r="54" fill="#0d513b" stroke="#e0bd6d" stroke-width="3"/>
+  </g>
+
+  <g transform="translate(824 300)">
+    <rect width="646" height="464" rx="26" fill="#f3efe5"/>
+    <text x="38" y="55" fill="#243229" font-family="system-ui, sans-serif" font-size="21" letter-spacing="3">EXACT PRODUCT BOUNDARY</text>
+    <line x1="38" y1="78" x2="608" y2="78" stroke="url(#gold)" stroke-width="5"/>
+    <g font-family="system-ui, sans-serif">
+      <text x="42" y="132" fill="#6c746f" font-size="20">Nib</text>
+      <text x="220" y="132" fill="#17231c" font-size="27" font-weight="650">steel · EF / F / M</text>
+      <text x="42" y="190" fill="#6c746f" font-size="20">Body</text>
+      <text x="220" y="190" fill="#17231c" font-size="27" font-weight="650">glossy resin</text>
+      <text x="42" y="248" fill="#6c746f" font-size="20">Size</text>
+      <text x="220" y="248" fill="#17231c" font-size="27" font-weight="650">148 mm · Ø14.2 mm</text>
+      <text x="42" y="306" fill="#6c746f" font-size="20">Closure</text>
+      <text x="220" y="306" fill="#17231c" font-size="27" font-weight="650">Magnetic Lock</text>
+      <text x="42" y="364" fill="#6c746f" font-size="20">Filling</text>
+      <text x="220" y="364" fill="#17231c" font-size="27" font-weight="650">cartridge / converter</text>
+    </g>
+    <rect x="38" y="395" width="570" height="42" rx="21" fill="#253a30"/>
+    <text x="323" y="423" text-anchor="middle" fill="#f6e8bd" font-family="system-ui, sans-serif" font-size="18" letter-spacing="1">YELLOW GOLD FINISH · NOT A GOLD NIB CLAIM</text>
+  </g>
+
+  <text x="120" y="810" fill="#aebbb3" font-family="system-ui, sans-serif" font-size="18">本站原创示意图／非产品照片 · 不表示真实外观、色泽、纹理、笔形、比例或商标</text>
+</svg>
