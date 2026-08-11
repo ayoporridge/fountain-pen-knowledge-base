@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">LAMY Lx 事实示意</title>
+  <desc id="desc">本站原创示意图，非产品照片。表达阳极氧化铝、金属细节、黑色 PVD 钢尖和 T10 Z28 的资料关系。</desc>
+  <rect width="1600" height="900" fill="#efe9df"/>
+  <rect x="82" y="74" width="1436" height="752" rx="42" fill="#182329"/>
+  <text x="132" y="158" fill="#f5efe5" font-family="system-ui, sans-serif" font-size="58" font-weight="700">LAMY Lx</text>
+  <text x="132" y="211" fill="#b9c4c8" font-family="system-ui, sans-serif" font-size="25">FACT DIAGRAM · SITE ORIGINAL · 非产品照片</text>
+  <g transform="translate(140 300)">
+    <rect x="0" y="65" width="935" height="118" rx="59" fill="#7d8587"/>
+    <rect x="87" y="84" width="454" height="80" rx="38" fill="#aeb6b7" opacity="0.72"/>
+    <path d="M935 65 L1120 124 L935 183 Z" fill="#101719"/>
+    <path d="M1010 89 L1120 124 L1010 159 Z" fill="#2f3638"/>
+    <rect x="15" y="46" width="390" height="18" rx="9" fill="#d8d2c7"/>
+    <circle cx="72" cy="124" r="18" fill="#25333a"/>
+    <text x="0" y="255" fill="#f1ece4" font-family="system-ui, sans-serif" font-size="31">阳极氧化铝 · 同色金属细节 · 黑色 PVD 钢尖</text>
+  </g>
+  <g font-family="system-ui, sans-serif" font-size="27">
+    <rect x="150" y="650" width="345" height="88" rx="18" fill="#d5ab73"/>
+    <text x="187" y="705" fill="#182329">T10 墨囊 / Z28</text>
+    <rect x="528" y="650" width="385" height="88" rx="18" fill="#8ba5a7"/>
+    <text x="570" y="705" fill="#122027">当前锚点 140 mm · 24 g</text>
+    <rect x="946" y="650" width="485" height="88" rx="18" fill="#c6b6a4"/>
+    <text x="986" y="705" fill="#182329">颜色是 SKU，不另拆结构型号</text>
+  </g>
+  <text x="132" y="790" fill="#9da9ad" font-family="system-ui, sans-serif" font-size="21">不代表真实比例、颜色、Logo、笔夹、笔尖刻字、包装或库存</text>
+</svg>
