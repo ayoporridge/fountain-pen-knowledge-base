@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pineider Rock 上墨版本边界示意图</title>
+  <desc id="desc">当前 PP4901/426 活塞版与旧礼赠文章 converter 说法分开。</desc>
+  <rect width="1600" height="900" fill="#edf0ed"/>
+  <rect x="78" y="72" width="1444" height="756" rx="34" fill="#fbfcf8" stroke="#243335" stroke-width="5"/>
+  <text x="140" y="165" font-family="Georgia, serif" font-size="72" font-weight="700" fill="#243335">Pineider Rock</text>
+  <text x="142" y="215" font-family="Arial, sans-serif" font-size="30" fill="#637175">先看上墨机构，再看颜色名称</text>
+  <rect x="142" y="300" width="560" height="325" rx="30" fill="#243335"/>
+  <text x="422" y="365" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#fff">CURRENT PRODUCT</text>
+  <text x="422" y="424" text-anchor="middle" font-family="Arial, sans-serif" font-size="31" fill="#bee1d5">PP4901 / 426</text>
+  <path d="M235 500 H565" stroke="#bee1d5" stroke-width="30" stroke-linecap="round"/>
+  <path d="M245 500 H395" stroke="#f3bb66" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="565" cy="500" r="36" fill="#f3bb66"/>
+  <text x="422" y="572" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" fill="#fff">steel nib · magnetic cap · PISTON</text>
+  <path d="M790 420 H980" stroke="#8b9698" stroke-width="10" stroke-linecap="round"/>
+  <path d="M955 395 L995 420 L955 445" fill="none" stroke="#8b9698" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="900" y="300" width="560" height="325" rx="30" fill="#7b4b3e"/>
+  <text x="1180" y="365" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" font-weight="700" fill="#fff">OLDER OFFICIAL COPY</text>
+  <text x="1180" y="424" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" fill="#f5d7cc">gift-guide statement</text>
+  <rect x="1085" y="472" width="190" height="58" rx="15" fill="#f5d7cc"/>
+  <rect x="1275" y="486" width="62" height="30" rx="9" fill="#f5d7cc"/>
+  <text x="1180" y="574" text-anchor="middle" font-family="Arial, sans-serif" font-size="28" fill="#fff">No.6 steel · CONVERTER</text>
+  <text x="800" y="700" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#2f4144">颜色不能决定机构；购买时检查尾钮、墨窗、接口与完整 SKU</text>
+  <text x="140" y="770" font-family="Arial, sans-serif" font-size="24" fill="#5f696b">本站原创示意图 · 非产品照片 · 不表示真实颜色、纹理、比例、商标、笔尖或库存</text>
+</svg>

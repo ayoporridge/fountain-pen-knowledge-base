@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pineider Arco 事实边界示意图</title>
+  <desc id="desc">当前 PP5901/617 身份、层叠树脂、2019 Oak 样本和颜色版本边界。</desc>
+  <rect width="1600" height="900" fill="#f4efe8"/>
+  <rect x="78" y="72" width="1444" height="756" rx="34" fill="#fffaf3" stroke="#342b28" stroke-width="5"/>
+  <text x="140" y="165" font-family="Georgia, serif" font-size="72" font-weight="700" fill="#2e2724">Pineider Arco</text>
+  <text x="142" y="215" font-family="Arial, sans-serif" font-size="30" fill="#6c625c">当前 family 与 2019 Oak 样本分开阅读</text>
+  <path d="M170 315 C330 240 480 385 650 305 S980 225 1160 315 S1390 390 1460 300" fill="none" stroke="#8c5b36" stroke-width="30" opacity=".88"/>
+  <path d="M170 350 C330 275 480 420 650 340 S980 260 1160 350 S1390 425 1460 335" fill="none" stroke="#d0a36e" stroke-width="24" opacity=".92"/>
+  <path d="M170 382 C330 307 480 452 650 372 S980 292 1160 382 S1390 457 1460 367" fill="none" stroke="#473633" stroke-width="18" opacity=".9"/>
+  <rect x="130" y="500" width="390" height="190" rx="24" fill="#342b28"/>
+  <text x="325" y="558" text-anchor="middle" font-family="Arial, sans-serif" font-size="31" font-weight="700" fill="#fff">CURRENT IDENTITY</text>
+  <text x="325" y="610" text-anchor="middle" font-family="Arial, sans-serif" font-size="29" fill="#f4d7b5">PP5901 / 617</text>
+  <text x="325" y="653" text-anchor="middle" font-family="Arial, sans-serif" font-size="25" fill="#fff">142 mm · Ø 15.5 mm · Italy</text>
+  <rect x="605" y="500" width="390" height="190" rx="24" fill="#815335"/>
+  <text x="800" y="558" text-anchor="middle" font-family="Arial, sans-serif" font-size="31" font-weight="700" fill="#fff">2019 OAK SAMPLE</text>
+  <text x="800" y="610" text-anchor="middle" font-family="Arial, sans-serif" font-size="27" fill="#fff0df">14K Quill · piston · 42 g</text>
+  <text x="800" y="653" text-anchor="middle" font-family="Arial, sans-serif" font-size="25" fill="#fff">888 pieces，仅绑定该版本</text>
+  <rect x="1080" y="500" width="390" height="190" rx="24" fill="#5d6b70"/>
+  <text x="1275" y="558" text-anchor="middle" font-family="Arial, sans-serif" font-size="31" font-weight="700" fill="#fff">MATERIAL BOUNDARY</text>
+  <text x="1275" y="610" text-anchor="middle" font-family="Arial, sans-serif" font-size="27" fill="#e8f2f3">Pineider layered resin</text>
+  <text x="1275" y="653" text-anchor="middle" font-family="Arial, sans-serif" font-size="25" fill="#fff">不是 OMAS Arco celluloid</text>
+  <text x="140" y="770" font-family="Arial, sans-serif" font-size="24" fill="#5f6668">本站原创示意图 · 非产品照片 · 不表示真实颜色、纹理、比例、商标、笔尖或在售库存</text>
+</svg>
