@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pineider Avatar UR Glossy PP4001／602 选择器与文案冲突事实图</title>
+  <desc id="desc">本站原创示意图，非产品照片。用左右两栏表达当前 Lapis Blue 与 Nero 选择器、五个有价格组合、十六个隐藏或未定价代码，以及官网 all-black look 文案的范围冲突。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#15121e"/>
+      <stop offset=".56" stop-color="#17243c"/>
+      <stop offset="1" stop-color="#102c35"/>
+    </linearGradient>
+    <linearGradient id="lapis" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#337cc0"/>
+      <stop offset="1" stop-color="#173c73"/>
+    </linearGradient>
+    <linearGradient id="nero" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#30343c"/>
+      <stop offset="1" stop-color="#0b0d12"/>
+    </linearGradient>
+    <style>
+      .sans{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC",sans-serif}
+      .mono{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace}
+      .small{font-size:24px;fill:#c4cad6}.label{font-size:27px;fill:#f0f3f8}.code{font-size:34px;font-weight:700;fill:#fff}.pill{font-size:24px;font-weight:650;fill:#fff}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <path d="M0 660C320 575 495 772 806 680s479-216 794-97v317H0Z" fill="#67b8b1" opacity=".08"/>
+  <g class="sans">
+    <text x="92" y="86" font-size="25" letter-spacing="5" fill="#9bb9d7">FOUNTAIN PEN GRAPH · FACT DIAGRAM</text>
+    <text x="92" y="151" font-size="48" font-weight="750" fill="#f7f8fb">Avatar UR Glossy</text>
+    <text x="92" y="194" class="code mono">PP4001／602</text>
+
+    <rect x="92" y="246" width="1416" height="112" rx="24" fill="#211d2c" stroke="#8b759d" stroke-width="2"/>
+    <text x="130" y="294" class="label">官网正文</text>
+    <text x="318" y="294" font-size="34" font-weight="750" fill="#f2d2f7">“all-black look”</text>
+    <line x1="754" y1="272" x2="754" y2="333" stroke="#9d88ad" stroke-width="2"/>
+    <text x="800" y="294" class="label">当前颜色 selector</text>
+    <text x="1092" y="294" font-size="34" font-weight="750" fill="#cfe5ff">Lapis Blue ＋ Nero</text>
+    <text x="130" y="333" class="small">两条证据并存：营销句不删除蓝色，selector 也不替文案解释饰件范围</text>
+
+    <rect x="92" y="406" width="672" height="284" rx="28" fill="url(#lapis)" stroke="#78aee3" stroke-width="2"/>
+    <text x="132" y="464" class="code">Lapis Blue 406</text>
+    <text x="132" y="507" class="small">current pricing matrix</text>
+    <rect x="132" y="544" width="112" height="55" rx="27" fill="#0d294e"/><text x="188" y="580" text-anchor="middle" class="pill">F</text>
+    <rect x="262" y="544" width="112" height="55" rx="27" fill="#0d294e"/><text x="318" y="580" text-anchor="middle" class="pill">M</text>
+    <rect x="392" y="544" width="212" height="55" rx="27" fill="none" stroke="#d7dce7" stroke-width="2" stroke-dasharray="8 8"/>
+    <text x="498" y="580" text-anchor="middle" class="pill">EF unpriced</text>
+    <text x="132" y="642" class="small mono">SSAFX…1406 · SSAMX…1406</text>
+
+    <rect x="836" y="406" width="672" height="284" rx="28" fill="url(#nero)" stroke="#6f7786" stroke-width="2"/>
+    <text x="876" y="464" class="code">Nero 056</text>
+    <text x="876" y="507" class="small">current pricing matrix</text>
+    <rect x="876" y="544" width="112" height="55" rx="27" fill="#444955"/><text x="932" y="580" text-anchor="middle" class="pill">EF</text>
+    <rect x="1006" y="544" width="112" height="55" rx="27" fill="#444955"/><text x="1062" y="580" text-anchor="middle" class="pill">F</text>
+    <rect x="1136" y="544" width="112" height="55" rx="27" fill="#444955"/><text x="1192" y="580" text-anchor="middle" class="pill">M</text>
+    <text x="876" y="642" class="small mono">SSAEX／SSAFX／SSAMX…1056</text>
+
+    <rect x="434" y="733" width="732" height="75" rx="37" fill="#201f29" stroke="#d0a25f" stroke-width="2"/>
+    <text x="800" y="782" text-anchor="middle" font-size="29" font-weight="700" fill="#ffe2ad">5 pricing-backed SKU · 16 hidden／unpriced code</text>
+    <text x="92" y="866" class="small">本站原创示意图／非产品照片 · 不表示真实颜色、光泽、外形、纹理、笔尖或比例</text>
+  </g>
+</svg>

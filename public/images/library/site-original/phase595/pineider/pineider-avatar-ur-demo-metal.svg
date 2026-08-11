@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pineider Avatar UR Demo Metal PP3401／608 与 PP3901／611 身份事实图</title>
+  <desc id="desc">本站原创示意图，非产品照片。用透明观察窗、两条代码轨道和定价矩阵数字说明 Demo Metal 的两个 edition、三十一个当前可定价 SKU 与五个未定价代码；不表示真实笔形、颜色或比例。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071724"/>
+      <stop offset="1" stop-color="#183848"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#bfe9e7" stop-opacity=".16"/>
+      <stop offset=".5" stop-color="#d9fff7" stop-opacity=".42"/>
+      <stop offset="1" stop-color="#86c7ca" stop-opacity=".14"/>
+    </linearGradient>
+    <style>
+      .sans{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC",sans-serif}
+      .mono{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace}
+      .small{font-size:24px;fill:#bbccd1}.label{font-size:25px;fill:#d9e8e8}.code{font-size:34px;font-weight:700;fill:#fff}.num{font-size:72px;font-weight:800;fill:#ffe3a1}.hair{stroke:#8cbfc0;stroke-width:2}.dash{stroke:#d7a55b;stroke-width:3;stroke-dasharray:9 12}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="1400" cy="118" r="250" fill="#2b6f74" opacity=".16"/>
+  <circle cx="124" cy="806" r="280" fill="#ba7b35" opacity=".08"/>
+
+  <g class="sans">
+    <text x="92" y="86" font-size="25" letter-spacing="5" fill="#92c9c9">FOUNTAIN PEN GRAPH · FACT DIAGRAM</text>
+    <text x="92" y="151" font-size="48" font-weight="750" fill="#f5fbfa">Avatar UR Demo Metal</text>
+    <text x="92" y="191" class="small">一个 canonical 型号 · 两个 exact edition · 2026-08-11 页面快照</text>
+
+    <rect x="92" y="247" width="1416" height="258" rx="30" fill="#0c2230" stroke="#5c9698" stroke-width="2"/>
+    <rect x="128" y="282" width="890" height="188" rx="94" fill="url(#glass)" stroke="#9cd0cf" stroke-width="3"/>
+    <line x1="330" y1="307" x2="330" y2="445" class="hair" opacity=".7"/>
+    <line x1="760" y1="307" x2="760" y2="445" class="hair" opacity=".7"/>
+    <circle cx="404" cy="376" r="30" fill="none" stroke="#c2e6e3" stroke-width="3"/>
+    <circle cx="524" cy="376" r="30" fill="none" stroke="#c2e6e3" stroke-width="3"/>
+    <path d="M560 376h142" class="hair"/>
+    <path d="M603 349v54M650 349v54" class="hair"/>
+    <text x="1060" y="326" class="label">共同事实轴</text>
+    <text x="1060" y="369" class="small">148 mm · Ø14.2 mm · Italy</text>
+    <text x="1060" y="409" class="small">transparent UltraResin</text>
+    <text x="1060" y="449" class="small">cartridge／converter · Magnetic Lock</text>
+
+    <rect x="92" y="549" width="672" height="218" rx="26" fill="#123341" stroke="#75b6b5" stroke-width="2"/>
+    <text x="130" y="602" class="code mono">PP3401／608</text>
+    <text x="130" y="643" class="small">普通金属件 · 镀钯钢尖</text>
+    <text x="130" y="693" class="num">8</text>
+    <text x="230" y="680" class="label">pricing-backed SKU</text>
+    <text x="230" y="716" class="small">四个颜色菜单 · EF／F／M 不全组合</text>
+
+    <rect x="836" y="549" width="672" height="218" rx="26" fill="#101d27" stroke="#85989f" stroke-width="2"/>
+    <text x="874" y="602" class="code mono">PP3901／611</text>
+    <text x="874" y="643" class="small">Black edition · 黑色钢尖</text>
+    <text x="874" y="693" class="num">23</text>
+    <text x="1006" y="680" class="label">pricing-backed SKU</text>
+    <text x="1006" y="716" class="small">八个颜色菜单 · Wine Red M 未定价</text>
+
+    <path d="M764 658h72" class="dash"/>
+    <rect x="606" y="798" width="388" height="54" rx="27" fill="#2a2521" stroke="#c99550" stroke-width="2"/>
+    <text x="800" y="834" text-anchor="middle" font-size="24" fill="#ffe3a1">31 current · 5 unpriced</text>
+
+    <text x="92" y="884" class="small">本站原创示意图／非产品照片 · 不表示真实颜色、外形、透明度、纹理或比例</text>
+  </g>
+</svg>
