@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Nahvalur Key West 墨水系统、两个版本与停售代码事实图</title>
+  <desc id="desc">本站原创示意图，非产品照片。以海岛坐标、converter 流程、Key Largo 与 Islamorada 两个版本，以及八个 unavailable 代码说明 Key West 的型号边界。</desc>
+  <defs>
+    <linearGradient id="sea" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#053b52"/><stop offset=".55" stop-color="#087d87"/><stop offset="1" stop-color="#d89a58"/></linearGradient>
+    <style>.sans{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC",sans-serif}.small{font-size:23px;fill:#d9f3ef}.label{font-size:28px;font-weight:700;fill:#fff}.dark{fill:#123346}</style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#sea)"/>
+  <path d="M0 680c270-110 440 30 695-74s448-25 905-98v392H0Z" fill="#f0c586" opacity=".76"/>
+  <path d="M0 590c330-105 505 51 780-44s501-81 820-57" fill="none" stroke="#c6f7ec" stroke-width="7" opacity=".55"/>
+  <g class="sans">
+    <text x="86" y="82" font-size="24" letter-spacing="5" fill="#b7e7df">FOUNTAIN PEN GRAPH · FACT DIAGRAM</text>
+    <text x="86" y="151" font-size="52" font-weight="800" fill="#fff">Nahvalur Key West</text>
+    <text x="86" y="196" class="small">2021 Standard Edition · 品牌首个 cartridge／converter fountain pen</text>
+    <rect x="86" y="240" width="930" height="276" rx="34" fill="#062d43" fill-opacity=".88" stroke="#8ce1d7" stroke-width="2"/>
+    <text x="132" y="298" class="label">上墨路径</text>
+    <rect x="132" y="340" width="222" height="102" rx="24" fill="#e6f7f2"/><text x="243" y="382" text-anchor="middle" font-size="23" class="dark">international</text><text x="243" y="415" text-anchor="middle" font-size="23" class="dark">cartridge</text>
+    <path d="M374 391h82" stroke="#f4c679" stroke-width="8"/><path d="M456 391l-22-14v28z" fill="#f4c679"/>
+    <rect x="480" y="340" width="246" height="102" rx="24" fill="#e6f7f2"/><text x="603" y="382" text-anchor="middle" font-size="23" class="dark">converter included</text><text x="603" y="415" text-anchor="middle" font-size="20" class="dark">Lamy LZ28 compatible</text>
+    <path d="M746 391h82" stroke="#f4c679" stroke-width="8"/><path d="M828 391l-22-14v28z" fill="#f4c679"/>
+    <path d="M861 348l88 43-88 43 26-43z" fill="#d8edf0" stroke="#fff" stroke-width="3"/>
+    <text x="132" y="486" class="small">No.6 in-house stainless steel · 143 / 126 / 166 mm · 25.5 g</text>
+    <rect x="1060" y="240" width="454" height="276" rx="34" fill="#f8eee1"/>
+    <text x="1102" y="298" font-size="28" font-weight="750" fill="#26404f">两个 edition，不是两支新系列</text>
+    <circle cx="1142" cy="358" r="27" fill="#b9c3c9"/><text x="1190" y="367" font-size="25" fill="#274556">Key Largo · chrome</text>
+    <circle cx="1142" cy="421" r="27" fill="#d3a44f"/><text x="1190" y="430" font-size="25" fill="#274556">Islamorada · gold</text>
+    <text x="1102" y="478" font-size="22" fill="#68747a">Pride 2024 仅保留 archive scope</text>
+    <rect x="86" y="576" width="1428" height="196" rx="30" fill="#fff" fill-opacity=".9"/>
+    <text x="132" y="634" font-size="28" font-weight="750" fill="#173e50">2026-08-11 official product JSON</text>
+    <text x="132" y="711" font-size="78" font-weight="850" fill="#be5b4f">8</text><text x="224" y="703" font-size="29" fill="#4f5f65">unavailable fountain-pen codes</text>
+    <text x="778" y="674" font-size="25" fill="#345a64">02030011–14 · Key Largo</text><text x="778" y="719" font-size="25" fill="#345a64">02030021–24 · Islamorada</text>
+    <text x="86" y="842" class="small">停售代码只作历史证据，不建立 current market-SKU child</text>
+    <text x="86" y="879" class="small">本站原创示意图／非产品照片 · 不表示真实笔形、颜色、饰件、尺寸或比例</text>
+  </g>
+</svg>

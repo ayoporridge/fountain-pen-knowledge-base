@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Nahvalur Pen of the Year Tiger 2022 限量与笔尖范围事实图</title>
+  <desc id="desc">本站原创示意图，非产品照片。以橙黑条纹、222、三枚舷窗、活塞和钢尖标准与 14K 样本分流说明 Tiger 2022 的证据边界。</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#161411"/><stop offset=".58" stop-color="#2d2118"/><stop offset="1" stop-color="#ad5d1d"/></linearGradient><style>.sans{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC",sans-serif}.small{font-size:23px;fill:#ead9c6}.label{font-size:29px;font-weight:760;fill:#fff}</style></defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <path d="M1060 0l-170 900M1320 0l-170 900M1540 110l-150 790" stroke="#ef8a2f" stroke-width="68" opacity=".23"/>
+  <g class="sans">
+    <text x="86" y="82" font-size="24" letter-spacing="5" fill="#e8ad75">FOUNTAIN PEN GRAPH · YEARLY IDENTITY</text>
+    <text x="86" y="150" font-size="52" font-weight="800" fill="#fff">Tiger 2022</text><text x="86" y="196" class="small">Pen of the Year · oversized Nautilus shape · internal piston</text>
+    <rect x="86" y="244" width="557" height="492" rx="34" fill="#0e0d0c" fill-opacity=".84" stroke="#d98435" stroke-width="3"/>
+    <text x="132" y="304" class="label">编号范围</text><text x="132" y="493" font-size="196" font-weight="900" fill="#f59b46">222</text><text x="132" y="548" font-size="26" fill="#f2d1af">numbered units · reliable archive</text>
+    <circle cx="220" cy="632" r="26" fill="#d8e3da"/><circle cx="306" cy="632" r="26" fill="#d8e3da"/><circle cx="392" cy="632" r="26" fill="#d8e3da"/><text x="132" y="696" class="small">three portholes · piston · black metal</text>
+    <rect x="687" y="244" width="827" height="238" rx="34" fill="#f6ebdf"/>
+    <text x="733" y="304" font-size="29" font-weight="780" fill="#3d2b20">官方首发标准 · No.6 in-house steel</text>
+    <g transform="translate(733 350)" fill="#d69b61"><rect width="90" height="58" rx="29"/><rect x="108" width="90" height="58" rx="29"/><rect x="216" width="90" height="58" rx="29"/><rect x="324" width="130" height="58" rx="29"/><rect x="472" width="100" height="58" rx="29"/></g>
+    <g transform="translate(733 350)" font-size="21" font-weight="800" fill="#3c2b20"><text x="45" y="37" text-anchor="middle">F</text><text x="153" y="37" text-anchor="middle">M</text><text x="261" y="37" text-anchor="middle">B</text><text x="389" y="37" text-anchor="middle">1.1 Stub</text><text x="522" y="37" text-anchor="middle">BB</text></g>
+    <rect x="687" y="520" width="827" height="216" rx="34" fill="#382a25" stroke="#be8c64" stroke-width="2"/>
+    <text x="733" y="582" class="label">14K 只作已观察样本范围</text><text x="733" y="631" class="small">存在可靠样笔／零售证据 ≠ 全部 222 支均为金尖</text><text x="733" y="679" class="small">不反推商品代码，不覆盖官方钢尖首发矩阵</text>
+    <text x="86" y="827" class="small">橙黑 swirling resin 的每支分布不同；主题色不是逐像素鉴伪标准</text>
+    <text x="86" y="873" class="small">本站原创示意图／非产品照片 · 不复制真实笔形、树脂、编号、笔尖或商标</text>
+  </g>
+</svg>
