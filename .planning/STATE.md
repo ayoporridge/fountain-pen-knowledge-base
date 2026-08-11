@@ -5,10 +5,10 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
-stopped_at: Quick 260722-ije complete; switching to multi-model brand batches
-last_updated: "2026-07-22T14:00:00+08:00"
-last_activity: 2026-07-22
-last_activity_desc: Wancher Dream Pen True Ebonite Marble Green exact SKU checkpoint-published
+stopped_at: Quick 260811-hoq complete; next repair is the pre-existing Wancher duplicate primary image
+last_updated: "2026-08-11T13:13:30+08:00"
+last_activity: 2026-08-11
+last_activity_desc: LAMY Lx and LAMY dialog cc sourced packages verified on an owned checkpoint
 progress:
   total_phases: 16
   completed_phases: 10
@@ -31,7 +31,7 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 Phase: 21 (Taxonomy 与身份归一) — EXECUTING
 Plan: 4 of 6
 Status: In progress
-Last activity: 2026-08-06 — Completed quick task 260806-kf7: added current Pilot Prera Iro-ai SKU coverage under the existing canonical entity
+Last activity: 2026-08-11 — Completed quick task 260811-hoq: added sourced LAMY Lx and LAMY dialog cc packages on an owned checkpoint
 
 Progress: [█████░░░░░] 50%
 
@@ -187,10 +187,11 @@ Progress: [█████░░░░░] 50%
 | 260806-r8z | 发布 Wancher Zogan Yuki Zuki Urushi Aka Tamenuri、Blue 与 Black 三个来源化 sibling 型号 | 2026-08-06 | 5370693c | [260806-r8z-add-three-sourced-wancher-zogan-yuki-zuki-siblings](./quick/260806-r8z-add-three-sourced-wancher-zogan-yuki-zuki-siblings/) |
 | 260806-t2m | 发布 Wancher Zogan Momiji Urushi Blue、Urushi Tamamushi-nuri 与 Green Tamamushi-nuri 三个来源化 sibling 型号 | 2026-08-06 | 74c517b0 | [260806-t2m-add-three-sourced-wancher-zogan-momiji-siblings](./quick/260806-t2m-add-three-sourced-wancher-zogan-momiji-siblings/) |
 | 260806-kf7 | 补齐 Pilot Prera 色彩逢い Iro-ai 当前官方 SKU 变体，并增强 Prera 页面边界与定向回归 | 2026-08-06 | 23458997 | [260806-kf7-pilot-prera-iro-ai-sku-prera](./quick/260806-kf7-pilot-prera-iro-ai-sku-prera/) |
+| 260811-hoq | 发布 LAMY Lx 与 LAMY dialog cc 两个来源化独立型号，并通过审核—发布门与离线全量回归 | 2026-08-11 | 2568e069 | [260811-hoq-add-sourced-lamy-lx-and-lamy-dialog-cc-c](./quick/260811-hoq-add-sourced-lamy-lx-and-lamy-dialog-cc-c/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做 305 条库存盘点。以既有审计、research 与可重放内容包推导剩余差集；优先将同品牌、同证据结构的 8–15 个真实缺口合并为一个 CuratedEntityPack 批次，共享 owned checkpoint 与定向回归。身份争议项保持小批处理。生产迁移与全量页面验收留到内容封板后执行，full corpus goal 继续 active。
+先修复 Wancher 品牌页与 Dream Pen True Ebonite Matte Black 型号页复用同一主图的既有缺陷，再继续 Phase 23 的外网来源化内容制作；不重做库存盘点。以既有审计、research 与可重放内容包推导剩余差集，同品牌、同证据结构的真实缺口可共享 owned checkpoint 与定向回归。生产迁移与全量页面验收留到内容封板后执行；Turso 同步、部署与线上逐条复查留到额度恢复后执行，full corpus goal 继续 active。
 
 ## Session Continuity
 
