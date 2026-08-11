@@ -5,10 +5,10 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
-stopped_at: Quick 260811-obl complete; Pineider Avatar UR deepened and Egosphere added on the offline candidate
-last_updated: "2026-08-11T18:04:51+08:00"
+stopped_at: Quick 260811-p8m complete; Pineider Avatar UR Demo Metal and Glossy added on the offline candidate
+last_updated: "2026-08-11T18:50:20+08:00"
 last_activity: 2026-08-11
-last_activity_desc: Deepened sourced Pineider Avatar UR and published canonical Egosphere on the Phase 594 owned candidate
+last_activity_desc: Published sourced Pineider Avatar UR Demo Metal and Glossy on the Phase 595 owned candidate
 progress:
   total_phases: 16
   completed_phases: 10
@@ -31,7 +31,7 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 Phase: 21 (Taxonomy 与身份归一) — EXECUTING
 Plan: 4 of 6
 Status: In progress
-Last activity: 2026-08-11 — Completed quick task 260811-obl: deepened Pineider Avatar UR and published canonical Egosphere offline with source, identity, media and publication-gate verification
+Last activity: 2026-08-11 — Completed quick task 260811-p8m: published Pineider Avatar UR Demo Metal and Glossy offline with source, identity, media and publication-gate verification
 
 Progress: [█████░░░░░] 50%
 
@@ -196,10 +196,11 @@ Progress: [█████░░░░░] 50%
 | 260811-mn7 | 发布 Pineider Alba Classic PP7701／1120 与 Alba Mini PP7601／1122，并隔离尺寸、笔尖、上墨、饰面与 generic Mini 边界 | 2026-08-11 | c35ba7e8 | [260811-mn7-add-sourced-pineider-alba-classic-pp7701](./quick/260811-mn7-add-sourced-pineider-alba-classic-pp7701/) |
 | 260811-njm | 发布 Pineider Avatar Anniversary PP7301／1026 与 Avatar UR Mini SPP6801／941，并隔离周年限量、尺寸、颜色及 full-size sibling 边界 | 2026-08-11 | f7ccafa3 | [260811-njm-add-sourced-pineider-avatar-anniversary-](./quick/260811-njm-add-sourced-pineider-avatar-anniversary-/) |
 | 260811-obl | 原位深化 Pineider Avatar UR PP2101／600，并发布 Egosphere 1056／1058 canonical 型号，隔离隐藏 SKU 与历史样本 | 2026-08-11 | 02fb726e | [260811-obl-add-sourced-pineider-antichi-materiali-s](./quick/260811-obl-add-sourced-pineider-antichi-materiali-s/) |
+| 260811-p8m | 发布 Pineider Avatar UR Demo Metal PP3401／608、PP3901／611 与独立 Glossy PP4001／602，并隔离未定价代码和官网颜色矛盾 | 2026-08-11 | f084a0d8 | [260811-p8m-add-sourced-pineider-avatar-ur-demo-meta](./quick/260811-p8m-add-sourced-pineider-avatar-ur-demo-meta/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做库存盘点。以现有 research、wrapper 与 Phase 594 owned candidate 推导真正尚未覆盖或仍有模板债务的重要型号；优先补完整正文、身份关系与独立图片，同品牌、同证据结构的缺口共享 checkpoint 与定向回归。生产迁移与全量本地真人遍历留到内容封板后执行；Turso 同步、部署与线上逐条复查留到额度恢复后执行，full corpus goal 继续 active。
+继续 Phase 23 的外网来源化内容制作，不重做库存盘点。以现有 research、wrapper 与 Phase 595 owned candidate 推导真正尚未覆盖或仍有模板债务的重要型号；将同品牌、同证据结构的缺口合并为较大的 checkpoint 与定向回归批次，减少逐型号重复验收。生产迁移与全量本地真人遍历留到内容封板后执行；Turso 同步、部署与线上逐条复查留到额度恢复后执行，full corpus goal 继续 active。
 
 ## Session Continuity
 
