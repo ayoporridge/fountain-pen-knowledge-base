@@ -131,10 +131,8 @@ const CANONICAL_ENTITY_PATHS: Record<string, string> = {
  * 200 status from the dynamic detail page.
  */
 export const HARD_404_ENTITY_PATHS = new Set([
-  "/brand/banju",
   "/brand/saier",
   "/brand/shanghai",
-  "/brand/yisihua",
   "/pen/leonardo-furore-momento-magico",
   "/pen/opus-88-demo-kolora",
   "/pen/sheaffer-s-craftsman",

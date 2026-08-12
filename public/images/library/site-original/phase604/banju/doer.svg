@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Banju Doer factual specification diagram</title>
+  <desc id="desc">Editorial diagram of the Banju Doer model boundaries and verified retail specifications. Not a product photograph, color sample or scale drawing.</desc>
+  <rect width="1600" height="900" fill="#161f28"/>
+  <text x="88" y="112" fill="#f4eee1" font-family="Arial, sans-serif" font-size="68" font-weight="700">BANJU DOER</text>
+  <text x="92" y="160" fill="#a9bfd0" font-family="Arial, sans-serif" font-size="25">实践家 · verified retail specification · factual diagram</text>
+  <g transform="translate(120 262)">
+    <polygon points="0,86 54,22 830,22 884,86 830,150 54,150" fill="#586a69" stroke="#d9b96e" stroke-width="8"/>
+    <path d="M70 30 L130 142 M170 30 L230 142 M270 30 L330 142 M370 30 L430 142 M470 30 L530 142 M570 30 L630 142 M670 30 L730 142 M770 30 L820 130" stroke="#7f9490" stroke-width="12"/>
+    <rect x="886" y="38" width="235" height="96" rx="28" fill="#26343a" stroke="#d9b96e" stroke-width="6"/>
+    <polygon points="1121,52 1265,86 1121,120" fill="#e7d2a0" stroke="#d9b96e" stroke-width="5"/>
+    <line x1="1180" y1="72" x2="1180" y2="100" stroke="#5c4b28" stroke-width="4"/>
+    <text x="250" y="205" fill="#a9bfd0" font-family="Arial, sans-serif" font-size="22">faceted aluminium body · schematic only</text>
+  </g>
+  <g transform="translate(92 545)">
+    <rect width="330" height="185" rx="22" fill="#202d37" stroke="#4f6b7b" stroke-width="3"/>
+    <text x="28" y="51" fill="#f4eee1" font-family="Arial, sans-serif" font-size="28" font-weight="700">SIZE</text>
+    <text x="28" y="104" fill="#d9b96e" font-family="Arial, sans-serif" font-size="35">139 × 14.8 mm</text>
+    <text x="28" y="145" fill="#a9bfd0" font-family="Arial, sans-serif" font-size="22">retail listed, capped</text>
+  </g>
+  <g transform="translate(455 545)">
+    <rect width="330" height="185" rx="22" fill="#202d37" stroke="#4f6b7b" stroke-width="3"/>
+    <text x="28" y="51" fill="#f4eee1" font-family="Arial, sans-serif" font-size="28" font-weight="700">WEIGHT</text>
+    <text x="28" y="104" fill="#d9b96e" font-family="Arial, sans-serif" font-size="35">about 32 g</text>
+    <text x="28" y="145" fill="#a9bfd0" font-family="Arial, sans-serif" font-size="22">finish and ink may vary</text>
+  </g>
+  <g transform="translate(818 545)">
+    <rect width="330" height="185" rx="22" fill="#202d37" stroke="#4f6b7b" stroke-width="3"/>
+    <text x="28" y="51" fill="#f4eee1" font-family="Arial, sans-serif" font-size="28" font-weight="700">NIB</text>
+    <text x="28" y="104" fill="#d9b96e" font-family="Arial, sans-serif" font-size="35">steel F / #26</text>
+    <text x="28" y="145" fill="#a9bfd0" font-family="Arial, sans-serif" font-size="22">sample and retail scopes</text>
+  </g>
+  <g transform="translate(1181 545)">
+    <rect width="330" height="185" rx="22" fill="#202d37" stroke="#4f6b7b" stroke-width="3"/>
+    <text x="28" y="51" fill="#f4eee1" font-family="Arial, sans-serif" font-size="28" font-weight="700">FILLING</text>
+    <text x="28" y="104" fill="#d9b96e" font-family="Arial, sans-serif" font-size="35">2.6 mm C/C</text>
+    <text x="28" y="145" fill="#a9bfd0" font-family="Arial, sans-serif" font-size="22">converter included listing</text>
+  </g>
+  <text x="92" y="817" fill="#9fb4c3" font-family="Arial, sans-serif" font-size="22">Straight-line and diamond textures, green / brown / steel-blue: variants, not separate models.</text>
+  <text x="92" y="854" fill="#748b9a" font-family="Arial, sans-serif" font-size="18">Fountain Pen Graph editorial · not a product photo · not a color reference · not to scale</text>
+</svg>
