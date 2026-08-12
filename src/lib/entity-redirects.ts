@@ -135,7 +135,6 @@ export const HARD_404_ENTITY_PATHS = new Set([
   "/brand/saier",
   "/brand/shanghai",
   "/brand/yisihua",
-  "/nib/sailor-naginata-togi",
   "/pen/leonardo-furore-momento-magico",
   "/pen/opus-88-demo-kolora",
   "/pen/sheaffer-s-craftsman",
