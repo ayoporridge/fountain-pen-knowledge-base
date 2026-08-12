@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">BENU Tessera 马赛克切面事实图</title><desc id="desc">原创示意图，使用抽象马赛克方块表达 Tessera 的哑光亮面切换、六号尖和标准国际供墨；非产品照片。</desc>
+  <rect width="1600" height="900" fill="#171717"/><defs><pattern id="p" width="90" height="90" patternUnits="userSpaceOnUse"><rect width="78" height="78" rx="9" fill="#404040"/><path d="M8 65 L65 8" stroke="#a3a3a3" stroke-width="7" opacity=".55"/></pattern></defs><rect x="110" y="245" width="820" height="410" rx="35" fill="url(#p)" stroke="#d4d4d4" stroke-width="4"/>
+  <text x="105" y="125" fill="#fafafa" font-size="64" font-family="system-ui" font-weight="700">BENU Tessera</text><text x="107" y="180" fill="#d4d4d4" font-size="27" font-family="system-ui">mosaic facets · matte / gloss boundary · not a product photo</text>
+  <g font-family="system-ui"><text x="1040" y="330" fill="#fff" font-size="34" font-weight="700">≈ 140 mm</text><text x="1040" y="390" fill="#d4d4d4" font-size="27">full-size family</text><text x="1040" y="490" fill="#fff" font-size="34" font-weight="700">#6 Schmidt steel</text><text x="1040" y="550" fill="#d4d4d4" font-size="27">international converter</text><text x="107" y="805" fill="#a3a3a3" font-size="25">steel / gold-colour trim is not proof of a 14K nib</text></g>
+</svg>

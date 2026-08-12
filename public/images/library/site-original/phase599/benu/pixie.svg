@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">BENU Pixie 口袋尺寸事实图</title><desc id="desc">原创示意图，标示 Pixie 收帽九十一毫米、套帽后一百三十三毫米、五号尖与短墨囊；非产品照片。</desc>
+  <rect width="1600" height="900" fill="#071a1b"/><path d="M0 690 C380 560 560 850 930 670 S1320 520 1600 650 V900 H0Z" fill="#0f766e" opacity=".35"/>
+  <text x="100" y="125" fill="#ecfeff" font-size="64" font-family="system-ui" font-weight="700">BENU Pixie</text><text x="102" y="178" fill="#5eead4" font-size="27" font-family="system-ui">91 mm closed · 133 mm posted · not a product photo</text>
+  <rect x="170" y="330" width="500" height="150" rx="75" fill="#134e4a" stroke="#2dd4bf" stroke-width="5"/><rect x="170" y="545" width="760" height="120" rx="60" fill="#115e59" stroke="#99f6e4" stroke-width="4"/>
+  <path d="M710 375 L870 405 L710 435Z" fill="#ccfbf1"/><path d="M970 585 L1130 605 L970 625Z" fill="#ccfbf1"/>
+  <g font-family="system-ui"><text x="1000" y="340" fill="#fff" font-size="31" font-weight="700">#5 steel nib</text><text x="1000" y="395" fill="#99f6e4" font-size="25">short international cartridge</text><text x="1000" y="480" fill="#fff" font-size="31" font-weight="700">Post to write</text><text x="1000" y="535" fill="#99f6e4" font-size="25">mini converter ≤ 4 cm</text><text x="102" y="805" fill="#5eead4" font-size="25">Pixie is its own chassis · sets and colours remain child variants</text></g>
+</svg>

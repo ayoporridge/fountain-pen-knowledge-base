@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">BENU Minima 身份与短墨囊事实图</title><desc id="desc">原创示意图，比较 Minima 的 126 毫米体量、五号钢尖和短国际墨囊边界；非产品照片。</desc>
+  <rect width="1600" height="900" fill="#161321"/><circle cx="1320" cy="150" r="230" fill="#8b5cf6" opacity=".16"/>
+  <text x="110" y="125" fill="#f5f3ff" font-size="64" font-family="system-ui" font-weight="700">BENU Minima</text><text x="112" y="180" fill="#c4b5fd" font-size="27" font-family="system-ui">126 mm pocket family · factual diagram · not a product photo</text>
+  <path d="M220 390 Q220 320 300 310 H970 Q1050 320 1050 390 V510 Q1050 580 970 590 H300 Q220 580 220 510Z" fill="#312e81" stroke="#a78bfa" stroke-width="5"/>
+  <path d="M360 365 H900 M360 535 H900" stroke="#ddd6fe" stroke-width="14" stroke-linecap="round" opacity=".72"/>
+  <g font-family="system-ui"><text x="1170" y="335" fill="#fff" font-size="31" font-weight="700">#5 Schmidt steel</text><text x="1170" y="385" fill="#ddd6fe" font-size="25">F / M / B by SKU</text><text x="1170" y="485" fill="#fff" font-size="31" font-weight="700">Short cartridge</text><text x="1170" y="535" fill="#ddd6fe" font-size="25">mini converter ≤ 4 cm</text><text x="110" y="790" fill="#a78bfa" font-size="25">Minima ≠ Pixie · colours remain variants · dimensions are evidence, not scale</text></g>
+</svg>

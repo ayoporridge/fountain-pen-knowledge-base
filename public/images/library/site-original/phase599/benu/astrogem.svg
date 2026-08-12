@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">BENU AstroGem 小行星系列事实图</title><desc id="desc">原创非摄影示意图，以抽象轨道说明 AstroGem 的一百四十毫米体量、六号尖、国际转换器和部分发光款边界。</desc>
+  <rect width="1600" height="900" fill="#070b22"/><g fill="none" stroke="#6366f1" opacity=".42"><ellipse cx="790" cy="470" rx="600" ry="250" stroke-width="3"/><ellipse cx="790" cy="470" rx="430" ry="170" stroke-width="2" transform="rotate(-18 790 470)"/></g><g fill="#c4b5fd"><circle cx="260" cy="330" r="9"/><circle cx="1270" cy="610" r="12"/><circle cx="1020" cy="260" r="7"/></g>
+  <text x="105" y="125" fill="#eef2ff" font-size="64" font-family="system-ui" font-weight="700">BENU AstroGem</text><text x="107" y="180" fill="#a5b4fc" font-size="27" font-family="system-ui">ʻOumuamua-inspired family · factual diagram · not a product photo</text>
+  <path d="M420 535 L585 300 L1035 380 L1160 575 L965 650 L545 640Z" fill="#312e81" stroke="#818cf8" stroke-width="6"/><path d="M620 500 L965 455" stroke="#e0e7ff" stroke-width="18" stroke-linecap="round"/>
+  <g font-family="system-ui" text-anchor="middle"><text x="790" y="440" fill="#fff" font-size="34" font-weight="700">140 mm · #6 Schmidt</text><text x="790" y="555" fill="#c7d2fe" font-size="27">converter + long cartridge</text><text x="790" y="595" fill="#c7d2fe" font-size="24">glow applies only to named resins</text><text x="790" y="805" fill="#818cf8" font-size="25">Pallas · Eos · Lutetia · Vesta are variants, not duplicate base models</text></g>
+</svg>
