@@ -200,10 +200,11 @@ Progress: [█████░░░░░] 50%
 | 260811-q86 | 发布 Nahvalur Original、Horizon、Voyage、Eclipse 四个 canonical 型号，并隔离活塞／真空、edition 库存、Voyage／Nautilus 与 Eclipse 版本冲突 | 2026-08-11 | 91aa0c63 | [260811-q86-add-sourced-nahvalur-original-horizon-vo](./quick/260811-q86-add-sourced-nahvalur-original-horizon-vo/) |
 | 260811-ryz | 发布 Nahvalur Key West、Triad 与 Pen of the Year 2022–2026 七个 canonical 型号，并隔离 edition、年度限量、rollerball 与时态冲突 | 2026-08-11 | f996d249 | [260811-ryz-nahvalur-key-west-pen-of-the-year-triad-](./quick/260811-ryz-nahvalur-key-west-pen-of-the-year-triad-/) |
 | 260812-tvl | 恢复 Sailor Naginata-Togi 为跨 10-7121、Bespoke 与 KOP 的独立 Special Nib 条目，并解除旧 hard-404 | 2026-08-12 | 2f091f1f | [260812-tvl-sailor-naginata-togi-nib-recovery](./quick/260812-tvl-sailor-naginata-togi-nib-recovery/) |
+| 260812-u9i | 恢复半句 Banju 与 Doer，归并 YiSiHua 到 Asvine，并终态裁决 Shanghai、Saier、SKB派顿混名 | 2026-08-13 | e56e4d4a | [260812-u9i-resolve-remaining-retired-identities](./quick/260812-u9i-resolve-remaining-retired-identities-in-/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做库存盘点。先裁决 Shanghai、Banju、Saier、Yisihua 与 SKB派顿 F10／F21 五条未决身份，再执行外部品牌／型号覆盖冻结；将同品牌、同证据结构的缺口合并为较大的 checkpoint 与定向回归批次。生产迁移与全量本地真人遍历留到内容封板后执行；Turso 同步、部署与线上逐条复查在迁移窗口执行，full corpus goal 继续 active。
+已知未决身份已全部裁决。立即执行一次外部品牌／型号覆盖冻结，不再按单型号拆小 Phase；只处理冻结发现的真实重要缺口，然后生成最终 checkpoint，执行全量自动检查与真人全页面遍历。生产迁移、Turso 同步、部署与线上逐条复查仍在迁移窗口执行，full corpus goal 继续 active。
 
 ## Session Continuity
 
