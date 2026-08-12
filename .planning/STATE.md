@@ -5,10 +5,10 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
-stopped_at: Quick 260811-ryz complete; Nahvalur Key West Triad and Pen of the Year 2022-2026 added on the offline candidate
-last_updated: "2026-08-11T21:34:05+08:00"
-last_activity: 2026-08-11
-last_activity_desc: Published sourced Nahvalur Key West, Triad and Pen of the Year 2022-2026 on the Phase 597 owned candidate
+stopped_at: Quick 260812-tvl complete; Sailor Naginata-Togi nib restored on the offline candidate
+last_updated: "2026-08-12T21:45:12+08:00"
+last_activity: 2026-08-12
+last_activity_desc: Restored the sourced Sailor Naginata-Togi Special Nib identity on the Phase 603 owned candidate
 progress:
   total_phases: 16
   completed_phases: 10
@@ -199,10 +199,11 @@ Progress: [█████░░░░░] 50%
 | 260811-p8m | 发布 Pineider Avatar UR Demo Metal PP3401／608、PP3901／611 与独立 Glossy PP4001／602，并隔离未定价代码和官网颜色矛盾 | 2026-08-11 | f084a0d8 | [260811-p8m-add-sourced-pineider-avatar-ur-demo-meta](./quick/260811-p8m-add-sourced-pineider-avatar-ur-demo-meta/) |
 | 260811-q86 | 发布 Nahvalur Original、Horizon、Voyage、Eclipse 四个 canonical 型号，并隔离活塞／真空、edition 库存、Voyage／Nautilus 与 Eclipse 版本冲突 | 2026-08-11 | 91aa0c63 | [260811-q86-add-sourced-nahvalur-original-horizon-vo](./quick/260811-q86-add-sourced-nahvalur-original-horizon-vo/) |
 | 260811-ryz | 发布 Nahvalur Key West、Triad 与 Pen of the Year 2022–2026 七个 canonical 型号，并隔离 edition、年度限量、rollerball 与时态冲突 | 2026-08-11 | f996d249 | [260811-ryz-nahvalur-key-west-pen-of-the-year-triad-](./quick/260811-ryz-nahvalur-key-west-pen-of-the-year-triad-/) |
+| 260812-tvl | 恢复 Sailor Naginata-Togi 为跨 10-7121、Bespoke 与 KOP 的独立 Special Nib 条目，并解除旧 hard-404 | 2026-08-12 | 2f091f1f | [260812-tvl-sailor-naginata-togi-nib-recovery](./quick/260812-tvl-sailor-naginata-togi-nib-recovery/) |
 
 ## Next Action
 
-继续 Phase 23 的外网来源化内容制作，不重做库存盘点。以现有 research、wrapper 与 Phase 596 owned candidate 推导真正尚未覆盖或仍有模板债务的重要型号；将同品牌、同证据结构的缺口合并为较大的 checkpoint 与定向回归批次，减少逐型号重复验收。生产迁移与全量本地真人遍历留到内容封板后执行；Turso 同步、部署与线上逐条复查留到额度恢复后执行，full corpus goal 继续 active。
+继续 Phase 23 的外网来源化内容制作，不重做库存盘点。先裁决 Shanghai、Banju、Saier、Yisihua 与 SKB派顿 F10／F21 五条未决身份，再执行外部品牌／型号覆盖冻结；将同品牌、同证据结构的缺口合并为较大的 checkpoint 与定向回归批次。生产迁移与全量本地真人遍历留到内容封板后执行；Turso 同步、部署与线上逐条复查在迁移窗口执行，full corpus goal 继续 active。
 
 ## Session Continuity
 
