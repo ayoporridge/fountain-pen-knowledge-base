@@ -165,7 +165,8 @@ test("Phase 601 closes deterministic retired routes on an owned Phase 600 checkp
       try {
         const remoteOptions = options(remoteCopy, protectedGuard);
         remoteOptions.env = {
-          ...remoteOptions.env,
+          ...(remoteOptions.env ?? process.env),
+          NODE_ENV: remoteOptions.env?.NODE_ENV ?? "test",
           [key]: "libsql://remote.invalid",
         };
         await assert.rejects(
