@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">YSTUDIO Classic Renaissance YAKIHAKU 事实示意图</title>
+  <desc id="desc">展示云龙箔工艺、带帽与桌面版本、十四K金尖和国际标准供墨边界；非产品照片且不复制真实箔纹。</desc>
+  <rect width="1600" height="900" fill="#101921"/>
+  <text x="76" y="108" fill="#f0f4f5" font-family="Arial,sans-serif" font-size="52" font-weight="700">YSTUDIO YAKIHAKU</text>
+  <text x="78" y="151" fill="#91b6c9" font-family="Arial,sans-serif" font-size="22">Unryūhaku craft family · factual diagram · not a product photo or foil pattern</text>
+  <rect x="90" y="285" width="930" height="170" rx="18" fill="#52626a" stroke="#c6d0d1" stroke-width="6"/>
+  <path d="M110 390c120-140 220 120 340-20s220 110 350-25 150 70 200-10" fill="none" stroke="#a8bbc2" stroke-width="20" opacity=".65"/>
+  <path d="M1025 285l125 85-125 85z" fill="#d9c39a"/>
+  <path d="M260 600h600l-70 110H330z" fill="#7c612f" stroke="#cfb56d" stroke-width="5"/>
+  <rect x="500" y="490" width="120" height="145" fill="#596a72" stroke="#c6d0d1" stroke-width="5"/>
+  <text x="1015" y="285" fill="#f0f4f5" font-family="Arial,sans-serif" font-size="31" font-weight="700">Capped</text>
+  <text x="1015" y="330" fill="#91b6c9" font-family="Arial,sans-serif" font-size="24">138 mm · 46 g · 14K F</text>
+  <text x="1015" y="455" fill="#f0f4f5" font-family="Arial,sans-serif" font-size="31" font-weight="700">Desk variant</text>
+  <text x="1015" y="500" fill="#91b6c9" font-family="Arial,sans-serif" font-size="24">146 mm · 34 g body · no cap</text>
+  <text x="1015" y="625" fill="#f0f4f5" font-family="Arial,sans-serif" font-size="31" font-weight="700">Taiwan × Japan × Germany</text>
+  <text x="1015" y="670" fill="#91b6c9" font-family="Arial,sans-serif" font-size="24">brand · foil craft · nib</text>
+  <text x="78" y="818" fill="#91b6c9" font-family="Arial,sans-serif" font-size="22">No immersion, polish, alcohol or abrasive treatment on the craft surface</text>
+</svg>

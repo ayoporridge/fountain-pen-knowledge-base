@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">YSTUDIO Classic Revolve Desk 事实示意图</title>
+  <desc id="desc">展示无帽桌面钢笔插入黄铜笔座，区分 Copper 与 Black 规格和国际标准转换器；非产品照片。</desc>
+  <rect width="1600" height="900" fill="#0d1920"/>
+  <text x="75" y="108" fill="#e9f3f5" font-family="Arial,sans-serif" font-size="52" font-weight="700">YSTUDIO Desk</text>
+  <text x="78" y="151" fill="#77c1cf" font-family="Arial,sans-serif" font-size="22">capless desk family · factual diagram · not a product photo</text>
+  <path d="M275 645h650l-80 120H355z" fill="#8a6028" stroke="#e1bd6d" stroke-width="6"/>
+  <rect x="520" y="260" width="165" height="420" rx="12" fill="#22292c" stroke="#d2a857" stroke-width="6"/>
+  <path d="M548 285v360M585 285v360M622 285v360M659 285v360" stroke="#be8f47" stroke-width="5" opacity=".7"/>
+  <path d="M550 260l52-90 52 90z" fill="#ddd0aa"/>
+  <text x="1020" y="295" fill="#e9f3f5" font-family="Arial,sans-serif" font-size="31" font-weight="700">No portable cap</text>
+  <text x="1020" y="342" fill="#77c1cf" font-family="Arial,sans-serif" font-size="24">solid brass stand is the closure</text>
+  <text x="1020" y="450" fill="#e9f3f5" font-family="Arial,sans-serif" font-size="31" font-weight="700">Copper ≠ Black spec</text>
+  <text x="1020" y="497" fill="#77c1cf" font-family="Arial,sans-serif" font-size="24">146 mm / 41 g · 138 mm / 46 g</text>
+  <text x="1020" y="605" fill="#e9f3f5" font-family="Arial,sans-serif" font-size="31" font-weight="700">Schmidt F / M</text>
+  <text x="1020" y="652" fill="#77c1cf" font-family="Arial,sans-serif" font-size="24">international converter included</text>
+  <text x="78" y="820" fill="#77c1cf" font-family="Arial,sans-serif" font-size="22">Keep the stand clean and stable · sample seal performance is not a lifetime guarantee</text>
+</svg>
