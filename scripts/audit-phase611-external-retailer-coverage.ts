@@ -160,6 +160,16 @@ function normalizeIdentity(value: string): string {
     .replace(/\s+/g, " ");
 }
 
+function visibleCaptureSurface(filePath: string, text: string): string {
+  if (!/\.html$/i.test(filePath)) return text;
+  const body = text.match(/<body\b[^>]*>([\s\S]*?)<\/body>/i)?.[1] ?? text;
+  return body
+    .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, " ")
+    .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ")
+    .replace(/<template\b[^>]*>[\s\S]*?<\/template>/gi, " ")
+    .replace(/<[^>]+>/g, " ");
+}
+
 function relativeFile(root: string, filePath: string): string {
   const relative = path.relative(root, filePath);
   invariant(
@@ -302,7 +312,7 @@ function validateCaptureMeta(
     if (/\.(?:html|txt)$/i.test(file.path)) {
       const text = bytes.toString("utf8");
       invariant(
-        !CHALLENGE_SIGNAL.test(text),
+        !CHALLENGE_SIGNAL.test(visibleCaptureSurface(file.path, text)),
         `${retailer} raw file contains a challenge signal: ${file.path}`,
       );
     }

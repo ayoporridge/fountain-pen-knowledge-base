@@ -87,7 +87,7 @@ function buildCapture(
 ): void {
   const rawDir = path.join(evidenceRoot, "raw", retailer);
   fs.mkdirSync(rawDir, { recursive: true });
-  const html = `<!doctype html><main><h1>Fountain Pen Brands</h1><a href="/collections/pilot">Pilot</a></main>`;
+  const html = `<!doctype html><html><head><script id="captcha-bootstrap">window.shopifyCaptcha = true;</script></head><body><main><h1>Fountain Pen Brands</h1><a href="/collections/pilot">Pilot</a></main></body></html>`;
   const htmlPath = path.join(rawDir, "page-001.html");
   fs.writeFileSync(htmlPath, html);
   const row = captureRow(retailer);
