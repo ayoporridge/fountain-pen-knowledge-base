@@ -1,16 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
   <rect width="1200" height="720" fill="#eef1f3"/>
   <g fill="none" stroke="#263b4e" stroke-width="7">
-    <path d="M600 170v350M600 250H300v150M600 250h300v150"/>
-    <rect x="190" y="320" width="220" height="80" rx="28"/><rect x="490" y="520" width="220" height="90" rx="28"/><rect x="790" y="320" width="220" height="80" rx="28"/>
-    <path d="M600 520v-70M500 565h-80M700 565h80"/>
+    <path d="M600 170V500M600 250H300V320M600 250H900V320"/>
+    <rect x="100" y="320" width="400" height="90" rx="28"/><rect x="160" y="500" width="880" height="100" rx="28"/><rect x="700" y="320" width="400" height="90" rx="28"/>
   </g>
   <g fill="#263b4e" font-family="Arial,'Noto Sans CJK SC',sans-serif">
     <text x="70" y="92" font-size="48" font-weight="700">Ensso</text>
     <text x="70" y="140" font-size="26">CNC metal design · interchangeable German-made nib route</text>
-    <text x="300" y="370" font-size="30" text-anchor="middle">Piuma</text>
-    <text x="900" y="370" font-size="30" text-anchor="middle">XS / Pocket / BOLT</text>
-    <text x="600" y="570" font-size="30" text-anchor="middle">titanium · brass · aluminum · C/C</text>
+    <text x="300" y="376" font-size="28" text-anchor="middle">Piuma</text>
+    <text x="900" y="376" font-size="28" text-anchor="middle">XS / Pocket / BOLT</text>
+    <text x="600" y="560" font-size="28" text-anchor="middle">titanium · brass · aluminum · C/C</text>
     <text x="600" y="650" font-size="22" text-anchor="middle">原创品牌导航图｜不同路线不共用长度、尖座或机构；示意图，非产品照片</text>
   </g>
 </svg>

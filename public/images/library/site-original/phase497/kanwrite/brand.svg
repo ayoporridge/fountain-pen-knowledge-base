@@ -1,16 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
   <rect width="1200" height="720" fill="#eef2f1"/>
   <g fill="none" stroke="#1f5c58" stroke-width="7">
-    <path d="M600 170v330M600 245H300v155M600 245h300v155"/>
-    <rect x="190" y="320" width="220" height="80" rx="25"/><rect x="490" y="500" width="220" height="100" rx="25"/><rect x="790" y="320" width="220" height="80" rx="25"/>
-    <path d="M500 550h-80M700 550h80"/>
+    <path d="M600 170V500M600 245H300V320M600 245H900V320"/>
+    <rect x="100" y="320" width="400" height="90" rx="25"/><rect x="160" y="500" width="880" height="100" rx="25"/><rect x="700" y="320" width="400" height="90" rx="25"/>
   </g>
   <g fill="#1f5c58" font-family="Arial,'Noto Sans CJK SC',sans-serif">
     <text x="70" y="92" font-size="48" font-weight="700">Kanwrite</text>
     <text x="70" y="140" font-size="26">Kanpur Writers · Heritage · piston platform</text>
-    <text x="300" y="370" font-size="30" text-anchor="middle">品牌／OEM</text>
-    <text x="900" y="370" font-size="30" text-anchor="middle">Legacy · Desire · Emperor…</text>
-    <text x="600" y="555" font-size="32" text-anchor="middle">Heritage: acrylic · ink window · ebonite feed · #6 unit</text>
+    <text x="300" y="376" font-size="28" text-anchor="middle">品牌／OEM</text>
+    <text x="900" y="376" font-size="26" text-anchor="middle">Legacy · Desire · Emperor…</text>
+    <text x="600" y="560" font-size="26" text-anchor="middle">Heritage: acrylic · ink window · ebonite feed · #6 unit</text>
     <text x="600" y="645" font-size="22" text-anchor="middle">原创品牌导航图｜规格按具体 SKU；示意图，非产品照片、非比例图</text>
   </g>
 </svg>

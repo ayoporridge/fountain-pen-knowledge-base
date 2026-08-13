@@ -8,7 +8,7 @@
   <g transform="translate(160 350)">
     <path d="M80 90 Q80 30 140 30 H810 Q850 30 870 75 L930 105 Q950 115 930 125 L870 155 Q850 200 810 200 H140 Q80 200 80 140Z" fill="#8b5b43" stroke="#392c26" stroke-width="6"/>
     <path d="M860 75 L1110 75 Q1145 75 1165 108 L1210 115 Q1224 118 1210 125 L1165 132 Q1145 165 1110 165 H860Z" fill="#c28b4d" stroke="#392c26" stroke-width="6"/>
-    <path d="M1210 115 L1325 115 L1390 100 L1460 120 L1390 140 L1325 125 L1210 125Z" fill="#d3a45a" stroke="#392c26" stroke-width="6"/>
+    <path d="M1210 115 L1325 115 L1380 100 L1420 120 L1380 140 L1325 125 L1210 125Z" fill="#d3a45a" stroke="#392c26" stroke-width="6"/>
     <path d="M860 75 H930 M860 200 H930" stroke="#e9c589" stroke-width="10"/>
     <path d="M825 75 C850 75 850 200 825 200" fill="none" stroke="#e9c589" stroke-width="7"/>
     <path d="M940 95 H1020 M940 145 H1020" stroke="#4b3328" stroke-width="5" stroke-dasharray="12 10"/>

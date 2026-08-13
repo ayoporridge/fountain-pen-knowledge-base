@@ -4,35 +4,35 @@
   <rect width="1600" height="900" fill="#f4efe5"/>
   <rect x="70" y="70" width="1460" height="760" rx="34" fill="#fffaf0" stroke="#342d28" stroke-width="5"/>
   <text x="120" y="150" font-family="serif" font-size="54" fill="#342d28">Conklin Duragraph</text>
-  <text x="120" y="198" font-family="sans-serif" font-size="24" fill="#6b5c50">CURRENT FAMILY ≠ EXACT SKU ≠ DATED REVIEW SAMPLE</text>
+  <text x="120" y="198" font-family="sans-serif" font-size="24" fill="#6b5c50">当前系列规格 ≠ 具体 SKU 材质 ≠ 有日期的个别笔款记录</text>
   <g font-family="sans-serif">
     <rect x="120" y="260" width="410" height="390" rx="24" fill="#e5f0ea" stroke="#476553" stroke-width="4"/>
-    <text x="160" y="325" font-size="32" font-weight="700" fill="#294537">Current family · 2026-07-22</text>
+    <text x="160" y="325" font-size="32" font-weight="700" fill="#294537">当前系列资料 · 2026-07-22</text>
     <text x="160" y="385" font-size="25" fill="#294537">5.5 in capped · 4.75 in open</text>
     <text x="160" y="428" font-size="25" fill="#294537">6.85 in posted · 0.55 in diameter</text>
     <text x="160" y="471" font-size="25" fill="#294537">International cartridge / converter</text>
     <text x="160" y="514" font-size="25" fill="#294537">JoWo stainless steel nib</text>
     <text x="160" y="557" font-size="25" fill="#294537">EF · F · M · B · Stub · Flex</text>
-    <text x="160" y="612" font-size="22" fill="#526b5b">Price, stock and future options excluded</text>
+    <text x="160" y="612" font-size="22" fill="#526b5b">价格、库存与未来选项不在本图范围</text>
     <rect x="595" y="260" width="410" height="390" rx="24" fill="#efe7d8" stroke="#745d3f" stroke-width="4"/>
-    <text x="635" y="325" font-size="32" font-weight="700" fill="#503b25">Exact SKU material</text>
+    <text x="635" y="325" font-size="32" font-weight="700" fill="#503b25">具体 SKU 材质</text>
     <text x="635" y="385" font-size="25" fill="#503b25">Abalone Nights · resin</text>
     <text x="635" y="428" font-size="25" fill="#503b25">Red Nights · resin</text>
     <text x="635" y="471" font-size="25" fill="#503b25">Metal PVD Brass · metal body</text>
-    <text x="635" y="526" font-size="24" fill="#503b25">No universal material or weight</text>
-    <text x="635" y="569" font-size="24" fill="#503b25">without the exact product page</text>
-    <text x="635" y="612" font-size="22" fill="#796449">Colours are finishes, not cloned models</text>
+    <text x="635" y="526" font-size="24" fill="#503b25">材质与重量须按具体商品页核对</text>
+    <text x="635" y="569" font-size="24" fill="#503b25">不能由单一版本推及全系列</text>
+    <text x="635" y="612" font-size="19" fill="#796449">颜色名称是表面版本，不代表独立型号</text>
     <rect x="1070" y="260" width="410" height="390" rx="24" fill="#e9e5ef" stroke="#5e526f" stroke-width="4"/>
-    <text x="1110" y="325" font-size="32" font-weight="700" fill="#41364e">Review samples</text>
+    <text x="1110" y="325" font-size="32" font-weight="700" fill="#41364e">有日期的个别笔款</text>
     <text x="1110" y="385" font-size="25" fill="#41364e">2018 Cracked Ice · Stub</text>
     <text x="1110" y="428" font-size="25" fill="#41364e">2014 Cracked Ice · Fine</text>
-    <text x="1110" y="483" font-size="24" fill="#41364e">Posting, balance, feedback and</text>
-    <text x="1110" y="526" font-size="24" fill="#41364e">26 g belong to those samples</text>
-    <text x="1110" y="581" font-size="22" fill="#685b76">Not current universal specifications</text>
+    <text x="1110" y="483" font-size="24" fill="#41364e">插帽、平衡、反馈与 26 g</text>
+    <text x="1110" y="526" font-size="24" fill="#41364e">仅适用于上述笔款记录</text>
+    <text x="1110" y="581" font-size="22" fill="#685b76">不是当前全系列通用规格</text>
   </g>
   <line x1="330" y1="705" x2="1270" y2="705" stroke="#342d28" stroke-width="5"/>
   <circle cx="330" cy="705" r="15" fill="#476553"/>
   <circle cx="800" cy="705" r="15" fill="#745d3f"/>
   <circle cx="1270" cy="705" r="15" fill="#5e526f"/>
-  <text x="800" y="775" text-anchor="middle" font-family="sans-serif" font-size="23" fill="#6b5c50">SITE-ORIGINAL FACTUAL SVG · NON-PHOTO · NON-LOGO · NOT-TO-SCALE · NON-COLOUR-PROOF</text>
+  <text x="800" y="775" text-anchor="middle" font-family="sans-serif" font-size="23" fill="#6b5c50">本站原创事实示意 · 非产品照片 · 非 Logo · 非比例图 · 非颜色校样</text>
 </svg>

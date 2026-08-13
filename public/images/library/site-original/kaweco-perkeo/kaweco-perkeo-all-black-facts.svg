@@ -2,7 +2,7 @@
   <title id="title">Kaweco Perkeo All Black 事实示意图</title>
   <desc id="desc">示意图，非产品照片。图中以简化轮廓说明 Kaweco Perkeo All Black 的全尺寸、卡扣帽、约十四克和 Standard Converter 路线。</desc>
   <rect width="1200" height="675" fill="#f4f0e8"/>
-  <rect x="68" y="62" width="1064" height="551" rx="28" fill="#fffdf8" stroke="#1d2d35" stroke-width="3"/>
+  <rect x="68" y="62" width="1064" height="565" rx="28" fill="#fffdf8" stroke="#1d2d35" stroke-width="3"/>
   <text x="120" y="138" fill="#1d2d35" font-family="Arial, sans-serif" font-size="44" font-weight="700">Kaweco Perkeo · All Black</text>
   <text x="120" y="182" fill="#59666b" font-family="Arial, sans-serif" font-size="24">事实示意图：只说明当前商品资料的结构与数字</text>
   <g transform="translate(150 262)">
@@ -21,7 +21,8 @@
     <text x="154" y="548" font-size="25">塑料笔身 · 约 14 g · F/M（All Black 当前资料）</text>
     <text x="665" y="470" font-size="31" font-weight="700">供墨</text>
     <text x="665" y="510" font-size="25">标准国际短墨囊</text>
-    <text x="665" y="548" font-size="25">Kaweco Standard Converter：按笔款与配件 SKU 核对</text>
+    <text x="665" y="538" font-size="24">Kaweco Standard Converter</text>
+    <text x="665" y="572" font-size="22">按笔款与配件 SKU 核对</text>
   </g>
-  <text x="120" y="590" fill="#a03d2d" font-family="Arial, sans-serif" font-size="23" font-weight="700">示意图，非产品照片；不代表真实比例、颜色、Logo、刻字、库存、材料纹理或具体笔尖配置。</text>
+  <text x="120" y="612" fill="#a03d2d" font-family="Arial, sans-serif" font-size="19" font-weight="700">示意图，非产品照片；不代表真实比例、颜色、Logo、刻字、库存、材料纹理或具体笔尖配置。</text>
 </svg>

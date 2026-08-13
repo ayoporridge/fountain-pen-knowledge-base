@@ -3,14 +3,14 @@
   <desc id="desc">本站原创非产品照片示意图，区分当前家族规格、颜色版本、评测样笔与被拒绝的官网直径。</desc>
   <rect width="1600" height="900" fill="#f4efe4"/>
   <text x="110" y="125" font-family="serif" font-size="58" fill="#33291f">Conklin All American</text>
-  <text x="110" y="180" font-family="sans-serif" font-size="25" fill="#725d48">CURRENT FAMILY / SKU / REVIEW SAMPLE</text>
+  <text x="110" y="180" font-family="sans-serif" font-size="25" fill="#725d48">当前系列 · 个别笔款 · 资料边界</text>
   <g font-family="sans-serif" fill="#33291f">
     <rect x="110" y="250" width="420" height="390" rx="28" fill="#e5d2aa"/>
-    <text x="150" y="320" font-size="34">当前家族</text><text x="150" y="375" font-size="25">5.5 / 5 / 6.75 in</text><text x="150" y="420" font-size="25">European resin</text><text x="150" y="465" font-size="25">#6 JoWo steel</text><text x="150" y="510" font-size="25">international C/C</text>
+    <text x="150" y="320" font-size="34">当前系列规格</text><text x="150" y="375" font-size="25">5.5 / 5 / 6.75 in</text><text x="150" y="420" font-size="25">European resin</text><text x="150" y="465" font-size="25">#6 JoWo steel</text><text x="150" y="510" font-size="25">international C/C</text>
     <rect x="590" y="250" width="420" height="390" rx="28" fill="#c9d7d1"/>
-    <text x="630" y="320" font-size="34">样笔证据</text><text x="630" y="375" font-size="25">2016 Sunburst Orange</text><text x="630" y="420" font-size="25">2019 self-purchased sample</text><text x="630" y="475" font-size="23">重量、直径、笔尖体验</text><text x="630" y="515" font-size="23">不升级为全系规格</text>
+    <text x="630" y="320" font-size="34">个别笔款记录</text><text x="630" y="375" font-size="25">2016 Sunburst Orange</text><text x="630" y="420" font-size="25">2019 年购入笔款记录</text><text x="630" y="475" font-size="23">重量、直径与书写感</text><text x="630" y="515" font-size="23">仅适用于上述个别笔款</text>
     <rect x="1070" y="250" width="420" height="390" rx="28" fill="#e2b8a9"/>
-    <text x="1110" y="320" font-size="34">拒绝字段</text><text x="1110" y="385" font-size="29">Diameter: 2 in</text><text x="1110" y="440" font-size="23">明显不合笔身尺度</text><text x="1110" y="480" font-size="23">不猜测替代值</text>
+    <text x="1110" y="320" font-size="34">资料中的异常值</text><text x="1110" y="385" font-size="29">Diameter: 2 in</text><text x="1110" y="440" font-size="23">明显不符合常见笔身尺度</text><text x="1110" y="480" font-size="23">保留原值，不猜测替代值</text>
   </g>
-  <text x="110" y="790" font-family="sans-serif" font-size="24" fill="#725d48">site-original · non-photo · non-logo · not-to-scale · non-colour-proof · 1600×900</text>
+  <text x="110" y="790" font-family="sans-serif" font-size="24" fill="#725d48">本站原创 · 非产品照片 · 非 Logo · 非比例图 · 非颜色校样 · 1600×900</text>
 </svg>

@@ -3,9 +3,8 @@
   <desc id="desc">本站原创 factual schematic，展示 1911/Profit 的产品号分支、Standard、Large 与 Realo 的边界；非产品照片，不按比例。</desc>
   <rect width="1000" height="360" rx="28" fill="#f1f4f5"/>
   <g stroke="#243746" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
-    <path d="M120 180h170"/>
+    <path d="M230 180h60"/>
     <path d="M290 180l120-78M290 180l120 0M290 180l120 78"/>
-    <path d="M410 102h170M410 180h170M410 258h170"/>
   </g>
   <g font-family="sans-serif" fill="#243746">
     <text x="90" y="90" font-size="34">Sailor Profit / 1911</text>

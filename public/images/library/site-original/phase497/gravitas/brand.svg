@@ -1,16 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
   <rect width="1200" height="720" fill="#eceff2"/>
   <g fill="none" stroke="#263b52" stroke-width="7">
-    <path d="M600 170v330M600 245H300v155M600 245h300v155"/>
-    <rect x="185" y="320" width="230" height="80" rx="28"/><rect x="485" y="500" width="230" height="100" rx="28"/><rect x="785" y="320" width="230" height="80" rx="28"/>
-    <path d="M300 400v85M900 400v85M520 550h-80M680 550h80"/>
+    <path d="M600 170V500M600 245H300V320M600 245H900V320"/>
+    <rect x="100" y="320" width="400" height="90" rx="28"/><rect x="160" y="500" width="880" height="100" rx="28"/><rect x="700" y="320" width="400" height="90" rx="28"/>
   </g>
   <g fill="#263b52" font-family="Arial,'Noto Sans CJK SC',sans-serif">
     <text x="70" y="92" font-size="48" font-weight="700">Gravitas Pens</text>
     <text x="70" y="140" font-size="26">machined materials · filling systems · maintenance boundaries</text>
-    <text x="300" y="370" font-size="30" text-anchor="middle">Piston / Pocket</text>
-    <text x="900" y="370" font-size="30" text-anchor="middle">Vac 2.0 / Kraken</text>
-    <text x="600" y="555" font-size="32" text-anchor="middle">Ultemate Vac · ULTEM · titanium · vacuum · shut-off</text>
+    <text x="300" y="376" font-size="28" text-anchor="middle">Piston / Pocket</text>
+    <text x="900" y="376" font-size="28" text-anchor="middle">Vac 2.0 / Kraken</text>
+    <text x="600" y="560" font-size="27" text-anchor="middle">Ultemate Vac · ULTEM · titanium · vacuum · shut-off</text>
     <text x="600" y="645" font-size="22" text-anchor="middle">原创品牌事实图｜型号机制优先；非产品照片、非比例图、非库存承诺</text>
   </g>
 </svg>
