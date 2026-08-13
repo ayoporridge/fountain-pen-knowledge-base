@@ -3,11 +3,11 @@
   <desc id="desc">Site-original factual diagram. Non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
   <metadata>creator=Fountain Pen Graph editorial;site-original=true;factual-svg=true;non-photo=true;non-logo=true;not-to-scale=true;non-colour-proof=true;retrieved=2026-07-22</metadata>
   <rect width="1600" height="900" fill="#151816"/>
-  <circle cx="250" cy="450" r="140" fill="none" stroke="#c8a866" stroke-width="18"/>
-  <path d="M390 450 H1360" stroke="#c8a866" stroke-width="18" stroke-linecap="round"/>
-  <path d="M650 350 L730 450 L650 550 M950 350 L1030 450 L950 550" fill="none" stroke="#718f7a" stroke-width="12"/>
+  <rect x="145" y="350" width="360" height="200" rx="92" fill="#d76b22" stroke="#c8a866" stroke-width="12"/>
+  <rect x="430" y="374" width="650" height="152" rx="70" fill="#e9822d" stroke="#c8a866" stroke-width="10"/>
+  <path d="M1080 374l300 76-300 76z" fill="#e7d29b" stroke="#c8a866" stroke-width="10"/>
   <text x="120" y="170" fill="#f1eadc" font-family="serif" font-size="78">DV MEDIUM</text>
-  <text x="560" y="410" fill="#f1eadc" font-family="sans-serif" font-size="50">steel + C/C/direct</text>
-  <text x="560" y="500" fill="#d0c6b5" font-family="sans-serif" font-size="42">14K + piston</text>
+  <text x="470" y="650" fill="#f1eadc" font-family="sans-serif" font-size="42">当代款：钢尖 · 墨囊／转换器／直液</text>
+  <text x="470" y="710" fill="#d0c6b5" font-family="sans-serif" font-size="34">历史款 14K 金尖＋活塞上墨，不能混写</text>
   <text x="120" y="790" fill="#9e978b" font-family="sans-serif" font-size="30">NON-PHOTO · NON-LOGO · NOT-TO-SCALE · NON-COLOUR-PROOF</text>
 </svg>

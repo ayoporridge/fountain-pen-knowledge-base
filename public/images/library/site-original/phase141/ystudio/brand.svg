@@ -1,1 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900"><rect width="1600" height="900" fill="#efe9dd"/><g fill="#362d25"><text x="90" y="150" font-size="72" font-family="sans-serif">YSTUDIO</text><text x="90" y="260" font-size="42" font-family="sans-serif">Classic / metal / patina</text><path d="M170 500l260-150 260 150-260 150z" fill="none" stroke="#8b5e34" stroke-width="24"/><text x="90" y="820" font-size="24" font-family="sans-serif">FACTUAL DIAGRAM · non-photo · non-logo · not-to-scale · non-colour-proof</text></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">YSTUDIO 物外设计品牌导航示意图</title>
+  <desc id="desc">以钢笔轮廓说明物外设计以金属笔具、可自然氧化的表面和桌面笔系列为核心；非产品照片。</desc>
+  <metadata>site-original factual diagram; non-photo; non-logo; not-to-scale; non-colour-proof</metadata>
+  <rect width="1600" height="900" fill="#f4efe6"/>
+  <text x="95" y="125" fill="#342a22" font-family="Arial,sans-serif" font-size="68" font-weight="700">YSTUDIO 物外设计</text>
+  <text x="98" y="182" fill="#8b5e34" font-family="Arial,sans-serif" font-size="30">台湾设计品牌 · 金属笔具 · 使用痕迹会随时间改变表面</text>
+  <g transform="translate(105 295)">
+    <rect x="0" y="65" width="1040" height="128" rx="58" fill="#b77b38" stroke="#493729" stroke-width="8"/>
+    <path d="M1040 65l270 64-270 64z" fill="#d3b36d" stroke="#493729" stroke-width="8"/>
+    <path d="M1145 90l165 39-165 39z" fill="#f1e3b7"/>
+    <rect x="80" y="48" width="420" height="162" rx="70" fill="#8f5930" opacity=".92"/>
+    <path d="M160 60v138M215 55v148M270 53v152M325 55v148M380 60v138" stroke="#d2a76b" stroke-width="6" opacity=".65"/>
+  </g>
+  <g font-family="Arial,sans-serif">
+    <text x="115" y="650" fill="#342a22" font-size="35" font-weight="700">看懂这个品牌的三个入口</text>
+    <text x="115" y="710" fill="#6f5540" font-size="29">Classic：黄铜／铜质笔身</text>
+    <text x="590" y="710" fill="#6f5540" font-size="29">Desk：配黄铜笔座的无帽桌面笔</text>
+    <text x="115" y="758" fill="#6f5540" font-size="29">Portable／Resin：便携与树脂支线</text>
+    <text x="98" y="844" fill="#88796c" font-size="23">本站原创事实示意 · 非产品实拍 · 非商标 · 不表示真实颜色、比例或表面纹理</text>
+  </g>
+</svg>

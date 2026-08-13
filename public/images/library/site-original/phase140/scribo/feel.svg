@@ -3,11 +3,8 @@
   <desc id="desc">Site-original factual diagram. Non-photo, non-logo, not-to-scale, non-colour-proof.</desc>
   <metadata>creator=Fountain Pen Graph editorial;site-original=true;factual-svg=true;non-photo=true;non-logo=true;not-to-scale=true;non-colour-proof=true;retrieved=2026-07-22</metadata>
   <rect width="1600" height="900" fill="#151816"/>
-  <circle cx="250" cy="450" r="140" fill="none" stroke="#c8a866" stroke-width="18"/>
-  <path d="M390 450 H1360" stroke="#c8a866" stroke-width="18" stroke-linecap="round"/>
-  <path d="M650 350 L730 450 L650 550 M950 350 L1030 450 L950 550" fill="none" stroke="#718f7a" stroke-width="12"/>
+  <path d="M145 410l55-60h305l55 60v80l-55 60H200l-55-60z" fill="#365b55" stroke="#c8a866" stroke-width="12"/><path d="M480 390h590l40 60-40 60H480z" fill="#487870" stroke="#c8a866" stroke-width="10"/><path d="M1070 390l310 60-310 60z" fill="#e7d29b" stroke="#c8a866" stroke-width="10"/>
   <text x="120" y="170" fill="#f1eadc" font-family="serif" font-size="78">SCRIBO FEEL</text>
-  <text x="560" y="410" fill="#f1eadc" font-family="sans-serif" font-size="50">12-sided · piston</text>
-  <text x="560" y="500" fill="#d0c6b5" font-family="sans-serif" font-size="42">14K flexible / 18K regular</text>
+  <text x="520" y="650" fill="#f1eadc" font-family="sans-serif" font-size="42">十二面笔身 · 活塞上墨</text><text x="520" y="710" fill="#d0c6b5" font-family="sans-serif" font-size="34">14K 弹性尖／18K 常规尖</text>
   <text x="120" y="790" fill="#9e978b" font-family="sans-serif" font-size="30">NON-PHOTO · NON-LOGO · NOT-TO-SCALE · NON-COLOUR-PROOF</text>
 </svg>

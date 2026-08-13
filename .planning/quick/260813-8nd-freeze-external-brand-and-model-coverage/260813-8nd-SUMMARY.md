@@ -46,3 +46,10 @@
 - Vercel CLI 当前登录为 `ayoporridge`，本地绑定项目 `aljo233/fountain-pen-graph`；Production 已配置 hidden `TURSO_DATABASE_URL` 与 sensitive `TURSO_AUTH_TOKEN`。
 - 当前 production alias `https://fountain-pen-graph.vercel.app` 指向 2026-07-28 的 Ready deployment，尚未包含最终本地内容。配额恢复后必须先迁移 Turso、完成远端只读审计，再从当前本地 `master` 显式 production deploy。
 - 最终执行顺序固定为：hash/test 复核 → Turso dry-run → 显式 apply → 远端数据库全量审计 → Vercel production deploy → alias readback → 1130 URL 线上逐条复查 → requirement-by-requirement 最终审计。
+
+## Public primary-image human review
+
+- 在 877 张健康公开主图中，872 张为本站 SVG；已把 872 张分成 25 张 contact sheet 逐张人工总览。路径健康不再等同于视觉可读性。
+- 抽查发现并修复 17 张最高风险图：YSTUDIO YAKIHAKU 由抽象规格图改为两种钢笔版本对照；Phase 140 的 14 张圆圈／横线旧模板和 Phase 141 的 2 张 YSTUDIO 菱形图改为可辨认钢笔轮廓、中文事实说明及明确的非产品实拍声明。
+- 新增定向回归，要求这 16 张旧模板修复图保持 1600×900、包含中文说明、保留非产品实拍边界，并禁止恢复旧圆圈或菱形路径。SVG XML、Biome、TypeScript、diff-check 与目视 contact sheet 全部通过。
+- 修复后重跑候选库：readiness 884/861/0 public blockers/23 retired；entity quality duplicate/thin/suspicious/broken 均为 0；library contract OK；public media 877/877 healthy；public boundary 与 data contract OK；production build PASS。真实 `data/fpkg.db` 与最终候选库 SHA-256 均保持不变。
