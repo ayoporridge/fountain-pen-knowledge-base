@@ -485,4 +485,20 @@ test("Phase 600 publishes five YSTUDIO canonical families only on an owned check
     assert.match(svg, /<desc/);
     assert.match(svg, /not a product photo/i);
   }
+  const yakihakuSvg = fs.readFileSync(
+    path.join(
+      ROOT,
+      "public/images/library/site-original/phase600/ystudio/yakihaku.svg",
+    ),
+    "utf8",
+  );
+  for (const readableMarker of [
+    "两种钢笔版本",
+    "带帽版",
+    "Desk 桌面版",
+    "云龙箔表面怎么保养",
+    "非产品实拍",
+  ]) {
+    assert.match(yakihakuSvg, new RegExp(readableMarker));
+  }
 });
