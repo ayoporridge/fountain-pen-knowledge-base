@@ -6,7 +6,7 @@
 
 地区微型工作室、主要经营墨水或综合文具而只有边缘钢笔 SKU、单店短期上架、一次性产品、缺少稳定官方身份的候选，保留为后续扩展，不把“全量修复”变成没有终点的互联网品牌枚举。
 
-冻结基线为 Phase 604 caller-owned checkpoint：115 个公开品牌、734 个公开 pen 节点、851 个公开且 content-ready 实体；公开 blocker 为 0。真实 `data/fpkg.db` 不参与本次差异试验。
+冻结基线为 Phase 604 caller-owned checkpoint：116 个公开品牌、735 个公开 pen 节点、851 个公开且 content-ready 实体；公开 blocker 为 0。Phase 605 加入 5 个品牌与 5 个 pen 后为 121／740。真实 `data/fpkg.db` 不参与本次差异试验。
 
 ## 本轮必须补入
 
