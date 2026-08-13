@@ -2,7 +2,7 @@
 
 ## summary
 
-Sheaffer Imperial 是 1961 年起、跨 Touchdown 与 cartridge 阶段发展的历史家族；IV、VI、VIII 等子型各有独立帽材和笔尖证据，不能与 PFM、Targa 或 Legacy 合并。
+Sheaffer Imperial 是 1961 年起、跨 Touchdown 与 cartridge 阶段发展的历史家族；维护时必须先分现代 cartridge／converter 与 vintage Touchdown，不能用同一套拆洗方式处理。
 
 ## body_md
 
@@ -32,6 +32,14 @@ Imperial 初期的工程选择是 Touchdown，而 cartridge 型号很快跟进�
 
 PenHero 还记录 lower-priced 500、800、1000 在 1962–1964 年间同时出现 Touchdown 与 cartridge 版本，收藏者常称其为 Dolphin Imperials。但 Sheaffer 当时并未把所有这些笔正式命名为 Imperial。本站因此只在边界段解释它们，不把 Dolphin 行塞进 Imperial IV/VI/VIII 的默认 variant 表。
 
+## 使用与维护：两条供墨路线，两套动作
+
+如果确认手中是 cartridge／converter 版本，日常清洗可以沿用 Sheaffer 当前官方指南：拆下可正常拆卸的笔杆和供墨件，用冷水或微温水冲洗笔尖与笔舌，直到流出的水清澈。不要用热水或溶剂。冲洗后用软布或吸水纸轻按表面水分，不压、不掰笔尖，再让笔尖与笔舌完全自然风干，最后才装回墨囊或 converter。新墨水若被残水稀释，通常是还没有干透，不需要用力甩笔。
+
+这套说明不能覆盖 vintage Touchdown。Touchdown 依赖尾端气压动作、墨囊与密封件；老化的囊、O-ring 或其他密封材料可能已经硬化。若尾杆阻力异常、没有回弹、漏气、渗墨，或需要拆到密封系统，应停止强拧和深拆。Sheaffer FAQ 把维修交给 Service Department，其保修条款也把未授权或不合格人员的操作列为排除项；对早期 Imperial，更稳妥的做法是交给熟悉老式 Sheaffer Touchdown 结构的维修者，而不是拿现代 converter 教程去试。
+
+二手笔若只看到一张合帽照片，先不要开始清洗。应先确认尾端是否存在 Touchdown 操作件、笔杆内是墨囊密封系统还是 cartridge 接口，并记录旧零件状态。确认是现代可拆供墨后再用清水冲洗；确认是 vintage pneumatic 结构后，则把“能否拆、换哪种密封、是否需要专用工具”留给维修判断。
+
 ## 笔尖不是全族统一的 14K inlaid nib
 
 早期 IV、VI 的 14K inlaid nib 有清楚 locator；Imperial I 的 Stylpoint inset nib、Imperial II/III 的短 Triumph-style nib，以及 Dolphin 的 diamond-shaped inset nib，恰好证明“Imperial = 14K 嵌入尖”并不成立。PenHero 的 inlaid-nib 演变资料可用来理解 PFM 到部分 Imperial 的设计传递，但不能消灭同时存在的非 inlaid 版本。
@@ -54,4 +62,6 @@ PFM 是更大的 Snorkel 旗舰家族；Imperial 的初始定位位于其下，�
 
 - [PenHero, Early Sheaffer Imperials 1961–1962](https://www.penhero.com/PenGallery/Sheaffer/SheafferImperialsEarly.htm) — 2026-07-21 复核；lines 89–118 为 family/供墨/命名边界，Imperial IV identification guide、Imperial VI identification guide 与 Imperial VIII identification guide 分别约束各子型。
 - [PenHero, Evolution of the Sheaffer Inlaid Nib](https://www.penhero.com/PenGallery/Sheaffer/SheafferInlaidNibs.htm) — inlaid nib 谱系与非统一型号边界；不把视觉谱系当 identity 合并依据。
+- [Sheaffer, How to Clean and Refill Your Fountain Pen](https://sheaffer.com/blogs/news/how-to-clean-and-refill-your-fountain-pen-a-step-by-step-guide) — retrieved 2026-08-13；支持 cartridge／converter 钢笔以微温水冲洗、轻按吸干、完全风干后再装墨，不适用于 vintage Touchdown 密封系统深拆。
+- [Sheaffer FAQ](https://sheaffer.com/community/faq/) — retrieved 2026-08-13；支持冷水冲洗、避免热水与溶剂，以及需要维修时联系 Service Department。
 - 页面内 contemporaneous 1961 catalogue 与广告扫描的说明文字 — 只采用 PenHero 已明确转述的型号行，不复制或入站外部图片。

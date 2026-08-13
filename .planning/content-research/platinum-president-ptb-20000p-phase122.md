@@ -1,6 +1,6 @@
 ## summary
 
-Platinum President PTB-20000P 是白金现行传统大号金笔之一；本页以官网产品页三色与规格为当前快照，并把品牌导航、旧目录、历史观察及调整后样笔严格分开。
+Platinum President PTB-20000P 是白金现行传统大号金笔之一；本页以官网三色与规格为当前快照，并补入每月、换墨与长期停用后的官方温水清洗边界。
 
 ## body_md
 
@@ -19,6 +19,16 @@ President 这个名字容易让人把不同年代、不同市场和不同文档�
 President 品牌页讲的是系列定位：传统正式外形、较长的 18K 金尖，以及页面所说的重心偏后。它的导航区域在检索日可见 PTB-20000P Black、Wine Red 两张卡，同时还有一张 **separate PTB-25000PR Black**。这个画面与 exact product page 的 Blue 并不冲突：两者是不同 document view，品牌页没有声明自己列出全部 PTB-20000P 颜色，产品页则明确展示三项 variation。
 
 因此，本页不会因为品牌页只有两张 PTB-20000P 卡就删除 Blue，也不会把 PTB-25000PR 并成第四个 variant。PTB-25000PR 是 sibling boundary；President Kaga Maki-e 与 President 名下的 ballpoint 也只帮助读者理解产品家族，不属于本目标型号的 alias、spec 或独立 variant。导航层与产品层分开，能避免“同一品牌页出现”被误读为“同一钢笔型号”。
+
+## 使用与维护：清洗发生在四个时点
+
+Platinum 的官方保养页建议约每月清洗一次；换墨颜色、出水不畅、长期停用后重新启用，也都是应当清洗的时点。FAQ 进一步提醒，长期不用时应取下墨囊或 converter，清洗并干燥钢笔；更换墨水颜色或品牌时，也要把笔尖与笔舌洗净，避免残墨造成堵塞。
+
+基础步骤是取下墨囊或 converter，把笔尖与握位前端放入温水。官方保养页给出的做法是浸泡一天；随后用清水轻柔冲洗，直到不再带出墨色。最后用干燥柔软的布轻擦表面，并放置到完全自然干燥，再装入新的墨囊或 converter。若只是换色，也不要跳过清水洗净这一步；若出水不畅，不要剧烈摇晃钢笔。
+
+这里的“温水”不是热水，也不意味着可以加入家用清洁剂。Platinum 明确要求笔身擦拭使用柔软干布，并写明不要使用湿布、金属抛光剂或任何化学品。官网另有自家 Ink Cleaner Kit 的特定配比与步骤，但那是原厂清洁套装说明，不能据此把洗洁精、酒精或通用金属抛光剂当成替代品。
+
+如果浸泡、清水冲洗后仍有严重堵塞，官方建议送厂拆洗。President 的 18K 笔尖、笔舌和握位不是用来练习强拆的部件；卡死、裂纹、漏墨或持续断墨时，应停止继续施力，让合格维修者判断。这样做不改变 PTB-20000P 的现行规格，只为已有钢笔补上可执行的日常维护边界。
 
 ## 2019–2020 目录：有日期的历史截面
 
@@ -48,6 +58,8 @@ Andrew Lensky 2023 年 3 月的页面观察一支 Red Wine President，笔尖为
 
 - Platinum exact product page：`https://www.platinum-pen.co.jp/products/fountain-pen/2158/`，retrieved 2026-07-22。支持 PTB-20000P、current #1/#10/#59、¥74,800 snapshot、18K（18-21）笔尖与尖号、AS 树脂、142 × 16 mm、21 g、Converter-800A 与蓝黑墨囊。
 - Platinum President brand page：`https://www.platinum-pen.co.jp/brands/president/`，retrieved 2026-07-22。支持 line positioning、long 18K nib、rearward balance，以及 document-specific PTB-20000P Black/Wine Red 与 separate PTB-25000PR Black。
+- Platinum “For long use”：`https://www.platinum-pen.co.jp/en/about-fountain-pen/detail/?pid=389`，retrieved 2026-08-13。支持每月、换色、出水不畅、长期停用后的温水浸洗、清水洗净、软干布轻擦，以及拒绝金属抛光剂和化学品。
+- Platinum FAQ：`https://www.platinum-pen.co.jp/en/contact/faq/`，retrieved 2026-08-13。支持长期停用前取下墨囊／converter、清洗干燥，以及换墨颜色或品牌时彻底清洁笔尖与笔舌。
 - Platinum General Catalog 2019–2020：`https://www.platinum-pen.co.jp/cms/wp-content/uploads/2020/01/Platinum-pen-general-catalog-2019-2020.pdf`。只作 dated catalog scope，不证明 2026 availability。
 - Jim Mamoulides／PenHero：`https://penhero.com/PenGallery/Platinum/PlatinumPresident.htm`，published 2025-10-31。只作 history／collection inspection；保留不确定性、USA boundary 与 no-writing 限制。
 - Andrew Lensky：`https://lenskiy.org/2023/03/modern-platinum-president/`，published 2023-03。只作 adjusted Red Wine sample；保留 EF／UEF ambiguity，尺寸、重量、开帽圈数与 writing/flow 均不泛化。

@@ -1,6 +1,6 @@
 ## summary
 
-Aurora Ipsilon Demo Colors 当前页以官方分类与 PDF 锁定 glossy colored resin、透明握位、六色及两组饰件／钢尖；2020 尖宽、lineup 与赠墨另作 dated context。
+Aurora Ipsilon Demo Colors 当前页以官方分类与 PDF 锁定六色及两组饰件／钢尖，并补入官方 cartridge／converter 上墨步骤；2020 lineup 与赠墨仍只作 dated context。
 
 ## body_md
 
@@ -32,6 +32,16 @@ red、purple、turquoise 这一组的共同点是 chrome trim 与 stainless-stee
 
 “clear grip section”也只说明官方资料中的透明握位特征，不延伸为整支笔透明、示范笔容量可视或结构尺寸判断。Demo 这个名称容易让人联想到 demonstrator，但本页不把联想升级成未被 locator 支撑的技术描述。
 
+## 使用与维护：先确认 cartridge 还是 converter
+
+Demo Colors 的官方当前材料没有单独重列供墨规格；2020 年的专业资料则把这条产品记为 cartridge／converter。所以下面的操作说明只适用于手中的笔确实装有 Aurora 墨囊或活塞式 converter 时，不把一份通用 FAQ 反过来当成 2026 年所有在售 Demo 的永久规格证明。
+
+使用墨囊时，Aurora FAQ 的顺序很直接：拔下笔帽，旋开前端，装入 Aurora K／S 墨囊，再把笔杆旋回，稍等片刻后书写。不要为了“更快出墨”挤压墨囊或敲击笔尖；如果接口、墨囊尺寸或密封状态不确定，应先停下来核对配件。
+
+使用原厂活塞式 converter 时，先把 converter 推入到卡合位置，再把活塞旋到吸墨起点。让笔尖完全浸入墨水，转动活塞吸满；随后反向转动，让一滴墨水回到瓶中。最后用柔软布料轻轻吸走笔尖表面的余墨，不用纸巾来回摩擦笔尖，也不把沾墨后的擦拭痕迹误判成树脂褪色。
+
+Aurora 还明确建议使用原厂补充品，因为其供墨参数按 Aurora 墨水的流动特性设定。这是一条厂商使用边界，不等于第三方墨水一定会损坏钢笔；它只说明本页不会替读者承诺任意墨囊、converter 或墨水都能兼容。遇到不能卡合、持续漏墨或供墨异常时，应停止强装，交由熟悉 Aurora 接口的维修者检查。
+
 ## 与 Resin B11-N 的边界
 
 [Resin B11-N](/pen/aurora-ipsilon-resin-b11-n) 的 exact current evidence 是 black resin、B11-N、cartridge/converter 与 gold/chrome finish options。它没有 Demo 的六色分组，也没有 clear grip 证据。反过来，Demo 的六色与两组尖饰组合也不能写进 B11-N。两页互链是为了比较，不是建立 pen-to-pen topology。
@@ -52,4 +62,5 @@ red、purple、turquoise 这一组的共同点是 chrome trim 与 stainless-stee
 
 - Aurora Ipsilon Demo Colors current category，retrieved 2026-07-21。
 - Aurora “IPSILON Demo Colours” PDF，retrieved 2026-07-21。
+- [Aurora FAQ](https://aurorapen.it/faq/)，retrieved 2026-08-13；只支持 Aurora cartridge／活塞式 converter 的安装、吸墨后一滴回排、软布擦拭与原厂补充品建议，不单独证明 Demo Colors 的 2026 供墨规格。
 - Adam L., Bertram’s Inkwell, “Aurora Ipsilon Demo Colors”, 2020-08-06。
