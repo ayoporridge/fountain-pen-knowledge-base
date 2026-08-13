@@ -20,10 +20,10 @@
       <text x="418" y="102" text-anchor="middle" font-size="18" fill="#453c54">Verdant</text><text x="514" y="102" text-anchor="middle" font-size="18" fill="#453c54">Crimson</text><text x="610" y="102" text-anchor="middle" font-size="18" fill="#453c54">Azure</text><text x="706" y="102" text-anchor="middle" font-size="18" fill="#453c54">Violet</text>
     </g>
     <rect x="650" y="534" width="540" height="216" rx="32" fill="#e5f4ed"/>
-    <text x="698" y="592" font-size="28" font-weight="780" fill="#245345">fountain pen · accepted</text><text x="698" y="676" font-size="76" font-weight="850" fill="#2f8066">16</text><text x="800" y="668" font-size="29" fill="#315b50">current F / M SKU</text>
+    <text x="698" y="592" font-size="28" font-weight="780" fill="#245345">fountain pen · 钢笔型号</text><text x="698" y="676" font-size="76" font-weight="850" fill="#2f8066">16</text><text x="800" y="668" font-size="29" fill="#315b50">current F / M SKU</text>
     <rect x="1228" y="534" width="284" height="216" rx="32" fill="#f4e2e4"/>
-    <text x="1268" y="592" font-size="25" font-weight="780" fill="#723c46">RollerBall · rejected</text><text x="1268" y="676" font-size="76" font-weight="850" fill="#ae4c5b">8</text><text x="1348" y="668" font-size="24" fill="#6c4a50">codes</text>
-    <text x="88" y="831" class="small">同一商品页混列两种书写工具；知识图谱只收 fountain-pen child</text>
+    <text x="1268" y="592" font-size="25" font-weight="780" fill="#723c46">RollerBall · 非钢笔</text><text x="1268" y="676" font-size="76" font-weight="850" fill="#ae4c5b">8</text><text x="1348" y="668" font-size="24" fill="#6c4a50">codes</text>
+    <text x="88" y="831" class="small">同一商品页混列两种书写工具；本页仅介绍 fountain-pen 款</text>
     <text x="88" y="875" class="small">本站原创示意图／非产品照片 · 不表示真实颜色、笔形、光泽或比例</text>
   </g>
 </svg>

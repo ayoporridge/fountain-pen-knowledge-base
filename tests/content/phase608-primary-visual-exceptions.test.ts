@@ -44,10 +44,13 @@ const EXCEPTION_PATHS = [
   "/images/library/site-original/phase138/wancher/wancher-aizu-ao.svg",
   "/images/library/site-original/phase112/wancher/wancher-dream-pen-titanium-black.svg",
   "/images/library/site-original/phase134/wancher/dream-pen-true-ebonite-silk-black.svg",
+  "/images/library/site-original/phase597/nahvalur/nahvalur-pen-of-year-snake-2025.svg",
+  "/images/library/site-original/phase597/nahvalur/nahvalur-triad.svg",
+  "/images/library/site-original/phase107/wancher/wancher-dream-pen-true-ebonite-matte-black.svg",
 ] as const;
 
 const INTERNAL_REVIEW_TERMS =
-  /\b(?:review(?:ed)?|rejected|audit|candidate|disposition|qualified|publication|canonical|identity|scope|evidence)\b|内部审核|审核|档案证据线|证据边界|证据层级|发布边界|身份冲突|来源层级|编辑判断|temporal conflict/iu;
+  /\b(?:review(?:ed)?|accepted|rejected|audit|candidate|disposition|qualified|publication|canonical|identity|scope|evidence)\b|内部审核|审核|档案证据线|证据边界|证据层级|发布边界|身份冲突|来源层级|编辑判断|temporal conflict/iu;
 const DISCLAIMER =
   /本站原创事实示意图，非产品照片|本站原创非产品照片示意图|非产品照片|原创非照片|not a product photo(?:graph)?|non-photo/iu;
 
@@ -72,9 +75,9 @@ function visibleText(svg: string): string {
     .join(" ");
 }
 
-test("Phase 608 keeps the 28 repaired primary visuals bound, readable, and free of internal review language", async () => {
-  assert.equal(EXCEPTION_PATHS.length, 28);
-  assert.equal(new Set(EXCEPTION_PATHS).size, 28);
+test("Phase 608 keeps the 31 repaired primary visuals bound, readable, and free of internal review language", async () => {
+  assert.equal(EXCEPTION_PATHS.length, 31);
+  assert.equal(new Set(EXCEPTION_PATHS).size, 31);
 
   const candidateBefore = familySnapshot(CANDIDATE);
   const realBefore = familySnapshot(REAL_CATALOG);
