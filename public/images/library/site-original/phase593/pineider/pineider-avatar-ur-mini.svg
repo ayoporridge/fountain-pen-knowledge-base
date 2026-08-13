@@ -1,84 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
-  <title id="title">Pineider Avatar UR Mini SPP6801／941 十个 child SKU 与 Mini 边界事实图</title>
-  <desc id="desc">本站原创示意图，非产品照片。用抽象线路图展示 SPP6801／941、官网五色十个 F M child SKU、120 毫米、UltraResin、磁吸帽和墨囊上墨器，并隔离 Lux 与 Yellow Mint Dust Peach 未对码叙述；不表示真实笔形、颜色、纹理、比例或商标。</desc>
+  <title id="title">Pineider Avatar UR Mini 钢笔事实示意图</title>
+  <desc id="desc">本站原创事实示意图，非产品照片。用紧凑通用钢笔轮廓和四项中文要点介绍 UltraResin、F 与 M 尖幅、墨囊上墨器和磁吸笔帽；图形、配色和比例不代表实物。</desc>
   <defs>
-    <linearGradient id="bg2" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#eef4f8"/>
-      <stop offset="1" stop-color="#cbd8e2"/>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#eaf2f5"/>
+      <stop offset="1" stop-color="#d8e7eb"/>
     </linearGradient>
-    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
-      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#24435c" flood-opacity="0.16"/>
+    <linearGradient id="body" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2e6075"/>
+      <stop offset="0.5" stop-color="#6b9aab"/>
+      <stop offset="1" stop-color="#244e61"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-30%" width="140%" height="170%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#244e61" flood-opacity="0.2"/>
     </filter>
+    <style>
+      .text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", sans-serif; }
+      .fact-title { font-size: 24px; font-weight: 750; fill: #1d4457; }
+      .fact-copy { font-size: 20px; fill: #557280; }
+    </style>
   </defs>
-  <rect width="1600" height="900" fill="url(#bg2)"/>
-  <circle cx="1445" cy="95" r="245" fill="#52738d" fill-opacity="0.09"/>
-  <circle cx="72" cy="820" r="210" fill="#52738d" fill-opacity="0.08"/>
+  <rect width="1600" height="900" fill="url(#background)"/>
+  <circle cx="1408" cy="120" r="245" fill="#2b7381" opacity="0.07"/>
+  <circle cx="112" cy="800" r="215" fill="#d18256" opacity="0.07"/>
+  <g class="text">
+    <text x="90" y="92" font-size="25" letter-spacing="4" fill="#587884">紧凑型日用钢笔</text>
+    <text x="90" y="155" font-size="51" font-weight="780" fill="#173b4d">Pineider Avatar UR Mini</text>
+    <text x="92" y="198" font-size="24" fill="#557281">SPP6801／941 · Mini 是独立型号</text>
 
-  <text x="92" y="105" fill="#23435c" font-family="system-ui, sans-serif" font-size="25" letter-spacing="4">COMPACT MODEL ROUTE MAP</text>
-  <text x="92" y="172" fill="#10293c" font-family="system-ui, sans-serif" font-size="56" font-weight="720">Avatar UR Mini</text>
-  <text x="92" y="218" fill="#4c6577" font-family="system-ui, sans-serif" font-size="24">SPP6801／941 · 120 mm · Ø13.4 mm · F / M</text>
-
-  <g transform="translate(92 280)" filter="url(#shadow)">
-    <rect width="1030" height="508" rx="30" fill="#ffffff"/>
-    <text x="38" y="58" fill="#4d6678" font-family="system-ui, sans-serif" font-size="19" letter-spacing="2">OFFICIAL EXACT-PAGE SKU GRID</text>
-    <g font-family="system-ui, sans-serif">
-      <g transform="translate(38 92)">
-        <rect width="454" height="66" rx="16" fill="#1d2730"/>
-        <text x="22" y="28" fill="#fff" font-size="19" font-weight="650">BLACK · 056</text>
-        <text x="22" y="52" fill="#dce3e8" font-family="ui-monospace, monospace" font-size="17">SPP6801F056 · SPP6801M056</text>
-      </g>
-      <g transform="translate(530 92)">
-        <rect width="454" height="66" rx="16" fill="#7b2931"/>
-        <text x="22" y="28" fill="#fff" font-size="19" font-weight="650">RED ONYX · 644</text>
-        <text x="22" y="52" fill="#f6dfe1" font-family="ui-monospace, monospace" font-size="17">SPP6801F644 · SPP6801M644</text>
-      </g>
-      <g transform="translate(38 178)">
-        <rect width="454" height="66" rx="16" fill="#356246"/>
-        <text x="22" y="28" fill="#fff" font-size="19" font-weight="650">IMPERIAL GREEN · 645</text>
-        <text x="22" y="52" fill="#d9eade" font-family="ui-monospace, monospace" font-size="17">SPP6801F645 · SPP6801M645</text>
-      </g>
-      <g transform="translate(530 178)">
-        <rect width="454" height="66" rx="16" fill="#67737a"/>
-        <text x="22" y="28" fill="#fff" font-size="19" font-weight="650">GRAY ZEBRINO · 646</text>
-        <text x="22" y="52" fill="#e6ecef" font-family="ui-monospace, monospace" font-size="17">SPP6801F646 · SPP6801M646</text>
-      </g>
-      <g transform="translate(38 264)">
-        <rect width="946" height="66" rx="16" fill="#334f77"/>
-        <circle cx="835" cy="33" r="18" fill="#a5434c"/>
-        <text x="22" y="28" fill="#fff" font-size="19" font-weight="650">RED BLUE SOLIDALE · 647</text>
-        <text x="22" y="52" fill="#e0e8f3" font-family="ui-monospace, monospace" font-size="17">SPP6801F647 · SPP6801M647</text>
+    <g transform="translate(90 286)" filter="url(#shadow)" aria-label="紧凑通用钢笔轮廓">
+      <rect width="800" height="360" rx="38" fill="#fbfdfe"/>
+      <text x="38" y="58" font-size="21" fill="#617c88">紧凑轮廓：短笔帽、笔杆、握位与笔尖</text>
+      <g transform="translate(92 118)">
+        <path d="M8 34Q8 9 38 9H236Q268 9 284 34V110Q268 135 236 135H38Q8 135 8 110Z" fill="url(#body)"/>
+        <path d="M274 27Q308 11 348 19L492 38Q523 43 538 72Q523 101 492 106L348 125Q308 133 274 117Z" fill="#477d8f"/>
+        <rect x="507" y="42" width="58" height="60" rx="22" fill="#c8d1d4"/>
+        <path d="M558 39L622 72L558 105Q535 72 558 39Z" fill="#e5ebec" stroke="#6e7f84" stroke-width="4"/>
+        <path d="M571 72H608" stroke="#6e7f84" stroke-width="3"/>
+        <path d="M8 158H620" stroke="#9fb6be" stroke-width="3"/>
+        <text x="314" y="196" text-anchor="middle" font-size="18" fill="#718993">图中短长关系仅用于提示“Mini”定位</text>
       </g>
     </g>
-    <line x1="38" y1="374" x2="984" y2="374" stroke="#d7e0e6" stroke-width="2"/>
-    <g font-family="system-ui, sans-serif">
-      <text x="38" y="414" fill="#526879" font-size="19">MATERIAL</text>
-      <text x="168" y="414" fill="#17344a" font-size="23" font-weight="650">UltraResin</text>
-      <text x="356" y="414" fill="#526879" font-size="19">CLOSURE</text>
-      <text x="484" y="414" fill="#17344a" font-size="23" font-weight="650">Magnetic</text>
-      <text x="682" y="414" fill="#526879" font-size="19">FILL</text>
-      <text x="748" y="414" fill="#17344a" font-size="23" font-weight="650">C / C</text>
-      <rect x="38" y="444" width="946" height="39" rx="19.5" fill="#e7eef3"/>
-      <text x="511" y="470" text-anchor="middle" fill="#36536a" font-size="17">NICKEL-FREE PALLADIUM FINISH · OFFICIAL 120 mm REMAINS CANONICAL</text>
+
+    <g transform="translate(950 286)">
+      <g data-reader-fact="1">
+        <rect width="560" height="96" rx="22" fill="#fbfdfe" stroke="#a9c1ca" stroke-width="2"/>
+        <circle cx="41" cy="48" r="20" fill="#397287"/><text x="80" y="43" class="fact-title">UltraResin 笔身</text>
+        <text x="80" y="73" class="fact-copy">树脂表面用柔软布轻拭</text>
+      </g>
+      <g transform="translate(0 116)" data-reader-fact="2">
+        <rect width="560" height="96" rx="22" fill="#fbfdfe" stroke="#a9c1ca" stroke-width="2"/>
+        <circle cx="41" cy="48" r="20" fill="#397287"/><text x="80" y="43" class="fact-title">F、M 两种尖幅</text>
+        <text x="80" y="73" class="fact-copy">标称尖幅不等于固定纸面线宽</text>
+      </g>
+      <g transform="translate(0 232)" data-reader-fact="3">
+        <rect width="560" height="96" rx="22" fill="#fbfdfe" stroke="#d5b08c" stroke-width="2"/>
+        <circle cx="41" cy="48" r="20" fill="#b8754e"/><text x="80" y="43" class="fact-title">墨囊／上墨器</text>
+        <text x="80" y="73" class="fact-copy">不是 Alba Mini 的墨囊专用结构</text>
+      </g>
+      <g transform="translate(0 348)" data-reader-fact="4">
+        <rect width="560" height="96" rx="22" fill="#fbfdfe" stroke="#d5b08c" stroke-width="2"/>
+        <circle cx="41" cy="48" r="20" fill="#b8754e"/><text x="80" y="43" class="fact-title">磁吸笔帽</text>
+        <text x="80" y="73" class="fact-copy">沿轴线拔取，避免横向撬动</text>
+      </g>
     </g>
+
+    <rect x="90" y="762" width="1420" height="82" rx="25" fill="#173b4d"/>
+    <text x="800" y="797" text-anchor="middle" font-size="23" font-weight="700" fill="#f3fbfd">本站原创事实示意图，非产品照片</text>
+    <text x="800" y="826" text-anchor="middle" font-size="18" fill="#c4d8df">未复制品牌 logo；轮廓、颜色、材质效果与比例不代表实物</text>
   </g>
-
-  <g transform="translate(1160 280)">
-    <rect width="348" height="508" rx="30" fill="#24445b"/>
-    <text x="30" y="54" fill="#dbe8f1" font-family="system-ui, sans-serif" font-size="19" letter-spacing="2">SCOPE GUARD</text>
-    <line x1="30" y1="76" x2="318" y2="76" stroke="#7895aa"/>
-    <text x="30" y="122" fill="#fff" font-family="system-ui, sans-serif" font-size="24" font-weight="700">Do not merge</text>
-    <g fill="#d8e5ee" font-family="system-ui, sans-serif" font-size="19">
-      <text x="30" y="168">• full-size Avatar UR</text>
-      <text x="30" y="205">• Alba Mini PP7601</text>
-      <text x="30" y="242">• generic Mini SPP7201</text>
-      <text x="30" y="279">• roller SPP6802</text>
-    </g>
-    <rect x="26" y="318" width="296" height="148" rx="20" fill="#183348" stroke="#88a6bb" stroke-dasharray="8 7"/>
-    <text x="48" y="354" fill="#bcd1df" font-family="system-ui, sans-serif" font-size="17" letter-spacing="1">UNRESOLVED EXACT CODE</text>
-    <text x="48" y="390" fill="#fff" font-family="system-ui, sans-serif" font-size="20">Lux retail sample</text>
-    <text x="48" y="422" fill="#fff" font-family="system-ui, sans-serif" font-size="20">Yellow · Mint</text>
-    <text x="48" y="451" fill="#fff" font-family="system-ui, sans-serif" font-size="20">Dust · Peach</text>
-  </g>
-
-  <text x="92" y="842" fill="#466276" font-family="system-ui, sans-serif" font-size="18">本站原创示意图／非产品照片 · 不表示真实外观、色泽、纹理、笔形、比例或商标</text>
 </svg>

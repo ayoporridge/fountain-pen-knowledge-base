@@ -1,60 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
-  <title id="title">Pineider Avatar UR Glossy PP4001／602 选择器与文案冲突事实图</title>
-  <desc id="desc">本站原创示意图，非产品照片。用左右两栏表达当前 Lapis Blue 与 Nero 选择器、五个有价格组合、十六个隐藏或未定价代码，以及官网 all-black look 文案的范围冲突。</desc>
+  <title id="title">Pineider Avatar UR Glossy 钢笔事实示意图</title>
+  <desc id="desc">本站原创事实示意图，非产品照片。用亮面通用钢笔轮廓和四项中文要点介绍 UltraResin、镀钯钢尖、墨囊上墨器与磁吸笔帽；图形、配色、光泽和比例不代表实物。</desc>
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#15121e"/>
-      <stop offset=".56" stop-color="#17243c"/>
-      <stop offset="1" stop-color="#102c35"/>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#edf0f6"/>
+      <stop offset="1" stop-color="#dfe6ee"/>
     </linearGradient>
-    <linearGradient id="lapis" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#337cc0"/>
-      <stop offset="1" stop-color="#173c73"/>
+    <linearGradient id="body" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#303d59"/>
+      <stop offset="0.46" stop-color="#667896"/>
+      <stop offset="0.62" stop-color="#9babc0"/>
+      <stop offset="1" stop-color="#27344d"/>
     </linearGradient>
-    <linearGradient id="nero" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#30343c"/>
-      <stop offset="1" stop-color="#0b0d12"/>
-    </linearGradient>
+    <filter id="shadow" x="-20%" y="-30%" width="140%" height="170%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#24324c" flood-opacity="0.2"/>
+    </filter>
     <style>
-      .sans{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC",sans-serif}
-      .mono{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace}
-      .small{font-size:24px;fill:#c4cad6}.label{font-size:27px;fill:#f0f3f8}.code{font-size:34px;font-weight:700;fill:#fff}.pill{font-size:24px;font-weight:650;fill:#fff}
+      .text { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", sans-serif; }
+      .fact-title { font-size: 24px; font-weight: 750; fill: #273750; }
+      .fact-copy { font-size: 20px; fill: #5d6d82; }
     </style>
   </defs>
-  <rect width="1600" height="900" fill="url(#bg)"/>
-  <path d="M0 660C320 575 495 772 806 680s479-216 794-97v317H0Z" fill="#67b8b1" opacity=".08"/>
-  <g class="sans">
-    <text x="92" y="86" font-size="25" letter-spacing="5" fill="#9bb9d7">FOUNTAIN PEN GRAPH · FACT DIAGRAM</text>
-    <text x="92" y="151" font-size="48" font-weight="750" fill="#f7f8fb">Avatar UR Glossy</text>
-    <text x="92" y="194" class="code mono">PP4001／602</text>
+  <rect width="1600" height="900" fill="url(#background)"/>
+  <circle cx="1440" cy="112" r="260" fill="#465e88" opacity="0.08"/>
+  <path d="M0 715C290 621 472 783 790 704C1090 630 1320 689 1600 592V900H0Z" fill="#496686" opacity="0.05"/>
+  <g class="text">
+    <text x="90" y="92" font-size="25" letter-spacing="4" fill="#65758c">亮面树脂日用钢笔</text>
+    <text x="90" y="155" font-size="51" font-weight="780" fill="#23334d">Pineider Avatar UR Glossy</text>
+    <text x="92" y="198" font-size="24" fill="#607087">PP4001／602 · 与透明 Demo Metal 分开辨认</text>
 
-    <rect x="92" y="246" width="1416" height="112" rx="24" fill="#211d2c" stroke="#8b759d" stroke-width="2"/>
-    <text x="130" y="294" class="label">官网正文</text>
-    <text x="318" y="294" font-size="34" font-weight="750" fill="#f2d2f7">“all-black look”</text>
-    <line x1="754" y1="272" x2="754" y2="333" stroke="#9d88ad" stroke-width="2"/>
-    <text x="800" y="294" class="label">当前颜色 selector</text>
-    <text x="1092" y="294" font-size="34" font-weight="750" fill="#cfe5ff">Lapis Blue ＋ Nero</text>
-    <text x="130" y="333" class="small">两条证据并存：营销句不删除蓝色，selector 也不替文案解释饰件范围</text>
+    <g transform="translate(90 286)" filter="url(#shadow)" aria-label="亮面通用钢笔轮廓">
+      <rect width="800" height="360" rx="38" fill="#fbfcff"/>
+      <text x="38" y="58" font-size="21" fill="#6c798d">可辨认轮廓：亮面笔帽、笔杆、握位与笔尖</text>
+      <g transform="translate(48 116)">
+        <path d="M14 34Q14 8 50 8H299Q335 8 353 34V116Q335 142 299 142H50Q14 142 14 116Z" fill="url(#body)"/>
+        <path d="M342 26Q382 8 430 18L596 38Q630 44 645 75Q630 106 596 112L430 132Q382 142 342 124Z" fill="url(#body)"/>
+        <rect x="612" y="42" width="66" height="66" rx="23" fill="#c4ccd2"/>
+        <path d="M669 39L738 75L669 111Q644 75 669 39Z" fill="#e9edef" stroke="#738087" stroke-width="4"/>
+        <path d="M682 75H723" stroke="#738087" stroke-width="3"/>
+        <path d="M58 31Q182 4 310 31M385 42Q493 26 592 49" fill="none" stroke="#dbe3ee" stroke-width="8" stroke-linecap="round" opacity="0.72"/>
+        <path d="M14 165H735" stroke="#aab6c5" stroke-width="3"/>
+        <text x="375" y="201" text-anchor="middle" font-size="18" fill="#758397">高光仅提示亮面，不表示真实颜色与光泽</text>
+      </g>
+    </g>
 
-    <rect x="92" y="406" width="672" height="284" rx="28" fill="url(#lapis)" stroke="#78aee3" stroke-width="2"/>
-    <text x="132" y="464" class="code">Lapis Blue 406</text>
-    <text x="132" y="507" class="small">current pricing matrix</text>
-    <rect x="132" y="544" width="112" height="55" rx="27" fill="#0d294e"/><text x="188" y="580" text-anchor="middle" class="pill">F</text>
-    <rect x="262" y="544" width="112" height="55" rx="27" fill="#0d294e"/><text x="318" y="580" text-anchor="middle" class="pill">M</text>
-    <rect x="392" y="544" width="212" height="55" rx="27" fill="none" stroke="#d7dce7" stroke-width="2" stroke-dasharray="8 8"/>
-    <text x="498" y="580" text-anchor="middle" class="pill">EF unpriced</text>
-    <text x="132" y="642" class="small mono">SSAFX…1406 · SSAMX…1406</text>
+    <g transform="translate(950 286)">
+      <g data-reader-fact="1">
+        <rect width="560" height="96" rx="22" fill="#fbfcff" stroke="#b3c0d0" stroke-width="2"/>
+        <circle cx="41" cy="48" r="20" fill="#50698e"/><text x="80" y="43" class="fact-title">亮面 UltraResin</text>
+        <text x="80" y="73" class="fact-copy">清洁时先除去砂粒，再用软布轻拭</text>
+      </g>
+      <g transform="translate(0 116)" data-reader-fact="2">
+        <rect width="560" height="96" rx="22" fill="#fbfcff" stroke="#b3c0d0" stroke-width="2"/>
+        <circle cx="41" cy="48" r="20" fill="#50698e"/><text x="80" y="43" class="fact-title">镀钯不锈钢笔尖</text>
+        <text x="80" y="73" class="fact-copy">EF、F、M 三种标称尖幅</text>
+      </g>
+      <g transform="translate(0 232)" data-reader-fact="3">
+        <rect width="560" height="96" rx="22" fill="#fbfcff" stroke="#d2b79e" stroke-width="2"/>
+        <circle cx="41" cy="48" r="20" fill="#a67855"/><text x="80" y="43" class="fact-title">墨囊／上墨器</text>
+        <text x="80" y="73" class="fact-copy">并非活塞、真空或滴入式上墨</text>
+      </g>
+      <g transform="translate(0 348)" data-reader-fact="4">
+        <rect width="560" height="96" rx="22" fill="#fbfcff" stroke="#d2b79e" stroke-width="2"/>
+        <circle cx="41" cy="48" r="20" fill="#a67855"/><text x="80" y="43" class="fact-title">Magnetic Lock</text>
+        <text x="80" y="73" class="fact-copy">磁吸笔帽应沿轴线开合</text>
+      </g>
+    </g>
 
-    <rect x="836" y="406" width="672" height="284" rx="28" fill="url(#nero)" stroke="#6f7786" stroke-width="2"/>
-    <text x="876" y="464" class="code">Nero 056</text>
-    <text x="876" y="507" class="small">current pricing matrix</text>
-    <rect x="876" y="544" width="112" height="55" rx="27" fill="#444955"/><text x="932" y="580" text-anchor="middle" class="pill">EF</text>
-    <rect x="1006" y="544" width="112" height="55" rx="27" fill="#444955"/><text x="1062" y="580" text-anchor="middle" class="pill">F</text>
-    <rect x="1136" y="544" width="112" height="55" rx="27" fill="#444955"/><text x="1192" y="580" text-anchor="middle" class="pill">M</text>
-    <text x="876" y="642" class="small mono">SSAEX／SSAFX／SSAMX…1056</text>
-
-    <rect x="434" y="733" width="732" height="75" rx="37" fill="#201f29" stroke="#d0a25f" stroke-width="2"/>
-    <text x="800" y="782" text-anchor="middle" font-size="29" font-weight="700" fill="#ffe2ad">5 pricing-backed SKU · 16 hidden／unpriced code</text>
-    <text x="92" y="866" class="small">本站原创示意图／非产品照片 · 不表示真实颜色、光泽、外形、纹理、笔尖或比例</text>
+    <rect x="90" y="762" width="1420" height="82" rx="25" fill="#23334d"/>
+    <text x="800" y="797" text-anchor="middle" font-size="23" font-weight="700" fill="#f5f8fc">本站原创事实示意图，非产品照片</text>
+    <text x="800" y="826" text-anchor="middle" font-size="18" fill="#c9d3e0">未复制品牌 logo；轮廓、颜色、光泽、材质效果与比例不代表实物</text>
   </g>
 </svg>
