@@ -14,15 +14,15 @@
   </g>
   <g transform="translate(1070 220)" font-family="sans-serif">
     <rect width="430" height="420" rx="36" fill="#1e2930"/>
-    <text x="38" y="62" fill="#e8eef1" font-size="29" font-weight="700">CURRENT STANDARD</text>
+    <text x="38" y="62" fill="#e8eef1" font-size="29" font-weight="700">现行标准纹样</text>
     <text x="42" y="133" fill="#d6dde1" font-size="28">格子 · KO</text><path d="M280 112h100v35h-100Z" fill="url(#grid)"/>
     <text x="42" y="207" fill="#d6dde1" font-size="28">つむぎ · TU</text><path d="M280 184q50-35 100 0t-100 42t100 0" fill="none" stroke="#d0d5d8" stroke-width="9"/>
     <text x="42" y="281" fill="#d6dde1" font-size="28">石だたみ · ID</text><circle cx="305" cy="265" r="16" fill="#d0d5d8"/><circle cx="353" cy="265" r="16" fill="#d0d5d8"/>
     <path d="M35 320h360" stroke="#81909a"/>
-    <text x="40" y="360" fill="#ffce78" font-size="23">F / M，仅以上三组进入 current variants</text>
+    <text x="40" y="360" fill="#ffce78" font-size="23">F / M，仅以上三组属于现行标准版本</text>
   </g>
   <rect x="190" y="690" width="1220" height="105" rx="52" fill="#733b34"/>
-  <text x="245" y="736" fill="#fff3ec" font-family="sans-serif" font-size="28" font-weight="700">2024 Jaguar：Chatterly Luxuries loaned review sample</text>
-  <text x="245" y="773" fill="#ffd9cd" font-family="sans-serif" font-size="22">Jaguar / Dragon / Turtle / Pokémon 不并入 2026 standard variants</text>
+  <text x="245" y="736" fill="#fff3ec" font-family="sans-serif" font-size="28" font-weight="700">2024 Jaguar：Chatterly Luxuries 借测样笔</text>
+  <text x="245" y="773" fill="#ffd9cd" font-family="sans-serif" font-size="22">Jaguar / Dragon / Turtle / Pokémon 不并入 2026 标准版本</text>
   <text x="92" y="852" fill="#596970" font-family="sans-serif" font-size="20">本站原创示意图，非产品照片 · 非比例、颜色或表面复刻 · 不含 Pilot Logo</text>
 </svg>

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
   <title id="title">Wancher Dream Pen Titanium Black 双时态事实边界</title>
-  <desc id="desc">本站原创事实示意图，区分 2026 当前 titanium black PVD JoWo steel listing 与 2024 affiliate disclosed reviewed sample，并标示笔尖配置冲突。</desc>
+  <desc id="desc">本站原创事实示意图，区分 2026 年 titanium black PVD JoWo steel 商品页与 2024 年披露 affiliate 关系的评测样笔，并说明两者笔尖配置不同。</desc>
   <defs>
     <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#111827"/>
@@ -20,15 +20,15 @@
   <circle cx="1410" cy="120" r="260" fill="#7c3aed" opacity=".08"/>
   <circle cx="170" cy="780" r="320" fill="#38bdf8" opacity=".06"/>
   <text x="100" y="98" fill="#f8fafc" font-family="system-ui, sans-serif" font-size="44" font-weight="700">Wancher Dream Pen Titanium Black</text>
-  <text x="100" y="142" fill="#aab4c4" font-family="system-ui, sans-serif" font-size="22">current listing 与 2024 reviewed sample：证据并列，规格不混合</text>
+  <text x="100" y="142" fill="#aab4c4" font-family="system-ui, sans-serif" font-size="22">2026 商品页与 2024 评测样笔：分别阅读，规格不混合</text>
 
   <g filter="url(#shadow)">
     <rect x="90" y="205" width="610" height="465" rx="34" fill="#151c28" stroke="#38bdf8" stroke-width="3"/>
     <rect x="900" y="205" width="610" height="465" rx="34" fill="#201824" stroke="#f59e0b" stroke-width="3"/>
   </g>
 
-  <text x="140" y="270" fill="#7dd3fc" font-family="system-ui, sans-serif" font-size="24" font-weight="700">CURRENT OFFICIAL · 2026-07-21</text>
-  <text x="950" y="270" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="24" font-weight="700">REVIEWED SAMPLE · 2024</text>
+  <text x="140" y="270" fill="#7dd3fc" font-family="system-ui, sans-serif" font-size="24" font-weight="700">2026 年官方商品页</text>
+  <text x="950" y="270" fill="#fbbf24" font-family="system-ui, sans-serif" font-size="24" font-weight="700">2024 年评测样笔</text>
 
   <g transform="translate(145 310)">
     <rect x="0" y="64" width="425" height="72" rx="36" fill="url(#metal)" stroke="#94a3b8" stroke-width="2"/>
@@ -56,8 +56,8 @@
     <path d="M705 438 H895" stroke="#ef4444" stroke-width="5" stroke-dasharray="13 12"/>
     <circle cx="800" cy="438" r="48" fill="#351b23" stroke="#ef4444" stroke-width="3"/>
     <text x="800" y="449" text-anchor="middle" fill="#fecaca" font-family="system-ui, sans-serif" font-size="30" font-weight="700">≠</text>
-    <text x="800" y="520" text-anchor="middle" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="18">unresolved nib</text>
-    <text x="800" y="547" text-anchor="middle" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="18">temporal conflict</text>
+    <text x="800" y="520" text-anchor="middle" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="18">不同时间</text>
+    <text x="800" y="547" text-anchor="middle" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="18">不同笔尖配置</text>
   </g>
 
   <rect x="100" y="718" width="1400" height="108" rx="24" fill="#0b1018" stroke="#475569"/>

@@ -11,15 +11,15 @@
     </style>
   </defs>
   <rect width="1600" height="900" fill="url(#bg)"/>
-  <text x="92" y="105" class="k">FACT BOUNDARY · SITE ORIGINAL</text>
+  <text x="92" y="105" class="k">商品、样笔与瑕疵品分开阅读</text>
   <text x="92" y="174" class="h">True Ebonite · Silk Black</text>
   <line x1="94" y1="210" x2="1506" y2="210" class="line"/>
   <g transform="translate(92 270)">
     <rect class="card" width="430" height="410" rx="26"/>
-    <text x="34" y="62" class="t">CURRENT LISTING</text>
+    <text x="34" y="62" class="t">2026 年商品页</text>
     <text x="34" y="112" class="b">Ebonite · repeated polish</text>
     <text x="34" y="153" class="b">European International C/C</text>
-    <text x="34" y="194" class="b">Current nib / feed menu</text>
+    <text x="34" y="194" class="b">现行 nib / feed 选项</text>
     <text x="34" y="235" class="b">Clipless / chrome / gold clip</text>
     <line x1="34" y1="278" x2="396" y2="278" stroke="#5e6876"/>
     <text x="34" y="324" class="s">Stock is a 2026-07-22 snapshot.</text>
@@ -27,27 +27,27 @@
   </g>
   <g transform="translate(585 270)">
     <rect class="card" width="430" height="410" rx="26"/>
-    <text x="34" y="62" class="t">2018 REVIEW SAMPLE</text>
+    <text x="34" y="62" class="t">2018 年获赠样笔</text>
     <text x="34" y="112" class="b">Polished black · clipless</text>
     <text x="34" y="153" class="b">Block threads · non-posting</text>
     <text x="34" y="194" class="b">Steel JoWo F + ebonite feed</text>
     <text x="34" y="235" class="b">One supplied sample only</text>
     <line x1="34" y1="278" x2="396" y2="278" stroke="#5e6876"/>
-    <text x="34" y="324" class="s">Experience is not a current spec.</text>
+    <text x="34" y="324" class="s">体验不等于现行统一规格。</text>
     <text x="34" y="360" class="s">No prototype dimensions copied.</text>
   </g>
   <g transform="translate(1078 270)">
     <rect class="card" width="430" height="410" rx="26"/>
-    <text x="34" y="62" class="t">AS IS BOUNDARY</text>
+    <text x="34" y="62" class="t">AS IS 瑕疵品</text>
     <text x="34" y="112" class="b">Nicks · scrapes · streaks</text>
     <text x="34" y="153" class="b">Different pictured pieces</text>
     <text x="34" y="194" class="b">Special return conditions</text>
     <text x="34" y="235" class="b">Inspect the exact pen</text>
     <line x1="34" y1="278" x2="396" y2="278" stroke="#5e6876"/>
     <text x="34" y="324" class="s">Defects are not model features.</text>
-    <text x="34" y="360" class="s">Old menus do not replace current.</text>
+    <text x="34" y="360" class="s">旧选项不能替代现行商品页。</text>
   </g>
-  <text x="92" y="770" class="t">Sibling boundary</text>
+  <text x="92" y="770" class="t">相邻版本</text>
   <text x="92" y="816" class="b">Silk Black = repeated polish · Matte Black = matte sandblast</text>
   <text x="1508" y="846" text-anchor="end" class="s">Non-photo · not to scale · no logo · no finish replica</text>
 </svg>
