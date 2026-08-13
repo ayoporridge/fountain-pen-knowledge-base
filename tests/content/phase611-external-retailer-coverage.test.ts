@@ -9,7 +9,6 @@ import {
   type CaptureMeta,
   type CaptureRow,
   runPhase611Audit,
-  writePhase611ArtifactManifest,
 } from "../../scripts/audit-phase611-external-retailer-coverage";
 import {
   assertCatalogSnapshotUnchanged,
@@ -396,10 +395,28 @@ test("Phase 611 final ledger is a strict bijection with a lossless gap projectio
       /artifact manifest/i,
     );
     fs.rmSync(path.join(valid.root, "artifact-manifest.json"));
-    writePhase611ArtifactManifest(valid.root);
     const result = runPhase611Audit("verify-final", source.path, valid.root);
     assert.equal(result.pending, 0);
     assert.equal(result.dispositions.blocking_gap, 1);
+    assert.ok(fs.existsSync(path.join(valid.root, "artifact-manifest.json")));
+
+    fs.appendFileSync(
+      path.join(valid.root, "raw/goldspot/page-001.html"),
+      "<!-- tampered after freeze -->",
+    );
+    assert.throws(
+      () => runPhase611Audit("verify-final", source.path, valid.root),
+      /byte count changed|hash changed|artifact manifest/i,
+    );
+    fs.writeFileSync(
+      path.join(valid.root, "raw/goldspot/page-001.html"),
+      fs
+        .readFileSync(
+          path.join(valid.root, "raw/goldspot/page-001.html"),
+          "utf8",
+        )
+        .replace("<!-- tampered after freeze -->", ""),
+    );
 
     writeNdjson(
       path.join(valid.root, "decisions/coverage-ledger.ndjson"),

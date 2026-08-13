@@ -857,6 +857,13 @@ export function runPhase611Audit(
       const validated = validateLedger(rows, identities, evidenceRoot);
       dispositions = validated.dispositions;
       pending = 0;
+      const artifactManifestPath = path.join(
+        evidenceRoot,
+        "artifact-manifest.json",
+      );
+      if (!fs.existsSync(artifactManifestPath)) {
+        writePhase611ArtifactManifest(evidenceRoot);
+      }
       validateExistingArtifactManifest(evidenceRoot);
     }
     return {
@@ -892,9 +899,6 @@ function main(): void {
   invariant(database, "--database is required");
   invariant(evidenceRoot, "--evidence-root is required");
   const result = runPhase611Audit(mode, database, evidenceRoot);
-  if (mode === "verify-final") {
-    writePhase611ArtifactManifest(evidenceRoot);
-  }
   console.log(JSON.stringify(result, null, 2));
 }
 
