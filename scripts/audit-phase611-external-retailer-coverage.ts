@@ -139,7 +139,7 @@ const IDENTITY_TABLES = [
 const REMOTE_SELECTOR = /^[a-z][a-z\d+.-]*:\/\//i;
 const SHA256 = /^[a-f0-9]{64}$/;
 const CHALLENGE_SIGNAL =
-  /captcha|cloudflare|verify (?:you are|that you are|your browser)|access denied|security challenge|just a moment/i;
+  /captcha|cloudflare|verify (?:you are|that you are|your browser)|connection needs to be verified|access denied|security challenge|just a moment/i;
 
 function invariant(value: unknown, message: string): asserts value {
   if (!value) throw new Error(`Phase 611: ${message}`);

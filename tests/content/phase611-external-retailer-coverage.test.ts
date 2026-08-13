@@ -173,6 +173,45 @@ test("Phase 611 capture contract fails closed on challenge and wrong method", ()
     challenge.dispose();
   }
 
+  const hiddenChallenge = fixture((root) => {
+    const rawDir = path.join(root, "raw/goldspot");
+    const htmlPath = path.join(rawDir, "page-001.html");
+    const rowsPath = path.join(rawDir, "page-001.rows.ndjson");
+    const metaPath = path.join(rawDir, "meta.json");
+    const html = "Your connection needs to be verified before you can proceed";
+    fs.writeFileSync(htmlPath, html);
+    const rows = fs
+      .readFileSync(rowsPath, "utf8")
+      .trim()
+      .split("\n")
+      .map((line) => JSON.parse(line) as CaptureRow);
+    rows[0].snapshot_sha256 = sha256(html);
+    writeNdjson(rowsPath, rows);
+    const meta = JSON.parse(fs.readFileSync(metaPath, "utf8")) as CaptureMeta;
+    meta.files = [htmlPath, rowsPath].map((filePath) => {
+      const bytes = fs.readFileSync(filePath);
+      return {
+        path: `goldspot/${path.basename(filePath)}`,
+        bytes: bytes.length,
+        sha256: sha256(bytes),
+      };
+    });
+    writeJson(metaPath, meta);
+  });
+  try {
+    assert.throws(
+      () =>
+        runPhase611Audit(
+          "verify-capture",
+          "/no/sqlite/opened.db",
+          hiddenChallenge.root,
+        ),
+      /challenge signal/i,
+    );
+  } finally {
+    hiddenChallenge.dispose();
+  }
+
   const plainGet = fixture((root) => {
     const metaPath = path.join(root, "raw/goulet/meta.json");
     const meta = JSON.parse(fs.readFileSync(metaPath, "utf8")) as CaptureMeta;
