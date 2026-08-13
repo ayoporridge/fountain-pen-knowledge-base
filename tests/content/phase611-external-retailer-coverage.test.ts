@@ -8,6 +8,7 @@ import {
   buildDirectoryRow,
   type CaptureMeta,
   type CaptureRow,
+  type CoverageLedgerRow,
   runPhase611Audit,
 } from "../../scripts/audit-phase611-external-retailer-coverage";
 import {
@@ -56,7 +57,7 @@ function writeNdjson(filePath: string, rows: readonly unknown[]): void {
   );
 }
 
-function captureRow(retailer: string): CaptureRow {
+function captureRow(retailer: CaptureRow["retailer"]): CaptureRow {
   return {
     raw_row_id: `${retailer}-page-001-row-0001`,
     retailer,
@@ -86,20 +87,24 @@ function buildCapture(
 ): void {
   const rawDir = path.join(evidenceRoot, "raw", retailer);
   fs.mkdirSync(rawDir, { recursive: true });
-  const html = `<!doctype html><html><head><script id="captcha-bootstrap">window.shopifyCaptcha = true;</script></head><body><main><h1>Fountain Pen Brands</h1><a href="/collections/pilot">Pilot</a></main></body></html>`;
+  const row = captureRow(retailer);
+  const html = `<!doctype html><html><head><script id="captcha-bootstrap">window.shopifyCaptcha = true;</script></head><body><main><h1>Fountain Pen Brands</h1><a href="${row.href}">${row.locator.text}</a></main></body></html>`;
   const htmlPath = path.join(rawDir, "page-001.html");
   fs.writeFileSync(htmlPath, html);
-  const row = captureRow(retailer);
+  const textPath = path.join(rawDir, "page-001.txt");
+  fs.writeFileSync(textPath, `Fountain Pen Brands\n${row.locator.text}\n`);
   row.snapshot_sha256 = sha256(html);
   writeNdjson(path.join(rawDir, "page-001.rows.ndjson"), [row]);
-  const files = ["page-001.html", "page-001.rows.ndjson"].map((name) => {
-    const bytes = fs.readFileSync(path.join(rawDir, name));
-    return {
-      path: `${retailer}/${name}`,
-      bytes: bytes.length,
-      sha256: sha256(bytes),
-    };
-  });
+  const files = ["page-001.html", "page-001.txt", "page-001.rows.ndjson"].map(
+    (name) => {
+      const bytes = fs.readFileSync(path.join(rawDir, name));
+      return {
+        path: `${retailer}/${name}`,
+        bytes: bytes.length,
+        sha256: sha256(bytes),
+      };
+    },
+  );
   const startUrl =
     retailer === "penchalet"
       ? "https://www.penchalet.com/brand.aspx"
@@ -275,6 +280,142 @@ test("Phase 611 row ids are deterministic and retain raw locator evidence", () =
   assert.equal(first.snapshot_sha256, "a".repeat(64));
 });
 
+test("Phase 611 capture rows replay marker, pagination, text, and href", () => {
+  for (const [label, mutate, expected] of [
+    [
+      "marker",
+      (root: string) => {
+        const metaPath = path.join(root, "raw/goldspot/meta.json");
+        const meta = JSON.parse(
+          fs.readFileSync(metaPath, "utf8"),
+        ) as CaptureMeta;
+        meta.expected_marker = "Missing visible marker";
+        writeJson(metaPath, meta);
+      },
+      /expected marker.*visible raw surface/i,
+    ],
+    [
+      "pagination",
+      (root: string) => {
+        const metaPath = path.join(root, "raw/atlas/meta.json");
+        const meta = JSON.parse(
+          fs.readFileSync(metaPath, "utf8"),
+        ) as CaptureMeta;
+        meta.pagination.expected_pages = 2;
+        meta.pagination.captured_pages = 2;
+        writeJson(metaPath, meta);
+      },
+      /page files.*every captured page/i,
+    ],
+    [
+      "locator",
+      (root: string) => {
+        const rowsPath = path.join(root, "raw/goulet/page-001.rows.ndjson");
+        const rows = fs
+          .readFileSync(rowsPath, "utf8")
+          .trim()
+          .split("\n")
+          .map((line) => JSON.parse(line) as CaptureRow);
+        rows[0].locator.text = "Unreplayable brand locator";
+        writeNdjson(rowsPath, rows);
+        const metaPath = path.join(root, "raw/goulet/meta.json");
+        const meta = JSON.parse(
+          fs.readFileSync(metaPath, "utf8"),
+        ) as CaptureMeta;
+        const file = meta.files.find((item) =>
+          item.path.endsWith("rows.ndjson"),
+        );
+        assert.ok(file);
+        const bytes = fs.readFileSync(rowsPath);
+        Object.assign(file, { bytes: bytes.length, sha256: sha256(bytes) });
+        writeJson(metaPath, meta);
+      },
+      /locator text.*not replayable/i,
+    ],
+    [
+      "href",
+      (root: string) => {
+        const rowsPath = path.join(root, "raw/penchalet/page-001.rows.ndjson");
+        const rows = fs
+          .readFileSync(rowsPath, "utf8")
+          .trim()
+          .split("\n")
+          .map((line) => JSON.parse(line) as CaptureRow);
+        rows[0].href = "https://www.penchalet.com/not-in-snapshot";
+        writeNdjson(rowsPath, rows);
+        const metaPath = path.join(root, "raw/penchalet/meta.json");
+        const meta = JSON.parse(
+          fs.readFileSync(metaPath, "utf8"),
+        ) as CaptureMeta;
+        const file = meta.files.find((item) =>
+          item.path.endsWith("rows.ndjson"),
+        );
+        assert.ok(file);
+        const bytes = fs.readFileSync(rowsPath);
+        Object.assign(file, { bytes: bytes.length, sha256: sha256(bytes) });
+        writeJson(metaPath, meta);
+      },
+      /href.*not replayable/i,
+    ],
+  ] as const) {
+    const invalid = fixture(mutate);
+    const source = cleanSourceCopy();
+    try {
+      assert.throws(
+        () => runPhase611Audit("verify-capture", source.path, invalid.root),
+        expected,
+        label,
+      );
+    } finally {
+      invalid.dispose();
+      source.dispose();
+    }
+  }
+});
+
+test("Phase 611 accepts HTML-encoded and percent-encoded row links", () => {
+  const encoded = fixture((root) => {
+    const htmlPath = path.join(root, "raw/atlas/page-001.html");
+    const rowsPath = path.join(root, "raw/atlas/page-001.rows.ndjson");
+    const metaPath = path.join(root, "raw/atlas/meta.json");
+    const rows = fs
+      .readFileSync(rowsPath, "utf8")
+      .trim()
+      .split("\n")
+      .map((line) => JSON.parse(line) as CaptureRow);
+    rows[0].href =
+      "https://atlas.example/products/pilot%20custom?color=black&nib=fine";
+    const html = `<!doctype html><body><h1>Fountain Pen Brands</h1><a href="/products/pilot custom?color=black&amp;nib=fine">${rows[0].locator.text}</a></body>`;
+    fs.writeFileSync(htmlPath, html);
+    rows[0].snapshot_sha256 = sha256(html);
+    writeNdjson(rowsPath, rows);
+    const meta = JSON.parse(fs.readFileSync(metaPath, "utf8")) as CaptureMeta;
+    for (const item of meta.files) {
+      if (
+        !item.path.endsWith("page-001.html") &&
+        !item.path.endsWith("rows.ndjson")
+      ) {
+        continue;
+      }
+      const filePath = item.path.endsWith("page-001.html")
+        ? htmlPath
+        : rowsPath;
+      const bytes = fs.readFileSync(filePath);
+      Object.assign(item, { bytes: bytes.length, sha256: sha256(bytes) });
+    }
+    writeJson(metaPath, meta);
+  });
+  const source = cleanSourceCopy();
+  try {
+    assert.doesNotThrow(() =>
+      runPhase611Audit("verify-capture", source.path, encoded.root),
+    );
+  } finally {
+    encoded.dispose();
+    source.dispose();
+  }
+});
+
 test("Phase 611 exports only the 121 brand/740 pen identity surface", () => {
   const sourceBefore = snapshotCatalogFiles(SOURCE);
   const realBefore = snapshotCatalogFiles(REAL);
@@ -360,19 +501,31 @@ test("Phase 611 final ledger is a strict bijection with a lossless gap projectio
       )
       .trim()
       .split("\n")
-      .map((line) => JSON.parse(line) as { row_id: string });
-    const ledger = rows.map((row, index) => ({
+      .map((line) => JSON.parse(line) as ReturnType<typeof buildDirectoryRow>);
+    const atlas = rows.find((row) => row.retailer === "atlas");
+    const goulet = rows.find((row) => row.retailer === "goulet");
+    assert.ok(atlas && goulet);
+    const ledger: CoverageLedgerRow[] = rows.map((row) => ({
       row_id: row.row_id,
-      disposition: index === 0 ? "blocking_gap" : "covered_alias",
-      matched_entity_id: index === 0 ? null : "Zt-PbXkE7UHM",
-      matched_entity_slug: index === 0 ? null : "pilot",
-      maker_entity_id: index === 0 ? null : "Zt-PbXkE7UHM",
+      disposition:
+        row.row_id === atlas.row_id
+          ? "blocking_gap"
+          : row.row_kind === "brand"
+            ? "covered_alias"
+            : "deferred",
+      matched_entity_id: row.row_kind === "brand" ? "Zt-PbXkE7UHM" : null,
+      matched_entity_slug: row.row_kind === "brand" ? "pilot" : null,
+      maker_entity_id: null,
       family_or_variant_evidence: null,
-      cross_retailer_evidence: index === 0 ? ["goulet-page-001-row-0001"] : [],
-      reason:
-        index === 0
-          ? "Stable fountain-pen identity requires a sourced pack"
-          : "Alias verified",
+      cross_retailer_evidence:
+        row.row_id === atlas.row_id
+          ? [
+              `row:${atlas.row_id}`,
+              `row:${goulet.row_id}`,
+              "url:https://pilotpen.com/products/custom-823",
+            ]
+          : [],
+      reason: "Human-reviewed fixture decision",
       reviewer: "phase611-human-review",
       reviewed_at: "2026-08-13T07:00:00.000Z",
     }));
@@ -425,6 +578,124 @@ test("Phase 611 final ledger is a strict bijection with a lossless gap projectio
     assert.throws(
       () => runPhase611Audit("verify-final", source.path, valid.root),
       /bijection|row_id/i,
+    );
+  } finally {
+    valid.dispose();
+    source.dispose();
+  }
+});
+
+test("Phase 611 rejects unreplayable identity and cross-source claims", () => {
+  const valid = fixture();
+  const source = cleanSourceCopy();
+  try {
+    runPhase611Audit("verify-capture", source.path, valid.root);
+    const rows = fs
+      .readFileSync(
+        path.join(valid.root, "normalized/directory-rows.ndjson"),
+        "utf8",
+      )
+      .trim()
+      .split("\n")
+      .map((line) => JSON.parse(line) as ReturnType<typeof buildDirectoryRow>);
+    const base = rows.map(
+      (row): CoverageLedgerRow => ({
+        row_id: row.row_id,
+        disposition: "deferred",
+        matched_entity_id: null,
+        matched_entity_slug: null,
+        maker_entity_id: null,
+        family_or_variant_evidence: null,
+        cross_retailer_evidence: [],
+        reason: "Needs more identity evidence",
+        reviewer: "phase611-human-review",
+        reviewed_at: "2026-08-13T07:00:00.000Z",
+      }),
+    );
+    const writeLedger = (ledger: CoverageLedgerRow[]) => {
+      writeNdjson(
+        path.join(valid.root, "decisions/coverage-ledger.ndjson"),
+        ledger,
+      );
+      writeNdjson(
+        path.join(valid.root, "decisions/blocking-gaps.ndjson"),
+        ledger.filter((row) => row.disposition === "blocking_gap"),
+      );
+    };
+    const brand = rows.find((row) => row.row_kind === "brand");
+    const pen = rows.find((row) => row.row_kind === "pen_product");
+    assert.ok(brand && pen);
+
+    const falseAlias = structuredClone(base);
+    const falseAliasRow = falseAlias.find((row) => row.row_id === brand.row_id);
+    assert.ok(falseAliasRow);
+    Object.assign(falseAliasRow, {
+      disposition: "covered_alias",
+      matched_entity_id: "CJXe8UpnkHLJ",
+      matched_entity_slug: "aurora",
+    });
+    writeLedger(falseAlias);
+    assert.throws(
+      () => runPhase611Audit("verify-final", source.path, valid.root),
+      /canonical\/alias surface/i,
+    );
+
+    const wrongMaker = structuredClone(base);
+    const wrongMakerRow = wrongMaker.find((row) => row.row_id === pen.row_id);
+    assert.ok(wrongMakerRow);
+    Object.assign(wrongMakerRow, {
+      disposition: "covered_family_or_variant",
+      matched_entity_id: "oJyaQy9bEc8V",
+      matched_entity_slug: "pilot-custom-823",
+      maker_entity_id: "CJXe8UpnkHLJ",
+      family_or_variant_evidence: "Pilot Custom 823 family",
+    });
+    writeLedger(wrongMaker);
+    assert.throws(
+      () => runPhase611Audit("verify-final", source.path, valid.root),
+      /maker.*made_by/i,
+    );
+
+    const sameSource = structuredClone(base);
+    const sameSourceRow = sameSource.find((row) => row.row_id === pen.row_id);
+    assert.ok(sameSourceRow);
+    Object.assign(sameSourceRow, {
+      disposition: "blocking_gap",
+      cross_retailer_evidence: [
+        `row:${pen.row_id}`,
+        "url:https://atlas.example/products/another-listing",
+      ],
+    });
+    writeLedger(sameSource);
+    assert.throws(
+      () => runPhase611Audit("verify-final", source.path, valid.root),
+      /duplicates a referenced retailer source/i,
+    );
+
+    sameSourceRow.cross_retailer_evidence.reverse();
+    writeLedger(sameSource);
+    assert.throws(
+      () => runPhase611Audit("verify-final", source.path, valid.root),
+      /duplicates a referenced retailer source/i,
+    );
+
+    const staleDeferred = structuredClone(base);
+    staleDeferred[0].matched_entity_id = "Zt-PbXkE7UHM";
+    writeLedger(staleDeferred);
+    assert.throws(
+      () => runPhase611Audit("verify-final", source.path, valid.root),
+      /stale match\/evidence/i,
+    );
+
+    const candidatesPath = path.join(
+      valid.root,
+      "normalized/match-candidates.ndjson",
+    );
+    fs.appendFileSync(candidatesPath, "{}\n");
+    writeLedger(base);
+    assert.throws(
+      () => runPhase611Audit("verify-final", source.path, valid.root),
+      /match candidates/i,
     );
   } finally {
     valid.dispose();

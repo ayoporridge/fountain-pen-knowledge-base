@@ -54,7 +54,7 @@ export type CaptureMeta = {
 
 export type CaptureRow = {
   raw_row_id: string;
-  retailer: string;
+  retailer: Retailer;
   row_kind: RowKind;
   raw_brand_text: string;
   raw_model_text: string;
@@ -160,6 +160,13 @@ function normalizeIdentity(value: string): string {
     .replace(/\s+/g, " ");
 }
 
+function normalizeBrandLabel(value: string): string {
+  return normalizeIdentity(value).replace(
+    /(?: fountain)? pen(?:s)?$| pen company$| pen co$/,
+    "",
+  );
+}
+
 function visibleCaptureSurface(filePath: string, text: string): string {
   if (!/\.html$/i.test(filePath)) return text;
   const body = text.match(/<body\b[^>]*>([\s\S]*?)<\/body>/i)?.[1] ?? text;
@@ -168,6 +175,34 @@ function visibleCaptureSurface(filePath: string, text: string): string {
     .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, " ")
     .replace(/<template\b[^>]*>[\s\S]*?<\/template>/gi, " ")
     .replace(/<[^>]+>/g, " ");
+}
+
+function replaySurface(value: string): string {
+  return value
+    .replace(/&nbsp;|&#160;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&#(?:39|x27);|&apos;/gi, "'")
+    .replace(/&quot;/gi, '"')
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function replayHrefSurface(value: string): string {
+  return value
+    .replace(/&amp;/gi, "&")
+    .replace(/&#(?:39|x27);|&apos;/gi, "'")
+    .replace(/&quot;/gi, '"');
+}
+
+function safelyDecodeUri(value: string): string {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
 }
 
 function relativeFile(root: string, filePath: string): string {
@@ -298,7 +333,15 @@ function validateCaptureMeta(
     );
   }
   invariant(meta.files.length > 0, `${retailer} capture has no file manifest`);
+  const pageFiles = new Map<number, { html?: string; text?: string; rows?: string }>();
+  const seenCapturePaths = new Set<string>();
+  let markerFound = false;
   for (const file of meta.files) {
+    invariant(
+      !seenCapturePaths.has(file.path),
+      `${retailer} capture manifest contains a duplicate file path`,
+    );
+    seenCapturePaths.add(file.path);
     invariant(
       file.path.startsWith(`${retailer}/`) && !file.path.includes(".."),
       `${retailer} capture file path is invalid`,
@@ -311,12 +354,43 @@ function validateCaptureMeta(
     invariant(sha256(bytes) === file.sha256, `${retailer} raw file hash changed`);
     if (/\.(?:html|txt)$/i.test(file.path)) {
       const text = bytes.toString("utf8");
+      const visible = replaySurface(visibleCaptureSurface(file.path, text));
       invariant(
-        !CHALLENGE_SIGNAL.test(visibleCaptureSurface(file.path, text)),
+        !CHALLENGE_SIGNAL.test(visible),
         `${retailer} raw file contains a challenge signal: ${file.path}`,
       );
+      markerFound ||= visible.includes(replaySurface(meta.expected_marker));
+    }
+    const page = file.path.match(/\/page-(\d+)\.(html|txt|rows\.ndjson)$/);
+    if (page) {
+      const values = pageFiles.get(Number(page[1])) ?? {};
+      const kind = page[2] === "html" ? "html" : page[2] === "txt" ? "text" : "rows";
+      invariant(
+        values[kind] === undefined,
+        `${retailer} capture manifest repeats a page file type`,
+      );
+      values[kind] = file.path;
+      pageFiles.set(Number(page[1]), values);
     }
   }
+  invariant(
+    markerFound,
+    `${retailer} expected marker is not present in a visible raw surface`,
+  );
+  const pages = [...pageFiles.keys()].sort((left, right) => left - right);
+  invariant(
+    JSON.stringify(pages) ===
+      JSON.stringify(
+        Array.from(
+          { length: meta.pagination.captured_pages },
+          (_, index) => index + 1,
+        ),
+      ) &&
+      [...pageFiles.values()].every(
+        (files) => files.html && files.text && files.rows,
+      ),
+    `${retailer} page files do not cover every captured page exactly once`,
+  );
 }
 
 function validateCaptureRow(row: CaptureRow, retailer: Retailer): void {
@@ -403,6 +477,10 @@ function loadAndValidateCaptures(evidenceRoot: string): {
     for (const raw of captureRows) {
       validateCaptureRow(raw, retailer);
       invariant(
+        raw.locator.page <= meta.pagination.captured_pages,
+        `${retailer} raw row locator exceeds captured pagination`,
+      );
+      invariant(
         !rawRowIds.has(raw.raw_row_id),
         `duplicate raw_row_id: ${raw.raw_row_id}`,
       );
@@ -415,6 +493,35 @@ function loadAndValidateCaptures(evidenceRoot: string): {
       invariant(
         sha256(fs.readFileSync(snapshotFile)) === raw.snapshot_sha256,
         `raw row snapshot hash changed: ${raw.snapshot_path}`,
+      );
+      const pagePrefix = `${retailer}/page-${String(raw.locator.page).padStart(3, "0")}`;
+      invariant(
+        raw.snapshot_path === `${pagePrefix}.html`,
+        `raw row snapshot does not match its locator page: ${raw.raw_row_id}`,
+      );
+      const html = fs.readFileSync(snapshotFile, "utf8");
+      const textFile = path.join(evidenceRoot, "raw", `${pagePrefix}.txt`);
+      const replayText = replaySurface(
+        `${visibleCaptureSurface(raw.snapshot_path, html)} ${fs.readFileSync(textFile, "utf8")}`,
+      );
+      invariant(
+        replayText.includes(replaySurface(raw.locator.text)),
+        `raw row locator text is not replayable: ${raw.raw_row_id}`,
+      );
+      let hrefPath = raw.href;
+      try {
+        const parsed = new URL(raw.href);
+        hrefPath = `${parsed.pathname}${parsed.search}`;
+      } catch {
+        // Relative public links are replayed as captured.
+      }
+      invariant(
+        replayHrefSurface(html).includes(replayHrefSurface(raw.href)) ||
+          replayHrefSurface(html).includes(replayHrefSurface(hrefPath)) ||
+          replayHrefSurface(safelyDecodeUri(html)).includes(
+            replayHrefSurface(safelyDecodeUri(hrefPath)),
+          ),
+        `raw row href is not replayable: ${raw.raw_row_id}`,
       );
       const normalized = buildDirectoryRow(raw);
       invariant(!rowIds.has(normalized.row_id), `duplicate row_id: ${normalized.row_id}`);
@@ -576,6 +683,7 @@ function exportIdentities(databasePath: string, env: NodeJS.ProcessEnv): {
 function validateLedger(
   rows: readonly DirectoryRow[],
   identities: readonly IdentityRow[],
+  captures: readonly CaptureMeta[],
   evidenceRoot: string,
 ): {
   ledger: CoverageLedgerRow[];
@@ -593,11 +701,20 @@ function validateLedger(
       JSON.stringify(rowIds) === JSON.stringify(ledgerIds),
     "coverage ledger row_id set is not a strict bijection with directory rows",
   );
+  const directoryById = new Map(rows.map((row) => [row.row_id, row]));
+  const retailerHostByKey = new Map(
+    captures.map((capture) => [
+      capture.retailer,
+      new URL(capture.final_url).hostname.toLowerCase().replace(/^www\./, ""),
+    ]),
+  );
   const identityById = new Map(identities.map((row) => [row.entity_id, row]));
   const dispositions = Object.fromEntries(
     DISPOSITIONS.map((disposition) => [disposition, 0]),
   ) as Record<CoverageDisposition, number>;
   for (const row of ledger) {
+    const directoryRow = directoryById.get(row.row_id);
+    invariant(directoryRow, `${row.row_id} is not a frozen directory row`);
     invariant(
       DISPOSITIONS.includes(row.disposition),
       `invalid coverage disposition for ${row.row_id}`,
@@ -617,6 +734,45 @@ function validateLedger(
         identity.slug === row.matched_entity_slug,
         `${row.row_id} matched public slug changed`,
       );
+      const expectedType =
+        directoryRow.row_kind === "brand"
+          ? "brand"
+          : directoryRow.row_kind === "pen_product"
+            ? "pen"
+            : null;
+      invariant(
+        expectedType !== null && identity.entity_type === expectedType,
+        `${row.row_id} covered identity type does not match directory row kind`,
+      );
+      const targets = new Set(
+        [directoryRow.normalized_brand, directoryRow.normalized_model].filter(
+          Boolean,
+        ),
+      );
+      const matchedSurface =
+        row.disposition === "covered_exact"
+          ? [identity.canonical_name]
+          : identity.aliases.map((alias) => alias.alias);
+      invariant(
+        matchedSurface.some((value) => {
+          const normalized = normalizeIdentity(value);
+          if (targets.has(normalized)) return true;
+          return (
+            directoryRow.row_kind === "brand" &&
+            [...targets].some(
+              (target) =>
+                normalizeBrandLabel(target) === normalizeBrandLabel(normalized),
+            )
+          );
+        }),
+        `${row.row_id} ${row.disposition} does not match its frozen canonical/alias surface`,
+      );
+      invariant(
+        row.maker_entity_id === null &&
+          row.family_or_variant_evidence === null &&
+          row.cross_retailer_evidence.length === 0,
+        `${row.row_id} covered exact/alias contains unrelated evidence fields`,
+      );
     }
     if (row.disposition === "covered_family_or_variant") {
       invariant(
@@ -625,15 +781,98 @@ function validateLedger(
           Boolean(row.family_or_variant_evidence?.trim()),
         `${row.row_id} family/variant disposition lacks maker and exact evidence`,
       );
+      const identity = identityById.get(row.matched_entity_id);
+      const maker = identityById.get(row.maker_entity_id);
+      invariant(identity, `${row.row_id} family/variant parent is not public`);
       invariant(
-        identityById.has(row.matched_entity_id),
-        `${row.row_id} family/variant parent is not public`,
+        directoryRow.row_kind === "pen_product" && identity.entity_type === "pen",
+        `${row.row_id} family/variant parent is not a pen identity`,
+      );
+      invariant(
+        row.matched_entity_slug === identity.slug,
+        `${row.row_id} family/variant public slug changed`,
+      );
+      invariant(
+        maker?.entity_type === "brand" &&
+          identity.maker?.entity_id === maker.entity_id,
+        `${row.row_id} family/variant maker does not match public made_by`,
+      );
+      invariant(
+        row.cross_retailer_evidence.length === 0,
+        `${row.row_id} family/variant contains unrelated cross-source evidence`,
       );
     }
     if (row.disposition === "blocking_gap") {
       invariant(
-        row.cross_retailer_evidence.length > 0,
+        row.matched_entity_id === null &&
+          row.matched_entity_slug === null &&
+          row.maker_entity_id === null &&
+          row.family_or_variant_evidence === null,
+        `${row.row_id} blocking gap contains a covered identity`,
+      );
+      invariant(
+        row.cross_retailer_evidence.length >= 2,
         `${row.row_id} blocking gap lacks independent cross-source evidence`,
+      );
+      const retailerKeys = new Set<string>();
+      const retailerHosts = new Set<string>();
+      const urlEvidence: string[] = [];
+      for (const evidence of row.cross_retailer_evidence) {
+        if (evidence.startsWith("row:")) {
+          const evidenceRow = directoryById.get(evidence.slice(4));
+          invariant(
+            evidenceRow,
+            `${row.row_id} blocking gap references an unknown directory row`,
+          );
+          retailerKeys.add(evidenceRow.retailer);
+          const retailerHost = retailerHostByKey.get(evidenceRow.retailer);
+          invariant(
+            retailerHost,
+            `${row.row_id} blocking gap retailer capture has no final URL host`,
+          );
+          retailerHosts.add(retailerHost);
+          continue;
+        }
+        invariant(
+          evidence.startsWith("url:"),
+          `${row.row_id} blocking gap evidence must use row: or url:`,
+        );
+        urlEvidence.push(evidence.slice(4));
+      }
+      const officialHosts = new Set<string>();
+      for (const value of urlEvidence) {
+        let url: URL;
+        try {
+          url = new URL(value);
+        } catch {
+          throw new Error(
+            `Phase 611: ${row.row_id} blocking gap has an invalid evidence URL`,
+          );
+        }
+        invariant(
+          url.protocol === "https:" && url.hostname !== "",
+          `${row.row_id} blocking gap evidence URL must be absolute HTTPS`,
+        );
+        invariant(
+          !retailerHosts.has(url.hostname.toLowerCase().replace(/^www\./, "")),
+          `${row.row_id} blocking gap URL duplicates a referenced retailer source`,
+        );
+        officialHosts.add(url.hostname.toLocaleLowerCase("en"));
+      }
+      invariant(
+        retailerKeys.size >= 2 ||
+          (retailerKeys.size >= 1 && officialHosts.size >= 1),
+        `${row.row_id} blocking gap lacks two independent retailer/official sources`,
+      );
+    }
+    if (row.disposition === "deferred" || row.disposition === "rejected") {
+      invariant(
+        row.matched_entity_id === null &&
+          row.matched_entity_slug === null &&
+          row.maker_entity_id === null &&
+          row.family_or_variant_evidence === null &&
+          row.cross_retailer_evidence.length === 0,
+        `${row.row_id} ${row.disposition} contains stale match/evidence fields`,
       );
     }
   }
@@ -848,13 +1087,18 @@ export function runPhase611Audit(
           JSON.stringify(identities),
         "frozen public identity surface does not match the checkpoint",
       );
+      invariant(
+        JSON.stringify(readNdjson(candidatesPath)) ===
+          JSON.stringify(candidateMatches(rows, identities)),
+        "frozen match candidates do not match the directory and identity surface",
+      );
     }
     let pending = rows.length;
     let dispositions = Object.fromEntries(
       DISPOSITIONS.map((disposition) => [disposition, 0]),
     ) as Record<CoverageDisposition, number>;
     if (mode === "verify-final") {
-      const validated = validateLedger(rows, identities, evidenceRoot);
+      const validated = validateLedger(rows, identities, captures, evidenceRoot);
       dispositions = validated.dispositions;
       pending = 0;
       const artifactManifestPath = path.join(
