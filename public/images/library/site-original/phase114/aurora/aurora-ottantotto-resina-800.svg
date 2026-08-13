@@ -1,43 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
-  <title id="title">Aurora Ottantotto Resina 800 当前证据与 2007 样本边界</title>
-  <desc id="desc">原创证据边界图，左侧列当前 exact listing，中央列 FAQ 系列层级，右侧列 2007 800/C chrome-trim 样本；不表现真实产品。</desc>
-  <rect width="1600" height="900" fill="#11232a"/>
-  <text x="90" y="112" font-family="system-ui,sans-serif" font-size="48" font-weight="700" fill="#f6ead8">Aurora 800：三层证据不能合并</text>
-  <text x="90" y="160" font-family="system-ui,sans-serif" font-size="24" fill="#b9c6c8">CURRENT EXACT / FAMILY FAQ / DATED SAMPLE</text>
-  <g transform="translate(75 225)">
-    <rect width="440" height="570" rx="32" fill="#e9f2ec"/>
-    <text x="36" y="70" font-family="system-ui,sans-serif" font-size="30" font-weight="700" fill="#24543e">2026-07-21 exact 800</text>
-    <text x="36" y="132" font-family="system-ui,sans-serif" font-size="25" fill="#193b2d">✓ black resin</text>
-    <text x="36" y="180" font-family="system-ui,sans-serif" font-size="25" fill="#193b2d">✓ gold-coloured trim</text>
-    <text x="36" y="228" font-family="system-ui,sans-serif" font-size="25" fill="#193b2d">✓ piston</text>
-    <text x="36" y="276" font-family="system-ui,sans-serif" font-size="25" fill="#193b2d">✓ EF / F / M / B</text>
-    <line x1="36" y1="322" x2="404" y2="322" stroke="#82a895" stroke-width="3"/>
-    <text x="36" y="374" font-family="system-ui,sans-serif" font-size="23" fill="#416c59">Availability = dated snapshot</text>
-    <text x="36" y="420" font-family="system-ui,sans-serif" font-size="23" fill="#416c59">Price / future stock excluded</text>
-    <text x="36" y="512" font-family="system-ui,sans-serif" font-size="20" fill="#5e766b">Exact listing directly qualifies</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc" data-license="site-original" data-kind="factual-svg">
+  <title id="title">Aurora Ottantotto Resina 800：黑色树脂活塞钢笔</title>
+  <desc id="desc">用经典钢笔轮廓和五条中文事实介绍 Aurora Ottantotto Resina 商品号 800 的材料、饰件、上墨方式与尖宽选项。本站原创事实示意图，非产品照片；不还原商标、真实颜色或精确比例。</desc>
+  <rect width="1600" height="900" fill="#f0eadf"/>
+  <rect x="52" y="52" width="1496" height="796" rx="36" fill="#fcfaf5" stroke="#2e3538" stroke-width="4"/>
+  <path d="M52 690 C330 590 520 780 850 680 S1310 575 1548 660 V848 H52Z" fill="#e4d8c6"/>
+  <g font-family="system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <text x="100" y="112" fill="#94733d" font-size="23" letter-spacing="5">型号速览</text>
+    <text x="100" y="188" fill="#273136" font-size="58" font-weight="750">AURORA OTTANTOTTO RESINA</text>
+    <text x="100" y="234" fill="#5d6669" font-size="30">商品号 800 · 黑色树脂活塞钢笔</text>
   </g>
-  <g transform="translate(580 225)">
-    <rect width="440" height="570" rx="32" fill="#fff3d8"/>
-    <text x="36" y="70" font-family="system-ui,sans-serif" font-size="30" font-weight="700" fill="#875c14">Aurora FAQ scope</text>
-    <text x="36" y="132" font-family="system-ui,sans-serif" font-size="25" fill="#67470f">△ 14K for 88 / high-end</text>
-    <text x="36" y="180" font-family="system-ui,sans-serif" font-size="25" fill="#67470f">△ hidden reserve</text>
-    <text x="36" y="228" font-family="system-ui,sans-serif" font-size="25" fill="#67470f">△ high-end piston context</text>
-    <line x1="36" y1="274" x2="404" y2="274" stroke="#cfaa65" stroke-width="3"/>
-    <text x="36" y="334" font-family="system-ui,sans-serif" font-size="23" fill="#805e20">Keep as qualified family claim</text>
-    <text x="36" y="380" font-family="system-ui,sans-serif" font-size="23" fill="#805e20">No exact nib-material upgrade</text>
-    <text x="36" y="426" font-family="system-ui,sans-serif" font-size="23" fill="#805e20">No exact capacity inference</text>
-    <text x="36" y="512" font-family="system-ui,sans-serif" font-size="20" fill="#8a744d">Useful context, different grain</text>
+  <g transform="translate(95 340)">
+    <path d="M42 88 Q70 45 122 45 H730 Q780 45 812 88 L772 154 Q752 184 705 184 H122 Q70 184 42 148Z" fill="#2a3033" stroke="#9b8a69" stroke-width="5"/>
+    <rect x="172" y="36" width="31" height="157" rx="13" fill="#c5a04f"/>
+    <path d="M688 45 H730 Q780 45 812 88 L772 154 Q752 184 705 184 H688Z" fill="#41484b"/>
+    <rect x="590" y="45" width="34" height="139" fill="#766d5a"/>
+    <path d="M105 35 V8 Q105 0 123 0 H480 Q504 0 504 20 V35" fill="none" stroke="#c5a04f" stroke-width="9" stroke-linecap="round"/>
+    <text x="425" y="242" text-anchor="middle" fill="#665e52" font-family="system-ui, 'PingFang SC', sans-serif" font-size="21">经典轮廓与墨窗位置均为抽象表达</text>
   </g>
-  <g transform="translate(1085 225)">
-    <rect width="440" height="570" rx="32" fill="#f7e4e3"/>
-    <text x="36" y="70" font-family="system-ui,sans-serif" font-size="30" font-weight="700" fill="#8b3030">2007 800/C sample</text>
-    <text x="36" y="132" font-family="system-ui,sans-serif" font-size="25" fill="#6d2828">× chrome trim</text>
-    <text x="36" y="180" font-family="system-ui,sans-serif" font-size="25" fill="#6d2828">× claimed 1.8 ml</text>
-    <text x="36" y="228" font-family="system-ui,sans-serif" font-size="25" fill="#6d2828">× measurements</text>
-    <text x="36" y="276" font-family="system-ui,sans-serif" font-size="25" fill="#6d2828">× feel / writing experience</text>
-    <line x1="36" y1="322" x2="404" y2="322" stroke="#cf8585" stroke-width="3"/>
-    <text x="36" y="374" font-family="system-ui,sans-serif" font-size="23" fill="#854242">Sample narrative only</text>
-    <text x="36" y="420" font-family="system-ui,sans-serif" font-size="23" fill="#854242">Rejected as current spec</text>
-    <text x="36" y="512" font-family="system-ui,sans-serif" font-size="20" fill="#927070">403 limitation retained in locator</text>
+  <g transform="translate(970 286)" font-family="system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <rect width="530" height="84" rx="18" fill="#31383b"/><text x="28" y="53" fill="#ffffff" font-size="25" font-weight="700">01　商品号：800</text>
+    <rect y="102" width="530" height="84" rx="18" fill="#31383b"/><text x="28" y="155" fill="#ffffff" font-size="25" font-weight="700">02　黑色树脂笔帽与笔身</text>
+    <rect y="204" width="530" height="84" rx="18" fill="#31383b"/><text x="28" y="257" fill="#ffffff" font-size="25" font-weight="700">03　金色饰件</text>
+    <rect y="306" width="530" height="84" rx="18" fill="#31383b"/><text x="28" y="359" fill="#ffffff" font-size="25" font-weight="700">04　活塞上墨</text>
+    <rect y="408" width="530" height="106" rx="18" fill="#31383b"/>
+    <text x="28" y="452" fill="#ffffff" font-size="25" font-weight="700">05　尖宽选项：EF / F / M / B</text>
+    <text x="28" y="486" fill="#bfc9cc" font-size="19">不外推商品页未给出的尺寸、重量或尖材</text>
   </g>
+  <text x="100" y="810" fill="#635a4d" font-family="system-ui, 'PingFang SC', sans-serif" font-size="22">本站原创事实示意图，非产品照片 · 不展示真实颜色、饰面与比例</text>
 </svg>

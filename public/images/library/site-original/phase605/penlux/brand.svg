@@ -1,8 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
-  <title id="title">PENLUX 品牌事实导航</title><desc id="desc">台湾制造背景、自有品牌阶段与代表型号的原创文字示意图，非产品照片或商标。</desc>
-  <rect width="1600" height="900" fill="#102b33"/><circle cx="1310" cy="160" r="230" fill="#1d5961" opacity=".55"/><path d="M110 705C390 560 590 780 870 615s430-80 620-205" fill="none" stroke="#72d2c5" stroke-width="8" opacity=".55"/>
-  <text x="110" y="150" fill="#a8f0e5" font-family="sans-serif" font-size="34">FINAL COVERAGE · TAIWAN</text><text x="110" y="265" fill="#fff" font-family="serif" font-size="104" font-weight="700">PENLUX</text>
-  <text x="110" y="350" fill="#d8eeea" font-family="sans-serif" font-size="34">1999 制造经验　→　2015 自有品牌</text>
-  <g font-family="sans-serif"><rect x="110" y="430" width="410" height="150" rx="26" fill="#17444c"/><text x="150" y="490" fill="#fff" font-size="30">台湾内部生产</text><text x="150" y="540" fill="#acd7d1" font-size="24">CNC · 材料 · 精密金属件</text><rect x="570" y="430" width="410" height="150" rx="26" fill="#17444c"/><text x="610" y="490" fill="#fff" font-size="30">自研活塞系统</text><text x="610" y="540" fill="#acd7d1" font-size="24">具体机构按型号核对</text><rect x="1030" y="430" width="410" height="150" rx="26" fill="#17444c"/><text x="1070" y="490" fill="#fff" font-size="30">代表型号</text><text x="1070" y="540" fill="#acd7d1" font-size="24">Masterpiece Grande Deep Sea</text></g>
-  <text x="110" y="820" fill="#93b9b4" font-family="sans-serif" font-size="22">本站原创事实图 · 非 Logo · 非产品照片 · 非比例图</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc" data-license="site-original" data-kind="factual-svg">
+  <title id="title">PENLUX：台湾制造背景与活塞笔路线</title>
+  <desc id="desc">用钢笔轮廓和四条中文事实介绍 PENLUX 的制造背景、自有品牌阶段与活塞系统。本站原创事实示意图，非产品照片；不还原商标、真实颜色或精确比例。</desc>
+  <rect width="1600" height="900" fill="#0d2930"/>
+  <circle cx="1390" cy="120" r="260" fill="#17454d"/>
+  <circle cx="1440" cy="750" r="330" fill="#0f343b"/>
+  <path d="M0 735 C290 640 490 810 790 710 S1270 555 1600 680 V900 H0Z" fill="#102f36"/>
+  <g font-family="system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <text x="100" y="105" fill="#8fd9cc" font-size="24" letter-spacing="5">品牌结构导览</text>
+    <text x="100" y="190" fill="#ffffff" font-size="76" font-weight="750">PENLUX</text>
+    <text x="100" y="238" fill="#c9e8e2" font-size="30">台湾制造背景与活塞笔路线</text>
+    <text x="100" y="276" fill="#7fb3ad" font-size="20">品牌名称仅作文字标题，不还原商标</text>
+  </g>
+  <g transform="translate(90 335)">
+    <path d="M60 85 Q86 52 130 52 H720 Q765 52 792 85 L760 151 Q744 178 700 178 H130 Q86 178 60 146Z" fill="#d9ede8" stroke="#62b5a9" stroke-width="5"/>
+    <rect x="185" y="43" width="24" height="144" rx="11" fill="#f2c97d"/>
+    <path d="M675 52 H720 Q765 52 792 85 L760 151 Q744 178 700 178 H675Z" fill="#9acfc6"/>
+    <path d="M128 42 V12 Q128 0 145 0 H520 Q540 0 540 18 V42" fill="none" stroke="#f2c97d" stroke-width="9" stroke-linecap="round"/>
+    <path d="M545 116 H650" stroke="#0d2930" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="622" cy="116" r="18" fill="none" stroke="#0d2930" stroke-width="6"/>
+    <text x="405" y="238" text-anchor="middle" fill="#8fd9cc" font-family="system-ui, 'PingFang SC', sans-serif" font-size="22">抽象钢笔结构轮廓</text>
+  </g>
+  <g transform="translate(940 315)" font-family="system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <rect width="555" height="100" rx="20" fill="#173f46" stroke="#3d7d77" stroke-width="2"/>
+    <text x="30" y="40" fill="#ffffff" font-size="25" font-weight="700">01　台湾书写工具制造背景</text>
+    <text x="30" y="74" fill="#b8d9d4" font-size="20">官网称主要生产环节在台湾进行</text>
+    <rect y="120" width="555" height="100" rx="20" fill="#173f46" stroke="#3d7d77" stroke-width="2"/>
+    <text x="30" y="160" fill="#ffffff" font-size="25" font-weight="700">02　两个阶段要分开看</text>
+    <text x="30" y="194" fill="#b8d9d4" font-size="20">1999 制造业务 · 2015 起自有品牌产品</text>
+    <rect y="240" width="555" height="100" rx="20" fill="#173f46" stroke="#3d7d77" stroke-width="2"/>
+    <text x="30" y="280" fill="#ffffff" font-size="25" font-weight="700">03　自研活塞模组</text>
+    <text x="30" y="314" fill="#b8d9d4" font-size="20">官网表述为用于“多数”PENLUX 钢笔</text>
+    <rect y="360" width="555" height="100" rx="20" fill="#173f46" stroke="#3d7d77" stroke-width="2"/>
+    <text x="30" y="400" fill="#ffffff" font-size="25" font-weight="700">04　具体配置回到型号页</text>
+    <text x="30" y="434" fill="#b8d9d4" font-size="20">材料、笔尖与供墨方式并非全品牌通用</text>
+  </g>
+  <text x="100" y="838" fill="#a9d1cb" font-family="system-ui, 'PingFang SC', sans-serif" font-size="22">本站原创事实示意图，非产品照片 · 颜色与比例仅作信息区分</text>
 </svg>

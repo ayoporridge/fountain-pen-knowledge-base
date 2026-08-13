@@ -1,40 +1,36 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
-  <title id="title">Montegrappa Zero standard current evidence boundary</title>
-  <desc id="desc">Factual scope diagram. non-photo, non-logo, not-to-scale, non-colour-proof, non-finish-proof, non-material-proof, non-durability-proof.</desc>
-  <rect width="1600" height="900" fill="#f4efe6"/>
-  <rect x="90" y="90" width="1420" height="720" rx="36" fill="#fffdf8" stroke="#263238" stroke-width="4"/>
-  <text x="140" y="165" font-family="system-ui, sans-serif" font-size="48" font-weight="700" fill="#182125">Montegrappa Zero · standard current</text>
-  <text x="140" y="215" font-family="system-ui, sans-serif" font-size="25" fill="#4b565b">One pen identity · three dated evidence scopes</text>
-  <g font-family="system-ui, sans-serif">
-    <rect x="140" y="275" width="410" height="350" rx="24" fill="#e6f1ed" stroke="#275b4a" stroke-width="3"/>
-    <text x="175" y="330" font-size="31" font-weight="700" fill="#18483a">CURRENT · 2026-07-21</text>
-    <text x="175" y="385" font-size="25" fill="#263238">resin + stainless trims</text>
-    <text x="175" y="430" font-size="25" fill="#263238">cartridge / converter</text>
-    <text x="175" y="475" font-size="25" fill="#263238">143 mm · 14 mm · 32 g</text>
-    <text x="175" y="520" font-size="25" fill="#263238">steel · 14K · 14K flex</text>
-    <text x="175" y="565" font-size="25" fill="#263238">EF F M B ST1 ST5</text>
-
-    <rect x="595" y="275" width="410" height="350" rx="24" fill="#f6ead8" stroke="#9a5c17" stroke-width="3"/>
-    <text x="630" y="330" font-size="31" font-weight="700" fill="#7a4510">LAUNCH · 2020-03</text>
-    <text x="630" y="390" font-size="25" fill="#263238">Br8 bronze</text>
-    <text x="630" y="440" font-size="25" fill="#263238">retained as dated evidence</text>
-    <text x="630" y="490" font-size="25" fill="#263238">conflicts with current steel</text>
-    <text x="630" y="540" font-size="25" fill="#263238">not a current stable field</text>
-
-    <rect x="1050" y="275" width="410" height="350" rx="24" fill="#ebe8f6" stroke="#5c4a86" stroke-width="3"/>
-    <text x="1085" y="330" font-size="31" font-weight="700" fill="#493970">REVIEW · 2020-11-09</text>
-    <text x="1085" y="385" font-size="25" fill="#263238">loaned black/ruthenium</text>
-    <text x="1085" y="430" font-size="25" fill="#263238">143 mm + 32 g corroborate</text>
-    <text x="1085" y="475" font-size="25" fill="#263238">uncapped / section / JoWo</text>
-    <text x="1085" y="520" font-size="25" fill="#263238">feedback / balance remain</text>
-    <text x="1085" y="565" font-size="25" fill="#263238">sample-only observations</text>
-
-    <path d="M550 450h45M1005 450h45" stroke="#263238" stroke-width="5" stroke-dasharray="12 12"/>
-    <text x="140" y="690" font-size="27" font-weight="650" fill="#182125">STANDARD FINISHES</text>
-    <text x="140" y="735" font-size="24" fill="#4b565b">IP Palladium · IP Ultra-Black · IP Yellow Gold</text>
-    <text x="790" y="690" font-size="27" font-weight="650" fill="#182125">EXCLUDED IDENTITIES</text>
-    <text x="790" y="735" font-size="24" fill="#4b565b">Zero Custom · Caduceus · Zodiac · Right To Play · themed pens</text>
-    <text x="140" y="785" font-size="19" fill="#697479">Editorial evidence map only — non-photo · non-logo · not-to-scale · non-colour/finish/material/durability proof</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc" data-license="site-original" data-kind="factual-svg">
+  <title id="title">Montegrappa Zero：标准款的四项结构信息</title>
+  <desc id="desc">用圆润钢笔轮廓和四条中文事实介绍 Montegrappa Zero 标准款的树脂主体、不锈钢饰件、上墨方式与笔尖配置。本站原创事实示意图，非产品照片；不还原商标、真实颜色或精确比例。</desc>
+  <rect width="1600" height="900" fill="#e9e4da"/>
+  <path d="M0 0 H1600 V275 C1330 325 1110 160 800 245 S270 330 0 250Z" fill="#22343a"/>
+  <path d="M0 735 C290 645 540 790 850 705 S1330 585 1600 700 V900 H0Z" fill="#d9cdbb"/>
+  <g font-family="system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <text x="94" y="92" fill="#b9ccd2" font-size="23" letter-spacing="5">型号速览</text>
+    <text x="94" y="170" fill="#ffffff" font-size="66" font-weight="750">MONTEGRAPPA ZERO</text>
+    <text x="94" y="216" fill="#d8e2e5" font-size="29">标准款的四项结构信息</text>
   </g>
+  <g transform="translate(85 330)">
+    <path d="M40 90 Q70 50 122 50 H725 Q770 50 808 90 L778 150 Q760 182 710 182 H122 Q70 182 40 146Z" fill="#53616a" stroke="#25353b" stroke-width="5"/>
+    <rect x="168" y="39" width="34" height="154" rx="14" fill="#b8a879"/>
+    <path d="M682 50 H725 Q770 50 808 90 L778 150 Q760 182 710 182 H682Z" fill="#34464d"/>
+    <path d="M105 39 V12 Q105 0 124 0 H465 Q492 0 492 20 V39" fill="none" stroke="#b8a879" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="476" cy="13" r="12" fill="#d4c99f"/>
+    <path d="M535 116 H650" stroke="#d3dcde" stroke-width="7" stroke-linecap="round"/>
+    <text x="420" y="240" text-anchor="middle" fill="#6d6558" font-family="system-ui, 'PingFang SC', sans-serif" font-size="21">圆润轮廓仅帮助识别钢笔类别</text>
+  </g>
+  <g transform="translate(955 304)" font-family="system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <rect width="545" height="118" rx="22" fill="#fcfaf5" stroke="#65777d" stroke-width="2"/>
+    <text x="30" y="48" fill="#25353b" font-size="26" font-weight="700">01　这里指标准 Zero</text>
+    <text x="30" y="84" fill="#5f6b6f" font-size="20">不含 Custom 与主题合作款</text>
+    <rect y="138" width="545" height="118" rx="22" fill="#fcfaf5" stroke="#65777d" stroke-width="2"/>
+    <text x="30" y="186" fill="#25353b" font-size="26" font-weight="700">02　树脂主体与不锈钢饰件</text>
+    <text x="30" y="222" fill="#5f6b6f" font-size="20">以对应标准款商品页为准</text>
+    <rect y="276" width="545" height="118" rx="22" fill="#fcfaf5" stroke="#65777d" stroke-width="2"/>
+    <text x="30" y="324" fill="#25353b" font-size="26" font-weight="700">03　墨胆／上墨器两用</text>
+    <text x="30" y="360" fill="#5f6b6f" font-size="20">包装资料列墨胆与 converter</text>
+    <rect y="414" width="545" height="118" rx="22" fill="#fcfaf5" stroke="#65777d" stroke-width="2"/>
+    <text x="30" y="462" fill="#25353b" font-size="26" font-weight="700">04　多类笔尖配置</text>
+    <text x="30" y="498" fill="#5f6b6f" font-size="20">当前页面列钢尖、14K 金尖与 14K 弹性尖</text>
+  </g>
+  <text x="94" y="842" fill="#60594e" font-family="system-ui, 'PingFang SC', sans-serif" font-size="22">本站原创事实示意图，非产品照片 · 不展示真实颜色、饰面与比例</text>
 </svg>

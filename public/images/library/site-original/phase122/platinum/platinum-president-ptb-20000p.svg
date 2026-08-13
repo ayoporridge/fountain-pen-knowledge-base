@@ -1,40 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc" data-license="site-original" data-kind="factual-svg non-photo non-logo not-to-scale not-colour-proof not-finish-proof">
-  <title id="title">Platinum President PTB-20000P evidence boundary map</title>
-  <desc id="desc">Editorial diagram separating current product, brand document, dated history and one adjusted sample. It is not a photograph, logo, scale, colour proof or finish proof.</desc>
-  <rect width="1600" height="900" fill="#f4f0e8"/>
-  <rect x="55" y="45" width="1490" height="810" rx="28" fill="#fffdf8" stroke="#302d29" stroke-width="4"/>
-  <text x="95" y="110" font-family="serif" font-size="42" fill="#25221f">PRESIDENT PTB-20000P · EVIDENCE MAP</text>
-  <text x="95" y="148" font-family="sans-serif" font-size="18" fill="#625c55">site-original · factual SVG · non-photo · non-logo · not-to-scale · not-colour-proof · not-finish-proof</text>
-  <g font-family="sans-serif">
-    <rect x="95" y="195" width="680" height="250" rx="20" fill="#e8f0eb" stroke="#275344" stroke-width="3"/>
-    <text x="125" y="240" font-size="27" font-weight="700" fill="#173d32">01 CURRENT PRODUCT · 2026-07-22</text>
-    <text x="125" y="286" font-size="24" fill="#173d32">#1 Black</text><text x="345" y="286" font-size="24" fill="#173d32">#10 Wine Red</text><text x="595" y="286" font-size="24" fill="#173d32">#59 Blue</text>
-    <line x1="125" y1="310" x2="730" y2="310" stroke="#78998d" stroke-width="2"/>
-    <text x="125" y="348" font-size="21" fill="#304b42">18K（18-21） · UEF / EF / F / M / B / C</text>
-    <text x="125" y="382" font-size="21" fill="#304b42">AS resin · 142 × 16 mm · 21 g</text>
-    <text x="125" y="416" font-size="18" fill="#53665f">¥74,800 and listing are retrieved-date snapshots</text>
-    <rect x="825" y="195" width="680" height="250" rx="20" fill="#eceaf4" stroke="#514276" stroke-width="3"/>
-    <text x="855" y="240" font-size="27" font-weight="700" fill="#3a2e5d">02 BRAND DOCUMENT VIEW</text>
-    <text x="855" y="286" font-size="22" fill="#493b68">PTB-20000P · Black / Wine Red cards</text>
-    <text x="855" y="326" font-size="22" fill="#493b68">PTB-25000PR · Black · separate sibling</text>
-    <path d="M855 352 H1450" stroke="#9287ad" stroke-width="2" stroke-dasharray="10 9"/>
-    <text x="855" y="390" font-size="18" fill="#655d76">Two cards ≠ exhaustive colour set</text>
-    <text x="855" y="420" font-size="18" fill="#655d76">Does not negate product-page Blue</text>
-    <rect x="95" y="490" width="680" height="290" rx="20" fill="#f5eadc" stroke="#8a5427" stroke-width="3"/>
-    <text x="125" y="535" font-size="27" font-weight="700" fill="#6f3f18">03 DATED HISTORY / INSPECTION</text>
-    <text x="125" y="582" font-size="22" fill="#714824">1994 revival — reported by PenHero</text>
-    <text x="125" y="620" font-size="22" fill="#714824">2019–2020 — official catalog snapshot</text>
-    <text x="125" y="658" font-size="20" fill="#714824">#11 / #59 / #67 chronology retains uncertainty</text>
-    <text x="125" y="698" font-size="19" fill="#795a3e">PTB-28000P · PTW-15000P · USA boundary</text>
-    <text x="125" y="740" font-size="18" fill="#795a3e">Loaned collection pens were not written with</text>
-    <rect x="825" y="490" width="680" height="290" rx="20" fill="#f3e5e6" stroke="#813d44" stroke-width="3"/>
-    <text x="855" y="535" font-size="27" font-weight="700" fill="#6e3037">04 ADJUSTED SAMPLE · 2023-03</text>
-    <text x="855" y="582" font-size="22" fill="#743b42">One Red Wine · 18K · EF / UEF ambiguity</text>
-    <text x="855" y="620" font-size="21" fill="#743b42">143 / 123 / 13.4 / 11 mm · 21.6 g dry</text>
-    <text x="855" y="658" font-size="21" fill="#743b42">1.25 cap turns · cartridge / converter</text>
-    <line x1="855" y1="684" x2="1450" y2="684" stroke="#b77d83" stroke-width="2"/>
-    <text x="855" y="720" font-size="18" fill="#79575b">Writing and flow observations are sample-only</text>
-    <text x="855" y="752" font-size="18" fill="#79575b">No cross-model or line-wide generalization</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc" data-license="site-original" data-kind="factual-svg">
+  <title id="title">Platinum President PTB-20000P：传统大号金笔</title>
+  <desc id="desc">用雪茄形钢笔轮廓、抽象笔尖和五条中文事实介绍 Platinum President PTB-20000P。本站原创事实示意图，非产品照片；不还原商标、真实颜色或精确比例。</desc>
+  <rect width="1600" height="900" fill="#111f2a"/>
+  <circle cx="1360" cy="130" r="250" fill="#1e3441"/>
+  <circle cx="1420" cy="790" r="350" fill="#172b37"/>
+  <g font-family="system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <text x="94" y="98" fill="#b6c9d3" font-size="23" letter-spacing="5">型号速览</text>
+    <text x="94" y="176" fill="#ffffff" font-size="62" font-weight="750">PLATINUM PRESIDENT</text>
+    <text x="94" y="222" fill="#d9e4e9" font-size="30">PTB-20000P · 传统大号金笔</text>
   </g>
-  <text x="800" y="828" text-anchor="middle" font-family="sans-serif" font-size="17" fill="#6c665f">Four evidence zones remain structurally separate; arrows intentionally omitted to prevent cross-qualification.</text>
+  <g transform="translate(82 340)">
+    <path d="M43 88 Q72 43 128 43 H728 Q782 43 815 88 L774 157 Q754 188 705 188 H128 Q72 188 43 148Z" fill="#344957" stroke="#9eafba" stroke-width="5"/>
+    <rect x="172" y="34" width="32" height="163" rx="14" fill="#c6a258"/>
+    <path d="M688 43 H728 Q782 43 815 88 L774 157 Q754 188 705 188 H688Z" fill="#283b47"/>
+    <path d="M110 33 V8 Q110 0 129 0 H472 Q498 0 498 20 V33" fill="none" stroke="#c6a258" stroke-width="10" stroke-linecap="round"/>
+    <g transform="translate(610 230)">
+      <path d="M0 118 L70 0 L140 118 L70 164Z" fill="#d5b869" stroke="#725b2c" stroke-width="4"/>
+      <path d="M70 12 V124 M37 98 H103" stroke="#725b2c" stroke-width="4"/>
+      <circle cx="70" cy="82" r="11" fill="#111f2a"/>
+    </g>
+    <text x="360" y="360" text-anchor="middle" fill="#a9bdc7" font-family="system-ui, 'PingFang SC', sans-serif" font-size="21">笔身与笔尖均为抽象结构</text>
+  </g>
+  <g transform="translate(950 285)" font-family="system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <rect width="550" height="88" rx="18" fill="#203744" stroke="#4f6976" stroke-width="2"/><text x="28" y="56" fill="#ffffff" font-size="25" font-weight="700">01　型号代码：PTB-20000P</text>
+    <rect y="106" width="550" height="88" rx="18" fill="#203744" stroke="#4f6976" stroke-width="2"/><text x="28" y="162" fill="#ffffff" font-size="25" font-weight="700">02　AS 树脂笔身</text>
+    <rect y="212" width="550" height="104" rx="18" fill="#203744" stroke="#4f6976" stroke-width="2"/>
+    <text x="28" y="256" fill="#ffffff" font-size="25" font-weight="700">03　18K 双色、局部镀铑笔尖</text>
+    <text x="28" y="288" fill="#b8cad3" font-size="19">尖宽选择以具体商品页为准</text>
+    <rect y="334" width="550" height="88" rx="18" fill="#203744" stroke="#4f6976" stroke-width="2"/><text x="28" y="390" fill="#ffffff" font-size="25" font-weight="700">04　墨胆／上墨器两用</text>
+    <rect y="440" width="550" height="112" rx="18" fill="#203744" stroke="#4f6976" stroke-width="2"/>
+    <text x="28" y="484" fill="#ffffff" font-size="25" font-weight="700">05　商品页列三种笔身配色</text>
+    <text x="28" y="518" fill="#b8cad3" font-size="19">Black · Wine Red · Blue；图中不作色样</text>
+  </g>
+  <text x="94" y="840" fill="#a9bdc7" font-family="system-ui, 'PingFang SC', sans-serif" font-size="22">本站原创事实示意图，非产品照片 · 不展示真实颜色、饰面与比例</text>
 </svg>

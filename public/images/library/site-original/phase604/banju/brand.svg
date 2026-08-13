@@ -1,39 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
-  <title id="title">Banju brand factual map</title>
-  <desc id="desc">Editorial diagram separating verified Banju company, product and timeline evidence. Not a product photograph or logo reproduction.</desc>
-  <rect width="1600" height="900" fill="#13231f"/>
-  <path d="M0 690 C300 590 470 820 790 680 S1290 520 1600 670 V900 H0Z" fill="#203b33"/>
-  <text x="92" y="118" fill="#f3ead5" font-family="Arial, sans-serif" font-size="72" font-weight="700">BANJU / 半句</text>
-  <text x="96" y="170" fill="#a9cabc" font-family="Arial, sans-serif" font-size="27">verified identity map · not a logo · not a full catalogue</text>
-  <g transform="translate(96 245)">
-    <rect width="412" height="276" rx="24" fill="#193028" stroke="#5b8c79" stroke-width="3"/>
-    <text x="34" y="58" fill="#f3ead5" font-family="Arial, sans-serif" font-size="31" font-weight="700">COMPANY ANCHOR</text>
-    <text x="34" y="110" fill="#b8d1c6" font-family="Arial, sans-serif" font-size="25">Suzhou Banju Cultural</text>
-    <text x="34" y="146" fill="#b8d1c6" font-family="Arial, sans-serif" font-size="25">Creative Co., Ltd.</text>
-    <text x="34" y="201" fill="#e4c77b" font-family="Arial, sans-serif" font-size="23">design · R&amp;D · production</text>
-    <text x="34" y="240" fill="#8fb2a4" font-family="Arial, sans-serif" font-size="19">2019 = marketplace account, not founding date</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc" data-license="site-original" data-kind="factual-svg">
+  <title id="title">半句 Banju：苏州文创书写品牌</title>
+  <desc id="desc">用切面钢笔轮廓和四条中文事实介绍半句 Banju 的品牌身份与已核对型号。本站原创事实示意图，非产品照片；不还原商标、真实颜色或精确比例。</desc>
+  <rect width="1600" height="900" fill="#f2eadb"/>
+  <path d="M0 0 H1600 V215 C1240 290 990 150 690 225 S210 290 0 210Z" fill="#283f38"/>
+  <path d="M0 720 C310 625 520 795 850 705 S1310 600 1600 690 V900 H0Z" fill="#e6d6bb"/>
+  <g font-family="system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <text x="90" y="88" fill="#c9e2d7" font-size="23" letter-spacing="5">品牌结构导览</text>
+    <text x="90" y="166" fill="#ffffff" font-size="68" font-weight="750">半句 BANJU</text>
+    <text x="90" y="208" fill="#d9ebe3" font-size="28">苏州文创书写品牌</text>
   </g>
-  <g transform="translate(594 245)">
-    <rect width="412" height="276" rx="24" fill="#193028" stroke="#5b8c79" stroke-width="3"/>
-    <text x="34" y="58" fill="#f3ead5" font-family="Arial, sans-serif" font-size="31" font-weight="700">VERIFIED MODEL</text>
-    <text x="34" y="115" fill="#e4c77b" font-family="Arial, sans-serif" font-size="40" font-weight="700">DOER</text>
-    <text x="34" y="155" fill="#b8d1c6" font-family="Arial, sans-serif" font-size="26">实践家 fountain pen</text>
-    <text x="34" y="205" fill="#b8d1c6" font-family="Arial, sans-serif" font-size="22">retailer specs + independent sample</text>
-    <text x="34" y="240" fill="#8fb2a4" font-family="Arial, sans-serif" font-size="19">textures and colors remain variants</text>
+  <g transform="translate(85 310)">
+    <path d="M45 92 L92 55 H738 L790 92 L750 164 H91Z" fill="#425f54" stroke="#1e332c" stroke-width="5"/>
+    <path d="M95 55 L135 164 M190 55 L230 164 M285 55 L325 164 M380 55 L420 164 M475 55 L515 164 M570 55 L610 164 M665 55 L705 164" stroke="#6f9183" stroke-width="4"/>
+    <rect x="167" y="45" width="28" height="130" rx="12" fill="#c48b45"/>
+    <path d="M70 46 V13 Q70 0 87 0 H470 Q490 0 490 18 V45" fill="none" stroke="#c48b45" stroke-width="9" stroke-linecap="round"/>
+    <path d="M690 55 H738 L790 92 L750 164 H690Z" fill="#314b42"/>
+    <text x="405" y="226" text-anchor="middle" fill="#675744" font-family="system-ui, 'PingFang SC', sans-serif" font-size="22">切面只表达金属笔的结构方向，不对应某一实物</text>
   </g>
-  <g transform="translate(1092 245)">
-    <rect width="412" height="276" rx="24" fill="#193028" stroke="#5b8c79" stroke-width="3"/>
-    <text x="34" y="58" fill="#f3ead5" font-family="Arial, sans-serif" font-size="31" font-weight="700">RESEARCH LEADS</text>
-    <text x="34" y="112" fill="#b8d1c6" font-family="Arial, sans-serif" font-size="24">Candy · Ferris Wheel</text>
-    <text x="34" y="152" fill="#b8d1c6" font-family="Arial, sans-serif" font-size="24">White Sugar · F-Plan</text>
-    <text x="34" y="205" fill="#e4c77b" font-family="Arial, sans-serif" font-size="21">not yet separate pages</text>
-    <text x="34" y="240" fill="#8fb2a4" font-family="Arial, sans-serif" font-size="19">exact model evidence required</text>
+  <g transform="translate(930 278)" font-family="system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <rect width="570" height="112" rx="22" fill="#fffaf1" stroke="#8b7657" stroke-width="2"/>
+    <circle cx="45" cy="56" r="24" fill="#315247"/><text x="45" y="64" text-anchor="middle" fill="#fff" font-size="22">1</text>
+    <text x="86" y="48" fill="#263a33" font-size="25" font-weight="700">中文品牌名：半句</text>
+    <text x="86" y="80" fill="#675f54" font-size="20">BANJU / Banju 为同一品牌写法</text>
+    <rect y="132" width="570" height="112" rx="22" fill="#fffaf1" stroke="#8b7657" stroke-width="2"/>
+    <circle cx="45" cy="188" r="24" fill="#315247"/><text x="45" y="196" text-anchor="middle" fill="#fff" font-size="22">2</text>
+    <text x="86" y="180" fill="#263a33" font-size="25" font-weight="700">品牌资料指向苏州文创企业</text>
+    <text x="86" y="212" fill="#675f54" font-size="20">公开制造商资料展示钢笔产品</text>
+    <rect y="264" width="570" height="112" rx="22" fill="#fffaf1" stroke="#8b7657" stroke-width="2"/>
+    <circle cx="45" cy="320" r="24" fill="#315247"/><text x="45" y="328" text-anchor="middle" fill="#fff" font-size="22">3</text>
+    <text x="86" y="312" fill="#263a33" font-size="25" font-weight="700">覆盖文具的设计、研发与生产</text>
+    <text x="86" y="344" fill="#675f54" font-size="20">企业资料同时提及销售环节</text>
+    <rect y="396" width="570" height="112" rx="22" fill="#fffaf1" stroke="#8b7657" stroke-width="2"/>
+    <circle cx="45" cy="452" r="24" fill="#315247"/><text x="45" y="460" text-anchor="middle" fill="#fff" font-size="22">4</text>
+    <text x="86" y="444" fill="#263a33" font-size="25" font-weight="700">Doer 实践家是已核对型号</text>
+    <text x="86" y="476" fill="#675f54" font-size="20">其他系列的规格不能直接沿用</text>
   </g>
-  <path d="M508 383 H594 M1006 383 H1092" stroke="#e4c77b" stroke-width="5" stroke-linecap="round"/>
-  <g transform="translate(96 610)">
-    <rect width="1408" height="164" rx="24" fill="#152a24" stroke="#426c5c" stroke-width="2"/>
-    <text x="36" y="58" fill="#f3ead5" font-family="Arial, sans-serif" font-size="29" font-weight="700">Publication boundary</text>
-    <text x="36" y="105" fill="#b8d1c6" font-family="Arial, sans-serif" font-size="23">Brand existence is supported; founder, exact launch date and complete production history remain unverified.</text>
-    <text x="36" y="138" fill="#8fb2a4" font-family="Arial, sans-serif" font-size="19">Fountain Pen Graph editorial · factual diagram · not to scale · no trademark artwork</text>
-  </g>
+  <text x="90" y="842" fill="#5c5142" font-family="system-ui, 'PingFang SC', sans-serif" font-size="22">本站原创事实示意图，非产品照片 · 品牌字样仅作标题 · 颜色与比例仅作信息区分</text>
 </svg>

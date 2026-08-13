@@ -1,14 +1,36 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
-  <title id="title">Aurora Ipsilon Resin B11-N current and contextual evidence boundary</title>
-  <desc id="desc">Editorial evidence diagram separating exact official current facts from 2024 professional family context and a 2011 community sample. Not a product photo, logo, scale, colour or finish proof.</desc>
-  <rect width="1600" height="900" fill="#f3f0ea"/>
-  <text x="90" y="110" font-family="serif" font-size="54" fill="#332f2a">RESIN B11-N · EXACT BEFORE CONTEXT</text>
-  <text x="90" y="162" font-family="sans-serif" font-size="24" fill="#635e56">evidence scopes retrieved 2026-07-21</text>
-  <rect x="90" y="230" width="760" height="480" rx="30" fill="#2f3332"/>
-  <text x="145" y="300" font-family="sans-serif" font-size="30" fill="#f5f0e8">OFFICIAL EXACT CURRENT</text>
-  <g font-family="sans-serif" font-size="29" fill="#efe8dc"><text x="150" y="385">SKU · B11-N</text><text x="150" y="455">material · black resin</text><text x="150" y="525">filling · cartridge / converter</text><text x="150" y="595">options · gold / chrome finish</text><text x="150" y="660" font-size="22" fill="#c7c2ba">availability = dated snapshot, not a promise</text></g>
-  <rect x="920" y="230" width="590" height="210" rx="28" fill="#dfd5be"/><text x="970" y="295" font-family="sans-serif" font-size="28" fill="#51462f">2024 PROFESSIONAL CONTEXT</text><text x="970" y="350" font-family="sans-serif" font-size="22" fill="#665c45">family / sibling reading</text><text x="970" y="390" font-family="sans-serif" font-size="20" fill="#756c57">not an exact-current replacement</text>
-  <rect x="920" y="500" width="590" height="210" rx="28" fill="#d9dde0"/><text x="970" y="565" font-family="sans-serif" font-size="28" fill="#3e4850">2011 COMMUNITY SAMPLE</text><text x="970" y="620" font-family="sans-serif" font-size="22" fill="#53606a">attributed sample observation</text><text x="970" y="660" font-family="sans-serif" font-size="20" fill="#66737b">does not qualify B11-N stable specs</text>
-  <path d="M850 470H920" stroke="#9b8460" stroke-width="5" stroke-dasharray="12 12"/>
-  <text x="90" y="820" font-family="sans-serif" font-size="20" fill="#716a61">SITE-ORIGINAL · NON-PHOTO · NON-LOGO · NON-SCALE · NON-COLOUR/FINISH PROOF</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc" data-license="site-original" data-kind="factual-svg">
+  <title id="title">Aurora Ipsilon Resin B11-N：四项基础信息</title>
+  <desc id="desc">用修长钢笔轮廓和四条中文事实介绍 Aurora Ipsilon Resin B11-N 的商品代码、树脂笔身、上墨方式与饰件选项。本站原创事实示意图，非产品照片；不还原商标、真实颜色或精确比例。</desc>
+  <rect width="1600" height="900" fill="#101d26"/>
+  <path d="M0 0 H1600 V900 H1180 C1270 650 1150 430 1250 220 S1500 60 1600 0Z" fill="#172d38"/>
+  <circle cx="1390" cy="160" r="210" fill="#263e49"/>
+  <g font-family="system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <text x="96" y="96" fill="#b5cad3" font-size="23" letter-spacing="5">型号速览</text>
+    <text x="96" y="174" fill="#ffffff" font-size="62" font-weight="750">AURORA IPSILON RESIN</text>
+    <text x="96" y="220" fill="#d6e1e5" font-size="30">B11-N · 四项基础信息</text>
+  </g>
+  <g transform="translate(90 335)">
+    <path d="M45 82 Q65 50 112 50 H730 Q770 50 800 82 L768 151 Q752 178 710 178 H112 Q65 178 45 145Z" fill="#26333a" stroke="#90a9b3" stroke-width="5"/>
+    <rect x="170" y="41" width="28" height="146" rx="12" fill="#c9a259"/>
+    <path d="M690 50 H730 Q770 50 800 82 L768 151 Q752 178 710 178 H690Z" fill="#536872"/>
+    <path d="M102 40 V10 Q102 0 120 0 H485 Q508 0 508 20 V40" fill="none" stroke="#c9a259" stroke-width="9" stroke-linecap="round"/>
+    <path d="M535 113 H665" stroke="#b8c8ce" stroke-width="7" stroke-linecap="round"/>
+    <path d="M585 99 L615 113 L585 127Z" fill="#b8c8ce"/>
+    <text x="420" y="232" text-anchor="middle" fill="#9fb3bc" font-family="system-ui, 'PingFang SC', sans-serif" font-size="21">修长轮廓只表达产品类别</text>
+  </g>
+  <g transform="translate(965 300)" font-family="system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <rect width="535" height="118" rx="22" fill="#1f3540" stroke="#536d78" stroke-width="2"/>
+    <text x="30" y="48" fill="#ffffff" font-size="27" font-weight="700">01　商品代码 B11-N</text>
+    <text x="30" y="84" fill="#b7cbd3" font-size="20">先用代码锁定这一具体款</text>
+    <rect y="138" width="535" height="118" rx="22" fill="#1f3540" stroke="#536d78" stroke-width="2"/>
+    <text x="30" y="186" fill="#ffffff" font-size="27" font-weight="700">02　黑色树脂笔身</text>
+    <text x="30" y="222" fill="#b7cbd3" font-size="20">材料描述来自对应商品页</text>
+    <rect y="276" width="535" height="118" rx="22" fill="#1f3540" stroke="#536d78" stroke-width="2"/>
+    <text x="30" y="324" fill="#ffffff" font-size="27" font-weight="700">03　墨胆／上墨器两用</text>
+    <text x="30" y="360" fill="#b7cbd3" font-size="20">便于瓶装墨水与墨胆之间切换</text>
+    <rect y="414" width="535" height="118" rx="22" fill="#1f3540" stroke="#536d78" stroke-width="2"/>
+    <text x="30" y="462" fill="#ffffff" font-size="27" font-weight="700">04　金色／铬色饰件选项</text>
+    <text x="30" y="498" fill="#b7cbd3" font-size="20">示意配色不代表实物色调与质感</text>
+  </g>
+  <text x="96" y="840" fill="#9db1ba" font-family="system-ui, 'PingFang SC', sans-serif" font-size="22">本站原创事实示意图，非产品照片 · 不展示真实颜色、饰面与比例</text>
 </svg>
