@@ -1,18 +1,38 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
-  <title id="title">YSTUDIO Classic Revolve Portable 事实示意图</title>
-  <desc id="desc">展示便携钢笔、木制携带管、不可后插、Schmidt 五号钢尖与国际标准转换器关系；非产品照片。</desc>
-  <rect width="1600" height="900" fill="#171612"/>
-  <text x="80" y="110" fill="#f4ecd8" font-family="Arial,sans-serif" font-size="52" font-weight="700">YSTUDIO Portable</text>
-  <text x="82" y="154" fill="#d0b071" font-family="Arial,sans-serif" font-size="22">138 mm · 46–50 g samples · factual diagram · not a product photo</text>
-  <rect x="85" y="290" width="920" height="170" rx="18" fill="#795226" stroke="#e2bc70" stroke-width="5"/>
-  <path d="M115 320h860M115 430h860" stroke="#c59450" stroke-width="5" opacity=".65"/>
-  <path d="M1010 290l110 85-110 85z" fill="#d9c7a0"/>
-  <circle cx="970" cy="330" r="16" fill="none" stroke="#f1d48f" stroke-width="5"/>
-  <rect x="90" y="570" width="770" height="105" rx="52" fill="#3c2617" stroke="#b98245" stroke-width="5"/>
-  <text x="330" y="635" fill="#ead8b3" font-family="Arial,sans-serif" font-size="30">maple carry tube / lanyard</text>
-  <text x="1190" y="305" fill="#f4ecd8" font-family="Arial,sans-serif" font-size="30" font-weight="700">#5 Schmidt steel</text>
-  <text x="1190" y="350" fill="#d0b071" font-family="Arial,sans-serif" font-size="24">F / M · international C/C</text>
-  <text x="1190" y="445" fill="#f4ecd8" font-family="Arial,sans-serif" font-size="30" font-weight="700">Cap does not post</text>
-  <text x="1190" y="490" fill="#d0b071" font-family="Arial,sans-serif" font-size="24">uncapped sample ≈119 mm</text>
-  <text x="82" y="790" fill="#d0b071" font-family="Arial,sans-serif" font-size="22">Brass / Black are surface variants · wood tube is storage, not impact or loss protection</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc" data-license="site-original" data-kind="factual-svg">
+  <title id="title">YSTUDIO Classic Revolve Portable：木管随行的六角金属钢笔</title>
+  <desc id="desc">用六角金属钢笔和木制携带管轮廓及五条中文事实介绍 YSTUDIO Classic Revolve Portable。本站原创事实示意图，非产品照片；不还原商标、真实颜色、表面或精确比例。</desc>
+  <rect width="1600" height="900" fill="#181713"/>
+  <circle cx="1390" cy="145" r="250" fill="#2a281f"/>
+  <path d="M0 735 C300 650 520 785 840 710 S1320 595 1600 700 V900 H0Z" fill="#211f18"/>
+  <g font-family="system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <text x="92" y="96" fill="#c9ad74" font-size="23" letter-spacing="5">便携结构速览</text>
+    <text x="92" y="172" fill="#ffffff" font-size="59" font-weight="750">YSTUDIO PORTABLE</text>
+    <text x="92" y="220" fill="#e2d5bb" font-size="30">木管随行的六角金属钢笔</text>
+  </g>
+  <g transform="translate(82 318)">
+    <path d="M42 84 L92 45 H720 L790 84 L758 160 H92 L42 126Z" fill="#6f6047" stroke="#b89a61" stroke-width="5"/>
+    <rect x="170" y="35" width="30" height="135" rx="13" fill="#c8a357"/>
+    <path d="M680 45 H720 L790 84 L758 160 H680Z" fill="#4b4435"/>
+    <path d="M105 35 V8 Q105 0 124 0 H470 Q494 0 494 18 V35" fill="none" stroke="#c8a357" stroke-width="9" stroke-linecap="round"/>
+    <path d="M545 102 H640" stroke="#e2d7bd" stroke-width="7" stroke-linecap="round"/>
+    <g transform="translate(68 250)">
+      <rect width="720" height="104" rx="52" fill="#59442d" stroke="#a37c49" stroke-width="5"/>
+      <path d="M40 32 H675 M40 72 H675" stroke="#7a5c38" stroke-width="5"/>
+      <circle cx="680" cy="52" r="15" fill="none" stroke="#c8a357" stroke-width="5"/>
+      <path d="M695 52 C750 35 765 85 810 66" fill="none" stroke="#c8a357" stroke-width="6" stroke-linecap="round"/>
+      <text x="360" y="150" text-anchor="middle" fill="#baaa8a" font-family="system-ui, 'PingFang SC', sans-serif" font-size="20">枫木携带管与皮绳为收纳方式</text>
+    </g>
+  </g>
+  <g transform="translate(955 286)" font-family="system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <rect width="545" height="88" rx="18" fill="#29271f" stroke="#635b46" stroke-width="2"/><text x="28" y="56" fill="#ffffff" font-size="25" font-weight="700">01　六角金属笔身</text>
+    <rect y="106" width="545" height="104" rx="18" fill="#29271f" stroke="#635b46" stroke-width="2"/>
+    <text x="28" y="150" fill="#ffffff" font-size="25" font-weight="700">02　附枫木携带管与皮绳</text>
+    <text x="28" y="182" fill="#c8bda5" font-size="19">木管不是防撞、防水或防丢认证</text>
+    <rect y="228" width="545" height="88" rx="18" fill="#29271f" stroke="#635b46" stroke-width="2"/><text x="28" y="284" fill="#ffffff" font-size="25" font-weight="700">03　Schmidt #5 钢尖 · F / M</text>
+    <rect y="334" width="545" height="88" rx="18" fill="#29271f" stroke="#635b46" stroke-width="2"/><text x="28" y="390" fill="#ffffff" font-size="25" font-weight="700">04　国际标准墨胆／上墨器</text>
+    <rect y="440" width="545" height="104" rx="18" fill="#29271f" stroke="#635b46" stroke-width="2"/>
+    <text x="28" y="484" fill="#ffffff" font-size="25" font-weight="700">05　笔帽不可稳定后插</text>
+    <text x="28" y="516" fill="#c8bda5" font-size="19">购买前应试握去帽长度与细握位</text>
+  </g>
+  <text x="92" y="842" fill="#b9ac91" font-family="system-ui, 'PingFang SC', sans-serif" font-size="22">本站原创事实示意图，非产品照片 · 不展示真实颜色、表面与比例</text>
 </svg>

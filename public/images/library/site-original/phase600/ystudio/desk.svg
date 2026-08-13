@@ -1,18 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
-  <title id="title">YSTUDIO Classic Revolve Desk 事实示意图</title>
-  <desc id="desc">展示无帽桌面钢笔插入黄铜笔座，区分 Copper 与 Black 规格和国际标准转换器；非产品照片。</desc>
-  <rect width="1600" height="900" fill="#0d1920"/>
-  <text x="75" y="108" fill="#e9f3f5" font-family="Arial,sans-serif" font-size="52" font-weight="700">YSTUDIO Desk</text>
-  <text x="78" y="151" fill="#77c1cf" font-family="Arial,sans-serif" font-size="22">capless desk family · factual diagram · not a product photo</text>
-  <path d="M275 645h650l-80 120H355z" fill="#8a6028" stroke="#e1bd6d" stroke-width="6"/>
-  <rect x="520" y="260" width="165" height="420" rx="12" fill="#22292c" stroke="#d2a857" stroke-width="6"/>
-  <path d="M548 285v360M585 285v360M622 285v360M659 285v360" stroke="#be8f47" stroke-width="5" opacity=".7"/>
-  <path d="M550 260l52-90 52 90z" fill="#ddd0aa"/>
-  <text x="1020" y="295" fill="#e9f3f5" font-family="Arial,sans-serif" font-size="31" font-weight="700">No portable cap</text>
-  <text x="1020" y="342" fill="#77c1cf" font-family="Arial,sans-serif" font-size="24">solid brass stand is the closure</text>
-  <text x="1020" y="450" fill="#e9f3f5" font-family="Arial,sans-serif" font-size="31" font-weight="700">Copper ≠ Black spec</text>
-  <text x="1020" y="497" fill="#77c1cf" font-family="Arial,sans-serif" font-size="24">146 mm / 41 g · 138 mm / 46 g</text>
-  <text x="1020" y="605" fill="#e9f3f5" font-family="Arial,sans-serif" font-size="31" font-weight="700">Schmidt F / M</text>
-  <text x="1020" y="652" fill="#77c1cf" font-family="Arial,sans-serif" font-size="24">international converter included</text>
-  <text x="78" y="820" fill="#77c1cf" font-family="Arial,sans-serif" font-size="22">Keep the stand clean and stable · sample seal performance is not a lifetime guarantee</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc" data-license="site-original" data-kind="factual-svg">
+  <title id="title">YSTUDIO Classic Revolve Desk：无帽笔身与黄铜笔座</title>
+  <desc id="desc">用竖直六角钢笔和桌面笔座轮廓及五条中文事实介绍 YSTUDIO Classic Revolve Desk。本站原创事实示意图，非产品照片；不还原商标、真实颜色、密封剖面或精确比例。</desc>
+  <rect width="1600" height="900" fill="#edf1ef"/>
+  <rect x="48" y="48" width="1504" height="804" rx="34" fill="#fbfcfa" stroke="#243e48" stroke-width="4"/>
+  <circle cx="1360" cy="140" r="235" fill="#dce7e7"/>
+  <g font-family="system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <text x="96" y="110" fill="#568a91" font-size="23" letter-spacing="5">桌面结构速览</text>
+    <text x="96" y="188" fill="#263e47" font-size="60" font-weight="750">YSTUDIO DESK</text>
+    <text x="96" y="234" fill="#62777d" font-size="30">无帽笔身与黄铜笔座</text>
+  </g>
+  <g transform="translate(155 290) scale(.88)">
+    <path d="M238 420 H670 L610 515 H298Z" fill="#8b7040" stroke="#604a28" stroke-width="5"/>
+    <path d="M316 380 L364 340 H544 L592 380 L570 455 H338Z" fill="#b09254" stroke="#604a28" stroke-width="5"/>
+    <path d="M382 342 V76 L432 20 H476 L526 76 V342Z" fill="#4c5f63" stroke="#2c444a" stroke-width="5"/>
+    <path d="M432 20 L454 -18 L476 20Z" fill="#d7e1dd" stroke="#2c444a" stroke-width="4"/>
+    <path d="M410 86 V318 M454 74 V318 M498 86 V318" stroke="#74878a" stroke-width="5"/>
+    <path d="M355 362 H553" stroke="#d0b06a" stroke-width="5"/>
+    <text x="454" y="535" text-anchor="middle" fill="#637171" font-family="system-ui, 'PingFang SC', sans-serif" font-size="20">笔座用于固定收纳；图形不是密封剖面</text>
+  </g>
+  <g transform="translate(925 286)" font-family="system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <rect width="575" height="88" rx="18" fill="#e4ece9" stroke="#66827e" stroke-width="2"/><text x="28" y="56" fill="#263e47" font-size="25" font-weight="700">01　无便携笔帽</text>
+    <rect y="106" width="575" height="104" rx="18" fill="#e4ece9" stroke="#66827e" stroke-width="2"/>
+    <text x="28" y="150" fill="#263e47" font-size="25" font-weight="700">02　实心黄铜笔座完成收纳</text>
+    <text x="28" y="182" fill="#637572" font-size="19">适合固定书桌，不用于随身携带</text>
+    <rect y="228" width="575" height="104" rx="18" fill="#e4ece9" stroke="#66827e" stroke-width="2"/>
+    <text x="28" y="272" fill="#263e47" font-size="25" font-weight="700">03　Copper 与 Black 规格有别</text>
+    <text x="28" y="304" fill="#637572" font-size="19">材料、长度与重量应按具体款确认</text>
+    <rect y="350" width="575" height="88" rx="18" fill="#e4ece9" stroke="#66827e" stroke-width="2"/><text x="28" y="406" fill="#263e47" font-size="25" font-weight="700">04　Schmidt 钢尖 · F / M</text>
+    <rect y="456" width="575" height="88" rx="18" fill="#e4ece9" stroke="#66827e" stroke-width="2"/><text x="28" y="512" fill="#263e47" font-size="25" font-weight="700">05　国际标准墨胆／上墨器</text>
+  </g>
+  <text x="96" y="812" fill="#617370" font-family="system-ui, 'PingFang SC', sans-serif" font-size="22">本站原创事实示意图，非产品照片 · 不展示真实颜色、密封剖面与比例</text>
 </svg>

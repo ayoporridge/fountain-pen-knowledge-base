@@ -1,18 +1,35 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
-  <title id="title">Wancher True Ebonite Marble Green 事实边界图</title>
-  <desc id="desc">本站原创非产品照片示意图，区分当前官网、True Ebonite 家族工艺与零售库存快照。</desc>
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#102019"/><stop offset="1" stop-color="#263c32"/></linearGradient>
-    <style>.k{font:700 25px system-ui,sans-serif;letter-spacing:2px;fill:#d4b875}.h{font:700 48px system-ui,sans-serif;fill:#f4f0e7}.t{font:700 28px system-ui,sans-serif;fill:#f4f0e7}.b{font:400 22px system-ui,sans-serif;fill:#d7ded9}.s{font:500 19px system-ui,sans-serif;fill:#a9b5ae}.card{fill:#182b22;stroke:#688274;stroke-width:2}.line{stroke:#d4b875;stroke-width:4;stroke-linecap:round}</style>
-  </defs>
-  <rect width="1600" height="900" fill="url(#bg)"/>
-  <text x="90" y="102" class="k">FACT BOUNDARY · SITE ORIGINAL</text>
-  <text x="90" y="170" class="h">True Ebonite · Marble Green</text>
-  <line x1="92" y1="207" x2="1508" y2="207" class="line"/>
-  <g transform="translate(90 270)"><rect class="card" width="440" height="405" rx="26"/><text x="34" y="62" class="t">CURRENT EXACT SKU</text><text x="34" y="112" class="b">Ebonite · pattern varies</text><text x="34" y="153" class="b">European International C/C</text><text x="34" y="194" class="b">JoWo steel / Wancher 18K</text><text x="34" y="235" class="b">Plastic / ebonite feeds</text><line x1="34" y1="278" x2="406" y2="278" stroke="#688274"/><text x="34" y="324" class="s">Same SKU, different pattern.</text><text x="34" y="360" class="s">Not a colour or finish proof.</text></g>
-  <g transform="translate(580 270)"><rect class="card" width="440" height="405" rx="26"/><text x="34" y="62" class="t">FAMILY PROCESS</text><text x="34" y="112" class="b">Japanese ebonite narrative</text><text x="34" y="153" class="b">Nikko Ebonite context</text><text x="34" y="194" class="b">ASO hand-polishing context</text><text x="34" y="235" class="b">Not a per-piece passport</text><line x1="34" y1="278" x2="406" y2="278" stroke="#688274"/><text x="34" y="324" class="s">Family scope stays qualified.</text><text x="34" y="360" class="s">No component origin inferred.</text></g>
-  <g transform="translate(1070 270)"><rect class="card" width="440" height="405" rx="26"/><text x="34" y="62" class="t">RETAIL SNAPSHOT</text><text x="34" y="112" class="b">Titanium threads claim</text><text x="34" y="153" class="b">Spring-loaded cap claim</text><text x="34" y="194" class="b">6.08 / 5.28 inch listing</text><text x="34" y="235" class="b">One inventory context</text><line x1="34" y1="278" x2="406" y2="278" stroke="#688274"/><text x="34" y="324" class="s">Not current stable specs.</text><text x="34" y="360" class="s">Price and stock stay mutable.</text></g>
-  <text x="90" y="770" class="t">Identity exclusions</text>
-  <text x="90" y="816" class="b">Not Mine Marble Green · not Marble Blue/Brown · not Silk/Matte Black</text>
-  <text x="1508" y="848" text-anchor="end" class="s">Non-photo · not to scale · no logo · no pattern replica</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc" data-license="site-original" data-kind="factual-svg">
+  <title id="title">Wancher Dream Pen True Ebonite Marble Green：天然花纹硬橡胶钢笔</title>
+  <desc id="desc">用抽象硬橡胶钢笔轮廓和四条中文事实介绍 Wancher Dream Pen True Ebonite Marble Green。本站原创事实示意图，非产品照片；不还原商标、真实颜色、花纹或精确比例。</desc>
+  <rect width="1600" height="900" fill="#10231d"/>
+  <circle cx="1390" cy="140" r="260" fill="#1c3a30"/>
+  <circle cx="1420" cy="770" r="350" fill="#152e26"/>
+  <g font-family="system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <text x="94" y="96" fill="#9ac7b5" font-size="23" letter-spacing="5">型号速览</text>
+    <text x="94" y="172" fill="#ffffff" font-size="57" font-weight="750">WANCHER DREAM PEN</text>
+    <text x="94" y="222" fill="#d8e8e1" font-size="30">True Ebonite · Marble Green</text>
+  </g>
+  <g transform="translate(84 340)">
+    <path d="M42 86 Q70 45 122 45 H730 Q778 45 810 86 L776 153 Q758 184 710 184 H122 Q70 184 42 146Z" fill="#3d5947" stroke="#87a98f" stroke-width="5"/>
+    <rect x="170" y="36" width="30" height="157" rx="13" fill="#b79d61"/>
+    <path d="M690 45 H730 Q778 45 810 86 L776 153 Q758 184 710 184 H690Z" fill="#294237"/>
+    <path d="M105 35 V9 Q105 0 123 0 H470 Q495 0 495 19 V35" fill="none" stroke="#b79d61" stroke-width="9" stroke-linecap="round"/>
+    <path d="M480 58 C520 82 528 142 570 169 M550 49 C590 77 600 131 645 170 M620 51 C660 82 665 126 700 157" fill="none" stroke="#66816d" stroke-width="8" stroke-linecap="round"/>
+    <text x="420" y="244" text-anchor="middle" fill="#9cb6aa" font-family="system-ui, 'PingFang SC', sans-serif" font-size="21">花纹线条仅表示逐支差异，不复刻真实纹理</text>
+  </g>
+  <g transform="translate(955 296)" font-family="system-ui, 'PingFang SC', 'Microsoft YaHei', sans-serif">
+    <rect width="545" height="118" rx="22" fill="#19342b" stroke="#4d7061" stroke-width="2"/>
+    <text x="30" y="48" fill="#ffffff" font-size="26" font-weight="700">01　硬橡胶笔身</text>
+    <text x="30" y="84" fill="#b7d0c5" font-size="20">Marble Green 是具体产品名称</text>
+    <rect y="138" width="545" height="118" rx="22" fill="#19342b" stroke="#4d7061" stroke-width="2"/>
+    <text x="30" y="186" fill="#ffffff" font-size="26" font-weight="700">02　每支花纹会有差异</text>
+    <text x="30" y="222" fill="#b7d0c5" font-size="20">购买时应查看目标实物的自然光照片</text>
+    <rect y="276" width="545" height="118" rx="22" fill="#19342b" stroke="#4d7061" stroke-width="2"/>
+    <text x="30" y="324" fill="#ffffff" font-size="26" font-weight="700">03　欧洲国际标准墨胆／上墨器</text>
+    <text x="30" y="360" fill="#b7d0c5" font-size="20">实际附件与配合公差仍需核对</text>
+    <rect y="414" width="545" height="118" rx="22" fill="#19342b" stroke="#4d7061" stroke-width="2"/>
+    <text x="30" y="462" fill="#ffffff" font-size="26" font-weight="700">04　#6 钢尖或 Wancher 18K 尖</text>
+    <text x="30" y="498" fill="#b7d0c5" font-size="20">笔舌另有塑料或硬橡胶选项</text>
+  </g>
+  <text x="94" y="840" fill="#9eb8ad" font-family="system-ui, 'PingFang SC', sans-serif" font-size="22">本站原创事实示意图，非产品照片 · 不展示真实颜色、花纹、饰面与比例</text>
 </svg>
