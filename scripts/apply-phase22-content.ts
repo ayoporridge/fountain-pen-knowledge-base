@@ -895,33 +895,56 @@ export async function applyCuratedContentPacks(
   }
 
   const entities: ApplyPhase22Result["entities"] = [];
-  for (const pack of packs) {
-    if ((pack.publicationIntent ?? "publish") === "blocked-draft") {
+  const canReusePublicationTransaction = packs.every(
+    (pack) => (pack.publicationIntent ?? "publish") === "publish",
+  );
+  const publicationTransaction = canReusePublicationTransaction
+    ? await client.transaction("write")
+    : null;
+  try {
+    for (const pack of packs) {
+      if ((pack.publicationIntent ?? "publish") === "blocked-draft") {
+        entities.push({
+          entityId: pack.entityId,
+          outcome: "blocked",
+          contentHash: await preserveBlockedDraft(client, pack),
+        });
+        continue;
+      }
+      const publicationDb = publicationTransaction ?? client;
+      const contentHash = await computePublicationContentHash(
+        publicationDb,
+        pack.entityId,
+      );
+      for (const reviewKind of ["fact", "language", "media"] as const) {
+        await recordEntityContentReview(client, {
+          entityId: pack.entityId,
+          reviewKind,
+          contentHash,
+          reviewer,
+          status: "approved",
+          notes: `${pack.sourceMarker}; ${reviewKind} review of checked-in sourced copy.`,
+          transaction: publicationTransaction ?? undefined,
+        });
+      }
+      const published = await publishEntity(client, {
+        entityId: pack.entityId,
+        contentHash,
+        reviewer,
+        transaction: publicationTransaction ?? undefined,
+      });
       entities.push({
         entityId: pack.entityId,
-        outcome: "blocked",
-        contentHash: await preserveBlockedDraft(client, pack),
-      });
-      continue;
-    }
-    for (const reviewKind of ["fact", "language", "media"] as const) {
-      await recordEntityContentReview(client, {
-        entityId: pack.entityId,
-        reviewKind,
-        reviewer,
-        status: "approved",
-        notes: `${pack.sourceMarker}; ${reviewKind} review of checked-in sourced copy.`,
+        outcome: "published",
+        contentHash: published.contentHash,
       });
     }
-    const published = await publishEntity(client, {
-      entityId: pack.entityId,
-      reviewer,
-    });
-    entities.push({
-      entityId: pack.entityId,
-      outcome: "published",
-      contentHash: published.contentHash,
-    });
+    if (publicationTransaction) await publicationTransaction.commit();
+  } catch (error) {
+    if (publicationTransaction && !publicationTransaction.closed) {
+      await publicationTransaction.rollback();
+    }
+    throw error;
   }
   assertCatalogSnapshotUnchanged(options.protectedCatalogSnapshot);
   return { entities };

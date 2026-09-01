@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sailor Fude de Mannen 12-0150 型号事实卡</title>
+  <desc id="desc">原创事实示意图，以长杆钢笔和弯尖角度图说明 40 度、55 度、五个货号与非弹性尖边界；不是产品照片。</desc>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#f0fdf4"/><stop offset="1" stop-color="#dcfce7"/></linearGradient><style>.s{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC",sans-serif}.h{font-size:50px;font-weight:750;fill:#173f31}.k{font-size:28px;fill:#416d5e}.v{font-size:36px;font-weight:700;fill:#173f31}.n{font-size:23px;fill:#517768}.ol{stroke:#174b3a;stroke-width:8;stroke-linejoin:round;stroke-linecap:round}</style></defs>
+  <rect width="1600" height="900" fill="url(#bg)"/><rect x="70" y="62" width="1460" height="776" rx="34" fill="#fbfffc" stroke="#b8d9ca" stroke-width="3"/>
+  <text x="125" y="142" class="s h">SAILOR FUDE DE MANNEN 12-0150</text><text x="125" y="188" class="s k">40°／55° 弯尖长杆钢笔 · 型号事实卡</text>
+  <g transform="translate(125 250)"><rect width="850" height="125" rx="56" fill="#bbf7d0" class="ol"/><rect x="85" y="30" width="515" height="65" rx="30" fill="#4ade80"/><path d="M850 0 L1010 62 L850 125 Z" fill="#d8b56b" class="ol"/><path d="M1008 61 q52 -38 92 -10 l-23 31 q-31 -18 -66 7 z" fill="#d8b56b" class="ol"/><text x="350" y="81" text-anchor="middle" class="s v">全长约 169 mm</text></g>
+  <g transform="translate(1190 225)"><path d="M0 190 h270" class="ol" fill="none"/><path d="M40 190 L210 48" class="ol" fill="none"/><path d="M40 190 L151 31" stroke="#a16207" stroke-width="8" fill="none"/><path d="M88 190 A48 48 0 0 1 124 151" fill="none" stroke="#16a34a" stroke-width="6"/><text x="117" y="178" class="s v">40°</text><path d="M151 190 A111 111 0 0 1 215 100" fill="none" stroke="#a16207" stroke-width="6"/><text x="206" y="148" class="s v">55°</text></g>
+  <rect x="125" y="500" width="390" height="163" rx="25" fill="#d1fae5"/><text x="165" y="550" class="s k">笔尖</text><text x="165" y="606" class="s v">镀金不锈钢弯尖</text><text x="165" y="642" class="s n">靠角度变线，不靠重压</text>
+  <rect x="550" y="500" width="390" height="163" rx="25" fill="#fef3c7"/><text x="590" y="550" class="s k">五个 SKU</text><text x="590" y="606" class="s v">1 个 55° · 4 个 40°</text><text x="590" y="642" class="s n">颜色与材料按货号记录</text>
+  <rect x="975" y="500" width="430" height="163" rx="25" fill="#e0f2fe"/><text x="1015" y="550" class="s k">供墨与重量</text><text x="1015" y="606" class="s v">墨囊／converter · 12 g</text><text x="1015" y="642" class="s n">最大直径约 15 mm</text>
+  <rect x="125" y="708" width="1280" height="67" rx="16" fill="#174b3a"/><text x="165" y="751" class="s" font-size="25" fill="#fff">边界：12-0150 不吸收 Profit Fude、Naginata、Special Nib 或周年款；它也不是 flex</text>
+  <text x="1405" y="809" text-anchor="end" class="s n">本站原创事实示意 · 非产品照片 · 角度图仅解释概念</text>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Zebra Pen 品牌事实示意图</title>
+  <desc id="desc">说明 Zebra Pen 是综合书写工具品牌，Fountain Pen 是其中独立产品线，包装号不是品牌或型号。</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#111"/><stop offset="1" stop-color="#343434"/></linearGradient></defs>
+  <rect width="1600" height="900" rx="44" fill="url(#bg)"/>
+  <text x="92" y="112" fill="#d8d8d8" font-size="30" font-family="Arial, PingFang SC, sans-serif" font-weight="700">品牌导航卡</text>
+  <text x="92" y="190" fill="#fff" font-size="78" font-family="Arial, PingFang SC, sans-serif" font-weight="900">Zebra Pen</text>
+  <text x="94" y="244" fill="#d9d9d9" font-size="30" font-family="Arial, PingFang SC, sans-serif">综合书写工具品牌 · 美国市场目录</text>
+  <g transform="translate(90 328)">
+    <rect x="0" y="10" width="820" height="160" rx="80" fill="#f1f1f1"/>
+    <path d="M820 30 L1020 90 L820 150 Z" fill="#fff"/>
+    <path d="M966 73 L1060 90 L966 107 Z" fill="#555"/>
+    <path d="M70 20 l62 140 M150 20 l62 140 M230 20 l62 140 M310 20 l62 140" stroke="#222" stroke-width="26" opacity=".9"/>
+  </g>
+  <g font-family="Arial, PingFang SC, sans-serif">
+    <rect x="1030" y="306" width="470" height="82" rx="20" fill="#fff" opacity=".11"/>
+    <text x="1060" y="358" fill="#fff" font-size="30" font-weight="700">钢笔只是品牌产品线之一</text>
+    <rect x="1030" y="414" width="470" height="82" rx="20" fill="#fff" opacity=".11"/>
+    <text x="1060" y="466" fill="#fff" font-size="30" font-weight="700">代表型号：Zebra Fountain Pen</text>
+    <rect x="1030" y="522" width="470" height="82" rx="20" fill="#9e2d35"/>
+    <text x="1060" y="574" fill="#fff" font-size="30" font-weight="800">48307 是七色包装号</text>
+  </g>
+  <line x1="92" y1="694" x2="1508" y2="694" stroke="#ddd" stroke-width="2" opacity=".5"/>
+  <text x="92" y="754" fill="#fff" font-size="29" font-family="Arial, PingFang SC, sans-serif">读图重点：不要把订货包装号建成新的钢笔型号。</text>
+  <rect x="92" y="797" width="520" height="58" rx="29" fill="#f0d15f"/>
+  <text x="352" y="835" text-anchor="middle" fill="#111" font-size="26" font-family="Arial, PingFang SC, sans-serif" font-weight="800">本站原创事实示意 · 非产品照片</text>
+</svg>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Pilot Precise Varsity 型号事实卡</title>
+  <desc id="desc">原创事实示意图，以通用钢笔轮廓说明预灌墨、Medium 钢尖、七种墨色和 Varsity 别名；不是产品照片。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eef5f4"/><stop offset="1" stop-color="#dce9e7"/></linearGradient>
+    <linearGradient id="ink" x1="0" x2="1"><stop stop-color="#164e63"/><stop offset="1" stop-color="#0891b2"/></linearGradient>
+    <style>.sans{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC",sans-serif}.label{font-size:28px;fill:#35515a}.value{font-size:38px;font-weight:700;fill:#102f3a}.small{font-size:24px;fill:#567079}.line{stroke:#163d4a;stroke-width:9;stroke-linejoin:round}</style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect x="70" y="62" width="1460" height="776" rx="34" fill="#fbfdfc" stroke="#b5cbc7" stroke-width="3"/>
+  <text x="125" y="145" class="sans value" font-size="54">PILOT PRECISE VARSITY</text>
+  <text x="125" y="190" class="sans label">预灌墨日用钢笔 · 型号事实卡</text>
+  <rect x="125" y="245" width="955" height="215" rx="95" fill="#e7efee" class="line"/>
+  <path d="M1080 245 L1260 352 L1080 460 Z" fill="#d8b46c" class="line"/>
+  <path d="M1260 352 l58 -22 l-35 42 l35 32 z" fill="#163d4a"/>
+  <rect x="185" y="278" width="560" height="149" rx="62" fill="#f8fbfa" stroke="#6b8b91" stroke-width="5"/>
+  <rect x="252" y="315" width="410" height="75" rx="35" fill="url(#ink)"/>
+  <text x="368" y="365" class="sans" font-size="29" fill="#fff">可视墨量区域</text>
+  <rect x="125" y="523" width="390" height="164" rx="25" fill="#e0f2fe"/>
+  <text x="165" y="574" class="sans label">供墨</text><text x="165" y="628" class="sans value">工厂预灌</text><text x="165" y="663" class="sans small">墨尽后正常更换整支</text>
+  <rect x="550" y="523" width="390" height="164" rx="25" fill="#fef3c7"/>
+  <text x="590" y="574" class="sans label">笔尖</text><text x="590" y="628" class="sans value">Medium 钢尖</text><text x="590" y="663" class="sans small">当前官网只列 Medium</text>
+  <rect x="975" y="523" width="430" height="164" rx="25" fill="#ede9fe"/>
+  <text x="1015" y="574" class="sans label">版本</text><text x="1015" y="628" class="sans value">7 种墨色</text><text x="1015" y="663" class="sans small">颜色与包装数量不是新型号</text>
+  <rect x="125" y="733" width="1280" height="57" rx="14" fill="#163d4a"/>
+  <text x="165" y="771" class="sans" font-size="25" fill="#fff">名称边界：正式名称 Precise Varsity；Pilot Varsity、Varsity 为别名</text>
+  <text x="1405" y="805" text-anchor="end" class="sans small">本站原创事实示意 · 非产品照片 · 不按比例</text>
+</svg>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Stipula Gladiator 钢笔型号事实卡</title>
+  <desc id="desc">通用钢笔轮廓与中文规格卡，说明当前 Gladiator 的树脂、金属工艺、Stiflex 和旧版区分；不是产品照片。</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#fff7ed"/><stop offset="1" stop-color="#fee2e2"/></linearGradient>
+    <linearGradient id="pen" x2="1"><stop stop-color="#7f1d1d"/><stop offset="1" stop-color="#dc2626"/></linearGradient>
+    <style>.s{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC",sans-serif}.h{font-size:52px;font-weight:760;fill:#431407}.k{font-size:27px;fill:#9a3412}.v{font-size:35px;font-weight:700;fill:#431407}.n{font-size:23px;fill:#765246}.o{stroke:#431407;stroke-width:8;stroke-linejoin:round}</style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/><rect x="68" y="58" width="1464" height="784" rx="34" fill="#fffdf9" stroke="#fdba74" stroke-width="3"/>
+  <text x="125" y="142" class="s h">STIPULA GLADIATOR</text><text x="125" y="188" class="s k">当前罗马主题系列 · 型号事实卡</text>
+  <g transform="translate(125 242)"><rect width="1035" height="182" rx="88" fill="url(#pen)" class="o"/><path d="M1035 0 L1195 91 L1035 182 Z" fill="#d6a94f" class="o"/><path d="M1195 91 l52 -21 l-29 35 l29 28 z" fill="#431407"/><rect x="72" y="42" width="600" height="98" rx="45" fill="#fecaca" opacity=".55"/><path d="M735 18 v146 M760 18 v146" stroke="#e7c36b" stroke-width="8"/><text x="210" y="107" class="s v">罗马主题通用轮廓</text></g>
+  <rect x="125" y="500" width="390" height="168" rx="24" fill="#ffedd5"/><text x="163" y="550" class="s k">当前材料</text><text x="163" y="607" class="s v">意大利铸造树脂</text><text x="163" y="642" class="s n">微熔铸 · 手工喷砂金属件</text>
+  <rect x="550" y="500" width="390" height="168" rx="24" fill="#fee2e2"/><text x="588" y="550" class="s k">笔尖选项</text><text x="588" y="607" class="s v">可选 14K Stiflex</text><text x="588" y="642" class="s n">弹性响应不等于无限重压</text>
+  <rect x="975" y="500" width="430" height="168" rx="24" fill="#fef3c7"/><text x="1013" y="550" class="s k">版本边界</text><text x="1013" y="607" class="s v">旧 T-Flex 另行记录</text><text x="1013" y="642" class="s n">旧尺寸与供墨不覆盖当前款</text>
+  <rect x="125" y="718" width="1280" height="58" rx="14" fill="#7f1d1d"/><text x="165" y="756" class="s" font-size="25" fill="#fff">红 / Cuma 蓝 / Paestum 棕 / 黑为当前颜色 variant</text>
+  <text x="1405" y="810" text-anchor="end" class="s n">本站原创事实示意 · 非产品照片 · 不按真实外形与比例</text>
+</svg>

@@ -19,6 +19,8 @@ export interface PublishEntityOptions {
   reviewer: string;
   /** Internal callers may reuse a hash computed from the same content snapshot. */
   contentHash?: string;
+  /** Internal batch callers may reuse one caller-owned write transaction. */
+  transaction?: Transaction;
   /** Internal batch callers may reuse a freshly verified readiness snapshot. */
   readiness?: {
     blockerCount: number;
@@ -52,6 +54,8 @@ export interface RecordEntityContentReviewOptions {
   notes?: string | null;
   /** Internal callers may reuse a hash computed from the same content snapshot. */
   contentHash?: string;
+  /** Internal batch callers may reuse one caller-owned write transaction. */
+  transaction?: Transaction;
 }
 
 export interface RecordEntityContentReviewResult {
@@ -703,7 +707,8 @@ export async function recordEntityContentReview(
     throw new Error(`Unsupported content review status: ${String(status)}`);
   }
 
-  const transaction = await db.transaction("write");
+  const transaction = options.transaction ?? (await db.transaction("write"));
+  const ownsTransaction = options.transaction === undefined;
   try {
     const contentHash =
       options.contentHash?.trim() ||
@@ -733,10 +738,10 @@ export async function recordEntityContentReview(
         notes,
       ],
     });
-    await transaction.commit();
+    if (ownsTransaction) await transaction.commit();
     return { entityId, reviewKind, contentHash, status, reviewedAt };
   } catch (error) {
-    await rollbackQuietly(transaction);
+    if (ownsTransaction) await rollbackQuietly(transaction);
     throw error;
   }
 }
@@ -757,7 +762,8 @@ export async function publishEntity(
   if (!reviewer)
     throw new Error("publishEntity requires a non-empty reviewer.");
 
-  const transaction = await db.transaction("write");
+  const transaction = options.transaction ?? (await db.transaction("write"));
+  const ownsTransaction = options.transaction === undefined;
   try {
     const publicationRows = await rows(
       transaction,
@@ -919,10 +925,10 @@ export async function publishEntity(
       }
     }
 
-    await transaction.commit();
+    if (ownsTransaction) await transaction.commit();
     return { entityId, contentHash, contentRevision, publishedAt };
   } catch (error) {
-    await rollbackQuietly(transaction);
+    if (ownsTransaction) await rollbackQuietly(transaction);
     throw error;
   }
 }

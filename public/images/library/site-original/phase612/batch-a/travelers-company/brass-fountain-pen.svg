@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">TRAVELER'S COMPANY Brass Fountain Pen 事实示意图</title>
+  <desc id="desc">黄铜口袋钢笔轮廓标示 102 毫米、Fine 钢尖、短墨囊与 patina。</desc>
+  <defs><linearGradient id="brass" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#8c6436"/><stop offset=".45" stop-color="#d4ad6a"/><stop offset="1" stop-color="#78522f"/></linearGradient></defs>
+  <rect width="1600" height="900" fill="#f0e7d7"/>
+  <text x="88" y="105" font-family="Arial,'PingFang SC',sans-serif" font-size="50" font-weight="700" fill="#3c3026">TRAVELER'S COMPANY Brass Fountain Pen</text>
+  <text x="92" y="153" font-family="Arial,'PingFang SC',sans-serif" font-size="24" fill="#725f4c">2017 年加入系列；无涂层黄铜会留下时间与手汗的痕迹</text>
+  <circle cx="170" cy="362" r="48" fill="none" stroke="#6f4e2d" stroke-width="12"/>
+  <rect x="210" y="300" width="690" height="124" rx="60" fill="url(#brass)" stroke="#5e442e" stroke-width="9"/>
+  <path d="M900 300h165l250 62-250 62H900z" fill="#ded9cc" stroke="#5e442e" stroke-width="9"/>
+  <path d="M1065 300l250 62-250 62 68-62z" fill="#c7b581"/>
+  <line x1="210" y1="505" x2="1315" y2="505" stroke="#91785e" stroke-width="4"/><line x1="210" y1="485" x2="210" y2="525" stroke="#91785e" stroke-width="4"/><line x1="1315" y1="485" x2="1315" y2="525" stroke="#91785e" stroke-width="4"/>
+  <text x="762" y="555" text-anchor="middle" font-family="Arial,'PingFang SC',sans-serif" font-size="30" font-weight="700" fill="#3c3026">收合 102 mm · 直径 11 mm</text>
+  <text x="130" y="645" font-family="Arial,'PingFang SC',sans-serif" font-size="27" fill="#3c3026">① 不锈钢 Fine 笔尖</text>
+  <text x="130" y="700" font-family="Arial,'PingFang SC',sans-serif" font-size="27" fill="#3c3026">② 短国际墨囊；不默认兼容转换器</text>
+  <text x="825" y="645" font-family="Arial,'PingFang SC',sans-serif" font-size="27" fill="#3c3026">③ 取帽后可轻套尾端</text>
+  <text x="825" y="700" font-family="Arial,'PingFang SC',sans-serif" font-size="27" fill="#3c3026">④ 日本制造；轻划痕与 patina 属材料变化</text>
+  <rect x="72" y="810" width="1456" height="55" rx="16" fill="#3c3026"/>
+  <text x="800" y="847" text-anchor="middle" font-family="Arial,'PingFang SC',sans-serif" font-size="20" fill="#fff">本站原创事实示意图；非产品照片，不表示真实颜色、纹理、比例、商标或包装。</text>
+</svg>

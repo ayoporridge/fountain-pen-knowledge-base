@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Monteverde Axis 口袋钢笔结构事实示意图</title>
+  <desc id="desc">以钢笔轮廓说明 Axis 的短铝笔身、磁吸笔帽、后插状态、五号钢尖和短墨囊供墨。</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#14243c"/><stop offset="1" stop-color="#23687a"/></linearGradient><linearGradient id="body" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#c9e6ee"/><stop offset=".5" stop-color="#81c8d7"/><stop offset="1" stop-color="#e8f5f7"/></linearGradient></defs>
+  <rect width="1600" height="900" rx="44" fill="url(#bg)"/>
+  <text x="88" y="104" fill="#9fd9e5" font-size="29" font-family="Arial, PingFang SC, sans-serif" font-weight="700">口袋钢笔 · 磁吸结构</text>
+  <text x="88" y="180" fill="#fff" font-size="70" font-family="Arial, PingFang SC, sans-serif" font-weight="800">Monteverde Axis</text>
+  <text x="90" y="230" fill="#d3edf2" font-size="28" font-family="Arial, PingFang SC, sans-serif">短身便携，磁帽既可合帽也可吸附在笔尾</text>
+  <g transform="translate(92 318)">
+    <rect x="0" y="58" width="408" height="112" rx="56" fill="url(#body)" stroke="#fff" stroke-width="5"/>
+    <rect x="398" y="42" width="380" height="144" rx="52" fill="#6eb9ca" stroke="#fff" stroke-width="5"/>
+    <path d="M778 58 L932 114 L778 170 Z" fill="#e8d097" stroke="#fff" stroke-width="5"/>
+    <path d="M815 78 L815 150" stroke="#76613b" stroke-width="5"/>
+    <path d="M36 76 H360" stroke="#fff" stroke-opacity=".45" stroke-width="8"/>
+    <text x="0" y="244" fill="#d8eef2" font-size="25" font-family="Arial, PingFang SC, sans-serif">合帽约 110.5 mm</text>
+    <path d="M48 282 H884" stroke="#9fd9e5" stroke-width="4" stroke-dasharray="12 12"/>
+    <text x="592" y="326" fill="#d8eef2" font-size="25" font-family="Arial, PingFang SC, sans-serif">后插约 132.7 mm</text>
+  </g>
+  <g transform="translate(1080 322)" font-family="Arial, PingFang SC, sans-serif">
+    <rect width="412" height="326" rx="28" fill="#fff" fill-opacity=".11" stroke="#b9e2e9" stroke-width="3"/>
+    <text x="34" y="60" fill="#fff" font-size="31" font-weight="800">核对重点</text>
+    <text x="34" y="116" fill="#dff2f5" font-size="26">阳极氧化铝笔身</text>
+    <text x="34" y="164" fill="#dff2f5" font-size="26">JoWo #5：EF / F / M / B</text>
+    <text x="34" y="212" fill="#dff2f5" font-size="26">短国际墨囊 / 迷你转换器</text>
+    <text x="34" y="260" fill="#f5d88f" font-size="26" font-weight="700">当前系列仅为钢笔</text>
+  </g>
+  <rect x="82" y="786" width="620" height="72" rx="22" fill="#fff" fill-opacity=".9"/>
+  <text x="392" y="832" text-anchor="middle" fill="#14243c" font-size="26" font-family="Arial, PingFang SC, sans-serif" font-weight="800">本站原创结构示意 · 非产品照片</text>
+  <text x="1512" y="832" text-anchor="end" fill="#cceaf0" font-size="23" font-family="Arial, PingFang SC, sans-serif">不表示真实颜色、纹理或比例</text>
+</svg>

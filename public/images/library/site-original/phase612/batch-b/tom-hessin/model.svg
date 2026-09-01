@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Tom Hessin Charles 钢笔型号事实示意图</title>
+  <desc id="desc">说明 Charles 钢笔的欧洲树脂、六号不锈钢尖、标准国际墨囊转换器与五菱形家族符号，并注明不是 Tom's Studio。</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#171b23"/><stop offset="1" stop-color="#4e2930"/></linearGradient></defs>
+  <rect width="1600" height="900" rx="44" fill="url(#bg)"/>
+  <text x="88" y="106" fill="#d9bf81" font-size="29" font-family="Arial, PingFang SC, sans-serif" font-weight="700">现代树脂钢笔 · 身份事实</text>
+  <text x="88" y="178" fill="#fff" font-size="68" font-family="Georgia, PingFang SC, serif" font-weight="700">Tom Hessin Charles</text>
+  <text x="90" y="230" fill="#e1e2e6" font-size="28" font-family="Arial, PingFang SC, sans-serif">五枚菱形象征五代家族；1870 是品牌故事起点，不是本款首发年</text>
+  <g transform="translate(86 310)">
+    <rect x="0" y="54" width="850" height="164" rx="82" fill="#9f303c" stroke="#d9bf81" stroke-width="5"/>
+    <path d="M850 76 L1060 136 L850 196 Z" fill="#f2f2f3"/>
+    <path d="M1006 119 L1102 136 L1006 153 Z" fill="#d9bf81"/>
+    <g fill="#222933" stroke="#d9bf81" stroke-width="4"><path d="M105 91 l27 45 -27 45 -27-45z"/><path d="M170 91 l27 45 -27 45 -27-45z"/><path d="M235 91 l27 45 -27 45 -27-45z"/><path d="M300 91 l27 45 -27 45 -27-45z"/><path d="M365 91 l27 45 -27 45 -27-45z"/></g>
+  </g>
+  <g font-family="Arial, PingFang SC, sans-serif">
+    <rect x="92" y="604" width="430" height="104" rx="22" fill="#fff" opacity=".11"/>
+    <text x="120" y="647" fill="#d9bf81" font-size="24" font-weight="700">笔尖</text><text x="120" y="688" fill="#fff" font-size="29" font-weight="800">#6 钢尖 · EF Flex 至 Stub</text>
+    <rect x="550" y="604" width="390" height="104" rx="22" fill="#fff" opacity=".11"/>
+    <text x="578" y="647" fill="#d9bf81" font-size="24" font-weight="700">供墨</text><text x="578" y="688" fill="#fff" font-size="29" font-weight="800">标准国际墨囊 / 转换器</text>
+    <rect x="968" y="604" width="540" height="104" rx="22" fill="#7d343a"/>
+    <text x="996" y="647" fill="#edc8c9" font-size="24" font-weight="700">品牌边界</text><text x="996" y="688" fill="#fff" font-size="30" font-weight="800">Tom Hessin ≠ Tom's Studio</text>
+  </g>
+  <text x="92" y="770" fill="#fff" font-size="27" font-family="Arial, PingFang SC, sans-serif">Exhibition Red 样本：合帽约 142 mm、约 28 g；其他颜色需分别复核。</text>
+  <rect x="92" y="808" width="520" height="58" rx="29" fill="#d9bf81"/>
+  <text x="352" y="846" text-anchor="middle" fill="#171b23" font-size="26" font-family="Arial, PingFang SC, sans-serif" font-weight="800">本站原创结构示意 · 非产品照片</text>
+</svg>

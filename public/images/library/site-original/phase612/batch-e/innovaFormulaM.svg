@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Monteverde Innova Formula M 钢笔材料结构示意图</title>
+  <desc id="desc">以钢笔轮廓和分层剖面说明 Formula M 的黄铜基体、钢丝编织网、PVD 表面、碳纤维环与六号钢尖。</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#191a1d"/><stop offset="1" stop-color="#4a2634"/></linearGradient><pattern id="mesh" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M0 24 L24 0 M-8 8 L8-8 M16 32 L32 16" stroke="#d8d8dc" stroke-width="4"/><path d="M0 0 L24 24 M-8 16 L8 32 M16-8 L32 8" stroke="#85858c" stroke-width="3"/></pattern></defs>
+  <rect width="1600" height="900" rx="44" fill="url(#bg)"/>
+  <text x="88" y="104" fill="#d5a6b5" font-size="29" font-family="Arial, PingFang SC, sans-serif" font-weight="700">赛车材料语言 · Innova 分支</text>
+  <text x="88" y="178" fill="#fff" font-size="62" font-family="Arial, PingFang SC, sans-serif" font-weight="800">Monteverde Innova Formula M</text>
+  <text x="90" y="230" fill="#e5ced5" font-size="28" font-family="Arial, PingFang SC, sans-serif">材料是由内到外的结构，不是单一“金属色”</text>
+  <g transform="translate(82 330)">
+    <rect x="0" y="74" width="316" height="124" rx="55" fill="#2d2f35" stroke="#e6e4e5" stroke-width="5"/>
+    <rect x="304" y="78" width="46" height="116" fill="#191b20" stroke="#777" stroke-width="3"/>
+    <rect x="350" y="78" width="572" height="116" rx="48" fill="url(#mesh)" stroke="#f4f2f0" stroke-width="5"/>
+    <path d="M922 90 L1088 136 L922 182 Z" fill="#dbbd7e" stroke="#fff" stroke-width="5"/>
+    <path d="M970 106 V166" stroke="#735b30" stroke-width="5"/>
+    <text x="162" y="254" text-anchor="middle" fill="#efdae1" font-size="24" font-family="Arial, PingFang SC, sans-serif">黄铜帽</text>
+    <text x="326" y="288" text-anchor="middle" fill="#efdae1" font-size="24" font-family="Arial, PingFang SC, sans-serif">碳纤维环</text>
+    <text x="636" y="254" text-anchor="middle" fill="#efdae1" font-size="24" font-family="Arial, PingFang SC, sans-serif">304 钢丝编织网 / 黄铜内核</text>
+  </g>
+  <g transform="translate(1210 318)" font-family="Arial, PingFang SC, sans-serif">
+    <rect width="300" height="376" rx="26" fill="#fff" fill-opacity=".09" stroke="#deb7c4" stroke-width="3"/>
+    <text x="28" y="58" fill="#fff" font-size="29" font-weight="800">钢笔规格</text>
+    <text x="28" y="110" fill="#f0dce2" font-size="24">JoWo #6 钢尖</text>
+    <text x="28" y="152" fill="#f0dce2" font-size="23">EF / F / M / B</text>
+    <text x="28" y="192" fill="#f0dce2" font-size="23">1.1 Stub / Flex</text>
+    <text x="28" y="246" fill="#f0dce2" font-size="23">国际墨囊 / 转换器</text>
+    <path d="M28 280 H272" stroke="#d39aac" stroke-width="3"/>
+    <text x="28" y="326" fill="#f6c6a7" font-size="22">Roller / Ballpoint</text>
+    <text x="28" y="356" fill="#f6c6a7" font-size="21">另属书写系统</text>
+  </g>
+  <rect x="82" y="786" width="620" height="72" rx="22" fill="#f4edf0"/>
+  <text x="392" y="832" text-anchor="middle" fill="#2b1d23" font-size="26" font-family="Arial, PingFang SC, sans-serif" font-weight="800">本站原创结构示意 · 非产品照片</text>
+  <text x="1512" y="832" text-anchor="end" fill="#e8d5dc" font-size="23" font-family="Arial, PingFang SC, sans-serif">不复刻真实编织纹理或比例</text>
+</svg>

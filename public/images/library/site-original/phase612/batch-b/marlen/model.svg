@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Marlen M20 型号事实示意图</title>
+  <desc id="desc">说明 M20 商品平台同时有钢笔和 roller，本页只覆盖钢尖 F M B 的墨囊转换器钢笔，并提示官网标题冲突。</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#12352d"/><stop offset="1" stop-color="#47624e"/></linearGradient></defs>
+  <rect width="1600" height="900" rx="44" fill="url(#bg)"/>
+  <text x="88" y="106" fill="#b8dfc5" font-size="29" font-family="Arial, PingFang SC, sans-serif" font-weight="700">书写系统边界</text>
+  <text x="88" y="178" fill="#fff" font-size="70" font-family="Georgia, PingFang SC, serif" font-weight="700">Marlen M20</text>
+  <text x="90" y="230" fill="#d7e9db" font-size="28" font-family="Arial, PingFang SC, sans-serif">同一商品路径有 Fountain Pen 与 Roller；两者不能互相继承规格</text>
+  <g transform="translate(85 302)">
+    <rect x="0" y="62" width="770" height="150" rx="75" fill="#eceadd"/>
+    <rect x="138" y="62" width="44" height="150" fill="#b33b38"/>
+    <path d="M770 83 L968 137 L770 191 Z" fill="#f7f4e8"/>
+    <path d="M914 120 L1008 137 L914 154 Z" fill="#d2a647"/>
+    <text x="330" y="151" fill="#173a31" font-size="32" font-family="Arial, PingFang SC, sans-serif" font-weight="800">FOUNTAIN PEN</text>
+    <line x1="1060" y1="32" x2="1060" y2="242" stroke="#b8dfc5" stroke-width="4" stroke-dasharray="14 14"/>
+    <rect x="1130" y="62" width="250" height="150" rx="75" fill="#2a4f44" stroke="#b8dfc5" stroke-width="4"/>
+    <text x="1255" y="151" text-anchor="middle" fill="#fff" font-size="30" font-family="Arial, PingFang SC, sans-serif" font-weight="800">ROLLER</text>
+  </g>
+  <g font-family="Arial, PingFang SC, sans-serif">
+    <rect x="92" y="604" width="370" height="104" rx="22" fill="#fff" opacity=".12"/>
+    <text x="120" y="647" fill="#b8dfc5" font-size="24" font-weight="700">本页确认</text><text x="120" y="688" fill="#fff" font-size="30" font-weight="800">钢尖 · F / M / B</text>
+    <rect x="490" y="604" width="392" height="104" rx="22" fill="#fff" opacity=".12"/>
+    <text x="518" y="647" fill="#b8dfc5" font-size="24" font-weight="700">供墨</text><text x="518" y="688" fill="#fff" font-size="30" font-weight="800">墨囊 / 转换器</text>
+    <rect x="910" y="604" width="598" height="104" rx="22" fill="#8a3d36"/>
+    <text x="938" y="647" fill="#f7d2c8" font-size="24" font-weight="700">购买提醒</text><text x="938" y="688" fill="#fff" font-size="30" font-weight="800">官网标题冲突，按订单与实物核对</text>
+  </g>
+  <text x="92" y="770" fill="#fff" font-size="27" font-family="Arial, PingFang SC, sans-serif">不要把 roller 拍卖尺寸、Hippocrates 文案或 18K 选项覆盖到所有 M20 钢笔。</text>
+  <rect x="92" y="808" width="520" height="58" rx="29" fill="#d8ba5d"/>
+  <text x="352" y="846" text-anchor="middle" fill="#12352d" font-size="26" font-family="Arial, PingFang SC, sans-serif" font-weight="800">本站原创结构示意 · 非产品照片</text>
+</svg>

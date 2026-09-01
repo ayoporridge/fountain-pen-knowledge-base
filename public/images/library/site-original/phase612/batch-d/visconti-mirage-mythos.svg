@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Visconti Mirage Mythos 钢笔型号事实卡</title>
+  <desc id="desc">通用钢笔轮廓与中文规格卡，说明 Mirage Mythos 的钢尖、供墨、磁吸帽和系列区分；不是产品照片。</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#f4efff"/><stop offset="1" stop-color="#e0e7ff"/></linearGradient>
+    <linearGradient id="pen" x2="1"><stop stop-color="#5b21b6"/><stop offset="1" stop-color="#c084fc"/></linearGradient>
+    <style>.s{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC",sans-serif}.h{font-size:52px;font-weight:760;fill:#2e1065}.k{font-size:27px;fill:#6d28d9}.v{font-size:36px;font-weight:700;fill:#2e1065}.n{font-size:23px;fill:#5b4b75}.o{stroke:#2e1065;stroke-width:8;stroke-linejoin:round}</style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/><rect x="68" y="58" width="1464" height="784" rx="34" fill="#fffdfd" stroke="#c4b5fd" stroke-width="3"/>
+  <text x="125" y="142" class="s h">VISCONTI MIRAGE MYTHOS</text><text x="125" y="188" class="s k">神话主题常规系列 · 型号事实卡</text>
+  <g transform="translate(125 242)"><rect width="1040" height="182" rx="88" fill="url(#pen)" class="o"/><path d="M1040 0 L1195 91 L1040 182 Z" fill="#d6b25e" class="o"/><path d="M1195 91 l54 -21 l-31 35 l31 28 z" fill="#2e1065"/><rect x="70" y="43" width="570" height="96" rx="45" fill="#ede9fe" opacity=".64"/><path d="M720 23 v136" stroke="#f5d98a" stroke-width="13"/><text x="205" y="108" class="s v">通用钢笔轮廓</text></g>
+  <rect x="125" y="500" width="390" height="168" rx="24" fill="#ede9fe"/><text x="163" y="550" class="s k">笔尖</text><text x="163" y="607" class="s v">大号钢尖 F / M / B</text><text x="163" y="642" class="s n">镀色随具体颜色变化</text>
+  <rect x="550" y="500" width="390" height="168" rx="24" fill="#e0e7ff"/><text x="588" y="550" class="s k">结构</text><text x="588" y="607" class="s v">磁吸帽 · 金属握段</text><text x="588" y="642" class="s n">墨囊 / converter</text>
+  <rect x="975" y="500" width="430" height="168" rx="24" fill="#fef3c7"/><text x="1013" y="550" class="s k">系列关系</text><text x="1013" y="607" class="s v">不是 Mirage 普通换色</text><text x="1013" y="642" class="s n">七个神祇名为内部颜色</text>
+  <rect x="125" y="718" width="1280" height="58" rx="14" fill="#2e1065"/><text x="165" y="756" class="s" font-size="25" fill="#fff">Zeus 样本约 139.3 mm 收帽、32 g；数字不自动覆盖其他颜色</text>
+  <text x="1405" y="810" text-anchor="end" class="s n">本站原创事实示意 · 非产品照片 · 不按真实外形与比例</text>
+</svg>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Zebra Fountain Pen 型号事实示意图</title>
+  <desc id="desc">说明 Zebra Fountain Pen 是 0.6 毫米不锈钢尖固定墨水钢笔，并用包装盒示意 48307 只是七色套装号。</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#111"/><stop offset="1" stop-color="#3d3d3d"/></linearGradient></defs>
+  <rect width="1600" height="900" rx="44" fill="url(#bg)"/>
+  <text x="88" y="106" fill="#ddd" font-size="29" font-family="Arial, PingFang SC, sans-serif" font-weight="700">预装固定墨水钢笔 · 包装边界</text>
+  <text x="88" y="178" fill="#fff" font-size="70" font-family="Arial, PingFang SC, sans-serif" font-weight="900">Zebra Fountain Pen</text>
+  <text x="90" y="230" fill="#ddd" font-size="28" font-family="Arial, PingFang SC, sans-serif">开盖即写，墨尽更换整支；没有可替换墨囊或转换器</text>
+  <g transform="translate(86 304)">
+    <rect x="0" y="72" width="850" height="132" rx="66" fill="#f0f0f0"/>
+    <path d="M850 90 L1050 138 L850 186 Z" fill="#fff"/>
+    <path d="M992 121 L1090 138 L992 155 Z" fill="#565656"/>
+    <path d="M58 84 l50 108 M122 84 l50 108 M186 84 l50 108" stroke="#222" stroke-width="23"/>
+    <text x="430" y="154" text-anchor="middle" fill="#222" font-size="32" font-family="Arial, PingFang SC, sans-serif" font-weight="800">0.6 mm · FINE</text>
+    <g transform="translate(1160 22)">
+      <rect width="250" height="232" rx="24" fill="#fff"/>
+      <text x="125" y="60" text-anchor="middle" fill="#222" font-size="28" font-family="Arial, PingFang SC, sans-serif" font-weight="900">48307</text>
+      <text x="125" y="102" text-anchor="middle" fill="#555" font-size="23" font-family="Arial, PingFang SC, sans-serif">七色包装</text>
+      <g transform="translate(28 135)"><circle cx="0" cy="0" r="13" fill="#111"/><circle cx="32" cy="0" r="13" fill="#2860ae"/><circle cx="64" cy="0" r="13" fill="#c43c45"/><circle cx="96" cy="0" r="13" fill="#3d9050"/><circle cx="128" cy="0" r="13" fill="#258f96"/><circle cx="160" cy="0" r="13" fill="#75459e"/><circle cx="192" cy="0" r="13" fill="#dc6f99"/></g>
+      <text x="125" y="202" text-anchor="middle" fill="#9e2d35" font-size="25" font-family="Arial, PingFang SC, sans-serif" font-weight="800">不是型号</text>
+    </g>
+  </g>
+  <g font-family="Arial, PingFang SC, sans-serif">
+    <rect x="92" y="604" width="370" height="104" rx="22" fill="#fff" opacity=".11"/>
+    <text x="120" y="647" fill="#ddd" font-size="24" font-weight="700">笔尖</text><text x="120" y="688" fill="#fff" font-size="30" font-weight="800">不锈钢 · 0.6 mm Fine</text>
+    <rect x="490" y="604" width="420" height="104" rx="22" fill="#fff" opacity=".11"/>
+    <text x="518" y="647" fill="#ddd" font-size="24" font-weight="700">墨色</text><text x="518" y="688" fill="#fff" font-size="30" font-weight="800">黑 蓝 红 绿 青绿 紫 粉</text>
+    <rect x="938" y="604" width="570" height="104" rx="22" fill="#9e2d35"/>
+    <text x="966" y="647" fill="#f3cbce" font-size="24" font-weight="700">不要这样做</text><text x="966" y="688" fill="#fff" font-size="30" font-weight="800">拔尾塞、钻孔或强行灌墨</text>
+  </g>
+  <text x="92" y="770" fill="#fff" font-size="27" font-family="Arial, PingFang SC, sans-serif">48311、48312、48304、48307、48310 都是同一支笔的不同包装。</text>
+  <rect x="92" y="808" width="520" height="58" rx="29" fill="#f0d15f"/>
+  <text x="352" y="846" text-anchor="middle" fill="#111" font-size="26" font-family="Arial, PingFang SC, sans-serif" font-weight="800">本站原创结构示意 · 非产品照片</text>
+</svg>

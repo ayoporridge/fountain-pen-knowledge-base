@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Graf von Faber-Castell Guilloche 钢笔系列事实卡</title>
+  <desc id="desc">原创事实示意图，以通用钢笔雕纹笔杆与金尖图标说明 Guilloche Black F 146541 的 18K 金尖、尺寸和系列边界；不是产品照片或纹理复刻。</desc>
+  <defs><pattern id="hatch" width="28" height="28" patternUnits="userSpaceOnUse"><path d="M-7 7 L7 -7 M0 28 L28 0 M21 35 L35 21" stroke="#a3a3a3" stroke-width="5"/></pattern><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#f5f5f4"/><stop offset="1" stop-color="#e7e5e4"/></linearGradient><style>.s{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC",sans-serif}.h{font-size:48px;font-weight:750;fill:#292524}.k{font-size:27px;fill:#625b56}.v{font-size:36px;font-weight:700;fill:#292524}.n{font-size:23px;fill:#6b625d}.ol{stroke:#292524;stroke-width:8;stroke-linejoin:round}</style></defs>
+  <rect width="1600" height="900" fill="url(#bg)"/><rect x="70" y="62" width="1460" height="776" rx="34" fill="#fff" stroke="#cfc8c2" stroke-width="3"/>
+  <text x="125" y="142" class="s h">GRAF VON FABER-CASTELL GUILLOCHE</text><text x="125" y="188" class="s k">Black F · article 146541 · 系列事实卡</text>
+  <g transform="translate(125 248)"><rect width="900" height="184" rx="86" fill="url(#hatch)" class="ol"/><rect x="0" y="0" width="900" height="184" rx="86" fill="#44403c" opacity=".28"/><path d="M900 0 L1070 92 L900 184 Z" fill="#d4af37" class="ol"/><path d="M1070 92 l58 -21 l-34 36 l34 31 z" fill="#292524"/><path d="M575 25 v134" stroke="#fafafa" stroke-width="5"/><text x="280" y="105" text-anchor="middle" class="s" font-size="34" font-weight="700" fill="#fff">雕纹 precious resin</text></g>
+  <g transform="translate(1230 230)"><path d="M90 0 L176 160 L90 200 L4 160 Z" fill="#d4af37" class="ol"/><circle cx="90" cy="121" r="18" fill="none" stroke="#292524" stroke-width="7"/><text x="90" y="244" text-anchor="middle" class="s v">18K 金尖</text></g>
+  <rect x="125" y="512" width="390" height="158" rx="25" fill="#f5f5f4"/><text x="165" y="560" class="s k">尖幅</text><text x="165" y="614" class="s v">EF ／ F ／ M ／ B</text><text x="165" y="648" class="s n">银色来自镀铑，不是钢尖</text>
+  <rect x="550" y="512" width="390" height="158" rx="25" fill="#fef3c7"/><text x="590" y="560" class="s k">#146541</text><text x="590" y="614" class="s v">131 × 12 mm · 29 g</text><text x="590" y="648" class="s n">Black F exact anchor</text>
+  <rect x="975" y="512" width="430" height="158" rx="25" fill="#e7e5e4"/><text x="1015" y="560" class="s k">供墨</text><text x="1015" y="614" class="s v">墨囊／converter</text><text x="1015" y="648" class="s n">converter 随附</text>
+  <rect x="125" y="710" width="1280" height="65" rx="16" fill="#292524"/><text x="165" y="751" class="s" font-size="25" fill="#fff">品牌归属：Graf von Faber-Castell；其他纹样、颜色与 Black Edition 分开记录</text>
+  <text x="1405" y="809" text-anchor="end" class="s n">本站原创事实示意 · 非产品照片 · 不复刻真实雕纹</text>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Jacques Herbin Transparent Pump-action 22000T 事实示意图</title>
+  <desc id="desc">透明钢笔轮廓展示可拆 pump、中号钢尖和通用墨囊边界。</desc>
+  <defs><linearGradient id="body" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#d9f1f2" stop-opacity=".45"/><stop offset=".5" stop-color="#ffffff" stop-opacity=".75"/><stop offset="1" stop-color="#b8dadd" stop-opacity=".45"/></linearGradient></defs>
+  <rect width="1600" height="900" fill="#edf5f3"/>
+  <text x="90" y="105" font-family="Arial,'PingFang SC',sans-serif" font-size="50" font-weight="700" fill="#1f4447">Transparent Pump-action 22000T</text>
+  <text x="92" y="153" font-family="Arial,'PingFang SC',sans-serif" font-size="24" fill="#4c6b6d">可观察墨路的中号钢尖，不是笔杆一体活塞</text>
+  <rect x="105" y="260" width="925" height="165" rx="80" fill="url(#body)" stroke="#568488" stroke-width="10"/>
+  <rect x="175" y="285" width="390" height="115" rx="48" fill="#7c2446" opacity=".72"/>
+  <path d="M1030 260h180l230 82-230 83h-180z" fill="#e2e6df" stroke="#568488" stroke-width="10"/>
+  <path d="M1210 260l230 82-230 83 58-83z" fill="#c8a66a"/>
+  <line x1="1100" y1="260" x2="1100" y2="425" stroke="#568488" stroke-width="7"/>
+  <text x="205" y="345" font-family="Arial,'PingFang SC',sans-serif" font-size="25" font-weight="700" fill="#fff">可拆式 pump 储墨器</text>
+  <path d="M260 520v95m0 0h280" fill="none" stroke="#7c2446" stroke-width="6"/>
+  <text x="580" y="604" font-family="Arial,'PingFang SC',sans-serif" font-size="27" fill="#1f4447">从墨瓶吸墨后，像墨囊一样装入</text>
+  <circle cx="185" cy="700" r="12" fill="#7c2446"/><text x="215" y="710" font-family="Arial,'PingFang SC',sans-serif" font-size="28" fill="#244e51">官方代码 22000T</text>
+  <circle cx="620" cy="700" r="12" fill="#7c2446"/><text x="650" y="710" font-family="Arial,'PingFang SC',sans-serif" font-size="28" fill="#244e51">中号钢尖</text>
+  <circle cx="965" cy="700" r="12" fill="#7c2446"/><text x="995" y="710" font-family="Arial,'PingFang SC',sans-serif" font-size="28" fill="#244e51">兼容通用规格墨囊</text>
+  <text x="1160" y="535" font-family="Arial,'PingFang SC',sans-serif" font-size="24" fill="#4c6b6d">22500T 是走珠笔</text>
+  <text x="1160" y="575" font-family="Arial,'PingFang SC',sans-serif" font-size="24" fill="#4c6b6d">22200T 是替换 pump</text>
+  <rect x="72" y="810" width="1456" height="55" rx="16" fill="#1f4447"/>
+  <text x="800" y="847" text-anchor="middle" font-family="Arial,'PingFang SC',sans-serif" font-size="20" fill="#fff">本站原创事实示意图；非产品照片，不表示真实颜色、纹理、比例、商标或包装。</text>
+</svg>

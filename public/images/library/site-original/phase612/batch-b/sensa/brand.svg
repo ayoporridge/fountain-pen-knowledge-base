@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sensa 钢笔品牌事实示意图</title>
+  <desc id="desc">说明 Sensa 钢笔品牌以 1990 年代 Plasmium 缓冲握位建立舒适书写定位，品牌包含多种书写系统。</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#161d38"/><stop offset="1" stop-color="#454272"/></linearGradient></defs>
+  <rect width="1600" height="900" rx="44" fill="url(#bg)"/>
+  <text x="92" y="112" fill="#bbb8ef" font-size="30" font-family="Arial, PingFang SC, sans-serif" font-weight="700">品牌事实卡</text>
+  <text x="92" y="190" fill="#fff" font-size="78" font-family="Arial, PingFang SC, sans-serif" font-weight="800">Sensa</text>
+  <text x="94" y="244" fill="#d7d5f5" font-size="30" font-family="Arial, PingFang SC, sans-serif">1990 年代起，以 Plasmium 缓冲握位为识别点</text>
+  <g transform="translate(90 330)">
+    <path d="M70 0 H800 L870 86 L800 172 H70 L0 86 Z" fill="#c6c9dc"/>
+    <rect x="182" y="18" width="220" height="136" rx="68" fill="#7774a9"/>
+    <path d="M870 26 L1054 86 L870 146 Z" fill="#eef0fa"/>
+    <path d="M1000 69 L1090 86 L1000 103 Z" fill="#cab35c"/>
+    <text x="292" y="98" text-anchor="middle" fill="#fff" font-size="28" font-family="Arial, PingFang SC, sans-serif" font-weight="700">缓冲握位示意</text>
+  </g>
+  <g font-family="Arial, PingFang SC, sans-serif">
+    <rect x="1030" y="306" width="470" height="82" rx="20" fill="#fff" opacity=".12"/>
+    <text x="1060" y="358" fill="#fff" font-size="30" font-weight="700">Plasmium：柔软缓冲握位</text>
+    <rect x="1030" y="414" width="470" height="82" rx="20" fill="#fff" opacity=".12"/>
+    <text x="1060" y="466" fill="#fff" font-size="30" font-weight="700">产品含钢笔、圆珠笔等系统</text>
+    <rect x="1030" y="522" width="470" height="82" rx="20" fill="#fff" opacity=".12"/>
+    <text x="1060" y="574" fill="#fff" font-size="30" font-weight="700">代表系列：Sensagraph</text>
+  </g>
+  <line x1="92" y1="694" x2="1508" y2="694" stroke="#bbb8ef" stroke-width="2" opacity=".6"/>
+  <text x="92" y="754" fill="#fff" font-size="29" font-family="Arial, PingFang SC, sans-serif">读图重点：舒适是品牌方向，实际手感仍要按手型试握。</text>
+  <rect x="92" y="797" width="520" height="58" rx="29" fill="#d3bd63"/>
+  <text x="352" y="835" text-anchor="middle" fill="#161d38" font-size="26" font-family="Arial, PingFang SC, sans-serif" font-weight="800">本站原创事实示意 · 非产品照片</text>
+</svg>

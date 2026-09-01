@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Ferris Wheel Press The Marquise 钢笔型号事实卡</title>
+  <desc id="desc">通用切面铝杆钢笔轮廓与中文规格卡，说明 Marquise 的尺寸、尖幅、转换器和可换尖组；不是产品照片。</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#eff6ff"/><stop offset="1" stop-color="#f3e8ff"/></linearGradient>
+    <linearGradient id="pen" x2="1"><stop stop-color="#1d4ed8"/><stop offset=".52" stop-color="#60a5fa"/><stop offset="1" stop-color="#7e22ce"/></linearGradient>
+    <style>.s{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC",sans-serif}.h{font-size:49px;font-weight:760;fill:#172554}.k{font-size:27px;fill:#4338ca}.v{font-size:35px;font-weight:700;fill:#172554}.n{font-size:23px;fill:#53617b}.o{stroke:#172554;stroke-width:8;stroke-linejoin:round}</style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/><rect x="68" y="58" width="1464" height="784" rx="34" fill="#fdfdff" stroke="#c4b5fd" stroke-width="3"/>
+  <text x="125" y="142" class="s h">FERRIS WHEEL PRESS THE MARQUISE</text><text x="125" y="188" class="s k">CNC 切面铝制钢笔 · After Hours 规格锚点</text>
+  <g transform="translate(125 245)"><path d="M35 15 H1040 L1200 87 L1040 159 H35 L0 87 Z" fill="url(#pen)" class="o"/><path d="M1040 15 L1200 87 L1040 159 Z" fill="#e5bd62" class="o"/><path d="M1200 87 l53 -20 l-30 34 l30 27 z" fill="#172554"/><path d="M95 34 H690 L735 87 L690 140 H95 L60 87 Z" fill="#dbeafe" opacity=".52"/><path d="M760 25 v124" stroke="#f3d17b" stroke-width="11"/><text x="220" y="104" class="s v">切面铝杆通用示意</text></g>
+  <rect x="125" y="500" width="390" height="168" rx="24" fill="#dbeafe"/><text x="163" y="550" class="s k">笔身</text><text x="163" y="607" class="s v">CNC 铝材 · 141 mm</text><text x="163" y="642" class="s n">装 converter 约 31.6 g</text>
+  <rect x="550" y="500" width="390" height="168" rx="24" fill="#e0e7ff"/><text x="588" y="550" class="s k">笔尖</text><text x="588" y="607" class="s v">0.7 F / 1.0 M 钢尖</text><text x="588" y="642" class="s n">完整 JoWo housing 可换</text>
+  <rect x="975" y="500" width="430" height="168" rx="24" fill="#f3e8ff"/><text x="1013" y="550" class="s k">供墨与闭合</text><text x="1013" y="607" class="s v">国际 converter</text><text x="1013" y="642" class="s n">螺纹帽带 air seal</text>
+  <rect x="125" y="718" width="1280" height="58" rx="14" fill="#172554"/><text x="165" y="756" class="s" font-size="25" fill="#fff">After Hours 与授权、文学、颜色主题均为 Marquise 内部 variant</text>
+  <text x="1405" y="810" text-anchor="end" class="s n">本站原创事实示意 · 非产品照片 · 不按真实外形与比例</text>
+</svg>

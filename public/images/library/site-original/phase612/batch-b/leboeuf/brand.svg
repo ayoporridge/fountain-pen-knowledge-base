@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">LeBoeuf 钢笔品牌事实示意图</title>
+  <desc id="desc">说明 LeBoeuf 钢笔品牌的 1919 年历史与百年后当代复兴的关系，历史原件和当前产品不可混为一体。</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2c1520"/><stop offset="1" stop-color="#733c35"/></linearGradient></defs>
+  <rect width="1600" height="900" rx="44" fill="url(#bg)"/>
+  <text x="92" y="112" fill="#e6b48f" font-size="30" font-family="Arial, PingFang SC, sans-serif" font-weight="700">品牌历史边界</text>
+  <text x="92" y="190" fill="#fff7ed" font-size="78" font-family="Georgia, PingFang SC, serif" font-weight="700">LeBoeuf</text>
+  <text x="94" y="244" fill="#f2d5c2" font-size="30" font-family="Arial, PingFang SC, sans-serif">1919 年历史品牌 · 百年后的当代复兴</text>
+  <g transform="translate(90 318)">
+    <rect x="0" y="22" width="820" height="152" rx="76" fill="#b85a4b" stroke="#ecc8a2" stroke-width="5"/>
+    <path d="M820 40 L1015 98 L820 156 Z" fill="#f4dfc6"/>
+    <path d="M959 82 L1050 98 L959 114 Z" fill="#d7a64f"/>
+    <circle cx="118" cy="98" r="52" fill="#3b1c25" stroke="#ecc8a2" stroke-width="5"/>
+    <text x="118" y="110" text-anchor="middle" fill="#ecc8a2" font-size="30" font-family="Georgia, serif" font-weight="700">1919</text>
+  </g>
+  <g font-family="Arial, PingFang SC, sans-serif">
+    <rect x="1030" y="308" width="470" height="82" rx="20" fill="#fff7ed" opacity=".12"/>
+    <text x="1060" y="360" fill="#fff7ed" font-size="30" font-weight="700">历史：美国早期制笔与 celluloid</text>
+    <rect x="1030" y="416" width="470" height="82" rx="20" fill="#fff7ed" opacity=".12"/>
+    <text x="1060" y="468" fill="#fff7ed" font-size="30" font-weight="700">当代：复兴品牌与现代产品</text>
+    <rect x="1030" y="524" width="470" height="82" rx="20" fill="#fff7ed" opacity=".12"/>
+    <text x="1060" y="576" fill="#fff7ed" font-size="30" font-weight="700">代表系列：Pilgrim Heritage</text>
+  </g>
+  <line x1="92" y1="694" x2="1508" y2="694" stroke="#e6b48f" stroke-width="2" opacity=".6"/>
+  <text x="92" y="754" fill="#fff7ed" font-size="29" font-family="Arial, PingFang SC, sans-serif">读图重点：当代 acrylic 钢笔不是 1930 年代库存古董。</text>
+  <rect x="92" y="797" width="520" height="58" rx="29" fill="#e6b48f"/>
+  <text x="352" y="835" text-anchor="middle" fill="#2c1520" font-size="26" font-family="Arial, PingFang SC, sans-serif" font-weight="800">本站原创事实示意 · 非产品照片</text>
+</svg>

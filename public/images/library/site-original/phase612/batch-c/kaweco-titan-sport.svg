@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Kaweco TITAN Sport 型号事实卡</title>
+  <desc id="desc">原创事实示意图，以通用口袋钢笔、钛元素符号和尺寸对照说明 TITAN Sport 的材质、26 克证据、尖幅与 Sport 家族边界；不是产品照片。</desc>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#f0f9ff"/><stop offset="1" stop-color="#dbeafe"/></linearGradient><linearGradient id="ti" x2="1"><stop stop-color="#475569"/><stop offset=".5" stop-color="#94a3b8"/><stop offset="1" stop-color="#334155"/></linearGradient><style>.s{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC",sans-serif}.h{font-size:52px;font-weight:750;fill:#172033}.k{font-size:27px;fill:#536175}.v{font-size:36px;font-weight:700;fill:#172033}.n{font-size:23px;fill:#637187}.ol{stroke:#172033;stroke-width:8;stroke-linejoin:round}</style></defs>
+  <rect width="1600" height="900" fill="url(#bg)"/><rect x="70" y="62" width="1460" height="776" rx="34" fill="#fbfdff" stroke="#b8c8dc" stroke-width="3"/>
+  <text x="125" y="142" class="s h">KAWECO TITAN SPORT</text><text x="125" y="188" class="s k">钛合金口袋钢笔 · 型号事实卡</text>
+  <g transform="translate(125 256)"><path d="M0 42 L85 0 H750 L835 42 L750 84 H85 Z" fill="url(#ti)" class="ol"/><path d="M835 42 L975 42 L1055 84 L975 126 L835 126 Z" fill="#64748b" class="ol"/><path d="M1055 84 L1165 84 L1110 120 Z" fill="#d6b45f" class="ol"/><text x="390" y="56" text-anchor="middle" class="s" font-size="32" font-weight="700" fill="#fff">收帽约 105 mm</text><path d="M0 190 h1165" stroke="#2563eb" stroke-width="6" stroke-dasharray="18 14"/><path d="M0 170 v40 M1165 170 v40" stroke="#2563eb" stroke-width="6"/><text x="582" y="235" text-anchor="middle" class="s v">书写长度约 127 mm（概念对照，不按比例）</text></g>
+  <g transform="translate(1285 230)"><circle cx="82" cy="82" r="77" fill="#e2e8f0" class="ol"/><text x="82" y="74" text-anchor="middle" class="s h">Ti</text><text x="82" y="113" text-anchor="middle" class="s n">titanium</text></g>
+  <rect x="125" y="515" width="390" height="157" rx="25" fill="#e2e8f0"/><text x="165" y="562" class="s k">材料与重量</text><text x="165" y="616" class="s v">钛合金 · 约 26 g</text><text x="165" y="650" class="s n">官网属性表另有 9 g 冲突</text>
+  <rect x="550" y="515" width="390" height="157" rx="25" fill="#dbeafe"/><text x="590" y="562" class="s k">笔尖</text><text x="590" y="616" class="s v">EF ／ F ／ M ／ B ／ BB</text><text x="590" y="650" class="s n">德国不锈钢尖</text>
+  <rect x="975" y="515" width="430" height="157" rx="25" fill="#fef3c7"/><text x="1015" y="562" class="s k">供墨</text><text x="1015" y="616" class="s v">短墨囊／mini converter</text><text x="1015" y="650" class="s n">不是 Piston Sport 的活塞</text>
+  <rect x="125" y="710" width="1280" height="65" rx="16" fill="#172033"/><text x="165" y="751" class="s" font-size="24" fill="#fff">边界：AL／Brass／Bronze／Steel／Piston Sport 是相邻系列，不是 TITAN 的颜色</text>
+  <text x="1405" y="809" text-anchor="end" class="s n">本站原创事实示意 · 非产品照片 · 不按真实外形与比例</text>
+</svg>

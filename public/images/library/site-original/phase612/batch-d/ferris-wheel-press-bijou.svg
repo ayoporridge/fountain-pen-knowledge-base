@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Ferris Wheel Press The Bijou 钢笔型号事实卡</title>
+  <desc id="desc">通用黄铜细杆钢笔轮廓与中文规格卡，说明 Bijou 的钢尖、转换器口径和不可套帽书写要求；不是产品照片。</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#fffbeb"/><stop offset="1" stop-color="#fce7f3"/></linearGradient>
+    <linearGradient id="pen" x2="1"><stop stop-color="#9d174d"/><stop offset="1" stop-color="#f9a8d4"/></linearGradient>
+    <style>.s{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC",sans-serif}.h{font-size:50px;font-weight:760;fill:#831843}.k{font-size:27px;fill:#be185d}.v{font-size:35px;font-weight:700;fill:#831843}.n{font-size:23px;fill:#755062}.o{stroke:#831843;stroke-width:8;stroke-linejoin:round}</style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/><rect x="68" y="58" width="1464" height="784" rx="34" fill="#fffdfb" stroke="#f9a8d4" stroke-width="3"/>
+  <text x="125" y="142" class="s h">FERRIS WHEEL PRESS THE BIJOU</text><text x="125" y="188" class="s k">黄铜细杆钢笔 · Forget Me Not 规格锚点</text>
+  <g transform="translate(125 245)"><rect width="1050" height="174" rx="82" fill="url(#pen)" class="o"/><path d="M1050 0 L1205 87 L1050 174 Z" fill="#e5bd62" class="o"/><path d="M1205 87 l52 -19 l-29 33 l29 27 z" fill="#831843"/><rect x="70" y="41" width="600" height="92" rx="43" fill="#fce7f3" opacity=".62"/><path d="M750 20 v134" stroke="#f2cf79" stroke-width="11"/><text x="200" y="102" class="s v">全黄铜通用轮廓</text></g>
+  <rect x="125" y="500" width="390" height="168" rx="24" fill="#fce7f3"/><text x="163" y="550" class="s k">笔尖</text><text x="163" y="607" class="s v">#5 钢尖 F / M</text><text x="163" y="642" class="s n">双色外观不等于金尖</text>
+  <rect x="550" y="500" width="390" height="168" rx="24" fill="#fef3c7"/><text x="588" y="550" class="s k">供墨</text><text x="588" y="607" class="s v">2.6 mm · 0.75 ml</text><text x="588" y="642" class="s n">不可假定任意国际 converter 兼容</text>
+  <rect x="975" y="500" width="430" height="168" rx="24" fill="#fee2e2"/><text x="1013" y="550" class="s k">官方护理</text><text x="1013" y="607" class="s v">不要把笔帽套在杆尾</text><text x="1013" y="642" class="s n">黄铜螺纹会刮伤漆面</text>
+  <rect x="125" y="718" width="1280" height="58" rx="14" fill="#831843"/><text x="165" y="756" class="s" font-size="25" fill="#fff">Forget Me Not：143.7 mm · 22.7 g；其他主题色按 exact 页面</text>
+  <text x="1405" y="810" text-anchor="end" class="s n">本站原创事实示意 · 非产品照片 · 不按真实外形与比例</text>
+</svg>

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Wearingeul 品牌事实示意图</title>
+  <desc id="desc">一本打开的书连接墨水、香气与钢笔轮廓，说明 Wearingeul 的文学设计方法。</desc>
+  <defs><linearGradient id="violet" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#6f4778"/><stop offset="1" stop-color="#b06d92"/></linearGradient></defs>
+  <rect width="1600" height="900" fill="#f4edf3"/>
+  <text x="90" y="108" font-family="Arial,'PingFang SC',sans-serif" font-size="62" font-weight="700" fill="#3b2940">Wearingeul</text>
+  <text x="94" y="158" font-family="Arial,'PingFang SC',sans-serif" font-size="25" fill="#745b79">Different Reading：把文学的氛围转译为颜色、气味与书写物</text>
+  <path d="M115 270q210-70 420 15v350q-210-85-420-15z" fill="#fff" stroke="#765878" stroke-width="9"/>
+  <path d="M535 285q210-85 420-15v350q-210-70-420 15z" fill="#fff" stroke="#765878" stroke-width="9"/>
+  <path d="M535 285v350" stroke="#a890aa" stroke-width="7"/>
+  <path d="M175 360h280M175 425h230M600 360h280M600 425h245" stroke="#d4c3d4" stroke-width="10"/>
+  <rect x="1075" y="245" width="150" height="205" rx="24" fill="url(#violet)"/><path d="M1102 245v-70h96v70" fill="none" stroke="#5d4162" stroke-width="15"/>
+  <path d="M1025 540h310l125 52-125 52h-310z" fill="#a36b91" stroke="#59405f" stroke-width="8"/>
+  <path d="M1335 540l125 52-125 52 36-52z" fill="#d3bd92"/>
+  <text x="1010" y="495" font-family="Arial,'PingFang SC',sans-serif" font-size="24" fill="#3b2940">文学墨水之外，也有完整钢笔</text>
+  <text x="135" y="720" font-family="Arial,'PingFang SC',sans-serif" font-size="26" fill="#3b2940">2016 品牌起点</text>
+  <text x="535" y="720" font-family="Arial,'PingFang SC',sans-serif" font-size="26" fill="#3b2940">2018 Book Perfume</text>
+  <text x="970" y="720" font-family="Arial,'PingFang SC',sans-serif" font-size="26" fill="#3b2940">2019 文学墨水项目</text>
+  <rect x="72" y="810" width="1456" height="55" rx="16" fill="#3b2940"/>
+  <text x="800" y="847" text-anchor="middle" font-family="Arial,'PingFang SC',sans-serif" font-size="20" fill="#fff">本站原创事实示意图；非产品照片，不表示真实颜色、纹理、比例、商标或包装。</text>
+</svg>

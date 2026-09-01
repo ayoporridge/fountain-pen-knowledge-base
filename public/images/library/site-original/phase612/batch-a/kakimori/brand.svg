@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Kakimori 品牌事实示意图</title>
+  <desc id="desc">以笔记本、墨瓶和两支钢笔轮廓说明 Kakimori 的藏前店铺与原创产品。</desc>
+  <rect width="1600" height="900" fill="#f0ede4"/>
+  <text x="92" y="108" font-family="Arial,'PingFang SC',sans-serif" font-size="60" font-weight="700" fill="#25352f">Kakimori</text>
+  <text x="94" y="158" font-family="Arial,'PingFang SC',sans-serif" font-size="25" fill="#52655d">东京藏前 · 定制笔记本 · 调色墨水 · 原创书写工具</text>
+  <rect x="100" y="245" width="360" height="400" rx="22" fill="#fffaf0" stroke="#61766d" stroke-width="10"/>
+  <line x1="170" y1="245" x2="170" y2="645" stroke="#d89458" stroke-width="18"/>
+  <path d="M205 330h205M205 390h170M205 450h205M205 510h150" stroke="#bdc7bd" stroke-width="10"/>
+  <rect x="535" y="335" width="155" height="215" rx="20" fill="#d3c5a5" stroke="#61766d" stroke-width="9"/>
+  <path d="M560 335v-75h105v75" fill="none" stroke="#61766d" stroke-width="15"/>
+  <path d="M805 285h495l120 52-120 52H805z" fill="#283331" stroke="#121b18" stroke-width="8"/>
+  <path d="M1300 285l120 52-120 52z" fill="#b9a777"/>
+  <path d="M805 500h495l120 52-120 52H805z" fill="#dfe7df" fill-opacity=".7" stroke="#61766d" stroke-width="8"/>
+  <path d="M1300 500l120 52-120 52z" fill="#b9a777"/>
+  <text x="820" y="260" font-family="Arial,'PingFang SC',sans-serif" font-size="25" fill="#25352f">Aluminium：细长磨砂铝杆</text>
+  <text x="820" y="475" font-family="Arial,'PingFang SC',sans-serif" font-size="25" fill="#25352f">Frost：半透明可换书写端</text>
+  <text x="105" y="725" font-family="Arial,'PingFang SC',sans-serif" font-size="28" fill="#25352f">2010 年在藏前开店</text>
+  <text x="560" y="725" font-family="Arial,'PingFang SC',sans-serif" font-size="28" fill="#25352f">2014 年 Inkstand</text>
+  <text x="1000" y="725" font-family="Arial,'PingFang SC',sans-serif" font-size="28" fill="#25352f">钢笔版本须与走珠／圆珠分开</text>
+  <rect x="72" y="810" width="1456" height="55" rx="16" fill="#25352f"/>
+  <text x="800" y="847" text-anchor="middle" font-family="Arial,'PingFang SC',sans-serif" font-size="20" fill="#fff">本站原创事实示意图；非产品照片，不表示真实颜色、纹理、比例、商标或包装。</text>
+</svg>

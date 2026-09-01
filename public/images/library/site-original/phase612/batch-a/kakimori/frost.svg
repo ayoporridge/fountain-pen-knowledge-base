@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Kakimori Frost 事实示意图</title>
+  <desc id="desc">半透明 Frost 钢笔轮廓，标示四头螺纹、可换笔尖、尺寸与制造分工。</desc>
+  <defs><linearGradient id="frost" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#b9d6cc" stop-opacity=".6"/><stop offset=".45" stop-color="#f8fbf8" stop-opacity=".8"/><stop offset="1" stop-color="#b4c9be" stop-opacity=".65"/></linearGradient></defs>
+  <rect width="1600" height="900" fill="#e9f0ea"/>
+  <text x="90" y="105" font-family="Arial,'PingFang SC',sans-serif" font-size="58" font-weight="700" fill="#284237">Kakimori Frost</text>
+  <text x="92" y="154" font-family="Arial,'PingFang SC',sans-serif" font-size="24" fill="#5b766a">2024 年推出的半透明快开帽书写工具</text>
+  <rect x="105" y="275" width="1000" height="185" rx="88" fill="url(#frost)" stroke="#6c8c7e" stroke-width="10"/>
+  <rect x="160" y="303" width="490" height="129" rx="60" fill="#627a93" opacity=".35"/>
+  <path d="M1105 275h150l235 92-235 93h-150z" fill="#e9ece6" stroke="#6c8c7e" stroke-width="10"/>
+  <path d="M1255 275l235 92-235 93 64-93z" fill="#bca66b"/>
+  <path d="M1030 275v185M1060 275v185M1090 275v185" stroke="#6c8c7e" stroke-width="5" opacity=".7"/>
+  <text x="810" y="245" font-family="Arial,'PingFang SC',sans-serif" font-size="23" fill="#284237">四头螺纹：少量旋转即可开帽</text>
+  <line x1="105" y1="525" x2="1490" y2="525" stroke="#799488" stroke-width="4"/>
+  <text x="800" y="575" text-anchor="middle" font-family="Arial,'PingFang SC',sans-serif" font-size="30" font-weight="700" fill="#284237">134 × Ø14 mm · 14 g</text>
+  <text x="120" y="660" font-family="Arial,'PingFang SC',sans-serif" font-size="27" fill="#284237">① Polycarbonate 半透明笔身</text>
+  <text x="120" y="710" font-family="Arial,'PingFang SC',sans-serif" font-size="27" fill="#284237">② F / M 德制不锈钢尖，可换组件</text>
+  <text x="820" y="660" font-family="Arial,'PingFang SC',sans-serif" font-size="27" fill="#284237">③ 原配转换器，不作 eyedropper 使用</text>
+  <text x="820" y="710" font-family="Arial,'PingFang SC',sans-serif" font-size="27" fill="#284237">④ 笔身日本制造，笔尖／转换器德国制造</text>
+  <rect x="72" y="810" width="1456" height="55" rx="16" fill="#284237"/>
+  <text x="800" y="847" text-anchor="middle" font-family="Arial,'PingFang SC',sans-serif" font-size="20" fill="#fff">本站原创事实示意图；非产品照片，不表示真实颜色、纹理、比例、商标或包装。</text>
+</svg>

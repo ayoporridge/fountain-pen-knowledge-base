@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Waldmann Tango 钢笔型号事实卡</title>
+  <desc id="desc">通用银色钢笔轮廓与中文规格卡，说明 Tango 的银制笔身、两类笔尖和 Imagination 版本；不是产品照片。</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#f8fafc"/><stop offset="1" stop-color="#dbeafe"/></linearGradient>
+    <linearGradient id="pen" x2="1"><stop stop-color="#64748b"/><stop offset=".48" stop-color="#e2e8f0"/><stop offset="1" stop-color="#94a3b8"/></linearGradient>
+    <pattern id="lines" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M-5 20 L20 -5 M5 25 L25 5" stroke="#475569" stroke-width="3" opacity=".45"/></pattern>
+    <style>.s{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC",sans-serif}.h{font-size:52px;font-weight:760;fill:#0f172a}.k{font-size:27px;fill:#475569}.v{font-size:36px;font-weight:700;fill:#0f172a}.n{font-size:23px;fill:#526071}.o{stroke:#1e293b;stroke-width:8;stroke-linejoin:round}</style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/><rect x="68" y="58" width="1464" height="784" rx="34" fill="#ffffff" stroke="#cbd5e1" stroke-width="3"/>
+  <text x="125" y="142" class="s h">WALDMANN TANGO</text><text x="125" y="188" class="s k">925 银雕纹钢笔 · 型号事实卡</text>
+  <g transform="translate(125 245)"><rect width="1030" height="176" rx="84" fill="url(#pen)" class="o"/><rect x="70" y="24" width="610" height="128" rx="56" fill="url(#lines)"/><path d="M1030 0 L1185 88 L1030 176 Z" fill="#e6c66a" class="o"/><path d="M1185 88 l54 -20 l-31 34 l31 27 z" fill="#1e293b"/><path d="M730 25 v126" stroke="#f8fafc" stroke-width="10"/><text x="210" y="104" class="s v">银制细杆通用示意</text></g>
+  <rect x="125" y="500" width="390" height="168" rx="24" fill="#f1f5f9"/><text x="163" y="550" class="s k">笔身</text><text x="163" y="607" class="s v">925 Sterling Silver</text><text x="163" y="642" class="s n">雕纹 · 铂金镀件 · 螺纹帽</text>
+  <rect x="550" y="500" width="390" height="168" rx="24" fill="#e0e7ff"/><text x="588" y="550" class="s k">笔尖</text><text x="588" y="607" class="s v">钢尖 / 18K 金尖</text><text x="588" y="642" class="s n">两类均有 EF / F / M / B</text>
+  <rect x="975" y="500" width="430" height="168" rx="24" fill="#fef3c7"/><text x="1013" y="550" class="s k">版本边界</text><text x="1013" y="607" class="s v">Imagination 是后续版</text><text x="1013" y="642" class="s n">PVD 漆面不覆盖普通银款</text>
+  <rect x="125" y="718" width="1280" height="58" rx="14" fill="#1e293b"/><text x="165" y="756" class="s" font-size="25" fill="#fff">137 mm 收帽 · 约 38–39 g · converter / 墨囊</text>
+  <text x="1405" y="810" text-anchor="end" class="s n">本站原创事实示意 · 非产品照片 · 不按真实外形与比例</text>
+</svg>

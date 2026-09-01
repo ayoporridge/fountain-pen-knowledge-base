@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Endless Phantom Retractable 钢笔结构事实示意图</title>
+  <desc id="desc">用清楚的按键、滑动笔尖和密封门示意 Phantom 可伸缩钢笔结构，并列出 EF F M 和墨囊转换器事实。</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0c2731"/><stop offset="1" stop-color="#18556a"/></linearGradient></defs>
+  <rect width="1600" height="900" rx="44" fill="url(#bg)"/>
+  <text x="88" y="106" fill="#9de2ee" font-size="29" font-family="Arial, PingFang SC, sans-serif" font-weight="700">按动式钢笔 · 结构事实</text>
+  <text x="88" y="178" fill="#fff" font-size="66" font-family="Arial, PingFang SC, sans-serif" font-weight="800">Endless Phantom Retractable</text>
+  <text x="90" y="230" fill="#c9eaf0" font-size="28" font-family="Arial, PingFang SC, sans-serif">按一下出尖，再按一下收回；前端密封状态需要到手检查</text>
+  <g transform="translate(85 304)">
+    <rect x="0" y="72" width="56" height="112" rx="18" fill="#f0c65e"/>
+    <rect x="52" y="54" width="840" height="148" rx="74" fill="#b9d7dc" stroke="#e8fafc" stroke-width="5"/>
+    <rect x="720" y="54" width="172" height="148" rx="74" fill="#6aabb6"/>
+    <path d="M892 76 L1100 128 L892 180 Z" fill="#eef9fa"/>
+    <path d="M1030 111 L1125 128 L1030 145 Z" fill="#e3b64a"/>
+    <path d="M1110 75 Q1166 128 1110 181" fill="none" stroke="#f58a72" stroke-width="16" stroke-linecap="round"/>
+    <text x="18" y="36" fill="#f0c65e" font-size="26" font-family="Arial, PingFang SC, sans-serif" font-weight="700">按键</text>
+    <text x="944" y="42" fill="#fff" font-size="26" font-family="Arial, PingFang SC, sans-serif" font-weight="700">伸缩笔尖</text>
+    <text x="1118" y="221" fill="#f6b3a5" font-size="26" font-family="Arial, PingFang SC, sans-serif" font-weight="700">密封门示意</text>
+  </g>
+  <g font-family="Arial, PingFang SC, sans-serif">
+    <rect x="92" y="604" width="338" height="104" rx="22" fill="#fff" opacity=".12"/>
+    <text x="120" y="647" fill="#9de2ee" font-size="24" font-weight="700">标准笔尖</text><text x="120" y="688" fill="#fff" font-size="32" font-weight="800">EF · F · M</text>
+    <rect x="458" y="604" width="440" height="104" rx="22" fill="#fff" opacity=".12"/>
+    <text x="486" y="647" fill="#9de2ee" font-size="24" font-weight="700">供墨</text><text x="486" y="688" fill="#fff" font-size="30" font-weight="800">墨囊 / 随附转换器</text>
+    <rect x="926" y="604" width="582" height="104" rx="22" fill="#fff" opacity=".12"/>
+    <text x="954" y="647" fill="#9de2ee" font-size="24" font-weight="700">到手先查</text><text x="954" y="688" fill="#fff" font-size="30" font-weight="800">居中出尖 · 完全收尖 · 密封闭合</text>
+  </g>
+  <text x="92" y="770" fill="#fff" font-size="27" font-family="Arial, PingFang SC, sans-serif">特殊磨尖是另购配置；颜色、众筹赠品和软木盒不构成新型号。</text>
+  <rect x="92" y="808" width="520" height="58" rx="29" fill="#f0c65e"/>
+  <text x="352" y="846" text-anchor="middle" fill="#0c2731" font-size="26" font-family="Arial, PingFang SC, sans-serif" font-weight="800">本站原创结构示意 · 非产品照片</text>
+</svg>

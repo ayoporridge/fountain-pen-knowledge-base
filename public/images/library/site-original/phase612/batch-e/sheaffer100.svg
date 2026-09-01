@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sheaffer 100 日用钢笔规格事实示意图</title>
+  <desc id="desc">以修长钢笔轮廓说明 Sheaffer 100 的插拔帽、切口笔夹、白点、F/M 钢尖及 Classic 墨囊转换器供墨。</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#171b24"/><stop offset="1" stop-color="#4c5362"/></linearGradient><linearGradient id="metal"><stop stop-color="#f3f4f5"/><stop offset=".38" stop-color="#929aa6"/><stop offset="1" stop-color="#e9ebee"/></linearGradient></defs>
+  <rect width="1600" height="900" rx="44" fill="url(#bg)"/>
+  <text x="88" y="104" fill="#bfc8d3" font-size="29" font-family="Arial, PingFang SC, sans-serif" font-weight="700">修长日用钢笔 · 100 系列</text>
+  <text x="88" y="180" fill="#fff" font-size="76" font-family="Georgia, PingFang SC, serif" font-weight="700">Sheaffer 100</text>
+  <text x="90" y="230" fill="#d9dee5" font-size="28" font-family="Arial, PingFang SC, sans-serif">100 比 300 更纤细；也不是 cartridge-only 的 VFM</text>
+  <g transform="translate(82 328)">
+    <rect x="0" y="80" width="410" height="116" rx="52" fill="#222834" stroke="url(#metal)" stroke-width="6"/>
+    <path d="M88 82 V42 Q88 25 108 25 H326" fill="none" stroke="#d8dce2" stroke-width="8"/>
+    <circle cx="110" cy="70" r="11" fill="#fff" stroke="#89919c" stroke-width="3"/>
+    <rect x="396" y="92" width="430" height="92" rx="42" fill="#2c3340" stroke="#e4e6e9" stroke-width="5"/>
+    <path d="M826 98 L990 138 L826 178 Z" fill="#d9c28a" stroke="#fff" stroke-width="5"/>
+    <path d="M874 112 V164" stroke="#715d34" stroke-width="5"/>
+    <text x="170" y="252" text-anchor="middle" fill="#d9dfe7" font-size="24" font-family="Arial, PingFang SC, sans-serif">切口夹 / White Dot</text>
+  </g>
+  <g transform="translate(1122 318)" font-family="Arial, PingFang SC, sans-serif">
+    <rect width="388" height="382" rx="28" fill="#080a0e" fill-opacity=".4" stroke="#cbd1d9" stroke-width="3"/>
+    <text x="32" y="58" fill="#fff" font-size="30" font-weight="800">购买前核对</text>
+    <text x="32" y="112" fill="#e6e9ed" font-size="25">钢尖：Fine / Medium</text>
+    <text x="32" y="160" fill="#e6e9ed" font-size="24">Classic 墨囊 / 转换器</text>
+    <text x="32" y="208" fill="#e6e9ed" font-size="23">PVD Gold 样本约 31.2 g</text>
+    <path d="M32 246 H354" stroke="#c7a86c" stroke-width="3"/>
+    <text x="32" y="294" fill="#f3d59d" font-size="24" font-weight="700">表面和礼盒按 SKU</text>
+    <text x="32" y="336" fill="#d8dde4" font-size="22">不把圆珠笔规格带入钢笔页</text>
+  </g>
+  <rect x="82" y="786" width="620" height="72" rx="22" fill="#f1f3f5"/>
+  <text x="392" y="832" text-anchor="middle" fill="#202630" font-size="26" font-family="Arial, PingFang SC, sans-serif" font-weight="800">本站原创事实示意 · 非产品照片</text>
+  <text x="1512" y="832" text-anchor="end" fill="#d9dfe7" font-size="23" font-family="Arial, PingFang SC, sans-serif">不使用或仿制品牌 Logo</text>
+</svg>

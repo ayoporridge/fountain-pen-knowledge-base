@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Sheaffer 300 宽身钢笔重量与结构事实示意图</title>
+  <desc id="desc">以宽身平顶钢笔轮廓说明 Sheaffer 300 的重金属帽、宽中环、插拔帽、F/M 钢尖及 Classic 墨囊转换器。</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#2b211b"/><stop offset="1" stop-color="#75563e"/></linearGradient><linearGradient id="brass"><stop stop-color="#f1dfb2"/><stop offset=".5" stop-color="#9b784e"/><stop offset="1" stop-color="#e4c98d"/></linearGradient></defs>
+  <rect width="1600" height="900" rx="44" fill="url(#bg)"/>
+  <text x="88" y="104" fill="#dfc398" font-size="29" font-family="Arial, PingFang SC, sans-serif" font-weight="700">宽身平顶 · 重帽钢笔</text>
+  <text x="88" y="180" fill="#fff" font-size="76" font-family="Georgia, PingFang SC, serif" font-weight="700">Sheaffer 300</text>
+  <text x="90" y="230" fill="#ead9c2" font-size="28" font-family="Arial, PingFang SC, sans-serif">合帽重量不等于裸笔重量；后插前先判断重心</text>
+  <g transform="translate(80 322)">
+    <rect x="0" y="66" width="420" height="146" rx="24" fill="#222" stroke="url(#brass)" stroke-width="7"/>
+    <path d="M94 68 V22 Q94 12 112 12 H340" fill="none" stroke="#e0c48e" stroke-width="10"/>
+    <circle cx="118" cy="54" r="11" fill="#fff"/>
+    <rect x="406" y="60" width="64" height="158" fill="url(#brass)"/>
+    <rect x="470" y="76" width="408" height="126" rx="50" fill="#292625" stroke="#ecd8ad" stroke-width="6"/>
+    <path d="M878 88 L1046 139 L878 190 Z" fill="#dfc17b" stroke="#fff" stroke-width="5"/>
+    <path d="M928 104 V174" stroke="#6d5530" stroke-width="5"/>
+    <text x="202" y="270" text-anchor="middle" fill="#f0dfc6" font-size="24" font-family="Arial, PingFang SC, sans-serif">平顶重帽</text>
+    <text x="438" y="304" text-anchor="middle" fill="#f0dfc6" font-size="24" font-family="Arial, PingFang SC, sans-serif">宽中环</text>
+  </g>
+  <g transform="translate(1168 314)" font-family="Arial, PingFang SC, sans-serif">
+    <rect width="342" height="396" rx="28" fill="#1e1611" fill-opacity=".53" stroke="#e1c695" stroke-width="3"/>
+    <text x="30" y="58" fill="#fff" font-size="30" font-weight="800">样本尺度</text>
+    <text x="30" y="112" fill="#f2e2cb" font-size="24">合帽约 141.1 mm</text>
+    <text x="30" y="156" fill="#f2e2cb" font-size="24">合帽约 42–44 g</text>
+    <text x="30" y="200" fill="#f2e2cb" font-size="24">钢尖：F / M</text>
+    <text x="30" y="244" fill="#f2e2cb" font-size="23">Classic 墨囊 / 转换器</text>
+    <path d="M30 278 H312" stroke="#c6985e" stroke-width="3"/>
+    <text x="30" y="326" fill="#ffd69f" font-size="23" font-weight="700">重量随表面版本变化</text>
+    <text x="30" y="362" fill="#f2e2cb" font-size="21">后插书写需先试重心</text>
+  </g>
+  <rect x="82" y="786" width="620" height="72" rx="22" fill="#f7efe4"/>
+  <text x="392" y="832" text-anchor="middle" fill="#33251c" font-size="26" font-family="Arial, PingFang SC, sans-serif" font-weight="800">本站原创结构示意 · 非产品照片</text>
+  <text x="1512" y="832" text-anchor="end" fill="#ecddc8" font-size="23" font-family="Arial, PingFang SC, sans-serif">图中轮廓不按实物比例</text>
+</svg>

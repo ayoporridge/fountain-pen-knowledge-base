@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Kolo Tino 钢笔事实示意图</title>
+  <desc id="desc">展示 Tino 钢笔的短身、套帽、三边笔杆和材料版本差异。</desc>
+  <defs><linearGradient id="brass" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d8b77a"/><stop offset=".5" stop-color="#947044"/><stop offset="1" stop-color="#c69a5d"/></linearGradient></defs>
+  <rect width="1600" height="900" fill="#eee6d8"/>
+  <text x="90" y="105" font-family="Arial,'PingFang SC',sans-serif" font-size="60" font-weight="700" fill="#3f3025">Kolo Tino</text>
+  <text x="92" y="154" font-family="Arial,'PingFang SC',sans-serif" font-size="24" fill="#745e4d">收合短，轻套笔帽后形成日常书写长度</text>
+  <path d="M120 300h675l100 72-100 72H120c-40 0-40-144 0-144z" fill="url(#brass)" stroke="#5f4938" stroke-width="10"/>
+  <path d="M795 300l100 72-100 72 35-72z" fill="#d9d5c9"/>
+  <path d="M230 300l65 144M365 300l65 144M500 300l65 144" stroke="#6f543f" stroke-width="7"/>
+  <text x="345" y="275" font-family="Arial,'PingFang SC',sans-serif" font-size="24" fill="#3f3025">圆角三边轮廓与凹槽</text>
+  <rect x="1010" y="286" width="425" height="172" rx="78" fill="none" stroke="#806345" stroke-width="12" stroke-dasharray="18 12"/>
+  <text x="1222" y="370" text-anchor="middle" font-family="Arial,'PingFang SC',sans-serif" font-size="26" fill="#5b4838">笔帽轻套尾端</text>
+  <line x1="120" y1="525" x2="895" y2="525" stroke="#8a715d" stroke-width="4"/><line x1="120" y1="505" x2="120" y2="545" stroke="#8a715d" stroke-width="4"/><line x1="895" y1="505" x2="895" y2="545" stroke="#8a715d" stroke-width="4"/>
+  <text x="507" y="570" text-anchor="middle" font-family="Arial,'PingFang SC',sans-serif" font-size="27" font-weight="700" fill="#3f3025">Acrylic 版本：收合 105.5 mm · 套帽 136.5 mm · 21 g</text>
+  <rect x="100" y="630" width="390" height="105" rx="20" fill="#fff9ee"/><text x="295" y="672" text-anchor="middle" font-family="Arial,'PingFang SC',sans-serif" font-size="25" font-weight="700" fill="#3f3025">材料 variants</text><text x="295" y="710" text-anchor="middle" font-family="Arial,'PingFang SC',sans-serif" font-size="21" fill="#745e4d">raw brass · aluminum · acrylic</text>
+  <rect x="605" y="630" width="390" height="105" rx="20" fill="#fff9ee"/><text x="800" y="672" text-anchor="middle" font-family="Arial,'PingFang SC',sans-serif" font-size="25" font-weight="700" fill="#3f3025">短国际墨囊</text><text x="800" y="710" text-anchor="middle" font-family="Arial,'PingFang SC',sans-serif" font-size="21" fill="#745e4d">转换器须按版本实物确认</text>
+  <rect x="1110" y="630" width="390" height="105" rx="20" fill="#fff9ee"/><text x="1305" y="672" text-anchor="middle" font-family="Arial,'PingFang SC',sans-serif" font-size="25" font-weight="700" fill="#3f3025">German-engineered 钢尖</text><text x="1305" y="710" text-anchor="middle" font-family="Arial,'PingFang SC',sans-serif" font-size="21" fill="#745e4d">尖幅按当前 SKU</text>
+  <rect x="72" y="810" width="1456" height="55" rx="16" fill="#3f3025"/>
+  <text x="800" y="847" text-anchor="middle" font-family="Arial,'PingFang SC',sans-serif" font-size="20" fill="#fff">本站原创事实示意图；非产品照片，不表示真实颜色、纹理、比例、商标或包装。</text>
+</svg>

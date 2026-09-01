@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Esterbrook Niblet 钢笔型号事实卡</title>
+  <desc id="desc">短小无夹钢笔轮廓与中文规格卡，说明 Niblet 的尺寸、短转换器和尖组兼容边界；不是产品照片。</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#ecfeff"/><stop offset="1" stop-color="#d1fae5"/></linearGradient>
+    <linearGradient id="pen" x2="1"><stop stop-color="#0f766e"/><stop offset="1" stop-color="#5eead4"/></linearGradient>
+    <style>.s{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC",sans-serif}.h{font-size:52px;font-weight:760;fill:#134e4a}.k{font-size:27px;fill:#0f766e}.v{font-size:35px;font-weight:700;fill:#134e4a}.n{font-size:23px;fill:#456965}.o{stroke:#134e4a;stroke-width:8;stroke-linejoin:round}</style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/><rect x="68" y="58" width="1464" height="784" rx="34" fill="#fcfffe" stroke="#99f6e4" stroke-width="3"/>
+  <text x="125" y="142" class="s h">ESTERBROOK NIBLET</text><text x="125" y="188" class="s k">无笔夹口袋钢笔 · 型号事实卡</text>
+  <g transform="translate(230 245)"><rect width="850" height="176" rx="84" fill="url(#pen)" class="o"/><path d="M850 0 L1015 88 L850 176 Z" fill="#dfbb62" class="o"/><path d="M1015 88 l54 -20 l-31 34 l31 27 z" fill="#134e4a"/><rect x="65" y="41" width="470" height="94" rx="44" fill="#ccfbf1" opacity=".62"/><text x="165" y="103" class="s v">短笔身 · 无笔夹</text></g>
+  <rect x="125" y="500" width="390" height="168" rx="24" fill="#ccfbf1"/><text x="163" y="550" class="s k">口袋尺寸</text><text x="163" y="607" class="s v">约 108 mm 收帽</text><text x="163" y="642" class="s n">展开约 127 mm · 约 14 g 样本</text>
+  <rect x="550" y="500" width="390" height="168" rx="24" fill="#d1fae5"/><text x="588" y="550" class="s k">尖组</text><text x="588" y="607" class="s v">#6 JoWo 钢尖</text><text x="588" y="642" class="s n">可与 Estie 互换</text>
+  <rect x="975" y="500" width="430" height="168" rx="24" fill="#fef3c7"/><text x="1013" y="550" class="s k">兼容边界</text><text x="1013" y="607" class="s v">不兼容 JR #5 尖</text><text x="1013" y="642" class="s n">使用短国际 converter</text>
+  <rect x="125" y="718" width="1280" height="58" rx="14" fill="#134e4a"/><text x="165" y="756" class="s" font-size="25" fill="#fff">六种亚克力饰面与特殊尖是 variant；携带请配笔套防滚落</text>
+  <text x="1405" y="810" text-anchor="end" class="s n">本站原创事实示意 · 非产品照片 · 不按真实外形与比例</text>
+</svg>

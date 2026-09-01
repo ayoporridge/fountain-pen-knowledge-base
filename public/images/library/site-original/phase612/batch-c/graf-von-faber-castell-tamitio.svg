@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Graf von Faber-Castell Tamitio 钢笔系列事实卡</title>
+  <desc id="desc">原创事实示意图，以通用钢笔沟槽金属笔杆和钢尖图标说明 Tamitio Black M 141500 的规格及 Black Edition 边界；不是产品照片。</desc>
+  <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#f8fafc"/><stop offset="1" stop-color="#e2e8f0"/></linearGradient><pattern id="groove" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M4 0 v20 M14 0 v20" stroke="#64748b" stroke-width="4"/></pattern><style>.s{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Noto Sans CJK SC",sans-serif}.h{font-size:50px;font-weight:750;fill:#1e293b}.k{font-size:27px;fill:#596579}.v{font-size:36px;font-weight:700;fill:#1e293b}.n{font-size:23px;fill:#68758a}.ol{stroke:#1e293b;stroke-width:8;stroke-linejoin:round}</style></defs>
+  <rect width="1600" height="900" fill="url(#bg)"/><rect x="70" y="62" width="1460" height="776" rx="34" fill="#fff" stroke="#bec8d5" stroke-width="3"/>
+  <text x="125" y="142" class="s h">GRAF VON FABER-CASTELL TAMITIO</text><text x="125" y="188" class="s k">Black M · article 141500 · 系列事实卡</text>
+  <g transform="translate(125 248)"><rect width="900" height="184" rx="86" fill="#334155" class="ol"/><rect x="75" y="20" width="690" height="144" rx="60" fill="url(#groove)"/><path d="M900 0 L1070 92 L900 184 Z" fill="#cbd5e1" class="ol"/><path d="M1070 92 l58 -21 l-34 36 l34 31 z" fill="#1e293b"/><text x="420" y="106" text-anchor="middle" class="s" font-size="34" font-weight="700" fill="#fff">细沟槽哑光漆 · 金属笔杆</text></g>
+  <g transform="translate(1235 230)"><path d="M90 0 L176 160 L90 200 L4 160 Z" fill="#cbd5e1" class="ol"/><circle cx="90" cy="121" r="18" fill="none" stroke="#1e293b" stroke-width="7"/><text x="90" y="244" text-anchor="middle" class="s v">钢尖</text></g>
+  <rect x="125" y="512" width="390" height="158" rx="25" fill="#e2e8f0"/><text x="165" y="560" class="s k">笔尖</text><text x="165" y="614" class="s v">镀铑钢尖 · EF–B</text><text x="165" y="648" class="s n">不继承 Guilloche 的 18K</text>
+  <rect x="550" y="512" width="390" height="158" rx="25" fill="#dbeafe"/><text x="590" y="560" class="s k">#141500</text><text x="590" y="614" class="s v">135 × 13 mm · 44 g</text><text x="590" y="648" class="s n">Black M exact anchor</text>
+  <rect x="975" y="512" width="430" height="158" rx="25" fill="#f1f5f9"/><text x="1015" y="560" class="s k">供墨</text><text x="1015" y="614" class="s v">墨囊／converter</text><text x="1015" y="648" class="s n">snap cap · converter 随附</text>
+  <rect x="125" y="710" width="1280" height="65" rx="16" fill="#1e293b"/><text x="165" y="751" class="s" font-size="25" fill="#fff">品牌归属：Graf von Faber-Castell；普通 Black、Black Edition 与 Calligraphy set 分开</text>
+  <text x="1405" y="809" text-anchor="end" class="s n">本站原创事实示意 · 非产品照片 · 不复刻真实表面</text>
+</svg>

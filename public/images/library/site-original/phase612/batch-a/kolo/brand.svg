@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Kolo 品牌事实示意图</title>
+  <desc id="desc">以相册、纸张和 Tino 钢笔轮廓说明 Kolo 从纸品到书写工具的发展。</desc>
+  <rect width="1600" height="900" fill="#f3eadb"/>
+  <text x="90" y="110" font-family="Arial,'PingFang SC',sans-serif" font-size="66" font-weight="700" fill="#3b2b21">Kolo</text>
+  <text x="94" y="160" font-family="Arial,'PingFang SC',sans-serif" font-size="25" fill="#745e4d">纸品、相册与便携书写工具，放在同一套 analogue ritual 里</text>
+  <rect x="105" y="250" width="355" height="360" rx="24" fill="#764f39"/>
+  <rect x="140" y="282" width="285" height="296" rx="10" fill="#f7e9cd"/>
+  <circle cx="282" cy="430" r="92" fill="#c6a271"/><path d="M220 455l50-52 38 38 38-55 65 69z" fill="#725143"/>
+  <path d="M600 310h610l180 72-180 72H600c-40 0-40-144 0-144z" fill="#d3b076" stroke="#4b3527" stroke-width="10"/>
+  <path d="M1210 310l180 72-180 72 45-72z" fill="#d8cfb9"/>
+  <path d="M720 310l65 144M830 310l65 144M940 310l65 144" stroke="#8b684d" stroke-width="6"/>
+  <text x="620" y="275" font-family="Arial,'PingFang SC',sans-serif" font-size="25" fill="#4b3527">Tino：圆角三边口袋笔家族</text>
+  <line x1="235" y1="700" x2="1300" y2="700" stroke="#9e8068" stroke-width="6"/>
+  <circle cx="300" cy="700" r="16" fill="#75452f"/><circle cx="750" cy="700" r="16" fill="#75452f"/><circle cx="1210" cy="700" r="16" fill="#75452f"/>
+  <text x="245" y="755" font-family="Arial,'PingFang SC',sans-serif" font-size="25" fill="#3b2b21">1998 创立</text>
+  <text x="650" y="755" font-family="Arial,'PingFang SC',sans-serif" font-size="25" fill="#3b2b21">2016 归入 Topdrawer</text>
+  <text x="1075" y="755" font-family="Arial,'PingFang SC',sans-serif" font-size="25" fill="#3b2b21">Tino 有钢笔与圆珠笔</text>
+  <rect x="72" y="810" width="1456" height="55" rx="16" fill="#3b2b21"/>
+  <text x="800" y="847" text-anchor="middle" font-family="Arial,'PingFang SC',sans-serif" font-size="20" fill="#fff">本站原创事实示意图；非产品照片，不表示真实颜色、纹理、比例、商标或包装。</text>
+</svg>

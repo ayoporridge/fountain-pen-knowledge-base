@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">LeBoeuf Pilgrim Heritage 钢笔型号事实示意图</title>
+  <desc id="desc">说明 Pilgrim Heritage 是现代复兴钢笔，使用复古风格 acrylic、镀金钢尖和墨囊转换器，并与 rollerball 分开。</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#321721"/><stop offset="1" stop-color="#7a3e36"/></linearGradient></defs>
+  <rect width="1600" height="900" rx="44" fill="url(#bg)"/>
+  <text x="88" y="106" fill="#e9ba91" font-size="29" font-family="Arial, PingFang SC, sans-serif" font-weight="700">当代复兴钢笔 · 版本事实</text>
+  <text x="88" y="178" fill="#fff8ed" font-size="66" font-family="Georgia, PingFang SC, serif" font-weight="700">LeBoeuf Pilgrim Heritage</text>
+  <text x="90" y="230" fill="#f1d4bd" font-size="28" font-family="Arial, PingFang SC, sans-serif">向 1930 年代轮廓致意，但不是历史库存古董</text>
+  <g transform="translate(86 310)">
+    <rect x="0" y="54" width="850" height="164" rx="82" fill="#ae5549" stroke="#eed0ac" stroke-width="5"/>
+    <path d="M850 76 L1060 136 L850 196 Z" fill="#f5e2ca"/>
+    <path d="M1005 119 L1100 136 L1005 153 Z" fill="#d5a344"/>
+    <circle cx="105" cy="136" r="54" fill="#3d2028" stroke="#e9ba91" stroke-width="5"/>
+    <text x="105" y="146" text-anchor="middle" fill="#e9ba91" font-size="25" font-family="Arial, PingFang SC, sans-serif" font-weight="700">顶章</text>
+    <path d="M270 82 C350 50 430 228 510 190 S680 65 765 125" fill="none" stroke="#f4aa9d" stroke-width="22" opacity=".7"/>
+  </g>
+  <g font-family="Arial, PingFang SC, sans-serif">
+    <rect x="92" y="604" width="390" height="104" rx="22" fill="#fff8ed" opacity=".12"/>
+    <text x="120" y="647" fill="#e9ba91" font-size="24" font-weight="700">材料</text><text x="120" y="688" fill="#fff8ed" font-size="30" font-weight="800">现代复古风 acrylic</text>
+    <rect x="510" y="604" width="390" height="104" rx="22" fill="#fff8ed" opacity=".12"/>
+    <text x="538" y="647" fill="#e9ba91" font-size="24" font-weight="700">笔尖</text><text x="538" y="688" fill="#fff8ed" font-size="30" font-weight="800">镀金钢尖 · F / M / B</text>
+    <rect x="928" y="604" width="580" height="104" rx="22" fill="#fff8ed" opacity=".12"/>
+    <text x="956" y="647" fill="#e9ba91" font-size="24" font-weight="700">身份边界</text><text x="956" y="688" fill="#fff8ed" font-size="30" font-weight="800">钢笔 ≠ 同系列 Roller Ball</text>
+  </g>
+  <text x="92" y="770" fill="#fff8ed" font-size="27" font-family="Arial, PingFang SC, sans-serif">Candy Apple Red、Forest Green、Licorice Black、蓝色版本属于同一系列。</text>
+  <rect x="92" y="808" width="520" height="58" rx="29" fill="#e9ba91"/>
+  <text x="352" y="846" text-anchor="middle" fill="#321721" font-size="26" font-family="Arial, PingFang SC, sans-serif" font-weight="800">本站原创结构示意 · 非产品照片</text>
+</svg>

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Wearingeul Preface 事实示意图</title>
+  <desc id="desc">雪茄形钢笔轮廓和两块文学主题色标，说明 Preface 的材质、钢尖与接口边界。</desc>
+  <defs><linearGradient id="resin" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#ce8ead"/><stop offset=".25" stop-color="#91a78c"/><stop offset=".52" stop-color="#d5a0bb"/><stop offset=".75" stop-color="#8a74a8"/><stop offset="1" stop-color="#7289ac"/></linearGradient></defs>
+  <rect width="1600" height="900" fill="#f4edf5"/>
+  <text x="90" y="105" font-family="Arial,'PingFang SC',sans-serif" font-size="60" font-weight="700" fill="#3d2d45">Wearingeul Preface</text>
+  <text x="92" y="154" font-family="Arial,'PingFang SC',sans-serif" font-size="24" fill="#76617d">文学主题树脂家族：颜色是 variants，结构是同一平台</text>
+  <path d="M130 290q30-38 80-38h845q50 0 80 38l70 82-70 82q-30 38-80 38H210q-50 0-80-38l-55-82z" fill="url(#resin)" stroke="#5d4966" stroke-width="10"/>
+  <path d="M1135 290h140l245 82-245 82h-140z" fill="#e4e1dc" stroke="#5d4966" stroke-width="9"/>
+  <path d="M1275 290l245 82-245 82 68-82z" fill="#d0b77d"/>
+  <path d="M330 260q55 80 110 0M520 485q55-80 110 0M730 260q55 80 110 0" fill="none" stroke="#f2d49d" stroke-width="9" opacity=".75"/>
+  <text x="190" y="560" font-family="Arial,'PingFang SC',sans-serif" font-size="25" fill="#3d2d45">Cellulose acetate / resin：每支纹理分布不同</text>
+  <rect x="120" y="625" width="420" height="105" rx="20" fill="#efd5df"/><text x="330" y="667" text-anchor="middle" font-family="Arial,'PingFang SC',sans-serif" font-size="24" font-weight="700" fill="#3d2d45">The Glass Bead Game</text><text x="330" y="705" text-anchor="middle" font-family="Arial,'PingFang SC',sans-serif" font-size="20" fill="#76617d">初发文学主题 variant</text>
+  <rect x="590" y="625" width="420" height="105" rx="20" fill="#ded3ee"/><text x="800" y="667" text-anchor="middle" font-family="Arial,'PingFang SC',sans-serif" font-size="24" font-weight="700" fill="#3d2d45">A Dream Within a Dream</text><text x="800" y="705" text-anchor="middle" font-family="Arial,'PingFang SC',sans-serif" font-size="20" fill="#76617d">初发文学主题 variant</text>
+  <rect x="1060" y="625" width="420" height="105" rx="20" fill="#fff"/><text x="1270" y="667" text-anchor="middle" font-family="Arial,'PingFang SC',sans-serif" font-size="24" font-weight="700" fill="#3d2d45">F / M 不锈钢尖 · 原配转换器</text><text x="1270" y="705" text-anchor="middle" font-family="Arial,'PingFang SC',sans-serif" font-size="20" fill="#76617d">2.4 mm 接口，备用件按实物确认</text>
+  <rect x="72" y="810" width="1456" height="55" rx="16" fill="#3d2d45"/>
+  <text x="800" y="847" text-anchor="middle" font-family="Arial,'PingFang SC',sans-serif" font-size="20" fill="#fff">本站原创事实示意图；非产品照片，不表示真实颜色、纹理、比例、商标或包装。</text>
+</svg>
