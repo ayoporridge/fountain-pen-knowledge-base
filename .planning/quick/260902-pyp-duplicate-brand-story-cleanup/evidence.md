@@ -21,3 +21,24 @@
 ## 范围边界
 
 本批只清理三组已确认的逐字重复品牌故事，不宣称全量内容目标完成。Turso 当前 rows-read 仍超出 Starter 限额，远端同步、Vercel 动态页面回读、真人全页面遍历和线上复查仍待额度恢复后执行。
+
+## 正式本地迁移（2026-09-02）
+
+- 以迁移前真实 `data/fpkg.db` 为来源制作 caller-owned checkpoint 和备份；两者在替换前 SHA-256 均为 `00ddd2dc6e1a9bde275920eed3d0d82e251be1e7d8b48bb1e27b6619e080d4c4`。
+- 脚本仅在 `.planning/quick/260902-pyp-duplicate-brand-story-cleanup/formal-local/checkpoint/catalog.db` 上运行，远程数据库环境变量已清除；结果为 `entities=3, changed=3, noop=0`，三条新 hash 分别为 `0747b1bf36d9dc5c15575df489419a43ce353e17bc3922328e1cd737b8eb7e22`、`ea3a58f495baf1a5485ef4311e2c17f754ef9711468e0be6f82022cee39696fb`、`f4ecc50113ec47265e3f7392159bfe8dacaebc1b7a5509577186c9e7254ea7ea`。
+- checkpoint 替换前后 `integrity_check=ok`、`foreign_key_check` 为空；确认无活动进程占用真实库后，通过临时文件原子替换 `data/fpkg.db`。替换后真实库 SHA-256 为 `5c9c47742ec217730908835fd0cd06448a09f77e6a7b8ba7927b4d2e394dddab`，未保留 WAL/SHM sidecar。
+- 替换后实体计数为 article 276、brand 135、concept 13、nib 3、pen 794；publication 为 published 912、retired 23。三组品牌均 published/public、`revision=reviewed_revision`、`blocker_count=0`，全量公开正文重复组为 0。
+- 为使受保护的 Phase 19 fixture 与正式库一致，仅更新了 `scripts/lib/phase19-fixtures.ts` 的 main size/inode/mtime/SHA 指纹；未改变其余 fixture 约束。
+
+## 正式库本地回读门
+
+- `pnpm check:data-contract`：pass（276/135/13/3/794）。
+- `pnpm check:articles`：pass（256 个公开 article）。
+- `pnpm check:public-boundary -- --all`：pass（published/list/per-id/aggregate/context/reverse diff 全为 0）。
+- `pnpm check:library`：pass（4030 sources、6116 sourceItems、7303 claims、17487 citations、958 stories、1319 events、1228 media）。
+- `pnpm check:evidence-contract -- --all`：pass；`pnpm check:publication-gate -- --all`：pass；`pnpm check:audit-readiness -- --inventory`：pass。
+- `pnpm audit:public-media`：pass（922/922 healthy，0 failed，dry-run）；`pnpm audit:entity-quality --database-path data/fpkg.db`：pass（906 active、duplicate/thin/suspicious/made_by blockers 均为 0）。
+- `pnpm audit:library-coverage --database-path data/fpkg.db` 的非零退出仅报告 3 个 retired brand 与 16 个 retired model lineage；active 132 brands、774 models 均 ready，未将 retired 行伪装成公开完成。
+- `pnpm exec tsc --noEmit --pretty false` 与 `pnpm build`：pass（Next.js 15.5.18，18 个静态页面生成，standalone runtime 准备成功）。
+
+正式本地迁移已完成，但不等于全量 goal 完成：Turso 远端同步、生产动态页面成功回读、1175 条公开路由在正常远端读权限下的逐条检查、真人全页面遍历及最终线上复查仍未完成。
