@@ -1,4 +1,4 @@
-import { queryOne } from "@/lib/db";
+import { queryOne, queryOneUnchecked } from "@/lib/db";
 import {
   HIDDEN_ARTICLE_SLUGS,
   HIDDEN_CONCEPT_SLUGS,
@@ -88,6 +88,35 @@ export async function getPublicEntityBySlug(
   slug: string,
 ): Promise<PublicEntity | undefined> {
   return (await queryOne(
+    `SELECT
+       id,
+       type,
+       slug,
+       name,
+       summary,
+       body_md,
+       source,
+       created_at,
+       updated_at,
+       source_url,
+       source_file,
+       imported_at
+     FROM public_entities
+     WHERE type = ? AND slug = ?
+     LIMIT 1`,
+    [type, slug],
+  )) as PublicEntity | undefined;
+}
+
+/**
+ * Middleware-only variant that avoids the migration-directory readiness
+ * check. The route page performs the full guarded read after middleware.
+ */
+export async function getPublicEntityBySlugForMiddleware(
+  type: string,
+  slug: string,
+): Promise<PublicEntity | undefined> {
+  return (await queryOneUnchecked(
     `SELECT
        id,
        type,

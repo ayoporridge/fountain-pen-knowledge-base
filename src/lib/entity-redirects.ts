@@ -1,4 +1,4 @@
-import { queryOne } from "@/lib/db";
+import { queryOne, queryOneUnchecked } from "@/lib/db";
 
 const FILLING_SYSTEM_ARTICLE_SLUGS = [
   "capillary-pens-the-perfect-filler",
@@ -152,8 +152,10 @@ export function getCanonicalEntityPath(type: string, slug: string) {
 export async function getDatabaseCanonicalEntityPath(
   type: string,
   slug: string,
+  options: { skipReadiness?: boolean } = {},
 ): Promise<string | null> {
-  const row = (await queryOne(
+  const query = options.skipReadiness ? queryOneUnchecked : queryOne;
+  const row = (await query(
     "SELECT target_path FROM entity_redirects WHERE source_path = ? AND redirect_kind = 'permanent'",
     [`/${type}/${slug}`],
   )) as { target_path?: unknown } | undefined;

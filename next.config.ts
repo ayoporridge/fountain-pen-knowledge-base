@@ -14,16 +14,14 @@ const nextConfig: NextConfig = {
     "@libsql/isomorphic-ws",
     "promise-limit",
   ],
-  ...(isVercelBuild
-    ? {}
-    : {
-        outputFileTracingIncludes: {
-          "/*": [
-            "./migrations/**/*.sql",
-            "./node_modules/.pnpm/@libsql+*/node_modules/@libsql/**/*",
-          ],
-        },
-      }),
+  outputFileTracingIncludes: {
+    "/*": [
+      "./migrations/**/*.sql",
+      ...(isVercelBuild
+        ? []
+        : ["./node_modules/.pnpm/@libsql+*/node_modules/@libsql/**/*"]),
+    ],
+  },
   images: {
     remotePatterns: [],
     unoptimized: true,

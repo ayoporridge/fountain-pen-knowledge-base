@@ -717,6 +717,24 @@ export async function queryOne(
   return rows[0];
 }
 
+/**
+ * Read one row without the filesystem-backed migration readiness guard.
+ *
+ * Next middleware is traced as a separate server function and does not always
+ * receive the repository's migration directory. Middleware uses this only for
+ * its read-only route existence/redirect lookup; page handlers keep using
+ * queryOne so the full schema contract remains fail-closed there.
+ */
+export async function queryOneUnchecked(
+  sql: string,
+  args: unknown[] = [],
+): Promise<unknown | undefined> {
+  const result = await retryTransientDatabaseRead(() =>
+    getDb().execute({ sql, args: args as InArgs }),
+  );
+  return result.rows[0];
+}
+
 export async function execute(
   sql: string,
   args: unknown[] = [],

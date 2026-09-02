@@ -9,7 +9,7 @@ import {
   HIDDEN_ARTICLE_SLUGS,
   HIDDEN_CONCEPT_SLUGS,
 } from "@/lib/public-route-policy";
-import { getPublicEntityBySlug } from "@/lib/public-visibility";
+import { getPublicEntityBySlugForMiddleware } from "@/lib/public-visibility";
 
 const HIDDEN_PUBLIC_PATHS = new Set([
   "/api/chat",
@@ -124,10 +124,15 @@ export async function middleware(request: NextRequest) {
     (segments[0] === "brand" || segments[0] === "pen")
   ) {
     try {
-      const entity = await getPublicEntityBySlug(segments[0], segments[1]);
+      const entity = await getPublicEntityBySlugForMiddleware(
+        segments[0],
+        segments[1],
+      );
       if (!entity) {
         const databaseCanonicalEntityPath =
-          await getDatabaseCanonicalEntityPath(segments[0], segments[1]);
+          await getDatabaseCanonicalEntityPath(segments[0], segments[1], {
+            skipReadiness: true,
+          });
         if (databaseCanonicalEntityPath) {
           return NextResponse.redirect(
             new URL(databaseCanonicalEntityPath, request.url),
