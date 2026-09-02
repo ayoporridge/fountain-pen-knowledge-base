@@ -32,6 +32,8 @@ const INTERNAL_TABLE_PREFIXES = ["sqlite_", "entities_fts"];
 const PUBLICATION_TABLE = "entity_publications";
 const CONTENT_REVIEW_TABLE = "entity_content_reviews";
 const PUBLICATION_TRIGGER_NAME = "publication_publish_transition_guard";
+const CONTENT_REVIEW_UPDATE_TRIGGER_NAME = "publication_content_review_update";
+const CONTENT_REVIEW_DELETE_TRIGGER_NAME = "publication_content_review_delete";
 const MIGRATION_GATE_CACHE_TABLE = "migration_publication_blockers_cache";
 const DEFAULT_REVIEWER = "catalog-migration-20260802";
 // Turso HTTP transactions can hold a large batch for minutes when rows contain
@@ -72,7 +74,7 @@ type CatalogSchema = {
 type PrimaryKeyValues = SqlValue[];
 type IdentityMappings = Map<string, Map<string, PrimaryKeyValues>>;
 
-type ReadinessSnapshot = {
+export type ReadinessSnapshot = {
   blockerCount: number;
   blockersJson: string;
   publishable: number;
@@ -1005,10 +1007,11 @@ BEGIN
 END;`;
 }
 
-async function withMigrationGateCache<T>(
+export async function withMigrationGateCache<T>(
   client: Client,
   readinessByEntity: Map<string, ReadinessSnapshot>,
   operation: () => Promise<T>,
+  options: { suppressContentReviewInvalidation?: boolean } = {},
 ): Promise<T> {
   const triggerRows = await remoteRows(
     client,
@@ -1019,6 +1022,22 @@ async function withMigrationGateCache<T>(
   if (!originalTriggerSql.includes("publication_blockers")) {
     throw new Error("Publication guard trigger was not the expected blocker-backed contract.");
   }
+  const suppressedTriggerNames = options.suppressContentReviewInvalidation
+    ? [CONTENT_REVIEW_UPDATE_TRIGGER_NAME, CONTENT_REVIEW_DELETE_TRIGGER_NAME]
+    : [];
+  const suppressedTriggerSql = new Map<string, string>();
+  for (const triggerName of suppressedTriggerNames) {
+    const rows = await remoteRows(
+      client,
+      "SELECT sql FROM sqlite_master WHERE type='trigger' AND name=?",
+      [triggerName],
+    );
+    const sql = String(rows[0]?.sql ?? "").trim();
+    if (!sql.includes("publication_blockers")) {
+      throw new Error(`Content review invalidation trigger missing or unexpected: ${triggerName}`);
+    }
+    suppressedTriggerSql.set(triggerName, sql);
+  }
   const blockedEntityIds = [...readinessByEntity.entries()]
     .filter(([, readiness]) => readiness.blockerCount !== 0 || readiness.publishable !== 1)
     .map(([entityId]) => entityId);
@@ -1026,6 +1045,10 @@ async function withMigrationGateCache<T>(
   try {
     await client.batch(
       [
+        ...suppressedTriggerNames.map((triggerName) => ({
+          sql: `DROP TRIGGER IF EXISTS ${triggerName}`,
+          args: [],
+        })),
         { sql: `DROP TRIGGER IF EXISTS ${PUBLICATION_TRIGGER_NAME}`, args: [] },
         { sql: `DROP TABLE IF EXISTS ${MIGRATION_GATE_CACHE_TABLE}`, args: [] },
         { sql: createCacheSql, args: [] },
@@ -1048,6 +1071,10 @@ async function withMigrationGateCache<T>(
       [
         { sql: `DROP TRIGGER IF EXISTS ${PUBLICATION_TRIGGER_NAME}`, args: [] },
         { sql: originalTriggerSql, args: [] },
+        ...suppressedTriggerNames.map((triggerName) => ({
+          sql: suppressedTriggerSql.get(triggerName) as string,
+          args: [],
+        })),
         { sql: `DROP TABLE IF EXISTS ${MIGRATION_GATE_CACHE_TABLE}`, args: [] },
       ],
       "write",
