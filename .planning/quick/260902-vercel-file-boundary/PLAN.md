@@ -1,5 +1,5 @@
 ---
-status: in_progress
+status: complete
 created: 2026-09-02
 ---
 
@@ -22,5 +22,19 @@ deployment input.
 ## Tasks
 
 - [x] Add the deployment-only ignore boundary.
-- [ ] Use the non-standalone Next output for Vercel and run a production deployment attempt.
-- [ ] Record outcome and only commit owned deployment files.
+- [x] Use the native Next output for Vercel and run a production deployment.
+- [x] Keep migration tracing out of the middleware bundle by using the middleware-only
+      database lookup; page handlers retain the full readiness guard.
+- [x] Record outcome and only commit owned deployment files.
+
+## Evidence
+
+- `.vercelignore` reduced the upload input to 1,950 runtime files while preserving
+  application source, public assets, and migrations.
+- Production deployment `dpl_G2Py2A6qnDFxgNdZVNVKf1dFW461` reached `READY` and was
+  aliased to `https://fountain-pen-graph.vercel.app`.
+- Production readback returned hard 404 for unknown paths, 308 for the retired
+  `yisihua` alias and legacy Sheaffer route, and 200 for the published Pilot,
+  Wancher, Asvine, YSTUDIO, and Sheaffer pages.
+- Vercel runtime logs no longer report `Migrations directory not found` after the
+  middleware lookup fix.
