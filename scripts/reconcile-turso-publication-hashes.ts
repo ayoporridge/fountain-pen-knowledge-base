@@ -56,6 +56,12 @@ const MAPPED_ID_FIELDS = new Set([
   "action_id",
   "batch_id",
 ]);
+const POLYMORPHIC_TARGET_TYPES = new Set([
+  "claim",
+  "diagram",
+  "model_spec",
+  "story",
+]);
 
 type CliOptions = {
   sourcePath: string;
@@ -175,7 +181,10 @@ function buildMappedLocalClient(
     Object.fromEntries(
       Object.entries(row).map(([key, value]) => [
         key,
-        MAPPED_ID_FIELDS.has(key) && typeof value === "string"
+        typeof value === "string" &&
+        (MAPPED_ID_FIELDS.has(key) ||
+          (key === "target_id" &&
+            POLYMORPHIC_TARGET_TYPES.has(String(row.target_type))))
           ? forward.get(value) ?? value
           : value,
       ]),

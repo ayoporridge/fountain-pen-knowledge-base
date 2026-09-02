@@ -13,6 +13,7 @@ import {
   snapshotCatalogFiles,
 } from "../src/lib/audit/read-only-catalog";
 import {
+  computePublicationContentHash,
   publishEntity,
   recordEntityContentReview,
 } from "../src/lib/publication";
@@ -41,6 +42,12 @@ const DEFAULT_REVIEWER = "catalog-migration-20260802";
 // remaining inside the same rollback-protected write transaction.
 const BATCH_SIZE = 25;
 const CONTENT_REVIEW_BATCH_SIZE = 5;
+const POLYMORPHIC_CITATION_TARGET_TABLES: Record<string, string> = {
+  claim: "claims",
+  diagram: "diagrams",
+  model_spec: "model_specs",
+  story: "stories",
+};
 
 type SqlValue = string | number | bigint | boolean | Uint8Array | null;
 type Row = Record<string, unknown>;
@@ -585,6 +592,17 @@ function transformForeignKeysForRemote(
     const referencedKey = primaryKeyKeyFromValue(value, referencedTable.primaryKey);
     const mappedValue = referencedMappings.get(referencedKey)?.[0];
     if (mappedValue !== undefined) row[foreignKey.from] = mappedValue;
+  }
+  if (table.name === "citations") {
+    const targetTableName = POLYMORPHIC_CITATION_TARGET_TABLES[String(row.target_type)];
+    const targetTable = targetTableName ? schema.tables.get(targetTableName) : undefined;
+    const targetMappings = targetTableName ? mappings.get(targetTableName) : undefined;
+    const targetId = row.target_id;
+    if (targetTable && targetMappings && targetId !== null && targetId !== undefined) {
+      const targetKey = primaryKeyKeyFromValue(targetId, targetTable.primaryKey);
+      const mappedTarget = targetMappings.get(targetKey)?.[0];
+      if (mappedTarget !== undefined) row.target_id = mappedTarget;
+    }
   }
   return row;
 }
@@ -1282,13 +1300,17 @@ async function republishPublishedEntities(
       if (!readiness) {
         throw new Error(`Local publication readiness snapshot missing: ${entityId}`);
       }
-      const contentHash = String(row.approved_content_hash ?? "").trim();
-      if (!contentHash.startsWith("sha256:v3:")) {
+      const localContentHash = String(row.approved_content_hash ?? "").trim();
+      if (!localContentHash.startsWith("sha256:v3:")) {
         throw new Error(`Local publication content hash missing or legacy: ${entityId}`);
       }
+      // Recompute against the remote payload after natural-key ID mapping.
+      // The local hash encodes local primary keys and would be stale whenever
+      // the remote catalog legitimately retains a different mapped ID.
+      const contentHash = await computePublicationContentHash(client, entityId);
       const reviews = localReviews.get(entityId) ?? [];
       for (const kind of ["fact", "language", "media"] as const) {
-        const localReview = reviews.find((candidate) => String(candidate.review_kind) === kind && String(candidate.content_hash) === contentHash);
+        const localReview = reviews.find((candidate) => String(candidate.review_kind) === kind && String(candidate.content_hash) === localContentHash);
         if (approvedRemoteReviewKeys.has(`${entityId}\u0000${kind}\u0000${contentHash}`)) {
           continue;
         }
