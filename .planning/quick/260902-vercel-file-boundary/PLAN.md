@@ -21,6 +21,6 @@ deployment input.
 
 ## Tasks
 
-- [ ] Add the deployment-only ignore boundary.
-- [ ] Run a production deployment attempt and capture result.
+- [x] Add the deployment-only ignore boundary.
+- [ ] Use the non-standalone Next output for Vercel and run a production deployment attempt.
 - [ ] Record outcome and only commit owned deployment files.

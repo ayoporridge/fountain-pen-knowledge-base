@@ -1,7 +1,9 @@
 import type { NextConfig } from "next";
 
+const isVercelBuild = process.env.VERCEL === "1";
+
 const nextConfig: NextConfig = {
-  output: "standalone",
+  ...(isVercelBuild ? {} : { output: "standalone" as const }),
   serverExternalPackages: [
     "better-sqlite3",
     "@libsql/client",
