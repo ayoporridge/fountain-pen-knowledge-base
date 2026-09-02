@@ -24,7 +24,7 @@ export const PHASE613_SOURCE_SHA256 =
 export const PHASE613_CANDIDATE_SHA256 =
   "58380f7b575837e78e5464071404e0b32b7b2eb5dbda92ab022e409404b335a2";
 export const PHASE613_REAL_SHA256 =
-  "acbb5710050b5c9d6e435666dda909b66055c290a4640f04faa38860ea24d09a";
+  "00ddd2dc6e1a9bde275920eed3d0d82e251be1e7d8b48bb1e27b6619e080d4c4";
 export const PHASE613_EXPECTED_COUNTS = {
   nonPenSpecs: 2,
   publicPenSnapshotSpecs: 508,
