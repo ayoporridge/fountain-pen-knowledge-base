@@ -72,6 +72,12 @@ const VAGUE_PRICE_PATTERNS = [
   /墨水价格/,
 ];
 
+const INTERNAL_SOURCE_METADATA_PATTERNS = [
+  /\b(?:site-original|project-public-asset|live-source-not-frozen)\b/i,
+  /\b(?:external_archive|raw_source_stored|factual-svg|product-photo|to-scale|colour-proof)\b/i,
+  /\bdimensions=/i,
+];
+
 export function cleanPublicText(value: unknown) {
   if (value === null || value === undefined) return null;
 
@@ -154,4 +160,45 @@ export function displayPublicSourceTitle(value: unknown) {
     .trim();
 
   return cleanPublicText(text) || "公开资料";
+}
+
+/**
+ * Source archive locators are useful only when they identify a reader-facing
+ * section. The registry also stores pipeline state and asset bookkeeping in
+ * the same field; never expose those implementation details on public pages.
+ */
+export function displayPublicSourceMetadata(
+  sourceName: unknown,
+  archiveLocator: unknown,
+) {
+  const namedSource = displayPublicSourceName(sourceName);
+  const name = INTERNAL_SOURCE_METADATA_PATTERNS.some((pattern) =>
+    pattern.test(namedSource),
+  )
+    ? "来源"
+    : namedSource;
+  const rawLocator = String(archiveLocator || "").trim();
+  let locator: string | null = null;
+
+  if (/^project-evidence-snapshot:/i.test(rawLocator)) {
+    locator = "证据快照";
+  } else {
+    const locatorMatch = rawLocator.match(/(?:^|;)locator=([^;]*)/i);
+    const candidate = locatorMatch?.[1]?.trim() || rawLocator;
+
+    if (/^project-public-asset:/i.test(candidate)) {
+      locator = "站内原创示意图";
+    } else if (
+      !/\bphase\s*\d+\b/i.test(candidate) &&
+      !/\bexact-model\b.*\brefresh\b/i.test(candidate) &&
+      !/[=;]/.test(candidate) &&
+      !INTERNAL_SOURCE_METADATA_PATTERNS.some((pattern) =>
+        pattern.test(candidate),
+      )
+    ) {
+      locator = cleanPublicText(candidate);
+    }
+  }
+
+  return [name, locator].filter(Boolean).join(" · ");
 }

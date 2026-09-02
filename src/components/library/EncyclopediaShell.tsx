@@ -5,6 +5,7 @@ import { MarkdownHtml } from "@/components/MarkdownHtml";
 import { MEDIA_LICENSE_LABELS } from "@/lib/constants";
 import type { PublishedPageData, PublishedSource } from "@/lib/entity-page";
 import type { RenderedMarkdownDocument, StoryHeading } from "@/lib/markdown";
+import { displayPublicSourceMetadata } from "@/lib/publicText";
 
 type ShellProps = {
   data: PublishedPageData;
@@ -162,7 +163,7 @@ function SectionNav({
 }
 
 function sourceMetadata(source: PublishedSource): string {
-  return [source.sourceName, source.archiveLocator].filter(Boolean).join(" · ");
+  return displayPublicSourceMetadata(source.sourceName, source.archiveLocator);
 }
 
 function archiveLinkLabel(source: PublishedSource): string {

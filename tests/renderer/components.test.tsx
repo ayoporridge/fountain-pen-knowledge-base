@@ -224,6 +224,31 @@ describe("server markup encyclopedia shell", () => {
     assert.doesNotMatch(html, />查看存档</);
   });
 
+  it("redacts pipeline flags from public source metadata while keeping the locator", async () => {
+    const data = modelPage({
+      sources: [
+        {
+          title: "Renderer 官方资料",
+          url: "https://example.com/source",
+          sourceName: "Renderer registry",
+          archiveUrl: "https://example.com/source",
+          archiveLocator:
+            "live-source-not-frozen;retrieved=2026-09-02;external_archive=false;raw_source_stored=false;locator=official specification table",
+        },
+      ],
+    });
+    const document = await renderMarkdownDocument(data.story.bodyMd);
+    const html = renderToStaticMarkup(
+      createElement(EncyclopediaShell, { data, document }),
+    );
+
+    assert.match(html, /official specification table/);
+    assert.doesNotMatch(
+      html,
+      /live-source-not-frozen|external_archive|raw_source_stored/,
+    );
+  });
+
   it("omits absent optional modules and their navigation targets", async () => {
     const data = modelPage({ variants: [] });
     const document = await renderMarkdownDocument(data.story.bodyMd);
