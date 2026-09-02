@@ -29,3 +29,14 @@ be treated as content success. A valid sweep must be rerun after Turso read
 access is restored and must validate the expected entity name/content, not just
 the HTTP code.
 - The report distinguishes route failures from expected retired/alias behavior.
+
+## Latest state — 2026-09-02
+
+The authenticated retry did not restore SQL reads. Vercel logs show the root
+route returning HTTP 500 with `Database schema is not initialized` caused by
+the Turso `BLOCKED` error. Bounded probes of representative model, brand, and
+article routes returned HTTP 200 but rendered the visible 404 shell; those
+responses are rejected as content failures. The static YSTUDIO factual SVG
+still returns HTTP 200, so the outage is database access rather than asset
+deployment. The sweep remains in progress and cannot be accepted until Turso
+read access is restored.
