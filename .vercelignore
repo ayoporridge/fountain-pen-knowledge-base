@@ -1,15 +1,26 @@
+# Local planning and checkpoint artifacts are not runtime inputs.
 .git
-/.next
+.planning/
 /.next-phase*/
-/.open-next
-/.playwright-cli
-/.wrangler
-/data
+.open-next
+.wrangler
 /local.db
-/node_modules
 /output
-/playwright-report
-/test-results
-/coverage
-/docs/audit/assets
+
+# Test, documentation, and local database material is not needed by Next.js.
+tests/
+docs/
+data/
+local.db
+*.db
+*.db-shm
+*.db-wal
+
+# Local build and tool output.
+.next/
+coverage/
+test-results/
+playwright-report/
+.playwright-cli/
+node_modules/
 *.tsbuildinfo
