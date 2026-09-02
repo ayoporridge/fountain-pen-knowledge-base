@@ -1,6 +1,7 @@
 import { spawn, type ChildProcess } from "node:child_process";
 import { createHash } from "node:crypto";
 import fs from "node:fs";
+import { createRequire } from "node:module";
 import net from "node:net";
 import path from "node:path";
 import sharp from "sharp";
@@ -16,6 +17,7 @@ import {
 } from "./lib/renderer-fixture";
 
 const ROOT = process.cwd();
+const require = createRequire(import.meta.url);
 const ARTIFACT_ROOT = path.join(
   ROOT,
   ".planning",
@@ -271,8 +273,8 @@ export async function runRendererCheck(
       SET local_path = 'public/images/renderer-fixture/' ||
         (SELECT entity.slug FROM entities entity WHERE entity.id = media_assets.entity_id) ||
         '.jpg'
-      WHERE entity_id = 'renderer-brand'
-         OR entity_id GLOB 'renderer-model-[0-9][0-9]'
+      WHERE id = 'renderer-brand-media-primary'
+         OR id GLOB 'renderer-model-[0-9][0-9]-media-primary'
     `);
     for (const entityId of [seed.brandId, ...seed.modelSlugs]) {
       for (const reviewKind of ["fact", "language", "media"] as const) {
@@ -303,8 +305,8 @@ export async function runRendererCheck(
     const port = await getLoopbackPort();
     const baseUrl = `http://127.0.0.1:${port}`;
     server = spawn(
-      "pnpm",
-      ["check:publication-gate", "--", "--serve-e2e", "--port", String(port)],
+      process.execPath,
+      [require.resolve("next/dist/bin/next"), "start", "-p", String(port)],
       { cwd: ROOT, env: childBaseEnv, stdio: ["ignore", "pipe", "pipe"] },
     );
     pipeChild(server);
