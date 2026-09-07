@@ -80,6 +80,22 @@ test("Phase 549 refreshes the existing Visconti Homo Sapiens Dark Crystal entity
         (claim) => claim.key === "phase549-dark-crystal-nib-conflict",
       ),
     );
+    const officialSource = pack.sources.find(
+      (source) => source.key === "phase49-visconti-dark-crystal-official",
+    );
+    assert.ok(officialSource);
+    assert.doesNotMatch(officialSource.summary, /Hook Safe/i);
+    assert.match(officialSource.summary, /bayonet/i);
+    assert.doesNotMatch(
+      fs.readFileSync(
+        path.join(
+          ROOT,
+          "public/images/library/site-original/visconti-homo-sapiens/dark-crystal.svg",
+        ),
+        "utf8",
+      ),
+      /Hook Safe/i,
+    );
 
     await assert.rejects(
       applyPhase549ViscontiDarkCrystalDepthContent(client, {
