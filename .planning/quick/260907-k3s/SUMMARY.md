@@ -56,13 +56,32 @@ integrity、foreign-key、quick-check 与完整本地门禁均通过；`scripts/
   `made_by` 关系可见；尝试扩展到 sitemap 的 1,196 页时因本地 SSR 吞吐过低在约 13 分钟
   后中止，未把这次未完成尝试计作全量通过。
 
+## Production deployment and online boundary
+
+- 已将本地 `master` 的已提交变更推送到 GitHub（最新整理提交 `c7582e9f`），并通过
+  Vercel CLI 完成 production deployment `dpl_7v4YCjGFjNtQDSztvSdXXxBveD2y`；构建日志为
+  Next.js 15.5.18、`READY`，别名已指向 `https://fountain-pen-graph.vercel.app`。
+- 生产运行时真实日志显示 `/sitemap.xml`、`/api/entities/nettuno-1911` 和 `/graph`
+  的根因均为 Turso `BLOCKED: Operation was blocked: SQL read operations are forbidden`；
+  应用随后报“Database schema is not initialized”，这是读取被禁用后的包装错误，不是本地
+  schema 检查结论。
+- Turso CLI `db inspect fpkg` 回读到 rows read `1,768,884,845`、rows written `374,410`；
+  直接 libSQL SQL 读取和 `turso db export` 都被同一 rows-read 配额阻断，因而没有远端
+  schema、目标行或迁移后的内容证据，也没有执行远端写入。
+- 全量线上 URL 回读证据保存在
+  `.planning/quick/260907-k3s/online-production/online-sweep-summary.json`：以正式本地库
+  生成的 1,177 个实体、6 个展览和 13 个静态页共 1,196 条 URL，低并发逐条 GET 无网络
+  错误；HTTP `200=1,178`、`500=18`，全部 1,196 条带 RSC error digest，1,177 条实体
+  页停留在 loading shell，正文 marker 仅 19 条（错误静态壳中的导航文字）。两个目标页
+  `/brand/nettuno-1911` 与 `/pen/nettuno-ne-2-0-pelagos-matte` 均为 `200` 但无正文
+  marker；故线上内容验收不通过。
+
 ## Boundary
 
-本 quick 只完成真实本地 SQLite、构建和本地路由的正式安装与回读。没有写入 Turso，
-没有声称远端迁移、生产部署、线上逐条复查或真人全量遍历完成。全局内容修复目标仍
-保持 active；既有 23 条 retired backlog、coverage 报告中的 3 个无公开内容品牌和
-16 个无公开内容型号继续按身份／来源门禁处理，不能用占位正文强行复活。
-
-对现有 Vercel 生产 URL 的只读检查显示两个 Nettuno 路由均为 HTTP 200，但页面没有
-`Nettuno 1911`／`Pelagos` 标记，说明线上版本尚未包含本批本地安装；当前环境没有
-Vercel/Turso 写入凭据，因此不执行部署或远端同步，也不把线上 200 当作本批已上线。
+本 quick 已完成真实本地 SQLite 的正式安装、构建、本地回读、GitHub 推送和 Vercel
+production 部署；没有写入 Turso。由于 Turso rows-read 配额仍阻断，远端迁移／catalog
+sync 无法安全执行，生产动态页面也无法完成内容读取；线上 200 只是错误 loading shell，
+不能视为内容上线。全局内容修复目标仍保持 active；既有 23 条 retired backlog、coverage
+报告中的 3 个无公开内容品牌和 16 个无公开内容型号继续按身份／来源门禁处理，不能用占位
+正文强行复活。恢复 Turso 读权限后，必须先做远端 schema/行级回读，再按既有 guarded
+sync path 迁移，最后重跑 1196 条线上 URL 和真人全页面遍历。

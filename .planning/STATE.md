@@ -202,11 +202,11 @@ Progress: [█████░░░░░] 50%
 | 260812-tvl | 恢复 Sailor Naginata-Togi 为跨 10-7121、Bespoke 与 KOP 的独立 Special Nib 条目，并解除旧 hard-404 | 2026-08-12 | 2f091f1f | [260812-tvl-sailor-naginata-togi-nib-recovery](./quick/260812-tvl-sailor-naginata-togi-nib-recovery/) |
 | 260812-u9i | 恢复半句 Banju 与 Doer，归并 YiSiHua 到 Asvine，并终态裁决 Shanghai、Saier、SKB派顿混名 | 2026-08-13 | e56e4d4a | [260812-u9i-resolve-remaining-retired-identities](./quick/260812-u9i-resolve-remaining-retired-identities-in-/) |
 | 260907-jhl | 修正 Laban 325 型号页残留的品牌页重复段落，并完成 owned-copy 审计、发布、构建与本地安装回读 | 2026-09-07 | d0d9e314 | [260907-jhl-laban-model-dedup](./quick/260907-jhl-laban-model-dedup/) |
-| 260907-k3s | 新增 Nettuno 1911 与 N-E 2.0 Pelagos Matte，并完成来源、发布、构建与本地安装回读 | 2026-09-07 | d344e966 | [260907-k3s](./quick/260907-k3s/) |
+| 260907-k3s | 新增 Nettuno 1911 与 N-E 2.0 Pelagos Matte；完成来源、正式本地安装、GitHub 推送与 Vercel production 部署，线上回读受 Turso rows-read 配额阻断 | 2026-09-07 | d344e966 / c7582e9f | [260907-k3s](./quick/260907-k3s/) |
 
 ## Next Action
 
-已知未决身份已全部裁决；Nettuno 之后的覆盖复核仍只剩 3 个 retired 品牌与 20 个 retired 型号，未发现可安全复活的 current 缺口。下一步是基于当前正式本地库完成全量自动检查和真人全页面遍历；生产迁移、Turso 同步、部署与线上逐条复查仍在迁移窗口执行，full corpus goal 继续 active。
+已知未决身份已全部裁决；Nettuno 之后的覆盖复核仍只剩 3 个 retired 品牌与 20 个 retired 型号，未发现可安全复活的 current 缺口。当前代码已部署到 Vercel production，但 Turso rows-read 配额使远端 SQL/快照和生产动态页不可读；下一步是恢复配额后完成远端 schema/内容回读、guarded sync、线上逐条复查与真人遍历，full corpus goal 继续 active。
 
 ## Session Continuity
 

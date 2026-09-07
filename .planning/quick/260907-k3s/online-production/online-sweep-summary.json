@@ -1,0 +1,484 @@
+{
+  "generatedAt": "2026-09-07T08:25:09.250Z",
+  "deployment": "dpl_7v4YCjGFjNtQDSztvSdXXxBveD2y",
+  "base": "https://fountain-pen-graph.vercel.app",
+  "sourceDatabase": "/Users/xz/Documents/fountain-pen-graph/data/fpkg.db",
+  "sourceEntityCount": 1177,
+  "sourceExhibitCount": 6,
+  "staticCount": 13,
+  "requested": 1196,
+  "concurrency": 4,
+  "timeoutMs": 20000,
+  "elapsedMs": 281253,
+  "statusCounts": {
+    "200": 1178,
+    "500": 18
+  },
+  "kindCounts": {
+    "article": 256,
+    "brand": 133,
+    "concept": 10,
+    "exhibit": 6,
+    "nib": 3,
+    "pen": 775,
+    "static": 13
+  },
+  "markerCount": 19,
+  "errorDigestCount": 1196,
+  "loadingShellCount": 1177,
+  "networkErrorCount": 0,
+  "durationMs": {
+    "min": 331,
+    "max": 3118,
+    "median": 717
+  },
+  "samples": {
+    "target": [
+      {
+        "pathname": "brand/nettuno-1911",
+        "kind": "brand",
+        "status": 200,
+        "bytes": 23070,
+        "marker": false,
+        "errorDigest": true,
+        "loading": true,
+        "error": null,
+        "durationMs": 664
+      },
+      {
+        "pathname": "pen/nettuno-ne-2-0-pelagos-matte",
+        "kind": "pen",
+        "status": 200,
+        "bytes": 23112,
+        "marker": false,
+        "errorDigest": true,
+        "loading": true,
+        "error": null,
+        "durationMs": 688
+      }
+    ],
+    "status500": [
+      {
+        "pathname": "",
+        "kind": "static",
+        "status": 500,
+        "bytes": 13543,
+        "marker": true,
+        "errorDigest": true,
+        "loading": false,
+        "error": null,
+        "durationMs": 2513
+      },
+      {
+        "pathname": "library",
+        "kind": "static",
+        "status": 500,
+        "bytes": 13862,
+        "marker": true,
+        "errorDigest": true,
+        "loading": false,
+        "error": null,
+        "durationMs": 2525
+      },
+      {
+        "pathname": "library/sources",
+        "kind": "static",
+        "status": 500,
+        "bytes": 14364,
+        "marker": true,
+        "errorDigest": true,
+        "loading": false,
+        "error": null,
+        "durationMs": 2478
+      },
+      {
+        "pathname": "library/diagrams",
+        "kind": "static",
+        "status": 500,
+        "bytes": 14346,
+        "marker": true,
+        "errorDigest": true,
+        "loading": false,
+        "error": null,
+        "durationMs": 2490
+      },
+      {
+        "pathname": "timeline",
+        "kind": "static",
+        "status": 500,
+        "bytes": 13832,
+        "marker": true,
+        "errorDigest": true,
+        "loading": false,
+        "error": null,
+        "durationMs": 586
+      },
+      {
+        "pathname": "exhibits",
+        "kind": "static",
+        "status": 500,
+        "bytes": 13854,
+        "marker": true,
+        "errorDigest": true,
+        "loading": false,
+        "error": null,
+        "durationMs": 511
+      },
+      {
+        "pathname": "graph",
+        "kind": "static",
+        "status": 500,
+        "bytes": 14054,
+        "marker": true,
+        "errorDigest": true,
+        "loading": false,
+        "error": null,
+        "durationMs": 551
+      },
+      {
+        "pathname": "by/brand",
+        "kind": "static",
+        "status": 500,
+        "bytes": 14424,
+        "marker": true,
+        "errorDigest": true,
+        "loading": false,
+        "error": null,
+        "durationMs": 1108
+      },
+      {
+        "pathname": "by/nib",
+        "kind": "static",
+        "status": 500,
+        "bytes": 14450,
+        "marker": true,
+        "errorDigest": true,
+        "loading": false,
+        "error": null,
+        "durationMs": 1036
+      },
+      {
+        "pathname": "by/origin",
+        "kind": "static",
+        "status": 500,
+        "bytes": 14429,
+        "marker": true,
+        "errorDigest": true,
+        "loading": false,
+        "error": null,
+        "durationMs": 1041
+      },
+      {
+        "pathname": "by/fill",
+        "kind": "static",
+        "status": 500,
+        "bytes": 14455,
+        "marker": true,
+        "errorDigest": true,
+        "loading": false,
+        "error": null,
+        "durationMs": 579
+      },
+      {
+        "pathname": "by/material",
+        "kind": "static",
+        "status": 500,
+        "bytes": 14475,
+        "marker": true,
+        "errorDigest": true,
+        "loading": false,
+        "error": null,
+        "durationMs": 609
+      },
+      {
+        "pathname": "exhibits/chinese-fountain-pen-memory",
+        "kind": "exhibit",
+        "status": 500,
+        "bytes": 11319,
+        "marker": true,
+        "errorDigest": true,
+        "loading": false,
+        "error": null,
+        "durationMs": 624
+      },
+      {
+        "pathname": "exhibits/filling-system-history",
+        "kind": "exhibit",
+        "status": 500,
+        "bytes": 11304,
+        "marker": true,
+        "errorDigest": true,
+        "loading": false,
+        "error": null,
+        "durationMs": 730
+      },
+      {
+        "pathname": "exhibits/japanese-big-three",
+        "kind": "exhibit",
+        "status": 500,
+        "bytes": 11292,
+        "marker": true,
+        "errorDigest": true,
+        "loading": false,
+        "error": null,
+        "durationMs": 710
+      },
+      {
+        "pathname": "exhibits/lamy-2000-modernism",
+        "kind": "exhibit",
+        "status": 500,
+        "bytes": 11295,
+        "marker": true,
+        "errorDigest": true,
+        "loading": false,
+        "error": null,
+        "durationMs": 885
+      },
+      {
+        "pathname": "exhibits/parker-51-myth",
+        "kind": "exhibit",
+        "status": 500,
+        "bytes": 11280,
+        "marker": true,
+        "errorDigest": true,
+        "loading": false,
+        "error": null,
+        "durationMs": 586
+      },
+      {
+        "pathname": "exhibits/pelikan-piston-filler",
+        "kind": "exhibit",
+        "status": 500,
+        "bytes": 11301,
+        "marker": true,
+        "errorDigest": true,
+        "loading": false,
+        "error": null,
+        "durationMs": 687
+      }
+    ],
+    "status200WithoutMarker": [
+      {
+        "pathname": "article/1-who-made-this-pen",
+        "kind": "article",
+        "status": 200,
+        "bytes": 23097,
+        "marker": false,
+        "errorDigest": true,
+        "loading": true,
+        "error": null,
+        "durationMs": 488
+      },
+      {
+        "pathname": "article/2-what-s-this-pen-made-of",
+        "kind": "article",
+        "status": 200,
+        "bytes": 23115,
+        "marker": false,
+        "errorDigest": true,
+        "loading": true,
+        "error": null,
+        "durationMs": 451
+      },
+      {
+        "pathname": "article/3-when-was-this-pen-made",
+        "kind": "article",
+        "status": 200,
+        "bytes": 23112,
+        "marker": false,
+        "errorDigest": true,
+        "loading": true,
+        "error": null,
+        "durationMs": 527
+      },
+      {
+        "pathname": "article/4-who-s-on-first",
+        "kind": "article",
+        "status": 200,
+        "bytes": 23088,
+        "marker": false,
+        "errorDigest": true,
+        "loading": true,
+        "error": null,
+        "durationMs": 459
+      },
+      {
+        "pathname": "article/5-who-s-on-third-i-don-t-know",
+        "kind": "article",
+        "status": 200,
+        "bytes": 23127,
+        "marker": false,
+        "errorDigest": true,
+        "loading": true,
+        "error": null,
+        "durationMs": 585
+      },
+      {
+        "pathname": "article/6-what-s-on-second",
+        "kind": "article",
+        "status": 200,
+        "bytes": 23094,
+        "marker": false,
+        "errorDigest": true,
+        "loading": true,
+        "error": null,
+        "durationMs": 519
+      },
+      {
+        "pathname": "article/a-a-waterman-and-his-pens",
+        "kind": "article",
+        "status": 200,
+        "bytes": 23115,
+        "marker": false,
+        "errorDigest": true,
+        "loading": true,
+        "error": null,
+        "durationMs": 556
+      },
+      {
+        "pathname": "article/a-case-of-the-creeps",
+        "kind": "article",
+        "status": 200,
+        "bytes": 23100,
+        "marker": false,
+        "errorDigest": true,
+        "loading": true,
+        "error": null,
+        "durationMs": 554
+      },
+      {
+        "pathname": "article/a-trip-to-dip-lessland",
+        "kind": "article",
+        "status": 200,
+        "bytes": 23106,
+        "marker": false,
+        "errorDigest": true,
+        "loading": true,
+        "error": null,
+        "durationMs": 515
+      },
+      {
+        "pathname": "article/alan-turing-s-pens",
+        "kind": "article",
+        "status": 200,
+        "bytes": 23094,
+        "marker": false,
+        "errorDigest": true,
+        "loading": true,
+        "error": null,
+        "durationMs": 416
+      },
+      {
+        "pathname": "article/alice-in-smoothnessland",
+        "kind": "article",
+        "status": 200,
+        "bytes": 23109,
+        "marker": false,
+        "errorDigest": true,
+        "loading": true,
+        "error": null,
+        "durationMs": 500
+      },
+      {
+        "pathname": "article/american-stationer-office-outfitter-a-chronological-index-of-digitized-volumes",
+        "kind": "article",
+        "status": 200,
+        "bytes": 23317,
+        "marker": false,
+        "errorDigest": true,
+        "loading": true,
+        "error": null,
+        "durationMs": 498
+      },
+      {
+        "pathname": "article/aurora-88",
+        "kind": "article",
+        "status": 200,
+        "bytes": 23067,
+        "marker": false,
+        "errorDigest": true,
+        "loading": true,
+        "error": null,
+        "durationMs": 1552
+      },
+      {
+        "pathname": "article/aurora-ipsilon",
+        "kind": "article",
+        "status": 200,
+        "bytes": 23082,
+        "marker": false,
+        "errorDigest": true,
+        "loading": true,
+        "error": null,
+        "durationMs": 1429
+      },
+      {
+        "pathname": "article/aurora-optima",
+        "kind": "article",
+        "status": 200,
+        "bytes": 23079,
+        "marker": false,
+        "errorDigest": true,
+        "loading": true,
+        "error": null,
+        "durationMs": 1171
+      },
+      {
+        "pathname": "article/basic-pen-repair-don-ts-and-dos",
+        "kind": "article",
+        "status": 200,
+        "bytes": 23133,
+        "marker": false,
+        "errorDigest": true,
+        "loading": true,
+        "error": null,
+        "durationMs": 1247
+      },
+      {
+        "pathname": "article/better-in-the-days-of-old",
+        "kind": "article",
+        "status": 200,
+        "bytes": 23115,
+        "marker": false,
+        "errorDigest": true,
+        "loading": true,
+        "error": null,
+        "durationMs": 529
+      },
+      {
+        "pathname": "article/big-box-brands",
+        "kind": "article",
+        "status": 200,
+        "bytes": 23082,
+        "marker": false,
+        "errorDigest": true,
+        "loading": true,
+        "error": null,
+        "durationMs": 545
+      },
+      {
+        "pathname": "article/birthday-pens-a-timeline",
+        "kind": "article",
+        "status": 200,
+        "bytes": 23112,
+        "marker": false,
+        "errorDigest": true,
+        "loading": true,
+        "error": null,
+        "durationMs": 414
+      },
+      {
+        "pathname": "article/blotting-out-the-truth",
+        "kind": "article",
+        "status": 200,
+        "bytes": 23106,
+        "marker": false,
+        "errorDigest": true,
+        "loading": true,
+        "error": null,
+        "durationMs": 411
+      }
+    ],
+    "networkErrors": []
+  }
+}
