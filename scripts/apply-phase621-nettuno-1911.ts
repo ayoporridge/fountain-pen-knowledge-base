@@ -36,7 +36,6 @@ const TARGETS = phase621NettunoGroups.flatMap(({ brand, pens }) => [
 function stableId(prefix: string, value: string): string {
   return `${prefix}-${createHash("sha256").update(value).digest("hex").slice(0, 24)}`;
 }
-
 function isInside(candidate: string, root: string): boolean {
   const relative = path.relative(root, candidate);
   return relative !== "" && !relative.startsWith("..") && !path.isAbsolute(relative);
@@ -428,4 +427,3 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     process.exitCode = 1;
   });
 }
-

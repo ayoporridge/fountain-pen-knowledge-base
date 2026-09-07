@@ -79,4 +79,3 @@ Yafa 美国 exact 页面在本次核实时显示 US$250；这只是一个市场�
 - [The Paper Mind：Nettuno N-E 2.0 Pelagos Matte](https://thepapermind.com/products/nettuno-n-e-2-0-fountain-pen-pelagos-matte-black)
 - [Forbes：Delta Pens Are Back, And They’re Hotter Than Ever](https://www.forbes.com/sites/nancyolson/2023/07/14/delta-pens-are-back-and-theyre-hotter-than-ever/)
 - [Pens.it：Nettuno 1911](https://www.pens.it/en/collections/penne-nettuno)
-

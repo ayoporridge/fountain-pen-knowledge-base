@@ -51,4 +51,3 @@ N-E 2.0 的代表型号采用标准国际墨囊／转换器，附带转换器；
 - [Yafa Brands：Nettuno N-E 2.0 collection](https://yafabrands.com/collections/nettuno-n-e-2-0)
 - [Pens.it：Nettuno 1911](https://www.pens.it/en/collections/penne-nettuno)
 - [Forbes：Delta Pens Are Back, And They’re Hotter Than Ever](https://www.forbes.com/sites/nancyolson/2023/07/14/delta-pens-are-back-and-theyre-hotter-than-ever/)
-
