@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Nettuno N-E 2.0 Pelagos Matte factual diagram</title>
+  <desc id="desc">Editorial schematic of the Pelagos Matte scope: black matte Italian resin, ruthenium trim, number 6 steel nib, threaded cap and standard international cartridge converter. Not a product photo or to-scale drawing.</desc>
+  <rect width="1600" height="900" fill="#0f151b"/>
+  <rect x="68" y="66" width="1464" height="768" rx="40" fill="#202b33" stroke="#93b8b5" stroke-width="5"/>
+  <text x="126" y="154" fill="#e4f1ed" font-family="Georgia, serif" font-size="59" font-weight="700">N-E 2.0 · PELAGOS MATTE</text>
+  <text x="130" y="207" fill="#a9c1c0" font-family="Arial, sans-serif" font-size="29">黑色哑光树脂｜ruthenium trim｜#6 钢尖｜标准国际转换器</text>
+  <g transform="translate(134 300)">
+    <path d="M46 142 L170 98 H770 Q810 98 836 142 Q810 186 770 186 H170 Z" fill="#252d33" stroke="#9db4b3" stroke-width="8"/>
+    <path d="M836 88 H1098 Q1150 88 1174 142 Q1150 196 1098 196 H836 Z" fill="#121a20" stroke="#9db4b3" stroke-width="8"/>
+    <path d="M46 142 L-38 128 L-94 142 L-38 156 Z" fill="#c5d4d0" stroke="#9db4b3" stroke-width="6"/>
+    <path d="M936 89 V195 M974 89 V195" stroke="#7e9f9e" stroke-width="8"/>
+    <circle cx="1196" cy="142" r="26" fill="#8ea9a8"/>
+    <text x="160" y="270" fill="#b6c9c7" font-family="Arial, sans-serif" font-size="23">示意轮廓不表示真实比例、树脂纹理、刻字或颜色校样</text>
+  </g>
+  <g font-family="Arial, sans-serif">
+    <rect x="118" y="636" width="296" height="94" rx="16" fill="#172026" stroke="#5e7a7a" stroke-width="2"/>
+    <text x="148" y="678" fill="#e2efeb" font-size="25">144.0 mm capped</text>
+    <text x="148" y="709" fill="#a9c1c0" font-size="20">Pen Chalet 目录测量</text>
+    <rect x="444" y="636" width="296" height="94" rx="16" fill="#172026" stroke="#5e7a7a" stroke-width="2"/>
+    <text x="474" y="678" fill="#e2efeb" font-size="25">#6 steel nib</text>
+    <text x="474" y="709" fill="#a9c1c0" font-size="20">EF/F/M/B/Stub/Flex 选项</text>
+    <rect x="770" y="636" width="296" height="94" rx="16" fill="#172026" stroke="#5e7a7a" stroke-width="2"/>
+    <text x="800" y="678" fill="#e2efeb" font-size="25">C/C converter</text>
+    <text x="800" y="709" fill="#a9c1c0" font-size="20">标准国际规格，随笔提供</text>
+    <rect x="1096" y="636" width="344" height="94" rx="16" fill="#172026" stroke="#5e7a7a" stroke-width="2"/>
+    <text x="1126" y="678" fill="#e2efeb" font-size="25">28.35 g · 157.5 mm posted</text>
+    <text x="1126" y="709" fill="#a9c1c0" font-size="20">价格、批次和市场需另核</text>
+  </g>
+  <text x="130" y="786" fill="#93aaa9" font-family="Arial, sans-serif" font-size="21">FACTUAL SVG · 非产品照片、Logo 或比例图 · Pelagos Matte 与其他颜色／电镀版本不互相继承规格</text>
+</svg>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Nettuno 1911 brand history and current scope factual diagram</title>
+  <desc id="desc">Editorial timeline separating the 1911 and 1921 historical anchors, the 1936 Superba line, and the modern N-E 2.0 relaunch context. Schematic, not a product photo or logo.</desc>
+  <rect width="1600" height="900" fill="#101820"/>
+  <rect x="70" y="68" width="1460" height="764" rx="38" fill="#1d2b35" stroke="#d2ae72" stroke-width="5"/>
+  <text x="128" y="158" fill="#f7e8cb" font-family="Georgia, serif" font-size="64" font-weight="700">NETTUNO 1911</text>
+  <text x="132" y="210" fill="#b8c9c9" font-family="Arial, sans-serif" font-size="29">品牌历史、复兴与产品层次｜原创事实示意图</text>
+  <line x1="180" y1="438" x2="1390" y2="438" stroke="#d2ae72" stroke-width="7" stroke-linecap="round"/>
+  <g font-family="Arial, sans-serif">
+    <circle cx="245" cy="438" r="22" fill="#f0cc8e"/>
+    <text x="200" y="360" fill="#f7e8cb" font-size="44">1911</text>
+    <text x="160" y="500" fill="#e5d6ba" font-size="27">Bologna 起源线索</text>
+    <text x="160" y="540" fill="#aebfc0" font-size="22">Umberto Vecchietti</text>
+
+    <circle cx="550" cy="438" r="22" fill="#e0b777"/>
+    <text x="505" y="360" fill="#f7e8cb" font-size="44">1921</text>
+    <text x="442" y="500" fill="#e5d6ba" font-size="27">商标与早期上墨</text>
+    <text x="430" y="540" fill="#aebfc0" font-size="22">Penna Nettuno Sicurezza</text>
+
+    <circle cx="855" cy="438" r="22" fill="#bf8f5a"/>
+    <text x="810" y="360" fill="#f7e8cb" font-size="44">1936</text>
+    <text x="790" y="500" fill="#e5d6ba" font-size="27">Superba 系列</text>
+    <text x="720" y="540" fill="#aebfc0" font-size="22">赛璐珞 · 按钮上墨 · 50年代</text>
+
+    <circle cx="1215" cy="438" r="25" fill="#8bc4c4"/>
+    <text x="1142" y="360" fill="#e6fbf7" font-size="39">NOW</text>
+    <text x="1095" y="500" fill="#d5f2ed" font-size="27">N-E 2.0 复兴线</text>
+    <text x="1052" y="540" fill="#a9d0ce" font-size="22">Pelagos · Leviatano · Anemone · Thalassa</text>
+  </g>
+  <path d="M260 646 H1340" stroke="#4e6873" stroke-width="2"/>
+  <text x="130" y="700" fill="#e7d9c3" font-family="Arial, sans-serif" font-size="28">品牌层 ≠ 型号层 ≠ 生产／许可关系</text>
+  <text x="130" y="748" fill="#b2c2c4" font-family="Arial, sans-serif" font-size="23">现代 Maiora 关系按来源范围记录；不与 Nettuno 1911 合并，也不把历史机构移植到 N-E 2.0。</text>
+  <text x="130" y="790" fill="#8fa5aa" font-family="Arial, sans-serif" font-size="21">FACTUAL SVG · 非产品照片、Logo、颜色校样或比例图 · 时间点按来源与核实范围阅读</text>
+</svg>
