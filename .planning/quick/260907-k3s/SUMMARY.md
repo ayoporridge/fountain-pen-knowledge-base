@@ -62,3 +62,7 @@ integrity、foreign-key、quick-check 与完整本地门禁均通过；`scripts/
 没有声称远端迁移、生产部署、线上逐条复查或真人全量遍历完成。全局内容修复目标仍
 保持 active；既有 23 条 retired backlog、coverage 报告中的 3 个无公开内容品牌和
 16 个无公开内容型号继续按身份／来源门禁处理，不能用占位正文强行复活。
+
+对现有 Vercel 生产 URL 的只读检查显示两个 Nettuno 路由均为 HTTP 200，但页面没有
+`Nettuno 1911`／`Pelagos` 标记，说明线上版本尚未包含本批本地安装；当前环境没有
+Vercel/Turso 写入凭据，因此不执行部署或远端同步，也不把线上 200 当作本批已上线。
