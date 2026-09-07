@@ -105,6 +105,26 @@ test("Phase 616 surfaces the approved Teal 2159746 facts on an owned copy", {
   };
   try {
     await migrateDatabase(client);
+    const legacyBody = "Vector XL legacy body before Phase 616.";
+    await client.execute({
+      sql: "UPDATE entities SET summary=?,body_md=?,source=? WHERE id=?",
+      args: [
+        "legacy Vector XL summary",
+        legacyBody,
+        "legacy-phase616-test",
+        PHASE616_TARGET.entityId,
+      ],
+    });
+    await client.execute({
+      sql: "UPDATE stories SET summary=?,body_md=?,source_notes=? WHERE id=? AND entity_id=?",
+      args: [
+        "legacy Vector XL summary",
+        legacyBody,
+        "legacy-phase616-test",
+        PHASE616_TARGET.storyId,
+        PHASE616_TARGET.entityId,
+      ],
+    });
     const before = (
       await rows(
         client,
