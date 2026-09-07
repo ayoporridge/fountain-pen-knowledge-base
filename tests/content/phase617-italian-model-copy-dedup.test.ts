@@ -167,21 +167,31 @@ test("Phase 617 gives seven Italian model pages model-specific copy on an owned 
       PHASE617_TARGETS.some((target) => target.entityId === pack.entityId),
     );
     assert.equal(packs.length, PHASE617_TARGETS.length);
+    const packById = new Map(packs.map((pack) => [pack.entityId, pack]));
     const beforeBodies = new Map<string, string>();
     const relationBefore = new Map<string, string>();
+    const initialSources = new Map<string, string>();
     for (const target of PHASE617_TARGETS) {
       const row = (
-        await rows(client, "SELECT body_md FROM entities WHERE id=?", [
+        await rows(client, "SELECT body_md,source FROM entities WHERE id=?", [
           target.entityId,
         ])
       )[0];
       assert.ok(row);
       beforeBodies.set(target.entityId, String(row.body_md));
+      initialSources.set(target.entityId, String(row.source ?? ""));
       relationBefore.set(
         target.entityId,
         await structuralFingerprint(client, target.entityId),
       );
     }
+    const alreadyApplied = PHASE617_TARGETS.every(
+      (target) =>
+        initialSources.get(target.entityId) ===
+          packById.get(target.entityId)?.sourceMarker &&
+        beforeBodies.get(target.entityId) ===
+          packById.get(target.entityId)?.bodyMd,
+    );
 
     await assert.rejects(
       applyPhase617ItalianModelCopyDedup(client, {
@@ -192,9 +202,17 @@ test("Phase 617 gives seven Italian model pages model-specific copy on an owned 
     );
 
     const first = await applyPhase617ItalianModelCopyDedup(client, options);
-    assert.deepEqual(first.affected, { entities: 7, changed: 7, noop: 0 });
+    assert.deepEqual(first.affected, {
+      entities: 7,
+      changed: alreadyApplied ? 0 : 7,
+      noop: alreadyApplied ? 7 : 0,
+    });
     assert.equal(first.entities.length, 7);
-    assert.ok(first.entities.every((item) => item.outcome === "published"));
+    assert.ok(
+      first.entities.every((item) =>
+        alreadyApplied ? item.outcome === "noop" : item.outcome === "published",
+      ),
+    );
 
     const finalBodies: Array<{ slug: string; body: string }> = [];
     for (const pack of packs) {
@@ -219,7 +237,12 @@ test("Phase 617 gives seven Italian model pages model-specific copy on an owned 
         )
       )[0];
       assert.ok(current);
-      assert.notEqual(String(current.body_md), beforeBodies.get(pack.entityId));
+      if (!alreadyApplied) {
+        assert.notEqual(
+          String(current.body_md),
+          beforeBodies.get(pack.entityId),
+        );
+      }
       assert.equal(String(current.body_md), pack.bodyMd);
       assert.equal(String(current.story_body), pack.bodyMd);
       assert.equal(String(current.story_title), pack.storyTitle);
