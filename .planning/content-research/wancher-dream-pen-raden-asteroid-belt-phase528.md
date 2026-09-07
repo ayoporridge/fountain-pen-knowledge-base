@@ -28,9 +28,9 @@ Cosmic 2022 的官方灵感叙述以 Zen 哲学、相互联系和隐藏宇宙为
 
 选购或二手核对完整标题、product id `7726087078103`、handle、SKU `WF-WARD-EBDP-AB`、四项材料、所选 18K／铑饰尖面、欧规 cartridge、木盒与配件。Asteroid Belt 与 Nebula、Meteor Shower、Comets、Supernova 共用 Cosmic 2022 叙事，但价格、SKU 和 exact 商品页均独立；不能互相借用尺寸、图案或书写体验。
 
-Raden 与 Maki-e 在这支笔上承担不同角色：前者是鲍鱼壳薄片的切割与嵌入，后者是在漆面上用金粉手绘的细节；二者都依托 Urushi 底层和后续研磨。它们不是笔尖、feed 或供墨系统的额外部件，也不能从表面光泽倒推出漆层数量。Cosmic 3D 展示页适合观察系列视觉方向，不能改写本款 exact JSON 的身份、SKU 或价格。
+Asteroid Belt 的名字容易让人补出轨道比例，但页面真正能确认的是工艺分工：鲍鱼壳 Raden 片被切割、嵌入 Urushi 后继续覆漆研磨，Maki-e 金粉细节再由 Yamanoshita 大师手绘。Raden／Maki-e 不属于笔尖、feed 或供墨系统，也不公开小行星数量、颗粒尺度或漆层数量；Cosmic 3D 仅是系列视觉参考，不能改写 `WF-WARD-EBDP-AB` 的 exact JSON 身份和价格。
 
-购买时应把订单、页面截图和实物细节分开保存：页面证明型号和市场字段，照片只证明某一支在某一时刻的外观，不能把另一支的纹样当作本支的生产标准。若资料只剩“Cosmic 星空钢笔”这类简称，应先补齐 exact handle 与 SKU，再讨论颜色或收藏状态。
+购买 Asteroid Belt 时应把订单、页面截图和实物细节分开保存：product id `7726087078103`、handle、SKU `WF-WARD-EBDP-AB` 以及当次 US$1300 记录证明 exact market row，照片只证明这一支在某时刻的纹样。若资料只有“Cosmic 星空钢笔”简称，先补齐 exact handle、SKU 和尖面，不能用 Comets 的图案、尺寸或库存状态替代。
 
 ## model_specs
 

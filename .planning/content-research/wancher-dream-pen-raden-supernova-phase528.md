@@ -28,9 +28,9 @@ Material & art 为 Ebonite、Urushi、Raden、Maki-e。Nib 为 Wancher 18K gold 
 
 购买或二手核对完整标题、product id `7726002012375`、handle、SKU `WF-WARD-EBDP-SN`、Ebonite、Urushi、Raden、Maki-e、所选 18K／铑饰尖面、欧规 cartridge、木盒和配件。Supernova 与 Nebula、Meteor Shower、Comets、Asteroid Belt 共属 Cosmic 2022，但 exact 商品记录、价格和图片不能互换；不凭名称或价格补写未公布尺寸、限量总数和书写表现。
 
-Raden 与 Maki-e 在这支笔上承担不同角色：前者是鲍鱼壳薄片的切割与嵌入，后者是在漆面上用金粉手绘的细节；二者都依托 Urushi 底层和后续研磨。它们不是笔尖、feed 或供墨系统的额外部件，也不能从表面光泽倒推出漆层数量。Cosmic 3D 展示页适合观察系列视觉方向，不能改写本款 exact JSON 的身份、SKU 或价格。
+Supernova 的“爆发”是商品命名，工艺仍要按实际顺序理解：鲍鱼壳先压平为 Raden 薄片并嵌入 Urushi，覆漆研磨后才由 Yamanoshita 大师以金粉手绘 Maki-e。页面没有把这种表面差异量化为星体数量、爆发时刻或漆层克重；Raden／Maki-e 也不是 nib、feed 或 filling mechanism。Cosmic 3D 只能提供系列方向，不能改写 `WF-WARD-EBDP-SN` 的 exact JSON。
 
-Supernova 的商品记录日期为 2022-08-01，页面发布时间为 2023-03-16；这两个字段分别说明后台记录和页面发布状态，不足以证明正式发行日、首批出货日或限量总数。购买时应把订单、页面截图和实物细节分开保存；若资料只剩“Cosmic 星空钢笔”简称，应先补齐 exact handle 与 SKU，再讨论颜色或收藏状态。
+Supernova 的商品记录日期为 2022-08-01，页面发布时间为 2023-03-16；这两个字段分别说明后台记录和页面发布状态，不足以证明正式发行日、首批出货日或限量总数。购买时应把订单、页面截图和实物细节分开保存：product id `7726002012375`、handle、SKU `WF-WARD-EBDP-SN` 与 US$2500 记录确认 exact product，照片只记录这支笔当时的表面和保存状态。资料若只写“Cosmic 星空钢笔”，先补齐 exact handle、SKU、尖面和日期，再讨论颜色或收藏状态。
 
 ## model_specs
 

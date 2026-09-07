@@ -28,9 +28,9 @@ Wancher 的页面将工艺师写为 Wajima 合作工艺师和 Master Yamanoshita
 
 购买或二手核对完整标题、product id `7726084522199`、handle、SKU `WF-WARD-EBDP-NE`、Ebonite、Urushi、Raden、Maki-e、所选 18K／铑饰尖面、欧规 cartridge、木盒与配件。Nebula、Meteor Shower、Comets、Asteroid Belt、Supernova 共享 Cosmic 2022 工艺叙事，却各有 exact product id、SKU 和商品页；不能从相邻款补 Nebula 未公布的尺寸、构图、限量数量或书写感受。
 
-Raden 与 Maki-e 在这支笔上承担不同角色：前者是鲍鱼壳薄片的切割与嵌入，后者是在漆面上用金粉手绘的细节；二者都依托 Urushi 底层和后续研磨。它们不是笔尖、feed 或供墨系统的额外部件，也不能从表面光泽倒推出漆层数量。Cosmic 3D 展示页适合观察系列视觉方向，不能改写本款 exact JSON 的身份、SKU 或价格。
+对 Nebula 来说，Raden 是被切割并嵌入 Urushi 漆层的鲍鱼壳薄片，Maki-e 则是后续在漆面上用金粉手绘的细节；两者共同解释这支 `WF-WARD-EBDP-NE` 为何会有手工差异，却不是笔尖、feed 或供墨部件。Cosmic 3D 只能帮助读者理解 Nebula 所处的系列视觉方向，不能从星云般的光泽倒推漆层数量、固定色值或另一支商品的身份。
 
-购买时应把订单、页面截图和实物细节分开保存：页面证明型号和市场字段，照片只证明某一支在某一时刻的外观，不能把另一支的纹样当作本支的生产标准。若资料只剩“Cosmic 星空钢笔”这类简称，应先补齐 exact handle 与 SKU，再讨论颜色或收藏状态。
+购买 Nebula 时应把订单、官方页面截图与实物细节分开归档：product id `7726084522199`、handle 和 SKU `WF-WARD-EBDP-NE` 证明 exact identity，照片只说明这一支在某一时刻的 Raden／Maki-e 外观。若资料只剩“Cosmic 星空钢笔”简称，先补齐 exact handle、SKU 与选定尖面，再讨论纹样或收藏状态，不能用 Meteor Shower 的照片代替。
 
 ## model_specs
 

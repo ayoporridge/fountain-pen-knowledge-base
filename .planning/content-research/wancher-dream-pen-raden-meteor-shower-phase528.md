@@ -28,9 +28,9 @@ Wancher 将 Urushi、Raden 的应用归于 Wajima 合作工艺师，将 Maki-e �
 
 购买或二手核对 product id `7726085800151`、handle、SKU `WF-WARD-EBDP-MS`、完整标题、材料四项、所选 18K／铑饰尖面、欧规 cartridge、木盒与配件。Meteor Shower 与其他 Cosmic 商品共享方法和故事，但 exact 设计、SKU 与价格不同；不要拿 Nebula 的 US$2000、尺寸或图片替代本款事实。
 
-Raden 与 Maki-e 在这支笔上承担不同角色：前者是鲍鱼壳薄片的切割与嵌入，后者是在漆面上用金粉手绘的细节；二者都依托 Urushi 底层和后续研磨。它们不是笔尖、feed 或供墨系统的额外部件，也不能从表面光泽倒推出漆层数量。Cosmic 3D 展示页适合观察系列视觉方向，不能改写本款 exact JSON 的身份、SKU 或价格。
+Meteor Shower 的 Raden／Maki-e 分工仍然是两层不同动作：鲍鱼壳先压成薄片、切割并嵌入 Urushi，之后才由 Yamanoshita 大师用金粉手绘细节。这个顺序说明 `WF-WARD-EBDP-MS` 的手工纹理为何不应被写成一条固定“流星轨迹”，也不说明笔尖、feed 或供墨配置；Cosmic 3D 只提供系列背景，不能改写本款 exact JSON 的身份、SKU 或价格。
 
-购买时应把订单、页面截图和实物细节分开保存：页面证明型号和市场字段，照片只证明某一支在某一时刻的外观，不能把另一支的纹样当作本支的生产标准。若资料只剩“Cosmic 星空钢笔”这类简称，应先补齐 exact handle 与 SKU，再讨论颜色或收藏状态。
+购买 Meteor Shower 时应把订单、页面截图和实物细节分开保存：product id `7726085800151`、handle 与 SKU `WF-WARD-EBDP-MS` 负责确认型号和 US$1500 的检索窗口，照片只负责记录这支笔当时的手工外观。资料若只写“Cosmic 星空钢笔”，先补齐 exact handle、SKU 和尖面，不能把 Nebula 的价格、图案或照片写回本款。
 
 ## model_specs
 

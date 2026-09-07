@@ -28,9 +28,9 @@ Wancher 将 Urushi 与 Raden 应用写为 Wajima 合作工艺师，将 Maki-e �
 
 购买或二手核对完整标题、product id `7726086586583`、handle、SKU `WF-WARD-EBDP-CO`、四项材料、所选 18K／铑饰尖面、欧规 cartridge、木盒和配件。Comets 与 Cosmic 相邻款共享工序，价格和 exact 记录却不同；不要用 Meteor Shower 的 SKU、Supernova 的高价或其他图片补本款字段。
 
-Raden 与 Maki-e 在这支笔上承担不同角色：前者是鲍鱼壳薄片的切割与嵌入，后者是在漆面上用金粉手绘的细节；二者都依托 Urushi 底层和后续研磨。它们不是笔尖、feed 或供墨系统的额外部件，也不能从表面光泽倒推出漆层数量。Cosmic 3D 展示页适合观察系列视觉方向，不能改写本款 exact JSON 的身份、SKU 或价格。
+Comets 页需要把“彗星”当成命名线索而不是工艺部件：鲍鱼壳 Raden 薄片先被切割、嵌入 Urushi，再覆漆研磨，Maki-e 金粉细节最后手绘完成。手工步骤解释了 `WF-WARD-EBDP-CO` 的支支差异，却没有公布彗星数量、轨迹或漆层数量；Cosmic 3D 只能说明系列语境，不能替本款 exact JSON 增加尺寸、尖材或价格以外的字段。
 
-购买时应把订单、页面截图和实物细节分开保存：页面证明型号和市场字段，照片只证明某一支在某一时刻的外观，不能把另一支的纹样当作本支的生产标准。若资料只剩“Cosmic 星空钢笔”这类简称，应先补齐 exact handle 与 SKU，再讨论颜色或收藏状态。
+购买 Comets 时应把订单、官方页面截图和实物细节分开保存：product id `7726086586583`、handle、SKU `WF-WARD-EBDP-CO` 与当次 US$1500 记录确认 exact product，照片只记录某一支的纹样和保存状态。若资料只剩“Cosmic 星空钢笔”，先补齐 handle、SKU 与尖面，不要拿 Meteor Shower 或 Supernova 的价格、图像和收藏判断来填空。
 
 ## model_specs
 

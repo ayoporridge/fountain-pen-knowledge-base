@@ -75,41 +75,148 @@ export const PHASE111_IDENTITY_MARKERS = {
 } as const;
 export const PHASE111_LEGACY_AMBIGUITY_MARKERS = { ids: ["elabopen0001"], slugs: ["pilot-elabo"], names: ["百乐 Pilot Elabo", "Pilot Elabo", "Elabo", "Falcon"] } as const;
 
-const shared = `## 证据怎样分工
+function sharedCopy(key: Key): string {
+  if (key === "metal") return `## 证据怎样分工
 
-这一页把 current official facts 与 dated sample experience 分成两条轨道。Pilot catalog 和保修页回答产品号、材料、笔尖、供墨、尺寸、重量以及执行日 variants；独立作者只回答自己接触的那支笔在某种纸墨、尖宽和使用方式下呈现了什么。样本证词能提醒读者试写，却不能替换当前目录，也不能因为名称相近就跨型号借规格。
+FE-25SR 这一页把金属轴的 current catalog facts 与两篇 dated sample 体验分开。Pilot 目录和保修页锁定 FE-25SR、黄铜轴帽、33.0g、14K soft nib、CON-40/CON-70N、尺寸和当前黑色；Brad Dowdy 借用的 SEF 与 Pencilcase 获赠的 M 样本，只说明各自纸墨和压力下的观察。样本能提示试写重点，却不能替整条 Elabo 系列补规格。
 
-购买前先抄盒标、保修卡或轴帽上的完整 product code，再核对尾缀、尖宽和颜色。名称只有 Elabo 或 Falcon 时信息不够：本批次特意不创建 generic route，也不把 metal 与 resin 合并。Custom NS 和 Lightive 同样不能从 Custom 74、92、Kakuno 或 Cocoon 借用金尖、converter、重量和颜色。精确型号优先于“看起来像”。
+购买前先把盒标或轴帽上的 FE-25SR 抄完整，再核对 SEF、SF、SM、SB 尖宽和黑色尾缀。海外页面写 Falcon、Elabo 或 metal 时，若没有 FE-25SR，信息还不足以排除 FE-18SR；本页不创建 generic route，也不让 Custom NS、Lightive 或其它 Pilot 型号借用 33g 与 converter 字段。
 
-价格与包装只保留时态。官方建议零售价是执行日目录记录，独立评测里的美元、欧元、随盒 converter 或赠测条件属于文章当年。不同地区库存、税费和 refresh 会改变实际成本。二手购买还应询问笔尖是否调校、converter 是否原配、卡帽或螺纹是否异常，并让卖家提供完整型号与尖刻照片。
+价格和包装要带日期理解。执行日目录的 FE-25SR 建议价是 JPY 47,300（含税），2013/2015 评测中的美元价格、赠测关系、木盒或 CON-70 描述属于当年样本。库存、地区税费和包装会变；二手交易仍应索取完整 SKU、尖刻照片、converter 是否原配及卡帽螺纹状态。
 
 ## 写感不是可复制的规格
 
-soft、smooth、feedback、dry、wet、balanced 都需要作者、样本、纸墨与日期。即使两支笔共享名义尖宽，制造公差、使用磨损、墨水流动性和握姿也会改变体验。页面不会把单一作者写成玩家共识，更不会把“软”扩写成 traditional flex 保证。想要明显书法式粗细变化，应先现场试写，并避免为了追求线宽而过压撑尖。
+FE-25SR 的 soft 不是 traditional flex 保证。两篇样本分别提到金属的冷触感、33g 重量、SEF 或 M 尖的反馈和流量，但作者、纸张、墨水与是否借测都不同。试写应先以正常轻压完成一段，再记录回弹、转折和长写时的重量；不要为了复刻评测照片而过压撑尖。
 
 ## 维护边界
 
-cartridge 和 converter 应直线装入，清洗后自然干燥；具体可用型号按本页 current official scope，而不是按旧评测包装。snap cap 开合、长期停放与飞行时的气压变化都可能影响出墨。若出现持续漏墨、尖片错位、异常阻力或卡帽松脱，不从相邻 Pilot 型号的拆解经验推断，保留购买凭证并向当地服务渠道确认。
+FE-25SR 的 CON-40 或 CON-70N 要沿直线装入，清洗后自然干燥；大 converter 兼容是本金属 sibling 的 current scope，不是邻近树脂版的默认配置。软尖若出现持续漏墨、尖片错位或异常阻力，应保留购买凭证并咨询 Pilot 服务渠道，不依据另一款 Falcon 的拆解图自行修理。
 
-本站主图是事实导航，不是商品照片。图中轮廓、颜色和比例只服务于阅读层级，不复刻商标、漆面或真实色差，也不能替代官网图和实物检查。
+这四页的 Pilot 主图都是事实导航，不是商品照片。FE-25SR 图中黄铜轴帽和尖面层级用于解释结构，不承诺真实漆色、比例、冷触感或某一支的表面状态；购买判断仍以官网 exact page 和实物检查为准。
 
 ## 如何把页面用于实际选择
 
-先把“是否是这一个型号”解决，再谈喜不喜欢。到店试写可以准备一张自己常用的纸，用相同墨水条件依次写小字、快速笔记和一段连续文字。记录起笔、转折、回锋、握位压力与重心，而不是只画几条刻意撑开的粗细线。网购时要求卖家确认完整 SKU、尖宽、颜色后缀、converter 与退换条件；页面的规格能帮助排除错货，不能替代到手检查。
+若目标是 FE-25SR，现场应带自己的纸，用同一墨水先写小字、快速笔记和连续段落，比较 33g 金属轴在握位和重心上的影响，再试 SEF/SF/SM/SB 的自然线宽。网购时让卖家同时确认 FE-25SR、尖宽、颜色、CON-40/CON-70N 和退换条件；规格用于排除错货，不替代到手验笔。
 
-如果读者是从品牌页漫游而来，made_by 关系只说明制造者与导航归属，不意味着四页可以共享 payload。每一页的 current scope、source item、spec evidence 和 primary media 都归目标实体自己所有。反向导航增加的是四个精确页面，不会产生第五个 generic Elabo，也不会让一个 sibling 成为另一个的 redirect。
+made_by 关系只把 FE-25SR 归到 Pilot 品牌导航，不意味着四个 Phase 111 页面共享 payload。每页都有自己的 current scope、source item、spec evidence 和 primary media；从 Pilot 品牌页返回时，读者会得到精确型号链接，而不是一个把 metal、resin、Custom NS、Lightive 混在一起的 Elabo 节点。
 
 ## 关于地区名与时间
 
-Pilot、Namiki、Elabo、Falcon 等词在不同地区和年代可能同时出现。本文只在来源明确说明时描述地区命名，不用模糊 alias 解决 identity。一个标题写 Falcon 的旧评测，必须继续核对轴材、重量、converter 与尖宽，才能判断它提供的是 metal 还是 resin 样本证词；判断不了就只留作背景，不进入 current fields。
+Falcon、Elabo、Namiki 等词在不同地区可指向不同包装。FE-25SR 的金属轴、33g 与 CON-70N 兼容必须回到 exact code；若旧标题只写 Falcon，最多保留为背景，不能把它的重量、尖宽或价格写入本页 current fields。2013/2015 样本的作者关系和日期也应原样保留。
 
-refresh 同样需要日期。官网执行日页面优先说明现在，旧文章负责保留当时的样本、包装、颜色与价格。二者不互相“纠错”，而是回答不同问题。未来 catalog 再更新时，应新增 retrieval 和 scope，而不是静默改写旧作者当年的观察。这样页面既能服务当下购买，也保留可追溯的产品变化。
+refresh 记录的是目录状态，不会改写借测文章。FE-25SR 的 current black 和四种 soft nib code 由执行日 PDF 负责，旧颜色、北美包装及历史价格由各自样本 scope 负责。未来目录再变时新增 retrieval 和 scope，避免把新页面静默套回旧作者的金属轴体验。
 
 ## 安全与诚实边界
 
-软尖、卡帽、converter 和长期停放都涉及真实使用成本。本文不建议超出官方写作用途的压力测试，不承诺任何墨水组合永不干尖，也不把赠测或借测自动视为不可信；关键是披露关系并把结论限制在样本。发现来源打不开、产品号冲突或规格无法落到 exact SKU 时，正确动作是停止发布，而不是从相邻型号或商店摘要补齐。
+FE-25SR 的软尖、金属重量和 converter 选择都会带来真实使用成本。本文不建议以过压测试 traditional flex，不承诺某种墨水永不干尖，也不把借测或赠测自动当成普遍结论。遇到产品号冲突、来源打不开或卖家只给“Falcon”简称时，正确动作是暂停发布，先补齐 exact SKU。
 
-页面也不提供维修拆解授权。特别是软尖错位、卡帽内部结构、converter 密封和树脂裂纹，应由有经验的维修渠道判断。日常清洗可遵循官方 care guide；超出说明的拆卸、磨尖和改尖会改变原始状态，也会让本页关于 stock 产品的判断失效。`;
+页面不授权自行拆解软尖、卡帽或 converter 密封。日常清洗按 Pilot care guide 处理；磨尖、拆卸或强行校正会改变 FE-25SR 的 stock 状态，使本页关于官方配置与 dated sample 的边界失效。`;
+  if (key === "resin") return `## 证据怎样分工
+
+FE-18SR 这一页先处理树脂轴的 current identity，再处理一篇 2024 自购 SEF 的体验。Pilot 目录和保修页锁定 18.0g、14.4mm、137mm、14K soft nib、CON-40 与黑色；fpen149 的卡利感、反馈和小插图来自作者自己的那支 FE-18SR SEF，不能替 stock 规格发言。
+
+购买时要从盒标抄出 FE-18SR，并确认 SEF、SF、SM、SB 尖宽与颜色后缀。海外称 Falcon 或只写 Elabo 时，缺少 FE-18SR 就不能判断是树脂还是 FE-25SR 金属轴；本页也不把 Custom 742/743/Heritage 912 的 FA nib、CON-70N 或重量搬过来。
+
+价格和包装只在各自时间范围内成立。执行日目录把 FE-18SR 黑色列为 JPY 35,200（含税），fpen149 文章的购买条件、CON-40、旧颜色和个人配件是 2024 样本。地区库存、税费和 converter 包装会变；二手核对仍需完整 code、尖刻照片、converter 原配情况和卡帽状态。
+
+## 写感不是可复制的规格
+
+18g 树脂轴只是一个 official weight，不等于每个人都觉得轻松。fpen149 的 SEF 细线、反馈和流量观察依赖作者的纸墨、握姿和自购样本，文章里的 custom Namiki Falcon 改尖视频也不代表 stock FE-18SR。试写要记录连续书写的重心和起笔，不要把“soft”改写成 flex 保证。
+
+## 维护边界
+
+FE-18SR 的 current filling scope 是 cartridge 或 CON-40；安装要保持直线，清洗后自然干燥。保修页没有给出 CON-70N 操作，因此不能因为金属 sibling 能装大 converter 就扩展树脂页。持续刮纸、断墨或树脂裂纹应交给服务渠道判断，不按相邻型号拆解。
+
+这四页的 Pilot 主图是事实导航。FE-18SR 图中树脂轴、14.4mm 握位和 soft nib 只用于阅读层级，不是商品照片、重量实拍或色差证明；真实颜色、包装和库存仍要回到 exact 商品页与实物。
+
+## 如何把页面用于实际选择
+
+若要判断 FE-18SR 是否适合日用，先用自己的纸墨写小字、快速记录和连续段落，再比较 18g 无套帽重心与 SEF/SF/SM/SB 的反馈。网购要求卖家确认 FE-18SR、尖宽、黑色或地区尾缀、CON-40 与退换条件；页面能帮助排除把 FE-25SR 发来的错误，不替代到手检查。
+
+made_by 只说明 FE-18SR 由 Pilot 品牌导航，不能让四个 Phase 111 页面共用内容。树脂页的 current scope、source item、spec evidence 和 primary media 都独立；品牌页返回的是 FE-18SR 精确 route，不会生成一个 generic Falcon 来吞掉 metal sibling。
+
+## 关于地区名与时间
+
+Falcon、Elabo 和 Namiki 在海外文章中可能并列出现。FE-18SR 只有在轴材、18g、CON-40 和尖宽都与 exact code 对上时才进入 current fields；若旧标题只写 Falcon，就保留为命名背景。2024 自购 SEF 的作者身份、纸墨与视频改尖范围不能被当前黑色目录覆盖。
+
+FE-18SR 的执行日 PDF 负责现在的黑色和四种 soft nib code，fpen149 负责 2024 样本的反馈、旧价和配件。未来 refresh 应增加新的 retrieval 和 scope，而不是静默把新 converter 或颜色改写成作者当年的树脂体验。
+
+## 安全与诚实边界
+
+树脂轴、SEF 细尖和较小的 CON-40 都会影响真实使用成本。本文不鼓励压尖求线宽，不保证某种墨水在所有环境下不干，也不把自购文章里的改尖视频当出厂承诺。来源打不开、产品号冲突或只有“Falcon”简称时，先停止发布并补齐 FE-18SR 证据。
+
+页面不授权拆开 FE-18SR 的尖、卡帽或 converter 密封。日常清洗按官方 care guide；自行磨尖、强拧螺纹或把树脂整支浸泡都可能改变 stock 状态，后续判断应转交熟悉 Pilot 的维修渠道。`;
+  if (key === "customNs") return `## 证据怎样分工
+
+FKNS-1 这一页的主线是“Custom 名称下的钢尖入口”。执行日 Pilot PDF 负责特殊合金钢尖、EF/F/M/B、22.6g、15.6mm、143.9mm、CON-70N 和四组当前颜色；Pencilcase 的 2020 Casa Della Stilografica 送测样本只回答当时的握持、钢尖和价格。两种来源并列，但不互相代替。
+
+购买前抄完整 FKNS-1 code，再核对 L mystery blue、G nature green、R ruby red、BN adventure brown 与尖宽。旧文章里的 dark/light blue、beige、red、black 不能越过 refresh 日期覆盖 current table；Custom 74、92 或其它 Pilot 的金尖、重量和 converter 也不能写入 NS。
+
+价格和包装需要分 scope 阅读。执行日目录的 FKNS-1 记录为 JPY 16,500（含税）并随附 CON-70N；2020 送测文章的欧洲、日本、美国价格、旧颜色和 CON-40 是当年样本。库存、税费和盒内配件可能变化，二手仍要核对尖刻、盒标、颜色后缀和退换条件。
+
+## 写感不是可复制的规格
+
+FKNS-1 的特殊合金钢尖不等于 Custom 金尖的替身。送测作者对塑料结构、长笔身、螺纹和钢尖反馈的描述属于 2020 样本，并不证明今日每支 NS 都相同。试写时请记录握位、起笔和连续文字，而不是把材料等级或作者与 Custom 74/92 的比较当成硬度、顺滑度或 flex 规格。
+
+## 维护边界
+
+FKNS-1 current scope 同时记录随附 CON-70N 与兼容 CON-40/CON-70N；converter 需直线装入，清洗后自然干燥。旧评测只写 CON-40，不足以撤销今日目录，也不代表所有旧包装都含同一配件。遇到持续漏墨、尖片错位或卡帽松动，应保留购买凭证并找 Pilot 服务渠道。
+
+这四页的 Pilot 主图是事实导航而非产品照片。FKNS-1 图中钢尖、树脂轴和四组颜色用于解释 identity，不证明 2020 旧色仍在售，也不承诺真实比例、漆面或某支笔的磨损；当前货架与实物优先由 exact code 核对。
+
+## 如何把页面用于实际选择
+
+想比较 FKNS-1 的 EF/F/M/B，应在同一张常用纸上写小字、快速笔记和长句，记录 22.6g、15.6mm 握位与 CON-70N 后的重心。网购时让卖家确认 FKNS-1、L/G/R/BN 颜色、尖宽、盒内 CON-70N 和退换条件；页面规格帮助识别错货，不代替检查。
+
+made_by 关系只负责把 FKNS-1 接到 Pilot 品牌，不能让 Custom NS 与 Elabo 或 Lightive 共享 payload。该页的 current refresh、2020 sample scope、source item、spec evidence 和 primary media 都有自己的证据链；从品牌页漫游会回到四个精确型号，而不是一个模糊 Custom route。
+
+## 关于地区名与时间
+
+“Custom”在不同市场常常连到不同尖材和颜色。FKNS-1 必须同时满足 exact code、特殊合金钢尖、22.6g、CON-70N 与当前四色条件；2020 文章只作为送测样本和旧市场语境。若卖家只写 Custom NS，先索取盒标、尖刻和颜色照片，不把旧文章的价格写成今天的报价。
+
+refresh 日期决定 current FKNS-1 表，送测日期决定 historical sample scope。二者不互相“纠错”：未来 catalog 变更时新增 retrieval，保留 2020 作者对钢尖和握持的观察，也不把新颜色、价格或配件静默回填到旧文章。
+
+## 安全与诚实边界
+
+FKNS-1 的钢尖、长笔身和 CON-70N 会影响真实使用成本。本文不把钢尖贬为“低配”，也不承诺它比金尖更硬、更顺或永不干；遇到产品号冲突、颜色无法对应或来源打不开时，应停止发布，而不是从 Custom 74/92 补规格。
+
+页面不授权自行拆解 FKNS-1 的卡帽、尖片或 converter 密封。日常清洗遵循官方 care guide；强行磨尖、过压或拆卸会改变 stock 状态。超出说明的维修应交给有经验的 Pilot 渠道，不能用作者的 2020 送测动作作教程。`;
+  return `## 证据怎样分工
+
+P-FLT-1 这一页把 Lightive 的 current refresh 与 active-yellow 长期样本分成两条证据链。Pilot 执行日 PDF 负责 F/M 特殊合金钢尖、12.3g、13.5mm、142mm、snap cap、CON-40/CON-70N 和六种当前颜色；kamitopen 的 2021 样本、2025/2026 更新及一年 dry test 只描述作者那支笔在特定墨水和环境中的表现。
+
+购买时先核对 P-FLT-1 及 OW、NC、MB、COR、TQ、NV 尾缀。active yellow 是旧样本，不在 current variants；Lightive 也不能从 Custom NS、Cocoon、Kakuno 或 Elabo 借钢尖、颜色、重量或气密承诺。名称对上并不等于版本对上。
+
+价格和包装必须标注时点。执行日目录的 P-FLT-1 价格为 JPY 2,750（含税），kamitopen 文章保留 active yellow、约 12.5g 旧样本、cartridge/CON-70 体验和 2021 年市场语境。库存、税费和 converter 配置会变；二手仍要让卖家提供完整 code、颜色、尖宽和卡帽照片。
+
+## 写感不是可复制的规格
+
+Lightive 的 12.3g current weight 与作者旧样本约 12.5g 可以并列，不能平均成一个新规格。一年停放后每月写一两毫米的 dry test 是作者方法下的个案，不是 Pilot warranty；snap cap 的轻重、拔合和偶发墨滴也要回到自己的纸墨和环境验证。
+
+## 维护边界
+
+P-FLT-1 的 cartridge、CON-40 和 CON-70N 兼容范围来自 current catalog；装入时保持直线，清洗后自然干燥。kamitopen 对 spring-loaded inner cap 的拆看和长期停放只作观察，不能授权读者拆帽或把“一年仍可写”扩成 universal dry-up guarantee。异常漏墨、卡帽或尖片问题应找 Pilot 服务渠道。
+
+这四页的 Pilot 主图是事实导航，不是 Lightive 商品照片。P-FLT-1 图中的 snap cap、树脂轴和颜色名称用于区分 route，不证明 active yellow 仍在售、真实色差、气密程度或某支笔的旧磨损；官网 exact page 与实物检查优先。
+
+## 如何把页面用于实际选择
+
+若在意 Lightive 的轻量或 snap cap，先用自己的纸墨写小字、快速笔记和长句，再观察 12.3g、握位与 F/M 的起笔。网购时确认 P-FLT-1、OW/NC/MB/COR/TQ/NV、尖宽、converter 和退换条件；想复现 dry test 时要记录墨水、停放环境和日期，不能只看标题。
+
+made_by 关系只把 P-FLT-1 接到 Pilot，不表示四个 Phase 111 页面可以共享 payload。Lightive 的 current refresh、2021 sample、author update、source item、spec evidence 和 primary media 均独立；品牌页返回的是精确 P-FLT-1 route，而非把旧 active yellow 变成第五个型号。
+
+## 关于地区名与时间
+
+Lightive、ライティブ 和 active yellow 在不同页面的时间语境不同。P-FLT-1 的 2025-12-02 refresh 与执行日 PDF 负责当前六色，kamitopen 的 2021 样本和 2025/2026 更新负责旧色、旧价与作者实验。资料只写 Lightive 时，先补 code、颜色和日期，不能用旧样本覆盖 current fields。
+
+refresh 不是对作者记忆的“纠错”。官网回答现在的 F/M、12.3g 和 converter 范围，文章回答当年 active-yellow 的 snap cap、轻重和 dry test；未来目录再变时新增 retrieval 和 scope，保留这条时间线。
+
+## 安全与诚实边界
+
+Lightive 的 snap cap、converter 和长期停放都涉及真实使用成本。本文不承诺任何墨水在所有环境下永不干尖，不把 spring-loaded inner cap 的拆看变成维修教程，也不把旧 active yellow 的一年实验写成普遍保证。来源打不开、产品号冲突或颜色无法对应时，应暂停发布并补齐 exact P-FLT-1 证据。
+
+页面不授权自行拆解卡帽、尖片或 converter 密封。日常清洗遵循 Pilot care guide；强行拔帽、过压或磨尖会改变 stock 状态。若出现持续漏墨、卡帽松脱或树脂裂纹，应交给有经验的维修渠道判断。`;
+}
 
 function body(key: Key): string {
   if (key === "metal") return `## 重量首先把 sibling 分开
@@ -122,7 +229,7 @@ Pencilcase 2015 年样本由 Pilot 免费提供。作者记录约 33g、较大�
 
 current variants 只保留 exact PDF 执行日列出的黑色 FE-25SR 与四种 soft nib code。历史颜色、北美 Falcon 包装和评测年代价格不进入 current table。Elabo/Falcon 可以解释地区命名关系，却不成为无条件 alias；只有完整 FE-25SR 才落到本页。
 
-试写时建议先用正常轻压写一整段，再观察自然笔画变化、回弹、握位直径和 33g 在长写中的影响。若购买目标只是稳定日用，不应为了展示线宽而把尖压到评测图片的极限。${shared}`;
+试写时建议先用正常轻压写一整段，再观察自然笔画变化、回弹、握位直径和 33g 在长写中的影响。若购买目标只是稳定日用，不应为了展示线宽而把尖压到评测图片的极限。${sharedCopy(key)}`;
   if (key === "resin") return `## 18g 的树脂 sibling
 
 FE-18SR current catalog 记录树脂轴帽、18.0g、最大径 14.4mm、全长 137mm，14K 镀铑 soft nib 同样提供 SEF、SF、SM、SB。供墨范围却不同：随附并适配 CON-40，保修页也只展示 CON-40。这个差异足以说明它不是 FE-25SR 的轻量配色，而是必须独立维护的 canonical sibling。
@@ -133,7 +240,7 @@ fpen149 在 2024 年自购的是 FE-18SR SEF。作者写到用 CON-40、SEF 的�
 
 执行日 current variants 只收 exact PDF 可核对的黑色 FE-18SR 与四种 soft nib code；旧红色库存、商店残留与历史价格不进入 current list。读者若面对红色或其它地区包装，应继续查后缀和年代，不能用本页 current table 自动覆盖。
 
-树脂轴较轻不等于所有人都更舒适。试写时要比较握持重心、无套帽长写与 SEF 在自己的纸墨上是否过细。作者的“卡利感”是个人样本，不是出厂缺陷判定；真正持续刮纸、尖片错位或断墨仍需要检查。${shared}`;
+树脂轴较轻不等于所有人都更舒适。试写时要比较握持重心、无套帽长写与 SEF 在自己的纸墨上是否过细。作者的“卡利感”是个人样本，不是出厂缺陷判定；真正持续刮纸、尖片错位或断墨仍需要检查。${sharedCopy(key)}`;
   if (key === "customNs") return `## Custom 名称里的钢尖入口
 
 FKNS-1 的 current identity 很明确：特殊合金钢尖，EF、F、M、B；树脂轴帽；最大径 15.6mm、全长 143.9mm、22.6g；随附 CON-70N，并兼容 CON-40 和 CON-70N。它属于 Custom 梯级，却不能因为名字里有 Custom 就借 Custom 74 或 92 的金尖规格。
@@ -144,7 +251,7 @@ Pencilcase 披露样本由 Casa Della Stilografica 送测。作者记录较长�
 
 页面把该来源放在 professional_sample_2020_pre_refresh scope：送测关系、作者意见、旧颜色、旧价格和当时包装一起保留。current FKNS-1 scope 则只接 Pilot PDF 和 category。两条轨道并列，使读者知道为何旧评测仍值得读，又不会把六年前的 lineup 当今天货架。
 
-购买时先确认 FKNS-1 后缀和尖宽，再检查盒内 CON-70N 是否与销售说明一致。若二手卖家只写“Custom NS”而没有 code，应索取笔身、尖刻、盒标和颜色照片。钢尖不天然低于金尖，也不保证更硬或更顺；目标应是自己的纸墨和手感，而不是材料等级想象。${shared}`;
+购买时先确认 FKNS-1 后缀和尖宽，再检查盒内 CON-70N 是否与销售说明一致。若二手卖家只写“Custom NS”而没有 code，应索取笔身、尖刻、盒标和颜色照片。钢尖不天然低于金尖，也不保证更硬或更顺；目标应是自己的纸墨和手感，而不是材料等级想象。${sharedCopy(key)}`;
   return `## current refresh 与旧样本要分开
 
 P-FLT-1 current PDF 给出 F/M 特殊合金钢尖、树脂轴帽、snap cap、最大径 13.5mm、全长 142mm、12.3g，以及 CON-40/CON-70N 兼容。执行日颜色是 off-white、non-color、matte black、coral、turquoise、navy。旧 active yellow 不在这张 current variants 表里。
@@ -155,7 +262,7 @@ kamitopen 的文章最初发布于 2021-12-04，主图和长期使用对象是 a
 
 文章还觉得 cartridge 状态偏轻、装 CON-70 后重量更合适，并提醒 snap cap 快速拔开可能带来墨滴。这些同样属于个人体验。12.3g current official weight 与作者旧样本约 12.5g 可以并列，不能平均成新规格；converter 容量的自行测量也不替代官方兼容字段。
 
-购买时先决定需要透明观察墨量还是涂装外观，再核对 P-FLT-1 尾缀。旧 active yellow 库存可能仍在市场，但它应按旧时态理解。使用 snap cap 时平稳拔合、长期停用前清洗；若希望验证气密表现，应在自己的墨水与环境中谨慎观察，而不是把单篇一年实验当免维护承诺。${shared}`;
+购买时先决定需要透明观察墨量还是涂装外观，再核对 P-FLT-1 尾缀。旧 active yellow 库存可能仍在市场，但它应按旧时态理解。使用 snap cap 时平稳拔合、长期停用前清洗；若希望验证气密表现，应在自己的墨水与环境中谨慎观察，而不是把单篇一年实验当免维护承诺。${sharedCopy(key)}`;
 }
 
 function makePack(key: Key): CuratedEntityPack {
