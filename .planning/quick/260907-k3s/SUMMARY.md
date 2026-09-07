@@ -56,6 +56,13 @@ integrity、foreign-key、quick-check 与完整本地门禁均通过；`scripts/
   `made_by` 关系可见；尝试扩展到 sitemap 的 1,196 页时因本地 SSR 吞吐过低在约 13 分钟
   后中止，未把这次未完成尝试计作全量通过。
 
+## Validation boundary
+
+- `pnpm lint`（脚本为 `biome check .`）未进入源码检查：扫描到既有 quick 证据目录中的嵌套
+  `biome.json` 后即因 root configuration 冲突退出，退出码 1。
+- 为区分本 quick 与历史资产，另行执行 `pnpm exec biome check src scripts tests`；该范围仍有
+  73 个 errors、3 个 warnings，且未改动这些 legacy 文件，不能宣称全局 lint 通过。
+
 ## Production deployment and online boundary
 
 - 已将本地 `master` 的已提交变更推送到 GitHub（最新整理提交 `c7582e9f`），并通过

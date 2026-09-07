@@ -21,6 +21,7 @@ created: 2026-09-07
 - [ ] Turso 迁移／catalog sync：生产环境 SQL read、快照 export 均被账户 rows-read 配额阻断；本任务未执行任何远端写入。
 - [ ] 线上内容验收：1196 条 URL 已逐条回读但 1177 条动态实体页均是 error digest/loading shell，18 条静态/展览页为 HTTP 500；需先恢复 Turso 读权限再重跑。
 - [ ] 真人全页面遍历仍未完成；本地 Playwright 全量尝试曾因 SSR 吞吐中止。
+- [ ] lint 全局门禁：`pnpm lint` 在扫描源码前即因既有 quick 证据目录中的嵌套 `biome.json` 配置退出；限定 `src scripts tests` 的 `biome check` 仍报告 73 个既有 errors、3 个 warnings，本 quick 未改动这些 legacy 文件。
 
 ## Owned files
 
