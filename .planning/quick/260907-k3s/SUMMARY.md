@@ -49,6 +49,9 @@ integrity、foreign-key、quick-check 与完整本地门禁均通过；`scripts/
 - `/api/entities/nettuno-1911`、`/api/entities/nettuno-ne-2-0-pelagos-matte`：HTTP 200；
 - `/sitemap.xml`：HTTP 200，包含两个新 slug；
 - 页面中可回读 `Nettuno 1911`、`Pelagos`、`NE78179`、`ruthenium` 及对应原创 SVG。
+- Playwright CLI 对品牌页、型号页和关系图谱做了真实浏览器快照，正文、规格、来源卡片和
+  `made_by` 关系可见；尝试扩展到 sitemap 的 1,196 页时因本地 SSR 吞吐过低在约 13 分钟
+  后中止，未把这次未完成尝试计作全量通过。
 
 ## Boundary
 
