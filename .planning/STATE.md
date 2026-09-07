@@ -5,10 +5,10 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
-stopped_at: Quick 260812-tvl complete; Sailor Naginata-Togi nib restored on the offline candidate
-last_updated: "2026-08-12T21:45:12+08:00"
-last_activity: 2026-08-12
-last_activity_desc: Restored the sourced Sailor Naginata-Togi Special Nib identity on the Phase 603 owned candidate
+stopped_at: Quick 260907-jhl complete; Laban 325 model-page duplicate paragraph removed and locally installed
+last_updated: "2026-09-07T14:25:00+08:00"
+last_activity: 2026-09-07
+last_activity_desc: Replaced the Laban 325 brand-template paragraph, verified the full public duplicate scan, and installed the formal owned copy locally
 progress:
   total_phases: 16
   completed_phases: 10
@@ -201,6 +201,7 @@ Progress: [█████░░░░░] 50%
 | 260811-ryz | 发布 Nahvalur Key West、Triad 与 Pen of the Year 2022–2026 七个 canonical 型号，并隔离 edition、年度限量、rollerball 与时态冲突 | 2026-08-11 | f996d249 | [260811-ryz-nahvalur-key-west-pen-of-the-year-triad-](./quick/260811-ryz-nahvalur-key-west-pen-of-the-year-triad-/) |
 | 260812-tvl | 恢复 Sailor Naginata-Togi 为跨 10-7121、Bespoke 与 KOP 的独立 Special Nib 条目，并解除旧 hard-404 | 2026-08-12 | 2f091f1f | [260812-tvl-sailor-naginata-togi-nib-recovery](./quick/260812-tvl-sailor-naginata-togi-nib-recovery/) |
 | 260812-u9i | 恢复半句 Banju 与 Doer，归并 YiSiHua 到 Asvine，并终态裁决 Shanghai、Saier、SKB派顿混名 | 2026-08-13 | e56e4d4a | [260812-u9i-resolve-remaining-retired-identities](./quick/260812-u9i-resolve-remaining-retired-identities-in-/) |
+| 260907-jhl | 修正 Laban 325 型号页残留的品牌页重复段落，并完成 owned-copy 审计、发布、构建与本地安装回读 | 2026-09-07 | d0d9e314 | [260907-jhl-laban-model-dedup](./quick/260907-jhl-laban-model-dedup/) |
 
 ## Next Action
 
