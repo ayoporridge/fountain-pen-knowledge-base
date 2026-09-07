@@ -10,39 +10,39 @@
 
 当前 DV Medium/Mid-Size 延续橙黑视觉语言，但必须把商品配置拆成两套：steel nib 的 cartridge/converter（页面还写 direct/eyedropper）版本，与 14K gold nib 的 piston/plunger 版本。
 
-这页采用“商品身份先于故事”的写法。名称相似、同厂生产、复兴叙事或外形致敬，都不足以让另一支笔继承本型号的尺寸、重量、笔尖、供墨和售后。检索到的页面按 official primary、professional secondary、historic archive 和 sample observation 分类；retrieved date 为 2026-07-22，只表示本次核验时间，不被误写为上市年份。
+当代 Delta Dolcevita Mid-Size 的关键不是橙黑外观，而是 current listing 明确分成两套：steel nib + cartridge/converter/direct 与 14K gold nib + piston。旧 Delta Medium、Piston、Oversize、Slim 等只是历史邻居；它们不能替今天的 DV Medium 填尺寸、重量或 nib。
 
 ## 可核规格与证据范围
 
 Pens.it 当前页明确 two versions，并列 EF/F/M/B/Stub 1.1/Flex F/Flex EF nib choices；silver-plated center ring、wheel clip 属当前描述。库存的 soon available 状态不等于停产。
 
-官方页面负责确认当前商品名与明示字段。若官方没有覆盖某个数值，本页宁可写“按具体 SKU 核对”，也不拿零售商估算补齐。专业资料用于第二来源交叉检查与实际使用语境；评测者对顺滑、弹性、重心或尺寸的观察只属于送测/自购样本，不能推广到每支出厂品。颜色网页和本站 SVG 都不是 colour proof。
+Pens.it listing 可核 two versions、EF/F/M/B/Stub 1.1/Flex F/Flex EF 选择以及 silver-plated center ring、wheel clip；历史 archive 只帮助理解旧 Piston 样本。当前页面没有统一尺寸/重量时，保留未声明，不让旧样本或零售商估算跨配置继承；SVG 仅作事实示意。
 
 ## 版本边界
 
 steel C/C/direct 与 14K piston 不交叉拼装为一套。旧 Delta 的 Medium、Piston、Oversize、Slim、Soirée 与 Fusion nib 档案只能做历史 sibling；旧样笔重量与手感不回填复兴款。
 
-交易时可按四步验货：第一，抄录盒标、商品号、笔身刻字和 nib 宽度；第二，把 filling mechanism 与 nib material 当成联动配置核对；第三，检查 cap、clip、section、feed 和 piston/converter 是否与该 SKU 的官方图文一致；第四，要求卖家说明购买年份、维修与替换件。二手市场若只写家族名而没有 SKU，应暂存为“未解析 variant”，不能自动归入当前款。
+验货 DV Medium 先看盒标和商品代码，再确认是 steel C/C/direct 还是 14K piston；两套配置的 nib、filling 和 ink window 不能拆开拼成一支。橙黑颜色、silver-plated ring 与 wheel clip 只说明外观，旧 Delta 名称更不能替当前型号背书。若卖家只写 Dolcevita Medium，应把具体机制和尖幅问清再下单。
 
 ## 书写与人体工学
 
-长篇书写不应只看总长度。section 的直径与锥度、cap 是否适合 posted、金属部件造成的前后重心、nib 的实际出墨和纸张匹配会共同决定疲劳。专业评测可以提示试写方向，却不能成为质量承诺。同一 nib 宽度也会受调校、墨水、纸张和使用角度影响；所谓 flexible、soft 或 semi-flex 不意味着可用书法压力，也不应强压尖脚。
+这支笔的两套当前配置可能改变前后重量、出墨和维护节奏，所以 steel 版本与 14K piston 版本必须分开试写。先观察 section 锥度、贴帽长度和 ring/clip 是否让手指前移，再比较 nib 在同一纸墨下的反馈；旧 Delta 样笔只作历史参照，不作当前手感保证。
 
-购买前最好进行冷启动、慢线、快速横线、连续圈线和一页正文测试。观察 hard start、skipping、baby's bottom、左右尖脚与 feed 对齐；贵价笔也应要求 retailer 在发货前试写。若只能网购，保存未蘸墨退换条件，避免自行打磨后失去退货权。评测中一支写得好或不好，均作为 sample evidence，而非系列合格率。
+拿到 DV Medium 后，先确认 filling 机构未被错配，再分别做冷启动、慢线、快速横线、连续圈线和一页正文。steel C/C/direct 版本检查墨囊、converter 或直灌密封；14K piston 版本检查尾钮行程和 ink window。任何 hard start、漏墨或机构阻力都应保留完整 SKU 证据，不能靠旧 Delta 经验强拆。
 
 ## 上墨、清洁与维护
 
-首次使用先用室温清水温和吸排，确认运输残留被清除，再装入性质温和、易清洗的 fountain-pen ink。更换不同颜色或高饱和墨水时重复吸排至基本无色，并让 nib 朝下在无绒纸上排水；不要用热水、酒精、超声波或家用溶剂处理未知 resin、ebonite、镀层和 adhesive。piston、captured converter 或复杂 valve 出现阻滞时，应交由品牌/专业维修，不以钳具强拆。
+steel C/C/direct 版本首次使用先用室温清水冲洗，再装匹配的 cartridge 或 converter；若选择 direct filling，必须以当前 SKU 的说明为准。14K piston 版本则先检查尾钮行程，不要把两套机构混用。出现漏墨、卡顿或无法回位时停手送修。
 
-长期不用应排空、清洗、阴干后收纳。透明或浅色材料更需要及时处理 ink staining；ebonite feed 避免长时间曝晒和高热；silver/bronze/plate 的氧化、patina 与镀层磨损要分开判断。旋帽和磁吸帽都应先清除砂粒，避免带颗粒反复开合。任何维护建议都以具体版本说明书和保修条件为先。
+长期不用要按所选机制排空：C/C/direct 取下墨囊或 converter 清洗，piston 版排空储墨腔后清水吸排。橙色树脂、镀层和 ebonite/adhesive 都应避开酒精、热水、超声波和家用溶剂；银色 ring 或 clip 只能按具体表面处理保养。
 
 ## 选购结论
 
-这支笔适合愿意为明确设计语言与特定书写系统付费、并能接受购买前核 SKU 和试写的人。它不适合把品牌故事当成规格保证，或希望不同代际零件必然互换的人。合理决策不是寻找一张“全系列万能表”，而是锁定一支具体商品：颜色/材质、nib material + width、filling mechanism、生产时态、seller 与售后同时成立，才算完成身份确认。
+当代 Dolcevita Mid-Size 适合先决定自己要 steel C/C/direct 的简洁路线，还是 14K piston 的储墨路线，再比较橙黑外观；两者不是一张可互换规格表。若你不愿核对机制、尖幅和当期库存，或只想凭旧 Delta 名称购买，这个型号会带来不必要的误配风险。
 
 ## Sources
 
-- Official primary: Delta/Maiora current DV Medium product evidence; retrieved 2026-07-22.
-- Professional secondary: Pens.it by Giardino Italiano current Dolcevita Medium listing; Casa della Stilografica archive; retrieved 2026-07-22.
-- Site-original factual SVG: non-photo, non-logo, not-to-scale, non-colour-proof; it is media evidence only and never an independent product-fact source.
-- Rejected/qualified evidence: steel C/C/direct 与 14K piston 不交叉拼装为一套。旧 Delta 的 Medium、Piston、Oversize、Slim、Soirée 与 Fusion nib 档案只能做历史 sibling；旧样笔重量与手感不回填复兴款。
+- 官方一手资料： Delta/Maiora current DV Medium product evidence; retrieved 2026-07-22.
+- 专业二手资料： Pens.it by Giardino Italiano current Dolcevita Medium listing; Casa della Stilografica archive; retrieved 2026-07-22.
+- 随页原创事实示意图不是产品照片、品牌标志、比例图或颜色校样，也不能独立证明产品事实。
+- 不适用或受限资料：steel C/C/direct 与 14K piston 不可交叉拼装成一套规格。旧 Delta 的 Medium、Piston、Oversize、Slim、Soirée 与 Fusion nib 档案只能用来理解相邻历史型号；旧样笔重量与手感不能回填复兴款。

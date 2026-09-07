@@ -10,35 +10,35 @@ Santini Libra Intenso：acrylic SKU 与 ebonite sibling 分开 的来源化导�
 
 本页的对象是 Santini Italia 当前 Libra Intenso acrylic SKU。官方商品页定义材质、18K nib、ebonite feed 与 piston route；独立评测用于理解 Libra 形制，但其借测品是 ebonite。
 
-这页采用“商品身份先于故事”的写法。名称相似、同厂生产、复兴叙事或外形致敬，都不足以让另一支笔继承本型号的尺寸、重量、笔尖、供墨和售后。检索到的页面按 official primary、professional secondary、historic archive 和 sample observation 分类；retrieved date 为 2026-07-22，只表示本次核验时间，不被误写为上市年份。
+Libra Intenso 的身份锚点是 Santini 当前 acrylic 商品页：18K gold nib、ebonite feed 和 piston route。Gentleman Stationer 的评测对象是 ebonite Libra 借测样本，能说明 Libra 的尺寸感和手感线索，却不能改写 Intenso 的材质、重量或 nib 配置。
 
 ## 可核规格与证据范围
 
 官方 Intenso scope：acrylic body、Santini 18K gold nib、ebonite feed、piston filling；具体 nib grind 以订单确认。专业评测证明较大而未必沉重、posted 过长等体验，但不作为 universal measurement。
 
-官方页面负责确认当前商品名与明示字段。若官方没有覆盖某个数值，本页宁可写“按具体 SKU 核对”，也不拿零售商估算补齐。专业资料用于第二来源交叉检查与实际使用语境；评测者对顺滑、弹性、重心或尺寸的观察只属于送测/自购样本，不能推广到每支出厂品。颜色网页和本站 SVG 都不是 colour proof。
+官方 Intenso 页负责 acrylic、18K、ebonite feed 与 piston；独立评测只覆盖一支 ebonite sample，并描述其较大形制与 posted 体验。由于官方没有给出跨色统一的尺寸/重量，正文不以评测数字补齐；按订单 grind、具体颜色与当前页面核对，SVG 只负责事实示意。
 
 ## 版本边界
 
 Intenso acrylic 不继承 ebonite Libra、Libra Voyager 或 33-piece run 的材质、尺寸、重量与限量数。评测者的 18K fine、湿润、有弹性且有触感是单支观察。
 
-交易时可按四步验货：第一，抄录盒标、商品号、笔身刻字和 nib 宽度；第二，把 filling mechanism 与 nib material 当成联动配置核对；第三，检查 cap、clip、section、feed 和 piston/converter 是否与该 SKU 的官方图文一致；第四，要求卖家说明购买年份、维修与替换件。二手市场若只写家族名而没有 SKU，应暂存为“未解析 variant”，不能自动归入当前款。
+拿到 Libra 时先确认是 Intenso acrylic，而不是 ebonite Libra、Voyager 或 33-piece run；再核对 18K nib 的订单 grind、ebonite feed、piston 尾钮和盒标。卖家若只写 Libra，不能自动继承评测样本的尺寸、重量或限量数，应要求完整 SKU、购买年份和维修条件。
 
 ## 书写与人体工学
 
-长篇书写不应只看总长度。section 的直径与锥度、cap 是否适合 posted、金属部件造成的前后重心、nib 的实际出墨和纸张匹配会共同决定疲劳。专业评测可以提示试写方向，却不能成为质量承诺。同一 nib 宽度也会受调校、墨水、纸张和使用角度影响；所谓 flexible、soft 或 semi-flex 不意味着可用书法压力，也不应强压尖脚。
+Libra 的 acrylic Intenso 与 ebonite sibling 在重量、表面触感和重心上不能互换。试写时把 section、贴帽长度、piston 尾部和 18K grind 分开记录；Gentleman Stationer 的 ebonite 体验只用来提醒要试写，不替 Intenso 给出普遍的湿润度或平衡结论。
 
-购买前最好进行冷启动、慢线、快速横线、连续圈线和一页正文测试。观察 hard start、skipping、baby's bottom、左右尖脚与 feed 对齐；贵价笔也应要求 retailer 在发货前试写。若只能网购，保存未蘸墨退换条件，避免自行打磨后失去退货权。评测中一支写得好或不好，均作为 sample evidence，而非系列合格率。
+订单到手先核对 Intenso 材质和 18K grind，再按 Santini piston 步骤做少量上墨。用冷启动、慢线、转折、快速横线和一页正文观察 hard start、出墨和尖脚；活塞涩或 feed 不稳先停用。不要拿 ebonite Libra 的借测样本去推断 acrylic Intenso 的书写表现。
 
 ## 上墨、清洁与维护
 
-首次使用先用室温清水温和吸排，确认运输残留被清除，再装入性质温和、易清洗的 fountain-pen ink。更换不同颜色或高饱和墨水时重复吸排至基本无色，并让 nib 朝下在无绒纸上排水；不要用热水、酒精、超声波或家用溶剂处理未知 resin、ebonite、镀层和 adhesive。piston、captured converter 或复杂 valve 出现阻滞时，应交由品牌/专业维修，不以钳具强拆。
+Libra Intenso 使用活塞上墨。Santini 官方说明的动作是：把笔尾逆时针转到停止位置，不要继续用力；将笔尖和笔舌完全浸入墨水，再顺时针转动笔尾直至吸满，最后擦去笔尖与握位上的余墨。换墨时用凉水反复吸排；堵塞时可让笔尖与握位在凉水中浸泡一晚。活塞异常紧涩、漏墨或无法吸墨时应停手送修，不自行强拆。
 
-长期不用应排空、清洗、阴干后收纳。透明或浅色材料更需要及时处理 ink staining；ebonite feed 避免长时间曝晒和高热；silver/bronze/plate 的氧化、patina 与镀层磨损要分开判断。旋帽和磁吸帽都应先清除砂粒，避免带颗粒反复开合。任何维护建议都以具体版本说明书和保修条件为先。
+长期不用时应排空墨水、用凉水洗净并充分晾干，笔尖朝上收纳。Intenso 的 acrylic 笔身与 ebonite 笔舌都应远离高热、强光、酒精和溶剂；若出水异常或有泄漏，按 Santini 的建议联系维修服务。
 
 ## 选购结论
 
-这支笔适合愿意为明确设计语言与特定书写系统付费、并能接受购买前核 SKU 和试写的人。它不适合把品牌故事当成规格保证，或希望不同代际零件必然互换的人。合理决策不是寻找一张“全系列万能表”，而是锁定一支具体商品：颜色/材质、nib material + width、filling mechanism、生产时态、seller 与售后同时成立，才算完成身份确认。
+Libra Intenso 适合想要 Santini 18K、活塞和 acrylic 外观，并愿意按订单 grind 选配的人；它不适合把 ebonite 评测或限量家族当成统一规格。购买决定应同时锁定 Intenso 色款、尖幅、活塞状态、卖家试写和售后，不能只凭“Libra”三个字。
 
 ## Sources
 

@@ -10,35 +10,35 @@ Visconti Mirage 原始款：与 Mirage Mythos 严格分离 的来源化导航与
 
 本页记录 2018/2019 时期原始 Visconti Mirage，而非后来的 Mirage Mythos。2019 official catalog 和当年 professional review共同界定 soft hexagonal vegetal resin、magnetic twist cap、steel nib 与 cartridge/converter。
 
-这页采用“商品身份先于故事”的写法。名称相似、同厂生产、复兴叙事或外形致敬，都不足以让另一支笔继承本型号的尺寸、重量、笔尖、供墨和售后。检索到的页面按 official primary、professional secondary、historic archive 和 sample observation 分类；retrieved date 为 2026-07-22，只表示本次核验时间，不被误写为上市年份。
+原始 Mirage 的身份由 2019 catalog 与 professional review 共同限定：soft hexagonal vegetal resin、magnetic twist cap、small steel nib、cartridge/converter。Mirage Mythos 是后继 sibling，不能以较大 nib、brass middle 或 deity naming 改写原始款。
 
 ## 可核规格与证据范围
 
 原始款官方档案与评测支持 vegetal resin、rounded/soft hexagonal body、magnetic twist closure、small steel nib、cartridge/converter；六个历史色名作为 variants，而不是当前库存承诺。
 
-官方页面负责确认当前商品名与明示字段。若官方没有覆盖某个数值，本页宁可写“按具体 SKU 核对”，也不拿零售商估算补齐。专业资料用于第二来源交叉检查与实际使用语境；评测者对顺滑、弹性、重心或尺寸的观察只属于送测/自购样本，不能推广到每支出厂品。颜色网页和本站 SVG 都不是 colour proof。
+2019 Visconti catalog 负责原始 Mirage 的历史产品身份与六个色名；Gentleman Stationer 的 Amber review 补充 soft hexagonal body、磁吸旋帽和小钢尖的单支体验。Mythos current page 只用于排除后继家族，不能证明原始款现有库存、尺寸或价格；SVG 也不承担颜色校样。
 
 ## 版本边界
 
 Mirage Mythos 是独立后继家族；其较大 nib、brass middle/section、Greek deity naming 和不同 ring 不能写回原始 Mirage。2019 Amber 样笔的颜色与作者手感不代表六色全部。
 
-交易时可按四步验货：第一，抄录盒标、商品号、笔身刻字和 nib 宽度；第二，把 filling mechanism 与 nib material 当成联动配置核对；第三，检查 cap、clip、section、feed 和 piston/converter 是否与该 SKU 的官方图文一致；第四，要求卖家说明购买年份、维修与替换件。二手市场若只写家族名而没有 SKU，应暂存为“未解析 variant”，不能自动归入当前款。
+验原始 Mirage 先看是否为 2018/2019 版 soft hexagonal resin，再确认 magnetic twist cap、small steel nib 和 C/C/converter；六个历史色名是 variant 线索，不是当前库存承诺。商品若写 Mirage Mythos、brass section 或 deity 名称，就不能归入本条目；要求卖家提供 exact handle、刻字、配件和退换边界。
 
 ## 书写与人体工学
 
-长篇书写不应只看总长度。section 的直径与锥度、cap 是否适合 posted、金属部件造成的前后重心、nib 的实际出墨和纸张匹配会共同决定疲劳。专业评测可以提示试写方向，却不能成为质量承诺。同一 nib 宽度也会受调校、墨水、纸张和使用角度影响；所谓 flexible、soft 或 semi-flex 不意味着可用书法压力，也不应强压尖脚。
+原始 Mirage 的软六角树脂与磁吸旋帽，手感重点在 section 锥度、旋帽阻尼和小钢尖的反馈，而不是 Mythos 的 brass middle。试写时分开记录是否贴帽、起笔和连续转折；Amber 样本只代表一支颜色与一个年份，不能替其他五色或后继款作保证。
 
-购买前最好进行冷启动、慢线、快速横线、连续圈线和一页正文测试。观察 hard start、skipping、baby's bottom、左右尖脚与 feed 对齐；贵价笔也应要求 retailer 在发货前试写。若只能网购，保存未蘸墨退换条件，避免自行打磨后失去退货权。评测中一支写得好或不好，均作为 sample evidence，而非系列合格率。
+到手先空笔检查磁吸旋帽是否顺畅、section 是否有裂纹，再装 converter 或墨囊做冷启动、慢线、快速横线和一页正文。出现漏墨、卡帽或小钢尖对齐问题先停手；不要用 Mythos 的较大 nib 或 brass section 拆解经验改装原始 Mirage。
 
 ## 上墨、清洁与维护
 
-首次使用先用室温清水温和吸排，确认运输残留被清除，再装入性质温和、易清洗的 fountain-pen ink。更换不同颜色或高饱和墨水时重复吸排至基本无色，并让 nib 朝下在无绒纸上排水；不要用热水、酒精、超声波或家用溶剂处理未知 resin、ebonite、镀层和 adhesive。piston、captured converter 或复杂 valve 出现阻滞时，应交由品牌/专业维修，不以钳具强拆。
+原始 Mirage 使用 cartridge/converter。用瓶装墨时先确认 converter 已稳妥装入，将笔尖完全浸入墨水后顺时针转动 converter 吸墨，轻轻回排一至两滴，再让笔尖朝上转回并擦净余墨；也可以取下 converter，改用匹配的墨囊。
 
-长期不用应排空、清洗、阴干后收纳。透明或浅色材料更需要及时处理 ink staining；ebonite feed 避免长时间曝晒和高热；silver/bronze/plate 的氧化、patina 与镀层磨损要分开判断。旋帽和磁吸帽都应先清除砂粒，避免带颗粒反复开合。任何维护建议都以具体版本说明书和保修条件为先。
+换墨或长期不用时，取下墨囊或 converter，用清水反复冲洗笔尖、笔舌和 converter，直至排水清澈，再充分晾干。原始款的 vegetal resin 与磁吸旋帽应避开酒精、家用溶剂和高热；磁吸帽内若有砂粒，应先清除再开合。
 
 ## 选购结论
 
-这支笔适合愿意为明确设计语言与特定书写系统付费、并能接受购买前核 SKU 和试写的人。它不适合把品牌故事当成规格保证，或希望不同代际零件必然互换的人。合理决策不是寻找一张“全系列万能表”，而是锁定一支具体商品：颜色/材质、nib material + width、filling mechanism、生产时态、seller 与售后同时成立，才算完成身份确认。
+原始 Mirage 适合喜欢软六角树脂、磁吸旋帽和小钢尖 C/C 路线，并接受它是历史版本的人；它不适合追求 Mythos 的大尖、金属中段或当前库存确定性。购买时把 original/Mirage Mythos、具体色名、配件、尖幅和年份一次核清。
 
 ## Sources
 
