@@ -1,7 +1,7 @@
 ---
 quick_id: 260902-t0e
 task: pilot-custom-823-reader-rewrite
-status: in_progress
+status: complete
 ---
 
 # Phase 615：Pilot Custom 823 读者正文重写

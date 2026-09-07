@@ -36,6 +36,26 @@ pnpm exec tsx --test tests/content/phase615-pilot-custom-823-reader-rewrite.test
 - canonical entity/story 正文与摘要一致；四项 current-hash review（fact/language/media/publication）均为 approved；publication revision 与 reviewed revision 一致；readiness blocker 为 0、publishable 为 1、canonical public membership 为 1。
 - entity links、references、media、model_specs、model_variants 指纹保持不变；退休重复实体正文不变且没有 public membership；全局 public body duplicate groups 为 0。
 
+## Formal local migration
+
+- 迁移前真实库 SHA-256：`5c9c47742ec217730908835fd0cd06448a09f77e6a7b8ba7927b4d2e394dddab`。
+- 自有迁移目录：`.planning/quick/260902-t0e-pilot-custom-823-reader-rewrite/formal-local/`；`backup-before.db` 保留迁移前副本，`checkpoint/catalog.db` 先在 caller-owned copy 上重放。
+- checkpoint 重放结果：`outcome=published`、`changed=true`、content hash `sha256:v3:417240c5d3f213124930f9b8f6626165e6539817ec7fdc440005e123a04cabc1`；`PRAGMA integrity_check` 为 `ok`；revision 605；readiness blocker=0、publishable=1；四项审核均为 approved；全局 public body duplicate groups=0。
+- 通过 `lsof` 确认真实库无活动持有者后，将 checkpoint 复制到精确临时文件并以 `mv -f` 原子替换 `data/fpkg.db`。替换后真实库 SHA-256：`530cd921c86b87be2a1f32ba749536cfd565e3bd7961a6eb9ed3f1bf6fe573f0`；大小 93,921,280 bytes；fixture 已更新为 inode `88117342`、mtimeNs `1788353764669696356`。
+- 真实库的 WAL/SHM 只保留 SQLite 正常 sidecar（WAL 0 bytes、SHM 32,768 bytes，SHA 与受控 fixture 相符），没有试验性远程写入。
+
+## 正式迁移后本地门禁
+
+- `check:data-contract`：276 article、135 brand、13 concept、3 nib、794 pen；通过。
+- `check:articles`：256 个 public article；通过。
+- `check:public-boundary -- --all`：published blockers=0，list/per-id/aggregate/context/reverse diff=0；通过。
+- `check:library`：4030 sources、6116 sourceItems、7303 claims、17487 citations、958 stories、1319 events、1228 media；通过。
+- `check:evidence-contract -- --all`、`check:publication-gate -- --all`、`check:audit-readiness -- --inventory`：通过完整 migration、review、rollback、readiness 与隔离矩阵。
+- `audit:public-media`：922/922 healthy，0 failed；通过。
+- `audit:entity-quality -- --database-path data/fpkg.db`：929 entities，906 active，23 retired lineage；duplicate name groups=0、suspicious pen articles=0、thin brand/model entities=0、made_by blockers=0。
+- `tsc --noEmit` 与 `pnpm build`：通过；Next.js 生成 18 个静态页并准备 standalone libsql native runtime。
+- `audit:library-coverage -- --database-path data/fpkg.db` 仍以非零退出明确保留边界：132/135 brand、774/794 model 已 ready；3 个品牌与 16 个型号属于退休 lineage 的故意缺口，不能把该命令的非零结果隐藏成全量完成。
+
 ## 尚未完成的后续边界
 
-本证据只覆盖 Phase 615 的本地 owned-copy 回归。真实本地库的 formal migration、完整本地 post-migration gates、生产 Turso 同步、线上动态路由全量复查和真人全页面遍历仍需在全量 goal 中继续完成；Turso 当前读配额阻塞时不得虚报线上完成。
+本证据覆盖 Phase 615 的本地 owned-copy 回归、真实本地 formal migration 与 post-migration gates。生产 Turso 同步、线上动态路由全量复查和真人全页面遍历仍需在全量 goal 中继续完成；Turso 当前读配额阻塞时不得虚报线上完成。
