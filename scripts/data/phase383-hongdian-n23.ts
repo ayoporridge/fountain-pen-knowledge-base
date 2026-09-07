@@ -181,6 +181,7 @@ const baseBrand = existing.find((pack) => pack.expectedType === "brand");
 if (!baseBrand) throw new Error("Phase 383 HongDian brand prerequisite is missing.");
 const hongdianBrand = structuredClone(baseBrand);
 hongdianBrand.key = "phase383-hongdian-brand-navigation-v1";
+hongdianBrand.markdownFile = ".planning/content-research/hongdian-brand-phase619.md";
 hongdianBrand.sources = [...hongdianBrand.sources, S.ttpen, S.fpc, S.rupert].filter(
   (item, index, all) => all.findIndex((candidate) => candidate.key === item.key) === index,
 );

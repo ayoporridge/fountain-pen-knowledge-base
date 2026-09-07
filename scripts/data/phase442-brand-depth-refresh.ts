@@ -88,7 +88,7 @@ export const phase442BrandDepthRefreshPacks: CuratedEntityPack[] = [
   refresh(
     requireBrand(phase257EboyaHoujuPacks, PHASE257_EBOYA_BRAND_ID, "Eboya"),
     "phase442-eboya-brand-depth-refresh-v1",
-    ".planning/content-research/eboya-brand-phase442.md",
+    ".planning/content-research/eboya-brand-phase619.md",
     "Eboya：Nikko Ebonite 的硬橡胶家族与尺寸路线",
   ),
 ];

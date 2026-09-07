@@ -93,7 +93,7 @@ export const phase431BrandDepthRefreshPacks: CuratedEntityPack[] = [
   refresh(
     delta,
     "phase431-delta-brand-depth-refresh-v1",
-    ".planning/content-research/delta-brand-phase431.md",
+    ".planning/content-research/delta-brand-phase619.md",
     "当代 Delta：Dolcevita Mid-Size 的 steel C/C 与 14K piston 分流",
   ),
   refresh(

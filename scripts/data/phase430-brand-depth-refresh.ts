@@ -117,13 +117,13 @@ export const phase430BrandDepthRefreshPacks: CuratedEntityPack[] = [
   refresh(
     santini,
     "phase430-santini-brand-depth-refresh-v1",
-    ".planning/content-research/santini-brand-phase430.md",
+    ".planning/content-research/santini-brand-phase619.md",
     "Santini Italia：Libra Intenso 的 in-house 尖与 ebonite 边界",
   ),
   refresh(
     omas,
     "phase430-omas-brand-depth-refresh-v1",
-    ".planning/content-research/omas-brand-phase430.md",
+    ".planning/content-research/omas-brand-phase619.md",
     "当代 OMAS：复兴后 Ogiva 的商品身份与历史断点",
   ),
   refresh(

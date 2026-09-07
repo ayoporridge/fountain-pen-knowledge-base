@@ -133,7 +133,7 @@ export const phase443BrandDepthRefreshPacks: CuratedEntityPack[] = [
   refresh(
     kanwriteBase,
     "phase443-kanwrite-brand-depth-refresh-v1",
-    ".planning/content-research/kanwrite-brand-phase443.md",
+    ".planning/content-research/kanwrite-brand-phase619.md",
     "Kanwrite：Kanpur Writers、Heritage 与自有型号分线",
   ),
   refresh(
