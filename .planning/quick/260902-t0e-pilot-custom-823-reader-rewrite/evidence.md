@@ -56,6 +56,13 @@ pnpm exec tsx --test tests/content/phase615-pilot-custom-823-reader-rewrite.test
 - `tsc --noEmit` 与 `pnpm build`：通过；Next.js 生成 18 个静态页并准备 standalone libsql native runtime。
 - `audit:library-coverage -- --database-path data/fpkg.db` 仍以非零退出明确保留边界：132/135 brand、774/794 model 已 ready；3 个品牌与 16 个型号属于退休 lineage 的故意缺口，不能把该命令的非零结果隐藏成全量完成。
 
+## 本地动态路由遍历（2026-09-07）
+
+- 使用显式本地环境启动 production server：`TURSO_DATABASE_URL='' TURSO_AUTH_TOKEN='' FPKG_DATABASE_URL=file:/Users/xz/Documents/fountain-pen-graph/data/fpkg.db PORT=4321 pnpm start`；没有读取 Turso。
+- 从正式迁移后的 `public_entities` 生成 1,175 个公开实体路由，以 16 并发逐页检查 HTTP 200、`<h1>`、`data-testid="entity-summary"` 和数据库阻塞标记。
+- 首轮 1,174 页立即通过；`/brand/nahvalur` 首轮超过 15 秒上限，单独以 60 秒重试得到 HTTP 200、208,570 bytes、h1/summary 均存在且无阻塞标记。最终 1,175/1,175 路由均有可渲染页面。
+- 这是一轮本地自动化渲染遍历，不冒充生产线上回读或真人逐页审阅；后两项仍是全量 goal 的未完成工作。
+
 ## 尚未完成的后续边界
 
 本证据覆盖 Phase 615 的本地 owned-copy 回归、真实本地 formal migration 与 post-migration gates。生产 Turso 同步、线上动态路由全量复查和真人全页面遍历仍需在全量 goal 中继续完成；Turso 当前读配额阻塞时不得虚报线上完成。
