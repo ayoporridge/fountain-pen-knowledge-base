@@ -31,7 +31,7 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 Phase: 21 (Taxonomy 与身份归一) — EXECUTING
 Plan: 4 of 6
 Status: In progress
-Last activity: 2026-09-08 — Completed quick task 260908-m54: removed the duplicate Parker 50 Falcon transaction heading on an owned copy; formal real-catalog installation remains deferred to the full-corpus migration gate
+Last activity: 2026-09-08 — Completed quick task 260908-mz8: audited the eight Phase 21 Phase 19 payload slots read-only; all remain unresolved and the real split stays fail-closed
 
 Progress: [█████░░░░░] 50%
 
@@ -204,6 +204,7 @@ Progress: [█████░░░░░] 50%
 | 260907-jhl | 修正 Laban 325 型号页残留的品牌页重复段落，并完成 owned-copy 审计、发布、构建与本地安装回读 | 2026-09-07 | d0d9e314 | [260907-jhl-laban-model-dedup](./quick/260907-jhl-laban-model-dedup/) |
 | 260907-k3s | 新增 Nettuno 1911 与 N-E 2.0 Pelagos Matte；完成来源、正式本地安装、GitHub 推送与 Vercel production 部署，线上回读受 Turso rows-read 配额阻断 | 2026-09-07 | d344e966 / c7582e9f | [260907-k3s](./quick/260907-k3s/) |
 | 260908-m54 | 修正 Parker 50 Falcon 型号页重复小节标题，并在 caller-owned copy 完成 apply/replay 回归 | 2026-09-08 | 6c244568 | [260908-m54-parker-50-falcon-owned-copy](./quick/260908-m54-parker-50-falcon-owned-copy/) |
+| 260908-mz8 | 只读检索 Phase 21 四组 locked split 的八个 Phase 19 payload slots；无 exact immutable ID 时保持 fail-closed | 2026-09-08 | 257e52a1 | [260908-mz8-phase21-unresolved-phase19-payload-slots](./quick/260908-mz8-phase21-unresolved-phase19-payload-slots/) |
 
 ## Next Action
 
