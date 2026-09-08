@@ -6,7 +6,7 @@ current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
 stopped_at: Quick 260907-jhl complete; Laban 325 model-page duplicate paragraph removed and locally installed
-last_updated: "2026-09-07T14:25:00+08:00"
+last_updated: "2026-09-08T16:05:00+08:00"
 last_activity: 2026-09-07
 last_activity_desc: Replaced the Laban 325 brand-template paragraph, verified the full public duplicate scan, and installed the formal owned copy locally
 progress:
@@ -31,7 +31,7 @@ See: `.planning/PROJECT.md`（updated 2026-07-15）
 Phase: 21 (Taxonomy 与身份归一) — EXECUTING
 Plan: 4 of 6
 Status: In progress
-Last activity: 2026-08-11 — Completed quick task 260811-ryz: published Nahvalur Key West, Triad and Pen of the Year 2022–2026 offline with source, identity, media and publication-gate verification
+Last activity: 2026-09-08 — Completed quick task 260908-m54: removed the duplicate Parker 50 Falcon transaction heading on an owned copy; formal real-catalog installation remains deferred to the full-corpus migration gate
 
 Progress: [█████░░░░░] 50%
 
@@ -203,6 +203,7 @@ Progress: [█████░░░░░] 50%
 | 260812-u9i | 恢复半句 Banju 与 Doer，归并 YiSiHua 到 Asvine，并终态裁决 Shanghai、Saier、SKB派顿混名 | 2026-08-13 | e56e4d4a | [260812-u9i-resolve-remaining-retired-identities](./quick/260812-u9i-resolve-remaining-retired-identities-in-/) |
 | 260907-jhl | 修正 Laban 325 型号页残留的品牌页重复段落，并完成 owned-copy 审计、发布、构建与本地安装回读 | 2026-09-07 | d0d9e314 | [260907-jhl-laban-model-dedup](./quick/260907-jhl-laban-model-dedup/) |
 | 260907-k3s | 新增 Nettuno 1911 与 N-E 2.0 Pelagos Matte；完成来源、正式本地安装、GitHub 推送与 Vercel production 部署，线上回读受 Turso rows-read 配额阻断 | 2026-09-07 | d344e966 / c7582e9f | [260907-k3s](./quick/260907-k3s/) |
+| 260908-m54 | 修正 Parker 50 Falcon 型号页重复小节标题，并在 caller-owned copy 完成 apply/replay 回归 | 2026-09-08 | pending | [260908-m54-parker-50-falcon-owned-copy](./quick/260908-m54-parker-50-falcon-owned-copy/) |
 
 ## Next Action
 

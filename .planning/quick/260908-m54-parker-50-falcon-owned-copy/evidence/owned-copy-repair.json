@@ -1,0 +1,26 @@
+{
+  "quick_id": "260908-m54",
+  "checked_at": "2026-09-08",
+  "entity": {
+    "slug": "parker-50-falcon",
+    "source_heading_count": 1,
+    "owned_copy_heading_count_after_apply": 1,
+    "owned_copy_heading_count_before_apply": 2,
+    "owned_copy_body_chars_after_apply_minimum": 2000,
+    "replay_outcomes": ["noop", "noop"]
+  },
+  "verification": {
+    "focused_test": "pnpm exec tsx --test tests/content/phase622-parker-50-falcon-dedup.test.ts",
+    "focused_test_result": "pass (1/1)",
+    "typescript": "pnpm exec tsc --noEmit: pass",
+    "biome": "scoped check: pass (configuration reported one checked file)",
+    "diff_check": "git diff --check: pass"
+  },
+  "database_boundary": {
+    "real_catalog_written": false,
+    "real_catalog_sha256": "753a341691b15669f0225169a1646603c6071e75a836d921ffa8b98b7808dea5",
+    "real_catalog_heading_count": 2,
+    "source_sha256": "352a935990ee6203c58cb47be4c864c9f0d9b92535451518d47d1d2079302d96",
+    "note": "Repair is staged in the checked-in source and verified on a caller-owned disposable copy; formal real-catalog installation remains part of the full-corpus migration gate."
+  }
+}
