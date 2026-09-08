@@ -1,0 +1,29 @@
+{
+  "checked_at": "2026-09-08",
+  "taxonomy": {
+    "path": "data/taxonomy/v1.2-phase21.json",
+    "sha256": "b52fbe00f85d5f2348ba1c7278e6aa93c807a8be23915fada341b1ec5e406329",
+    "row_assertions": {
+      "status": "BM",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer"
+    }
+  },
+  "sqlite_read_only": {
+    "entity_counts_by_type": {
+      "article": 276,
+      "brand": 136,
+      "concept": 13,
+      "nib": 3,
+      "pen": 795
+    },
+    "all_entities": 1223,
+    "public_entities_view": 1177,
+    "cypress_or_crown_mini_match_count": 0
+  },
+  "protected_catalog_sha256": "753a341691b15669f0225169a1646603c6071e75a836d921ffa8b98b7808dea5",
+  "evidence_json_parse": "pass",
+  "git_diff_check": "pass",
+  "mutation": "none"
+}

@@ -1,0 +1,107 @@
+{
+  "quick_id": "260908-nlr",
+  "checked_at": "2026-09-08",
+  "decision": "defer",
+  "mutation": {
+    "local_catalog_written": false,
+    "turso_written": false,
+    "new_entity_created": false,
+    "reason": "Historical model evidence is real, but exact current identity, complete required specs, publication review, and primary-media rights are not locked."
+  },
+  "taxonomy": {
+    "path": "data/taxonomy/v1.2-phase21.json",
+    "sha256": "b52fbe00f85d5f2348ba1c7278e6aa93c807a8be23915fada341b1ec5e406329",
+    "matrix_checksum": "sha256:f59a0baf27f85f3b98542c46b15afbabdc92e6c0c02890951716bfa184d684df",
+    "row": {
+      "sourceRowKey": "台湾::Cypress Crown Mini",
+      "title": "Cypress Crown Mini",
+      "region": "台湾",
+      "era": "现行",
+      "status": "BM",
+      "priority": "P2",
+      "primaryAction": "create",
+      "executionState": "defer",
+      "blocker": "Coverage evidence establishes the gap, but exact catalog identity and content-ready source packet are not yet reviewed for mutation.",
+      "evidenceRefs": [
+        "https://mrcypress.com.tw/en/shop/",
+        "https://cloudcdn.taiwantradeshows.com.tw/2020/giftionery/download/preview-en.pdf"
+      ]
+    }
+  },
+  "local_catalog": {
+    "path": "data/fpkg.db",
+    "sha256": "753a341691b15669f0225169a1646603c6071e75a836d921ffa8b98b7808dea5",
+    "read_mode": "sqlite file:data/fpkg.db?mode=ro",
+    "entity_counts": {
+      "brand": 136,
+      "pen": 795,
+      "brand_plus_pen": 931,
+      "all_entities": 1223,
+      "public_entities_view": 1177
+    },
+    "absence_query": "lower(name) like '%cypress%' or lower(slug) like '%cypress%' or lower(name) like '%crown mini%' or lower(slug) like '%crown-mini%'",
+    "matches": [],
+    "interpretation": "No Cypress brand or Crown Mini model is present in the real local catalog under the checked name/slug forms."
+  },
+  "sources": [
+    {
+      "role": "current_brand_shop",
+      "url": "https://mrcypress.com.tw/en/shop/",
+      "retrieved_at": "2026-09-08",
+      "http_status": 200,
+      "raw_html_sha256": "b3c16d1c6dcd4999125a4b83b24bdfdc4c9686083cc2651571c23006571450a2",
+      "exact_title_search": {
+        "pattern": "crown mini",
+        "count": 0,
+        "method": "case-insensitive raw HTML search"
+      },
+      "positive_evidence": [
+        "Rendered shop navigation lists current product categories including Raden, Urushi, Metal, Wooden and Different Material fountain pens.",
+        "The page identifies CYPRESS as a Taiwan handmade fountain-pen manufacturer."
+      ],
+      "web_locator": "Web snapshot lines 164-205 and 173-198",
+      "boundary": "The page establishes current brand/category presence, not a current Crown Mini product identity or SKU. Raw HTML matches for Crown are the unrelated Raden Crown series; Mini matches are template/cart text."
+    },
+    {
+      "role": "historical_model_mention",
+      "url": "https://cloudcdn.taiwantradeshows.com.tw/2020/giftionery/download/preview-en.pdf",
+      "retrieved_at": "2026-09-08",
+      "http_status": 200,
+      "local_bytes": 13465810,
+      "local_sha256": "a53971b4e6cfc3b99ec9046ae16e1a133c8b80c8182a55088f3eca11c181b8af",
+      "pdf_metadata": {
+        "creation_date": "Thu May 14 13:01:45 2020 CST",
+        "pages": 14,
+        "page_size": "A4",
+        "product_mention_page": 5
+      },
+      "excerpt": "This edition, Pai Pen Pro presents the Connect Modern & Ancient Crown Mini Fountain Pen with a high glossy lacquer barrel, a convertor, a fine nib, and an easy cap. The ink flows beautifully without interruption as the pen fits snuggly in your palm when writing. Not to mention it is light and easy to carry around.",
+      "interpretation": "The preview is sufficient to record a historical public model mention and a small set of descriptive attributes. It does not provide an exact product code, dimensions, complete material identity, manufacturing/current-stock status, or a reusable primary image/license record."
+    },
+    {
+      "role": "secondary_brand_context",
+      "url": "https://endlesspens.com/pages/makers/cypress",
+      "retrieved_at": "2026-09-08",
+      "web_locator": "Web snapshot lines 431-458",
+      "positive_evidence": [
+        "CYPRESS is described as a Taiwan fountain-pen manufacturer/retailer.",
+        "The maker page describes the brand's 2018 founding and expansion across wood, urushi, metal, ebonite and other materials."
+      ],
+      "boundary": "No Crown Mini product title or exact model specification is supplied; this is brand context only."
+    }
+  ],
+  "publication_blockers": [
+    "exact current identity and SKU not locked",
+    "current versus historical availability not established",
+    "required dimensions and complete material/spec fields absent",
+    "primary product media and usage rights absent",
+    "fact, language, media and publication review not performed"
+  ],
+  "next_evidence_request": [
+    "manufacturer or attributable dealer product page/catalog with exact model/SKU",
+    "dimensions, nib/feed, filling system and material fields from a source that names this exact model",
+    "production/availability date or historical-only disposition",
+    "primary image with provenance and rights boundary",
+    "owned disposable catalog apply/replay regression before any real-catalog migration"
+  ]
+}
