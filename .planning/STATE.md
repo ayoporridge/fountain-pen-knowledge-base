@@ -205,7 +205,7 @@ Progress: [█████░░░░░] 50%
 | 260907-k3s | 新增 Nettuno 1911 与 N-E 2.0 Pelagos Matte；完成来源、正式本地安装、GitHub 推送与 Vercel production 部署，线上回读受 Turso rows-read 配额阻断 | 2026-09-07 | d344e966 / c7582e9f | [260907-k3s](./quick/260907-k3s/) |
 | 260908-m54 | 修正 Parker 50 Falcon 型号页重复小节标题，并在 caller-owned copy 完成 apply/replay 回归 | 2026-09-08 | 6c244568 | [260908-m54-parker-50-falcon-owned-copy](./quick/260908-m54-parker-50-falcon-owned-copy/) |
 | 260908-mz8 | 只读检索 Phase 21 四组 locked split 的八个 Phase 19 payload slots；无 exact immutable ID 时保持 fail-closed | 2026-09-08 | 257e52a1 | [260908-mz8-phase21-unresolved-phase19-payload-slots](./quick/260908-mz8-phase21-unresolved-phase19-payload-slots/) |
-| 260908-nlr | 审计 Cypress Crown Mini 的现行／历史证据；确认本地缺口并保持 BM/P2 defer，不进行实体或数据库 mutation | 2026-09-08 | e22750b7 | [260908-nlr-audit-cypress-crown-mini-coverage-with-s](./quick/260908-nlr-audit-cypress-crown-mini-coverage-with-s/) |
+| 260908-nlr | 审计 Cypress Crown Mini 的现行／历史证据；确认本地缺口并保持 BM/P2 defer，不进行实体或数据库 mutation | 2026-09-08 | e22750b7 / 6dc0c98b | [260908-nlr-audit-cypress-crown-mini-coverage-with-s](./quick/260908-nlr-audit-cypress-crown-mini-coverage-with-s/) |
 
 ## Next Action
 
