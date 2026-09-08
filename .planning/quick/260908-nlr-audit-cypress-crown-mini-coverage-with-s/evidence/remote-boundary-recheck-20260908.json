@@ -1,0 +1,47 @@
+{
+  "checked_at": "2026-09-08T17:09:50+08:00",
+  "remote_database": {
+    "name": "fpkg",
+    "authenticated_user": "arjoxu",
+    "turso_db_inspect": {
+      "status": "success",
+      "total_space_used": "80 MB",
+      "rows_read": 1768884845,
+      "rows_written": 374410
+    },
+    "turso_db_shell_select_1": {
+      "status": "blocked",
+      "error": "Operation was blocked: SQL read operations are forbidden (reads are blocked, do you need to upgrade your plan?)"
+    },
+    "writes_performed": false
+  },
+  "production_base_url": "https://fountain-pen-graph.vercel.app",
+  "production_routes": [
+    {
+      "path": "/brand/nettuno-1911",
+      "http_status": 200,
+      "response_bytes": 23070,
+      "response_sha256": "0c59eda666898a7c4a9657b9fa0746b16b55daced45ab7d37932a3e25bea7bc1",
+      "loading_shell_markers": 2,
+      "rsc_error_digest_markers": 2,
+      "content_marker": "absent"
+    },
+    {
+      "path": "/pen/nettuno-ne-2-0-pelagos-matte",
+      "http_status": 200,
+      "response_bytes": 23112,
+      "response_sha256": "4d8deb791c8fd66424e0b9dd8868c03c694e1ba535caca2ffb0202ec12a4657a",
+      "loading_shell_markers": 2,
+      "rsc_error_digest_markers": 2,
+      "content_marker": "absent; only route/slug text is present"
+    },
+    {
+      "path": "/sitemap.xml",
+      "http_status": 500,
+      "response_bytes": 0,
+      "response_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "content_marker": "absent"
+    }
+  ],
+  "interpretation": "Production is reachable, but the dynamic catalog remains unreadable because Turso SQL reads are blocked. HTTP 200 entity responses are loading/error shells rather than content acceptance."
+}

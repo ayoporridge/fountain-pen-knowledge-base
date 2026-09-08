@@ -27,6 +27,9 @@ fact/language/media/publication review。
 ## Verification and boundary
 
 - taxonomy row、来源快照、PDF metadata／摘录和 absence query 见 `evidence/cypress-crown-mini-audit.json`。
+- 本次同时重试了远端／线上边界；`evidence/remote-boundary-recheck-20260908.json` 记录了 Turso
+  `inspect` 可读但 SQL `select 1` 仍被禁止，以及两个目标页的 200 loading/error shell 和
+  `/sitemap.xml` 的 500。它只更新验收边界，不构成线上内容通过。
 - 真实 `data/fpkg.db` SHA-256 仍为
   `753a341691b15669f0225169a1646603c6071e75a836d921ffa8b98b7808dea5`；未写本地真实库，未写 Turso。
 - 远端 SQL 读取和 production 动态页仍受既有 Turso rows-read 阻塞；本 quick 只完成本地 evidence audit，
@@ -37,4 +40,5 @@ fact/language/media/publication review。
 - `.planning/quick/260908-nlr-audit-cypress-crown-mini-coverage-with-s/PLAN.md`
 - `.planning/quick/260908-nlr-audit-cypress-crown-mini-coverage-with-s/SUMMARY.md`
 - `.planning/quick/260908-nlr-audit-cypress-crown-mini-coverage-with-s/evidence/cypress-crown-mini-audit.json`
-
+- `.planning/quick/260908-nlr-audit-cypress-crown-mini-coverage-with-s/evidence/verification.json`
+- `.planning/quick/260908-nlr-audit-cypress-crown-mini-coverage-with-s/evidence/remote-boundary-recheck-20260908.json`
