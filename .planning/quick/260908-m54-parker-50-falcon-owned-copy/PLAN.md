@@ -22,6 +22,7 @@ description: 修正 Parker 50 Falcon 型号页重复小节标题并完成本地 
 ## Verification
 
 - `pnpm exec tsx --test tests/content/phase622-parker-50-falcon-dedup.test.ts`
+- `pnpm exec tsx --test tests/content/phase36-parker-25-t1-50-falcon-100.test.ts`
 - `pnpm exec tsc --noEmit`
 - `pnpm exec biome check scripts/data/phase622-parker-50-falcon-dedup.ts scripts/apply-phase622-parker-50-falcon-dedup.ts tests/content/phase622-parker-50-falcon-dedup.test.ts`
 - `git diff --check`

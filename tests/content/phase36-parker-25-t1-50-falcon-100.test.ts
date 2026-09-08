@@ -70,7 +70,7 @@ test("Phase 36 publishes Parker 25/T-1/50/100 on an owned copy and migrates Park
         "SELECT count(*) AS value FROM entity_aliases WHERE alias = 'Parker 100' AND entity_id = ?",
         [PHASE36_PARKER_ID],
       ),
-      1,
+      0,
     );
     await applyPhase36ParkerContent(client, options);
     const rows = await client.execute({

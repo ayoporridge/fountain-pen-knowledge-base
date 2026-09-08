@@ -12,6 +12,7 @@
   "verification": {
     "focused_test": "pnpm exec tsx --test tests/content/phase622-parker-50-falcon-dedup.test.ts",
     "focused_test_result": "pass (1/1)",
+    "phase36_regression": "pnpm exec tsx --test tests/content/phase36-parker-25-t1-50-falcon-100.test.ts: pass (1/1; 164453 ms)",
     "typescript": "pnpm exec tsc --noEmit: pass",
     "biome": "scoped check: pass (configuration reported one checked file)",
     "diff_check": "git diff --check: pass"

@@ -15,6 +15,8 @@ completed: 2026-09-08
 ## Owned-copy verification
 
 - `tests/content/phase622-parker-50-falcon-dedup.test.ts`：1/1 通过。
+- 既有 `tests/content/phase36-parker-25-t1-50-falcon-100.test.ts` 也已通过；测试基线断言
+  Parker 100 alias 只存在于型号实体、品牌实体为 0，符合当前 canonical topology。
 - caller-owned disposable copy 首次 apply 为两个 pack（Parker 品牌上下文与 Parker 50）
   `published`，Parker 50 的正文标题从 2 个变为 1 个；replay 返回 `noop/noop`。
 - Parker 50 正文仍超过 2,000 Unicode 字符，published story 与 entity body 均只含一个
@@ -42,4 +44,5 @@ completed: 2026-09-08
 - `scripts/data/phase622-parker-50-falcon-dedup.ts`
 - `scripts/apply-phase622-parker-50-falcon-dedup.ts`
 - `tests/content/phase622-parker-50-falcon-dedup.test.ts`
+- `tests/content/phase36-parker-25-t1-50-falcon-100.test.ts`（修正陈旧的品牌 alias 基线断言）
 - `.planning/quick/260908-m54-parker-50-falcon-owned-copy/`
