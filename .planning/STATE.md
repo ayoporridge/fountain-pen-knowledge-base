@@ -203,7 +203,7 @@ Progress: [█████░░░░░] 50%
 | 260812-u9i | 恢复半句 Banju 与 Doer，归并 YiSiHua 到 Asvine，并终态裁决 Shanghai、Saier、SKB派顿混名 | 2026-08-13 | e56e4d4a | [260812-u9i-resolve-remaining-retired-identities](./quick/260812-u9i-resolve-remaining-retired-identities-in-/) |
 | 260907-jhl | 修正 Laban 325 型号页残留的品牌页重复段落，并完成 owned-copy 审计、发布、构建与本地安装回读 | 2026-09-07 | d0d9e314 | [260907-jhl-laban-model-dedup](./quick/260907-jhl-laban-model-dedup/) |
 | 260907-k3s | 新增 Nettuno 1911 与 N-E 2.0 Pelagos Matte；完成来源、正式本地安装、GitHub 推送与 Vercel production 部署，线上回读受 Turso rows-read 配额阻断 | 2026-09-07 | d344e966 / c7582e9f | [260907-k3s](./quick/260907-k3s/) |
-| 260908-m54 | 修正 Parker 50 Falcon 型号页重复小节标题，并在 caller-owned copy 完成 apply/replay 回归 | 2026-09-08 | pending | [260908-m54-parker-50-falcon-owned-copy](./quick/260908-m54-parker-50-falcon-owned-copy/) |
+| 260908-m54 | 修正 Parker 50 Falcon 型号页重复小节标题，并在 caller-owned copy 完成 apply/replay 回归 | 2026-09-08 | 6c244568 | [260908-m54-parker-50-falcon-owned-copy](./quick/260908-m54-parker-50-falcon-owned-copy/) |
 
 ## Next Action
 

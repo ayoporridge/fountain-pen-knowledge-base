@@ -1,6 +1,6 @@
 ---
 quick_id: 260908-m54
-status: in_progress
+status: complete
 description: 修正 Parker 50 Falcon 型号页重复小节标题并完成本地 owned-copy 回归
 ---
 
