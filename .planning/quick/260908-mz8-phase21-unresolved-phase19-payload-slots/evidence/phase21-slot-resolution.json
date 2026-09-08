@@ -1,0 +1,360 @@
+{
+  "schema_version": 1,
+  "quick_id": "260908-mz8",
+  "checked_at": "2026-09-08T08:38:15Z",
+  "purpose": "Resolve only the eight Phase 19 payload slots required by the Phase 21 locked split; fail closed when an immutable row cannot be proven from owned copies.",
+  "manifest": {
+    "path": "data/taxonomy/v1.2-phase21.json",
+    "slot_count": 8,
+    "all_item_ids_null": true,
+    "all_target_ids_null": true,
+    "all_pending_conflict": true,
+    "all_require_owned_copy_resolution": true,
+    "donors": [
+      "gwKClNnwt3V3",
+      "dTCUDu03vrI6",
+      "s0HAxT1gsHxh",
+      "G9ptvLpfyzNQ"
+    ]
+  },
+  "database_boundary": {
+    "repository_root": "/Users/xz/Documents/fountain-pen-graph",
+    "protected_catalog": "data/fpkg.db",
+    "protected_catalog_accessed": false,
+    "protected_catalog_sha256_observed": "753a341691b15669f0225169a1646603c6071e75a836d921ffa8b98b7808dea5",
+    "writes_performed": false,
+    "turso_accessed": false,
+    "production_accessed": false,
+    "note": "Only caller-owned local copies and build/cache SQLite files were inspected read-only; no manifest, catalog, remote database or production mutation was attempted."
+  },
+  "scan": {
+    "extensions": ["*.db", "*.sqlite", "*.sqlite3"],
+    "excluded_paths": [".git/**", "node_modules/**", "data/fpkg.db"],
+    "candidate_files": 342,
+    "opened_read_only": 342,
+    "entity_query_errors": 6,
+    "donor_absent_snapshots": 1,
+    "donor_complete_snapshots": 335,
+    "payload_surface_complete_snapshots": 334,
+    "distinct_payload_signatures": 7,
+    "incomplete_schema": [
+      {
+        "path": ".wrangler/state/v3/d1/miniflare-D1DatabaseObject/5c687a2a08ab32b3025dce1469d208243a3dc339ac8d019de76137cbe3d60689.sqlite",
+        "reason": "contains all four donor entities but has no media_assets table"
+      }
+    ],
+    "entity_query_errors_detail": [
+      {
+        "path": ".planning/quick/260810-167-add-sourced-wancher-dream-pen-aluminum-c/checkpoint/owned-root/catalog-phase559-aluminum-classic.db",
+        "reason": "no such table: entities"
+      },
+      {
+        "path": ".wrangler/state/v3/cache/miniflare-CacheObject/metadata.sqlite",
+        "reason": "no such table: entities"
+      },
+      {
+        "path": ".wrangler/state/v3/d1/miniflare-D1DatabaseObject/metadata.sqlite",
+        "reason": "no such table: entities"
+      },
+      {
+        "path": "data/db.sqlite",
+        "reason": "no such table: entities"
+      },
+      {
+        "path": "data/fountain-pens.db",
+        "reason": "no such table: entities"
+      },
+      {
+        "path": "local.db",
+        "reason": "no such table: entities"
+      }
+    ],
+    "donor_absent_detail": {
+      "path": ".planning/quick/260802-visconti-opera-master-savanna/checkpoint/fpkg-copy.db",
+      "present_donor_count": 0
+    },
+    "methods": [
+      "Read-only SQLite queries by exact donor ID; no name or slug fuzzy matching.",
+      "Byte-level exact search for each full evidence checksum in every candidate database file.",
+      "Byte-level exact search for each stable phase19-slot key in every candidate database file.",
+      "Current donor media/source/review rows were recorded only as observations and never treated as replacements for missing Phase 19 rows."
+    ]
+  },
+  "signature_summary": [
+    {
+      "count": 25,
+      "representatives": [
+        ".next/standalone/data/fpkg.db",
+        ".planning/quick/260901-phase613-legacy-boundary-cleanup/checkpoint-final/catalog.db",
+        ".planning/quick/260902-pyp-duplicate-brand-story-cleanup/formal-local/backup/fpkg-before-phase614.db"
+      ],
+      "donors": {
+        "gwKClNnwt3V3": {
+          "slug": "waterman-hemisphere",
+          "body_len": 8120,
+          "media_ids": ["curated-media-01f672acdc729c03280a6417"],
+          "source_ids": ["curated-source-item-74a3d513c82ff0939390e517"],
+          "review_count": 24,
+          "approved_review_count": 4
+        },
+        "dTCUDu03vrI6": {
+          "slug": "opus-88-demo-kolora",
+          "body_len": 190,
+          "media_ids": ["media-source-fcc7775d31b9a6"],
+          "source_ids": ["source-opus88-demo-juspirit"],
+          "review_count": 0
+        },
+        "s0HAxT1gsHxh": {
+          "slug": "leonardo-furore-momento-magico",
+          "body_len": 188,
+          "media_ids": ["media-official-fc718e3858b0a9"],
+          "source_ids": ["source-leonardo-momento-magico-official"],
+          "review_count": 0
+        },
+        "G9ptvLpfyzNQ": {
+          "slug": "奥罗拉-aurora",
+          "body_len": 158,
+          "media_ids": [],
+          "source_ids": [],
+          "review_count": 0
+        }
+      }
+    },
+    {
+      "count": 3,
+      "representatives": [
+        ".next-phase59-benu-nahvalur/standalone/data/fpkg.db",
+        ".next-phase95-moore/standalone/data/fpkg.db",
+        ".next-phase96-kaco/standalone/data/fpkg.db"
+      ],
+      "donors": {
+        "gwKClNnwt3V3": {
+          "slug": "威迪文-waterman-查尔斯顿-hemisphere",
+          "body_len": 176,
+          "media_ids": ["media-commerce-b1bd8ba8502345"],
+          "source_ids": ["source-commerce-goldspot-720bdbe89d1158"],
+          "review_count": 0
+        },
+        "dTCUDu03vrI6": {"slug": "opus-88-demo-kolora", "body_len": 190, "media_ids": ["media-source-fcc7775d31b9a6"], "source_ids": ["source-opus88-demo-juspirit"], "review_count": 0},
+        "s0HAxT1gsHxh": {"slug": "leonardo-furore-momento-magico", "body_len": 188, "media_ids": ["media-official-fc718e3858b0a9"], "source_ids": ["source-leonardo-momento-magico-official"], "review_count": 0},
+        "G9ptvLpfyzNQ": {"slug": "奥罗拉-aurora", "body_len": 158, "media_ids": [], "source_ids": [], "review_count": 0}
+      }
+    },
+    {
+      "count": 126,
+      "representatives": [
+        ".planning/quick/260802-aurora-ottantotto-ebonite/checkpoint/fpkg-copy.db",
+        ".planning/quick/260802-aurora-ottantotto-ebonite/checkpoint/protected.db",
+        ".planning/quick/260802-bexley-original/checkpoint/fpkg-copy.db"
+      ],
+      "donors": {
+        "gwKClNnwt3V3": {
+          "slug": "waterman-hemisphere",
+          "body_len": 2943,
+          "media_ids": ["curated-media-5c5e2551b3aba28f607f1b06"],
+          "source_ids": ["curated-source-item-22f19c534d2bac61fcdb1468"],
+          "review_count": 16,
+          "approved_review_count": 4
+        },
+        "dTCUDu03vrI6": {"slug": "opus-88-demo-kolora", "body_len": 190, "media_ids": ["media-source-fcc7775d31b9a6"], "source_ids": ["source-opus88-demo-juspirit"], "review_count": 0},
+        "s0HAxT1gsHxh": {"slug": "leonardo-furore-momento-magico", "body_len": 188, "media_ids": ["media-official-fc718e3858b0a9"], "source_ids": ["source-leonardo-momento-magico-official"], "review_count": 0},
+        "G9ptvLpfyzNQ": {"slug": "奥罗拉-aurora", "body_len": 158, "media_ids": [], "source_ids": [], "review_count": 0}
+      }
+    },
+    {
+      "count": 1,
+      "representatives": [
+        ".planning/quick/260803-io2-refresh-waterman-hemisphere-canonical-so/checkpoint/fpkg.db"
+      ],
+      "donors": {
+        "gwKClNnwt3V3": {
+          "slug": "waterman-hemisphere",
+          "body_len": 8120,
+          "media_ids": ["curated-media-01f672acdc729c03280a6417"],
+          "source_ids": ["curated-source-item-74a3d513c82ff0939390e517"],
+          "review_count": 20,
+          "approved_review_count": 4
+        },
+        "dTCUDu03vrI6": {"slug": "opus-88-demo-kolora", "body_len": 190, "media_ids": ["media-source-fcc7775d31b9a6"], "source_ids": ["source-opus88-demo-juspirit"], "review_count": 0},
+        "s0HAxT1gsHxh": {"slug": "leonardo-furore-momento-magico", "body_len": 188, "media_ids": ["media-official-fc718e3858b0a9"], "source_ids": ["source-leonardo-momento-magico-official"], "review_count": 0},
+        "G9ptvLpfyzNQ": {"slug": "奥罗拉-aurora", "body_len": 158, "media_ids": [], "source_ids": [], "review_count": 0}
+      }
+    },
+    {
+      "count": 158,
+      "representatives": [
+        ".planning/quick/260803-w1p-integrate-385-424-owned-checkpoint/checkpoint/fpkg.db",
+        ".planning/quick/260804-0ct-lamy-platinum-twsbi-parker-montblanc-owned-checkpoint/checkpoint/fpkg.db",
+        ".planning/quick/260804-0qm-aurora-visconti-montegrappa-conklin-benu-owned-checkpoint/checkpoint/fpkg.db"
+      ],
+      "donors": {
+        "gwKClNnwt3V3": {
+          "slug": "waterman-hemisphere",
+          "body_len": 8120,
+          "media_ids": ["curated-media-01f672acdc729c03280a6417"],
+          "source_ids": ["curated-source-item-74a3d513c82ff0939390e517"],
+          "review_count": 20,
+          "approved_review_count": 4
+        },
+        "dTCUDu03vrI6": {"slug": "opus-88-demo-kolora", "body_len": 190, "media_ids": ["media-source-fcc7775d31b9a6"], "source_ids": ["source-opus88-demo-juspirit"], "review_count": 0},
+        "s0HAxT1gsHxh": {"slug": "leonardo-furore-momento-magico", "body_len": 188, "media_ids": ["media-official-fc718e3858b0a9"], "source_ids": ["source-leonardo-momento-magico-official"], "review_count": 0},
+        "G9ptvLpfyzNQ": {"slug": "奥罗拉-aurora", "body_len": 158, "media_ids": [], "source_ids": [], "review_count": 0}
+      }
+    },
+    {
+      "count": 20,
+      "representatives": [
+        ".planning/quick/260809-thf-integrate-recent-content-phases-546-thro/checkpoint/catalog-546-551.db",
+        ".planning/quick/260809-ulr-offline-acceptance-evidence-for-the-full/checkpoint/catalog-phase105.db",
+        ".planning/quick/260809-uri-deepen-the-existing-parker-180-canonical/checkpoint/catalog-phase552.db"
+      ],
+      "donors": {
+        "gwKClNnwt3V3": {
+          "slug": "waterman-hemisphere",
+          "body_len": 2943,
+          "media_ids": ["curated-media-5c5e2551b3aba28f607f1b06"],
+          "source_ids": ["curated-source-item-22f19c534d2bac61fcdb1468"],
+          "review_count": 20,
+          "approved_review_count": 4
+        },
+        "dTCUDu03vrI6": {"slug": "opus-88-demo-kolora", "body_len": 190, "media_ids": ["media-source-fcc7775d31b9a6"], "source_ids": ["source-opus88-demo-juspirit"], "review_count": 0},
+        "s0HAxT1gsHxh": {"slug": "leonardo-furore-momento-magico", "body_len": 188, "media_ids": ["media-official-fc718e3858b0a9"], "source_ids": ["source-leonardo-momento-magico-official"], "review_count": 0},
+        "G9ptvLpfyzNQ": {"slug": "奥罗拉-aurora", "body_len": 158, "media_ids": [], "source_ids": [], "review_count": 0}
+      }
+    },
+    {
+      "count": 1,
+      "representatives": ["data/backups/fpkg-before-nib-title-20260627-222722.db"],
+      "donors": {
+        "gwKClNnwt3V3": {"slug": "威迪文-waterman-查尔斯顿-hemisphere", "body_len": 177, "media_ids": [], "source_ids": [], "review_count": 0},
+        "dTCUDu03vrI6": {"slug": "opus-88-demo-kolora", "body_len": 191, "media_ids": [], "source_ids": [], "review_count": 0},
+        "s0HAxT1gsHxh": {"slug": "leonardo-furore-momento-magico", "body_len": 189, "media_ids": [], "source_ids": [], "review_count": 0},
+        "G9ptvLpfyzNQ": {
+          "slug": "奥罗拉-aurora",
+          "body_len": 159,
+          "media_ids": ["media-commons-b0e37dd28d727c"],
+          "source_ids": ["source-commons-file-b0e37dd28d727c"],
+          "review_count": 0,
+          "media_status": "candidate/pending"
+        }
+      }
+    }
+  ],
+  "slots": [
+    {
+      "slotKey": "phase19-slot:gwKClNnwt3V3:media:1:72347dbd22e0",
+      "donorId": "gwKClNnwt3V3",
+      "surface": "media",
+      "ordinal": 1,
+      "itemId": null,
+      "targetId": null,
+      "evidenceChecksum": "sha256:72347dbd22e0938f000ffe8fb79f444f98ad56a7d9522faf4560c8ce7f8d3539",
+      "exact_checksum_db_byte_hits": 0,
+      "exact_slot_key_db_byte_hits": 0,
+      "resolution": "unresolved",
+      "reason": "No immutable media row matching this checksum was found in the scanned database files."
+    },
+    {
+      "slotKey": "phase19-slot:gwKClNnwt3V3:review:1:fa5033867332",
+      "donorId": "gwKClNnwt3V3",
+      "surface": "review",
+      "ordinal": 1,
+      "itemId": null,
+      "targetId": null,
+      "evidenceChecksum": "sha256:fa50338673323829809e0110fff9f642f7d636ef1301ec8b441d1019ef31db8e",
+      "exact_checksum_db_byte_hits": 0,
+      "exact_slot_key_db_byte_hits": 0,
+      "resolution": "unresolved",
+      "reason": "No immutable review row matching this checksum was found in the scanned database files."
+    },
+    {
+      "slotKey": "phase19-slot:dTCUDu03vrI6:media:1:4db7a5503536",
+      "donorId": "dTCUDu03vrI6",
+      "surface": "media",
+      "ordinal": 1,
+      "itemId": null,
+      "targetId": null,
+      "evidenceChecksum": "sha256:4db7a55035365b08febd3d6db1e2003f807c438be15570712d98fe6ba44d9f02",
+      "exact_checksum_db_byte_hits": 0,
+      "exact_slot_key_db_byte_hits": 0,
+      "resolution": "unresolved",
+      "reason": "The visible donor media row has a different immutable ID and no exact Phase 19 checksum is present."
+    },
+    {
+      "slotKey": "phase19-slot:dTCUDu03vrI6:review:1:7e25c32c52c1",
+      "donorId": "dTCUDu03vrI6",
+      "surface": "review",
+      "ordinal": 1,
+      "itemId": null,
+      "targetId": null,
+      "evidenceChecksum": "sha256:7e25c32c52c1a14f1f6065c23797352ff881da7527128e3114573154b864bb3e",
+      "exact_checksum_db_byte_hits": 0,
+      "exact_slot_key_db_byte_hits": 0,
+      "resolution": "unresolved",
+      "reason": "Visible donor snapshots have zero reviews; the missing historical review cannot be inferred."
+    },
+    {
+      "slotKey": "phase19-slot:s0HAxT1gsHxh:media:1:5ca8c6182dab",
+      "donorId": "s0HAxT1gsHxh",
+      "surface": "media",
+      "ordinal": 1,
+      "itemId": null,
+      "targetId": null,
+      "evidenceChecksum": "sha256:5ca8c6182dabfee49edf7a096e8910ab16c63251845b121a1e4e241f2ac1ccb1",
+      "exact_checksum_db_byte_hits": 0,
+      "exact_slot_key_db_byte_hits": 0,
+      "resolution": "unresolved",
+      "reason": "The visible donor media row has a different immutable ID and no exact Phase 19 checksum is present."
+    },
+    {
+      "slotKey": "phase19-slot:s0HAxT1gsHxh:review:1:b875e99a828f",
+      "donorId": "s0HAxT1gsHxh",
+      "surface": "review",
+      "ordinal": 1,
+      "itemId": null,
+      "targetId": null,
+      "evidenceChecksum": "sha256:b875e99a828f1b577ac8eeadc5710d59f38abc17d8c2b6ce09554471b8404ffd",
+      "exact_checksum_db_byte_hits": 0,
+      "exact_slot_key_db_byte_hits": 0,
+      "resolution": "unresolved",
+      "reason": "Visible donor snapshots have zero reviews; the missing historical review cannot be inferred."
+    },
+    {
+      "slotKey": "phase19-slot:G9ptvLpfyzNQ:source:2:e0c03c080eeb",
+      "donorId": "G9ptvLpfyzNQ",
+      "surface": "source",
+      "ordinal": 2,
+      "itemId": null,
+      "targetId": null,
+      "evidenceChecksum": "sha256:e0c03c080eebd83d0101ed0e2e3224339e599c1abb398127a80ec56a4e474cbe",
+      "exact_checksum_db_byte_hits": 0,
+      "exact_slot_key_db_byte_hits": 0,
+      "resolution": "unresolved",
+      "reason": "Current generic donor snapshots have no source row; the oldest backup's Commons source has a different ID and pending status."
+    },
+    {
+      "slotKey": "phase19-slot:G9ptvLpfyzNQ:review:1:9595e0bbd43f",
+      "donorId": "G9ptvLpfyzNQ",
+      "surface": "review",
+      "ordinal": 1,
+      "itemId": null,
+      "targetId": null,
+      "evidenceChecksum": "sha256:9595e0bbd43f14878fd8324556a87b2f4bf856cd2f3a1d6eb3047c5925401dd9",
+      "exact_checksum_db_byte_hits": 0,
+      "exact_slot_key_db_byte_hits": 0,
+      "resolution": "unresolved",
+      "reason": "Visible generic donor snapshots have zero reviews; the missing historical review cannot be inferred."
+    }
+  ],
+  "conclusion": {
+    "resolved_slots": 0,
+    "unresolved_slots": 8,
+    "apply_allowed": false,
+    "required_next_evidence": "An owned pre-031 checkpoint or Phase 19 payload ledger retaining the original media/source/review row IDs and their checksum mapping.",
+    "do_not": [
+      "Do not invent IDs from names, slugs, media URLs or row order.",
+      "Do not substitute current donor media/source/review rows for the missing slot.",
+      "Do not run the real locked split until all eight selected slots reconcile exactly once."
+    ]
+  }
+}
