@@ -206,7 +206,7 @@ Progress: [█████░░░░░] 50%
 
 ## Next Action
 
-已知未决身份已全部裁决；Nettuno 之后的覆盖复核仍只剩 3 个 retired 品牌与 20 个 retired 型号，未发现可安全复活的 current 缺口。当前代码已部署到 Vercel production，但 Turso rows-read 配额使远端 SQL/快照和生产动态页不可读；根目录 `pnpm lint` 还会被既有 quick 证据目录的嵌套 `biome.json` 配置阻断，限定源码范围仍有 73 个既有 errors 与 3 个 warnings。下一步是恢复配额后完成远端 schema/内容回读、guarded sync、线上逐条复查与真人遍历，full corpus goal 继续 active。
+已知未决身份已全部裁决；Nettuno 之后的覆盖复核仍只剩 3 个 retired 品牌与 20 个 retired 型号，未发现可安全复活的 current 缺口。当前代码已部署到 Vercel production，本地正式库的 1,196 页浏览器级逐页回读也已完成；但 Turso rows-read 配额使远端 SQL/快照和生产动态页不可读。根目录 `pnpm lint` 还会被既有 quick 证据目录的嵌套 `biome.json` 配置阻断，限定源码范围仍有 73 个既有 errors 与 3 个 warnings。下一步是恢复配额后完成远端 schema/内容回读、guarded sync、线上逐条复查与真人遍历，full corpus goal 继续 active。
 
 ## Session Continuity
 

@@ -53,8 +53,11 @@ integrity、foreign-key、quick-check 与完整本地门禁均通过；`scripts/
   `/library/sources`、`/timeline`、`/brand/nahvalur`、`/brand/pineider` 仅因并发冷
   渲染超时；逐条以 90 秒重试后四者均为 HTTP 200、唯一 `h1` 且有 `main` 和非空正文。
 - Playwright CLI 对品牌页、型号页和关系图谱做了真实浏览器快照，正文、规格、来源卡片和
-  `made_by` 关系可见；尝试扩展到 sitemap 的 1,196 页时因本地 SSR 吞吐过低在约 13 分钟
-  后中止，未把这次未完成尝试计作全量通过。
+  `made_by` 关系可见；随后在正确的 `next start`（正式本地库、非 standalone 静态壳）下完成
+  sitemap 的 1,196/1,196 页浏览器级逐页回读。全部页面 HTTP 200、唯一 H1、至少一个非空
+  `main`、无 `data-testid="entity-detail-loading"` 和无可见应用错误；证据见
+  `evidence/playwright-full-local-v3.json`。一次页面的瞬时 502 console 报告已单页重试为 200
+  且无 console error。该自动浏览器回读不宣称线上或人工逐页阅读已完成。
 
 ## Validation boundary
 
@@ -65,7 +68,7 @@ integrity、foreign-key、quick-check 与完整本地门禁均通过；`scripts/
 
 ## Production deployment and online boundary
 
-- 已将本地 `master` 的已提交变更推送到 GitHub（最新整理提交 `c7582e9f`），并通过
+- 已将本地 `master` 的部署代码推送到 GitHub（代码提交 `c7582e9f`，验收文档随后至 `fbb7c9cb`），并通过
   Vercel CLI 完成 production deployment `dpl_7v4YCjGFjNtQDSztvSdXXxBveD2y`；构建日志为
   Next.js 15.5.18、`READY`，别名已指向 `https://fountain-pen-graph.vercel.app`。
 - 生产运行时真实日志显示 `/sitemap.xml`、`/api/entities/nettuno-1911` 和 `/graph`
@@ -86,9 +89,10 @@ integrity、foreign-key、quick-check 与完整本地门禁均通过；`scripts/
 ## Boundary
 
 本 quick 已完成真实本地 SQLite 的正式安装、构建、本地回读、GitHub 推送和 Vercel
-production 部署；没有写入 Turso。由于 Turso rows-read 配额仍阻断，远端迁移／catalog
-sync 无法安全执行，生产动态页面也无法完成内容读取；线上 200 只是错误 loading shell，
-不能视为内容上线。全局内容修复目标仍保持 active；既有 23 条 retired backlog、coverage
-报告中的 3 个无公开内容品牌和 16 个无公开内容型号继续按身份／来源门禁处理，不能用占位
-正文强行复活。恢复 Turso 读权限后，必须先做远端 schema/行级回读，再按既有 guarded
-sync path 迁移，最后重跑 1196 条线上 URL 和真人全页面遍历。
+production 部署；没有写入 Turso。本地正式库的 1,196 页浏览器级逐页回读已完成，但这不
+替代线上或人工审阅。由于 Turso rows-read 配额仍阻断，远端迁移／catalog sync 无法安全
+执行，生产动态页面也无法完成内容读取；线上 200 只是错误 loading shell，不能视为内容
+上线。全局内容修复目标仍保持 active；既有 23 条 retired backlog、coverage 报告中的 3
+个无公开内容品牌和 16 个无公开内容型号继续按身份／来源门禁处理，不能用占位正文强行复活。
+恢复 Turso 读权限后，必须先做远端 schema/行级回读，再按既有 guarded sync path 迁移，
+最后重跑 1196 条线上 URL 和人工全页面遍历。
