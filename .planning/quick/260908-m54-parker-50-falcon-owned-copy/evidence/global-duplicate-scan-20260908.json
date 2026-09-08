@@ -1,0 +1,34 @@
+{
+  "checked_at": "2026-09-08",
+  "scope": {
+    "public_entity_count": 1177,
+    "scanner": "read-only SQLite scan of public_entities body_md",
+    "normalization": "exact paragraph and exact level-2 heading matches"
+  },
+  "heading_duplicates": [
+    {
+      "type": "pen",
+      "slug": "parker-50-falcon",
+      "heading": "## 交易记录应如何写",
+      "count_in_real_catalog": 2,
+      "source_count_after_repair": 1,
+      "owned_copy_count_after_apply": 1,
+      "status": "repaired_in_source_and_owned_copy; formal real-catalog migration deferred"
+    }
+  ],
+  "article_paragraph_reuse_review": [
+    {
+      "slug": "japanese-pocket-pens",
+      "repeated_block": "Platinum 600 image pair",
+      "count": 2,
+      "classification": "intentional illustrative reuse in separate model contexts; not duplicate prose"
+    },
+    {
+      "slug": "saving-an-ugly-duckling",
+      "repeated_block": "clickable-image note callout",
+      "count": 2,
+      "classification": "editorial callout repeated at opening and closing image; requires an article-level style decision, not silently removed"
+    }
+  ],
+  "result": "No additional unambiguous public brand/pen duplicate heading or prose blocker found in this scan."
+}

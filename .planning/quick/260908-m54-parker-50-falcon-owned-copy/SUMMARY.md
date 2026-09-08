@@ -21,6 +21,11 @@ completed: 2026-09-08
   `## 交易记录应如何写`。
 - `pnpm exec tsc --noEmit`、scoped Biome check 与 `git diff --check` 通过；原始测试输出和
   边界记录见 `evidence/owned-copy-repair.json`。
+- 对 1,177 个 public entity 做了只读的精确标题／段落扫描；除 Parker 50（本任务已在
+  source/owned copy 修复）外，没有发现明确的品牌／型号重复标题或重复 prose blocker。
+  两个 article 的重复块是 Platinum 600 图片复用和可点击图片提示语复用，分别记录为有
+  上下文的插图复用与待 article-level 风格裁决，未擅自删除；详见
+  `evidence/global-duplicate-scan-20260908.json`。
 
 ## Database boundary
 
