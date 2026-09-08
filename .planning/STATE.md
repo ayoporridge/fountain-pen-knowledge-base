@@ -5,10 +5,10 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
-stopped_at: Quick 260907-jhl complete; Laban 325 model-page duplicate paragraph removed and locally installed
-last_updated: "2026-09-08T16:05:00+08:00"
-last_activity: 2026-09-07
-last_activity_desc: Replaced the Laban 325 brand-template paragraph, verified the full public duplicate scan, and installed the formal owned copy locally
+stopped_at: Quick 260908-mz8 complete; Phase 21 payload-slot audit remains fail-closed pending exact owned-copy row IDs
+last_updated: "2026-09-08T16:48:08+08:00"
+last_activity: 2026-09-08
+last_activity_desc: Audited all eight Phase 21 Phase 19 payload slots read-only; no exact immutable IDs were found in 342 local database candidates
 progress:
   total_phases: 16
   completed_phases: 10
