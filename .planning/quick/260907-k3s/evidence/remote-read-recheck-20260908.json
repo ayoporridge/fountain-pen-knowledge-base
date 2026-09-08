@@ -1,0 +1,16 @@
+{
+  "generatedAt": "2026-09-08T15:40:51+08:00",
+  "database": "fpkg",
+  "operations": {
+    "turso_db_inspect": {
+      "status": "unavailable",
+      "error": "failed to get database listing: Get https://api.turso.tech/v1/databases: EOF"
+    },
+    "libsql_select_1_via_production_env": {
+      "status": "blocked",
+      "urlHost": "fpkg-arjoxu.aws-us-west-2.turso.io",
+      "error": "BLOCKED: Operation was blocked: SQL read operations are forbidden (reads are blocked, do you need to upgrade your plan?)"
+    }
+  },
+  "writesPerformed": false
+}

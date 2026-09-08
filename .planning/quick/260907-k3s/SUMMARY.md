@@ -78,6 +78,9 @@ integrity、foreign-key、quick-check 与完整本地门禁均通过；`scripts/
 - Turso CLI `db inspect fpkg` 回读到 rows read `1,768,884,845`、rows written `374,410`；
   直接 libSQL SQL 读取和 `turso db export` 都被同一 rows-read 配额阻断，因而没有远端
   schema、目标行或迁移后的内容证据，也没有执行远端写入。
+- 2026-09-08 无写入复核中，`turso db inspect` 另返回 API `EOF`，而从 production env
+  执行 `select 1` 仍明确返回同一 `SQL read operations are forbidden`；完整输出见
+  `evidence/remote-read-recheck-20260908.json`。
 - 全量线上 URL 回读证据保存在
   `.planning/quick/260907-k3s/online-production/online-sweep-summary.json`：以正式本地库
   生成的 1,177 个实体、6 个展览和 13 个静态页共 1,196 条 URL，低并发逐条 GET 无网络
