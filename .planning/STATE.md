@@ -5,10 +5,10 @@ milestone_name: — 内容百科化与型号扩容（当前）
 current_phase: 21
 current_phase_name: Taxonomy 与身份归一
 status: executing
-stopped_at: Quick 260908-mz8 complete; Phase 21 payload-slot audit remains fail-closed pending exact owned-copy row IDs
-last_updated: "2026-09-08T16:48:08+08:00"
+stopped_at: Quick 260908-nlr complete; Cypress Crown Mini remains a source-backed deferred historical/current coverage candidate
+last_updated: "2026-09-08T17:05:00+08:00"
 last_activity: 2026-09-08
-last_activity_desc: Audited all eight Phase 21 Phase 19 payload slots read-only; no exact immutable IDs were found in 342 local database candidates
+last_activity_desc: Audited Cypress Crown Mini coverage read-only; historical 2020 model mention confirmed, but exact current identity and content-ready source packet remain unresolved
 progress:
   total_phases: 16
   completed_phases: 10
@@ -205,6 +205,7 @@ Progress: [█████░░░░░] 50%
 | 260907-k3s | 新增 Nettuno 1911 与 N-E 2.0 Pelagos Matte；完成来源、正式本地安装、GitHub 推送与 Vercel production 部署，线上回读受 Turso rows-read 配额阻断 | 2026-09-07 | d344e966 / c7582e9f | [260907-k3s](./quick/260907-k3s/) |
 | 260908-m54 | 修正 Parker 50 Falcon 型号页重复小节标题，并在 caller-owned copy 完成 apply/replay 回归 | 2026-09-08 | 6c244568 | [260908-m54-parker-50-falcon-owned-copy](./quick/260908-m54-parker-50-falcon-owned-copy/) |
 | 260908-mz8 | 只读检索 Phase 21 四组 locked split 的八个 Phase 19 payload slots；无 exact immutable ID 时保持 fail-closed | 2026-09-08 | 257e52a1 | [260908-mz8-phase21-unresolved-phase19-payload-slots](./quick/260908-mz8-phase21-unresolved-phase19-payload-slots/) |
+| 260908-nlr | 审计 Cypress Crown Mini 的现行／历史证据；确认本地缺口并保持 BM/P2 defer，不进行实体或数据库 mutation | 2026-09-08 | e22750b7 | [260908-nlr-audit-cypress-crown-mini-coverage-with-s](./quick/260908-nlr-audit-cypress-crown-mini-coverage-with-s/) |
 
 ## Next Action
 
