@@ -65,6 +65,10 @@ integrity、foreign-key、quick-check 与完整本地门禁均通过；`scripts/
   `biome.json` 后即因 root configuration 冲突退出，退出码 1。
 - 为区分本 quick 与历史资产，另行执行 `pnpm exec biome check src scripts tests`；该范围仍有
   73 个 errors、3 个 warnings，且未改动这些 legacy 文件，不能宣称全局 lint 通过。
+- 2026-09-08 对正式 `data/fpkg.db` 做无写入门禁复核：公开文章 256 条、data contract、
+  entity quality（duplicate/suspicious/thin/made_by 均为 0）均通过；实体 931 条、active
+  908 条、retired lineage 23 条，coverage 仍如实保留 3 个品牌 gap 与 16 个型号 gap。摘要
+  和数据库 hash 见 `evidence/local-gates-recheck-20260908.json`。
 
 ## Production deployment and online boundary
 
